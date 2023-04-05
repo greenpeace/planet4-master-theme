@@ -82,6 +82,8 @@ class GravityFormsExtensions
         ],
     ];
 
+    public array $current_entry = [];
+
     /**
      * The constructor.
      */
@@ -110,7 +112,22 @@ class GravityFormsExtensions
         add_action('gform_post_form_duplicated', [ $this, 'p4_gf_duplicated_form' ], 10, 2);
         add_filter('gform_form_update_meta', [$this, 'p4_gf_enable_default_meta_settings'], 10, 1);
         add_filter('gform_form_post_get_meta', [$this, 'p4_gf_enable_default_meta_settings'], 10, 1);
+
+        add_action('gform_stripe_fulfillment', [ $this, 'record_fulfillment_entry' ], 10, 2);
     }
+
+    /**
+     * Save resulting entry after Stripe successful submission.
+     *
+     * @param mixed $session
+     * @param array $entry
+     * phpcs:disable SlevomatCodingStandard.Functions.UnusedParameter -- add_action callback
+     */
+    public function record_fulfillment_entry($session, array $entry): void
+    {
+        $this->current_entry = $entry;
+    }
+    // phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter
 
     /**
      * Add form setting to Gravity Forms to set the form type.
@@ -301,10 +318,11 @@ class GravityFormsExtensions
      *
      * @param string|array $confirmation The default confirmation message.
      * @param mixed        $form         The form properties.
+     * @param mixed        $entry        The current entry.
      *
      * @return string|array The custom confirmation message.
      */
-    public function p4_gf_custom_confirmation($confirmation, $form)
+    public function p4_gf_custom_confirmation($confirmation, $form, $entry)
     {
         // If the $confirmation object is an array, it means that it's a redirect page so we can directly use it.
         if (is_array($confirmation)) {
@@ -327,9 +345,14 @@ class GravityFormsExtensions
                         });
                         // Disable GFTrackEvent (GFTrackEvent belongs to Gravity Forms Google Analytics Add-On)
                         window.parent.gfgaTagManagerEventSent = true;
+                        // Entry: ' . json_encode($entry) . '
                    </script>';
         // Append a datalayer event script to $confirmation html.
         $confirmation .= $script;
+
+        if (rgget('gf_stripe_success')) {
+            $confirmation .= $this->p4_gf_stripe_custom_success_event($entry);
+        }
 
         $confirmation_fields = [
             'confirmation' => $confirmation,
@@ -360,6 +383,60 @@ class GravityFormsExtensions
         }
 
         return Timber::compile([ 'gravity_forms_confirmation.twig' ], $confirmation_fields);
+    }
+
+    /**
+     * Add event for GA4 on successful stripe event
+     *
+     * @param mixed $entry The successful entry.
+     *
+     * @return string Event script
+     */
+    public function p4_gf_stripe_custom_success_event($entry): string
+    {
+        $allowed = ['Paid', 'Active', 'Approved', 'Processing', 'Pending'];
+
+        // GF sometimes returns a Processing entry with data missing
+        // while the entry has been successfully retrieved in a previous step.
+        // We manually update the entry in that case.
+        if (
+            (empty($entry['payment_status']) || $entry['payment_status'] === 'Processing')
+            && !empty($this->current_entry)
+        ) {
+            $entry = $this->current_entry;
+        }
+
+        if (
+            !isset($entry['payment_status'])
+            || !in_array($entry['payment_status'], $allowed)
+        ) {
+            return '';
+        }
+
+        $tType = [
+            '1' => 'one_time_donation',
+            '2' => 'recurring_donation',
+        ];
+
+        $event = [
+            'event' => 'purchase',
+            'ecommerce' => [
+                'currency' => $entry['currency'],
+                'value' => $entry['payment_amount'],
+                'transaction_id' => $entry['transaction_id'],
+                'items' => [
+                    [
+                        'item_id' => $entry['transaction_type'] ?? null,
+                        'item_name' => $tType[$entry['transaction_type']] ?? null,
+                    ],
+                ],
+            ],
+        ];
+
+        return "<script>// Ecommerce GA4
+            window.dataLayer = window.dataLayer || []
+            dataLayer.push(" . wp_json_encode($event) . ");
+        </script>";
     }
 
     /**
