@@ -42,7 +42,7 @@
       font-size: $font-size-xs;
       padding: $sp-2x;
       vertical-align: top;
-      color: $table-font-color;
+      color: var(--body--color);
 
       @include mobile-only {
         min-width: 300px;

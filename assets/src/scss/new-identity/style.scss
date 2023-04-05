@@ -42,36 +42,65 @@
   --button-secondary--hover--background: var(--p4-dark-green-800);
   --button-secondary--hover--border-color: var(--p4-dark-green-800);
   --button-secondary--hover--color: var(--white);
-  --block-spreadsheet--color: var(--grey-900);
-  --block-spreadsheet-grey-header--background: var(--grey-800);
-  --block-spreadsheet-grey-odd-row--background: #eaedee;
-  --block-spreadsheet-grey-even-row--background: var(--grey-100);
-  --block-spreadsheet-green-header--background: var(--gp-green-800);
-  --block-spreadsheet-green-odd-row--background: var(--beige-200);
-  --block-spreadsheet-green-even-row--background: var(--beige-100);
-  --block-spreadsheet-blue-header--background: #167f82;
-  --block-spreadsheet-blue-odd-row--background: var(--beige-200);
-  --block-spreadsheet-blue-even-row--background: var(--beige-100);
+  --table-footer-new--background: #dad8d1;
+  --table-header-grey--background: var(--grey-800);
+  --table-odd-row-grey--background: var(--grey-200);
+  --table-even-row-grey--background: var(--grey-100);
+  --table-footer-grey--background: var(--grey-300);
+  --table-header-green--background: var(--p4-dark-green-800);
+  --table-odd-row-green--background: var(--beige-200);
+  --table-even-row-green--background: var(--beige-100);
+  --table-footer-green--background: var(--table-footer-new--background);
+  --table-header-blue--background: #167f82;
+  --table-odd-row-blue--background: var(--beige-200);
+  --table-even-row-blue--background: var(--beige-100);
+  --table-footer-blue--background: var(--table-footer-new--background);
+  --table-header-gp-green--background: var(--gp-green-800);
+  --table-odd-row-gp-green--background: var(--beige-200);
+  --table-even-row-gp-green--background: var(--beige-100);
+  --table-footer-gp-green--background: var(--table-footer-new--background);
   --link--color: var(--grey-900);
   --link--visited--color: var(--grey-900);
   --link--hover--color: var(--grey-900);
 }
 
 // Spreadsheet block new color.
-table.spreadsheet-table.is-color-dark-green {
-  th --block-spreadsheet-dark-green-header-- {
-    background: var(--p4-dark-green-800);
+table.spreadsheet-table.is-color-gp-green {
+  th {
+    background-color: var(--table-header-gp-green--background);
   }
 
   tr {
-    td --block-spreadsheet-dark-green-even-row-- {
-      background: var(--beige-200);
-    }
+    background-color: var(--table-even-row-gp-green--background);
+  }
 
-    &:nth-child(odd) {
-      td --block-spreadsheet-dark-green-odd-row-- {
-        background: var(--beige-100);
+  tr:nth-child(odd) {
+    background: var(--table-odd-row-gp-green--background);
+  }
+}
+
+// Table background colors (header, footer, odd/even rows)
+.wp-block-table {
+  table {
+    // GP-Green background
+    &.has-gp-green-background-color {
+      th {
+        background-color: var(--table-header-gp-green--background);
       }
+
+      tr {
+        background-color: var(--table-even-row-gp-green--background);
+      }
+
+      tfoot td {
+        background-color: var(--table-footer-gp-green--background);
+      }
+    }
+  }
+
+  &.is-style-stripes table {
+    &.has-gp-green-background-color tr:nth-child(odd) {
+      background-color: var(--table-odd-row-gp-green--background);
     }
   }
 }

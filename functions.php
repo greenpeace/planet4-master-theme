@@ -589,6 +589,35 @@ add_filter(
                           ],
                     ],
                 ],
+                'blocks' => [
+                    'core/table' => [
+                        'color' => [
+                            'palette' => [
+                                [
+                                    'name' => 'Grey 800',
+                                    'slug' => 'grey',
+                                    'color' => '#45494c',
+                                ],
+
+                                [
+                                    'name' => 'Dark Green 800',
+                                    'slug' => 'green',
+                                    'color' => '#1f4912',
+                                ],
+                                [
+                                    'name' => 'Blue 800',
+                                    'slug' => 'blue',
+                                    'color' => '#167f82',
+                                ],
+                                [
+                                    'name' => 'GP Green 800',
+                                    'slug' => 'gp-green',
+                                    'color' => '#198700',
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
             ],
         ];
 
