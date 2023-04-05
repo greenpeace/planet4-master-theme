@@ -92,6 +92,12 @@ $palette: (
 );
 
 @each $name, $color in $palette {
+  .has-#{$name}-color {
+    --transparent-button--border-color: #{$color};
+    --transparent-button--color: #{$color};
+    --transparent-button--hover--background: #{$color};
+  }
+
   .has-#{$name}-background-color {
     --transparent-button--hover--color: #{$color};
     --transparent-button--active--color: #{$color};
