@@ -74,7 +74,7 @@ msgstr "Sprejmi vse piškotke"
 
 #: page-templates/sitemap.php:23
 msgid "Act"
-msgstr "Ukrepaj"
+msgstr "Pridruži se"
 
 #: src/Post.php:276
 msgid "ACTION"
