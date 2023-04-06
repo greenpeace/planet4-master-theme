@@ -9,4 +9,9 @@
   --link--text-decoration: none;
   --link--hover--text-decoration: underline;
   --link--visited--color: #{$link-color-visited};
+  --navbar-height: 60px;
+  --navbar-menu-height: 68px;
+  --navbar-menu-min-height: 40px;
+  --navbar-menu-height--small: 60px;
+  --navbar-menu-height--large: 68px;
 }
