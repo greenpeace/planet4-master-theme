@@ -4,7 +4,7 @@ msgstr ""
 "n%100==3||n%100==4 ? 2 : 3;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2023-04-06 07:58+0000\n"
+"PO-Revision-Date: 2023-04-06 11:30+0000\n"
 "Language-Team: Slovenian\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -17,10 +17,10 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
 "esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
 "_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
-"Last-Translator: Ines Kavgic\n"
+"Last-Translator: Matjaz Dovecar\n"
 "Language: sl_SI\n"
 "Report-Msgid-Bugs-To: \n"
-"X-Loco-Version: 2.6.0; wp-5.8.4\n"
+"X-Loco-Version: 2.6.4; wp-6.1.1\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
@@ -217,11 +217,11 @@ msgstr "Greenpeace Planet 4 Master Theme"
 
 #: functions.php:447
 msgid "here"
-msgstr ""
+msgstr "tukaj"
 
 #: templates/burger-menu.twig:34
 msgid "Home"
-msgstr ""
+msgstr "Domov"
 
 #. Author URI of the theme
 msgid "https://github.com/greenpeace"
