@@ -260,7 +260,7 @@ msgstr "Upravljaj"
 
 #: templates/cookies/cookies_settings.twig:11
 msgid "Manage your cookies preferences"
-msgstr ""
+msgstr "Upravljajte svojim postavkama kolačića"
 
 #. Description of the theme
 msgid "Master theme for the Planet 4 Wordpress project"
