@@ -344,7 +344,7 @@ msgstr "Rezultati"
 
 #: templates/cookies/cookies_settings.twig:63
 msgid "Save preferences"
-msgstr ""
+msgstr "Spremi postavke"
 
 #: templates/search-form.twig:2 templates/404.twig:17 templates/search.twig:8
 #: templates/search.twig:45
