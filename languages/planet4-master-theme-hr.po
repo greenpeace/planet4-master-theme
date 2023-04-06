@@ -296,7 +296,7 @@ msgstr "Stranica"
 
 #: templates/cookies/cookies_settings.twig:12
 msgid "Please select which cookies you are willing to store."
-msgstr ""
+msgstr "Molimo odaberite koje kolačiće želite pohraniti."
 
 #: src/Post.php:285
 msgid "POST"
@@ -312,7 +312,7 @@ msgstr "Objavi komentar"
 
 #: templates/search.twig:111 templates/search.twig:226
 msgid "Post Type"
-msgstr ""
+msgstr "Vrsta objave"
 
 #: templates/author.twig:22
 msgid "Posts by "
