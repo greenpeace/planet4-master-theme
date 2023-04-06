@@ -140,3 +140,16 @@ $palette: (
     --transparent-button--active--color: #{$color};
   }
 }
+
+// Accordion block new color.
+.accordion-block.is-style-outline .accordion-content .accordion-headline {
+  --accordion-block-outline-style-- {
+    border-color: var(--grey-500);
+    background: var(--white);
+    color: var(--grey-900);
+
+    &:hover {
+      background: var(--grey-100);
+    }
+  }
+}
