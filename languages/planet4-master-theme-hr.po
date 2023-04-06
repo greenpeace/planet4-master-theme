@@ -379,7 +379,7 @@ msgstr "PRIKAŽI %s REZULTATA VIŠE"
 
 #: templates/blocks/author_profile.twig:45
 msgid "Show less"
-msgstr ""
+msgstr "Prikaži manje"
 
 #: templates/blocks/author_profile.twig:44
 msgid "Show more"
