@@ -72,7 +72,7 @@
           mask: url("../../images/chevron.svg") 0 0/10px 10px;
           transform: rotate(90deg);
           transition: transform 150ms linear;
-          background-color: $white;
+          background-color: currentColor;
           background-repeat: no-repeat;
         }
       }
