@@ -332,7 +332,7 @@ msgstr "Odbij sve"
 
 #: templates/cookies.twig:35
 msgid "Reject all cookies"
-msgstr ""
+msgstr "Odbij sve kolačiće"
 
 #: tag.php:127
 msgid "Related Campaigns"
