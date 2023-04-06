@@ -234,6 +234,8 @@ msgid ""
 "I agree on providing my name, email and content so that my comment can be "
 "stored and displayed in the website."
 msgstr ""
+"Slažem se s pružanjem svog imena, e-maila i sadržaja kako bi se moj komentar "
+"mogao pohraniti i prikazati na web stranici."
 
 #: src/MasterSite.php:627
 msgid "International (English)"
