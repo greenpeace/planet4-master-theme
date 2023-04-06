@@ -383,7 +383,7 @@ msgstr "Prikaži manje"
 
 #: templates/blocks/author_profile.twig:44
 msgid "Show more"
-msgstr ""
+msgstr "Prikaži više"
 
 #. Name of the template
 msgid "Sitemap Page"
