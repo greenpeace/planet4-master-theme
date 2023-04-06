@@ -72,3 +72,34 @@ table.spreadsheet-table.is-color-dark-green {
     }
   }
 }
+
+// Colors for transparent buttons.
+$palette: (
+  "green-400": var(--gp-green-400),
+  "green-500": var(--gp-green-500),
+  "green-800": var(--gp-green-800),
+  "action-yellow": var(--p4-action-yellow-500),
+  "dark-green-800": var(--p4-dark-green-800),
+  "beige-100": var(--beige-100),
+  "blue-green-800": #167f82,
+  "red-500": var(--red-500),
+  "white": var(--white),
+  "grey-100": var(--grey-100),
+  "grey-200": var(--grey-200),
+  "grey-600": var(--grey-600),
+  "grey-800": var(--grey-800),
+  "grey-900": var(--grey-900),
+);
+
+@each $name, $color in $palette {
+  .has-#{$name}-color {
+    --transparent-button--border-color: #{$color};
+    --transparent-button--color: #{$color};
+    --transparent-button--hover--background: #{$color};
+  }
+
+  .has-#{$name}-background-color {
+    --transparent-button--hover--color: #{$color};
+    --transparent-button--active--color: #{$color};
+  }
+}
