@@ -96,6 +96,25 @@ $context['page_category'] = $data_layer['page_category'];
 $context['post_tags'] = implode(', ', $post->tags());
 $context['custom_body_classes'] = 'brown-bg ';
 
+/**
+ * WP_HTML_Tag_Processor
+ * https://make.wordpress.org/core/2023/03/07/introducing-the-html-api-in-wordpress-6-2/
+ */
+$content = new WP_HTML_Tag_Processor( $post->content );
+
+if ( $content->next_tag( 'h2' ) ) {
+    // input: <h2 class="wp-block-heading">
+    $content->set_attribute( 'class', 'new-heading-class' );
+    // output: <h2 class="new-heading-class">
+}
+
+if ( $content->next_tag( 'img' ) ) {
+    // input: <img src="placeholder-546x415.jpg" alt=""/>
+    $content->set_attribute( 'alt', 'New alt text' );
+    // output: <img src="placeholder-546x415.jpg" alt="New alt text"/>
+}
+/* End WP_HTML_Tag_Processor */
+
 if (post_password_required($post->ID)) {
     // Password protected form validation.
     $context['is_password_valid'] = $post->is_password_valid();
