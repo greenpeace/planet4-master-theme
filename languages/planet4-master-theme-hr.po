@@ -157,7 +157,6 @@ msgid "Comments"
 msgstr "Komentari"
 
 #: templates/search.twig:140 templates/search.twig:284
-#, fuzzy
 #| msgid "Content type"
 msgid "Content Type"
 msgstr "Tip sadržaja"
