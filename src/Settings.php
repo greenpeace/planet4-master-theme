@@ -90,18 +90,6 @@ class Settings
                     ],
 
                     [
-                        'name' => __('Website Navigation Style', 'planet4-master-theme-backend'),
-                        'desc' => __('Select a style', 'planet4-master-theme-backend'),
-                        'id' => 'website_navigation_style',
-                        'type' => 'select',
-                        'default' => 'dark',
-                        'options' => [
-                            'dark' => __('Dark', 'planet4-master-theme-backend'),
-                            'light' => __('Light', 'planet4-master-theme-backend'),
-                        ],
-                    ],
-
-                    [
                         'name' => __('New Information Architecture', 'planet4-master-theme-backend'),
                         'desc' => __('Enables all features supporting new IA and navigation functionality (<a href="https://planet4.greenpeace.org/manage/information-architecture/" target="_blank">read more</a>)<br>(eg. Actions post type, listing pages pagination, mobile tabs, etc).', 'planet4-master-theme-backend'),
                         'id' => 'new_ia',
@@ -499,6 +487,24 @@ class Settings
             ],
         ];
         // phpcs:enable Generic.Files.LineLength.MaxExceeded
+
+        $is_new_identity = get_theme_mod('new_identity_styles');
+        if (!$is_new_identity) {
+            array_push(
+                $this->subpages['planet4_settings_navigation']['fields'],
+                [
+                    'name' => __('Website Navigation Style', 'planet4-master-theme-backend'),
+                    'desc' => __('Select a style', 'planet4-master-theme-backend'),
+                    'id' => 'website_navigation_style',
+                    'type' => 'select',
+                    'default' => 'dark',
+                    'options' => [
+                        'dark' => __('Dark', 'planet4-master-theme-backend'),
+                        'light' => __('Light', 'planet4-master-theme-backend'),
+                    ],
+                ]
+            );
+        }
 
         $this->hooks();
     }

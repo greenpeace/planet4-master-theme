@@ -89,7 +89,8 @@ final class PublicAssets
      */
     private static function conditionally_load_partials(): void
     {
-        $navbar_version = planet4_get_option('website_navigation_style', 'dark');
+        $is_new_identity = get_theme_mod('new_identity_styles');
+        $navbar_version = $is_new_identity ? 'light' : planet4_get_option('website_navigation_style', 'dark');
         $navbar_file = '/assets/build/navigation-bar-' . $navbar_version . '.min.css';
         Loader::enqueue_versioned_style($navbar_file, 'navigation-bar', [ 'parent-style' ]);
 
