@@ -67,6 +67,17 @@
   --accordion-block-light-style--background: var(--beige-100);
   --accordion-block-light-style--border-color: transparent;
   --accordion-block-light-style--hover--background: var(--beige-200);
+  --top-navigation--color: var(--grey-900);
+  --nav-link--color: var(--grey-900);
+  --nav-link--hover--color: var(--grey-900);
+  --nav-link--active--color: var(--grey-900);
+  --nav-link--visited--color: var(--grey-900);
+  --nav-search-clear--background-color: var(--grey-900);
+  --top-navigation--separation: 1px solid var(--grey-300);
+}
+
+#nav-mobile-menu {
+  --nav-link--active--color: var(--grey-900);
 }
 
 // Spreadsheet block new color.
