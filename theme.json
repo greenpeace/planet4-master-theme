@@ -51,6 +51,9 @@
     "position": {
       "sticky": true
     },
+    "dimensions": {
+      "minHeight": true
+    },
     "color": {
       "custom": false,
       "duotone": [],
