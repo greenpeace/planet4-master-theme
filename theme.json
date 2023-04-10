@@ -48,6 +48,9 @@
     }
   },
   "settings": {
+    "position": {
+      "sticky": true
+    },
     "color": {
       "custom": false,
       "duotone": [],
