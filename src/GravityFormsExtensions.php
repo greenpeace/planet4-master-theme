@@ -473,12 +473,14 @@ class GravityFormsExtensions
 
         $gf_fronted_config['populate'] = $gf_fronted_populate;
 
-        // Enqueue the script needed to populate fields
+        $theme_dir = get_template_directory_uri();
+        $gf_client_side_file = $theme_dir . '/assets/src/js/gravityforms-client-side.js';
+
         wp_enqueue_script(
             'p4-gf-client-side',
-            get_stylesheet_directory_uri() . '/assets/src/js/gravityforms-client-side.js',
+            $gf_client_side_file,
             array(),
-            filemtime(get_stylesheet_directory() . '/assets/src/js/gravityforms-client-side.js'),
+            file_exists($gf_client_side_file) ? filemtime($gf_client_side_file) : false,
             true
         );
 
