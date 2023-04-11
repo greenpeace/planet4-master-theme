@@ -24,7 +24,7 @@ $text-column-padding-in: 24px;
     grid-column: 1;
     grid-row: 2;
 
-    min-width: 312px;
+    width: fit-content;
     margin: -$sp-5x $sp-3 $sp-3;
     padding-inline-start: 0;
     padding-inline-end: 0;
