@@ -1,6 +1,6 @@
 import {ShareButtons} from '../../components/ShareButtons/ShareButtons';
 import {FormGenerator} from './FormGenerator';
-import {useSelect} from '@wordpress/data';
+import * as wpData from '@wordpress/data';
 import {useState} from '@wordpress/element';
 import {unescape} from '../../functions/unescape';
 
@@ -44,8 +44,8 @@ export const ENFormFrontend = attributes => {
   const is_side_style = en_form_style === 'side-style';
 
   let fields = en_form_fields ?? [];
-  if (fields.length <= 0) {
-    const form_post = useSelect(select => {
+  if (!fields.length && wpData?.useSelect !== undefined ) {
+    const form_post = wpData.useSelect(select => {
       return en_form_id ?
         select('core').getEntityRecord('postType', 'p4en_form', en_form_id) :
         [];
