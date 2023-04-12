@@ -84,6 +84,7 @@ a:where(.standalone-link) {
 
   &:hover {
     box-shadow: inset 0 calc(-22px) var(--gp-green-100);
+    text-decoration: none !important;
   }
 }
 
