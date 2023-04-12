@@ -577,11 +577,12 @@ class GravityFormsExtensions
             GFCommon::log_debug(__METHOD__ . '(): Redirect to URL: ' . $url);
 
             $html = sprintf(
-                '<p><b>%s</b></p><p>%s <a href="' . $url . '">%s</a> %s</p>',
-                __('Thank you!', 'planet4-master-theme'),
-                __('Please', 'planet4-master-theme'),
-                __('click here', 'planet4-master-theme'),
-                __('if you aren\'t redirected within a few seconds.', 'planet4-master-theme')
+                // translators: %s = Redirection url variable.
+                __(
+                    'Thank you! Please <a href="%s">click here</a> if you are not redirected within a few seconds.',
+                    'planet4-master-theme'
+                ),
+                $url,
             );
 
             // Get the tag manager data layer ID from master theme settings
@@ -615,7 +616,7 @@ class GravityFormsExtensions
                 }
                 </script>';
 
-            $confirmation = $html . $script;
+            $confirmation = '<p>' . $html . '</p>' . $script;
         }
 
         return $confirmation;
