@@ -7,16 +7,14 @@
   font-family: var(--headings--font-family);
 
   &.is-style-light .accordion-content .accordion-headline {
-    border-color: $grey-20;
-    background-color: white;
-    color: $grey-80;
+    --accordion-block-light-style-- {
+      border-color: $grey-20;
+      background: $white;
+      color: var(--body--color);
 
-    &:hover {
-      background-color: $grey-05;
-    }
-
-    &:after {
-      background-color: $grey-80;
+      &:hover {
+        background: $grey-05;
+      }
     }
   }
 
@@ -25,11 +23,18 @@
     flex-direction: column;
 
     .accordion-headline {
+      --accordion-block-dark-style-- {
+        border-color: transparent;
+        background: $dark-blue;
+        color: $white;
+
+        &:hover {
+          background: $active-blue;
+        }
+      }
       cursor: pointer;
       position: relative;
-      background-color: $dark-blue;
       display: block;
-      color: $white;
       padding-top: 16px;
       padding-bottom: 16px;
       padding-inline-start: 16px;
@@ -40,11 +45,8 @@
       line-height: 1;
       margin-top: 0;
       margin-bottom: 16px;
-      border: 1px solid $dark-blue;
-
-      &:hover {
-        background-color: $active-blue;
-      }
+      border-width: 1px;
+      border-style: solid;
 
       &.open:after {
         transform: rotate(-90deg);
