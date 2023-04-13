@@ -5,6 +5,7 @@ const { devices } = require('@playwright/test');
  */
 const config = {
   testDir: './tests/e2e',
+  testMatch: ['*.spec.js', `tickets/${process.env.TICKET}/*.test.js`],
   /* Maximum time one test can run for. */
   timeout: 30 * 1000,
   expect: {
@@ -21,15 +22,18 @@ const config = {
   /* Retry on CI only */
   retries: process.env.CI ? 2 : 0,
   /* Opt out of parallel tests on CI. */
-  workers: process.env.CI ? 1 : undefined,
+  workers: process.env.CI ? 4 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: [['html', { outputFolder: 'e2e-report' }]],
+  reporter: process.env.CI
+    ? [['html', { outputFolder: 'e2e-report', open: 'never' }],
+        ['junit', { outputFile: 'results.xml' }]]
+    : [['html', { outputFolder: 'e2e-report' }]],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Maximum time each action such as `click()` can take. Defaults to 0 (no limit). */
     actionTimeout: 0,
     /* Base URL to use in actions like `await page.goto('/')`. */
-    baseURL: 'http://www.planet4.test',
+    baseURL: process.env.BASE_URL || 'http://www.planet4.test', //NOSONAR
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
@@ -49,6 +53,9 @@ const config = {
       name: 'firefox',
       use: {
         ...devices['Desktop Firefox'],
+        contextOptions: {
+          ignoreHTTPSErrors: true
+        },
       },
     },
 
