@@ -1,7 +1,7 @@
 .nav-search-form {
   background-color: var(--body--background-color);
   border: none;
-  border-top: 1px solid #c4c4c4;
+  border-top: var(--top-navigation--separation, 1px solid #c4c4c4);
   box-shadow: 0 2px 4px transparentize($black, 0.85);
   display: none;
   height: 56px;
@@ -102,6 +102,10 @@
     color: inherit;
     width: calc(100% - 48px);
   }
+
+  &::placeholder {
+    color: $grey-40;
+  }
 }
 
 #search_input:placeholder-shown ~ button.nav-search-clear {
@@ -142,7 +146,9 @@
 }
 
 .nav-search-clear {
-  background-color: $black;
+  _-- {
+    background-color: $black;
+  }
   border: none;
   float: right;
   margin-inline-end: 36px;

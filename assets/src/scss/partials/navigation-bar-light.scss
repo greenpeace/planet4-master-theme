@@ -18,11 +18,3 @@
   --nav-link--active--color: #{$black};
   --nav-link--opacity: 1;
 }
-
-.nav-languages-toggle {
-  @include large-and-up {
-    &::after {
-      background-color: $grey-80;
-    }
-  }
-}
