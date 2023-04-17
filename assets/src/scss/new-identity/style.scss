@@ -15,9 +15,6 @@
   --button-primary--color: var(--grey-900);
   --button-primary--visited--color: var(--grey-900);
   --button-primary--hover--color: var(--grey-900);
-  --comment-reply-link--color: var(--grey-900);
-  --comment-reply-link--border-bottom: 2px solid var(--gp-green-500);
-  --link--hover--text-decoration: none;
   --post-tag-button--active--color: var(--grey-900);
   --post-tag-button--active--background-color: var(--gp-green-200);
   --post-tag-button--background-color: var(--gp-green-100);
@@ -66,6 +63,7 @@
   --link--color: var(--grey-900);
   --link--visited--color: var(--grey-900);
   --link--hover--color: var(--grey-900);
+  --comment-reply-link--border-bottom: 2px solid var(--gp-green-500);
   --accordion-block-dark-style--background: var(--p4-dark-green-800);
   --accordion-block-dark-style--hover--background: var(--p4-dark-green-900);
   --accordion-block-light-style--background: var(--beige-100);
@@ -125,7 +123,7 @@ table.spreadsheet-table.is-color-gp-green {
   }
 }
 
-.standalone-link {
+a:where(.standalone-link, .comment-reply-link) {
   width: fit-content;
   font-weight: 700 !important;
 }
