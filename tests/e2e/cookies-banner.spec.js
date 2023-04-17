@@ -1,21 +1,26 @@
-const { test, expect } = require('@playwright/test');
+const {test, expect} = require('@playwright/test');
 
-test('check cookies banner', async ({ page }) => {
+test('check cookies banner', async ({page}) => {
   await page.goto('./');
 
-  // Check that cookies banner is present.
-  const cookiesBanner = page.locator('#set-cookie');
-  await expect(cookiesBanner).toBeVisible();
-
-  // Check that the text is the one from the P4 settings.
   const cookiesText = await page.evaluate('window.p4bk_vars.cookies_field');
-  await expect(cookiesText).toBeDefined();
-  const cookiesContent = await cookiesBanner.locator('.cookies-text').innerHTML();
-  await expect(cookiesContent).toContain(cookiesText.replace('&', '&amp;'));
+  expect(cookiesText).toBeDefined();
+  const cookiesBanner = page.locator('#set-cookie');
+  if (!cookiesText) {
+    // Check that cookies banner is hidden.
+    await expect(cookiesBanner).toBeHidden();
+  } else {
+    // Check that cookies banner is visible.
+    await expect(cookiesBanner).toBeVisible();
 
-  // Accept all cookies.
-  await cookiesBanner.getByText('Accept all cookies').click();
+    // Check that the text is the one from the P4 settings.
+    const cookiesContent = await cookiesBanner.locator('.cookies-text').innerHTML();
+    expect(cookiesContent).toContain(cookiesText.replace('&', '&amp;'));
 
-  // Check that the cookies banner disappears.
-  await expect(cookiesBanner).toBeHidden();
+    // Accept all cookies.
+    await cookiesBanner.getByText('Accept all cookies').click();
+
+    // Check that the cookies banner disappears.
+    await expect(cookiesBanner).toBeHidden();
+  }
 });
