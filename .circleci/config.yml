@@ -57,6 +57,19 @@ workflows:
           <<: *on_pr
           requires:
             - instance-ready
+      - request-test-user:
+          <<: *on_pr
+          requires:
+            - instance-ready
+      - test-user-ready:
+          <<: *on_pr
+          type: approval
+          requires:
+            - request-test-user
+      - e2e-tests:
+          <<: *on_pr
+          requires:
+            - test-user-ready
       - publish-zip:
           <<: *on_tag
           requires:
@@ -322,6 +335,65 @@ jobs:
             - test-instance
             - booking.json
             - pr
+  request-test-user:
+    docker:
+      - image: greenpeaceinternational/circleci-base:latest
+        auth:
+          <<: *docker_auth
+    steps:
+      - attach_workspace:
+          at: /tmp/workspace
+      - run:
+          name: Create test user
+          command: /usr/local/bin/test-user.py --create --test-instance=$(cat /tmp/workspace/test-instance)
+
+  e2e-tests:
+    working_directory: /usr/app/
+    docker:
+      - image: mcr.microsoft.com/playwright:v1.32.2
+        auth:
+          <<: *docker_auth
+    steps:
+      - attach_workspace:
+          at: /tmp/workspace
+      - checkout:
+          path: /usr/app/planet4-plugin-gutenberg-blocks
+      - run:
+          name: Install dependencies
+          command: |
+            npm install @playwright/test
+            npx playwright install --with-deps
+      - run:
+          name: End-to-end tests
+          command: |
+            cd /usr/app/planet4-plugin-gutenberg-blocks
+            export TICKET=$(head -c 11 /tmp/workspace/commit-message)
+            export BASE_URL="https://www-dev.greenpeace.org/test-$(cat /tmp/workspace/test-instance)/"
+            export WP_TEST_USERNAME="p4_test_user"
+            export WP_TEST_PASSWORD="${WP_TEST_USER}"
+            npx playwright test
+      - run:
+          name: Delete test user
+          when: always
+          command: |
+            instance_repo="planet4-test-$(cat /tmp/workspace/test-instance)"
+            curl -vvv --request POST \
+              --url https://circleci.com/api/v2/project/github/greenpeace/${instance_repo}/pipeline \
+              --header "Circle-Token: ${CIRCLE_TOKEN}" \
+              --header 'content-type: application/json' \
+              --data '{"parameters":{"run_develop":false, "run_create_test_user":false, "run_delete_test_user":true}}'
+      - run:
+          name: Extract tests artifacts
+          when: always
+          command: |
+            mkdir -p /usr/artifacts/playwright/results /usr/artifacts/playwright/report
+            cp -r /usr/app/planet4-plugin-gutenberg-blocks/e2e-results/* /usr/artifacts/playwright/results || true
+            cp -r /usr/app/planet4-plugin-gutenberg-blocks/e2e-report/* /usr/artifacts/playwright/report || true
+            cp /usr/app/planet4-plugin-gutenberg-blocks/results.xml /usr/artifacts/playwright/ || true
+      - store_test_results:
+          path: /usr/artifacts
+      - store_artifacts:
+          path: /usr/artifacts
 
   comment-pr:
     docker:
