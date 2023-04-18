@@ -13,40 +13,44 @@ use Timber\Timber;
  */
 class GravityFormsExtensions
 {
-    public const DEFAULT_GF_TYPE = 'other';
+    public const DEFAULT_GF_TYPE = 'Other';
 
     public const P4_GF_TYPES = [
         [
             'label' => 'Other',
-            'value' => 'other',
+            'value' => 'Other',
         ],
         [
             'label' => 'Petition',
-            'value' => 'petition',
+            'value' => 'Petition Signup',
         ],
         [
             'label' => 'Email Signup',
-            'value' => 'email-signup',
+            'value' => 'Newsletter Signup',
         ],
         [
             'label' => 'Quiz/Poll',
-            'value' => 'quiz-poll',
+            'value' => 'Quiz or Poll',
         ],
         [
             'label' => 'Email-to-target',
-            'value' => 'email-to-target',
+            'value' => 'Email to Target',
         ],
         [
             'label' => 'Contact',
-            'value' => 'contact',
+            'value' => 'Contact',
         ],
         [
             'label' => 'Survey',
-            'value' => 'survey',
+            'value' => 'Survey',
         ],
         [
             'label' => 'Feedback',
-            'value' => 'feedback',
+            'value' => 'Feedback',
+        ],
+        [
+            'label' => 'Donation',
+            'value' => 'Donation',
         ],
     ];
 
