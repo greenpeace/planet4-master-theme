@@ -63,7 +63,6 @@
   --link--color: var(--grey-900);
   --link--visited--color: var(--grey-900);
   --link--hover--color: var(--grey-900);
-  --comment-reply-link--border-bottom: 2px solid var(--gp-green-500);
   --accordion-block-dark-style--background: var(--p4-dark-green-800);
   --accordion-block-dark-style--hover--background: var(--p4-dark-green-900);
   --accordion-block-light-style--background: var(--beige-100);
@@ -76,6 +75,9 @@
   --nav-link--visited--color: var(--grey-900);
   --nav-search-clear--background-color: var(--grey-900);
   --top-navigation--separation: 1px solid var(--grey-300);
+
+  // TODO: Review these fallback variables after we'll merge the new identity colors
+  --comments-block--comment-respond--background: var(--color-background-comments_block);
 }
 
 #nav-mobile-menu {
@@ -125,6 +127,7 @@ table.spreadsheet-table.is-color-gp-green {
 
 a:where(.standalone-link, .comment-reply-link) {
   width: fit-content;
+  border-bottom: 2px solid var(--gp-green-500) !important;
   font-weight: 700 !important;
 }
 
@@ -186,8 +189,4 @@ $palette: (
       background: var(--grey-100);
     }
   }
-
-  // TODO: Review these fallback variables after we'll merge the new identity colors
-  --comments-block--form-section--comment-respond--background: var(--color-background-comments_block);
-  // End TODO
 }
