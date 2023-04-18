@@ -9,7 +9,7 @@
 namespace P4GBKS\Patterns;
 
 use P4GBKS\Patterns\Templates\Covers;
-use P4GBKS\Patterns\Templates\GravityFormWithImage;
+use P4GBKS\Patterns\Templates\GravityFormWithText;
 
 /**
  * Class Action.
@@ -31,7 +31,9 @@ class Action extends Block_Pattern {
 	 * @param array $params Optional array of parameters for the config.
 	 */
 	public static function get_config( $params = [] ): array {
-		$classname = self::get_classname();
+		$classname        = self::get_classname();
+		$is_new_identity  = get_theme_mod( 'new_identity_styles' );
+		$background_color = $is_new_identity ? 'beige-100' : 'grey-05';
 
 		return [
 			'title'      => 'Action',
@@ -41,17 +43,17 @@ class Action extends Block_Pattern {
 			'content'    => '
 				<!-- wp:group {"className":"block ' . $classname . '"} -->
 					<div class="wp-block-group block ' . $classname . '">
-						' . GravityFormWithImage::get_content() . '
-						<!-- wp:group {"align":"full","style":{"spacing":{"padding":{"top":"80px","bottom":"80px"}}}} -->
-							<div class="wp-block-group alignfull" style="padding-top:80px;padding-bottom:80px;">
+						' . GravityFormWithText::get_content( [ 'backgroundColor' => 'white' ] ) . '
+						<!-- wp:group {"backgroundColor":"' . $background_color . '","align":"full","style":{"spacing":{"padding":{"top":"80px","bottom":"80px"}}}} -->
+							<div class="wp-block-group alignfull has-' . $background_color . '-background-color has-background" style="padding-top:80px;padding-bottom:80px;">
 								<!-- wp:group {"className":"container"} -->
 									<div class="wp-block-group container">
 						' . SideImageWithTextAndCta::get_config(
-							[
-								'title'         => __( 'The problem', 'planet4-blocks' ),
-								'mediaPosition' => 'right',
-							]
-						)['content'] . '
+								[
+									'title'         => __( 'The problem', 'planet4-blocks' ),
+									'mediaPosition' => 'right',
+								]
+							)['content'] . '
 									</div>
 								<!-- /wp:group -->
 							</div>
@@ -62,7 +64,8 @@ class Action extends Block_Pattern {
 						<!-- /wp:separator -->
 						' . QuickLinks::get_config(
 							[
-								'title' => __( 'Explore by topics', 'planet4-blocks' ),
+								'backgroundColor' => 'white',
+								'title'           => __( 'Explore by topics', 'planet4-blocks' ),
 							]
 						)['content'] . '
 					</div>

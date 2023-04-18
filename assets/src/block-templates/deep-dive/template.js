@@ -2,6 +2,8 @@ import mainThemeUrl from '../main-theme-url';
 
 const {__} = wp.i18n;
 
+const isNewIdentity = window.p4ge_vars.planet4_options.new_identity_styles ?? false;
+
 const topic = ['core/column', {}, [
   ['core/group', {className: 'group-stretched-link'}, [
     ['core/image', {
@@ -36,12 +38,14 @@ const innerBlocks = ({
 
 const template = ({
   title = '',
+  backgroundColor = isNewIdentity ? 'beige-100' : 'grey-05',
 }) => ([
   [
     'core/group',
     {
       className: 'block',
       align: 'full',
+      backgroundColor,
     },
     innerBlocks({title}),
   ],

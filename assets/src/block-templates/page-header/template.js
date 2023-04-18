@@ -32,6 +32,7 @@ const template = ({
           ['core/group', {}, [
             ['core/heading', {
               level: 1,
+              backgroundColor: 'white',
               placeholder: __('Enter title', 'planet4-blocks-backend'),
             }],
           ]],

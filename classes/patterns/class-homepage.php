@@ -58,8 +58,7 @@ class Homepage extends Block_Pattern {
 
 				' . SideImageWithTextAndCta::get_config(
 						[
-							'title'         => __( 'Get to know us', 'planet4-blocks' ),
-							'mediaPosition' => 'right',
+							'title' => __( 'Get to know us', 'planet4-blocks' ),
 						]
 					)['content'] . '
 

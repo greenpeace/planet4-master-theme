@@ -9,7 +9,7 @@
 namespace P4GBKS\Patterns;
 
 use P4GBKS\Patterns\Templates\Covers;
-use P4GBKS\Patterns\Templates\GravityFormWithImage;
+use P4GBKS\Patterns\Templates\GravityFormWithText;
 
 /**
  * Class Campaign.
@@ -31,7 +31,8 @@ class Campaign extends Block_Pattern {
 	 * @param array $params Optional array of parameters for the config.
 	 */
 	public static function get_config( $params = [] ): array {
-		$classname = self::get_classname();
+		$classname       = self::get_classname();
+		$is_new_identity = get_theme_mod( 'new_identity_styles' );
 
 		return [
 			'title'      => 'Campaign',
@@ -63,7 +64,7 @@ class Campaign extends Block_Pattern {
 						<!-- wp:spacer {"height":"48px"} -->
 							<div style="height:48px" aria-hidden="true" class="wp-block-spacer"></div>
 						<!-- /wp:spacer -->
-						' . GravityFormWithImage::get_content() . '
+						' . GravityFormWithText::get_content() . '
 					</div>
 				<!-- /wp:group -->
 			',

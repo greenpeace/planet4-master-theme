@@ -54,7 +54,8 @@ class HighLevelTopic extends Block_Pattern {
 						)['content'] . '
 						' . DeepDive::get_config(
 							[
-								'title' => __( 'Better understand the issues [deep dive topics]', 'planet4-blocks' ),
+								'title'           => __( 'Better understand the issues [deep dive topics]', 'planet4-blocks' ),
+								'backgroundColor' => 'white',
 							]
 						)['content'] . '
 						' . SideImageWithTextAndCta::get_config(
@@ -81,7 +82,8 @@ class HighLevelTopic extends Block_Pattern {
 						' . GravityFormWithText::get_content() . '
 						' . QuickLinks::get_config(
 							[
-								'title' => __( 'Explore by topics', 'planet4-blocks' ),
+								'title'           => __( 'Explore by topics', 'planet4-blocks' ),
+								'backgroundColor' => 'white',
 							]
 						)['content'] . '
 					</div>

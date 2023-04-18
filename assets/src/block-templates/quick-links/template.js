@@ -2,6 +2,8 @@ import mainThemeUrl from '../main-theme-url';
 
 const {__} = wp.i18n;
 
+const isNewIdentity = window.p4ge_vars.planet4_options.new_identity_styles ?? false;
+
 const category = ['core/column', {}, [
   ['core/group', {className: 'group-stretched-link'}, [
     ['core/image', {
@@ -21,10 +23,12 @@ const category = ['core/column', {}, [
 
 const template = ({
   title = '',
+  backgroundColor = isNewIdentity ? 'beige-100' : 'grey-05',
 }) => ([
   ['core/group', {
     className: 'block',
     align: 'full',
+    backgroundColor,
   }, [
     ['core/group', {className: 'container'}, [
       ['core/spacer', {height: '24px'}],

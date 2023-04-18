@@ -26,9 +26,8 @@ const template = () => ([
   ['core/columns', {
     className: 'block',
   },
-  [
     [...Array(3).keys()].map(() => column),
-  ]],
+  ],
 ]);
 
 export default template;

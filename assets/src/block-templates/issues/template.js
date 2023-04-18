@@ -2,7 +2,10 @@ import mainThemeUrl from '../main-theme-url';
 
 const {__} = wp.i18n;
 
+const isNewIdentity = window.p4ge_vars.planet4_options.new_identity_styles ?? false;
+
 const item = ['core/group', {
+  backgroundColor: 'white',
   style: {
     border: {radius: '4px'},
     spacing: {
@@ -40,9 +43,12 @@ const item = ['core/group', {
   }],
 ]];
 
-const template = () => ([
+const template = ({
+  backgroundColor = isNewIdentity ? 'beige-100' : 'grey-05',
+}) => ([
   ['core/group', {
     align: 'full',
+    backgroundColor,
     className: 'block',
     style: {
       spacing: {

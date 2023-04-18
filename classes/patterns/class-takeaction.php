@@ -30,7 +30,9 @@ class TakeAction extends Block_Pattern {
 	 * @param array $params Optional array of parameters for the config.
 	 */
 	public static function get_config( $params = [] ): array {
-		$classname = self::get_classname();
+		$classname        = self::get_classname();
+		$is_new_identity  = get_theme_mod( 'new_identity_styles' );
+		$background_color = $is_new_identity ? 'beige-100' : 'grey-05';
 
 		return [
 			'title'      => 'Take Action',
@@ -53,8 +55,8 @@ class TakeAction extends Block_Pattern {
 						<!-- wp:spacer {"height":"48px"} -->
 							<div style="height:48px" aria-hidden="true" class="wp-block-spacer"></div>
 						<!-- /wp:spacer -->
-						<!-- wp:group {"align":"full","style":{"spacing":{"padding":{"top":"64px","bottom":"64px"}}}} -->
-							<div class="wp-block-group alignfull" style="padding-top:64px;padding-bottom:64px;">
+						<!-- wp:group {"backgroundColor":"' . $background_color . '","align":"full","style":{"spacing":{"padding":{"top":"64px","bottom":"64px"}}}} -->
+							<div class="wp-block-group alignfull has-' . $background_color . '-background-color has-background" style="padding-top:64px;padding-bottom:64px;">
 								<!-- wp:group {"className":"container"} -->
 									<div class="wp-block-group container">
 										<!-- wp:planet4-blocks/articles {
