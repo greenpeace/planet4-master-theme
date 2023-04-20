@@ -18,5 +18,5 @@ test('check the 404 page', async ({ page }) => {
   await expect(page.locator('.page-header-background img')).toHaveAttribute('src', settingsImage);
 
   // Make sure the search input is there.
-  await expect(page.locator('input[aria-label="Search"]')).toBeVisible();
+  await expect(page.locator('form.search-form input')).toBeVisible();
 });
