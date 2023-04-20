@@ -4,7 +4,7 @@ msgstr ""
 "n%10<=4 &&(n%100<10||n%100 >= 20)? 1 : 2;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2023-04-20 07:50+0000\n"
+"PO-Revision-Date: 2023-04-20 07:54+0000\n"
 "Language-Team: Croatian\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -25,7 +25,7 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
 #. %1$d = Number of results.
-#: src/Search.php:727
+#: src/Search.php:755
 #, php-format
 msgid "%1$d result for '%2$s'"
 msgid_plural "%1$d results for '%2$s'"
@@ -34,14 +34,15 @@ msgstr[1] "%1$d rezultata za'%2$s'"
 msgstr[2] ""
 
 #. %d = Number of minutes for reading time.
-#: src/Post/ReadingTimeCalculator.php:132 templates/tease-taxonomy-post.twig:63
-#: templates/tease-author.twig:54 templates/single.twig:69
+#: src/Post/ReadingTimeCalculator.php:135 templates/tease-taxonomy-post.twig:63
+#: templates/tease-taxonomy-action.twig:53 templates/single.twig:69
+#: templates/tease-author.twig:54
 #, php-format
 msgid "%d min read"
 msgstr ""
 
 #. %d = Number of results.
-#: src/Search.php:733
+#: src/Search.php:767
 #, php-format
 msgid "%d result"
 msgid_plural "%d results"
@@ -49,15 +50,11 @@ msgstr[0] "%d rezultat"
 msgstr[1] "%d rezultata"
 msgstr[2] ""
 
-#: assets/src/js/country_select.js:47
-msgid "."
-msgstr ""
-
-#: 404.php:18
+#: 404.php:21
 msgid "404 Page"
 msgstr "Stranica 404"
 
-#: page-templates/sitemap.php:25
+#: page-templates/sitemap.php:26
 msgid "About Greenpeace"
 msgstr "O Greenpeaceu"
 
@@ -70,15 +67,15 @@ msgstr "o autoru"
 msgid "Accept all cookies"
 msgstr "Prihvati sve kolačiće"
 
-#: page-templates/sitemap.php:23
+#: page-templates/sitemap.php:24
 msgid "Act"
 msgstr "Aktiviraj se"
 
-#: src/Post.php:276
+#: src/Post.php:291
 msgid "ACTION"
 msgstr "UKLJUČI SE"
 
-#: src/Search/Filters/ContentTypes.php:109
+#: src/Search/Filters/ContentTypes.php:112
 msgid "Action"
 msgstr "Aktiviraj se"
 
@@ -102,20 +99,20 @@ msgstr "Uvijek omogućeno"
 msgid "Apply filters"
 msgstr "primjeni filtere"
 
-#: src/Search/Filters/ContentTypes.php:105 templates/tease-search.twig:43
+#: src/Search/Filters/ContentTypes.php:108 templates/tease-search.twig:43
 #: templates/tease-search.twig:123
 msgid "Archive"
 msgstr "Arhiva"
 
-#: src/PostArchive.php:77
+#: src/PostArchive.php:80
 msgid "Archive URL"
 msgstr "Arhivirani URL"
 
-#: page-templates/sitemap.php:26
+#: page-templates/sitemap.php:27
 msgid "Articles"
 msgstr "Članci"
 
-#: src/Search/Filters/ContentTypes.php:101 templates/tease-search.twig:41
+#: src/Search/Filters/ContentTypes.php:104 templates/tease-search.twig:41
 #: templates/tease-search.twig:121
 msgid "Campaign"
 msgstr "Kampanja"
@@ -165,15 +162,15 @@ msgstr "Tip sadržaja"
 msgid "Discussion"
 msgstr "Diskusija"
 
-#: src/Post.php:282
+#: src/Post.php:297
 msgid "DOCUMENT"
 msgstr "DOKUMENT"
 
-#: src/Search/Filters/ContentTypes.php:89
+#: src/Search/Filters/ContentTypes.php:92
 msgid "Document"
 msgstr "Dokument"
 
-#: src/MasterSite.php:564 src/MasterSite.php:626
+#: src/MasterSite.php:581 src/MasterSite.php:644
 msgid "Donate"
 msgstr "DONIRAJ"
 
@@ -185,7 +182,11 @@ msgstr "Preuzmi"
 msgid "Email"
 msgstr "Email"
 
-#: 404.php:17
+#: src/MasterSite.php:261
+msgid "Enable new Greenpeace visual identity"
+msgstr ""
+
+#: 404.php:20
 msgid "Enter your search term below"
 msgstr "U nastavku unesi pojam za pretraživanje"
 
@@ -193,7 +194,7 @@ msgstr "U nastavku unesi pojam za pretraživanje"
 msgid "Evergreen Page"
 msgstr "Vjerodostojna stranica"
 
-#: page-templates/sitemap.php:24
+#: page-templates/sitemap.php:25
 msgid "Explore"
 msgstr "Istraži"
 
@@ -213,7 +214,8 @@ msgstr "Greenpeace International"
 msgid "Greenpeace Planet 4 Master Theme"
 msgstr "Greenpeace Planet 4 Glavna tema"
 
-#: functions.php:447
+#. phpcs:ignore Generic.Files.LineLength.MaxExceeded
+#: functions.php:459
 msgid "here"
 msgstr ""
 
@@ -229,7 +231,7 @@ msgstr "https://github.com/greenpeace"
 msgid "https://github.com/greenpeace/planet4-master-theme"
 msgstr "https://github.com/greenpeace/planet4-master-theme"
 
-#: single.php:101
+#: single.php:107
 msgid ""
 "I agree on providing my name, email and content so that my comment can be "
 "stored and displayed in the website."
@@ -237,24 +239,24 @@ msgstr ""
 "Slažem se s pružanjem svog imena, e-maila i sadržaja kako bi se moj komentar "
 "mogao pohraniti i prikazati na web stranici."
 
-#: src/MasterSite.php:627
+#: src/MasterSite.php:646
 msgid "International (English)"
 msgstr "International (engleski)"
 
-#: templates/single-page.twig:15 templates/single-password.twig:18
+#: templates/single-password.twig:18 templates/single-page.twig:15
 msgid "Invalid password, please try again"
 msgstr ""
 
-#: single.php:107
+#: single.php:114
 msgid "Leave your reply"
 msgstr "Ostavi svoj komentar"
 
-#: templates/all-posts.twig:35 templates/author.twig:49
-#: templates/taxonomy.twig:46
+#: templates/author.twig:49 templates/all-actions.twig:35
+#: templates/all-posts.twig:35 templates/taxonomy.twig:46
 msgid "Load More"
 msgstr "Više"
 
-#: templates/tease-search.twig:157
+#: templates/tease-search.twig:156
 msgid "Manage"
 msgstr "Upravljaj"
 
@@ -266,11 +268,11 @@ msgstr "Upravljajte svojim postavkama kolačića"
 msgid "Master theme for the Planet 4 Wordpress project"
 msgstr "Glavna tema za Planet 4 Wordpress projekt"
 
-#: templates/navigation-bar.twig:20
+#: templates/navigation-bar.twig:19
 msgid "Menu"
 msgstr "Izbornik"
 
-#: src/MasterSite.php:94 src/Search.php:711
+#: src/Search.php:739 src/MasterSite.php:89
 msgid "Most relevant"
 msgstr "Najvažnije"
 
@@ -278,19 +280,19 @@ msgstr "Najvažnije"
 msgid "Name"
 msgstr "Ime"
 
-#: src/MasterSite.php:98 src/Search.php:715
+#: src/Search.php:743 src/MasterSite.php:93
 msgid "Newest"
 msgstr "Najnovije"
 
-#: src/MasterSite.php:102 src/Search.php:719
+#: src/Search.php:747 src/MasterSite.php:97
 msgid "Oldest"
 msgstr "Najstarije"
 
-#: src/Post.php:278
+#: src/Post.php:293
 msgid "PAGE"
 msgstr "STRANICA"
 
-#: src/Search/Filters/ContentTypes.php:93
+#: src/Search/Filters/ContentTypes.php:96
 msgid "Page"
 msgstr "Stranica"
 
@@ -298,11 +300,11 @@ msgstr "Stranica"
 msgid "Please select which cookies you are willing to store."
 msgstr "Molimo odaberite koje kolačiće želite pohraniti."
 
-#: src/Post.php:285
+#: src/Post.php:300
 msgid "POST"
 msgstr "ČLANAK"
 
-#: src/Search/Filters/ContentTypes.php:97
+#: src/Search/Filters/ContentTypes.php:100
 msgid "Post"
 msgstr "Članak"
 
@@ -318,7 +320,7 @@ msgstr "Vrsta objave"
 msgid "Posts by "
 msgstr "Objava"
 
-#: tag.php:100
+#: tag.php:126
 msgid "Publications"
 msgstr "Publikacije"
 
@@ -334,11 +336,12 @@ msgstr "Odbij sve"
 msgid "Reject all cookies"
 msgstr "Odbij sve kolačiće"
 
-#: tag.php:127
+#: tag.php:156
 msgid "Related Campaigns"
 msgstr "Povezane kampanje"
 
-#: templates/all-posts.twig:11 templates/taxonomy.twig:22
+#: templates/all-actions.twig:11 templates/all-posts.twig:11
+#: templates/taxonomy.twig:22
 msgid "Results"
 msgstr "Rezultati"
 
@@ -346,8 +349,8 @@ msgstr "Rezultati"
 msgid "Save preferences"
 msgstr "Spremi postavke"
 
-#: templates/search-form.twig:2 templates/404.twig:17 templates/search.twig:8
-#: templates/search.twig:45
+#: templates/search.twig:8 templates/search.twig:45
+#: templates/search-form.twig:2 templates/404.twig:17
 msgid "Search"
 msgstr "Traži"
 
@@ -357,7 +360,7 @@ msgstr "Označeno"
 
 #: templates/cookies.twig:18
 msgid "Settings"
-msgstr "postavke"
+msgstr "Postavke"
 
 #: templates/blocks/share_buttons.twig:44
 #: templates/blocks/share_buttons.twig:53
@@ -371,7 +374,7 @@ msgid "Share via"
 msgstr "Podijeli putem"
 
 #. %s = number of results per page.
-#: src/Search.php:950
+#: src/Search.php:999
 #, php-format
 #| msgid "SHOW %s MORE RESULTS"
 msgid "Show %s more results"
@@ -401,7 +404,7 @@ msgstr "Preskoči na podnožje"
 msgid "Skip to Navigation"
 msgstr "Preskoči na navigaciju"
 
-#: 404.php:16
+#: 404.php:19
 msgid "Sorry, we can't find that page!"
 msgstr "Žao nam je, ne možemo naći tu stranicu!"
 
@@ -409,46 +412,55 @@ msgstr "Žao nam je, ne možemo naći tu stranicu!"
 msgid "Sort by"
 msgstr "Sortiraj po"
 
-#: templates/single-page.twig:19 templates/single-password.twig:22
+#: templates/single-password.twig:22 templates/single-page.twig:19
 msgid "Submit"
 msgstr "Predaj"
 
-#: templates/tease-search.twig:151
+#: src/Search.php:409 src/ActionPage.php:209
 msgid "Take action"
 msgstr "aktiviraj se"
 
-#: functions.php:446
+#. %s = Redirection url variable.
+#: src/GravityFormsExtensions.php:581
+#, php-format
+msgid ""
+"Thank you! Please <a href=\"%s\">click here</a> if you are not redirected "
+"within a few seconds."
+msgstr ""
+
+#. phpcs:ignore Generic.Files.LineLength.MaxExceeded
+#: functions.php:458
 msgid ""
 "The content on this page is hidden because this page is being used as your "
 "\\\"All Posts\\\" listing page. You can disable this by un-setting the "
 "\\\"Posts page\\\""
 msgstr ""
 
-#: tag.php:89
+#: tag.php:112
 msgid "Things you can do"
 msgstr "Što možeš učiniti"
 
-#: tag.php:128
+#: tag.php:158
 msgid "This Campaign is not assigned to an Issue"
 msgstr "Ova kampanja nije dodijeljena problemu"
 
-#: templates/tease-search.twig:115 assets/src/js/pdf_icon.js:20
+#: assets/src/js/pdf_icon.js:20
 msgid "This link will open a PDF file"
 msgstr ""
 
-#: templates/single-page.twig:12 templates/single-password.twig:15
+#: templates/single-password.twig:15 templates/single-page.twig:12
 msgid "To see the content of this page, please enter your password  below"
 msgstr "Unesi svoju šifru kako bi pristupio sadržaju stranice"
 
-#: src/MasterSite.php:547
+#: src/MasterSite.php:564
 msgid "Toggle search box"
 msgstr "Uključi pretraživanje"
 
-#: templates/desktop-menu.twig:57 templates/navigation-bar.twig:39
+#: templates/desktop-menu.twig:57 templates/navigation-bar.twig:38
 msgid "Toggle search form"
 msgstr "Promijenite obrazac za pretraživanje"
 
-#: src/MasterSite.php:546
+#: src/MasterSite.php:563
 msgid "Toggle worldwide site selection menu"
 msgstr "Uključi selekciju po zemljama svijeta"
 
@@ -461,7 +473,7 @@ msgid "We also included results for "
 msgstr "Uključili smo i rezultate za "
 
 # Želimo da poduzmete akciju jer smo zajedno jači.
-#: tag.php:90
+#: tag.php:113
 msgid "We want you to take action because together we're strong."
 msgstr "Priključi nam se - zajedno smo jači!"
 
@@ -470,10 +482,6 @@ msgstr "Priključi nam se - zajedno smo jači!"
 msgid "We're sorry we couldn't find any matches for your search term."
 msgstr ""
 "Žao nam je što nismo pronašli podudaranja s ovim pojmom za pretraživanje."
-
-#: assets/src/js/country_select.js:30
-msgid "Worldwide site list"
-msgstr "Lista stranica diljem svijeta"
 
 #: templates/comment_form/comment_field.twig:2
 msgid "Your Comment"
