@@ -1,10 +1,13 @@
 .comments-block {
-  .comment-respond {
+  .form-section .comment-respond {
     _-- {
       background: $grey-05;
     }
     border-radius: 4px;
     padding: 24px 16px;
+  }
+
+  .comment-respond {
     font-size: 0;
     margin-bottom: 32px;
 

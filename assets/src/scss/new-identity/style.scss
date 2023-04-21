@@ -125,25 +125,26 @@ table.spreadsheet-table.is-color-gp-green {
   }
 }
 
-a:where(.standalone-link, .comment-reply-link) {
+a:where(.standalone-link, .comment-reply-link, #cancel-comment-reply-link) {
+  color: var(--link--color) !important;
   width: fit-content;
-  border-bottom: 2px solid var(--gp-green-500) !important;
+  border-bottom: 2px solid var(--gp-green-500);
   font-weight: 700 !important;
 }
 
 // Body Copy links selectors
 .post-content,
-.page-content {
-  .standalone-link,
-  p > a,
-  li > a {
-    transition: 0.2s cubic-bezier(0.5, 0, 0, 1);
-    border-bottom: 2px solid var(--gp-green-500);
+.page-content,
+.standalone-link,
+p > a,
+li > a {
+  transition: 0.2s cubic-bezier(0.5, 0, 0, 1);
+  border-bottom: 2px solid var(--gp-green-500);
 
-    &:hover {
-      box-shadow: inset 0 calc(-22px) var(--gp-green-100);
-      text-decoration: none !important;
-    }
+  &:hover,
+  &:focus {
+    box-shadow: inset 0 calc(-22px) var(--gp-green-100);
+    text-decoration: none !important;
   }
 }
 
