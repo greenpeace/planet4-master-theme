@@ -1,7 +1,10 @@
+/* CSS Variables */
 :root {
   /* Primitives */
   --beige-100: #f6f4ef;
   --beige-200: #eceae4;
+  --beige-300: #dad8d1;
+  --blue-green-800: #167f82;
   --gp-green-100: #d9f1c5;
   --gp-green-200: #b9e696;
   --gp-green-400: #80d643;
@@ -64,3 +67,71 @@
   --color-text-nav_link: var(--grey-900);
   --color-text-tag_item: var(--gp-green-800);
 }
+
+/* SASS Variables */
+/* Primitives */
+$beige-100: #f6f4ef;
+$beige-200: #eceae4;
+$beige-300: #dad8d1;
+$blue-green-800: #167f82;
+$gp-green-100: #d9f1c5;
+$gp-green-200: #b9e696;
+$gp-green-400: #80d643;
+$gp-green-500: #66cc00;
+$gp-green-800: #198700;
+$grey-100: #f5f7f8;
+$grey-200: #ececec;
+$grey-300: #d1d2d3;
+$grey-500: #a3a5a7;
+$grey-600: #6f7376;
+$grey-800: #45494c;
+$grey-900: #1c1c1c;
+$p4-action-yellow-100: #fff6bd;
+$p4-action-yellow-500: #ffe100;
+$p4-action-yellow-600: #fece00;
+$p4-action-yellow-700: #fcb600;
+$p4-dark-green-800: #1f4912;
+$p4-dark-green-900: #1a3c10;
+$red-100: #fad1da;
+$red-500: #d43b57;
+$white: #ffffff;
+/* Component Specific */
+$color-background--alert: $p4-action-yellow-100;
+$color-background--warning: $red-100;
+$color-background-author_block: $beige-100;
+$color-background-block: $grey-100;
+$color-background-block-dark: $grey-200;
+$color-background-button--cta: $p4-action-yellow-500;
+$color-background-button--cta-hover: $p4-action-yellow-600;
+$color-background-button--primary-hover: $gp-green-500;
+$color-background-button--primary-passive: $gp-green-400;
+$color-background-button--secondary-hover: $p4-dark-green-800;
+$color-background-button_share--secondary-hover: $beige-200;
+$color-background-button_share--secondary-passive: $beige-100;
+$color-background-comments_block: $beige-100;
+$color-background-copyright_block: $p4-dark-green-900;
+$color-background-country_list_block: $p4-dark-green-900;
+$color-background-footer: $p4-dark-green-800;
+$color-background-icon--yellow: $p4-action-yellow-700;
+$color-background-link--hover: $gp-green-100;
+$color-background-navigation_bar: $white;
+$color-background-tag_button--hover: $gp-green-200;
+$color-background-tag_button--passive: $gp-green-100;
+$color-background-take_action_cover_block: $white;
+$color-background-tooltip--error: $red-500;
+$color-border-button--secondary: $p4-dark-green-800;
+$color-border-input: $grey-500;
+$color-border-input--hover: $grey-600;
+$color-border-navigation_link--hover: $gp-green-500;
+$color-border-separator: $grey-300;
+$color-text--error: $red-500;
+$color-text-body: $grey-900;
+$color-text-button--cta: $grey-900;
+$color-text-button--primary: $grey-900;
+$color-text-button--secondary: $p4-dark-green-800;
+$color-text-button-inverse: $white;
+$color-text-heading: $grey-900;
+$color-text-image_caption: $grey-800;
+$color-text-meta_item: $grey-600;
+$color-text-nav_link: $grey-900;
+$color-text-tag_item: $gp-green-800;
