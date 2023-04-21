@@ -322,6 +322,8 @@ class GravityFormsExtensions
                             "gGoal":  "' . ($form['p4_gf_type'] ?? self::DEFAULT_GF_TYPE) . '",
                             "formTitle": "' . $form['title'] . '"
                         });
+                        // Disable GFTrackEvent (GFTrackEvent belongs to Gravity Forms Google Analytics Add-On)
+                        window.parent.gfgaTagManagerEventSent = true;
                    </script>';
         // Append a datalayer event script to $confirmation html.
         $confirmation .= $script;
