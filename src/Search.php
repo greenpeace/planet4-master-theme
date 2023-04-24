@@ -235,11 +235,15 @@ abstract class Search
                 1
             );
         }
-        remove_filter(
-            'pre_get_posts',
-            [ Features::factory()->get_registered_feature('documents'), 'setup_document_search' ],
-            10
-        );
+
+        if (class_exists(Features::class)) {
+            remove_filter(
+                'pre_get_posts',
+                [ Features::factory()->get_registered_feature('documents'), 'setup_document_search' ],
+                10
+            );
+        }
+
         add_filter(
             'ep_post_query_db_args',
             [ self::class, 'exclude_unwanted_attachments' ],
