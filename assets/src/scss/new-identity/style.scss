@@ -125,7 +125,7 @@ table.spreadsheet-table.is-color-gp-green {
   }
 }
 
-a:where(.standalone-link, .comment-reply-link, #cancel-comment-reply-link) {
+a:where(.standalone-link, .comment-reply-link) {
   color: var(--link--color) !important;
   width: fit-content;
   border-bottom: 2px solid var(--gp-green-500);
@@ -190,4 +190,8 @@ $palette: (
       background: var(--grey-100);
     }
   }
+}
+
+.logged-in-as a {
+  color: var(--gp-green-800) !important;
 }
