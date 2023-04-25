@@ -3,8 +3,8 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2022-08-04 16:23+0000\n"
-"Last-Translator: Lise Bockler\n"
+"PO-Revision-Date: 2023-04-25 13:26+0000\n"
+"Last-Translator: Augustin Coillard\n"
 "Language-Team: French (Canada)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,7 +19,7 @@ msgstr ""
 "_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "Language: fr_CA\n"
 "Report-Msgid-Bugs-To: \n"
-"X-Loco-Version: 2.6.0; wp-5.8.3\n"
+"X-Loco-Version: 2.6.4; wp-6.1.1\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
@@ -441,7 +441,7 @@ msgstr ""
 
 #: templates/single-page.twig:12 templates/single-password.twig:15
 msgid "To see the content of this page, please enter your password  below"
-msgstr ""
+msgstr "Pour voir cette page, veuillez renseigner le mot de passe ci dessous"
 
 #: templates/navigation-bar.twig:6
 msgid "Toggle navigation menu"
