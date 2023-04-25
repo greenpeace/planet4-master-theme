@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2023-04-25 13:26+0000\n"
+"PO-Revision-Date: 2023-04-25 13:27+0000\n"
 "Last-Translator: Augustin Coillard\n"
 "Language-Team: French (Canada)\n"
 "MIME-Version: 1.0\n"
@@ -342,7 +342,7 @@ msgstr ""
 
 #: templates/cookies.twig:35
 msgid "Reject all cookies"
-msgstr ""
+msgstr "Ne pas accepter les cookes"
 
 #: tag.php:134
 msgid "Related Campaigns"
