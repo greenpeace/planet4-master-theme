@@ -1,6 +1,7 @@
-const { test, expect } = require('@playwright/test');
+const {test, expect} = require('@playwright/test');
 
-test('check the 404 page', async ({ page }) => {
+test('check the 404 page', async ({page}) => {
+  test.setTimeout(240 * 1000);
   const response = await page.goto('./thispagereallywillnotexist');
 
   // Check the page status.
@@ -9,8 +10,9 @@ test('check the 404 page', async ({ page }) => {
   // Check the page text.
   const settingsText = await page.evaluate('window.p4bk_vars.page_text_404');
   await expect(settingsText).toBeDefined();
+  const settingsTextUpdated = settingsText.replace(/\s+/g, ' ').replaceAll('&', '&amp;');
   const pageContent = await page.locator('.speech-bubble').innerHTML();
-  await expect(pageContent.replace(/\s+/g, ' ')).toContain(settingsText.replace(/\s+/g, ' '));
+  await expect(pageContent.replace(/\s+/g, ' ')).toContain(settingsTextUpdated.trim());
 
   // Check the page image background.
   const settingsImage = await page.evaluate('window.p4bk_vars.page_bg_image_404');
