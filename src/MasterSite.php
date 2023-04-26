@@ -289,6 +289,15 @@ class MasterSite extends TimberSite
             }
         );
 
+        // Disable Background updates check in Site health.
+        add_filter(
+            'site_status_tests',
+            function ($tests) {
+                unset($tests['async']['background_updates']);
+                return $tests;
+            }
+        );
+
         $this->register_meta_fields();
     }
 
