@@ -539,7 +539,12 @@ class Post extends TimberPost
         WP_Block $block
     ): string {
         $time = ( new self($block->context['postId'] ?? null) )->reading_time();
-        return $time ? '<span class="article-list-item-readtime">' . $time . ' min read</span>' : '';
+        return $time ?
+            '<span class="article-list-item-readtime">'
+                // translators: reading time in min.
+                . sprintf(__('%d min read', 'planet4-master-theme'), $time) .
+            '</span>'
+            : '';
     }
     // phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter
 
