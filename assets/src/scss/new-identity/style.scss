@@ -125,8 +125,8 @@ table.spreadsheet-table.is-color-gp-green {
   }
 }
 
-a:where(.standalone-link, .comment-reply-link) {
-  color: var(--link--color) !important;
+.standalone-link,
+.comment-reply-link {
   width: fit-content;
   border-bottom: 2px solid var(--gp-green-500);
   font-weight: 700 !important;
@@ -193,5 +193,10 @@ $palette: (
 }
 
 .logged-in-as a {
-  color: var(--gp-green-800) !important;
+  color: var(--gp-green-800);
+
+  &:hover,
+  &:visited {
+    color: var(--gp-green-800);
+  }
 }

@@ -1,8 +1,6 @@
 .comments-block {
   .form-section .comment-respond {
-    _-- {
-      background: $grey-05;
-    }
+    background: var(--comments-block--comment-respond--background, $grey-05);
     border-radius: 4px;
     padding: 24px 16px;
   }
