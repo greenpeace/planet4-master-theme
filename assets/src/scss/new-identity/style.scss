@@ -1,5 +1,16 @@
 @import "../base/tokens";
 
+@mixin shared-link-styles {
+  border-bottom: 2px solid var(--gp-green-500);
+  transition: 0.3s cubic-bezier(0.5, 0, 0, 1);
+
+  &:hover,
+  &:focus {
+    box-shadow: inset 0 calc(-22px) var(--gp-green-100);
+    text-decoration: none !important;
+  }
+}
+
 :root {
   --body--color: var(--grey-900);
   --site-footer--background: var(--p4-dark-green-800);
@@ -75,6 +86,9 @@
   --nav-link--visited--color: var(--grey-900);
   --nav-search-clear--background-color: var(--grey-900);
   --top-navigation--separation: 1px solid var(--grey-300);
+
+  // TODO: Review these fallback variables after we'll merge the new identity colors
+  --comments-block--comment-respond--background: var(--color-background-comments_block);
 }
 
 #nav-mobile-menu {
@@ -122,25 +136,21 @@ table.spreadsheet-table.is-color-gp-green {
   }
 }
 
-.standalone-link {
-  width: fit-content;
-  font-weight: 700 !important;
-}
-
 // Body Copy links selectors
 .post-content,
 .page-content {
-  .standalone-link,
   p > a,
   li > a {
-    transition: 0.2s cubic-bezier(0.5, 0, 0, 1);
-    border-bottom: 2px solid var(--gp-green-500);
-
-    &:hover {
-      box-shadow: inset 0 calc(-22px) var(--gp-green-100);
-      text-decoration: none !important;
-    }
+    @include shared-link-styles;
   }
+}
+
+.standalone-link,
+.comment-reply-link {
+  @include shared-link-styles;
+
+  width: fit-content;
+  font-weight: 700 !important;
 }
 
 // Colors for transparent buttons.
@@ -184,5 +194,14 @@ $palette: (
     &:hover {
       background: var(--grey-100);
     }
+  }
+}
+
+.logged-in-as a {
+  color: var(--gp-green-800);
+
+  &:hover,
+  &:visited {
+    color: var(--gp-green-800);
   }
 }
