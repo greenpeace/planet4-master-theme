@@ -136,7 +136,7 @@ table.spreadsheet-table.is-color-gp-green {
   }
 }
 
-// Body Copy links selectors
+// Body links
 .post-content,
 .page-content {
   p > a,
@@ -145,6 +145,16 @@ table.spreadsheet-table.is-color-gp-green {
   }
 }
 
+// Cookies box links
+.cookies-text,
+.cookies-settings-details {
+  a {
+    @include shared-link-styles;
+    transition-timing-function: cubic-bezier(0.5, 0, 0, 0.5);
+  }
+}
+
+// Standalone links
 .standalone-link,
 .comment-reply-link {
   @include shared-link-styles;
