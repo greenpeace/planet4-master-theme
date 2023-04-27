@@ -7,7 +7,7 @@ import {
 } from '@wordpress/components';
 import {useEffect} from '@wordpress/element';
 
-import {InspectorControls} from '@wordpress/block-editor';
+import {InspectorControls, RichText} from '@wordpress/block-editor';
 import TagSelector from '../../components/TagSelector/TagSelector';
 import {PostSelector} from '../../components/PostSelector/PostSelector';
 import PostTypeSelector from '../../components/PostTypeSelector/PostTypeSelector';
@@ -17,7 +17,6 @@ import {useCovers} from './useCovers';
 import {getStyleFromClassName} from '../getStyleFromClassName';
 import {CoversCarouselLayout} from './CoversCarouselLayout';
 
-const {RichText} = wp.blockEditor;
 const {__} = wp.i18n;
 
 const renderEdit = (attributes, toAttribute, setAttributes) => {

@@ -1,5 +1,5 @@
 import {Component, Fragment} from '@wordpress/element';
-import {InspectorControls} from '@wordpress/block-editor';
+import {InspectorControls, RichText} from '@wordpress/block-editor';
 import {
   TextControl,
   TextareaControl,
@@ -10,7 +10,6 @@ import {URLInput} from '../../components/URLInput/URLInput';
 
 import {CounterFrontend} from './CounterFrontend';
 
-const {RichText} = wp.blockEditor;
 const {__} = wp.i18n;
 
 export class CounterEditor extends Component {

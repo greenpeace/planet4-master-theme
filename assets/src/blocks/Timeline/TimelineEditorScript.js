@@ -5,7 +5,7 @@ import {
   CheckboxControl,
   Tooltip,
 } from '@wordpress/components';
-import {InspectorControls} from '@wordpress/block-editor';
+import {InspectorControls, RichText} from '@wordpress/block-editor';
 
 import {URLInput} from '../../components/URLInput/URLInput';
 import {useScript} from '../../components/useScript/useScript';
@@ -15,7 +15,6 @@ import {languages} from './TimelineLanguages';
 import {URLDescriptionHelp} from './URLDescriptionHelp';
 import {debounce, noConflict} from 'lodash';
 
-const {RichText} = wp.blockEditor;
 const {__} = wp.i18n;
 const TIMELINE_JS_VERSION = '3.8.12';
 

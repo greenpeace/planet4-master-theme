@@ -1,11 +1,10 @@
 import {LAYOUT_NO_IMAGE, LAYOUT_ICONS, LAYOUT_TASKS, LAYOUT_IMAGES} from './ColumnConstants';
-import {MediaUpload, MediaUploadCheck} from '@wordpress/block-editor';
+import {MediaUpload, MediaUploadCheck, RichText} from '@wordpress/block-editor';
 import {Button} from '@wordpress/components';
 import {ColumnsImagePlaceholder} from './ColumnsImagePlaceholder';
 import {ImageHoverControls} from '../../components/ImageHoverControls';
 
 const {__} = wp.i18n;
-const {RichText} = wp.blockEditor;
 
 export const EditableColumns = ({
   columns_block_style,

@@ -6,11 +6,8 @@ import {GalleryCarousel} from './GalleryCarousel';
 import {GalleryThreeColumns} from './GalleryThreeColumns';
 import {GalleryGrid} from './GalleryGrid';
 import {useGalleryImages} from './useGalleryImages';
-import {InspectorControls} from '@wordpress/block-editor';
+import {InspectorControls, MediaPlaceholder, MediaUploadCheck, RichText} from '@wordpress/block-editor';
 
-import {MediaPlaceholder, MediaUploadCheck} from '@wordpress/blockEditor';
-
-const {RichText} = wp.blockEditor;
 const {__} = wp.i18n;
 
 const renderEdit = (attributes, setAttributes, isSelected) => {

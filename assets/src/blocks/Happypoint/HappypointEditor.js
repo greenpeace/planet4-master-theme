@@ -6,12 +6,12 @@ import {USE_NONE, USE_IFRAME_URL, USE_EMBED_CODE} from './HappyPointConstants';
 
 import {debounce} from 'lodash';
 
-const {
+import {
   InspectorControls,
   BlockControls,
   MediaUpload,
   MediaUploadCheck,
-} = wp.blockEditor;
+} from '@wordpress/block-editor';
 
 const {__} = wp.i18n;
 

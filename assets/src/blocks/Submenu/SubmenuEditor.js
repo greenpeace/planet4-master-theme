@@ -2,7 +2,7 @@ import {Fragment} from '@wordpress/element';
 import {Button, PanelBody} from '@wordpress/components';
 import {SubmenuLevel} from './SubmenuLevel';
 import {SubmenuItems} from './SubmenuItems';
-import {InspectorControls} from '@wordpress/block-editor';
+import {InspectorControls, RichText} from '@wordpress/block-editor';
 import {getSubmenuStyle} from './getSubmenuStyle';
 import {makeHierarchical} from './makeHierarchical';
 import {getHeadingsFromBlocks} from './getHeadingsFromBlocks';
@@ -10,7 +10,6 @@ import {useSelect} from '@wordpress/data';
 import {deepClone} from '../../functions/deepClone';
 
 const {__} = wp.i18n;
-const {RichText} = wp.blockEditor;
 
 const renderEdit = (attributes, setAttributes) => {
   function addLevel() {

@@ -1,6 +1,6 @@
 import {Fragment, useCallback} from '@wordpress/element';
 import {PanelBody, TextControl} from '@wordpress/components';
-import {MediaPlaceholder, InspectorControls} from '@wordpress/block-editor';
+import {MediaPlaceholder, InspectorControls, RichText} from '@wordpress/block-editor';
 import {debounce} from 'lodash';
 
 import {MediaElementVideo} from './MediaElementVideo';
@@ -10,7 +10,6 @@ import {lacksAttributes} from './MediaBlock';
 const {__} = wp.i18n;
 const {apiFetch} = wp;
 const {addQueryArgs} = wp.url;
-const {RichText} = wp.blockEditor;
 
 const MediaInspectorOptions = ({attributes, setAttributes}) => {
   const {media_url} = attributes;

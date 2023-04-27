@@ -1,6 +1,5 @@
 import {Fragment} from '@wordpress/element';
 import {useSelect} from '@wordpress/data';
-import {InspectorControls} from '@wordpress/block-editor';
 import {
   SelectControl,
   PanelBody,
@@ -10,6 +9,13 @@ import {
   Button,
   ToggleControl,
 } from '@wordpress/components';
+import {
+  RichText,
+  BlockControls,
+  MediaUpload,
+  MediaUploadCheck,
+  InspectorControls,
+} from '@wordpress/block-editor';
 import {URLInput} from '../../components/URLInput/URLInput';
 import {TakeActionBoxoutFrontend} from './TakeActionBoxoutFrontend';
 import {ImagePlaceholder} from './ImagePlaceholder';
@@ -19,13 +25,6 @@ const {__} = wp.i18n;
 
 // Planet 4 settings (Planet 4 >> Defaults content >> Take Action Covers default button text).
 const DEFAULT_BUTTON_TEXT = window.p4bk_vars.take_action_covers_button_text || __('Take action', 'planet4-blocks');
-
-const {
-  RichText,
-  BlockControls,
-  MediaUpload,
-  MediaUploadCheck,
-} = wp.blockEditor;
 
 export const TakeActionBoxoutEditor = ({
   attributes,

@@ -5,7 +5,7 @@ import {
   PanelBody,
   Tooltip,
 } from '@wordpress/components';
-import {InspectorControls} from '@wordpress/block-editor';
+import {InspectorControls, RichText} from '@wordpress/block-editor';
 import withCharacterCounter from '../../components/withCharacterCounter/withCharacterCounter';
 import TagSelector from '../../components/TagSelector/TagSelector';
 import {PostSelector} from '../../components/PostSelector/PostSelector';
@@ -15,7 +15,6 @@ import {ArticlesList} from './ArticlesList';
 import {useArticlesFetch} from './useArticlesFetch';
 import {useSelect} from '@wordpress/data';
 
-const {RichText} = wp.blockEditor;
 const {__} = wp.i18n;
 
 const TextControl = withCharacterCounter(BaseTextControl);

@@ -4,6 +4,7 @@ import {
   RadioControl,
   SelectControl,
   PanelBody,
+  RichText,
 } from '@wordpress/components';
 import {SocialMediaEmbed} from './SocialMediaEmbed';
 import {URLInput} from '../../components/URLInput/URLInput';
@@ -17,7 +18,6 @@ import {
   ALLOWED_OEMBED_PROVIDERS,
 } from './SocialMediaConstants.js';
 
-const {RichText} = wp.blockEditor;
 const {__} = wp.i18n;
 const {apiFetch} = wp;
 const {addQueryArgs} = wp.url;

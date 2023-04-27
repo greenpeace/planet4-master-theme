@@ -1,9 +1,6 @@
 import {Component, Fragment} from '@wordpress/element';
 import {Preview} from '../../components/Preview';
-import {
-  MediaUpload,
-  MediaUploadCheck,
-} from '@wordpress/editor';
+import {MediaUpload, MediaUploadCheck} from '@wordpress/block-editor';
 
 import {
   TextControl,
