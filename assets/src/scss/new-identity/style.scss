@@ -63,7 +63,7 @@
   --table-odd-row-green--background: var(--beige-200);
   --table-even-row-green--background: var(--beige-100);
   --table-footer-green--background: var(--table-footer-new--background);
-  --table-header-blue--background: #167f82;
+  --table-header-blue--background: var(--blue-green-800);
   --table-odd-row-blue--background: var(--beige-200);
   --table-even-row-blue--background: var(--beige-100);
   --table-footer-blue--background: var(--table-footer-new--background);
@@ -171,7 +171,7 @@ $palette: (
   "action-yellow": var(--p4-action-yellow-500),
   "dark-green-800": var(--p4-dark-green-800),
   "beige-100": var(--beige-100),
-  "blue-green-800": #167f82,
+  "blue-green-800": var(--blue-green-800),
   "red-500": var(--red-500),
   "white": var(--white),
   "grey-100": var(--grey-100),
