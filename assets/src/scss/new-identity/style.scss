@@ -101,6 +101,10 @@
 
   // TODO: Review these fallback variables after we'll merge the new identity colors
   --comments-block--comment-respond--background: var(--color-background-comments_block);
+  --campaign-covers-block--covers--thumbnail-large--yellow-cta--color: var(--p4-action-yellow-500);
+  --split-two-column-item-tag--color: var(--p4-action-yellow-500);
+  --split-two-column-item-tag--hover--color: var(--p4-action-yellow-500);
+  --split-two-column-item-tag--visited--color: var(--p4-action-yellow-500);
 }
 
 #nav-mobile-menu {
