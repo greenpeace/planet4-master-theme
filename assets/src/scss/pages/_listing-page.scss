@@ -27,12 +27,6 @@
       height: 190px;
       object-fit: cover;
       object-position: 50% 50%;
-      margin-right: $sp-2;
-
-      html[dir="rtl"] & {
-        margin-right: 0;
-        margin-left: $sp-2;
-      }
 
       @include medium-and-up {
         height: 200px;
@@ -191,7 +185,7 @@
   &.wp-block-query--list {
     .query-list-item-body {
       @include medium-and-up {
-        padding: 0 0 0 $sp-2x;
+        padding-inline-start: $sp-2x;
       }
     }
   }
