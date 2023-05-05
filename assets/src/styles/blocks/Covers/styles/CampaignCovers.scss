@@ -82,7 +82,7 @@
 
         &:hover {
           &:before {
-            opacity: 0.1;
+            opacity: 0.3;
           }
         }
       }
@@ -94,10 +94,12 @@
       }
 
       .yellow-cta {
+        _-- {
+          color: $yellow;
+        }
         text-align: center;
         font-size: $font-size-md;
         font-family: var(--headings--font-family);
-        color: $yellow;
         font-weight: 500;
         position: absolute;
         left: 0;
@@ -105,7 +107,6 @@
         width: 100%;
         z-index: 2;
         margin-bottom: $sp-2;
-        text-shadow: 1px 1px $grey-80;
 
         @include medium-and-up {
           margin-bottom: 20px;

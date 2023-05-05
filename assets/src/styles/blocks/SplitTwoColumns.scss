@@ -63,7 +63,6 @@
 
   a {
     color: $white;
-    text-shadow: 1px 1px 3px $grey-80;
   }
 
   @include small-and-up {
@@ -85,10 +84,12 @@
 }
 
 .split-two-column-item-tag {
+  _-- {
+    color: $yellow;
+  }
   font-family: var(--headings--font-family);
   font-size: $font-size-xl;
   font-weight: 700;
-  color: $yellow;
   display: block;
   margin-bottom: .75em;
   white-space: nowrap;
@@ -97,11 +98,12 @@
 
   &:hover {
     color: $yellow;
-    text-shadow: 1px 1px 3px $grey-80;
   }
 
   &:visited {
-    color: $yellow;
+    _-- {
+      color: $yellow;
+    }
   }
 
   @include medium-and-up {
@@ -131,7 +133,6 @@
   @include medium-and-up {
     font-size: $font-size-xs;
     font-weight: 400;
-    text-shadow: 1px 1px 1px $grey-80;
     line-height: 1.6;
     margin-bottom: 18px;
   }
