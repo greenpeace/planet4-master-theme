@@ -3,7 +3,7 @@
 .wp-block-file a.wp-block-file__button,
 .gfield button:not(.add_list_item):not(.delete_list_item):not([id^="mceu"]),
 .gform_button_select_files,
-.gform_footer input[type="submit"] {
+[id^="gform_submit_button"] {
   --button-- {
     font-family: var(--headings--font-family);
     text-align: center;
@@ -80,7 +80,7 @@
 
 .btn-primary,
 .wp-block-button.is-style-cta a,
-.gform_footer input[type="submit"] {
+[id^="gform_submit_button"] {
   --button-primary-- {
     background: $orange;
     color: $white;
