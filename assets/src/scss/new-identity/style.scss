@@ -1,13 +1,25 @@
 @import "../base/tokens";
+@import "../base/variables";
+@import "../base/mixins";
 
 @mixin shared-link-styles {
+  --link--height: 26px;
+  --transition--duration: 0.3s;
+
   border-bottom: 2px solid var(--gp-green-500);
-  transition: 0.3s cubic-bezier(0.5, 0, 0, 1);
+  transition: var(--transition--duration) cubic-bezier(0.5, 0, 0, 1);
+
+  &:hover {
+    box-shadow: inset 0 calc(var(--link--height) * -1) rgba($gp-green-500, .15);
+  }
 
   &:hover,
-  &:focus {
-    box-shadow: inset 0 calc(-22px) var(--gp-green-100);
+  &:active {
     text-decoration: none !important;
+  }
+
+  &:focus {
+    --link--focus--border-radius: 0;
   }
 }
 
@@ -156,11 +168,26 @@ table.spreadsheet-table.is-color-gp-green {
 
 // Standalone links
 .standalone-link,
-.comment-reply-link {
+.comment-reply-link,
+.split-two-column-item-link {
   @include shared-link-styles;
 
+  display: inline-block;
   width: fit-content;
+  height: var(--link--height);
   font-weight: 700 !important;
+}
+
+.split-two-column-item-link {
+  --link--color: var(--white);
+  --link--hover--color: var(--white);
+
+  text-shadow: none !important;
+
+  @include x-large-and-up {
+    --transition--duration: 0.4s;
+    --link--height: 34px;
+  }
 }
 
 // Colors for transparent buttons.
