@@ -97,7 +97,9 @@
   text-overflow: ellipsis;
 
   &:hover {
-    color: $yellow;
+    _-- {
+      color: $yellow;
+    }
   }
 
   &:visited {
