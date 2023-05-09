@@ -7,8 +7,10 @@
 @include comment-level;
 
 .single-comment {
+  _-- {
+    font-family: var(--headings--font-family);
+  }
   padding-bottom: 24px;
-  font-family: var(--headings--font-family);
 
   &:not(:first-of-type) {
     border-top: 1px solid transparentize($grey-20, 0.5);

@@ -17,10 +17,12 @@
 
     & ~ .custom-control-description,
     & ~ label {
+      --label-- {
+        font-family: var(--headings--font-family);
+        font-size: $font-size-xxxs;
+      }
       position: relative;
       cursor: pointer;
-      font-family: var(--headings--font-family);
-      font-size: $font-size-xxxs;
       line-height: 1rem;
       display: inline-block;
       padding-inline-start: 36px;
@@ -148,8 +150,10 @@
 .gfield input:not([type="file"]),
 .gfield textarea,
 .ginput_container_multiselect select {
+  --form-elements-- {
+    font-family: var(--headings--font-family);
+  }
   border-radius: 4px;
-  font-family: var(--headings--font-family);
   background-color: $white;
   border: 1px solid $grey-20;
   color: var(--body--color);
@@ -212,15 +216,17 @@ textarea.form-control {
     position: relative;
 
     label {
+      --animated-label-- {
+        font-size: 11px;
+        font-family: var(--headings--font-family);
+        font-weight: 500;
+      }
       pointer-events: none;
       position: absolute;
       left: 0;
       top: 16px;
-      font-weight: 500;
       color: $grey-40;
       padding-inline-start: 16px;
-      font-size: 11px;
-      font-family: var(--headings--font-family);
       opacity: 0;
       transition: all .3s ease;
       margin-bottom: 0;
@@ -254,17 +260,19 @@ select {
   }
 
   ~ .invalid-feedback {
+    --invalid-feedback-- {
+      font-family: var(--headings--font-family);
+      font-size: 12px;
+      font-weight: 500;
+    }
     background: $dark-orange;
     color: white;
     border-radius: 4px;
-    font-size: 12px;
-    font-weight: 500;
     padding: 6px 12px;
     width: fit-content;
     position: relative;
     pointer-events: none;
     margin-top: 6px;
-    font-family: var(--headings--font-family);
 
     &:after {
       bottom: 100%;

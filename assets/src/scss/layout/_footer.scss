@@ -61,7 +61,9 @@
   }
 
   li {
-    font-size: $font-size-sm;
+    _-- {
+      font-size: $font-size-sm;
+    }
 
     &:not(:last-child) {
       margin-bottom: 24px;
@@ -98,8 +100,10 @@
   }
 
   span {
-    font-size: $font-size-xxxs;
-    line-height: 1.4;
+    _-- {
+      font-size: $font-size-xxxs;
+      line-height: 1.4;
+    }
     word-break: keep-all;
     width: auto;
     margin-bottom: 12px;

@@ -25,12 +25,14 @@
 }
 
 .single-post-meta {
+  _-- {
+    font-size: 14px;
+    font-family: var(--headings--font-family);
+    line-height: 24px;
+  }
   color: $grey-40;
-  font-size: 14px;
-  font-family: var(--headings--font-family);
   border-bottom: 1px solid transparentize($grey-20, 0.5);
   padding-bottom: 16px;
-  line-height: 24px;
   margin-bottom: 16px;
   display: flex;
   gap: 8px;
@@ -58,9 +60,11 @@
 }
 
 .single-post-author {
+  _-- {
+    font-weight: 500;
+  }
   display: block;
   margin: 0;
-  font-weight: 500;
 }
 
 .single-post-time,

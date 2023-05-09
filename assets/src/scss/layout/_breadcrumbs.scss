@@ -1,7 +1,9 @@
 .top-page-tags {
-  font-size: 16px;
+  _-- {
+    font-family: var(--headings--font-family);
+    font-size: 16px;
+  }
   margin-bottom: $sp-1;
-  font-family: var(--headings--font-family);
 
   .tag-wrap {
     display: inline;

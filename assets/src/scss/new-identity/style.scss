@@ -1,6 +1,7 @@
 @import "../base/tokens";
 @import "../base/variables";
 @import "../base/mixins";
+@import "./fonts";
 
 @mixin shared-link-styles {
   --link--height: 26px;
@@ -24,6 +25,7 @@
 }
 
 :root {
+  // Colors
   --body--color: var(--grey-900);
   --site-footer--background: var(--p4-dark-green-800);
   --countries-list--background: var(--p4-dark-green-900);
@@ -118,11 +120,45 @@
   --search-activefilter-tag--border-radius: 4px;
   --search-results-alternative-label--color: var(--white);
   --search-results-alternative-label--background: var(--blue-green-800);
-  --search-results-alternative-label--font-weight: normal;
   --search-results-alternative-label--border-radius: 4px;
-
-  // TODO: Review these fallback variables after we'll merge the new identity colors
   --comments-block--comment-respond--background: var(--color-background-comments_block);
+
+  // Typography
+  --animated-label--font-family: var(--font-family-paragraph-secondary-regular);
+  --animated-label--font-weight: var(--font-weight-regular);
+  --animated-label--font-size: var(--font-size-xs--font-family-source-sans-3);
+  --author-block-info-name--font-size: var(--font-size-m--font-family-source-sans-3);
+  --author-block-info-name--font-weight: var(--font-weight-semibold);
+  --boxout--boxout-excerpt--medium-and-up--font-size: var(--font-size-s--font-family-source-sans-3);
+  --boxout--boxout-excerpt--medium-and-up--line-height: var(--line-height-s--font-family-source-sans-3);
+  --cookie-notice--font-family: var(--font-family-paragraph-secondary-regular);
+  --cookies-settings--p--font-size: var(--font-size-xs--font-family-source-sans-3);
+  --cookies-settings--p--large-and-up--font-size: var(--font-size-xs--font-family-source-sans-3);
+  --cookies-settings--p--line-height: var(--line-height-xs--font-family-source-sans-3);
+  --cover-card-excerpt--font-family: var(--font-family-paragraph-secondary-regular);
+  --cover-card-excerpt--font-size: var(--font-size-s--font-family-source-sans-3);
+  --cover-card-excerpt--line-height: var(--line-height-s--font-family-source-sans-3);
+  --footer-menu--li--font-size: var(--font-size-m--font-family-source-sans-3);
+  --form-elements--font-family: var(--font-family-paragraph-secondary-regular);
+  --gdpr-comments-compliance--gdpr-comments-label--font-size: var(--font-size-m--font-family-source-sans-3);
+  --gform_wrapper--font-family: var(--font-family-paragraph-secondary-regular);
+  --gfield-validation-message--font-size: var(--font-size-xs--font-family-source-sans-3);
+  --gfield-validation-message--font-weight: var(--font-weight-semibold);
+  --label--font-family: var(--font-family-paragraph-secondary-regular);
+  --label--font-size: var(--font-size-m--font-family-source-sans-3);
+  --search-results-alternative-label--font-weight: var(--font-weight-regular);
+  --single-comment--font-family: var(--font-family-paragraph-secondary-regular);
+  --single-post-meta--font-family: var(--font-family-source-sans-3-semi-bold);
+  --single-post-meta--font-size: var(--font-size-s--font-family-source-sans-3);
+  --single-post-meta--line-height: var(--line-height-m--font-family-source-sans-3);
+  --single-post-author--font-weight: var(--font-weight-semibold);
+  --site-footer--font-family: var(--font-family-paragraph-secondary-regular);
+  --site-footer--copyright--span--font-size: var(--font-size-xs--font-family-source-sans-3);
+  --site-footer--copyright--span--line-height: var(--line-height-xs--font-family-source-sans-3);
+  --top-page-tags--font-family: var(--font-family-paragraph-secondary-semibold);
+  --top-page-tags--font-size: var(--font-size-m--font-family-source-sans-3);
+  --top-navigation--font-family: var(--font-family-paragraph-secondary-regular);
+  --ui-datepicker--font-family: var(--font-family-paragraph-secondary-regular);
 }
 
 #nav-mobile-menu {
@@ -187,6 +223,19 @@ table.spreadsheet-table.is-color-gp-green {
     @include shared-link-styles;
     transition-timing-function: cubic-bezier(0.5, 0, 0, 0.5);
   }
+}
+
+.cookies-settings-header h4 {
+  font-family: var(--font-family-paragraph-secondary-regular);
+}
+
+// Comments block
+.single-comment-meta {
+  font-family: var(--headings--font-family);
+}
+
+#gdpr-comments-compliance #gdpr-comments-label {
+  line-height: var(--line-height-m--font-family-source-sans-3);
 }
 
 // Standalone links
@@ -264,4 +313,59 @@ $palette: (
   &:visited {
     color: var(--gp-green-800);
   }
+}
+
+// Gravity Forms
+.gfield .gchoice {
+  font-family: var(--font-family-paragraph-secondary-regular);
+}
+
+.gform_description {
+  font-family: var(--font-family-paragraph-secondary-regular);
+}
+
+// Overridden from /plugins/gravityforms/assets/css/dist/theme.min.css
+.gform_wrapper.gravity-theme input[type]:not(input[type="submit"]),
+.gform_wrapper.gravity-theme textarea,
+.gform_wrapper.gravity-theme select {
+  font-size: var(--font-size-m--font-family-source-sans-3) !important;
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-m--font-family-source-sans-3);
+}
+
+// Take action boxout
+.boxout .boxout-excerpt {
+  font-family: var(--font-family-paragraph-secondary-regular);
+}
+
+// Author block
+.author-block-info-name {
+  font-family: var(--font-family-paragraph-secondary-semibold);
+}
+
+.author-block-info div[itemprop="description"],
+.author-block-description-button {
+  font-family: var(--font-family-paragraph-secondary-regular);
+  font-size: var(--font-size-m--font-family-source-sans-3);
+  font-weight: var(--font-weight-regular);
+}
+
+// Footer
+.footer-menu li {
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-m--font-family-source-sans-3);
+
+  a {
+    font-family: var(--font-family-paragraph-secondary-semibold);
+  }
+}
+
+// Post page
+.single-post-author {
+  font-family: var(--font-family-paragraph-secondary-semibold);
+}
+
+.top-page-tags {
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-m--font-family-source-sans-3);
 }
