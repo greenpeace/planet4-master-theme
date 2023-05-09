@@ -50,8 +50,10 @@
 }
 
 .author-block-info-name {
-  font-size: 1.0625rem;
-  font-weight: bold;
+  _-- {
+    font-size: 1.0625rem;
+    font-weight: bold;
+  }
   margin: 16px 0;
   text-align: center;
 }

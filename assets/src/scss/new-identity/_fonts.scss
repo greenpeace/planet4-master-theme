@@ -1,0 +1,15 @@
+$bucket: "https://www.greenpeace.org/static/planet4-assets/";
+
+$fonts: (
+  #{$font-family-source-sans-3},
+  #{$font-family-source-sans-3-bold},
+  #{$font-family-source-sans-3-semibold},
+);
+
+@each $font in $fonts {
+  @font-face {
+    font-family: #{$font};
+    font-display: swap;
+    src: url(#{$bucket} + #{$font} + ".woff2") format("woff2");
+  }
+}

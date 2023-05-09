@@ -5,7 +5,9 @@
 @import "../base/typography";
 
 .gform_wrapper {
-  font-family: var(--headings--font-family);
+  _-- {
+    font-family: var(--headings--font-family);
+  }
 
   &.gform_validation_error .gform_validation_errors {
     color: $dark-orange;
@@ -97,11 +99,13 @@
     }
 
     .validation_message.gfield_validation_message {
+      --gfield-validation-message-- {
+        font-size: $font-size-xxxs;
+        font-weight: 500;
+      }
       background: $dark-orange;
       color: $white;
       border-radius: 4px;
-      font-size: $font-size-xxxs;
-      font-weight: 500;
       border-color: $dark-orange;
       padding: $sp-1 $sp-2;
       width: fit-content;
@@ -130,7 +134,9 @@
 }
 
 .ui-datepicker {
-  font-family: var(--headings--font-family);
+  _-- {
+    font-family: var(--headings--font-family);
+  }
 }
 
 .gform_p4_confirmation {

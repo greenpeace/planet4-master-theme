@@ -2,8 +2,10 @@
   position: relative;
 
   p {
-    font-size: 12px;
-    line-height: 1.5;
+    _-- {
+      font-size: 12px;
+      line-height: 1.5;
+    }
   }
 
   @include medium-and-up {
@@ -12,7 +14,9 @@
 
   @include large-and-up {
     p {
-      font-size: 14px;
+      _-- {
+        font-size: 14px;
+      }
     }
   }
 }
