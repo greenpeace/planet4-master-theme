@@ -30,9 +30,17 @@
                     <div class="search-bar">
                         <form id="search_form_inner" role="search" class="form" action="{{ data_nav_bar.home_url }}">
                             <div class="row">
-                                <div class="col-md-9">
-                                    <input type="search" class="form-control mb-2 mb-sm-0" placeholder="{{ search_label }}" value="{{ search_query|e('wp_kses_post')|raw }}" name="s" aria-label="Search">
+                                <div class="col-md-9 search-input-container">
+                                    <input type="search" id="search-page-input" class="form-control mb-2 mb-sm-0" placeholder="{{ search_label }}" value="{{ search_query|e('wp_kses_post')|raw }}" name="s" aria-label="Search">
                                     <input type="hidden" name="orderby" value="{{ selected_sort ?? default_sort }}" />
+                                    <button
+                                        class="clear-search"
+                                        aria-label="{{ __( 'Clear search', 'planet4-master-theme' ) }}"
+                                        type="button"
+                                        onclick="document.getElementById('search-page-input').value=null;"
+                                    >
+                                        <span class="visually-hidden">{{ __( 'Clear search', 'planet4-master-theme' ) }}</span>
+                                    </button>
                                 </div>
                                 <div class="col-md-3">
                                     <button
