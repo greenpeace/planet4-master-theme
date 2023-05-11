@@ -24,9 +24,11 @@
 
   ul {
     li {
+      --search-result-- {
+        border-bottom: 1px solid $grey-20;
+      }
       padding: 0 24px 32px 24px;
       margin: 0 auto 24px;
-      border-bottom: 1px solid $grey-20;
       position: relative;
       align-items: flex-start;
 
@@ -176,7 +178,9 @@
 }
 
 .search-result-item-info {
-  color: $grey-60;
+  _-- {
+    color: $grey-60;
+  }
   line-height: normal;
   margin-bottom: 10px;
   font-size: $font-size-xxs;

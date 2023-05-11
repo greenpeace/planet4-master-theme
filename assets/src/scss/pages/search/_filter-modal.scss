@@ -20,8 +20,12 @@
     }
   }
 
-  .cancelbtn {
+  .cancelbtn,
+  .btn-secondary {
     min-width: 45%;
+  }
+
+  .cancelbtn {
     border-color: $orange;
     color: $orange;
     padding-left: 0;
@@ -41,21 +45,23 @@
   }
 
   .closebtn {
+    _-- {
+      border: 2px solid $grey-40;
+      background-color: buttonface;
+
+      &:hover {
+        background-color: $orange;
+        border-color: $orange;
+      }
+    }
     margin-top: -5px;
     border-radius: 50%;
-    border: 2px solid $grey-40;
-    padding: 8px 14px;
+    padding: 8px 12px;
     margin-right: 0;
     transition: color, border-color, background-color 150ms linear;
 
-    @include small-and-up {
-      padding: -15px;
-    }
-
-    &:hover {
-      background-color: $orange;
-      border-color: $orange;
-      color: $white;
+    .icon {
+      top: 0;
     }
 
     .icon-cross {

@@ -62,7 +62,7 @@
                 <div class="col-lg-4">
                     <div class="filter-sidebar">
                         <div class="filter-button d-lg-none">
-                            <button class="btn btn-filter btn-primary {{ disabled }}" data-bs-toggle="modal" data-bs-target="#filtermodal">
+                            <button class="btn btn-filter {{ is_new_identity ? 'btn-secondary' : 'btn-primary' }} {{ disabled }}" data-bs-toggle="modal" data-bs-target="#filtermodal">
                                 {{ 'filter'|svgicon }}
                                  {{ __( 'Filters', 'planet4-master-theme' ) }}
                              </button>
@@ -175,7 +175,7 @@
                                             </div>
                                         </div>
                                         <div class="btnact">
-                                            <button type="button" class="btn btn-action btn-small cancelbtn" data-bs-dismiss="modal">{{ __( 'Cancel', 'planet4-master-theme' ) }}</button>
+                                            <button type="button" class="btn btn-small {{ is_new_identity ? 'btn-secondary' : 'btn-action cancelbtn' }}" data-bs-dismiss="modal">{{ __( 'Cancel', 'planet4-master-theme' ) }}</button>
                                             <button type="button" class="btn btn-primary btn-small applybtn">{{ __( 'Apply filters', 'planet4-master-theme' ) }}</button>
                                         </div>
                                     </div>

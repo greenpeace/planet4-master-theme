@@ -9,12 +9,17 @@
 
   .filteritem {
     a {
+      --search--filteritem-- {
+        border-color: $dark-blue;
+        text-transform: uppercase;
+        border-bottom-width: 4px;
+      }
+      border-style: solid;
       display: block;
-      border: 1px solid $dark-blue;
       border-top: 0;
-      border-bottom-width: 4px;
+      border-left-width: 1px;
+      border-right-width: 1px;
       padding: 11px $sp-4;
-      text-transform: uppercase;
       text-decoration: none;
       color: var(--body--color);
       font-weight: bold;
@@ -125,6 +130,7 @@
       svg {
         margin-right: 4px;
         vertical-align: baseline;
+        transition: none;
       }
 
       .icon-cross {

@@ -1,7 +1,9 @@
 .search-bar {
+  _-- {
+    border: 1px solid $dark-blue;
+  }
   width: 100%;
   background: transparentize($white, .7);
-  border: 1px solid $dark-blue;
   padding: 24px 15px;
   border-radius: 4px;
 
