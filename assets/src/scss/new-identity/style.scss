@@ -156,7 +156,8 @@ table.spreadsheet-table.is-color-gp-green {
 .post-content,
 .page-content {
   p > a,
-  li > a {
+  > ul li a,
+  > ol li a {
     @include shared-link-styles;
   }
 }
