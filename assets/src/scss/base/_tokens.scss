@@ -1,6 +1,40 @@
+/* This is an auto-generated file. */
+
 /* CSS Variables */
 :root {
   /* Primitives */
+  --font-family-greenpeace-sans: "GreenpeaceSans";
+  --font-family-source-sans-3: "SourceSans3";
+  --font-family-source-serif-pro: "SourceSerifPro";
+  --font-weight-bold: "bold";
+  --font-weight-regular: "regular";
+  --font-weight-semibold: "semibold";
+  --font-size-xs--font-family-greenpeace-sans: 1rem;
+  --font-size-s--font-family-greenpeace-sans: 1.125rem;
+  --font-size-m--font-family-greenpeace-sans: 1.25rem;
+  --font-size-l--font-family-greenpeace-sans: 1.375rem;
+  --font-size-xl--font-family-greenpeace-sans: 1.75rem;
+  --font-size-2xl--font-family-greenpeace-sans: 2.5rem;
+  --font-size-3xl--font-family-greenpeace-sans: 3rem;
+  --font-size-4xl--font-family-greenpeace-sans: 3.5rem;
+  --line-height-xs--font-family-greenpeace-sans: 20px;
+  --line-height-s--font-family-greenpeace-sans: 24px;
+  --line-height-m--font-family-greenpeace-sans: 24px;
+  --line-height-l--font-family-greenpeace-sans: 28px;
+  --line-height-xl--font-family-greenpeace-sans: 36px;
+  --line-height-2xl--font-family-greenpeace-sans: 48px;
+  --line-height-3xl--font-family-greenpeace-sans: 60px;
+  --line-height-4xl--font-family-greenpeace-sans: 68px;
+  --font-size-xs--font-family-source-sans-3: 0.813rem;
+  --font-size-s--font-family-source-sans-3: 0.938rem;
+  --font-size-m--font-family-source-sans-3: 1.063rem;
+  --line-height-xs--font-family-source-sans-3: 16px;
+  --line-height-s--font-family-source-sans-3: 20px;
+  --line-height-m--font-family-source-sans-3: 24px;
+  --font-size-m--font-family-source-serif-pro: 1.031rem;
+  --font-size-xl--font-family-source-serif-pro: 1.281rem;
+  --line-height-m--font-family-source-serif-pro: 24px;
+  --line-height-xl--font-family-source-serif-pro: 32px;
   --beige-100: #f6f4ef;
   --beige-200: #eceae4;
   --beige-300: #dad8d1;
@@ -70,6 +104,38 @@
 
 /* SASS Variables */
 /* Primitives */
+$font-family-greenpeace-sans: "GreenpeaceSans";
+$font-family-source-sans-3: "SourceSans3";
+$font-family-source-serif-pro: "SourceSerifPro";
+$font-weight-bold: "bold";
+$font-weight-regular: "regular";
+$font-weight-semibold: "semibold";
+$font-size-xs--font-family-greenpeace-sans: 1rem;
+$font-size-s--font-family-greenpeace-sans: 1.125rem;
+$font-size-m--font-family-greenpeace-sans: 1.25rem;
+$font-size-l--font-family-greenpeace-sans: 1.375rem;
+$font-size-xl--font-family-greenpeace-sans: 1.75rem;
+$font-size-2xl--font-family-greenpeace-sans: 2.5rem;
+$font-size-3xl--font-family-greenpeace-sans: 3rem;
+$font-size-4xl--font-family-greenpeace-sans: 3.5rem;
+$line-height-xs--font-family-greenpeace-sans: 20px;
+$line-height-s--font-family-greenpeace-sans: 24px;
+$line-height-m--font-family-greenpeace-sans: 24px;
+$line-height-l--font-family-greenpeace-sans: 28px;
+$line-height-xl--font-family-greenpeace-sans: 36px;
+$line-height-2xl--font-family-greenpeace-sans: 48px;
+$line-height-3xl--font-family-greenpeace-sans: 60px;
+$line-height-4xl--font-family-greenpeace-sans: 68px;
+$font-size-xs--font-family-source-sans-3: 0.813rem;
+$font-size-s--font-family-source-sans-3: 0.938rem;
+$font-size-m--font-family-source-sans-3: 1.063rem;
+$line-height-xs--font-family-source-sans-3: 16px;
+$line-height-s--font-family-source-sans-3: 20px;
+$line-height-m--font-family-source-sans-3: 24px;
+$font-size-m--font-family-source-serif-pro: 1.031rem;
+$font-size-xl--font-family-source-serif-pro: 1.281rem;
+$line-height-m--font-family-source-serif-pro: 24px;
+$line-height-xl--font-family-source-serif-pro: 32px;
 $beige-100: #f6f4ef;
 $beige-200: #eceae4;
 $beige-300: #dad8d1;
