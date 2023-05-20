@@ -4,7 +4,7 @@ msgstr ""
 "&&(n%100<10||n%100 >= 20)? 1 : 2);\n"
 "Project-Id-Version: Planet4 - Blocks\n"
 "POT-Creation-Date: 2020-09-09 11:52+0000\n"
-"PO-Revision-Date: 2023-05-20 14:30+0000\n"
+"PO-Revision-Date: 2023-05-20 14:32+0000\n"
 "Last-Translator: Nikos Roussos\n"
 "Language-Team: Polish\n"
 "MIME-Version: 1.0\n"
@@ -59,7 +59,7 @@ msgstr "Wesprzyj"
 
 #: classes/blocks/class-base-block.php:67
 msgid "Error"
-msgstr ""
+msgstr "Błąd"
 
 #: classes/patterns/class-getinformed.php:41
 msgid "Explore by topic"
@@ -72,11 +72,11 @@ msgstr ""
 
 #: classes/patterns/class-deepdivetopic.php:69
 msgid "Explore other topics"
-msgstr ""
+msgstr "Sprawdź inne tematy"
 
 #: classes/patterns/class-highleveltopic.php:70
 msgid "Featured action title"
-msgstr ""
+msgstr "Tytuł głównego artykułu"
 
 #: classes/blocks/class-splittwocolumns.php:156
 #: assets/src/blocks/Splittwocolumns/SplittwocolumnsSettings.js:80
@@ -85,7 +85,7 @@ msgstr "Zaangażuj się"
 
 #. Author of the plugin
 msgid "Greenpeace International"
-msgstr ""
+msgstr "Greenpeace International"
 
 #: classes/patterns/class-highleveltopic.php:74
 #: classes/patterns/class-deepdivetopic.php:60
@@ -95,11 +95,11 @@ msgstr "Jak możesz pomóc?"
 
 #. URI of the plugin
 msgid "http://github.com/greenpeace/planet4-plugin-gutenberg-blocks"
-msgstr ""
+msgstr "http://github.com/greenpeace/planet4-plugin-gutenberg-blocks"
 
 #. Author URI of the plugin
 msgid "http://www.greenpeace.org/"
-msgstr ""
+msgstr "https://www.greenpeace.org/"
 
 #: classes/patterns/class-getinformed.php:50
 msgid "Issues we work on"
@@ -111,13 +111,13 @@ msgstr ""
 
 #: classes/patterns/class-highleveltopic.php:81
 msgid "Latest investigations"
-msgstr ""
+msgstr "Najnowsze śledztwa"
 
 #: classes/patterns/class-highleveltopic.php:77
 #: classes/patterns/class-deepdivetopic.php:63
 #: classes/patterns/class-getinformed.php:56
 msgid "Latest news & stories"
-msgstr ""
+msgstr "Najnowsze wiadomości"
 
 #: classes/blocks/class-splittwocolumns.php:144
 #: assets/src/blocks/Splittwocolumns/SplittwocolumnsSettings.js:63
@@ -135,7 +135,7 @@ msgstr "Pokaż więcej"
 
 #: assets/src/blocks/Spreadsheet/SpreadsheetFrontend.js:207
 msgid "Loading spreadsheet data..."
-msgstr ""
+msgstr "Ładowanie arkusza danych..."
 
 #: planet4-gutenberg-blocks.php:467
 #: assets/src/blocks/Covers/CoversCarouselLayout.js:48
@@ -150,7 +150,7 @@ msgstr "Brak wyników pasujących do zapytania"
 
 #: classes/patterns/class-getinformed.php:54
 msgid "Our latest actions around the world"
-msgstr ""
+msgstr "Nasze ostatnie działania na świecie"
 
 #: classes/patterns/class-getinformed.php:51
 msgid "Our recent victories"
@@ -161,7 +161,7 @@ msgstr "Nasze najnowsze zwycięstwa"
 #: classes/patterns/class-deepdivetopic.php:42
 #: classes/patterns/class-campaign.php:43
 msgid "Page header title"
-msgstr ""
+msgstr "Tytuł nagłowka strony"
 
 #. Name of the plugin
 msgid "Planet4 - Gutenberg Blocks"
