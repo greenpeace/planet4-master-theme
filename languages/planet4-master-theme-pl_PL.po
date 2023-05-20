@@ -375,10 +375,10 @@ msgstr "Udostępnij przez"
 
 #. %s = number of results per page.
 #: src/Search.php:999
-#, fuzzy, php-format
+#, php-format
 #| msgid "SHOW %s MORE RESULTS"
 msgid "Show %s more results"
-msgstr "POKAŻ %s WYNIKÓW"
+msgstr "Pokaż kolejne %s wyników"
 
 #: templates/blocks/author_profile.twig:45
 msgid "Show less"
