@@ -314,7 +314,7 @@ msgstr "Opublikuj komentarz"
 
 #: templates/search.twig:111 templates/search.twig:226
 msgid "Post Type"
-msgstr ""
+msgstr "Typ wpisu"
 
 #: templates/author.twig:22
 msgid "Posts by "
