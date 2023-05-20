@@ -4,7 +4,7 @@ msgstr ""
 "&&(n%100<10||n%100 >= 20)? 1 : 2);\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2023-05-20 14:20+0000\n"
+"PO-Revision-Date: 2023-05-20 14:21+0000\n"
 "Language-Team: Polish\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -82,7 +82,7 @@ msgstr "Działanie"
 
 #: templates/search.twig:255
 msgid "Action Type"
-msgstr ""
+msgstr "Rodzaj działania"
 
 #: templates/search.twig:181
 msgid "ACTIVE FILTERS"
@@ -90,7 +90,7 @@ msgstr "AKTYWNE FILTRY"
 
 #: templates/cookies/cookies_settings.twig:55
 msgid "Allow all"
-msgstr ""
+msgstr "Zezwól na wszystko"
 
 #: templates/cookies/cookies_settings.twig:16
 msgid "Always enabled"
@@ -140,7 +140,7 @@ msgstr "Wyczyść wszystko"
 
 #: templates/search-form.twig:32
 msgid "Clear search"
-msgstr ""
+msgstr "Wyczyść wyszukiwanie"
 
 #: templates/burger-menu.twig:10
 msgid "Close navigation mobile menu"
@@ -206,7 +206,7 @@ msgstr "Filtry"
 
 #: templates/footer_social_media.twig:2
 msgid "Follow us"
-msgstr ""
+msgstr "Obserwuj nas"
 
 #. Author of the theme
 msgid "Greenpeace International"
