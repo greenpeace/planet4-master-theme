@@ -482,17 +482,6 @@
           "locale": ["ro-RO"]
         }
       ]
-    },
-    {
-      "name": "Russia",
-      "codes": ["RU"],
-      "lang": [
-        {
-          "name": "Русский",
-          "url": "https://www.greenpeace.ru",
-          "locale": ["ru-RU"]
-        }
-      ]
     }
   ],
   "S": [
