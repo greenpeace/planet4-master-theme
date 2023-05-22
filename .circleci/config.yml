@@ -345,7 +345,7 @@ jobs:
           at: /tmp/workspace
       - run:
           name: Create test user
-          command: /usr/local/bin/test-user.py --create --test-instance=$(cat /tmp/workspace/test-instance)
+          command: /usr/local/bin/test-user.py --create --instance=test-$(cat /tmp/workspace/test-instance)
 
   e2e-tests:
     working_directory: /usr/app/
