@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Planet4 - Blocks\n"
 "POT-Creation-Date: 2020-09-09 11:52+0000\n"
-"PO-Revision-Date: 2023-05-22 14:55+0000\n"
+"PO-Revision-Date: 2023-05-22 14:58+0000\n"
 "Last-Translator: Rickson Figueira\n"
 "Language-Team: Portuguese (Brazil)\n"
 "MIME-Version: 1.0\n"
@@ -19,7 +19,7 @@ msgstr ""
 "_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "Language: pt_BR\n"
 "Report-Msgid-Bugs-To: \n"
-"X-Loco-Version: 2.6.4; wp-6.1.1\n"
+"X-Loco-Version: 2.6.4; wp-6.2.2\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
@@ -141,7 +141,7 @@ msgstr ""
 #: assets/src/blocks/Gallery/GalleryCarousel.js:145
 #: assets/src/blocks/CarouselHeader/CarouselControls.js:18
 msgid "Next"
-msgstr "Próximo"
+msgstr "Seguinte"
 
 #: assets/src/blocks/Spreadsheet/SpreadsheetFrontend.js:140
 msgid "No data matching your search."
@@ -169,7 +169,7 @@ msgstr ""
 #: planet4-gutenberg-blocks.php:446
 #: assets/src/blocks/Covers/CoversCarouselLayout.js:44
 msgid "Prev"
-msgstr ""
+msgstr "Anterior"
 
 #: assets/src/blocks/Gallery/GalleryCarousel.js:111
 #: assets/src/blocks/CarouselHeader/CarouselControls.js:14
