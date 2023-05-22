@@ -1,22 +1,11 @@
 const {test, expect} = require('@playwright/test');
-import {login} from './tools/lib/login';
+import {newPost} from './tools/lib/new-post';
 
 test('Test Editor basic functionalities', async ({page, context}) => {
   test.setTimeout(240 * 1000);
-  await page.goto('./');
-  await login(page, context);
+  // Login and create new post.
+  await newPost(page, context);
 
-  // Creating and navigating to new post
-  await page.goto('./wp-admin/post-new.php');
-
-  // On dev instance, need to close modal so test can continue
-  const closeButton = page.locator('.components-modal__header button');
-  if (await closeButton.isVisible()) {
-    await closeButton.click();
-  }
-
-  await page.locator('.editor-post-title__input').click();
-  await page.locator('h1.editor-post-title').fill('Test Post');
   await page.locator('.block-editor-block-list__layout').click();
   await page.locator('p.is-selected.wp-block-paragraph').fill('This is a test Post.');
   await page.keyboard.press('Enter');

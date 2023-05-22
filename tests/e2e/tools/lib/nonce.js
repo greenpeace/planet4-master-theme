@@ -10,4 +10,4 @@ async function nonce(context) {
   return adminNonce;
 }
 
-export { nonce };
+export {nonce};

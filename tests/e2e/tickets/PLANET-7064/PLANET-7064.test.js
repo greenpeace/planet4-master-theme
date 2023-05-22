@@ -6,7 +6,7 @@ import { rest } from '../../tools/lib/rest';
 test('PLANET-7064 - run ticket specific test', async ({ page, context }) => {
   await page.goto('./');
 
-  const nonce = await login(page, context);
+  const nonce = await login(context);
 
   console.log(`Nonce: ${nonce}`);
 
