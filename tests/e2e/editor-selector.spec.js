@@ -2,7 +2,6 @@ const {test, expect} = require('@playwright/test');
 import {newPost} from './tools/lib/new-post';
 
 test('Test Editor basic functionalities', async ({page, context}) => {
-  test.setTimeout(240 * 1000);
   // Login and create new post.
   await newPost(page, context);
 
