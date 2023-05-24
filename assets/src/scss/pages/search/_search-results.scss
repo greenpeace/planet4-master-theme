@@ -97,17 +97,19 @@
   }
 
   .search-results-alternative-label {
+    --search-results-alternative-label-- {
+      background: #97ed90;
+      color: var(--body--color);
+      font-weight: bold;
+      border-radius: 8px;
+    }
     display: none;
     width: auto;
     height: 40px;
     line-height: 40px;
     padding: 0 $sp-2;
     font-size: $font-size-sm;
-    font-weight: bold;
     text-align: center;
-    background: #97ed90;
-    border-radius: 8px;
-    color: var(--body--color);
     word-break: keep-all;
 
     &.search-results-alternative-label-mobile {
@@ -122,7 +124,7 @@
     }
 
     @include medium-and-up {
-      padding: 0 $sp-4;
+      padding: 0 $sp-3;
       display: block;
       width: auto;
       position: relative;

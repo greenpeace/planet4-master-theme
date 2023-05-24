@@ -107,11 +107,19 @@
   --search--filteritem--border-bottom-width: 2px;
   --search--filteritem--text-transform: none;
   --filter-modal--closebtn--border: none;
-  --filter-modal--closebtn--background-color: white;
+  --filter-modal--closebtn--background-color: var(--white);
   --filter-modal--closebtn--hover--border-color: none;
   --filter-modal--closebtn--hover--background-color: var(--grey-200);
   --search-result--border-bottom: 1px solid var(--grey-300);
   --search-result-item-info--color: var(--grey-600);
+  --search-activefilter-tag--border: none;
+  --search-activefilter-tag--color: var(--grey-900);
+  --search-activefilter-tag--background: var(--grey-200);
+  --search-activefilter-tag--border-radius: 4px;
+  --search-results-alternative-label--color: var(--white);
+  --search-results-alternative-label--background: var(--blue-green-800);
+  --search-results-alternative-label--font-weight: normal;
+  --search-results-alternative-label--border-radius: 4px;
 
   // TODO: Review these fallback variables after we'll merge the new identity colors
   --comments-block--comment-respond--background: var(--color-background-comments_block);
