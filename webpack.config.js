@@ -33,6 +33,10 @@ module.exports = {
     media_archive: './assets/src/js/media_archive.js',
     "lite-yt-embed": './node_modules/lite-youtube-embed/src/lite-yt-embed.js',
     menu_editor: './assets/src/js/menu_editor.js',
+    frontendIndex: './assets/src/blocks/frontendIndex.js',
+    editorIndex: './assets/src/blocks/editorIndex.js',
+    blockStyle: './assets/src/blocks/styles/style.scss',
+    blockEditorStyle: './assets/src/blocks/styles/editorStyle.scss',
   },
   output: {
     filename: '[name].js',
