@@ -9,12 +9,17 @@
 
   .filteritem {
     a {
+      --search--filteritem-- {
+        border-color: $dark-blue;
+        text-transform: uppercase;
+        border-bottom-width: 4px;
+      }
+      border-style: solid;
       display: block;
-      border: 1px solid $dark-blue;
       border-top: 0;
-      border-bottom-width: 4px;
+      border-left-width: 1px;
+      border-right-width: 1px;
       padding: 11px $sp-4;
-      text-transform: uppercase;
       text-decoration: none;
       color: var(--body--color);
       font-weight: bold;
@@ -125,6 +130,7 @@
       svg {
         margin-right: 4px;
         vertical-align: baseline;
+        transition: none;
       }
 
       .icon-cross {
@@ -154,17 +160,21 @@
       padding-bottom: 10px;
 
       .activefilter-tag {
+        --search-activefilter-tag-- {
+          border: 1px solid $dark-blue;
+          background: transparent;
+          color: $dark-blue;
+          border-radius: 0;
+        }
         font-size: 1.125rem;
-        border: 1px solid $dark-blue;
-        padding: 0 $sp-5 0 $sp-2x;
+        padding-inline-end: $sp-5;
+        padding-inline-start: $sp-2x;
         display: inline-block;
         margin-bottom: 16px;
         line-height: 42px;
         text-decoration: none;
         position: relative;
         cursor: pointer;
-        background-color: transparent;
-        color: $dark-blue;
         margin-inline-end: 8px;
         min-width: 40%;
         text-align: left;
@@ -175,13 +185,16 @@
         position: absolute;
         right: 0;
         top: 0;
-        margin-right: $sp-2;
+        margin-inline-end: $sp-2;
+
+        html[dir="rtl"] & {
+          right: auto;
+          left: 0;
+        }
       }
 
       .clearall {
         width: 100%;
-        background: $dark-blue;
-        color: $white;
       }
     }
   }

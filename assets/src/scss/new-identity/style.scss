@@ -66,7 +66,7 @@
   --button-secondary--hover--background: var(--p4-dark-green-800);
   --button-secondary--hover--border-color: var(--p4-dark-green-800);
   --button-secondary--hover--color: var(--white);
-  --table-footer-new--background: #dad8d1;
+  --table-footer-new--background: var(--beige-300);
   --table-header-grey--background: var(--grey-800);
   --table-odd-row-grey--background: var(--grey-200);
   --table-even-row-grey--background: var(--grey-100);
@@ -98,13 +98,31 @@
   --nav-link--visited--color: var(--grey-900);
   --clear--search--background-color: var(--grey-900);
   --top-navigation--separation: 1px solid var(--grey-300);
-
-  // TODO: Review these fallback variables after we'll merge the new identity colors
-  --comments-block--comment-respond--background: var(--color-background-comments_block);
   --campaign-covers-block--covers--thumbnail-large--yellow-cta--color: var(--p4-action-yellow-500);
   --split-two-column-item-tag--color: var(--p4-action-yellow-500);
   --split-two-column-item-tag--hover--color: var(--p4-action-yellow-500);
   --split-two-column-item-tag--visited--color: var(--p4-action-yellow-500);
+  --search-bar--border: 1px solid var(--grey-300);
+  --search--filteritem--border-color: var(--grey-300);
+  --search--filteritem--border-bottom-width: 2px;
+  --search--filteritem--text-transform: none;
+  --filter-modal--closebtn--border: none;
+  --filter-modal--closebtn--background-color: var(--white);
+  --filter-modal--closebtn--hover--border-color: none;
+  --filter-modal--closebtn--hover--background-color: var(--grey-200);
+  --search-result--border-bottom: 1px solid var(--grey-300);
+  --search-result-item-info--color: var(--grey-600);
+  --search-activefilter-tag--border: none;
+  --search-activefilter-tag--color: var(--grey-900);
+  --search-activefilter-tag--background: var(--grey-200);
+  --search-activefilter-tag--border-radius: 4px;
+  --search-results-alternative-label--color: var(--white);
+  --search-results-alternative-label--background: var(--blue-green-800);
+  --search-results-alternative-label--font-weight: normal;
+  --search-results-alternative-label--border-radius: 4px;
+
+  // TODO: Review these fallback variables after we'll merge the new identity colors
+  --comments-block--comment-respond--background: var(--color-background-comments_block);
 }
 
 #nav-mobile-menu {

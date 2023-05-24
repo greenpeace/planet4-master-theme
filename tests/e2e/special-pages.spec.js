@@ -42,12 +42,14 @@ test('Test special pages (Act and Explore)', async ({ page, context }) => {
   await page.goto(`./${actPage.slug}`);
   let dataLayer = await page.evaluate(() => window.dataLayer || []);
   if (dataLayer.length > 0) {
-    expect(dataLayer[0].pageType).toBe('Act');
+    const {pageType} = dataLayer.find(data => data.pageType !== undefined);
+    expect(pageType).toBe('Act');
   }
 
   await page.goto(`./${explorePage.slug}`);
   dataLayer = await page.evaluate(() => window.dataLayer || []);
   if (dataLayer.length > 0) {
-    expect(dataLayer[0].pageType).toBe('Explore');
+    const {pageType} = dataLayer.find(data => data.pageType !== undefined);
+    expect(pageType).toBe('Explore');
   }
 });
