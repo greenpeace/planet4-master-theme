@@ -11,7 +11,7 @@ use P4\MasterTheme\Features\Dev\DisableDataSync;
 use P4\MasterTheme\Features\Dev\ListingPageGridView;
 use P4\MasterTheme\Features\Dev\WPTemplateEditor;
 use P4\MasterTheme\Features\EngagingNetworks;
-use P4\MasterTheme\Features\ImageArchive;
+use P4\MasterTheme\Features\MediaArchive;
 use P4\MasterTheme\Features\LazyYoutubePlayer;
 use P4\MasterTheme\Features\PurgeOnFeatureChanges;
 use P4\MasterTheme\Features\RedirectRedirectPages;
@@ -104,7 +104,7 @@ class Features
         // Perhaps an alphabetical order within a group would make most sense?
         // That way controlling whether the feature is live is in one place.
         return [
-            ImageArchive::class,
+            MediaArchive::class,
             EngagingNetworks::class,
             CloudflareDeployPurge::class,
             PurgeOnFeatureChanges::class,

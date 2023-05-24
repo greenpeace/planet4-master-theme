@@ -79,7 +79,7 @@ function planet4_get_option(string $key = '', $default = null)
     return $options[ $key ] ?? $default;
 }
 
-use P4\MasterTheme\ImageArchive\Rest;
+use P4\MasterTheme\MediaArchive\Rest;
 use P4\MasterTheme\Loader;
 use P4\MasterTheme\Notifications\Slack;
 use P4\MasterTheme\Post;

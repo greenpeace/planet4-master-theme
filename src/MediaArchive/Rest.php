@@ -1,11 +1,11 @@
 <?php
 
-namespace P4\MasterTheme\ImageArchive;
+namespace P4\MasterTheme\MediaArchive;
 
 use Exception;
 use P4\MasterTheme\Capability;
 use P4\MasterTheme\Exception\RemoteCallFailed;
-use P4\MasterTheme\Features\ImageArchive;
+use P4\MasterTheme\Features\MediaArchive;
 use WP_Http;
 use WP_REST_Request;
 use WP_REST_Response;
@@ -25,7 +25,7 @@ class Rest
      */
     public static function register_endpoints(): void
     {
-        if (! ImageArchive::is_active()) {
+        if (! MediaArchive::is_active()) {
             return;
         }
         $fetch_archive_images = static function (WP_REST_Request $request) {
@@ -56,7 +56,7 @@ class Rest
                 'methods' => WP_REST_Server::READABLE,
                 'callback' => $fetch_archive_images,
                 'permission_callback' => function () {
-                    return current_user_can(Capability::USE_IMAGE_ARCHIVE_PICKER);
+                    return current_user_can(Capability::USE_MEDIA_ARCHIVE);
                 },
             ]
         );
@@ -87,7 +87,7 @@ class Rest
                 'methods' => WP_REST_Server::CREATABLE,
                 'callback' => $transfer_to_wordpress,
                 'permission_callback' => function () {
-                    return current_user_can(Capability::USE_IMAGE_ARCHIVE_PICKER);
+                    return current_user_can(Capability::USE_MEDIA_ARCHIVE);
                 },
             ]
         );

@@ -7,5 +7,5 @@ namespace P4\MasterTheme;
  */
 class Capability
 {
-    public const USE_IMAGE_ARCHIVE_PICKER = 'use_image_archive_picker';
+    public const USE_MEDIA_ARCHIVE = 'use_media_archive';
 }

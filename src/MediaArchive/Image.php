@@ -1,6 +1,6 @@
 <?php
 
-namespace P4\MasterTheme\ImageArchive;
+namespace P4\MasterTheme\MediaArchive;
 
 use JsonSerializable;
 use P4\MasterTheme\Exception\UploadFailed;
