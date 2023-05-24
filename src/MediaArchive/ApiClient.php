@@ -1,6 +1,6 @@
 <?php
 
-namespace P4\MasterTheme\ImageArchive;
+namespace P4\MasterTheme\MediaArchive;
 
 use P4\MasterTheme\Exception\RemoteCallFailed;
 use WP_Http;

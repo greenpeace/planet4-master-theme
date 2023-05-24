@@ -7,14 +7,14 @@ use P4\MasterTheme\Feature;
 /**
  * @see description().
  */
-class ImageArchive extends Feature
+class MediaArchive extends Feature
 {
     /**
      * @inheritDoc
      */
     public static function id(): string
     {
-        return 'feature_image_archive';
+        return 'feature_media_archive';
     }
 
     /**
@@ -23,7 +23,7 @@ class ImageArchive extends Feature
     protected static function name(): string
     {
         return __(
-            'New Image Archive (Beta)',
+            'New Media Archive (Beta)',
             'planet4-master-theme-backend'
         );
     }

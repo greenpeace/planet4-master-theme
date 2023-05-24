@@ -230,7 +230,7 @@ msgstr ""
 msgid "Analytics & Tracking"
 msgstr ""
 
-#: src/ImageArchive/UiIntegration.php:83 src/ImageArchive/UiIntegration.php:84
+#: src/MediaArchive/UiIntegration.php:83 src/MediaArchive/UiIntegration.php:84
 msgid "API info"
 msgstr ""
 
@@ -439,7 +439,7 @@ msgstr ""
 msgid "Donate button text"
 msgstr ""
 
-#: src/Features/ImageArchive.php:33
+#: src/Features/MediaArchive.php:33
 msgid ""
 "Drop-in replacement for the GPI Media Library plugin. If enabled, the plugin "
 "can be disabled."
@@ -567,7 +567,7 @@ msgstr ""
 msgid "Enter title if you want to override the open graph title"
 msgstr ""
 
-#: src/ImageArchive/Image.php:211
+#: src/MediaArchive/Image.php:211
 msgid "Error while inserting attachment. Message: "
 msgstr ""
 
@@ -724,9 +724,9 @@ msgstr ""
 msgid "Image"
 msgstr ""
 
-#: src/ImageArchive/UiIntegration.php:59 src/ImageArchive/UiIntegration.php:60
-#: src/ImageArchive/UiIntegration.php:70
-msgid "Image Archive"
+#: src/MediaArchive/UiIntegration.php:59 src/MediaArchive/UiIntegration.php:60
+#: src/MediaArchive/UiIntegration.php:70
+msgid "Media Archive"
 msgstr ""
 
 #: src/MetaboxRegister.php:237
@@ -772,7 +772,7 @@ msgid ""
 "select a page to redirect this Tag to."
 msgstr ""
 
-#: src/ImageArchive/UiIntegration.php:71
+#: src/MediaArchive/UiIntegration.php:71
 msgid "Library"
 msgstr ""
 
@@ -878,8 +878,8 @@ msgstr ""
 msgid "New Country selector design"
 msgstr ""
 
-#: src/Features/ImageArchive.php:23
-msgid "New Image Archive (Beta)"
+#: src/Features/MediaArchive.php:23
+msgid "New Media Archive (Beta)"
 msgstr ""
 
 #: src/Features/NewDesignNavigationBar.php:23
