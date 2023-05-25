@@ -39,7 +39,9 @@
 }
 
 #gdpr-comments-compliance {
-  font-family: var(--headings--font-family);
+  --comments-compliance-- {
+    font-family: var(--headings--font-family);
+  }
   margin-bottom: 8px;
 
   #gdpr-comments-checkbox {
@@ -61,8 +63,10 @@
 }
 
 .logged-in-as {
-  font-size: 14px;
-  font-family: var(--headings--font-family);
+  _-- {
+    font-size: 14px;
+    font-family: var(--headings--font-family);
+  }
 }
 
 #cancel-comment-reply-link {
