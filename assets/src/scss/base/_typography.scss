@@ -40,12 +40,16 @@ h6 {
 }
 
 h1 {
-  line-height: 1.225;
+  _-- {
+    line-height: 1.225;
+    font-size: $font-size-xxl;
+  }
   margin-bottom: 30px;
-  font-size: $font-size-xxl;
 
   @include medium-and-up {
-    font-size: $font-size-xxxxl;
+    _-- {
+      font-size: $font-size-xxxxl;
+    }
   }
 
   @include large-and-up {
@@ -54,12 +58,16 @@ h1 {
 }
 
 h2 {
-  line-height: 1.38;
+  _-- {
+    line-height: 1.38;
+    font-size: $font-size-xl;
+  }
   margin-bottom: 5px;
-  font-size: $font-size-xl;
 
   @include medium-and-up {
-    font-size: $font-size-xxl;
+    _-- {
+      font-size: $font-size-xxl;
+    }
   }
 
   @include x-large-and-up {
@@ -68,31 +76,45 @@ h2 {
 }
 
 h3 {
-  font-size: $font-size-lg;
+  _-- {
+    font-size: $font-size-lg;
+  }
 
   @include medium-and-up {
-    font-size: $font-size-xl;
+    _-- {
+      font-size: $font-size-xl;
+    }
   }
 }
 
 h4 {
-  font-size: $font-size-md;
+  _-- {
+    font-size: $font-size-md;
+  }
 
   @include medium-and-up {
-    font-size: $font-size-lg;
+    _-- {
+      font-size: $font-size-lg;
+    }
   }
 }
 
 h5 {
-  font-size: $font-size-sm;
+  _-- {
+    font-size: $font-size-sm;
+  }
 
   @include medium-and-up {
-    font-size: $font-size-md;
+    _-- {
+      font-size: $font-size-md;
+    }
   }
 }
 
 h6 {
-  font-size: $font-size-sm;
+  _-- {
+    font-size: $font-size-sm;
+  }
 }
 
 .white-text {

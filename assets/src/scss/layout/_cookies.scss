@@ -61,9 +61,11 @@
 
 .cookies-buttons {
   .btn {
+    _-- {
+      line-height: 2.4;
+      font-size: 14px;
+    }
     width: 100%;
-    line-height: 2.4;
-    font-size: 14px;
   }
 
   .btn-primary {
