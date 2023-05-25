@@ -6,6 +6,8 @@
 [id^="gform_submit_button"] {
   --button-- {
     font-family: var(--headings--font-family);
+    font-size: $font-size-sm;
+    line-height: 3;
     text-align: center;
     font-weight: bold;
     border-radius: 4px;
@@ -32,11 +34,9 @@
 
   display: inline-block;
   position: relative;
-  font-size: $font-size-sm;
   text-decoration: none;
   border: 1px solid transparent;
   cursor: pointer;
-  line-height: 3;
   appearance: none;
 
   &:hover,

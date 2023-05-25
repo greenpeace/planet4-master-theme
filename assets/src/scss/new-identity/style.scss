@@ -135,6 +135,13 @@
   --cookies-settings--p--font-size: var(--font-size-xs--font-family-tertiary);
   --cookies-settings--p--large-and-up--font-size: var(--font-size-xs--font-family-tertiary);
   --cookies-settings--p--line-height: var(--line-height-xs--font-family-tertiary);
+  --cookies-block--custom-control-description--font-family: var(--font-family-heading);
+  --cookies-block--custom-control-description--font-size: var(--font-size-xl--font-family-primary);
+  --cookies-block--custom-control-description--x-large-and-up--font-size: var(--font-size-2xl--font-family-primary);
+  --cookies-block--custom-control--input--type--checkbox--custom-control-description--font-family: var(--font-family-tertiary);
+  --cookies-block--custom-control--input--type--checkbox--custom-control-description--font-size: var(--font-size-m--font-family-tertiary);
+  --cookies-block--custom-control--input--type--checkbox--custom-control-description--x-large-and-up--font-size: 20px;
+  --cookies-block--always-enabled--font-family: var(--font-family-tertiary);
   --cover-card-excerpt--font-family: var(--font-family-paragraph-secondary);
   --cover-card-excerpt--font-size: var(--font-size-s--font-family-tertiary);
   --cover-card-excerpt--line-height: var(--line-height-s--font-family-tertiary);
@@ -157,7 +164,10 @@
   --site-footer--copyright--span--line-height: var(--line-height-xs--font-family-tertiary);
   --top-page-tags--font-family: var(--font-family-paragraph-secondary);
   --top-page-tags--font-size: var(--font-size-m--font-family-tertiary);
-  --top-navigation--font-family: var(--font-family-paragraph-secondary);
+  --top-page-tags--tag-item--font-weight: var(--font-weight-semibold);
+  --top-navigation--font-family: var(--font-family-primary);
+  --button--font-family: var(--font-family-primary);
+  --button--font-weight: var(--font-weight-regular);
   --ui-datepicker--font-family: var(--font-family-paragraph-secondary);
 }
 
@@ -234,6 +244,10 @@ table.spreadsheet-table.is-color-gp-green {
   font-family: var(--headings--font-family);
 }
 
+.comments-block .comment-respond button {
+  height: 48px;
+}
+
 #gdpr-comments-compliance #gdpr-comments-label {
   line-height: var(--line-height-m--font-family-tertiary);
 }
@@ -247,7 +261,8 @@ table.spreadsheet-table.is-color-gp-green {
   display: inline-block;
   width: fit-content;
   height: var(--link--height);
-  font-weight: 700 !important;
+  font-weight: var(--font-weight-regular);
+  font-family: var(--font-family-primary) !important;
 }
 
 .split-two-column-item-link {
@@ -368,4 +383,9 @@ $palette: (
 .top-page-tags {
   font-weight: var(--font-weight-semibold);
   line-height: var(--line-height-m--font-family-tertiary);
+}
+
+// Articles
+.article-list-item-headline {
+  font-family: var(--font-family-heading);
 }

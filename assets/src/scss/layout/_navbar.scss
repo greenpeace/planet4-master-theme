@@ -271,9 +271,11 @@ a.nav-link:hover:before,
 
 .nav-item,
 .nav-donate {
+  _-- {
+    font-size: $font-size-sm;
+    font-weight: 700;
+  }
   color: inherit;
-  font-size: $font-size-sm;
-  font-weight: 700;
 
   @include large-and-up {
     line-height: var(--navbar-menu-height);
