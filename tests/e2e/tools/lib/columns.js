@@ -24,7 +24,9 @@ async function addColumnsBlock(page, style) {
   for (const [index, column] of backendColumns.entries()) {
     await column.locator(style === 'Tasks' ? 'h5' : 'h3').fill(`Column ${index + 1}`);
     await column.locator('p').fill(`Description ${index + 1}`);
-    await column.locator('div[aria-label="Enter column button text"]').fill(`Button ${index + 1}`);
+    await column.locator(
+      `div[aria-label="Enter column ${style === 'Images' ? 'link' : 'button'} text"]`
+    ).fill(`${style === 'Images' ? 'Link' : 'Button'} ${index + 1}`);
   }
 };
 
@@ -36,9 +38,16 @@ async function checkColumnsBlock(page, style) {
     }
     expect(await column.innerHTML(style === 'Tasks' ? 'h5' : 'h3')).toBe(`Column ${index + 1}`);
     expect(await column.innerHTML('p')).fill(`Description ${index + 1}`);
-    const button = column.locator('a.btn-secondary');
-    expect(button).toHaveText(`Button ${index + 1}`);
-    expect(button.getAttribute('href')).toBe(TEST_LINKS[index]);
+    if (style === 'Images') {
+      expect(column.locator('.attachment-container > a > img')).toBeVisible();
+      const link = column.locator('a.standalone-link');
+      expect(link).toHaveText(`Link ${index + 1}`);
+      expect(link.getAttribute('href')).toBe(TEST_LINKS[index]);
+    } else {
+      const button = column.locator('a.btn-secondary');
+      expect(button).toHaveText(`Button ${index + 1}`);
+      expect(button.getAttribute('href')).toBe(TEST_LINKS[index]);
+    }
   }
 }
 
