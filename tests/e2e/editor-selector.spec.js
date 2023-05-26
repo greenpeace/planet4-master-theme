@@ -1,5 +1,5 @@
 const {test, expect} = require('@playwright/test');
-import {newPost} from './tools/lib/new-post';
+import {newPost, publishPost} from './tools/lib/new-post';
 
 test('Test Editor basic functionalities', async ({page, context}) => {
   // Login and create new post.
@@ -12,9 +12,9 @@ test('Test Editor basic functionalities', async ({page, context}) => {
   await page.keyboard.press('Enter');
   await page.locator('[aria-label="YouTube URL"]').fill('https://youtu.be/3gPvDDHU41E');
   await page.getByRole('button', {name: 'Embed'}).click();
-  await page.getByRole('button', {name: 'Publish', exact: true}).click();
-  await page.getByRole('region', {name: 'Editor publish'}).getByRole('button', {name: 'Publish', exact: true}).click();
-  await page.getByRole('link', {name: 'View Post', exact: true}).first().click();
+
+  // Publish post
+  await publishPost(page);
 
   // Asserting new Post contains video, paragraph and title
   const h1 = await page.innerHTML('h1.page-header-title');

@@ -19,4 +19,10 @@ async function newPost(page, context) {
   await page.locator('h1.editor-post-title').fill('Test Post');
 }
 
-export {newPost};
+async function publishPost(page) {
+  await page.getByRole('button', { name: 'Publish', exact: true }).click();
+  await page.getByRole('region', { name: 'Editor publish' }).getByRole('button', { name: 'Publish', exact: true }).click();
+  await page.getByRole('link', { name: 'View Post', exact: true }).first().click();
+}
+
+export {newPost, publishPost};

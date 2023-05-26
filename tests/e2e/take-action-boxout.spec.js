@@ -1,5 +1,5 @@
 const {test, expect} = require('@playwright/test');
-import {newPost} from './tools/lib/new-post';
+import {newPost, publishPost} from './tools/lib/new-post';
 
 test.describe('Test Take Action Boxout block', () => {
   test.beforeEach(async ({page, context}) => {
@@ -22,9 +22,7 @@ test.describe('Test Take Action Boxout block', () => {
     const boxoutExcerpt = await page.innerHTML('.boxout-excerpt');
 
     // Publish post.
-    await page.getByRole('button', {name: 'Publish', exact: true}).click();
-    await page.getByRole('region', {name: 'Editor publish'}).getByRole('button', {name: 'Publish', exact: true}).click();
-    await page.getByRole('link', {name: 'View Post', exact: true}).first().click();
+    await publishPost(page);
 
     // Make sure block shows as expected in the frontend.
     expect((await page.innerHTML('.boxout-heading')).trim()).toBe(boxoutTitle);
@@ -39,9 +37,7 @@ test.describe('Test Take Action Boxout block', () => {
     await page.locator('.boxout-excerpt').fill('The boxout excerpt');
 
     // Publish post.
-    await page.getByRole('button', {name: 'Publish', exact: true}).click();
-    await page.getByRole('region', {name: 'Editor publish'}).getByRole('button', {name: 'Publish', exact: true}).click();
-    await page.getByRole('link', {name: 'View Post', exact: true}).first().click();
+    await publishPost(page);
 
     // Make sure block shows as expected in the frontend.
     const boxoutTitle = (await page.innerHTML('.boxout-heading')).trim();
