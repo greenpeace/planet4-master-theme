@@ -29,10 +29,14 @@ test('Test special pages (Act and Explore)', async ({ page, context }) => {
     }
   });
 
-  // Set these 2 new pages as the Act and Explore pages.
+  // Save previous Act and Explore pages.
   await page.goto('./wp-admin/admin.php?page=planet4_settings_navigation');
   await page.waitForSelector('#act_page');
   await page.waitForSelector('#explore_page');
+  const previousActPage = await page.locator('#act_page').inputValue();
+  const previousExplorePage = await page.locator('#explore_page').inputValue();
+
+  // Set the 2 new pages instead.
   await page.selectOption('#act_page', actPage.id.toString());
   await page.selectOption('#explore_page', explorePage.id.toString());
   await page.locator('input[type="submit"]').click();
@@ -52,4 +56,13 @@ test('Test special pages (Act and Explore)', async ({ page, context }) => {
     const {pageType} = dataLayer.find(data => data.pageType !== undefined);
     expect(pageType).toBe('Explore');
   }
+
+  // Reset the Act and Explore pages.
+  await page.goto('./wp-admin/admin.php?page=planet4_settings_navigation');
+  await page.waitForSelector('#act_page');
+  await page.waitForSelector('#explore_page');
+  await page.selectOption('#act_page', previousActPage);
+  await page.selectOption('#explore_page', previousExplorePage);
+  await page.locator('input[type="submit"]').click();
+  await page.locator('.notice-success').isVisible();
 });
