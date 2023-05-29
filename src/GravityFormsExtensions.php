@@ -108,6 +108,7 @@ class GravityFormsExtensions
         add_filter('gform_confirmation', [ $this, 'p4_gf_custom_confirmation_redirect' ], 11, 2);
         add_filter('gform_pre_render', [ $this, 'p4_client_side_gravityforms_prefill' ], 10, 1);
         add_action('gform_post_form_duplicated', [ $this, 'p4_gf_duplicated_form' ], 10, 2);
+        add_filter('gform_form_update_meta', [$this, 'p4_gf_enable_default_meta_settings'], 10, 1);
     }
 
     /**
@@ -656,5 +657,17 @@ class GravityFormsExtensions
         foreach ($form_feed as $key => $value) {
             GFAPI::add_feed($new_form_id, $value['meta'], $value['addon_slug']);
         }
+    }
+
+    /**
+     * Enable default meta parameters for Gravity forms.
+     *
+     * @param array $meta Associative array containing all form properties.
+     *
+    */
+    public function p4_gf_enable_default_meta_settings(array $meta): array
+    {
+        $meta['personalData']['preventIP'] = true;
+        return $meta;
     }
 }
