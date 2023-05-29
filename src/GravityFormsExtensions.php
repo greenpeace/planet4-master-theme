@@ -668,6 +668,8 @@ class GravityFormsExtensions
     public function p4_gf_enable_default_meta_settings(array $meta): array
     {
         $meta['personalData']['preventIP'] = true;
+        $meta['personalData']['retention']['policy'] = 'delete';
+        $meta['personalData']['retention']['retain_entries_days'] = 90;
         return $meta;
     }
 }
