@@ -8,122 +8,103 @@ namespace P4\MasterTheme;
 final class AnalyticsValues
 {
     private const CACHE_KEY = 'analytics_global_projects';
+    private const GLOBAL_PROJECT_SHEET_TAB_NAME = 'Global Projects Standards';
 
     /**
      * Hardcoded list of Global projects, in case of google sheet unavailability.
      */
     public const GLOBAL_PROJECTS = [
         [
-            'global_project_name' => 'All Eyes on the Amazon',
-            'tracking_id' => 'GP85',
+            'global_project_name' => 'Aguos con El Clima',
+            'tracking_id' => 'ID000',
         ],
         [
-            'global_project_name' => 'Amazon Reef',
-            'tracking_id' => 'ID003',
+            'global_project_name' => 'Alternative Futures',
+            'tracking_id' => 'ID000',
         ],
         [
-            'global_project_name' => 'Asia Energy Transition',
-            'tracking_id' => 'GP110',
+            'global_project_name' => 'Amazon',
+            'tracking_id' => 'ID000',
         ],
         [
-            'global_project_name' => 'BrAndino: Hold the Line',
-            'tracking_id' => 'ID021',
+            'global_project_name' => 'Beyond Seafood',
+            'tracking_id' => 'ID000',
         ],
         [
-            'global_project_name' => 'Break Free',
-            'tracking_id' => 'GP148',
-        ],
-        [
-            'global_project_name' => 'Climate Emergency',
-            'tracking_id' => 'ID022',
-        ],
-        [
-            'global_project_name' => 'Climate Emergency Response',
-            'tracking_id' => 'GP192',
+            'global_project_name' => 'COP27 Project',
+            'tracking_id' => 'ID000',
         ],
         [
             'global_project_name' => 'Climate Justice Liability',
             'tracking_id' => 'GP25',
         ],
         [
-            'global_project_name' => 'Congo Basin Forests',
-            'tracking_id' => 'GP82',
+            'global_project_name' => 'Climate and Justice',
+            'tracking_id' => 'ID000',
         ],
         [
-            'global_project_name' => 'Corporate ICE/ Clean Air Now',
-            'tracking_id' => 'GP99',
+            'global_project_name' => 'Collective Climate Action',
+            'tracking_id' => 'GP199',
         ],
         [
-            'global_project_name' => 'Covid-19 Response',
-            'tracking_id' => 'ID031',
+            'global_project_name' => 'Common Power',
+            'tracking_id' => 'ID000',
         ],
         [
-            'global_project_name' => 'Cross-commodities markets campaign',
-            'tracking_id' => null,
+            'global_project_name' => 'FSO Safer',
+            'tracking_id' => 'ID046',
         ],
         [
-            'global_project_name' => 'Ends of the Earth',
-            'tracking_id' => 'GP98',
+            'global_project_name' => 'False Solutions China',
+            'tracking_id' => 'ID000',
         ],
         [
-            'global_project_name' => 'European Energy Transition',
-            'tracking_id' => 'GP44',
+            'global_project_name' => 'Food, Forest and Nature',
+            'tracking_id' => 'ID000',
         ],
         [
-            'global_project_name' => 'Greenpeace Fires',
-            'tracking_id' => 'GP84',
+            'global_project_name' => 'Fossil Free Revolution',
+            'tracking_id' => 'ID038',
         ],
         [
-            'global_project_name' => 'Indonesia Forests',
-            'tracking_id' => 'GP52',
+            'global_project_name' => 'Green Ideas Project',
+            'tracking_id' => 'ID000',
         ],
         [
-            'global_project_name' => 'Local Campaign',
-            'tracking_id' => 'ID001',
+            'global_project_name' => 'Mobility for All',
+            'tracking_id' => 'ID000',
         ],
         [
-            'global_project_name' => 'Meat & Dairy',
-            'tracking_id' => 'GP50',
+            'global_project_name' => 'Money For Change',
+            'tracking_id' => 'ID000',
         ],
         [
-            'global_project_name' => 'Ocean Sanctuaries',
-            'tracking_id' => 'GP29',
-        ],
-        [
-            'global_project_name' => 'Patagonia',
-            'tracking_id' => 'ID013',
-        ],
-        [
-            'global_project_name' => 'People vs. Oil',
-            'tracking_id' => 'GP191',
-        ],
-        [
-            'global_project_name' => 'Pipelines',
-            'tracking_id' => 'GP96',
-        ],
-        [
-            'global_project_name' => 'Plastics Free Future',
+            'global_project_name' => 'Plastic Free Future',
             'tracking_id' => 'GP89',
         ],
         [
-            'global_project_name' => 'Reuse revolution',
-            'tracking_id' => null,
+            'global_project_name' => 'Protect the Oceans',
+            'tracking_id' => 'GP185',
         ],
         [
-            'global_project_name' => 'Shifting the trillions',
-            'tracking_id' => 'GP147',
+            'global_project_name' => 'Say No to Gas',
+            'tracking_id' => 'ID000',
         ],
         [
             'global_project_name' => 'Stolen Fish',
             'tracking_id' => 'GP05',
         ],
         [
-            'global_project_name' => 'The Future of Europe project',
-            'tracking_id' => 'GP07',
+            'global_project_name' => 'Stop Deep Sea Mining',
+            'tracking_id' => 'ID000',
         ],
         [
-            'global_project_name' => 'Urban Revolution',
-            'tracking_id' => 'GP90',
+            'global_project_name' => 'Ummah for Earth',
+            'tracking_id' => 'GP184',
+        ],
+        [
+            'global_project_name' => 'We Are Nature',
+            'tracking_id' => 'ID000',
         ],
     ];
 
@@ -192,7 +173,6 @@ final class AnalyticsValues
 
             return self::from_cache_array($cache);
         }
-
         $instance = self::using_google();
 
         wp_cache_add(
@@ -225,7 +205,9 @@ final class AnalyticsValues
         if (! $global_sheet_id) {
             return null;
         }
-        $global_sheet = $google_client->get_sheet($global_sheet_id);
+
+        $global_sheet = $google_client->get_sheet($global_sheet_id, self::GLOBAL_PROJECT_SHEET_TAB_NAME);
+
         if (! $global_sheet) {
             return null;
         }
