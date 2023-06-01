@@ -109,6 +109,7 @@ class GravityFormsExtensions
         add_filter('gform_pre_render', [ $this, 'p4_client_side_gravityforms_prefill' ], 10, 1);
         add_action('gform_post_form_duplicated', [ $this, 'p4_gf_duplicated_form' ], 10, 2);
         add_filter('gform_form_update_meta', [$this, 'p4_gf_enable_default_meta_settings'], 10, 1);
+        add_filter('gform_form_post_get_meta', [$this, 'p4_gf_enable_default_meta_settings'], 10, 1);
     }
 
     /**
@@ -670,6 +671,7 @@ class GravityFormsExtensions
         $meta['personalData']['preventIP'] = true;
         $meta['personalData']['retention']['policy'] = 'delete';
         $meta['personalData']['retention']['retain_entries_days'] = 90;
+        $meta['personalData']['exportingAndErasing']['enabled'] = true;
         return $meta;
     }
 }
