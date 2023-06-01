@@ -52,15 +52,21 @@ final class GoogleDocsClient
      * Fetch a sheet from the API by its id.
      *
      * @param string $sheet_id The id of the sheet to fetch.
+     * @param string $sheet_tab_name The sheet tab name of the sheet to fetch.
      *
      * @return Spreadsheet|null The sheet if found, otherwise null.
      */
-    public function get_sheet(string $sheet_id): ?Spreadsheet
+    public function get_sheet(string $sheet_id, string $sheet_tab_name = ''): ?Spreadsheet
     {
         try {
             $sheets = new Sheets($this->client);
+
             // Currently, it only needs until F, but we can fetch a bit more to be sure.
-            $range = 'A1:I';
+            if ('' !== $sheet_tab_name) {
+                $range = $sheet_tab_name . '!' . 'A1:I';
+            } else {
+                $range = 'A1:I';
+            }
 
             $rows = $sheets->spreadsheets_values->get($sheet_id, $range, [ 'majorDimension' => 'ROWS' ]);
 
