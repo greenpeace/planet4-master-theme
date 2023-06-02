@@ -8,7 +8,7 @@ test.describe('Test Take Action Boxout block', () => {
 
     // Add Take Action Boxout block.
     await page.locator('.block-editor-block-list__layout').click();
-    await page.locator('p.is-selected.wp-block-paragraph').fill('/take-action-boxout');
+    await page.locator('p.is-selected.wp-block-paragraph').type('/take-action-boxout');
     await page.keyboard.press('Enter');
   });
 

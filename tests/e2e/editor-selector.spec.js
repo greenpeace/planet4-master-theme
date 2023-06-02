@@ -8,7 +8,7 @@ test('Test Editor basic functionalities', async ({page, context}) => {
   await page.locator('.block-editor-block-list__layout').click();
   await page.locator('p.is-selected.wp-block-paragraph').fill('This is a test Post.');
   await page.keyboard.press('Enter');
-  await page.locator('p.is-selected.wp-block-paragraph').fill('/youtube');
+  await page.locator('p.is-selected.wp-block-paragraph').type('/youtube');
   await page.keyboard.press('Enter');
   await page.locator('[aria-label="YouTube URL"]').fill('https://youtu.be/3gPvDDHU41E');
   await page.getByRole('button', {name: 'Embed'}).click();

@@ -5,7 +5,7 @@ const TEST_LINKS = ['/act', '/explore', '/'];
 async function addColumnsBlock(page, style) {
   // Add Columns block.
   await page.locator('.block-editor-block-list__layout').click();
-  await page.locator('p.is-selected.wp-block-paragraph').fill('/planet-4-columns');
+  await page.locator('p.is-selected.wp-block-paragraph').type('/planet-4-columns');
   await page.keyboard.press('Enter');
 
   // Select the style if needed.

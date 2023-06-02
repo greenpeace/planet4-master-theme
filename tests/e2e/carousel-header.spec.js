@@ -8,14 +8,12 @@ test('Create and check carousel header block', async ({page, context}) => {
   await page.goto('./wp-admin/post-new.php?post_type=page');
 
   // Using Editor to find Carousel Block
-  await page.getByRole('button', {name: 'Close'}).click();
-  const secondCloseBtn = page.getByRole('button', {name: 'Close'});
-  if (await secondCloseBtn.isVisible()) {
-    await secondCloseBtn.click();
-  }
+  await page.waitForSelector('.components-modal__header');
+  await page.locator('.components-modal__header button').click();
+  expect(page.locator('.components-modal__header')).toBeHidden();
 
   await page.locator('.block-editor-block-list__layout').click();
-  await page.locator('p.is-selected.wp-block-paragraph').fill('/carousel');
+  await page.locator('p.is-selected.wp-block-paragraph').type('/carousel');
   await page.getByRole('option', {name: 'Carousel Header'}).click();
 
   // Filling Carousel details
