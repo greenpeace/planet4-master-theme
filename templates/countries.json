@@ -508,6 +508,16 @@
       ]
     },
     {
+      "name": "South Asia",
+      "lang": [
+        {
+          "name": "English",
+          "url": "https://www.greenpeace.org/southasia/",
+          "locale": ["en-BT", "en-NP", "en-BD", "en-LK", "en-MV"]
+        }
+      ]
+    },
+    {
       "name": "Southeast Asia",
       "lang": [
         {
