@@ -22,8 +22,6 @@ class Settings
      */
     public const KEY = 'planet4_options';
 
-    public const SLACK_WEBHOOK = 'slack_webhook';
-
     /**
      * Option page slug
      *
@@ -471,20 +469,6 @@ class Settings
             ],
             'planet4_settings_comments' => Comments::get_options_page(),
             'planet4_settings_features' => Features::get_options_page(),
-            'planet4_settings_notifications' => [
-                'title' => 'Notifications',
-                'fields' => [
-                    [
-                        'name' => __('Slack webhook URL', 'planet4-master-theme-backend'),
-                        'desc' => __(
-                            '(Coming Soon) The webhook of the Slack channel to send notifications to.',
-                            'planet4-master-theme-backend'
-                        ),
-                        'id' => self::SLACK_WEBHOOK,
-                        'type' => 'text',
-                    ],
-                ],
-            ],
         ];
         // phpcs:enable Generic.Files.LineLength.MaxExceeded
 
