@@ -81,7 +81,6 @@ function planet4_get_option(string $key = '', $default = null)
 
 use P4\MasterTheme\MediaArchive\Rest;
 use P4\MasterTheme\Loader;
-use P4\MasterTheme\Notifications\Slack;
 use P4\MasterTheme\Post;
 use Timber\Timber;
 
@@ -149,13 +148,6 @@ add_action('admin_menu', 'hide_wp_update_nag');
 require_once 'load-class-aliases.php';
 
 Loader::get_instance();
-
-add_action(
-    'notification/elements',
-    static function (): void {
-        notification_register_carrier(new Slack('slack', 'Slack'));
-    }
-);
 
 // WP core's escaping logic doesn't take the case into account where a gradient is followed by a URL.
 add_filter(

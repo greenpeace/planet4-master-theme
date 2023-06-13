@@ -4,74 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "15e7b0cf890e3e4ede1f05ca6c0aeeee",
+    "content-hash": "c35d0a48a1d270dad19aa1828cd80ae9",
     "packages": [
-        {
-            "name": "alek13/slack",
-            "version": "2.2.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/php-slack/slack.git",
-                "reference": "9222449402df4e1e57d7850be87898b2c99803bd"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/php-slack/slack/zipball/9222449402df4e1e57d7850be87898b2c99803bd",
-                "reference": "9222449402df4e1e57d7850be87898b2c99803bd",
-                "shasum": ""
-            },
-            "require": {
-                "ext-json": "*",
-                "ext-mbstring": "*",
-                "guzzlehttp/guzzle": "~7.0|~6.0|~5.0|~4.0",
-                "php": "^7.1|^8.0"
-            },
-            "require-dev": {
-                "mockery/mockery": "^1.0",
-                "phpunit/phpunit": ">=7.5"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Maknz\\Slack\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-2-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "maknz",
-                    "email": "github@mak.geek.nz"
-                },
-                {
-                    "name": "Alexander Chibrikin",
-                    "email": "alek13.me@gmail.com"
-                }
-            ],
-            "description": "A simple PHP package (fork of maknz/slack) for sending messages to Slack, with a focus on ease of use and elegant syntax.",
-            "keywords": [
-                "laravel",
-                "slack"
-            ],
-            "support": {
-                "issues": "https://github.com/php-slack/slack/issues",
-                "source": "https://github.com/php-slack/slack/tree/2.2.1"
-            },
-            "funding": [
-                {
-                    "url": "https://donorbox.org/php-slack",
-                    "type": "custom"
-                }
-            ],
-            "time": "2021-10-20T22:52:32+00:00"
-        },
         {
             "name": "firebase/php-jwt",
             "version": "v6.3.2",

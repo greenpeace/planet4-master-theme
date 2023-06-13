@@ -36,7 +36,6 @@
     }
   },
   "require": {
-    "alek13/slack": "^2.0",
     "google/apiclient": "^2.12"
   },
   "require-dev": {
