@@ -101,14 +101,15 @@ if (! class_exists('Timber')) {
     );
 
     return;
-} else {
-    // Enable Timber template cache unless this is a debug environment.
-    if (defined('WP_DEBUG') && is_bool(WP_DEBUG)) {
-        Timber::$cache = ! WP_DEBUG;
-    } else {
-        Timber::$cache = true;
-    }
 }
+
+// Enable Timber template cache unless this is a debug environment.
+if (defined('WP_DEBUG') && is_bool(WP_DEBUG)) {
+    Timber::$cache = ! WP_DEBUG;
+} else {
+    Timber::$cache = true;
+}
+
 add_action(
     'rest_api_init',
     function (): void {
