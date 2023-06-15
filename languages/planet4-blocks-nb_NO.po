@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Planet4 - Blocks\n"
 "POT-Creation-Date: 2020-12-02 12:05+0000\n"
-"PO-Revision-Date: 2023-03-06 15:54+0000\n"
+"PO-Revision-Date: 2023-06-15 09:38+0000\n"
 "Last-Translator: Svilena Koleva\n"
 "Language-Team: Norwegian (Bokmål)\n"
 "MIME-Version: 1.0\n"
@@ -21,7 +21,7 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 "Language: nb_NO\n"
 "Report-Msgid-Bugs-To: \n"
-"X-Loco-Version: 2.6.3; wp-6.1.1"
+"X-Loco-Version: 2.6.4; wp-6.2.2"
 
 #: classes/blocks/class-happypoint.php:92
 msgid "Background image"
@@ -170,7 +170,7 @@ msgstr ""
 
 #: assets/src/blocks/Spreadsheet/SpreadsheetFrontend.js:191
 msgid "Sort by"
-msgstr ""
+msgstr "Sorter etter"
 
 #: assets/src/blocks/Submenu/SubmenuLevel.js:34
 msgid "Submenu item"
@@ -179,7 +179,7 @@ msgstr ""
 #: classes/blocks/class-covers.php:345
 #: classes/blocks/class-takeactionboxout.php:185
 msgid "Take action"
-msgstr ""
+msgstr "Ta handling"
 
 #: assets/src/blocks/Counter/CounterBlock.js:73
 msgid "Text Only"
