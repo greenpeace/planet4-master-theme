@@ -45,6 +45,7 @@ const item = ['core/group', {
 
 const template = ({
   backgroundColor = isNewIdentity ? 'beige-100' : 'grey-05',
+  titlePlaceholder = __('Enter title', 'planet4-blocks-backend'),
 }) => ([
   ['core/group', {
     align: 'full',
@@ -65,7 +66,7 @@ const template = ({
     }, [
       ['core/heading', {
         level: 2,
-        placeholder: __('Enter title', 'planet4-blocks-backend'),
+        placeholder: titlePlaceholder,
         style: {
           spacing: {
             margin: {

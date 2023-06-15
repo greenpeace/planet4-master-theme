@@ -7,6 +7,7 @@
   "icon": "editor-table",
   "textdomain": "planet4-blocks-backend",
   "attributes": {
-    "backgroundColor": { "type": "string" }
+    "backgroundColor": { "type": "string" },
+    "titlePlaceholder": { "type": "string" }
   }
 }

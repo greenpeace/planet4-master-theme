@@ -212,6 +212,7 @@ const BLOCK_TEMPLATES = [
 	'planet4-block-templates/side-image-with-text-and-cta',
 	// layouts.
 	'planet4-block-templates/deep-dive-topic',
+	'planet4-block-templates/homepage',
 ];
 
 /**

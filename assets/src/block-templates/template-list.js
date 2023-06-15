@@ -6,6 +6,7 @@ import * as issues from './issues';
 import * as pageHeader from './page-header';
 import * as highlightedCta from './highlighted-cta';
 import * as deepDiveTopic from './deep-dive-topic';
+import * as homepage from './homepage';
 
 export default [
   sideImgTextCta,
@@ -16,4 +17,5 @@ export default [
   pageHeader,
   highlightedCta,
   deepDiveTopic,
+  homepage,
 ];
