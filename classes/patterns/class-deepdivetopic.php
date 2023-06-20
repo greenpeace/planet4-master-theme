@@ -36,38 +36,9 @@ class DeepDiveTopic extends Block_Pattern {
 			'categories' => [ 'layouts' ],
 			'blockTypes' => [ 'core/post-content' ],
 			'content'    => '
-				<!-- wp:group {"className":"block ' . $classname . '"} -->
-					<div class="wp-block-group ' . $classname . '">
-					' . PageHeader::get_config(
-						[ 'title_placeholder' => __( 'Page header title', 'planet4-blocks' ) ]
-					)['content'] . '
-					<!-- wp:spacer {"height":"64px"} -->
-						<div style="height:64px" aria-hidden="true" class="wp-block-spacer"></div>
-					<!-- /wp:spacer -->
-					' . SideImageWithTextAndCta::get_config(
-						[ 'title' => __( 'The problem', 'planet4-blocks' ) ]
-					)['content'] . '
-					' . SideImageWithTextAndCta::get_config(
-						[
-							'title'         => __( 'What can be done', 'planet4-blocks' ),
-							'mediaPosition' => 'right',
-						]
-					)['content'] . '
-					' . Covers::get_content(
-						[
-							'title_placeholder' => __( 'How you can help', 'planet4-blocks' ),
-						]
-					) . '
-					<!-- wp:planet4-blocks/articles {"article_heading":"' . __( 'Latest news & stories', 'planet4-blocks' ) . '"} /-->
-					' . DeepDive::get_config( [ 'title' => __( 'Keep learning about', 'planet4-blocks' ) ] )['content'] . '
-					' . QuickLinks::get_config(
-						[
-							'title'           => __( 'Explore other topics', 'planet4-blocks' ),
-							'backgroundColor' => 'white',
-						]
-					)['content'] . '
-					</div>
-				<!-- /wp:group -->
+				<!-- wp:planet4-block-templates/deep-dive-topic '
+					. wp_json_encode( $params, \JSON_FORCE_OBJECT )
+					. ' /-->
 			',
 		];
 	}

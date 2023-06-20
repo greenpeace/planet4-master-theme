@@ -3,6 +3,8 @@ import mainThemeUrl from '../main-theme-url';
 const {__} = wp.i18n;
 
 const template = ({
+  titlePlaceholder = __('Enter title', 'planet4-blocks-backend'),
+  backgroundColor = 'grey-05',
   mediaPosition = '',
   imageFill = false,
 }) => ([
@@ -32,8 +34,8 @@ const template = ({
           ['core/group', {}, [
             ['core/heading', {
               level: 1,
-              backgroundColor: 'white',
-              placeholder: __('Enter title', 'planet4-blocks-backend'),
+              backgroundColor,
+              placeholder: titlePlaceholder,
             }],
           ]],
           ['core/paragraph', {

@@ -210,6 +210,8 @@ const BLOCK_TEMPLATES = [
 	'planet4-block-templates/issues',
 	'planet4-block-templates/page-header',
 	'planet4-block-templates/side-image-with-text-and-cta',
+	// layouts.
+	'planet4-block-templates/deep-dive-topic',
 ];
 
 /**
