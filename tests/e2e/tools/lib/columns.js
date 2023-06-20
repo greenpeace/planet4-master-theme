@@ -25,24 +25,35 @@ async function addColumnsBlock(page, style) {
     await column.locator(style === 'Tasks' ? 'h5' : 'h3').fill(`Column ${index + 1}`);
     await column.locator('p').fill(`Description ${index + 1}`);
     await column.locator(
-      `div[aria-label="Enter column ${style === 'Images' ? 'link' : 'button'} text"]`
-    ).fill(`${style === 'Images' ? 'Link' : 'Button'} ${index + 1}`);
+      `div[aria-label="Enter column ${['Images','Icons'].includes(style) ? 'link' : 'button'} text"]`
+    ).fill(`${['Images','Icons'].includes(style) ? 'Link' : 'Button'} ${index + 1}`);
+
+    if (style === 'Icons') {
+      await column.locator('.columns-image-placeholder').hover({noWaitAfter: true});
+      await column.locator('.dashicons-plus-alt2').click();
+      // Select image from media library modal.
+      const mediaModal = page.locator('.media-modal').nth(index);
+      await mediaModal.locator('button#menu-item-browse').click();
+      await mediaModal.locator('.attachments-wrapper ul.attachments li').nth(-1-index).click();
+      await mediaModal.locator('button.media-button-select').click();
+    }
   }
 };
 
 async function checkColumnsBlock(page, style) {
+  await expect(page.locator('.columns-block')).toBeVisible();
   const frontendColums = await page.locator('.column-wrap').all();
   for (const [index, column] of frontendColums.entries()) {
     if (style === 'Tasks') {
       expect(column.locator('.step-number')).toBeVisible();
     }
-    expect(await column.innerHTML(style === 'Tasks' ? 'h5' : 'h3')).toBe(`Column ${index + 1}`);
-    expect(await column.innerHTML('p')).fill(`Description ${index + 1}`);
-    if (style === 'Images') {
+    expect(await column.locator(style === 'Tasks' ? 'h5' : 'h3').innerText()).toBe(`Column ${index + 1}`);
+    expect(await column.locator('p').innerText ()).toBe(`Description ${index + 1}`);
+    if (style === 'Images' || style === 'Icons') {
       expect(column.locator('.attachment-container > a > img')).toBeVisible();
       const link = column.locator('a.standalone-link');
       expect(link).toHaveText(`Link ${index + 1}`);
-      expect(link.getAttribute('href')).toBe(TEST_LINKS[index]);
+      expect(await link.getAttribute('href')).toBe(TEST_LINKS[index]);
     } else {
       const button = column.locator('a.btn-secondary');
       expect(button).toHaveText(`Button ${index + 1}`);
