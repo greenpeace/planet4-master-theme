@@ -8,6 +8,7 @@ import * as highlightedCta from './highlighted-cta';
 import * as deepDiveTopic from './deep-dive-topic';
 import * as homepage from './homepage';
 import * as campaign from './campaign';
+import * as takeAction from './take-action';
 
 export default [
   sideImgTextCta,
@@ -22,4 +23,5 @@ export default [
   deepDiveTopic,
   homepage,
   campaign,
+  takeAction,
 ];

@@ -215,6 +215,7 @@ const BLOCK_TEMPLATES = [
 	'planet4-block-templates/deep-dive-topic',
 	'planet4-block-templates/homepage',
 	'planet4-block-templates/campaign',
+	'planet4-block-templates/take-action',
 ];
 
 /**
