@@ -120,6 +120,10 @@ class PatternSearch {
 			$wpdb->prepare( $query, $sql_params->get_values() ) // phpcs:ignore
 		);
 
+		if ( ! is_array( $results ) ) {
+			return [];
+		}
+
 		return array_map(
 			fn ( $r ) => (int) $r->ID,
 			$results
