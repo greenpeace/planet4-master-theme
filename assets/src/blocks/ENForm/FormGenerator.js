@@ -8,16 +8,22 @@ export const FormGenerator = ({fields, attributes, onInputChange, onBlur, errors
   const {en_form_style} = attributes;
   const is_side_style = 'side-style' === en_form_style;
 
-  let dependent_field = null;
+  let control_fields = {};
+  for (const f of fields) {
+    if (f.dependency) {
+      control_fields[f.dependency]
+        ? control_fields[f.dependency].push(f.name)
+        : control_fields[f.dependency] = [f.name];
+    }
+  }
+
   return (
     <div className="formblock-flex donations-formsection-info">
       {fields.map((field, index) => {
-        dependent_field = field.dependency || dependent_field;
-
         return (
           <Input
             key={`field-${field.id || index}`}
-            {...{field, index, onInputChange, onBlur, dependent_field, errors, is_side_style}}
+            {...{field, index, onInputChange, onBlur, control_fields, errors, is_side_style}}
           />
         );
       })}
@@ -35,7 +41,7 @@ const Input = props => {
     onBlur = () => {
       // no action by default
     },
-    dependent_field,
+    control_fields,
     errors,
     is_side_style,
   } = props;
@@ -46,7 +52,7 @@ const Input = props => {
     case 'email':
       return <TextInput {...{field: returnField, onInputChange, onBlur, errors, is_side_style}} />;
     case 'checkbox':
-      return <CheckboxInput {...{field: returnField, onInputChange, onBlur, index, dependent_field, errors, is_side_style}} />;
+      return <CheckboxInput {...{field: returnField, onInputChange, onBlur, index, control_fields, errors, is_side_style}} />;
     case 'radio':
       return <RadioInput {...{field: returnField, onInputChange, onBlur, errors, is_side_style}} />;
     case 'country':
@@ -121,13 +127,13 @@ const TextInput = ({field, onInputChange, onBlur, errors, is_side_style}) => {
   );
 };
 
-const CheckboxInput = ({field, onInputChange, onBlur, index, dependent_field, errors}) => {
+const CheckboxInput = ({field, onInputChange, onBlur, index, control_fields, errors}) => {
   return field.en_type === 'GEN' ?
-    <CheckboxGen {...{field, onInputChange, onBlur, index, dependent_field, errors}} /> :
-    <CheckboxOpt {...{field, onInputChange, onBlur, dependent_field, errors}} />;
+    <CheckboxGen {...{field, onInputChange, onBlur, index, control_fields, errors}} /> :
+    <CheckboxOpt {...{field, onInputChange, onBlur, control_fields, errors}} />;
 };
 
-const CheckboxOpt = ({field, onInputChange, onBlur, dependent_field, errors}) => {
+const CheckboxOpt = ({field, onInputChange, onBlur, control_fields, errors}) => {
   const {id, name} = inputId(field);
   const has_error = errors && errors[field.id];
   const errorMessage = __('This field is required', 'planet4-engagingnetworks');
@@ -137,18 +143,18 @@ const CheckboxOpt = ({field, onInputChange, onBlur, dependent_field, errors}) =>
       <div
         className="en__field__element en__field__element--check form-group form-check-label-block custom-control p4-custom-control-input"
       >
-        <label className={`custom-checkbox ${field.name === dependent_field ? 'disable-checkbox' : ''}`} htmlFor={id}>
+        <label className={`custom-checkbox ${field.dependency ? 'disable-checkbox' : ''}`} htmlFor={id}>
           <input
             id={id}
             name={name}
             type="checkbox"
-            className={`en__field__input en__field__input--checkbox ${field.name === dependent_field ? 'dependency-' + field.name : ''} ${has_error ? 'is-invalid' : ''}`}
+            className={`en__field__input en__field__input--checkbox ${field.dependency ? 'dependency-' + field.name : ''} ${has_error ? 'is-invalid' : ''}`}
             defaultValue={field.default_value}
             data-errormessage={errorMessage}
             defaultChecked={1 === field.selected}
             required={field.required}
-            disabled={field.name === dependent_field}
-            data-dependency={field.dependency}
+            disabled={field.dependency ? true : false}
+            data-dependency={control_fields[field.name] ? control_fields[field.name].join() : null}
             onClick={toggleDependencies}
             onChange={e => onInputChange(field, e)}
             onBlur={e => onBlur(field, e)}
@@ -166,7 +172,7 @@ const CheckboxOpt = ({field, onInputChange, onBlur, dependent_field, errors}) =>
   );
 };
 
-const CheckboxGen = ({field, onInputChange, onBlur, dependent_field, errors}) => {
+const CheckboxGen = ({field, onInputChange, onBlur, control_fields, errors}) => {
   const {id, name} = inputId(field);
   const question_option = {};
   const has_error = errors && errors[field.id];
@@ -180,13 +186,13 @@ const CheckboxGen = ({field, onInputChange, onBlur, dependent_field, errors}) =>
             id={id}
             name={name}
             type="checkbox"
-            className={`en__field__input en__field__input--checkbox ${field.name === dependent_field ? 'dependency-' + field.name : ''} ${has_error ? 'is-invalid' : ''}`}
+            className={`en__field__input en__field__input--checkbox ${field.dependency ? 'dependency-' + field.dependency : ''} ${has_error ? 'is-invalid' : ''}`}
             defaultValue={question_option.option_value}
             data-errormessage={errorMessage}
             defaultChecked={question_option.option_selected}
             required={field.required}
-            disabled={field.name === dependent_field}
-            data-dependency={field.dependency}
+            disabled={field.dependency ? true : false}
+            data-dependency={control_fields[field.name] ? control_fields[field.name].join() : null}
             onClick={toggleDependencies}
             onChange={e => onInputChange(field, e)}
             onBlur={e => onBlur(field, e)}
@@ -326,24 +332,26 @@ const PositionInput = ({field, onInputChange, onBlur, errors, is_side_style}) =>
  */
 const toggleDependencies = e => {
   const target = e.target;
-  const dependency = target?.dataset?.dependency;
-  if (!target || !dependency) {
+  const dependencies = target?.dataset?.dependency;
+  if (!target || !dependencies) {
     return;
   }
 
-  const dep_element = document.querySelector(`.dependency-${dependency}`);
-  if (!dep_element) {
-    return;
-  }
+  for (const dependency of dependencies.split(',')) {
+    const dep_element = document.querySelector(`.dependency-${dependency}`);
+    if (!dep_element) {
+      continue;
+    }
 
-  if (target.checked) {
-    dep_element.removeAttribute('disabled');
-    // eslint-disable-next-line no-unused-expressions
-    dep_element.parentElement?.classList.remove('disable-checkbox');
-  } else {
-    dep_element.setAttribute('disabled', '');
-    dep_element.checked = false;
-    // eslint-disable-next-line no-unused-expressions
-    dep_element.parentElement?.classList.add('disable-checkbox');
+    if (target.checked) {
+      dep_element.removeAttribute('disabled');
+      // eslint-disable-next-line no-unused-expressions
+      dep_element.parentElement?.classList.remove('disable-checkbox');
+    } else {
+      dep_element.setAttribute('disabled', '');
+      dep_element.checked = false;
+      // eslint-disable-next-line no-unused-expressions
+      dep_element.parentElement?.classList.add('disable-checkbox');
+    }
   }
 };

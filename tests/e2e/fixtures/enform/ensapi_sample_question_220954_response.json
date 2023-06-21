@@ -1,0 +1,23 @@
+{
+	"question.220954": [
+		{
+			"id": 220954,
+			"questionId": 25511,
+			"name": "nro_data_ok",
+			"type": "OPT",
+			"locale": "en-US",
+			"htmlFieldType": "checkbox",
+			"content": {
+				"data": [
+					{
+						"forId": "",
+						"imageUrl": "",
+						"selected": false,
+						"value": "N",
+						"label": "I am happy for my data to be shared with my local Greenpeace office."
+					}
+				]
+			}
+		}
+	]
+}

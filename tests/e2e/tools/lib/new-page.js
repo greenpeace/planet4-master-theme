@@ -1,7 +1,7 @@
 const {expect} = require('@playwright/test');
 import {login} from './login';
 
-async function newPage(page, context) {
+async function newPage(page, context, opts = {}) {
   // Login.
   await page.goto('./');
   await login(context);
@@ -16,7 +16,7 @@ async function newPage(page, context) {
 
   // Fill in page title.
   await page.locator('.editor-post-title__input').click();
-  await page.locator('h1.editor-post-title').fill('Test Page');
+  await page.locator('h1.editor-post-title').fill(opts?.title || 'Test Page');
 }
 
 async function publishPage(page) {

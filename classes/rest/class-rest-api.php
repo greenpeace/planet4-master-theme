@@ -56,6 +56,24 @@ class Rest_Api {
 		);
 
 		/**
+		 * Access to transient cache for admin purposes.
+		 */
+		register_rest_route(
+			self::REST_NAMESPACE,
+			'/transient',
+			[
+				[
+					'permission_callback' => [ Transient::class, 'permission' ],
+					'methods'             => Transient::methods(),
+					'callback'            => static function ( $request ) {
+						$api = new Transient( $request );
+						return $api->response();
+					},
+				],
+			]
+		);
+
+		/**
 		 * Save meta to the preview of the current user.
 		 */
 		register_rest_route(

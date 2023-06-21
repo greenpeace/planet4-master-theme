@@ -13,7 +13,15 @@ async function rest(context, options) {
         ...(fetchOptions.headers || {}),
       },
     });
-    const json = await response.json();
+
+    let json;
+    try {
+      json = await response.json();
+    } catch (error) {
+      const body = await response.body().toString();
+      console.log(body.toString());
+      throw error;
+    }
 
     if (!response.ok()) {
       throw json;
