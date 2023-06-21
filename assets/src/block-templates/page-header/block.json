@@ -6,9 +6,8 @@
   "category": "planet4-block-templates",
   "textdomain": "planet4-blocks-backend",
   "attributes": {
-    "titlePlaceholder": { "type": "string" },
-    "backgroundColor": { "type": "string" },
     "imageFill": { "type": "boolean" },
-    "mediaPosition": { "type": "string" }
+    "mediaPosition": { "type": "string" },
+    "titlePlaceholder": { "type": "string" }
   }
 }
