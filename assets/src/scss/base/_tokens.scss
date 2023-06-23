@@ -5,15 +5,12 @@
   /* Primitives */
   --font-family-greenpeace-sans: "GreenpeaceSans";
   --font-family-source-sans-3: "SourceSans3";
-  --font-family-source-sans-3-bold: "SourceSan3-Bold";
-  --font-family-source-sans-3-semibold: "SourceSans3-SemiBold";
   --font-family-source-serif-pro: "SourceSerifPro";
-  --font-family-source-serif-pro-bold: "SourceSerifPro-Bold";
-  --font-family-source-serif-pro-semibold: "SourceSerifPro-SemiBold";
-  --font-weight-bold: 700;
-  --font-weight-regular: 400;
-  --font-weight-semibold: 600;
-  --font-size-xs--font-family-greenpeace-sans: 1rem;
+  --font-weight-bold: "bold";
+  --font-weight-regular: "regular";
+  --font-weight-semibold: "semibold";
+  --font-size-xxs--font-family-greenpeace-sans: 1rem;
+  --font-size-xs--font-family-greenpeace-sans: 1.063rem;
   --font-size-s--font-family-greenpeace-sans: 1.125rem;
   --font-size-m--font-family-greenpeace-sans: 1.25rem;
   --font-size-l--font-family-greenpeace-sans: 1.375rem;
@@ -65,13 +62,6 @@
   --red-500: #d43b57;
   --white: #ffffff;
   /* Component Specific */
-  --font-family-heading: var(--font-family-greenpeace-sans);
-  --font-family-paragraph-primary-semibold: var(--font-family-source-serif-pro-semibold);
-  --font-family-paragraph-primary-bold: var(--font-family-source-serif-pro-bold);
-  --font-family-paragraph-primary-regular: var(--font-family-source-serif-pro);
-  --font-family-paragraph-secondary-bold: var(--font-family-source-sans-3-bold);
-  --font-family-paragraph-secondary-regular: var(--font-family-source-sans-3);
-  --font-family-paragraph-secondary-semibold: var(--font-family-source-sans-3-semibold);
   --color-background--alert: var(--p4-action-yellow-100);
   --color-background--warning: var(--red-100);
   --color-background-author_block: var(--beige-100);
@@ -117,15 +107,12 @@
 /* Primitives */
 $font-family-greenpeace-sans: "GreenpeaceSans";
 $font-family-source-sans-3: "SourceSans3";
-$font-family-source-sans-3-bold: "SourceSan3-Bold";
-$font-family-source-sans-3-semibold: "SourceSans3-SemiBold";
 $font-family-source-serif-pro: "SourceSerifPro";
-$font-family-source-serif-pro-bold: "SourceSerifPro-Bold";
-$font-family-source-serif-pro-semibold: "SourceSerifPro-SemiBold";
-$font-weight-bold: 700;
-$font-weight-regular: 400;
-$font-weight-semibold: 600;
-$font-size-xs--font-family-greenpeace-sans: 1rem;
+$font-weight-bold: "bold";
+$font-weight-regular: "regular";
+$font-weight-semibold: "semibold";
+$font-size-xxs--font-family-greenpeace-sans: 1rem;
+$font-size-xs--font-family-greenpeace-sans: 1.063rem;
 $font-size-s--font-family-greenpeace-sans: 1.125rem;
 $font-size-m--font-family-greenpeace-sans: 1.25rem;
 $font-size-l--font-family-greenpeace-sans: 1.375rem;
@@ -177,13 +164,6 @@ $red-100: #fad1da;
 $red-500: #d43b57;
 $white: #ffffff;
 /* Component Specific */
-$font-family-heading: $font-family-greenpeace-sans;
-$font-family-paragraph-primary-semibold: $font-family-source-serif-pro-semibold;
-$font-family-paragraph-primary-bold: $font-family-source-serif-pro-bold;
-$font-family-paragraph-primary-regular: $font-family-source-serif-pro;
-$font-family-paragraph-secondary-bold: $font-family-source-sans-3-bold;
-$font-family-paragraph-secondary-regular: $font-family-source-sans-3;
-$font-family-paragraph-secondary-semibold: $font-family-source-sans-3-semibold;
 $color-background--alert: $p4-action-yellow-100;
 $color-background--warning: $red-100;
 $color-background-author_block: $beige-100;
