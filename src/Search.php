@@ -242,7 +242,7 @@ abstract class Search
             1
         );
         add_filter(
-            'ep_post_query_db_args',
+            'pre_get_posts',
             [ self::class, 'hide_password_protected_content' ],
             10,
             1
@@ -1072,14 +1072,14 @@ abstract class Search
     /**
      * Exclude password protected content from ElasticPress sync.
      *
-     * @param mixed[] $args The args ElasticPress will use to fetch the ids of posts that will be synced.
+     * @param WP_Query $query The Query ElasticPress will use to fetch the ids of posts.
      *
-     * @return mixed The args with exclusion of password protected content.
+     * @return WP_Query The query with exclusion of password protected content.
      */
-    public static function hide_password_protected_content(array $args)
+    public static function hide_password_protected_content(WP_Query $query): WP_QUERY
     {
-        $args['has_password'] = false;
+        $query->set('has_password', false);
 
-        return $args;
+        return $query;
     }
 }
