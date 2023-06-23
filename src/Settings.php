@@ -766,6 +766,15 @@ class Settings
             Loader::theme_file_ver('admin/css/options.css')
         );
         wp_enqueue_style('options-style');
+
+        wp_enqueue_script(
+            'options-script',
+            get_template_directory_uri() . '/admin/js/options.js',
+            [],
+            Loader::theme_file_ver('admin/js/options.js'),
+            true
+        );
+        wp_enqueue_script('options-script');
     }
 
     /**
