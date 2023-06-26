@@ -226,6 +226,15 @@ abstract class Search
                 2
             );
         }
+        // Only invoked if the page for posts is set.
+        if (null !== get_option('page_for_posts')) {
+            add_filter(
+                'pre_get_posts',
+                [ self::class, 'exclude_page_for_posts' ],
+                10,
+                1
+            );
+        }
 
         if (class_exists(Features::class)) {
             remove_filter(
@@ -236,8 +245,8 @@ abstract class Search
         }
 
         add_filter(
-            'pre_get_posts',
-            [ self::class, 'exclude_unwanted_ids' ],
+            'ep_post_query_db_args',
+            [ self::class, 'exclude_unwanted_attachments' ],
             10,
             1
         );
@@ -1034,15 +1043,15 @@ abstract class Search
     }
 
     /**
-     * Fetch all ids that we don't want to include in search,
+     * Fetch all attachments that we don't want to include in search,
      * so that we can exclude them from ElasticPress sync.
      *
-     * @param WP_Query $query The Query ElasticPress will use to fetch the ids of posts.
+     * @param mixed[] $args The args ElasticPress will use to fetch the ids of posts that will be synced.
      *
-     * @return WP_Query The query with exclusion of unwanted ids.
+     * @return mixed The args with exclusion of unwanted ids.
      * @throws Exception\SqlInIsEmpty Well it really won't unless we make self::DOCUMENT_TYPES into an empty array.
      */
-    public static function exclude_unwanted_ids(WP_Query $query): WP_QUERY
+    public static function exclude_unwanted_attachments(array $args)
     {
         global $wpdb;
 
@@ -1052,19 +1061,29 @@ abstract class Search
             . ' WHERE post_type = "attachment"'
             . ' AND post_mime_type NOT IN ' . $params->string_list(self::DOCUMENT_TYPES);
 
-        // Exclude the unwanted attachments (such as images).
-        $unwanted_ids = $wpdb->get_col(
+        $unwanted_attachment_ids = $wpdb->get_col(
             $wpdb->prepare($sql, $params->get_values()) // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
         );
 
-        // Exclude the page for posts set through the Settings > Reading page.
+        $args['post__not_in'] = $unwanted_attachment_ids;
+
+        return $args;
+    }
+
+    /**
+     * Exclude the page for posts set through the Settings > Reading page.
+     *
+     * @param WP_Query $query The Query ElasticPress will use to fetch the ids of posts.
+     *
+     * @return WP_Query The Query with exclusion of the page for posts.
+     */
+    public static function exclude_page_for_posts(WP_Query $query): WP_Query
+    {
         $page_for_posts = get_option('page_for_posts');
 
         if ($page_for_posts) {
-            $unwanted_ids = array_merge($unwanted_ids, [ $page_for_posts ]);
+            $query->set('post__not_in', [ $page_for_posts ]);
         }
-
-        $query->set('post__not_in', $unwanted_ids);
 
         return $query;
     }
