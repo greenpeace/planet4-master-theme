@@ -1,80 +1,6 @@
 ---
 version: 2.1
 
-workflow_definitions:
-  on_pr: &on_pr
-    context: org-global
-    filters:
-      branches:
-        ignore: main
-  on_main: &on_main
-    context: org-global
-    filters:
-      branches:
-        only: main
-  on_tag: &on_tag
-    context: org-global
-    filters:
-      branches:
-        ignore: /.*/
-      tags:
-        only: /^v\p{Digit}+\.\p{Digit}+.*/
-
-workflows:
-  branch:
-    jobs:
-      - php74-tests:
-          <<: *on_pr
-      - php81-tests:
-          <<: *on_pr
-      - frontend-tests:
-          <<: *on_pr
-      - commitlint:
-          <<: *on_pr
-      - create-zip:
-          context: org-global
-          filters:
-            branches:
-              ignore: main
-            tags:
-              only: /^v\p{Digit}+\.\p{Digit}+.*/
-      - request-instance:
-          <<: *on_pr
-          requires:
-            - create-zip
-      - instance-ready:
-          <<: *on_pr
-          type: approval
-          requires:
-            - request-instance
-      - comment-pr:
-          <<: *on_pr
-          requires:
-            - instance-ready
-      - a11y-tests:
-          <<: *on_pr
-          requires:
-            - instance-ready
-      - request-test-user:
-          <<: *on_pr
-          requires:
-            - instance-ready
-      - test-user-ready:
-          <<: *on_pr
-          type: approval
-          requires:
-            - request-test-user
-      - e2e-tests:
-          <<: *on_pr
-          requires:
-            - test-user-ready
-      - publish-zip:
-          <<: *on_tag
-          requires:
-            - create-zip
-      - reset-instance:
-          <<: *on_main
-
 job-references:
   docker_auth: &docker_auth
     username: $DOCKERHUB_USERNAME
@@ -423,3 +349,77 @@ jobs:
       - run:
           name: Commit to test instance repo
           command: trigger_test_instance.sh planet4-plugin-gutenberg-blocks true
+
+workflow_definitions:
+  on_pr: &on_pr
+    context: org-global
+    filters:
+      branches:
+        ignore: main
+  on_main: &on_main
+    context: org-global
+    filters:
+      branches:
+        only: main
+  on_tag: &on_tag
+    context: org-global
+    filters:
+      branches:
+        ignore: /.*/
+      tags:
+        only: /^v\p{Digit}+\.\p{Digit}+.*/
+
+workflows:
+  branch:
+    jobs:
+      - php74-tests:
+          <<: *on_pr
+      - php81-tests:
+          <<: *on_pr
+      - frontend-tests:
+          <<: *on_pr
+      - commitlint:
+          <<: *on_pr
+      - create-zip:
+          context: org-global
+          filters:
+            branches:
+              ignore: main
+            tags:
+              only: /^v\p{Digit}+\.\p{Digit}+.*/
+      - request-instance:
+          <<: *on_pr
+          requires:
+            - create-zip
+      - instance-ready:
+          <<: *on_pr
+          type: approval
+          requires:
+            - request-instance
+      - comment-pr:
+          <<: *on_pr
+          requires:
+            - instance-ready
+      - a11y-tests:
+          <<: *on_pr
+          requires:
+            - instance-ready
+      - request-test-user:
+          <<: *on_pr
+          requires:
+            - instance-ready
+      - test-user-ready:
+          <<: *on_pr
+          type: approval
+          requires:
+            - request-test-user
+      - e2e-tests:
+          <<: *on_pr
+          requires:
+            - test-user-ready
+      - publish-zip:
+          <<: *on_tag
+          requires:
+            - create-zip
+      - reset-instance:
+          <<: *on_main
