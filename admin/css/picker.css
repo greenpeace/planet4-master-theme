@@ -10,18 +10,22 @@
 }
 
 .picker-list {
-  max-width: 60%;
+  padding-inline-end: 1em;
   max-height: 75vh;
   overflow-y: scroll;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0 10px;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 0 16px;
 }
 
-@media (min-width: 768px) {
-  .picker-list {
-    grid-template-columns: repeat(3, 1fr);
-  }
+.image-picker li img {
+  margin: 0;
+  border: 2px solid transparent;
+  box-sizing: border-box;
+  width: 100%;
+  object-fit: cover;
+  cursor: pointer;
+  height: 220px;
 }
 
 .image-picker li {
@@ -36,15 +40,6 @@
   position: absolute;
   top: 0;
   right: 0;
-}
-
-.image-picker li img {
-  margin: 0;
-  border: 2px solid transparent;
-  box-sizing: border-box;
-  width: 100%;
-  object-fit: cover;
-  cursor: pointer;
 }
 
 .image-picker li img.picker-selected {
@@ -95,4 +90,20 @@
   bottom: 20px;
   text-align: center;
   width: 50%;
+}
+
+@media (min-width: 768px) {
+  .picker-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .image-picker li img {
+    height: 160px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .picker-list {
+    grid-template-columns: repeat(5, 1fr);
+  }
 }
