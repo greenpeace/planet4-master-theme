@@ -10,8 +10,10 @@
   }
 
   table {
+    --table-- {
+      font-family: var(--headings--font-family);
+    }
     margin-bottom: 15px;
-    font-family: var(--headings--font-family);
     width: 100%;
 
     @include mobile-only {

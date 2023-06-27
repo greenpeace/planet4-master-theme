@@ -3,6 +3,7 @@
     font-family: var(--headings--font-family);
     background: $dark-blue;
     color: $white;
+    line-height: 0;
   }
   position: relative;
   z-index: 2;
@@ -10,7 +11,6 @@
   transition: margin 1s;
   padding-top: 24px;
   clear: both;
-  line-height: 0;
 
   a _-- {
     color: $white;
