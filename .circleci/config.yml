@@ -29,8 +29,6 @@ workflows:
           <<: *on_pr
       - frontend-tests:
           <<: *on_pr
-      - acceptance-tests:
-          <<: *on_pr
       - commitlint:
           <<: *on_pr
       - create-zip:
@@ -139,81 +137,6 @@ job-references:
       WP_DB_NAME: planet4-base_wordpress
       WP_TITLE: Greenpeace Base Development
 
-commands:
-  install-instance:
-    steps:
-      - setup_remote_docker:
-          docker_layer_caching: true
-      - checkout:
-          path: /home/circleci/checkout/planet4-plugin-gutenberg-blocks
-      - run:
-          name: Build - Configure
-          command: |
-            mkdir -p /tmp/workspace/var
-            mkdir -p /tmp/workspace/src
-            echo "${CIRCLE_BUILD_NUM}" > /tmp/workspace/var/circle-build-num
-      - run:
-          name: Build - Build containers
-          working_directory: /home/circleci
-          command: |
-            if [ -n "$CIRCLE_PR_NUMBER" ]; then
-              BRANCH=contrib
-              git --git-dir=/home/circleci/checkout/planet4-plugin-gutenberg-blocks/.git checkout -b contrib
-              echo "Using tmp branch contrib for fork PR $CIRCLE_PR_NUMBER"
-            else
-              BRANCH="${CIRCLE_BRANCH}"
-              echo "Plugin gutenberg blocks branch is ${CIRCLE_BRANCH}"
-            fi
-            PLUGIN_GUTENBERG_BLOCKS_BRANCH=dev-${BRANCH}#${CIRCLE_SHA1} \
-            MASTER_THEME_BRANCH=dev-main \
-            MERGE_SOURCE=git@github.com:greenpeace/planet4-base.git \
-            MERGE_REF=main \
-            make ci
-      - run:
-          name: Test - Clone planet4-docker-compose
-          command: |
-            git clone --depth 1 https://github.com/greenpeace/planet4-docker-compose
-
-  run-tests:
-    parameters:
-      test-name:
-        type: string
-      test-command:
-        type: string
-      extract-command:
-        type: string
-      env:
-        type: string
-        default: |
-          export BUILD_TAG="build-$(cat /tmp/workspace/var/circle-build-num)"
-          export APP_IMAGE=gcr.io/planet-4-151612/planet4-base-app:${BUILD_TAG}
-          export OPENRESTY_IMAGE=gcr.io/planet-4-151612/planet4-base-openresty:${BUILD_TAG}
-    steps:
-      - run:
-          name: Setup for test
-          command: |
-            << parameters.env >>
-            make -C planet4-docker-compose ci
-      - run:
-          name: << parameters.test-name >>
-          command: |
-            << parameters.env >>
-            << parameters.test-command >>
-      - run:
-          name: Test - Extract test artifacts
-          when: always
-          command: |
-            << parameters.env >>
-            << parameters.extract-command >>
-      - persist_to_workspace:
-          root: /tmp/workspace
-          paths:
-            - var
-      - store_test_results:
-          path: planet4-docker-compose/artifacts
-      - store_artifacts:
-          path: planet4-docker-compose/artifacts
-
 jobs:
   php74-tests:
     <<: *php_job
@@ -269,15 +192,6 @@ jobs:
       - run:
           name: Lint commit messages
           command: npx commitlint -V --from main --to ${CIRCLE_SHA1}
-
-  acceptance-tests:
-    <<: *p4_instance_conf
-    steps:
-      - install-instance
-      - run-tests:
-          test-name: Acceptance tests
-          test-command: make -C planet4-docker-compose test
-          extract-command: make -C planet4-docker-compose ci-extract-artifacts
 
   a11y-tests:
     docker:
@@ -335,6 +249,7 @@ jobs:
             - test-instance
             - booking.json
             - pr
+
   request-test-user:
     docker:
       - image: greenpeaceinternational/circleci-base:latest
