@@ -138,14 +138,22 @@
   --cover-card-excerpt--font-family: var(--font-family-paragraph-secondary);
   --cover-card-excerpt--font-size: var(--font-size-s--font-family-tertiary);
   --cover-card-excerpt--line-height: var(--line-height-s--font-family-tertiary);
+  --counter-block--font-family: var(--font-family-paragraph-secondary);
   --footer-menu--li--font-size: var(--font-size-m--font-family-tertiary);
-  --form-elements--font-family: var(--font-family-paragraph-secondary);
+  --form-elements--font-family: var(--font-family-tertiary);
+  --form-elements--font-size: var(--font-size-m--font-family-tertiary);
   --gdpr-comments-compliance--gdpr-comments-label--font-size: var(--font-size-m--font-family-tertiary);
   --gform_wrapper--font-family: var(--font-family-paragraph-secondary);
   --gfield-validation-message--font-size: var(--font-size-xs--font-family-tertiary);
   --gfield-validation-message--font-weight: var(--font-weight-semibold);
   --label--font-family: var(--font-family-paragraph-secondary);
-  --label--font-size: var(--font-size-m--font-family-tertiary);
+  --label--font-size: var(--font-size-xs--font-family-tertiary);
+  --label--line-height: var(--line-height-xs--font-family-tertiary);
+  --custom-control--input--type--radio--label--font-family: var(--font-family-paragraph-secondary);
+  --control-label--font-family: var(--font-family-tertiary);
+  --comments-label--font-size: var(--font-size-m--font-family-tertiary);
+  --logged-in-as--font-size: var(--font-size-s--font-family-tertiary);
+  --logged-in-as--font-family: var(--font-family-tertiary);
   --search-results-alternative-label--font-weight: var(--font-weight-regular);
   --single-comment--font-family: var(--font-family-paragraph-secondary);
   --single-post-meta--font-family: var(--font-family-tertiary);
@@ -155,10 +163,56 @@
   --site-footer--font-family: var(--font-family-paragraph-secondary);
   --site-footer--copyright--span--font-size: var(--font-size-xs--font-family-tertiary);
   --site-footer--copyright--span--line-height: var(--line-height-xs--font-family-tertiary);
-  --top-page-tags--font-family: var(--font-family-paragraph-secondary);
+  --top-page-tags--font-family: var(--font-family-tertiary);
   --top-page-tags--font-size: var(--font-size-m--font-family-tertiary);
   --top-navigation--font-family: var(--font-family-paragraph-secondary);
   --ui-datepicker--font-family: var(--font-family-paragraph-secondary);
+  --cover-card-heading--font-size: var(--font-size-m--font-family-primary);
+  --cover-card-heading--line-height: var(--line-height-l--font-family-primary); // Need to apply large instead of medium for letters that are descenders, like the g
+  --cover-card-heading--font-weight: var(--font-weight-regular);
+  --cover-card-btn--line-height: var(--line-height-s--font-family-primary);
+  --cover-card-btn--font-size: 15px;
+  --page-section-header--font-family: var(--font-family-heading);
+  --page-section-header--font-weight: var(--font-weight-bold);
+  --take-action-covers-block--cover--font-family: var(--font-family-tertiary);
+  --image-figcaption--font-family: var(--font-family-paragraph-secondary);
+  --image-figcaption--font-size: var(--font-size-s--font-family-tertiary);
+  --image-figcaption--font-height: var(--line-height-s--font-family-tertiary);
+  --boxout--boxout-heading--font-family: var(--font-family-heading);
+  --boxout--boxout-heading--font-size: var(--font-size-m--font-family-primary);
+  --boxout--boxout-heading--font-weight: var(--font-weight-regular);
+  --boxout--boxout-heading--line-height: var(--line-height-l--font-family-primary);
+  --boxout--btn--padding: 12px 24px;
+  --boxout--btn--medium-and-up--font-size: 15px;
+  --nav-item--font-weight: var(--font-weight-regular);
+  --nav-donate--font-weight: var(--font-weight-regular);
+  --page-header-title--font-family: var(--font-family-heading);
+  --block-articles--article--meta--font-family: var(--font-family-paragraph-secondary);
+  --block-articles--article--meta--font-size: var(--font-size-s--font-family-tertiary);
+  --block-covers--publication-date--font-family: var(--font-family-paragraph-secondary);
+  --article-list-item-author--font-weight: var(--font-weight-semibold);
+  --table--font-family: var(--font-family-tertiary);
+  --tl-timeline--font-family: var(--font-family-tertiary);
+  --enform--font-family: var(--font-family-tertiary);
+  --block-enform--text--font-family: var(--font-family-tertiary);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-family-heading) !important;
+  font-weight: var(--font-weight-regular) !important;
+
+  a {
+    font-family: var(--font-family-heading) !important;
+  }
+}
+
+.cover-card-heading {
+  font-family: var(--font-family-primary);
 }
 
 #nav-mobile-menu {
@@ -324,15 +378,6 @@ $palette: (
   font-family: var(--font-family-paragraph-secondary);
 }
 
-// Overridden from /plugins/gravityforms/assets/css/dist/theme.min.css
-.gform_wrapper.gravity-theme input[type]:not(input[type="submit"]),
-.gform_wrapper.gravity-theme textarea,
-.gform_wrapper.gravity-theme select {
-  font-size: var(--font-size-m--font-family-tertiary) !important;
-  font-weight: var(--font-weight-regular);
-  line-height: var(--line-height-m--font-family-tertiary);
-}
-
 // Take action boxout
 .boxout .boxout-excerpt {
   font-family: var(--font-family-paragraph-secondary);
@@ -365,7 +410,7 @@ $palette: (
   font-family: var(--font-family-paragraph-secondary);
 }
 
-.top-page-tags {
-  font-weight: var(--font-weight-semibold);
-  line-height: var(--line-height-m--font-family-tertiary);
+// Articles
+.article-list-item-headline {
+  font-family: var(--font-family-heading);
 }

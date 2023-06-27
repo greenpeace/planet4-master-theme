@@ -17,13 +17,13 @@
 
     & ~ .custom-control-description,
     & ~ label {
-      --label-- {
+      --control-label-- {
         font-family: var(--headings--font-family);
         font-size: $font-size-xxxs;
+        line-height: 1rem;
       }
       position: relative;
       cursor: pointer;
-      line-height: 1rem;
       display: inline-block;
       padding-inline-start: 36px;
 
@@ -102,11 +102,13 @@
 
     & ~ .custom-control-description,
     & ~ label {
+      _-- {
+        font-family: var(--headings--font-family);
+        font-size: $font-size-sm;
+        line-height: 1.25rem;
+      }
       position: relative;
       cursor: pointer;
-      font-family: var(--headings--font-family);
-      font-size: $font-size-sm;
-      line-height: 1.25rem;
       padding-inline-start: 36px;
 
       a {
@@ -152,13 +154,13 @@
 .ginput_container_multiselect select {
   --form-elements-- {
     font-family: var(--headings--font-family);
+    font-size: $font-size-sm;
   }
   border-radius: 4px;
   background-color: $white;
   border: 1px solid $grey-20;
   color: var(--body--color);
   padding: 0 16px;
-  font-size: $font-size-sm;
 
   &::placeholder,
   &::-webkit-input-placeholder,
