@@ -1,9 +1,9 @@
 $bucket: "https://www.greenpeace.org/static/planet4-assets/";
 
 $fonts: (
-  #{$font-family-greenpeace-sans},
-  #{$font-family-source-sans-3},
-  #{$font-family-source-serif-pro},
+  #{$font-family-primary},
+  #{$font-family-secondary},
+  #{$font-family-tertiary},
 );
 
 @each $font in $fonts {
