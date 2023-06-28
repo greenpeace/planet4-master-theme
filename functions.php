@@ -18,7 +18,7 @@ if (file_exists(__DIR__ . '/vendor/autoload.php')) {
 } else {
     require_once __DIR__ . '/../../../../vendor/autoload.php';
 }
-
+require_once __DIR__ . '/simple_html_dom.php';
 /**
  * A simpler way to add a filter that only returns a static value regardless of the input.
  *
@@ -617,3 +617,94 @@ add_filter(
         return $theme_json->update_with($new_color_palette);
     }
 );
+
+function debug_to_console($data) {
+    $output = $data;
+    // if (is_array($output))
+    //     $output = implode(',', $output);
+
+    echo "<script>console.log(JSON.parse('" . json_encode($data) . "'));</script>";
+}
+
+// function add_media_archive_tab($tabs) {
+//     $tabs['media_archive'] = __('Media Archive', 'text-domain');
+//     return $tabs;
+// }
+
+add_filter(
+    'media_upload_tabs',
+    function($tabs) {
+        $tabs['gpi_media_library'] = __('Media Archive', 'planet4-master-theme');
+        debug_to_console($tabs);
+        return $tabs;
+    }
+);
+
+// add_filter(
+//     'media_view_settings',
+//     function($settings) {
+//         // $tabs['media_archive'] = __('Media Archive', 'planet4-master-theme');
+//         debug_to_console($settings);
+//         return $settings;
+//     }
+// );
+
+// add_filter(
+//     'render_block',
+//     function($block_content, $block) {
+//         if('core/image' !== $block['blockName']) {
+//             return;
+//         }
+
+//         // create a DOM object from a string
+//     //     $html = str_get_html( $block_content );
+
+//     //     // finds the first required element and saves it to variable, if not returns null
+//     //     $figure = $html->find( 'figure', 0 );
+//     //     $link = $html->find( 'a', 0 );
+//     //     $img = $html->find( 'img', 0 );
+//     //     $caption = $html->find( 'figcaption', 0 );
+
+//     //     $modified_content = '
+//     //    <fieldset class="components-placeholder__fieldset">
+//     //         <legend class="components-placeholder__instructions">Upload an image file, pick one from your media library, or add one with a URL.</legend>
+//     //         <div class="components-drop-zone" data-is-drop-zone="true"></div>
+//     //         <div class="components-form-file-upload">
+//     //             <button type="button" class="components-button block-editor-media-placeholder__button block-editor-media-placeholder__upload-button is-primary">Upload</button>
+//     //             <input type="file" accept="image/*" data-testid="form-file-upload-input" style="display: none;">
+//     //         </div>
+//     //         <button type="button" class="components-button is-tertiary">Media Library</button>
+//     //         <div class="block-editor-media-placeholder__url-input-container">
+//     //             <button type="button" aria-pressed="false" class="components-button block-editor-media-placeholder__button is-tertiary">Insert from URL</button>
+//     //         </div>
+//     //         <button type="button" class="components-button is-tertiary">Media Archive</button>
+//     //     </fieldset>
+//     //    ';
+
+//     //     // Modify the $block_content variable
+//     //     $block_content = $modified_content;
+
+//      // Replace the <fieldset> tag with custom HTML
+//         $modified_content = '<fieldset class="components-placeholder__fieldset">';
+//         $modified_content .= '<legend class="components-placeholder__instructions">Upload an image file, pick one from your media library, or add one with a URL.</legend>';
+//         $modified_content .= '<div class="components-drop-zone" data-is-drop-zone="true"></div>';
+//         $modified_content .= '<div class="components-form-file-upload">';
+//         $modified_content .= '<button type="button" class="components-button block-editor-media-placeholder__button block-editor-media-placeholder__upload-button is-primary">Upload</button>';
+//         $modified_content .= '<input type="file" accept="image/*" data-testid="form-file-upload-input" style="display: none;">';
+//         $modified_content .= '</div>';
+//         $modified_content .= '<button type="button" class="components-button is-tertiary">Media Library</button>';
+//         $modified_content .= '<div class="block-editor-media-placeholder__url-input-container">';
+//         $modified_content .= '<button type="button" aria-pressed="false" class="components-button block-editor-media-placeholder__button is-tertiary">Insert from URL</button>';
+//         $modified_content .= '</div>';
+//         $modified_content .= '<button type="button" class="components-button is-tertiary">Media Archive</button>';
+//         $modified_content .= '</fieldset>';
+
+//         // Replace the <fieldset> tag in the $block_content variable
+//         $block_content = str_replace('<fieldset>', $modified_content, $block_content);
+
+//         return $block_content;
+//     },
+
+//     10,
+//     2
+// );
