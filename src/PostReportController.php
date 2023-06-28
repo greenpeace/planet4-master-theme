@@ -63,6 +63,10 @@ class PostReportController
      */
     public function add_posts_report_admin_menu_item(): void
     {
+        if (! current_user_can('edit_posts')) {
+            return;
+        }
+
         add_posts_page(
             __('Posts Report', 'planet4-master-theme-backend'),
             __('Posts Report', 'planet4-master-theme-backend'),
