@@ -17,7 +17,12 @@ export const SearchEngineOptimizationsSidebar = {
         name="planet4-search-engine-optimizations"
         title={__('Search Engine Optimizations', 'planet4-blocks-backend')}
       >
-        <URLInput label={__('Canonical link', 'planet4-blocks-backend')} value={meta[CANONICAL_URL]} onChange={value => editPost({meta: {[CANONICAL_URL]: value}})} />
+        <URLInput
+          label={__('Canonical link', 'planet4-blocks-backend')}
+          value={meta[CANONICAL_URL]}
+          onChange={value => editPost({meta: {[CANONICAL_URL]: value}})}
+          help={__('If emtpy a self-reference canonical link will be used', 'planet4-blocks-backend')}
+        />
       </PluginDocumentSettingPanel>
     );
   },
