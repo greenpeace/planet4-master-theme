@@ -124,41 +124,41 @@
   --comments-block--comment-respond--background: var(--color-background-comments_block);
 
   // Typography
-  --animated-label--font-family: var(--font-family-paragraph-secondary-regular);
+  --animated-label--font-family: var(--font-family-paragraph-secondary);
   --animated-label--font-weight: var(--font-weight-regular);
-  --animated-label--font-size: var(--font-size-xs--font-family-source-sans-3);
-  --author-block-info-name--font-size: var(--font-size-m--font-family-source-sans-3);
+  --animated-label--font-size: var(--font-size-xs--font-family-tertiary);
+  --author-block-info-name--font-size: var(--font-size-m--font-family-tertiary);
   --author-block-info-name--font-weight: var(--font-weight-semibold);
-  --boxout--boxout-excerpt--medium-and-up--font-size: var(--font-size-s--font-family-source-sans-3);
-  --boxout--boxout-excerpt--medium-and-up--line-height: var(--line-height-s--font-family-source-sans-3);
-  --cookie-notice--font-family: var(--font-family-paragraph-secondary-regular);
-  --cookies-settings--p--font-size: var(--font-size-xs--font-family-source-sans-3);
-  --cookies-settings--p--large-and-up--font-size: var(--font-size-xs--font-family-source-sans-3);
-  --cookies-settings--p--line-height: var(--line-height-xs--font-family-source-sans-3);
-  --cover-card-excerpt--font-family: var(--font-family-paragraph-secondary-regular);
-  --cover-card-excerpt--font-size: var(--font-size-s--font-family-source-sans-3);
-  --cover-card-excerpt--line-height: var(--line-height-s--font-family-source-sans-3);
-  --footer-menu--li--font-size: var(--font-size-m--font-family-source-sans-3);
-  --form-elements--font-family: var(--font-family-paragraph-secondary-regular);
-  --gdpr-comments-compliance--gdpr-comments-label--font-size: var(--font-size-m--font-family-source-sans-3);
-  --gform_wrapper--font-family: var(--font-family-paragraph-secondary-regular);
-  --gfield-validation-message--font-size: var(--font-size-xs--font-family-source-sans-3);
+  --boxout--boxout-excerpt--medium-and-up--font-size: var(--font-size-s--font-family-tertiary);
+  --boxout--boxout-excerpt--medium-and-up--line-height: var(--line-height-s--font-family-tertiary);
+  --cookie-notice--font-family: var(--font-family-paragraph-secondary);
+  --cookies-settings--p--font-size: var(--font-size-xs--font-family-tertiary);
+  --cookies-settings--p--large-and-up--font-size: var(--font-size-xs--font-family-tertiary);
+  --cookies-settings--p--line-height: var(--line-height-xs--font-family-tertiary);
+  --cover-card-excerpt--font-family: var(--font-family-paragraph-secondary);
+  --cover-card-excerpt--font-size: var(--font-size-s--font-family-tertiary);
+  --cover-card-excerpt--line-height: var(--line-height-s--font-family-tertiary);
+  --footer-menu--li--font-size: var(--font-size-m--font-family-tertiary);
+  --form-elements--font-family: var(--font-family-paragraph-secondary);
+  --gdpr-comments-compliance--gdpr-comments-label--font-size: var(--font-size-m--font-family-tertiary);
+  --gform_wrapper--font-family: var(--font-family-paragraph-secondary);
+  --gfield-validation-message--font-size: var(--font-size-xs--font-family-tertiary);
   --gfield-validation-message--font-weight: var(--font-weight-semibold);
-  --label--font-family: var(--font-family-paragraph-secondary-regular);
-  --label--font-size: var(--font-size-m--font-family-source-sans-3);
+  --label--font-family: var(--font-family-paragraph-secondary);
+  --label--font-size: var(--font-size-m--font-family-tertiary);
   --search-results-alternative-label--font-weight: var(--font-weight-regular);
-  --single-comment--font-family: var(--font-family-paragraph-secondary-regular);
-  --single-post-meta--font-family: var(--font-family-source-sans-3-semi-bold);
-  --single-post-meta--font-size: var(--font-size-s--font-family-source-sans-3);
-  --single-post-meta--line-height: var(--line-height-m--font-family-source-sans-3);
+  --single-comment--font-family: var(--font-family-paragraph-secondary);
+  --single-post-meta--font-family: var(--font-family-tertiary);
+  --single-post-meta--font-size: var(--font-size-s--font-family-tertiary);
+  --single-post-meta--line-height: var(--line-height-m--font-family-tertiary);
   --single-post-author--font-weight: var(--font-weight-semibold);
-  --site-footer--font-family: var(--font-family-paragraph-secondary-regular);
-  --site-footer--copyright--span--font-size: var(--font-size-xs--font-family-source-sans-3);
-  --site-footer--copyright--span--line-height: var(--line-height-xs--font-family-source-sans-3);
-  --top-page-tags--font-family: var(--font-family-paragraph-secondary-semibold);
-  --top-page-tags--font-size: var(--font-size-m--font-family-source-sans-3);
-  --top-navigation--font-family: var(--font-family-paragraph-secondary-regular);
-  --ui-datepicker--font-family: var(--font-family-paragraph-secondary-regular);
+  --site-footer--font-family: var(--font-family-paragraph-secondary);
+  --site-footer--copyright--span--font-size: var(--font-size-xs--font-family-tertiary);
+  --site-footer--copyright--span--line-height: var(--line-height-xs--font-family-tertiary);
+  --top-page-tags--font-family: var(--font-family-paragraph-secondary);
+  --top-page-tags--font-size: var(--font-size-m--font-family-tertiary);
+  --top-navigation--font-family: var(--font-family-paragraph-secondary);
+  --ui-datepicker--font-family: var(--font-family-paragraph-secondary);
 }
 
 #nav-mobile-menu {
@@ -226,7 +226,7 @@ table.spreadsheet-table.is-color-gp-green {
 }
 
 .cookies-settings-header h4 {
-  font-family: var(--font-family-paragraph-secondary-regular);
+  font-family: var(--font-family-paragraph-secondary);
 }
 
 // Comments block
@@ -235,7 +235,7 @@ table.spreadsheet-table.is-color-gp-green {
 }
 
 #gdpr-comments-compliance #gdpr-comments-label {
-  line-height: var(--line-height-m--font-family-source-sans-3);
+  line-height: var(--line-height-m--font-family-tertiary);
 }
 
 // Standalone links
@@ -317,55 +317,55 @@ $palette: (
 
 // Gravity Forms
 .gfield .gchoice {
-  font-family: var(--font-family-paragraph-secondary-regular);
+  font-family: var(--font-family-paragraph-secondary);
 }
 
 .gform_description {
-  font-family: var(--font-family-paragraph-secondary-regular);
+  font-family: var(--font-family-paragraph-secondary);
 }
 
 // Overridden from /plugins/gravityforms/assets/css/dist/theme.min.css
 .gform_wrapper.gravity-theme input[type]:not(input[type="submit"]),
 .gform_wrapper.gravity-theme textarea,
 .gform_wrapper.gravity-theme select {
-  font-size: var(--font-size-m--font-family-source-sans-3) !important;
+  font-size: var(--font-size-m--font-family-tertiary) !important;
   font-weight: var(--font-weight-regular);
-  line-height: var(--line-height-m--font-family-source-sans-3);
+  line-height: var(--line-height-m--font-family-tertiary);
 }
 
 // Take action boxout
 .boxout .boxout-excerpt {
-  font-family: var(--font-family-paragraph-secondary-regular);
+  font-family: var(--font-family-paragraph-secondary);
 }
 
 // Author block
 .author-block-info-name {
-  font-family: var(--font-family-paragraph-secondary-semibold);
+  font-family: var(--font-family-paragraph-secondary);
 }
 
 .author-block-info div[itemprop="description"],
 .author-block-description-button {
-  font-family: var(--font-family-paragraph-secondary-regular);
-  font-size: var(--font-size-m--font-family-source-sans-3);
+  font-family: var(--font-family-paragraph-secondary);
+  font-size: var(--font-size-m--font-family-tertiary);
   font-weight: var(--font-weight-regular);
 }
 
 // Footer
 .footer-menu li {
   font-weight: var(--font-weight-semibold);
-  line-height: var(--line-height-m--font-family-source-sans-3);
+  line-height: var(--line-height-m--font-family-tertiary);
 
   a {
-    font-family: var(--font-family-paragraph-secondary-semibold);
+    font-family: var(--font-family-paragraph-secondary);
   }
 }
 
 // Post page
 .single-post-author {
-  font-family: var(--font-family-paragraph-secondary-semibold);
+  font-family: var(--font-family-paragraph-secondary);
 }
 
 .top-page-tags {
   font-weight: var(--font-weight-semibold);
-  line-height: var(--line-height-m--font-family-source-sans-3);
+  line-height: var(--line-height-m--font-family-tertiary);
 }
