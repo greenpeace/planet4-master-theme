@@ -1,6 +1,7 @@
-const { test, expect } = require('@playwright/test');
+/* eslint-disable no-console */
+const {test, expect} = require('@playwright/test');
 
-test('check admin PHP errors', async ({ page }) => {
+test('check admin PHP errors', async ({page}) => {
   test.setTimeout(240 * 1000);
 
   await page.goto('/wp-admin/');
@@ -17,7 +18,7 @@ test('check admin PHP errors', async ({ page }) => {
     .filter(n => n?.href && n.href.startsWith('http://www.planet4.test/')) //NOSONAR
     .map(n => n.href))]);
 
-  for (let i=0; i<allLinks.length; i++) {
+  for (let i = 0; i < allLinks.length; i++) {
     console.log(allLinks[i]);
 
     await page.goto(allLinks[i]);
@@ -29,7 +30,7 @@ test('check admin PHP errors', async ({ page }) => {
   }
 });
 
-test('check rest PHP errors', async ({ page, request }) => {
+test('check rest PHP errors', async ({page, request}) => {
   //test.setTimeout(240 * 1000);
 
   await page.goto('/wp-admin/');
@@ -55,7 +56,7 @@ test('check rest PHP errors', async ({ page, request }) => {
 
     console.log(`http://www.planet4.test/wp-json${route}`);
     if (routes[route].endpoints.length > 1) {
-      checkendpoint: for(let i=0; i<routes[route].endpoints.length; i++) {
+      checkendpoint: for (let i = 0; i < routes[route].endpoints.length; i++) {
         if (!routes[route].endpoints[i].methods.includes('GET')) {
           continue;
         }

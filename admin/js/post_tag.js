@@ -2,7 +2,7 @@
 
 document.addEventListener('DOMContentLoaded', () => {
   // Open media modal when clicking on the insert media buttons
-  document.querySelectorAll('.insert-media').forEach(button => button.onclick = (event) => {
+  document.querySelectorAll('.insert-media').forEach(button => button.onclick = event => {
     if (typeof wp === 'undefined') {
       return false;
     }
@@ -18,13 +18,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const mediaModal = wp.media({
       title: localizations.media_title,
       library: {
-        type: 'image'
+        type: 'image',
       },
-      multiple: false
+      multiple: false,
     });
 
     mediaModal.on('select', () => {
-      const { id, url, sizes } = mediaModal.state().get('selection').first().toJSON();
+      const {id, url, sizes} = mediaModal.state().get('selection').first().toJSON();
       field.querySelector('.field-id').value = id;
       field.querySelector('.field-url').value = url;
       if (addField) {

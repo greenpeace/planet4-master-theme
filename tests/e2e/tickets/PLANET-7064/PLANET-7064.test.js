@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const {test} = require('@playwright/test');
 
 import {login} from '../../tools/lib/login';
