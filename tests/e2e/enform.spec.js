@@ -9,9 +9,9 @@ import questionsData from './fixtures/enform/ensapi_sample_questions_response.js
 import questionData from './fixtures/enform/ensapi_sample_question_236734_response.json'
 import optinData from './fixtures/enform/ensapi_sample_question_3877_response.json'
 import depOptinData from './fixtures/enform/ensapi_sample_question_220954_response.json'
-import { formFields, formFieldsAttributes } from './fixtures/enform/enformData';
+import {formFields, formFieldsAttributes} from './fixtures/enform/enformData';
 
-test.describe.configure({ mode: 'serial' });
+test.describe.configure({mode: 'serial'});
 let enFormId;
 let pageUrl;
 let featureIsActiveOnInstance;
@@ -24,7 +24,7 @@ test.describe('create, use and submit EN Form', () => {
 
     // Enable EN Form block
     await page.goto('./wp-admin/admin.php?page=planet4_settings_features');
-    const checkbox = await page.getByRole('checkbox', {name: ' Activate the EN Form block, as well as the "Progress Bar inside EN Form" Counter block style.'});
+    const checkbox = page.getByRole('checkbox', {name: ' Activate the EN Form block, as well as the "Progress Bar inside EN Form" Counter block style.'});
     featureIsActiveOnInstance = await checkbox.isChecked();
     if (!featureIsActiveOnInstance) {
       await checkbox.click();
@@ -34,10 +34,10 @@ test.describe('create, use and submit EN Form', () => {
     // Complete EN API settings to avoid api/cache issues
     await page.goto('./wp-admin/admin.php?page=en-settings');
 
-    const adminPublicApiKey = await page.locator('input#p4en_public_api');
-    const adminPrivateApiKey = await page.locator('input#p4en_private_api');
-    const frontendPublicApiKey = await page.locator('input#p4en_frontend_public_api');
-    const frontendPrivateApiKey = await page.locator('input#p4en_frontend_private_api');
+    const adminPublicApiKey = page.locator('input#p4en_public_api');
+    const adminPrivateApiKey = page.locator('input#p4en_private_api');
+    const frontendPublicApiKey = page.locator('input#p4en_frontend_public_api');
+    const frontendPrivateApiKey = page.locator('input#p4en_frontend_private_api');
 
     const apubKey = await adminPublicApiKey.inputValue();
     const aprvKey = await adminPrivateApiKey.inputValue();
@@ -75,15 +75,15 @@ test.describe('create, use and submit EN Form', () => {
       'ens_supporter_question_by_id_response_3887': optinData['question.3887'],
       'ens_supporter_question_by_id_response_220954': depOptinData['question.220954']
     };
-    let items = [];
-    for (let key in postData) {
-      items.push({key: key, value: JSON.stringify(postData[key])});
+    const items = [];
+    for (const key in postData) {
+      items.push({key, value: JSON.stringify(postData[key])});
     }
 
-    let response = await rest(context, {
+    const response = await rest(context, {
       path: './wp-json/planet4/v1/transient',
       method: 'POST',
-      data: { items }
+      data: {items},
     });
 
     // Create a new form
@@ -98,7 +98,7 @@ test.describe('create, use and submit EN Form', () => {
     await page.locator('input[name="post_title"]').fill('Acceptance Test - ENForm');
     const fields = [].concat(formFields.fields, formFields.questions);
     for (const field of fields) {
-      if (field.name === "Email") {
+      if (field.name === 'Email') {
         continue; // Email field is there by default
       }
       const element = await page.waitForSelector(`button[data-name="${field.name}"]`);
@@ -110,10 +110,10 @@ test.describe('create, use and submit EN Form', () => {
     for (const field of fields) {
       const element = await page.waitForSelector(`tr[data-en-id="${field.id}"] .field-type-select`);
       await element.scrollIntoViewIfNeeded();
-      if (field.name !== "Email") { // Email field type is not modifiable
+      if (field.name !== 'Email') { // Email field type is not modifiable
         await element.selectOption(formFieldsAttributes[field.name].type);
       }
-      if (formFieldsAttributes[field.name]?.required && field.name !== "Email") {
+      if (formFieldsAttributes[field.name]?.required && field.name !== 'Email') {
         await page.locator(`tr[data-en-id="${field.id}"] input[type="checkbox"]`).click();
       }
       if (formFieldsAttributes[field.name]?.label?.length > 0 && field.type !== 'OPT') {
@@ -121,8 +121,8 @@ test.describe('create, use and submit EN Form', () => {
       }
       if (formFieldsAttributes[field.name]?.default_value?.length > 0) {
         await page.locator(`tr[data-en-id="${field.id}"] .dashicons-edit`).click();
-        const defaultValField = await page.waitForSelector(`.dialog-${field.id} input[data-attribute="default_value"]`)
-        await defaultValField.fill(formFieldsAttributes[field.name].default_value)
+        const defaultValField = await page.waitForSelector(`.dialog-${field.id} input[data-attribute="default_value"]`);
+        await defaultValField.fill(formFieldsAttributes[field.name].default_value);
         await page.locator(`.dialog-${field.id} button[title='Close']`).click();
       }
     }
@@ -147,18 +147,18 @@ test.describe('create, use and submit EN Form', () => {
 
     // Assert that the fields were saved with the expected attributes/values.
     for (const field of fields) {
-      const element = await page.locator(`tr[data-en-id="${field.id}"]`);
-      expect(element).toHaveAttribute('data-en-name', field.name);
+      const element = page.locator(`tr[data-en-id="${field.id}"]`);
+      await expect(element).toHaveAttribute('data-en-name', field.name);
       if (formFieldsAttributes[field.name]?.required) {
         await page.locator(`tr[data-en-id="${field.id}"] input[type="checkbox"]`).isChecked();
       }
       if (formFieldsAttributes[field.name]?.label?.length > 0 && field.type !== 'OPT') {
-        const labelField = await page.locator(`tr[data-en-id="${field.id}"] input[type="text"]`);
+        const labelField = page.locator(`tr[data-en-id="${field.id}"] input[type="text"]`);
         expect(labelField).toHaveValue(formFieldsAttributes[field.name].label);
       }
       if (formFieldsAttributes[field.name]?.default_value?.length > 0) {
         await page.locator(`tr[data-en-id="${field.id}"] .dashicons-edit`).click();
-        const defaultValField = await page.locator(`.dialog-${field.id} input[data-attribute="default_value"]`)
+        const defaultValField = page.locator(`.dialog-${field.id} input[data-attribute="default_value"]`);
         await expect(defaultValField).toHaveValue(formFieldsAttributes[field.name].default_value);
         await page.locator(`.dialog-${field.id} button[title="Close"]`).click();
       }
@@ -174,8 +174,8 @@ test.describe('create, use and submit EN Form', () => {
     console.log(`page URL: ${pageUrl}`);
   });
 
-  test('fill EN Form (side style) on frontend', async ({page, context}) => {
-    await fillENFormAndSubmit(page, context);
+  test('fill EN Form (side style) on frontend', async ({page}) => {
+    await fillENFormAndSubmit(page);
   });
 
   test('create Page with EN Form full-width-bg style', async ({page, context}) => {
@@ -183,14 +183,14 @@ test.describe('create, use and submit EN Form', () => {
     console.log(`page URL: ${pageUrl}`);
   });
 
-  test('fill EN Form (full-width-bg style) on frontend', async ({page, context}) => {
-    await fillENFormAndSubmit(page, context);
+  test('fill EN Form (full-width-bg style) on frontend', async ({page}) => {
+    await fillENFormAndSubmit(page);
   });
 
   test('disable EN Form block', async ({page, context}) => {
 
     if (featureIsActiveOnInstance) {
-      console.log('Feature kept active.')
+      console.log('Feature kept active.');
       return;
     }
 
@@ -198,7 +198,7 @@ test.describe('create, use and submit EN Form', () => {
     await login(context);
 
     await page.goto('./wp-admin/admin.php?page=planet4_settings_features');
-    const checkbox = await page.getByRole('checkbox', {name: ' Activate the EN Form block, as well as the "Progress Bar inside EN Form" Counter block style.'});
+    const checkbox = page.getByRole('checkbox', {name: ' Activate the EN Form block, as well as the "Progress Bar inside EN Form" Counter block style.'});
     const checked = await checkbox.isChecked();
     if (checked) {
       await checkbox.click();
@@ -219,7 +219,7 @@ async function createPageWithENForm(page, context, style) {
     await page.getByRole('button', {name: 'Full page width with background'}).click();
   }
   const goalSelector = await page.getByRole('combobox', {name: 'Select Goal'});
-  await goalSelector.selectOption('Petition Signup')
+  await goalSelector.selectOption('Petition Signup');
   const formSelector = await page.getByRole('combobox', {name: 'Planet 4 Engaging Networks form'});
   await formSelector.selectOption(enFormId);
 
@@ -231,49 +231,49 @@ async function createPageWithENForm(page, context, style) {
   return url;
 }
 
-async function fillENFormAndSubmit(page, context) {
-    const fields = [].concat(formFields.fields, formFields.questions);
+async function fillENFormAndSubmit(page) {
+  const fields = [].concat(formFields.fields, formFields.questions);
 
-    await page.goto(pageUrl);
+  await page.goto(pageUrl);
 
-    // Check dependency field.
-    for (const field of fields) {
-      const dep = formFieldsAttributes[field.name]?.dependency;
-      if (formFieldsAttributes[field.name].type === 'Checkbox' && dep) {
-        await expect(page.locator(`.dependency-${field.name}`)).toBeDisabled();
-      }
+  // Check dependency field.
+  for (const field of fields) {
+    const dep = formFieldsAttributes[field.name]?.dependency;
+    if (formFieldsAttributes[field.name].type === 'Checkbox' && dep) {
+      await expect(page.locator(`.dependency-${field.name}`)).toBeDisabled();
     }
+  }
 
-    // Fill the form's fields
-    for (const field of fields) {
-      if (['Email', 'Text'].includes(formFieldsAttributes[field.name].type)) {
-        const name = field.questionId ? `supporter.questions.${field.id}` : `supporter.${field.property}`;
-        await page.locator(`[name="${name}"]`).fill('Lorem ipsum');
-      } else if (formFieldsAttributes[field.name].type === 'Checkbox') {
-        await page.locator(`label[for="en__field_supporter_questions_${field.id}"]`).dispatchEvent('click');
-      }
+  // Fill the form's fields
+  for (const field of fields) {
+    if (['Email', 'Text'].includes(formFieldsAttributes[field.name].type)) {
+      const name = field.questionId ? `supporter.questions.${field.id}` : `supporter.${field.property}`;
+      await page.locator(`[name="${name}"]`).fill('Lorem ipsum');
+    } else if (formFieldsAttributes[field.name].type === 'Checkbox') {
+      await page.locator(`label[for="en__field_supporter_questions_${field.id}"]`).dispatchEvent('click');
     }
+  }
 
-    await expect(page.locator('#p4en_form')).toContainText('Please enter a valid e-mail address.');
-    await page.locator('[name="supporter.emailAddress"]').fill('test@example.com');
+  await expect(page.locator('#p4en_form')).toContainText('Please enter a valid e-mail address.');
+  await page.locator('[name="supporter.emailAddress"]').fill('test@example.com');
 
-    await page.route('./wp-json/planet4/v1/enform/*', async route => {
-      await expect(route.request().postDataJSON()).toMatchObject({
-        "standardFieldNames":true,
-        "supporter":{
-          "questions":{
-            "question.236734":"Lorem ipsum",
-            "question.220954":"Y",
-            "question.3887":"Y"
-          },
-          "emailAddress":"test@example.com",
-          "firstName":"Lorem ipsum",
-          "lastName":"Lorem ipsum",
-          "NOT_TAGGED_1":"hidden field ασφ (0287#$%^ 日本語"
-        }
-      });
-
-      await route.fulfill({json: []});
+  await page.route('./wp-json/planet4/v1/enform/*', async route => {
+    expect(route.request().postDataJSON()).toMatchObject({
+      standardFieldNames: true,
+      supporter: {
+        questions: {
+          'question.236734': 'Lorem ipsum',
+          'question.220954': 'Y',
+          'question.3887': 'Y',
+        },
+        emailAddress: 'test@example.com',
+        firstName: 'Lorem ipsum',
+        lastName: 'Lorem ipsum',
+        'NOT_TAGGED_1': 'hidden field ασφ (0287#$%^ 日本語',
+      },
     });
-    await page.getByRole('button', {name: 'Sign'}).click();
+
+    await route.fulfill({json: []});
+  });
+  await page.getByRole('button', {name: 'Sign'}).click();
 }

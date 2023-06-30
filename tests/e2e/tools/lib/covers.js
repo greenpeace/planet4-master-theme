@@ -54,31 +54,31 @@ async function checkCoversBlock(page, style) {
     await expect(page.locator('.content-covers-block')).toBeVisible();
     const frontendCovers = await page.locator('.post-column.cover').all();
     for (const [, cover] of frontendCovers.entries()) {
-      expect(cover.locator('.content-covers-block-image > a > img')).toBeVisible();
-      expect(cover.locator('.content-covers-block-information > h5 > a')).toBeVisible();
-      expect(cover.locator('.content-covers-block-information > .publication-date')).toBeVisible();
-      expect(cover.locator('.content-covers-block-information > .post-excerpt')).toBeVisible();
+      await expect(cover.locator('.content-covers-block-image > a > img')).toBeVisible();
+      await expect(cover.locator('.content-covers-block-information > h5 > a')).toBeVisible();
+      await expect(cover.locator('.content-covers-block-information > .publication-date')).toBeVisible();
+      await expect(cover.locator('.content-covers-block-information > .post-excerpt')).toBeVisible();
     }
   } else if (style === 'Campaign') {
     await expect(page.locator('.campaign-covers-block')).toBeVisible();
     const frontendCovers = await page.locator('.campaign-card-column').all();
     for (const [, cover] of frontendCovers.entries()) {
-      expect(cover.locator('a > div.thumbnail-large >img')).toBeVisible();
-      expect(cover.locator('.yellow-cta')).toBeVisible();
+      await expect(cover.locator('a > div.thumbnail-large >img')).toBeVisible();
+      await expect(cover.locator('.yellow-cta')).toBeVisible();
       let tagName = await cover.locator('.yellow-cta').innerText();
       tagName = tagName.replace(/#/g, '');
-      expect(TAG_NAMES.includes(tagName)).toBe(true);
+      expect(TAG_NAMES.includes(tagName)).toBeTruthy();
     }
   } else if (style === 'Take Action') {
     await expect(page.locator('.take-action-covers-block')).toBeVisible();
     const frontendCovers = await page.locator('.cover-card').all();
     for (const [, cover] of frontendCovers.entries()) {
-      expect(cover.locator('a > img')).toBeVisible();
-      let coverName = await cover.locator('a.cover-card-heading').innerText();
+      await expect(cover.locator('a > img')).toBeVisible();
+      const coverName = await cover.locator('a.cover-card-heading').innerText();
       expect(PAGE_NAMES.includes(coverName)).toBe(true);
-      expect(cover.locator('.cover-card-tag')).toBeVisible();
-      expect(cover.locator('.cover-card-excerpt')).toBeVisible();
-      expect(cover.locator('a.cover-card-btn')).toHaveText('Get Involved');
+      await expect(cover.locator('.cover-card-tag')).toBeVisible();
+      await expect(cover.locator('.cover-card-excerpt')).toBeVisible();
+      await expect(cover.locator('a.cover-card-btn')).toHaveText('Get Involved');
     }
   }
 

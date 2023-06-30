@@ -10,7 +10,7 @@ test('Create and check carousel header block', async ({page, context}) => {
   // Using Editor to find Carousel Block
   await page.waitForSelector('.components-modal__header');
   await page.locator('.components-modal__header button').click();
-  expect(page.locator('.components-modal__header')).toBeHidden();
+  await expect(page.locator('.components-modal__header')).toBeHidden();
 
   await page.locator('.block-editor-block-list__layout').click();
   await page.locator('p.is-selected.wp-block-paragraph').type('/carousel');
@@ -84,7 +84,7 @@ test('Create and check carousel header block', async ({page, context}) => {
 
   expect(h2Title1).toBe('My test Header 1');
   expect(paragraphDescription1).toBe('Testing carousel description 1');
-  expect(ctaButton1).toBeVisible();
+  await expect(ctaButton1).toBeVisible();
 
   await page.locator('button.carousel-control-next').click();
 
@@ -94,6 +94,6 @@ test('Create and check carousel header block', async ({page, context}) => {
 
   expect(h2Title2).toBe('My test Header 2');
   expect(paragraphDescription2).toBe('Testing carousel description 2');
-  expect(ctaButton2).toBeVisible();
+  await expect(ctaButton2).toBeVisible();
 
 });

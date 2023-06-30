@@ -45,19 +45,19 @@ async function checkColumnsBlock(page, style) {
   const frontendColums = await page.locator('.column-wrap').all();
   for (const [index, column] of frontendColums.entries()) {
     if (style === 'Tasks') {
-      expect(column.locator('.step-number')).toBeVisible();
+      await expect(column.locator('.step-number')).toBeVisible();
     }
-    expect(await column.locator(style === 'Tasks' ? 'h5' : 'h3').innerText()).toBe(`Column ${index + 1}`);
-    expect(await column.locator('p').innerText ()).toBe(`Description ${index + 1}`);
+    await expect(column.locator(style === 'Tasks' ? 'h5' : 'h3')).toHaveText(`Column ${index + 1}`);
+    await expect(column.locator('p')).toHaveText(`Description ${index + 1}`);
     if (style === 'Images' || style === 'Icons') {
-      expect(column.locator('.attachment-container > a > img')).toBeVisible();
+      await expect(column.locator('.attachment-container > a > img')).toBeVisible();
       const link = column.locator('a.standalone-link');
-      expect(link).toHaveText(`Link ${index + 1}`);
-      expect(await link.getAttribute('href')).toBe(TEST_LINKS[index]);
+      await expect(link).toHaveText(`Link ${index + 1}`);
+      await expect(link).toHaveAttribute('href', TEST_LINKS[index]);
     } else {
       const button = column.locator('a.btn-secondary');
-      expect(button).toHaveText(`Button ${index + 1}`);
-      expect(button.getAttribute('href')).toBe(TEST_LINKS[index]);
+      await expect(button).toHaveText(`Button ${index + 1}`);
+      await expect(button).toHaveAttribute('href', TEST_LINKS[index]);
     }
   }
 }

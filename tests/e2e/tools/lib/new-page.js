@@ -12,7 +12,7 @@ async function newPage(page, context, opts = {}) {
   // Need to close modal so test can continue.
   await page.waitForSelector('.components-modal__header');
   await page.locator('.components-modal__header button').click();
-  expect(page.locator('.components-modal__header')).toBeHidden();
+  await expect(page.locator('.components-modal__header')).toBeHidden();
 
   // Fill in page title.
   await page.locator('.editor-post-title__input').click();
@@ -20,9 +20,9 @@ async function newPage(page, context, opts = {}) {
 }
 
 async function publishPage(page) {
-  await page.getByRole('button', { name: 'Publish', exact: true }).click();
-  await page.getByRole('region', { name: 'Editor publish' }).getByRole('button', { name: 'Publish', exact: true }).click();
-  await page.getByRole('link', { name: 'View Page', exact: true }).first().click();
+  await page.getByRole('button', {name: 'Publish', exact: true}).click();
+  await page.getByRole('region', {name: 'Editor publish'}).getByRole('button', {name: 'Publish', exact: true}).click();
+  await page.getByRole('link', {name: 'View Page', exact: true}).first().click();
 }
 
 export {newPage, publishPage};

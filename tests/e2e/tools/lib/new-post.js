@@ -1,3 +1,4 @@
+const {expect} = require('@playwright/test');
 import {login} from './login';
 
 async function newPost(page, context) {
@@ -12,6 +13,7 @@ async function newPost(page, context) {
   const closeButton = page.locator('.components-modal__header button');
   if (await closeButton.isVisible()) {
     await closeButton.click();
+    await expect(closeButton).toBeHidden();
   }
 
   // Fill in post title.
@@ -20,9 +22,9 @@ async function newPost(page, context) {
 }
 
 async function publishPost(page) {
-  await page.getByRole('button', { name: 'Publish', exact: true }).click();
-  await page.getByRole('region', { name: 'Editor publish' }).getByRole('button', { name: 'Publish', exact: true }).click();
-  await page.getByRole('link', { name: 'View Post', exact: true }).first().click();
+  await page.getByRole('button', {name: 'Publish', exact: true}).click();
+  await page.getByRole('region', {name: 'Editor publish'}).getByRole('button', {name: 'Publish', exact: true}).click();
+  await page.getByRole('link', {name: 'View Post', exact: true}).first().click();
 }
 
 export {newPost, publishPost};

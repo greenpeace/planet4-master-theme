@@ -9,7 +9,7 @@ test('Create and check check split two column block', async ({page, context}) =>
 
   await page.waitForSelector('.components-modal__header');
   await page.locator('.components-modal__header button').click();
-  expect(page.locator('.components-modal__header')).toBeHidden();
+  await expect(page.locator('.components-modal__header')).toBeHidden();
 
   // Adding Split Two Column Block
   await page.locator('.block-editor-block-list__layout').click();
@@ -52,9 +52,9 @@ test('Create and check check split two column block', async ({page, context}) =>
   const tag = page.locator('a.split-two-column-item-tag');
   const button = page.locator('a.split-two-column-item-button');
 
-  expect(h2Title).toBeVisible();
-  expect(desc).toBeVisible();
+  await expect(h2Title).toBeVisible();
+  await expect(desc).toBeVisible();
   expect(link).toBe('Learn more about this issue');
-  expect(tag).toBeVisible();
-  expect(button).toBeVisible();
+  await expect(tag).toBeVisible();
+  await expect(button).toBeVisible();
 });

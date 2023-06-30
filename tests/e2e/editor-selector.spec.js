@@ -22,5 +22,5 @@ test('Test Editor basic functionalities', async ({page, context}) => {
   const video = page.locator('figure.is-provider-youtube');
   expect(h1).toBe('Test Post');
   expect(paragraph).toBe('This is a test Post.');
-  expect(video).toBeVisible();
+  await expect(video).toBeVisible();
 });
