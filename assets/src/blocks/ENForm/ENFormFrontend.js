@@ -159,7 +159,7 @@ const Signup = ({attributes, fields, form_data, onInputChange, onBlur, onFormSub
     <div className="enform" id="enform">
       <div id="enform-content">
 
-        <div className="title-and-description">
+        <h4 className="title-and-description">
           {title &&
             <h2 dangerouslySetInnerHTML={{__html: title ? unescape(title) : ''}} />
           }
@@ -170,7 +170,7 @@ const Signup = ({attributes, fields, form_data, onInputChange, onBlur, onFormSub
           {description &&
             <div className="form-description" dangerouslySetInnerHTML={{__html: unescape(description)}} />
           }
-        </div>
+        </h4>
 
         <div className="form-container">
           <form

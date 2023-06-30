@@ -409,12 +409,16 @@
         }
 
         a {
-          font-family: var(--body--font-family);
+          _-- {
+            font-family: var(--body--font-family);
+          }
         }
       }
 
       a {
-        font-family: var(--headings--font-family);
+        _-- {
+          font-family: var(--headings--font-family);
+        }
       }
 
       .attachment-container {

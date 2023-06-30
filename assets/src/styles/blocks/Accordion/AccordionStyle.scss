@@ -4,7 +4,9 @@
 @import "../../master-theme/assets/src/scss/base/fonts";
 
 .accordion-block {
-  font-family: var(--headings--font-family);
+  _-- {
+    font-family: var(--headings--font-family);
+  }
 
   &.is-style-light .accordion-content .accordion-headline {
     --accordion-block-light-style-- {

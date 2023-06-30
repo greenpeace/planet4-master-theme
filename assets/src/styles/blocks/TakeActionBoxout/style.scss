@@ -52,11 +52,13 @@
   }
 
   .boxout-heading {
-    font-family: var(--headings--font-family);
+    _-- {
+      font-family: var(--headings--font-family);
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 1.25;
+    }
     color: var(--body--color);
-    font-size: 16px;
-    font-weight: 700;
-    line-height: 1.25;
     margin-bottom: 0;
     display: -webkit-box;
     -webkit-line-clamp: 2;
@@ -70,9 +72,11 @@
   }
 
   .btn {
-    font-size: 12px;
-    line-height: 1;
-    padding: $sp-1 $sp-2;
+    _-- {
+      font-size: 12px;
+      line-height: 1;
+      padding: $sp-1 $sp-2;
+    }
     background-color: var(--button-primary--background, $orange);
     color: var(--button-primary--color, $white);
     border: none;
@@ -98,9 +102,11 @@
     }
 
     .boxout-excerpt {
+      _-- {
+        font-size: 14px;
+        line-height: 1.5;
+      }
       color: var(--body--color);
-      line-height: 1.5;
-      font-size: 14px;
       display: -webkit-box;
       -webkit-line-clamp: 1;
       /* stylelint-disable property-no-vendor-prefix */
@@ -113,7 +119,9 @@
     }
 
     .btn {
-      font-size: 14px;
+      _-- {
+        font-size: 14px;
+      }
       align-self: flex-end;
       position: unset;
     }

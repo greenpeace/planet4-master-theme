@@ -88,8 +88,10 @@
 }
 
 .enform {
+  _-- {
+    font-family: var(--headings--font-family);
+  }
   margin-top: 36px;
-  font-family: var(--headings--font-family);
   height: inherit;
   background: $dark-blue;
   width: 100%;
@@ -158,9 +160,11 @@
       }
 
       p {
-        font-size: .75rem;
-        font-family: var(--headings--font-family) !important;
-        line-height: 1rem;
+        --block-enform--text-- {
+          font-size: .75rem;
+          font-family: var(--headings--font-family) !important;
+          line-height: 1rem;
+        }
         margin-bottom: 0;
         float: none;
       }

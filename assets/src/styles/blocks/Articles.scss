@@ -107,7 +107,9 @@
 }
 
 .article-list-item-author {
-  font-weight: 500;
+  _-- {
+    font-weight: 500;
+  }
 }
 
 .article-list-item-bullet {

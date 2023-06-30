@@ -446,12 +446,14 @@ $medium-image-height: 600px;
     }
 
     p {
+      _-- {
+        font-family: var(--headings--font-family);
+        font-size: .875rem;
+        font-weight: 500;
+        line-height: 22px;
+      }
       display: block;
       color: var(--body--color);
-      font-family: var(--headings--font-family);
-      font-size: .875rem;
-      font-weight: 500;
-      line-height: 22px;
       width: 100%;
       padding-inline-start: 0;
       margin-bottom: 24px;
@@ -464,25 +466,33 @@ $medium-image-height: 600px;
       transform: translateX($text-slide-offset);
 
       @include small-and-up {
-        font-size: $font-size-sm;
+        _-- {
+          font-size: $font-size-sm;
+        }
       }
 
       @include medium-and-up {
-        font-size: 1.125rem;
-        line-height: 1.6;
+        _-- {
+          font-size: 1.125rem;
+          line-height: 1.6;
+        }
         margin-bottom: 24px;
         display: block;
       }
 
       @include large-and-up {
-        font-size: 1.125rem;
+        _-- {
+          font-size: 1.125rem;
+        }
         margin-bottom: 36px;
         color: $white;
       }
 
       @include x-large-and-up {
-        font-size: 1.125rem;
-        line-height: 1.6;
+        _-- {
+          font-size: 1.125rem;
+          line-height: 1.6;
+        }
       }
     }
 

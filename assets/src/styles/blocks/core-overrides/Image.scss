@@ -89,9 +89,11 @@
   }
 
   figcaption {
-    font-size: $font-size-xxs;
-    font-family: var(--headings--font-family);
-    line-height: 1.4;
+    --image-figcaption-- {
+      font-size: $font-size-xxs;
+      font-family: var(--headings--font-family);
+      line-height: 1.4;
+    }
     margin-bottom: 0;
     color: $grey-60;
     text-align: center;

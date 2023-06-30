@@ -92,7 +92,9 @@
   .tl-text .tl-headline-date,
   .tl-text h3.tl-headline-date,
   .tl-text .tl-text-date {
-    font-family: var(--headings--font-family);
+    --tl-timeline-- {
+      font-family: var(--headings--font-family);
+    }
   }
 
   .tl-skinny .tl-slide .tl-slide-content-container .tl-slide-content .tl-text .tl-text-content-container {

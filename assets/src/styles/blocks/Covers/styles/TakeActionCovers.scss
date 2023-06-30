@@ -15,6 +15,9 @@
   }
 
   .cover {
+    _-- {
+      font-family: var(--headings--font-family);
+    }
     box-shadow: 0 1px 8px rgba(0, 0, 0, 0.16);
     transition: box-shadow 0.2s;
     min-height: 440px;
@@ -22,7 +25,6 @@
     background: white;
     cursor: pointer;
     position: relative;
-    font-family: var(--headings--font-family);
 
     &:hover {
       box-shadow: 0 1px 14px rgba(0, 0, 0, 0.3);
@@ -67,13 +69,15 @@
       }
 
       .cover-card-heading {
+        --cover-card-heading-- {
+          font-size: 18px;
+          font-weight: 700;
+          line-height: 1.2;
+        }
         position: relative;
         z-index: 1;
         color: black;
-        font-size: 18px;
-        font-weight: 700;
         margin: $sp-1 0;
-        line-height: 1.2;
         display: -webkit-box;
         -webkit-line-clamp: 2;
         /* stylelint-disable property-no-vendor-prefix */
@@ -85,9 +89,11 @@
       }
 
       .cover-card-excerpt {
-        font-family: var(--body--font-family);
-        font-size: 14px;
-        line-height: 1.5;
+        --cover-card-excerpt-- {
+          font-family: var(--body--font-family);
+          font-size: 14px;
+          line-height: 1.5;
+        }
         display: -webkit-box;
         -webkit-line-clamp: 3;
         margin: 0;
@@ -101,8 +107,10 @@
     }
 
     .cover-card-btn {
-      font-size: 14px;
-      line-height: 1;
+      --cover-card-btn-- {
+        font-size: 14px;
+        line-height: 1;
+      }
       padding: 10px 20px;
       right: $sp-3;
       bottom: $sp-3;
