@@ -19,33 +19,36 @@ async function addCoversBlock(page, style = '') {
 
   if (style === 'Take Action') {
     // Fill in the Posts.
-    await page.locator('input[placeholder="Select pages"]').type(PAGE_NAMES[0]);
+    const postsInput = await page.getByLabel('Select pages');
+    await postsInput.type(PAGE_NAMES[0]);
     await page.locator('li.components-form-token-field__suggestion').click();
-    await page.locator('input.components-form-token-field__input').type(PAGE_NAMES[1]);
+    await postsInput.type(PAGE_NAMES[1]);
     await page.locator('li.components-form-token-field__suggestion').click();
-    await page.locator('input.components-form-token-field__input').type(PAGE_NAMES[2]);
+    await postsInput.type(PAGE_NAMES[2]);
     await page.locator('li.components-form-token-field__suggestion').click();
   } else {
     // Fill in the tags.
-    await page.locator('input[placeholder="Select Tags"]').type(TAG_NAMES[0]);
+    const tagsInput = await page.getByLabel('Select Tags');
+    await tagsInput.type(TAG_NAMES[0]);
     await page.locator('li.components-form-token-field__suggestion').click();
-    await page.locator('input.components-form-token-field__input').nth(0).type(TAG_NAMES[1]);
+    await tagsInput.type(TAG_NAMES[1]);
     await page.locator('li.components-form-token-field__suggestion').click();
-    await page.locator('input.components-form-token-field__input').nth(0).type(TAG_NAMES[2]);
+    await tagsInput.type(TAG_NAMES[2]);
     await page.locator('li.components-form-token-field__suggestion').click();
-    await page.locator('input.components-form-token-field__input').nth(0).type(TAG_NAMES[3]);
+    await tagsInput.type(TAG_NAMES[3]);
     await page.locator('li.components-form-token-field__suggestion').click();
   }
 
   // Default style, i.e 'Content cover'.
   if (style === 'Default') {
     // Fill in the Post types.
-    await page.locator('input[placeholder="Select Post Types"]').type(POST_TYPES[0]);
+    const postTypesInput = await page.getByLabel('Select Post Types');
+    await postTypesInput.type(POST_TYPES[0]);
     await page.locator('li.components-form-token-field__suggestion').click();
-    await page.locator('input.components-form-token-field__input').nth(1).type(POST_TYPES[1]);
+    await postTypesInput.type(POST_TYPES[1]);
     await page.locator('li.components-form-token-field__suggestion').click();
   }
-  await page.locator('input[placeholder="Override button text"]').fill('Read more');
+  await page.getByLabel('Button Text').fill('Read more');
 }
 
 async function checkCoversBlock(page, style) {
