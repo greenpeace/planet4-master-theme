@@ -49,8 +49,8 @@ export const formFields = {
       questionId: 3665,
       name: 'Opt-in',
       type: 'OPT',
-    }
-  ]
+    },
+  ],
 };
 
 export const formFieldsAttributes = {

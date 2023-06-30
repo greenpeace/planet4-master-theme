@@ -1,7 +1,7 @@
+/* eslint-disable jsdoc/require-param-type */
 /* global ajaxurl, jQuery, Backbone, _ */
 
-jQuery(function ($) {
-
+jQuery($ => {
   /**
    * Event listener for add field/question button.
    */
@@ -23,67 +23,67 @@ jQuery(function ($) {
     };
 
     // If we add an Opt-in then retrieve the labels for all locales that exist for it from EN.
-    if( 'OPT' === field_data.en_type || 'GEN' === field_data.en_type ) {
+    if('OPT' === field_data.en_type || 'GEN' === field_data.en_type) {
       $.ajax({
         url: ajaxurl,
         type: 'GET',
         data: {
           action: 'get_supporter_question_by_id',
-          id: $(this).data('id')
+          id: $(this).data('id'),
         },
-      }).done(function (response) {
+      }).done(response => {
 
         // Checking response type to avoid error if string was returned (in case of an error).
-        if ( 'object' === typeof response ) {
-          $.each(response, function (i, value) {
+        if ('object' === typeof response) {
+          $.each(response, (i, value) => {
             if (value.content && 'undefined' !== typeof value.content.data[0]) {
-              field_data['htmlFieldType'] = value.htmlFieldType;
+              field_data.htmlFieldType = value.htmlFieldType;
               let label = '';
               let selected = '';
 
-              switch ( field_data['htmlFieldType'] ) {
-                case 'checkbox':
-                  if ('OPT' === field_data['en_type']) {
-                    label = value.content.data[0].label;
-                    selected = value.content.data[0].selected;
+              switch (field_data.htmlFieldType) {
+              case 'checkbox':
+                if ('OPT' === field_data.en_type) {
+                  label = value.content.data[0].label;
+                  selected = value.content.data[0].selected;
 
-                  } else if ('GEN' === field_data['en_type']) {
-                    label = value.label;
-                    field_data['question_options'][value.locale] = [];
-
-                    $.each(value.content.data, function (i, option) {
-                      field_data['question_options'][value.locale].push({
-                        'option_label': _.escape( option.label ),
-                        'option_value': _.escape( option.value ),
-                        'option_selected': option.selected
-                      });
-
-                    });
-                  }
-                  field_data['locales'][value.locale] = _.escape(label);
-                  field_data['selected'] = selected;
-                  break;
-
-                case 'radio':
+                } else if ('GEN' === field_data.en_type) {
                   label = value.label;
-                  field_data['locales'][value.locale] = _.escape(label);
-                  field_data['radio_options'][value.locale] = [];
+                  field_data.question_options[value.locale] = [];
 
-                  $.each(value.content.data, function (i, option) {
-                    field_data['radio_options'][value.locale].push({
-                      'option_label': _.escape( option.label ),
-                      'option_value': _.escape( option.value ),
-                      'option_selected': option.selected
+                  $.each(value.content.data, (j, option) => {
+                    field_data.question_options[value.locale].push({
+                      'option_label': _.escape(option.label),
+                      'option_value': _.escape(option.value),
+                      'option_selected': option.selected,
                     });
+
                   });
-                  break;
+                }
+                field_data.locales[value.locale] = _.escape(label);
+                field_data.selected = selected;
+                break;
+
+              case 'radio':
+                label = value.label;
+                field_data.locales[value.locale] = _.escape(label);
+                field_data.radio_options[value.locale] = [];
+
+                $.each(value.content.data, (j, option) => {
+                  field_data.radio_options[value.locale].push({
+                    'option_label': _.escape(option.label),
+                    'option_value': _.escape(option.value),
+                    'option_selected': option.selected,
+                  });
+                });
+                break;
               }
             }
           });
           // Add new field.
-          p4_enform.fields.add( new p4_enform.Models.EnformField(field_data) );
+          p4_enform.fields.add(new p4_enform.Models.EnformField(field_data));
         }
-      }).fail(function (response) {
+      }).fail(response => {
         console.log(response); //eslint-disable-line no-console
       });
     } else {
@@ -96,16 +96,16 @@ jQuery(function ($) {
    */
   $('#en_form_selected_fields_table > tbody').sortable({
     handle: '.dashicons-sort',
-    stop: function (event, ui) {
+    stop (event, ui) {
       ui.item.trigger('sort-field', ui.item.index());
-    }
+    },
   });
 
 
   /**
    * Hook into post submit to inject form fields.
    */
-  $('#post').on('submit', function () {
+  $('#post').on('submit', () => {
     $('#p4enform_fields').val(JSON.stringify(p4_enform.fields.toJSON()));
   });
 
@@ -152,7 +152,7 @@ const p4_enform = (function ($) {
       radio_options: {},
       selected: '',
       dependency: '',
-    }
+    },
   });
 
   /**
@@ -161,7 +161,7 @@ const p4_enform = (function ($) {
   app.Collections.EnformFields = Backbone.Collection.extend(
     {
       model: app.Models.EnformField,
-      url: ''
+      url: '',
     });
 
   /**
@@ -179,18 +179,18 @@ const p4_enform = (function ($) {
     /**
      * Initialize view.
      */
-    initialize: function () {
+    initialize () {
       this.listenTo(this.collection, 'add', this.renderOne);
     },
 
     /**
      * Render a single field.
      *
-     * @param field Field model.
+     * @param field      Field model.
      * @param collection Field model collection.
-     * @param actions Object with actions.
+     * @param actions    Object with actions.
      */
-    renderOne: function (field, collection, actions ) {
+    renderOne (field, collection, actions) {
       const fieldView = new app.Views.FieldsListItemView({model: field});
 
       this.views[field.id] = fieldView;
@@ -200,9 +200,9 @@ const p4_enform = (function ($) {
 
       // If a field is being added and its html type has been retrieved from EN
       // then auto-select the field type for Questions/Optins. Should happen after Delegate events.
-      if ( actions.add && field.attributes.htmlFieldType ) {
-        if( 'OPT' === field.attributes.en_type || 'GEN' === field.attributes.en_type ) {
-          $('.field-type-select', fieldView.$el).val( field.attributes.htmlFieldType ).change();
+      if (actions.add && field.attributes.htmlFieldType) {
+        if('OPT' === field.attributes.en_type || 'GEN' === field.attributes.en_type) {
+          $('.field-type-select', fieldView.$el).val(field.attributes.htmlFieldType).change();
         }
       }
       fieldView.createFieldDialog();
@@ -211,7 +211,7 @@ const p4_enform = (function ($) {
     /**
      * Render view.
      */
-    render: function () {
+    render () {
       _.each(this.collection.models, function (project) {
         this.renderOne(project, this.collection, {'add': false});
       }, this);
@@ -220,14 +220,16 @@ const p4_enform = (function ($) {
 
     /**
      * Event listener for remove field/question button.
+     *
+     * @param e
      */
-    removeField: function (e) {
+    removeField (e) {
       e.preventDefault();
       const $tr = $(e.target).closest('tr');
       const id  = $tr.data('en-id');
 
       $('.add-en-field').filter('*[data-id="' + id + '"]').prop('disabled', false);
-      this.collection.remove(this.collection.findWhere({id: id}));
+      this.collection.remove(this.collection.findWhere({id}));
       this.views[id].destroy();
       $tr.remove();
     },
@@ -235,11 +237,11 @@ const p4_enform = (function ($) {
     /**
      * Reorder collection models.
      *
-     * @param event Event object
-     * @param model Field Model.
+     * @param event    Event object
+     * @param model    Field Model.
      * @param position New index.
      */
-    updateSort: function (event, model, position) {
+    updateSort (event, model, position) {
       this.collection.remove(model, {silent: true});
       this.collection.add(model, {at: position, silent: true});
     },
@@ -247,17 +249,17 @@ const p4_enform = (function ($) {
     /**
      * Disable email field attributes besides label.
      */
-    disableEmailField: function () {
+    disableEmailField () {
       $('tr[data-en-name="Email"] span.remove-en-field').remove();
       $('tr[data-en-name="Email"] input[data-attribute="required"]').prop('checked', true).prop('disabled', true);
       $('tr[data-en-name="Email"] select[data-attribute="input_type"]').val('email').prop('disabled', true);
-      let emailModel = this.collection.findWhere({property: 'emailAddress'});
+      const emailModel = this.collection.findWhere({property: 'emailAddress'});
       if ('undefined' !== typeof emailModel) {
         emailModel
           .set('input_type', 'email')
           .set('required', true);
       }
-    }
+    },
   });
 
   /**
@@ -273,7 +275,7 @@ const p4_enform = (function ($) {
       'change input[type="text"]': 'inputChanged',
       'change input[type="checkbox"]': 'checkboxChanged',
       'change select.field-type-select': 'selectChanged',
-      'sort-field': 'sortField'
+      'sort-field': 'sortField',
     },
 
     /**
@@ -302,6 +304,8 @@ const p4_enform = (function ($) {
 
     /**
      * Register event listener for field type select box.
+     *
+     * @param event
      */
     selectChanged(event) {
       const input_type = $(event.target).val();
@@ -309,102 +313,102 @@ const p4_enform = (function ($) {
       const id         = $tr.data('en-id');
       const attr       = $(event.target).data('attribute');
       const en_type    = this.model.get('en_type');
-      let $label       = this.$el.find('input[data-attribute="label"]');
-      let $required    = this.$el.find('input[data-attribute="required"]');
+      const $label       = this.$el.find('input[data-attribute="label"]');
+      const $required    = this.$el.find('input[data-attribute="required"]');
 
       this.model.set(attr, input_type);
       $tr.find('.dashicons-edit').parent().remove();
 
-      switch ( input_type ) {
-        case 'checkbox':
-          if ( 'OPT' === en_type || 'GEN' === en_type ) {
-            $required.prop('disabled', false);
-            $label.prop('disabled', true);
-          } else {
-            $label.prop('disabled', false);
-          }
-          this.$el.find('.actions').prepend('<a><span class="dashicons dashicons-edit pointer"></span></a>');
-          this.createFieldDialog();
-          break;
-
-        case 'country':
+      switch (input_type) {
+      case 'checkbox':
+        if ('OPT' === en_type || 'GEN' === en_type) {
           $required.prop('disabled', false);
-          $label.prop('disabled', false);
-          break;
-
-        case 'position':
-          $required.prop('disabled', false);
-          $label.prop('disabled', false);
-          break;
-
-        case 'email':
-          $required.prop('disabled', false);
-          $label.prop('disabled', false);
-          break;
-
-        case 'hidden':
-          $required.prop('checked', false).trigger('change').prop('disabled', true);
           $label.prop('disabled', true);
-          $label.val('').trigger('change');
-          this.$el.find('.actions').prepend('<a><span class="dashicons dashicons-edit pointer"></span></a>');
-          this.createFieldDialog();
-          break;
-
-        case 'text':
-          $required.prop('disabled', false);
+        } else {
           $label.prop('disabled', false);
-          this.$el.find('.actions').prepend('<a><span class="dashicons dashicons-edit pointer"></span></a>');
-          this.createFieldDialog();
-          break;
+        }
+        this.$el.find('.actions').prepend('<a><span class="dashicons dashicons-edit pointer"></span></a>');
+        this.createFieldDialog();
+        break;
 
-        case 'radio':
-          $required.prop('disabled', false);
-          if ( 'OPT' === en_type || 'GEN' === en_type ) {
-            $label.prop('disabled', true);
-          } else {
-            $label.prop('disabled', false);
-          }
-          this.$el.find('.actions').prepend('<a><span class="dashicons dashicons-edit pointer"></span></a>');
-          this.createFieldDialog();
-          break;
+      case 'country':
+        $required.prop('disabled', false);
+        $label.prop('disabled', false);
+        break;
 
-        default:
-          if (null !== this.dialog_view) {
-            this.dialog_view.destroy();
-            this.dialog_view = null;
-          }
-          $('body').find('.dialog-' + id).remove();
-          this.$el.find('.dashicons-edit').parent().remove();
+      case 'position':
+        $required.prop('disabled', false);
+        $label.prop('disabled', false);
+        break;
+
+      case 'email':
+        $required.prop('disabled', false);
+        $label.prop('disabled', false);
+        break;
+
+      case 'hidden':
+        $required.prop('checked', false).trigger('change').prop('disabled', true);
+        $label.prop('disabled', true);
+        $label.val('').trigger('change');
+        this.$el.find('.actions').prepend('<a><span class="dashicons dashicons-edit pointer"></span></a>');
+        this.createFieldDialog();
+        break;
+
+      case 'text':
+        $required.prop('disabled', false);
+        $label.prop('disabled', false);
+        this.$el.find('.actions').prepend('<a><span class="dashicons dashicons-edit pointer"></span></a>');
+        this.createFieldDialog();
+        break;
+
+      case 'radio':
+        $required.prop('disabled', false);
+        if ('OPT' === en_type || 'GEN' === en_type) {
+          $label.prop('disabled', true);
+        } else {
+          $label.prop('disabled', false);
+        }
+        this.$el.find('.actions').prepend('<a><span class="dashicons dashicons-edit pointer"></span></a>');
+        this.createFieldDialog();
+        break;
+
+      default:
+        if (null !== this.dialog_view) {
+          this.dialog_view.destroy();
+          this.dialog_view = null;
+        }
+        $('body').find('.dialog-' + id).remove();
+        this.$el.find('.dashicons-edit').parent().remove();
       }
     },
 
     /**
      * Initialize view.
      */
-    initialize: function () {
+    initialize () {
       this.listenTo(this.model, 'change', this.render);
     },
 
     /**
      * Create field dialog view.
      */
-    createFieldDialog: function () {
+    createFieldDialog () {
       const input_type = this.model.get('input_type');
       let tmpl = '';
 
-      switch ( input_type ) {
-        case 'text':
-          tmpl = '#tmpl-en-text-field-dialog';
-          break;
-        case 'hidden':
-          tmpl = '#tmpl-en-hidden-field-dialog';
-          break;
-        case 'checkbox':
-          tmpl = '#tmpl-en-checkbox-dialog';
-          break;
-        case 'radio':
-          tmpl = '#tmpl-en-radio-dialog';
-          break;
+      switch (input_type) {
+      case 'text':
+        tmpl = '#tmpl-en-text-field-dialog';
+        break;
+      case 'hidden':
+        tmpl = '#tmpl-en-hidden-field-dialog';
+        break;
+      case 'checkbox':
+        tmpl = '#tmpl-en-checkbox-dialog';
+        break;
+      case 'radio':
+        tmpl = '#tmpl-en-radio-dialog';
+        break;
       }
 
       if (null !== this.dialog_view) {
@@ -412,7 +416,7 @@ const p4_enform = (function ($) {
         $('body').find('.dialog-' + this.model.id).remove();
       }
 
-      if ( tmpl ) {
+      if (tmpl) {
         this.dialog_view = new app.Views.FieldDialog({row: this.model.id, model: this.model, template: tmpl});
       }
     },
@@ -420,7 +424,7 @@ const p4_enform = (function ($) {
     /**
      * Delegate events after view is rendered.
      */
-    _delegateEvents: function () {
+    _delegateEvents () {
       this.$el = $('tr[data-en-id="' + this.model.id + '"]');
       this.delegateEvents();
     },
@@ -428,14 +432,14 @@ const p4_enform = (function ($) {
     /**
      * Render view.
      */
-    render: function () {
+    render () {
       return this.template(this.model.toJSON());
     },
 
     /**
      * Destroy view.
      */
-    destroy: function () {
+    destroy () {
       if (null !== this.dialog_view) {
         this.dialog_view.destroy();
       }
@@ -448,7 +452,7 @@ const p4_enform = (function ($) {
      * @param event Event object
      * @param index New index for the field model.
      */
-    sortField: function (event, index) {
+    sortField (event, index) {
       this.$el.trigger('update-sort', [this.model, index]);
     },
   });
@@ -505,7 +509,7 @@ const p4_enform = (function ($) {
 
       $('input[data-attribute="label"]', $('tr[data-en-id="' + field_id + '"]'))
         .prop('disabled', false)
-        .val( label )
+        .val(label)
         .trigger('change')
         .prop('disabled', true);
 
@@ -513,8 +517,8 @@ const p4_enform = (function ($) {
       this.model.set('selected_locale', locale);
 
       // Get template's html, unwrap it to get rid of the most outer element and then update the dialog's html with it.
-      let dialog_html = $(this.template(this.model.toJSON())).unwrap().html();
-      $dialog.html( dialog_html );
+      const dialog_html = $(this.template(this.model.toJSON())).unwrap().html();
+      $dialog.html(dialog_html);
     },
 
     /**
@@ -534,7 +538,7 @@ const p4_enform = (function ($) {
      *
      * @param options Options object.
      */
-    initialize: function (options) {
+    initialize (options) {
       this.template = _.template($(options.template).html());
       this.rowid    = options.row;
       this.row      = $('tr[data-en-id="' + this.rowid + '"]');
@@ -545,7 +549,7 @@ const p4_enform = (function ($) {
     /**
      * Render dialog view
      */
-    render: function () {
+    render () {
       $(this.row).find('.actions').prepend(this.template(this.model.toJSON()));
 
       this.dialog = $(this.row).find('.dialog').dialog({
@@ -556,15 +560,15 @@ const p4_enform = (function ($) {
         title: 'Edit: ' + this.model.get('name'),
         dialogClass: 'dialog-' + this.rowid,
         buttons: {
-          'Close': function () {
+          'Close' () {
             dialog.dialog('close');
-          }
+          },
         },
       });
 
       this.el   = '.dialog-' + this.rowid;
       this.$el  = $(this.el).find('.ui-dialog-content');
-      let label = $('.question-locale-select', this.$el).val();
+      const label = $('.question-locale-select', this.$el).val();
       this.delegateEvents();
 
       const dialog = this.dialog;
@@ -573,26 +577,26 @@ const p4_enform = (function ($) {
 
         // Filter dependency fields and add them on dialog popup.
         let dependency_options = '';
-        if ( 'checkbox' === $(this).closest('tr').find('.field-type-select').val() ) {
-          let selected_en_fields = p4_enform.fields.models;
+        if ('checkbox' === $(this).closest('tr').find('.field-type-select').val()) {
+          const selected_en_fields = p4_enform.fields.models;
 
-          if ( selected_en_fields.length ) {
-            let dependency_array = [];
+          if (selected_en_fields.length) {
+            const dependency_array = [];
             let dependency_field = '';
-            let field_name = $(this).closest('tr').find('td:eq(1)').text();
-            _.each(selected_en_fields, function (field) {
-              if ( 'checkbox' === field.attributes.input_type && field.attributes.name !== field_name ) {
+            const field_name = $(this).closest('tr').find('td:eq(1)').text();
+            _.each(selected_en_fields, field => {
+              if ('checkbox' === field.attributes.input_type && field.attributes.name !== field_name) {
                 dependency_array.push(field.attributes.name);
               }
 
-              if ( field.attributes.name === field_name ) {
+              if (field.attributes.name === field_name) {
                 dependency_field = field.attributes.dependency;
               }
             }, this);
 
-            $.each(dependency_array, function(key, value) {
+            $.each(dependency_array, (key, value) => {
               let selected_option = '';
-              if ( dependency_field === value ) {
+              if (dependency_field === value) {
                 selected_option = 'selected';
               }
               dependency_options += '<option value="'+value+'" '+selected_option+'>'+value+'</option>';
@@ -601,12 +605,12 @@ const p4_enform = (function ($) {
           }
         }
 
-        dialog.html(dialog.html().replace( '</select><span></span>', dependency_options+'</select>' ));
+        dialog.html(dialog.html().replace('</select><span></span>', dependency_options+'</select>'));
         dialog.dialog('open');
       });
 
       // Handle Label selection.
-      $('.question-label', this.$el).html( label );
+      $('.question-label', this.$el).html(label);
       $('.question-locale-select').change();
     },
 
@@ -614,7 +618,7 @@ const p4_enform = (function ($) {
      * Destroy dialog view.
      * Set default values to model.
      */
-    destroy: function () {
+    destroy () {
       this.dialog.dialog('destroy');
       this.model.set('default_value', '');
       this.model.set('js_validate_regex', '');
@@ -623,7 +627,7 @@ const p4_enform = (function ($) {
       this.model.set('hidden', false);
       this.model.set('dependency', '');
       this.remove();
-    }
+    },
   });
 
   return app;
@@ -649,7 +653,7 @@ const p4_enform = (function ($) {
     if ('' !== fields) {
       fields = JSON.parse(fields);
       const fields_arr = [];
-      _.each(fields, function (field) {
+      _.each(fields, field => {
         fields_arr.push(new app.Models.EnformField(field));
       }, this);
       app.fields.add(fields_arr);
@@ -667,7 +671,7 @@ const p4_enform = (function ($) {
   /**
    * Initialize app when page is loaded.
    */
-  $(document).ready(function () {
+  $(document).ready(() => {
 
     // Initialize app when document is loaded.
     app.init_new_enform_page();
@@ -675,7 +679,7 @@ const p4_enform = (function ($) {
     // Initialize tooltips.
     app.fields_view.$el.tooltip({
       track: true,
-      show: { effect: 'fadeIn', duration: 500 }
+      show: {effect: 'fadeIn', duration: 500},
     });
   });
 

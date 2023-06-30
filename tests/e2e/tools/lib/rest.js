@@ -18,8 +18,7 @@ async function rest(context, options) {
     try {
       json = await response.json();
     } catch (error) {
-      const body = await response.body().toString();
-      console.log(body.toString());
+      await response.body().toString();
       throw error;
     }
 

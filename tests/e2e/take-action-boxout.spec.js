@@ -15,7 +15,7 @@ test.describe('Test Take Action Boxout block', () => {
   test('Take Action Boxout with existing page', async ({page}) => {
     // Select the first page option.
     await page.waitForSelector('.block-editor-block-inspector');
-    await page.selectOption('.components-select-control__input', { index: 1 });
+    await page.selectOption('.components-select-control__input', {index: 1});
 
     // Save boxout data to make sure it shows in the frontend.
     const boxoutTitle = await page.innerHTML('.boxout-heading');

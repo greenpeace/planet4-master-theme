@@ -4,11 +4,11 @@ import {rest} from './tools/lib/rest';
 import {login} from './tools/lib/login';
 import {newPage, publishPage} from './tools/lib/new-page';
 
-import fieldsData from './fixtures/enform/ensapi_sample_fields_response.json'
-import questionsData from './fixtures/enform/ensapi_sample_questions_response.json'
-import questionData from './fixtures/enform/ensapi_sample_question_236734_response.json'
-import optinData from './fixtures/enform/ensapi_sample_question_3877_response.json'
-import depOptinData from './fixtures/enform/ensapi_sample_question_220954_response.json'
+import fieldsData from './fixtures/enform/ensapi_sample_fields_response.json';
+import questionsData from './fixtures/enform/ensapi_sample_questions_response.json';
+import questionData from './fixtures/enform/ensapi_sample_question_236734_response.json';
+import optinData from './fixtures/enform/ensapi_sample_question_3877_response.json';
+import depOptinData from './fixtures/enform/ensapi_sample_question_220954_response.json';
 import {formFields, formFieldsAttributes} from './fixtures/enform/enformData';
 
 test.describe.configure({mode: 'serial'});
@@ -73,14 +73,14 @@ test.describe('create, use and submit EN Form', () => {
       'ens_supporter_questions_response': questionsData.questions,
       'ens_supporter_question_by_id_response_236734': questionData['question.236734'],
       'ens_supporter_question_by_id_response_3887': optinData['question.3887'],
-      'ens_supporter_question_by_id_response_220954': depOptinData['question.220954']
+      'ens_supporter_question_by_id_response_220954': depOptinData['question.220954'],
     };
     const items = [];
     for (const key in postData) {
       items.push({key, value: JSON.stringify(postData[key])});
     }
 
-    const response = await rest(context, {
+    await rest(context, {
       path: './wp-json/planet4/v1/transient',
       method: 'POST',
       data: {items},
@@ -166,12 +166,10 @@ test.describe('create, use and submit EN Form', () => {
 
     const currentUrl = await page.url();
     enFormId = new URL(currentUrl).searchParams.get('post');
-    console.log(`form ID: ${enFormId}`);
   });
 
   test('create Page with EN Form side style', async ({page, context}) => {
     pageUrl = await createPageWithENForm(page, context, 'side');
-    console.log(`page URL: ${pageUrl}`);
   });
 
   test('fill EN Form (side style) on frontend', async ({page}) => {
@@ -180,7 +178,6 @@ test.describe('create, use and submit EN Form', () => {
 
   test('create Page with EN Form full-width-bg style', async ({page, context}) => {
     pageUrl = await createPageWithENForm(page, context, 'full-width-bg');
-    console.log(`page URL: ${pageUrl}`);
   });
 
   test('fill EN Form (full-width-bg style) on frontend', async ({page}) => {
@@ -190,7 +187,6 @@ test.describe('create, use and submit EN Form', () => {
   test('disable EN Form block', async ({page, context}) => {
 
     if (featureIsActiveOnInstance) {
-      console.log('Feature kept active.');
       return;
     }
 

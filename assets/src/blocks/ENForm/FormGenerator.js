@@ -8,12 +8,13 @@ export const FormGenerator = ({fields, attributes, onInputChange, onBlur, errors
   const {en_form_style} = attributes;
   const is_side_style = 'side-style' === en_form_style;
 
-  let control_fields = {};
+  const control_fields = {};
   for (const f of fields) {
     if (f.dependency) {
-      control_fields[f.dependency]
-        ? control_fields[f.dependency].push(f.name)
-        : control_fields[f.dependency] = [f.name];
+      // eslint-disable-next-line no-unused-expressions
+      control_fields[f.dependency] ?
+        control_fields[f.dependency].push(f.name) :
+        control_fields[f.dependency] = [f.name];
     }
   }
 

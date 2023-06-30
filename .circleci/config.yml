@@ -93,18 +93,13 @@ jobs:
       - checkout
       - run:
           name: Lint CSS
-          when: always
           command: stylelint "assets/src/styles/**/*.scss"
       - run:
+          name: Install eslint react plugin
+          command: PUPPETEER_SKIP_DOWNLOAD=true PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true npm install eslint-plugin-react --unsafe-perm=true
+      - run:
           name: Lint JS
-          when: always
-          # For now lint only changed files to avoid bulk fixing.
-          command: |
-            changed_files=$(git diff --name-only main...HEAD -- {public/js,tests/js,assets/src}/**/*.js)
-            echo "Changed files:"
-            echo $changed_files | tr " " "\n"
-            if [ -z "$changed_files" ]; then exit 0; fi
-            npm install && eslint --ext .js $(echo "$changed_files" | xargs)
+          command: eslint "assets/src/**/*.js" "tests/e2e/**/*.js" "admin/js/**/*.js"
       - store_test_results:
           path: /tmp/test-results
 

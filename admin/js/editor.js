@@ -1,6 +1,5 @@
-/* global wp */
-const { unregisterBlockStyle, registerBlockStyle } = wp.blocks;
-const { __ } = wp.i18n;
+const {unregisterBlockStyle, registerBlockStyle} = wp.blocks;
+const {__} = wp.i18n;
 
 wp.domReady(() => {
   // Remove Take Action and Campaign covers styles for Covers block in campaigns
@@ -19,16 +18,16 @@ wp.domReady(() => {
     {
       name: 'secondary',
       label: __('Secondary', 'planet4-blocks-backend'),
-      isDefault: true
+      isDefault: true,
     },
     {
       name: 'cta',
-      label: __('Primary', 'planet4-blocks-backend')
+      label: __('Primary', 'planet4-blocks-backend'),
     },
     {
       name: 'transparent',
-      label: __('Transparent', 'planet4-blocks-backend')
-    }
+      label: __('Transparent', 'planet4-blocks-backend'),
+    },
   ];
 
   registerBlockStyle('core/button', buttonStyles);
@@ -42,7 +41,7 @@ wp.domReady(() => {
       {
         name: 'reset-margin',
         label: __('Reset margin', 'planet4-blocks-backend'),
-      }
+      },
     ]);
   });
 
@@ -55,8 +54,8 @@ wp.domReady(() => {
   const headingStyles = [
     {
       name: 'chevron',
-      label: __('Chevron', 'planet4-blocks-backend')
-    }
+      label: __('Chevron', 'planet4-blocks-backend'),
+    },
   ];
 
   registerBlockStyle('core/heading', headingStyles);
@@ -68,11 +67,11 @@ wp.domReady(() => {
   const imageStyles = [
     {
       name: 'rounded-180',
-      label: __('Rounded 180x180', 'planet4-blocks-backend')
+      label: __('Rounded 180x180', 'planet4-blocks-backend'),
     },
     {
       name: 'rounded-90',
-      label: __('Rounded 90x90', 'planet4-blocks-backend')
+      label: __('Rounded 90x90', 'planet4-blocks-backend'),
     },
   ];
 
@@ -82,7 +81,7 @@ wp.domReady(() => {
   registerBlockStyle('core/media-text', [
     {
       name: 'parallax',
-      label: __('Parallax - add a parallax effect to the image when scrolling the page', 'planet4-blocks-backend')
-    }
+      label: __('Parallax - add a parallax effect to the image when scrolling the page', 'planet4-blocks-backend'),
+    },
   ]);
 });
