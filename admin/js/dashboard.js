@@ -4,6 +4,7 @@ const onClickActionButton = actionButton => {
   let answer = confirmationText;
 
   if (confirmationText) {
+    // eslint-disable-next-line no-alert
     answer = confirm(confirmationText);
     if (!answer) {
       return;

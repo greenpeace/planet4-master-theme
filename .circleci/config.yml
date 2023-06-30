@@ -102,7 +102,7 @@ jobs:
           command: PUPPETEER_SKIP_DOWNLOAD=true PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true npm install eslint-plugin-react --unsafe-perm=true
       - run:
           name: Lint JS
-          command: eslint assets/**/*.js
+          command: eslint "assets/src/**/*.js" "tests/e2e/**/*.js" "admin/js/**/*.js"
       - store_test_results:
           path: /tmp/test-results
 

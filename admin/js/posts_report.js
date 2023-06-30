@@ -16,7 +16,7 @@ const setupPostsReport = () => {
 
   const filterButton = document.querySelector('#posts-filter');
   filterButton.onclick = () => {
-    let filters = {};
+    const filters = {};
     const from = document.querySelector('#from').value;
     const to = document.querySelector('#to').value;
 
@@ -38,13 +38,13 @@ const setupPostsReport = () => {
   p4.PostsView = wp.Backbone.View.extend({
     template: wp.template('p4-post-list'),
     events: {
-      'click .refresh': function () {
+      'click .refresh'() {
         return this.refreshPosts({});
       },
     },
     showSpinner: () => showSpinner('posts'),
     hideSpinner: () => hideSpinner('posts'),
-    refreshPosts: function (filters) {
+    refreshPosts(filters) {
       this.showSpinner();
       const params = {
         per_page: 50,
@@ -65,33 +65,33 @@ const setupPostsReport = () => {
         error: this.hideSpinner,
       });
     },
-    initialize: function () {
+    initialize() {
       this.listenTo(this.collection, 'add', this.addPostView);
     },
-    addPostView: function (post) {
-      this.views.add('.p4-posts', new p4.PostView({ model: post }));
-    }
+    addPostView(post) {
+      this.views.add('.p4-posts', new p4.PostView({model: post}));
+    },
   });
 
   p4.PostView = wp.Backbone.View.extend({
     template: wp.template('p4-post'),
     tagName: 'tr',
-    prepare: function () {
+    prepare() {
       return this.model.toJSON();
-    }
+    },
   });
 
   // Pages list
   p4.PagesView = wp.Backbone.View.extend({
     template: wp.template('p4-page-list'),
     events: {
-      'click .refresh': function () {
+      'click .refresh'() {
         return this.refreshPages({});
       },
     },
     showSpinner: () => showSpinner('pages'),
     hideSpinner: () => hideSpinner('pages'),
-    refreshPages: function (filters) {
+    refreshPages(filters) {
       this.showSpinner();
       const params = {
         per_page: 50,
@@ -112,33 +112,33 @@ const setupPostsReport = () => {
         error: this.hideSpinner,
       });
     },
-    initialize: function () {
+    initialize() {
       this.listenTo(this.collection, 'add', this.addPageView);
     },
-    addPageView: function (post) {
-      this.views.add('.p4-pages', new p4.PostView({ model: post }));
-    }
+    addPageView(post) {
+      this.views.add('.p4-pages', new p4.PostView({model: post}));
+    },
   });
 
   p4.PageView = wp.Backbone.View.extend({
     template: wp.template('p4-post'),
     tagName: 'tr',
-    prepare: function () {
+    prepare() {
       return this.model.toJSON();
-    }
+    },
   });
 
   // Campaigns list
   p4.CampaignsView = wp.Backbone.View.extend({
     template: wp.template('p4-campaign-list'),
     events: {
-      'click .refresh': function () {
+      'click .refresh'() {
         return this.refreshCampaigns({});
       },
     },
     showSpinner: () => showSpinner('campaigns'),
     hideSpinner: () => hideSpinner('campaigns'),
-    refreshCampaigns: function (filters) {
+    refreshCampaigns(filters) {
       this.showSpinner();
       const params = {
         per_page: 50,
@@ -159,20 +159,20 @@ const setupPostsReport = () => {
         error: this.hideSpinner,
       });
     },
-    initialize: function () {
+    initialize() {
       this.listenTo(this.collection, 'add', this.addCampaignView);
     },
-    addCampaignView: function (post) {
-      this.views.add('.p4-campaigns', new p4.PostView({ model: post }));
-    }
+    addCampaignView(post) {
+      this.views.add('.p4-campaigns', new p4.PostView({model: post}));
+    },
   });
 
   p4.CampaignView = wp.Backbone.View.extend({
     template: wp.template('p4-post'),
     tagName: 'tr',
-    prepare: function () {
+    prepare() {
       return this.model.toJSON();
-    }
+    },
   });
 
   p4.initialize = () => {
