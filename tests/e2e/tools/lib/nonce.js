@@ -2,7 +2,7 @@
 async function nonce(context) {
   const response = await context.request.get(
     './wp-admin/admin-ajax.php?action=rest-nonce',
-    {failOnStatusCode: true,}
+    {failOnStatusCode: true}
   );
 
   const adminNonce = await response.text();
@@ -10,4 +10,4 @@ async function nonce(context) {
   return adminNonce;
 }
 
-export { nonce };
+export {nonce};
