@@ -1,12 +1,12 @@
-const { test, expect } = require('@playwright/test');
+const {test, expect} = require('@playwright/test');
 
-import { login } from './tools/lib/login';
-import { rest } from './tools/lib/rest';
+import {login} from './tools/lib/login';
+import {rest} from './tools/lib/rest';
 
-test('Test special pages (Act and Explore)', async ({ page, context }) => {
+test('Test special pages (Act and Explore)', async ({page, context}) => {
   // Login.
   await page.goto('./');
-  await login(page, context);
+  await login(context);
 
   // Create 2 new pages.
   const actPage = await rest(context, {
@@ -16,7 +16,7 @@ test('Test special pages (Act and Explore)', async ({ page, context }) => {
       title: 'Act page test',
       content: '<!-- wp:paragraph --><p>Random content</p><!-- /wp:paragraph -->',
       status: 'publish',
-    }
+    },
   });
 
   const explorePage = await rest(context, {
@@ -26,7 +26,7 @@ test('Test special pages (Act and Explore)', async ({ page, context }) => {
       title: 'Explore page test',
       content: '<!-- wp:paragraph --><p>Random content</p><!-- /wp:paragraph -->',
       status: 'publish',
-    }
+    },
   });
 
   // Save previous Act and Explore pages.
