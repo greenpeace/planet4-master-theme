@@ -28,7 +28,7 @@ async function addColumnsBlock(page, style) {
       `div[aria-label="Enter column ${['Images','Icons'].includes(style) ? 'link' : 'button'} text"]`
     ).fill(`${['Images','Icons'].includes(style) ? 'Link' : 'Button'} ${index + 1}`);
 
-    if (style === 'Icons') {
+    if (style === 'Images' || style === 'Icons') {
       await column.locator('.columns-image-placeholder').hover({noWaitAfter: true});
       await column.locator('.dashicons-plus-alt2').click();
       // Select image from media library modal.
