@@ -205,6 +205,20 @@
   --tl-timeline--font-family: var(--font-family-tertiary);
   --enform--font-family: var(--font-family-tertiary);
   --block-enform--text--font-family: var(--font-family-tertiary);
+  --block-articles--article--content--font-size: var(--font-size-m--font-family-secondary);
+  --body--font-family: var(--font-family-secondary);
+  --carousel-header--carousel-caption--main-header--p--font-family: var(--font-family-paragraph-primary);
+  --carousel-header--carousel-caption--main-header--p--font-weight: var(--font-weight-regular);
+  --carousel-header--carousel-caption--main-header--p--font-size: var(--font-size-m--font-family-secondary);
+  --carousel-header--carousel-caption--main-header--p--line-height: var(--line-height-m--font-family-secondary);
+  --carousel-header--carousel-caption--main-header--p--small-and-up--font-size: var(--font-size-m--font-family-secondary);
+  --carousel-header--carousel-caption--main-header--p--medium-and-up--font-size: var(--font-size-m--font-family-secondary);
+  --carousel-header--carousel-caption--main-header--p--medium-and-up--line-height: var(--line-height-m--font-family-secondary);
+  --carousel-header--carousel-caption--main-header--p--large-and-up--font-size: var(--font-size-xl--font-family-secondary);
+  --carousel-header--carousel-caption--main-header--p--x-large-and-up--font-size: var(--font-size-xl--font-family-secondary);
+  --carousel-header--carousel-caption--main-header--p--x-large-and-up--line-height: var(--line-height-xl--font-family-secondary);
+  --text--line-height: var(--line-height-m--font-family-secondary);
+  --text--x-large-and-up--line-height: var(--line-height-xl--font-family-secondary);
 }
 
 h1,
@@ -423,11 +437,6 @@ $palette: (
 // Post page
 .single-post-author {
   font-family: var(--font-family-paragraph-secondary);
-}
-
-// Articles
-.article-list-item-headline {
-  font-family: var(--font-family-heading);
 }
 
 // Articles
