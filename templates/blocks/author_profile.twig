@@ -16,7 +16,7 @@
                     <figure class="author-block-image d-block d-sm-block d-md-none">
                         <img
                             itemprop="image"
-                            src="{{ fn('get_avatar_url', post.author.id, {'size' : 294 }) }}"
+                            src="{{ fn('get_avatar_url', post.author.id, {'size' : 294 }) | trim('=s96-c') }}"
                             alt="{{ post.author.name }}"
                         />
                     </figure>
