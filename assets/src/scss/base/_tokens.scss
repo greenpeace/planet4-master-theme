@@ -6,6 +6,7 @@
   --font-weight-bold: 700;
   --font-weight-regular: 400;
   --font-weight-semibold: 600;
+  --font-size-xxxs--font-family-primary: 0.938rem;
   --font-size-xxs--font-family-primary: 1rem;
   --font-size-xs--font-family-primary: 1.063rem;
   --font-size-s--font-family-primary: 1.125rem;
@@ -101,6 +102,7 @@
   --color-text-meta_item: var(--grey-600);
   --color-text-nav_link: var(--grey-900);
   --color-text-tag_item: var(--gp-green-800);
+  --font-family-button: var(--font-family-primary);
   --font-family-heading: var(--font-family-primary);
   --font-family-paragraph-primary: var(--font-family-secondary);
   --font-family-paragraph-secondary: var(--font-family-tertiary);
@@ -111,6 +113,7 @@
 $font-weight-bold: 700;
 $font-weight-regular: 400;
 $font-weight-semibold: 600;
+$font-size-xxxs--font-family-primary: 0.938rem;
 $font-size-xxs--font-family-primary: 1rem;
 $font-size-xs--font-family-primary: 1.063rem;
 $font-size-s--font-family-primary: 1.125rem;
@@ -206,6 +209,7 @@ $color-text-image_caption: $grey-800;
 $color-text-meta_item: $grey-600;
 $color-text-nav_link: $grey-900;
 $color-text-tag_item: $gp-green-800;
+$font-family-button: $font-family-primary;
 $font-family-heading: $font-family-primary;
 $font-family-paragraph-primary: $font-family-secondary;
 $font-family-paragraph-secondary: $font-family-tertiary;
