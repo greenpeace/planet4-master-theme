@@ -3,6 +3,7 @@
 namespace P4\MasterTheme;
 
 use CMB2_Field;
+use P4\MasterTheme\Features\MediaArchive;
 use P4\MasterTheme\Settings\Comments;
 use P4\MasterTheme\Settings\Features;
 
@@ -470,7 +471,6 @@ class Settings
             'planet4_settings_comments' => Comments::get_options_page(),
             'planet4_settings_features' => Features::get_options_page(),
         ];
-        // phpcs:enable Generic.Files.LineLength.MaxExceeded
 
         $is_new_identity = get_theme_mod('new_identity_styles');
         if (!$is_new_identity) {
@@ -488,6 +488,10 @@ class Settings
                     ],
                 ]
             );
+        }
+
+        if (MediaArchive::is_active()) {
+            $this->subpages['planet4_media_archive'] = MediaArchive::get_options_page();
         }
 
         $this->hooks();
