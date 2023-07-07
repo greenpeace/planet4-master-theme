@@ -92,12 +92,6 @@ final class Loader
             // Load P4 Metaboxes only when adding/editing a new Page/Post/Campaign.
             if ('post-new.php' === $pagenow || 'post.php' === $pagenow) {
                 $this->default_services[] = MetaboxRegister::class;
-                add_action(
-                    'cmb2_save_field_p4_campaign_name',
-                    [ MetaboxRegister::class, 'save_global_project_id' ],
-                    10,
-                    3
-                );
             }
 
             // Load `Campaigns` class only when adding/editing a new tag.
