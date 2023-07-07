@@ -9,6 +9,7 @@ import * as deepDiveTopic from './deep-dive-topic';
 import * as homepage from './homepage';
 import * as campaign from './campaign';
 import * as takeAction from './take-action';
+import * as action from './action';
 
 export default [
   sideImgTextCta,
@@ -24,4 +25,5 @@ export default [
   homepage,
   campaign,
   takeAction,
+  action,
 ];

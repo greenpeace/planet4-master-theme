@@ -1,11 +1,11 @@
 const {__} = wp.i18n;
 
 const isNewIdentity = window.p4ge_vars.planet4_options.new_identity_styles ?? false;
-const backgroundColor = isNewIdentity ? 'beige-100' : 'grey-05';
+const defaultBackgroundColor = isNewIdentity ? 'beige-100' : 'grey-05';
 
-const gravityFormWithText = () => (
+const gravityFormWithText = backgroundColor => (
   ['core/group', {
-    backgroundColor,
+    backgroundColor: backgroundColor || defaultBackgroundColor,
     align: 'full',
     style: {
       spacing: {

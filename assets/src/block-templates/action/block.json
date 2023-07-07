@@ -1,0 +1,9 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 2,
+  "name": "planet4-block-templates/action",
+  "title": "Action",
+  "category": "planet4-block-templates",
+  "icon": "editor-table",
+  "textdomain": "planet4-blocks-backend"
+}

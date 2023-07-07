@@ -7,8 +7,6 @@
 
 namespace P4GBKS\Patterns;
 
-use P4GBKS\Patterns\Templates\Covers;
-
 /**
  * Class Deep Dive Topic.
  *
@@ -29,8 +27,6 @@ class DeepDiveTopic extends Block_Pattern {
 	 * @param array $params Optional array of parameters for the config.
 	 */
 	public static function get_config( $params = [] ): array {
-		$classname = self::get_classname();
-
 		return [
 			'title'      => 'Deep Dive Topic',
 			'categories' => [ 'layouts' ],
