@@ -276,9 +276,10 @@ final class AnalyticsValues
     /**
      * Get the global project options for the dropdown in the post editor.
      *
+     * @param int $post_id The post id.
      * @return string[] The options.
      */
-    public function global_projects_options(): array
+    public function global_projects_options(int $post_id): array
     {
         $names = array_map(
             function ($project) {
@@ -287,17 +288,28 @@ final class AnalyticsValues
             $this->global_projects
         );
 
-        return [
+        $global_options = [
             'not set' => __('- Select Global Project -', 'planet4-master-theme-backend'),
         ] + array_combine($names, $names);
+
+        if ($post_id) {
+            $global_options = self::maybe_add_current_post_value(
+                $global_options,
+                'p4_campaign_name',
+                $post_id
+            );
+        }
+
+        return $global_options;
     }
 
     /**
      * Returns local(NRO) project spreadsheet options.
      *
+     * @param int $post_id The post id.
      * @return array
      */
-    public function local_projects_options(): array
+    public function local_projects_options(int $post_id): array
     {
         $local_projects_options = [];
         if ($this->local_projects) {
@@ -311,9 +323,19 @@ final class AnalyticsValues
             $local_projects_options = array_combine($names, $names);
         }
 
-        return [
+        $local_projects_options = [
             'not set' => __('- Select Local Project -', 'planet4-master-theme-backend'),
         ] + $local_projects_options;
+
+        if ($post_id) {
+            $local_projects_options = self::maybe_add_current_post_value(
+                $local_projects_options,
+                'p4_local_project',
+                $post_id
+            );
+        }
+
+        return $local_projects_options;
     }
 
     /**
@@ -355,5 +377,38 @@ final class AnalyticsValues
         }
 
         return $matching_project['tracking_id'];
+    }
+
+    /**
+     * If the post has a value that is not in the sheet, keep it in the dropdown so that metaboxes save doesn't set
+     * it to another value, but mark it with `[DEPRECATED]` prefix.
+     *
+     * @param array  $options_array The list of supported global/local projects.
+     * @param string $field_name The meta field name.
+     * @param int $post_id The post id.
+     * @return array The list with maybe the current post value.
+     */
+    private static function maybe_add_current_post_value(array $options_array, string $field_name, int $post_id): array
+    {
+        if (! $post_id) {
+            return $options_array;
+        }
+
+        $current_post_meta_value = get_post_meta($post_id, $field_name, true);
+
+        if (
+            $current_post_meta_value
+            && ! ( array_key_exists(
+                $current_post_meta_value,
+                $options_array
+            ) )
+        ) {
+            $options_array = [
+                    $current_post_meta_value => __('[DEPRECATED] ', 'planet4-master-theme-backend')
+                        . $current_post_meta_value,
+                ] + $options_array;
+        }
+
+        return $options_array;
     }
 }

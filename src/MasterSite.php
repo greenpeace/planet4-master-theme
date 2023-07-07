@@ -133,6 +133,8 @@ class MasterSite extends TimberSite
         add_action('add_meta_boxes', [ $this, 'add_meta_box_search' ], 10, 2);
         add_action('save_post', [ $this, 'save_meta_box_search' ], 10, 2);
         add_action('save_post', [ $this, 'set_featured_image' ], 10, 2);
+        // Save "p4_global_project_tracking_id" on post save.
+        add_action('save_post', [ $this, 'save_global_project_id' ], 10, 1);
         add_action('post_updated', [ $this, 'clean_post_cache' ], 10, 3);
         add_action('after_setup_theme', [ $this, 'p4_master_theme_setup' ]);
         add_action('pre_insert_term', [ $this, 'disallow_insert_term' ], 1, 2);
@@ -1601,5 +1603,29 @@ class MasterSite extends TimberSite
         $args['sort'] = true;
         $args['args'] = [ 'orderby' => 'term_order' ];
         return $args;
+    }
+
+    /**
+     * Look up the ID of the global campaign and save it on the Post/Page.
+     *
+     * @param int     $post_id The ID of the current Post.
+     */
+    public function save_global_project_id(int $post_id): void
+    {
+        // Ignore autosave.
+        if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+            return;
+        }
+        // Check user's capabilities.
+        if (! current_user_can('edit_post', $post_id)) {
+            return;
+        }
+        $p4_campaign_name = get_post_meta($post_id, 'p4_campaign_name', true);
+        $old_project_id = get_post_meta($post_id, 'p4_global_project_tracking_id', true);
+        $project_id = AnalyticsValues::from_cache_or_api_or_hardcoded()->get_id_for_global_project($p4_campaign_name);
+        // phpcs:ignore SlevomatCodingStandard.ControlStructures.EarlyExit.EarlyExitNotUsed
+        if ('not set' !== $project_id && $old_project_id !== $project_id) {
+            update_post_meta($post_id, 'p4_global_project_tracking_id', $project_id);
+        }
     }
 }

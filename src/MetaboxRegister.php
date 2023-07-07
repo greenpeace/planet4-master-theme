@@ -2,8 +2,6 @@
 
 namespace P4\MasterTheme;
 
-use CMB2_Field;
-
 /**
  * Class MetaboxRegister
  */
@@ -93,27 +91,5 @@ class MetaboxRegister
                 'preview_size' => 'large',
             ]
         );
-    }
-
-    /**
-     * Look up the ID of the global campaign and save it on the post.
-     *
-     * @param bool       $updated Whether the field is being updated.
-     * @param string     $action The action being performed on the field.
-     * @param CMB2_Field $field The field being updated.
-     */
-    public static function save_global_project_id(bool $updated, string $action, CMB2_Field $field): void
-    {
-        if (! $updated) {
-            return;
-        }
-        if ('removed' === $action) {
-            update_post_meta($field->object_id(), 'p4_global_project_tracking_id', null);
-
-            return;
-        }
-
-        $project_id = AnalyticsValues::from_cache_or_api_or_hardcoded()->get_id_for_global_project($field->value());
-        update_post_meta($field->object_id, 'p4_global_project_tracking_id', $project_id);
     }
 }
