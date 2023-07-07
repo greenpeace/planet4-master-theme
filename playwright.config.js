@@ -1,39 +1,45 @@
-const { devices } = require('@playwright/test');
+const {devices} = require('@playwright/test');
+const dotenv = require('dotenv');
+
+const testDir = './tests/e2e';
+const envFile = process.env.CI ? `${testDir}/env/.env.ci` : `${testDir}/env/.env.default`;
+dotenv.config({path: envFile});
+dotenv.config({override: true});// prioritize .env file if exists
 
 /**
  * @see https://playwright.dev/docs/test-configuration
  */
 const config = {
-  testDir: './tests/e2e',
+  testDir,
   testMatch: ['*.spec.js', `tickets/${process.env.TICKET}/*.test.js`],
   /* Maximum time one test can run for. */
-  timeout: 30 * 1000,
+  timeout: parseInt(process.env.PW_TIMEOUT),
   expect: {
     /**
      * Maximum time expect() should wait for the condition to be met.
      * For example in `await expect(locator).toHaveText();`
      */
-    timeout: 5000
+    timeout: parseInt(process.env.PW_EXPECT_TIMEOUT),
   },
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
   /* Retry on CI only */
-  retries: process.env.CI ? 2 : 0,
+  retries: parseInt(process.env.PW_RETRIES),
   /* Opt out of parallel tests on CI. */
-  workers: process.env.CI ? 4 : undefined,
+  workers: parseInt(process.env.PW_WORKERS),
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: process.env.CI
-    ? [['html', { outputFolder: 'e2e-report', open: 'never' }],
-        ['junit', { outputFile: 'results.xml' }]]
-    : [['html', { outputFolder: 'e2e-report' }]],
+  reporter: process.env.CI ?
+    [['html', {outputFolder: 'e2e-report', open: 'never'}],
+      ['junit', {outputFile: 'results.xml'}]] :
+    [['html', {outputFolder: 'e2e-report'}]],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Maximum time each action such as `click()` can take. Defaults to 0 (no limit). */
-    actionTimeout: 0,
+    actionTimeout: parseInt(process.env.PW_ACTION_TIMEOUT),
     /* Base URL to use in actions like `await page.goto('/')`. */
-    baseURL: process.env.BASE_URL || 'http://www.planet4.test', //NOSONAR
+    baseURL: process.env.WP_BASE_URL,
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
@@ -42,11 +48,13 @@ const config = {
 
   /* Configure projects for major browsers */
   projects: [
+    {name: 'setup', testMatch: /setup\/.*\.setup\.js/},
     {
       name: 'chromium',
       use: {
         ...devices['Desktop Chrome'],
       },
+      dependencies: ['setup'],
     },
 
     {
@@ -54,9 +62,10 @@ const config = {
       use: {
         ...devices['Desktop Firefox'],
         contextOptions: {
-          ignoreHTTPSErrors: true
+          ignoreHTTPSErrors: true,
         },
       },
+      dependencies: ['setup'],
     },
 
     {
@@ -64,6 +73,7 @@ const config = {
       use: {
         ...devices['Desktop Safari'],
       },
+      dependencies: ['setup'],
     },
 
     /* Test against mobile viewports. */

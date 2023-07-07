@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-const {test, expect} = require('@playwright/test');
+import {test, expect} from './lib/test-utils.js';
 
 test('check admin PHP errors', async ({page}) => {
   test.setTimeout(240 * 1000);

@@ -1,36 +1,21 @@
-const {test, expect} = require('@playwright/test');
+import {test, expect} from './tools/lib/test-utils.js';
 
-import {login} from './tools/lib/login';
-import {rest} from './tools/lib/rest';
+test.useAdminLoggedIn();
 
-test('Test special pages (Act and Explore)', async ({page, context}) => {
-  // Login.
-  await page.goto('./');
-  await login(context);
-
+test('Test special pages (Act and Explore)', async ({page, requestUtils, admin}) => {
   // Create 2 new pages.
-  const actPage = await rest(context, {
-    path: './wp-json/wp/v2/pages',
-    method: 'POST',
-    data: {
-      title: 'Act page test',
-      content: '<!-- wp:paragraph --><p>Random content</p><!-- /wp:paragraph -->',
-      status: 'publish',
-    },
+  const actPage = await requestUtils.createPage({
+    title: 'Act page test',
+    content: '<!-- wp:paragraph --><p>Random content</p><!-- /wp:paragraph -->',
+    status: 'publish',
   });
 
-  const explorePage = await rest(context, {
-    path: './wp-json/wp/v2/pages',
-    method: 'POST',
-    data: {
-      title: 'Explore page test',
-      content: '<!-- wp:paragraph --><p>Random content</p><!-- /wp:paragraph -->',
-      status: 'publish',
-    },
+  const explorePage = await requestUtils.createPage({
+    title: 'Explore page test',
+    content: '<!-- wp:paragraph --><p>Random content</p><!-- /wp:paragraph -->',
+    status: 'publish',
   });
-
-  // Save previous Act and Explore pages.
-  await page.goto('./wp-admin/admin.php?page=planet4_settings_navigation');
+  await admin.visitAdminPage('admin.php', 'page=planet4_settings_navigation');
   await page.waitForSelector('#act_page');
   await page.waitForSelector('#explore_page');
   const previousActPage = await page.locator('#act_page').inputValue();
@@ -58,7 +43,7 @@ test('Test special pages (Act and Explore)', async ({page, context}) => {
   }
 
   // Reset the Act and Explore pages.
-  await page.goto('./wp-admin/admin.php?page=planet4_settings_navigation');
+  await admin.visitAdminPage('admin.php', 'page=planet4_settings_navigation');
   await page.waitForSelector('#act_page');
   await page.waitForSelector('#explore_page');
   await page.selectOption('#act_page', previousActPage);

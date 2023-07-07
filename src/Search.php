@@ -218,6 +218,7 @@ abstract class Search
         if (
             ( ! isset($_GET['orderby']) || '_score' === $_GET['orderby'] )
             && wp_doing_ajax()
+            && class_exists(\ElasticPress\Feature\Search\Search::class)
         ) {
             add_filter(
                 'ep_formatted_args',

@@ -189,7 +189,7 @@ jobs:
   e2e-tests:
     working_directory: /usr/app/
     docker:
-      - image: mcr.microsoft.com/playwright:v1.32.2
+      - image: mcr.microsoft.com/playwright:v1.35.1
         auth:
           <<: *docker_auth
     steps:
@@ -200,14 +200,14 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            npm install @playwright/test
+            npm install @playwright/test @wordpress/e2e-test-utils-playwright dotenv
             npx playwright install --with-deps
       - run:
           name: End-to-end tests
           command: |
             cd /usr/app/planet4-master-theme
             export TICKET=$(head -c 11 /tmp/workspace/commit-message)
-            export BASE_URL="https://www-dev.greenpeace.org/test-$(cat /tmp/workspace/test-instance)/"
+            export WP_BASE_URL="https://www-dev.greenpeace.org/test-$(cat /tmp/workspace/test-instance)/"
             export WP_TEST_USERNAME="p4_test_user"
             export WP_TEST_PASSWORD="${WP_TEST_USER}"
             npx playwright test

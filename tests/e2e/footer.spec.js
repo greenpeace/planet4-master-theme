@@ -1,12 +1,10 @@
-const {test, expect} = require('@playwright/test');
-import {login} from './tools/lib/login';
+import {test, expect} from './tools/lib/test-utils.js';
 
-test('check footer menu', async ({page, context}) => {
+test.useAdminLoggedIn();
+
+test('check footer menu', async ({page}) => {
   const footerMenuNames = ['Footer Primary', 'Footer Secondary', 'Footer Social'];
   const footerMenuLinks = [];
-
-  test.setTimeout(60 * 1000);
-  await login(context);
 
   // Fetch menu details from admin.
   await page.goto('./wp-admin/nav-menus.php');
