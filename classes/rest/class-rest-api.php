@@ -399,10 +399,12 @@ class Rest_Api {
 						return current_user_can( 'edit_posts' );
 					},
 					'callback'            => static function ( $request ) {
+						$post_id = (int) $request->get_param( 'id' );
+
 						$analytics_values = AnalyticsValues::from_cache_or_api_or_hardcoded();
 
-						$global_options = $analytics_values->global_projects_options();
-						$local_options  = $analytics_values->local_projects_options();
+						$global_options = $analytics_values->global_projects_options( $post_id );
+						$local_options  = $analytics_values->local_projects_options( $post_id );
 						$basket_options = $analytics_values->basket_options();
 
 						return rest_ensure_response(

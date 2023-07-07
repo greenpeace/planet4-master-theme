@@ -22,8 +22,9 @@ export const AnalyticsTrackingSidebar = {
   getId: () => 'planet4-analytics-sidebar',
   render: () => {
     const {getParams} = getSidebarFunctions();
+    const postId = wp.data.select('core/editor').getCurrentPostId();
     const options = useSelect(select => {
-      return select('core').getEntityRecords('planet4/v1', 'analytics-values');
+      return select('core').getEntityRecords('planet4/v1', 'analytics-values', {id: postId});
     });
 
     const globalOptions = options ? options[0].global_projects : [];
