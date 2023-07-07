@@ -28,6 +28,7 @@ class UiIntegration
             return;
         }
         add_action('admin_menu', [ self::class, 'picker_page' ], 10);
+        add_action('admin_menu', [ self::class, 'ml_credentials_page' ], 10);
     }
 
     /**
@@ -58,22 +59,79 @@ class UiIntegration
             return;
         }
 
-        add_menu_page(
-            __('Media Archive', 'planet4-master-theme-backend'),
-            __('Media Archive', 'planet4-master-theme-backend'),
+        add_media_page(
+            __('Archive', 'planet4-master-theme-backend'),
+            __('Archive', 'planet4-master-theme-backend'),
             Capability::USE_MEDIA_ARCHIVE,
             'media-picker',
             [ self::class, 'output_picker' ],
-            'dashicons-format-image',
-            11
         );
+    }
 
-        add_submenu_page(
-            'media-picker',
-            __('Media Archive', 'planet4-master-theme-backend'),
-            __('Library', 'planet4-master-theme-backend'),
+    /**
+     * Add Media Library credential page to media nav.
+     */
+    public static function ml_credentials_page(): void
+    {
+        if (! current_user_can(Capability::USE_MEDIA_ARCHIVE)) {
+            return;
+        }
+
+        add_media_page(
+            __('Media Archive Settings', 'planet4-master-theme-backend'),
+            __('Archive Settings', 'planet4-master-theme-backend'),
             Capability::USE_MEDIA_ARCHIVE,
-            'media-picker'
+            'media-archive-settings',
+            function (): void {
+                $option_key = 'p4ml_main_settings';
+                // phpcs:disable Generic.Files.LineLength.MaxExceeded
+                $description = __('Please enter your Image Archive username and password. Please note that you will need to ask from the Image Archive administrators to enable API access for your account.', 'planet4-master-theme-backend');
+                // phpcs:enable Generic.Files.LineLength.MaxExceeded
+                $form = cmb2_metabox_form(
+                    [
+                        'id' => 'option_metabox',
+                        'show_on' => [
+                            'key' => 'options-page',
+                            'value' => [
+                                $option_key,
+                            ],
+                        ],
+                        'show_names' => true,
+                        'fields' => [
+                            [
+                                'name' => __('Username', 'planet4-master-theme-backend'),
+                                'id' => 'p4ml_api_username',
+                                'type' => 'text',
+                                'attributes' => [
+                                    'type' => 'text',
+                                ],
+                            ],
+                            [
+                                'name' => __('Password', 'planet4-master-theme-backend'),
+                                'id' => 'p4ml_api_password',
+                                'type' => 'text',
+                                'attributes' => [
+                                    'type' => 'password',
+                                ],
+                            ],
+                        ],
+                    ],
+                    $option_key,
+                    [ 'echo' => false ]
+                );
+
+                echo sprintf(
+                    '<div class="wrap %s">
+                        <h2>%s</h2>
+                        %s
+                        %s
+                    </div>',
+                    esc_attr($option_key),
+                    esc_html(get_admin_page_title()),
+                    wp_kses($description ? '<div>' . $description . '</div>' : '', 'post'),
+                    $form // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                );
+            }
         );
     }
 }

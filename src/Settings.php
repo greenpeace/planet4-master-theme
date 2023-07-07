@@ -3,7 +3,6 @@
 namespace P4\MasterTheme;
 
 use CMB2_Field;
-use P4\MasterTheme\Features\MediaArchive;
 use P4\MasterTheme\Settings\Comments;
 use P4\MasterTheme\Settings\Features;
 
@@ -488,10 +487,6 @@ class Settings
                     ],
                 ]
             );
-        }
-
-        if (MediaArchive::is_active()) {
-            $this->subpages['planet4_media_archive'] = MediaArchive::get_options_page();
         }
 
         $this->hooks();
