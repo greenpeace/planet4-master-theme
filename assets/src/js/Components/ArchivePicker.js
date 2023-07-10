@@ -49,6 +49,8 @@ const ArchivePicker = () => {
 
   const selectedImages = getSelectedImages(selectedIds);
 
+  const clearSelectedImages = () => setSelectedIds([]);
+
   return <Fragment>
     <form
       className="archive-picker-search"
@@ -80,7 +82,7 @@ const ArchivePicker = () => {
         <p> {error.message} </p>
       </div>
     )}
-    <div className="image-picker">
+    <div className={classNames('image-picker', {'open-sidebar': selectedImages.length > 0})}>
       <ul
         className="picker-list"
         onScroll={event => {
@@ -104,6 +106,7 @@ const ArchivePicker = () => {
               processingError={processingError}
               processingImages={processingImages}
               includeInWp={includeInWp}
+              closeSidebar={clearSelectedImages}
             /> :
             <MultiSidebar
               selectedImages={selectedImages}
