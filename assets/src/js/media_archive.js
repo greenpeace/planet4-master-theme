@@ -1,6 +1,5 @@
 import ArchivePicker from './Components/ArchivePicker';
-import {render} from '@wordpress/element';
-
+import {createRoot} from '@wordpress/element';
 const rootElement = document.getElementById('archive-picker-root');
 
-render(<ArchivePicker />, rootElement);
+createRoot(rootElement).render(<ArchivePicker />);
