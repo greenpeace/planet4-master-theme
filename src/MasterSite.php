@@ -612,7 +612,7 @@ class MasterSite extends TimberSite
         $context['languages'] = count($languages); // Keep this variable name as long as NRO themes use it.
 
         $context['site'] = $this;
-        $context['current_url'] = home_url($wp->request);
+        $context['current_url'] = trailingslashit(home_url($wp->request));
         $context['sort_options'] = $this->sort_options;
         $context['default_sort'] = Search::DEFAULT_SORT;
 
