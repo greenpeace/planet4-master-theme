@@ -2,8 +2,8 @@
 #country-selector {
   _-- {
     color: inherit;
+    font-size: $font-size-sm;
   }
-  font-size: $font-size-sm;
   margin-bottom: 24px;
   text-align: start;
   width: 100%;
@@ -91,8 +91,8 @@
 .countries-list {
   _-- {
     background: $active-blue;
+    font-weight: 500;
   }
-  font-weight: 500;
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.5s cubic-bezier(0, 1.04, .38, .37) 0s;
@@ -117,7 +117,9 @@
   }
 
   li {
-    font-size: $font-size-sm;
+    _-- {
+      font-size: $font-size-sm;
+    }
   }
 
   .international {
@@ -126,8 +128,10 @@
   }
 
   .lang-list {
-    font-weight: 400;
-    line-height: 24px;
+    _-- {
+      font-weight: 400;
+      line-height: 24px;
+    }
     list-style: none;
     padding: $sp-x 0 0 0;
 
@@ -137,18 +141,22 @@
   }
 
   .lang-list > li {
+    _-- {
+      font-size: $font-size-xxs;
+      line-height: 24px;
+    }
     display: inline-block;
-    font-size: $font-size-xxs;
-    line-height: 24px;
   }
 }
 
 .country-group {
   .initial {
+    _-- {
+      font-size: $font-size-xxxs;
+      font-weight: 700;
+      line-height: 20px;
+    }
     color: inherit;
-    font-size: $font-size-xxxs;
-    font-weight: 700;
-    line-height: 20px;
     margin-inline-start: -$sp-4;
     opacity: 0.5;
     position: absolute;
@@ -163,8 +171,10 @@
   }
 
   > ul > li {
+    _-- {
+      line-height: 20px;
+    }
     display: inline-block;
-    line-height: 20px;
     padding-bottom: 16px;
     width: 100%;
   }

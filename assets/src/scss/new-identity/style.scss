@@ -134,7 +134,9 @@
   --cookie-notice--font-family: var(--font-family-paragraph-secondary);
   --cookies-settings--p--font-size: var(--font-size-xs--font-family-tertiary);
   --cookies-settings--p--large-and-up--font-size: var(--font-size-xs--font-family-tertiary);
-  --cookies-settings--p--line-height: var(--line-height-xs--font-family-tertiary);
+  --cookies-settings--p--line-height: var(--line-height-s--font-family-tertiary);
+  --cookies-settings-label--font-size: var(--font-size-s--font-family-tertiary);
+  --cookies-settings-label--font-weight: var(--font-weight-bold);
   --cookies-block--custom-control-description--font-family: var(--font-family-heading);
   --cookies-block--custom-control-description--font-size: var(--font-size-xl--font-family-primary);
   --cookies-block--custom-control-description--x-large-and-up--font-size: var(--font-size-2xl--font-family-primary);
@@ -174,14 +176,15 @@
   --top-page-tags--font-size: var(--font-size-m--font-family-tertiary);
   --top-page-tags--tag-item--font-weight: var(--font-weight-semibold);
   --top-navigation--font-family: var(--font-family-primary);
-  --button--font-family: var(--font-family-primary);
+  --button--font-family: var(--font-family-button);
+  --button--font-size: var(--font-size-xxxs--font-family-primary);
   --button--font-weight: var(--font-weight-regular);
   --ui-datepicker--font-family: var(--font-family-paragraph-secondary);
   --cover-card-heading--font-size: var(--font-size-m--font-family-primary);
-  --cover-card-heading--line-height: var(--line-height-l--font-family-primary); // Need to apply large instead of medium for letters that are descenders, like the g
+  --cover-card-heading--line-height: var(--line-height-l--font-family-primary);
   --cover-card-heading--font-weight: var(--font-weight-regular);
   --cover-card-btn--line-height: var(--line-height-s--font-family-primary);
-  --cover-card-btn--font-size: 15px;
+  --cover-card-btn--font-size: var(--font-size-xxxs--font-family-primary);
   --page-section-header--font-family: var(--font-family-heading);
   --page-section-header--font-weight: var(--font-weight-bold);
   --take-action-covers-block--cover--font-family: var(--font-family-tertiary);
@@ -217,8 +220,19 @@
   --carousel-header--carousel-caption--main-header--p--large-and-up--font-size: var(--font-size-xl--font-family-secondary);
   --carousel-header--carousel-caption--main-header--p--x-large-and-up--font-size: var(--font-size-xl--font-family-secondary);
   --carousel-header--carousel-caption--main-header--p--x-large-and-up--line-height: var(--line-height-xl--font-family-secondary);
+  --text--font-size: var(--font-size-m--font-family-secondary);
+  --text--x-large-and-up--font-size: var(--font-size-xl--font-family-secondary);
   --text--line-height: var(--line-height-m--font-family-secondary);
   --text--x-large-and-up--line-height: var(--line-height-xl--font-family-secondary);
+  --country-selector--font-size: var(--font-size-m--font-family-tertiary);
+  --countries--li--font-size: var(--font-size-m--font-family-tertiary);
+  --countries--lang-list--li--font-size: var(--font-size-s--font-family-tertiary);
+  --countries-list--font-weight: var(--font-weight-semibold);
+  --top-navigation--btn-donate--font-size: 17px;
+  --burger-menu--font-family: var(--font-family-primary);
+  --burger-menu-subitems--font-family: var(--font-family-tertiary);
+  --submenu-nav-link--font-family: var(--font-family-tertiary);
+  --submenu-nav-link--font-weight: var(--font-weight-semibold);
 }
 
 h1,

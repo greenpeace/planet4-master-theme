@@ -147,6 +147,9 @@ $transition-duration: .2s;
 }
 
 .nav-subitems {
+  --burger-menu-subitems-- {
+    font-family: inherit;
+  }
   padding-inline-start: $sp-2;
   padding-block-start: $sp-1x;
   padding-block-end: $sp-1x;

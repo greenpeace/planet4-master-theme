@@ -66,8 +66,10 @@
 
   .custom-control-description,
   .custom-control input[type="checkbox"] ~ .custom-control-description {
-    font-weight: 700;
-    font-size: 14px;
+    --cookies-settings-label-- {
+      font-size: 14px;
+      font-weight: 700;
+    }
     margin-bottom: $sp-2;
   }
 

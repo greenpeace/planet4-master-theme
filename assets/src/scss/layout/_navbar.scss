@@ -161,8 +161,10 @@
     a.nav-link {
       --submenu-nav-link-- {
         color: var(--body--color);
+        font-family: inherit;
         font-size: $font-size-sm;
         font-weight: 500;
+        line-height: 19px;
 
         &:hover {
           color: var(--body--color);
@@ -173,8 +175,6 @@
       display: flex;
       align-items: center;
       padding: 14px $sp-3;
-      font-size: $font-size-sm;
-      line-height: 19px;
 
       &:hover {
         background: $grey-10;
