@@ -29,6 +29,7 @@ const ArchivePicker = () => {
     processingError,
     processingImages,
     includeInWp,
+    showAddedMessage,
   } = useImages();
 
   const isSelected = image => selectedIds.includes(image.id);
@@ -107,6 +108,7 @@ const ArchivePicker = () => {
               processingImages={processingImages}
               includeInWp={includeInWp}
               closeSidebar={clearSelectedImages}
+              showAddedMessage={showAddedMessage}
             /> :
             <MultiSidebar
               selectedImages={selectedImages}

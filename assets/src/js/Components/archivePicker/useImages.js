@@ -9,6 +9,7 @@ export const useImages = () => {
   const [processingImages, setProcessingImages] = useState(false);
   const [processingError, setProcessingError] = useState(null);
   const [error, setError] = useState(null);
+  const [showAddedMessage, setShowAddedMessage] = useState(false);
 
   const loadPage = async (pageIndex, searchedText) => {
     if (loading) {
@@ -50,6 +51,8 @@ export const useImages = () => {
       setProcessingError(e);
     } finally {
       setProcessingImages(false);
+      setShowAddedMessage(true);
+      setTimeout(() => setShowAddedMessage(false), 5000);
     }
   };
 
@@ -77,5 +80,6 @@ export const useImages = () => {
     processingError,
     processingImages,
     getSelectedImages,
+    showAddedMessage,
   };
 };

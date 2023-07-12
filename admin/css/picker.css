@@ -77,7 +77,7 @@
   bottom: 0;
   right: 0;
   background: white;
-  padding: 76px 20px 0 20px;
+  padding: 64px 20px 0 20px;
   border-left: 2px solid black;
   overflow-y: auto;
   display: flex;
@@ -96,8 +96,8 @@
 
 .picker-sidebar-single .sidebar-action {
   align-self: center;
-  margin-top: 8px;
-  margin-bottom: 20px;
+  margin-bottom: 24px;
+  margin-top: 16px;
 }
 
 .archive-picker-loading {
@@ -108,13 +108,13 @@
 }
 
 .picker-sidebar .close-sidebar {
-  display: block;
-  position: absolute;
-  top: 64px;
-  right: 16px;
+  background: url("../../images/black-cross.svg");
   border: none;
-  background: white;
   cursor: pointer;
+  min-height: 16px;
+  width: 15px;
+  background-repeat: no-repeat;
+  align-self: flex-end;
 }
 
 .picker-sidebar .edit-image {
@@ -144,10 +144,6 @@
 @media (min-width: 783px) {
   .picker-sidebar {
     padding-top: 56px;
-  }
-
-  .picker-sidebar .close-sidebar {
-    top: 48px;
   }
 }
 
