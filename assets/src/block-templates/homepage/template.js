@@ -7,7 +7,7 @@ const template = () => (
     ['core/group', {}, [
       ['planet4-blocks/carousel-header'],
       ['planet4-block-templates/issues', {
-        titlePlaceholder: __('The issues we work on', 'planet4-blocks'),
+        title: __('The issues we work on', 'planet4-blocks'),
       }],
       ['core/spacer', {height: '88px'}],
       ['planet4-blocks/articles', {

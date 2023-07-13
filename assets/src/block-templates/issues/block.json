@@ -8,6 +8,6 @@
   "textdomain": "planet4-blocks-backend",
   "attributes": {
     "backgroundColor": { "type": "string" },
-    "titlePlaceholder": { "type": "string" }
+    "title": { "type": "string" }
   }
 }
