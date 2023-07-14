@@ -489,6 +489,26 @@ class Settings
             );
         }
 
+        // This option should be visible only if the GF Hubspot add-on is activated.
+        $is_gf_hubspot_addon = function_exists('is_plugin_active') && is_plugin_active('gravityformshubspot/hubspot.php');
+        if ($is_gf_hubspot_addon) {
+            array_push(
+                $this->subpages['planet4_settings_analytics']['fields'],
+                [
+                    'name' => __('Hubspot tracking code', 'planet4-master-theme-backend'),
+                    'desc' => __(
+                        'Paste here the tracking code from your Hubspot account.',
+                        'planet4-master-theme-backend'
+                    ),
+                    'id' => 'hubspot_tracking_code',
+                    'type' => 'textarea',
+                    'attributes' => [
+                        'type' => 'text',
+                    ],
+                ],
+            );
+        }
+
         $this->hooks();
     }
 
