@@ -69,13 +69,17 @@
 .btn-small,
 .gfield button:not(.add_list_item):not(.delete_list_item):not([id^="mceu"]),
 .gform_button_select_files {
-  font-size: $font-size-xxs;
-  line-height: 2.8;
+  _-- {
+    font-size: $font-size-xxs;
+    line-height: 2.8;
+  }
 }
 
 .btn-large {
-  font-size: $font-size-md;
-  line-height: 3.1;
+  _-- {
+    font-size: $font-size-md;
+    line-height: 3.1;
+  }
 }
 
 .btn-primary,
@@ -173,6 +177,7 @@
     padding: 2px 30px;
     border-width: 1px;
     border-color: transparent;
+    line-height: 1.65;
 
     &:hover {
       background: $orange-hover;
@@ -188,7 +193,6 @@
       font-size: $font-size-md;
     }
   }
-  line-height: 1.65;
   margin: 0;
   text-transform: none;
 }
@@ -267,6 +271,7 @@ button.load-more-mt {
     color: var(--link--color);
     background-color: $white;
     font-weight: 500;
+    line-height: 2.3;
 
     &:visited {
       color: var(--link--color);
@@ -285,7 +290,6 @@ button.load-more-mt {
   }
   margin-inline-end: $sp-2;
   margin-bottom: $sp-2;
-  line-height: 2.3;
   padding: 0 $sp-2;
   transition-duration: 100ms;
 }
