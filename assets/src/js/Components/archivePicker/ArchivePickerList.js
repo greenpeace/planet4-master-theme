@@ -1,6 +1,8 @@
 import classNames from 'classnames';
 import {toSrcSet} from './sizeFunctions';
 
+const {__} = wp.i18n;
+
 export const ArchivePickerList = ({
   isSelected,
   toggleSingleSelection,
@@ -18,23 +20,31 @@ export const ArchivePickerList = ({
     } = image;
 
     try {
-      return <li
-        key={id}
-        data-wordpress-id={wordpress_id}>
-        <img
-          className={classNames({'picker-selected': isSelected(image)})}
-          srcSet={toSrcSet(sizes, {maxWidth: 900})}
-          title={`${title}`}
-          alt={alt}
-          width={200 * (original.width / original.height)}
-          height={200}
-          onClick={event =>
-            (event.ctrlKey || event.metaKey) ? // metaKey for Mac users
-              toggleMultiSelection(image) :
-              toggleSingleSelection(image)}
-          role="presentation"
-        />
-      </li>;
+      return (
+        <li
+          key={id}
+          data-wordpress-id={wordpress_id}
+        >
+          {wordpress_id && (
+            <div className="added-to-library">
+              {__('Added to Media Library', 'planet4-master-theme-backend')}
+            </div>
+          )}
+          <img
+            className={classNames({'picker-selected': isSelected(image)})}
+            srcSet={toSrcSet(sizes, {maxWidth: 900})}
+            title={title}
+            alt={alt}
+            width={200 * (original.width / original.height)}
+            height={200}
+            onClick={event =>
+              (event.ctrlKey || event.metaKey) ? // metaKey for Mac users
+                toggleMultiSelection(image) :
+                toggleSingleSelection(image)}
+            role="presentation"
+          />
+        </li>
+      );
     } catch (exception) {
       return <li
         key={id}
