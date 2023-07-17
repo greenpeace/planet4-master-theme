@@ -1,7 +1,7 @@
 import {Fragment} from '@wordpress/element';
 import {toSrcSet} from './sizeFunctions';
 
-const {__} = wp.i18n;
+const {__, sprintf} = wp.i18n;
 
 const PREVIEW_MAX_SIZE = 1300;
 
@@ -14,7 +14,14 @@ const renderDefinition = (key, value) => (
   </div>
 );
 
-export const SingleSidebar = ({image, processingError, processingImages, includeInWp}) => {
+export const SingleSidebar = ({
+  image,
+  processingError,
+  processingImages,
+  includeInWp,
+  closeSidebar,
+  showAddedMessage,
+}) => {
   const original = image ? image.original : {};
 
   const renderImage = () => (
@@ -28,32 +35,42 @@ export const SingleSidebar = ({image, processingError, processingImages, include
 
   return (
     <Fragment>
+      <button
+        className="close-sidebar"
+        onClick={closeSidebar}
+      />
       {!!processingError && (
-        <div className={'error'}>Error: { processingError.message}</div>
+        <div className="error">{
+          sprintf(__('Error: %s', 'planet4-master-theme-backend'), processingError.message)}
+        </div>
       )}
       {!!processingImages && (
-        <div className={'info'}>Processing...</div>
+        <div className="info">{__('Processing...', 'planet4-master-theme-backend')}</div>
+      )}
+      {showAddedMessage && (
+        <div className="info">{__('Added to Library', 'planet4-master-theme-backend')}</div>
       )}
       {image.wordpress_id ? (
         <a
           className="sidebar-action"
           href={wpImageLink(image.wordpress_id)}
-        >Wordpress image #{ image.wordpress_id}</a>
+        >
+          {sprintf(__('Wordpress image #%s', 'planet4-master-theme-backend'), image.wordpress_id)}
+        </a>
       ) : (
         <button
+          disabled={!!processingImages}
           className="button sidebar-action"
-          onClick={async () => {
-            await includeInWp([image.id]);
-          }}
+          onClick={async () => await includeInWp([image.id])}
         >
-          { __('Include in WP', 'planet4-master-theme-backend')}
+          {__('Import to Library', 'planet4-master-theme-backend')}
         </button>
       )}
       {renderImage()}
       <dl className={'picker-sidebar-fields'}>
         {renderDefinition(
           __('URL', 'planet4-master-theme-backend'),
-          <a href={original.url}>{original.url} </a>
+          <a href={original.url}>{original.url}</a>
         )}
         {renderDefinition(
           __('Dimensions', 'planet4-master-theme-backend'),
@@ -80,6 +97,14 @@ export const SingleSidebar = ({image, processingError, processingImages, include
           image.original_language_description
         )}
       </dl>
+      {image.wordpress_id && (
+        <a
+          className="button edit-image"
+          href={wpImageLink(image.wordpress_id)}
+        >
+          {__('Edit image', 'planet4-master-theme-backend')}
+        </a>
+      )}
     </Fragment>
   );
 };

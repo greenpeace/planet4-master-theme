@@ -1,6 +1,11 @@
 /* Todo: Change to scss, separate styles that are essential to the ImagePicker component to work (if there are any)
      from ArchivePicker styles*/
 
+:root {
+  --sidebar-width-large: 450px;
+  --sidebar-width-tablet: 400px;
+}
+
 .archive-picker-search {
   margin-top: 20px;
 }
@@ -11,7 +16,6 @@
 
 .picker-list {
   padding-inline-end: 1em;
-  max-height: 75vh;
   overflow-y: scroll;
   display: grid;
   grid-template-columns: repeat(1, 1fr);
@@ -63,8 +67,17 @@
   color: black;
 }
 
-.image-picker li img.picker-selected {
-  border-color: yellow;
+.image-picker.open-sidebar li img {
+  opacity: 20%;
+}
+
+.image-picker.open-sidebar li img:hover {
+  opacity: 100%;
+}
+
+.image-picker.open-sidebar li img.picker-selected {
+  border-color: #1772a5;
+  opacity: 100%;
 }
 
 .picker-sidebar-fields {
@@ -80,15 +93,13 @@
 }
 
 .picker-sidebar {
-  max-height: 90vh;
-  width: 30%;
   position: fixed;
   top: 0;
   bottom: 0;
   right: 0;
   background: white;
-  padding: 48px 8px 8px;
-  border-left: 3px solid black;
+  padding: 64px 20px 0 20px;
+  border-left: 2px solid black;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
@@ -100,10 +111,14 @@
   margin-bottom: 10px;
 }
 
+.picker-sidebar .info {
+  position: absolute;
+}
+
 .picker-sidebar-single .sidebar-action {
-  width: fit-content;
   align-self: center;
-  margin-bottom: 10px;
+  margin-bottom: 24px;
+  margin-top: 16px;
 }
 
 .archive-picker-loading {
@@ -113,9 +128,33 @@
   width: 50%;
 }
 
+.picker-sidebar .close-sidebar {
+  background: url("../../images/black-cross.svg");
+  border: none;
+  cursor: pointer;
+  min-height: 16px;
+  width: 15px;
+  background-repeat: no-repeat;
+  align-self: flex-end;
+}
+
+.picker-sidebar .edit-image {
+  align-self: flex-end;
+  margin-bottom: 16px;
+}
+
 @media (min-width: 768px) {
+  .picker-sidebar {
+    width: var(--sidebar-width-tablet);
+  }
+
   .picker-list {
     grid-template-columns: repeat(3, 1fr);
+  }
+
+  .image-picker.open-sidebar .picker-list {
+    width: calc(100% - var(--sidebar-width-tablet) - 52px);
+    grid-template-columns: repeat(1, 1fr);
   }
 
   .image-picker li img {
@@ -123,8 +162,23 @@
   }
 }
 
-@media (min-width: 1440px) {
+@media (min-width: 783px) {
+  .picker-sidebar {
+    padding-top: 56px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .picker-sidebar {
+    width: var(--sidebar-width-large);
+  }
+
   .picker-list {
     grid-template-columns: repeat(5, 1fr);
+  }
+
+  .image-picker.open-sidebar .picker-list {
+    width: calc(100% - var(--sidebar-width-large) - 60px);
+    grid-template-columns: repeat(3, 1fr);
   }
 }

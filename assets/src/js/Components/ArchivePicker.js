@@ -29,6 +29,7 @@ const ArchivePicker = () => {
     processingError,
     processingImages,
     includeInWp,
+    showAddedMessage,
   } = useImages();
 
   const isSelected = image => selectedIds.includes(image.id);
@@ -48,6 +49,8 @@ const ArchivePicker = () => {
   }, [currentPage, searchText]);
 
   const selectedImages = getSelectedImages(selectedIds);
+
+  const clearSelectedImages = () => setSelectedIds([]);
 
   return <Fragment>
     <form
@@ -80,7 +83,7 @@ const ArchivePicker = () => {
         <p> {error.message} </p>
       </div>
     )}
-    <div className="image-picker">
+    <div className={classNames('image-picker', {'open-sidebar': selectedImages.length > 0})}>
       <ul
         className="picker-list"
         onScroll={event => {
@@ -104,6 +107,8 @@ const ArchivePicker = () => {
               processingError={processingError}
               processingImages={processingImages}
               includeInWp={includeInWp}
+              closeSidebar={clearSelectedImages}
+              showAddedMessage={showAddedMessage}
             /> :
             <MultiSidebar
               selectedImages={selectedImages}
