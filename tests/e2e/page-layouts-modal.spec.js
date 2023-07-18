@@ -1,12 +1,17 @@
-const {test, expect} = require('@playwright/test');
-import {login} from './tools/lib/login';
+import {test, expect} from './tools/lib/test-utils.js';
 
-test('checks if the welcome modal on the editor is present and closed when the button is clicked', async ({page, context}) => {
-  await page.goto('./');
-  await login(context);
-  await page.goto('./wp-admin/post-new.php?post_type=page');
-  const locator = page.locator('.components-modal__screen-overlay');
-  await expect(locator).toBeVisible();
-  await page.getByRole('button', {name: 'Close'}).click();
-  await expect(locator).toBeHidden();
+test.useAdminLoggedIn();
+
+test('checks if the welcome modal on the editor is present and closed when the button is clicked', async ({page, admin, editor}) => {
+  await admin.createNewPost({postType: 'page', legacyCanvas: true});
+  const modal = editor.canvas.getByRole('dialog', {name: 'Choose a pattern'});
+  await expect(modal).toBeVisible();
+
+  for (const frame of await modal.getByRole('option', {name: 'Editor canvas'}).all()) {
+    await frame.waitForLoadState('domcontentloaded');
+  }
+  await page.waitForLoadState('domcontentloaded');
+
+  await modal.getByRole('button', {name: 'Close'}).click({timeout: 15000});
+  await expect(modal).toBeHidden();
 });

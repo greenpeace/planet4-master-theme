@@ -103,7 +103,7 @@ export const PostSelector = attributes => {
     <FormTokenField
       label={label || __('Select posts', 'planet4-blocks-backend')}
       value={getValue() || null}
-      suggestions={options.map(post => post.title)}
+      suggestions={options.map(post => post.title || '<empty title>')}
       onChange={value => {
         setPostsIdsFromTitles(value);
       }}

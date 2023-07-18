@@ -1,12 +1,12 @@
-const {expect} = require('@playwright/test');
+import {expect} from './test-utils.js';
 
 const TEST_LINKS = ['/act', '/explore', '/'];
 
-async function addColumnsBlock(page, style) {
+async function addColumnsBlock(page, editor, style) {
   // Add Columns block.
-  await page.locator('.block-editor-block-list__layout').click();
-  await page.locator('p.is-selected.wp-block-paragraph').type('/planet-4-columns');
-  await page.keyboard.press('Enter');
+  await editor.canvas.getByRole('button', {name: 'Add default block'}).click();
+  await page.keyboard.type('/planet-4-columns');
+  await page.getByRole('option', {name: 'Planet 4 Columns'}).click();
 
   // Select the style if needed.
   if (style) {
@@ -51,7 +51,7 @@ async function checkColumnsBlock(page, style) {
     await expect(column.locator('p')).toHaveText(`Description ${index + 1}`);
     if (style === 'Images' || style === 'Icons') {
       await expect(column.locator('.attachment-container > a > img')).toBeVisible();
-      const link = column.locator('a.standalone-link');
+      const link = await column.locator('a.standalone-link');
       await expect(link).toHaveText(`Link ${index + 1}`);
       await expect(link).toHaveAttribute('href', TEST_LINKS[index]);
     } else {

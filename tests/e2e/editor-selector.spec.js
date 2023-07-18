@@ -1,20 +1,24 @@
-const {test, expect} = require('@playwright/test');
-import {newPost, publishPost} from './tools/lib/new-post';
+import {test, expect} from './tools/lib/test-utils.js';
+import {publishPostAndVisit} from './tools/lib/post.js';
 
-test('Test Editor basic functionalities', async ({page, context}) => {
-  // Login and create new post.
-  await newPost(page, context);
+test.useAdminLoggedIn();
 
-  await page.locator('.block-editor-block-list__layout').click();
-  await page.locator('p.is-selected.wp-block-paragraph').fill('This is a test Post.');
+test('Test Editor basic functionalities', async ({page, admin, editor}) => {
+  await admin.createNewPost({postType: 'post', title: 'Test Post', legacyCanvas: true});
+
+  await editor.canvas.getByRole('button', {name: 'Add default block'}).click();
+  await page.keyboard.type('This is a test Post.');
   await page.keyboard.press('Enter');
-  await page.locator('p.is-selected.wp-block-paragraph').type('/youtube');
-  await page.keyboard.press('Enter');
-  await page.locator('[aria-label="YouTube URL"]').fill('https://youtu.be/3gPvDDHU41E');
-  await page.getByRole('button', {name: 'Embed'}).click();
+  await page.keyboard.type('/youtube');
+  await page.getByRole('option', {name: 'Youtube'}).click();
+
+  const block = page.getByRole('document', {name: 'Block: Youtube'});
+  await block.waitFor();
+  await block.getByRole('textbox').fill('https://youtu.be/3gPvDDHU41E');
+  await block.getByRole('button', {name: 'Embed'}).click();
 
   // Publish post
-  await publishPost(page);
+  await publishPostAndVisit({page, editor});
 
   // Asserting new Post contains video, paragraph and title
   const h1 = await page.innerHTML('h1.page-header-title');

@@ -1,17 +1,12 @@
 /* eslint-disable no-console */
-const {test} = require('@playwright/test');
+const {test} = require('../../tools/lib/test-utils');
 
-import {login} from '../../tools/lib/login';
-import {rest} from '../../tools/lib/rest';
+test.useAdminLoggedIn();
 
-test('PLANET-7064 - run ticket specific test', async ({page, context}) => {
-  await page.goto('./');
+test('PLANET-7064 - run ticket specific test', async ({admin, requestUtils}) => {
+  await admin.visitAdminPage('admin.php');
 
-  const nonce = await login(context);
-
-  console.log(`Nonce: ${nonce}`);
-
-  const json = await rest(context, {
+  const json = await requestUtils.rest({
     path: './wp-json/wp/v2/posts',
     method: 'POST',
     data: {

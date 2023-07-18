@@ -1,16 +1,17 @@
-const {test} = require('@playwright/test');
-import {newPage, publishPage} from './tools/lib/new-page';
-import {addColumnsBlock, checkColumnsBlock} from './tools/lib/columns';
+import {test} from './tools/lib/test-utils.js';
+import {publishPostAndVisit} from './tools/lib/post.js';
+import {addColumnsBlock, checkColumnsBlock} from './tools/lib/columns.js';
 
-test('Test Columns block with Icons style', async ({page, context}) => {
-  // Login and create new page.
-  await newPage(page, context);
+test.useAdminLoggedIn();
+
+test('Test Columns block with Icons style', async ({page, admin, editor}) => {
+  await admin.createNewPost({postType: 'page', title: 'Test Columns block', legacyCanvas: true});
 
   // Add Columns block.
-  await addColumnsBlock(page, 'Icons');
+  await addColumnsBlock(page, editor, 'Icons');
 
   // Publish page.
-  await publishPage(page);
+  await publishPostAndVisit({page, editor});
 
   // Make sure block shows as expected in the frontend.
   await checkColumnsBlock(page, 'Icons');

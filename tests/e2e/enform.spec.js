@@ -1,8 +1,5 @@
-const {test, expect} = require('@playwright/test');
-
-import {rest} from './tools/lib/rest';
-import {login} from './tools/lib/login';
-import {newPage, publishPage} from './tools/lib/new-page';
+import {test, expect} from './tools/lib/test-utils.js';
+import {publishPost} from './tools/lib/post.js';
 
 import fieldsData from './fixtures/enform/ensapi_sample_fields_response.json';
 import questionsData from './fixtures/enform/ensapi_sample_questions_response.json';
@@ -16,14 +13,13 @@ let enFormId;
 let pageUrl;
 let featureIsActiveOnInstance;
 
+test.useAdminLoggedIn();
+
 test.describe('create, use and submit EN Form', () => {
 
-  test('activate EN Form block', async ({page, context}) => {
-    await page.goto('./wp-admin/');
-    await login(context);
-
+  test('activate EN Form block', async ({page, admin}) => {
     // Enable EN Form block
-    await page.goto('./wp-admin/admin.php?page=planet4_settings_features');
+    await admin.visitAdminPage('admin.php', 'page=planet4_settings_features');
     const checkbox = page.getByRole('checkbox', {name: ' Activate the EN Form block, as well as the "Progress Bar inside EN Form" Counter block style.'});
     featureIsActiveOnInstance = await checkbox.isChecked();
     if (!featureIsActiveOnInstance) {
@@ -59,12 +55,7 @@ test.describe('create, use and submit EN Form', () => {
     await page.locator('input[type="submit"]').click();
   });
 
-  test('create simple EN Form', async ({page, context}) => {
-    const createUrl = './wp-admin/post-new.php?post_type=p4en_form';
-
-    await page.goto('./wp-admin/');
-    await login(context);
-
+  test('create simple EN Form', async ({page, admin, requestUtils}) => {
     // Insert relevant data in transient cache
     const postData = {
       'ens_auth_public_token': 'public-token',
@@ -80,14 +71,14 @@ test.describe('create, use and submit EN Form', () => {
       items.push({key, value: JSON.stringify(postData[key])});
     }
 
-    await rest(context, {
-      path: './wp-json/planet4/v1/transient',
+    await requestUtils.rest({
+      path: '/planet4/v1/transient',
       method: 'POST',
       data: {items},
     });
 
     // Create a new form
-    await page.goto(createUrl);
+    await admin.visitAdminPage('post-new.php', 'post_type=p4en_form');
     const metaboxHeadings = await page.locator('h2').allInnerTexts();
     expect(metaboxHeadings.includes('Form preview')).toBeTruthy();
     expect(metaboxHeadings.includes('Selected Components')).toBeTruthy();
@@ -164,36 +155,33 @@ test.describe('create, use and submit EN Form', () => {
       }
     }
 
-    const currentUrl = await page.url();
+    const currentUrl = page.url();
     enFormId = new URL(currentUrl).searchParams.get('post');
   });
 
-  test('create Page with EN Form side style', async ({page, context}) => {
-    pageUrl = await createPageWithENForm(page, context, 'side');
+  test('create Page with EN Form side style', async ({page, admin, editor}) => {
+    pageUrl = await createPageWithENForm(page, admin, editor, 'side');
   });
 
   test('fill EN Form (side style) on frontend', async ({page}) => {
     await fillENFormAndSubmit(page);
   });
 
-  test('create Page with EN Form full-width-bg style', async ({page, context}) => {
-    pageUrl = await createPageWithENForm(page, context, 'full-width-bg');
+  test('create Page with EN Form full-width-bg style', async ({page, admin, editor}) => {
+    pageUrl = await createPageWithENForm(page, admin, editor, 'full-width-bg');
   });
 
   test('fill EN Form (full-width-bg style) on frontend', async ({page}) => {
     await fillENFormAndSubmit(page);
   });
 
-  test('disable EN Form block', async ({page, context}) => {
+  test('disable EN Form block', async ({page, admin}) => {
+    await admin.visitAdminPage('admin.php', 'page=planet4_settings_features');
 
     if (featureIsActiveOnInstance) {
       return;
     }
 
-    await page.goto('./wp-admin/');
-    await login(context);
-
-    await page.goto('./wp-admin/admin.php?page=planet4_settings_features');
     const checkbox = page.getByRole('checkbox', {name: ' Activate the EN Form block, as well as the "Progress Bar inside EN Form" Counter block style.'});
     const checked = await checkbox.isChecked();
     if (checked) {
@@ -203,12 +191,12 @@ test.describe('create, use and submit EN Form', () => {
   });
 });
 
-async function createPageWithENForm(page, context, style) {
-  await newPage(page, context, {title: 'Test page with enform (style)'});
+async function createPageWithENForm(page, admin, editor, style) {
+  await admin.createNewPost({postType: 'page', title: 'Test page with enform (style)', legacyCanvas: true});
 
-  await page.locator('.block-editor-block-list__layout').click();
-  await page.locator('p.is-selected.wp-block-paragraph').type('/enform');
-  await page.keyboard.press('Enter');
+  await editor.canvas.getByRole('button', {name: 'Add default block'}).click();
+  await page.keyboard.type('/enform');
+  await page.getByRole('option', {name: 'EN Form'}).click();
   await page.waitForSelector('.block.enform-wrap');
 
   if (style === 'full-width-bg') {
@@ -222,8 +210,7 @@ async function createPageWithENForm(page, context, style) {
   await page.waitForSelector('#en__field_supporter_emailAddress');
 
   // Publish page.
-  await publishPage(page);
-  const url = await page.url();
+  const url = await publishPost({page, editor});
   return url;
 }
 

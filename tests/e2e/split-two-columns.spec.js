@@ -1,19 +1,14 @@
-import {test, expect} from '@playwright/test';
-import {login} from './tools/lib/login';
+import {test, expect} from './tools/lib/test-utils.js';
+import {publishPostAndVisit} from './tools/lib/post.js';
 
-test('Create and check check split two column block', async ({page, context}) => {
-  await page.goto('./');
-  await login(page, context);
+test.useAdminLoggedIn();
 
-  await page.goto('./wp-admin/post-new.php?post_type=page');
-
-  await page.waitForSelector('.components-modal__header');
-  await page.locator('.components-modal__header button').click();
-  await expect(page.locator('.components-modal__header')).toBeHidden();
+test('Create and check check split two column block', async ({page, admin, editor}) => {
+  await admin.createNewPost({postType: 'page', title: 'Test S2C block', legacyCanvas: true});
 
   // Adding Split Two Column Block
-  await page.locator('.block-editor-block-list__layout').click();
-  await page.locator('p.is-selected.wp-block-paragraph').type('/split');
+  await editor.canvas.getByRole('button', {name: 'Add default block'}).click();
+  await page.keyboard.type('/split');
   await page.getByRole('option', {name: 'Split Two Columns'}).click();
 
   const title = page.getByRole('textbox', {name: 'Enter title'});
@@ -40,10 +35,7 @@ test('Create and check check split two column block', async ({page, context}) =>
 
 
   // Publish Page
-  await page.getByRole('button', {name: 'Publish', exact: true}).click();
-  await page.getByRole('region', {name: 'Editor publish'}).getByRole('button', {name: 'Publish', exact: true}).click();
-  await page.getByRole('region', {name: 'Editor publish'}).getByRole('link', {name: 'View Page'}).click();
-
+  await publishPostAndVisit({page, editor});
 
   // Assertions
   const h2Title = page.locator('h2.split-two-column-item-title');

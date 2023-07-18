@@ -1,52 +1,69 @@
-const {expect} = require('@playwright/test');
+import {expect} from './test-utils.js';
 
 const TAG_NAMES = ['Climate', 'Oceans','renewables', 'Consumption'];
 const PAGE_NAMES = ['Vestibulum leo libero', 'Consectetur adipiscing elit', 'Vestibulum placerat'];
 const POST_TYPES = ['Publication','Press Release'];
 
-async function addCoversBlock(page, style = '') {
+async function addCoversBlock(page, editor, style = '') {
   // Add Covers block.
-  await page.locator('.block-editor-block-list__layout').click();
-  await page.locator('p.is-selected.wp-block-paragraph').type('/planet-4-covers');
-  await page.keyboard.press('Enter');
+  await editor.canvas.getByRole('button', {name: 'Add default block'}).click();
+  await page.keyboard.type('/planet-4-covers');
+  await page.getByRole('option', {name: 'Covers'}).click();
 
   // Select the style if needed.
   if (style) {
-    const stylePicker = page.locator('.block-editor-block-styles__variants');
+    const stylePicker = await page.locator('.block-editor-block-styles__variants');
     //CSS selector needs single word,hence remove word after space(eg Take Action=>Take).
     await stylePicker.locator(`button[aria-label^=${style.split(' ')[0]}]`).click();
   }
 
+  const settings = await editor.canvas.getByRole('region', {name: 'Editor settings'});
+  const suggestions = settings
+    .getByRole('listbox')
+    .and(settings.locator('[id*="suggestions"]'));
+
   if (style === 'Take Action') {
     // Fill in the Posts.
-    const postsInput = await page.getByLabel('Select pages');
+    const postsInput = await settings.getByLabel('Select pages');
+    await postsInput.scrollIntoViewIfNeeded();
+
     await postsInput.type(PAGE_NAMES[0]);
-    await page.locator('li.components-form-token-field__suggestion').click();
+    await suggestions.getByRole('option').first().click();
+
     await postsInput.type(PAGE_NAMES[1]);
-    await page.locator('li.components-form-token-field__suggestion').click();
+    await suggestions.getByRole('option').first().click();
+
     await postsInput.type(PAGE_NAMES[2]);
-    await page.locator('li.components-form-token-field__suggestion').click();
+    await suggestions.getByRole('option').first().click();
   } else {
     // Fill in the tags.
-    const tagsInput = await page.getByLabel('Select Tags');
+    const tagsInput = await settings.getByLabel('Select Tags');
+    await tagsInput.scrollIntoViewIfNeeded();
+
     await tagsInput.type(TAG_NAMES[0]);
-    await page.locator('li.components-form-token-field__suggestion').click();
+    await suggestions.getByRole('option').first().click();
+
     await tagsInput.type(TAG_NAMES[1]);
-    await page.locator('li.components-form-token-field__suggestion').click();
+    await suggestions.getByRole('option').first().click();
+
     await tagsInput.type(TAG_NAMES[2]);
-    await page.locator('li.components-form-token-field__suggestion').click();
+    await suggestions.getByRole('option').first().click();
+
     await tagsInput.type(TAG_NAMES[3]);
-    await page.locator('li.components-form-token-field__suggestion').click();
+    await suggestions.getByRole('option').first().click();
   }
 
   // Default style, i.e 'Content cover'.
   if (style === 'Default') {
     // Fill in the Post types.
     const postTypesInput = await page.getByLabel('Select Post Types');
+    await postTypesInput.scrollIntoViewIfNeeded();
+
     await postTypesInput.type(POST_TYPES[0]);
-    await page.locator('li.components-form-token-field__suggestion').click();
+    await suggestions.getByRole('option').first().click();
+
     await postTypesInput.type(POST_TYPES[1]);
-    await page.locator('li.components-form-token-field__suggestion').click();
+    await suggestions.getByRole('option').first().click();
   }
   await page.getByLabel('Button Text').fill('Read more');
 }

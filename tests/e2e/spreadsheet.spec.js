@@ -1,16 +1,18 @@
-const {test, expect} = require('@playwright/test');
-import {newPage, publishPage} from './tools/lib/new-page';
+import {test, expect} from './tools/lib/test-utils.js';
+import {publishPostAndVisit} from './tools/lib/post.js';
 
-const TEST_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR2LTvb__ifqY0ayZzqWyzkJGPyMUyUvili9YotHs_1YymJqjSeECFImhzlJfN3k9xw0CVBwR4HuTOg/pubhtml';
+const SHEET_ID = '2PACX-1vR2LTvb__ifqY0ayZzqWyzkJGPyMUyUvili9YotHs_1YymJqjSeECFImhzlJfN3k9xw0CVBwR4HuTOg';
+const TEST_URL = `https://docs.google.com/spreadsheets/d/e/${SHEET_ID}/pubhtml`;
 
-test('Test Spreadsheet block', async ({page, context}) => {
-  // Login and create new page.
-  await newPage(page, context);
+test.useAdminLoggedIn();
+
+test('Test Spreadsheet block', async ({page, admin, editor}) => {
+  await admin.createNewPost({postType: 'page', title: 'Test Spreadsheet', legacyCanvas: true});
 
   // Add Spreadsheet block.
-  await page.locator('.block-editor-block-list__layout').click();
-  await page.locator('p.is-selected.wp-block-paragraph').type('/spreadsheet');
-  await page.keyboard.press('Enter');
+  await editor.canvas.getByRole('button', {name: 'Add default block'}).click();
+  await page.keyboard.type('/spreadsheet');
+  await page.getByRole('option', {name: 'Spreadsheet'}).click();
 
   // Check that the "empty URL" warning is displayed.
   const warning = page.locator('.block-edit-mode-warning');
@@ -18,8 +20,11 @@ test('Test Spreadsheet block', async ({page, context}) => {
   await expect(warning).toHaveText('No URL has been specified. Please edit the block and provide a Spreadsheet URL using the sidebar.');
 
   // Add URL.
+  const responsePromise = page.waitForResponse(`./wp-json/planet4/v1/get-spreadsheet-data?sheet_id=${SHEET_ID}&_locale=user`);
   await page.getByLabel('Spreadsheet URL').click();
   await page.getByLabel('Spreadsheet URL').fill(TEST_URL);
+  const response = await responsePromise;
+  expect(response.status()).toEqual(200);
 
   // Check that the warning is now hidden.
   await expect(warning).toBeHidden();
@@ -34,9 +39,11 @@ test('Test Spreadsheet block', async ({page, context}) => {
   await expect(editorTable).toHaveClass(/is-color-green/);
 
   // Publish page.
-  await publishPage(page);
+  await publishPostAndVisit({page, editor});
 
   // Test that the block is displayed as expected in the frontend.
+  const frontendResponse = await page.waitForResponse(`./wp-json/planet4/v1/get-spreadsheet-data?sheet_id=${SHEET_ID}`);
+  expect(frontendResponse.status()).toEqual(200);
   const frontendTable = page.locator('table.spreadsheet-table');
   await expect(frontendTable.locator('thead th:first-child button')).toHaveText('Some 30x30 commitment');
   await expect(frontendTable.locator('tbody tr:first-child td:first-child')).toHaveText('Albania');

@@ -1,16 +1,17 @@
-const {test} = require('@playwright/test');
-import {newPage, publishPage} from './tools/lib/new-page';
-import {addCoversBlock, checkCoversBlock} from './tools/lib/covers';
+import {test} from './tools/lib/test-utils.js';
+import {addCoversBlock, checkCoversBlock} from './tools/lib/covers.js';
+import {publishPostAndVisit} from './tools/lib/post.js';
 
-test('Test Covers block with Content covers style', async ({page, context}) => {
-  // Login and create new page.
-  await newPage(page, context);
+test.useAdminLoggedIn();
+
+test('Test Covers block with Content covers style', async ({page, admin, editor}) => {
+  await admin.createNewPost({postType: 'page', title: 'Test Covers block', legacyCanvas: true});
 
   // Add Covers block.
-  await addCoversBlock(page, 'Default');
+  await addCoversBlock(page, editor, 'Default');
 
   // Publish page.
-  await publishPage(page);
+  await publishPostAndVisit({page, editor});
 
   // Make sure block shows as expected in the frontend.
   await checkCoversBlock(page, 'Default');

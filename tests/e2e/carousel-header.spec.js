@@ -1,19 +1,13 @@
-import {test, expect} from '@playwright/test';
-import {login} from './tools/lib/login';
+import {test, expect} from './tools/lib/test-utils.js';
+import {publishPostAndVisit} from './tools/lib/post.js';
 
-test('Create and check carousel header block', async ({page, context}) => {
-  await page.goto('./');
-  await login(page, context);
+test.useAdminLoggedIn();
 
-  await page.goto('./wp-admin/post-new.php?post_type=page');
+test('Create and check carousel header block', async ({page, admin, editor}) => {
+  await admin.createNewPost({postType: 'page', title:'Test Carousel', legacyCanvas: true});
 
-  // Using Editor to find Carousel Block
-  await page.waitForSelector('.components-modal__header');
-  await page.locator('.components-modal__header button').click();
-  await expect(page.locator('.components-modal__header')).toBeHidden();
-
-  await page.locator('.block-editor-block-list__layout').click();
-  await page.locator('p.is-selected.wp-block-paragraph').type('/carousel');
+  await editor.canvas.getByRole('button', {name: 'Add default block'}).click();
+  await page.keyboard.type('/carousel');
   await page.getByRole('option', {name: 'Carousel Header'}).click();
 
   // Filling Carousel details
@@ -31,10 +25,7 @@ test('Create and check carousel header block', async ({page, context}) => {
   await ctaBtn.fill('Read more 1');
 
   // Check if sidebar is not visible
-  const sideBarPanel = page.locator('.edit-post-sidebar__panel-tabs');
-  if (await sideBarPanel.isHidden()) {
-    await page.locator('.interface-pinned-items button ').click();
-  }
+  await editor.openDocumentSettingsSidebar();
 
   await page.click('[data-type="toggle"]');
   await page.getByLabel('Url for link').fill('https://google.com');
@@ -72,10 +63,7 @@ test('Create and check carousel header block', async ({page, context}) => {
   await page.getByRole('button', {name: 'Select', exact: true}).click();
 
   // Publish Page
-  await page.getByRole('button', {name: 'Publish', exact: true}).click();
-  await page.getByRole('region', {name: 'Editor publish'}).getByRole('button', {name: 'Publish', exact: true}).click();
-  await page.getByRole('region', {name: 'Editor publish'}).getByRole('link', {name: 'View Page'}).click();
-
+  await publishPostAndVisit({page, editor});
 
   // Assertions
   const h2Title1 = await page.innerHTML('.carousel-captions-wrapper h2');
@@ -95,5 +83,4 @@ test('Create and check carousel header block', async ({page, context}) => {
   expect(h2Title2).toBe('My test Header 2');
   expect(paragraphDescription2).toBe('Testing carousel description 2');
   await expect(ctaButton2).toBeVisible();
-
 });
