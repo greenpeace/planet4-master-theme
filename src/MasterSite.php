@@ -676,6 +676,15 @@ class MasterSite extends TimberSite
         );
         // HubSpot.
         $context['hubspot_active'] = is_plugin_active('gravityformshubspot/hubspot.php');
+        // The Hubspot Tracking Code snippet will add only if the user has accepted "Marketing" cookies.
+        if (
+            $context['hubspot_active']
+            && !isset($_COOKIE['no_track']) && isset($_COOKIE['active_consent_choice'])
+            && $_COOKIE['active_consent_choice'] && isset($_COOKIE['greenpeace'])
+            && in_array($_COOKIE['greenpeace'], [2,4])
+        ) {
+            $context['hubspot_tracking_code'] = $options['hubspot_tracking_code'] ?? '';
+        }
 
         // Dummy thumbnail.
         $context['dummy_thumbnail'] = get_template_directory_uri() . '/images/dummy-thumbnail.png';
