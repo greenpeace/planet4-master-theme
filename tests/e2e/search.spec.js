@@ -1,4 +1,4 @@
-import {test, expect} from '@playwright/test';
+import {test, expect} from './tools/lib/test-utils.js';
 
 test('check search works', async ({page}) => {
   await page.goto('./');

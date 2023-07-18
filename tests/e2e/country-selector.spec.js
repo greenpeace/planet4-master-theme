@@ -1,4 +1,4 @@
-const {test, expect} = require('@playwright/test');
+import {test, expect} from './tools/lib/test-utils.js';
 
 test('check the country selector behaviour', async ({page}) => {
   await page.goto('./');

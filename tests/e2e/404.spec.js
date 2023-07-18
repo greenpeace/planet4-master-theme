@@ -1,7 +1,6 @@
-const {test, expect} = require('@playwright/test');
+import {test, expect} from './tools/lib/test-utils.js';
 
 test('check the 404 page', async ({page}) => {
-  test.setTimeout(240 * 1000);
   const response = await page.goto('./thispagereallywillnotexist');
 
   // Check the page status.

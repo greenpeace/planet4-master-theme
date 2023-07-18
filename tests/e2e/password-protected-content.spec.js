@@ -1,41 +1,31 @@
-const {test, expect} = require('@playwright/test');
-import {login} from './tools/lib/login';
+import {test, expect} from './tools/lib/test-utils.js';
+import {publishPostAndVisit} from './tools/lib/post.js';
 
 const TEST_TITLE = 'Test Private Page';
 const TEST_PARAGRAPH = 'This is a paragraph.';
 const TEST_PASSWORD = 'password';
 
-test('check password protected content', async ({page, context}) => {
-  // Login.
-  await page.goto('./');
-  await login(context);
+test.useAdminLoggedIn();
 
-  // Create and navigate to new page.
-  await page.goto('./wp-admin/post-new.php?post_type=page');
-
-  // Need to close modal so test can continue.
-  await page.waitForSelector('.components-modal__header');
-  await page.locator('.components-modal__header button').click();
-  await expect(page.locator('.components-modal__header')).toBeHidden();
-
-  // Fill in page title.
-  await page.locator('.editor-post-title__input').click();
-  await page.locator('h1.editor-post-title').fill(TEST_TITLE);
+test('check password protected content', async ({page, admin, editor}) => {
+  await admin.createNewPost({postType: 'page', title: TEST_TITLE, legacyCanvas: true});
 
   // Add a dummy paragraph.
-  await page.locator('.block-editor-block-list__layout').click();
-  await page.locator('p.is-selected.wp-block-paragraph').fill(TEST_PARAGRAPH);
+  await editor.canvas.getByRole('button', {name: 'Add default block'}).click();
+  await page.keyboard.type(TEST_PARAGRAPH);
+
+  await editor.openDocumentSettingsSidebar();
+  await editor.canvas.getByRole('region', {name: 'Editor settings'})
+    .getByRole('button', {name: 'Page'})
+    .click();
 
   // Change the page visibility to "Password protected" and set a password.
-  await page.locator('button.edit-post-sidebar__panel-tab', {hasText: 'Page'}).click();
-  await page.locator('button[aria-label^="Select visibility:"]').click();
-  await page.getByLabel('Password protected').check();
-  await page.getByPlaceholder('Use a secure password').fill(TEST_PASSWORD);
+  await editor.canvas.getByRole('button', {name: 'Select visibility: Public'}).click();
+  await editor.canvas.getByRole('radio', {name: 'Password protected'}).click();
+  await editor.canvas.getByPlaceholder('Use a secure password').fill(TEST_PASSWORD);
 
   // Publish page and navigate to it.
-  await page.getByRole('button', {name: 'Publish', exact: true}).click();
-  await page.getByRole('region', {name: 'Editor publish'}).getByRole('button', {name: 'Publish', exact: true}).click();
-  await page.getByRole('link', {name: 'View Page', exact: true}).first().click();
+  await publishPostAndVisit({page, editor});
 
   // Make sure that the title and paragraph are not visible, but the form label is.
   await expect(page.getByText(TEST_TITLE)).toBeHidden();
@@ -43,8 +33,10 @@ test('check password protected content', async ({page, context}) => {
   await expect(page.getByText('To see the content of this page, please enter your password below')).toBeVisible();
 
   // Fill in the password and submit the form.
-  await page.locator('#password-form input').fill(TEST_PASSWORD);
-  await page.getByText('Submit').click();
+  const form = page.locator('form#password-form');
+  await form.waitFor();
+  await form.getByRole('textbox').fill(TEST_PASSWORD);
+  await form.getByRole('button').click();
 
   // Make sure that the title and paragraph are now shown.
   await expect(page.getByText(TEST_TITLE)).toBeVisible();

@@ -11,3 +11,5 @@ assets/build/*
 /e2e-results/
 /e2e-report/
 /playwright/.cache/
+/playwright/.auth/
+.env
