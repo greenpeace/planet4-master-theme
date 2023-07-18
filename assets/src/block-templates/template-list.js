@@ -11,6 +11,7 @@ import * as campaign from './campaign';
 import * as takeAction from './take-action';
 import * as action from './action';
 import * as getInformed from './get-informed';
+import * as highLevelTopic from './high-level-topic';
 
 export default [
   sideImgTextCta,
@@ -28,4 +29,5 @@ export default [
   takeAction,
   action,
   getInformed,
+  highLevelTopic,
 ];

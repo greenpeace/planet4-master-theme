@@ -218,6 +218,7 @@ const BLOCK_TEMPLATES = [
 	'planet4-block-templates/take-action',
 	'planet4-block-templates/action',
 	'planet4-block-templates/get-informed',
+	'planet4-block-templates/high-level-topic',
 ];
 
 /**

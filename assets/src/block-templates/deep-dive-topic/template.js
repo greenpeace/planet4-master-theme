@@ -17,7 +17,6 @@ const template = () => ([
     ['planet4-blocks/covers', {
       title: __('How you can help', 'planet4-blocks'),
       cover_type: 'take-action',
-      className: 'is-style-take-action',
     }],
     ['planet4-blocks/articles', {
       article_heading: __('Latest news & stories', 'planet4-blocks'),
