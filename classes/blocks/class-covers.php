@@ -206,11 +206,10 @@ class Covers extends Base_Block {
 	 */
 	private static function filter_posts_for_act_pages( $fields ) {
 		$tag_ids       = $fields['tags'] ?? [];
-		$options       = get_option( 'planet4_options' );
-		$parent_act_id = $options['act_page'];
+		$parent_act_id = (int) planet4_get_option( 'act_page', -1 );
 		$layout        = $fields['layout'] ?? self::GRID_LAYOUT;
 
-		if ( 0 !== absint( $parent_act_id ) ) {
+		if ( -1 !== $parent_act_id ) {
 			$args = [
 				'post_type'        => 'page',
 				'post_status'      => 'publish',
