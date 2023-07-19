@@ -465,7 +465,7 @@ class MasterSite extends TimberSite
      */
     private function clean_boxout_posts_cache(int $post_id, WP_Post $post_after, WP_Post $post_before): void
     {
-        $parent_act_id = (int) planet4_get_option('act_page');
+        $parent_act_id = (int) planet4_get_option('act_page', -1);
         if ('page' !== $post_after->post_type || $parent_act_id !== $post_after->post_parent) {
             return;
         }
@@ -954,7 +954,7 @@ class MasterSite extends TimberSite
             $ = jQuery;
             $( '#parent_id' ).off('change').on( 'change', function () {
                 // Check selected Parent page and give bigger weight if it will be an Action page
-                if ( '<?php echo esc_js($options['act_page']); ?>' === $(this).val() ) {
+                if ( '<?php echo esc_js($options['act_page'] ?? -1); ?>' === $(this).val() ) {
                     $( '#weight' ).val( <?php echo esc_js(Search::DEFAULT_ACTION_WEIGHT); ?> );
                 } else {
                     $( '#weight' ).val( <?php echo esc_js(Search::DEFAULT_PAGE_WEIGHT); ?> );
