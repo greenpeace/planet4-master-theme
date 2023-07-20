@@ -63,20 +63,27 @@ class Post extends TimberPost
      */
     public function set_data_layer(): void
     {
+        $is_new_ia = !empty(planet4_get_option('new_ia'));
         if (is_front_page()) {
             $this->data_layer['page_category'] = 'Homepage';
-        } elseif ($this->is_act_page()) {
+        } elseif (!$is_new_ia && $this->is_act_page()) {
             $this->data_layer['page_category'] = 'Act';
-        } elseif ($this->is_explore_page()) {
+        } elseif (!$is_new_ia && $this->is_explore_page()) {
             $this->data_layer['page_category'] = 'Explore';
-        } elseif ($this->is_take_action_page()) {
+        } elseif (!$is_new_ia && $this->is_act_page_child()) {
             $this->data_layer['page_category'] = 'Take Action';
-        } elseif ($this->is_issue_page()) {
+        } elseif (!$is_new_ia && $this->is_issue_page()) {
             $this->data_layer['page_category'] = 'Issue Page';
         } elseif ($this->is_campaign_page()) {
             $this->data_layer['page_category'] = 'Campaign Page';
         } elseif (is_tag()) {
             $this->data_layer['page_category'] = 'Tag Page';
+        } elseif ($is_new_ia && $this->is_get_informed_page()) {
+            $this->data_layer['page_category'] = 'Get Informed Page';
+        } elseif ($is_new_ia && $this->is_take_action_page()) {
+            $this->data_layer['page_category'] = 'Take Action Page';
+        } elseif ($is_new_ia && $this->is_about_us_page()) {
+            $this->data_layer['page_category'] = 'About Us Page';
         } else {
             $this->data_layer['page_category'] = 'Default Page';
         }
@@ -116,7 +123,7 @@ class Post extends TimberPost
      * Checks if post is a Take Action page (child of act page).
      *
      */
-    public function is_take_action_page(): bool
+    public function is_act_page_child(): bool
     {
         $act_page_id = planet4_get_option('act_page');
         $pages = [];
@@ -167,6 +174,39 @@ class Post extends TimberPost
     public function is_campaign_page(): bool
     {
         return PostCampaign::POST_TYPE === $this->post_type;
+    }
+
+    /**
+     * Checks if post is the Get Informed page.
+     *
+     */
+    public function is_get_informed_page(): bool
+    {
+        $act_page_id = planet4_get_option('get_informed_page');
+
+        return absint($act_page_id) === $this->id;
+    }
+
+    /**
+     * Checks if post is the Take Action page.
+     *
+     */
+    public function is_take_action_page(): bool
+    {
+        $act_page_id = planet4_get_option('take_action_page');
+
+        return absint($act_page_id) === $this->id;
+    }
+
+    /**
+     * Checks if post is the About Us page.
+     *
+     */
+    public function is_about_us_page(): bool
+    {
+        $act_page_id = planet4_get_option('about_us_page');
+
+        return absint($act_page_id) === $this->id;
     }
 
     /**

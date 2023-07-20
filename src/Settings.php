@@ -469,6 +469,22 @@ class Settings
                         'id' => 'enable_google_consent_mode',
                         'type' => 'checkbox',
                     ],
+                    // New IA special pages.
+                    [
+                        'name' => __('Select "Get Informed" page', 'planet4-master-theme-backend'),
+                        'id' => 'get_informed_page',
+                        'type' => $is_new_ia ? 'get_informed_page_dropdown' : 'hidden',
+                    ],
+                    [
+                        'name' => __('Select "Take Action" page', 'planet4-master-theme-backend'),
+                        'id' => 'take_action_page',
+                        'type' => $is_new_ia ? 'take_action_page_dropdown' : 'hidden',
+                    ],
+                    [
+                        'name' => __('Select "About Us" page', 'planet4-master-theme-backend'),
+                        'id' => 'about_us_page',
+                        'type' => $is_new_ia ? 'about_us_page_dropdown' : 'hidden',
+                    ],
                 ],
             ],
             'planet4_settings_comments' => Comments::get_options_page(),
@@ -524,9 +540,12 @@ class Settings
         add_action('admin_init', [ $this, 'init' ]);
         add_action('admin_menu', [ $this, 'add_options_pages' ]);
         add_action('cmb2_save_options-page_fields_' . self::METABOX_ID, [ $this, 'add_notifications' ]);
-        add_filter('cmb2_render_act_page_dropdown', [ $this, 'p4_render_act_page_dropdown' ], 10, 2);
-        add_filter('cmb2_render_explore_page_dropdown', [ $this, 'p4_render_explore_page_dropdown' ], 10, 2);
+        add_filter('cmb2_render_act_page_dropdown', [ $this, 'p4_render_page_dropdown' ], 10, 2);
+        add_filter('cmb2_render_explore_page_dropdown', [ $this, 'p4_render_page_dropdown' ], 10, 2);
         add_filter('cmb2_render_category_select_taxonomy', [ $this, 'p4_render_category_dropdown' ], 10, 2);
+        add_filter('cmb2_render_get_informed_page_dropdown', [ $this, 'p4_render_page_dropdown' ], 10, 2);
+        add_filter('cmb2_render_take_action_page_dropdown', [ $this, 'p4_render_page_dropdown' ], 10, 2);
+        add_filter('cmb2_render_about_us_page_dropdown', [ $this, 'p4_render_page_dropdown' ], 10, 2);
         add_filter('cmb2_render_pagetype_select_taxonomy', [ $this, 'p4_render_pagetype_dropdown' ], 10, 2);
         add_action('admin_enqueue_scripts', [ $this, 'enqueue_admin_assets' ]);
         add_action('admin_init', [$this, 'add_new_identity_styles_toggle_value']);
@@ -597,9 +616,8 @@ class Settings
      *
      * @param CMB2_Field $field_args Field arguments.
      * @param mixed $value Value.
-     * phpcs:disable SlevomatCodingStandard.Functions.UnusedParameter -- add_filter callback
      */
-    public function p4_render_act_page_dropdown(CMB2_Field $field_args, $value): void
+    public function p4_render_page_dropdown(CMB2_Field $field_args, $value): void
     {
         wp_dropdown_pages(
             [
@@ -607,32 +625,10 @@ class Settings
                 'hide_empty' => 0,
                 'hierarchical' => true,
                 'selected' => esc_attr($value),
-                'name' => 'act_page',
+                'name' => $field_args->id(),
             ]
         );
     }
-    // phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter
-
-    /**
-     * Render explore page dropdown.
-     *
-     * @param CMB2_Field $field_args Field arguments.
-     * @param mixed $value Value.
-     * phpcs:disable SlevomatCodingStandard.Functions.UnusedParameter -- add_filter callback
-     */
-    public function p4_render_explore_page_dropdown(CMB2_Field $field_args, $value): void
-    {
-        wp_dropdown_pages(
-            [
-                'show_option_none' => esc_html__('Select Page', 'planet4-master-theme-backend'),
-                'hide_empty' => 0,
-                'hierarchical' => true,
-                'selected' => esc_attr($value),
-                'name' => 'explore_page',
-            ]
-        );
-    }
-    // phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter
 
     /**
      * Render category dropdown.
