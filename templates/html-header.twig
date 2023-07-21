@@ -29,6 +29,9 @@
         {% endfor %}
     {% endif %}
 
+    {% if canonical_link %}
+        <link rel="canonical" href="{{ canonical_link }}">
+    {% endif %}
 
     {{ wp_head }}
 

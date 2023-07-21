@@ -49,6 +49,7 @@ if (isset($wp_query->query_vars['author'])) {
     $author_share_buttons->description = get_the_author_meta('description', $author->ID);
     $author_share_buttons->link = $author->link;
     $context['author_share_buttons'] = $author_share_buttons;
+    $context['canonical_link'] = home_url($wp->request);
 }
 
 if (!empty(planet4_get_option('new_ia'))) {

@@ -96,6 +96,10 @@ $context['page_category'] = $data_layer['page_category'];
 $context['post_tags'] = implode(', ', $post->tags());
 $context['custom_body_classes'] = 'brown-bg ';
 
+if (is_tag()) {
+    $context['canonical_link'] = home_url($wp->request);
+}
+
 if (post_password_required($post->ID)) {
     // Password protected form validation.
     $context['is_password_valid'] = $post->is_password_valid();
