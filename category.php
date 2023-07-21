@@ -18,6 +18,7 @@ $templates = [ 'taxonomy.twig', 'index.twig' ];
 $context = Timber::get_context();
 $context['taxonomy'] = get_queried_object();
 $context['wp_title'] = $context['taxonomy']->name;
+$context['canonical_link'] = home_url($wp->request);
 
 if (!empty(planet4_get_option('new_ia'))) {
     $view = ListingPageGridView::is_active() ? 'grid' : 'list';

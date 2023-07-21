@@ -36,6 +36,7 @@ if (is_tag()) {
         $templates = [ 'tag.twig', 'archive.twig', 'index.twig' ];
 
         $context['tag_name'] = single_tag_title('', false);
+        $context['canonical_link'] = home_url($wp->request);
         $context['tag_description'] = wpautop($context['tag']->description);
         $tag_image_id = get_term_meta($context['tag']->term_id, 'tag_attachment_id', true);
 

@@ -126,7 +126,8 @@ class CategoryPageTest extends P4TestCase
         wp_styles();
         $output = TimberHelper::ob_function(
             function (): void {
-                    include get_template_directory() . '/category.php';
+                global $wp;
+                include get_template_directory() . '/category.php';
             }
         );
 
