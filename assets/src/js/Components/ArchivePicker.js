@@ -128,7 +128,19 @@ const reducer = (state, action) => {
 };
 
 export default function ArchivePicker() {
-  const [{loading, loaded, showAddedMessage, processingImages, processingError, images, pageNumber, searchText, selectedImages, selectedImagesAmount, error}, dispatch] = useReducer(reducer, initialState);
+  const [{
+    loading,
+    loaded,
+    showAddedMessage,
+    processingImages,
+    processingError,
+    images,
+    pageNumber,
+    searchText,
+    selectedImages,
+    selectedImagesAmount,
+    error,
+  }, dispatch] = useReducer(reducer, initialState);
   const [abortController, setAbortController] = useState(null);
 
   const fetch = useCallback(async () => {
@@ -245,6 +257,20 @@ export default function ArchivePicker() {
 
       <div className={classNames('image-picker', {'open-sidebar': selectedImagesAmount > 0})}>
         <ArchivePickerList />
+
+        {images.length > 0 && (
+          <div className="help">
+            <div
+              className="tooltip"
+              dangerouslySetInnerHTML={{
+                __html: __(
+                  'The <strong>Media Archive</strong> pulls images from <a target="_blank" href="https://media.greenpeace.org/">media.greenpeace.org</a>. You can import these images into your Wordpress Media Library and Post/Page. If you have further questions, you can visit the <a target="_blank" href="https://planet4.greenpeace.org/manage/administer/media-archive/">Media Archive Page</a> in the Handbook.', 'planet4-master-theme-backend'
+                ),
+              }}
+            />
+            <span>?</span>
+          </div>
+        )}
 
         {loading && (
           <div className="archive-picker-loading">{__('Loading...', 'planet4-master-theme-backend')}</div>
