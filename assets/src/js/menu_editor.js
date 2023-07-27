@@ -110,7 +110,10 @@ const menuEditorRestrictions = () => {
       return;
     }
 
-    showInfoNoticeMessage();
+    const infoNotice = document.querySelector('.custom-notice-info');
+    if (!infoNotice) {
+      showInfoNoticeMessage();
+    }
 
     // Define depth limit for editor
     /* global wpNavMenu */
