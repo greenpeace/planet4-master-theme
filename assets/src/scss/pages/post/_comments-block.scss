@@ -55,6 +55,10 @@
 
   .single-comment-meta {
     .comment-reply-link {
+      _-- {
+        font-family: inherit;
+        font-weight: inherit;
+      }
       float: right;
       margin-top: 0;
 
