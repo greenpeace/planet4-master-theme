@@ -24,6 +24,7 @@ $context['wp_title'] = $context['taxonomy']->name;
 $context['canonical_link'] = home_url($wp->request);
 
 if (!empty(planet4_get_option('new_ia'))) {
+    $context['page_category'] = 'Listing Page';
     $view = ListingPageGridView::is_active() ? 'grid' : 'list';
 
     $query_template = file_get_contents(get_template_directory() . "/parts/query-$view.html");

@@ -51,6 +51,7 @@ if (is_home()) {
         $content = do_blocks($query_template);
 
         $context['query_loop'] = $content;
+        $context['page_category'] = 'News';
         Timber::render($templates, $context);
         exit();
     }
