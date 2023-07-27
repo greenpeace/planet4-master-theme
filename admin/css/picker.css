@@ -6,16 +6,18 @@
   --sidebar-width-tablet: 400px;
 }
 
-.archive-picker-search {
-  margin-top: 20px;
+#wpcontent {
+  padding-right: 10px;
+  padding-left: 10px;
 }
 
-.archive-picker-search input {
-  margin-right: 10px;
+.archive-picker-search {
+  margin-top: 20px;
+  display: flex;
 }
 
 .picker-list {
-  padding-inline-end: 1em;
+  max-height: 75vh;
   overflow-y: scroll;
   display: grid;
   grid-template-columns: repeat(1, 1fr);
@@ -115,17 +117,16 @@
   position: absolute;
 }
 
-.picker-sidebar-single .sidebar-action {
+.picker-sidebar .sidebar-action {
+  width: fit-content;
   align-self: center;
   margin-bottom: 24px;
   margin-top: 16px;
 }
 
 .archive-picker-loading {
-  position: fixed;
-  bottom: 20px;
   text-align: center;
-  width: 50%;
+  margin-top: 30px;
 }
 
 .picker-sidebar .close-sidebar {
@@ -138,12 +139,119 @@
   align-self: flex-end;
 }
 
+.close-icon {
+  background: url("../../images/black-cross.svg");
+  cursor: pointer;
+  height: 8px;
+  width: 8px;
+  background-size: contain;
+}
+
 .picker-sidebar .edit-image {
   align-self: flex-end;
+  margin-top: 16px;
   margin-bottom: 16px;
+  height: 36px;
+}
+
+.multiple-search {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  border: 1px solid #979797;
+  border-radius: 0;
+  width: 100%;
+  margin: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.multiple-search-form {
+  display: flex;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.multiple-search-item {
+  display: inline-flex;
+  justify-content: space-between;
+  padding: 6px 8px;
+  margin: 0;
+  color: #1b1b1b;
+  border-radius: 2px;
+  background: #dfddde;
+  font-size: 12px;
+  align-items: center;
+}
+
+.multiple-search-item > span {
+  margin-left: 8px;
+  cursor: pointer;
+}
+
+.multiple-search-wrapper-input input {
+  width: 100%;
+  margin: 0;
+  height: 100%;
+  background: transparent;
+  border-radius: 0;
+  font-size: 14px;
+  outline: 0;
+  border: none;
+  border-bottom: 1px solid transparent;
+}
+
+.multiple-search-wrapper-input input:focus {
+  outline-width: 0 !important;
+  border-bottom-color: transparent;
+  box-shadow: none;
+}
+
+.multiple-search-nav {
+  display: none;
+}
+
+.multiple-search-nav > button {
+  height: 36px;
+}
+
+.multiple-search-nav > button:not(:last-child) {
+  margin-right: 8px;
+}
+
+.empty-media-items-message {
+  height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.multiple-search-form {
+  height: auto;
+}
+
+.multiple-search-list {
+  box-sizing: border-box;
+  display: grid;
+  grid-gap: 8px;
+  grid-template-columns: repeat(3, 1fr);
+  margin: 0;
+  padding: 8px;
+  width: 100%;
+  border-top: 1px solid #979797;
+}
+
+.multiple-search-wrapper-input.disabled {
+  display: none;
 }
 
 @media (min-width: 768px) {
+  #wpcontent {
+    padding-top: 10px;
+    padding-right: 20px;
+    padding-left: 20px;
+  }
+
   .picker-sidebar {
     width: var(--sidebar-width-tablet);
   }
@@ -160,6 +268,32 @@
   .image-picker li img {
     height: 160px;
   }
+
+  .image-picker li img {
+    height: 160px;
+  }
+
+  .multiple-search {
+    max-width: 400px;
+  }
+
+  .multiple-search-wrapper-input {
+    min-width: 230px;
+  }
+
+  .multiple-search-wrapper-input input {
+    height: 36px;
+    padding: 8px;
+  }
+
+  .multiple-search-nav {
+    display: flex;
+    margin-left: 8px;
+  }
+
+  .multiple-search-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 @media (min-width: 783px) {
@@ -172,7 +306,16 @@
   .picker-sidebar {
     width: var(--sidebar-width-large);
   }
+}
 
+@media (min-width: 1439px) {
+  .multiple-search-list {
+    display: grid;
+  }
+}
+
+
+@media (min-width: 1440px) {
   .picker-list {
     grid-template-columns: repeat(5, 1fr);
   }
@@ -180,5 +323,19 @@
   .image-picker.open-sidebar .picker-list {
     width: calc(100% - var(--sidebar-width-large) - 60px);
     grid-template-columns: repeat(3, 1fr);
+  }
+
+  .multiple-search {
+    display: flex;
+    max-width: 100%;
+    width: fit-content;
+    flex-direction: row;
+    height: 36px;
+  }
+
+  .multiple-search-list {
+    display: flex;
+    height: 100%;
+    border-top: none;
   }
 }

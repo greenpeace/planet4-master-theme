@@ -40,13 +40,39 @@ class Rest
             ];
 
             $search_text = $request->get_param('search_text');
+
             if ($search_text) {
                 // todo: avoid repetition of default Mediatype:Image param (maybe value object for query?).
-                $params['query'] = '(text:' . $search_text . ') and (Mediatype:Image)';
+
+                $system_identifier = [];
+                $text = [];
+
+                foreach ($search_text as $txt) {
+                    if (preg_match('/^GP/', $txt)) {
+                        if (preg_match('/\.(?=[A-Za-z])/', $txt)) {
+                            // Remove the image extension in cases it's added to the search
+                            array_push($system_identifier, substr($txt, 0, strpos($txt, '.')));
+                        } else {
+                            array_push($system_identifier, $txt);
+                        }
+                    } else {
+                        array_push($text, $txt);
+                    }
+                }
+
+                $params['query'] = '(Mediatype:Image)';
+
+                if (count($system_identifier)) {
+                    $params['query'] .= ' AND (SystemIdentifier: ' . implode(' OR ', $system_identifier) . ')';
+                }
+
+                if (count($text)) {
+                    $params['query'] .= ' ' . (count($system_identifier) ? 'OR' : 'AND');
+                    $params['query'] .= ' (Text: ' . implode(' OR ', $text) . ')';
+                }
             }
 
             $images = $api_client->fetch_images($params);
-
             return rest_ensure_response($images);
         };
         register_rest_route(

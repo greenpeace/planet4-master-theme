@@ -1,5 +1,6 @@
-import {Fragment} from '@wordpress/element';
+import {useMemo} from '@wordpress/element';
 import {toSrcSet} from './sizeFunctions';
+import {useArchivePickerContext} from '../ArchivePicker';
 
 const {__, sprintf} = wp.i18n;
 
@@ -14,14 +15,10 @@ const renderDefinition = (key, value) => (
   </div>
 );
 
-export const SingleSidebar = ({
-  image,
-  processingError,
-  processingImages,
-  includeInWp,
-  closeSidebar,
-  showAddedMessage,
-}) => {
+export default function SingleSidebar() {
+  const {processingImages, selectedImagesAmount, processingError, showAddedMessage, dispatch, selectedImages, includeInWp} = useArchivePickerContext();
+
+  const image = Object.values(selectedImages)[0];
   const original = image ? image.original : {};
 
   const renderImage = () => (
@@ -33,13 +30,13 @@ export const SingleSidebar = ({
     />
   );
 
-  return (
-    <Fragment>
+  return useMemo(() => (
+    <>
       <button
         className="close-sidebar"
-        onClick={closeSidebar}
+        onClick={() => dispatch({type: 'CLOSE_SIDEBAR'})}
       />
-      {!!processingError && (
+      {processingError && (
         <div className="error">{
           sprintf(__('Error: %s', 'planet4-master-theme-backend'), processingError.message)}
         </div>
@@ -50,6 +47,7 @@ export const SingleSidebar = ({
       {showAddedMessage && (
         <div className="info">{__('Added to Library', 'planet4-master-theme-backend')}</div>
       )}
+
       {image.wordpress_id ? (
         <a
           className="sidebar-action"
@@ -61,7 +59,7 @@ export const SingleSidebar = ({
         <button
           disabled={!!processingImages}
           className="button sidebar-action"
-          onClick={async () => await includeInWp([image.id])}
+          onClick={async () => await includeInWp(image.id)}
         >
           {__('Import to Library', 'planet4-master-theme-backend')}
         </button>
@@ -105,6 +103,13 @@ export const SingleSidebar = ({
           {__('Edit image', 'planet4-master-theme-backend')}
         </a>
       )}
-    </Fragment>
-  );
-};
+    </>
+  ), [
+    image,
+    processingImages,
+    processingError,
+    showAddedMessage,
+    selectedImages,
+    selectedImagesAmount,
+  ]);
+}
