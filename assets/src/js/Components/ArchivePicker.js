@@ -180,6 +180,7 @@ export default function ArchivePicker() {
           use_original_language: false,
         },
       });
+      console.log('UPLOADED IMAGE :', updatedImages);
       dispatch({type: 'PROCESSED_IMAGES', payload: {images: updatedImages}});
     } catch (err) {
       dispatch({type: 'PROCESSING_ERROR', payload: {error: err}});

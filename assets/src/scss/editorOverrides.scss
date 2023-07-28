@@ -280,3 +280,45 @@ input.describe[type=text][data-setting=caption] {
 .customize-control[id*="new_identity_styles"] label {
   display: inline;
 }
+
+.media-archive-content {
+  // border: 1px solid red;
+  position: relative;
+
+  .image-picker {
+    // border: 1px solid green;
+    margin-right: 30px;
+  }
+
+  .picker-sidebar {
+    // border: 1px solid yellow;
+    position: absolute;
+
+    .close-sidebar {
+      position: absolute;
+      top: 0;
+      right: 10px;
+    }
+  }
+
+  .multiple-search-nav {
+    display: none;
+  }
+
+  .multiple-search-wrapper-input input {
+    width: 100%;
+    margin: 0;
+    height: 100%;
+    background: transparent;
+    border-radius: 0;
+    font-size: 14px;
+    outline: 0;
+    border: none;
+    border-bottom: 1px solid transparent;
+  }
+
+  .multiple-search-form {
+    margin: 50px auto 25px;
+    width: 95%
+  }
+}

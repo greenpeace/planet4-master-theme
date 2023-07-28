@@ -31,6 +31,7 @@ module.exports = {
     "gravity-forms": './assets/src/scss/layout/_gravity-forms.scss',
     new_identity_styles: './assets/src/scss/new-identity/style.scss',
     media_archive: './assets/src/js/media_archive.js',
+    moi: './assets/src/js/moi.js',
     "lite-yt-embed": './node_modules/lite-youtube-embed/src/lite-yt-embed.js',
     menu_editor: './assets/src/js/menu_editor.js',
   },

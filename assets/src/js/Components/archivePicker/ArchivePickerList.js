@@ -14,6 +14,8 @@ export default function ArchivePickerList() {
     selectedImages,
   } = useArchivePickerContext();
 
+  console.log('IMAGE DETAILS: ', images);
+
   const onScrollHandler = useCallback(event => {
     const {scrollHeight, scrollTop, clientHeight} = event.target;
     const tillEnd = (scrollHeight - scrollTop - clientHeight) / scrollHeight;

@@ -635,76 +635,62 @@ add_filter(
     'media_upload_tabs',
     function($tabs) {
         $tabs['gpi_media_library'] = __('Media Archive', 'planet4-master-theme');
-        debug_to_console($tabs);
         return $tabs;
     }
 );
 
-// add_filter(
-//     'media_view_settings',
-//     function($settings) {
-//         // $tabs['media_archive'] = __('Media Archive', 'planet4-master-theme');
-//         debug_to_console($settings);
-//         return $settings;
+// add_action(
+//     'print_media_templates',
+//     function() {
+//        echo '
+//         <script type="text/template" id="tmpl-mediaarcivecontent">
+//             <h1>Media Archive</h1>
+//         </script>
+//        ';
 //     }
 // );
 
-// add_filter(
-//     'render_block',
-//     function($block_content, $block) {
-//         if('core/image' !== $block['blockName']) {
-//             return;
-//         }
+// function add_media_archive_tab() {
+//     wp_enqueue_script(
+//         'media-archive-script',
+//         get_template_directory_uri() . '/assets/src/js/test.js',
+//         ['jquery', 'media-views']
+//     );
+// }
 
-//         // create a DOM object from a string
-//     //     $html = str_get_html( $block_content );
+// add_action('wp_enqueue_scripts', 'add_media_archive_tab');
 
-//     //     // finds the first required element and saves it to variable, if not returns null
-//     //     $figure = $html->find( 'figure', 0 );
-//     //     $link = $html->find( 'a', 0 );
-//     //     $img = $html->find( 'img', 0 );
-//     //     $caption = $html->find( 'figcaption', 0 );
+function add_media_archive_script() {
+    // Enqueue the script for the block editor
+    wp_enqueue_script('media_archive_script', get_template_directory_uri() . '/assets/build/moi.js', array('wp-blocks', 'wp-dom-ready', 'wp-edit-post'), null, true);
+    Loader::enqueue_versioned_style('/admin/css/picker.css');
+    // wp_enqueue_style('unique-handle', get_template_directory_uri() . '/admin/css/picker.css', array(), '1', 'media');
+}
+add_action('admin_enqueue_scripts', 'add_media_archive_script');
 
-//     //     $modified_content = '
-//     //    <fieldset class="components-placeholder__fieldset">
-//     //         <legend class="components-placeholder__instructions">Upload an image file, pick one from your media library, or add one with a URL.</legend>
-//     //         <div class="components-drop-zone" data-is-drop-zone="true"></div>
-//     //         <div class="components-form-file-upload">
-//     //             <button type="button" class="components-button block-editor-media-placeholder__button block-editor-media-placeholder__upload-button is-primary">Upload</button>
-//     //             <input type="file" accept="image/*" data-testid="form-file-upload-input" style="display: none;">
-//     //         </div>
-//     //         <button type="button" class="components-button is-tertiary">Media Library</button>
-//     //         <div class="block-editor-media-placeholder__url-input-container">
-//     //             <button type="button" aria-pressed="false" class="components-button block-editor-media-placeholder__button is-tertiary">Insert from URL</button>
-//     //         </div>
-//     //         <button type="button" class="components-button is-tertiary">Media Archive</button>
-//     //     </fieldset>
-//     //    ';
+// add_filter("script_loader_tag", "add_module_to_my_script", 10, 3);
+// function add_module_to_my_script($tag, $handle, $src)
+// {
+//     if ("media_archive_script" === $handle) {
+//         $tag = '<script type="module" src="' . esc_url($src) . '"></script>';
+//     }
 
-//     //     // Modify the $block_content variable
-//     //     $block_content = $modified_content;
+//     return $tag;
+// }
 
-//      // Replace the <fieldset> tag with custom HTML
-//         $modified_content = '<fieldset class="components-placeholder__fieldset">';
-//         $modified_content .= '<legend class="components-placeholder__instructions">Upload an image file, pick one from your media library, or add one with a URL.</legend>';
-//         $modified_content .= '<div class="components-drop-zone" data-is-drop-zone="true"></div>';
-//         $modified_content .= '<div class="components-form-file-upload">';
-//         $modified_content .= '<button type="button" class="components-button block-editor-media-placeholder__button block-editor-media-placeholder__upload-button is-primary">Upload</button>';
-//         $modified_content .= '<input type="file" accept="image/*" data-testid="form-file-upload-input" style="display: none;">';
-//         $modified_content .= '</div>';
-//         $modified_content .= '<button type="button" class="components-button is-tertiary">Media Library</button>';
-//         $modified_content .= '<div class="block-editor-media-placeholder__url-input-container">';
-//         $modified_content .= '<button type="button" aria-pressed="false" class="components-button block-editor-media-placeholder__button is-tertiary">Insert from URL</button>';
-//         $modified_content .= '</div>';
-//         $modified_content .= '<button type="button" class="components-button is-tertiary">Media Archive</button>';
-//         $modified_content .= '</fieldset>';
+// function enqueue_jquery() {
+//     wp_enqueue_script('jquery');
+// }
 
-//         // Replace the <fieldset> tag in the $block_content variable
-//         $block_content = str_replace('<fieldset>', $modified_content, $block_content);
+// add_action('wp_enqueue_scripts', 'enqueue_jquery');
 
-//         return $block_content;
-//     },
+// add_filter( 'script_loader_tag', 'add_type_to_script', 10, 3 );
 
-//     10,
-//     2
-// );
+// function add_type_to_script( $tag, $handle, $src ) {
+//     // debug_to_console($handle);
+//     if ( 'media_archive_script' === $handle ) {
+//         $tag = '<script type="module" src="' . esc_url( $src ) . '></script>';
+//     }
+
+//     return $tag;
+// }
