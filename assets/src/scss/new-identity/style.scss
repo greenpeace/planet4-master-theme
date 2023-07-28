@@ -45,7 +45,7 @@
   --post-tag-button--background-color: var(--gp-green-100);
   --post-tag-button--border-color: var(--gp-green-100);
   --post-tag-button--color: var(--grey-900);
-  --post-tag-button--font-weight: 700;
+  --post-tag-button--font-weight: var(--font-weight-regular);
   --post-tag-button--hover--background-color: var(--gp-green-200);
   --post-tag-button--hover--border-color: var(--gp-green-200);
   --post-tag-button--hover--color: var(--grey-900);
@@ -128,7 +128,8 @@
   --animated-label--font-weight: var(--font-weight-regular);
   --animated-label--font-size: var(--font-size-xs--font-family-tertiary);
   --author-block-info-name--font-size: var(--font-size-m--font-family-tertiary);
-  --author-block-info-name--font-weight: var(--font-weight-semibold);
+  --author-block-info-name--font-weight: var(--font-weight-regular);
+  --author-block-info-title--font-weight: var(--font-weight-regular);
   --boxout--boxout-excerpt--medium-and-up--font-size: var(--font-size-s--font-family-tertiary);
   --boxout--boxout-excerpt--medium-and-up--line-height: var(--line-height-s--font-family-tertiary);
   --cookie-notice--font-family: var(--font-family-paragraph-secondary);
@@ -233,6 +234,11 @@
   --burger-menu-subitems--font-family: var(--font-family-tertiary);
   --submenu-nav-link--font-family: var(--font-family-tertiary);
   --submenu-nav-link--font-weight: var(--font-weight-semibold);
+  --font-family-heading: var(--font-family-primary);
+  --columns-block--block-style-image--column-wrap--a--font-family: var(--font-family-primary);
+  --columns-block--a--not--btn--font-weight: var(--font-weight-regular);
+  --single-comment-meta--comment-reply-link--medium-and-up--font-family: var(--font-family-primary);
+  --single-comment-meta--comment-reply-link--medium-and-up--font-weight: var(--font-weight-regular);
 }
 
 h1,
@@ -241,11 +247,11 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: var(--font-family-heading) !important;
-  font-weight: var(--font-weight-regular) !important;
+  font-family: var(--font-family-heading);
+  font-weight: var(--font-weight-regular);
 
   a {
-    font-family: var(--font-family-heading) !important;
+    font-family: var(--font-family-heading);
   }
 }
 
@@ -345,7 +351,7 @@ table.spreadsheet-table.is-color-gp-green {
   width: fit-content;
   height: var(--link--height);
   font-weight: var(--font-weight-regular);
-  font-family: var(--font-family-primary) !important;
+  font-family: var(--font-family-primary);
 }
 
 .split-two-column-item-link {
