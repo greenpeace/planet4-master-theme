@@ -4,7 +4,7 @@ msgstr ""
 "2;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2021-04-16 11:52+0000\n"
+"PO-Revision-Date: 2023-07-28 09:34+0000\n"
 "Language-Team: Slovak\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -26,7 +26,7 @@ msgstr ""
 
 # for numbers 2, 3, 4 - few
 #. %1$d = Number of results.
-#: src/Search.php:716
+#: src/Search.php:755
 #, php-format
 msgid "%1$d result for '%2$s'"
 msgid_plural "%1$d results for '%2$s'"
@@ -34,10 +34,18 @@ msgstr[0] "výsledok pre"
 msgstr[1] "výsledky pre"
 msgstr[2] "výsledkov pre"
 
+#. %d = Number of minutes for reading time.
+#: src/Post/ReadingTimeCalculator.php:135 templates/tease-taxonomy-post.twig:63
+#: templates/tease-taxonomy-action.twig:53 templates/single.twig:69
+#: templates/tease-author.twig:54
+#, php-format
+msgid "%d min read"
+msgstr ""
+
 # few - numbers 2, 3,4
 # other  - 5 + numbers
 #. %d = Number of results.
-#: src/Search.php:722
+#: src/Search.php:767
 #, php-format
 msgid "%d result"
 msgid_plural "%d results"
@@ -45,77 +53,83 @@ msgstr[0] "výsledok"
 msgstr[1] "výsledky"
 msgstr[2] "výsledkov"
 
-#: assets/src/js/country_select.js:47
-msgid "."
-msgstr ""
-
-#: 404.php:18
+#: 404.php:21
 msgid "404 Page"
 msgstr "404 Strana"
 
-#: page-templates/sitemap.php:25
+#: page-templates/sitemap.php:26
 msgid "About Greenpeace"
 msgstr "O Greenpeace"
 
-#: templates/blocks/author_profile.twig:5
-msgid "about the author"
+#: templates/blocks/author_profile.twig:14
+#, fuzzy
+#| msgid "about the author"
+msgid "About the author"
 msgstr "o autorovi"
 
-#: page-templates/sitemap.php:23
+#: templates/cookies.twig:26
+msgid "Accept all cookies"
+msgstr "Prijať koláče"
+
+#: page-templates/sitemap.php:24
 msgid "Act"
 msgstr "Konaj"
 
-#: src/Search.php:954 src/Post.php:264
+#: src/Post.php:291
 msgid "ACTION"
 msgstr "AKCIA"
 
-#: src/Search.php:792
+#: src/Search/Filters/ContentTypes.php:112
 msgid "Action"
 msgstr "Akcia"
 
-#: templates/search.twig:210
+#: templates/search.twig:255
+msgid "Action Type"
+msgstr ""
+
+#: templates/search.twig:181
 msgid "ACTIVE FILTERS"
 msgstr "AKTÍVNE FILTRE"
 
-#: templates/search.twig:200
+#: templates/cookies/cookies_settings.twig:55
+msgid "Allow all"
+msgstr "Prijať všetky"
+
+#: templates/cookies/cookies_settings.twig:16
+msgid "Always enabled"
+msgstr ""
+
+#: templates/search.twig:171
 msgid "Apply filters"
 msgstr "Použiť filtre"
 
-#: src/Search.php:813 src/Search.php:974 templates/tease-search.twig:38
-#: templates/tease-search.twig:120
+#: src/Search/Filters/ContentTypes.php:108 templates/tease-search.twig:43
+#: templates/tease-search.twig:123
 msgid "Archive"
 msgstr "Archív"
 
-#: src/PostArchive.php:77
+#: src/PostArchive.php:80
 msgid "Archive URL"
 msgstr ""
 
-#: page-templates/sitemap.php:26
+#: page-templates/sitemap.php:27
 msgid "Articles"
 msgstr "články"
 
-#: src/Search.php:962 templates/search.twig:172
-msgid "CAMPAIGN"
-msgstr "KAMPAŇ"
-
-#: src/Search.php:796 templates/search.twig:253 templates/tease-search.twig:36
-#: templates/tease-search.twig:118
+#: src/Search/Filters/ContentTypes.php:104 templates/tease-search.twig:41
+#: templates/tease-search.twig:121
 msgid "Campaign"
 msgstr "Kampaň"
 
-#: templates/search.twig:199
+#: templates/search.twig:170
 msgid "Cancel"
 msgstr "Zrušiť"
 
-#: templates/search.twig:111
-msgid "CATEGORY"
-msgstr "Kategória"
-
-#: templates/search.twig:279
+#: templates/search.twig:82 templates/search.twig:197
 msgid "Category"
 msgstr "Kategória"
 
-#: templates/navigation-bar.twig:45
+#: templates/footer_country_selector.twig:11
 msgid "Change Country"
 msgstr "Zmeniť krajinu"
 
@@ -123,55 +137,61 @@ msgstr "Zmeniť krajinu"
 msgid "Check for typos, and try your search again"
 msgstr "Vyhľadaj preklepy a skús znova hľadať"
 
-#: templates/search.twig:219
+#: templates/search.twig:190
 msgid "Clear all"
 msgstr "Zmazať všetko"
 
-#: templates/navigation-bar.twig:32
-msgid "Close Menu"
-msgstr "Zatvoriť Menu"
+#: templates/search-form.twig:32
+msgid "Clear search"
+msgstr ""
 
-#: templates/comment_form/comment_field.twig:2
+#: templates/burger-menu.twig:10
+msgid "Close navigation mobile menu"
+msgstr ""
+
+#: templates/comment_form/comment_field.twig:4
 msgid "Comment"
 msgstr "Komentár"
 
-#: templates/single.twig:75 templates/comments_section.twig:2
+#: templates/comments_section.twig:2 templates/single.twig:76
 msgid "Comments"
 msgstr "Komentáre"
 
-#: templates/search.twig:306
-msgid "Content type"
+#: templates/search.twig:140 templates/search.twig:284
+#, fuzzy
+#| msgid "Content type"
+msgid "Content Type"
 msgstr "Druh obsahu"
 
-#: templates/search.twig:140
-msgid "CONTENT TYPES"
-msgstr "TYPY OBSAHU"
-
-#: templates/comments_section.twig:8
+#: templates/comments_section.twig:9
 msgid "Discussion"
 msgstr "Diskusia"
 
-#: src/Search.php:966 src/Post.php:270
+#: src/Post.php:297
 msgid "DOCUMENT"
 msgstr "DOKUMENT"
 
-#: src/Search.php:800
+#: src/Search/Filters/ContentTypes.php:92
 msgid "Document"
 msgstr "Dokument"
 
-#: src/MasterSite.php:482
+#: src/MasterSite.php:581 src/MasterSite.php:644
 msgid "Donate"
 msgstr "DAROVAŤ"
 
-#: templates/tease-search.twig:113
+#: templates/tease-search.twig:116
 msgid "Download"
 msgstr "Stiahnuť "
 
-#: templates/comment_form/email_field.twig:2
+#: templates/comment_form/email_field.twig:13
 msgid "Email"
 msgstr "e-mail"
 
-#: 404.php:17
+#: src/MasterSite.php:261
+msgid "Enable new Greenpeace visual identity"
+msgstr ""
+
+#: 404.php:20
 msgid "Enter your search term below"
 msgstr "Nižšie zadaj hľadaný výraz"
 
@@ -179,7 +199,7 @@ msgstr "Nižšie zadaj hľadaný výraz"
 msgid "Evergreen Page"
 msgstr "Evergreen Page"
 
-#: page-templates/sitemap.php:24
+#: page-templates/sitemap.php:25
 msgid "Explore"
 msgstr "Preskúmať"
 
@@ -187,9 +207,9 @@ msgstr "Preskúmať"
 msgid "Filters"
 msgstr "Filtre"
 
-#: templates/cookies.twig:6
-msgid "Got it!"
-msgstr "MÁM TO!"
+#: templates/footer_social_media.twig:2
+msgid "Follow us"
+msgstr ""
 
 #. Author of the theme
 msgid "Greenpeace International"
@@ -199,6 +219,15 @@ msgstr "Greenpeace International"
 msgid "Greenpeace Planet 4 Master Theme"
 msgstr "Greenpeace Planet 4 Master Theme"
 
+#. phpcs:ignore Generic.Files.LineLength.MaxExceeded
+#: functions.php:459
+msgid "here"
+msgstr ""
+
+#: templates/burger-menu.twig:34
+msgid "Home"
+msgstr ""
+
 #. Author URI of the theme
 msgid "https://github.com/greenpeace"
 msgstr "https://github.com/greenpeace"
@@ -207,184 +236,234 @@ msgstr "https://github.com/greenpeace"
 msgid "https://github.com/greenpeace/planet4-master-theme"
 msgstr "https://github.com/greenpeace/planet4-master-theme"
 
-#: src/MasterSite.php:483
+#: single.php:107
+msgid ""
+"I agree on providing my name, email and content so that my comment can be "
+"stored and displayed in the website."
+msgstr ""
+
+#: src/MasterSite.php:646
 msgid "International (English)"
 msgstr "International (English)"
 
-#: templates/search.twig:82
-msgid "ISSUE"
-msgstr "PROBLÉM"
+#: templates/single-password.twig:18 templates/single-page.twig:15
+msgid "Invalid password, please try again"
+msgstr ""
 
-#: templates/search.twig:226
-msgid "Issue"
-msgstr "Problém"
-
-#: single.php:110
+#: single.php:114
 msgid "Leave your reply"
 msgstr "Nechaj svoju odpoveď"
 
-#: templates/taxonomy.twig:42 templates/author.twig:56
+#: templates/author.twig:49 templates/all-actions.twig:35
+#: templates/all-posts.twig:35 templates/taxonomy.twig:46
 msgid "Load More"
 msgstr "Načítať viac"
 
-#: templates/tease-search.twig:148
+#: templates/tease-search.twig:156
 msgid "Manage"
 msgstr ""
+
+#: templates/cookies/cookies_settings.twig:11
+msgid "Manage your cookies preferences"
+msgstr "Spravovať preferencie"
 
 #. Description of the theme
 msgid "Master theme for the Planet 4 Wordpress project"
 msgstr "Hlavná téma pre projekt Planet 4 Wordpress"
 
-#: templates/navigation-bar.twig:18
+#: templates/navigation-bar.twig:19
 msgid "Menu"
 msgstr "Ponuka"
 
-#: src/MasterSite.php:82 src/Search.php:700
+#: src/Search.php:739 src/MasterSite.php:89
 msgid "Most relevant"
 msgstr "Najrelevantnejší"
 
-#: templates/comment_form/author_field.twig:2
+#: templates/comment_form/author_field.twig:13
 msgid "Name"
 msgstr "Názov"
 
-#: src/MasterSite.php:86 src/Search.php:704
+#: src/Search.php:743 src/MasterSite.php:93
 msgid "Newest"
 msgstr ""
 
-#: src/MasterSite.php:90 src/Search.php:708
+#: src/Search.php:747 src/MasterSite.php:97
 msgid "Oldest"
 msgstr ""
 
-#: src/Search.php:957 src/Post.php:266
+#: src/Post.php:293
 msgid "PAGE"
 msgstr "STRANA"
 
-#: src/Search.php:804
+#: src/Search/Filters/ContentTypes.php:96
 msgid "Page"
 msgstr "Strana"
 
-#: src/Search.php:970 src/Post.php:273
+#: templates/cookies/cookies_settings.twig:12
+msgid "Please select which cookies you are willing to store."
+msgstr ""
+
+#: src/Post.php:300
 msgid "POST"
 msgstr "Pošta"
 
-#: src/Search.php:808
+#: src/Search/Filters/ContentTypes.php:100
 msgid "Post"
 msgstr "Pošta"
 
-#: templates/comment_form/submit_button.twig:1
+#: templates/comment_form/submit_button.twig:23
 msgid "Post comment"
 msgstr "Uverejniť komentár"
 
-#: templates/author.twig:32
+#: templates/search.twig:111 templates/search.twig:226
+msgid "Post Type"
+msgstr ""
+
+#: templates/author.twig:22
 msgid "Posts by "
 msgstr "Príspevky od používateľa"
 
-#: tag.php:91
+#: tag.php:126
 msgid "Publications"
 msgstr ""
 
-#: templates/blocks/author_profile.twig:11
-msgid "Read More"
-msgstr ""
-
-#: templates/search.twig:68 templates/search.twig:207
+#: templates/search.twig:68 templates/search.twig:178
 msgid "Refine your search"
 msgstr "Spresni vyhľadávanie"
 
-#: tag.php:118
+#: templates/cookies/cookies_settings.twig:47
+msgid "Reject all"
+msgstr "Odmietnuť všetky"
+
+#: templates/cookies.twig:35
+msgid "Reject all cookies"
+msgstr "Odmietnuť koláče"
+
+#: tag.php:156
 msgid "Related Campaigns"
 msgstr "Súvisiace kampane"
 
-#: templates/taxonomy.twig:18
+#: templates/all-actions.twig:11 templates/all-posts.twig:11
+#: templates/taxonomy.twig:22
 msgid "Results"
 msgstr "Výsledok"
 
-#: templates/navigation-bar.twig:7 templates/search.twig:8
-#: templates/search.twig:45 templates/404.twig:17
+#: templates/cookies/cookies_settings.twig:63
+msgid "Save preferences"
+msgstr ""
+
+#: templates/search.twig:8 templates/search.twig:45
+#: templates/search-form.twig:2 templates/404.twig:17
 msgid "Search"
 msgstr "Vyhľadávanie"
 
-#: templates/navigation-bar.twig:44
+#: templates/footer_country_selector.twig:11
 msgid "Selected"
 msgstr "Vybraný"
 
-#: templates/blocks/share_buttons.twig:7 templates/blocks/share_buttons.twig:14
-#: templates/blocks/share_buttons.twig:21
+#: templates/cookies.twig:18
+msgid "Settings"
+msgstr ""
+
+#: templates/blocks/share_buttons.twig:44
+#: templates/blocks/share_buttons.twig:53
+#: templates/blocks/share_buttons.twig:62
 msgid "Share on"
 msgstr "Zdieľať na"
 
-#: templates/blocks/share_buttons.twig:28
+#: templates/blocks/share_buttons.twig:71
+#: templates/blocks/share_buttons.twig:81
 msgid "Share via"
 msgstr "Zdieľať prostredníctvom"
 
 #. %s = number of results per page.
-#: src/Search.php:1079
+#: src/Search.php:999
 #, fuzzy, php-format
 #| msgid "SHOW %s MORE RESULTS"
 msgid "Show %s more results"
 msgstr "ZOBRAZIŤ VIAC VÝSLEDKOV"
 
+#: templates/blocks/author_profile.twig:45
+msgid "Show less"
+msgstr ""
+
+#: templates/blocks/author_profile.twig:44
+msgid "Show more"
+msgstr ""
+
 #. Name of the template
 msgid "Sitemap Page"
 msgstr "Stránka súboru Sitemap"
 
-#: templates/base.twig:11
+#: templates/base.twig:18
 msgid "Skip to Content"
 msgstr "Preskočiť na obsah"
 
-#: templates/base.twig:12
+#: templates/base.twig:19
 msgid "Skip to Footer"
 msgstr "Preskočiť na pätu"
 
-#: templates/base.twig:10
+#: templates/base.twig:17
 msgid "Skip to Navigation"
 msgstr "Preskočiť na navigáciu"
 
-#: 404.php:16
+#: 404.php:19
 msgid "Sorry, we can't find that page!"
 msgstr "Ľutujeme, túto stránku nemôžeme nájsť!"
 
-#: templates/search.twig:337
+#: templates/search.twig:317
 msgid "Sort by"
 msgstr "Triediť podľa"
 
-#: templates/single-page.twig:15 templates/single-password.twig:20
+#: templates/single-password.twig:22 templates/single-page.twig:19
 msgid "Submit"
 msgstr ""
 
-#: templates/search.twig:385
-msgid "Suggested search terms"
-msgstr "Navrhované hľadané výrazy"
-
-#: templates/tease-search.twig:142
+#: src/Search.php:409 src/ActionPage.php:209
 msgid "Take action"
 msgstr "konať"
 
-#: tag.php:73 src/Campaigns.php:252
+#. %s = Redirection url variable.
+#: src/GravityFormsExtensions.php:581
+#, php-format
+msgid ""
+"Thank you! Please <a href=\"%s\">click here</a> if you are not redirected "
+"within a few seconds."
+msgstr ""
+
+#. phpcs:ignore Generic.Files.LineLength.MaxExceeded
+#: functions.php:458
+msgid ""
+"The content on this page is hidden because this page is being used as your "
+"\\\"All Posts\\\" listing page. You can disable this by un-setting the "
+"\\\"Posts page\\\""
+msgstr ""
+
+#: tag.php:112
 msgid "Things you can do"
 msgstr "Čo môžeš robiť"
 
-#: tag.php:119
+#: tag.php:158
 msgid "This Campaign is not assigned to an Issue"
 msgstr "Táto kampaň nie je priradená k problému"
 
-#: templates/single-page.twig:12 templates/single-password.twig:17
+#: assets/src/js/pdf_icon.js:20
+msgid "This link will open a PDF file"
+msgstr ""
+
+#: templates/single-password.twig:15 templates/single-page.twig:12
 msgid "To see the content of this page, please enter your password  below"
 msgstr ""
 
-#: templates/navigation-bar.twig:6
-msgid "Toggle navigation menu"
-msgstr "Prepnúť navigačné menu"
-
-#: src/MasterSite.php:436
+#: src/MasterSite.php:564
 msgid "Toggle search box"
 msgstr "Prepnúť vyhľadávacie pole"
 
-#: templates/navigation-bar.twig:97
+#: templates/desktop-menu.twig:57 templates/navigation-bar.twig:38
 msgid "Toggle search form"
 msgstr "Prepnúť vyhľadávací formulár"
 
-#: src/MasterSite.php:435
+#: src/MasterSite.php:563
 msgid "Toggle worldwide site selection menu"
 msgstr "Prepnúť ponuku výberu stránok na celom svete"
 
@@ -396,7 +475,7 @@ msgstr "Skús hľadať niečo iné"
 msgid "We also included results for "
 msgstr "Tiež sme zahrnuli výsledky pre"
 
-#: tag.php:74 src/Campaigns.php:253
+#: tag.php:113
 msgid "We want you to take action because together we're strong."
 msgstr "Chceme, aby si konal, pretože sme spolu silní."
 
@@ -404,18 +483,14 @@ msgstr "Chceme, aby si konal, pretože sme spolu silní."
 msgid "We're sorry we couldn't find any matches for your search term."
 msgstr "Je nám ľúto, ale nenašli sme žiadne zhody pre hľadaný výraz."
 
-#: assets/src/js/country_select.js:30
-msgid "Worldwide site list"
-msgstr ""
-
-#: templates/comment_form/comment_field.twig:3
+#: templates/comment_form/comment_field.twig:2
 msgid "Your Comment"
 msgstr "Tvoj komentár"
 
-#: templates/comment_form/email_field.twig:3
+#: templates/comment_form/email_field.twig:2
 msgid "Your Email"
 msgstr "Tvoj email"
 
-#: templates/comment_form/author_field.twig:3
+#: templates/comment_form/author_field.twig:2
 msgid "Your Name"
 msgstr "Tvoje meno"
