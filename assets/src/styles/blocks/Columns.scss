@@ -1,7 +1,9 @@
 .columns-block {
   a {
     &:not(.btn) {
-      font-weight: inherit;
+      _-- {
+        font-weight: inherit;
+      }
     }
 
     &.btn-secondary {
