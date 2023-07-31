@@ -316,6 +316,8 @@ class MasterSite extends TimberSite
             1
         );
 
+        Sendgrid::hooks();
+
         $this->register_meta_fields();
     }
 
