@@ -21,6 +21,7 @@ class M018MigrateDonateButtonSetting extends MigrationScript
         global $wpdb;
 
         $donate_menu_slug = 'donate-menu';
+        $option_key = 'planet4_options';
 
         $sql = 'SELECT t.term_id FROM wp_terms AS t WHERE t.slug="%s"';
         $prepared_sql = $wpdb->prepare($sql, array($donate_menu_slug));
@@ -42,8 +43,27 @@ class M018MigrateDonateButtonSetting extends MigrationScript
             return;
         }
 
-        $locations = get_theme_mod('nav_menu_locations');
-        $locations[$donate_menu_slug] = (int) $term['term_id'];
-        set_theme_mod('nav_menu_locations', $locations);
+        $term_id = $term['term_id'];
+
+        $options = get_option($option_key);
+
+        wp_update_nav_menu_item(
+            $term_id,
+            0,
+            [
+                'menu-item-title' => $options['donate_text'],
+                'menu-item-url' => $options['donate_button'],
+                'menu-item-status' => 'publish',
+                'menu-item-type' => 'custom',
+            ],
+        );
+
+        $nav_menu_locations = get_theme_mod('nav_menu_locations');
+        $nav_menu_locations[$donate_menu_slug] = (int) $term['term_id'];
+        set_theme_mod('nav_menu_locations', $nav_menu_locations);
+
+        unset($options['donate_text']);
+        unset($options['donate_button']);
+        update_option($option_key, $options);
     }
 }

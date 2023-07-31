@@ -587,27 +587,16 @@ class MasterSite extends TimberSite
             }
         );
 
-        $donate_menu_default[] = [
-            'link' => planet4_get_option('donate_button', '#'),
-            'title' => planet4_get_option('donate_text', __('Donate', 'planet4-master-theme')),
-        ];
-
-        // Donate button menu dropdown.
-        // If no Donate menu is defined, we use the old settings from Planet 4 > Donate.
-        $donate_menu_items = $donate_menu_default;
-
         // Check if the menu has been created.
         if (has_nav_menu('donate-menu')) {
             $donate_menu = new TimberMenu('donate-menu');
 
             // Check if it has at least 1 item added into the menu.
             if (! empty($donate_menu->get_items())) {
-                $donate_menu_items = $donate_menu->get_items();
+                $context['donate_menu_items'] = $donate_menu->get_items();
             }
         }
 
-        $context['donate_menu_default'] = $donate_menu_default;
-        $context['donate_menu_items'] = $donate_menu_items;
 
         $languages = function_exists('icl_get_languages') ? icl_get_languages() : [];
         $context['site_languages'] = $languages;
@@ -651,8 +640,6 @@ class MasterSite extends TimberSite
             $context['p4_visitor_type'] = 'guest';
         }
 
-        $context['donatelink'] = $options['donate_button'] ?? '#';
-        $context['donatetext'] = $options['donate_text'] ?? __('Donate', 'planet4-master-theme');
         $context['website_navbar_title'] = $options['website_navigation_title']
             ?? __('International (English)', 'planet4-master-theme');
 

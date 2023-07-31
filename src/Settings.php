@@ -95,28 +95,6 @@ class Settings
                     ],
                 ],
             ],
-            'planet4_settings_donate_button' => [
-                'title' => 'Donate button',
-                'fields' => [
-                    [
-                        'name' => __('Donate button link', 'planet4-master-theme-backend'),
-                        'id' => 'donate_button',
-                        'type' => 'text',
-                        'attributes' => [
-                            'type' => 'text',
-                        ],
-                    ],
-
-                    [
-                        'name' => __('Donate button text', 'planet4-master-theme-backend'),
-                        'id' => 'donate_text',
-                        'type' => 'text',
-                        'attributes' => [
-                            'type' => 'text',
-                        ],
-                    ],
-                ],
-            ],
             'planet4_settings_defaults_content' => [
                 'title' => 'Defaults content',
                 'fields' => [
