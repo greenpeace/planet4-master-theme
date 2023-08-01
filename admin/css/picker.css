@@ -29,6 +29,49 @@
   position: relative;
 }
 
+.picker-list li {
+  position: relative;
+}
+
+.picker-list.bulk-select li img {
+  opacity: 0.8;
+}
+
+.picker-list.bulk-select li img.picker-selected {
+  opacity: 1;
+}
+
+.archive-picker-toolbar {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  width: 100%;
+}
+
+.nav-bulk-select button {
+  margin-inline-end: 8px;
+  height: 36px;
+}
+
+.bulk-select-checkbox {
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  right: 2px;
+  top: 2px;
+  background-color: white;
+  border: 1px solid #979797;
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.bulk-select-checkbox.is-checked {
+  background: url("../../images/checkmark.svg"), white;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
 .image-picker li img {
   margin: 0;
   border: 2px solid transparent;

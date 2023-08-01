@@ -59,7 +59,7 @@ export default function SingleSidebar() {
         <button
           disabled={!!processingImages}
           className="button sidebar-action"
-          onClick={async () => await includeInWp(image.id)}
+          onClick={async () => await includeInWp([image.id])}
         >
           {__('Import to Library', 'planet4-master-theme-backend')}
         </button>

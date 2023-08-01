@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import ArchivePickerList from './archivePicker/ArchivePickerList';
 import SingleSidebar from './archivePicker/SingleSidebar';
 import MultiSidebar from './archivePicker/MultiSidebar';
-import MultiSearchOption from './archivePicker/MultiSearchOption';
+import ArchivePickerToolbar from './archivePicker/ArchivePickerToolbar';
 
 const {apiFetch, url, i18n} = wp;
 const {addQueryArgs} = url;
@@ -17,6 +17,7 @@ const initialState = {
   processingImages: false,
   processedImages: false,
   showAddedMessage: false,
+  bulkSelect: false,
   images: [],
   selectedImages: {},
   selectedImagesAmount: 0,
@@ -116,6 +117,20 @@ const reducer = (state, action) => {
       selectedImagesAmount: 0,
     };
   }
+  case 'ENABLE_BULK_SELECT': {
+    return {
+      ...state,
+      bulkSelect: true,
+    };
+  }
+  case 'DISABLE_BULK_SELECT': {
+    return {
+      ...state,
+      selectedImages: {},
+      selectedImagesAmount: 0,
+      bulkSelect: false,
+    };
+  }
   case 'SET_ERROR': {
     return {
       ...state,
@@ -128,19 +143,7 @@ const reducer = (state, action) => {
 };
 
 export default function ArchivePicker() {
-  const [{
-    loading,
-    loaded,
-    showAddedMessage,
-    processingImages,
-    processingError,
-    images,
-    pageNumber,
-    searchText,
-    selectedImages,
-    selectedImagesAmount,
-    error,
-  }, dispatch] = useReducer(reducer, initialState);
+  const [{loading, loaded, showAddedMessage, processingImages, processingError, images, pageNumber, searchText, selectedImages, selectedImagesAmount, bulkSelect, error}, dispatch] = useReducer(reducer, initialState);
   const [abortController, setAbortController] = useState(null);
 
   const fetch = useCallback(async () => {
@@ -168,7 +171,7 @@ export default function ArchivePicker() {
     }
   }, [loading, loaded, images, error, searchText, pageNumber, dispatch]);
 
-  const includeInWp = async id => {
+  const includeInWp = async (ids = []) => {
     try {
       dispatch({type: 'PROCESSING_IMAGES'});
 
@@ -176,7 +179,7 @@ export default function ArchivePicker() {
         method: 'POST',
         path: '/planet4/v1/image-archive/transfer',
         data: {
-          ids: [id],
+          ids,
           use_original_language: false,
         },
       });
@@ -233,6 +236,7 @@ export default function ArchivePicker() {
       value={{
         loading,
         loaded,
+        bulkSelect,
         error,
         fetch,
         images,
@@ -246,7 +250,7 @@ export default function ArchivePicker() {
         dispatch,
       }}
     >
-      <MultiSearchOption />
+      <ArchivePickerToolbar />
 
       {!!error && (
         <div>
@@ -255,7 +259,7 @@ export default function ArchivePicker() {
         </div>
       )}
 
-      <div className={classNames('image-picker', {'open-sidebar': selectedImagesAmount > 0})}>
+      <div className={classNames('image-picker', {'open-sidebar': selectedImagesAmount > 0 && !bulkSelect})}>
         <ArchivePickerList />
 
         {!!images.length && (
@@ -276,7 +280,7 @@ export default function ArchivePicker() {
           <div className="archive-picker-loading">{__('Loading...', 'planet4-master-theme-backend')}</div>
         )}
 
-        {selectedImagesAmount > 0 ? (
+        {(selectedImagesAmount > 0 && !bulkSelect) ? (
           <div className={'picker-sidebar'}>
             {selectedImagesAmount === 1 ? <SingleSidebar /> : <MultiSidebar />}
           </div>) : null}
@@ -285,6 +289,7 @@ export default function ArchivePicker() {
   ), [
     loading,
     loaded,
+    bulkSelect,
     error,
     images,
     processingError,

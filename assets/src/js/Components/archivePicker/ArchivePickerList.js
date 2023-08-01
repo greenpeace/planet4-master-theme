@@ -10,6 +10,7 @@ export default function ArchivePickerList() {
     images,
     loading,
     loaded,
+    bulkSelect,
     dispatch,
     selectedImages,
   } = useArchivePickerContext();
@@ -26,7 +27,7 @@ export default function ArchivePickerList() {
   return useMemo(
     /* eslint-disable no-nested-ternary */
     () => (images.length) ? (
-      <ul className="picker-list" onScroll={onScrollHandler}>
+      <ul className={classNames('picker-list', {'bulk-select': bulkSelect})} onScroll={onScrollHandler}>
         {images.map(image => {
           const {
             id,
@@ -47,18 +48,32 @@ export default function ArchivePickerList() {
                 </div>
               )}
               <img
-                className={classNames({'picker-selected': selectedImages[image.id] && true})}
+                className={classNames({'picker-selected': selectedImages[image.id]})}
                 srcSet={toSrcSet(sizes, {maxWidth: 900})}
                 title={title}
                 alt={alt}
                 width={200 * (original.width / original.height)}
                 height={200}
-                onClick={event => {
-                  // metaKey for Mac users
-                  dispatch({type: 'TOGGLE_IMAGE', payload: {image, multiSelection: (event.ctrlKey || event.metaKey)}});
+                {...(!bulkSelect) && {
+                  onClick: () => {
+                    // metaKey for Mac users
+                    dispatch({type: 'TOGGLE_IMAGE', payload: {image, multiSelection: (event.ctrlKey || event.metaKey)}});
+                  },
                 }}
                 role="presentation"
               />
+              {
+                bulkSelect && !wordpress_id && (
+                  <div
+                    role="button"
+                    aria-hidden="true"
+                    className={classNames('bulk-select-checkbox', {'is-checked': selectedImages[image.id]})}
+                    onClick={() => {
+                      dispatch({type: 'TOGGLE_IMAGE', payload: {image, multiSelection: true}});
+                    }}
+                  />
+                )
+              }
             </li>;
           } catch (exception) {
             return <li key={id}>
@@ -69,5 +84,5 @@ export default function ArchivePickerList() {
         })}
       </ul>
     ) : ((!loading && loaded && !images.length) ? <div className="empty-media-items-message">No media items found</div> : null),
-    [images, loading, loaded, selectedImages, dispatch]);
+    [images, loading, bulkSelect, loaded, selectedImages, dispatch]);
 }
