@@ -1,4 +1,4 @@
-import ReactDOMServer from 'react-dom/server';
+import {renderToString} from 'react-dom/server';
 import {GalleryEditor} from './GalleryEditor';
 import {frontendRendered} from '../frontendRendered';
 import {getStyleLabel} from '../../functions/getStyleLabel';
@@ -55,7 +55,7 @@ export const registerGalleryBlock = () => {
     edit: GalleryEditor,
     save: props => {
       const {attributes: saveAttributes} = props;
-      const markup = ReactDOMServer.renderToString(
+      const markup = renderToString(
         <div
           data-hydrate={BLOCK_NAME}
           data-attributes={JSON.stringify(saveAttributes)}

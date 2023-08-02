@@ -12,6 +12,8 @@ import {setupLightboxForImages} from './components/Lightbox/setupLightboxForImag
 import {ENFormFrontend} from './blocks/ENForm/ENFormFrontend';
 import {setupParallax} from './components/Parallax/setupParallax';
 
+import {createRoot} from 'react-dom/client';
+
 // Render React components
 const COMPONENTS = {
   'planet4-blocks/counter': CounterFrontend,
@@ -39,7 +41,8 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
       const attributes = JSON.parse(blockNode.dataset.attributes);
-      wp.element.render(<BlockFrontend {...attributes.attributes} />, blockNode);
+      const rootElement = createRoot(blockNode);
+      rootElement.render(<BlockFrontend {...attributes.attributes} />);
     }
   );
 

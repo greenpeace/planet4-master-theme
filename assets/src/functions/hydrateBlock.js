@@ -1,4 +1,4 @@
-import {hydrate} from 'react-dom';
+import {hydrateRoot} from 'react-dom/client';
 
 /**
  * This function hydrate a SSR Component
@@ -13,7 +13,7 @@ export const hydrateBlock = (blockName, Component, csrAttributes = {}) => { // e
   blocks.forEach(
     blockNode => {
       const attributes = JSON.parse(blockNode.dataset.attributes);
-      hydrate(<Component {...attributes} {...csrAttributes} />, blockNode);
+      hydrateRoot(blockNode, <Component {...attributes} {...csrAttributes} />);
     }
   );
 };
