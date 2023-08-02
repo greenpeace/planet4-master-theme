@@ -258,7 +258,7 @@ export default function ArchivePicker() {
       <div className={classNames('image-picker', {'open-sidebar': selectedImagesAmount > 0})}>
         <ArchivePickerList />
 
-        {images.length > 0 && (
+        {!!images.length && (
           <div className="help">
             <div
               className="tooltip"
