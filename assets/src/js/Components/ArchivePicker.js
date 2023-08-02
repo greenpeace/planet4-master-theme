@@ -199,27 +199,46 @@ export default function ArchivePicker() {
   }, [loading, loaded, images, error, searchText, pageNumber, dispatch]);
 
   const includeInWp = async (ids = []) => {
-    try {
+    // try {
       dispatch({type: 'PROCESS_IMAGES'});
 
-      const updatedImages = await apiFetch({
-        method: 'POST',
-        path: '/planet4/v1/image-archive/transfer',
-        data: {
-          ids,
-          use_original_language: false,
-        },
+      Promise.all(ids.map((id) => {
+        return apiFetch({
+          method: 'POST',
+          path: '/planet4/v1/image-archive/transfer',
+          data: {
+            ids,
+            use_original_language: false,
+          },
+        });
+      })).then(value => {
+        console.log(value);
+        dispatch({type: 'PROCESSED_IMAGES', payload: {images: updatedImages}});
+      }).catch((err) => {
+        console.log(err);
+        throw new Error(err.message);
       });
-      dispatch({type: 'PROCESSED_IMAGES', payload: {images: updatedImages}});
-    } catch (err) {
-      dispatch({type: 'PROCESS_IMAGES_ERROR', payload: {error: err}});
+
+      // console.log(updatedImages);
+
+      // const updatedImages = await apiFetch({
+      //   method: 'POST',
+      //   path: '/planet4/v1/image-archive/transfer',
+      //   data: {
+      //     ids,
+      //     use_original_language: false,
+      //   },
+      // });
+      // dispatch({type: 'PROCESSED_IMAGES', payload: {images: updatedImages}});
+    // } catch (err) {
+      // dispatch({type: 'PROCESS_IMAGES_ERROR', payload: {error: err}});
       // dispatch({type: 'SET_ERROR', payload: {
       //   error: {
       //     type: 'PROCESS_IMAGES',
       //     errorMessage: err.message,
       //   },
       // }});
-    }
+    // }
   };
 
   useEffect(() => {
