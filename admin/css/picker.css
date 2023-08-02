@@ -43,10 +43,24 @@
 
 .archive-picker-toolbar {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
-  margin-top: 8px;
+  /* margin-top: 8px; */
+  margin-top: 32px;
   margin-bottom: 8px;
   width: 100%;
+}
+
+.archive-picker-title {
+  font-size: 24px;
+  font-weight: 400;
+  margin: 0;
+}
+
+.nav-bulk-select.bulk-enabled {
+  width: 100%;
+  justify-content: space-between;
+  display: flex;
 }
 
 .nav-bulk-select button {
@@ -63,7 +77,6 @@
   background-color: white;
   border: 1px solid #979797;
   cursor: pointer;
-  pointer-events: auto;
 }
 
 .bulk-select-checkbox.is-checked {
@@ -259,7 +272,7 @@
   border: 1px solid #979797;
   border-radius: 0;
   width: 100%;
-  margin: 0;
+  margin: 20px 0;
   box-sizing: border-box;
   overflow: hidden;
 }
@@ -290,14 +303,21 @@
 
 .multiple-search-wrapper-input input {
   width: 100%;
-  margin: 0;
   height: 100%;
+  margin: 0;
   background: transparent;
   border-radius: 0;
   font-size: 14px;
   outline: 0;
   border: none;
   border-bottom: 1px solid transparent;
+  background-color: #979797;
+  mask: url("../../images/search.svg");
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  mask-size: 20px auto;
+  mask-position: right;
+  mask-origin: content-box, padding-box;
 }
 
 .multiple-search-wrapper-input input:focus {
@@ -323,6 +343,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.multiple-search-form {
+  width: 100%;
+  height: auto;
 }
 
 .multiple-search-list {
@@ -371,12 +396,23 @@
     max-width: 330px;
   }
 
+  .archive-picker-title {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
   .multiple-search {
     max-width: 400px;
+    margin: 0;
+  }
+
+  .multiple-search-form {
+    width: auto;
   }
 
   .multiple-search-wrapper-input {
     min-width: 230px;
+    margin: 0;
   }
 
   .multiple-search-wrapper-input input {
@@ -394,9 +430,37 @@
   }
 }
 
+@media (max-width: 782px) {
+  .btn-cancel-bulk-select {
+    padding: 0 !important;
+    background-color: transparent !important;
+    border: none !important;
+    display: flex !important;;
+    align-items: center;
+    color: #1D2327 !important;
+  }
+
+  .btn-cancel-bulk-select::before {
+    content: "";
+    height: 18px;
+    width: 18px;
+    display: block;
+    background-color: #1D2327;;
+    mask: url("../../images/chevron.svg");
+    mask-size: contain;
+    mask-repeat: no-repeat;
+    margin-inline-end: 8px;
+    transform: rotate(180deg);
+  }
+}
+
 @media (min-width: 783px) {
   .picker-sidebar {
     padding-top: 56px;
+  }
+
+  .nav-bulk-select {
+    order: 1;
   }
 }
 

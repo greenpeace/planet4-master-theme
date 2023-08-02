@@ -1,4 +1,4 @@
-import {useMemo} from '@wordpress/element';
+import {useMemo, useEffect} from '@wordpress/element';
 import {toSrcSet} from './sizeFunctions';
 import {useArchivePickerContext} from '../ArchivePicker';
 
@@ -16,7 +16,7 @@ const renderDefinition = (key, value) => (
 );
 
 export default function SingleSidebar() {
-  const {processingImages, selectedImagesAmount, processingError, showAddedMessage, dispatch, selectedImages, includeInWp} = useArchivePickerContext();
+  const {processingImages, selectedImagesAmount, error, errors, showAddedMessage, dispatch, selectedImages, includeInWp} = useArchivePickerContext();
 
   const image = Object.values(selectedImages)[0];
   const original = image ? image.original : {};
@@ -30,20 +30,37 @@ export default function SingleSidebar() {
     />
   );
 
+  // useEffect(() => {
+  //   if(!!errors && errors['PROCESS_IMAGES']) {
+  //     const timeout = setTimeout(() => {
+  //       dispatch({type: 'REMOVE_ERROR', payload: {errorType: 'PROCESS_IMAGES'}});
+  //     }, 5000);
+
+  //     return () => {
+  //       clearTimeout(timeout);
+  //     }
+  //   }
+  // }, [errors]);
+
+  useEffect(() => {
+    dispatch({type: 'REMOVE_ERROR', payload: {errorType: 'PROCESS_IMAGES'}});
+  }, []);
+
   return useMemo(() => (
     <>
       <button
         className="close-sidebar"
         onClick={() => dispatch({type: 'CLOSE_SIDEBAR'})}
       />
-      {processingError && (
-        <div className="error">{
-          sprintf(__('Error: %s', 'planet4-master-theme-backend'), processingError.message)}
-        </div>
+
+      {!!errors && errors['PROCESS_IMAGES'] && (
+        <div className="error" dangerouslySetInnerHTML={{__html: errors['PROCESS_IMAGES'].message}} />
       )}
-      {!!processingImages && (
+
+      {processingImages && (
         <div className="info">{__('Processing...', 'planet4-master-theme-backend')}</div>
       )}
+
       {showAddedMessage && (
         <div className="info">{__('Added to Library', 'planet4-master-theme-backend')}</div>
       )}
@@ -107,7 +124,8 @@ export default function SingleSidebar() {
   ), [
     image,
     processingImages,
-    processingError,
+    error,
+    errors,
     showAddedMessage,
     selectedImages,
     selectedImagesAmount,

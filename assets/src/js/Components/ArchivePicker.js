@@ -1,4 +1,5 @@
 import {createContext, useContext, useEffect, useState, useCallback, useReducer, useMemo} from '@wordpress/element';
+import {Spinner} from '@wordpress/components';
 import classNames from 'classnames';
 import ArchivePickerList from './archivePicker/ArchivePickerList';
 import SingleSidebar from './archivePicker/SingleSidebar';
@@ -24,7 +25,7 @@ const initialState = {
   pageNumber: 1,
   searchText: [],
   error: null,
-  processingError: null,
+  errors: null,
 };
 
 const reducer = (state, action) => {
@@ -77,7 +78,7 @@ const reducer = (state, action) => {
       selectedImages,
       selectedImagesAmount: Object.keys(selectedImages).length,
     };
-  case 'PROCESSING_IMAGES': {
+  case 'PROCESS_IMAGES': {
     return {
       ...state,
       processingImages: true,
@@ -98,10 +99,15 @@ const reducer = (state, action) => {
       selectedImages: action.payload.images.map(img => img),
     };
   }
-  case 'PROCESSING_ERROR': {
+  case 'PROCESS_IMAGES_ERROR': {
     return {
       ...state,
-      processingError: action.payload.error,
+      processedImages: true,
+      processingImages: false,
+      errors: {
+        ...state.errors,
+        ...{['PROCESS_IMAGES']: action.payload.error},
+      },
     };
   }
   case 'HIDE_ADDED_MESSAGE': {
@@ -123,7 +129,7 @@ const reducer = (state, action) => {
       bulkSelect: true,
     };
   }
-  case 'DISABLE_BULK_SELECT': {
+  case 'CANCEL_BULK_SELECT': {
     return {
       ...state,
       selectedImages: {},
@@ -131,19 +137,37 @@ const reducer = (state, action) => {
       bulkSelect: false,
     };
   }
+  case 'BULK_SELECT_ERROR': {
+    return {
+      ...state,
+      error: action.payload,
+    };
+  }
+  case 'REMOVE_ERROR': {
+    const errors = {...state.errors};
+    delete errors[action.payload.errorType];
+    return {
+      ...state,
+      errors,
+    }
+  }
   case 'SET_ERROR': {
     return {
       ...state,
       loading: false,
       loaded: true,
       error: action.payload,
+      errors: {
+        ...state.errors,
+        ...{[`${action.payload.type}`]: action.payload.error},
+      },
     };
   }
   }
 };
 
 export default function ArchivePicker() {
-  const [{loading, loaded, showAddedMessage, processingImages, processingError, images, pageNumber, searchText, selectedImages, selectedImagesAmount, bulkSelect, error}, dispatch] = useReducer(reducer, initialState);
+  const [{loading, loaded, showAddedMessage, processingImages, /*processingError,*/ images, pageNumber, searchText, selectedImages, selectedImagesAmount, bulkSelect, error, errors}, dispatch] = useReducer(reducer, initialState);
   const [abortController, setAbortController] = useState(null);
 
   const fetch = useCallback(async () => {
@@ -166,14 +190,17 @@ export default function ArchivePicker() {
       }});
     } catch (err) {
       if (err.name !== 'AbortError') {
-        dispatch({type: 'SET_ERROR', payload: err});
+        dispatch({type: 'SET_ERROR', payload: {
+          type: 'FETCH_IMAGES',
+          error: err.message,
+        }});
       }
     }
   }, [loading, loaded, images, error, searchText, pageNumber, dispatch]);
 
   const includeInWp = async (ids = []) => {
     try {
-      dispatch({type: 'PROCESSING_IMAGES'});
+      dispatch({type: 'PROCESS_IMAGES'});
 
       const updatedImages = await apiFetch({
         method: 'POST',
@@ -185,7 +212,13 @@ export default function ArchivePicker() {
       });
       dispatch({type: 'PROCESSED_IMAGES', payload: {images: updatedImages}});
     } catch (err) {
-      dispatch({type: 'PROCESSING_ERROR', payload: {error: err}});
+      dispatch({type: 'PROCESS_IMAGES_ERROR', payload: {error: err}});
+      // dispatch({type: 'SET_ERROR', payload: {
+      //   error: {
+      //     type: 'PROCESS_IMAGES',
+      //     errorMessage: err.message,
+      //   },
+      // }});
     }
   };
 
@@ -238,9 +271,10 @@ export default function ArchivePicker() {
         loaded,
         bulkSelect,
         error,
+        errors,
         fetch,
         images,
-        processingError,
+        // processingError,
         processingImages,
         showAddedMessage,
         includeInWp,
@@ -252,10 +286,10 @@ export default function ArchivePicker() {
     >
       <ArchivePickerToolbar />
 
-      {!!error && (
+      {!!error && error.type === 'FETCH_IMAGES' && (
         <div>
           <h3>API error:</h3>
-          <p> {error.message} </p>
+          <div dangerouslySetInnerHTML={{__html: error.errorMessage}} />
         </div>
       )}
 
@@ -277,7 +311,7 @@ export default function ArchivePicker() {
         )}
 
         {loading && (
-          <div className="archive-picker-loading">{__('Loading...', 'planet4-master-theme-backend')}</div>
+          <div className="archive-picker-loading"><Spinner /></div>
         )}
 
         {(selectedImagesAmount > 0 && !bulkSelect) ? (
@@ -291,8 +325,9 @@ export default function ArchivePicker() {
     loaded,
     bulkSelect,
     error,
+    errors,
     images,
-    processingError,
+    // processingError,
     processingImages,
     showAddedMessage,
     searchText,

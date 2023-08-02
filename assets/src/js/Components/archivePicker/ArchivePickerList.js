@@ -41,7 +41,16 @@ export default function ArchivePickerList() {
           try {
             return <li
               key={id}
-              data-wordpress-id={wordpress_id}>
+              data-wordpress-id={wordpress_id}
+              onClick={() => {
+                if (bulkSelect) {
+                  return dispatch({type: 'TOGGLE_IMAGE', payload: {image, multiSelection: true}});
+                }
+
+                // metaKey for Mac users
+                dispatch({type: 'TOGGLE_IMAGE', payload: {image, multiSelection: (event.ctrlKey || event.metaKey)}});
+              }}
+              >
               {wordpress_id && (
                 <div className="added-to-library">
                   {__('Added to Media Library', 'planet4-master-theme-backend')}
@@ -54,12 +63,6 @@ export default function ArchivePickerList() {
                 alt={alt}
                 width={200 * (original.width / original.height)}
                 height={200}
-                {...(!bulkSelect) && {
-                  onClick: () => {
-                    // metaKey for Mac users
-                    dispatch({type: 'TOGGLE_IMAGE', payload: {image, multiSelection: (event.ctrlKey || event.metaKey)}});
-                  },
-                }}
                 role="presentation"
               />
               {
@@ -68,9 +71,6 @@ export default function ArchivePickerList() {
                     role="button"
                     aria-hidden="true"
                     className={classNames('bulk-select-checkbox', {'is-checked': selectedImages[image.id]})}
-                    onClick={() => {
-                      dispatch({type: 'TOGGLE_IMAGE', payload: {image, multiSelection: true}});
-                    }}
                   />
                 )
               }

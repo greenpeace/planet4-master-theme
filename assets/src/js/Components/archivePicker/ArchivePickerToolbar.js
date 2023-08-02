@@ -1,5 +1,6 @@
 import {useMemo} from '@wordpress/element';
-import MultiSearchOption from './MultiSearchOption';
+import classNames from 'classnames';
+import MultiSearchOption from'./MultiSearchOption';
 import {useArchivePickerContext} from '../ArchivePicker';
 
 const {__} = wp.i18n;
@@ -15,16 +16,16 @@ export default function ArchivePickerToolbar() {
 
   return useMemo(() => (
     <div className="archive-picker-toolbar">
-      {!bulkSelect && <MultiSearchOption />}
-      <nav className="nav-bulk-select">
+      {!bulkSelect && <h3 className='archive-picker-title'>{__('Media Archive', 'planet4-master-theme-backend')}</h3>}
+      <nav className={classNames('nav-bulk-select', {'bulk-enabled': bulkSelect})}>
         {bulkSelect && (
           <button
             disabled={false}
             onClick={() => {
-              dispatch({type: 'DISABLE_BULK_SELECT'});
+              dispatch({type: 'CANCEL_BULK_SELECT'});
             }}
             type="button"
-            className="button"
+            className="button btn-cancel-bulk-select"
           >{__('Cancel', 'planet4-master-theme-backend')}</button>
         )}
 
@@ -47,6 +48,7 @@ export default function ArchivePickerToolbar() {
           >{__('Bulk Select', 'planet4-master-theme-backend')}</button>
         }
       </nav>
+      {!bulkSelect && <MultiSearchOption />}
     </div>
   ), [bulkSelect, selectedImages, selectedImagesAmount]);
 }
