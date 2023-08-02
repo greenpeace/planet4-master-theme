@@ -19,6 +19,7 @@ use P4\MasterTheme\Migrations\M014RemoveDropdownNavigationMenusOption;
 use P4\MasterTheme\Migrations\M015RemoveListingPagesBackgroundImage;
 use P4\MasterTheme\Migrations\M016CreateDefaultActionType;
 use P4\MasterTheme\Migrations\M017NewIAToggle;
+use P4\MasterTheme\Migrations\M018MigrateDonateButtonSetting;
 
 /**
  * Run any new migration scripts and record results in the log.
@@ -55,6 +56,7 @@ class Migrator
             M015RemoveListingPagesBackgroundImage::class,
             M016CreateDefaultActionType::class,
             M017NewIAToggle::class,
+            M018MigrateDonateButtonSetting::class,
         ];
 
         // Loop migrations and run those that haven't run yet.
