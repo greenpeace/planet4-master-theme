@@ -45,6 +45,7 @@ $context['page_type_slug'] = $page_terms_data->slug ?? '';
 $context['social_accounts'] = $post->get_social_accounts($context['footer_social_menu'] ?: []);
 $context['page_category'] = 'Post Page';
 $context['post_tags'] = implode(', ', $post->tags());
+$context['post_categories'] = implode(', ', $post->categories());
 
 Context::set_og_meta_fields($context, $post);
 Context::set_campaign_datalayer($context, $page_meta_data);
