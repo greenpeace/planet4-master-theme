@@ -85,7 +85,6 @@ Context::set_custom_styles($context, $campaign_meta, 'campaign');
 $context['post'] = $post;
 $context['social_accounts'] = $post->get_social_accounts($context['footer_social_menu'] ?: []);
 $context['page_category'] = $data_layer['page_category'];
-$context['post_tags'] = implode(', ', $post->tags());
 $context['css_vars'] = PostCampaign::css_vars($campaign_meta);
 
 $context['custom_font_families'] = [

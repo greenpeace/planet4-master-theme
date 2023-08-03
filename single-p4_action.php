@@ -36,6 +36,7 @@ $context['post'] = $post;
 $context['social_accounts'] = $post->get_social_accounts($context['footer_social_menu'] ?: []);
 $context['page_category'] = $data_layer['page_category'];
 $context['post_tags'] = implode(', ', $post->tags());
+$context['post_categories'] = implode(', ', $post->categories());
 $context['custom_body_classes'] = 'brown-bg ';
 
 Context::set_p4_blocks_datalayer($context, $post);
