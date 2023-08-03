@@ -261,6 +261,10 @@ class MasterSite extends TimberSite
                     'new_identity_styles',
                     array(
                         'label' => __('Enable new Greenpeace visual identity', 'planet4-master-theme'),
+                        'description' => __(
+                            'This opt-out setting will be phased out at the end of September',
+                            'planet4-master-theme'
+                        ),
                         'settings' => 'new_identity_styles',
                         'type' => 'checkbox',
                         'section' => 'title_tagline',
