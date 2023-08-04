@@ -83,15 +83,15 @@ class ReadingTimeCalculator
 
         // Calculate text reading time.
         $word_count = $this->get_word_count($content['text'] ?? '');
-        $time += ( $word_count / $this->wpm ) * 60;
+        $time += ($word_count / $this->wpm) * 60;
 
         // Calculate images watching time.
-        if ($this->options['count_images'] && ! empty($content['images'])) {
+        if ($this->options['count_images'] && !empty($content['images'])) {
             $img_count = count($content['images']);
             $real_min = max(self::IMAGE_TIME['min'], self::IMAGE_TIME['max'] - $img_count + 1);
-            $overflow = max(0, $img_count - ( self::IMAGE_TIME['max'] - self::IMAGE_TIME['min'] + 1 ));
+            $overflow = max(0, $img_count - (self::IMAGE_TIME['max'] - self::IMAGE_TIME['min'] + 1));
 
-            $time += ( ( $img_count - $overflow ) * ( self::IMAGE_TIME['max'] + $real_min ) / 2 );
+            $time += (($img_count - $overflow) * (self::IMAGE_TIME['max'] + $real_min) / 2);
             $time += self::IMAGE_TIME['min'] * $overflow;
         }
 
@@ -158,7 +158,7 @@ class ReadingTimeCalculator
      */
     private function extract_images(string $content): array
     {
-        if (! $this->options['count_images'] || empty($content)) {
+        if (!$this->options['count_images'] || empty($content)) {
             return [];
         }
 
@@ -179,11 +179,11 @@ class ReadingTimeCalculator
      */
     private function extract_videos(string $content): array
     {
-        if (! $this->options['count_videos']) {
+        if (!$this->options['count_videos']) {
             return [];
         }
 
-        $video_blocks = [ 'core/embed' ];
+        $video_blocks = ['core/embed'];
 
         $blocks = has_blocks($content) ? parse_blocks($content) : null;
         if (empty($blocks)) {

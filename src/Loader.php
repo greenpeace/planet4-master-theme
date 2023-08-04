@@ -38,7 +38,7 @@ final class Loader
      */
     public static function get_instance(array $services = []): Loader
     {
-        if (! isset(self::$instance)) {
+        if (!isset(self::$instance)) {
             self::$instance = new self($services);
         }
         return self::$instance;
@@ -88,6 +88,7 @@ final class Loader
             $this->default_services[] = ControlPanel::class;
             $this->default_services[] = MediaArchive\UiIntegration::class;
             $this->default_services[] = MediaArchive\Rest::class;
+            $this->default_services[] = Settings\ReadingTime::class;
 
             // Load P4 Metaboxes only when adding/editing a new Page/Post/Campaign.
             if ('post-new.php' === $pagenow || 'post.php' === $pagenow) {
@@ -102,9 +103,9 @@ final class Loader
             $this->default_services[] = Exporter::class;
 
             // Load `CampaignImporter` class only for WordPress import requests.
-			// phpcs:disable
-			if ( 'wordpress' === filter_input( INPUT_GET, 'import', FILTER_SANITIZE_STRING ) ) {
-				// phpcs:enable
+            // phpcs:disable
+            if ('wordpress' === filter_input(INPUT_GET, 'import', FILTER_SANITIZE_STRING)) {
+                // phpcs:enable
                 $this->default_services[] = Importer::class;
             }
         }
@@ -124,7 +125,7 @@ final class Loader
         }
 
         foreach ($services as $service) {
-            $this->services[ $service ] = new $service();
+            $this->services[$service] = new $service();
         }
     }
 
@@ -144,7 +145,7 @@ final class Loader
      */
     private function add_filters(): void
     {
-        add_filter('pre_delete_post', [ $this, 'do_not_delete_autosave' ], 1, 3);
+        add_filter('pre_delete_post', [$this, 'do_not_delete_autosave'], 1, 3);
     }
 
     /**
@@ -169,9 +170,9 @@ final class Loader
     {
         if (
             $force_delete
-            || ( isset($_GET['action']) && 'delete' === $_GET['action'] )
-            || ( isset($_GET['delete_all']) )
-            || ! preg_match('/autosave-v\d+$/', $post->post_name)
+            || (isset($_GET['action']) && 'delete' === $_GET['action'])
+            || (isset($_GET['delete_all']))
+            || !preg_match('/autosave-v\d+$/', $post->post_name)
         ) {
             return $delete;
         }
@@ -203,7 +204,7 @@ final class Loader
     {
         $ctime = filectime($path);
 
-        if (! $ctime) {
+        if (!$ctime) {
             throw new RuntimeException("Tried to get file change time of {$path} but failed to.");
         }
 

@@ -118,20 +118,6 @@ class Settings
                         'desc' => __('Add default button text which appears on <b>Take Action</b> card of <b>Take Action Covers</b> block. <br>Also it would be used for Take Action Cards inside Posts and Take Action Cards in search results', 'planet4-master-theme-backend'),
                     ],
 
-                    [
-                        'name' => __('Reading time: words per minute', 'planet4-master-theme-backend'),
-                        'id' => 'reading_time_wpm',
-                        'type' => 'text',
-                        'attributes' => [
-                            'type' => 'number',
-                        ],
-                        'default' => Post\ReadingTimeCalculator::DEFAULT_WPM,
-                        'desc' => __(
-                            'Average reading words per minute (usually between 220 and 320).',
-                            'planet4-master-theme-backend'
-                        ),
-                    ],
-
                     // HappyPoint settings.
                     [
                         'name' => __('Default Happy Point Background Image', 'planet4-master-theme-backend'),
@@ -515,22 +501,22 @@ class Settings
      */
     public function hooks(): void
     {
-        add_action('admin_init', [ $this, 'init' ]);
-        add_action('admin_menu', [ $this, 'add_options_pages' ]);
-        add_action('cmb2_save_options-page_fields_' . self::METABOX_ID, [ $this, 'add_notifications' ]);
-        add_filter('cmb2_render_act_page_dropdown', [ $this, 'p4_render_page_dropdown' ], 10, 2);
-        add_filter('cmb2_render_explore_page_dropdown', [ $this, 'p4_render_page_dropdown' ], 10, 2);
-        add_filter('cmb2_render_category_select_taxonomy', [ $this, 'p4_render_category_dropdown' ], 10, 2);
-        add_filter('cmb2_render_get_informed_page_dropdown', [ $this, 'p4_render_page_dropdown' ], 10, 2);
-        add_filter('cmb2_render_take_action_page_dropdown', [ $this, 'p4_render_page_dropdown' ], 10, 2);
-        add_filter('cmb2_render_about_us_page_dropdown', [ $this, 'p4_render_page_dropdown' ], 10, 2);
-        add_filter('cmb2_render_pagetype_select_taxonomy', [ $this, 'p4_render_pagetype_dropdown' ], 10, 2);
-        add_action('admin_enqueue_scripts', [ $this, 'enqueue_admin_assets' ]);
+        add_action('admin_init', [$this, 'init']);
+        add_action('admin_menu', [$this, 'add_options_pages']);
+        add_action('cmb2_save_options-page_fields_' . self::METABOX_ID, [$this, 'add_notifications']);
+        add_filter('cmb2_render_act_page_dropdown', [$this, 'p4_render_page_dropdown'], 10, 2);
+        add_filter('cmb2_render_explore_page_dropdown', [$this, 'p4_render_page_dropdown'], 10, 2);
+        add_filter('cmb2_render_category_select_taxonomy', [$this, 'p4_render_category_dropdown'], 10, 2);
+        add_filter('cmb2_render_get_informed_page_dropdown', [$this, 'p4_render_page_dropdown'], 10, 2);
+        add_filter('cmb2_render_take_action_page_dropdown', [$this, 'p4_render_page_dropdown'], 10, 2);
+        add_filter('cmb2_render_about_us_page_dropdown', [$this, 'p4_render_page_dropdown'], 10, 2);
+        add_filter('cmb2_render_pagetype_select_taxonomy', [$this, 'p4_render_pagetype_dropdown'], 10, 2);
+        add_action('admin_enqueue_scripts', [$this, 'enqueue_admin_assets']);
         add_action('admin_init', [$this, 'add_new_identity_styles_toggle_value']);
 
         // Make settings multilingual if wpml plugin is installed and activated.
         if (function_exists('is_plugin_active') && is_plugin_active('sitepress-multilingual-cms/sitepress.php')) {
-            add_action('init', [ $this, 'make_settings_multilingual' ]);
+            add_action('init', [$this, 'make_settings_multilingual']);
         }
 
         Features::hooks();
@@ -564,7 +550,7 @@ class Settings
                 $subpage['title'],
                 'manage_options',
                 $path,
-                fn() => $this->admin_page_display($path)
+                fn () => $this->admin_page_display($path)
             );
         }
     }
@@ -577,7 +563,7 @@ class Settings
      */
     public function add_notifications(): void
     {
-        if (! count(get_settings_errors())) {
+        if (!count(get_settings_errors())) {
             add_settings_error(
                 'general',
                 'settings_updated',
@@ -661,7 +647,7 @@ class Settings
      */
     public function admin_page_display(string $plugin_page): void
     {
-        $page_config = $this->subpages[ $plugin_page ];
+        $page_config = $this->subpages[$plugin_page];
 
         if ('planet4_settings_donate_button' === $plugin_page) {
             $message = trim($this->show_donate_menu_notice());
@@ -680,7 +666,7 @@ class Settings
         // Allow storing options in a different database record.
         $root_option = $page_config['root_option'] ?? self::KEY;
 
-        $add_scripts = $this->subpages[ $plugin_page ]['add_scripts'] ?? null;
+        $add_scripts = $this->subpages[$plugin_page]['add_scripts'] ?? null;
         if (is_callable($add_scripts)) {
             $add_scripts();
         }
@@ -688,7 +674,7 @@ class Settings
         $form = cmb2_metabox_form(
             $this->option_metabox($fields, $root_option),
             $root_option,
-            [ 'echo' => false ]
+            ['echo' => false]
         );
 
         echo sprintf(
