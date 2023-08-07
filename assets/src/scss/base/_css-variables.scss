@@ -1,6 +1,6 @@
 :root {
-  --body--font-family: #{$lora};
-  --headings--font-family: #{$roboto};
+  --body--font-family: var(--font-family-primary);
+  --headings--font-family: var(--font-family-secondary);
   --headings--font-weight: bold;
   --body--background-color: #{$white};
   --body--color: #{$grey-80};
