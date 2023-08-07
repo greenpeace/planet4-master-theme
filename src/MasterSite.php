@@ -81,7 +81,7 @@ class MasterSite extends TimberSite
     protected function settings(): void
     {
         Timber::$autoescape = true;
-        Timber::$dirname = [ 'templates', 'views' ];
+        Timber::$dirname = ['templates', 'views'];
         $this->theme_dir = get_template_directory_uri();
         $this->theme_images_dir = $this->theme_dir . '/images/';
         $this->sort_options = [
@@ -107,51 +107,51 @@ class MasterSite extends TimberSite
     {
         add_theme_support('post-thumbnails');
         add_theme_support('menus');
-        if (! WPTemplateEditor::is_active()) {
+        if (!WPTemplateEditor::is_active()) {
             // Enable Full Site Editing.
             remove_theme_support('block-templates');
         }
-        if (! CoreBlockPatterns::is_active()) {
+        if (!CoreBlockPatterns::is_active()) {
             // Disable WP Block Patterns.
             remove_theme_support('core-block-patterns');
         }
 
         add_post_type_support('page', 'excerpt'); // Added excerpt option to pages.
 
-        add_filter('timber_context', [ $this, 'add_to_context' ]);
-        add_filter('get_twig', [ $this, 'add_to_twig' ]);
-        add_action('init', [ $this, 'register_taxonomies' ], 2);
-        add_action('init', [ $this, 'register_oembed_provider' ]);
-        add_action('admin_enqueue_scripts', [ $this, 'enqueue_admin_assets' ]);
+        add_filter('timber_context', [$this, 'add_to_context']);
+        add_filter('get_twig', [$this, 'add_to_twig']);
+        add_action('init', [$this, 'register_taxonomies'], 2);
+        add_action('init', [$this, 'register_oembed_provider']);
+        add_action('admin_enqueue_scripts', [$this, 'enqueue_admin_assets']);
         // Load the editor scripts only enqueuing editor scripts while in context of the editor.
-        add_action('enqueue_block_editor_assets', [ $this, 'enqueue_editor_assets' ]);
+        add_action('enqueue_block_editor_assets', [$this, 'enqueue_editor_assets']);
         // Load main theme assets before any child theme.
-        add_action('wp_enqueue_scripts', [ PublicAssets::class, 'enqueue_css' ], 0);
-        add_action('wp_enqueue_scripts', [ PublicAssets::class, 'enqueue_js' ]);
-        add_filter('safe_style_css', [ $this, 'set_custom_allowed_css_properties' ]);
-        add_filter('wp_kses_allowed_html', [ $this, 'set_custom_allowed_attributes_filter' ], 10, 2);
-        add_action('add_meta_boxes', [ $this, 'add_meta_box_search' ], 10, 2);
-        add_action('save_post', [ $this, 'save_meta_box_search' ], 10, 2);
-        add_action('save_post', [ $this, 'set_featured_image' ], 10, 2);
+        add_action('wp_enqueue_scripts', [PublicAssets::class, 'enqueue_css'], 0);
+        add_action('wp_enqueue_scripts', [PublicAssets::class, 'enqueue_js']);
+        add_filter('safe_style_css', [$this, 'set_custom_allowed_css_properties']);
+        add_filter('wp_kses_allowed_html', [$this, 'set_custom_allowed_attributes_filter'], 10, 2);
+        add_action('add_meta_boxes', [$this, 'add_meta_box_search'], 10, 2);
+        add_action('save_post', [$this, 'save_meta_box_search'], 10, 2);
+        add_action('save_post', [$this, 'set_featured_image'], 10, 2);
         // Save "p4_global_project_tracking_id" on post save.
-        add_action('save_post', [ $this, 'save_global_project_id' ], 10, 1);
-        add_action('post_updated', [ $this, 'clean_post_cache' ], 10, 3);
-        add_action('after_setup_theme', [ $this, 'p4_master_theme_setup' ]);
-        add_action('pre_insert_term', [ $this, 'disallow_insert_term' ], 1, 2);
-        add_filter('wp_dropdown_users_args', [ $this, 'filter_authors' ], 10, 1);
-        add_filter('wp_image_editors', [ $this, 'allowedEditors' ]);
-        add_filter('jpeg_quality', fn() => 60);
-        add_filter('http_request_timeout', fn() => 10);
-        add_action('after_setup_theme', [ $this, 'add_image_sizes' ]);
-        add_action('save_post', [ $this, 'p4_auto_generate_excerpt' ], 10, 2);
+        add_action('save_post', [$this, 'save_global_project_id'], 10, 1);
+        add_action('post_updated', [$this, 'clean_post_cache'], 10, 3);
+        add_action('after_setup_theme', [$this, 'p4_master_theme_setup']);
+        add_action('pre_insert_term', [$this, 'disallow_insert_term'], 1, 2);
+        add_filter('wp_dropdown_users_args', [$this, 'filter_authors'], 10, 1);
+        add_filter('wp_image_editors', [$this, 'allowedEditors']);
+        add_filter('jpeg_quality', fn () => 60);
+        add_filter('http_request_timeout', fn () => 10);
+        add_action('after_setup_theme', [$this, 'add_image_sizes']);
+        add_action('save_post', [$this, 'p4_auto_generate_excerpt'], 10, 2);
 
         if (wp_doing_ajax()) {
             Search::add_general_filters();
         }
-        add_action('wp_ajax_get_paged_posts', [ ElasticSearch::class, 'get_paged_posts' ]);
-        add_action('wp_ajax_nopriv_get_paged_posts', [ ElasticSearch::class, 'get_paged_posts' ]);
+        add_action('wp_ajax_get_paged_posts', [ElasticSearch::class, 'get_paged_posts']);
+        add_action('wp_ajax_nopriv_get_paged_posts', [ElasticSearch::class, 'get_paged_posts']);
 
-        add_action('admin_head', [ $this, 'add_help_sidebar' ]);
+        add_action('admin_head', [$this, 'add_help_sidebar']);
 
         remove_action('wp_head', 'print_emoji_detection_script', 7);
         remove_action('wp_head', 'wp_generator');
@@ -164,16 +164,16 @@ class MasterSite extends TimberSite
             ]
         );
 
-        add_filter('authenticate', [ $this, 'enforce_google_signon' ], 4, 3);
-        add_filter('authenticate', [ $this, 'check_google_login_error' ], 30, 1);
-        add_filter('login_headerurl', [ $this, 'add_login_logo_url' ]);
-        add_filter('login_headertext', [ $this, 'add_login_logo_url_title' ]);
-        add_action('login_enqueue_scripts', [ $this, 'add_login_stylesheet' ]);
-        add_filter('comment_form_submit_field', [ $this, 'gdpr_cc_comment_form_add_class' ], 150, 1);
-        add_filter('comment_form_default_fields', [ $this, 'comment_form_cookie_checkbox_add_class' ]);
-        add_filter('comment_form_default_fields', [ $this, 'comment_form_replace_inputs' ]);
-        add_filter('embed_oembed_html', [ $this, 'filter_youtube_oembed_nocookie' ], 10, 2);
-        add_filter('oembed_result', [ $this, 'filter_youtube_oembed_nocookie' ], 10, 2);
+        add_filter('authenticate', [$this, 'enforce_google_signon'], 4, 3);
+        add_filter('authenticate', [$this, 'check_google_login_error'], 30, 1);
+        add_filter('login_headerurl', [$this, 'add_login_logo_url']);
+        add_filter('login_headertext', [$this, 'add_login_logo_url_title']);
+        add_action('login_enqueue_scripts', [$this, 'add_login_stylesheet']);
+        add_filter('comment_form_submit_field', [$this, 'gdpr_cc_comment_form_add_class'], 150, 1);
+        add_filter('comment_form_default_fields', [$this, 'comment_form_cookie_checkbox_add_class']);
+        add_filter('comment_form_default_fields', [$this, 'comment_form_replace_inputs']);
+        add_filter('embed_oembed_html', [$this, 'filter_youtube_oembed_nocookie'], 10, 2);
+        add_filter('oembed_result', [$this, 'filter_youtube_oembed_nocookie'], 10, 2);
         add_filter(
             'editable_roles',
             function ($roles) {
@@ -207,14 +207,14 @@ class MasterSite extends TimberSite
             2
         );
 
-        add_action('init', [ $this, 'login_redirect' ], 1);
-        add_filter('attachment_fields_to_edit', [ $this, 'add_image_attachment_fields_to_edit' ], 10, 2);
-        add_filter('attachment_fields_to_save', [ $this, 'add_image_attachment_fields_to_save' ], 10, 2);
+        add_action('init', [$this, 'login_redirect'], 1);
+        add_filter('attachment_fields_to_edit', [$this, 'add_image_attachment_fields_to_edit'], 10, 2);
+        add_filter('attachment_fields_to_save', [$this, 'add_image_attachment_fields_to_save'], 10, 2);
         version_compare(get_bloginfo('version'), '5.5', '<')
-            ? add_action('init', [ $this, 'p4_register_core_image_block' ])
-            : add_filter('register_block_type_args', [ $this, 'register_core_blocks_callback' ]);
-        add_action('admin_notices', [ $this, 'show_dashboard_notice' ]);
-        add_action('wp_ajax_dismiss_dashboard_notice', [ $this, 'dismiss_dashboard_notice' ]);
+            ? add_action('init', [$this, 'p4_register_core_image_block'])
+            : add_filter('register_block_type_args', [$this, 'register_core_blocks_callback']);
+        add_action('admin_notices', [$this, 'show_dashboard_notice']);
+        add_action('wp_ajax_dismiss_dashboard_notice', [$this, 'dismiss_dashboard_notice']);
 
         // Disable WordPress(WP5.5) Block Directory.
         $this->disable_block_directory();
@@ -249,13 +249,13 @@ class MasterSite extends TimberSite
         );
 
         // Make post tags ordered.
-        add_filter('register_taxonomy_args', [ $this, 'set_post_tags_as_ordered' ], 10, 2);
+        add_filter('register_taxonomy_args', [$this, 'set_post_tags_as_ordered'], 10, 2);
 
         add_action(
             'customize_register',
             function ($wp_customize): void {
                 // Add new site identity styles toggle.
-                $wp_customize->add_setting('new_identity_styles', [ 'default' => false ]);
+                $wp_customize->add_setting('new_identity_styles', ['default' => false]);
                 $wp_customize->add_control(new WP_Customize_Control(
                     $wp_customize,
                     'new_identity_styles',
@@ -271,7 +271,7 @@ class MasterSite extends TimberSite
                     )
                 ));
 
-                if (!defined('WP_APP_ENV') || ( 'production' !== WP_APP_ENV && 'staging' !== WP_APP_ENV )) {
+                if (!defined('WP_APP_ENV') || ('production' !== WP_APP_ENV && 'staging' !== WP_APP_ENV)) {
                     return;
                 }
 
@@ -281,7 +281,7 @@ class MasterSite extends TimberSite
         );
 
         // Admin scripts.
-        add_action('admin_enqueue_scripts', [ AdminAssets::class, 'enqueue_js' ]);
+        add_action('admin_enqueue_scripts', [AdminAssets::class, 'enqueue_js']);
 
         // Disable the Elastic search sync, if archive posts feature is disable.
         add_filter(
@@ -312,12 +312,12 @@ class MasterSite extends TimberSite
      */
     public function login_redirect(): void
     {
-        if (! isset($GLOBALS['pagenow']) || 'wp-login.php' !== $GLOBALS['pagenow']) {
+        if (!isset($GLOBALS['pagenow']) || 'wp-login.php' !== $GLOBALS['pagenow']) {
             // Not on the login page, as you were.
             return;
         }
 
-        if (! isset($_SERVER['HTTP_HOST']) || ! isset($_SERVER['SERVER_NAME'])) {
+        if (!isset($_SERVER['HTTP_HOST']) || !isset($_SERVER['SERVER_NAME'])) {
             // If either of these are unset, we can't be sure we want to redirect.
             return;
         }
@@ -379,7 +379,7 @@ class MasterSite extends TimberSite
             return;
         }
         // Check user's capabilities.
-        if (! current_user_can('edit_post', $post_id)) {
+        if (!current_user_can('edit_post', $post_id)) {
             return;
         }
         // Check if user has set the featured image manually or if he has removed it.
@@ -431,7 +431,7 @@ class MasterSite extends TimberSite
                     }
 
                     foreach ($item['locale'] as $code) {
-                        $metadata[ $code ] = $item['url'];
+                        $metadata[$code] = $item['url'];
                     }
                 }
             }
@@ -476,8 +476,8 @@ class MasterSite extends TimberSite
 
         // Flush cache only when a page status changes from publish to any non-public status & vice versa.
         if (
-            ( $post_before->post_status === $post_after->post_status ) ||
-            ( 'publish' !== $post_before->post_status && 'publish' !== $post_after->post_status )
+            ($post_before->post_status === $post_after->post_status) ||
+            ('publish' !== $post_before->post_status && 'publish' !== $post_after->post_status)
         ) {
             return;
         }
@@ -487,8 +487,8 @@ class MasterSite extends TimberSite
         // Search for those posts, who use TAB($post_id) from "Take Action Page Selector" dropdown.
         // phpcs:disable
         $sql          = 'SELECT post_id FROM %1$s WHERE meta_key = \'p4_take_action_page\' AND meta_value = %2$d';
-        $prepared_sql = $wpdb->prepare( $sql, $wpdb->postmeta, $post_id );
-        $boxout_posts = $wpdb->get_col( $prepared_sql );
+        $prepared_sql = $wpdb->prepare($sql, $wpdb->postmeta, $post_id);
+        $boxout_posts = $wpdb->get_col($prepared_sql);
         // phpcs:enable
 
         // Search for those posts, who use TAB($post_id) as a block inside block editor.
@@ -496,8 +496,8 @@ class MasterSite extends TimberSite
             . $post_id . '} /-->%';
         // phpcs:disable
         $sql          = 'SELECT ID FROM %1$s WHERE post_type = \'post\' AND post_status = \'publish\' AND post_content LIKE \'%2$s\'';
-        $prepared_sql = $wpdb->prepare( $sql, $wpdb->posts, $take_action_boxout_block );
-        $result       = $wpdb->get_col( $prepared_sql );
+        $prepared_sql = $wpdb->prepare($sql, $wpdb->posts, $take_action_boxout_block);
+        $result       = $wpdb->get_col($prepared_sql);
         // phpcs:enable
 
         $boxout_posts = array_merge($boxout_posts, $result);
@@ -525,7 +525,7 @@ class MasterSite extends TimberSite
      */
     public function allowedEditors(): array
     {
-        return [ ImageCompression::class ];
+        return [ImageCompression::class];
     }
 
     /**
@@ -587,7 +587,7 @@ class MasterSite extends TimberSite
         $context['navbar_menu_items'] = array_filter(
             $menu_items,
             function ($item) {
-                return ! in_array('wpml-ls-item', $item->classes ?? [], true);
+                return !in_array('wpml-ls-item', $item->classes ?? [], true);
             }
         );
 
@@ -596,7 +596,7 @@ class MasterSite extends TimberSite
             $donate_menu = new TimberMenu('donate-menu');
 
             // Check if it has at least 1 item added into the menu.
-            if (! empty($donate_menu->get_items())) {
+            if (!empty($donate_menu->get_items())) {
                 $context['donate_menu_items'] = $donate_menu->get_items();
             }
         }
@@ -621,7 +621,7 @@ class MasterSite extends TimberSite
         $context['facebook_page_id'] = $options['facebook_page_id'] ?? '';
         $context['preconnect_domains'] = [];
 
-        if (! empty($options['preconnect_domains'])) {
+        if (!empty($options['preconnect_domains'])) {
             $preconnect_domains = explode("\n", $options['preconnect_domains']);
             $preconnect_domains = array_map('trim', $preconnect_domains);
             $preconnect_domains = array_filter($preconnect_domains);
@@ -672,7 +672,7 @@ class MasterSite extends TimberSite
             $context['hubspot_active']
             && !isset($_COOKIE['no_track']) && isset($_COOKIE['active_consent_choice'])
             && $_COOKIE['active_consent_choice'] && isset($_COOKIE['greenpeace'])
-            && in_array($_COOKIE['greenpeace'], [2,4])
+            && in_array($_COOKIE['greenpeace'], [2, 4])
         ) {
             $context['hubspot_tracking_code'] = $options['hubspot_tracking_code'] ?? '';
         }
@@ -696,7 +696,7 @@ class MasterSite extends TimberSite
     public function add_to_twig(Twig_Environment $twig)
     {
         $twig->addExtension(new Twig_Extension_StringLoader());
-        $twig->addFilter(new Twig_SimpleFilter('svgicon', [ $this, 'svgicon' ]));
+        $twig->addFilter(new Twig_SimpleFilter('svgicon', [$this, 'svgicon']));
 
         return $twig;
     }
@@ -918,8 +918,8 @@ class MasterSite extends TimberSite
         add_meta_box(
             'meta-box-search',
             'Search',
-            [ $this, 'view_meta_box_search' ],
-            [ 'post', 'page' ],
+            [$this, 'view_meta_box_search'],
+            ['post', 'page'],
             'side',
             'default',
             [$post]
@@ -931,6 +931,7 @@ class MasterSite extends TimberSite
      * Renders a Metabox on the side of the Add/Edit Post/Page.
      *
      * @param WP_Post $post The currently Added/Edited post.
+     * phpcs:disable Generic.WhiteSpace.ScopeIndent
      */
     public function view_meta_box_search(WP_Post $post): void
     {
@@ -941,19 +942,20 @@ class MasterSite extends TimberSite
             . esc_html__('Weight', 'planet4-master-theme-backend')
             . ' (1-' . esc_attr(Search::DEFAULT_MAX_WEIGHT) . ')</label>
                 <input id="weight" type="text" name="weight" value="' . esc_attr($weight) . '" />';
-        ?><script>
+?><script>
             $ = jQuery;
-            $( '#parent_id' ).off('change').on( 'change', function () {
+            $('#parent_id').off('change').on('change', function() {
                 // Check selected Parent page and give bigger weight if it will be an Action page
-                if ( '<?php echo esc_js($options['act_page'] ?? -1); ?>' === $(this).val() ) {
-                    $( '#weight' ).val( <?php echo esc_js(Search::DEFAULT_ACTION_WEIGHT); ?> );
+                if ('<?php echo esc_js($options['act_page'] ?? -1); ?>' === $(this).val()) {
+                    $('#weight').val(<?php echo esc_js(Search::DEFAULT_ACTION_WEIGHT); ?>);
                 } else {
-                    $( '#weight' ).val( <?php echo esc_js(Search::DEFAULT_PAGE_WEIGHT); ?> );
+                    $('#weight').val(<?php echo esc_js(Search::DEFAULT_PAGE_WEIGHT); ?>);
                 }
             });
         </script>
-        <?php
+<?php
     }
+    // phpcs:enable Generic.WhiteSpace.ScopeIndent
 
     /**
      * Applies filters for list of users in dropdown
@@ -963,7 +965,7 @@ class MasterSite extends TimberSite
     public function filter_authors(?array $args): ?array
     {
         if (isset($args['who'])) {
-            $args['role__in'] = [ 'administrator', 'author', 'campaigner', 'contributor', 'editor' ];
+            $args['role__in'] = ['administrator', 'author', 'campaigner', 'contributor', 'editor'];
             unset($args['who']);
         }
         return $args;
@@ -1052,7 +1054,7 @@ class MasterSite extends TimberSite
             return;
         }
         // Check user's capabilities.
-        if (! current_user_can('edit_post', $post_id)) {
+        if (!current_user_can('edit_post', $post_id)) {
             return;
         }
         // Make sure there's input.
@@ -1069,7 +1071,7 @@ class MasterSite extends TimberSite
         );
 
         // If this is a new Page then set default weight for it.
-        if (! $weight && 'post-new.php' === $pagenow) {
+        if (!$weight && 'post-new.php' === $pagenow) {
             if ('page' === $post->post_type) {
                 $weight = Search::DEFAULT_PAGE_WEIGHT;
             }
@@ -1103,6 +1105,16 @@ class MasterSite extends TimberSite
                 'single' => true,
             ]
         );
+
+        \register_term_meta(
+            'post_tag',
+            'redirect_page',
+            [
+                'show_in_rest' => true,
+                'type' => 'integer',
+                'single' => true,
+            ]
+        );
     }
 
     /**
@@ -1130,7 +1142,7 @@ class MasterSite extends TimberSite
         }
 
         // Unhook save_post function so it doesn't loop infinitely.
-        remove_action('save_post', [ $this, 'p4_auto_generate_excerpt' ], 10);
+        remove_action('save_post', [$this, 'p4_auto_generate_excerpt'], 10);
 
         // Generate excerpt text.
         $post_excerpt = strip_shortcodes($post->post_content);
@@ -1153,7 +1165,7 @@ class MasterSite extends TimberSite
         );
 
         // re-hook save_post function.
-        add_action('save_post', [ $this, 'p4_auto_generate_excerpt' ], 10, 2);
+        add_action('save_post', [$this, 'p4_auto_generate_excerpt'], 10, 2);
     }
 
     /**
@@ -1169,7 +1181,7 @@ class MasterSite extends TimberSite
 
         $user = wp_get_current_user();
 
-        if ('post_tag' === $taxonomy && ! in_array('administrator', (array) $user->roles, true)) {
+        if ('post_tag' === $taxonomy && !in_array('administrator', (array) $user->roles, true)) {
             return new WP_Error(
                 'disallow_insert_term',
                 __('Your role does not have permission to add terms to this taxonomy', 'planet4-master-theme-backend')
@@ -1293,13 +1305,13 @@ class MasterSite extends TimberSite
      */
     private function new_youtube_filter($cache, string $url)
     {
-        if (is_admin() || ( defined('REST_REQUEST') && REST_REQUEST )) {
+        if (is_admin() || (defined('REST_REQUEST') && REST_REQUEST)) {
             return $cache;
         }
 
-        if (! empty($url)) {
+        if (!empty($url)) {
             if (strpos($url, 'youtube.com') !== false || strpos($url, 'youtu.be') !== false) {
-                [ $youtube_id, $query_string ] = self::parse_youtube_url($url);
+                [$youtube_id, $query_string] = self::parse_youtube_url($url);
 
                 $style = "background-image: url('https://i.ytimg.com/vi/$youtube_id/hqdefault.jpg');";
 
@@ -1324,7 +1336,7 @@ class MasterSite extends TimberSite
      */
     private function old_youtube_filter($cache, string $url)
     {
-        if (! empty($url)) {
+        if (!empty($url)) {
             if (strpos($url, 'youtube.com') !== false || strpos($url, 'youtu.be') !== false) {
                 $replacements = [
                     'youtube.com' => 'youtube-nocookie.com',
@@ -1356,7 +1368,7 @@ class MasterSite extends TimberSite
         // For now just rel, but we can extract more from the url.
         $query_string = apply_filters('planet4_youtube_embed_parameters', 'rel=0');
 
-        return [ $youtube_id, $query_string ];
+        return [$youtube_id, $query_string];
     }
 
     /**
@@ -1411,11 +1423,11 @@ class MasterSite extends TimberSite
     {
         $image_id = isset($attributes['id']) ? trim(str_replace('attachment_', '', $attributes['id'])) : '';
         $img_post_meta = $image_id ? get_post_meta($image_id) : [];
-        if (! $img_post_meta) {
+        if (!$img_post_meta) {
             return $content;
         }
 
-        $credit = $img_post_meta[ self::CREDIT_META_FIELD ][0] ?? '';
+        $credit = $img_post_meta[self::CREDIT_META_FIELD][0] ?? '';
         $alt_text = $img_post_meta['_wp_attachment_image_alt'][0] ?? '';
 
         if ($alt_text) {
@@ -1456,7 +1468,7 @@ class MasterSite extends TimberSite
         unregister_block_type('core/image');
         register_block_type(
             'core/image',
-            [ 'render_callback' => [ $this, 'p4_core_image_block_render' ] ]
+            ['render_callback' => [$this, 'p4_core_image_block_render']]
         );
     }
 
@@ -1470,7 +1482,7 @@ class MasterSite extends TimberSite
     public function register_core_blocks_callback(array $args): array
     {
         if ('core/image' === $args['name']) {
-            $args['render_callback'] = [ $this, 'p4_core_image_block_render' ];
+            $args['render_callback'] = [$this, 'p4_core_image_block_render'];
         }
 
         return $args;
@@ -1570,7 +1582,7 @@ class MasterSite extends TimberSite
     public function disable_block_directory(): void
     {
         remove_action('enqueue_block_editor_assets', 'wp_enqueue_editor_block_directory_assets');
-        add_filter('rest_endpoints', [ $this, 'disable_block_directory_endpoint' ]);
+        add_filter('rest_endpoints', [$this, 'disable_block_directory_endpoint']);
     }
 
     /**
@@ -1601,7 +1613,7 @@ class MasterSite extends TimberSite
         }
 
         $args['sort'] = true;
-        $args['args'] = [ 'orderby' => 'term_order' ];
+        $args['args'] = ['orderby' => 'term_order'];
         return $args;
     }
 
@@ -1617,7 +1629,7 @@ class MasterSite extends TimberSite
             return;
         }
         // Check user's capabilities.
-        if (! current_user_can('edit_post', $post_id)) {
+        if (!current_user_can('edit_post', $post_id)) {
             return;
         }
         $p4_campaign_name = get_post_meta($post_id, 'p4_campaign_name', true);
