@@ -151,15 +151,19 @@ class CarouselHeader extends Base_Block {
 	private static function get_slides_image_data( $slides ): array {
 		if ( ! empty( $slides ) ) {
 			foreach ( $slides as &$slide ) {
-				$image_id   = $slide['image'];
-				$temp_array = wp_get_attachment_image_src( $image_id, 'retina-large' );
-				if ( false !== $temp_array && ! empty( $temp_array ) ) {
-					$slide['image_url']    = $temp_array[0];
-					$slide['image_srcset'] = wp_get_attachment_image_srcset( $image_id, 'retina-large', wp_get_attachment_metadata( $image_id ) );
-				}
+				try {
+					$image_id   = $slide['image'];
+					$temp_array = wp_get_attachment_image_src( $image_id, 'retina-large' );
+					if ( false !== $temp_array && ! empty( $temp_array ) ) {
+						$slide['image_url']    = $temp_array[0];
+						$slide['image_srcset'] = wp_get_attachment_image_srcset( $image_id, 'retina-large', wp_get_attachment_metadata( $image_id ) );
+					}
 
-				$temp_image         = wp_prepare_attachment_for_js( $image_id );
-				$slide['image_alt'] = $temp_image['alt'] ?? '';
+					$temp_image         = wp_prepare_attachment_for_js( $image_id );
+					$slide['image_alt'] = $temp_image['alt'] ?? '';
+				} catch ( \Exception $e ) {
+					function_exists( '\Sentry\captureException' ) && \Sentry\captureException( $e );
+				}
 			}
 		}
 
