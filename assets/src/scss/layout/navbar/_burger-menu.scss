@@ -23,7 +23,6 @@ $transition-duration: .2s;
 .burger-menu {
   _-- {
     background: $white;
-    color: var(--body--color);
     font-family: var(--headings--font-family);
   }
 
@@ -45,7 +44,7 @@ $transition-duration: .2s;
   }
 
   a.nav-link {
-    color: var(--body--color);
+    color: var(--burger-menu--color, var(--body--color));
     width: auto;
   }
 
@@ -201,7 +200,7 @@ $transition-duration: .2s;
     background-color: currentColor;
     transform: rotate(-90deg);
     transition: transform 0.3s linear;
-    color: var(--body--color);
+    color: var(--burger-menu--color, var(--body--color));
   }
 
   &.collapsed {
@@ -220,7 +219,7 @@ $transition-duration: .2s;
   height: 16px;
   width: 16px;
   mask: url("../../images/cross.svg") 50% 50%/16px 16px no-repeat;
-  background-color: var(--body--color);
+  background-color: var(--burger-menu--color, var(--body--color));
   z-index: 5;
 
   @supports not (inset-inline-end: $sp-3) {
