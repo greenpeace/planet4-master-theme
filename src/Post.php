@@ -115,7 +115,6 @@ class Post extends TimberPost
     public function is_explore_page(): bool
     {
         $explore_page_id = planet4_get_option('explore_page');
-
         return absint($explore_page_id) === $this->id;
     }
 
@@ -132,7 +131,7 @@ class Post extends TimberPost
             $take_action_pages_args = [
                 'post_type' => 'page',
                 'post_parent' => $act_page_id,
-                'numberposts' => - 1,
+                'numberposts' => -1,
                 'fields' => 'ids',
                 'suppress_filters' => false,
             ];
@@ -156,7 +155,7 @@ class Post extends TimberPost
             $issue_pages_args = [
                 'post_type' => 'page',
                 'post_parent' => $explore_page_id,
-                'numberposts' => - 1,
+                'numberposts' => -1,
                 'fields' => 'ids',
                 'suppress_filters' => false,
             ];
@@ -221,11 +220,11 @@ class Post extends TimberPost
 
         if (!empty(planet4_get_option('new_ia'))) {
             $this->issues_nav_data = array_map(
-                fn($category) => [
+                fn ($category) => [
                     'name' => $category->name,
                     'link' => get_term_link($category),
                 ],
-                array_filter($categories, fn($category) => 'uncategorised' !== $category->slug)
+                array_filter($categories, fn ($category) => 'uncategorised' !== $category->slug)
             );
             return;
         }
@@ -252,7 +251,7 @@ class Post extends TimberPost
         ];
 
         $args['category__in'] = $categories_ids;
-        $issues = ( new WP_Query($args) )->posts;
+        $issues = (new WP_Query($args))->posts;
 
         if (!$issues) {
             return;
@@ -290,7 +289,7 @@ class Post extends TimberPost
     public function get_custom_terms(): array
     {
         $terms = get_the_terms($this->id, CustomTaxonomy::TAXONOMY);
-        if (false !== $terms && ! $terms instanceof WP_Error) {
+        if (false !== $terms && !$terms instanceof WP_Error) {
             return $terms;
         }
 
@@ -383,10 +382,10 @@ class Post extends TimberPost
     {
         $meta = get_post_meta($this->id);
         $image_id = null;
-        $image_metas = [ 'p4_og_image_id', '_thumbnail_id', 'background_image_id' ];
+        $image_metas = ['p4_og_image_id', '_thumbnail_id', 'background_image_id'];
         foreach ($image_metas as $image_meta) {
-            if (!empty($meta[ $image_meta ][0])) {
-                $image_id = $meta[ $image_meta ][0];
+            if (!empty($meta[$image_meta][0])) {
+                $image_id = $meta[$image_meta][0];
                 break;
             }
         }
@@ -417,7 +416,7 @@ class Post extends TimberPost
         $og_description = get_post_meta($this->id, 'p4_og_description', true);
         $link = get_permalink($this->id);
 
-        if (( '' === $og_title ) && '' !== $this->post_title) {
+        if (('' === $og_title) && '' !== $this->post_title) {
             $og_title = $this->post_title;
         }
 
@@ -483,7 +482,7 @@ class Post extends TimberPost
                         continue;
                     }
 
-                    $social_accounts[ $brand ] = count($url_parts) > 0 ? $url_parts[ count($url_parts) - 1 ] : '';
+                    $social_accounts[$brand] = count($url_parts) > 0 ? $url_parts[count($url_parts) - 1] : '';
                 }
             }
         }
@@ -503,7 +502,7 @@ class Post extends TimberPost
 
         // Check if page url has a unique id(custom hash), appended with it, if not add one.
         $custom_hash = filter_input(INPUT_GET, 'ch', FILTER_SANITIZE_STRING);
-        if (! $custom_hash) {
+        if (!$custom_hash) {
             wp_safe_redirect(add_query_arg('ch', password_hash(uniqid('', true), PASSWORD_DEFAULT), get_permalink()));
             exit();
         }
@@ -513,9 +512,9 @@ class Post extends TimberPost
          * The latest entered password is stored as a secure hash in a cookie named 'wp-postpass_' . COOKIEHASH.
          * When the password form is called, that cookie has been validated already by WordPress.
          */
-        if (isset($_COOKIE[ 'wp-postpass_' . COOKIEHASH ])) {
+        if (isset($_COOKIE['wp-postpass_' . COOKIEHASH])) {
             $old_cookie = get_transient('p4-postpass_' . $custom_hash);
-            $current_cookie = wp_unslash($_COOKIE[ 'wp-postpass_' . COOKIEHASH ]);
+            $current_cookie = wp_unslash($_COOKIE['wp-postpass_' . COOKIEHASH]);
             set_transient(
                 'p4-postpass_' . $custom_hash,
                 $current_cookie,
@@ -541,8 +540,8 @@ class Post extends TimberPost
             fn ($t) => get_term_meta($t->term_id, CustomTaxonomy::READING_TIME_FIELD, true),
             $this->get_custom_terms()
         );
-        $use_reading_time = ! empty(array_filter($terms_rt_option));
-        if (! $use_reading_time) {
+        $use_reading_time = !empty(array_filter($terms_rt_option));
+        if (!$use_reading_time) {
             return null;
         }
 
@@ -554,9 +553,9 @@ class Post extends TimberPost
         }
 
         $locale = $this->get_locale();
-        $wpm = planet4_get_option('reading_time_wpm', Post\ReadingTimeCalculator::DEFAULT_WPM);
+        $wpm = Settings\ReadingTime::get_option();
         $rt = new Post\ReadingTimeCalculator($locale, $wpm);
-        $time = (int) max(1, round($rt->get_time($this->content) / 60));
+        $time = (int) max(1, round($rt->get_time($this->content() ?? '') / 60));
         // Cache for 1 day. This could be infinitely long as the key checks the modified date.
         wp_cache_add($cache_key, $time, null, 3600 * 24);
 
@@ -578,11 +577,11 @@ class Post extends TimberPost
         string $content,
         WP_Block $block
     ): string {
-        $time = ( new self($block->context['postId'] ?? null) )->reading_time();
+        $time = (new self($block->context['postId'] ?? null))->reading_time();
         return $time ?
             '<span class="article-list-item-readtime">'
-                // translators: reading time in min.
-                . sprintf(__('%d min read', 'planet4-master-theme'), $time) .
+            // translators: reading time in min.
+            . sprintf(__('%d min read', 'planet4-master-theme'), $time) .
             '</span>'
             : '';
     }

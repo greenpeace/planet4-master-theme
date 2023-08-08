@@ -33,31 +33,31 @@ class CustomTaxonomy
      */
     private function hooks(): void
     {
-        add_action('init', [ $this, 'register_taxonomy' ], 2);
-        add_action('created_term', [ $this, 'trigger_rewrite_rules' ], 10, 3);
-        add_action('edited_term', [ $this, 'trigger_rewrite_rules' ], 10, 3);
-        add_action('delete_term', [ $this, 'trigger_rewrite_rules' ], 10, 3);
-        add_action('save_post', [ $this, 'save_taxonomy_page_type' ], 10, 2);
-        add_filter('available_permalink_structure_tags', [ $this, 'add_taxonomy_as_permalink_structure' ], 10, 1);
+        add_action('init', [$this, 'register_taxonomy'], 2);
+        add_action('created_term', [$this, 'trigger_rewrite_rules'], 10, 3);
+        add_action('edited_term', [$this, 'trigger_rewrite_rules'], 10, 3);
+        add_action('delete_term', [$this, 'trigger_rewrite_rules'], 10, 3);
+        add_action('save_post', [$this, 'save_taxonomy_page_type'], 10, 2);
+        add_filter('available_permalink_structure_tags', [$this, 'add_taxonomy_as_permalink_structure'], 10, 1);
 
         // Rewrites the permalink to a post belonging to this taxonomy.
-        add_filter('post_link', [ $this, 'filter_permalink' ], 10, 2);
+        add_filter('post_link', [$this, 'filter_permalink'], 10, 2);
 
         // Rewrites the permalink to this taxonomy's page.
-        add_filter('term_link', [ $this, 'filter_term_permalink' ], 10, 3);
-        add_filter('post_rewrite_rules', [ $this, 'replace_taxonomy_terms_in_rewrite_rules' ], 10, 1);
-        add_filter('root_rewrite_rules', [ $this, 'add_terms_rewrite_rules' ], 10, 1);
+        add_filter('term_link', [$this, 'filter_term_permalink'], 10, 3);
+        add_filter('post_rewrite_rules', [$this, 'replace_taxonomy_terms_in_rewrite_rules'], 10, 1);
+        add_filter('root_rewrite_rules', [$this, 'add_terms_rewrite_rules'], 10, 1);
 
         // Provides a filter element for the taxonomy in the posts list.
-        add_action('restrict_manage_posts', [ $this, 'filter_posts_by_page_type' ], 10, 1);
+        add_action('restrict_manage_posts', [$this, 'filter_posts_by_page_type'], 10, 1);
 
         // Reading time option.
-        add_action(self::TAXONOMY . '_add_form_fields', [ $this, 'add_taxonomy_form_fields' ], 10);
-        add_action(self::TAXONOMY . '_edit_form_fields', [ $this, 'add_taxonomy_form_fields' ], 10);
-        add_action('edited_' . self::TAXONOMY, [ $this, 'save_taxonomy_meta' ], 10);
-        add_action('created_' . self::TAXONOMY, [ $this, 'save_taxonomy_meta' ], 10);
-        add_action('manage_edit-' . self::TAXONOMY . '_columns', [ $this, 'add_taxonomy_column' ], 10, 3);
-        add_action('manage_' . self::TAXONOMY . '_custom_column', [ $this, 'add_taxonomy_column_content' ], 10, 3);
+        add_action(self::TAXONOMY . '_add_form_fields', [$this, 'add_taxonomy_form_fields'], 10);
+        add_action(self::TAXONOMY . '_edit_form_fields', [$this, 'add_taxonomy_form_fields'], 10);
+        add_action('edited_' . self::TAXONOMY, [$this, 'save_taxonomy_meta'], 10);
+        add_action('created_' . self::TAXONOMY, [$this, 'save_taxonomy_meta'], 10);
+        add_action('manage_edit-' . self::TAXONOMY . '_columns', [$this, 'add_taxonomy_column'], 10, 3);
+        add_action('manage_' . self::TAXONOMY . '_custom_column', [$this, 'add_taxonomy_column_content'], 10, 3);
     }
 
     /**
@@ -70,7 +70,7 @@ class CustomTaxonomy
      */
     public function add_taxonomy_as_permalink_structure(array $tags)
     {
-        $tags[ self::TAXONOMY_PARAMETER ] = __('P4 page type (A p4 page type term.)', 'planet4-master-theme-backend');
+        $tags[self::TAXONOMY_PARAMETER] = __('P4 page type (A p4 page type term.)', 'planet4-master-theme-backend');
 
         return $tags;
     }
@@ -79,11 +79,13 @@ class CustomTaxonomy
      * Add a dropdown to choose planet4 post type.
      *
      * @param WP_Post $post The WordPress that will be filtered/edited.
+     * phpcs:disable Generic.WhiteSpace.ScopeIndent
+     * phpcs:disable Generic.Files.LineLength
      */
     public function create_taxonomy_metabox_markup(WP_Post $post): void
     {
         $attached_type = get_the_terms($post, self::TAXONOMY);
-        $current_type = ( is_array($attached_type) ) ? $attached_type[0]->term_id : - 1;
+        $current_type = (is_array($attached_type)) ? $attached_type[0]->term_id : -1;
         $all_types = $this->get_terms();
         if (-1 === $current_type) {
             // Assign default p4-pagetype for new POST.
@@ -92,17 +94,18 @@ class CustomTaxonomy
         }
 
         wp_nonce_field('p4-save-page-type', 'p4-page-type-nonce');
-        ?>
+?>
         <select name="<?php echo esc_attr(self::TAXONOMY); ?>">
             <?php foreach ($all_types as $term) : ?>
-                <option <?php selected($current_type, $term->term_id); ?>
-                        value="<?php echo esc_attr($term->term_id); ?>">
+                <option <?php selected($current_type, $term->term_id); ?> value="<?php echo esc_attr($term->term_id); ?>">
                     <?php echo esc_html($term->name); ?>
                 </option>
             <?php endforeach; ?>
         </select>
-        <?php
+    <?php
     }
+    // phpcs:enable Generic.WhiteSpace.ScopeIndent
+    // phpcs:enable Generic.Files.LineLength
 
     /**
      * Replace p4_page_type placeholder with the p4_page_type term for posts permalinks.
@@ -126,10 +129,10 @@ class CustomTaxonomy
 
         // Assign story slug if the taxonomy does not have any terms.
         $taxonomy_slug = 'story';
-        if (! is_wp_error($terms) && ! empty($terms) && is_object($terms[0])) {
+        if (!is_wp_error($terms) && !empty($terms) && is_object($terms[0])) {
             $taxonomy_slug = $terms[0]->slug;
-        } elseif (! is_wp_error($terms) && empty($terms)) {
-            if (! is_wp_error($all_terms) && ! empty($all_terms) && is_object($all_terms[0])) {
+        } elseif (!is_wp_error($terms) && empty($terms)) {
+            if (!is_wp_error($all_terms) && !empty($all_terms) && is_object($all_terms[0])) {
                 $taxonomy_slug = $all_terms[0]->slug;
             }
         }
@@ -252,10 +255,10 @@ class CustomTaxonomy
             'show_ui' => true,
             'show_admin_column' => true,
             'query_var' => true,
-            'meta_box_cb' => [ $this, 'create_taxonomy_metabox_markup' ],
+            'meta_box_cb' => [$this, 'create_taxonomy_metabox_markup'],
         ];
 
-        register_taxonomy(self::TAXONOMY, [ self::TAXONOMY_PARAMETER, 'post' ], $args);
+        register_taxonomy(self::TAXONOMY, [self::TAXONOMY_PARAMETER, 'post'], $args);
     }
 
     /**
@@ -288,9 +291,9 @@ class CustomTaxonomy
         // Get planet4 page type taxonomy terms.
         $terms = $this->get_all_terms();
 
-        if (! is_wp_error($terms)) {
+        if (!is_wp_error($terms)) {
             $term_slugs = [];
-            if (! empty($terms)) {
+            if (!empty($terms)) {
                 foreach ($terms as $term) {
                     $term_slugs[] = $term->slug;
                 }
@@ -324,7 +327,7 @@ class CustomTaxonomy
             foreach ($rules as $match => $rule) {
                 $new_match = str_replace('%' . self::TAXONOMY_PARAMETER . '%', "($terms_slugs_regex)", $match);
                 $new_rule = str_replace('%' . self::TAXONOMY_PARAMETER . '%', self::TAXONOMY . '=', $rule);
-                $new_rules[ $new_match ] = $new_rule;
+                $new_rules[$new_match] = $new_rule;
             }
 
             return $new_rules;
@@ -350,7 +353,7 @@ class CustomTaxonomy
 
         if ($terms_slugs) {
             foreach ($terms_slugs as $slug) {
-                $rules[ $slug . '(/page/([0-9]+)?)?/?$' ] = 'index.php?'
+                $rules[$slug . '(/page/([0-9]+)?)?/?$'] = 'index.php?'
                     . self::TAXONOMY . '=' . $slug
                     . '&paged=$matches[2]';
             }
@@ -393,22 +396,22 @@ class CustomTaxonomy
         }
 
         // Check user's capabilities.
-        if (! current_user_can('edit_post', $post_id)) {
+        if (!current_user_can('edit_post', $post_id)) {
             return;
         }
 
         // Allow p4-page-type to be set from edit post and quick edit pages.
         // Make sure there's input.
-		// phpcs:disable WordPress.Security.NonceVerification.Missing
+        // phpcs:disable WordPress.Security.NonceVerification.Missing
         if (
-            isset($_POST[ self::TAXONOMY ]) && 'post' === $post->post_type &&
-            filter_var(wp_unslash($_POST[ self::TAXONOMY ]), FILTER_VALIDATE_INT)
+            isset($_POST[self::TAXONOMY]) && 'post' === $post->post_type &&
+            filter_var(wp_unslash($_POST[self::TAXONOMY]), FILTER_VALIDATE_INT)
         ) {
-            $selected = get_term_by('id', intval($_POST[ self::TAXONOMY ]), self::TAXONOMY);
-			// phpcs:enable
-            if (false !== $selected && ! is_wp_error($selected)) {
+            $selected = get_term_by('id', intval($_POST[self::TAXONOMY]), self::TAXONOMY);
+            // phpcs:enable
+            if (false !== $selected && !is_wp_error($selected)) {
                 // Save post type.
-                wp_set_post_terms($post_id, [ $selected->term_id ], self::TAXONOMY);
+                wp_set_post_terms($post_id, [$selected->term_id], self::TAXONOMY);
             }
         }
 
@@ -430,11 +433,11 @@ class CustomTaxonomy
         // Assign default p4-pagetype, if no term is assigned to post.
         if (empty($terms)) {
             if ($default_p4_pagetype instanceof \WP_Term) {
-                wp_set_post_terms($post_id, [ $default_p4_pagetype->term_id ], self::TAXONOMY);
+                wp_set_post_terms($post_id, [$default_p4_pagetype->term_id], self::TAXONOMY);
             }
-        // Assign the first term, if more than one terms are assigned.
+            // Assign the first term, if more than one terms are assigned.
         } elseif (count($terms) > 1 && $terms[0] instanceof \WP_Term) {
-            wp_set_post_terms($post_id, [ $terms[0]->term_id ], self::TAXONOMY);
+            wp_set_post_terms($post_id, [$terms[0]->term_id], self::TAXONOMY);
         }
     }
 
@@ -444,6 +447,7 @@ class CustomTaxonomy
      *
      * @param string $post_type WordPress post type slug.
      * phpcs:disable Generic.Files.LineLength.MaxExceeded
+     * phpcs:disable Generic.WhiteSpace.ScopeIndent
      */
     public function filter_posts_by_page_type(string $post_type): void
     {
@@ -456,7 +460,7 @@ class CustomTaxonomy
         $terms = get_terms(self::TAXONOMY);
 
         // Display filter HTML.
-        ?>
+    ?>
         <select name="<?php echo esc_attr(self::TAXONOMY); ?>" id="<?php echo esc_attr(self::TAXONOMY); ?>" class="postform">
             <option value=""><?php echo esc_html__('All Post Types', 'planet4-master-theme-backend'); ?></option>
 
@@ -465,15 +469,16 @@ class CustomTaxonomy
                 printf(
                     '<option value="%1$s" %2$s>%3$s</option>',
                     esc_html($term->slug),
-                    ( ( isset($_GET[ self::TAXONOMY ]) && ( $_GET[ self::TAXONOMY ] === $term->slug ) ) ? ' selected="selected"' : '' ), // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+                    ((isset($_GET[self::TAXONOMY]) && ($_GET[self::TAXONOMY] === $term->slug)) ? ' selected="selected"' : ''), // phpcs:ignore WordPress.Security.NonceVerification.Recommended
                     esc_html($term->name)
                 );
             }
             ?>
         </select>
-        <?php
+<?php
     }
     // phpcs:enable Generic.Files.LineLength.MaxExceeded
+    // phpcs:enable Generic.WhiteSpace.ScopeIndent
 
     /**
      * Adds a taxonomy column.
@@ -484,7 +489,7 @@ class CustomTaxonomy
      */
     public function add_taxonomy_column(array $columns): array
     {
-        $columns[ self::READING_TIME_FIELD ] = __('Reading time', 'planet4-master-theme-backend');
+        $columns[self::READING_TIME_FIELD] = __('Reading time', 'planet4-master-theme-backend');
         return $columns;
     }
 
@@ -533,7 +538,7 @@ class CustomTaxonomy
 					type="checkbox" ' . esc_attr($checked) . '
 					value="on" />
 				%s<br/>
-				<small>%s <a href="admin.php?page=planet4_settings_defaults_content">Planet 4 > Defaults content</a>.</small>
+				<small>%s <a href="options-reading.php#planet4_reading_time_wpm">Settings > Reading</a>.</small>
 			</p></td>
 		</tr>',
             esc_html(__('Reading time', 'planet4-master-theme-backend')),
@@ -561,7 +566,7 @@ class CustomTaxonomy
                 return;
         }
 
-        $use_reading_time = ! empty($_POST[ self::READING_TIME_FIELD ]);
+        $use_reading_time = !empty($_POST[self::READING_TIME_FIELD]);
         update_term_meta($term_id, self::READING_TIME_FIELD, $use_reading_time);
     }
 }
