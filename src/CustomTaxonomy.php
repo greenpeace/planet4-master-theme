@@ -4,6 +4,7 @@ namespace P4\MasterTheme;
 
 use WP_Post;
 use WP_Term;
+use P4\MasterTheme\Settings\DefaultPostType;
 
 /**
  * Class CustomTaxonomy
@@ -89,8 +90,8 @@ class CustomTaxonomy
         $all_types = $this->get_terms();
         if (-1 === $current_type) {
             // Assign default p4-pagetype for new POST.
-            $default_p4_pagetype = $this->get_default_p4_pagetype();
-            $current_type = $default_p4_pagetype->slug;
+            $planet4_default_post_type = $this->get_planet4_default_post_type();
+            $current_type = $planet4_default_post_type->slug;
         }
 
         wp_nonce_field('p4-save-page-type', 'p4-page-type-nonce');
@@ -208,20 +209,19 @@ class CustomTaxonomy
      *
      * @return WP_term|int|WP_Error
      */
-    public function get_default_p4_pagetype()
+    public function get_planet4_default_post_type()
     {
-        $options = get_option('planet4_options');
-        $default_p4_pagetype = $options['default_p4_pagetype'] ?? 0;
+        $planet4_default_post_type = DefaultPostType::get_option() ?? 0;
 
-        if (0 === $default_p4_pagetype) {
+        if (0 === $planet4_default_post_type) {
             // If default p4-pagetype setting not found, use taxonomy's first term.
             $all_terms = $this->get_terms();
-            $default_p4_pagetype = $all_terms[0] ?? 0;
+            $planet4_default_post_type = $all_terms[0] ?? 0;
         } else {
-            $default_p4_pagetype = get_term($default_p4_pagetype, self::TAXONOMY);
+            $planet4_default_post_type = get_term($planet4_default_post_type, self::TAXONOMY);
         }
 
-        return $default_p4_pagetype;
+        return $planet4_default_post_type;
     }
 
     /**
@@ -428,12 +428,12 @@ class CustomTaxonomy
             return;
         }
 
-        $default_p4_pagetype = $this->get_default_p4_pagetype();
+        $planet4_default_post_type = $this->get_planet4_default_post_type();
 
         // Assign default p4-pagetype, if no term is assigned to post.
         if (empty($terms)) {
-            if ($default_p4_pagetype instanceof \WP_Term) {
-                wp_set_post_terms($post_id, [$default_p4_pagetype->term_id], self::TAXONOMY);
+            if ($planet4_default_post_type instanceof \WP_Term) {
+                wp_set_post_terms($post_id, [$planet4_default_post_type->term_id], self::TAXONOMY);
             }
             // Assign the first term, if more than one terms are assigned.
         } elseif (count($terms) > 1 && $terms[0] instanceof \WP_Term) {
