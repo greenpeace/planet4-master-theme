@@ -14,12 +14,14 @@ class M020MigrateCommentsSettings
      */
     public static function execute(): void
     {
-        $value = planet4_get_option('gdpr_checkbox');
+        $comments_settings = get_option('planet4_comments');
+        $old_gdpr_setting = isset($comments_settings['gdpr_checkbox']) && $comments_settings['gdpr_checkbox'] === 'on';
 
         $options = get_option('planet4_option');
         unset($options['planet4_comments']);
         update_option('planet4_options', $options);
-        update_option(CommentsGdpr::KEY, $value === 'on');
+
+        update_option(CommentsGdpr::KEY, $old_gdpr_setting);
     }
     // phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter
 }
