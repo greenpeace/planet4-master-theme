@@ -3,9 +3,10 @@
 namespace P4\MasterTheme\Migrations;
 
 use P4\MasterTheme\MigrationRecord;
+use P4\MasterTheme\MigrationScript;
 use P4\MasterTheme\Settings\ReadingTime;
 
-class M019MigrateReadingTime
+class M019MigrateReadingTime extends MigrationScript
 {
     /**
      * Perform the actual migration.
