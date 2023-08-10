@@ -11,8 +11,8 @@
  */
 
 use P4\MasterTheme\Context;
-use P4\MasterTheme\Features\GdprCheckbox;
 use P4\MasterTheme\Post;
+use P4\MasterTheme\Settings\CommentsGdpr;
 use Timber\Timber;
 
 // Initializing variables.
@@ -104,7 +104,7 @@ $comments_args = [
     'submit_button' => Timber::compile(
         'comment_form/submit_button.twig',
         [
-            'gdpr_checkbox' => GdprCheckbox::is_active(),
+            'gdpr_checkbox' => CommentsGdpr::get_option(),
             'gdpr_label' => __(
                 // phpcs:ignore Generic.Files.LineLength.MaxExceeded
                 'I agree on providing my name, email and content so that my comment can be stored and displayed in the website.',

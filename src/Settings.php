@@ -3,7 +3,6 @@
 namespace P4\MasterTheme;
 
 use CMB2_Field;
-use P4\MasterTheme\Settings\Comments;
 use P4\MasterTheme\Settings\Features;
 
 /**
@@ -451,7 +450,6 @@ class Settings
                     ],
                 ],
             ],
-            'planet4_settings_comments' => Comments::get_options_page(),
             'planet4_settings_features' => Features::get_options_page(),
         ];
 
