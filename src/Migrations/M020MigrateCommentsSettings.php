@@ -19,7 +19,7 @@ class M020MigrateCommentsSettings extends MigrationScript
         $comments_settings = get_option('planet4_comments');
         $old_gdpr_setting = isset($comments_settings['gdpr_checkbox']) && $comments_settings['gdpr_checkbox'] === 'on';
 
-        $options = get_option('planet4_option');
+        $options = get_option('planet4_options');
         unset($options['planet4_comments']);
         update_option('planet4_options', $options);
 

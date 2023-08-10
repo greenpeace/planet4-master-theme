@@ -18,7 +18,7 @@ class M019MigrateReadingTime extends MigrationScript
     {
         $value = planet4_get_option('reading_time_wpm');
 
-        $options = get_option('planet4_option');
+        $options = get_option('planet4_options');
         unset($options['reading_time_wpm']);
         update_option('planet4_options', $options);
 
