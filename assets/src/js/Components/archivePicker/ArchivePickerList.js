@@ -43,8 +43,6 @@ export default function ArchivePickerList() {
     processedIds,
   } = useArchivePickerContext();
   const [selectedIndexes, setSelectedIndexes] = useState([]);
-  const [selectedIds, setSelectedIds] = useState([]);
-  const [multiSelection, setMultiSelection] = useState(false);
 
   const onScrollHandler = useCallback(event => {
     const {scrollHeight, scrollTop, clientHeight} = event.target;
@@ -87,10 +85,9 @@ export default function ArchivePickerList() {
             return images[idx];
           }
         }).filter(value => value !== undefined),
-        multiSelection,
       }
     });
-  }, [selectedIndexes, multiSelection]);
+  }, [selectedIndexes]);
 
   useEffect(() => {
     if(bulkSelect) {
@@ -98,6 +95,12 @@ export default function ArchivePickerList() {
       setSelectedIndexes([]);
     }
   }, [bulkSelect]);
+
+  useEffect(() => {
+    if(processedIds.length && bulkSelect) {
+      dispatch({type: ACTIONS.BULK_SELECT_CANCEL});
+    }
+  }, [processedIds]);
 
   return useMemo(
     /* eslint-disable no-nested-ternary */
@@ -160,7 +163,6 @@ export default function ArchivePickerList() {
       loaded,
       selectedImages,
       selectedImagesIds,
-      selectedIds,
       selectedIndexes,
       processingIds,
       processedIds,
