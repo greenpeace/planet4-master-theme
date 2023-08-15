@@ -310,41 +310,43 @@ export default function ArchivePicker() {
         dispatch,
       }}
     >
-      <ArchivePickerToolbar />
+      <section className={classNames('archive-picker', {'open-sidebar': selectedImages.length > 0 && !bulkSelect})}>
+        <ArchivePickerToolbar />
 
-      {!!errors && errors[ACTIONS.FETCH_IMAGES] && (
-        <div>
-          <h3>API error:</h3>
-          <div dangerouslySetInnerHTML={{__html: errors[ACTIONS.FETCH_IMAGES].message}} />
-        </div>
-      )}
-
-      <div className={classNames('image-picker', {'open-sidebar': selectedImages.length > 0 && !bulkSelect})}>
-        <ArchivePickerList />
-
-        {!!images.length && (
-          <div className="help">
-            <div
-              className="tooltip"
-              dangerouslySetInnerHTML={{
-                __html: __(
-                  'The <strong>Media Archive</strong> pulls images from <a target="_blank" href="https://media.greenpeace.org/">media.greenpeace.org</a>. You can import these images into your Wordpress Media Library and Post/Page. If you have further questions, you can visit the <a target="_blank" href="https://planet4.greenpeace.org/manage/administer/media-archive/">Media Archive Page</a> in the Handbook.', 'planet4-master-theme-backend'
-                ),
-              }}
-            />
-            <span>?</span>
+        {!!errors && errors[ACTIONS.FETCH_IMAGES] && (
+          <div>
+            <h3>API error:</h3>
+            <div dangerouslySetInnerHTML={{__html: errors[ACTIONS.FETCH_IMAGES].message}} />
           </div>
         )}
 
-        {loading && (
-          <div className="archive-picker-loading"><Spinner /></div>
-        )}
+        <div className={classNames('image-picker', {'open-sidebar': selectedImages.length > 0 && !bulkSelect})}>
+          <ArchivePickerList />
 
-        {(selectedImages.length && !bulkSelect) ? (
-          <div className="picker-sidebar">
-            {selectedImages.length === 1 ? <SingleSidebar image={selectedImages[0]} /> : <MultiSidebar />}
-          </div>) : null}
-      </div>
+          {!!images.length && (
+            <div className="help">
+              <div
+                className="tooltip"
+                dangerouslySetInnerHTML={{
+                  __html: __(
+                    'The <strong>Media Archive</strong> pulls images from <a target="_blank" href="https://media.greenpeace.org/">media.greenpeace.org</a>. You can import these images into your Wordpress Media Library and Post/Page. If you have further questions, you can visit the <a target="_blank" href="https://planet4.greenpeace.org/manage/administer/media-archive/">Media Archive Page</a> in the Handbook.', 'planet4-master-theme-backend'
+                  ),
+                }}
+              />
+              <span>?</span>
+            </div>
+          )}
+
+          {loading && (
+            <div className="archive-picker-loading"><Spinner /></div>
+          )}
+
+          {(selectedImages.length && !bulkSelect) ? (
+            <div className="picker-sidebar">
+              {selectedImages.length === 1 ? <SingleSidebar image={selectedImages[0]} /> : <MultiSidebar />}
+            </div>) : null}
+        </div>
+      </section>
     </Context.Provider>
   ), [
     loading,

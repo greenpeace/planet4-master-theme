@@ -19,6 +19,10 @@
   display: none;
 }
 
+.archive-picker {
+  width: 100%;
+}
+
 .archive-picker-search {
   margin-top: 20px;
   display: flex;
@@ -421,6 +425,19 @@
     padding-left: 20px;
   }
 
+  .archive-picker.open-sidebar {
+    width: calc(100% - var(--sidebar-width-large));
+  }
+
+  .archive-picker.open-sidebar .multiple-search-form {
+    width: 100%;
+    margin-top: 16px;
+  }
+
+  .archive-picker.open-sidebar .nav-bulk-select {
+    order: 0;
+  }
+
   .picker-sidebar {
     width: var(--sidebar-width-tablet);
   }
@@ -435,7 +452,6 @@
 
   .image-picker.open-sidebar .picker-list {
     grid-template-columns: repeat(1, 1fr);
-    width: calc(100% - var(--sidebar-width-tablet) - 36px);
   }
 
   .image-picker li img {
@@ -460,7 +476,7 @@
   }
 
   .multiple-search-wrapper-input {
-    min-width: 230px;
+    min-width: auto;
     margin: 0;
   }
 
@@ -519,12 +535,23 @@
   }
 
   .image-picker.open-sidebar .picker-list {
-    width: calc(100% - var(--sidebar-width-tablet) - 36px);
     grid-template-columns: repeat(1, 1fr);
   }
 }
 
 @media (min-width: 1200px) {
+  .archive-picker.open-sidebar .multiple-search-form {
+    width: 100%;
+  }
+
+  .archive-picker.open-sidebar .multiple-search-form .multiple-search {
+    max-width: 100%;
+  }
+
+  .archive-picker.open-sidebar {
+    width: calc(100% - var(--sidebar-width-large) - 42px);
+  }
+
   .picker-sidebar {
     width: var(--sidebar-width-large);
   }
@@ -545,18 +572,25 @@
   }
 
   .image-picker.open-sidebar .picker-list {
-    width: calc(100% - var(--sidebar-width-large) - 42px);
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (min-width: 1440px) {
+  .archive-picker.open-sidebar .multiple-search-form {
+    width: fit-content;
+    margin-top: 0;
+  }
+
+  .archive-picker.open-sidebar .nav-bulk-select {
+    order: 1;
+  }
+
   .picker-list {
     grid-template-columns: repeat(5, 1fr);
   }
 
   .image-picker.open-sidebar .picker-list {
-    width: calc(100% - var(--sidebar-width-large) - 42px);
     grid-template-columns: repeat(4, 1fr);
   }
 
