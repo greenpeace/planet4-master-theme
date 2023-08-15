@@ -1,22 +1,32 @@
 import {useMemo} from '@wordpress/element';
 import {toSrcSet} from './sizeFunctions';
-import {useArchivePickerContext} from '../ArchivePicker';
+import {ACTIONS, useArchivePickerContext} from '../ArchivePicker';
 
 const {__} = wp.i18n;
 
 export default function MultiSidebar() {
-  const {selectedImages, selectedImagesAmount, dispatch} = useArchivePickerContext();
+  const {selectedImages, dispatch} = useArchivePickerContext();
   return useMemo(
     () => <>
-      <p>{selectedImagesAmount} {__('images selected', 'planet4-master-theme-backend')}</p>
-      {Object.values(selectedImages).map(selected => (
+      <div className='picker-sidebar-header'>
+        <span>{selectedImages.length} {__('images selected', 'planet4-master-theme-backend')}</span>
+        <button
+          className="close-sidebar"
+          onClick={() => {
+            dispatch({type: ACTIONS.CLOSE_SIDEBAR});
+          }}
+        />
+      </div>
+      {selectedImages.map(image => (
         <img
-          srcSet={toSrcSet(selected.sizes, {maxWidth: 700})}
-          title={selected.title}
-          alt={selected.title}
-          key={selected.id}
+          srcSet={toSrcSet(image.sizes, {maxWidth: 700})}
+          title={image.title}
+          alt={image.title}
+          key={image.id}
           width={80}
-          onClick={() => dispatch({type: 'TOGGLE_IMAGE', payload: {image: selected}})}
+          onClick={() => {
+            dispatch({type: ACTIONS.DESELECT_IMAGE, payload: {selection: image}})
+          }}
           role="presentation"
         />
       ))}

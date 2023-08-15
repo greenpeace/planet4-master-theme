@@ -10,18 +10,34 @@ const {apiFetch, url, i18n} = wp;
 const {addQueryArgs} = url;
 const {__} = i18n;
 
+export const ACTIONS = {
+  CLOSE_SIDEBAR: 'closeSidebar',
+  BULK_SELECT_ENABLE: 'bulkSelectEnable',
+  BULK_SELECT_CANCEL: 'bulkSelectCancel',
+  BULK_SELECT_ERROR: 'bulkSelectError',
+  DESELECT_IMAGE: 'deselectImage',
+  SELECT_IMAGES: 'selectImages',
+  FETCH_IMAGES: 'fetchImages',
+  FETCHED_IMAGES: 'fetchedImages',
+  NEXT_PAGE: 'nextPage',
+  PROCESS_IMAGES: 'processImages',
+  PROCESS_IMAGES_ERROR: 'processedImagesError',
+  PROCESSED_IMAGES: 'processedImages',
+  REMOVE_ERROR: 'removeError',
+  SEARCH: 'search',
+  SET_ERROR: 'setError',
+}
+
 const Context = createContext({});
 
 const initialState = {
   loading: false,
   loaded: false,
-  processingImages: false,
-  processedImages: false,
-  showAddedMessage: false,
   bulkSelect: false,
   images: [],
-  selectedImages: {},
-  selectedImagesAmount: 0,
+  selectedImages: [],
+  processingIds: [],
+  processedIds: [],
   pageNumber: 1,
   searchText: [],
   error: null,
@@ -30,148 +46,148 @@ const initialState = {
 
 const reducer = (state, action) => {
   switch (action.type) {
-  case 'SEARCH':
-    return {
-      ...state,
-      searchText: action.payload,
-      ...{
-        pageNumber:
-          (JSON.stringify(action.payload) !== JSON.stringify(state.searchText)) ? 1 : state.pageNumber,
-      },
-    };
-  case 'FETCH_IMAGES':
-    return {
-      ...state,
-      loading: true,
-      loaded: false,
-    };
-  case 'FETCHED_IMAGES':
-    return {
-      ...state,
-      loading: false,
-      loaded: true,
-      images: action.payload.page > 1 ? state.images.concat(action.payload.images) : action.payload.images,
-      pageNumber: action.payload.page,
-    };
-  case 'NEXT_PAGE':
-    return {
-      ...state,
-      ...(!state.loading) ? {
-        pageNumber: state.pageNumber + 1,
-      } : {},
-      loading: false,
-      loaded: false,
-    };
-  case 'TOGGLE_IMAGE':
-    let selectedImages = {...state.selectedImages};
-
-    if (state.selectedImages[action.payload.image.id]) {
-      selectedImages = {...state.selectedImages};
-      delete selectedImages[action.payload.image.id];
-    } else {
-      const image = {[`${action.payload.image.id}`]: action.payload.image};
-      selectedImages = {...(action.payload.multiSelection) ? {...state.selectedImages, ...image} : image};
+    case ACTIONS.SEARCH: {
+      return {
+        ...state,
+        searchText: action.payload,
+        ...{
+          pageNumber:
+            (JSON.stringify(action.payload) !== JSON.stringify(state.searchText)) ? 1 : state.pageNumber,
+        },
+      };
     }
-
-    return {
-      ...state,
-      selectedImages,
-      selectedImagesAmount: Object.keys(selectedImages).length,
-    };
-  case 'PROCESS_IMAGES': {
-    return {
-      ...state,
-      processingImages: true,
-    };
-  }
-  case 'PROCESSED_IMAGES': {
-    return {
-      ...state,
-      processingImages: false,
-      showAddedMessage: true,
-      images: state.images.map(stateImage => {
-        const updated = action.payload.images.find(updatedImage => updatedImage.id === stateImage.id);
-        if (updated) {
-          return updated;
-        }
-        return stateImage;
-      }),
-      selectedImages: action.payload.images.map(img => img),
-    };
-  }
-  case 'PROCESS_IMAGES_ERROR': {
-    return {
-      ...state,
-      processedImages: true,
-      processingImages: false,
-      errors: {
-        ...state.errors,
-        ...{['PROCESS_IMAGES']: action.payload.error},
-      },
-    };
-  }
-  case 'HIDE_ADDED_MESSAGE': {
-    return {
-      ...state,
-      showAddedMessage: false,
-    };
-  }
-  case 'CLOSE_SIDEBAR': {
-    return {
-      ...state,
-      selectedImages: {},
-      selectedImagesAmount: 0,
-    };
-  }
-  case 'ENABLE_BULK_SELECT': {
-    return {
-      ...state,
-      bulkSelect: true,
-    };
-  }
-  case 'CANCEL_BULK_SELECT': {
-    return {
-      ...state,
-      selectedImages: {},
-      selectedImagesAmount: 0,
-      bulkSelect: false,
-    };
-  }
-  case 'BULK_SELECT_ERROR': {
-    return {
-      ...state,
-      error: action.payload,
-    };
-  }
-  case 'REMOVE_ERROR': {
-    const errors = {...state.errors};
-    delete errors[action.payload.errorType];
-    return {
-      ...state,
-      errors,
+    case ACTIONS.FETCH_IMAGES: {
+      return {
+        ...state,
+        loading: true,
+        loaded: false,
+      };
     }
-  }
-  case 'SET_ERROR': {
-    return {
-      ...state,
-      loading: false,
-      loaded: true,
-      error: action.payload,
-      errors: {
-        ...state.errors,
-        ...{[`${action.payload.type}`]: action.payload.error},
-      },
-    };
-  }
+    case ACTIONS.FETCHED_IMAGES: {
+      return {
+        ...state,
+        loading: false,
+        loaded: true,
+        images: action.payload.page > 1 ? state.images.concat(action.payload.images) : action.payload.images,
+        pageNumber: action.payload.page,
+      };
+    }
+    case ACTIONS.SELECT_IMAGES: {
+      return {
+        ...state,
+        selectedImages: [...action.payload.selection],
+      };
+    }
+    case ACTIONS.DESELECT_IMAGE: {
+      return {
+        ...state,
+        selectedImages: state.selectedImages.filter(image => image.id !== action.payload.selection.id),
+      }
+    }
+    case ACTIONS.PROCESS_IMAGES: {
+      return {
+        ...state,
+        processingIds: [...state.processingIds, ...action.payload.selection].flat(),
+      };
+    }
+    case ACTIONS.PROCESSED_IMAGES: {
+      const processedIds = [...state.processedIds, action.payload.images.map(img => img.id)].flat();
+      const images = state.images.map(img => {
+        const updated = action.payload.images.find(updatedImage => updatedImage.id === img.id);
+        return updated ? updated : img;
+      });
+
+      return {
+        ...state,
+        images,
+        selectedImages: state.selectedImages.map(img => {
+          const updated = images.find(_ => _.id === img.id);
+          return updated ? updated : img;
+        }),
+        processedIds,
+        processingIds: state.processingIds.filter(id =>!processedIds.includes(id)),
+      };
+    }
+    case ACTIONS.PROCESS_IMAGES_ERROR: {
+      return {
+        ...state,
+        errors: {
+          ...state.errors,
+          ...{[ACTIONS.PROCESS_IMAGES]: action.payload.error},
+        },
+      };
+    }
+    case ACTIONS.CLOSE_SIDEBAR: {
+      return {
+        ...state,
+        selectedImages: [],
+      };
+    }
+    case ACTIONS.BULK_SELECT_ENABLE: {
+      return {
+        ...state,
+        bulkSelect: true,
+      };
+    }
+    case ACTIONS.BULK_SELECT_CANCEL: {
+      return {
+        ...state,
+        selectedImages: [],
+        bulkSelect: false,
+      };
+    }
+    case ACTIONS.BULK_SELECT_ERROR: {
+      return {
+        ...state,
+        error: action.payload,
+      };
+    }
+    case ACTIONS.REMOVE_ERROR: {
+      const errors = {...state.errors};
+      delete errors[action.payload.errorType];
+      return {
+        ...state,
+        errors,
+      }
+    }
+    case ACTIONS.SET_ERROR: {
+      return {
+        ...state,
+        loading: false,
+        loaded: true,
+        errors: {
+          ...state.errors,
+          ...{[`${action.payload.type}`]: {
+            message: action.payload.error,
+          }},
+        },
+      };
+    }
+    case ACTIONS.NEXT_PAGE: {
+      return {
+        ...state,
+        ...(!state.loading) ? {
+          pageNumber: state.pageNumber + 1,
+        } : {},
+        loading: false,
+        loaded: false,
+      };
+    }
+    default: {
+      return {
+        ...state,
+      };
+    }
   }
 };
 
 export default function ArchivePicker() {
-  const [{loading, loaded, showAddedMessage, processingImages, /*processingError,*/ images, pageNumber, searchText, selectedImages, selectedImagesAmount, bulkSelect, error, errors}, dispatch] = useReducer(reducer, initialState);
+  const [{loading, loaded, processingImages, processedImages, processingIds, processedIds, images, pageNumber, searchText, selectedImages, bulkSelect, error, errors}, dispatch] = useReducer(reducer, initialState);
   const [abortController, setAbortController] = useState(null);
+  const [selectedImagesIds, setSelectedImagesIds] = useState([]);
 
   const fetch = useCallback(async () => {
-    dispatch({type: 'FETCH_IMAGES'});
+    dispatch({type: ACTIONS.FETCH_IMAGES});
 
     try {
       const result = await apiFetch({
@@ -184,14 +200,14 @@ export default function ArchivePicker() {
         signal: abortController?.signal,
       });
 
-      dispatch({type: 'FETCHED_IMAGES', payload: {
+      dispatch({type: ACTIONS.FETCHED_IMAGES, payload: {
         images: result,
         page: pageNumber,
       }});
     } catch (err) {
       if (err.name !== 'AbortError') {
         dispatch({type: 'SET_ERROR', payload: {
-          type: 'FETCH_IMAGES',
+          type: ACTIONS.FETCH_IMAGES,
           error: err.message,
         }});
       }
@@ -199,46 +215,26 @@ export default function ArchivePicker() {
   }, [loading, loaded, images, error, searchText, pageNumber, dispatch]);
 
   const includeInWp = async (ids = []) => {
-    // try {
-      dispatch({type: 'PROCESS_IMAGES'});
+    dispatch({type: ACTIONS.PROCESS_IMAGES, payload: {selection: ids}});
 
-      Promise.all(ids.map((id) => {
-        return apiFetch({
-          method: 'POST',
-          path: '/planet4/v1/image-archive/transfer',
-          data: {
-            ids,
-            use_original_language: false,
-          },
-        });
-      })).then(value => {
-        console.log(value);
-        dispatch({type: 'PROCESSED_IMAGES', payload: {images: updatedImages}});
-      }).catch((err) => {
-        console.log(err);
-        throw new Error(err.message);
+    Promise.all(ids.map((id) => {
+      return apiFetch({
+        method: 'POST',
+        path: '/planet4/v1/image-archive/transfer',
+        data: {
+          ids: [id],
+          use_original_language: false,
+        },
       });
-
-      // console.log(updatedImages);
-
-      // const updatedImages = await apiFetch({
-      //   method: 'POST',
-      //   path: '/planet4/v1/image-archive/transfer',
-      //   data: {
-      //     ids,
-      //     use_original_language: false,
-      //   },
-      // });
-      // dispatch({type: 'PROCESSED_IMAGES', payload: {images: updatedImages}});
-    // } catch (err) {
-      // dispatch({type: 'PROCESS_IMAGES_ERROR', payload: {error: err}});
-      // dispatch({type: 'SET_ERROR', payload: {
-      //   error: {
-      //     type: 'PROCESS_IMAGES',
-      //     errorMessage: err.message,
-      //   },
-      // }});
-    // }
+    })).then(result => {
+      const payload = result.flat();
+      dispatch({type: ACTIONS.PROCESSED_IMAGES, payload: {images: payload}});
+    }).catch(err => {
+      dispatch({type: 'SET_ERROR', payload: {
+        type: ACTIONS.PROCESS_IMAGES,
+        error: err.message,
+      }});
+    });
   };
 
   useEffect(() => {
@@ -276,12 +272,8 @@ export default function ArchivePicker() {
   }, [pageNumber]);
 
   useEffect(() => {
-    if (showAddedMessage) {
-      setTimeout(() => {
-        dispatch({type: 'HIDE_ADDED_MESSAGE'});
-      }, 5000);
-    }
-  }, [showAddedMessage]);
+    setSelectedImagesIds(selectedImages.map(image => image.id));
+  }, [selectedImages]);
 
   return useMemo(() => (
     <Context.Provider
@@ -293,26 +285,27 @@ export default function ArchivePicker() {
         errors,
         fetch,
         images,
-        // processingError,
         processingImages,
-        showAddedMessage,
+        processedImages,
         includeInWp,
         selectedImages,
-        selectedImagesAmount,
+        selectedImagesIds,
         searchText,
+        processingIds,
+        processedIds,
         dispatch,
       }}
     >
       <ArchivePickerToolbar />
 
-      {!!error && error.type === 'FETCH_IMAGES' && (
+      {!!errors && errors[ACTIONS.FETCH_IMAGES] && (
         <div>
           <h3>API error:</h3>
-          <div dangerouslySetInnerHTML={{__html: error.errorMessage}} />
+          <div dangerouslySetInnerHTML={{__html: errors[ACTIONS.FETCH_IMAGES].message}} />
         </div>
       )}
 
-      <div className={classNames('image-picker', {'open-sidebar': selectedImagesAmount > 0 && !bulkSelect})}>
+      <div className={classNames('image-picker', {'open-sidebar': selectedImages.length > 0 && !bulkSelect})}>
         <ArchivePickerList />
 
         {!!images.length && (
@@ -333,9 +326,9 @@ export default function ArchivePicker() {
           <div className="archive-picker-loading"><Spinner /></div>
         )}
 
-        {(selectedImagesAmount > 0 && !bulkSelect) ? (
-          <div className={'picker-sidebar'}>
-            {selectedImagesAmount === 1 ? <SingleSidebar /> : <MultiSidebar />}
+        {(selectedImages.length && !bulkSelect) ? (
+          <div className="picker-sidebar">
+            {selectedImages.length === 1 ? <SingleSidebar image={selectedImages[0]} /> : <MultiSidebar />}
           </div>) : null}
       </div>
     </Context.Provider>
@@ -346,12 +339,13 @@ export default function ArchivePicker() {
     error,
     errors,
     images,
-    // processingError,
     processingImages,
-    showAddedMessage,
+    processedImages,
+    processingIds,
+    processedIds,
     searchText,
     selectedImages,
-    selectedImagesAmount,
+    selectedImagesIds,
     dispatch,
     fetch,
     includeInWp,

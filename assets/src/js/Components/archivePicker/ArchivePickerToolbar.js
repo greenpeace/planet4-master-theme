@@ -1,7 +1,7 @@
 import {useMemo} from '@wordpress/element';
 import classNames from 'classnames';
 import MultiSearchOption from'./MultiSearchOption';
-import {useArchivePickerContext} from '../ArchivePicker';
+import {ACTIONS, useArchivePickerContext} from '../ArchivePicker';
 
 const {__} = wp.i18n;
 
@@ -9,7 +9,7 @@ export default function ArchivePickerToolbar() {
   const {
     bulkSelect,
     selectedImages,
-    selectedImagesAmount,
+    selectedImagesIds,
     dispatch,
     includeInWp,
   } = useArchivePickerContext();
@@ -22,7 +22,7 @@ export default function ArchivePickerToolbar() {
           <button
             disabled={false}
             onClick={() => {
-              dispatch({type: 'CANCEL_BULK_SELECT'});
+              dispatch({type: ACTIONS.BULK_SELECT_CANCEL});
             }}
             type="button"
             className="button btn-cancel-bulk-select"
@@ -32,8 +32,8 @@ export default function ArchivePickerToolbar() {
         {bulkSelect ?
           <button
             onClick={async () => {
-              if (window.confirm(`You are about to import [${Object.keys(selectedImages).length}] photos to the media library. 'Cancel' to stop, 'OK' to import.`)) { // eslint-disable-line no-alert
-                await includeInWp(Object.keys(selectedImages));
+              if (window.confirm(`You are about to import [${selectedImagesIds.length}] photos to the media library. 'Cancel' to stop, 'OK' to import.`)) { // eslint-disable-line no-alert
+                await includeInWp(selectedImagesIds);
               }
             }}
             type="button"
@@ -41,7 +41,7 @@ export default function ArchivePickerToolbar() {
           >{__('Bulk Upload', 'planet4-master-theme-backend')}</button> :
           <button
             onClick={() => {
-              dispatch({type: 'ENABLE_BULK_SELECT'});
+              dispatch({type: ACTIONS.BULK_SELECT_ENABLE});
             }}
             type="button"
             className="button"
@@ -50,5 +50,5 @@ export default function ArchivePickerToolbar() {
       </nav>
       {!bulkSelect && <MultiSearchOption />}
     </div>
-  ), [bulkSelect, selectedImages, selectedImagesAmount]);
+  ), [bulkSelect, selectedImages, selectedImagesIds]);
 }
