@@ -1,6 +1,6 @@
 import {useMemo} from '@wordpress/element';
 import {toSrcSet} from './sizeFunctions';
-import {ACTIONS, useArchivePickerContext} from '../ArchivePicker';
+import {ACTIONS, useArchivePickerContext} from './ArchivePicker';
 
 const {__} = wp.i18n;
 

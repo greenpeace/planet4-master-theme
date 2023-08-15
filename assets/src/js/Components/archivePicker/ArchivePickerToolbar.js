@@ -1,7 +1,7 @@
 import {useMemo} from '@wordpress/element';
 import classNames from 'classnames';
+import {ACTIONS, useArchivePickerContext} from './ArchivePicker';
 import MultiSearchOption from'./MultiSearchOption';
-import {ACTIONS, useArchivePickerContext} from '../ArchivePicker';
 
 const {__} = wp.i18n;
 

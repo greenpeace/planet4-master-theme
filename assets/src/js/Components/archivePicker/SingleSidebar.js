@@ -1,6 +1,6 @@
 import {useMemo, useEffect, useState} from '@wordpress/element';
 import {toSrcSet} from './sizeFunctions';
-import {ACTIONS, useArchivePickerContext} from '../ArchivePicker';
+import {ACTIONS, useArchivePickerContext} from './ArchivePicker';
 
 const {__, sprintf} = wp.i18n;
 

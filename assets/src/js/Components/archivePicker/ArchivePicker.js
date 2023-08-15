@@ -1,10 +1,10 @@
 import {createContext, useContext, useEffect, useState, useCallback, useReducer, useMemo} from '@wordpress/element';
 import {Spinner} from '@wordpress/components';
 import classNames from 'classnames';
-import ArchivePickerList from './archivePicker/ArchivePickerList';
-import SingleSidebar from './archivePicker/SingleSidebar';
-import MultiSidebar from './archivePicker/MultiSidebar';
-import ArchivePickerToolbar from './archivePicker/ArchivePickerToolbar';
+import ArchivePickerList from './ArchivePickerList';
+import SingleSidebar from './SingleSidebar';
+import MultiSidebar from './MultiSidebar';
+import ArchivePickerToolbar from './ArchivePickerToolbar';
 
 const {apiFetch, url, i18n} = wp;
 const {addQueryArgs} = url;
@@ -182,7 +182,21 @@ const reducer = (state, action) => {
 };
 
 export default function ArchivePicker() {
-  const [{loading, loaded, processingImages, processedImages, processingIds, processedIds, images, pageNumber, searchText, selectedImages, bulkSelect, error, errors}, dispatch] = useReducer(reducer, initialState);
+  const [{
+    loading,
+    loaded,
+    processingImages,
+    processedImages,
+    processingIds,
+    processedIds,
+    images,
+    pageNumber,
+    searchText,
+    selectedImages,
+    bulkSelect,
+    error,
+    errors
+  }, dispatch] = useReducer(reducer, initialState);
   const [abortController, setAbortController] = useState(null);
   const [selectedImagesIds, setSelectedImagesIds] = useState([]);
 

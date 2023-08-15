@@ -1,8 +1,8 @@
 import {useCallback, useEffect, useMemo, useState} from '@wordpress/element';
-import classNames from 'classnames';
-import {toSrcSet} from './sizeFunctions';
-import {ACTIONS, useArchivePickerContext} from '../ArchivePicker';
 import {Spinner} from '@wordpress/components';
+import classNames from 'classnames';
+import {ACTIONS, useArchivePickerContext} from './ArchivePicker';
+import {toSrcSet} from './sizeFunctions';
 
 const {__} = wp.i18n;
 
@@ -67,9 +67,7 @@ export default function ArchivePickerList() {
     let indexes = [...selectedIndexes];
 
     if (bulkSelect || multiSelection) {
-      console.log(indexes, index, selectedIndexes, (evt.shiftKey && true))
       indexes = multiSelect(indexes, index, selectedIndexes, (evt.shiftKey && true));
-
     } else {
       indexes = [index];
     }
