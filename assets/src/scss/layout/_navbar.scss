@@ -289,6 +289,18 @@ a.nav-link:hover:before,
   }
 }
 
+.nav-donate .nav-submenu {
+  @include large-and-less {
+    right: 68px;
+    left: auto;
+
+    html[dir="rtl"] & {
+      left: 68px;
+      right: auto;
+    }
+  }
+}
+
 .nav-menu-toggle {
   background: transparent;
   border: none;
