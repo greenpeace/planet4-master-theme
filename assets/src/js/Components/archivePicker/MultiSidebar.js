@@ -8,7 +8,7 @@ export default function MultiSidebar() {
   const {selectedImages, dispatch} = useArchivePickerContext();
   return useMemo(
     () => <>
-      <div className='picker-sidebar-header'>
+      <div className="picker-sidebar-header">
         <span>{selectedImages.length} {__('images selected', 'planet4-master-theme-backend')}</span>
         <button
           className="close-sidebar"
@@ -25,7 +25,7 @@ export default function MultiSidebar() {
           key={image.id}
           width={80}
           onClick={() => {
-            dispatch({type: ACTIONS.DESELECT_IMAGE, payload: {selection: image}})
+            dispatch({type: ACTIONS.DESELECT_IMAGE, payload: {selection: image}});
           }}
           role="presentation"
         />

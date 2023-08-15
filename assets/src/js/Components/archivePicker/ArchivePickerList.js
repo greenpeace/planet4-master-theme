@@ -7,10 +7,8 @@ import {toSrcSet} from './sizeFunctions';
 const {__} = wp.i18n;
 
 const sort = indexes => indexes.sort(
-  (a, b) => {
-    if(a > b) return a;
-  }
-)
+  (a, b) => (a > b) ? a : null
+);
 
 const fill = indexes => {
   const min = indexes[0];
@@ -19,16 +17,14 @@ const fill = indexes => {
 };
 
 const multiSelect = (indexes, index, selected, isShiftKey) => {
-  if(isShiftKey) {
+  if (isShiftKey) {
     return fill(sort([...indexes].concat(index)));
-  } else {
-    if(!selected.includes(index)) {
-      return [...selected, index];
-    } else {
-      return [...selected].filter(idx => idx !== index);
-    }
   }
-}
+  if (!selected.includes(index)) {
+    return [...selected, index];
+  }
+  return [...selected].filter(idx => idx !== index);
+};
 
 export default function ArchivePickerList() {
   const {
@@ -53,9 +49,9 @@ export default function ArchivePickerList() {
     }
   }, [dispatch, loaded]);
 
-  const onClickHandler = useCallback((evt) => {
+  const onClickHandler = useCallback(evt => {
     const {id, wordpressId} = evt.currentTarget.dataset;
-    if(wordpressId && bulkSelect) {
+    if (wordpressId && bulkSelect) {
       return;
     }
 
@@ -77,27 +73,28 @@ export default function ArchivePickerList() {
       type: ACTIONS.SELECT_IMAGES,
       payload: {
         selection: selectedIndexes.map(idx => {
-          if(bulkSelect) {
-            if(!images[idx].wordpress_id) {
+          if (bulkSelect) {
+            if (!images[idx].wordpress_id) {
               return images[idx];
             }
           } else {
             return images[idx];
           }
+          return null;
         }).filter(value => value !== undefined),
-      }
+      },
     });
   }, [selectedIndexes]);
 
   useEffect(() => {
-    if(bulkSelect) {
+    if (bulkSelect) {
       // Clean up selected indexes
       setSelectedIndexes([]);
     }
   }, [bulkSelect]);
 
   useEffect(() => {
-    if(processedIds.length && bulkSelect) {
+    if (processedIds.length && bulkSelect) {
       dispatch({type: ACTIONS.BULK_SELECT_CANCEL});
     }
   }, [processedIds]);
@@ -106,24 +103,25 @@ export default function ArchivePickerList() {
     /* eslint-disable no-nested-ternary */
     () => (images.length) ? (
       <ul className={classNames('picker-list', {'bulk-select': bulkSelect})} onScroll={onScrollHandler}>
-      {images.map((image, index) => {
-        const {
-          id,
-          sizes,
-          title,
-          alt,
-          wordpress_id,
-          original,
-        } = image;
+        {images.map((image, index) => {
+          const {
+            id,
+            sizes,
+            title,
+            alt,
+            wordpress_id,
+            original,
+          } = image;
 
-        try {
-          return <li
-            key={id}
-            data-id={id}
-            data-wordpress-id={wordpress_id}
-            data-index={index}
-            onClick={onClickHandler}
-            className={classNames({'is-selected': selectedImagesIds.includes(id)}, {'is-disabled': wordpress_id && bulkSelect})}>
+          try {
+            return <li
+              key={id}
+              data-id={id}
+              data-wordpress-id={wordpress_id}
+              data-index={index}
+              onClick={onClickHandler}
+              aria-hidden="true"
+              className={classNames({'is-selected': selectedImagesIds.includes(id)}, {'is-disabled': wordpress_id && bulkSelect})}>
               <img
                 className={classNames({'picker-selected': selectedImagesIds.includes(id)})}
                 srcSet={toSrcSet(sizes, {maxWidth: 900})}

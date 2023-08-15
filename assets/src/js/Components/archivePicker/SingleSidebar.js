@@ -25,13 +25,13 @@ export default function SingleSidebar({image}) {
   const [showAddedMessage, setShowAddedMessage] = useState(false);
 
   useEffect(() => {
-    if(image) {
-      setWpImageLink(`${window.location.href.split('/wp-admin')[0]}/wp-admin/post.php?post=${image.id}&action=edit`)
+    if (image) {
+      setWpImageLink(`${window.location.href.split('/wp-admin')[0]}/wp-admin/post.php?post=${image.id}&action=edit`);
     }
   }, [image]);
 
   useEffect(() => {
-    if(image && processedIds.includes(image.id)) {
+    if (image && processedIds.includes(image.id)) {
       setShowAddedMessage(true);
 
       const timeout = setTimeout(() => {
@@ -41,7 +41,7 @@ export default function SingleSidebar({image}) {
       return () => {
         setShowAddedMessage(false);
         clearTimeout(timeout);
-      }
+      };
     }
   }, [processedIds]);
 
@@ -51,9 +51,9 @@ export default function SingleSidebar({image}) {
 
   return useMemo(() => (
     <>
-      <div className='picker-sidebar-header'>
+      <div className="picker-sidebar-header">
 
-        <div className='info'>
+        <div className="info">
           {image && (
             <>
               {processingIds.includes(image.id) && !image.wordpress_id && __('Processing...', 'planet4-master-theme-backend')}
@@ -87,7 +87,7 @@ export default function SingleSidebar({image}) {
               disabled={processingIds.includes(image.id)}
               className="button sidebar-action"
               onClick={async () => await includeInWp([image.id])}
-              >
+            >
               {__('Import to Library', 'planet4-master-theme-backend')}
             </button>
           )}

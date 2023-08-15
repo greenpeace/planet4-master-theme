@@ -26,7 +26,7 @@ export const ACTIONS = {
   REMOVE_ERROR: 'removeError',
   SEARCH: 'search',
   SET_ERROR: 'setError',
-}
+};
 
 const Context = createContext({});
 
@@ -46,138 +46,138 @@ const initialState = {
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case ACTIONS.SEARCH: {
-      return {
-        ...state,
-        searchText: action.payload,
-        ...{
-          pageNumber:
+  case ACTIONS.SEARCH: {
+    return {
+      ...state,
+      searchText: action.payload,
+      ...{
+        pageNumber:
             (JSON.stringify(action.payload) !== JSON.stringify(state.searchText)) ? 1 : state.pageNumber,
-        },
-      };
-    }
-    case ACTIONS.FETCH_IMAGES: {
-      return {
-        ...state,
-        loading: true,
-        loaded: false,
-      };
-    }
-    case ACTIONS.FETCHED_IMAGES: {
-      return {
-        ...state,
-        loading: false,
-        loaded: true,
-        images: action.payload.page > 1 ? state.images.concat(action.payload.images) : action.payload.images,
-        pageNumber: action.payload.page,
-      };
-    }
-    case ACTIONS.SELECT_IMAGES: {
-      return {
-        ...state,
-        selectedImages: [...action.payload.selection],
-      };
-    }
-    case ACTIONS.DESELECT_IMAGE: {
-      return {
-        ...state,
-        selectedImages: state.selectedImages.filter(image => image.id !== action.payload.selection.id),
-      }
-    }
-    case ACTIONS.PROCESS_IMAGES: {
-      return {
-        ...state,
-        processingIds: [...state.processingIds, ...action.payload.selection].flat(),
-      };
-    }
-    case ACTIONS.PROCESSED_IMAGES: {
-      const processedIds = [...state.processedIds, action.payload.images.map(img => img.id)].flat();
-      const images = state.images.map(img => {
-        const updated = action.payload.images.find(updatedImage => updatedImage.id === img.id);
-        return updated ? updated : img;
-      });
+      },
+    };
+  }
+  case ACTIONS.FETCH_IMAGES: {
+    return {
+      ...state,
+      loading: true,
+      loaded: false,
+    };
+  }
+  case ACTIONS.FETCHED_IMAGES: {
+    return {
+      ...state,
+      loading: false,
+      loaded: true,
+      images: action.payload.page > 1 ? state.images.concat(action.payload.images) : action.payload.images,
+      pageNumber: action.payload.page,
+    };
+  }
+  case ACTIONS.SELECT_IMAGES: {
+    return {
+      ...state,
+      selectedImages: [...action.payload.selection],
+    };
+  }
+  case ACTIONS.DESELECT_IMAGE: {
+    return {
+      ...state,
+      selectedImages: state.selectedImages.filter(image => image.id !== action.payload.selection.id),
+    };
+  }
+  case ACTIONS.PROCESS_IMAGES: {
+    return {
+      ...state,
+      processingIds: [...state.processingIds, ...action.payload.selection].flat(),
+    };
+  }
+  case ACTIONS.PROCESSED_IMAGES: {
+    const processedIds = [...state.processedIds, action.payload.images.map(img => img.id)].flat();
+    const images = state.images.map(img => {
+      const updated = action.payload.images.find(updatedImage => updatedImage.id === img.id);
+      return updated ? updated : img;
+    });
 
-      return {
-        ...state,
-        images,
-        selectedImages: state.selectedImages.map(img => {
-          const updated = images.find(_ => _.id === img.id);
-          return updated ? updated : img;
-        }),
-        processedIds,
-        processingIds: state.processingIds.filter(id =>!processedIds.includes(id)),
-      };
-    }
-    case ACTIONS.PROCESS_IMAGES_ERROR: {
-      return {
-        ...state,
-        errors: {
-          ...state.errors,
-          ...{[ACTIONS.PROCESS_IMAGES]: action.payload.error},
-        },
-      };
-    }
-    case ACTIONS.CLOSE_SIDEBAR: {
-      return {
-        ...state,
-        selectedImages: [],
-      };
-    }
-    case ACTIONS.BULK_SELECT_ENABLE: {
-      return {
-        ...state,
-        bulkSelect: true,
-      };
-    }
-    case ACTIONS.BULK_SELECT_CANCEL: {
-      return {
-        ...state,
-        selectedImages: [],
-        bulkSelect: false,
-      };
-    }
-    case ACTIONS.BULK_SELECT_ERROR: {
-      return {
-        ...state,
-        error: action.payload,
-      };
-    }
-    case ACTIONS.REMOVE_ERROR: {
-      const errors = {...state.errors};
-      delete errors[action.payload.errorType];
-      return {
-        ...state,
-        errors,
-      }
-    }
-    case ACTIONS.SET_ERROR: {
-      return {
-        ...state,
-        loading: false,
-        loaded: true,
-        errors: {
-          ...state.errors,
-          ...{[`${action.payload.type}`]: {
-            message: action.payload.error,
-          }},
-        },
-      };
-    }
-    case ACTIONS.NEXT_PAGE: {
-      return {
-        ...state,
-        ...(!state.loading) ? {
-          pageNumber: state.pageNumber + 1,
-        } : {},
-        loading: false,
-        loaded: false,
-      };
-    }
-    default: {
-      return {
-        ...state,
-      };
-    }
+    return {
+      ...state,
+      images,
+      selectedImages: state.selectedImages.map(img => {
+        const updated = images.find(_ => _.id === img.id);
+        return updated ? updated : img;
+      }),
+      processedIds,
+      processingIds: state.processingIds.filter(id => !processedIds.includes(id)),
+    };
+  }
+  case ACTIONS.PROCESS_IMAGES_ERROR: {
+    return {
+      ...state,
+      errors: {
+        ...state.errors,
+        ...{[ACTIONS.PROCESS_IMAGES]: action.payload.error},
+      },
+    };
+  }
+  case ACTIONS.CLOSE_SIDEBAR: {
+    return {
+      ...state,
+      selectedImages: [],
+    };
+  }
+  case ACTIONS.BULK_SELECT_ENABLE: {
+    return {
+      ...state,
+      bulkSelect: true,
+    };
+  }
+  case ACTIONS.BULK_SELECT_CANCEL: {
+    return {
+      ...state,
+      selectedImages: [],
+      bulkSelect: false,
+    };
+  }
+  case ACTIONS.BULK_SELECT_ERROR: {
+    return {
+      ...state,
+      error: action.payload,
+    };
+  }
+  case ACTIONS.REMOVE_ERROR: {
+    const errors = {...state.errors};
+    delete errors[action.payload.errorType];
+    return {
+      ...state,
+      errors,
+    };
+  }
+  case ACTIONS.SET_ERROR: {
+    return {
+      ...state,
+      loading: false,
+      loaded: true,
+      errors: {
+        ...state.errors,
+        ...{[`${action.payload.type}`]: {
+          message: action.payload.error,
+        }},
+      },
+    };
+  }
+  case ACTIONS.NEXT_PAGE: {
+    return {
+      ...state,
+      ...(!state.loading) ? {
+        pageNumber: state.pageNumber + 1,
+      } : {},
+      loading: false,
+      loaded: false,
+    };
+  }
+  default: {
+    return {
+      ...state,
+    };
+  }
   }
 };
 
@@ -195,7 +195,7 @@ export default function ArchivePicker() {
     selectedImages,
     bulkSelect,
     error,
-    errors
+    errors,
   }, dispatch] = useReducer(reducer, initialState);
   const [abortController, setAbortController] = useState(null);
   const [selectedImagesIds, setSelectedImagesIds] = useState([]);
@@ -231,7 +231,7 @@ export default function ArchivePicker() {
   const includeInWp = async (ids = []) => {
     dispatch({type: ACTIONS.PROCESS_IMAGES, payload: {selection: ids}});
 
-    Promise.all(ids.map((id) => {
+    Promise.all(ids.map(id => {
       return apiFetch({
         method: 'POST',
         path: '/planet4/v1/image-archive/transfer',

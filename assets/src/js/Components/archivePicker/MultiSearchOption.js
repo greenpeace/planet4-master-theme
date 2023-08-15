@@ -21,7 +21,9 @@ export default function MultiSearchOption() {
   };
 
   const addItem = useCallback(evt => {
-    if(loading || !(localSearchText.length < MAX_SEARCHES)) return;
+    if (loading || !(localSearchText.length < MAX_SEARCHES)) {
+      return;
+    }
 
     const value = evt.currentTarget.value !== '' ? evt.currentTarget.value.split(',') : '';
 
@@ -42,7 +44,9 @@ export default function MultiSearchOption() {
   }, [loading, localSearchText]);
 
   const removeItem = useCallback(item => {
-    if(loading) return;
+    if (loading) {
+      return;
+    }
     setLocalSearchText(list => list.filter(itemValue => itemValue !== item));
   }, [loading]);
 
