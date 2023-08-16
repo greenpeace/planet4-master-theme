@@ -287,6 +287,11 @@
   text-align: center;
 }
 
+.archive-picker-loading svg {
+  width: 24px;
+  height: 24px;
+}
+
 .picker-sidebar-header .close-sidebar {
   background: url("../../images/black-cross.svg");
   border: none;
