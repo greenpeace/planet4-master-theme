@@ -24,6 +24,7 @@ const initialState = {
   searchText: [],
   error: null,
   processingError: null,
+  imageAdded: false,
 };
 
 const reducer = (state, action) => {
@@ -124,10 +125,17 @@ const reducer = (state, action) => {
       error: action.payload,
     };
   }
+  case 'ADDED_IMAGE_TO_POST': {
+    return {
+      ...state,
+      processingImages: false,
+      imageAdded: true,
+    };
+  }
   }
 };
 
-export default function ArchivePicker() {
+export default function ArchivePicker({mediaView, adminView}) {
   const [{
     loading,
     loaded,
@@ -140,6 +148,7 @@ export default function ArchivePicker() {
     selectedImages,
     selectedImagesAmount,
     error,
+    imageAdded,
   }, dispatch] = useReducer(reducer, initialState);
   const [abortController, setAbortController] = useState(null);
 
@@ -168,7 +177,80 @@ export default function ArchivePicker() {
     }
   }, [loading, loaded, images, error, searchText, pageNumber, dispatch]);
 
-  const includeInWp = async id => {
+  const currentBlock = wp.data.select('core/block-editor').getSelectedBlock();
+
+  const getImageDets = useCallback(async id => {
+    const timeout = delay => {
+      return new Promise(resolve => setTimeout(resolve, delay));
+    };
+
+    try {
+      // On first try wp returns undefined, so need to make call again to get image details.
+      for (let retries = 0; retries < 2; ++retries) {
+        const newImageUploaded = await wp.data.select('core').getMedia(id);
+        if (newImageUploaded) {
+          return newImageUploaded;
+        }
+
+        await timeout(3000);
+      }
+    } catch (err) {
+      throw err;
+    }
+  }, []);
+
+  const processImageToAddToEditor = async id => {
+    try {
+      // Get current Image details from WP
+      dispatch({type: 'PROCESSING_IMAGES'});
+
+      // Get current Image details from WP
+      const uploadedImage = await getImageDets(id);
+
+      // Creating new Figuere element to update Image Block content
+      const div = document.createElement('div');
+
+      if (uploadedImage.id) {
+        // Check if the current block has content already, then just replace it.
+        if (currentBlock.originalContent) {
+          div.innerHTML = currentBlock.originalContent;
+          div.querySelector('img').setAttribute('class', `wp-image-${uploadedImage.id}`);
+          div.querySelector('img').src = uploadedImage.source_url;
+          if (div.querySelector('figcaption')) {
+            div.querySelector('figcaption').textContent = uploadedImage.caption.raw;
+          }
+        } else {
+        // If there is no content then create block content.
+          const blockContent = `
+        <figure class="wp-block-image size-large">
+          <img src=${uploadedImage.source_url} alt=${uploadedImage.alt_text} class="wp-image-${uploadedImage.id}"/>
+          <figcaption class="wp-element-caption">
+            ${uploadedImage.caption.raw}
+          </figcaption>
+        </figure>`;
+          div.innerHTML = blockContent;
+        }
+      }
+
+      const updatedAttributes = {
+        attributes: {
+          id: uploadedImage.id,
+          url: uploadedImage.source_url,
+          caption: uploadedImage.caption.raw,
+          alt: uploadedImage.alt_text,
+        },
+
+        originalContent: div.innerHTML,
+      };
+
+      await wp.data.dispatch('core/block-editor').updateBlock(currentBlock.clientId, updatedAttributes);
+      dispatch({type: 'ADDED_IMAGE_TO_POST'});
+    } catch (err) {
+      throw err;
+    }
+  };
+
+  const includeInWp = async (id, mediaArchive = false) => {
     try {
       dispatch({type: 'PROCESSING_IMAGES'});
 
@@ -180,8 +262,17 @@ export default function ArchivePicker() {
           use_original_language: false,
         },
       });
-      console.log('UPLOADED IMAGE :', updatedImages);
-      dispatch({type: 'PROCESSED_IMAGES', payload: {images: updatedImages}});
+
+      if (mediaArchive) {
+        try {
+          await processImageToAddToEditor(updatedImages[0].wordpress_id);
+          dispatch({type: 'PROCESSED_IMAGES', payload: {images: updatedImages}});
+        } catch (err) {
+          dispatch({type: 'PROCESSING_ERROR', payload: {error: err}});
+        }
+      } else {
+        dispatch({type: 'PROCESSED_IMAGES', payload: {images: updatedImages}});
+      }
     } catch (err) {
       dispatch({type: 'PROCESSING_ERROR', payload: {error: err}});
     }
@@ -241,10 +332,12 @@ export default function ArchivePicker() {
         processingImages,
         showAddedMessage,
         includeInWp,
+        processImageToAddToEditor,
         selectedImages,
         selectedImagesAmount,
         searchText,
         dispatch,
+        imageAdded,
       }}
     >
       <MultiSearchOption />
@@ -260,7 +353,7 @@ export default function ArchivePicker() {
         <ArchivePickerList />
 
         {!!images.length && (
-          <div className="help">
+          <div className={mediaView ? 'media-archive-help' : 'help'}>
             <div
               className="tooltip"
               dangerouslySetInnerHTML={{
@@ -279,7 +372,7 @@ export default function ArchivePicker() {
 
         {selectedImagesAmount > 0 ? (
           <div className={'picker-sidebar'}>
-            {selectedImagesAmount === 1 ? <SingleSidebar /> : <MultiSidebar />}
+            {selectedImagesAmount === 1 ? <SingleSidebar mediaView={mediaView} adminView={adminView} /> : <MultiSidebar />}
           </div>) : null}
       </div>
     </Context.Provider>
@@ -297,6 +390,8 @@ export default function ArchivePicker() {
     dispatch,
     fetch,
     includeInWp,
+    imageAdded,
+    processImageToAddToEditor,
   ]);
 }
 

@@ -15,8 +15,18 @@ const renderDefinition = (key, value) => (
   </div>
 );
 
-export default function SingleSidebar() {
-  const {processingImages, selectedImagesAmount, processingError, showAddedMessage, dispatch, selectedImages, includeInWp} = useArchivePickerContext();
+export default function SingleSidebar({mediaView, adminView}) {
+  const {
+    processingImages,
+    selectedImagesAmount,
+    processingError,
+    showAddedMessage,
+    dispatch,
+    selectedImages,
+    includeInWp,
+    imageAdded,
+    processImageToAddToEditor,
+  } = useArchivePickerContext();
 
   const image = Object.values(selectedImages)[0];
   const original = image ? image.original : {};
@@ -44,11 +54,33 @@ export default function SingleSidebar() {
       {!!processingImages && (
         <div className="info">{__('Processing...', 'planet4-master-theme-backend')}</div>
       )}
+      {imageAdded && (
+        <div className="info imageAddedClass">{__('Added!', 'planet4-master-theme-backend')}</div>
+      )}
       {showAddedMessage && (
         <div className="info">{__('Added to Library', 'planet4-master-theme-backend')}</div>
       )}
 
-      {image.wordpress_id ? (
+      {(!image.wordpress_id && mediaView) ? (
+        <button
+          disabled={!!processingImages}
+          className="button sidebar-action"
+          onClick={async () => await includeInWp(image.id, mediaView)}
+        >
+          {__('Import to Library & Post', 'planet4-master-theme-backend')}
+        </button>
+      ) : (
+        <button
+          disabled={!!processingImages}
+          style={{display: imageAdded ? 'none' : ''}}
+          className="button sidebar-action"
+          onClick={async () => await processImageToAddToEditor(image.wordpress_id)}
+        >
+          {__('Add image to Post', 'planet4-master-theme-backend')}
+        </button>
+      )}
+
+      {(image.wordpress_id && adminView) ? (
         <a
           className="sidebar-action"
           href={wpImageLink(image.wordpress_id)}
@@ -59,12 +91,21 @@ export default function SingleSidebar() {
         <button
           disabled={!!processingImages}
           className="button sidebar-action"
+          id="import-to-library"
           onClick={async () => await includeInWp(image.id)}
         >
           {__('Import to Library', 'planet4-master-theme-backend')}
         </button>
       )}
       {renderImage()}
+      {(image.wordpress_id && mediaView) && (
+        <a
+          className="sidebar-action"
+          href={wpImageLink(image.wordpress_id)}
+        >
+          {sprintf(__('Wordpress image #%s', 'planet4-master-theme-backend'), image.wordpress_id)}
+        </a>
+      )}
       <dl className={'picker-sidebar-fields'}>
         {renderDefinition(
           __('URL', 'planet4-master-theme-backend'),

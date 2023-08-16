@@ -52,7 +52,3 @@
         <button class="button button-primary refresh"><?php _e( 'Refresh', 'planet4-master-theme-backend' ) ?></button>
     </p>
 </script>
-
-<script type="text/template" id="tmpl-mediaarcivecontent">
-            <h1 id="monso">My Love</h1>
-        </script>

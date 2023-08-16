@@ -18,7 +18,6 @@ if (file_exists(__DIR__ . '/vendor/autoload.php')) {
 } else {
     require_once __DIR__ . '/../../../../vendor/autoload.php';
 }
-require_once __DIR__ . '/simple_html_dom.php';
 /**
  * A simpler way to add a filter that only returns a static value regardless of the input.
  *
@@ -618,19 +617,6 @@ add_filter(
     }
 );
 
-function debug_to_console($data) {
-    $output = $data;
-    // if (is_array($output))
-    //     $output = implode(',', $output);
-
-    echo "<script>console.log(JSON.parse('" . json_encode($data) . "'));</script>";
-}
-
-// function add_media_archive_tab($tabs) {
-//     $tabs['media_archive'] = __('Media Archive', 'text-domain');
-//     return $tabs;
-// }
-
 add_filter(
     'media_upload_tabs',
     function($tabs) {
@@ -639,58 +625,9 @@ add_filter(
     }
 );
 
-// add_action(
-//     'print_media_templates',
-//     function() {
-//        echo '
-//         <script type="text/template" id="tmpl-mediaarcivecontent">
-//             <h1>Media Archive</h1>
-//         </script>
-//        ';
-//     }
-// );
-
-// function add_media_archive_tab() {
-//     wp_enqueue_script(
-//         'media-archive-script',
-//         get_template_directory_uri() . '/assets/src/js/test.js',
-//         ['jquery', 'media-views']
-//     );
-// }
-
-// add_action('wp_enqueue_scripts', 'add_media_archive_tab');
-
 function add_media_archive_script() {
-    // Enqueue the script for the block editor
-    wp_enqueue_script('media_archive_script', get_template_directory_uri() . '/assets/build/moi.js', array('wp-blocks', 'wp-dom-ready', 'wp-edit-post'), null, true);
+    // Enqueue script for the block editor
+    wp_enqueue_script('media_archive_script', get_template_directory_uri() . '/assets/build/media_archive_editor_view.js', array('wp-blocks', 'wp-dom-ready', 'wp-edit-post'), null, true);
     Loader::enqueue_versioned_style('/admin/css/picker.css');
-    // wp_enqueue_style('unique-handle', get_template_directory_uri() . '/admin/css/picker.css', array(), '1', 'media');
 }
 add_action('admin_enqueue_scripts', 'add_media_archive_script');
-
-// add_filter("script_loader_tag", "add_module_to_my_script", 10, 3);
-// function add_module_to_my_script($tag, $handle, $src)
-// {
-//     if ("media_archive_script" === $handle) {
-//         $tag = '<script type="module" src="' . esc_url($src) . '"></script>';
-//     }
-
-//     return $tag;
-// }
-
-// function enqueue_jquery() {
-//     wp_enqueue_script('jquery');
-// }
-
-// add_action('wp_enqueue_scripts', 'enqueue_jquery');
-
-// add_filter( 'script_loader_tag', 'add_type_to_script', 10, 3 );
-
-// function add_type_to_script( $tag, $handle, $src ) {
-//     // debug_to_console($handle);
-//     if ( 'media_archive_script' === $handle ) {
-//         $tag = '<script type="module" src="' . esc_url( $src ) . '></script>';
-//     }
-
-//     return $tag;
-// }

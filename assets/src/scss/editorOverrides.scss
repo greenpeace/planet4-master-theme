@@ -281,27 +281,34 @@ input.describe[type=text][data-setting=caption] {
   display: inline;
 }
 
+// Media Acrhive Style Override
+
 .media-archive-content {
-  // border: 1px solid red;
   position: relative;
 
   .image-picker {
-    // border: 1px solid green;
     margin-right: 30px;
   }
 
   .picker-sidebar {
-    // border: 1px solid yellow;
     position: absolute;
-
     .close-sidebar {
       position: absolute;
       top: 0;
       right: 10px;
     }
+
+    .imageAddedClass {
+      top: 20px;
+    }
   }
 
-  .multiple-search-nav {
+  #import-to-library,
+  #import-to-library:disabled{
+    display: none;
+  }
+
+  .multiple-search-nav button:first-child {
     display: none;
   }
 
@@ -317,8 +324,72 @@ input.describe[type=text][data-setting=caption] {
     border-bottom: 1px solid transparent;
   }
 
+  .help {
+    display: none;
+  }
+
+  .media-archive-help {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: -50px;
+    right: 0;
+
+
+    span {
+      background: #7E7E7E;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 24px;
+      font-weight: 500;
+      cursor: pointer;
+      width: 24px;
+      height: 24px;
+      color: #fff;
+    }
+
+   .tooltip {
+      display: none;
+    }
+
+    &:hover .tooltip {
+      display: block;
+      position: absolute;
+      background: #fff;
+      width: 80%;
+      font-size: 12px;
+      line-height: 1.5;
+      border-radius: 4px;
+      padding: 16px;
+      margin-bottom: 8px;
+      color: black;
+      opacity: 1;
+      top: -14px;
+      right: 34px;
+      border: 1px solid #ccc;
+      box-shadow: 0 7px 10px rgba(0, 0, 0, 0.6);
+    }
+
+    &:hover .tooltip:after {
+      content: "";
+      position: absolute;
+      top: 15px;
+      right: -16px;
+      border: 8px solid transparent;
+      border-left-color: #fff;
+    }
+
+    &:hover .tooltip a {
+      color: black;
+    }
+
+    &:hover .tooltip {
+      width: 330px;
+    }
+  }
+
   .multiple-search-form {
     margin: 50px auto 25px;
-    width: 95%
+    width: 95%;
   }
 }

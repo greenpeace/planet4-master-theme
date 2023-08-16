@@ -42,7 +42,7 @@ const mediaArchiveTab = () => {
       });
     },
 
-    renderMediaArchive : function() {
+    renderMediaArchive: function() {
       var MediaArchiveContent = wp.Backbone.View.extend({
         tagName: 'div',
         className: 'media-archive-content',
@@ -50,7 +50,7 @@ const mediaArchiveTab = () => {
         render() {
           var domeNode = this.$("#user-info").prevObject.get(0);
           var root = createRoot(domeNode);
-          root.render(<ArchivePicker />);
+          root.render(<ArchivePicker mediaView={true} />);
         },
         // remove() {
         //   // ReactDOM.unmountComponentAtNode(this.el);
