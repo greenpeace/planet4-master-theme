@@ -102,12 +102,6 @@ class Settings
                 'title' => 'Defaults content',
                 'fields' => [
                     [
-                        'name' => __('Default P4 Post Type', 'planet4-master-theme-backend'),
-                        'id' => 'default_p4_pagetype',
-                        'type' => 'pagetype_select_taxonomy',
-                    ],
-
-                    [
                         'name' => __('Take Action Covers default button text', 'planet4-master-theme-backend'),
                         'id' => 'take_action_covers_button_text',
                         'type' => 'text',
@@ -508,7 +502,6 @@ class Settings
         add_filter('cmb2_render_get_informed_page_dropdown', [$this, 'p4_render_page_dropdown'], 10, 2);
         add_filter('cmb2_render_take_action_page_dropdown', [$this, 'p4_render_page_dropdown'], 10, 2);
         add_filter('cmb2_render_about_us_page_dropdown', [$this, 'p4_render_page_dropdown'], 10, 2);
-        add_filter('cmb2_render_pagetype_select_taxonomy', [$this, 'p4_render_pagetype_dropdown'], 10, 2);
         add_action('admin_enqueue_scripts', [$this, 'enqueue_admin_assets']);
         add_action('admin_init', [$this, 'add_new_identity_styles_toggle_value']);
 
@@ -610,29 +603,6 @@ class Settings
                 'orderby' => 'name',
                 'selected' => $value,
                 'name' => 'issues_parent_category',
-            ]
-        );
-    }
-    // phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter
-
-    /**
-     * Render p4-pagetype dropdown.
-     *
-     * @param CMB2_Field $field_args CMB2 field Object.
-     * @param mixed $value Pagetype taxonomy ID.
-     * phpcs:disable SlevomatCodingStandard.Functions.UnusedParameter -- add_filter callback
-     */
-    public function p4_render_pagetype_dropdown(CMB2_Field $field_args, $value): void
-    {
-
-        wp_dropdown_categories(
-            [
-                'show_option_none' => __('Select Posttype', 'planet4-master-theme-backend'),
-                'hide_empty' => 0,
-                'orderby' => 'name',
-                'selected' => $value,
-                'name' => 'default_p4_pagetype',
-                'taxonomy' => 'p4-page-type',
             ]
         );
     }
