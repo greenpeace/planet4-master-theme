@@ -164,6 +164,10 @@
   opacity: 100%;
 }
 
+.archive-picker.open-sidebar .help {
+  display: none;
+}
+
 .picker-list li.is-selected img {
   opacity: 100% !important;
 }
@@ -174,12 +178,13 @@
 }
 
 .image-picker .help {
-  position: absolute;
+  position: fixed;
   bottom: 8px;
   right: 8px;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
+  z-index: 1;
 }
 
 .image-picker .help span {
@@ -426,7 +431,12 @@
   }
 
   .archive-picker.open-sidebar {
-    width: calc(100% - var(--sidebar-width-large));
+    width: calc(100% - var(--sidebar-width-large) + 8px);
+  }
+
+  .archive-picker.open-sidebar .help {
+    display: flex;
+    right: var(--sidebar-width-large);
   }
 
   .archive-picker.open-sidebar .multiple-search-form {
@@ -550,6 +560,11 @@
 
   .archive-picker.open-sidebar {
     width: calc(100% - var(--sidebar-width-large) - 42px);
+  }
+
+  .archive-picker.open-sidebar .help {
+    display: flex;
+    right: calc(var(--sidebar-width-large) + 50px);
   }
 
   .picker-sidebar {
