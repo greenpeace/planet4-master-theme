@@ -330,6 +330,11 @@ table.spreadsheet-table.is-color-gp-green {
   }
 }
 
+// 404 page links
+.page-404-page .speech-bubble a {
+  @include shared-link-styles;
+}
+
 .cookies-settings-header h4 {
   font-family: var(--font-family-paragraph-secondary);
 }
