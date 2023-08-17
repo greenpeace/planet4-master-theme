@@ -1,4 +1,4 @@
-import {Component, Fragment} from '@wordpress/element';
+import {Component} from '@wordpress/element';
 import {getStyleFromClassName} from '../getStyleFromClassName';
 
 export class CounterFrontend extends Component {
@@ -118,7 +118,7 @@ export class CounterFrontend extends Component {
     }
 
     return (
-      <Fragment>
+      <>
         <section className={counterClassName}>
           {title && !isEditing &&
             <header>
@@ -151,7 +151,7 @@ export class CounterFrontend extends Component {
             }
           </div>
         </section>
-      </Fragment>
+      </>
     );
   }
 }

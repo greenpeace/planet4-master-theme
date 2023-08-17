@@ -1,7 +1,6 @@
 import {ArticlesBlock} from './blocks/Articles/ArticlesBlock';
 import {registerColumnsBlock} from './blocks/Columns/ColumnsBlock';
 import {CookiesBlock} from './blocks/Cookies/CookiesBlock';
-import {CounterBlock} from './blocks/Counter/CounterBlock';
 import {HappypointBlock} from './blocks/Happypoint/HappypointBlock';
 import {registerMediaBlock} from './blocks/Media/MediaBlock';
 import {registerSocialMediaBlock} from './blocks/SocialMedia/SocialMediaBlock';
@@ -27,7 +26,6 @@ blockEditorValidation();
 new ArticlesBlock();
 registerColumnsBlock();
 new CookiesBlock();
-new CounterBlock();
 new HappypointBlock();
 registerMediaBlock();
 registerSocialMediaBlock();

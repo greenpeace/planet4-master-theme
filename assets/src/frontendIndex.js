@@ -1,4 +1,3 @@
-import {CounterFrontend} from './blocks/Counter/CounterFrontend';
 import {ArticlesFrontend} from './blocks/Articles/ArticlesFrontend';
 import {CookiesFrontend} from './blocks/Cookies/CookiesFrontend';
 import {SplittwocolumnsFrontend} from './blocks/Splittwocolumns/SplittwocolumnsFrontend';
@@ -15,7 +14,6 @@ import {createRoot} from 'react-dom/client';
 
 // Render React components
 const COMPONENTS = {
-  'planet4-blocks/counter': CounterFrontend,
   'planet4-blocks/articles': ArticlesFrontend,
   'planet4-blocks/cookies': CookiesFrontend,
   'planet4-blocks/split-two-columns': SplittwocolumnsFrontend,

@@ -1,97 +1,107 @@
 import {CounterEditor} from './CounterEditor';
 import {frontendRendered} from '../frontendRendered';
+import {CounterFrontend} from './CounterFrontend';
+import {renderToString} from 'react-dom/server';
 
-const BLOCK_NAME = 'planet4-blocks/counter';
+export const BLOCK_NAME = 'planet4-blocks/counter';
 
-export class CounterBlock {
-  constructor() {
-    const {registerBlockType, unregisterBlockStyle, registerBlockStyle} = wp.blocks;
-    const {__} = wp.i18n;
-    const attributes = {
-      title: {
-        type: 'string',
-        default: '',
-      },
-      description: {
-        type: 'string',
-        default: '',
-      },
-      completed: {
-        type: 'integer',
-        default: '',
-      },
-      completed_api: {
-        type: 'string',
-        default: '',
-      },
-      target: {
-        type: 'integer',
-        default: '',
-      },
-      text: {
-        type: 'string',
-        default: '',
-      },
-      style: { // Needed to convert existing blocks
-        type: 'string',
-        default: '',
-      },
-    };
+const attributes = {
+  title: {
+    type: 'string',
+    default: '',
+  },
+  description: {
+    type: 'string',
+    default: '',
+  },
+  completed: {
+    type: 'integer',
+    default: '',
+  },
+  completed_api: {
+    type: 'string',
+    default: '',
+  },
+  target: {
+    type: 'integer',
+    default: '',
+  },
+  text: {
+    type: 'string',
+    default: '',
+  },
+  style: { // Needed to convert existing blocks
+    type: 'string',
+    default: '',
+  },
+};
 
-    registerBlockType(BLOCK_NAME, {
-      title: __('Counter', 'planet4-blocks-backend'),
-      icon: 'dashboard',
-      category: 'planet4-blocks',
-      attributes,
-      supports: {
-        html: false, // Disable "Edit as HTMl" block option.
+export const registerCounterBlock = () => {
+  const {registerBlockType, unregisterBlockStyle, registerBlockStyle} = wp.blocks;
+  const {RawHTML} = wp.element;
+
+  registerBlockType(BLOCK_NAME, {
+    title: 'Counter',
+    icon: 'dashboard',
+    category: 'planet4-blocks',
+    attributes,
+    supports: {
+      html: false, // Disable "Edit as HTMl" block option.
+    },
+    // eslint-disable-next-line no-shadow
+    edit: CounterEditor,
+    save: props => {
+      const {attributes: saveAttributes} = props;
+      const markup = renderToString(
+        <div
+          data-hydrate={BLOCK_NAME}
+          data-attributes={JSON.stringify(saveAttributes)}
+        >
+          <CounterFrontend {...props} />
+        </div>
+      );
+      return <RawHTML>{markup}</RawHTML>;
+    },
+    deprecated: [
+      {
+        attributes,
+        save: frontendRendered(BLOCK_NAME),
       },
-      deprecated: [
-        {
-          attributes,
-          save() {
-            return null;
-          },
+      {
+        attributes,
+        save() {
+          return null;
         },
-      ],
-      // eslint-disable-next-line no-shadow
-      edit: ({isSelected, attributes, setAttributes}) => {
-        return <CounterEditor
-          attributes={attributes}
-          setAttributes={setAttributes}
-          isSelected={isSelected}
-        />;
       },
-      save: frontendRendered(BLOCK_NAME),
+    ],
+  });
+
+  // Remove the default style since it's the same as "text only"
+  unregisterBlockStyle(BLOCK_NAME, 'default');
+
+  const styles = [
+    {
+      name: 'plain',
+      label: 'Text Only',
+      isDefault: true,
+    },
+    {
+      name: 'bar',
+      label: 'Progress Bar',
+    },
+    {
+      name: 'arc',
+      label: 'Progress Dial',
+    },
+
+  ];
+
+  if (window.p4ge_vars.features.feature_engaging_networks) {
+    styles.push({
+      name: 'en-forms-bar',
+      label: 'Progress Bar inside EN Form',
     });
-
-    // Remove the default style since it's the same as "text only"
-    unregisterBlockStyle(BLOCK_NAME, 'default');
-
-    const styles = [
-      {
-        name: 'plain',
-        label: 'Text Only',
-        isDefault: true,
-      },
-      {
-        name: 'bar',
-        label: 'Progress Bar',
-      },
-      {
-        name: 'arc',
-        label: 'Progress Dial',
-      },
-
-    ];
-
-    if (window.p4ge_vars.features.feature_engaging_networks) {
-      styles.push({
-        name: 'en-forms-bar',
-        label: 'Progress Bar inside EN Form',
-      });
-    }
-    // Add our custom styles
-    registerBlockStyle(BLOCK_NAME, styles);
   }
-}
+  // Add our custom styles
+  registerBlockStyle(BLOCK_NAME, styles);
+};
