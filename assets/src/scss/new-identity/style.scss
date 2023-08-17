@@ -315,6 +315,12 @@ table.spreadsheet-table.is-color-gp-green {
   }
 }
 
+// Author block/page links
+.author-block-info > div a,
+.author-details a {
+  @include shared-link-styles;
+}
+
 // Cookies box links
 .cookies-text,
 .cookies-settings-details {
