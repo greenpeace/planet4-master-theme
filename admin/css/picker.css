@@ -130,18 +130,6 @@
   position: relative;
 }
 
-.image-picker li[data-wordpress-id]:after {
-  /* content: "";
-  display: block;
-  background: url("../../images/added-to-library.svg");
-  width: 25px;
-  height: 25px;
-  position: absolute; */
-  /* 2px to account for the border width */
-  /* top: 2px;
-  left: 2px; */
-}
-
 .image-picker .added-to-library {
   display: block;
   position: absolute;
