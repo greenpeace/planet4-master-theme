@@ -1,5 +1,4 @@
 import {useCallback, useEffect, useMemo, useState} from '@wordpress/element';
-import {Spinner} from '@wordpress/components';
 import classNames from 'classnames';
 import {ACTIONS, useArchivePickerContext} from './ArchivePicker';
 import {toSrcSet} from './sizeFunctions';
@@ -81,7 +80,7 @@ export default function ArchivePickerList() {
             return images[idx];
           }
           return null;
-        }).filter(value => value !== undefined),
+        }).filter(value => value !== null),
       },
     });
   }, [selectedIndexes]);
@@ -133,7 +132,7 @@ export default function ArchivePickerList() {
               />
               {wordpress_id && (
                 <div className="added-to-library">
-                  {__('Added to Media Library', 'planet4-master-theme-backend')}
+                  <span>{__('Added to Media Library', 'planet4-master-theme-backend')}</span>
                 </div>
               )}
               {bulkSelect && !wordpress_id && !processingIds.includes(image.id) && (
@@ -143,7 +142,6 @@ export default function ArchivePickerList() {
                   className={classNames('bulk-select-checkbox', {'is-checked': selectedImagesIds.includes(id)})}
                 />
               )}
-              {processingIds.includes(image.id) && <Spinner />}
             </li>;
           } catch (exception) {
             return <li key={id}>

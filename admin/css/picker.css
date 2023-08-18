@@ -80,10 +80,14 @@
   margin: 0;
 }
 
+.nav-bulk-select {
+  display: flex;
+  align-items: center;
+}
+
 .nav-bulk-select.bulk-enabled {
   width: 100%;
   justify-content: space-between;
-  display: flex;
 }
 
 .nav-bulk-select button {
@@ -127,33 +131,49 @@
 }
 
 .image-picker li[data-wordpress-id]:after {
+  /* content: "";
+  display: block;
+  background: url("../../images/added-to-library.svg");
+  width: 25px;
+  height: 25px;
+  position: absolute; */
+  /* 2px to account for the border width */
+  /* top: 2px;
+  left: 2px; */
+}
+
+.image-picker .added-to-library {
+  display: block;
+  position: absolute;
+  top: 2px;
+  background: white;
+  opacity: 90%;
+  height: 25px;
+  padding: 0 4px;
+  cursor: pointer;
+}
+
+.image-picker .added-to-library:before {
   content: "";
   display: block;
   background: url("../../images/added-to-library.svg");
   width: 25px;
   height: 25px;
   position: absolute;
-  /* 2px to account for the border width */
-  top: 2px;
+  top: 0;
   left: 2px;
 }
 
-.image-picker .added-to-library {
+.image-picker .added-to-library span {
   display: none;
 }
 
-.image-picker li[data-wordpress-id]:hover .added-to-library {
+.image-picker .added-to-library:hover span {
   display: block;
-  position: absolute;
-  top: 2px;
-  left: 27px;
-  background: white;
-  opacity: 90%;
-  height: 25px;
-  line-height: 25px;
-  padding: 0 4px;
+  margin-left: 25px;
   font-size: 10px;
   color: black;
+  line-height: 25px;
 }
 
 .image-picker.open-sidebar li img {
@@ -196,6 +216,7 @@
   cursor: pointer;
   width: 24px;
   height: 24px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
 }
 
 .image-picker .help .tooltip {
@@ -512,6 +533,10 @@
 
   .nav-bulk-select.bulk-enabled {
     justify-content: flex-end;
+  }
+
+  .nav-bulk-select.bulk-enabled .info {
+    margin-right: auto;
   }
 }
 

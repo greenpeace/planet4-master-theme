@@ -33,6 +33,7 @@ const Context = createContext({});
 const initialState = {
   loading: false,
   loaded: false,
+  processing: false,
   bulkSelect: false,
   images: [],
   selectedImages: [],
@@ -87,6 +88,7 @@ const reducer = (state, action) => {
   case ACTIONS.PROCESS_IMAGES: {
     return {
       ...state,
+      processing: true,
       processingIds: [...state.processingIds, ...action.payload.selection].flat(),
     };
   }
@@ -104,6 +106,7 @@ const reducer = (state, action) => {
         const updated = images.find(_ => _.id === img.id);
         return updated ? updated : img;
       }),
+      processing: false,
       processedIds,
       processingIds: state.processingIds.filter(id => !processedIds.includes(id)),
     };
@@ -134,6 +137,7 @@ const reducer = (state, action) => {
       ...state,
       selectedImages: [],
       bulkSelect: false,
+      processing: false,
     };
   }
   case ACTIONS.BULK_SELECT_ERROR: {
@@ -185,6 +189,7 @@ export default function ArchivePicker() {
   const [{
     loading,
     loaded,
+    processing,
     processingImages,
     processedImages,
     processingIds,
@@ -299,6 +304,7 @@ export default function ArchivePicker() {
         errors,
         fetch,
         images,
+        processing,
         processingImages,
         processedImages,
         includeInWp,
@@ -355,6 +361,7 @@ export default function ArchivePicker() {
     error,
     errors,
     images,
+    processing,
     processingImages,
     processedImages,
     processingIds,
