@@ -50,4 +50,6 @@
             {% for style in custom_styles.css %}{{ style|raw }}{% endfor %}
         </style>
     {% endif %}
+
+    {% include 'custom_scripts.twig' ignore missing %}
 </head>
