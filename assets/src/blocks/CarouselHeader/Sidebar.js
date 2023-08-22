@@ -148,7 +148,7 @@ export const Sidebar = ({
         slidesRef.current.insertBefore(draggedSlide, dragTarget);
       }
     }
-  }, [dragTarget]);
+  }, [dragTarget, draggedSlide]);
 
   return <InspectorControls>
     <PanelBody title={__('Settings', 'planet4-blocks-backend')}>

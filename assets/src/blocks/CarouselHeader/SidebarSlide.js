@@ -43,7 +43,7 @@ export const SidebarSlide = ({
     if (isOpened) {
       goToSlideHandler(index);
     }
-  }, [isOpened]);
+  }, [isOpened, goToSlideHandler, index]);
 
   return (
     <div

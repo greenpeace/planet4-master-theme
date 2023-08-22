@@ -53,7 +53,7 @@ export const CarouselHeaderFrontend = ({slides, carousel_autoplay, className}) =
       hammer.off('swipeleft', isRTL ? goToPrevSlide : goToNextSlide);
       hammer.off('swiperight', isRTL ? goToNextSlide : goToPrevSlide);
     };
-  }, [currentSlide]);
+  }, [currentSlide, goToNextSlide, goToPrevSlide]);
 
   useEffect(() => {
     if (!containerRef.current) {
@@ -68,7 +68,7 @@ export const CarouselHeaderFrontend = ({slides, carousel_autoplay, className}) =
     }
 
     return () => window.removeEventListener('resize', () => setCarouselHeight(currentSlideRef));
-  }, []);
+  }, [currentSlide, setCarouselHeight]);
 
   // Set up the autoplay for the slides
   const timerRef = useRef(null);
@@ -85,7 +85,7 @@ export const CarouselHeaderFrontend = ({slides, carousel_autoplay, className}) =
     } else if (timerRef.current) {
       clearTimeout(timerRef.current);
     }
-  }, [currentSlide, slides, carousel_autoplay, autoplayPaused, autoplayCancelled, pageLoaded]);
+  }, [currentSlide, goToNextSlide, slides, carousel_autoplay, autoplayPaused, autoplayCancelled, pageLoaded]);
 
   return (
     <section
@@ -107,8 +107,8 @@ export const CarouselHeaderFrontend = ({slides, carousel_autoplay, className}) =
             </Slide>
           ))}
           <CarouselControls
-            goToPrevSlide={goToPrevSlide}
-            goToNextSlide={goToNextSlide}
+            goToPrevSlide={() => goToPrevSlide(carousel_autoplay)}
+            goToNextSlide={() => goToNextSlide(carousel_autoplay)}
             goToSlide={goToSlide}
             slides={slides}
             currentSlide={currentSlide}

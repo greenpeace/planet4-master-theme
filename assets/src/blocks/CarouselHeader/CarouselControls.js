@@ -1,9 +1,9 @@
 const {__} = wp.i18n;
 
 export const CarouselControls = ({
-  goToPrevSlide = null,
-  goToNextSlide = null,
-  goToSlide = null,
+  goToPrevSlide = () => {},
+  goToNextSlide = () => {},
+  goToSlide = () => {},
   currentSlide = null,
   slides = null,
 }) => slides.length > 1 && (

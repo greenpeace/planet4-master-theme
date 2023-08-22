@@ -1,4 +1,6 @@
-import {useState} from '@wordpress/element';
+import {useEffect, useState} from '@wordpress/element';
+
+const activeClass = 'active';
 
 /**
  * Takes an array of refs to the slides
@@ -39,9 +41,11 @@ export const useSlides = (slidesRef, lastSlide, containerRef, options = {
     }
   };
 
-  const goToPrevSlide = () => {
+  const goToPrevSlide = (autoplay = false) => {
     goToSlide(currentSlide === 0 ? lastSlide : currentSlide - 1);
-    setAutoplayCancelled(true);
+    if (!autoplay) {
+      setAutoplayCancelled(true);
+    }
   };
 
   // eslint-disable-next-line no-shadow
@@ -97,10 +101,13 @@ export const useSlides = (slidesRef, lastSlide, containerRef, options = {
       nextElement.classList.add(enterTransitionClass);
 
       const unsetTransitionClasses = () => {
-        activeElement.classList.remove(exitTransitionClass);
-        nextElement.classList.remove(enterTransitionClass);
         activeElement.removeEventListener('transitionend', unsetTransitionClasses);
-        setSliding(false);
+        activeElement.classList.remove(exitTransitionClass);
+        // Force to manually remove the `active` class to avoid the flicker issue
+        activeElement.classList.remove(activeClass);
+        nextElement.classList.remove(enterTransitionClass);
+        nextElement.classList.add(activeClass);
+
         setCurrentSlide(newSlide);
       };
 
@@ -114,6 +121,11 @@ export const useSlides = (slidesRef, lastSlide, containerRef, options = {
       }
     }
   };
+
+  useEffect(() => {
+    // Update the sliding flag only when the current slide is being changed
+    setSliding(false);
+  }, [currentSlide]);
 
   return {
     currentSlide,

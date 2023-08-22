@@ -102,7 +102,7 @@ export const CarouselHeaderEditor = ({setAttributes, attributes}) => {
           {slides?.map((slide, index) => (
             <Slide
               key={index}
-              ref={element => slidesRef.current[index] = element}
+              ref={element => slidesRef ? slidesRef.current[index] = element : null}
               active={currentSlide === index}
             >
               <EditableBackground
@@ -124,8 +124,8 @@ export const CarouselHeaderEditor = ({setAttributes, attributes}) => {
             </Slide>
           ))}
           <CarouselControls
-            goToPrevSlide={goToPrevSlide}
-            goToNextSlide={goToNextSlide}
+            goToPrevSlide={() => goToPrevSlide(carousel_autoplay)}
+            goToNextSlide={() => goToNextSlide(carousel_autoplay)}
             goToSlide={goToSlide}
             slides={slides}
             currentSlide={currentSlide}
