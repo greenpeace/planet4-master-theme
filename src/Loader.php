@@ -3,6 +3,7 @@
 namespace P4\MasterTheme;
 
 use P4\MasterTheme\Settings\Features;
+use P4\MasterTheme\Features\Planet4Blocks;
 use RuntimeException;
 
 /**
@@ -81,9 +82,7 @@ final class Loader
             GravityFormsExtensions::class,
         ];
 
-        //TODO: Add P4 blocks feature flag check.
-        $p4_blocks_enabled = 1;
-        if (1 === $p4_blocks_enabled) {
+        if (Planet4Blocks::is_active()) {
             $this->default_services[] = MasterBlocks::class;
             $this->default_services[] = Blocks\GuestBook::class;
         }

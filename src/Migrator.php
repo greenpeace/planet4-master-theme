@@ -24,6 +24,7 @@ use P4\MasterTheme\Migrations\M019MigrateReadingTime;
 use P4\MasterTheme\Migrations\M020MigrateCommentsSettings;
 use P4\MasterTheme\Migrations\M021MigrateDefaultPostType;
 use P4\MasterTheme\Migrations\M022UpdatePostRevisions;
+use P4\MasterTheme\Migrations\M023EnablePlanet4Blocks;
 
 /**
  * Run any new migration scripts and record results in the log.
@@ -65,6 +66,7 @@ class Migrator
             M020MigrateCommentsSettings::class,
             M021MigrateDefaultPostType::class,
             M022UpdatePostRevisions::class,
+            M023EnablePlanet4Blocks::class,
         ];
 
         // Loop migrations and run those that haven't run yet.
