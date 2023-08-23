@@ -4,7 +4,6 @@ namespace P4\MasterTheme\Migrations;
 
 use P4\MasterTheme\MigrationRecord;
 use P4\MasterTheme\MigrationScript;
-use P4\MasterTheme\Settings;
 
 /**
  * Update the limit of post revisions.

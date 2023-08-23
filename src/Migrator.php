@@ -64,6 +64,7 @@ class Migrator
             M019MigrateReadingTime::class,
             M020MigrateCommentsSettings::class,
             M021MigrateDefaultPostType::class,
+            M022UpdatePostRevisions::class,
         ];
 
         // Loop migrations and run those that haven't run yet.

@@ -621,7 +621,7 @@ add_filter(
 // That means that all revisions are stored and the db storage it's growing unnecessarily.
 add_filter(
     'wp_revisions_to_keep',
-    function () {
+    function (): void {
         register_setting(
             'writing',
             'revisions_to_keep',
@@ -630,7 +630,7 @@ add_filter(
         add_settings_section(
             'post-revisions-section',
             '',
-            function () {
+            function (): void {
                 echo '';
             },
             'writing'
@@ -639,18 +639,17 @@ add_filter(
         add_settings_field(
             'my-settings-field-id',
             'Post Revisions',
-            function (){
+            function (): void {
                 echo '
                     <label for="limit-post-revisions">
-                        <input id="limit-post-revisions" type="number" name="revisions_to_keep" value=' . get_option('revisions_to_keep') . '>  '
+                        <input id="limit-post-revisions" type="number" name="revisions_to_keep" value=' . get_option('revisions_to_keep') . '>  ' // phpcs:ignore Generic.Files.LineLength.MaxExceeded
                         . __('Maximum number of revisions to store for each post.', 'planet4-master-theme-backend') .
                     '</label>';
             },
             'writing',
             'post-revisions-section'
         );
-    }
-    ,
+    },
     10,
     1
 );
