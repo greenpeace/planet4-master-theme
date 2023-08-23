@@ -106,8 +106,7 @@ const addExtraControls = function() {
                         });
                         updateCaptionAlignment(option.value);
                       }}
-                      isPrimary={captionAlignment === option.value}
-                      isSecondary={captionAlignment !== option.value}>
+                      variant={captionAlignment === option.value ? 'primary' : 'secondary'}>
                       { option.label }
                     </Button>;
                   })

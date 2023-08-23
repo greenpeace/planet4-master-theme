@@ -156,7 +156,7 @@ const renderEdit = ({tabs}, setAttributes, updateTabAttribute) => {
           {__('Add item', 'planet4-blocks-backend')}
         </Button>
         <Button
-          isSecondary
+          variant="secondary"
           disabled={tabs.length <= 1}
           onClick={removeTab}
         >

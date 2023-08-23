@@ -71,7 +71,7 @@ const renderEdit = (attributes, setAttributes) => {
           {__('Add level', 'planet4-blocks-backend')}
         </Button>
         <Button
-          isSecondary
+          variant="secondary"
           onClick={removeLevel}
           disabled={attributes.levels.length <= 1}
         >

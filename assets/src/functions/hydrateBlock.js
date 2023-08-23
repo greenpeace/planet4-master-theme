@@ -13,7 +13,9 @@ export const hydrateBlock = (blockName, Component, csrAttributes = {}) => { // e
   blocks.forEach(
     blockNode => {
       const attributes = JSON.parse(blockNode.dataset.attributes);
-      hydrateRoot(blockNode, <Component {...attributes} {...csrAttributes} />);
+      if(blockNode.length) {
+        hydrateRoot(blockNode, <Component {...attributes} {...csrAttributes} />);
+      }
     }
   );
 };
