@@ -1,9 +1,8 @@
 import {useRef, useState, useEffect, useCallback, useMemo} from '@wordpress/element';
 import classNames from 'classnames';
-import {useArchivePickerContext} from '../ArchivePicker';
+import {ACTIONS, useArchivePickerContext} from './ArchivePicker';
 
 const {__} = wp.i18n;
-
 const MAX_SEARCHES = 6;
 
 export default function MultiSearchOption() {
@@ -22,6 +21,10 @@ export default function MultiSearchOption() {
   };
 
   const addItem = useCallback(evt => {
+    if (loading || !(localSearchText.length < MAX_SEARCHES)) {
+      return;
+    }
+
     const value = evt.currentTarget.value !== '' ? evt.currentTarget.value.split(',') : '';
 
     if (evt.currentTarget.value !== '') {
@@ -38,11 +41,14 @@ export default function MultiSearchOption() {
       }
       evt.currentTarget.value = '';
     }
-  }, [localSearchText]);
+  }, [loading, localSearchText]);
 
-  const removeItem = item => {
+  const removeItem = useCallback(item => {
+    if (loading) {
+      return;
+    }
     setLocalSearchText(list => list.filter(itemValue => itemValue !== item));
-  };
+  }, [loading]);
 
   const onSubmitHandler = useCallback(async evt => {
     evt.preventDefault();
@@ -63,7 +69,7 @@ export default function MultiSearchOption() {
   useEffect(() => {
     if (searchText.toString() !== localSearchText.toString()) {
       setDisableSearchButton(true);
-      dispatch({type: 'SEARCH', payload: localSearchText});
+      dispatch({type: ACTIONS.SEARCH, payload: localSearchText});
     }
   }, [localSearchText]);
 
@@ -72,7 +78,6 @@ export default function MultiSearchOption() {
       <div className="multiple-search">
         <div className={`multiple-search-wrapper-input ${classNames({disabled: !(localSearchText.length < MAX_SEARCHES)})}`}>
           <input
-            disabled={loading || !(localSearchText.length < MAX_SEARCHES)}
             ref={inputRef}
             type="text"
             onKeyUp={addItem}
