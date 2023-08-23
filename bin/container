@@ -1,0 +1,13 @@
+#!/usr/bin/env sh
+
+WPROOT='.'
+CURRENT_DIR=$(dirname `which $0`)
+
+if [[ -e "$CURRENT_DIR/../../../../.wp-env.json" ]]; then
+  WPROOT=$(cd $CURRENT_DIR/../../../../ && pwd)
+  PREFIX="wp-env run cli --env-cwd=wp-content/themes/planet4-master-theme "
+fi
+
+cd $WPROOT
+foo="$PREFIX$@"
+$foo
