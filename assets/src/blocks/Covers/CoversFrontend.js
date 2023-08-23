@@ -38,7 +38,7 @@ export const CoversFrontend = attributes => {
         <h2 className="page-section-header" dangerouslySetInnerHTML={{__html: title}} />
       }
       {description &&
-        <div className="page-section-description" dangerouslySetInnerHTML={{__html: description}} />
+        <p className="page-section-description" dangerouslySetInnerHTML={{__html: description}} />
       }
       {isCarouselLayout && !isSmallWindow ? <CoversCarouselLayout {...coversProps} /> : <Covers {...coversProps} />}
       {showLoadMoreButton && <CoversGridLoadMoreButton showMoreCovers={showMoreCovers} readMoreText={readMoreText} />}

@@ -40,7 +40,7 @@ export const MediaFrontend = attributes => {
       }
       {
         description &&
-        <div className="page-section-description" dangerouslySetInnerHTML={{__html: description}} />
+        <p className="page-section-description" dangerouslySetInnerHTML={{__html: description}} />
       }
       {
         media_url && media_url.endsWith('.mp4') ?

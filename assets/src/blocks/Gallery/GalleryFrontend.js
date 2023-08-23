@@ -49,12 +49,16 @@ export const GalleryFrontend = ({
         </header>
       }
       {attributes.gallery_block_description &&
-        <div className="page-section-description" dangerouslySetInnerHTML={{__html: attributes.gallery_block_description}} />
+        <p className="page-section-description" dangerouslySetInnerHTML={{__html: attributes.gallery_block_description}} />
       }
 
-      {layout === 'slider' && <GalleryCarousel onImageClick={openLightbox} images={images} />}
-      {layout === 'three-columns' && <GalleryThreeColumns onImageClick={openLightbox} images={images} postType={postType} />}
-      {layout === 'grid' && <GalleryGrid onImageClick={openLightbox} images={images} />}
+      {images.length ? (
+        <>
+          {layout === 'slider' && <GalleryCarousel onImageClick={openLightbox} images={images} />}
+          {layout === 'three-columns' && <GalleryThreeColumns onImageClick={openLightbox} images={images} postType={postType} />}
+          {layout === 'grid' && <GalleryGrid onImageClick={openLightbox} images={images} />}
+        </>
+      ) : null}
 
       {(renderLightbox && items.length) ?
         <Lightbox isOpen={isOpen} index={index} items={items} onClose={closeLightbox} /> :

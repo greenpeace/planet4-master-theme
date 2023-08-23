@@ -31,7 +31,7 @@ export const ArticlesFrontend = props => {
         <h2 className="page-section-header">{ article_heading }</h2>
       </header>
       { articles_description &&
-        <div className="page-section-description" dangerouslySetInnerHTML={{__html: articles_description}} />
+        <p className="page-section-description" dangerouslySetInnerHTML={{__html: articles_description}} />
       }
       <ArticlesList posts={posts} postType={postType} />
       { hasMorePages &&

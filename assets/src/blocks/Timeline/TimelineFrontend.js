@@ -16,7 +16,7 @@ export const TimelineFrontend = props => {
         </header>
       }
       {!!description &&
-        <div className="page-section-description" dangerouslySetInnerHTML={{__html: description}} />
+        <p className="page-section-description" dangerouslySetInnerHTML={{__html: description}} />
       }
       <Timeline {...nodeProps} />
     </section>

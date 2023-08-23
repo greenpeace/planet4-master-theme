@@ -44,7 +44,7 @@ export const ColumnsFrontend = ({columns_block_style, columns_title, columns_des
         </header>
       }
       {columns_description &&
-        <div className="page-section-description" dangerouslySetInnerHTML={{__html: columns_description}} />
+        <p className="page-section-description" dangerouslySetInnerHTML={{__html: columns_description}} />
       }
       <Columns
         columns_block_style={columns_block_style}

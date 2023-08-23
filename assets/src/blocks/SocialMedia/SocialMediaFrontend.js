@@ -17,7 +17,7 @@ export const SocialMediaFrontend = ({
       </header>
     }
     {!!description &&
-      <div className="page-section-description" dangerouslySetInnerHTML={{__html: description}} />
+      <p className="page-section-description" dangerouslySetInnerHTML={{__html: description}} />
     }
     <SocialMediaEmbed
       embedCode={embed_code}
