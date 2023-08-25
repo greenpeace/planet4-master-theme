@@ -19,7 +19,6 @@ import {setupCustomSidebar} from './setupCustomSidebar';
 import {setUpCssVariables} from './connectCssVariables';
 import {SubPagesBlock} from './blocks/SubPages/SubPagesBlock';
 import {blockEditorValidation} from './BlockEditorValidation';
-import {registerGuestBookBlock} from './blocks/GuestBook/GuestBookBlock';
 import {registerBlock as registerShareButtonsBlock} from './blocks/ShareButtons/ShareButtonsBlock';
 import {registerPageHeaderBlock} from './blocks/PageHeader/PageHeaderBlock';
 import {registerBlockTemplates} from './block-templates/register';
@@ -39,7 +38,6 @@ registerSubmenuBlock();
 new SubPagesBlock();
 registerTakeActionBoxoutBlock();
 registerTimelineBlock();
-registerGuestBookBlock();
 registerShareButtonsBlock();
 registerPageHeaderBlock();
 
