@@ -8,7 +8,7 @@ use P4\MasterTheme\MigrationScript;
 /**
  * Update the limit of post revisions.
  */
-class M018UpdatePostRevisions extends MigrationScript
+class M022UpdatePostRevisions extends MigrationScript
 {
     /**
      * Perform the actual migration.
@@ -20,31 +20,45 @@ class M018UpdatePostRevisions extends MigrationScript
     {
         global $wpdb;
 
-        $MAX_REVISIONS = (int) get_option('revisions_to_keep');
+        // Check if exist
+        $MAX_REVISIONS = get_option('revisions_to_keep');
+        if (false === get_option('revisions_to_keep')) {
+            // If not, set 20 by default
+            $MAX_REVISIONS = 20;
+            update_option('revisions_to_keep', $MAX_REVISIONS);
+        }
 
         $sql = '
-            SELECT count(ID) AS total_revisions, ID, post_parent
-            FROM wp_posts
-            WHERE post_type = "revision"
-            GROUP BY post_parent
-            ORDER BY post_date ASC';
+            DELETE FROM wp_posts
+            WHERE ID IN (
+                SELECT ID
+                FROM (
+                    SELECT
+                        post_parent,
+                        ID,
+                        post_date,
+                        row_number() OVER (PARTITION BY post_parent ORDER BY post_date desc) AS rn
+                    FROM (
+                        SELECT
+                            ID,
+                            post_parent,
+                            post_date
+                        FROM wp_posts
+                        WHERE post_parent IN (
+                            SELECT post_parent
+                            FROM wp_posts
+                            WHERE post_type = "%2$s"
+                            GROUP BY post_parent
+                            HAVING count(ID) > %1$s
+                        ) AND post_type = "%2$s"
+                        ORDER BY post_date ASC
+                    ) AS r
+                ) AS d WHERE d.rn > %1$s
+            );
+        ';
 
         // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
-        $prepared_sql = $wpdb->prepare($sql);
-        $results = $wpdb->get_results($prepared_sql); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
-
-        foreach ((array) $results as $post) {
-            if ((int) $post->total_revisions <= $MAX_REVISIONS) {
-                continue;
-            }
-
-            echo "\nDelete " . $MAX_REVISIONS . " of " . $post->total_revisions . " revisions FROM " . $post->ID;
-            $sql = '
-                DELETE FROM wp_posts
-                WHERE post_type = "revision"
-                AND post_parent = ' . $post->post_parent . '
-                ORDER BY post_date DESC limit ' . $MAX_REVISIONS;
-            $wpdb->get_results($wpdb->prepare($sql));
-        }
+        $prepared_sql = $wpdb->prepare($sql, [ $MAX_REVISIONS, "revision" ]);
+        $wpdb->query($prepared_sql);
     }
 }

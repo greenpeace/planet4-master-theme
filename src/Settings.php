@@ -111,20 +111,6 @@ class Settings
                         'desc' => __('Add default button text which appears on <b>Take Action</b> card of <b>Take Action Covers</b> block. <br>Also it would be used for Take Action Cards inside Posts and Take Action Cards in search results', 'planet4-master-theme-backend'),
                     ],
 
-                    [
-                        'name' => __('Reading time: words per minute', 'planet4-master-theme-backend'),
-                        'id' => 'reading_time_wpm',
-                        'type' => 'text',
-                        'attributes' => [
-                            'type' => 'number',
-                        ],
-                        'default' => Post\ReadingTimeCalculator::DEFAULT_WPM,
-                        'desc' => __(
-                            'Average reading words per minute (usually between 220 and 320).',
-                            'planet4-master-theme-backend'
-                        ),
-                    ],
-
                     // HappyPoint settings.
                     [
                         'name' => __('Default Happy Point Background Image', 'planet4-master-theme-backend'),
