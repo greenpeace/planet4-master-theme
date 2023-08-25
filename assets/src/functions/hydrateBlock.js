@@ -12,8 +12,8 @@ export const hydrateBlock = (blockName, Component, csrAttributes = {}) => { // e
   const blocks = document.querySelectorAll(`[data-hydrate="${blockName}"]`);
   blocks.forEach(
     blockNode => {
-      const attributes = JSON.parse(blockNode.dataset.attributes);
-      if(blockNode.length) {
+      if(blockNode) {
+        const attributes = JSON.parse(blockNode.dataset.attributes);
         hydrateRoot(blockNode, <Component {...attributes} {...csrAttributes} />);
       }
     }
