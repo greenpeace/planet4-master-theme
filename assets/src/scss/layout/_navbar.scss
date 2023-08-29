@@ -258,6 +258,7 @@ a.nav-link:hover:before,
 }
 
 .nav-donate {
+  display: flex;
   padding: $sp-2 0;
 
   @include large-and-up {
