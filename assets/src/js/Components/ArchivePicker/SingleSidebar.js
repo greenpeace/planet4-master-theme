@@ -11,27 +11,32 @@ const renderDefinition = (key, value) => (
   </div>
 );
 
-export default function SingleSidebar({image}) {
+export default function SingleSidebar({image, mediaView, adminView}) {
   const {
+    error,
     errors,
+    processing,
     processingIds,
     processedIds,
     dispatch,
     selectedImages,
     includeInWp,
     images,
+    imageAdded,
+    processImageToAddToEditor,
+    currentBlockImageId,
   } = useArchivePickerContext();
   const [wpImageLink, setWpImageLink] = useState('');
   const [showAddedMessage, setShowAddedMessage] = useState(false);
 
   useEffect(() => {
     if (image) {
-      setWpImageLink(`${window.location.href.split('/wp-admin')[0]}/wp-admin/post.php?post=${image.id}&action=edit`);
+      setWpImageLink(`${window.location.href.split('/wp-admin')[0]}/wp-admin/post.php?post=${image.wordpress_id}&action=edit`);
     }
   }, [image]);
 
   useEffect(() => {
-    if (image && processedIds.includes(image.id)) {
+    if ((image && processedIds.includes(image.id))) {
       setShowAddedMessage(true);
 
       const timeout = setTimeout(() => {
@@ -54,10 +59,17 @@ export default function SingleSidebar({image}) {
       <div className="picker-sidebar-header">
 
         <div className="info">
-          {image && (
+          {(image && adminView) && (
             <>
               {processingIds.includes(image.id) && !image.wordpress_id && __('Processing...', 'planet4-master-theme-backend')}
               {showAddedMessage && image.wordpress_id && __('Added to Library', 'planet4-master-theme-backend')}
+            </>
+          )}
+          {(image && mediaView) && (
+            <>
+              {processing && __('Processing...', 'planet4-master-theme-backend')}
+              {imageAdded && __('Added!', 'planet4-master-theme-backend')}
+              {error && __('Error Adding Image to Post!!!', 'planet4-master-theme-backend')}
             </>
           )}
         </div>
@@ -75,29 +87,61 @@ export default function SingleSidebar({image}) {
 
       {image && (
         <>
-          {image.wordpress_id ? (
+          {adminView && (
+            <>
+              {image.wordpress_id ? (
+                <a
+                  className="sidebar-action"
+                  href={wpImageLink}
+                >
+                  {sprintf(__('Wordpress image #%s', 'planet4-master-theme-backend'), image.wordpress_id)}
+                </a>
+              ) : (
+                <button
+                  disabled={processingIds.includes(image.id)}
+                  className="button sidebar-action"
+                  onClick={async () => await includeInWp([image.id])}
+                >
+                  {__('Import to Library', 'planet4-master-theme-backend')}
+                </button>
+              )}
+            </>
+          )}
+          {mediaView && (
+            <>
+              {!image.wordpress_id ? (
+                <button
+                  disabled={!!processing}
+                  className="button sidebar-action"
+                  onClick={async () => await includeInWp([image.id], mediaView)}
+                >
+                  {__('Import to Library & Post', 'planet4-master-theme-backend')}
+                </button>
+              ) : (
+                <button
+                  disabled={!!processing}
+                  className="button sidebar-action"
+                  style={{display: currentBlockImageId === image.wordpress_id ? 'none' : ''}}
+                  onClick={async () => await processImageToAddToEditor(image.wordpress_id)}
+                >
+                  {__('Add image to Post', 'planet4-master-theme-backend')}
+                </button>
+              )}
+            </>
+          )}
+          <img
+            srcSet={toSrcSet(image.sizes, {maxWidth: 600})}
+            title={image.title}
+            alt={image.title}
+          />
+          {(image.wordpress_id && mediaView) && (
             <a
               className="sidebar-action"
               href={wpImageLink}
             >
               {sprintf(__('Wordpress image #%s', 'planet4-master-theme-backend'), image.wordpress_id)}
             </a>
-          ) : (
-            <button
-              disabled={processingIds.includes(image.id)}
-              className="button sidebar-action"
-              onClick={async () => await includeInWp([image.id])}
-            >
-              {__('Import to Library', 'planet4-master-theme-backend')}
-            </button>
           )}
-
-          <img
-            srcSet={toSrcSet(image.sizes, {maxWidth: 600})}
-            title={image.title}
-            alt={image.title}
-          />
-
           <dl className={'picker-sidebar-fields'}>
             {renderDefinition(
               __('URL', 'planet4-master-theme-backend'),
@@ -144,9 +188,12 @@ export default function SingleSidebar({image}) {
     images,
     processingIds,
     processedIds,
+    error,
     errors,
     showAddedMessage,
     selectedImages,
     wpImageLink,
+    processing,
+    imageAdded,
   ]);
 }

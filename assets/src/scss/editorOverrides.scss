@@ -1,3 +1,4 @@
+@import "./base/tokens";
 // Moved from another repo, for history please see https://github.com/greenpeace/planet4-plugin-gutenberg-blocks/blame/f5c532ed5704738136224cde305e9a0ffe614ceb/assets/src/styles/editorOverrides.scss
 .editor-post-title__block textarea.editor-post-title__input {
   --headings-- {
@@ -279,4 +280,105 @@ input.describe[type=text][data-setting=caption] {
 
 .customize-control[id*="new_identity_styles"] label {
   display: inline;
+}
+
+// Media Archive Style Override
+.media-archive-content {
+  .archive-picker-title,
+  .nav-bulk-select,
+  .picker-sidebar-header .close-sidebar {
+    display: none;
+  }
+
+  .archive-picker {
+    gap: 0;
+  }
+
+  #import-to-library,
+  #import-to-library:disabled {
+    display: none;
+  }
+
+  .multiple-search {
+    margin-inline-start: 20px;
+  }
+
+  .multiple-search-nav button:first-child {
+    display: none;
+  }
+
+  .multiple-search-wrapper-input input {
+    width: 100%;
+    margin: 0;
+    height: 100%;
+    background: transparent;
+    border-radius: 0;
+    font-size: 14px;
+    outline: 0;
+    border: none;
+    border-bottom: 1px solid transparent;
+  }
+
+  .picker-list {
+    padding: 15px;
+  }
+
+  .help {
+    display: none;
+  }
+
+  .media-archive-help {
+    position: absolute;
+    top: 50px;
+    right: 18px;
+    display: flex;
+    flex-direction: column;
+
+    span {
+      background: #7e7e7e;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 24px;
+      font-weight: 500;
+      cursor: pointer;
+      width: 24px;
+      height: 24px;
+      color: var(--white);
+    }
+
+    .tooltip {
+      display: none;
+    }
+
+    &:hover .tooltip {
+      display: block;
+      position: absolute;
+      background: var(--white);
+      width: 330px;
+      font-size: 12px;
+      line-height: 1.5;
+      border-radius: 4px;
+      padding: 16px;
+      margin-bottom: 8px;
+      color: black;
+      opacity: 1;
+      top: -14px;
+      right: 34px;
+      border: 1px solid #ccc;
+      box-shadow: 0 7px 10px rgba(0, 0, 0, 0.6);
+    }
+
+    &:hover .tooltip:after {
+      content: "";
+      position: absolute;
+      top: 15px;
+      right: -16px;
+      border: 8px solid transparent;
+      border-left-color: var(--white);
+    }
+
+    &:hover .tooltip a {
+      color: $black;
+    }
+  }
 }
