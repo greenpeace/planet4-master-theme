@@ -47,6 +47,22 @@
                         <br/>
                     </div>
                 {% endif %}
+                {% if categories  %}
+                    {% for cat in categories %}
+                    <div class="col-md-5 order-md-2 order-lg-3 col-lg-3">
+                        {% if posts[cat.term_id] is not empty %}
+                            <h5 class="mb-3 mt-5 mt-lg-0">
+                                <a href="{{ function('get_permalink', cat.term_id) }}">{{ cat.name }}</a>
+                            </h5>
+                            <ul>
+                                {% for post in posts[cat.term_id] %}
+                                <li><a href="{{ post.url }}">{{ post.post_title }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                {% endif %}
             </div>
         </div>
     </div>
