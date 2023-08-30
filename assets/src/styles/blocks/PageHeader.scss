@@ -4,11 +4,22 @@ $text-column-width-xl: 380px;
 $text-column-width-xxl: 440px;
 $text-column-padding-in: 24px;
 
+.wp-block-group.is-pattern-p4-page-header {
+  @include large-and-up {
+    padding-top: $sp-7;
+    padding-bottom: $sp-7;
+  }
+}
+
 .wp-block-media-text.alignfull.is-pattern-p4-page-header {
   grid-template-columns: 100%;
   min-width: 360px;
   padding: 0;
   width: 100vw;
+
+  @include medium-and-less {
+    margin-top: 0;
+  }
 
   .wp-block-media-text__media {
     grid-column: 1;

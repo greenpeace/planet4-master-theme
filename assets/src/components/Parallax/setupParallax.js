@@ -14,8 +14,6 @@ export const setupParallax = () => {
   });
 
   if (mobileSpeedAllSetup) {
-    const rellax = new Rellax('.is-style-parallax img', { // eslint-disable-line no-undef, no-unused-vars
-      center: true,
-    });
+    return new Rellax('.is-style-parallax img', {}); // eslint-disable-line no-undef
   }
 };
