@@ -21,7 +21,7 @@ $context['background_image'] = wp_get_attachment_url(get_post_meta(get_the_ID(),
 $context['custom_body_classes'] = 'white-bg';
 $context['page_category'] = 'Sitemap Page';
 
-if (get_theme_mod('new_identity_styles')) {
+if (!empty(planet4_get_option('new_ia'))) {
     $context['categories'] = get_categories(['orderby' => 'name', 'order' => 'ASC']);
     $context['posts'] = [];
     foreach ($context['categories'] as $cat) {
