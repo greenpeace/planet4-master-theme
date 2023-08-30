@@ -130,7 +130,11 @@ class Columns extends Base_Block {
 				}
 				[ $img_src ] = wp_get_attachment_image_src( $attachment, $image_size );
 
-				$columns[ $key ]['attachment'] = $img_src;
+				$columns[ $key ]['attachment']        = $img_src;
+				$columns[ $key ]['attachment_srcset'] = wp_get_attachment_image_srcset(
+					$attachment,
+					$image_size
+				);
 			}
 		}
 

@@ -1,6 +1,7 @@
 import {ColumnsImagePlaceholder} from './ColumnsImagePlaceholder';
 import {LAYOUT_NO_IMAGE, LAYOUT_ICONS, LAYOUT_TASKS} from './ColumnConstants';
 import {ColumnsTasks} from './ColumnsTasks';
+import {IMAGE_SIZES} from './imageSizes';
 
 export const Columns = ({columns, columns_block_style, isCampaign, isExample = false}) => {
   if (!columns || !columns.length) {
@@ -18,6 +19,7 @@ export const Columns = ({columns, columns_block_style, isCampaign, isExample = f
           cta_link,
           cta_text,
           attachment,
+          attachment_srcset = '',
           link_new_tab,
           title,
           description,
@@ -52,9 +54,19 @@ export const Columns = ({columns, columns_block_style, isCampaign, isExample = f
                     data-ga-label={cta_link}
                     {...link_new_tab && {target: '_blank', rel: 'noreferrer'}}
                   >
-                    <img src={attachment} alt={title} title={title} loading="lazy" />
+                    <img src={attachment}
+                      srcSet={attachment_srcset}
+                      sizes={IMAGE_SIZES[`col-${columns.length}`] ?? ''}
+                      alt={title}
+                      title={title}
+                      loading="lazy" />
                   </a> :
-                  <img src={attachment} alt={title} title={title} loading="lazy" />
+                  <img src={attachment}
+                    srcSet={attachment_srcset}
+                    sizes={IMAGE_SIZES[`col-${columns.length}`] ?? ''}
+                    alt={title}
+                    title={title}
+                    loading="lazy" />
                 }
               </div>
             }
