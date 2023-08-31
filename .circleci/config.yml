@@ -189,7 +189,7 @@ jobs:
   e2e-tests:
     working_directory: /usr/app/
     docker:
-      - image: mcr.microsoft.com/playwright:v1.35.1
+      - image: mcr.microsoft.com/playwright:v1.37.1
         auth:
           <<: *docker_auth
     steps:
