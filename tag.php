@@ -51,6 +51,8 @@ $context['tag_description'] = wpautop($context['tag']->description);
 $context['canonical_link'] = home_url($wp->request);
 
 if (!empty(planet4_get_option('new_ia'))) {
+    // Temporary fix with rewind, cf. https://github.com/WordPress/gutenberg/issues/53593
+    rewind_posts();
     $context['page_category'] = 'Listing Page';
     $view = ListingPageGridView::is_active() ? 'grid' : 'list';
     $query_template = file_get_contents(get_template_directory() . "/parts/query-$view.html");
