@@ -259,10 +259,10 @@
                             {% endif %}
                             {% if ( action_types|length > 0 ) %}
                                 <div class="filteritem">
-                                    <a data-bs-toggle="collapse" href="#item-content" class="{{ collapsed }}" aria-expanded="{{ expanded }}">
+                                    <a data-bs-toggle="collapse" href="#item-action" class="{{ collapsed }}" aria-expanded="{{ expanded }}">
                                         {{ __( 'Action Type', 'planet4-master-theme' ) }} <span></span>
                                     </a>
-                                    <div id="item-content" class="collapse {{ show }}" role="tabpanel">
+                                    <div id="item-action" class="collapse {{ show }}" role="tabpanel">
                                         <ul class="list-unstyled">
                                             {% for id, action_type in action_types %}
                                                 {% if ( action_type.results > 0 ) %}
