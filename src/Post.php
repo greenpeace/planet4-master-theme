@@ -64,14 +64,15 @@ class Post extends TimberPost
     public function set_data_layer(): void
     {
         $is_new_ia = !empty(planet4_get_option('new_ia'));
+
         if (is_front_page()) {
             $this->data_layer['page_category'] = 'Homepage';
         } elseif (!$is_new_ia && $this->is_act_page()) {
-            $this->data_layer['page_category'] = 'Act';
+            $this->data_layer['page_category'] = 'Actions';
         } elseif (!$is_new_ia && $this->is_explore_page()) {
             $this->data_layer['page_category'] = 'Explore';
         } elseif (!$is_new_ia && $this->is_act_page_child()) {
-            $this->data_layer['page_category'] = 'Take Action';
+            $this->data_layer['page_category'] = 'Actions';
         } elseif (!$is_new_ia && $this->is_issue_page()) {
             $this->data_layer['page_category'] = 'Issue Page';
         } elseif ($this->is_campaign_page()) {
@@ -81,7 +82,7 @@ class Post extends TimberPost
         } elseif ($is_new_ia && $this->is_get_informed_page()) {
             $this->data_layer['page_category'] = 'Get Informed Page';
         } elseif ($is_new_ia && $this->is_take_action_page()) {
-            $this->data_layer['page_category'] = 'Take Action Page';
+            $this->data_layer['page_category'] = 'Actions';
         } elseif ($is_new_ia && $this->is_about_us_page()) {
             $this->data_layer['page_category'] = 'About Us Page';
         } else {

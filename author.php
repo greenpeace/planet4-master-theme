@@ -66,6 +66,7 @@ if (!empty(planet4_get_option('new_ia'))) {
     $content = do_blocks($query_template);
 
     $context['query_loop'] = $content;
+    $context['page_category'] = 'Listing Page';
     Timber::render([ 'author.twig', 'archive.twig' ], $context);
     exit();
 }

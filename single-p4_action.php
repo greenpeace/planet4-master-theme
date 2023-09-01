@@ -34,7 +34,7 @@ Context::set_custom_styles($context, $page_meta_data);
 
 $context['post'] = $post;
 $context['social_accounts'] = $post->get_social_accounts($context['footer_social_menu'] ?: []);
-$context['page_category'] = $data_layer['page_category'];
+$context['page_category'] = 'Actions';
 $context['post_tags'] = implode(', ', $post->tags());
 $context['post_categories'] = implode(', ', $post->categories());
 $context['custom_body_classes'] = 'brown-bg ';
