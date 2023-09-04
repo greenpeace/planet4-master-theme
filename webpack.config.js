@@ -37,6 +37,8 @@ module.exports = {
     editorIndex: './assets/src/blocks/editorIndex.js',
     blockStyle: './assets/src/blocks/styles/style.scss',
     blockEditorStyle: './assets/src/blocks/styles/editorStyle.scss',
+    GuestBookScript: './assets/src/blocks/GuestBook/GuestBookScript.js',
+    GuestBookEditorScript: './assets/src/blocks/GuestBook/GuestBookEditorScript.js',
   },
   output: {
     filename: '[name].js',

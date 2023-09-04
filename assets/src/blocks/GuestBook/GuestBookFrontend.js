@@ -9,7 +9,7 @@ export const GuestBookFrontend = () => {
 
   return (
     <p>
-      <iframe src={buildURL()} width="100%" height={700} frameBorder="0" title="GuestBook" />
+      <iframe src={buildURL()} width="100%" height={700} title="GuestBook" />
     </p>
   );
 };

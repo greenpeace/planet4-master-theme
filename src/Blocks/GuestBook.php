@@ -31,6 +31,9 @@ class GuestBook extends BaseBlock
         register_block_type(
             self::get_full_block_name(),
         );
+
+        add_action('enqueue_block_editor_assets', [ self::class, 'enqueue_editor_assets' ]);
+        add_action('wp_enqueue_scripts', [ self::class, 'enqueue_frontend_assets' ]);
     }
 
     /**
@@ -46,4 +49,9 @@ class GuestBook extends BaseBlock
         return [];
     }
     //phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter
+
+    public static function get_camelized_block_name(): string
+    {
+        return 'GuestBook';
+    }
 }

@@ -91,14 +91,6 @@ abstract class BaseBlock
     //phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter
 
     /**
-     * Converts the hy-phe-na-ted block name into CamelCase.
-     */
-    public static function get_camelized_block_name(): string
-    {
-        return str_replace('-', '', ucwords(static::BLOCK_NAME, '-'));
-    }
-
-    /**
      * Returns the block name with its namespace prefix, e.g.: planet4-blocks/accordion.
      */
     public static function get_full_block_name(): string
@@ -119,5 +111,149 @@ abstract class BaseBlock
 
         return '<div data-render="' . self::get_full_block_name() .
             '" data-attributes="' . htmlspecialchars($json) . '"></div>';
+    }
+
+    /**
+     * Register scripts and styles for a block
+     */
+    public static function enqueue_editor_assets(): void
+    {
+        static::enqueue_editor_script();
+        static::enqueue_frontend_style();
+        static::enqueue_editor_style();
+    }
+
+    /**
+     * Enqueue assets for the frontend IF the blocks is present.
+     */
+    public static function enqueue_frontend_assets(): void
+    {
+        $full_name = static::get_full_block_name();
+        $beta_blocks = [];
+
+        $to_look_for = $full_name;
+        if (in_array($full_name, $beta_blocks, true)) {
+            $to_look_for .= '-beta';
+        }
+
+        if (! is_preview() && ! BlockList::has_block($to_look_for)) {
+            return;
+        }
+
+        static::enqueue_frontend_script();
+        static::enqueue_frontend_style();
+    }
+
+    /**
+     * Editor script
+     */
+    public static function enqueue_editor_script(): void
+    {
+        $filepath = static::get_dir_path() . 'EditorScript.js';
+        if (! file_exists($filepath)) {
+            return;
+        }
+        $rel_filepath = static::get_rel_path() . 'EditorScript.js';
+
+        wp_enqueue_script(
+            static::get_full_block_name() . '-editor-script',
+            static::get_url_path() . 'EditorScript.js',
+            'planet4-blocks-editor-script',
+            \P4\MasterTheme\Loader::theme_file_ver($rel_filepath),
+            true
+        );
+    }
+
+    /**
+     * Editor style
+     */
+    public static function enqueue_editor_style(): void
+    {
+        $filepath = static::get_dir_path() . 'EditorStyle.min.css';
+        if (! file_exists($filepath)) {
+            return;
+        }
+        $rel_filepath = static::get_rel_path() . 'EditorStyle.min.css';
+
+        wp_enqueue_style(
+            static::get_full_block_name() . '-editor-style',
+            static::get_url_path() . 'EditorStyle.min.css',
+            // Ensure loaded both after main stylesheet and block's front end styles.
+            [ 'planet4-editor-style', static::get_full_block_name() . '-style' ],
+            \P4\MasterTheme\Loader::theme_file_ver($rel_filepath),
+        );
+    }
+
+    /**
+     * Frontend script
+     */
+    public static function enqueue_frontend_script(): void
+    {
+        $filepath = static::get_dir_path() . 'Script.js';
+        if (! file_exists($filepath)) {
+            return;
+        }
+        $rel_filepath = static::get_rel_path() . 'Script.js';
+
+        wp_enqueue_script(
+            static::get_full_block_name() . '-script',
+            static::get_url_path() . 'Script.js',
+            'planet4-blocks-script',
+            \P4\MasterTheme\Loader::theme_file_ver($rel_filepath),
+            true
+        );
+    }
+
+    /**
+     * Frontend style
+     */
+    public static function enqueue_frontend_style(): void
+    {
+        $filepath = static::get_dir_path() . 'Style.min.css';
+        if (! file_exists($filepath)) {
+            return;
+        }
+        $rel_filepath = static::get_rel_path() . 'Style.min.css';
+
+        wp_enqueue_style(
+            static::get_full_block_name() . '-style',
+            static::get_url_path() . 'Style.min.css',
+            [],
+            \P4\MasterTheme\Loader::theme_file_ver($rel_filepath),
+        );
+    }
+
+    /**
+     * Converts the hy-phe-na-ted block name into CamelCase.
+     */
+    public static function get_camelized_block_name(): string
+    {
+        return str_replace('-', '', ucwords(static::BLOCK_NAME, '-'));
+    }
+
+    /**
+     * Return URL path to plugin assets
+     */
+    public static function get_url_path(): string
+    {
+        return trailingslashit(get_template_directory_uri())
+            . 'assets/build/' . static::get_camelized_block_name();
+    }
+
+    /**
+     * Return directory path to plugin assets
+     */
+    public static function get_dir_path(): string
+    {
+        return trailingslashit(get_template_directory())
+            . 'assets/build/' . static::get_camelized_block_name();
+    }
+
+    /**
+     * Return relative path to blocks assets
+     */
+    public static function get_rel_path(): string
+    {
+        return 'assets/build/' . static::get_camelized_block_name();
     }
 }

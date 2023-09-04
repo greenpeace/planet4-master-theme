@@ -1,8 +1,5 @@
-import {GuestBookFrontend} from './GuestBook/GuestBookFrontend';
-
 // Render React components
 const COMPONENTS = {
-  'planet4-blocks/guestbook': GuestBookFrontend,
 };
 
 document.addEventListener('DOMContentLoaded', () => {
