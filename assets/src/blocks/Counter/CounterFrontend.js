@@ -118,40 +118,38 @@ export class CounterFrontend extends Component {
     }
 
     return (
-      <>
-        <section className={counterClassName}>
-          {title && !isEditing &&
-            <header>
-              <h2 className="page-section-header">{title}</h2>
-            </header>
+      <section className={counterClassName}>
+        {title && !isEditing &&
+          <header>
+            <h2 className="page-section-header">{title}</h2>
+          </header>
+        }
+        {description && !isEditing &&
+          <p className="page-section-description" dangerouslySetInnerHTML={{__html: description}} />
+        }
+        <div className="content-counter">
+          {(style === 'bar' || style === 'en-forms-bar') &&
+            <div className="progress-container">
+              <div className={`progress-bar ${style === 'en-forms-bar' ? 'enform-progress-bar' : ''}`} style={{width: `calc(${percent}% + 20px)`}} />
+            </div>
           }
-          {description && !isEditing &&
-            <p className="page-section-description" dangerouslySetInnerHTML={{__html: description}} />
+          {style === 'arc' &&
+            <svg className="progress-arc" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 24 14">
+              <path className="background" d="M 2 12 A 1 1 0 1 1 22 12" />
+              <path className="foreground" d="M 2 12 A 1 1 0 1 1 22 12"
+                strokeDasharray={arcLength}
+                strokeDashoffset={`${(1 - (percent / 100)) * arcLength}`} />
+            </svg>
           }
-          <div className="content-counter">
-            {(style === 'bar' || style === 'en-forms-bar') &&
-              <div className="progress-container">
-                <div className={`progress-bar ${style === 'en-forms-bar' ? 'enform-progress-bar' : ''}`} style={{width: `calc(${percent}% + 20px)`}} />
-              </div>
-            }
-            {style === 'arc' &&
-              <svg className="progress-arc" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 24 14">
-                <path className="background" d="M 2 12 A 1 1 0 1 1 22 12" />
-                <path className="foreground" d="M 2 12 A 1 1 0 1 1 22 12"
-                  strokeDasharray={arcLength}
-                  strokeDashoffset={`${(1 - (percent / 100)) * arcLength}`} />
-              </svg>
-            }
-            {text &&
-              <div
-                className={`counter-text ${100 <= percent ? 'counter-text-goal_reached' : ''}`}
-                role="presentation"
-                dangerouslySetInnerHTML={{__html: this.getCounterText()}}
-              />
-            }
-          </div>
-        </section>
-      </>
+          {text &&
+            <div
+              className={`counter-text ${100 <= percent ? 'counter-text-goal_reached' : ''}`}
+              role="presentation"
+              dangerouslySetInnerHTML={{__html: this.getCounterText()}}
+            />
+          }
+        </div>
+      </section>
     );
   }
 }

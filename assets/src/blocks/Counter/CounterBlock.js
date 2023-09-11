@@ -50,14 +50,13 @@ export const registerCounterBlock = () => {
     },
     // eslint-disable-next-line no-shadow
     edit: CounterEditor,
-    save: props => {
-      const {attributes: saveAttributes} = props;
+    save: ({attributes: saveAttributes}) => {
       const markup = renderToString(
         <div
           data-hydrate={BLOCK_NAME}
           data-attributes={JSON.stringify(saveAttributes)}
         >
-          <CounterFrontend {...props} />
+          <CounterFrontend {...saveAttributes} />
         </div>
       );
       return <RawHTML>{markup}</RawHTML>;

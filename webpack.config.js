@@ -1,8 +1,8 @@
-const defaultConfig = require('./node_modules/@wordpress/scripts/config/webpack.config');    // Require default Webpack config
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const defaultConfig = require("./node_modules/@wordpress/scripts/config/webpack.config");    // Require default Webpack config
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const TerserJSPlugin = require('terser-webpack-plugin');
-const FixStyleOnlyEntriesPlugin = require('webpack-fix-style-only-entries');
+const FixStyleOnlyEntriesPlugin = require("webpack-fix-style-only-entries");
 const dashDash = require('@greenpeace/dashdash');
 
 const mediaQueryAliases = {
@@ -17,12 +17,12 @@ const jsConfig = {
   ...defaultConfig,
   output: {
     filename: '[name].js',
-    path: __dirname + '/assets/build',
+    path: __dirname + '/assets/build'
   },
   optimization: {
     minimizer: [
       new TerserJSPlugin({}),
-    ],
+    ]
   },
 };
 
@@ -33,7 +33,7 @@ const publicJsConfig = {
       '@hooks': 'preact/hooks',
       '@render': 'preact',
       '@compat': 'preact/compat',
-    },
+    }
   },
   entry: {
     frontendIndex: './assets/src/frontendIndex.js',
@@ -55,7 +55,7 @@ const adminJsConfig = {
       '@hooks': '@wordpress/element',
       '@render': '@wordpress/element',
       '@compat': '@wordpress/element',
-    },
+    }
   },
   entry: {
     editorIndex: './assets/src/editorIndex.js',
@@ -96,7 +96,7 @@ const cssConfig = {
   },
   output: {
     filename: '[name].js',
-    path: __dirname + '/assets/build',
+    path: __dirname + '/assets/build'
   },
   module: {
     rules: [
@@ -108,8 +108,8 @@ const cssConfig = {
             loader: 'css-loader',
             options: {
               url: false,
-              sourceMap: true,
-            },
+              sourceMap: true
+            }
           },
           {
             loader: 'postcss-loader',
@@ -119,16 +119,16 @@ const cssConfig = {
                 dashDash({mediaQueryAliases, mediaQueryAtStart: false}),
                 require('autoprefixer'),
               ],
-              sourceMap: true,
-            },
+              sourceMap: true
+            }
           },
           {
             loader: 'sass-loader',
             options: {
-              sourceMap: true,
-            },
-          },
-        ],
+              sourceMap: true
+            }
+          }
+        ]
       },
       {
         test: /\.(png|svg|jpg|jpeg|gif)$/,
@@ -137,12 +137,12 @@ const cssConfig = {
             {
               loader: 'file-loader',
               options: {
-                publicPath: __dirname + '/public',
-              },
-            },
-          ],
-      },
-    ],
+                publicPath: __dirname + '/public'
+              }
+            }
+          ]
+      }
+    ]
   },
   plugins: [
     ...defaultConfig.plugins,
@@ -151,7 +151,7 @@ const cssConfig = {
     new MiniCssExtractPlugin({
       chunkFilename: '[id].css',
       ignoreOrder: false, // Enable to remove warnings about conflicting order
-      filename: './[name].min.css',
+      filename: './[name].min.css'
     }),
   ],
   optimization: {
@@ -163,10 +163,10 @@ const cssConfig = {
           map: {
             inline: false,
             annotation: true,
-          },
-        },
-      }),
-    ],
+          }
+        }
+      })
+    ]
   },
 };
 module.exports = [publicJsConfig, adminJsConfig, cssConfig];
