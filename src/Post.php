@@ -64,6 +64,7 @@ class Post extends TimberPost
     public function set_data_layer(): void
     {
         $is_new_ia = !empty(planet4_get_option('new_ia'));
+        $new_ia_child_page_DLV = $this->get_new_ia_child_page_DLV();
 
         if (is_front_page()) {
             $this->data_layer['page_category'] = 'Homepage';
@@ -85,6 +86,8 @@ class Post extends TimberPost
             $this->data_layer['page_category'] = 'Actions';
         } elseif ($is_new_ia && $this->is_about_us_page()) {
             $this->data_layer['page_category'] = 'About Us Page';
+        } elseif ($is_new_ia && $new_ia_child_page_DLV) {
+            $this->data_layer['page_category'] = $new_ia_child_page_DLV;
         } else {
             $this->data_layer['page_category'] = 'Default Page';
         }
@@ -207,6 +210,30 @@ class Post extends TimberPost
         $act_page_id = planet4_get_option('about_us_page');
 
         return absint($act_page_id) === $this->id;
+    }
+
+    /**
+     * Checks if post is the children of Get Informed page, and return DLV.
+     *
+     * @return String The dataLayer value for get informed child page.
+     */
+    public function get_new_ia_child_page_DLV(): string
+    {
+        $get_informed_page_id = (int) planet4_get_option('get_informed_page');
+
+        if (!$get_informed_page_id) {
+            return '';
+        }
+
+        $parents = get_post_ancestors($this->id);
+
+        if (1 === count($parents) && $parents[0] === $get_informed_page_id) {
+            return 'High Level Topic';
+        }
+        if (2 === count($parents) && $parents[1] === $get_informed_page_id) {
+            return 'Deep Dive Topic';
+        }
+        return '';
     }
 
     /**
