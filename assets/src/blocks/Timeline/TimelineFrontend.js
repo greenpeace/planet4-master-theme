@@ -1,12 +1,12 @@
 import {Timeline} from './Timeline';
 
-export const TimelineFrontend = props => {
+export const TimelineFrontend = ({attributes}) => {
   const {
     timeline_title,
     description,
     className,
     ...nodeProps
-  } = props;
+  } = attributes;
 
   return (
     <section className={`block timeline-block ${className ?? ''}`}>

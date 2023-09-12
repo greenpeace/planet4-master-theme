@@ -40,7 +40,7 @@ class Timeline extends Base_Block {
 			[
 				'editor_script'   => 'planet4-blocks',
 				// todo: Remove when all content is migrated.
-				'render_callback' => [ self::class, 'render_frontend' ],
+				'render_callback' => [ self::class, 'hydrate_frontend' ],
 				'attributes'      => [
 					'timeline_title'    => [
 						'type'    => 'string',

@@ -1,5 +1,7 @@
+import {renderToString} from 'react-dom/server';
 import {frontendRendered} from '../frontendRendered';
 import {TimelineEditor} from './TimelineEditorScript';
+import {TimelineFrontend} from './TimelineFrontend';
 
 const BLOCK_NAME = 'planet4-blocks/timeline';
 
@@ -32,6 +34,7 @@ const attributes = {
 
 export const registerTimelineBlock = () => {
   const {registerBlockType} = wp.blocks;
+  const {RawHTML} = wp.element;
 
   registerBlockType(BLOCK_NAME, {
     title: 'Timeline',
@@ -42,8 +45,22 @@ export const registerTimelineBlock = () => {
     },
     attributes,
     edit: TimelineEditor,
-    save: frontendRendered(BLOCK_NAME),
+    save: props => {
+      const markup = renderToString(
+        <div
+          data-hydrate={BLOCK_NAME}
+          data-attributes={JSON.stringify(props.attributes)}
+        >
+          <TimelineFrontend {...props} />
+        </div>
+      );
+      return <RawHTML>{markup}</RawHTML>;
+    },
     deprecated: [
+      {
+        attributes,
+        save: frontendRendered(BLOCK_NAME),
+      },
       {
         attributes,
         save() {
