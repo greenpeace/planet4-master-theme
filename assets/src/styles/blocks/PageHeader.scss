@@ -62,8 +62,7 @@ $text-column-padding-in: 24px;
     padding: 0;
     font-size: inherit;
     font-weight: inherit;
-    line-height: inherit;
-
+    line-height: var(--page-header-title--line-height, 1em);
     box-decoration-break: clone;
     box-shadow: 8px 0 0 var(--transparent-button--active--color, #fff), calc(8px * -1) 0 0 var(--transparent-button--active--color, #fff);
   }
