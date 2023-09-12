@@ -618,50 +618,12 @@ add_filter(
     }
 );
 
-// Registering into the Settings > Writing setting page
-add_action(
-    'admin_menu',
-    function (): void {
-        register_setting('writing', 'revisions_to_keep');
-
-        add_settings_field(
-            'post-revisions-field',
-            __('Post revisions', 'planet4-master-theme-backend'),
-            function ($val): void {
-                $id = $val['id'];
-                $option_name = $val['option_name'];
-                ?>
-                    <input
-                        type="number"
-                        name="<?php echo esc_attr($option_name) ?>"
-                        id="<?php echo esc_attr($id) ?>"
-                        value="<?php echo esc_attr(get_option($option_name)) ?>"
-                    />
-                    <span>
-                        <?php echo __(
-                            'Maximum number of revisions to store for each post.',
-                            'planet4-master-theme-backend'
-                        )?>
-                    </span>
-                <?php
-            },
-            'writing',
-            'default',
-            array(
-                'id' => 'post-revisions-field',
-                'option_name' => 'revisions_to_keep'
-            )
-        );
-    },
-    10,
-    2,
-);
-
 // Maximum revisions to keep whenever the editor save a post
 add_filter(
     'wp_revisions_to_keep',
-    function () {
-        return get_option('revisions_to_keep');
+    function ($revisions) {
+        $revisions_to_keep = get_option('revisions_to_keep');
+        return $revisions_to_keep ?: $revisions;
     },
     10,
     2

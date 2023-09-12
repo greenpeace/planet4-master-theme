@@ -20,14 +20,16 @@ class M022UpdatePostRevisions extends MigrationScript
     {
         global $wpdb;
 
-        // Check if exist
-        $MAX_REVISIONS = get_option('revisions_to_keep');
-        if (false === get_option('revisions_to_keep')) {
-            // If not, set 20 by default
+        if (!get_option('revisions_to_keep')) {
+            // If not, set 20 revisions by default
             $MAX_REVISIONS = 20;
             update_option('revisions_to_keep', $MAX_REVISIONS);
+        } else {
+            $MAX_REVISIONS = get_option('revisions_to_keep');
         }
 
+        $wpdb->query('SET @rownumber:=0');
+        $wpdb->query('SET @postparent:=NULL');
         $sql = '
             DELETE FROM wp_posts
             WHERE ID IN (
@@ -37,7 +39,8 @@ class M022UpdatePostRevisions extends MigrationScript
                         post_parent,
                         ID,
                         post_date,
-                        row_number() OVER (PARTITION BY post_parent ORDER BY post_date desc) AS rn
+                        @rownumber:=(IF(@postparent=post_parent, @rownumber:=@rownumber+1, 1)) as rwn,
+                        @postparent:=post_parent
                     FROM (
                         SELECT
                             ID,
@@ -53,7 +56,8 @@ class M022UpdatePostRevisions extends MigrationScript
                         ) AND post_type = "%2$s"
                         ORDER BY post_date ASC
                     ) AS r
-                ) AS d WHERE d.rn > %1$s
+                ) AS d
+                WHERE d.rwn > %1$s
             );
         ';
 
