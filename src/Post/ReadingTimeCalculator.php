@@ -97,7 +97,7 @@ class ReadingTimeCalculator
 
         // @todo: Calculate videos watching time.
 
-        return $time;
+        return (int) $time;
     }
 
     /**
