@@ -29,7 +29,7 @@ class Exporter
     {
         $post_id = filter_input(INPUT_GET, 'post', FILTER_SANITIZE_NUMBER_INT)
             ?? filter_input(INPUT_POST, 'post', FILTER_SANITIZE_NUMBER_INT);
-        if (! empty($post_id) && 'export_data' === filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING)) {
+        if (! empty($post_id) && 'export_data' === sanitize_text_field($_GET['action'])) {
             include get_template_directory() . '/exporter.php';
         } else {
             wp_die('No post to export has been supplied!');
