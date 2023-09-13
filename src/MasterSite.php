@@ -304,6 +304,17 @@ class MasterSite extends TimberSite
             }
         );
 
+        // Maximum revisions to keep whenever the editor save a post
+        add_filter(
+            'wp_revisions_to_keep',
+            function ($revisions) {
+                $revisions_to_keep = get_option('revisions_to_keep');
+                return $revisions_to_keep ?: $revisions;
+            },
+            10,
+            2
+        );
+
         // Registering into the Settings > Writing setting page
         add_action(
             'admin_menu',
