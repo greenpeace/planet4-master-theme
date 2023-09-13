@@ -312,7 +312,7 @@ class MasterSite extends TimberSite
                 return $revisions_to_keep ?: $revisions;
             },
             10,
-            2
+            1
         );
 
         // Registering into the Settings > Writing setting page
@@ -349,9 +349,7 @@ class MasterSite extends TimberSite
                         'option_name' => 'revisions_to_keep'
                     )
                 );
-            },
-            10,
-            2,
+            }
         );
 
         $this->register_meta_fields();

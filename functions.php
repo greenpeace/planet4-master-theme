@@ -617,4 +617,3 @@ add_filter(
         return $theme_json->update_with($new_color_palette);
     }
 );
-

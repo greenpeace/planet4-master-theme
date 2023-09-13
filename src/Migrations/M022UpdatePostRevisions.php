@@ -20,12 +20,11 @@ class M022UpdatePostRevisions extends MigrationScript
     {
         global $wpdb;
 
-        if (!get_option('revisions_to_keep')) {
+        $MAX_REVISIONS = get_option('revisions_to_keep');
+        if (!$MAX_REVISIONS) {
             // If not, set 20 revisions by default
             $MAX_REVISIONS = 20;
             update_option('revisions_to_keep', $MAX_REVISIONS);
-        } else {
-            $MAX_REVISIONS = get_option('revisions_to_keep');
         }
 
         $wpdb->query('SET @rownumber:=0');
