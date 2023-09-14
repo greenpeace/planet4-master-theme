@@ -135,6 +135,7 @@
     &:active {
       background: $active-blue;
       border-color: $active-blue;
+      color: $white;
     }
 
     &:disabled,
