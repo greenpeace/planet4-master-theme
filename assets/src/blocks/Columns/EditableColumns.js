@@ -113,7 +113,7 @@ export const EditableColumns = ({
               tagName="div"
               className={isCampaign || [LAYOUT_NO_IMAGE, LAYOUT_TASKS].includes(columns_block_style) ?
                 `btn btn-${isCampaign ? 'primary' : 'secondary'}` :
-                ''}
+                'standalone-link'}
               placeholder={[LAYOUT_NO_IMAGE, LAYOUT_TASKS].includes(columns_block_style) ?
                 __('Enter column button text', 'planet4-blocks-backend') :
                 __('Enter column link text', 'planet4-blocks-backend')}
