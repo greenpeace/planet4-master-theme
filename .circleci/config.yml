@@ -197,7 +197,7 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            npm install @playwright/test @wordpress/e2e-test-utils-playwright dotenv
+            npm install @playwright/test@1.37.1 @wordpress/e2e-test-utils-playwright@0.8.0 dotenv
             npx playwright install --with-deps
       - run:
           name: End-to-end tests
