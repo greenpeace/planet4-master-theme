@@ -351,6 +351,11 @@ table.spreadsheet-table.is-color-gp-green {
   @include shared-link-styles;
 }
 
+// Editor links
+.editor-styles-wrapper p > a {
+  @include shared-link-styles;
+}
+
 .cookies-settings-header h4 {
   font-family: var(--font-family-paragraph-secondary);
 }
