@@ -37,7 +37,15 @@ class BlockUsageApi {
 	public function __construct() {
 		$this->usage  = new BlockUsage();
 		$this->params = ( new Parameters() )
-			->with_post_status( self::DEFAULT_POST_STATUS );
+			->with_post_status( self::DEFAULT_POST_STATUS )
+			->with_post_type(
+				\get_post_types(
+					[
+						'public'              => true,
+						'exclude_from_search' => false,
+					]
+				)
+			);
 	}
 
 	/**

@@ -94,7 +94,7 @@ class BlockUsage {
 			'include'     => $posts_ids,
 			'orderby'     => empty( $params->order() ) ? null : array_fill_keys( $params->order(), 'ASC' ),
 			'post_status' => $params->post_status(),
-			'post_type'   => [ 'post', 'page', 'campaign' ],
+			'post_type'   => $params->post_type(),
 		];
 
 		$this->posts = get_posts( $posts_args ) ?? [];
