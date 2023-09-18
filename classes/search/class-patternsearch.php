@@ -7,10 +7,11 @@
 
 namespace P4GBKS\Search;
 
-use P4GBKS\Search\Block\Sql\SqlQuery as BlockSqlQuery;
-use P4GBKS\Search\Pattern\Query\Parameters;
 use P4GBKS\Search\Block\Query\Parameters as BlockSearchParameters;
+use P4GBKS\Search\Block\Sql\SqlQuery as BlockSqlQuery;
 use P4GBKS\Search\Pattern\PatternData;
+use P4GBKS\Search\Pattern\PatternUsage;
+use P4GBKS\Search\Pattern\Query\Parameters;
 use P4\MasterTheme\SqlParameters;
 
 /**
@@ -29,8 +30,9 @@ class PatternSearch {
 	public function get_posts( Parameters $params, array $opts = [] ): array {
 		$opts = array_merge(
 			[
-				'use_struct' => true,
-				'use_class'  => true,
+				'use_struct'    => true,
+				'use_class'     => true,
+				'use_templates' => true,
 			],
 			$opts
 		);
@@ -44,10 +46,44 @@ class PatternSearch {
 			array_filter(
 				array_merge(
 					$opts['use_class'] ? $this->query_by_pattern_classname( $params, ...$patterns ) : [],
-					$opts['use_struct'] ? $this->query_by_pattern_blocks( $params, ...$patterns ) : []
+					$opts['use_struct'] ? $this->query_by_pattern_blocks( $params, ...$patterns ) : [],
+					$opts['use_templates'] ? $this->query_by_pattern_template( $params, ...$patterns ) : []
 				)
 			)
 		);
+	}
+
+	/**
+	 * @param Parameters  $params          Search parameters.
+	 * @param PatternData ...$pattern_data Pattern data.
+	 * @return int[] List of posts IDs.
+	 */
+	private function query_by_pattern_template(
+		Parameters $params,
+		PatternData ...$pattern_data
+	): array {
+		// Query posts with all blocks of tree.
+		$templates   = PatternUsage::patterns_templates_lookup_table();
+		$block_query = new BlockSqlQuery();
+
+		$post_ids = [];
+		foreach ( $pattern_data as $pattern ) {
+			if ( empty( $templates[ $pattern->name ] ) ) {
+				continue;
+			}
+
+			$block_params = BlockSearchParameters::from_array(
+				[
+					'name'        => $templates[ $pattern->name ],
+					'post_status' => $params->post_status() ?? self::DEFAULT_POST_STATUS,
+					'post_type'   => $params->post_type() ?? self::DEFAULT_POST_TYPE,
+				]
+			);
+
+			$post_ids = array_merge( $post_ids, $block_query->get_posts( $block_params ) );
+		}
+
+		return array_unique( $post_ids );
 	}
 
 	/**
@@ -102,7 +138,7 @@ class PatternSearch {
 
 		global $wpdb;
 
-		$like = array_map( fn ( $c ) => "post_content LIKE '%$c%'", $classes );
+		$like = array_map( fn ( $c ) => "post_content LIKE '%%$c%%'", $classes );
 		$like = implode( ' OR ', $like );
 
 		$sql_params = new SqlParameters();

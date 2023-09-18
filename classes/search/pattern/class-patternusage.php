@@ -12,6 +12,7 @@ use WP_Block_Patterns_Registry;
 use WP_Post;
 use P4GBKS\Search\PatternSearch;
 use P4GBKS\Search\Pattern\Query\Parameters;
+use P4GBKS\Patterns\Block_Pattern;
 
 /**
  * Prepare pattern usage, using native WordPress table
@@ -53,8 +54,9 @@ class PatternUsage {
 	public function get_patterns( Parameters $params, array $opts = [] ): array {
 		$opts = array_merge(
 			[
-				'use_struct' => true,
-				'use_class'  => true,
+				'use_struct'    => true,
+				'use_class'     => true,
+				'use_templates' => true,
 			],
 			$opts
 		);
@@ -82,6 +84,10 @@ class PatternUsage {
 			'post_status' => $params->post_status(),
 			'post_type'   => $params->post_type(),
 		];
+
+		if ( $opts['use_templates'] ) {
+			$templates = self::patterns_templates_lookup_table();
+		}
 
 		$patterns = [];
 		foreach ( $chunks as $chunk ) {
@@ -125,6 +131,21 @@ class PatternUsage {
 							);
 						}
 					}
+
+					if ( $opts['use_templates'] && ! empty( $templates[ $pattern->name ] ) ) {
+						$template_occ = substr_count(
+							$post->post_content,
+							'<!-- wp:' . $templates[ $pattern->name ] . ' '
+						);
+						if ( $template_occ > 0 ) {
+							$patterns[] = $this->format_pattern_data(
+								$pattern,
+								$post,
+								$template_occ,
+								'template'
+							);
+						}
+					}
 				}
 			}
 		}
@@ -155,5 +176,29 @@ class PatternUsage {
 			'post_status'   => $post->post_status,
 			'match_type'    => $match_type,
 		];
+	}
+
+	/**
+	 * Return pattern to template match
+	 *
+	 * @return array
+	 */
+	public static function patterns_templates_lookup_table(): array {
+		$patterns = Block_Pattern::get_List();
+		$lookup   = [];
+		foreach ( $patterns as $pattern ) {
+			$config = $pattern::get_config();
+
+			$template = preg_match(
+				'#^<!-- ?wp:(planet4-block-templates\/[^ ]*) #',
+				trim( $config['content'] ),
+				$matches
+			);
+			if ( ! empty( $matches[1] ) ) {
+				$lookup[ $pattern::get_name() ] = $matches[1];
+			}
+		}
+
+		return $lookup;
 	}
 }
