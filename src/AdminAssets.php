@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace P4\MasterTheme;
 
-use P4\MasterTheme\Features\MediaArchive;
-
 /**
  * Add assets to admin pages
  */
@@ -16,9 +14,7 @@ class AdminAssets
      */
     public static function enqueue_js(): void
     {
-        if (MediaArchive::is_active()) {
-            self::enqueue_media_archive_script();
-        }
+        self::enqueue_media_archive_script();
 
         if (get_current_screen()->id !== 'nav-menus') {
             return;

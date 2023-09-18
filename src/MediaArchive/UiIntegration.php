@@ -3,7 +3,6 @@
 namespace P4\MasterTheme\MediaArchive;
 
 use P4\MasterTheme\Capability;
-use P4\MasterTheme\Features\MediaArchive;
 use P4\MasterTheme\Loader;
 
 /**
@@ -24,9 +23,6 @@ class UiIntegration
      */
     private static function hooks(): void
     {
-        if (! MediaArchive::is_active()) {
-            return;
-        }
         add_action('admin_menu', [ self::class, 'picker_page' ], 10);
         add_action('admin_menu', [ self::class, 'ml_credentials_page' ], 10);
     }
