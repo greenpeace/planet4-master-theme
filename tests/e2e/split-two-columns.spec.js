@@ -4,6 +4,13 @@ import {publishPostAndVisit} from './tools/lib/post.js';
 test.useAdminLoggedIn();
 
 test('Create and check check split two column block', async ({page, admin, editor}) => {
+  await admin.visitAdminPage('admin.php', 'page=planet4_settings_navigation');
+  const checkbox = page.locator('#new_ia');
+  const featureIsActiveOnInstance = await checkbox.isChecked();
+  if (featureIsActiveOnInstance) {
+    test.skip();
+  }
+
   await admin.createNewPost({postType: 'page', title: 'Test S2C block', legacyCanvas: true});
 
   // Adding Split Two Column Block

@@ -132,7 +132,6 @@ const PAGE_BLOCK_TYPES = [
 	'planet4-blocks/happypoint',
 	'planet4-blocks/media-video',
 	'planet4-blocks/social-media',
-	'planet4-blocks/split-two-columns',
 	'planet4-blocks/spreadsheet',
 	'planet4-blocks/submenu',
 	'planet4-blocks/timeline',
@@ -186,7 +185,6 @@ const ACTION_BLOCK_TYPES = [
 	'planet4-blocks/happypoint',
 	'planet4-blocks/media-video',
 	'planet4-blocks/social-media',
-	'planet4-blocks/split-two-columns',
 	'planet4-blocks/spreadsheet',
 	'planet4-blocks/submenu',
 	'planet4-blocks/timeline',
@@ -290,6 +288,7 @@ function set_allowed_block_types( $allowed_block_types, $context ) {
 		PAGE_BLOCK_TYPES,
 		! Features::is_active( 'beta_blocks' ) ? [] : BETA_PAGE_BLOCK_TYPES,
 		! $enform_active ? [] : [ 'planet4-blocks/enform' ],
+		(bool) planet4_get_option( 'new_ia' ) ? [] : [ 'planet4-blocks/split-two-columns' ],
 		BLOCK_TEMPLATES,
 	);
 
