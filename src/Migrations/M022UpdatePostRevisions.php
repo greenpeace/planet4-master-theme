@@ -52,8 +52,11 @@ class M022UpdatePostRevisions extends MigrationScript
                             WHERE post_type = "%2$s"
                             GROUP BY post_parent
                             HAVING count(ID) > %1$s
-                        ) AND post_type = "%2$s"
-                        ORDER BY post_date ASC
+                        )
+                        AND post_type = "%2$s"
+                        ORDER BY
+                            post_parent ASC,
+                            post_date DESC
                     ) AS r
                 ) AS d
                 WHERE d.rwn > %1$s
