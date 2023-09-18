@@ -5,7 +5,6 @@ namespace P4\MasterTheme\MediaArchive;
 use Exception;
 use P4\MasterTheme\Capability;
 use P4\MasterTheme\Exception\RemoteCallFailed;
-use P4\MasterTheme\Features\MediaArchive;
 use WP_Http;
 use WP_REST_Request;
 use WP_REST_Response;
@@ -25,9 +24,6 @@ class Rest
      */
     public static function register_endpoints(): void
     {
-        if (! MediaArchive::is_active()) {
-            return;
-        }
         $fetch_archive_images = static function (WP_REST_Request $request) {
             try {
                 $api_client = ApiClient::from_cache_or_credentials();
