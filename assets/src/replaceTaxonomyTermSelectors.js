@@ -1,4 +1,4 @@
-import AssignOnlyFlatTermSelector from './components/AssignOnlyFlatTermSelector/AssignOnlyFlatTermSelector';
+import {AssignOnlyFlatTermSelector} from './components/AssignOnlyFlatTermSelector/AssignOnlyFlatTermSelector';
 import {TermSelector} from './components/TermSelector/TermSelector';
 
 function customizeTaxonomySelectors(OriginalComponent) {

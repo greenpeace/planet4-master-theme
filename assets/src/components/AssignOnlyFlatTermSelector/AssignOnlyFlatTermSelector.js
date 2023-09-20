@@ -1,235 +1,191 @@
-import {
-  find,
-  get,
-  invoke,
-  isEmpty,
-  map,
-  throttle,
-  unescape as unescapeString,
-  uniqBy,
-} from 'lodash';
+/**
+ * The logic of this component was copied from https://github.com/WordPress/gutenberg/blob/master/packages/editor/src/components/post-taxonomies/flat-term-selector.js
+ * initially, then the functionality of creating non-existing terms was removed from it.
+ */
+
+/**
+ * External dependencies
+ */
+import {unescape as unescapeString} from 'lodash';
 
 /**
  * WordPress dependencies
  */
-import {Component} from '@wordpress/element';
-import {FormTokenField} from '@wordpress/components';
-import {withSelect, withDispatch} from '@wordpress/data';
-import {compose} from '@wordpress/compose';
-import {addQueryArgs} from '@wordpress/url';
+import {useEffect, useMemo, useState} from '@wordpress/element';
+import {FormTokenField, withFilters} from '@wordpress/components';
+import {useSelect, useDispatch} from '@wordpress/data';
+import {store as coreStore} from '@wordpress/core-data';
+import {useDebounce} from '@wordpress/compose';
 
 const {__, _x, sprintf} = wp.i18n;
-const {apiFetch} = wp;
+
+/**
+ * Shared reference to an empty array for cases where it is important to avoid
+ * returning a new array reference on every invocation.
+ *
+ * @type {Array<any>}
+ */
+const EMPTY_ARRAY = [];
 
 /**
  * Module constants
  */
-const DEFAULT_QUERY = {
-  per_page: -1,
-  orderby: 'count',
-  order: 'desc',
-  _fields: 'id,name',
-};
 const MAX_TERMS_SUGGESTIONS = 20;
-const isSameTermName = (termA, termB) => termA.toLowerCase() === termB.toLowerCase();
-
-/**
- * Returns a term object with name unescaped.
- * The unescape of the name property is done using lodash unescape function.
- *
- * @param {Object} term The term object to unescape.
- *
- * @return {Object} Term object with name property unescaped.
- */
-const unescapeTerm = term => {
-  return {
-    ...term,
-    name: unescapeString(term.name),
-  };
+const DEFAULT_QUERY = {
+  per_page: MAX_TERMS_SUGGESTIONS,
+  _fields: 'id,name',
+  context: 'view',
 };
 
-/**
- * Returns an array of term objects with names unescaped.
- * The unescape of each term is performed using the unescapeTerm function.
- *
- * @param {Object[]} terms Array of term objects to unescape.
- *
- * @return {Object[]} Array of term objects unescaped.
- */
-const unescapeTerms = terms => {
-  return map(terms, unescapeTerm);
-};
+const isSameTermName = (termA, termB) =>
+  unescapeString(termA).toLowerCase() ===
+  unescapeString(termB).toLowerCase();
 
-/**
- * The logic of this component was copied from https://github.com/WordPress/gutenberg/blob/master/packages/editor/src/components/post-taxonomies/flat-term-selector.js
- * initially, then the functionality of creating non-existing terms was removed from it.
- *
- * I considered extending the component instead, but that seemed inappropriate as we're not adding behavior but removing some.
- * Additionally this makes it easier to further customize this component.
- */
-class AssignOnlyFlatTermSelector extends Component {
-  constructor() {
-    super(...arguments);
-    this.onChange = this.onChange.bind(this);
-    this.searchTerms = throttle(this.searchTerms.bind(this), 500);
-    this.state = {
-      loading: !isEmpty(this.props.terms),
-      availableTerms: [],
-      selectedTerms: [],
-    };
-  }
+const termNamesToIds = (names, terms) => names.map(
+  termName => terms.find(term => isSameTermName(term.name, termName)).id
+);
 
-  componentDidMount() {
-    if (isEmpty(this.props.terms)) {
-      return;
+export const AssignOnlyFlatTermSelector = ({slug}) => {
+  const [values, setValues] = useState([]);
+  const [search, setSearch] = useState('');
+  const debouncedSearch = useDebounce(setSearch, 500);
+
+  const {
+    terms,
+    taxonomy,
+    hasAssignAction,
+    hasResolvedTerms,
+  } = useSelect(
+    select => {
+      const {getCurrentPost, getEditedPostAttribute} = select('core/editor');
+      const {getEntityRecords, getTaxonomy, hasFinishedResolution} = select(coreStore);
+      const post = getCurrentPost();
+      const _taxonomy = getTaxonomy(slug);
+      const _termIds = _taxonomy ? getEditedPostAttribute(_taxonomy.rest_base) : EMPTY_ARRAY;
+
+      const query = {
+        ...DEFAULT_QUERY,
+        include: _termIds.join(','),
+        per_page: -1,
+      };
+
+      return {
+        hasAssignAction: _taxonomy ? post._links?.['wp:action-assign-' + _taxonomy.rest_base] ?? false : false,
+        taxonomy: _taxonomy,
+        termIds: _termIds,
+        terms: _termIds.length ? getEntityRecords('taxonomy', slug, query) : EMPTY_ARRAY,
+        hasResolvedTerms: hasFinishedResolution('getEntityRecords', ['taxonomy', slug, query]),
+      };
+    },
+    [slug]
+  );
+
+  const {searchResults} = useSelect(
+    select => {
+      const {getEntityRecords} = select(coreStore);
+
+      return {
+        searchResults: !!search ? getEntityRecords('taxonomy', slug, {
+          ...DEFAULT_QUERY,
+          search,
+        }) : EMPTY_ARRAY,
+      };
+    },
+    [search, slug]
+  );
+
+  // Update terms state only after the selectors are resolved.
+  // We're using this to avoid terms temporarily disappearing on slow networks
+  // while core data makes REST API requests.
+  useEffect(() => {
+    if (hasResolvedTerms) {
+      const newValues = (terms ?? []).map(term =>
+        unescapeString(term.name)
+      );
+
+      setValues(newValues);
     }
+  }, [terms, hasResolvedTerms]);
 
-    this.initRequest = this.fetchTerms({
-      include: this.props.terms.join(','),
-      per_page: -1,
-    });
-    this.initRequest.then(
-      () => {
-        this.setState({loading: false});
-      },
-      xhr => {
-        if (xhr.statusText === 'abort') {
-          return;
-        }
-        this.setState({
-          loading: false,
-        });
-      }
+  const suggestions = useMemo(() => {
+    return (searchResults ?? []).map(term =>
+      unescapeString(term.name)
     );
+  }, [searchResults]);
+
+  const {editPost} = useDispatch('core/editor');
+
+  if (!hasAssignAction) {
+    return null;
   }
 
-  componentWillUnmount() {
-    invoke(this.initRequest, ['abort']);
-    invoke(this.searchRequest, ['abort']);
+  function onUpdateTerms(newTermIds) {
+    editPost({[taxonomy.rest_base]: newTermIds});
   }
 
-  componentDidUpdate(prevProps) {
-    if (prevProps.terms !== this.props.terms) {
-      this.updateSelectedTerms(this.props.terms);
-    }
-  }
+  function onChange(termNames) {
+    const availableTerms = [
+      ...(terms ?? []),
+      ...(searchResults ?? []),
+    ];
 
-  fetchTerms(params = {}) {
-    const {taxonomy} = this.props;
-    const query = Object.assign({}, DEFAULT_QUERY, params);
-
-    const request = apiFetch({
-      path: addQueryArgs(`/wp/v2/${taxonomy.rest_base}`, query),
-    });
-    request.then(unescapeTerms).then(terms => {
-      this.setState(state => ({
-        availableTerms: state.availableTerms.concat(
-          terms.filter(term => !find(state.availableTerms, availableTerm => availableTerm.id === term.id))
-        ),
-      }));
-      this.updateSelectedTerms(this.props.terms);
-    });
-
-    return request;
-  }
-
-  updateSelectedTerms(terms = []) {
-    const selectedTerms = terms.reduce((accumulator, termId) => {
-      const termObject = find(this.state.availableTerms, term => term.id === termId);
-      if (termObject) {
-        accumulator.push(termObject.name);
+    const uniqueTerms = termNames.reduce((acc, name) => {
+      if (
+        !acc.some(n => n.toLowerCase() === name.toLowerCase())
+      ) {
+        acc.push(name);
       }
-
-      return accumulator;
+      return acc;
     }, []);
-    this.setState({
-      selectedTerms,
-    });
+
+    // Filter to remove new terms since we don't allow creation.
+    const allowedTerms = uniqueTerms.filter(
+      termName => availableTerms.find(term => isSameTermName(term.name, termName))
+    );
+
+    setValues(allowedTerms);
+
+    return onUpdateTerms(termNamesToIds(allowedTerms, availableTerms));
   }
 
-  onChange(termNames) {
-    const uniqueTerms = uniqBy(termNames, term => term.toLowerCase());
-    const allowedTerms = uniqueTerms.filter(termName =>
-      find(this.state.availableTerms, term => isSameTermName(term.name, termName))
-    );
-    this.setState({selectedTerms: allowedTerms});
-    const termNamesToIds = (names, availableTerms) => {
-      return names
-        .map(termName =>
-          find(availableTerms, term => isSameTermName(term.name, termName)).id
-        );
-    };
+  const newTermLabel =
+    taxonomy?.labels?.add_new_item ??
+    (slug === 'post_tag' ? __('Add new tag') : __('Add new Term'));
+  const singularName =
+    taxonomy?.labels?.singular_name ??
+    (slug === 'post_tag' ? __('Tag') : __('Term'));
+  const termAddedLabel = sprintf(
+    /* translators: %s: term name. */
+    _x('%s added', 'term'),
+    singularName
+  );
+  const termRemovedLabel = sprintf(
+    /* translators: %s: term name. */
+    _x('%s removed', 'term'),
+    singularName
+  );
+  const removeTermLabel = sprintf(
+    /* translators: %s: term name. */
+    _x('Remove %s', 'term'),
+    singularName
+  );
 
-    return this.props.onUpdateTerms(
-      termNamesToIds(allowedTerms, this.state.availableTerms),
-      this.props.taxonomy.rest_base
-    );
-  }
+  return (
+    <FormTokenField
+      __next40pxDefaultSize
+      value={values}
+      suggestions={suggestions}
+      onChange={onChange}
+      onInputChange={debouncedSearch}
+      maxSuggestions={MAX_TERMS_SUGGESTIONS}
+      label={newTermLabel}
+      messages={{
+        added: termAddedLabel,
+        removed: termRemovedLabel,
+        remove: removeTermLabel,
+      }}
+    />
+  );
+};
 
-  searchTerms(search = '') {
-    invoke(this.searchRequest, ['abort']);
-    this.searchRequest = this.fetchTerms({search});
-  }
-
-  render() {
-    const {slug, taxonomy, hasAssignAction} = this.props;
-
-    if (!hasAssignAction) {
-      return null;
-    }
-
-    const {loading, availableTerms, selectedTerms} = this.state;
-    const termNames = availableTerms.map(term => term.name);
-    const newTermLabel = get(
-      taxonomy,
-      ['labels', 'add_new_item'],
-      slug === 'post_tag' ? __('Add New Tag') : __('Add New Term')
-    );
-    const singularName = get(
-      taxonomy,
-      ['labels', 'singular_name'],
-      slug === 'post_tag' ? __('Tag') : __('Term')
-    );
-    const termAddedLabel = sprintf(_x('%s added', 'term'), singularName); // eslint-disable-line @wordpress/i18n-translator-comments
-    const termRemovedLabel = sprintf(_x('%s removed', 'term'), singularName); // eslint-disable-line @wordpress/i18n-translator-comments
-    const removeTermLabel = sprintf(_x('Remove %s', 'term'), singularName); // eslint-disable-line @wordpress/i18n-translator-comments
-
-    return (
-      <FormTokenField
-        value={selectedTerms}
-        suggestions={termNames}
-        onChange={this.onChange}
-        onInputChange={this.searchTerms}
-        maxSuggestions={MAX_TERMS_SUGGESTIONS}
-        disabled={loading}
-        label={newTermLabel}
-        messages={{
-          added: termAddedLabel,
-          removed: termRemovedLabel,
-          remove: removeTermLabel,
-        }}
-      />
-    );
-  }
-}
-
-export default compose(
-  withSelect((select, {slug}) => {
-    const {getCurrentPost} = select('core/editor');
-    const {getTaxonomy} = select('core');
-    const taxonomy = getTaxonomy(slug);
-    return {
-      hasCreateAction: taxonomy ? get(getCurrentPost(), ['_links', 'wp:action-create-' + taxonomy.rest_base], false) : false,
-      hasAssignAction: taxonomy ? get(getCurrentPost(), ['_links', 'wp:action-assign-' + taxonomy.rest_base], false) : false,
-      terms: taxonomy ? select('core/editor').getEditedPostAttribute(taxonomy.rest_base) : [],
-      taxonomy,
-    };
-  }),
-  withDispatch(dispatch => {
-    return {
-      onUpdateTerms(terms, restBase) {
-        dispatch('core/editor').editPost({[restBase]: terms});
-      },
-    };
-  })
-)(AssignOnlyFlatTermSelector);
+export default withFilters('editor.PostTaxonomyType')(AssignOnlyFlatTermSelector);
