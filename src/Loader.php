@@ -88,9 +88,9 @@ final class Loader
             $this->default_services[] = ControlPanel::class;
             $this->default_services[] = MediaArchive\UiIntegration::class;
             $this->default_services[] = MediaArchive\Rest::class;
-            $this->default_services[] = Settings\ReadingTime::class;
-            $this->default_services[] = Settings\CommentsGdpr::class;
-            $this->default_services[] = Settings\DefaultPostType::class;
+            foreach (Features::external_settings() as $setting_class) {
+                $this->default_services[] = $setting_class;
+            }
 
             // Load P4 Metaboxes only when adding/editing a new Page/Post/Campaign.
             if ('post-new.php' === $pagenow || 'post.php' === $pagenow) {

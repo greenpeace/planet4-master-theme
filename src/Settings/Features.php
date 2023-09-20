@@ -122,6 +122,18 @@ class Features
     }
 
     /**
+     * Planet 4 options sitting outside of the planet4_options entry
+     */
+    public static function external_settings(): array
+    {
+        return [
+            CommentsGdpr::class,
+            DefaultPostType::class,
+            ReadingTime::class,
+        ];
+    }
+
+    /**
      * Check whether a feature is active.
      *
      * @param string $name The name of the feature we're checking.
