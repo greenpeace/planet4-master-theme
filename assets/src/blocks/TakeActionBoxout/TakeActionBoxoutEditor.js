@@ -163,7 +163,6 @@ export const TakeActionBoxoutEditor = ({
           onChange={toAttribute('title')}
           disabled={true}
           withoutInteractiveFormatting
-          multiline="false"
           allowedFormats={[]}
         />
         <RichText
@@ -185,7 +184,6 @@ export const TakeActionBoxoutEditor = ({
         onChange={toAttribute('linkText')}
         disabled={takeActionPageSelected}
         withoutInteractiveFormatting
-        multiline="false"
         allowedFormats={[]}
       />
     </section>

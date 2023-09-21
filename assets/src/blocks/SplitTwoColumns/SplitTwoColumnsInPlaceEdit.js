@@ -55,7 +55,6 @@ export const SplittwocolumnsInPlaceEdit = ({attributes, setAttributes}) => {
             placeholder={__('Enter Title', 'planet4-blocks-backend')}
             value={title}
             onChange={onTextChange('title')}
-            multiline="false"
             withoutInteractiveFormatting
             allowedFormats={[]}
           />
@@ -65,7 +64,6 @@ export const SplittwocolumnsInPlaceEdit = ({attributes, setAttributes}) => {
             placeholder={__('Enter Description', 'planet4-blocks-backend')}
             value={issue_description}
             onChange={onTextChange('issue_description')}
-            multiline="false"
             allowedFormats={['core/bold', 'core/italic']}
           />
           {issue_link_path &&
@@ -75,7 +73,6 @@ export const SplittwocolumnsInPlaceEdit = ({attributes, setAttributes}) => {
               placeholder={__('Enter Link Text', 'planet4-blocks-backend')}
               value={issue_link_text}
               onChange={onTextChange('issue_link_text')}
-              multiline="false"
               withoutInteractiveFormatting
               allowedFormats={[]}
             />
@@ -105,7 +102,6 @@ export const SplittwocolumnsInPlaceEdit = ({attributes, setAttributes}) => {
             placeholder={__('Enter Description', 'planet4-blocks-backend')}
             value={tag_description}
             onChange={onTextChange('tag_description')}
-            multiline="false"
             allowedFormats={['core/bold', 'core/italic']}
           />
           <RichText
@@ -114,7 +110,6 @@ export const SplittwocolumnsInPlaceEdit = ({attributes, setAttributes}) => {
             placeholder={__('Enter button text', 'planet4-blocks-backend')}
             value={button_text}
             onChange={onTextChange('button_text')}
-            multiline="false"
             withoutInteractiveFormatting
             allowedFormats={[]}
           />

@@ -129,7 +129,6 @@ const renderView = (attributes, setAttributes) => {
           value={gallery_block_title}
           onChange={toAttribute('gallery_block_title')}
           withoutInteractiveFormatting
-          multiline="false"
           allowedFormats={[]}
         />
       </header>

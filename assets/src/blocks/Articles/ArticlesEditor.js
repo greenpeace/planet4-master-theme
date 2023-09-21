@@ -110,7 +110,6 @@ const renderView = ({attributes, postType, posts, totalPosts}, toAttribute) => {
             value={attributes.article_heading}
             onChange={toAttribute('article_heading')}
             withoutInteractiveFormatting
-            multiline="false"
             allowedFormats={[]}
           />
         </header>
@@ -134,7 +133,6 @@ const renderView = ({attributes, postType, posts, totalPosts}, toAttribute) => {
               value={attributes.read_more_text}
               onChange={toAttribute('read_more_text')}
               withoutInteractiveFormatting
-              multiline="false"
               allowedFormats={[]}
             />
           </div>

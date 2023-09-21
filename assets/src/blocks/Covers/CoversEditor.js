@@ -148,7 +148,6 @@ const renderView = (attributes, toAttribute) => {
               value={title}
               onChange={toAttribute('title')}
               withoutInteractiveFormatting
-              multiline="false"
               allowedFormats={[]}
             />
           </header>
@@ -178,7 +177,6 @@ const renderView = (attributes, toAttribute) => {
                   value={readMoreText}
                   onChange={toAttribute('readMoreText')}
                   withoutInteractiveFormatting
-                  multiline="false"
                   allowedFormats={[]}
                 />
               </button>

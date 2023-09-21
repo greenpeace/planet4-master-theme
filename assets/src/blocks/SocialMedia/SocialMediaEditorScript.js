@@ -166,7 +166,6 @@ export const SocialMediaEditor = ({
           value={title}
           onChange={toAttribute('title')}
           withoutInteractiveFormatting
-          multiline="false"
           allowedFormats={[]}
         />
       </header>

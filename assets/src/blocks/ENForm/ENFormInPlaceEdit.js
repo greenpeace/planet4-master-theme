@@ -156,7 +156,6 @@ const SideContent = ({attributes, setAttributes}) => {
           placeholder={__('Enter title', 'planet4-blocks-backend')}
           withoutInteractiveFormatting
           allowedFormats={[]}
-          multiline="false"
         />
         <RichText
           tagName="div"
@@ -164,7 +163,6 @@ const SideContent = ({attributes, setAttributes}) => {
           onChange={desc => setAttributes({content_description: desc})}
           placeholder={__('Enter description', 'planet4-blocks-backend')}
           allowedFormats={['core/bold', 'core/italic']}
-          multiline
         />
       </div>
     </>
@@ -195,7 +193,6 @@ const Signup = ({attributes, setAttributes}) => {
             placeholder={__('Enter form title', 'planet4-blocks-backend')}
             withoutInteractiveFormatting
             allowedFormats={[]}
-            multiline="false"
           />
           <RichText
             tagName="div"
@@ -204,7 +201,6 @@ const Signup = ({attributes, setAttributes}) => {
             onChange={des => setAttributes({description: des})}
             placeholder={__('Enter form description', 'planet4-blocks-backend')}
             allowedFormats={['core/bold', 'core/italic']}
-            multiline
           />
         </div>
 
@@ -264,7 +260,6 @@ const ThankYou = ({attributes, setAttributes}) => {
             placeholder={__('Enter title', 'planet4-blocks-backend')}
             withoutInteractiveFormatting
             allowedFormats={[]}
-            multiline="false"
           />
         </header>
         <RichText
@@ -274,7 +269,6 @@ const ThankYou = ({attributes, setAttributes}) => {
           onChange={toAttribute('thankyou_subtitle')}
           placeholder={__('Enter description', 'planet4-blocks-backend')}
           allowedFormats={[]}
-          multiline
         />
 
         <div className="sub-section formblock-flex">
@@ -287,7 +281,6 @@ const ThankYou = ({attributes, setAttributes}) => {
               placeholder={__('Enter social media message', 'planet4-blocks-backend')}
               withoutInteractiveFormatting
               allowedFormats={[]}
-              multiline="false"
             />
           </div>
 
@@ -305,7 +298,6 @@ const ThankYou = ({attributes, setAttributes}) => {
                   onChange={toAttribute('thankyou_donate_message')}
                   placeholder={__('Enter donate message', 'planet4-blocks-backend')}
                   allowedFormats={['core/bold', 'core/italic', 'core/link']}
-                  multiline="false"
                 />
               </div>
 
@@ -319,7 +311,6 @@ const ThankYou = ({attributes, setAttributes}) => {
                   placeholder={__('Donate', 'planet4-blocks-backend')}
                   withoutInteractiveFormatting
                   allowedFormats={[]}
-                  multiline="false"
                 />
               </div>
             </>

@@ -43,7 +43,6 @@ const renderView = ({title, description, tabs, className}, setAttributes, isSele
           value={title}
           onChange={toAttribute('title')}
           withoutInteractiveFormatting
-          multiline="false"
           allowedFormats={[]}
         />
       </header>
@@ -65,7 +64,6 @@ const renderView = ({title, description, tabs, className}, setAttributes, isSele
             value={tab.headline}
             onChange={updateTabAttribute('headline', index)}
             withoutInteractiveFormatting
-            multiline="false"
             allowedFormats={[]}
           />
           <div className={`panel ${isSelected ? '' : 'panel-hidden'}`}>
@@ -86,7 +84,6 @@ const renderView = ({title, description, tabs, className}, setAttributes, isSele
                   value={tab.button.button_text}
                   onChange={updateTabAttribute('button_text', index)}
                   withoutInteractiveFormatting
-                  multiline="false"
                   allowedFormats={[]}
                 />
                 <Button

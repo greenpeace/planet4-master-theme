@@ -13,7 +13,6 @@ export const Caption = ({slide, index, changeSlideAttribute}) => (
           onChange={changeSlideAttribute('header', index)}
           withoutInteractiveFormatting
           allowedFormats={[]}
-          multiline="false"
         />
         <RichText
           tagName="p"

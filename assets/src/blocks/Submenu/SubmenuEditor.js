@@ -107,7 +107,6 @@ const renderView = (attributes, setAttributes, className) => {
         value={title}
         onChange={titl => setAttributes({title: titl})}
         withoutInteractiveFormatting
-        multiline="false"
         allowedFormats={[]}
       />
       {menuItems.length > 0 ?

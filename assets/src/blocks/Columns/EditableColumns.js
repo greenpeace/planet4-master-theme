@@ -88,7 +88,6 @@ export const EditableColumns = ({
               onChange={toAttribute('title', index)}
               withoutInteractiveFormatting
               allowedFormats={[]}
-              multiline="false"
             />
             <RichText
               tagName="p"

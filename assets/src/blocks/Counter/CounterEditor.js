@@ -75,7 +75,6 @@ export const CounterEditor = ({setAttributes, attributes, isSelected}) => {
             value={attributes.title}
             onChange={toAttribute('title')}
             withoutInteractiveFormatting
-            multiline="false"
             allowedFormats={[]}
           />
         </header>

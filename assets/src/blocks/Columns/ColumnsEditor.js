@@ -156,7 +156,6 @@ export const ColumnsEditor = ({isSelected, attributes, setAttributes}) => {
             value={columns_title}
             onChange={toAttribute('columns_title')}
             withoutInteractiveFormatting
-            multiline="false"
             allowedFormats={[]}
           />
         </header>

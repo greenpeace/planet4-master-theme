@@ -123,7 +123,6 @@ export const CookiesFrontend = props => {
             value={title}
             onChange={toAttribute('title')}
             withoutInteractiveFormatting
-            multiline="false"
             editable={isEditing}
             allowedFormats={[]}
           />
@@ -151,7 +150,6 @@ export const CookiesFrontend = props => {
                 value={getFieldValue('necessary_cookies_name')}
                 onChange={toAttribute('necessary_cookies_name')}
                 withoutInteractiveFormatting
-                multiline="false"
                 editable={isEditing}
                 allowedFormats={[]}
               />
@@ -219,7 +217,6 @@ export const CookiesFrontend = props => {
                   value={getFieldValue('analytical_cookies_name')}
                   onChange={toAttribute('analytical_cookies_name')}
                   withoutInteractiveFormatting
-                  multiline="false"
                   editable={isEditing}
                   allowedFormats={[]}
                 />
@@ -287,7 +284,6 @@ export const CookiesFrontend = props => {
                   value={getFieldValue('all_cookies_name')}
                   onChange={toAttribute('all_cookies_name')}
                   withoutInteractiveFormatting
-                  multiline="false"
                   editable={isEditing}
                   allowedFormats={[]}
                 />

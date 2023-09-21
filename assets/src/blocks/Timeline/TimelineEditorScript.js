@@ -106,7 +106,6 @@ const renderView = (attributes, toAttribute, scriptLoaded, stylesLoaded) => {
             onChange={toAttribute('timeline_title')}
             withoutInteractiveFormatting
             maxLength={40}
-            multiline="false"
             allowedFormats={[]}
           />
         </header>

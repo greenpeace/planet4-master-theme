@@ -84,7 +84,6 @@ const renderView = (attributes, toAttribute) => {
           value={video_title}
           onChange={toAttribute('video_title')}
           withoutInteractiveFormatting
-          multiline="false"
           allowedFormats={[]}
         />
       </header>
