@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2023-04-12 16:12+0000\n"
+"PO-Revision-Date: 2023-09-21 12:08+0000\n"
 "Last-Translator: Rickson Figueira\n"
 "Language-Team: Portuguese (Brazil)\n"
 "MIME-Version: 1.0\n"
@@ -19,7 +19,7 @@ msgstr ""
 "_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "Language: pt_BR\n"
 "Report-Msgid-Bugs-To: \n"
-"X-Loco-Version: 2.6.3; wp-6.1.1\n"
+"X-Loco-Version: 2.6.6; wp-6.2.2\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
@@ -79,7 +79,7 @@ msgstr "Ação"
 
 #: templates/search.twig:255
 msgid "Action Type"
-msgstr ""
+msgstr "Tipo da ação"
 
 #: templates/search.twig:181
 msgid "ACTIVE FILTERS"
@@ -91,7 +91,7 @@ msgstr "Permitir todos"
 
 #: templates/cookies/cookies_settings.twig:16
 msgid "Always enabled"
-msgstr ""
+msgstr "Sempre habilitado"
 
 #: templates/search.twig:171
 msgid "Apply filters"
@@ -104,7 +104,7 @@ msgstr "Arquivos"
 
 #: src/PostArchive.php:80
 msgid "Archive URL"
-msgstr ""
+msgstr "URL do arquivo"
 
 #: page-templates/sitemap.php:27
 msgid "Articles"
@@ -141,7 +141,7 @@ msgstr "Limpar busca"
 
 #: templates/burger-menu.twig:10
 msgid "Close navigation mobile menu"
-msgstr ""
+msgstr "Fechar menu de navegação mobile"
 
 #: templates/comment_form/comment_field.twig:4
 msgid "Comment"
@@ -216,7 +216,7 @@ msgstr "Greenpeace Planet 4 Tema Master"
 #. phpcs:ignore Generic.Files.LineLength.MaxExceeded
 #: functions.php:459
 msgid "here"
-msgstr ""
+msgstr "aqui"
 
 #: templates/burger-menu.twig:34
 msgid "Home"
@@ -244,7 +244,7 @@ msgstr "Internacional (Inglês)"
 
 #: templates/single-password.twig:18 templates/single-page.twig:15
 msgid "Invalid password, please try again"
-msgstr ""
+msgstr "Senha inválida, tente novamente"
 
 #: single.php:114
 msgid "Leave your reply"
@@ -321,7 +321,7 @@ msgstr "Posts por"
 
 #: tag.php:126
 msgid "Publications"
-msgstr ""
+msgstr "Publicações"
 
 #: templates/search.twig:68 templates/search.twig:178
 msgid "Refine your search"
@@ -381,7 +381,7 @@ msgstr "Mostrar mais %s resultados"
 
 #: templates/blocks/author_profile.twig:45
 msgid "Show less"
-msgstr ""
+msgstr "Mostrar menos"
 
 #: templates/blocks/author_profile.twig:44
 msgid "Show more"
@@ -425,7 +425,9 @@ msgstr "Participe já"
 msgid ""
 "Thank you! Please <a href=\"%s\">click here</a> if you are not redirected "
 "within a few seconds."
-msgstr " "
+msgstr ""
+"Obrigado! Por favor, <a href=\"%s\">clique aqui</a> se você não for "
+"redirecionado em alguns instantes"
 
 #. phpcs:ignore Generic.Files.LineLength.MaxExceeded
 #: functions.php:458
@@ -450,6 +452,8 @@ msgstr "Esse link irá abrir um arquivo PDF"
 #: templates/single-password.twig:15 templates/single-page.twig:12
 msgid "To see the content of this page, please enter your password  below"
 msgstr ""
+"Essa pátina está restrita. Para ver o conteúdo, digite a senha no campo "
+"abaixo"
 
 #: src/MasterSite.php:564
 msgid "Toggle search box"
