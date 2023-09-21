@@ -1,6 +1,6 @@
 import {ArticlesFrontend} from './blocks/Articles/ArticlesFrontend';
 import {CookiesFrontend} from './blocks/Cookies/CookiesFrontend';
-import {SplittwocolumnsFrontend} from './blocks/Splittwocolumns/SplittwocolumnsFrontend';
+import {SplittwocolumnsFrontend} from './blocks/SplitTwoColumns/SplitTwoColumnsFrontend';
 import {HappypointFrontend} from './blocks/Happypoint/HappypointFrontend';
 import {SubmenuFrontend} from './blocks/Submenu/SubmenuFrontend';
 import {MediaFrontend} from './blocks/Media/MediaFrontend';

@@ -5,7 +5,7 @@ import {HappypointBlock} from './blocks/Happypoint/HappypointBlock';
 import {registerMediaBlock} from './blocks/Media/MediaBlock';
 import {registerSocialMediaBlock} from './blocks/SocialMedia/SocialMediaBlock';
 import {SocialMediaCardsBlock} from './blocks/SocialMediaCards/SocialMediaCardsBlock';
-import {registerSplittwocolumnsBlock} from './blocks/Splittwocolumns/register';
+import {registerSplittwocolumnsBlock} from './blocks/SplitTwoColumns/register';
 import {registerSubmenuBlock} from './blocks/Submenu/SubmenuBlock';
 import {registerTakeActionBoxoutBlock} from './blocks/TakeActionBoxout/TakeActionBoxoutBlock';
 import {registerTimelineBlock} from './blocks/Timeline/TimelineBlock';

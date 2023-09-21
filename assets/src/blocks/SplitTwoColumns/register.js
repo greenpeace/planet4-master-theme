@@ -1,6 +1,6 @@
-import {SplittwocolumnsEditor} from './SplittwocolumnsEditor';
+import {SplittwocolumnsEditor} from './SplitTwoColumnsEditor';
 import {frontendRendered} from '../frontendRendered';
-import {splitTwoColumnsV1} from './deprecated/SplittwocolumnsV1';
+import {splitTwoColumnsV1} from './deprecated/splitTwoColumnsV1';
 
 const {registerBlockType} = wp.blocks;
 const {__} = wp.i18n;

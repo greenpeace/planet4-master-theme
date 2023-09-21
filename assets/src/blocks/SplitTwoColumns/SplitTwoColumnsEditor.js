@@ -1,8 +1,8 @@
 import {Fragment} from '@wordpress/element';
 import {BLOCK_NAME, VERSION} from './register';
-import {SplittwocolumnsFrontend} from './SplittwocolumnsFrontend';
-import {SplittwocolumnsSettings} from './SplittwocolumnsSettings';
-import {SplittwocolumnsInPlaceEdit} from './SplittwocolumnsInPlaceEdit';
+import {SplittwocolumnsFrontend} from './SplitTwoColumnsFrontend';
+import {SplittwocolumnsSettings} from './SplitTwoColumnsSettings';
+import {SplittwocolumnsInPlaceEdit} from './SplitTwoColumnsInPlaceEdit';
 
 const {apiFetch} = wp;
 const {useSelect} = wp.data;
