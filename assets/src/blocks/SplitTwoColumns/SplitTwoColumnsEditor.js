@@ -1,8 +1,8 @@
 import {Fragment} from '@wordpress/element';
 import {BLOCK_NAME, VERSION} from './register';
-import {SplittwocolumnsFrontend} from './SplitTwoColumnsFrontend';
-import {SplittwocolumnsSettings} from './SplitTwoColumnsSettings';
-import {SplittwocolumnsInPlaceEdit} from './SplitTwoColumnsInPlaceEdit';
+import {SplitTwoColumnsFrontend} from './SplitTwoColumnsFrontend';
+import {SplitTwoColumnsSettings} from './SplitTwoColumnsSettings';
+import {SplitTwoColumnsInPlaceEdit} from './SplitTwoColumnsInPlaceEdit';
 
 const {apiFetch} = wp;
 const {useSelect} = wp.data;
@@ -11,7 +11,7 @@ const useImage = (image_id, url) => {
   return useSelect(select => !image_id ? {url} : select('core').getMedia(image_id));
 };
 
-export const SplittwocolumnsEditor = ({attributes, setAttributes, isSelected}) => {
+export const SplitTwoColumnsEditor = ({attributes, setAttributes, isSelected}) => {
   // Todo: Never directly change things in a render, this will cause issues. Render should only render or attach listeners.
   updateDeprecatedData(attributes, setAttributes, BLOCK_NAME, VERSION);
 
@@ -40,15 +40,15 @@ export const SplittwocolumnsEditor = ({attributes, setAttributes, isSelected}) =
   );
 };
 
-const renderView = ({attributes}) => <SplittwocolumnsFrontend {...attributes} />;
+const renderView = ({attributes}) => <SplitTwoColumnsFrontend {...attributes} />;
 const renderEdit = ({attributes}, setAttributes) => {
   const charLimit = {title: 40, description: 400};
   const params = {attributes, charLimit, setAttributes};
 
   return (
     <Fragment>
-      <SplittwocolumnsInPlaceEdit {...params} />
-      <SplittwocolumnsSettings {...params} />
+      <SplitTwoColumnsInPlaceEdit {...params} />
+      <SplitTwoColumnsSettings {...params} />
     </Fragment>
   );
 };

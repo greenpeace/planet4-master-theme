@@ -5,7 +5,7 @@ const {__} = wp.i18n;
 
 // WYSIWYG in-place editor
 
-export const SplittwocolumnsInPlaceEdit = ({attributes, setAttributes}) => {
+export const SplitTwoColumnsInPlaceEdit = ({attributes, setAttributes}) => {
   const {
     title,
     issue_description,

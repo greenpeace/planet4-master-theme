@@ -1,4 +1,4 @@
-import {SplittwocolumnsEditor} from './SplitTwoColumnsEditor';
+import {SplitTwoColumnsEditor} from './SplitTwoColumnsEditor';
 import {frontendRendered} from '../frontendRendered';
 import {splitTwoColumnsV1} from './deprecated/splitTwoColumnsV1';
 
@@ -46,7 +46,7 @@ export const registerSplittwocolumnsBlock = () => {
         tag_image_id: false,
       }},
     },
-    edit: SplittwocolumnsEditor,
+    edit: SplitTwoColumnsEditor,
     save: frontendRendered(BLOCK_NAME),
     supports: {
       html: false, // Disable "Edit as HTMl" block option.

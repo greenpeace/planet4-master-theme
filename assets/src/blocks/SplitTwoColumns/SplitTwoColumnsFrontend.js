@@ -1,6 +1,6 @@
 import {IMAGE_SIZES} from './imageSizes';
 
-export const SplittwocolumnsFrontend = ({
+export const SplitTwoColumnsFrontend = ({
   title,
   issue_description,
   issue_link_text,

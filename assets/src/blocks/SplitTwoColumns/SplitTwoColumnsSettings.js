@@ -7,7 +7,7 @@ const {useSelect} = wp.data;
 const {__} = wp.i18n;
 
 // Sidebar settings
-export const SplittwocolumnsSettings = ({attributes, charLimit, setAttributes}) => {
+export const SplitTwoColumnsSettings = ({attributes, charLimit, setAttributes}) => {
   const {
     title,
     select_issue,
