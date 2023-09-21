@@ -84,6 +84,9 @@ class SplitTwoColumns extends Base_Block {
 				},
 			]
 		);
+
+		add_action( 'enqueue_block_editor_assets', [ self::class, 'enqueue_editor_assets' ] );
+		add_action( 'wp_enqueue_scripts', [ self::class, 'enqueue_frontend_assets' ] );
 	}
 
 	/**

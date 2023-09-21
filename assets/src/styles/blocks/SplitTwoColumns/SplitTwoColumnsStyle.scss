@@ -1,3 +1,8 @@
+@import "../../master-theme/assets/src/scss/base/colors";
+@import "../../master-theme/assets/src/scss/base/mixins";
+@import "../../master-theme/assets/src/scss/base/variables";
+@import "../../master-theme/assets/src/scss/base/fonts";
+
 .split-two-column {
   background-color: $grey-80;
   color: $white;

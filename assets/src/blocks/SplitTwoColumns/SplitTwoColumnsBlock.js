@@ -8,7 +8,7 @@ const {__} = wp.i18n;
 export const BLOCK_NAME = 'planet4-blocks/split-two-columns';
 export const VERSION = 2;
 
-export const registerSplittwocolumnsBlock = () => {
+export const registerSplitTwoColumnsBlock = () => {
   registerBlockType(BLOCK_NAME, {
     title: __('Split Two Columns', 'planet4-blocks-backend'),
     icon: 'editor-table',

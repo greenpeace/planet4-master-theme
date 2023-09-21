@@ -1,5 +1,5 @@
 import {Fragment} from '@wordpress/element';
-import {BLOCK_NAME, VERSION} from './register';
+import {BLOCK_NAME, VERSION} from './SplitTwoColumnsBlock';
 import {SplitTwoColumnsFrontend} from './SplitTwoColumnsFrontend';
 import {SplitTwoColumnsSettings} from './SplitTwoColumnsSettings';
 import {SplitTwoColumnsInPlaceEdit} from './SplitTwoColumnsInPlaceEdit';
