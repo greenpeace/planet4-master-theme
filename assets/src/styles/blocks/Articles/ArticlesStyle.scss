@@ -1,3 +1,7 @@
+@import "../../master-theme/assets/src/scss/base/colors";
+@import "../../master-theme/assets/src/scss/base/mixins";
+@import "../../master-theme/assets/src/scss/base/variables";
+
 .article-list-item {
   display: flex;
   flex-direction: column;

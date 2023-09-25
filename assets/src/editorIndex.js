@@ -1,4 +1,3 @@
-import {ArticlesBlock} from './blocks/Articles/ArticlesBlock';
 import {registerColumnsBlock} from './blocks/Columns/ColumnsBlock';
 import {CookiesBlock} from './blocks/Cookies/CookiesBlock';
 import {HappypointBlock} from './blocks/Happypoint/HappypointBlock';
@@ -22,7 +21,6 @@ import {registerPageHeaderBlock} from './blocks/PageHeader/PageHeaderBlock';
 import {registerBlockTemplates} from './block-templates/register';
 
 blockEditorValidation();
-new ArticlesBlock();
 registerColumnsBlock();
 new CookiesBlock();
 new HappypointBlock();

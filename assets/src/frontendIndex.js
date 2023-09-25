@@ -1,4 +1,3 @@
-import {ArticlesFrontend} from './blocks/Articles/ArticlesFrontend';
 import {CookiesFrontend} from './blocks/Cookies/CookiesFrontend';
 import {HappypointFrontend} from './blocks/Happypoint/HappypointFrontend';
 import {SubmenuFrontend} from './blocks/Submenu/SubmenuFrontend';
@@ -13,7 +12,6 @@ import {createRoot} from 'react-dom/client';
 
 // Render React components
 const COMPONENTS = {
-  'planet4-blocks/articles': ArticlesFrontend,
   'planet4-blocks/cookies': CookiesFrontend,
   'planet4-blocks/happypoint': HappypointFrontend,
   'planet4-blocks/submenu': SubmenuFrontend,

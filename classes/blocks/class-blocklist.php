@@ -53,9 +53,10 @@ class BlockList {
 		$block_list = self::cache_get( $post_id, $found );
 
 		if ( ! $found || ! is_array( $block_list ) ) {
-			$post       = $post ?? get_post( $post_id );
-			$content    = $post->post_content ?? '';
-			$block_list = self::parse_block_list( $content, $reusable, $post_id );
+			$post             = $post ?? get_post( $post_id );
+			$content          = $post->post_content ?? '';
+			$include_articles = 'yes' === $post->include_articles;
+			$block_list       = self::parse_block_list( $content, $reusable, $post_id, $include_articles );
 			self::cache_set( $post_id, $block_list );
 		}
 
@@ -68,16 +69,21 @@ class BlockList {
 	 * @param string $content Post content.
 	 * @param array  $seen    Reusable blocks already parsed.
 	 * @param int    $post_id Post ID parsed.
+	 * @param bool   $include_articles whether or not we should include the Articles block based on the post settings.
 	 *
 	 * @return string[] List of unique block names.
 	 */
-	public static function parse_block_list( string $content, &$seen = [], $post_id = 0 ): array {
+	public static function parse_block_list( string $content, &$seen = [], $post_id = 0, bool $include_articles ): array {
+		// Add Articles block in posts where it's included from the settings.
+		$initial_blocks = $include_articles ? [ 'planet4-blocks/articles' ] : [];
+
 		if ( ! has_blocks( $content ) ) {
-			return [];
+			return $initial_blocks;
 		}
 
-		$blocks = ( new WP_Block_Parser() )->parse( $content );
-		$parsed = array_filter( $blocks, fn ( $b ) => ! empty( $b['blockName'] ) );
+		$content_blocks = ( new WP_Block_Parser() )->parse( $content );
+		$blocks         = array_merge( $initial_blocks, $content_blocks );
+		$parsed         = array_filter( $blocks, fn ( $b ) => ! empty( $b['blockName'] ) );
 		if ( ! isset( $seen[ $post_id ] ) ) {
 			$seen[ $post_id ] = [];
 		}
