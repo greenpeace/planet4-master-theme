@@ -31,7 +31,7 @@ const config = {
   workers: parseInt(process.env.PW_WORKERS),
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: process.env.CI ?
-    [['html', {outputFolder: 'e2e-report', open: 'never'}],
+    [['html', {outputFolder: 'e2e-report'}],
       ['junit', {outputFile: 'results.xml'}]] :
     [['html', {outputFolder: 'e2e-report'}]],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
