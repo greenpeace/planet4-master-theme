@@ -10,7 +10,7 @@ const useImage = (image_id, url) => {
   return useSelect(select => !image_id ? {url} : select('core').getMedia(image_id));
 };
 
-const renderView = attributes => <SplitTwoColumnsFrontend {...attributes} />;
+const renderView = attributes => <SplitTwoColumnsFrontend attributes={attributes} />;
 const renderEdit = (attributes, setAttributes) => {
   const charLimit = {title: 40, description: 400};
   const params = {attributes, charLimit, setAttributes};

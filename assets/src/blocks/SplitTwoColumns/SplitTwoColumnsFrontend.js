@@ -1,25 +1,26 @@
 import {IMAGE_SIZES} from './imageSizes';
 
-export const SplitTwoColumnsFrontend = ({
-  title,
-  issue_description,
-  issue_link_text,
-  issue_link_path,
-  issue_image_src,
-  issue_image_srcset,
-  issue_image_title,
-  focus_issue_image,
-  tag_name,
-  tag_description,
-  tag_link,
-  button_text,
-  button_link,
-  tag_image_src,
-  tag_image_srcset,
-  tag_image_title,
-  focus_tag_image,
-  className,
-}) => {
+export const SplitTwoColumnsFrontend = ({attributes}) => {
+  const {
+    title,
+    issue_description,
+    issue_link_text,
+    issue_link_path,
+    issue_image_src,
+    issue_image_srcset,
+    issue_image_title,
+    focus_issue_image,
+    tag_name,
+    tag_description,
+    tag_link,
+    button_text,
+    button_link,
+    tag_image_src,
+    tag_image_srcset,
+    tag_image_title,
+    focus_tag_image,
+    className,
+  } = attributes;
   const analytics = action => {
     return {
       'data-ga-category': 'Split Two Columns',
