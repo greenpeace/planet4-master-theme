@@ -17,7 +17,7 @@ if (! empty($sitename)) {
 }
 
 // Sanitize input.
-$post_ids = filter_input(INPUT_GET, 'post', FILTER_SANITIZE_STRING);
+$post_ids = sanitize_text_field($_GET['post']);
 
 $post_ids = explode(',', $post_ids);
 

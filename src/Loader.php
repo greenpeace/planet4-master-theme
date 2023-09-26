@@ -106,7 +106,7 @@ final class Loader
 
             // Load `CampaignImporter` class only for WordPress import requests.
             // phpcs:disable
-            if ('wordpress' === filter_input(INPUT_GET, 'import', FILTER_SANITIZE_STRING)) {
+            if ('wordpress' === filter_input(INPUT_GET, 'import', FILTER_SANITIZE_FULL_SPECIAL_CHARS)) {
                 // phpcs:enable
                 $this->default_services[] = Importer::class;
             }

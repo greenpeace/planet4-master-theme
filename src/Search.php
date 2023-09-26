@@ -302,14 +302,14 @@ abstract class Search
      */
     public static function get_paged_posts(): void
     {
-        $paged = filter_input(INPUT_GET, 'paged', FILTER_SANITIZE_STRING);
+        $paged = sanitize_text_field($_GET['paged']);
 
         $search_async = new static();
         $search_async->set_context($search_async->context);
-        $search_async->search_query = urldecode(filter_input(INPUT_GET, 'search_query', FILTER_SANITIZE_STRING));
+        $search_async->search_query = urldecode(sanitize_text_field($_GET['search_query']));
 
         // Get the decoded url query string and then use it as key for redis.
-        $query_string_full = urldecode(filter_input(INPUT_SERVER, 'QUERY_STRING', FILTER_SANITIZE_STRING));
+        $query_string_full = urldecode(sanitize_text_field($_SERVER['QUERY_STRING']));
         $query_string = str_replace('&query-string=', '', strstr($query_string_full, '&query-string='));
 
         $search_async->current_page = $paged;
@@ -366,7 +366,7 @@ abstract class Search
         $posts = $this->query_posts($paged);
 
         if (empty($posts)) {
-            add_action('wp_head', 'wp_no_robots');
+            add_filter('wp_robots', 'wp_robots_no_robots');
             if (! headers_sent()) {
                 header('P4-Search: no-results');
             }
@@ -521,7 +521,7 @@ abstract class Search
         // Add sort by date.
         if (wp_doing_ajax()) {
             // Get the decoded url query string and then use it as key for redis.
-            $query_string_full = urldecode(filter_input(INPUT_SERVER, 'QUERY_STRING', FILTER_SANITIZE_STRING));
+            $query_string_full = urldecode(sanitize_text_field($_SERVER['QUERY_STRING']));
             $query_string = str_replace(
                 '&query-string=',
                 '',
@@ -530,7 +530,7 @@ abstract class Search
             parse_str($query_string, $filters_array);
             $selected_sort = $filters_array['orderby'] ?? self::DEFAULT_SORT;
         } else {
-            $selected_sort = filter_input(INPUT_GET, 'orderby', FILTER_SANITIZE_STRING);
+            $selected_sort = sanitize_text_field($_GET['orderby']);
         }
         $selected_sort = sanitize_sql_orderby($selected_sort);
 
@@ -971,7 +971,7 @@ abstract class Search
      */
     public function validate(string &$selected_sort, array &$filters, array $context): bool
     {
-        $selected_sort = filter_var($selected_sort, FILTER_SANITIZE_STRING);
+        $selected_sort = sanitize_text_field($selected_sort);
 
         if (
             ! isset($context['sort_options'])

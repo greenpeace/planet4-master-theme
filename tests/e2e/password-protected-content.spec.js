@@ -39,6 +39,6 @@ test('check password protected content', async ({page, admin, editor}) => {
   await form.getByRole('button').click();
 
   // Make sure that the title and paragraph are now shown.
-  await expect(page.getByText(TEST_TITLE)).toBeVisible();
+  await expect(page.getByRole('heading', {name: TEST_TITLE})).toBeVisible();
   await expect(page.getByText(TEST_PARAGRAPH)).toBeVisible();
 });

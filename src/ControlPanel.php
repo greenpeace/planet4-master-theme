@@ -158,8 +158,8 @@ class ControlPanel
         }
 
         // Allow this action only to Administrators.
-        $cp_nonce = filter_input(INPUT_GET, '_wpnonce', FILTER_SANITIZE_STRING);
-        $cp_action = filter_input(INPUT_GET, 'cp-action', FILTER_SANITIZE_STRING);
+        $cp_nonce = sanitize_text_field($_GET['_wpnonce']);
+        $cp_action = sanitize_text_field($_GET['cp-action']);
 
         // CSRF check and action check.
         if (wp_verify_nonce($cp_nonce, 'cp-action') && 'flush_cache' === $cp_action) {
@@ -196,8 +196,8 @@ class ControlPanel
         }
 
         // Allow this action only to Administrators.
-        $cp_nonce = filter_input(INPUT_GET, '_wpnonce', FILTER_SANITIZE_STRING);
-        $cp_action = filter_input(INPUT_GET, 'cp-action', FILTER_SANITIZE_STRING);
+        $cp_nonce = sanitize_text_field($_GET['_wpnonce']);
+        $cp_action = sanitize_text_field($_GET['cp-action']);
 
         // CSRF check and action check.
         if (wp_verify_nonce($cp_nonce, 'cp-action') && 'check_cache' === $cp_action) {
@@ -235,8 +235,8 @@ class ControlPanel
         if (! current_user_can('manage_options')) {
             return;
         }
-        $cp_nonce = filter_input(INPUT_GET, '_wpnonce', FILTER_SANITIZE_STRING);
-        $cp_action = filter_input(INPUT_GET, 'cp-action', FILTER_SANITIZE_STRING);
+        $cp_nonce = sanitize_text_field($_GET['_wpnonce']);
+        $cp_action = sanitize_text_field($_GET['cp-action']);
 
         // CSRF check and action check.
         if (wp_verify_nonce($cp_nonce, 'cp-action') && 'check_engaging_networks' === $cp_action) {
@@ -287,8 +287,8 @@ class ControlPanel
             return;
         }
 
-        $cp_nonce = filter_input(INPUT_GET, '_wpnonce', FILTER_SANITIZE_STRING);
-        $cp_action = filter_input(INPUT_GET, 'cp-action', FILTER_SANITIZE_STRING);
+        $cp_nonce = sanitize_text_field($_GET['_wpnonce']);
+        $cp_action = sanitize_text_field($_GET['cp-action']);
 
         // CSRF check and action check.
         if (wp_verify_nonce($cp_nonce, 'cp-action') && 'check_elasticsearch' === $cp_action) {
