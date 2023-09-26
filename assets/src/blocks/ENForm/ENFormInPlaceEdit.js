@@ -4,7 +4,6 @@ import {RichText, BlockControls} from '@wordpress/block-editor';
 import {ToolbarGroup} from '@wordpress/components';
 import {useSelect} from '@wordpress/data';
 import {useState} from '@wordpress/element';
-import {autop} from '@wordpress/autop';
 
 const {__} = wp.i18n;
 
@@ -159,7 +158,7 @@ const SideContent = ({attributes, setAttributes}) => {
         />
         <RichText
           tagName="div"
-          value={autop(content_description ?? '')}
+          value={content_description ?? ''}
           onChange={desc => setAttributes({content_description: desc})}
           placeholder={__('Enter description', 'planet4-blocks-backend')}
           allowedFormats={['core/bold', 'core/italic']}
