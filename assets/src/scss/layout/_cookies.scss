@@ -1,6 +1,6 @@
 .cookie-notice {
   _-- {
-    font-family: var(--headings--font-family);
+    font-family: var(--font-family-paragraph-secondary);
   }
   z-index: 100;
   position: fixed;
@@ -59,6 +59,14 @@
   width: 100%;
 }
 
+.cookies-text,
+.cookies-settings-details {
+  a {
+    @include shared-link-styles;
+    transition-timing-function: cubic-bezier(0.5, 0, 0, 0.5);
+  }
+}
+
 .cookies-buttons {
   .btn {
     _-- {
@@ -97,7 +105,7 @@
   display: block;
   background: none;
   border: none;
-  color: $grey-40;
+  color: var(--grey-600);
   margin: $sp-2 auto 0 auto;
   line-height: 2.4;
   font-size: 14px;

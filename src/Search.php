@@ -753,7 +753,6 @@ abstract class Search
                 'order' => 'ASC',
             ],
         ];
-        $context['is_new_identity'] = get_theme_mod('new_identity_styles');
 
         if ($this->search_query) {
             $context['page_title'] = sprintf(

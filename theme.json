@@ -12,8 +12,8 @@
     "elements": {
       "heading": {
         "typography": {
-          "fontFamily": "var(--headings--font-family)",
-          "fontWeight": "var(--headings--font-weight)"
+          "fontFamily": "var(--font-family-heading)",
+          "fontWeight": "inherit"
         }
       },
       "link": {
@@ -58,74 +58,74 @@
       "defaultPalette": false,
       "palette": [
         {
-          "name": "Grey 80%",
-          "slug": "grey-80",
-          "color": "#020202"
+          "name": "Green 400",
+          "slug": "green-400",
+          "color": "#80d643"
         },
         {
-          "name": "Grey 60%",
-          "slug": "grey-60",
-          "color": "#45494c"
-        },
-        {
-          "name": "Grey 40%",
-          "slug": "grey-40",
-          "color": "#6f7376"
-        },
-        {
-          "name": "Grey 20%",
-          "slug": "grey-20",
-          "color": "#a3a5a7"
-        },
-        {
-          "name": "Grey 10%",
-          "slug": "grey-10",
-          "color": "#ececec"
-        },
-        {
-          "name": "Grey 5%",
-          "slug": "grey-05",
-          "color": "#f5f7f8"
-        },
-        {
-          "name": "Grey",
-          "slug": "grey",
-          "color": "#23292d"
-        },
-        {
-          "name": "GP Green",
-          "slug": "gp-green",
+          "name": "Green 500",
+          "slug": "green-500",
           "color": "#66cc00"
         },
         {
-          "name": "X Dark Blue",
-          "slug": "x-dark-blue",
-          "color": "#042233"
+          "name": "Green 800",
+          "slug": "green-800",
+          "color": "#198700"
         },
         {
-          "name": "Dark Blue",
-          "slug": "dark-blue",
-          "color": "#074365"
+          "name": "Action Yellow",
+          "slug": "action-yellow",
+          "color": "#ffe100"
         },
         {
-          "name": "Blue",
-          "slug": "blue",
-          "color": "#2077bf"
+          "name": "Dark Green 800",
+          "slug": "dark-green-800",
+          "color": "#1f4912"
         },
         {
-          "name": "Orange",
-          "slug": "orange-hover",
-          "color": "#ee562d"
+          "name": "Beige 100",
+          "slug": "beige-100",
+          "color": "#f6f4ef"
         },
         {
-          "name": "Yellow",
-          "slug": "yellow",
-          "color": "#ffd204"
+          "name": "Blue Green 800",
+          "slug": "blue-green-800",
+          "color": "#167f82"
+        },
+        {
+          "name": "Red 500",
+          "slug": "red-500",
+          "color": "#d43b57"
         },
         {
           "name": "White",
           "slug": "white",
           "color": "#ffffff"
+        },
+        {
+          "name": "Grey 100",
+          "slug": "grey-100",
+          "color": "#f5f7f8"
+        },
+        {
+          "name": "Grey 200",
+          "slug": "grey-200",
+          "color": "#ececec"
+        },
+        {
+          "name": "Grey 600",
+          "slug": "grey-600",
+          "color": "#6f7376"
+        },
+        {
+          "name": "Grey 800",
+          "slug": "grey-800",
+          "color": "#45494c"
+        },
+        {
+          "name": "Grey 900",
+          "slug": "grey-900",
+          "color": "#1c1c1c"
         }
       ]
     },
@@ -153,19 +153,24 @@
           "text": false,
           "palette": [
             {
-              "color": "#f5f7f8",
-              "name": "Grey",
-              "slug": "grey"
+              "name": "Grey 800",
+              "slug": "grey",
+              "color": "#45494c"
             },
             {
-              "color": "#eafee7",
-              "name": "Green",
-              "slug": "green"
+              "name": "Dark Green 800",
+              "slug": "green",
+              "color": "#1f4912"
             },
             {
-              "color": "#e7f5fe",
-              "name": "Blue",
-              "slug": "blue"
+              "name": "Blue 800",
+              "slug": "blue",
+              "color": "#167f82"
+            },
+            {
+              "name": "GP Green 800",
+              "slug": "gp-green",
+              "color": "#198700"
             }
           ]
         }

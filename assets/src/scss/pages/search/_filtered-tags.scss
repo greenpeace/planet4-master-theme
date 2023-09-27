@@ -1,9 +1,9 @@
 .search-info {
   font-size: $font-size-xxs;
   margin-bottom: 0;
-  font-family: var(--headings--font-family);
+  font-family: var(--font-family-primary);
   font-style: italic;
-  color: $grey-60;
+  color: var(--grey-800);
   line-height: normal;
 
   @include medium-and-up {
@@ -16,25 +16,5 @@
 
   @include x-large-and-up {
     font-size: 2rem;
-  }
-
-  .btn-filter-item {
-    font-size: $font-size-xxs;
-    line-height: 1.6;
-    font-style: normal;
-    text-transform: none;
-    margin-left: 10px;
-    padding: 0 $sp-4 0 $sp-1;
-    border-width: 2px;
-
-    @include small-and-up {
-      font-size: $font-size-sm;
-      line-height: 1.9;
-      padding: 0 $sp-5 0 15px;
-    }
-
-    @include large-and-up {
-      font-size: $font-size-lg;
-    }
   }
 }

@@ -438,24 +438,6 @@ class Settings
             'planet4_settings_features' => Features::get_options_page(),
         ];
 
-        $is_new_identity = get_theme_mod('new_identity_styles');
-        if (!$is_new_identity) {
-            array_push(
-                $this->subpages['planet4_settings_navigation']['fields'],
-                [
-                    'name' => __('Website Navigation Style', 'planet4-master-theme-backend'),
-                    'desc' => __('Select a style', 'planet4-master-theme-backend'),
-                    'id' => 'website_navigation_style',
-                    'type' => 'select',
-                    'default' => 'dark',
-                    'options' => [
-                        'dark' => __('Dark', 'planet4-master-theme-backend'),
-                        'light' => __('Light', 'planet4-master-theme-backend'),
-                    ],
-                ]
-            );
-        }
-
         // This option should be visible only if the GF Hubspot add-on is activated.
         $is_gf_hubspot_addon = function_exists('is_plugin_active') && is_plugin_active('gravityformshubspot/hubspot.php');
         if ($is_gf_hubspot_addon) {
@@ -494,7 +476,6 @@ class Settings
         add_filter('cmb2_render_take_action_page_dropdown', [$this, 'p4_render_page_dropdown'], 10, 2);
         add_filter('cmb2_render_about_us_page_dropdown', [$this, 'p4_render_page_dropdown'], 10, 2);
         add_action('admin_enqueue_scripts', [$this, 'enqueue_admin_assets']);
-        add_action('admin_init', [$this, 'add_new_identity_styles_toggle_value']);
 
         // Make settings multilingual if wpml plugin is installed and activated.
         if (function_exists('is_plugin_active') && is_plugin_active('sitepress-multilingual-cms/sitepress.php')) {
@@ -691,18 +672,5 @@ class Settings
             true
         );
         wp_enqueue_script('options-script');
-    }
-
-    /**
-     * Add new identity styles toggle value.
-     */
-    public function add_new_identity_styles_toggle_value(): void
-    {
-        $settings = get_option(self::KEY);
-
-        update_option(
-            self::KEY,
-            array_merge($settings, ['new_identity_styles' => get_theme_mod('new_identity_styles')])
-        );
     }
 }

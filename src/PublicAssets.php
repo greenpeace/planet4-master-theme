@@ -77,7 +77,6 @@ final class PublicAssets
 
         self::conditionally_load_partials();
         self::load_blocks_assets();
-        self::load_new_identity_styles();
     }
 
     /**
@@ -89,11 +88,6 @@ final class PublicAssets
      */
     private static function conditionally_load_partials(): void
     {
-        $is_new_identity = get_theme_mod('new_identity_styles');
-        $navbar_version = $is_new_identity ? 'light' : planet4_get_option('website_navigation_style', 'dark');
-        $navbar_file = '/assets/build/navigation-bar-' . $navbar_version . '.min.css';
-        Loader::enqueue_versioned_style($navbar_file, 'navigation-bar', [ 'parent-style' ]);
-
         $country_selector_file = '/assets/build/country-selector.min.css';
         Loader::enqueue_versioned_style($country_selector_file, 'country-selector', [ 'parent-style' ]);
 
@@ -143,23 +137,6 @@ final class PublicAssets
                     ? Loader::enqueue_versioned_script($file, $handle)
                     : Loader::enqueue_versioned_style($file, $handle);
             }
-        );
-    }
-
-    /**
-     * Load any CSS for the new identity styles if the corresponding setting is on.
-     */
-    private static function load_new_identity_styles(): void
-    {
-        $new_identity_styles = get_theme_mod('new_identity_styles');
-        if (!$new_identity_styles) {
-            return;
-        }
-
-        Loader::enqueue_versioned_style(
-            '/assets/build/new_identity_styles.min.css',
-            'new_identity_styles',
-            []
         );
     }
 }

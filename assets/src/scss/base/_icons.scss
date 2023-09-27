@@ -9,19 +9,24 @@
 }
 
 a.standalone-link {
+  @include shared-link-styles;
+
+  display: inline-block;
+  width: fit-content;
+
   &::after {
     content: "";
+    display: inline-block;
+    background-color: currentColor;
     pointer-events: none;
     margin-inline-start: .2rem;
     height: .7rem;
     width: .7rem;
-    display: inline-block;
-    mask-image: url("../../images/chevron.svg");
-    mask-repeat: no-repeat;
-    mask-size: contain;
-    mask-position: center;
     background-repeat: no-repeat;
-    background-color: currentColor;
+    mask-image: url("../../images/chevron.svg");
+    mask-size: contain;
+    mask-repeat: no-repeat;
+    mask-position: center;
   }
 }
 
@@ -29,12 +34,12 @@ a.pdf-link {
   &::after {
     content: "";
     display: inline-block;
+    background-color: currentColor;
     height: 1rem;
     width: 1rem;
     margin-bottom: -2px;
     margin-inline-start: .2rem;
     margin-inline-end: .1rem;
-    background-color: currentColor;
     mask-image: url("../../images/file-pdf.svg");
     mask-repeat: no-repeat;
     mask-position: center;
@@ -45,14 +50,14 @@ a.external-link {
   &::after {
     content: "";
     display: inline-block;
+    background-color: currentColor;
     height: .7rem;
     width: .7rem;
     margin-inline-start: .2rem;
     margin-inline-end: .1rem;
-    background-color: currentColor;
     mask-image: url("../../images/external-link.svg");
+    mask-size: contain;
     mask-repeat: no-repeat;
     mask-position: center;
-    mask-size: contain;
   }
 }

@@ -1,7 +1,5 @@
 .author-block {
-  _-- {
-    background: $grey-10;
-  }
+  background: var(--color-background-author_block);
   overflow: hidden;
   padding: 24px 16px;
   border-radius: 4px;
@@ -28,9 +26,7 @@
 }
 
 .author-block-info-title {
-  _-- {
-    font-weight: bold;
-  }
+  font-weight: var(--font-weight-regular);
   font-size: 20px;
   text-align: center;
   margin-bottom: 16px;
@@ -52,10 +48,9 @@
 }
 
 .author-block-info-name {
-  _-- {
-    font-size: 1.0625rem;
-    font-weight: bold;
-  }
+  font-family: var(--font-family-paragraph-secondary);
+  font-size: var(--font-size-m--font-family-tertiary);
+  font-weight: var(--font-weight-regular);
   margin: 16px 0;
   text-align: center;
 }
@@ -77,16 +72,15 @@
     display: none;
     transition: none;
   }
+
+  & > div a,
+  .author-details a {
+    @include shared-link-styles;
+  }
 }
 
 .author-block-description-button {
-  _-- {
-    color: var(--link--color);
-
-    &:hover {
-      color: var(--link--hover--color);
-    }
-  }
+  color: var(--gp-green-800);
   background: none;
   outline: none;
   border: none;
@@ -102,6 +96,8 @@
   }
 
   &:hover {
+    color: var(--gp-green-800);
+
     span {
       text-decoration: underline;
     }

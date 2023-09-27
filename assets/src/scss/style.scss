@@ -12,6 +12,7 @@ Text Domain: planet4-master-theme
 */
 
 // Base
+@import "base/tokens";
 @import "base/colors";
 @import "base/variables";
 @import "base/palette";
@@ -35,6 +36,7 @@ Text Domain: planet4-master-theme
 @import "components/tweet-block";
 
 // Layout
+@import "layout/navbar";
 @import "layout/breadcrumbs";
 @import "layout/blocks";
 @import "layout/cookies";

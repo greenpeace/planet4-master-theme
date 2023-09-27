@@ -14,7 +14,6 @@ use Twig_Markup;
 use Twig_SimpleFilter;
 use WP_Error;
 use WP_Post;
-use WP_Customize_Control;
 
 /**
  * Class MasterSite.
@@ -255,24 +254,7 @@ class MasterSite extends TimberSite
         add_action(
             'customize_register',
             function ($wp_customize): void {
-                // Add new site identity styles toggle.
-                $wp_customize->add_setting('new_identity_styles', ['default' => false]);
-                $wp_customize->add_control(new WP_Customize_Control(
-                    $wp_customize,
-                    'new_identity_styles',
-                    array(
-                        'label' => __('Enable new Greenpeace visual identity', 'planet4-master-theme'),
-                        'description' => __(
-                            'This opt-out setting will be phased out at the end of September',
-                            'planet4-master-theme'
-                        ),
-                        'settings' => 'new_identity_styles',
-                        'type' => 'checkbox',
-                        'section' => 'title_tagline',
-                    )
-                ));
-
-                if (!defined('WP_APP_ENV') || ('production' !== WP_APP_ENV && 'staging' !== WP_APP_ENV)) {
+                if (!defined('WP_APP_ENV') || ( 'production' !== WP_APP_ENV && 'staging' !== WP_APP_ENV )) {
                     return;
                 }
 
@@ -941,17 +923,6 @@ class MasterSite extends TimberSite
     public function enqueue_editor_assets(): void
     {
         Loader::enqueue_versioned_style('assets/build/editorStyle.min.css', 'planet4-editor-style');
-
-        $new_identity_styles = get_theme_mod('new_identity_styles');
-        if (!$new_identity_styles) {
-            return;
-        }
-
-        Loader::enqueue_versioned_style(
-            '/assets/build/new_identity_styles.min.css',
-            'new_identity_styles',
-            []
-        );
     }
 
     /**

@@ -3,6 +3,12 @@
     margin-top: $sp-1;
     margin-bottom: $sp-2;
 
+    &.is-style-stripes table {
+      &.has-gp-green-background-color tr:nth-child(odd) {
+        background-color: var(--beige-200);
+      }
+    }
+
     @include large-and-up {
       margin-top: $sp-2;
       margin-bottom: $sp-4;
@@ -10,9 +16,7 @@
   }
 
   table {
-    --table-- {
-      font-family: var(--headings--font-family);
-    }
+    font-family: var(--font-family-tertiary);
     margin-bottom: 15px;
     width: 100%;
 
@@ -29,7 +33,7 @@
     }
 
     th {
-      color: $white;
+      color: var(--white);
       height: 36px;
       font-size: $font-size-xs;
       padding: 6px $sp-2x;
@@ -44,7 +48,7 @@
       font-size: $font-size-xs;
       padding: $sp-2x;
       vertical-align: top;
-      color: var(--body--color);
+      color: var(--color-text-body);
 
       @include mobile-only {
         min-width: 300px;
@@ -52,6 +56,20 @@
 
       @include x-large-and-up {
         font-size: $font-size-md;
+      }
+    }
+
+    &.has-gp-green-background-color {
+      th {
+        background-color: var(--gp-green-800);
+      }
+
+      tr {
+        background-color: var(--beige-100);
+      }
+
+      tfoot td {
+        background-color: var(--beige-300);
       }
     }
   }

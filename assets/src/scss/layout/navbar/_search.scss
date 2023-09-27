@@ -1,8 +1,8 @@
 .nav-search-form {
   background-color: var(--body--background-color);
   border: none;
-  border-top: var(--top-navigation--separation, 1px solid #c4c4c4);
-  box-shadow: 0 2px 4px transparentize($black, 0.85);
+  border-top: var(--top-navigation--separation);
+  box-shadow: 0 2px 4px rgba($grey-900, 0.15);
   display: none;
   height: 56px;
   inset-inline-start: 0;
@@ -60,7 +60,7 @@
 
   @include x-large-and-up {
     background: var(--top-navigation--background, inherit);
-    border-inline-start: var(--top-navigation--separation, 1px solid transparentize($white, 0.5));
+    border-inline-start: var(--top-navigation--separation);
     border-top: none;
     box-shadow: none;
     display: inline-flex;
@@ -78,7 +78,7 @@
   border: none;
   border-radius: unset;
   box-shadow: none;
-  color: var(--top-navigation--color, var(--body--color));
+  color: var(--grey-900);
   display: inline-block;
   flex-grow: 1;
   font-size: $font-size-sm;
@@ -104,7 +104,7 @@
   }
 
   &::placeholder {
-    color: $grey-40;
+    color: var(--grey-600);
   }
 }
 
@@ -146,9 +146,7 @@
 }
 
 .nav-search-clear {
-  --clear--search-- {
-    background-color: $black;
-  }
+  background-color: var(--grey-900);
   border: none;
   float: right;
   margin-inline-end: 36px;
@@ -164,7 +162,7 @@
   }
 
   @include x-large-and-up {
-    background-color: var(--top-navigation--color, $white);
+    background-color: var(--top-navigation--color, var(--white));
     display: inline-block;
     margin-inline-end: 0;
   }
@@ -182,7 +180,7 @@
   }
 
   @include large-and-up {
-    border-inline-start: var(--top-navigation--separation, 1px solid transparentize($white, 0.5));
+    border-inline-start: var(--top-navigation--separation);
     display: inline-block;
     padding: $sp-1x;
   }
@@ -200,6 +198,6 @@
   width: 44px;
 
   &.open --top-navigation--search-toggle-- {
-    background: rgba(255, 255, 255, 0.15);
+    background: var(--grey-200);
   }
 }

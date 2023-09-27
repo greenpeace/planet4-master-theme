@@ -21,7 +21,7 @@
   "--block-articles--article--meta--font-family": "\"Kanit\",sans-serif",
   "--block-columns--link--font-family": "Open Sans,sans-serif",
   "--button--font-family": "Open Sans,sans-serif",
-  "--headings--font-family": "Kanit,sans-serif",
+  "--font-family-heading": "Kanit,sans-serif",
   "--block-articles--article--headline--font-weight": "600",
   "--block-articles--article--meta--font-weight": "400",
   "--block-columns--column-heading--font-weight": "600",

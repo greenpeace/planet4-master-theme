@@ -1,3 +1,4 @@
+@import "../base/tokens";
 @import "../base/colors";
 @import "../base/variables";
 @import "../base/mixins";
@@ -5,19 +6,17 @@
 @import "../base/typography";
 
 .gform_wrapper {
-  _-- {
-    font-family: var(--headings--font-family);
-  }
+  font-family: var(--font-family-paragraph-secondary);
 
   &.gform_validation_error .gform_validation_errors {
-    color: $dark-orange;
-    background: $white;
-    border-color: $dark-orange;
+    color: var(--p4-action-yellow-600);
+    background: var(--white);
+    border-color: var(--p4-action-yellow-600);
     box-shadow: none;
     width: fit-content;
 
     > h2 {
-      color: $dark-orange;
+      color: var(--p4-action-yellow-600);
     }
   }
 
@@ -56,12 +55,13 @@
   }
 
   .gchoice {
+    font-family: var(--font-family-paragraph-secondary);
     margin-bottom: $sp-1;
     position: relative;
   }
 
   .gfield_required .gfield_required_text {
-    color: $grey-60;
+    color: var(--grey-800);
     font-style: normal;
   }
 
@@ -79,35 +79,35 @@
 
   &.gfield_error {
     .gfield_label {
-      color: var(--body--color);
+      color: var(--color-text-body);
     }
 
     input:not([type="file"]):not(:disabled),
     textarea[aria-invalid="true"],
     select[aria-invalid="true"] {
-      border-color: $dark-orange;
-      background: $white;
+      border-color: var(--red-500);
+      background: var(--white);
       background-image: none;
 
       ~ label {
-        color: var(--body--color);
+        color: var(--color-text-body);
       }
 
       &:focus {
-        border-color: $dark-orange;
+        border-color: var(--p4-action-yellow-600);
       }
     }
 
     .validation_message.gfield_validation_message {
       --gfield-validation-message-- {
-        font-size: $font-size-xxxs;
-        font-weight: 500;
+        font-size: var(--font-size-xs--font-family-tertiary);
+        font-weight: var(--font-weight-semibold);
       }
-      background: $dark-orange;
-      color: $white;
+      background: var(--red-500);
+      color: var(--white);
       border-radius: 4px;
-      border-color: $dark-orange;
-      padding: $sp-1 $sp-2;
+      border-color: var(--color-background-tooltip--error);
+      padding: $sp-1 $sp-2 !important;
       width: fit-content;
       pointer-events: none;
       position: relative;
@@ -119,7 +119,7 @@
         height: 0;
         width: 0;
         position: absolute;
-        border-bottom-color: $dark-orange;
+        border-bottom-color: var(--color-background-tooltip--error);
         border-width: 5px;
         right: auto;
         left: $sp-2;
@@ -135,7 +135,7 @@
 
 .ui-datepicker {
   _-- {
-    font-family: var(--headings--font-family);
+    font-family: var(--font-family-primary);
   }
 }
 
@@ -147,4 +147,8 @@
   hr {
     margin: $sp-5 0;
   }
+}
+
+.gform_description {
+  font-family: var(--font-family-paragraph-secondary);
 }

@@ -64,23 +64,23 @@
 }
 
 .query-list-item-post-terms {
-  font-family: var(--top-page-tags--font-family, var(--headings--font-family));
-  font-weight: var(--top-page-tags--tag-item--font-weight, 500);
+  font-family: var(--font-family-primary);
+  font-weight: var(--font-weight-regular);
   display: flex;
   font-size: $font-size-sm;
   line-height: 25px;
-  color: var(--top-page-tags--tag-item--color, var(--link--color));
+  color: var(--gp-green-800);
 
   a {
     color: inherit;
 
     &:visited {
-      color: var(--top-page-tags--tag-item--visited--color, var(--link--visited--color));
+      color: var(--gp-green-800);
     }
 
     &:hover,
     &:active {
-      color: var(--top-page-tags--tag-item--color, var(--link--hover--color));
+      color: var(--gp-green-800);
     }
   }
 
@@ -134,7 +134,6 @@
 
 .query-list-item-headline {
   font-size: $font-size-lg !important;
-  font-weight: var(--query-list-item-headline--font-weight, bold) !important;
 
   a {
     -webkit-line-clamp: 6;
@@ -146,20 +145,23 @@
 }
 
 .query-list-item-meta {
-  _-- {
-    font-family: var(--headings--font-family);
-  }
+  font-family: var(--font-family-tertiary);
   font-size: $font-size-xxs;
-  color: $grey-40;
-  line-height: 22px;
+  font-weight: var(--font-weight-regular);
+  color: var(--color-text-meta_item);
+  line-height: var(--line-height-s--font-family-tertiary);
 
   .query-list-item-bullet {
     display: inline-block;
     padding: 0 $sp-x;
   }
 
+  .article-list-item-author {
+    font-weight: var(--font-weight-semibold);
+  }
+
   .article-list-item-author a {
-    color: $grey-40;
+    color: var(--color-text-meta_item);
   }
 
   .article-list-item-readtime {
@@ -222,14 +224,12 @@
 }
 
 .wp-block-query-pagination {
-  _-- {
-    font-family: var(--headings--font-family);
-    font-weight: 500;
-  }
+  font-family: var(--font-family-primary);
+  font-weight: var(--font-weight-regular);
 
   a,
   .page-numbers {
-    color: $black;
+    color: var(--color-text-body);
     padding: $sp-1 $sp-1x;
     user-select: none;
     border: 1px solid transparent;
@@ -239,7 +239,7 @@
   a {
     &:hover {
       text-decoration: none;
-      background-color: $grey-10;
+      background-color: var(--grey-200);
       transition-property: background-color, border-color;
       transition-duration: 250ms;
       transition-timing-function: linear;
@@ -279,7 +279,7 @@
   mask-position: center;
   background-repeat: no-repeat;
   background-color: currentColor;
-  color: $black;
+  color: var(--grey-900);
 }
 
 .wp-block-query-pagination-previous {
@@ -307,7 +307,7 @@
   margin: 0 !important;
 
   .page-numbers.current {
-    border-color: $black;
+    border-color: var(--grey-900);
   }
 
   @include large-and-up {

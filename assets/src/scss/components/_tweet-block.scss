@@ -1,7 +1,7 @@
 blockquote.twitter-tweet {
   margin: $sp-7x 0;
   padding-left: 30px;
-  border-left: 4px solid $grey-20;
+  border-left: 4px solid var(--grey-500);
   display: inline-block;
 
   @include medium-and-up {
