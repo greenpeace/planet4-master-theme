@@ -1,15 +1,23 @@
-.top-navigation {
-  _-- {
-    background: $dark-blue;
-    border-bottom: 0 transparent;
-    box-shadow: none;
-    color: $white;
-    fill: $white;
-    font-family: var(--headings--font-family);
-    font-size: $font-size-sm;
-  }
+@import "navbar/site-logo";
+@import "navbar/languages";
+@import "navbar/search";
+@import "navbar/mobile";
+@import "navbar/burger-menu";
+@import "navbar/desktop-menu";
 
+:root {
+  --top-navigation--separation: 1px solid var(--grey-300);
+}
+
+.top-navigation {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-xxs--font-family-primary);
   display: flex;
+  background: var(--color-background-navigation_bar);
+  border-bottom: 0 transparent;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+  color: var(--grey-900);
+  fill: var(--white);
   flex-wrap: wrap;
   justify-content: space-between;
   position: fixed;
@@ -30,16 +38,15 @@
   }
 
   input::placeholder _-- {
-    color: inherit;
+    color: var(--grey-600);
     opacity: 0.5;
   }
 
   button {
     .icon {
       _-- {
-        fill: var(--top-navigation--color, inherit);
+        fill: var(--grey-900, inherit);
       }
-
       height: 24px;
       top: 0;
       width: 24px;
@@ -49,7 +56,6 @@
   .btn-donate {
     _-- {
       border: none;
-      font-size: inherit;
       min-width: 116px;
       padding: 2px 17px;
 
@@ -59,6 +65,7 @@
     }
 
     height: 44px;
+    font-size: 17px;
     line-height: 40px;
 
     @include large-and-up {
@@ -81,7 +88,6 @@
 }
 
 .nav-menu {
-  background: var(--top-navigation--background, $dark-blue);
   height: 100%;
   top: 0;
   width: auto;
@@ -121,7 +127,6 @@
   }
 
   @include large-and-up {
-    background: inherit;
     display: flex;
     flex-grow: 1;
     height: auto;
@@ -129,9 +134,7 @@
 }
 
 .nav-submenu {
-  _-- {
-    width: 240px;
-  }
+  width: 240px;
   position: fixed;
   display: none;
 
@@ -147,7 +150,7 @@
     overflow-y: auto;
     margin-top: $sp-1;
     border-radius: 4px;
-    background: $white;
+    background: var(--white);
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
 
     @include scrollbar-layout;
@@ -157,17 +160,18 @@
     width: 100%;
     text-align: left;
     margin-inline: 0;
+    font-weight: var(--font-weight-regular);
 
     a.nav-link {
       --submenu-nav-link-- {
-        color: var(--body--color);
-        font-family: inherit;
+        color: var(--color-text-nav_link);
+        font-family: var(--font-family-tertiary);
         font-size: $font-size-sm;
-        font-weight: 500;
+        font-weight: var(--font-weight-semibold);
         line-height: 19px;
 
         &:hover {
-          color: var(--body--color);
+          color: var(--color-text-nav_link);
         }
       }
       text-decoration: none;
@@ -177,7 +181,7 @@
       padding: 14px $sp-3;
 
       &:hover {
-        background: $grey-10;
+        background: var(--grey-200);
       }
 
       &:before {
@@ -196,22 +200,7 @@
 }
 
 a.nav-link {
-  --nav-link-- {
-    color: $white;
-
-    &:hover {
-      color: $white;
-    }
-
-    &:visited {
-      color: $white;
-    }
-
-    &:active {
-      color: $white;
-    }
-  }
-
+  color: var(--color-text-nav_link);
   opacity: 1;
   display: inline-block;
   padding: $sp-2 0;
@@ -219,13 +208,25 @@ a.nav-link {
   width: 100%;
   text-decoration: none !important;
 
+  &:hover {
+    color: var(--color-text-nav_link);
+  }
+
+  &:visited {
+    color: var(--color-text-nav_link);
+  }
+
+  &:active {
+    color: var(--color-text-nav_link);
+  }
+
   @include large-and-up {
     padding: 0;
   }
 
   // Border-bottom for underline animation
   &:before {
-    border-bottom-color: var(--nav-link--hover--text-decoration-color, $gp-green);
+    border-bottom-color: var(--color-border-navigation_link--hover);
     border-bottom-style: solid;
     border-bottom-width: 3px;
     bottom: 0;
@@ -273,7 +274,7 @@ a.nav-link:hover:before,
 .nav-donate {
   _-- {
     font-size: $font-size-sm;
-    font-weight: 700;
+    font-weight: var(--font-weight-regular);
   }
   color: inherit;
 
@@ -313,21 +314,10 @@ a.nav-link:hover:before,
 }
 
 .navigation-bar_min {
-  --top-navigation-min-- {
-    height: var(--navbar-menu-min-height);
-  }
-
   justify-content: center;
+  height: var(--navbar-menu-min-height);
 
   @include large-and-up {
     justify-content: flex-start;
   }
 }
-
-// I'll include these at the end for now because they depend on CSS order.
-@import "navbar/site-logo";
-@import "navbar/languages";
-@import "navbar/search";
-@import "navbar/mobile";
-@import "navbar/burger-menu";
-@import "navbar/desktop-menu";

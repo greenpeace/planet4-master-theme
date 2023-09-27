@@ -2,10 +2,9 @@
   position: relative;
 
   p {
-    _-- {
-      font-size: 12px;
-      line-height: 1.5;
-    }
+    font-family: var(--font-family-paragraph-secondary);
+    font-size: var(--font-size-xs--font-family-tertiary);
+    line-height: var(--line-height-s--font-family-tertiary);
   }
 
   @include medium-and-up {
@@ -14,15 +13,13 @@
 
   @include large-and-up {
     p {
-      _-- {
-        font-size: 14px;
-      }
+      font-size: var(--font-size-xs--font-family-tertiary);
     }
   }
 }
 
 .close-cookies-settings {
-  background-color: var(--body--color);
+  background-color: var(--grey-900);
   cursor: pointer;
   height: 16px;
   width: 16px;
@@ -46,7 +43,10 @@
 }
 
 .cookies-settings-header h4 {
-  font-size: 16px;
+  _-- {
+    font-family: var(--font-family-paragraph-secondary);
+    font-size: 16px;
+  }
   margin-bottom: $sp-1;
 
   @include large-and-up {
@@ -61,15 +61,13 @@
   width: calc(100% + 2 * #{$sp-3});
   margin-inline-start: -$sp-3;
   padding: $sp-2 $sp-3 0 $sp-3;
-  border-top: solid 1px $grey-10;
-  border-bottom: solid 1px $grey-10;
+  border-top: solid 1px var(--grey-200);
+  border-bottom: solid 1px var(--grey-200);
 
   .custom-control-description,
   .custom-control input[type="checkbox"] ~ .custom-control-description {
-    --cookies-settings-label-- {
-      font-size: 14px;
-      font-weight: 700;
-    }
+    font-size: var(--font-size-s--font-family-tertiary);
+    font-weight: var(--font-weight-bold);
     margin-bottom: $sp-2;
   }
 
@@ -83,7 +81,7 @@
 }
 
 .always-enabled {
-  background: var(--body--color);
+  background: var(--grey-900);
   color: white;
   font-weight: 700;
   border-radius: 4px;

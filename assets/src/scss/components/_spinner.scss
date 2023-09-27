@@ -10,7 +10,7 @@
 
 .three-quarters:not(:required) {
   animation: three-quarters 1250ms infinite linear;
-  border: 8px solid $white;
+  border: 8px solid var(--white);
   border-right-color: transparent;
   border-radius: 16px;
   box-sizing: border-box;

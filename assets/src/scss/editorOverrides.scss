@@ -1,8 +1,7 @@
-@import "./base/tokens";
 // Moved from another repo, for history please see https://github.com/greenpeace/planet4-plugin-gutenberg-blocks/blame/f5c532ed5704738136224cde305e9a0ffe614ceb/assets/src/styles/editorOverrides.scss
 .editor-post-title__block textarea.editor-post-title__input {
   --headings-- {
-    font-family: var(--headings--font-family);
+    font-family: var(--font-family-heading);
   }
 
   font-size: $font-size-xl;
@@ -61,7 +60,7 @@
 .wp-block-button .wp-block-button__link[role="textbox"],
 .wp-block-file .wp-block-file__button {
   display: inline-block;
-  font-family: var(--headings--font-family);
+  font-family: var(--font-family-button);
   text-align: center;
   text-decoration: none;
   font-weight: bold;
@@ -86,9 +85,9 @@
 [class="wp-block-button"] .wp-block-button__link[role="textbox"],
 .wp-block-file .wp-block-file__button {
   --button-secondary-- {
-    background: transparentize($white, .7);
-    border-color: $dark-blue;
-    color: $dark-blue;
+    background: rgba($white, 0.7);
+    border-color: var(--p4-dark-green-800);
+    color: var(--p4-dark-green-800);
     padding: 2px $sp-4;
   }
   white-space: nowrap;
@@ -106,9 +105,9 @@
 
 .wp-block-button.is-style-cta .wp-block-button__link[role="textbox"] {
   --button-primary-- {
-    background: $orange;
+    background: var(--p4-action-yellow-500);
     border-color: transparent;
-    color: $white;
+    color: var(--grey-900);
   }
 
   &.has-background {
@@ -118,8 +117,8 @@
 
 .wp-block-button.is-style-transparent .wp-block-button__link[role="textbox"] {
   --transparent-button-- {
-    border-color: $white;
-    color: $white;
+    border-color: var(--white);
+    color: var(--white);
     background: transparent;
   }
 }
@@ -136,13 +135,17 @@
       line-height: 1.75rem;
     }
   }
+
+  & > a {
+    @include shared-link-styles;
+  }
 }
 
 .editor-rich-text__editable.wp-block-button__link:not([role="textbox"]) {
-  background: $white;
+  background: var(--white);
   border-radius: 0;
   border: none;
-  color: var(--body--color) !important;
+  color: var(--color-text-body) !important;
 }
 
 // The color picker cannot be configured to show a clear button without giving the ability to enter any color with its
@@ -198,7 +201,7 @@
 
   h1, h2, h3, h4, h5 {
     --headings-- {
-      font-family: var(--headings--font-family);
+      font-family: var(--font-family-heading);
     }
   }
 }
@@ -230,17 +233,17 @@ input.describe[type=text][data-setting=caption] {
 }
 
 .p4-plugin-pre-publish-panel-error {
-  background-color: #f9e2e2 !important;
+  background-color: var(--beige-100) !important;
 }
 
 .cmb2_required_field_error {
-  border-color: $dark-orange !important;
+  border-color: var(--p4-action-yellow-600) !important;
 }
 
 .input_error {
-  font-family: var(--headings--font-family);
+  font-family: var(--font-family-primary);
   font-size: 13px;
-  color: red;
+  color: var(--color-text--error);
 }
 
 // Sidebar help texts
@@ -264,7 +267,7 @@ input.describe[type=text][data-setting=caption] {
 }
 
 .block-editor-block-preview__content-iframe .wp-block-button.is-style-transparent {
-  background: $dark-blue;
+  background: var(--p4-dark-green-800);
 }
 
 .block-editor-block-patterns-list__item {
@@ -272,14 +275,10 @@ input.describe[type=text][data-setting=caption] {
   flex-direction: column-reverse;
 
   .block-editor-block-patterns-list__item-title {
-    color: var(--body--color);
+    color: var(--color-text-body);
     font-weight: bold;
     margin-bottom: $sp-1;
   }
-}
-
-.customize-control[id*="new_identity_styles"] label {
-  display: inline;
 }
 
 // Media Archive Style Override

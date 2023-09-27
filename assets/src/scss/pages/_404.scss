@@ -45,11 +45,15 @@
   }
 
   .speech-bubble {
-    background-color: $white;
+    background-color: var(--white);
     max-width: 100%;
     padding: 15px;
     width: 100%;
     margin-bottom: 30px;
+
+    a {
+      @include shared-link-styles;
+    }
 
     @include medium-and-up {
       width: 600px;

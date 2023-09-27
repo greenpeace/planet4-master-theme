@@ -14,6 +14,15 @@
     width: auto;
     position: relative;
 
+    .cover-card-tag {
+      font-family: var(--font-family-primary);
+      color: var(--color-text-tag_item);
+    }
+
+    .cover-card-heading {
+      font-family: var(--font-family-heading);
+    }
+
     @include medium-and-up {
       min-height: 365px;
       width: 290px;
@@ -32,10 +41,6 @@
     @include x-large-and-up {
       width: 330px;
       min-height: 415px;
-    }
-
-    .cover-card-tag {
-      font-family: var(--headings--font-family);
     }
   }
 
@@ -92,6 +97,12 @@
         height: 410px;
       }
     }
+  }
+
+  p:not(.article-list-item-meta) a,
+  & > ul li a,
+  & > ol li a {
+    @include shared-link-styles;
   }
 
   img {
@@ -225,6 +236,7 @@
     }
 
     .article-list-item-headline {
+      font-family: var(--font-family-heading);
       padding-top: 0;
       padding-bottom: 0;
       -webkit-line-clamp: 2;
@@ -312,7 +324,7 @@
       text-align: right;
       right: 10px;
       width: 100%;
-      color: $white;
+      color: var(--white);
       z-index: 2;
     }
   }
@@ -327,11 +339,11 @@
 
   .wp-caption-text {
     font-size: $font-size-xxs;
-    font-family: var(--headings--font-family);
+    font-family: var(--font-family-primary);
     line-height: 1.4;
     margin-bottom: 0;
     padding-top: $sp-1;
-    color: $grey-60;
+    color: var(--color-text-image_caption);
     text-align: center;
   }
 }

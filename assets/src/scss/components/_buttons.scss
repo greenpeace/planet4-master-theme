@@ -5,7 +5,7 @@
 .gform_button_select_files,
 [id^="gform_submit_button"] {
   --button-- {
-    font-family: var(--headings--font-family);
+    font-family: var(--font-family-button);
     font-size: $font-size-sm;
     line-height: 3;
     text-align: center;
@@ -57,11 +57,11 @@
   }
 
   &.has-grey-80-color {
-    color: $grey-80 !important;
+    color: var(--grey-900) !important;
 
     &:hover,
     &:active {
-      color: $grey-80 !important;
+      color: var(--grey-900) !important;
     }
   }
 }
@@ -86,27 +86,27 @@
 .wp-block-button.is-style-cta a,
 [id^="gform_submit_button"] {
   --button-primary-- {
-    background: $orange;
-    color: $white;
+    background: var(--color-background-button--cta);
+    color: var(--color-text-button--primary);
     // Adding this here so that the variable exists, though technically not needed.
     // This allows for the hover variable to be previewed.
     border-color: transparent;
 
     &:visited {
-      color: $white;
+      color: var(--color-text-button--cta);
     }
 
     &:hover,
     &:active {
-      background: $orange-hover;
-      color: $white;
+      background: var(--color-background-button--primary-hover);
+      color: var(--color-text-button--cta);
       border: 1px solid transparent;
     }
 
     &:disabled,
     &.disabled,
     &[disabled] {
-      background: $orange;
+      background: var(--p4-action-yellow-500);
     }
   }
 }
@@ -118,31 +118,31 @@
 .gfield button:not(.add_list_item):not(.delete_list_item):not([id^="mceu"]),
 .gform_button_select_files {
   --button-secondary-- {
-    background: transparentize($white, .7);
-    border-color: $dark-blue;
-    color: $dark-blue;
+    background: rgba($white, 0.7);
+    border-color: var(--color-border-button--secondary);
+    color: var(--color-text-button--secondary);
 
     &:visited {
-      color: $dark-blue;
+      color: var(--p4-dark-green-800);
     }
 
     &:hover {
-      background: $dark-blue;
-      border-color: $dark-blue;
-      color: $white;
+      background: var(--color-background-button--secondary-hover);
+      border-color: var(--p4-dark-green-800);
+      color: var(--white);
     }
 
     &:active {
-      background: $active-blue;
-      border-color: $active-blue;
-      color: $white;
+      background: var(--p4-dark-green-800);
+      border-color: var(--p4-dark-green-800);
+      color: var(--white);
     }
 
     &:disabled,
     &.disabled,
     &[disabled] {
-      background: $white;
-      color: $dark-blue;
+      background: var(--white);
+      color: var(--p4-dark-green-800);
     }
   }
 }
@@ -155,25 +155,10 @@
   margin-right: unset;
 }
 
-.btn-action {
-  background-color: transparentize($white, .8);
-  border-color: $white;
-
-  &:hover {
-    background-color: $orange;
-    border-color: $orange;
-  }
-
-  &:active {
-    background-color: $orange-hover;
-    border-color: $orange-hover;
-  }
-}
-
 .btn-donate {
   --button-donate-- {
-    background: $orange;
-    color: $white;
+    background: var(--gp-green-400);
+    color: var(--grey-900);
     min-width: 180px;
     padding: 2px 30px;
     border-width: 1px;
@@ -181,13 +166,13 @@
     line-height: 1.65;
 
     &:hover {
-      background: $orange-hover;
-      color: $white;
+      background: var(--gp-green-500);
+      color: var(--grey-900);
       border: 1px solid transparent;
     }
 
     &:visited {
-      color: $white;
+      color: var(--grey-900);
     }
 
     @include large-and-up {
@@ -196,60 +181,6 @@
   }
   margin: 0;
   text-transform: none;
-}
-
-.btn-navbar-toggle {
-  // Use label because auto-generate doesn't work yet with multiple selectors.
-  --btn-navbar-toggle-- {
-    font-size: $font-size-sm;
-    color: $gp-green;
-    background-color: transparent;
-
-    &:hover,
-    &:active {
-      color: $white;
-      box-shadow: none;
-      background-color: $x-dark-blue;
-      border: 1px solid transparent;
-    }
-
-    @include small-and-up {
-      background-color: $dark-blue;
-      border-radius: 0;
-      border: 1px solid transparent;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
-    }
-  }
-  cursor: pointer;
-  transition: background-color color font-weight 100ms;
-  display: inline-block;
-}
-
-.btn-filter-item {
-  background-color: transparent;
-  border-color: $dark-blue;
-  color: $dark-blue;
-  padding: 0 $sp-6x 0 $sp-4;
-  position: relative;
-  font-weight: 400;
-
-  &:hover {
-    background-color: $dark-blue;
-    border-color: $dark-blue;
-  }
-
-  &:active {
-    background-color: $grey-80;
-    border-color: $grey-80;
-  }
-
-  i {
-    position: absolute;
-    font-size: $font-size-xxs;
-    right: 10px;
-    top: 50%;
-    transform: translate(0, -40%);
-  }
 }
 
 .no-btn {
@@ -268,43 +199,44 @@ button.load-more-mt {
 
 .post-tag-button {
   _-- {
-    border-color: var(--link--color);
-    color: var(--link--color);
-    background-color: $white;
-    font-weight: 500;
+    font-weight: var(--font-weight-regular);
     line-height: 2.3;
-
-    &:visited {
-      color: var(--link--color);
-    }
-
-    &:hover {
-      background-color: var(--link--color);
-      border-color: var(--link--color);
-      color: $white;
-    }
-
-    &:active {
-      background-color: var(--link--color);
-      color: $white;
-    }
   }
+
+  border-color: var(--gp-green-100);
+  color: var(--grey-900);
+  background-color: var(--color-background-tag_button--passive);
   margin-inline-end: $sp-2;
   margin-bottom: $sp-2;
   padding: 0 $sp-2;
   transition-duration: 100ms;
+
+  &:visited {
+    color: var(--grey-900);
+  }
+
+  &:hover {
+    background-color: var(--color-background-tag_button--hover);
+    border-color: var(--gp-green-200);
+    color: var(--grey-900);
+  }
+
+  &:active {
+    background-color: var(--gp-green-200);
+    color: var(--grey-900);
+  }
 }
 
 .wp-block-button.is-style-transparent a {
   --transparent-button-- {
-    border-color: $white;
-    color: $white;
+    border-color: var(--white);
+    color: var(--color-text-button-inverse);
     background: transparent;
 
     &:hover,
     &:active {
-      background: $white;
-      color: var(--body--color);
+      background: var(--white);
+      color: var(--color-text-button--secondary);
     }
   }
 }

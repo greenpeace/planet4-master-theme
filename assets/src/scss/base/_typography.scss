@@ -9,12 +9,12 @@ li {
   hyphens: none;
 
   --text-- {
-    font-size: $font-size-sm;
-    line-height: 1.6rem;
+    font-size: var(--font-size-m--font-family-secondary);
+    line-height: var(--line-height-m--font-family-secondary);
 
     @include x-large-and-up {
-      font-size: $font-size-md;
-      line-height: 1.75rem;
+      font-size: var(--font-size-xl--font-family-secondary);
+      line-height: var(--line-height-xl--font-family-secondary);
     }
   }
 }
@@ -25,6 +25,9 @@ h3,
 h4,
 h5,
 h6 {
+  font-family: var(--font-family-heading);
+  color: var(--color-text-heading);
+
   &.has-text-align-center,
   &.has-text-align-right,
   &.has-text-align-left {
@@ -35,6 +38,7 @@ h6 {
   a:hover,
   a:active,
   a:visited {
+    font-family: var(--font-family-heading);
     color: inherit;
   }
 }
@@ -118,7 +122,7 @@ h6 {
 }
 
 .white-text {
-  color: $white;
+  color: var(--white);
 }
 
 a --link-- {

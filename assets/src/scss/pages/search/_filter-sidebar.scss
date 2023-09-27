@@ -9,11 +9,9 @@
 
   .filteritem {
     a {
-      --search--filteritem-- {
-        border-color: $dark-blue;
-        text-transform: uppercase;
-        border-bottom-width: 4px;
-      }
+      border-color: var(--grey-300);
+      text-transform: none;
+      border-bottom-width: 2px;
       border-style: solid;
       display: block;
       border-top: 0;
@@ -21,7 +19,7 @@
       border-right-width: 1px;
       padding: 11px $sp-4;
       text-decoration: none;
-      color: var(--body--color);
+      color: var(--color-text-body);
       font-weight: bold;
       position: relative;
       font-size: $font-size-sm;
@@ -56,7 +54,7 @@
         &:after {
           content: "";
           position: absolute;
-          background-color: var(--body--color);
+          background-color: var(--grey-900);
           transition: transform 0.25s ease-out;
         }
 
@@ -150,22 +148,20 @@
   .active-filter {
     h5 {
       font-size: $font-size-md;
-      color: $grey-40;
+      color: var(--grey-600);
       margin-bottom: 20px;
     }
 
     .activefilter-list {
       margin-bottom: 20px;
-      border-bottom: 1px solid $grey-20;
+      border-bottom: 1px solid var(--grey-500);
       padding-bottom: 10px;
 
       .activefilter-tag {
-        --search-activefilter-tag-- {
-          border: 1px solid $dark-blue;
-          background: transparent;
-          color: $dark-blue;
-          border-radius: 0;
-        }
+        border: none;
+        background: var(--grey-200);
+        color: var(--grey-900);
+        border-radius: 4px;
         font-size: 1.125rem;
         padding-inline-end: $sp-5;
         padding-inline-start: $sp-2x;

@@ -1,8 +1,8 @@
 .site-footer {
   _-- {
-    font-family: var(--headings--font-family);
-    background: $dark-blue;
-    color: $white;
+    font-family: var(--font-family-paragraph-secondary);
+    background: var(--color-background-footer);
+    color: var(--white);
     line-height: 0;
   }
   position: relative;
@@ -13,18 +13,18 @@
   clear: both;
 
   a _-- {
-    color: $white;
+    color: var(--white);
 
     &:visited {
-      color: $white;
+      color: var(--white);
     }
 
     &:hover {
-      color: $white;
+      color: var(--white);
     }
 
     &:active {
-      color: $white;
+      color: var(--white);
     }
   }
 
@@ -62,24 +62,27 @@
 
   li {
     _-- {
-      font-size: $font-size-sm;
+      font-size: var(--font-size-m--font-family-tertiary);
+      font-weight: var(--font-weight-semibold);
+      line-height: var(--line-height-m--font-family-tertiary);
     }
 
     &:not(:last-child) {
       margin-bottom: 24px;
     }
+
+    a {
+      font-family: var(--font-family-paragraph-secondary);
+    }
   }
 }
 
 .site-footer .copyright {
-  _-- {
-    background: $active-blue;
-    color: $grey-10;
-  }
-
+  font-size: $font-size-xxs;
+  background: var(--color-background-copyright_block);
+  color: var(--white);
   padding-top: 16px;
   padding-bottom: 16px;
-  font-size: $font-size-xxs;
   text-align: left;
 
   .icon {
@@ -92,17 +95,17 @@
   }
 
   a _-- {
-    color: $grey-10;
+    color: var(--grey-200);
 
     &:hover {
-      color: $grey-10;
+      color: var(--grey-200);
     }
   }
 
   span {
     _-- {
-      font-size: $font-size-xxxs;
-      line-height: 1.4;
+      font-size: var(--font-size-xs--font-family-tertiary);
+      line-height: var(--line-height-xs--font-family-tertiary);
     }
     word-break: keep-all;
     width: auto;

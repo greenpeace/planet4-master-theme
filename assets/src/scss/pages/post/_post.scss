@@ -25,13 +25,11 @@
 }
 
 .single-post-meta {
-  _-- {
-    font-size: 14px;
-    font-family: var(--headings--font-family);
-    line-height: 24px;
-  }
-  color: $grey-40;
-  border-bottom: 1px solid transparentize($grey-20, 0.5);
+  font-size: var(--font-size-s--font-family-tertiary);
+  font-family: var(--font-family-tertiary);
+  line-height: var(--line-height-m--font-family-tertiary);
+  color: var(--color-text-meta_item);
+  border-bottom: 1px solid rgba($grey-500, 0.5);
   padding-bottom: 16px;
   margin-bottom: 16px;
   display: flex;
@@ -60,9 +58,9 @@
 }
 
 .single-post-author {
-  _-- {
-    font-weight: 500;
-  }
+  font-family: var(--font-family-paragraph-secondary);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-meta_item);
   display: block;
   margin: 0;
 }
@@ -86,7 +84,7 @@
 }
 
 .articles-block {
-  border-top: 1px solid transparentize($grey-20, 0.5);
+  border-top: 1px solid rgba($grey-500, 0.5);
   padding-top: 16px;
 
   @include medium-and-up {

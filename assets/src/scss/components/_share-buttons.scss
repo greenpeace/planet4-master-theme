@@ -11,7 +11,7 @@
     height: 3rem;
     border-radius: 50%;
     margin-bottom: 0;
-    background: $share-buttons-bg-color;
+    background: var(--color-background-button_share--secondary-passive);
 
     &:not(:last-child) {
       margin-inline-end: 8px;
@@ -23,7 +23,7 @@
 
     &:hover,
     &:active {
-      background: $share-buttons-bg-color__hover;
+      background: var(--color-background-button_share--secondary-hover);
     }
   }
 
@@ -38,7 +38,7 @@
   .email {
     .icon {
       fill: none;
-      stroke: $email;
+      stroke: var(--grey-600);
       stroke-width: 35;
     }
   }
@@ -58,11 +58,11 @@
   }
 
   .native {
-    background: $orange;
+    background: var(--p4-action-yellow-500);
     display: none;
 
     &:active {
-      background: darken($orange, 20%);
+      background: var(--p4-action-yellow-600);
     }
   }
 }

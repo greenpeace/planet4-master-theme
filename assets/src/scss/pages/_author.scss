@@ -27,11 +27,11 @@
 
   .wp-block-separator {
     border-width: 1px;
-    border-bottom-color: #d4d4d4;
+    border-bottom-color: var(--color-border-separator);
   }
 
   .search-result-list-item {
-    font-family: var(--headings--font-family);
+    font-family: var(--font-family-primary);
   }
 
   // Search uses absolutely positioned buttons, for absolutely no reason. The button effectively is

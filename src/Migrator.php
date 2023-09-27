@@ -25,6 +25,7 @@ use P4\MasterTheme\Migrations\M020MigrateCommentsSettings;
 use P4\MasterTheme\Migrations\M021MigrateDefaultPostType;
 use P4\MasterTheme\Migrations\M022UpdatePostRevisions;
 use P4\MasterTheme\Migrations\M023EnablePlanet4Blocks;
+use P4\MasterTheme\Migrations\M024RemoveNewIdentitySylesOption;
 
 /**
  * Run any new migration scripts and record results in the log.
@@ -67,6 +68,7 @@ class Migrator
             M021MigrateDefaultPostType::class,
             M022UpdatePostRevisions::class,
             M023EnablePlanet4Blocks::class,
+            M024RemoveNewIdentitySylesOption::class,
         ];
 
         // Loop migrations and run those that haven't run yet.

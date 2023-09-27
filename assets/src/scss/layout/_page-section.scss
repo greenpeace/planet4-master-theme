@@ -1,10 +1,14 @@
 .page-section-header _-- {
   text-transform: none;
   color: inherit;
-  font-weight: var(--headings--font-weight);
-  font-family: var(--headings--font-family);
-  font-size: 2.5rem;
+  font-weight: var(--font-weight-regular);
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-xl--font-family-primary);
   margin-bottom: $sp-2;
+
+  @include x-large-and-up {
+    font-size: var(--font-size-2xl--font-family-primary);
+  }
 }
 
 .page-section-description {

@@ -26,14 +26,14 @@
   }
 
   .cancelbtn {
-    border-color: $orange;
-    color: $orange;
+    border-color: var(--p4-action-yellow-500);
+    color: var(--p4-action-yellow-500);
     padding-left: 0;
     padding-right: 0;
 
     &:hover {
       background: transparent;
-      color: $grey-80;
+      color: var(--grey-900);
     }
   }
 
@@ -45,20 +45,17 @@
   }
 
   .closebtn {
-    _-- {
-      border: 2px solid $grey-40;
-      background-color: buttonface;
-
-      &:hover {
-        background-color: $orange;
-        border-color: $orange;
-      }
-    }
+    background-color: var(--white);
+    border: none;
     margin-top: -5px;
     border-radius: 50%;
     padding: 8px 12px;
     margin-right: 0;
     transition: color, border-color, background-color 150ms linear;
+
+    &:hover {
+      background-color: var(--grey-200);
+    }
 
     .icon {
       top: 0;
