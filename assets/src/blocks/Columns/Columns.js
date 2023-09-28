@@ -19,7 +19,7 @@ export const Columns = ({columns, columns_block_style, isCampaign, isExample = f
           cta_link,
           cta_text,
           attachment,
-          attachment_srcset = '',
+          attachment_srcset,
           link_new_tab,
           title,
           description,
@@ -55,14 +55,14 @@ export const Columns = ({columns, columns_block_style, isCampaign, isExample = f
                     {...link_new_tab && {target: '_blank', rel: 'noreferrer'}}
                   >
                     <img src={attachment}
-                      srcSet={attachment_srcset}
+                      srcSet={attachment_srcset || null}
                       sizes={IMAGE_SIZES[`col-${columns.length}`] ?? ''}
                       alt={title}
                       title={title}
                       loading="lazy" />
                   </a> :
                   <img src={attachment}
-                    srcSet={attachment_srcset}
+                    srcSet={attachment_srcset || null}
                     sizes={IMAGE_SIZES[`col-${columns.length}`] ?? ''}
                     alt={title}
                     title={title}
