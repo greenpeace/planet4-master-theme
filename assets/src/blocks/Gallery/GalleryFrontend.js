@@ -22,10 +22,12 @@ export const GalleryFrontend = ({
 }) => {
   const [images, setImages] = useState([]);
   const [items, setItems] = useState([]);
+  const [hydrated, setHydrated] = useState(false);
+
   const {isOpen, index, openLightbox, closeLightbox} = useLightbox();
-  const className = attributes.className ?? '';
-  const layout = getGalleryLayout(className, attributes.gallery_block_style ?? '');
-  const postType = document.body.getAttribute('data-post-type');
+
+  // Force re-render to avoid hydration console errors/warnings.
+  useEffect(() => setHydrated(true), []);
 
   useEffect(() => {
     setItems(imagesToItems(images));
@@ -40,6 +42,14 @@ export const GalleryFrontend = ({
       setImages(attributes.image_data);
     }
   }, [attributes]);
+
+  if (!hydrated) {
+    return null;
+  }
+
+  const className = attributes.className ?? '';
+  const layout = getGalleryLayout(className, attributes.gallery_block_style ?? '');
+  const postType = document.body.getAttribute('data-post-type');
 
   return (
     <section className={`block ${GALLERY_BLOCK_CLASSES[layout]} ${className}`}>

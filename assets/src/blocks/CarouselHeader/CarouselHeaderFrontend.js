@@ -22,6 +22,7 @@ const usePageLoaded = () => {
 export const CarouselHeaderFrontend = ({slides, carousel_autoplay, className}) => {
   const pageLoaded = usePageLoaded();
   const [autoplayPaused, setAutoplayPaused] = useState(false);
+  const [hydrated, setHydrated] = useState(false);
   const slidesRef = useRef([]);
   const containerRef = useRef(null);
   const {
@@ -32,6 +33,9 @@ export const CarouselHeaderFrontend = ({slides, carousel_autoplay, className}) =
     setCarouselHeight,
     autoplayCancelled,
   } = useSlides(slidesRef, slides.length - 1, containerRef);
+
+  // Force re-render to avoid hydration console errors/warnings.
+  useEffect(() => setHydrated(true), []);
 
   useEffect(() => {
     if (!containerRef.current) {
@@ -86,6 +90,10 @@ export const CarouselHeaderFrontend = ({slides, carousel_autoplay, className}) =
       clearTimeout(timerRef.current);
     }
   }, [currentSlide, goToNextSlide, slides, carousel_autoplay, autoplayPaused, autoplayCancelled, pageLoaded]);
+
+  if (!hydrated) {
+    return null;
+  }
 
   return (
     <section
