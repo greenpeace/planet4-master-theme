@@ -608,18 +608,6 @@ class Settings
     {
         $page_config = $this->subpages[$plugin_page];
 
-        if ('planet4_settings_donate_button' === $plugin_page) {
-            $message = trim($this->show_donate_menu_notice());
-
-            if (empty($message)) {
-                return;
-            }
-
-            echo '<div class="notice notice-info is-dismissible">'
-                . wp_kses_post($message)
-                . '</div>';
-        }
-
         $fields = $page_config['fields'];
         $description = $page_config['description'] ?? null;
         // Allow storing options in a different database record.
@@ -648,20 +636,6 @@ class Settings
             $form // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
         );
     }
-
-    /**
-     * Show notice to inform users that the Donate button settings are now in Appearance > Menus.
-     *
-     * phpcs:disable Generic.Files.LineLength.MaxExceeded
-     */
-    private function show_donate_menu_notice(): string
-    {
-        return '<p>These settings have been moved to <a href="/wp-admin/nav-menus.php?action=locations">a new menu location</a>
-			in Appearance > Menus, specifically the "Donate Button" location.</br>
-			There you can add a custom link with your text and link for the Donate button,
-			and you will also be able to define dropdown menu items if you want to.</p>';
-    }
-    // phpcs:enable Generic.Files.LineLength.MaxExceeded
 
     /**
      * Defines the theme option metabox and field configuration.
