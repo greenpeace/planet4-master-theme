@@ -65,36 +65,51 @@ class Settings
                 'title' => 'Navigation',
                 'fields' => [
                     [
-                        'name' => __('NRO Selector Title', 'planet4-master-theme-backend'),
-                        'id' => 'website_navigation_title',
-                        'type' => 'text',
-                    ],
-                    [
                         'name' => __('Select Act Page', 'planet4-master-theme-backend'),
                         'id' => 'act_page',
                         'type' => 'act_page_dropdown',
                         'classes' => $is_new_ia ? 'hidden' : '',
                     ],
-
                     [
                         'name' => __('Select Explore Page', 'planet4-master-theme-backend'),
                         'id' => 'explore_page',
                         'type' => 'explore_page_dropdown',
                         'classes' => $is_new_ia ? 'hidden' : '',
                     ],
-
                     [
                         'name' => __('Select Issues Parent Category', 'planet4-master-theme-backend'),
                         'id' => 'issues_parent_category',
                         'type' => 'category_select_taxonomy',
                         'classes' => $is_new_ia ? 'hidden' : '',
                     ],
-
                     [
                         'name' => __('New Information Architecture', 'planet4-master-theme-backend'),
                         'desc' => __('Enables all features supporting new IA and navigation functionality (<a href="https://planet4.greenpeace.org/manage/information-architecture/" target="_blank">read more</a>)<br>(eg. Actions post type, listing pages pagination, mobile tabs, etc).', 'planet4-master-theme-backend'),
                         'id' => 'new_ia',
                         'type' => 'checkbox',
+                    ],
+                    [
+                        'name' => __('Country Selector text', 'planet4-master-theme-backend'),
+                        'id' => 'website_navigation_title',
+                        'type' => 'text',
+                    ],
+                    [
+                        'name' => __('Copyright Text Line 1', 'planet4-master-theme-backend'),
+                        'id' => 'copyright_line1',
+                        'type' => 'wysiwyg',
+                        'options' => [
+                            'textarea_rows' => 3,
+                            'media_buttons' => false,
+                        ],
+                    ],
+                    [
+                        'name' => __('Copyright Text Line 2', 'planet4-master-theme-backend'),
+                        'id' => 'copyright_line2',
+                        'type' => 'wysiwyg',
+                        'options' => [
+                            'textarea_rows' => 2,
+                            'media_buttons' => false,
+                        ],
                     ],
                 ],
             ],
@@ -294,30 +309,6 @@ class Settings
                         'desc' => __('Add the "Reject all" option in the Cookies box', 'planet4-master-theme-backend'),
                         'id' => 'enable_reject_all_cookies',
                         'type' => 'checkbox',
-                    ],
-                ],
-            ],
-            'planet4_settings_copyright' => [
-                'title' => 'Copyright',
-                'fields' => [
-                    [
-                        'name' => __('Copyright Text Line 1', 'planet4-master-theme-backend'),
-                        'id' => 'copyright_line1',
-                        'type' => 'wysiwyg',
-                        'options' => [
-                            'textarea_rows' => 3,
-                            'media_buttons' => false,
-                        ],
-                    ],
-
-                    [
-                        'name' => __('Copyright Text Line 2', 'planet4-master-theme-backend'),
-                        'id' => 'copyright_line2',
-                        'type' => 'wysiwyg',
-                        'options' => [
-                            'textarea_rows' => 2,
-                            'media_buttons' => false,
-                        ],
                     ],
                 ],
             ],
