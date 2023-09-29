@@ -1,6 +1,6 @@
 import {useMemo, useEffect, useState} from '@wordpress/element';
 import {toSrcSet} from './sizeFunctions';
-import {ACTIONS, useArchivePickerContext} from './ArchivePicker';
+import {ACTIONS, ADMIN_VIEW, EDITOR_VIEW, useArchivePickerContext} from './ArchivePicker';
 
 const {__, sprintf} = wp.i18n;
 
@@ -11,7 +11,7 @@ const renderDefinition = (key, value) => (
   </div>
 );
 
-export default function SingleSidebar({image, mediaView, adminView}) {
+export default function SingleSidebar({image}) {
   const {
     error,
     errors,
@@ -25,6 +25,7 @@ export default function SingleSidebar({image, mediaView, adminView}) {
     imageAdded,
     processImageToAddToEditor,
     currentBlockImageId,
+    view,
   } = useArchivePickerContext();
   const [wpImageLink, setWpImageLink] = useState('');
   const [showAddedMessage, setShowAddedMessage] = useState(false);
@@ -59,13 +60,13 @@ export default function SingleSidebar({image, mediaView, adminView}) {
       <div className="picker-sidebar-header">
 
         <div className="info">
-          {(image && adminView) && (
+          {(image && view === ADMIN_VIEW) && (
             <>
               {processingIds.includes(image.id) && !image.wordpress_id && __('Processing...', 'planet4-master-theme-backend')}
               {showAddedMessage && image.wordpress_id && __('Added to Library', 'planet4-master-theme-backend')}
             </>
           )}
-          {(image && mediaView) && (
+          {(image && view === EDITOR_VIEW) && (
             <>
               {processing && __('Processing...', 'planet4-master-theme-backend')}
               {imageAdded && __('Added!', 'planet4-master-theme-backend')}
@@ -78,7 +79,9 @@ export default function SingleSidebar({image, mediaView, adminView}) {
           onClick={() => {
             dispatch({type: ACTIONS.CLOSE_SIDEBAR});
           }}
-        />
+        >
+          Close
+        </button>
       </div>
 
       {!!errors && errors[ACTIONS.PROCESS_IMAGES] && (
@@ -87,7 +90,7 @@ export default function SingleSidebar({image, mediaView, adminView}) {
 
       {image && (
         <>
-          {adminView && (
+          {view === ADMIN_VIEW && (
             <>
               {image.wordpress_id ? (
                 <a
@@ -107,13 +110,13 @@ export default function SingleSidebar({image, mediaView, adminView}) {
               )}
             </>
           )}
-          {mediaView && (
+          {view === EDITOR_VIEW && (
             <>
               {!image.wordpress_id ? (
                 <button
                   disabled={!!processing}
                   className="button sidebar-action"
-                  onClick={async () => await includeInWp([image.id], mediaView)}
+                  onClick={async () => await includeInWp([image.id], view)}
                 >
                   {__('Import to Library & Post', 'planet4-master-theme-backend')}
                 </button>
@@ -134,7 +137,7 @@ export default function SingleSidebar({image, mediaView, adminView}) {
             title={image.title}
             alt={image.title}
           />
-          {(image.wordpress_id && mediaView) && (
+          {(image.wordpress_id && view === EDITOR_VIEW) && (
             <a
               className="sidebar-action"
               href={wpImageLink}
@@ -195,5 +198,6 @@ export default function SingleSidebar({image, mediaView, adminView}) {
     wpImageLink,
     processing,
     imageAdded,
+    view,
   ]);
 }

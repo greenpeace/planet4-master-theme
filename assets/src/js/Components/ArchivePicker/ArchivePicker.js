@@ -15,6 +15,9 @@ const timeout = delay => {
 };
 const acceptedBlockTypes = ['core/image', 'planet4-blocks/happypoint'];
 
+export const EDITOR_VIEW = 'editor';
+export const ADMIN_VIEW = 'admin';
+
 export const ACTIONS = {
   CLOSE_SIDEBAR: 'closeSidebar',
   BULK_SELECT_ENABLE: 'bulkSelectEnable',
@@ -222,7 +225,7 @@ const reducer = (state, action) => {
   }
 };
 
-export default function ArchivePicker({mediaView, adminView}) {
+export default function ArchivePicker({view = ADMIN_VIEW}) {
   const [{
     loading,
     loaded,
@@ -315,7 +318,7 @@ export default function ArchivePicker({mediaView, adminView}) {
     }
   };
 
-  const includeInWp = async (ids = [], isMediaView = false) => {
+  const includeInWp = async (ids = [], viewProp) => {
     dispatch({type: ACTIONS.PROCESS_IMAGES, payload: {selection: ids}});
 
     Promise.all(ids.map(id => {
@@ -329,7 +332,7 @@ export default function ArchivePicker({mediaView, adminView}) {
       });
     })).then(result => {
       const payload = result.flat();
-      if (isMediaView) {
+      if (viewProp === EDITOR_VIEW) {
         processImageToAddToEditor(payload[0].wordpress_id);
       }
       dispatch({type: ACTIONS.PROCESSED_IMAGES, payload: {images: payload}});
@@ -408,9 +411,10 @@ export default function ArchivePicker({mediaView, adminView}) {
         dispatch,
         imageAdded,
         currentBlockImageId,
+        view,
       }}
     >
-      {adminView && (
+      {view === ADMIN_VIEW && (
         <section className="archive-picker">
           <div className={classNames('archive-picker-main', {'is-open': selectedImages.length > 0 && !bulkSelect})}>
             <ArchivePickerToolbar />
@@ -445,13 +449,13 @@ export default function ArchivePicker({mediaView, adminView}) {
 
           <div className={classNames('archive-picker-sidebar', {'archive-picker-sidebar-open': selectedImages.length > 0 && !bulkSelect})}>
             <div className="picker-sidebar">
-              {selectedImages.length === 1 ? <SingleSidebar image={selectedImages[0]} adminView={adminView} /> : <MultiSidebar />}
+              {selectedImages.length === 1 ? <SingleSidebar image={selectedImages[0]} /> : <MultiSidebar />}
             </div>
           </div>
         </section>
       )}
 
-      {mediaView && (
+      {view === EDITOR_VIEW && (
         <>
           {(acceptedBlockTypes.includes(currentBlock.name)) ? (
             <section className="archive-picker">
@@ -488,7 +492,7 @@ export default function ArchivePicker({mediaView, adminView}) {
 
               <div className={classNames('archive-picker-sidebar', {'archive-picker-sidebar-open': selectedImages.length > 0 && !bulkSelect})}>
                 <div className="picker-sidebar">
-                  {selectedImages.length === 1 ? <SingleSidebar image={selectedImages[0]} mediaView={mediaView} /> : <MultiSidebar />}
+                  {selectedImages.length === 1 ? <SingleSidebar image={selectedImages[0]} /> : <MultiSidebar />}
                 </div>
               </div>
             </section>
@@ -519,6 +523,7 @@ export default function ArchivePicker({mediaView, adminView}) {
     processImageToAddToEditor,
     imageAdded,
     currentBlockImageId,
+    view,
   ]);
 }
 

@@ -285,13 +285,24 @@ input.describe[type=text][data-setting=caption] {
 // Media Archive Style Override
 .media-archive-content {
   .archive-picker-title,
-  .nav-bulk-select,
-  .picker-sidebar-header .close-sidebar {
+  .nav-bulk-select {
     display: none;
   }
 
   .archive-picker {
     gap: 0;
+  }
+
+  .archive-picker-toolbar {
+    margin-top: 65px;
+  }
+
+  .picker-sidebar-header {
+    .close-sidebar {
+      background: none;
+      right: 35px;
+      text-indent: 0;
+    }
   }
 
   #import-to-library,
@@ -321,6 +332,7 @@ input.describe[type=text][data-setting=caption] {
 
   .picker-list {
     padding: 15px;
+    margin-top: 23px;
   }
 
   .help {
@@ -329,7 +341,7 @@ input.describe[type=text][data-setting=caption] {
 
   .media-archive-help {
     position: absolute;
-    top: 50px;
+    top: 75px;
     right: 18px;
     display: flex;
     flex-direction: column;
@@ -379,6 +391,28 @@ input.describe[type=text][data-setting=caption] {
 
     &:hover .tooltip a {
       color: $black;
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .media-archive-content {
+    .picker-list {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .media-archive-help {
+      top: 110px;
+    }
+
+    .multiple-search {
+      margin-inline-start: none;
+      width: 95%;
+      margin: 20px auto;
+    }
+
+    .media-archive-help:hover .tooltip {
+      width: 248px;
     }
   }
 }

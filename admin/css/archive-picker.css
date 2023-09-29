@@ -43,8 +43,13 @@
 .archive-picker-sidebar-open {
   display: block;
   height: 100%;
-  flex: 36%;
   overflow-y: auto;
+  flex: 70%;
+}
+
+.archive-picker-sidebar-open::-webkit-scrollbar,
+.picker-sidebar-fields::-webkit-scrollbar {
+  display: none;
 }
 
 .archive-picker-search {
@@ -59,6 +64,7 @@
   grid-template-columns: repeat(1, 1fr);
   gap: 0 16px;
   position: relative;
+  margin-top: 54px;
 }
 
 .picker-list li {
@@ -89,7 +95,7 @@
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  margin-top: 32px;
+  margin-top: 50px;
   margin-bottom: 16px;
   width: 100%;
 }
@@ -305,7 +311,6 @@
   width: fit-content;
   align-self: center;
   margin-bottom: 24px;
-  margin-top: 16px;
 }
 
 .archive-picker-loading {
@@ -327,6 +332,7 @@
   position: absolute;
   top: 10px;
   right: 20px;
+  text-indent: -9999px; /* hide button text on admin page  */
 }
 
 .close-icon {
@@ -450,9 +456,17 @@
   line-height: 150%;
 }
 
-@media (min-width: 576px) {
+@media (max-width: 767px) {
   .picker-list {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .archive-picker-main.is-open .picker-list {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  .archive-picker-sidebar-open {
+    flex: 100%;
   }
 }
 
@@ -479,10 +493,6 @@
 
   .picker-list {
     grid-template-columns: repeat(3, 1fr);
-  }
-
-  .archive-picker-main.is-open .picker-list {
-    grid-template-columns: repeat(1, 1fr);
   }
 
   .archive-picker-main li img {
@@ -570,7 +580,7 @@
   }
 
   .archive-picker-main.is-open .picker-list {
-    grid-template-columns: repeat(1, 1fr);
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
@@ -606,7 +616,23 @@
   .archive-picker-main.is-open .picker-list {
     grid-template-columns: repeat(2, 1fr);
   }
+
+  .archive-picker-sidebar-open {
+    flex: 50%;
+  }
 }
+
+@media (max-width: 1230px) {
+  .archive-picker-main.is-open .archive-picker-title {
+    width: 100%;
+  }
+}
+
+/* @media (max-width: 1350px) {
+  .archive-picker-sidebar-open {
+    flex: 70%;
+  }
+} */
 
 @media (min-width: 1440px) {
   .archive-picker-main.is-open .multiple-search-form {
@@ -640,10 +666,21 @@
     border-top: none;
     flex: 40%;
   }
+
+  .archive-picker-sidebar-open {
+    flex: 40%;
+  }
 }
 
 @media (min-width: 1600px) {
   .picker-list {
     grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+
+@media (max-width: 600px) {
+  .picker-sidebar-header .close-sidebar {
+    top: 50px;
   }
 }

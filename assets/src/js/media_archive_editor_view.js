@@ -1,5 +1,5 @@
 import {createRoot} from '@wordpress/element';
-import ArchivePicker from '../js/Components/ArchivePicker/ArchivePicker';
+import ArchivePicker, {EDITOR_VIEW} from '../js/Components/ArchivePicker/ArchivePicker';
 
 const {__} = wp.i18n;
 const frame = wp.media.view.MediaFrame.Select;
@@ -51,7 +51,7 @@ const frame = wp.media.view.MediaFrame.Select;
         render() {
           const domNode = this.$('#media-archive-div').prevObject.get(0);
           const root = createRoot(domNode);
-          root.render(<ArchivePicker mediaView={true} />);
+          root.render(<ArchivePicker view={EDITOR_VIEW} />);
         },
         active: false,
         toolbar: null,
