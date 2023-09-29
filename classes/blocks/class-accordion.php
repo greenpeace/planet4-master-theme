@@ -26,7 +26,7 @@ class Accordion extends Base_Block {
 	 * Accordion constructor.
 	 */
 	public function __construct() {
-		add_action( 'init', [ $this, 'register_accordion_block' ] );
+		$this->register_accordion_block();
 	}
 
 	/**

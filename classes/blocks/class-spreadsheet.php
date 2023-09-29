@@ -25,7 +25,7 @@ class Spreadsheet extends Base_Block {
 	 * SpreadsheetTable constructor.
 	 */
 	public function __construct() {
-		add_action( 'init', [ $this, 'register_spreadsheet_block' ] );
+		$this->register_spreadsheet_block();
 	}
 
 	/**

@@ -8,6 +8,8 @@
 
 namespace P4GBKS\Blocks;
 
+use WP_Block_Type_Registry;
+
 /**
  * Class GuestBook
  *
@@ -26,6 +28,10 @@ class GuestBook extends Base_Block {
 	 * GuestBook constructor.
 	 */
 	public function __construct() {
+		if ( WP_Block_Type_Registry::get_instance()->is_registered( self::get_full_block_name() ) ) {
+			return;
+		}
+
 		register_block_type(
 			self::get_full_block_name(),
 		);
@@ -41,5 +47,12 @@ class GuestBook extends Base_Block {
 	 */
 	public function prepare_data( $fields ): array {
 		return [];
+	}
+
+	/**
+	 * GuestBook camelized name.
+	 */
+	public static function get_camelized_block_name(): string {
+		return 'GuestBook';
 	}
 }

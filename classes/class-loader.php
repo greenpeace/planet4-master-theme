@@ -63,52 +63,8 @@ final class Loader {
 		$this->load_commands();
 		$this->check_requirements();
 
-		// Load Blocks.
-		new Blocks\Accordion();
-		new Blocks\Articles();
-		new Blocks\CarouselHeader();
-		new Blocks\Columns();
-		new Blocks\Cookies();
-		new Blocks\Counter();
-		new Blocks\Covers();
-		new Blocks\Gallery();
-		new Blocks\Happypoint();
-		new Blocks\Media();
-		new Blocks\SocialMedia();
-		new Blocks\SplitTwoColumns();
-		new Blocks\Spreadsheet();
-		new Blocks\SubMenu();
-		new Blocks\SubPages();
-		new Blocks\TakeActionBoxout();
-		new Blocks\Timeline();
-		new Blocks\SocialMediaCards();
-		new Blocks\ENForm();
-		new Blocks\GuestBook();
-
-		/**
-		 * Create Planet 4 block patterns categories.
-		*/
-		if ( ! function_exists( 'register_block_pattern_category' ) ) {
-			return;
-		}
-
-		register_block_pattern_category(
-			'planet4',
-			[ 'label' => 'Planet 4' ],
-		);
-		register_block_pattern_category(
-			'page-headers',
-			[ 'label' => 'Page Headers' ],
-		);
-
-		register_block_pattern_category(
-			'layouts',
-			[ 'label' => 'Layouts' ],
-		);
-
-		// Load block patterns.
-		Block_Pattern::register_all();
-
+		// During PLANET-6373 transition, priority between theme and plugin matters.
+		add_action( 'init', [ static::class, 'add_blocks' ], 30 );
 		// Load parallax library for Media & Text block.
 		add_action(
 			'wp_enqueue_scripts',
@@ -176,6 +132,56 @@ final class Loader {
 		foreach ( $services as $service ) {
 			( new $service( $view ) )->load();
 		}
+	}
+
+	/**
+	 * Load blocks from Plugin.
+	 */
+	public static function add_blocks(): void {
+		new Blocks\Accordion();
+		new Blocks\Articles();
+		new Blocks\CarouselHeader();
+		new Blocks\Columns();
+		new Blocks\Cookies();
+		new Blocks\Counter();
+		new Blocks\Covers();
+		new Blocks\Gallery();
+		new Blocks\Happypoint();
+		new Blocks\Media();
+		new Blocks\SocialMedia();
+		new Blocks\SplitTwoColumns();
+		new Blocks\Spreadsheet();
+		new Blocks\SubMenu();
+		new Blocks\SubPages();
+		new Blocks\TakeActionBoxout();
+		new Blocks\Timeline();
+		new Blocks\SocialMediaCards();
+		new Blocks\ENForm();
+		new Blocks\GuestBook();
+
+		/**
+		 * Create Planet 4 block patterns categories.
+		*/
+		if ( ! function_exists( 'register_block_pattern_category' ) ) {
+			return;
+		}
+
+		register_block_pattern_category(
+			'planet4',
+			[ 'label' => 'Planet 4' ],
+		);
+		register_block_pattern_category(
+			'page-headers',
+			[ 'label' => 'Page Headers' ],
+		);
+
+		register_block_pattern_category(
+			'layouts',
+			[ 'label' => 'Layouts' ],
+		);
+
+		// Load block patterns.
+		Block_Pattern::register_all();
 	}
 
 	/**

@@ -35,7 +35,7 @@ class SocialMedia extends Base_Block {
 	 * SocialMedia constructor.
 	 */
 	public function __construct() {
-		add_action( 'init', [ $this, 'register_socialmedia_block' ] );
+		$this->register_socialmedia_block();
 	}
 
 	/**

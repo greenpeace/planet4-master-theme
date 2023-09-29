@@ -26,7 +26,7 @@ class Timeline extends Base_Block {
 	 * Timeline constructor.
 	 */
 	public function __construct() {
-		add_action( 'init', [ $this, 'register_timeline_block' ] );
+		$this->register_timeline_block();
 	}
 
 	/**

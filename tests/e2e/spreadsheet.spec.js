@@ -19,8 +19,21 @@ test('Test Spreadsheet block', async ({page, admin, editor}) => {
   await expect(warning).toBeVisible();
   await expect(warning).toHaveText('No URL has been specified. Please edit the block and provide a Spreadsheet URL using the sidebar.');
 
+  const apiRoute = `./wp-json/planet4/v1/get-spreadsheet-data?sheet_id=${SHEET_ID}`;
+  const apiResponse = {
+    header: ['Some 30x30 commitment', '30x30 in the global oceans', 'Highly/fully protected sanctuaries'],
+    rows: [
+      ['Albania', 'Yes', ''],
+      ['Angola', '', ''],
+      ['Antigua and Barbuda', 'Yes', ''],
+    ],
+  };
+
   // Add URL.
-  const responsePromise = page.waitForResponse(`./wp-json/planet4/v1/get-spreadsheet-data?sheet_id=${SHEET_ID}&_locale=user`);
+  await page.route(`${apiRoute}&_locale=user`, async route => {
+    await route.fulfill({json: apiResponse});
+  });
+  const responsePromise = page.waitForResponse(`${apiRoute}&_locale=user`);
   await page.getByLabel('Spreadsheet URL').click();
   await page.getByLabel('Spreadsheet URL').fill(TEST_URL);
   const response = await responsePromise;
@@ -42,7 +55,10 @@ test('Test Spreadsheet block', async ({page, admin, editor}) => {
   await publishPostAndVisit({page, editor});
 
   // Test that the block is displayed as expected in the frontend.
-  const frontendResponse = await page.waitForResponse(`./wp-json/planet4/v1/get-spreadsheet-data?sheet_id=${SHEET_ID}`);
+  await page.route(apiRoute, async route => {
+    await route.fulfill({json: apiResponse});
+  });
+  const frontendResponse = await page.waitForResponse(apiRoute);
   expect(frontendResponse.status()).toEqual(200);
   const frontendTable = page.locator('table.spreadsheet-table');
   await expect(frontendTable.locator('thead th:first-child button')).toHaveText('Some 30x30 commitment');

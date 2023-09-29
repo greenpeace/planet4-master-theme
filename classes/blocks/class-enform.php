@@ -88,7 +88,7 @@ class ENForm extends Base_Block {
 	 * ENForm constructor.
 	 */
 	public function __construct() {
-		add_action( 'init', [ $this, 'register_enform_block' ] );
+		$this->register_enform_block();
 	}
 
 	/**

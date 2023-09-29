@@ -25,7 +25,7 @@ class TakeActionBoxout extends Base_Block {
 	 * TakeActionBoxout constructor.
 	 */
 	public function __construct() {
-		add_action( 'init', [ $this, 'register_takeactionboxout_block' ] );
+		$this->register_takeactionboxout_block();
 	}
 
 	/**

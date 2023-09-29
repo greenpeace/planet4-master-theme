@@ -38,7 +38,7 @@ class Gallery extends Base_Block {
 	 * Gallery constructor.
 	 */
 	public function __construct() {
-		add_action( 'init', [ $this, 'register_gallery_block' ] );
+		$this->register_gallery_block();
 	}
 
 	/**

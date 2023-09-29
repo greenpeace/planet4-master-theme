@@ -28,7 +28,7 @@ class CarouselHeader extends Base_Block {
 	 * CarouselHeader constructor.
 	 */
 	public function __construct() {
-		add_action( 'init', [ $this, 'register_carouselheader_block' ] );
+		$this->register_carouselheader_block();
 	}
 
 	/**
