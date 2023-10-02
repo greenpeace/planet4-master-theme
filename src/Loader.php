@@ -3,6 +3,7 @@
 namespace P4\MasterTheme;
 
 use P4\MasterTheme\Settings\Features;
+use P4\MasterTheme\Features\Planet4Blocks;
 use RuntimeException;
 
 /**
@@ -54,6 +55,9 @@ final class Loader
         $this->load_services($services);
         $this->add_filters();
         Commands::load();
+
+        // During PLANET-6373 transition, priority between theme and plugin matters.
+        add_action('init', [self::class, 'add_blocks'], 20);
     }
 
     /**
@@ -63,7 +67,6 @@ final class Loader
      */
     private function load_services(array $services): void
     {
-
         $this->default_services = [
             CustomTaxonomy::class,
             PostCampaign::class,
@@ -139,6 +142,19 @@ final class Loader
     public function get_services(): array
     {
         return $this->services;
+    }
+
+    /**
+     * Load blocks from Theme.
+     */
+    public static function add_blocks(): void
+    {
+        if (!Planet4Blocks::is_active()) {
+            return;
+        }
+
+        new MasterBlocks();//NOSONAR
+        new Blocks\GuestBook();//NOSONAR
     }
 
     /**

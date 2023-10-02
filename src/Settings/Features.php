@@ -15,6 +15,7 @@ use P4\MasterTheme\Features\MediaArchive;
 use P4\MasterTheme\Features\LazyYoutubePlayer;
 use P4\MasterTheme\Features\PurgeOnFeatureChanges;
 use P4\MasterTheme\Features\RedirectRedirectPages;
+use P4\MasterTheme\Features\Planet4Blocks;
 use P4\MasterTheme\Loader;
 use P4\MasterTheme\Settings;
 use CMB2;
@@ -110,6 +111,7 @@ class Features
             PurgeOnFeatureChanges::class,
             LazyYoutubePlayer::class,
             RedirectRedirectPages::class,
+            Planet4Blocks::class,
 
             // Dev only.
             DisableDataSync::class,

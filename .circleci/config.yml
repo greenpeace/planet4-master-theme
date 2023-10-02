@@ -99,7 +99,7 @@ jobs:
           command: stylelint "assets/src/scss/**/*.scss"
       - run:
           name: Install eslint react plugin
-          command: PUPPETEER_SKIP_DOWNLOAD=true PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true npm install eslint-plugin-react --unsafe-perm=true
+          command: PUPPETEER_SKIP_DOWNLOAD=true PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true npm install eslint-plugin-react --unsafe-perm=true --legacy-peer-deps
       - run:
           name: Lint JS
           command: eslint "assets/src/**/*.js" "tests/e2e/**/*.js" "admin/js/**/*.js"
@@ -269,7 +269,7 @@ jobs:
           command: git log --format=%B -n 1 $CIRCLE_SHA1 > /tmp/workspace/commit-message
       - run:
           name: Install npm dependencies
-          command: PUPPETEER_SKIP_DOWNLOAD=true PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true npm ci
+          command: PUPPETEER_SKIP_DOWNLOAD=true PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true npm ci --legacy-peer-deps
       - run:
           name: Build assets
           command: npm run build
