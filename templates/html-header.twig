@@ -30,6 +30,9 @@
     {% endif %}
 
     {% if canonical_link %}
+        {% if canonical_link|last != '/' %}
+            {% set canonical_link = canonical_link ~ '/' %}
+        {% endif %}
         <link rel="canonical" href="{{ canonical_link }}">
     {% endif %}
 
