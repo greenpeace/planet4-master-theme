@@ -1,10 +1,9 @@
 import {useEffect} from '@wordpress/element';
-import {InspectorControls} from '@wordpress/block-editor';
+import {InspectorControls, RichText} from '@wordpress/block-editor';
 import {
   RadioControl,
   SelectControl,
   PanelBody,
-  RichText,
 } from '@wordpress/components';
 import {SocialMediaEmbed} from './SocialMediaEmbed';
 import {URLInput} from '../../components/URLInput/URLInput';
