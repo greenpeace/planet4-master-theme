@@ -42,7 +42,7 @@ class Articles extends Base_Block {
 			[
 				'editor_script'   => 'planet4-blocks',
 				// todo: Remove when all content is migrated.
-				'render_callback' => static function ( $attributes ) {
+				'render_callback' => static function ( $attributes, $content ) {
 					if ( empty( $attributes['read_more_text'] ) ) {
 						$attributes['read_more_text'] = __( 'Load more', 'planet4-blocks' );
 					}
@@ -51,7 +51,7 @@ class Articles extends Base_Block {
 						$attributes['article_heading'] = __( 'Related Articles', 'planet4-blocks' );
 					}
 
-					return self::render_frontend( $attributes );
+					return self::hydrate_frontend( $attributes, $content );
 				},
 				'attributes'      => [
 					'article_heading'      => [
