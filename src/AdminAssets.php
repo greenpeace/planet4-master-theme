@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace P4\MasterTheme;
 
+use P4\MasterTheme\Features\MediaArchive;
+
 /**
  * Add assets to admin pages
  */
@@ -14,6 +16,10 @@ class AdminAssets
      */
     public static function enqueue_js(): void
     {
+        if (MediaArchive::is_active()) {
+            self::enqueue_media_archive_script();
+        }
+
         if (get_current_screen()->id !== 'nav-menus') {
             return;
         }
@@ -93,5 +99,17 @@ class AdminAssets
             'planet4-master-theme-backend',
             get_template_directory() . '/languages'
         );
+    }
+
+    private static function enqueue_media_archive_script(): void
+    {
+        wp_enqueue_script(
+            'media_archive_script',
+            get_template_directory_uri() . '/assets/build/media_archive_editor_view.js',
+            array('wp-blocks', 'wp-dom-ready', 'wp-edit-post'),
+            null,
+            true
+        );
+        Loader::enqueue_versioned_style('/admin/css/archive-picker.css');
     }
 }

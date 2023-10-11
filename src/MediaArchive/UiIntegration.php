@@ -36,7 +36,7 @@ class UiIntegration
      */
     public static function output_picker(): void
     {
-        Loader::enqueue_versioned_style('/admin/css/picker.css');
+        Loader::enqueue_versioned_style('/admin/css/archive-picker.css');
         Loader::enqueue_versioned_script(
             '/assets/build/media_archive.js',
             [

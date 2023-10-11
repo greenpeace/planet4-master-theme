@@ -36,6 +36,7 @@ export default function ArchivePickerList() {
     selectedImagesIds,
     processingIds,
     processedIds,
+    currentBlockImageId,
   } = useArchivePickerContext();
   const [selectedIndexes, setSelectedIndexes] = useState([]);
 
@@ -132,7 +133,11 @@ export default function ArchivePickerList() {
               />
               {wordpress_id && (
                 <div className="added-to-library">
-                  <span>{__('Added to Media Library', 'planet4-master-theme-backend')}</span>
+                  {(currentBlockImageId === wordpress_id) ? (
+                    <span>{__('Added to Media Library & Post', 'planet4-master-theme-backend')}</span>
+                  ) : (
+                    <span>{__('Added to Media Library', 'planet4-master-theme-backend')}</span>
+                  )}
                 </div>
               )}
               {bulkSelect && !wordpress_id && !processingIds.includes(image.id) && (

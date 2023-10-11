@@ -5,10 +5,18 @@ import ArchivePickerList from './ArchivePickerList';
 import SingleSidebar from './SingleSidebar';
 import MultiSidebar from './MultiSidebar';
 import ArchivePickerToolbar from './ArchivePickerToolbar';
+import {updateImageBlockAttributes, updateHappyPointAttributes} from './blockUpdateFunctions';
 
 const {apiFetch, url, i18n} = wp;
 const {addQueryArgs} = url;
 const {__} = i18n;
+const timeout = delay => {
+  return new Promise(resolve => setTimeout(resolve, delay));
+};
+const acceptedBlockTypes = ['core/image', 'planet4-blocks/happypoint'];
+
+export const EDITOR_VIEW = 'editor';
+export const ADMIN_VIEW = 'admin';
 
 export const ACTIONS = {
   CLOSE_SIDEBAR: 'closeSidebar',
@@ -26,6 +34,10 @@ export const ACTIONS = {
   REMOVE_ERROR: 'removeError',
   SEARCH: 'search',
   SET_ERROR: 'setError',
+  ADD_IMAGE_TO_POST: 'addImageToPost',
+  ADD_IMAGE_TO_POST_ERROR: 'addImageToPostError',
+  ADDED_IMAGE_TO_POST: 'addedImageToPost',
+  SET_CURRENT_BLOCK_IMAGE_ID: 'setCurrentBlockImageId',
 };
 
 const Context = createContext({});
@@ -43,6 +55,8 @@ const initialState = {
   searchText: [],
   error: null,
   errors: null,
+  imageAdded: false,
+  currentBlockImageId: null,
 };
 
 const reducer = (state, action) => {
@@ -123,6 +137,7 @@ const reducer = (state, action) => {
   case ACTIONS.CLOSE_SIDEBAR: {
     return {
       ...state,
+      imageAdded: false,
       selectedImages: [],
     };
   }
@@ -177,6 +192,31 @@ const reducer = (state, action) => {
       loaded: false,
     };
   }
+  case ACTIONS.ADD_IMAGE_TO_POST: {
+    return {
+      ...state,
+      processing: true,
+    };
+  }
+  case ACTIONS.ADDED_IMAGE_TO_POST: {
+    return {
+      ...state,
+      processing: false,
+      imageAdded: true,
+    };
+  }
+  case ACTIONS.ADD_IMAGE_TO_POST_ERROR: {
+    return {
+      ...state,
+      error: action.payload,
+    };
+  }
+  case ACTIONS.SET_CURRENT_BLOCK_IMAGE_ID: {
+    return {
+      ...state,
+      currentBlockImageId: action.payload,
+    };
+  }
   default: {
     return {
       ...state,
@@ -185,7 +225,7 @@ const reducer = (state, action) => {
   }
 };
 
-export default function ArchivePicker() {
+export default function ArchivePicker({view = ADMIN_VIEW}) {
   const [{
     loading,
     loaded,
@@ -201,6 +241,8 @@ export default function ArchivePicker() {
     bulkSelect,
     error,
     errors,
+    imageAdded,
+    currentBlockImageId,
   }, dispatch] = useReducer(reducer, initialState);
   const [abortController, setAbortController] = useState(null);
   const [selectedImagesIds, setSelectedImagesIds] = useState([]);
@@ -233,7 +275,50 @@ export default function ArchivePicker() {
     }
   }, [loading, loaded, images, error, searchText, pageNumber, dispatch]);
 
-  const includeInWp = async (ids = []) => {
+  const currentBlock = wp.data.select('core/block-editor').getSelectedBlock();
+
+  const getImageDetails = useCallback(async id => {
+    try {
+      // On first try wp returns undefined, so need to make call again to get image details.
+      for (let retries = 0; retries < 2; ++retries) {
+        const newImageUploaded = await wp.data.select('core').getMedia(id);
+        if (newImageUploaded) {
+          return newImageUploaded;
+        }
+
+        await timeout(3000);
+      }
+    } catch (err) {
+      dispatch({type: ACTIONS.ADD_IMAGE_TO_POST_ERROR, payload: err});
+    }
+  }, []);
+
+  const processImageToAddToEditor = async id => {
+    dispatch({type: ACTIONS.ADD_IMAGE_TO_POST});
+    try {
+      if (currentBlock.name === 'core/image') {
+        // Get current Image details from WP
+        const uploadedImage = await getImageDetails(id);
+        // Get Updated Atrributes
+        const updatedAttributes = updateImageBlockAttributes(uploadedImage, currentBlock);
+        await wp.data.dispatch('core/block-editor').updateBlock(currentBlock.clientId, updatedAttributes);
+      }
+
+      if (currentBlock.name === 'planet4-blocks/happypoint') {
+        const updatedAttributes = updateHappyPointAttributes(id);
+        await wp.data.dispatch('core/block-editor').updateBlock(currentBlock.clientId, updatedAttributes);
+      }
+
+      dispatch({type: ACTIONS.ADDED_IMAGE_TO_POST});
+      await timeout(1000);
+      dispatch({type: ACTIONS.CLOSE_SIDEBAR});
+      document.querySelector('.media-modal-close').click();
+    } catch (err) {
+      dispatch({type: ACTIONS.ADD_IMAGE_TO_POST_ERROR, payload: err});
+    }
+  };
+
+  const includeInWp = async (ids = [], viewProp) => {
     dispatch({type: ACTIONS.PROCESS_IMAGES, payload: {selection: ids}});
 
     Promise.all(ids.map(id => {
@@ -247,6 +332,9 @@ export default function ArchivePicker() {
       });
     })).then(result => {
       const payload = result.flat();
+      if (viewProp === EDITOR_VIEW) {
+        processImageToAddToEditor(payload[0].wordpress_id);
+      }
       dispatch({type: ACTIONS.PROCESSED_IMAGES, payload: {images: payload}});
     }).catch(err => {
       dispatch({type: 'SET_ERROR', payload: {
@@ -294,6 +382,12 @@ export default function ArchivePicker() {
     setSelectedImagesIds(selectedImages.map(image => image.id));
   }, [selectedImages]);
 
+  useEffect(() => {
+    if (currentBlock) {
+      dispatch({type: ACTIONS.SET_CURRENT_BLOCK_IMAGE_ID, payload: currentBlock.attributes.id});
+    }
+  }, [currentBlock]);
+
   return useMemo(() => (
     <Context.Provider
       value={{
@@ -308,51 +402,105 @@ export default function ArchivePicker() {
         processingImages,
         processedImages,
         includeInWp,
+        processImageToAddToEditor,
         selectedImages,
         selectedImagesIds,
         searchText,
         processingIds,
         processedIds,
         dispatch,
+        imageAdded,
+        currentBlockImageId,
+        view,
       }}
     >
-      <section className={classNames('archive-picker', {'open-sidebar': selectedImages.length > 0 && !bulkSelect})}>
-        <ArchivePickerToolbar />
+      {view === ADMIN_VIEW && (
+        <section className="archive-picker">
+          <div className={classNames('archive-picker-main', {'is-open': selectedImages.length > 0 && !bulkSelect})}>
+            <ArchivePickerToolbar />
 
-        {!!errors && errors[ACTIONS.FETCH_IMAGES] && (
-          <div>
-            <h3>API error:</h3>
-            <div dangerouslySetInnerHTML={{__html: errors[ACTIONS.FETCH_IMAGES].message}} />
+            {!!errors && errors[ACTIONS.FETCH_IMAGES] && (
+              <div>
+                <h3>API error:</h3>
+                <div dangerouslySetInnerHTML={{__html: errors[ACTIONS.FETCH_IMAGES].message}} />
+              </div>
+            )}
+
+            <ArchivePickerList />
+
+            {!!images.length && (
+              <div className="help">
+                <div
+                  className="tooltip"
+                  dangerouslySetInnerHTML={{
+                    __html: __(
+                      'The <strong>Media Archive</strong> pulls images from <a target="_blank" href="https://media.greenpeace.org/">media.greenpeace.org</a>. You can import these images into your Wordpress Media Library and Post/Page. If you have further questions, you can visit the <a target="_blank" href="https://planet4.greenpeace.org/manage/administer/media-archive/">Media Archive Page</a> in the Handbook.', 'planet4-master-theme-backend'
+                    ),
+                  }}
+                />
+                <span>?</span>
+              </div>
+            )}
+
+            {loading && (
+              <div className="archive-picker-loading"><Spinner /></div>
+            )}
           </div>
-        )}
 
-        <div className={classNames('image-picker', {'open-sidebar': selectedImages.length > 0 && !bulkSelect})}>
-          <ArchivePickerList />
-
-          {!!images.length && (
-            <div className="help">
-              <div
-                className="tooltip"
-                dangerouslySetInnerHTML={{
-                  __html: __(
-                    'The <strong>Media Archive</strong> pulls images from <a target="_blank" href="https://media.greenpeace.org/">media.greenpeace.org</a>. You can import these images into your Wordpress Media Library and Post/Page. If you have further questions, you can visit the <a target="_blank" href="https://planet4.greenpeace.org/manage/administer/media-archive/">Media Archive Page</a> in the Handbook.', 'planet4-master-theme-backend'
-                  ),
-                }}
-              />
-              <span>?</span>
-            </div>
-          )}
-
-          {loading && (
-            <div className="archive-picker-loading"><Spinner /></div>
-          )}
-
-          {(selectedImages.length && !bulkSelect) ? (
+          <div className={classNames('archive-picker-sidebar', {'archive-picker-sidebar-open': selectedImages.length > 0 && !bulkSelect})}>
             <div className="picker-sidebar">
               {selectedImages.length === 1 ? <SingleSidebar image={selectedImages[0]} /> : <MultiSidebar />}
-            </div>) : null}
-        </div>
-      </section>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {view === EDITOR_VIEW && (
+        <>
+          {(acceptedBlockTypes.includes(currentBlock.name)) ? (
+            <section className="archive-picker">
+              <div className={classNames('archive-picker-main', {'is-open': selectedImages.length > 0 && !bulkSelect})}>
+                <ArchivePickerToolbar />
+
+                {!!errors && errors[ACTIONS.FETCH_IMAGES] && (
+                  <div>
+                    <h3>API error:</h3>
+                    <div dangerouslySetInnerHTML={{__html: errors[ACTIONS.FETCH_IMAGES].message}} />
+                  </div>
+                )}
+
+                <ArchivePickerList />
+
+                {!!images.length && (
+                  <div className="media-archive-help">
+                    <div
+                      className="tooltip"
+                      dangerouslySetInnerHTML={{
+                        __html: __(
+                          'The <strong>Media Archive</strong> pulls images from <a target="_blank" href="https://media.greenpeace.org/">media.greenpeace.org</a>. You can import these images into your Wordpress Media Library and Post/Page. If you have further questions, you can visit the <a target="_blank" href="https://planet4.greenpeace.org/manage/administer/media-archive/">Media Archive Page</a> in the Handbook.', 'planet4-master-theme-backend'
+                        ),
+                      }}
+                    />
+                    <span>?</span>
+                  </div>
+                )}
+
+                {loading && (
+                  <div className="archive-picker-loading"><Spinner /></div>
+                )}
+              </div>
+
+              <div className={classNames('archive-picker-sidebar', {'archive-picker-sidebar-open': selectedImages.length > 0 && !bulkSelect})}>
+                <div className="picker-sidebar">
+                  {selectedImages.length === 1 ? <SingleSidebar image={selectedImages[0]} /> : <MultiSidebar />}
+                </div>
+              </div>
+            </section>
+          ) : (
+            <p className="media-archive-info">{__('Use Media Library Tab for this Block!', 'planet4-master-theme-backend')}</p>
+          )}
+        </>
+      )}
     </Context.Provider>
   ), [
     loading,
@@ -372,6 +520,10 @@ export default function ArchivePicker() {
     dispatch,
     fetch,
     includeInWp,
+    processImageToAddToEditor,
+    imageAdded,
+    currentBlockImageId,
+    view,
   ]);
 }
 
