@@ -16,9 +16,12 @@ use Timber\Timber;
 $templates = [ 'taxonomy.twig', 'index.twig' ];
 
 $context = Timber::get_context();
-$context['taxonomy'] = get_queried_object();
-$context['wp_title'] = $context['taxonomy']->name;
+$taxonomy = get_queried_object();
+$context['taxonomy'] = $taxonomy;
+$context['wp_title'] = $taxonomy->name;
 $context['canonical_link'] = home_url($wp->request);
+$context['og_type'] = 'website';
+$context['og_description'] = $taxonomy->description;
 
 if (!empty(planet4_get_option('new_ia'))) {
     $view = ListingPageGridView::is_active() ? 'grid' : 'list';
@@ -34,7 +37,7 @@ if (!empty(planet4_get_option('new_ia'))) {
 }
 
 $post_args = [
-    'cat' => $context['taxonomy']->term_id,
+    'cat' => $taxonomy->term_id,
     'posts_per_page' => 10,
     'post_type' => 'post',
     'paged' => 1,

@@ -394,6 +394,7 @@ class Post extends TimberPost
     public function get_og_description(): string
     {
         $og_desc = get_post_meta($this->id, 'p4_og_description', true);
+
         if ('' === $og_desc) {
             return $this->post_excerpt;
         }

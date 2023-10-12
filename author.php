@@ -43,6 +43,7 @@ if (isset($wp_query->query_vars['author'])) {
         'width' => '300',
         'height' => '300',
     ];
+    $context['og_type'] = 'profile';
 
     $author_share_buttons = new stdClass();
     $author_share_buttons->title = $author->name;

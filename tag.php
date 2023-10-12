@@ -42,13 +42,14 @@ $post = Timber::query_post(false, Post::class); // phpcs:ignore WordPress.WP.Glo
 $context = Timber::get_context();
 if ($post instanceof \WP_Post) {
     $post = new Post($post->ID);
+    Context::set_og_meta_fields($context, $post);
 }
 
-Context::set_og_meta_fields($context, $post);
 $context['tag'] = $tag;
 $context['tag_name'] = single_tag_title('', false);
 $context['tag_description'] = wpautop($context['tag']->description);
 $context['canonical_link'] = home_url($wp->request);
+$context['og_type'] = 'website';
 
 if (!empty(planet4_get_option('new_ia'))) {
     // Temporary fix with rewind, cf. https://github.com/WordPress/gutenberg/issues/53593
