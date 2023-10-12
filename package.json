@@ -10,7 +10,7 @@
     "lint:css": "wp-scripts lint-style"
   },
   "devDependencies": {
-    "@commitlint/cli": "^12.1.1",
+    "@commitlint/cli": "^17.7.2",
     "@greenpeace/dashdash": "^1.2.1",
     "@playwright/test": "^1.37.1",
     "@wordpress/components": "^25.7.0",
