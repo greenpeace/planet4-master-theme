@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The template for displaying Taxonomy pages.
+ * The template for displaying Taxonomy pages (Post types, Action types).
  *
  * Used to display taxonomy-type pages
  *
@@ -19,9 +19,12 @@ use Timber\Timber;
 $templates = [ 'taxonomy.twig', 'index.twig' ];
 
 $context = Timber::get_context();
-$context['taxonomy'] = get_queried_object();
-$context['wp_title'] = $context['taxonomy']->name;
+$taxonomy = get_queried_object();
+$context['taxonomy'] = $taxonomy;
+$context['wp_title'] = $taxonomy->name;
 $context['canonical_link'] = home_url($wp->request);
+$context['og_type'] = 'website';
+$context['og_description'] = $taxonomy->description;
 
 if (!empty(planet4_get_option('new_ia'))) {
     $context['page_category'] = 'Listing Page';
@@ -51,9 +54,9 @@ $post_args = [
     'has_password' => false, // Skip password protected content.
     'tax_query' => [
         [
-            'taxonomy' => $context['taxonomy']->taxonomy,
+            'taxonomy' => $taxonomy->taxonomy,
             'field' => 'slug',
-            'terms' => $context['taxonomy']->slug,
+            'terms' => $taxonomy->slug,
         ],
     ],
 ];

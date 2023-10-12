@@ -1,8 +1,15 @@
-{% if ((post and (1 != fn('post_password_required', post))) or author is defined) or tag_name is defined %}
+{% set is_listing_page = tag_name is defined or taxonomy is defined or author is defined %}
+{% set is_news_page = page_category == 'News' %}
+
+{% if (post and (1 != fn('post_password_required', post))) or is_listing_page or is_news_page %}
     {% if (author.description is defined and author.description) %}
         {% set meta_description = author.description|striptags %}
     {% elseif (post.post_excerpt is defined and post.post_excerpt) %}
         {% set meta_description = post.post_excerpt|striptags %}
+    {% elseif (tag_description is defined and tag_description) %}
+        {% set meta_description = tag_description|striptags %}
+    {% elseif (taxonomy is defined and taxonomy.description) %}
+        {% set meta_description = taxonomy.description|striptags %}
     {% else %}
         {% set meta_description = site.description %}
     {% endif %}
@@ -25,10 +32,16 @@
 
     <meta name="title" content="{{ title|e('html_attr')|raw }}"/>
     <meta property="og:title" content="{{ title|e('html_attr')|raw }}" />
-    <meta property="og:type" content="article" />
     <meta property="og:url" content="{{ current_url }}" />
+    {% if (og_type) %}
+        <meta property="og:type" content="{{ og_type }}" />
+    {% else %}
+        <meta property="og:type" content="article" />
+    {% endif %}
     {% if (og_description) %}
         <meta property="og:description" content="{{ og_description|striptags }}" />
+    {% elseif (tag_description) %}
+        <meta property="og:description" content="{{ tag_description|striptags }}" />
     {% endif %}
     {% if (og_image_data) %}
         <meta property="og:image" content="{{ og_image_data['url'] }}" />
