@@ -2,8 +2,6 @@ import mainThemeUrl from '../main-theme-url';
 
 const {__} = wp.i18n;
 
-const isNewIdentity = window.p4ge_vars.planet4_options.new_identity_styles ?? false;
-
 const item = ['core/group', {
   backgroundColor: 'white',
   style: {
@@ -44,7 +42,7 @@ const item = ['core/group', {
 ]];
 
 const template = ({
-  backgroundColor = isNewIdentity ? 'beige-100' : 'grey-05',
+  backgroundColor = 'beige-100',
   title = '',
 }) => ([
   ['core/group', {

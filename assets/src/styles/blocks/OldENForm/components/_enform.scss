@@ -37,7 +37,7 @@
       color: white;
     }
 
-    font-family: var(--headings--font-family, var(--header-primary-font)) !important;
+    font-family: var(--font-family-heading, var(--header-primary-font)) !important;
   }
 
   h1 {
@@ -74,7 +74,7 @@
   p {
     --block-enform--caption--paragraph-- {
       color: white;
-      font-family: var(--headings--font-family);
+      font-family: var(--font-family-primary);
       font-size: 1rem;
       line-height: 1.37rem;
     }
@@ -94,13 +94,13 @@
   font-weight: inherit;
   font-size: 1rem;
   text-transform: none;
-  font-family: var(--headings--font-family);
+  font-family: var(--font-family-primary);
   margin-bottom: auto;
 }
 
 .enform {
   _-- {
-    font-family: var(--headings--font-family);
+    font-family: var(--font-family-tertiary);
     background: $dark-blue;
   }
   margin-top: 36px;
@@ -220,7 +220,7 @@
 }
 
 .en-spinner {
-  border-color: $white !important;
+  border-color: var(--white) !important;
   border-right-color: transparent!important;
   display: none;
   vertical-align: middle;

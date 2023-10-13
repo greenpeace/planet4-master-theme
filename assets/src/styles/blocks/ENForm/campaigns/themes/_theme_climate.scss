@@ -19,14 +19,14 @@ body.theme-climate {
         }
 
         .form-description {
-          font-family: var(--headings--font-family, var(--header-primary-font));
+          font-family: var(--font-family-heading, var(--header-primary-font));
           margin-bottom: $sp-2;
 
           p:first-child {
             font-weight: bold;
             font-size: 1.2rem;
             text-transform: uppercase;
-            font-family: var(--headings--font-family, var(--header-primary-font));
+            font-family: var(--font-family-heading, var(--header-primary-font));
             margin-bottom: 4px;
             display: inline-block;
           }

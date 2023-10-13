@@ -3,7 +3,7 @@
 
 .counter-block {
   _-- {
-    font-family: var(--headings--font-family);
+    font-family: var(--font-family-paragraph-secondary);
   }
   text-align: center;
   margin-top: $sp-6;
@@ -58,7 +58,7 @@
 
   .progress-container {
     _-- {
-      background: $grey-20;
+      background: var(--grey-500);
       height: 30px;
       margin-bottom: $sp-4;
     }
@@ -67,7 +67,7 @@
 
   .progress-bar {
     _-- {
-      background: $dark-blue;
+      background: var(--p4-dark-green-800);
       transform: skewX(-30deg);
     }
     height: 100%;
@@ -75,7 +75,7 @@
   }
 
   .enform-progress-bar _-- {
-    background: $orange;
+    background: var(--gp-green-400);
   }
 
   .progress-arc {
@@ -88,11 +88,11 @@
     fill: none;
 
     .background _-- {
-      stroke: $grey-20;
+      stroke: var(--grey-500);
     }
 
     .foreground _-- {
-      stroke: $dark-blue;
+      stroke: var(--p4-dark-green-800);
     }
   }
 

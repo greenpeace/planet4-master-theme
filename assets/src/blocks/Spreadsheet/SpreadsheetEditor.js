@@ -5,24 +5,14 @@ import {SpreadsheetFrontend} from './SpreadsheetFrontend';
 import {debounce} from 'lodash';
 import {TextControl, PanelBody} from '@wordpress/components';
 
-const isNewIdentity = window.p4ge_vars.planet4_options.new_identity_styles || false;
-
 const {__} = wp.i18n;
 
-let colors = [
-  {name: 'blue', color: '#c9e7fa'},
-  {name: 'green', color: '#d0fac9'},
-  {name: 'grey', color: '#ececec'},
+const colors = [
+  {name: 'blue', color: '#167f82'},
+  {name: 'green', color: '#1f4912'},
+  {name: 'grey', color: '#45494c'},
+  {name: 'gp-green',color: '#198700'},
 ];
-
-if (isNewIdentity) {
-  colors = [
-    {name: 'blue', color: '#167f82'},
-    {name: 'green', color: '#1f4912'},
-    {name: 'grey', color: '#45494c'},
-    {name: 'gp-green', color: '#198700'},
-  ];
-}
 
 export const SpreadsheetEditor = ({
   attributes,

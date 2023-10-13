@@ -1,7 +1,7 @@
 @import "../../master-theme/assets/src/scss/base/colors";
 
 .covers-image-placeholder {
-  background: $grey-20;
+  background: var(--grey-500);
   display: flex;
   justify-content: center;
   align-items: center;

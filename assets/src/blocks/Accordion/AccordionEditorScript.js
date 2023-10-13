@@ -4,8 +4,6 @@ const {registerBlockType, registerBlockStyle} = wp.blocks;
 
 const BLOCK_NAME = 'planet4-blocks/accordion';
 
-const isNewIdentity = window.p4ge_vars.planet4_options.new_identity_styles ?? false;
-
 const attributes = {
   title: {
     type: 'string',
@@ -31,14 +29,11 @@ const styles = [
     name: 'light',
     label: 'Light',
   },
-];
-
-if (isNewIdentity) {
-  styles.push({
+  {
     name: 'outline',
     label: 'Outline',
-  });
-}
+  },
+];
 
 registerBlockType(BLOCK_NAME, {
   title: 'Accordion',

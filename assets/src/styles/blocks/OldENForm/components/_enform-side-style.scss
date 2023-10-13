@@ -151,7 +151,7 @@
   }
 
   .form-container {
-    background: $white;
+    background: var(--white);
     padding: $sp-2;
 
     @include large-and-up {

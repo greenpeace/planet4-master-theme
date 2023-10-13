@@ -71,7 +71,7 @@
 
   p {
     --block-enform--caption--paragraph-- {
-      color: white;
+      color: var(--white);
       font-size: 1rem;
       line-height: 1.37rem;
     }
@@ -89,11 +89,11 @@
 
 .enform {
   _-- {
-    font-family: var(--headings--font-family);
+    font-family: var(--font-family-primary);
   }
   margin-top: 36px;
   height: inherit;
-  background: $dark-blue;
+  background: var(--white);
   width: 100%;
 
   form {
@@ -162,7 +162,7 @@
       p {
         --block-enform--text-- {
           font-size: .75rem;
-          font-family: var(--headings--font-family) !important;
+          font-family: var(--font-family-tertiary) !important;
           line-height: 1rem;
         }
         margin-bottom: 0;
@@ -208,7 +208,7 @@
 }
 
 .en-spinner {
-  border-color: $white !important;
+  border-color: var(--white) !important;
   border-right-color: transparent!important;
   display: none;
   vertical-align: middle;

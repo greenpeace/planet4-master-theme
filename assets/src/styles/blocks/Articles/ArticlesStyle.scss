@@ -78,7 +78,7 @@
 .article-list-item-headline {
   --block-articles--article--headline-- {
     font-weight: 500;
-    color: var(--body--color);
+    color: var(--color-text-body);
   }
 
   @include mobile-only {
@@ -95,13 +95,13 @@
 
 .article-list-item-meta {
   --block-articles--article--meta-- {
-    color: $grey-40;
-    font-family: var(--headings--font-family);
-    font-size: 14px;
+    color: var(--grey-600);
+    font-family: var(--font-family-paragraph-secondary);
+    font-size: var(--font-size-s--font-family-tertiary);
     margin: 0;
 
     &:hover {
-      color: $grey-40;
+      color: var(--grey-600);
     }
   }
 
@@ -111,9 +111,7 @@
 }
 
 .article-list-item-author {
-  _-- {
-    font-weight: 500;
-  }
+  font-weight: var(--font-weight-semibold);
 }
 
 .article-list-item-bullet {
@@ -123,7 +121,7 @@
 
 .article-list-item-content {
   --block-articles--article--content-- {
-    font-size: inherit;
+    font-size: var(--font-size-m--font-family-secondary);
   }
   margin: $sp-1 0;
 

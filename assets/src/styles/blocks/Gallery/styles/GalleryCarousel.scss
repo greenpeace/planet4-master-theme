@@ -51,7 +51,7 @@
       position: absolute;
       right: 0;
       top: 0;
-      color: $white;
+      color: var(--white);
       font-size: $font-size-xxs;
       margin: $sp-2;
       font-weight: normal;
@@ -107,9 +107,9 @@
     left: 0;
 
     p {
-      color: $grey-60;
+      color: var(--color-text-image_caption);
       font-size: $font-size-xxs;
-      font-family: var(--image-figcaption--font-family, var(--headings--font-family));
+      font-family: var(--font-family-paragraph-secondary);
       line-height: 1.4;
       margin-bottom: 0;
       display: -webkit-box;
@@ -147,7 +147,7 @@
       height: 3px;
       margin: 0 3px;
       cursor: pointer;
-      background: $white;
+      background: var(--white);
       opacity: 0.5;
 
       &.active {
@@ -168,7 +168,7 @@
     opacity: 1;
 
     &:hover {
-      background: $grey-10;
+      background: var(--grey-200);
       padding-inline-start: 0;
     }
 

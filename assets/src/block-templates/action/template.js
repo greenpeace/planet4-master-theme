@@ -2,14 +2,11 @@ import gravityFormWithText from '../templates/gravity-form-with-text';
 
 const {__} = wp.i18n;
 
-const isNewIdentity = window.p4ge_vars.planet4_options.new_identity_styles ?? false;
-const backgroundColor = isNewIdentity ? 'beige-100' : 'grey-05';
-
 const template = () => ([
   ['core/group', {className: 'block'}, [
     gravityFormWithText('white'),
     ['core/group', {
-      backgroundColor,
+      backgroundColor: 'beige-100',
       align: 'full',
       style: {
         spacing: {

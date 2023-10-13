@@ -1,4 +1,4 @@
-@import "../../master-theme/assets/src/scss/base/colors";
+@import "../../master-theme/assets/src/scss/base/tokens";
 
 .ignore-categories-wrapper {
   margin-top: 10px;
@@ -21,9 +21,9 @@
     &:hover,
     &:focus,
     &:active {
-      background-color: transparentize($white, .7);
-      border-color: $dark-blue;
-      color: $dark-blue;
+      background-color: rgba($white, .7);
+      border-color: var(--p4-dark-green-800);
+      color: var(--p4-dark-green-800);
       box-shadow: none;
     }
   }

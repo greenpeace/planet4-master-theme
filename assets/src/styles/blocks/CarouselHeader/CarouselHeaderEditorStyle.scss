@@ -19,7 +19,7 @@ div[data-type="planet4-blocks/carousel-header"] {
   height: 48px;
   line-height: 48px;
   padding: 0 16px;
-  border-bottom: 1px solid $grey-40;
+  border-bottom: 1px solid var(--grey-600);
 }
 
 .slide-arrow {
@@ -69,8 +69,8 @@ div[data-type="planet4-blocks/carousel-header"] {
 
   button {
     width: 100%;
-    color: $grey-80;
-    background-color: $white;
+    color: var(grey-900);
+    background-color: var(--white);
     font-weight: 700;
     font-size: 14px;
     border: none;
@@ -84,8 +84,8 @@ div[data-type="planet4-blocks/carousel-header"] {
     &:hover,
     &:focus:not(:disabled) {
       box-shadow: none;
-      background-color: $grey-10;
-      color: $grey-80;
+      background-color: var(--grey-200);
+      color: var(grey-900);
     }
   }
 }

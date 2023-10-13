@@ -1,9 +1,7 @@
 const {__} = wp.i18n;
 
-const isNewIdentity = window.p4ge_vars.planet4_options.new_identity_styles ?? false;
-
 const template = ({
-  backgroundColor = isNewIdentity ? 'beige-100' : 'grey-05',
+  backgroundColor = 'beige-100',
 }) => ([
   ['core/group', {className: 'block'}, [
     ['planet4-block-templates/page-header', {

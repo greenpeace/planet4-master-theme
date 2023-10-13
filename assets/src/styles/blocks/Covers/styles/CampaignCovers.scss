@@ -95,11 +95,11 @@
 
       .yellow-cta {
         _-- {
-          color: $yellow;
+          color: var(--p4-action-yellow-500);
         }
         text-align: center;
         font-size: $font-size-md;
-        font-family: var(--headings--font-family);
+        font-family: var(--font-family-button);
         font-weight: 500;
         position: absolute;
         left: 0;

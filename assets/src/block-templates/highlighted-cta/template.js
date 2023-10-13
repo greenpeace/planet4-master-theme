@@ -2,8 +2,6 @@ import mainThemeUrl from '../main-theme-url';
 
 const {__} = wp.i18n;
 
-const isNewIdentity = window.p4ge_vars.planet4_options.new_identity_styles ?? false;
-
 const template = ({
   titlePlaceholder = __('Enter text', 'planet4-blocks-backend'),
 }) => [
@@ -12,7 +10,7 @@ const template = ({
     {
       className: 'block',
       textColor: 'white',
-      backgroundColor: isNewIdentity ? 'dark-green-800' : 'dark-blue',
+      backgroundColor: 'dark-green-800',
     },
     [
       ['core/column', {}, [

@@ -69,12 +69,12 @@
       }
 
       .publication-date --block-covers--publication-date-- {
-        font-family: var(--headings--font-family);
+        font-family: var(--font-family-paragraph-secondary);
         font-size: $font-size-xxs;
         line-height: 1.6;
         font-style: italic;
         font-weight: 300;
-        color: $grey-60;
+        color: var(--grey-800);
         margin: $sp-1 0;
 
         @include large-and-up {

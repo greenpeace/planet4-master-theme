@@ -329,7 +329,7 @@ $medium-image-height: 600px;
     top: 0;
     left: 0;
     padding: 16px 0;
-    background: $white;
+    background: var(--white);
     height: auto;
     width: 100%;
 
@@ -408,7 +408,7 @@ $medium-image-height: 600px;
 
     h2 {
       width: 100%;
-      color: var(--body--color);
+      color: var(--color-text-heading);
       transition: unset;
       transform: translateX($text-slide-offset);
       font-size: 1.62rem;
@@ -431,7 +431,7 @@ $medium-image-height: 600px;
       @include large-and-up {
         max-width: 100%;
         width: 100%;
-        color: $white;
+        color: var(--white);
         margin-bottom: 32px;
         line-height: 1.2;
         font-size: $font-size-xxl;
@@ -446,14 +446,12 @@ $medium-image-height: 600px;
     }
 
     p {
-      _-- {
-        font-family: var(--headings--font-family);
-        font-size: .875rem;
-        font-weight: 500;
-        line-height: 22px;
-      }
+      font-family: var(--font-family-paragraph-primary);
+      font-size: var(--font-size-m--font-family-secondary);
+      font-weight: var(--font-weight-regular);
+      line-height: var(--line-height-m--font-family-secondary);
       display: block;
-      color: var(--body--color);
+      color: var(--color-text-body);
       width: 100%;
       padding-inline-start: 0;
       margin-bottom: 24px;
@@ -466,33 +464,25 @@ $medium-image-height: 600px;
       transform: translateX($text-slide-offset);
 
       @include small-and-up {
-        _-- {
-          font-size: $font-size-sm;
-        }
+        font-size: var(--font-size-m--font-family-secondary);
       }
 
       @include medium-and-up {
-        _-- {
-          font-size: 1.125rem;
-          line-height: 1.6;
-        }
+        font-size: var(--font-size-m--font-family-secondary);
+        line-height: var(--line-height-m--font-family-secondary);
         margin-bottom: 24px;
         display: block;
       }
 
       @include large-and-up {
-        _-- {
-          font-size: 1.125rem;
-        }
+        font-size: var(--font-size-xl--font-family-secondary);
         margin-bottom: 36px;
-        color: $white;
+        color: var(--white);
       }
 
       @include x-large-and-up {
-        _-- {
-          font-size: 1.125rem;
-          line-height: 1.6;
-        }
+        font-size: var(--font-size-xl--font-family-secondary);
+        line-height: var(--line-height-xl--font-family-secondary);
       }
     }
 
@@ -500,7 +490,7 @@ $medium-image-height: 600px;
       left: 0;
       right: 0;
       position: relative;
-      font-family: var(--headings--font-family);
+      font-family: var(--font-family-primary);
       width: 100%;
       bottom: inherit;
       margin-bottom: 24px;
@@ -577,7 +567,7 @@ $medium-image-height: 600px;
     background-image: none;
     mask-image: url("../../public/images/icons/chevron.svg");
     mask-size: cover;
-    background-color: $white;
+    background-color: var(--white);
     transform: rotate(180deg);
 
     @include large-and-up {
@@ -623,7 +613,7 @@ $medium-image-height: 600px;
     background-image: none;
     mask-image: url("../../public/images/icons/chevron.svg");
     mask-size: cover;
-    background-color: $white;
+    background-color: var(--white);
 
     @include large-and-up {
       display: block;
@@ -703,7 +693,7 @@ $medium-image-height: 600px;
         background: black;
 
         @include large-and-up {
-          background: $white;
+          background: var(--white);
         }
       }
     }

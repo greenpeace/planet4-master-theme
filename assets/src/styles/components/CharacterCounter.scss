@@ -13,10 +13,10 @@
   bottom: -1.7em;
   right: 0;
   font-size: .7em;
-  color: $grey-60;
+  color: var(--grey-800);
 
   &.character-limit-exceeded {
-    color: red;
+    color: var(--red-500);
   }
 
   &.character-limit-warning {

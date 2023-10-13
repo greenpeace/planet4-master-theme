@@ -4,45 +4,45 @@
   table {
     // Grey background (defaut)
     th {
-      background-color: var(--table-header-grey--background, $table-header-grey);
+      background-color: var(--grey-800);
     }
 
     tr {
-      background-color: var(--table-even-row-grey--background, $table-even-row-grey);
+      background-color: var(--grey-100);
     }
 
     tfoot td {
-      background-color: var(--table-footer-grey--background, $table-footer-grey);
+      background-color: var(--grey-300);
       font-weight: bold;
     }
 
     // Green background
     &.has-green-background-color {
       th {
-        background-color: var(--table-header-green--background, $table-header-green);
+        background-color: var(--p4-dark-green-800);
       }
 
       tr {
-        background-color: var(--table-even-row-green--background, $table-even-row-green);
+        background-color: var(--beige-100);
       }
 
       tfoot td {
-        background-color: var(--table-footer-green--background, $table-footer-green);
+        background-color: var(--beige-300);
       }
     }
 
     // Blue background
     &.has-blue-background-color {
       th {
-        background-color: var(--table-header-blue--background, $table-header-blue);
+        background-color: var(--blue-green-800);
       }
 
       tr {
-        background-color: var(--table-even-row-blue--background, $table-even-row-blue);
+        background-color: var(--beige-100);
       }
 
       tfoot td {
-        background-color: var(--table-footer-blue--background, $table-footer-blue);
+        background-color: var(--beige-300);
       }
     }
   }
@@ -50,30 +50,30 @@
   // Table caption
   figcaption {
     text-align: center;
-    font-size: $font-size-xxs;
-    font-family: var(--headings--font-family);
-    color: $grey-60;
-    line-height: 1.4;
+    font-size: var(--font-size-s--font-family-tertiary);
+    font-family: var(--font-family-tertiary);
+    color: var(--color-text-image_caption);
+    line-height: var(--line-height-s--font-family-tertiary);
   }
 
   &.is-style-stripes table {
     // Grey background (defaut)
     tr:nth-child(odd) {
-      background-color: var(--table-odd-row-grey--background, $table-odd-row-grey);
+      background-color: var(--grey-200);
     }
 
     // Green background
     &.has-green-background-color tr:nth-child(odd) {
-      background-color: var(--table-odd-row-green--background, $table-odd-row-green);
+      background-color: var(--beige-200);
     }
 
     // Blue background
     &.has-blue-background-color tr:nth-child(odd) {
-      background-color: var(--table-odd-row-blue--background, $table-odd-row-blue);
+      background-color: var(--beige-200);
     }
   }
 
   &:not(.is-style-stripes) table tbody tr:not(:last-child) {
-    border-bottom: 1px solid $white;
+    border-bottom: 1px solid var(--white);
   }
 }

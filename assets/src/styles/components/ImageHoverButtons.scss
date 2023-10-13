@@ -37,15 +37,15 @@
 
   .remove-image {
     margin-inline-start: $sp-1;
-    background: $grey-80;
-    color: $white;
+    background: var(grey-900);
+    color: var(--white);
 
     .dashicon {
       margin: 0;
     }
 
     &:hover {
-      background: $grey-60;
+      background: var(--grey-800);
     }
   }
 }

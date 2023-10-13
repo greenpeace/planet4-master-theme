@@ -2,24 +2,25 @@
   .custom-control-description,
   .custom-control input[type="checkbox"] ~ .custom-control-description {
     _-- {
-      font-size: $font-size-sm;
-      font-family: var(--headings--font-family);
+      font-size: var(--font-size-xl--font-family-primary);
+      font-family: var(--font-family-primary);
     }
 
     @include x-large-and-up {
       _-- {
-        font-size: $font-size-md;
+        font-size: var(--font-size-2xl--font-family-primary);
       }
     }
   }
 
   .always-enabled {
     _-- {
-      font-family: var(--headings--font-family);
       font-size: 12px;
       font-weight: 700;
     }
-    background: var(--body--color);
+
+    font-family: var(--font-family-tertiary);
+    background: var(--grey-900);
     color: white;
     border-radius: 4px;
     padding: $sp-x;

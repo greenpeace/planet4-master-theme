@@ -9,8 +9,8 @@
 .editor-styles-wrapper {
   .submenu-block h2 {
     padding-left: 16px;
-    color: $grey-60;
-    font-family: var(--headings--font-family);
+    color: var(--grey-800);
+    font-family: var(--font-family-heading);
   }
 
   // Needed to make it easily selectable in the editor

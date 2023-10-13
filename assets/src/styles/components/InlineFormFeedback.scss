@@ -1,6 +1,6 @@
 .InlineFormFeedback {
   padding: 10px;
-  background: $yellow-20;
-  border: 1px solid $yellow;
+  background: var(--p4-action-yellow-600);
+  border: 1px solid var(--p4-action-yellow-600);
   margin-bottom: $sp-2;
 }

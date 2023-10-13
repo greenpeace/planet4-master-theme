@@ -82,8 +82,8 @@
 
     .second-column {
       transform: skew(-25deg);
-      border-left: 10px solid var(--body-background-color, $white);
-      border-right: 10px solid var(--body-background-color, $white);
+      border-left: 10px solid var(--body-background-color, var(--white));
+      border-right: 10px solid var(--body-background-color, var(--white));
       z-index: 2;
       width: 110%;
       right: 0;
@@ -110,8 +110,8 @@
 
   .second-column {
     transform: skew(25deg);
-    border-left: 10px solid var(--body-background-color, $white);
-    border-right: 10px solid var(--body-background-color, $white);
+    border-left: 10px solid var(--body-background-color, var(--white));
+    border-right: 10px solid var(--body-background-color, var(--white));
     z-index: 2;
     width: 110%;
     left: 0;

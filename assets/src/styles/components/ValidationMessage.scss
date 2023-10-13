@@ -1,7 +1,7 @@
 .ValidationMessage {
-  font-family: var(--headings--font-family);
+  font-family: var(--font-family-primary);
   padding: $sp-4;
-  background: $peach;
+  background: var(--beige-100);
 }
 
 .ValidationMessage li {

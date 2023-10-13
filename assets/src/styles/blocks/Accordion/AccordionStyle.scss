@@ -5,18 +5,28 @@
 
 .accordion-block {
   _-- {
-    font-family: var(--headings--font-family);
+    font-family: var(--font-family-primary);
   }
 
   &.is-style-light .accordion-content .accordion-headline {
     --accordion-block-light-style-- {
-      border-color: $grey-20;
-      background: $white;
-      color: var(--body--color);
+      border-color: transparent;
+      background: var(--beige-100);
+      color: var(--color-text-body);
 
       &:hover {
-        background: $grey-05;
+        background: var(--beige-200);
       }
+    }
+  }
+
+  &.is-style-outline .accordion-content .accordion-headline {
+    border-color: var(--grey-500);
+    background: var(--white);
+    color: var(--grey-900);
+
+    &:hover {
+      background: var(--grey-100);
     }
   }
 
@@ -27,11 +37,11 @@
     .accordion-headline {
       --accordion-block-dark-style-- {
         border-color: transparent;
-        background: $dark-blue;
-        color: $white;
+        background: var(--p4-dark-green-800);
+        color: var(--white);
 
         &:hover {
-          background: $active-blue;
+          background: var(--p4-dark-green-900);
         }
       }
       cursor: pointer;

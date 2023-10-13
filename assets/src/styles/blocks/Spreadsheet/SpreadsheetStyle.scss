@@ -40,7 +40,7 @@ table.spreadsheet-table {
 
   tr {
     td {
-      color: var(--body--color);
+      color: var(--color-text-body);
       padding: 5px 20px;
       font-size: $font-size-xs;
       white-space: pre-wrap;
@@ -54,43 +54,57 @@ table.spreadsheet-table {
       }
     }
 
-    background-color: var(--table-even-row-grey--background, $table-even-row-grey);
+    background-color: var(--grey-100);
   }
 
   tr:nth-child(odd) {
-    background-color: var(--table-odd-row-grey--background, $table-odd-row-grey);
+    background-color: var(--grey-200);
   }
 
   &.is-color-green {
     th {
-      background-color: var(--table-header-green--background, $table-header-green);
+      background-color: var(--p4-dark-green-800);
     }
 
     tr {
-      background-color: var(--table-even-row-green--background, $table-even-row-green);
+      background-color: var(--beige-100);
     }
 
     tr:nth-child(odd) {
-      background-color: var(--table-odd-row-green--background, $table-odd-row-green);
+      background-color: var(--beige-200);
     }
   }
 
   &.is-color-blue {
     th {
-      background-color: var(--table-header-blue--background, $table-header-blue);
+      background-color: var(--blue-green-800);
     }
 
     tr {
-      background-color: var(--table-even-row-blue--background, $table-even-row-blue);
+      background-color: var(--beige-100);
     }
 
     tr:nth-child(odd) {
-      background-color: var(--table-odd-row-blue--background, $table-odd-row-blue);
+      background-color: var(--beige-200);
+    }
+  }
+
+  &.is-color-gp-green {
+    th {
+      background-color: var(--gp-green-800);
+    }
+
+    tr {
+      background-color: var(--beige-100);
+    }
+
+    tr:nth-child(odd) {
+      background: var(--beige-200);
     }
   }
 
   th {
-    background-color: var(--table-header-grey--background, $table-header-grey);
+    background-color: var(--grey-800);
 
     button {
       background-color: inherit;
@@ -98,7 +112,7 @@ table.spreadsheet-table {
       border: none;
     }
 
-    color: $white;
+    color: var(--white);
     cursor: pointer;
     font-size: $font-size-sm;
     position: sticky;

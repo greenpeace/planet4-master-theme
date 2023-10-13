@@ -79,7 +79,7 @@
       text-align: right;
       right: 10px;
       width: 100%;
-      color: $white;
+      color: var(--white);
       z-index: 2;
     }
   }
@@ -90,12 +90,12 @@
 
   figcaption {
     --image-figcaption-- {
-      font-size: $font-size-xxs;
-      font-family: var(--headings--font-family);
-      line-height: 1.4;
+      font-family: var(--font-family-paragraph-secondary);
+      font-size: var(--font-size-s--font-family-tertiary);
+      line-height: var(--line-height-s--font-family-tertiary);
     }
     margin-bottom: 0;
-    color: $grey-60;
+    color: var(--color-text-image_caption);
     text-align: center;
   }
 

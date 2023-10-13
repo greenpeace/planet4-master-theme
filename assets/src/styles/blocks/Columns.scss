@@ -2,7 +2,7 @@
   a {
     &:not(.btn) {
       _-- {
-        font-weight: inherit;
+        font-weight: var(--font-weight-regular, inherit);
       }
     }
 
@@ -16,9 +16,9 @@
 
     --block-columns--column-heading-- {
       font-size: $font-size-lg;
-      font-family: var(--headings--font-family);
+      font-family: var(--font-family-heading);
       font-weight: 700;
-      color: var(--body--color);
+      color: var(--color-text-body);
       margin-bottom: .5rem;
       text-transform: none;
 
@@ -139,7 +139,7 @@
 
       a {
         --block-columns--link-- {
-          font-family: var(--headings--font-family);
+          font-family: var(--font-family-primary);
         }
       }
 
@@ -179,9 +179,9 @@
 
       .step-number {
         --block-columns--step-number-- {
-          background: $dark-blue;
-          color: $white;
+          background: var(--gp-green-100);
         }
+        color: var(--grey-900);
         position: relative;
         display: block;
         margin-right: 20px;
@@ -200,11 +200,11 @@
 
         .step-number-inner {
           --block-columns--step-number--inner-- {
-            background: $dark-blue;
-            border-color: $white;
-            border-width: 2px;
-            font-family: var(--headings--font-family);
+            background: var(--gp-green-100);
           }
+          font-family: var(--font-family-primary);
+          border-color: var(--white);
+          border-width: 2px;
           position: absolute;
           border-style: solid;
           border-radius: 50%;
@@ -217,7 +217,7 @@
 
       .step-info {
         h5 > a _-- {
-          color: var(--body--color);
+          color: var(--color-text-body);
         }
 
         p {
@@ -256,10 +256,10 @@
           --block-columns--card-header-- {
             font-weight: 700;
             font-size: $font-size-xs;
-            font-family: var(--headings--font-family);
-            background: $dark-blue;
-            color: $white;
+            font-family: var(--font-family-heading);
           }
+          color: var(--white);
+          background: var(--p4-dark-green-800);
           border-radius: 4px;
           display: block;
           cursor: pointer;
@@ -339,7 +339,7 @@
           border-bottom: none;
 
           p {
-            color: var(--body--color);
+            color: var(--color-text-body);
             font-size: $font-size-xxs;
             line-height: 22px;
             margin-left: 0;
@@ -349,10 +349,10 @@
         }
 
         .step-number {
-          font-family: var(--headings--font-family);
+          font-family: var(--font-family-primary);
           font-size: $font-size-sm;
           font-weight: 900;
-          color: $white;
+          color: var(--white);
           line-height: 1.5;
           padding-right: 9px;
           float: left;
@@ -369,7 +369,7 @@
       h5 {
         line-height: 1.6rem;
         font-size: $font-size-lg;
-        font-family: var(--headings--font-family);
+        font-family: var(--font-family-heading);
         font-weight: 700;
 
         @include large-and-up {
@@ -419,7 +419,7 @@
 
       a {
         _-- {
-          font-family: var(--headings--font-family);
+          font-family: var(--font-family-primary);
         }
       }
 

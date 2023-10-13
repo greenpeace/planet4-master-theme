@@ -7,7 +7,7 @@
     display: inline-block;
     color: var(--link--color);
     margin-inline-start: 16px;
-    font-family: var(--headings--font-family);
+    font-family: var(--font-family-primary);
     font-size: 14px;
     vertical-align: middle;
     white-space: nowrap;
@@ -27,7 +27,7 @@
       height: 18px;
       display: inline-block;
       text-align: center;
-      border: solid 1px var(--link--color);
+      border: solid 1px var(--grey-900);
     }
   }
 }

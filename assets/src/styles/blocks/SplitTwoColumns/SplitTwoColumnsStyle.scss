@@ -4,8 +4,8 @@
 @import "../../master-theme/assets/src/scss/base/fonts";
 
 .split-two-column {
-  background-color: $grey-80;
-  color: $white;
+  background-color: var(--grey-900);
+  color: var(--white);
   display: flex;
   position: relative;
   overflow: hidden;
@@ -67,7 +67,7 @@
   font-size: $font-size-xl;
 
   a {
-    color: $white;
+    color: var(--white);
   }
 
   @include small-and-up {
@@ -90,11 +90,11 @@
 
 .split-two-column-item-tag {
   _-- {
-    color: $yellow;
+    color: var(--p4-action-yellow-500);
+    font-family: var(--font-family-primary);
+    font-size: $font-size-xl;
+    font-weight: 700;
   }
-  font-family: var(--headings--font-family);
-  font-size: $font-size-xl;
-  font-weight: 700;
   display: block;
   margin-bottom: .75em;
   white-space: nowrap;
@@ -103,13 +103,13 @@
 
   &:hover {
     _-- {
-      color: $yellow;
+      color: var(--p4-action-yellow-500);
     }
   }
 
   &:visited {
     _-- {
-      color: $yellow;
+      color: var(--p4-action-yellow-500);
     }
   }
 
@@ -131,7 +131,7 @@
 
 .split-two-column-item-subtitle,
 .split-two-column-item-link {
-  font-family: var(--headings--font-family);
+  font-family: var(--font-family-primary);
   font-weight: 500;
   font-size: $font-size-sm;
   line-height: 1.75;
@@ -160,7 +160,16 @@
 }
 
 .split-two-column-item-link {
+  --link--color: var(--white);
+  --link--hover--color: var(--white);
+
   text-decoration: none;
+  text-shadow: none !important;
+
+  @include x-large-and-up {
+    --transition--duration: 0.4s;
+    --link--height: 34px;
+  }
 
   &:hover {
     text-decoration: underline;

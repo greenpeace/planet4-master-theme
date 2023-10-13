@@ -18,7 +18,7 @@
 // I had to put these styles on the container to get the image controls to work, and remove some from the image itself.
 .boxout-image-container {
   position: relative;
-  background: $grey-20;
+  background: var(--grey-500);
   height: 100%;
   width: 336px;
   padding: 0;

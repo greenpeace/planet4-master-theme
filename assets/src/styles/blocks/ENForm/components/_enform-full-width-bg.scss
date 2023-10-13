@@ -1,5 +1,7 @@
+@import "../../master-theme/assets/src/scss/base/tokens";
+
 .enform-full-width-bg {
-  @include background-before-opacity($light-blue-bg);
+  @include background-before-opacity($beige-100);
   width: 100vw;
   min-height: 444px;
   overflow: hidden;

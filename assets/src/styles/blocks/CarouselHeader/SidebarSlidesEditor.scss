@@ -120,7 +120,7 @@
 }
 
 .slide-item-image {
-  background-color: $grey-10;
+  background-color: var(--grey-200);
   flex: 0 0 50px;
   width: 50px;
   // Overriden from block-editor__container img

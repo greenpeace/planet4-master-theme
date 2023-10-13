@@ -15,14 +15,11 @@
   }
 
   .cover {
-    _-- {
-      font-family: var(--headings--font-family);
-    }
     box-shadow: 0 1px 8px rgba(0, 0, 0, 0.16);
     transition: box-shadow 0.2s;
     min-height: 440px;
     border-radius: 4px;
-    background: white;
+    background: var(--color-background-take_action_cover_block);
     cursor: pointer;
     position: relative;
 
@@ -34,7 +31,7 @@
       }
 
       .btn {
-        background: var(--button-primary--hover--background, #ee562d);
+        background: var(--button-primary--hover--background);
       }
     }
 
@@ -63,20 +60,21 @@
       padding: $sp-3;
 
       .cover-card-tag {
-        color: $grey-40;
-        font-size: 14px;
-        font-weight: bold;
+        font-family: var(--font-family-primary);
+        font-size: var(--font-size-xxxs--font-family-primary);
+        color: var(--grey-600);
+        font-weight: var(--font-weight-bold);
       }
 
       .cover-card-heading {
         --cover-card-heading-- {
-          font-size: 18px;
-          font-weight: 700;
-          line-height: 1.2;
+          font-family: var(--font-family-primary);
+          font-size: var(--font-size-m--font-family-primary);
+          font-weight: var(--font-weight-regular);
+          line-height: var(--line-height-l--font-family-primary);
         }
         position: relative;
         z-index: 1;
-        color: black;
         margin: $sp-1 0;
         display: -webkit-box;
         -webkit-line-clamp: 2;
@@ -90,9 +88,9 @@
 
       .cover-card-excerpt {
         --cover-card-excerpt-- {
-          font-family: var(--body--font-family);
-          font-size: 14px;
-          line-height: 1.5;
+          font-family: var(--font-family-paragraph-secondary);
+          font-size: var(--font-size-s--font-family-tertiary);
+          line-height: var(--line-height-s--font-family-tertiary);
         }
         display: -webkit-box;
         -webkit-line-clamp: 3;
@@ -107,10 +105,8 @@
     }
 
     .cover-card-btn {
-      --cover-card-btn-- {
-        font-size: 14px;
-        line-height: 1;
-      }
+      font-size: var(--font-size-xxxs--font-family-primary);
+      line-height: var(--line-height-s--font-family-primary);
       padding: 10px 20px;
       right: $sp-3;
       bottom: $sp-3;

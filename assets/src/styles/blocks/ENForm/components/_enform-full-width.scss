@@ -20,10 +20,10 @@
 
     form {
       .custom-control .custom-control-description {
-        color: $white;
+        color: var(--white);
 
         a {
-          color: $white;
+          color: var(--white);
         }
       }
 

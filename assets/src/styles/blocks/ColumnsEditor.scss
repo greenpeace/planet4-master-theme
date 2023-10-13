@@ -11,14 +11,14 @@
 }
 
 .column-image-error {
-  color: $dark-orange;
+  color: var(--p4-action-yellow-600);
   font-size: 12px;
   line-height: 1.5;
   margin: 10px;
 }
 
 .columns-image-placeholder {
-  background: $grey-20;
+  background: var(--grey-500);
   display: flex;
   justify-content: center;
   align-items: center;

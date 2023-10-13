@@ -38,17 +38,17 @@
   }
 
   .remove-btn {
-    background-color: $grey-20;
+    background-color: var(--grey-500);
     border-radius: 50%;
     position: absolute;
     top: 10px;
     right: -15px;
-    color: $white;
+    color: var(--white);
 
     &:hover {
-      background-color: $grey-40 !important;
+      background-color: var(--grey-600) !important;
       box-shadow: none !important;
-      color: $white !important;
+      color: var(--white) !important;
     }
   }
 

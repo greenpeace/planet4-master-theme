@@ -7,10 +7,10 @@
 
 .block-editor a:not([href]).split-two-column-item-tag {
   text-decoration: none;
-  color: $yellow;
+  color: var(--p4-action-yellow-600);
 
   &:hover {
-    color: $yellow;
+    color: var(--p4-action-yellow-600);
     text-decoration: underline;
   }
 }

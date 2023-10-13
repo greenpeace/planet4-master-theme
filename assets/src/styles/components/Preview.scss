@@ -2,7 +2,7 @@
   float: none !important;
 
   .PreviewBar {
-    border-bottom: 1px solid $gp-green-80;
+    border-bottom: 1px solid var(--gp-green-400);
     font-style: italic;
     padding: $sp-1x;
   }

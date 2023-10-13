@@ -25,7 +25,7 @@
     }
 
     .btn {
-      background-color: var(--button-primary--hover--background, $orange-hover);
+      background-color: var(--button-primary--hover--background);
     }
   }
 
@@ -53,12 +53,12 @@
 
   .boxout-heading {
     _-- {
-      font-family: var(--headings--font-family);
-      font-size: 16px;
-      font-weight: 700;
-      line-height: 1.25;
+      font-family: var(--font-family-heading);
+      font-size: var(--font-size-m--font-family-primary);
+      font-weight: var(--font-weight-regular);
+      line-height: var(--line-height-l--font-family-primary);
+      color: var(--color-text-body);
     }
-    color: var(--body--color);
     margin-bottom: 0;
     display: -webkit-box;
     -webkit-line-clamp: 2;
@@ -75,10 +75,10 @@
     _-- {
       font-size: 12px;
       line-height: 1;
-      padding: $sp-1 $sp-2;
+      padding: $sp-3 $sp-6;
     }
-    background-color: var(--button-primary--background, $orange);
-    color: var(--button-primary--color, $white);
+    background-color: var(--button-primary--background);
+    color: var(--color-text-button--primary);
     border: none;
     white-space: nowrap;
     position: absolute;
@@ -103,10 +103,11 @@
 
     .boxout-excerpt {
       _-- {
-        font-size: 14px;
-        line-height: 1.5;
+        font-family: var(--font-family-paragraph-secondary);
+        font-size: var(--font-size-xs--font-family-tertiary);
+        line-height: var(--line-height-m--font-family-tertiary);
       }
-      color: var(--body--color);
+      color: var(--color-text-body);
       display: -webkit-box;
       -webkit-line-clamp: 1;
       /* stylelint-disable property-no-vendor-prefix */
@@ -120,7 +121,7 @@
 
     .btn {
       _-- {
-        font-size: 14px;
+        font-size: 15px;
       }
       align-self: flex-end;
       position: unset;

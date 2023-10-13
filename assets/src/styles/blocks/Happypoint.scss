@@ -1,5 +1,7 @@
+@import "../master-theme/assets/src/scss/base/tokens";
+
 .happy-point-block-wrap {
-  @include background-before-opacity($light-blue-bg);
+  @include background-before-opacity($beige-100);
   width: 100vw;
   height: 444px;
   overflow: hidden;
@@ -25,7 +27,7 @@
   @include x-large-and-up {
     height: 620px;
     width: 100vw;
-    @include background-before-opacity($light-blue-bg);
+    @include background-before-opacity($beige-100);
   }
 
   .container {
@@ -112,10 +114,10 @@
   }
 
   p {
-    font-family: var(--headings--font-family);
+    font-family: var(--font-family-primary);
     font-size: 0.8125rem;
     line-height: 18px;
-    color: $grey-60;
+    color: var(--grey-800);
     text-align: left;
 
     @include medium-and-up {
@@ -167,7 +169,7 @@
     border: 1px solid transparent;
 
     &:hover {
-      background-color: $orange-hover;
+      background-color: var(--gp-green-500);
     }
 
     @include medium-and-up {
