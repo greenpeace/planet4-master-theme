@@ -29,6 +29,7 @@ module.exports = {
     "navigation-bar-dark": './assets/src/scss/partials/navigation-bar-dark.scss',
     "navigation-bar-light": './assets/src/scss/partials/navigation-bar-light.scss',
     "gravity-forms": './assets/src/scss/layout/_gravity-forms.scss',
+    "gravityforms-client-side": './assets/src/js/gravityforms-client-side.js',
     new_identity_styles: './assets/src/scss/new-identity/style.scss',
     media_archive: './assets/src/js/media_archive.js',
     media_archive_editor_view: './assets/src/js/media_archive_editor_view.js',

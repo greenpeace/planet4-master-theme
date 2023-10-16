@@ -560,7 +560,7 @@ class GravityFormsExtensions
         $gf_fronted_config['populate'] = $gf_fronted_populate;
 
         $theme_dir = get_template_directory_uri();
-        $gf_client_side_file = $theme_dir . '/assets/src/js/gravityforms-client-side.js';
+        $gf_client_side_file = $theme_dir . '/assets/build/gravityforms-client-side.js';
 
         wp_enqueue_script(
             'p4-gf-client-side',
