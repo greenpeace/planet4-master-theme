@@ -116,10 +116,10 @@ class ENForm extends Base_Block {
 			$block_name,
 			[
 				'attributes'      => static::$attributes,
-				'render_callback' => function ( $attributes ) {
+				'render_callback' => function ( $attributes, $content ) {
 					$attributes = static::update_data( $attributes );
 
-					return self::render_frontend( $attributes );
+					return self::hydrate_frontend( $attributes, $content );
 				},
 			]
 		);

@@ -8,7 +8,7 @@ import {inputId} from './inputId';
 
 const {__} = wp.i18n;
 
-export const ENFormFrontend = attributes => {
+export const ENFormFrontend = ({attributes}) => {
   const {
     en_page_id,
     en_form_id,

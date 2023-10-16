@@ -1,10 +1,5 @@
 import {ENFormFrontend} from './ENFormFrontend';
-import {createRoot} from 'react-dom/client';
+import {hydrateBlock} from '../../functions/hydrateBlock';
 
-document.querySelectorAll('[data-render=\'planet4-blocks/enform\']').forEach(
-  blockNode => {
-    const attributes = JSON.parse(blockNode.dataset.attributes);
-    const rootElement = createRoot(blockNode);
-    rootElement.render(<ENFormFrontend {...attributes.attributes} />);
-  }
-);
+hydrateBlock('planet4-blocks/enform', ENFormFrontend);
+
