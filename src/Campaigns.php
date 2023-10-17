@@ -80,13 +80,6 @@ class Campaigns
             $image_attributes = wp_get_attachment_image_src($attachment_id, 'full');
             $attachment_url = $image_attributes ? $image_attributes[0] : '';
 
-            $happypoint_attachment_id = get_term_meta($wp_tag->term_id, 'happypoint_attachment_id', true);
-            $happypoint_image_attributes = wp_get_attachment_image_src($happypoint_attachment_id, 'full');
-            $happypoint_attachment_url = $happypoint_image_attributes ? $happypoint_image_attributes[0] : '';
-
-            $happypoint_bg_opacity = get_term_meta($wp_tag->term_id, 'happypoint_bg_opacity', true);
-            $happypoint_bg_opacity = $happypoint_bg_opacity ?? '30';
-
             $redirect_page = get_term_meta($wp_tag->term_id, 'redirect_page', true);
             $dropdown_args = [
                 'show_option_none' => ' ',
@@ -167,30 +160,6 @@ class Campaigns
                     <i class="dashicons dashicons-dismiss <?php echo $image_attributes ? '' : 'hidden'; ?>" style="cursor: pointer;"></i>
                 </td>
             </tr>
-            <tr class="form-field edit-wrap term-happypoint-wrap">
-                <th>
-                    <label><?php esc_html_e('Image Subscribe', 'planet4-master-theme-backend'); ?></label>
-                </th>
-                <td>
-                    <input type="hidden" name="happypoint_attachment_id" id="happypoint_attachment_id" class="happypoint-attachment-id field-id" value="<?php echo esc_attr($happypoint_attachment_id); ?>" />
-                    <input type="hidden" name="happypoint_attachment" id="happypoint_attachment" class="happypoint-attachment-url field-url" value="<?php echo esc_url($happypoint_attachment_url); ?>" />
-                    <button class="button insert-media add_media" name="insert_happypoint_image_button" id="insert_happypoint_image_button" type="button">
-                        <?php esc_html_e('Select/Upload Image', 'planet4-master-theme-backend'); ?>
-                    </button>
-                    <p class="description"><?php esc_html_e('Choose a background image for the Subscribe block.', 'planet4-master-theme-backend'); ?></p>
-                    <img class="attachment-thumbnail size-thumbnail" src="<?php echo esc_url($happypoint_attachment_url); ?>"/>
-                    <i class="dashicons dashicons-dismiss <?php echo $happypoint_image_attributes ? '' : 'hidden'; ?>" style="cursor: pointer;"></i>
-                </td>
-            </tr>
-            <tr class="form-field edit-wrap term-happypoint-opacity-wrap">
-                <th>
-                    <label><?php esc_html_e('Happy Point Opacity', 'planet4-master-theme-backend'); ?></label>
-                </th>
-                <td>
-                    <input type="number" name="happypoint_bg_opacity" id="happypoint_bg_opacity" class="happypoint-opacity-id field-id" value="<?php echo esc_attr($happypoint_bg_opacity); ?>" min="1" max="100"/>
-                    <p class="description"><?php esc_html_e('We use an overlay to fade the image back. Use a number between 1 and 100, the higher the number, the more faded the image will look. If you leave this empty, the default of 30 will be used.', 'planet4-master-theme-backend'); ?></p>
-                </td>
-            </tr>
             <?php
         } else {
             $dropdown_args = [
@@ -253,25 +222,6 @@ class Campaigns
         if ($attachment_id && $this->validate($attachment_id)) {
             update_term_meta($term_id, $field_id, $attachment_id);
             update_term_meta($term_id, $field_url, $attachment_url);
-        }
-
-        $field_id = 'happypoint_attachment_id';
-        $field_url = 'happypoint_attachment';
-        $attachment_id = filter_input(INPUT_POST, $field_id, FILTER_VALIDATE_INT);
-        $attachment_url = filter_input(INPUT_POST, $field_url, FILTER_VALIDATE_URL);
-
-        if ($attachment_id && $this->validate($attachment_id)) {
-            update_term_meta($term_id, $field_id, $attachment_id);
-            update_term_meta($term_id, $field_url, $attachment_url);
-        }
-
-        $field_id = 'happypoint_bg_opacity';
-        $happypoint_bg_opacity = filter_input(INPUT_POST, $field_id, FILTER_VALIDATE_INT);
-
-        if ($happypoint_bg_opacity && $this->validate($happypoint_bg_opacity)) {
-            update_term_meta($term_id, $field_id, $happypoint_bg_opacity);
-        } else {
-            $happypoint_bg_opacity = 30;
         }
 
         $redirect_page = filter_input(INPUT_POST, 'redirect_page', FILTER_VALIDATE_INT) ?? 0;
