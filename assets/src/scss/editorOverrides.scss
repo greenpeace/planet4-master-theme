@@ -1,3 +1,6 @@
+@import "./base/tokens";
+@import "../scss/blocks/PostsListBlock";
+
 // Moved from another repo, for history please see https://github.com/greenpeace/planet4-plugin-gutenberg-blocks/blame/f5c532ed5704738136224cde305e9a0ffe614ceb/assets/src/styles/editorOverrides.scss
 .editor-post-title__block textarea.editor-post-title__input {
   --headings-- {
@@ -412,6 +415,51 @@ input.describe[type=text][data-setting=caption] {
 
     .media-archive-help:hover .tooltip {
       width: 248px;
+    }
+  }
+}
+
+// Posts List Block Override
+.posts-list-query {
+  .wp-block-post-template.is-layout-flow li {
+    height: 240px;
+    margin-bottom: 12px;
+  }
+
+  .wp-block-post-featured-image {
+    flex-basis: 30%;
+  }
+
+  .wp-block-group.is-layout-flow {
+    flex-basis: 65%;
+  }
+
+  .wp-block-post-title {
+    margin-top: -32px;
+  }
+
+  .wp-block-post-excerpt {
+    margin-top: -24px;
+
+    &__more-text {
+      display: none;
+    }
+  }
+
+  .is-layout-flow > .is-layout-flow {
+    margin-top: -36px;
+  }
+}
+
+@media (max-width: 991px) {
+  .posts-list-query {
+    .wp-block-post-title,
+    .wp-block-post-excerpt {
+      margin-top: -12px;
+    }
+
+    .is-layout-flow > .is-layout-flow {
+      margin-top: -16px;
     }
   }
 }
