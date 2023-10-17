@@ -10,3 +10,5 @@ export const COVERS_LAYOUTS = {
 };
 
 export const CAROUSEL_LAYOUT_COVERS_LIMIT = 12;
+
+export const BLOCK_NAME = 'planet4-blocks/covers';

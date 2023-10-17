@@ -1,10 +1,6 @@
 import {CoversFrontend} from './CoversFrontend';
-import {createRoot} from 'react-dom/client';
+import {hydrateBlock} from '../../functions/hydrateBlock';
+import {BLOCK_NAME} from './CoversConstants';
 
-document.querySelectorAll('[data-render="planet4-blocks/covers"]').forEach(
-  blockNode => {
-    const attributes = JSON.parse(blockNode.dataset.attributes);
-    const rootElement = createRoot(blockNode);
-    rootElement.render(<CoversFrontend {...attributes.attributes} />);
-  }
-);
+hydrateBlock(BLOCK_NAME, CoversFrontend);
+

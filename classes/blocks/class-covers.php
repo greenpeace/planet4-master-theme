@@ -70,12 +70,12 @@ class Covers extends Base_Block {
 	 */
 	public function __construct() {
 		register_block_type(
-			'planet4-blocks/covers',
+			self::get_full_block_name(),
 			[  // - Register the block for the editor
 				'editor_script'   => 'planet4-blocks',
 				'style'           => static::get_full_block_name() . '-style',
 				'editor_style'    => static::get_full_block_name() . '-editor-style',
-				'render_callback' => static function ( $attributes ) {
+				'render_callback' => static function ( $attributes, $content ) {
 					if ( isset( $attributes['covers_view'] ) ) {
 						$attributes['initialRowsLimit'] = '3' === $attributes['covers_view'] ? 0 : intval( $attributes['covers_view'] );
 						unset( $attributes['covers_view'] );
@@ -96,9 +96,7 @@ class Covers extends Base_Block {
 
 					$attributes['covers'] = self::get_covers( $attributes );
 
-					$json = wp_json_encode( [ 'attributes' => $attributes ] );
-
-					return '<div data-render="' . self::get_full_block_name() . '" data-attributes="' . htmlspecialchars( $json ) . '"></div>';
+					return self::hydrate_frontend( $attributes, $content );
 				},
 				// These attributes match the current fields.
 				'attributes'      => [
@@ -157,6 +155,13 @@ class Covers extends Base_Block {
 					'readMoreText'     => [
 						'type'    => 'string',
 						'default' => __( 'Load more', 'planet4-blocks' ),
+					],
+					'covers'           => [
+						'type'    => 'array',
+						'default' => [],
+						'items'   => [
+							'type' => 'object',
+						],
 					],
 				],
 			]

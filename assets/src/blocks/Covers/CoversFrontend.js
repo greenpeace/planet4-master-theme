@@ -4,8 +4,17 @@ import {useCovers} from './useCovers';
 import {CoversGridLoadMoreButton} from './CoversGridLoadMoreButton';
 import {CoversCarouselLayout} from './CoversCarouselLayout';
 
-export const CoversFrontend = attributes => {
-  const {initialRowsLimit, cover_type, title, description, covers, className, layout, readMoreText} = attributes;
+export const CoversFrontend = ({attributes}) => {
+  const {
+    initialRowsLimit,
+    cover_type,
+    title,
+    description,
+    covers = [],
+    className,
+    layout,
+    readMoreText,
+  } = attributes;
 
   const {
     showMoreCovers,
