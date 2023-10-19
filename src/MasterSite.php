@@ -3,6 +3,7 @@
 namespace P4\MasterTheme;
 
 use P4\MasterTheme\Features\Dev\CoreBlockPatterns;
+use P4\MasterTheme\Features\Dev\SendGrid as SendgridFeature;
 use P4\MasterTheme\Features\Dev\WPTemplateEditor;
 use P4\MasterTheme\Features\LazyYoutubePlayer;
 use Timber\Timber;
@@ -316,7 +317,9 @@ class MasterSite extends TimberSite
             1
         );
 
-        Sendgrid::hooks();
+        if (SendgridFeature::is_active()) {
+            Sendgrid::hooks();
+        }
 
         $this->register_meta_fields();
     }

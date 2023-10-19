@@ -10,6 +10,7 @@ use P4\MasterTheme\Features\Dev\CoreBlockPatterns;
 use P4\MasterTheme\Features\Dev\DisableDataSync;
 use P4\MasterTheme\Features\Dev\ListingPageGridView;
 use P4\MasterTheme\Features\Dev\WPTemplateEditor;
+use P4\MasterTheme\Features\Dev\Sendgrid;
 use P4\MasterTheme\Features\EngagingNetworks;
 use P4\MasterTheme\Features\LazyYoutubePlayer;
 use P4\MasterTheme\Features\PurgeOnFeatureChanges;
@@ -118,6 +119,7 @@ class Features
             CoreBlockPatterns::class,
             AllowAllBlocks::class,
             ListingPageGridView::class,
+            Sendgrid::class,
         ];
     }
 

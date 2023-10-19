@@ -9,6 +9,7 @@ class Sendgrid
 {
     public const HOST = 'smtp.sendgrid.net';
     public const USERNAME = 'apikey';
+    public const SENDER = 'noreply@act.greenpeace.org';
     public const PORT_TLS = 587; // 25, 2525
 
     public static function hooks(): void
@@ -19,19 +20,17 @@ class Sendgrid
 
     public static function phpmailer_init(PHPMailer $phpmailer): void
     {
-        if (!defined('SENDGRID_API_KEY') && !defined('GF_SENDGRID_KEY')) {
+        if (!defined('SENDGRID_API_KEY') || empty(SENDGRID_API_KEY)) {
             if (function_exists('\Sentry\captureMessage')) {
                 \Sentry\captureMessage('No Sendgrid API key found.');
             }
             return;
         }
 
-        $apiKey = defined('SENDGRID_API_KEY') ? SENDGRID_API_KEY : GF_SENDGRID_KEY;
-
         $phpmailer->Host = self::HOST;
         $phpmailer->Username = self::USERNAME;
-        $phpmailer->Password = $apiKey;
-        $phpmailer->From = 'fhernand@greenpeace.org';
+        $phpmailer->Password = SENDGRID_API_KEY;
+        $phpmailer->From = self::SENDER;
 
         $phpmailer->IsSMTP();
         $phpmailer->Port = self::PORT_TLS;

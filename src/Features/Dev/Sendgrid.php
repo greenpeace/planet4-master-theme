@@ -4,17 +4,14 @@ namespace P4\MasterTheme\Features\Dev;
 
 use P4\MasterTheme\Feature;
 
-/**
- * @see description().
- */
-class ListingPageGridView extends Feature
+class Sendgrid extends Feature
 {
     /**
      * @inheritDoc
      */
     public static function id(): string
     {
-        return 'listing_page_grid_view';
+        return 'sendgrid_api';
     }
 
     /**
@@ -22,7 +19,7 @@ class ListingPageGridView extends Feature
      */
     protected static function name(): string
     {
-        return __('Listing page grid view', 'planet4-master-theme-backend');
+        return __('Send email with Sendgrid', 'planet4-master-theme-backend');
     }
 
     /**
@@ -31,7 +28,8 @@ class ListingPageGridView extends Feature
     protected static function description(): string
     {
         return __(
-            'Display the list of posts as a grid view on paginated listing page.',
+            // phpcs:ignore Generic.Files.LineLength.MaxExceeded
+            'Send all emails from this instance using Sendgrid API.',
             'planet4-master-theme-backend'
         );
     }
