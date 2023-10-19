@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
-"POT-Creation-Date: 2023-04-12 09:42+0000\n"
+"POT-Creation-Date: 2023-10-19 12:20+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -23,24 +23,23 @@ msgstr ""
 "Language: "
 
 #. %1$d = Number of results.
-#: src/Search.php:755
+#: src/Search.php:761
 #, php-format
 msgid "%1$d result for '%2$s'"
 msgid_plural "%1$d results for '%2$s'"
 msgstr[0] ""
 msgstr[1] ""
 
+#. reading time in min.
 #. %d = Number of minutes for reading time.
-#: src/Post/ReadingTimeCalculator.php:135 templates/tease-taxonomy-post.twig:63
-#: templates/tease-taxonomy-action.twig:53 templates/single.twig:69
-#: templates/tease-author.twig:54
-#, php-format
+#: src/Post.php:613 src/Post/ReadingTimeCalculator.php:135
+#: templates/tease-taxonomy-post.twig:63 templates/tease-author.twig:54
+#: templates/single.twig:69 templates/tease-taxonomy-action.twig:53
 msgid "%d min read"
 msgstr ""
 
 #. %d = Number of results.
-#: src/Search.php:767
-#, php-format
+#: src/Search.php:773
 msgid "%d result"
 msgid_plural "%d results"
 msgstr[0] ""
@@ -50,7 +49,7 @@ msgstr[1] ""
 msgid "404 Page"
 msgstr ""
 
-#: page-templates/sitemap.php:26
+#: page-templates/sitemap.php:43
 msgid "About Greenpeace"
 msgstr ""
 
@@ -62,11 +61,11 @@ msgstr ""
 msgid "Accept all cookies"
 msgstr ""
 
-#: page-templates/sitemap.php:24
+#: page-templates/sitemap.php:41
 msgid "Act"
 msgstr ""
 
-#: src/Post.php:291
+#: src/Post.php:358
 msgid "ACTION"
 msgstr ""
 
@@ -74,12 +73,16 @@ msgstr ""
 msgid "Action"
 msgstr ""
 
-#: templates/search.twig:255
+#: templates/search.twig:263
 msgid "Action Type"
 msgstr ""
 
-#: templates/search.twig:181
+#: templates/search.twig:189
 msgid "ACTIVE FILTERS"
+msgstr ""
+
+#: templates/tag.twig:25
+msgid "All articles"
 msgstr ""
 
 #: templates/cookies/cookies_settings.twig:55
@@ -90,7 +93,7 @@ msgstr ""
 msgid "Always enabled"
 msgstr ""
 
-#: templates/search.twig:171
+#: templates/search.twig:179
 msgid "Apply filters"
 msgstr ""
 
@@ -103,7 +106,7 @@ msgstr ""
 msgid "Archive URL"
 msgstr ""
 
-#: page-templates/sitemap.php:27
+#: page-templates/sitemap.php:44
 msgid "Articles"
 msgstr ""
 
@@ -112,11 +115,11 @@ msgstr ""
 msgid "Campaign"
 msgstr ""
 
-#: templates/search.twig:170
+#: templates/search.twig:178
 msgid "Cancel"
 msgstr ""
 
-#: templates/search.twig:82 templates/search.twig:197
+#: templates/search.twig:90 templates/search.twig:205
 msgid "Category"
 msgstr ""
 
@@ -128,11 +131,11 @@ msgstr ""
 msgid "Check for typos, and try your search again"
 msgstr ""
 
-#: templates/search.twig:190
+#: templates/search.twig:198
 msgid "Clear all"
 msgstr ""
 
-#: templates/search-form.twig:32
+#: templates/search-form.twig:32 templates/search.twig:42
 msgid "Clear search"
 msgstr ""
 
@@ -148,7 +151,7 @@ msgstr ""
 msgid "Comments"
 msgstr ""
 
-#: templates/search.twig:140 templates/search.twig:284
+#: templates/search.twig:148 templates/search.twig:292
 msgid "Content Type"
 msgstr ""
 
@@ -156,16 +159,12 @@ msgstr ""
 msgid "Discussion"
 msgstr ""
 
-#: src/Post.php:297
+#: src/Post.php:364
 msgid "DOCUMENT"
 msgstr ""
 
 #: src/Search/Filters/ContentTypes.php:92
 msgid "Document"
-msgstr ""
-
-#: src/MasterSite.php:581 src/MasterSite.php:644
-msgid "Donate"
 msgstr ""
 
 #: templates/tease-search.twig:116
@@ -176,7 +175,7 @@ msgstr ""
 msgid "Email"
 msgstr ""
 
-#: src/MasterSite.php:261
+#: src/MasterSite.php:264
 msgid "Enable new Greenpeace visual identity"
 msgstr ""
 
@@ -188,11 +187,11 @@ msgstr ""
 msgid "Evergreen Page"
 msgstr ""
 
-#: page-templates/sitemap.php:25
+#: page-templates/sitemap.php:42
 msgid "Explore"
 msgstr ""
 
-#: templates/search.twig:59
+#: templates/search.twig:67
 msgid "Filters"
 msgstr ""
 
@@ -209,7 +208,7 @@ msgid "Greenpeace Planet 4 Master Theme"
 msgstr ""
 
 #. phpcs:ignore Generic.Files.LineLength.MaxExceeded
-#: functions.php:459
+#: functions.php:454
 msgid "here"
 msgstr ""
 
@@ -225,13 +224,13 @@ msgstr ""
 msgid "https://github.com/greenpeace/planet4-master-theme"
 msgstr ""
 
-#: single.php:107
+#: single.php:108
 msgid ""
 "I agree on providing my name, email and content so that my comment can be "
 "stored and displayed in the website."
 msgstr ""
 
-#: src/MasterSite.php:646
+#: src/MasterSite.php:660
 msgid "International (English)"
 msgstr ""
 
@@ -239,12 +238,12 @@ msgstr ""
 msgid "Invalid password, please try again"
 msgstr ""
 
-#: single.php:114
+#: single.php:115
 msgid "Leave your reply"
 msgstr ""
 
-#: templates/author.twig:49 templates/all-actions.twig:35
-#: templates/all-posts.twig:35 templates/taxonomy.twig:46
+#: templates/taxonomy.twig:46 templates/all-actions.twig:35
+#: templates/all-posts.twig:35 templates/author.twig:49
 msgid "Load More"
 msgstr ""
 
@@ -264,7 +263,7 @@ msgstr ""
 msgid "Menu"
 msgstr ""
 
-#: src/Search.php:739 src/MasterSite.php:89
+#: src/MasterSite.php:89 src/Search.php:744
 msgid "Most relevant"
 msgstr ""
 
@@ -272,15 +271,15 @@ msgstr ""
 msgid "Name"
 msgstr ""
 
-#: src/Search.php:743 src/MasterSite.php:93
+#: src/MasterSite.php:93 src/Search.php:748
 msgid "Newest"
 msgstr ""
 
-#: src/Search.php:747 src/MasterSite.php:97
+#: src/MasterSite.php:97 src/Search.php:752
 msgid "Oldest"
 msgstr ""
 
-#: src/Post.php:293
+#: src/Post.php:360
 msgid "PAGE"
 msgstr ""
 
@@ -292,7 +291,7 @@ msgstr ""
 msgid "Please select which cookies you are willing to store."
 msgstr ""
 
-#: src/Post.php:300
+#: src/Post.php:367
 msgid "POST"
 msgstr ""
 
@@ -304,7 +303,7 @@ msgstr ""
 msgid "Post comment"
 msgstr ""
 
-#: templates/search.twig:111 templates/search.twig:226
+#: templates/search.twig:119 templates/search.twig:234
 msgid "Post Type"
 msgstr ""
 
@@ -312,11 +311,11 @@ msgstr ""
 msgid "Posts by "
 msgstr ""
 
-#: tag.php:126
+#: tag.php:99
 msgid "Publications"
 msgstr ""
 
-#: templates/search.twig:68 templates/search.twig:178
+#: templates/search.twig:76 templates/search.twig:186
 msgid "Refine your search"
 msgstr ""
 
@@ -328,12 +327,12 @@ msgstr ""
 msgid "Reject all cookies"
 msgstr ""
 
-#: tag.php:156
+#: tag.php:129
 msgid "Related Campaigns"
 msgstr ""
 
-#: templates/all-actions.twig:11 templates/all-posts.twig:11
-#: templates/taxonomy.twig:22
+#: templates/taxonomy.twig:22 templates/all-actions.twig:11
+#: templates/all-posts.twig:11
 msgid "Results"
 msgstr ""
 
@@ -341,8 +340,8 @@ msgstr ""
 msgid "Save preferences"
 msgstr ""
 
-#: templates/search.twig:8 templates/search.twig:45
-#: templates/search-form.twig:2 templates/404.twig:17
+#: templates/404.twig:17 templates/search-form.twig:2 templates/search.twig:8
+#: templates/search.twig:53
 msgid "Search"
 msgstr ""
 
@@ -366,7 +365,7 @@ msgid "Share via"
 msgstr ""
 
 #. %s = number of results per page.
-#: src/Search.php:999
+#: src/Search.php:1005
 #, php-format
 msgid "Show %s more results"
 msgstr ""
@@ -399,7 +398,7 @@ msgstr ""
 msgid "Sorry, we can't find that page!"
 msgstr ""
 
-#: templates/search.twig:317
+#: templates/search.twig:325
 msgid "Sort by"
 msgstr ""
 
@@ -407,12 +406,12 @@ msgstr ""
 msgid "Submit"
 msgstr ""
 
-#: src/Search.php:409 src/ActionPage.php:209
+#: src/ActionPage.php:209 src/Search.php:414
 msgid "Take action"
 msgstr ""
 
 #. %s = Redirection url variable.
-#: src/GravityFormsExtensions.php:581
+#: src/GravityFormsExtensions.php:667
 #, php-format
 msgid ""
 "Thank you! Please <a href=\"%s\">click here</a> if you are not redirected "
@@ -420,18 +419,18 @@ msgid ""
 msgstr ""
 
 #. phpcs:ignore Generic.Files.LineLength.MaxExceeded
-#: functions.php:458
+#: functions.php:453
 msgid ""
 "The content on this page is hidden because this page is being used as your "
 "\\\"All Posts\\\" listing page. You can disable this by un-setting the "
 "\\\"Posts page\\\""
 msgstr ""
 
-#: tag.php:112
+#: tag.php:78
 msgid "Things you can do"
 msgstr ""
 
-#: tag.php:158
+#: tag.php:131
 msgid "This Campaign is not assigned to an Issue"
 msgstr ""
 
@@ -439,11 +438,15 @@ msgstr ""
 msgid "This link will open a PDF file"
 msgstr ""
 
+#: src/MasterSite.php:265
+msgid "This opt-out setting will be phased out at the end of September"
+msgstr ""
+
 #: templates/single-password.twig:15 templates/single-page.twig:12
 msgid "To see the content of this page, please enter your password  below"
 msgstr ""
 
-#: src/MasterSite.php:564
+#: src/MasterSite.php:591
 msgid "Toggle search box"
 msgstr ""
 
@@ -451,7 +454,7 @@ msgstr ""
 msgid "Toggle search form"
 msgstr ""
 
-#: src/MasterSite.php:563
+#: src/MasterSite.php:590
 msgid "Toggle worldwide site selection menu"
 msgstr ""
 
@@ -463,7 +466,7 @@ msgstr ""
 msgid "We also included results for "
 msgstr ""
 
-#: tag.php:113
+#: tag.php:79
 msgid "We want you to take action because together we're strong."
 msgstr ""
 
