@@ -28,7 +28,8 @@ export const SpreadsheetFrontend = ({
   const [sortDirection, setSortDirection] = useState('asc');
   const [sortColumnIndex, setSortColumnIndex] = useState(null);
 
-  const onHeaderClick = index => {
+  const onHeaderClick = event => {
+    const index = parseInt(event.currentTarget.dataset.index);
     if (index === sortColumnIndex) {
       setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
     } else {
@@ -163,7 +164,8 @@ export const SpreadsheetFrontend = ({
                         `spreadsheet-sorted-by sort-${sortDirection}` :
                         ''
                     )}
-                    onClick={() => onHeaderClick(index)}
+                    onClick={onHeaderClick}
+                    data-index={index}
                     key={index}
                     scope="col"
                     title={cell}>
