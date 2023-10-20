@@ -104,13 +104,11 @@ class Image implements JsonSerializable
         $image->original_language_title = $data['original-language-title'] ?? null;
         $image->original_language_description = $data['original-language-description'] ?? null;
 
-        $largest_size = 0;
         foreach ($image->sizes as $size) {
-            if ($size->get_width() <= $largest_size) {
+            // The suitable image size to import in P4 is w1200px which is available in TR1 field.
+            if ($size->getUrl() !== $data['Path_TR1']['URI']) {
                 continue;
             }
-
-            $largest_size = $size->get_width();
             $image->original = $size;
         }
 
