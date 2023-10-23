@@ -2,9 +2,11 @@ const setupPostsReport = () => {
   let postCollection;
   let pageCollection;
   let campaignCollection;
+  let actionCollection;
   let postsView;
   let pagesView;
   let campaignsView;
+  let actionsView;
 
   const p4 = window.p4 || {};
   const p4_data = window.p4_data || {};
@@ -29,6 +31,7 @@ const setupPostsReport = () => {
     postsView.refreshPosts(filters);
     pagesView.refreshPages(filters);
     campaignsView.refreshCampaigns(filters);
+    actionsView.refreshActions(filters);
   };
 
   const hideSpinner = postType => document.querySelector(`#${postType}_loader`).classList.add('hidden');
@@ -175,20 +178,74 @@ const setupPostsReport = () => {
     },
   });
 
+  // Actions list
+  p4.ActionsView = wp.Backbone.View.extend({
+    template: wp.template('p4-action-list'),
+    events: {
+      'click .refresh'() {
+        return this.refreshActions({});
+      },
+    },
+    showSpinner: () => showSpinner('actions'),
+    hideSpinner: () => hideSpinner('actions'),
+    refreshActions(filters) {
+      this.showSpinner();
+      const params = {
+        per_page: 50,
+        status: 'publish',
+        orderby: 'modified',
+        order: 'desc',
+        date_query_column: 'post_modified',
+      };
+      Object.assign(params, filters);
+      this.collection.reset();
+      this.views.remove();
+      this.render();
+      this.collection.fetch({
+        url: p4_data.api_url + '/p4_action',
+        data: params,
+        headers: {'X-WP-Nonce': p4_data.nonce},
+        success: this.hideSpinner,
+        error: this.hideSpinner,
+      });
+    },
+    initialize() {
+      this.listenTo(this.collection, 'add', this.addActionView);
+    },
+    addActionView(post) {
+      this.views.add('.p4-actions', new p4.PostView({model: post}));
+    },
+  });
+
+  p4.ActionView = wp.Backbone.View.extend({
+    template: wp.template('p4-post'),
+    tagName: 'tr',
+    prepare() {
+      return this.model.toJSON();
+    },
+  });
+
   p4.initialize = () => {
     postCollection = new wp.api.collections.Posts();
     pageCollection = new wp.api.collections.Pages();
     campaignCollection = new wp.api.collections.Campaign();
+    actionCollection = new wp.api.collections.P4_action();
     postsView = new p4.PostsView({collection: postCollection});
     pagesView = new p4.PagesView({collection: pageCollection});
     campaignsView = new p4.CampaignsView({collection: campaignCollection});
+    actionsView = new p4.ActionsView({collection: actionCollection});
     postCollection.fetch();
     pageCollection.fetch();
     campaignCollection.fetch();
+    actionCollection.fetch();
 
     document.querySelector('#posts-table').appendChild(postsView.render().el);
     document.querySelector('#pages-table').appendChild(pagesView.render().el);
     document.querySelector('#campaigns-table').appendChild(campaignsView.render().el);
+    const actionsTable = document.querySelector('#actions-table');
+    if (actionsTable) {
+      actionsTable.appendChild(actionsView.render().el);
+    }
   };
 
   // Initialize page when wp api client has finished loading.
