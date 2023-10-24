@@ -1,4 +1,4 @@
-export const SlideBackground = ({slide}) => {
+export const SlideBackground = ({slide, decoding}) => {
   const {image_url, image_srcset, focal_points, image_alt} = slide;
   return (
     <div className="background-holder">
@@ -7,6 +7,7 @@ export const SlideBackground = ({slide}) => {
         style={{objectPosition: `${(focal_points?.x || .5) * 100}% ${(focal_points?.y || .5) * 100}%`}}
         srcSet={image_srcset}
         alt={image_alt}
+        {...decoding ? {decoding: 'async'} : {}}
       />
     </div>
   );

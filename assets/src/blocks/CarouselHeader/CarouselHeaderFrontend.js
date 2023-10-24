@@ -19,7 +19,7 @@ const usePageLoaded = () => {
   return pageLoaded;
 };
 
-export const CarouselHeaderFrontend = ({slides, carousel_autoplay, className}) => {
+export const CarouselHeaderFrontend = ({slides, carousel_autoplay, className, decoding}) => {
   const pageLoaded = usePageLoaded();
   const [autoplayPaused, setAutoplayPaused] = useState(false);
   const slidesRef = useRef([]);
@@ -102,7 +102,7 @@ export const CarouselHeaderFrontend = ({slides, carousel_autoplay, className}) =
               active={currentSlide === index}
               ref={element => slidesRef ? slidesRef.current[index] = element : null}
             >
-              <SlideBackground slide={pageLoaded ? slide : slides[0]} />
+              <SlideBackground decoding={decoding} slide={pageLoaded ? slide : slides[0]} />
               <StaticCaption slide={slide} />
             </Slide>
           ))}
