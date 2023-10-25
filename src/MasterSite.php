@@ -5,6 +5,7 @@ namespace P4\MasterTheme;
 use P4\MasterTheme\Features\Dev\CoreBlockPatterns;
 use P4\MasterTheme\Features\Dev\WPTemplateEditor;
 use P4\MasterTheme\Features\LazyYoutubePlayer;
+use P4\MasterTheme\Features\SendGrid as SendgridFeature;
 use Timber\Timber;
 use Timber\Site as TimberSite;
 use Timber\Menu as TimberMenu;
@@ -297,6 +298,10 @@ class MasterSite extends TimberSite
             10,
             1
         );
+
+        if (SendgridFeature::is_active()) {
+            Sendgrid::hooks();
+        }
 
         $this->register_meta_fields();
     }

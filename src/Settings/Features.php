@@ -15,6 +15,7 @@ use P4\MasterTheme\Features\LazyYoutubePlayer;
 use P4\MasterTheme\Features\PurgeOnFeatureChanges;
 use P4\MasterTheme\Features\RedirectRedirectPages;
 use P4\MasterTheme\Features\Planet4Blocks;
+use P4\MasterTheme\Features\Sendgrid;
 use P4\MasterTheme\Loader;
 use P4\MasterTheme\Settings;
 use CMB2;
@@ -118,6 +119,7 @@ class Features
             CoreBlockPatterns::class,
             AllowAllBlocks::class,
             ListingPageGridView::class,
+            Sendgrid::class,
         ];
     }
 
