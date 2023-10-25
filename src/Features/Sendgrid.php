@@ -1,6 +1,6 @@
 <?php
 
-namespace P4\MasterTheme\Features\Dev;
+namespace P4\MasterTheme\Features;
 
 use P4\MasterTheme\Feature;
 
@@ -32,5 +32,13 @@ class Sendgrid extends Feature
             'Send all emails from this instance using Sendgrid API.',
             'planet4-master-theme-backend'
         );
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public static function show_toggle_production(): bool
+    {
+        return true;
     }
 }
