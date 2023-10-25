@@ -246,15 +246,17 @@ abstract class Base_Block {
 		$json = wp_json_encode( [ 'attributes' => $attributes ] );
 
 		// This will double check to parse ONLY hydrated blocks.
-		if ( strpos( $content, 'data-hydrate' ) ) {
-			// Parse to get the only the block content and not the whole block.
-			preg_match_all( '/>/', $content, $matches, PREG_OFFSET_CAPTURE );
-			$start   = $matches[0][1][1] + 1;
-			$content = substr( $content, $start );
-			preg_match_all( '/<\/div>/', $content, $matches, PREG_OFFSET_CAPTURE );
-			$end     = $matches[0][ count( $matches[0] ) - 2 ][1];
-			$content = substr( $content, 0, $end );
+		if ( ! strpos( $content, 'data-hydrate' ) ) {
+			return self::render_frontend( $attributes );
 		}
+
+		// Parse to get the only the block content and not the whole block.
+		preg_match_all( '/>/', $content, $matches, PREG_OFFSET_CAPTURE );
+		$start   = $matches[0][1][1] + 1;
+		$content = substr( $content, $start );
+		preg_match_all( '/<\/div>/', $content, $matches, PREG_OFFSET_CAPTURE );
+		$end     = $matches[0][ count( $matches[0] ) - 2 ][1];
+		$content = substr( $content, 0, $end );
 
 		return '<div data-hydrate="' . self::get_full_block_name() . '" data-attributes="' . htmlspecialchars( $json ) . '">' . $content . '</div>';
 	}
