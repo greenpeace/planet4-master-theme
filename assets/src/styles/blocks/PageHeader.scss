@@ -55,16 +55,18 @@ $text-column-padding-in: 24px;
     font-size: $font-size-xxl;
     font-weight: 700;
     line-height: initial;
+    margin-inline-start: -$sp-1;
   }
 
-  h1.has-background {
+  .wp-block-heading.has-background {
     display: inline;
     padding: 0;
     font-size: inherit;
     font-weight: inherit;
-    line-height: var(--page-header-title--line-height, 1em);
+    line-height: 150%;
     box-decoration-break: clone;
-    box-shadow: 8px 0 0 var(--transparent-button--active--color, #fff), calc(8px * -1) 0 0 var(--transparent-button--active--color, #fff);
+    box-shadow: 8px 0 0 var(--white);
+    padding-inline-start: $sp-1;
   }
 
   p {
