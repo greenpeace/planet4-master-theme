@@ -112,7 +112,7 @@ class GravityFormsExtensions
         add_action('gform_post_form_duplicated', [ $this, 'p4_gf_duplicated_form' ], 10, 2);
         add_filter('gform_form_update_meta', [$this, 'p4_gf_enable_default_meta_settings'], 10, 1);
         add_filter('gform_form_post_get_meta', [$this, 'p4_gf_enable_default_meta_settings'], 10, 1);
-        add_filter('gform_hubspot_form_object_pre_save_feed', [$this, 'p4_gf_hb_form_object_pre_save_feed', 10, 1]);
+        add_filter('gform_hubspot_form_object_pre_save_feed', [$this, 'p4_gf_hb_form_object_pre_save_feed'], 10, 1);
 
         add_action('gform_stripe_fulfillment', [ $this, 'record_fulfillment_entry' ], 10, 2);
     }
