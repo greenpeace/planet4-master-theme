@@ -758,13 +758,14 @@ class GravityFormsExtensions
      * Changing how the lifecycle stage for CRM records is handled in forms.
      * Instead of being a form field, the lifecycle stage will be included in the
      * form settings in a new selectedExternalOptions field.
-     *
      * More info: https://developers.hubspot.com/changelog/changes-to-the-lifecycle-stage-in-forms
      *
-     * @param array $meta hubspot form.
+     * phpcs:disable SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingAnyTypeHint
+     * @param mixed $hs_form hubspot form.
      *
+     * @return mixed $hs_form hubspot form.
     */
-    public function p4_gf_hb_form_object_pre_save_feed(array $hs_form): array
+    public function p4_gf_hb_form_object_pre_save_feed($hs_form)
     {
         if (! empty($hs_form['selectedExternalOptions'])) {
             $lifecyclestage_id = '';
