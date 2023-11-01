@@ -73,7 +73,7 @@ class BlockList {
 	 *
 	 * @return string[] List of unique block names.
 	 */
-	public static function parse_block_list( string $content, &$seen = [], $post_id = 0, bool $include_articles ): array {
+	public static function parse_block_list( string $content, &$seen = [], $post_id = 0, bool $include_articles = false ): array {
 		// Add Articles block in posts where it's included from the settings.
 		$initial_blocks = $include_articles ? [ 'planet4-blocks/articles' ] : [];
 
