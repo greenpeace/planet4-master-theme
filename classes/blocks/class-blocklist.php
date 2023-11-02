@@ -75,14 +75,14 @@ class BlockList {
 	 */
 	public static function parse_block_list( string $content, &$seen = [], $post_id = 0, bool $include_articles = false ): array {
 		// Add Articles block in posts where it's included from the settings.
-		$initial_blocks = $include_articles ? [ 'planet4-blocks/articles' ] : [];
+		$initial_blocks = $include_articles ? [ 'blockName' => 'planet4-blocks/articles' ] : [];
 
 		if ( ! has_blocks( $content ) ) {
 			return $initial_blocks;
 		}
 
 		$content_blocks = ( new WP_Block_Parser() )->parse( $content );
-		$blocks         = array_merge( $initial_blocks, $content_blocks );
+		$blocks         = array_merge( [ $initial_blocks ], $content_blocks );
 		$parsed         = array_filter( $blocks, fn ( $b ) => ! empty( $b['blockName'] ) );
 		if ( ! isset( $seen[ $post_id ] ) ) {
 			$seen[ $post_id ] = [];
