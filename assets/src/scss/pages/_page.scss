@@ -53,6 +53,12 @@
     .navigation-bar_min ~ & {
       padding-top: var(--navbar-menu-min-height);
     }
+
+    .wp-block-group:first-child {
+      & > .wp-block-group:first-child {
+        margin-top: 0;
+      }
+    }
   }
 }
 
