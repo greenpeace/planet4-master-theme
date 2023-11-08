@@ -55,14 +55,13 @@ class M025ReplaceDeprecatedColorsFromContent extends MigrationScript
             ';
 
             $prepared_sql = $wpdb->prepare($sql, [ $from, $from ]);
-            $results = $wpdb->get_results($prepared_sql);
+            $results = $wpdb->get_results($prepared_sql, ARRAY_A);
 
             if (count($results) <= 0) {
                 continue;
             }
 
-            $posts = json_decode(json_encode($results), true);
-            foreach ($posts as $post) {
+            foreach ($results as $post) {
                 $sql = '
                     UPDATE wp_posts
                     SET post_content = REPLACE(post_content, "%1$s", "%2$s")
