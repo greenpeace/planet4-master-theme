@@ -59,6 +59,10 @@
         margin-top: 0;
       }
     }
+
+    & > .wp-block-media-text:first-child {
+      margin-top: 0;
+    }
   }
 }
 
