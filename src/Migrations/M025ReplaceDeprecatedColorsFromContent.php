@@ -28,17 +28,22 @@ class M025ReplaceDeprecatedColorsFromContent extends MigrationScript
             [ 'from' => 'grey-10', 'to' => 'grey-200' ],
             [ 'from' => 'grey-05', 'to' => 'grey-100' ],
             [ 'from' => 'gp-green', 'to' => 'green-500' ],
-            [ 'from' => 'dark-blue', 'to' => 'p4-dark-green-800' ],
+            [ 'from' => 'dark-blue', 'to' => 'dark-green-800' ],
             [ 'from' => 'orange-hover', 'to' => 'green-500' ],
             [ 'from' => 'grey', 'to' => 'grey-900' ],
-            [ 'from' => 'blue', 'to' => 'gp-green-800' ],
+            [ 'from' => 'blue', 'to' => 'green-800' ],
         );
 
         foreach ($colors as $color) {
             $from = $color['from'];
             $to = $color['to'];
 
-            echo sprintf("Replace all the occurrences of '%s' with '%s'\n", $from, $to);
+            $from_bg = sprintf("has-%s-background-color", $color['from']);
+            $to_bg = sprintf("has-%s-background-color", $color['to']);
+            $from_color = sprintf("has-%s-color", $color['from']);
+            $to_color = sprintf("has-%s-color", $color['to']);
+
+            echo sprintf("Replace all the occurrences of '%s' with '%s'\n", $color['from'], $color['to']);
 
             $sql = '
                 SELECT
@@ -48,13 +53,13 @@ class M025ReplaceDeprecatedColorsFromContent extends MigrationScript
                     count(ID) as total_revisions
                 FROM wp_posts
                 WHERE (
-                    post_content LIKE "%%has-%1$s-background-color%%"
-                    OR post_content LIKE "%%has-%2$s-color%%"
+                    post_content LIKE "%%%1$s%%"
+                    OR post_content LIKE "%%%2$s%%"
                 )
                 GROUP BY post_parent
             ';
 
-            $prepared_sql = $wpdb->prepare($sql, [ $from, $from ]);
+            $prepared_sql = $wpdb->prepare($sql, [ $from_bg, $from_color ]);
             $results = $wpdb->get_results($prepared_sql, ARRAY_A);
 
             if (count($results) <= 0) {
@@ -64,12 +69,24 @@ class M025ReplaceDeprecatedColorsFromContent extends MigrationScript
             foreach ($results as $post) {
                 $sql = '
                     UPDATE wp_posts
-                    SET post_content = REPLACE(post_content, "%1$s", "%2$s")
-                    WHERE (post_content LIKE "%has-%3$s-background-color%" OR post_content LIKE "%has-%4$s-color%")
-                    AND ID=%5$s
+                    SET post_content = REPLACE(
+                        REPLACE(post_content, "%1$s", "%2$s"),
+                        "%3$s",
+                        "%4$s"
+                    )
+                    WHERE (post_content LIKE "%%%5$s%%" OR post_content LIKE "%%%6$s%%")
+                    AND ID=%7$s
                 ';
 
-                $prepared_sql = $wpdb->prepare($sql, [ $from, $to, $from, $from, $post["ID"]]);
+                $prepared_sql = $wpdb->prepare($sql, [
+                    $from_bg,
+                    $to_bg,
+                    $from_color,
+                    $to_color,
+                    $from_bg,
+                    $from_color,
+                    $post["ID"],
+                ]);
                 $wpdb->query($prepared_sql);
             }
         }
