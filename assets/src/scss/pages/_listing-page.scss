@@ -64,14 +64,15 @@
 }
 
 .query-list-item-post-terms {
-  font-family: var(--font-family-primary);
-  font-weight: var(--font-weight-regular);
+  font-family: var(--font-family-tertiary);
+  font-weight: var(--font-weight-semibold);
   display: flex;
   font-size: $font-size-sm;
   line-height: 25px;
   color: var(--gp-green-800);
 
   a {
+    white-space: nowrap;
     color: inherit;
 
     &:visited {
@@ -120,27 +121,15 @@
 .query-list-item-content p {
   font-size: $font-size-sm;
   margin-bottom: $sp-1;
-  line-height: 25px;
-  -webkit-line-clamp: 3;
-
-  @include medium-and-up {
-    -webkit-line-clamp: 2;
-  }
-
-  @include large-and-up {
-    -webkit-line-clamp: 3;
-  }
+  line-height: var(--line-height-m--font-family-secondary);
+  -webkit-line-clamp: 4;
 }
 
 .query-list-item-headline {
   font-size: $font-size-lg !important;
 
   a {
-    -webkit-line-clamp: 6;
-
-    @include medium-and-up {
-      -webkit-line-clamp: 2;
-    }
+    -webkit-line-clamp: 2;
   }
 }
 
@@ -183,16 +172,29 @@
 }
 
 .wp-block-query {
+  padding-bottom: $sp-7;
+
+  // Only applied to "list" layout
   &.wp-block-query--list {
     .query-list-item-body {
       @include medium-and-up {
         padding-inline-start: $sp-2x;
       }
     }
+
+    .query-list-item-content p {
+      @include medium-and-up {
+        -webkit-line-clamp: 2;
+      }
+
+      @include large-and-up {
+        -webkit-line-clamp: 3;
+      }
+    }
   }
 
-  &:not(.wp-block-query--list) {
-    // Only applied to "grid" layout
+  // Only applied to "grid" layout
+  &.wp-block-query--grid {
     .wp-block-post-template {
       li {
         @include small-and-up {
@@ -209,15 +211,9 @@
       }
     }
 
-    .query-list-item-meta {
-      @include small-and-up {
-        .article-list-item-author a {
-          overflow: hidden;
-          max-width: 100px;
-          text-overflow: ellipsis;
-          white-space: nowrap;
-          display: inline-block;
-        }
+    .query-list-item-headline a {
+      @include large-and-up {
+        -webkit-line-clamp: 3;
       }
     }
   }
