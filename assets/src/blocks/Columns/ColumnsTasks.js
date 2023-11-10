@@ -123,6 +123,7 @@ export const ColumnsTasks = ({isCampaign, columns, no_of_columns}) => (
                   }
                   {cta_text && cta_link &&
                     <a
+                      className={`btn btn-small btn-${isCampaign ? 'primary' : 'secondary'}`}
                       href={cta_link}
                       data-ga-category="Columns Block"
                       data-ga-action="Call to Action"

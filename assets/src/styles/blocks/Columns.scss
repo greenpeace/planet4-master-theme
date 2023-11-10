@@ -7,7 +7,9 @@
     }
 
     &.btn-secondary {
-      width: 100%;
+      @include large-and-up {
+        width: 100%;
+      }
     }
   }
 
