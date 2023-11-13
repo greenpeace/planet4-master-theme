@@ -67,16 +67,6 @@ class MasterBlocks
     public function enqueue_block_public_assets(): void
     {
         $theme_dir = get_template_directory_uri();
-        // Add master theme's main css as dependency for blocks css.
-        wp_enqueue_style(
-            'planet4-blocks-style',
-            $theme_dir . '/assets/build/blockStyle.min.css',
-            [
-                'bootstrap',
-                'parent-style',
-            ],
-            Loader::theme_file_ver('assets/build/blockStyle.min.css')
-        );
 
         $js_creation = filectime(get_template_directory() . '/assets/build/frontendIndex.js');
         // Include React in the Frontend.

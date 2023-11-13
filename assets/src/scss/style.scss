@@ -79,6 +79,9 @@ Text Domain: planet4-master-theme
 // CSS variables
 @import "base/css-variables";
 
+// Blocks
+@import "blocks/ActionsList";
+
 // Hide WPML footer language switcher.
 .wpml-ls-statics-footer {
   display: none;
