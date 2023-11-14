@@ -29,8 +29,6 @@
     "dotenv": "^16.3.1",
     "eslint-plugin-react": "^7.20.3",
     "file-loader": "^6.2.0",
-    "lodash": "^4.17.21",
-    "lodash.assign": "^4.2.0",
     "mini-css-extract-plugin": "^0.7.0",
     "optimize-css-assets-webpack-plugin": "^6.0.1",
     "playwright": "^1.37.1",

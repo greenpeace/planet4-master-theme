@@ -13,7 +13,7 @@ import {useStyleSheet} from '../../components/useStyleSheet/useStyleSheet';
 import {Timeline} from './Timeline';
 import {languages} from './TimelineLanguages';
 import {URLDescriptionHelp} from './URLDescriptionHelp';
-import {debounce, noConflict} from 'lodash';
+import {debounce} from '@wordpress/compose';
 
 const {__} = wp.i18n;
 const TIMELINE_JS_VERSION = '3.8.12';
@@ -24,16 +24,9 @@ const positions = [
 ];
 
 const loadAssets = () => {
-  // Revert TimelineJS global usage of lodash, as it conflicts with Wordpress underscore lib
-  // see https://jira.greenpeace.org/browse/PLANET-5960
-  const revertLodash = function() {
-    noConflict();
-  };
-
   // eslint-disable-next-line no-unused-vars
   const [scriptLoaded, scriptError] = useScript(
-    `https://cdn.knightlab.com/libs/timeline3/${TIMELINE_JS_VERSION}/js/timeline-min.js`,
-    revertLodash
+    `https://cdn.knightlab.com/libs/timeline3/${TIMELINE_JS_VERSION}/js/timeline-min.js`
   );
 
   // eslint-disable-next-line no-unused-vars

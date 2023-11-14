@@ -2,7 +2,7 @@ import {useState} from '@wordpress/element';
 import {InspectorControls} from '@wordpress/block-editor';
 import ColorPaletteControl from '../../components/ColorPaletteControl/ColorPaletteControl';
 import {SpreadsheetFrontend} from './SpreadsheetFrontend';
-import {debounce} from 'lodash';
+import {debounce} from '@wordpress/compose';
 import {TextControl, PanelBody} from '@wordpress/components';
 
 const {__} = wp.i18n;

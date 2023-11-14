@@ -1,5 +1,5 @@
 import {RichText} from '@wordpress/block-editor';
-import {debounce} from 'lodash';
+import {debounce} from '@wordpress/compose';
 
 const {__} = wp.i18n;
 

@@ -6,8 +6,7 @@ import {
   CheckboxControl,
   Button,
 } from '@wordpress/components';
-
-import {debounce} from 'lodash';
+import {debounce} from '@wordpress/compose';
 
 const {__} = wp.i18n;
 

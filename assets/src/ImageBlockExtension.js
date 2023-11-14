@@ -1,6 +1,5 @@
 import {Button, ButtonGroup, PanelBody} from '@wordpress/components';
 import {InspectorControls} from '@wordpress/block-editor';
-import assign from 'lodash.assign';
 
 const {addFilter} = wp.hooks;
 const {__} = wp.i18n;
@@ -44,8 +43,8 @@ const addExtraAttributes = function() {
       return settings;
     }
 
-    // Use Lodash's assign to gracefully handle if attributes are undefined
-    settings.attributes = assign(settings.attributes, {
+    settings.attributes = {
+      ...settings.attributes,
       captionStyle: {
         type: 'string',
         default: captionStyleOptions[0].value,
@@ -54,7 +53,7 @@ const addExtraAttributes = function() {
         type: 'string',
         default: captionAlignmentOptions[1].value,
       },
-    });
+    };
 
     return settings;
   };

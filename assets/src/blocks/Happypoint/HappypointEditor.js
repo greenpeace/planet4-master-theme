@@ -3,8 +3,7 @@ import {useSelect} from '@wordpress/data';
 import {HappypointFrontend} from './HappypointFrontend';
 import {OverrideFormHelp} from './OverrideFormHelp';
 import {USE_NONE, USE_IFRAME_URL, USE_EMBED_CODE} from './HappyPointConstants';
-
-import {debounce} from 'lodash';
+import {debounce} from '@wordpress/compose';
 
 import {
   InspectorControls,

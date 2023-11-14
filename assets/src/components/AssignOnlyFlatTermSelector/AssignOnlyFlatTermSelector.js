@@ -4,11 +4,6 @@
  */
 
 /**
- * External dependencies
- */
-import {unescape as unescapeString} from 'lodash';
-
-/**
  * WordPress dependencies
  */
 import {useEffect, useMemo, useState} from '@wordpress/element';
@@ -16,6 +11,7 @@ import {FormTokenField, withFilters} from '@wordpress/components';
 import {useSelect, useDispatch} from '@wordpress/data';
 import {store as coreStore} from '@wordpress/core-data';
 import {useDebounce} from '@wordpress/compose';
+import {decodeEntities} from '@wordpress/html-entities';
 
 const {__, _x, sprintf} = wp.i18n;
 
@@ -38,8 +34,8 @@ const DEFAULT_QUERY = {
 };
 
 const isSameTermName = (termA, termB) =>
-  unescapeString(termA).toLowerCase() ===
-  unescapeString(termB).toLowerCase();
+  decodeEntities(termA).toLowerCase() ===
+  decodeEntities(termB).toLowerCase();
 
 const termNamesToIds = (names, terms) => names.map(
   termName => terms.find(term => isSameTermName(term.name, termName)).id
@@ -100,7 +96,7 @@ export const AssignOnlyFlatTermSelector = ({slug}) => {
   useEffect(() => {
     if (hasResolvedTerms) {
       const newValues = (terms ?? []).map(term =>
-        unescapeString(term.name)
+        decodeEntities(term.name)
       );
 
       setValues(newValues);
@@ -109,7 +105,7 @@ export const AssignOnlyFlatTermSelector = ({slug}) => {
 
   const suggestions = useMemo(() => {
     return (searchResults ?? []).map(term =>
-      unescapeString(term.name)
+      decodeEntities(term.name)
     );
   }, [searchResults]);
 

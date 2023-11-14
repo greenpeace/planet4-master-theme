@@ -2,11 +2,6 @@
 // https://github.com/WordPress/gutenberg/blob/trunk/packages/editor/src/components/post-taxonomies/hierarchical-term-selector.js
 
 /**
- * External dependencies
- */
-import {find, get, unescape as unescapeString} from 'lodash';
-
-/**
  * WordPress dependencies
  */
 import {useMemo, useState} from '@wordpress/element';
@@ -19,6 +14,7 @@ import {
 import {useDispatch, useSelect} from '@wordpress/data';
 import {useDebounce} from '@wordpress/compose';
 import {store as coreStore} from '@wordpress/core-data';
+import {decodeEntities} from '@wordpress/html-entities';
 
 const {__, _n, _x, sprintf} = wp.i18n;
 const {speak} = wp.a11y;
@@ -83,7 +79,7 @@ export function sortBySelected(termsTree, terms) {
  * @return {Object} Term object.
  */
 export function findTerm(terms, name) {
-  return find(terms, term => term.name.toLowerCase() === name.toLowerCase());
+  return terms.find(terms, term => term.name.toLowerCase() === name.toLowerCase());
 }
 
 /**
@@ -141,28 +137,19 @@ export function TermSelector({slug}) {
       const {getCurrentPost, getEditedPostAttribute} = select('core/editor');
       const {getTaxonomy, getEntityRecords, isResolving, canUser} = select(coreStore);
       const _taxonomy = getTaxonomy(slug);
+      const post = getCurrentPost();
 
       return {
         isUserAdmin: canUser('create', 'users') ?? false,
         hasCreateAction: _taxonomy ?
-          get(
-            getCurrentPost(),
-            [
-              '_links',
-              'wp:action-create-' + _taxonomy.rest_base,
-            ],
-            false
-          ) :
+          post._links?.[
+            'wp:action-create-' + _taxonomy.rest_base
+          ] ?? false :
           false,
         hasAssignAction: _taxonomy ?
-          get(
-            getCurrentPost(),
-            [
-              '_links',
-              'wp:action-assign-' + _taxonomy.rest_base,
-            ],
-            false
-          ) :
+          post._links?.[
+            'wp:action-assign-' + _taxonomy.rest_base
+          ] ?? false :
           false,
         terms: _taxonomy ?
           getEditedPostAttribute(_taxonomy.rest_base) :
@@ -259,14 +246,11 @@ export function TermSelector({slug}) {
       name: formName,
     });
 
+    const defaultName = slug === 'category' ? __('Category') : __('Term');
     const termAddedMessage = sprintf(
       /* translators: %s: taxonomy name */
       _x('%s added', 'term'),
-      get(
-        taxonomy,
-        ['labels', 'singular_name'],
-        slug === 'post_tag' ? __('Tag') : __('Term')
-      )
+      taxonomy?.labels?.singular_name ?? defaultName
     );
     speak(termAddedMessage, 'assertive');
     setAdding(false);
@@ -306,7 +290,7 @@ export function TermSelector({slug}) {
               const termId = parseInt(term.id, 10);
               onChange(termId);
             }}
-            label={unescapeString(term.name)}
+            label={decodeEntities(term.name)}
           />
         </div>
       );
@@ -318,11 +302,8 @@ export function TermSelector({slug}) {
     fallbackIsTag,
     fallbackIsNotTag
   ) =>
-    get(
-      taxonomy,
-      ['labels', labelProperty],
-      slug === 'post_tag' ? fallbackIsTag : fallbackIsNotTag
-    );
+    taxonomy?.labels?.[labelProperty] ??
+    (slug === 'post_tag' ? fallbackIsTag : fallbackIsNotTag);
   const newTermButtonLabel = labelWithFallback(
     'add_new_item',
     __('Add new tag'),
@@ -334,12 +315,8 @@ export function TermSelector({slug}) {
     __('Add new term')
   );
   const newTermSubmitLabel = newTermButtonLabel;
-  const filterLabel = get(
-    taxonomy,
-    ['labels', 'search_items'],
-    __('Search Terms')
-  );
-  const groupLabel = get(taxonomy, ['name'], __('Terms'));
+  const filterLabel = taxonomy?.labels?.search_items ?? __('Search Terms');
+  const groupLabel = taxonomy?.name ?? __('Terms');
   const showFilter = availableTerms.length >= MIN_TERMS_COUNT_FOR_FILTER;
 
   return (
