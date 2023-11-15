@@ -255,8 +255,9 @@ class Covers extends Base_Block {
 			'post_type'        => ActionPage::POST_TYPE,
 			'post_status'      => 'publish',
 			'orderby'          => [
-				'date'  => 'DESC',
-				'title' => 'ASC',
+				'menu_order' => 'ASC',
+				'date'       => 'DESC',
+				'title'      => 'ASC',
 			],
 			'suppress_filters' => false,
 			'numberposts'      => self::numberposts( $layout ),
@@ -454,7 +455,7 @@ class Covers extends Base_Block {
 				usort(
 					$actions,
 					function ( $a, $b ) {
-						return $b->post_date <=> $a->post_date;
+						return $a->menu_order <=> $b->menu_order;
 					}
 				);
 			}
