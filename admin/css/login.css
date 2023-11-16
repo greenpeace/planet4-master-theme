@@ -50,11 +50,11 @@ body.login #login_error, body.login .message, body.login .success {
 }
 
 body.login div#login form#loginform p.submit input#wp-submit {
-  background: #f36b35;
+  background: #ffe100;
   text-shadow: none;
   height: auto;
   border: none;
-  color: white;
+  color: #1c1c1c;
   padding: 0.5em 40px;
   line-height: 1;
   border-radius: 4px;
@@ -62,5 +62,5 @@ body.login div#login form#loginform p.submit input#wp-submit {
 
 body.login div#login form#loginform p.submit input#wp-submit:hover,
 body.login div#login form#loginform p.submit input#wp-submit:active {
-  background: #ee562d;
+  background: #fece00;
 }
