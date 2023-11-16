@@ -1,4 +1,4 @@
-export const BLOCK_NAME = 'planet4-blocks/actions-list';
+const BLOCK_NAME = 'planet4-blocks/actions-list';
 
 // Register the ActionsList block.
 export const registerActionsList = () => {
