@@ -52,15 +52,15 @@ class SqlQuery implements Block\Query {
 	 */
 	private function get_sql_query( Block\Query\Parameters ...$params_list ): string {
 		// Prepare query parameters.
-		$regex  = [];
+		$like   = [];
 		$status = [];
 		$type   = [];
 		$order  = [];
 		foreach ( $params_list as $params ) {
-			$regex[] = ( new Regex( $params ) )->__toString();
-			$status  = array_merge( $status, $params->post_status() ?? [] );
-			$type    = array_merge( $type, $params->post_type() ?? [] );
-			$order   = array_merge( $order, $params->order() ?? [] );
+			$like[] = ( new Like( $params ) )->__toString();
+			$status = array_merge( $status, $params->post_status() ?? [] );
+			$type   = array_merge( $type, $params->post_type() ?? [] );
+			$order  = array_merge( $order, $params->order() ?? [] );
 		}
 		$status = array_unique( array_filter( $status ) );
 		$type   = array_unique( array_filter( $type ) );
@@ -74,8 +74,8 @@ class SqlQuery implements Block\Query {
 		if ( ! empty( $type ) ) {
 			$sql .= ' AND post_type IN ' . $sql_params->string_list( $type );
 		}
-		foreach ( $regex as $r ) {
-			$sql .= ' AND post_content REGEXP ' . $sql_params->string( $r ) . ' ';
+		foreach ( $like as $l ) {
+			$sql .= ' AND post_content LIKE ' . $sql_params->string( $l ) . ' ';
 		}
 		if ( ! empty( $order ) ) {
 			$sql .= ' ORDER BY ' . implode( ',', $order );

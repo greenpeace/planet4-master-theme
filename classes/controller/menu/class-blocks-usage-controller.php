@@ -66,6 +66,15 @@ if ( ! class_exists( 'Blocks_Usage_Controller' ) ) {
 		public function plugin_blocks_report_rest_api() {
 			global $wpdb;
 
+			$use_cache = ! current_user_can( 'manage_options' );
+			$cache_key = 'plugin_blocks/v3/plugin_blocks_report';
+			if ( $use_cache ) {
+				$report = wp_cache_get( $cache_key, 'api', false, $found );
+				if ( $found ) {
+					return $report;
+				}
+			}
+
 			$types = \get_post_types(
 				[
 					'public'              => true,
@@ -99,6 +108,7 @@ if ( ! class_exists( 'Blocks_Usage_Controller' ) ) {
 				'block_patterns' => $pattern_api->get_count(),
 				'post_types'     => $post_types,
 			];
+			wp_cache_set( $cache_key, $report, 'api', 60 * 5 );
 
 			return $report;
 		}

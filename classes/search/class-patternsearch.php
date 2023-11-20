@@ -54,6 +54,8 @@ class PatternSearch {
 	}
 
 	/**
+	 * Search templates by namespace to reduce query count.
+	 *
 	 * @param Parameters  $params          Search parameters.
 	 * @param PatternData ...$pattern_data Pattern data.
 	 * @return int[] List of posts IDs.
@@ -66,15 +68,15 @@ class PatternSearch {
 		$templates   = PatternUsage::patterns_templates_lookup_table();
 		$block_query = new BlockSqlQuery();
 
-		$post_ids = [];
-		foreach ( $pattern_data as $pattern ) {
-			if ( empty( $templates[ $pattern->name ] ) ) {
-				continue;
-			}
+		$pattern_names  = array_map( fn( $p ) => $p->name, $pattern_data );
+		$template_names = array_map( fn( $n ) => $templates[ $n ], $pattern_names );
+		$template_ns    = array_filter( array_unique( array_map( fn( $n ) => explode( '/', $n )[0] ?? null, $template_names ) ) );
 
+		$post_ids = [];
+		foreach ( $template_ns as $ns ) {
 			$block_params = BlockSearchParameters::from_array(
 				[
-					'name'        => $templates[ $pattern->name ],
+					'namespace'   => $ns,
 					'post_status' => $params->post_status() ?? self::DEFAULT_POST_STATUS,
 					'post_type'   => $params->post_type() ?? self::DEFAULT_POST_TYPE,
 				]
