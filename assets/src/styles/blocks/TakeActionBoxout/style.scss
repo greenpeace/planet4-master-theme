@@ -74,12 +74,8 @@
   .btn {
     _-- {
       font-size: 12px;
-      line-height: 1;
-      padding: $sp-3 $sp-6;
+      line-height: 2.5;
     }
-    background-color: var(--button-primary--background);
-    color: var(--color-text-button--primary);
-    border: none;
     white-space: nowrap;
     position: absolute;
     bottom: $sp-2;

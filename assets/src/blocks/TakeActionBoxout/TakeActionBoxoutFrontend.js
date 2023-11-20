@@ -41,7 +41,7 @@ export const TakeActionBoxoutFrontend = ({
     </div>
     {link && linkText &&
       <a
-        className="btn btn-action btn-block cover-card-btn"
+        className="btn btn-primary"
         data-ga-category="Take Action Boxout"
         data-ga-action="Call to Action"
         data-ga-label="n/a"
