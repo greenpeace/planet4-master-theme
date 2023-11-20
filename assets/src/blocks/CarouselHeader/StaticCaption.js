@@ -12,7 +12,7 @@ export const StaticCaption = ({slide}) => (
         <div className="col-xs-12 col-sm-8 col-md-4 action-button">
           <a
             href={slide.link_url}
-            className="btn btn-primary btn-block"
+            className="btn btn-primary"
             data-ga-category="Carousel Header"
             data-ga-action="Call to Action"
             data-ga-label={slide.index}

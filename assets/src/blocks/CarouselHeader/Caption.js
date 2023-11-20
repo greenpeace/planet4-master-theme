@@ -27,7 +27,7 @@ export const Caption = ({slide, index, changeSlideAttribute}) => (
       <div className="col-xs-12 col-sm-8 col-md-4 action-button">
         <RichText
           tagName="div"
-          className="btn btn-primary btn-block"
+          className="btn btn-primary"
           placeholder={__('Enter CTA text', 'planet4-blocks-backend')}
           value={slide.link_text}
           onChange={changeSlideAttribute('link_text', index)}

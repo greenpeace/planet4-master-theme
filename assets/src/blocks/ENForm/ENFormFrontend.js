@@ -186,7 +186,7 @@ const Signup = ({attributes, fields, form_data, onInputChange, onBlur, onFormSub
               </div>
 
               <div className={en_form_style === 'full-width-bg' ? 'col-md-4 submit' : 'submit'}>
-                <button type="submit" form="p4en_form" name="p4en_form_save_button" id="p4en_form_save_button" className="btn btn-primary btn-block" >
+                <button type="submit" form="p4en_form" name="p4en_form_save_button" id="p4en_form_save_button" className="btn btn-primary" >
                   { button_text ? unescape(button_text) : __('Sign', 'planet4-engagingnetworks') }
                 </button>
                 <div className="enform-notice"></div>
@@ -486,7 +486,7 @@ const ThankYou = ({attributes, error_msg}) => {
             </div>
 
             <div className="form-group">
-              <a href={donatelink} className="btn btn-primary btn-block">{donate_text ?? __('Donate', 'planet4-engagingnetworks')}</a>
+              <a href={donatelink} className="btn btn-primary">{donate_text ?? __('Donate', 'planet4-engagingnetworks')}</a>
             </div>
           </>
           }

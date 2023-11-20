@@ -170,7 +170,7 @@ const renderView = (attributes, toAttribute) => {
           {isCarouselLayout && !isSmallWindow ? <CoversCarouselLayout {...coversProps} /> : <Covers {...coversProps} />}
           {showLoadMoreButton && (
             <Tooltip text={__('Edit text', 'planet4-blocks-backend')}>
-              <button className="btn btn-block btn-secondary load-more-btn">
+              <button className="btn btn-secondary load-more-btn">
                 <RichText
                   tagName="div"
                   placeholder={__('Enter text', 'planet4-blocks-backend')}

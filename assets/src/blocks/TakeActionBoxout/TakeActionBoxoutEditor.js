@@ -178,7 +178,7 @@ export const TakeActionBoxoutEditor = ({
       </div>
       <RichText
         tagName="div"
-        className="btn btn-action btn-block cover-card-btn"
+        className="btn btn-action cover-card-btn"
         placeholder={__('Button text', 'planet4-blocks-backend')}
         value={linkText}
         onChange={toAttribute('linkText')}

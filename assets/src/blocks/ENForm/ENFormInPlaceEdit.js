@@ -304,7 +304,7 @@ const ThankYou = ({attributes, setAttributes}) => {
                 <RichText
                   tagName="a"
                   href={donatelink}
-                  className="btn btn-primary btn-block"
+                  className="btn btn-primary"
                   value={donate_text}
                   onChange={toAttribute('donate_text')}
                   placeholder={__('Donate', 'planet4-blocks-backend')}
@@ -340,7 +340,7 @@ const FormContent = ({attributes, setAttributes, fields}) => {
           <RichText
             tag="button"
             id="p4en_form_save_button"
-            className={'btn btn-primary btn-block' + (fwbg ? ' w-auto' : '')}
+            className={'btn btn-primary' + (fwbg ? ' w-auto' : '')}
             value={button_text || __('Sign', 'planet4-engagingnetworks')}
             onChange={text => setAttributes({button_text: text})}
             placeholder={__('Sign', 'planet4-blocks-backend')}

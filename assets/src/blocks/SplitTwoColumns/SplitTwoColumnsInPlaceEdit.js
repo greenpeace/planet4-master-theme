@@ -106,7 +106,7 @@ export const SplitTwoColumnsInPlaceEdit = ({attributes, setAttributes}) => {
           />
           <RichText
             tagName="a"
-            className="btn btn-primary btn-block split-two-column-item-button"
+            className="btn btn-primary split-two-column-item-button"
             placeholder={__('Enter button text', 'planet4-blocks-backend')}
             value={button_text}
             onChange={onTextChange('button_text')}

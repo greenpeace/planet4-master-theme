@@ -123,7 +123,7 @@ const renderView = ({attributes, postType, posts, totalPosts}, toAttribute) => {
       <ArticlesList posts={posts} postType={postType} />
       {attributes.posts.length === 0 && hasMultiplePages && (
         <Tooltip text={__('Edit text', 'planet4-blocks-backend')}>
-          <div className="btn btn-secondary btn-block article-load-more">
+          <div className="btn btn-secondary article-load-more">
             <RichText
               tagName="div"
               placeholder={__('Enter text', 'planet4-blocks-backend')}

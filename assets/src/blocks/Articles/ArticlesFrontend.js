@@ -39,7 +39,7 @@ export const ArticlesFrontend = ({attributes}) => {
         { read_more_link ?
           <div className="col-md-12 col-lg-5 col-xl-5">
             <a
-              className="btn btn-secondary btn-block article-load-more"
+              className="btn btn-secondary article-load-more"
               href={read_more_link}
               {...button_link_new_tab && {rel: 'noreferrer', target: '_blank'}}
             >
@@ -48,7 +48,7 @@ export const ArticlesFrontend = ({attributes}) => {
           </div> :
           <div className="col-md-12 col-lg-5 col-xl-5">
             <button
-              className="btn btn-secondary btn-block article-load-more"
+              className="btn btn-secondary article-load-more"
               onClick={loadNextPage}
               disabled={loading}
               data-ga-category="Articles Block"
