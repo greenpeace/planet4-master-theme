@@ -63,17 +63,16 @@ export const registerActionsList = () => {
           },
         }],
         ['core/post-template', {}, [
-          ['core/post-featured-image', {isLink: true, linkTarget: '_blank'}],
+          ['core/post-featured-image', {isLink: true}],
           ['core/group', {}, [
             ['core/post-terms', {term: 'post_tag', separator: ' '}],
-            ['core/post-title', {isLink: true, linkTarget: '_blank'}],
+            ['core/post-title', {isLink: true}],
             ['core/post-excerpt'],
           ]],
           ['core/group', {layout: {type: 'flex', justifyContent: 'right'}}, [
             ['core/read-more', {
               className: 'btn btn-small btn-primary',
               content: __('Take Action', 'planet4-blocks-backend'),
-              linkTarget: '_blank',
             }],
           ]],
         ]],

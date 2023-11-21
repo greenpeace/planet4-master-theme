@@ -1,4 +1,4 @@
-import {registerPostsListBlock} from './PostsList/PostsListBlock';
+import {registerPostsListBlock} from './PostsList';
 import {registerActionsList} from './ActionsList';
 
 // Beta blocks
