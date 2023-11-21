@@ -25,10 +25,10 @@ class MasterBlocks
         add_filter('block_categories_all', function ($categories) {
 
             // Adding a new category.
-            $categories[] = array(
+            array_unshift($categories, [
                 'slug' => 'planet4-blocks',
                 'title' => 'Planet 4 Blocks',
-            );
+            ]);
 
             return $categories;
         });
