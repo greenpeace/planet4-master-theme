@@ -211,10 +211,8 @@ final class Loader {
 		// Setup image sizes.
 		add_action( 'admin_init', [ $this, 'setup_image_sizes' ] );
 
-		global $wp_version;
-		$category_filter = version_compare( $wp_version, '5.8', '>=' ) ? 'block_categories_all' : 'block_categories';
 		// Register a block category.
-		add_filter( $category_filter, [ $this, 'register_block_category' ], 10, 2 );
+		add_filter( 'block_categories_all', [ $this, 'register_block_category' ], 10, 2 );
 
 		// Reset block list cache on post modification.
 		add_action( 'save_post', [ Blocks\BlockList::class, 'cache_delete' ], 10, 1 );
@@ -549,12 +547,8 @@ DEFERREDCSS;
 	 * @return array
 	 */
 	public function register_block_category( $core_categories ) {
-
+		// planet4-blocks is registered in planet4-master-theme.
 		$our_categories = [
-			[
-				'slug'  => 'planet4-blocks',
-				'title' => 'Planet 4 Blocks',
-			],
 			[
 				'slug'  => 'planet4-blocks-beta',
 				'title' => 'Planet 4 Blocks - BETA',
