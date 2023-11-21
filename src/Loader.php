@@ -59,7 +59,6 @@ final class Loader
 
         // During PLANET-6373 transition, priority between theme and plugin matters.
         add_action('init', [self::class, 'add_blocks'], 20);
-        add_action('init', [self::class, 'add_beta_blocks'], 20);
     }
 
     /**
@@ -162,42 +161,6 @@ final class Loader
         if (!BetaBlocks::is_active()) {
             return;
         }
-
-        add_filter(
-            'allowed_block_types_all',
-            function ($allowed_block_types) {
-                $allowed_block_types[] = 'core/query';
-                return $allowed_block_types;
-            },
-            10,
-            1
-        );
-    }
-
-    /**
-     * Load editorIndex file and add core Query Loop Block for Beta Blocks.
-     */
-    public static function add_beta_blocks(): void
-    {
-        if (!BetaBlocks::is_active()) {
-            return;
-        }
-
-        $theme_dir = get_template_directory_uri();
-        // Enqueue editor script for Beta Blocks.
-        wp_enqueue_script(
-            'planet4-beta-blocks-editor-script',
-            $theme_dir . '/assets/build/editorIndex.js',
-            [
-                'wp-blocks', // Helpers for registering blocks.
-                'wp-components', // Wordpress components.
-                'wp-element', // WP React wrapper.
-                'wp-data', // WP data helpers.
-                'wp-i18n', // Exports the __() function.
-                'wp-editor',
-                'wp-edit-post',
-            ]
-        );
 
         add_filter(
             'allowed_block_types_all',

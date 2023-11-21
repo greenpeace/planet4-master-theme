@@ -1,4 +1,4 @@
-export const POSTS_LIST_BLOCK = 'planet4-blocks/posts-list-block';
+const POSTS_LIST_BLOCK = 'planet4-blocks/posts-list-block';
 
 export const registerPostsListBlock = () => {
   const {registerBlockVariation} = wp.blocks;
