@@ -4,6 +4,7 @@ namespace P4\MasterTheme;
 
 use P4\MasterTheme\Settings\Features;
 use P4\MasterTheme\Features\Planet4Blocks;
+use P4\MasterTheme\Features\Dev\BetaBlocks;
 use RuntimeException;
 
 /**
@@ -155,6 +156,21 @@ final class Loader
 
         new MasterBlocks();//NOSONAR
         new Blocks\GuestBook();//NOSONAR
+
+        // Load extra code necessary for our beta blocks.
+        if (!BetaBlocks::is_active()) {
+            return;
+        }
+
+        add_filter(
+            'allowed_block_types_all',
+            function ($allowed_block_types) {
+                $allowed_block_types[] = 'core/query';
+                return $allowed_block_types;
+            },
+            10,
+            1
+        );
     }
 
     /**

@@ -47,7 +47,7 @@ class MasterBlocks
         $theme_dir = get_template_directory_uri();
         // Enqueue editor script for all Blocks in this Plugin.
         wp_enqueue_script(
-            'planet4-blocks-editor-script',
+            'planet4-blocks-theme-editor-script',
             $theme_dir . '/assets/build/editorIndex.js',
             [
                 'wp-blocks', // Helpers for registering blocks.
@@ -67,21 +67,11 @@ class MasterBlocks
     public function enqueue_block_public_assets(): void
     {
         $theme_dir = get_template_directory_uri();
-        // Add master theme's main css as dependency for blocks css.
-        wp_enqueue_style(
-            'planet4-blocks-style',
-            $theme_dir . '/assets/build/blockStyle.min.css',
-            [
-                'bootstrap',
-                'parent-style',
-            ],
-            Loader::theme_file_ver('assets/build/blockStyle.min.css')
-        );
 
         $js_creation = filectime(get_template_directory() . '/assets/build/frontendIndex.js');
         // Include React in the Frontend.
         wp_register_script(
-            'planet4-blocks-script',
+            'planet4-blocks-theme-script',
             $theme_dir . '/assets/build/frontendIndex.js',
             [
                 // WP React wrapper.

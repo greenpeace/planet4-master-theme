@@ -1,0 +1,65 @@
+.actions-list {
+  margin-bottom: $sp-4;
+
+  .wp-block-post {
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.16);
+    transition: box-shadow 0.2s;
+    border-radius: 4px;
+    background: white;
+    cursor: pointer;
+    overflow: hidden;
+    justify-content: space-between;
+    display: flex;
+    flex-direction: column;
+
+    &:hover {
+      box-shadow: 0 1px 8px rgba(0, 0, 0, 0.32);
+    }
+  }
+
+  .wp-block-group.is-layout-flow {
+    padding: $sp-3;
+    height: 100%;
+  }
+
+  .wp-block-post-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .wp-block-post-excerpt p {
+    font-family: var(--font-family-tertiary);
+    font-size: 1rem;
+    line-height: 1.5rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .wp-block-post-featured-image img {
+    height: 196px;
+    object-fit: cover;
+
+    @include large-and-up {
+      height: 220px;
+    }
+  }
+
+  .wp-block-post-terms a {
+    color: var(--grey-600);
+    font-size: 14px;
+    font-weight: bold;
+    font-family: var(--font-family-tertiary);
+  }
+
+  .wp-block-group .btn-primary {
+    margin-bottom: $sp-3;
+    margin-inline-end: $sp-3;
+  }
+}
