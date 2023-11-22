@@ -5,7 +5,7 @@ import {
   CheckboxControl,
 } from '@wordpress/components';
 import {URLInput} from '../../components/URLInput/URLInput';
-import {useState, useEffect} from '@wordpress/element';
+import {useState} from '@wordpress/element';
 const {__} = wp.i18n;
 
 export const SidebarSlide = ({
@@ -37,13 +37,10 @@ export const SidebarSlide = ({
 
   const onToggleHandler = opened => {
     setIsOpened(opened);
-  };
-
-  useEffect(() => {
-    if (isOpened) {
+    if (opened) {
       goToSlideHandler(index);
     }
-  }, [isOpened, goToSlideHandler, index]);
+  };
 
   return (
     <div
