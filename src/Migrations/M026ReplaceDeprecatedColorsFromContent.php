@@ -50,7 +50,6 @@ class M026ReplaceDeprecatedColorsFromContent extends MigrationScript
             $sql = '
                 SELECT
                     ID,
-                    post_parent,
                     post_type
                 FROM wp_posts
                 WHERE (
@@ -58,7 +57,6 @@ class M026ReplaceDeprecatedColorsFromContent extends MigrationScript
                     OR post_content LIKE "%%%2$s%%"
                 )
                 AND post_type <> "revision"
-                GROUP BY post_parent
             ';
 
             $prepared_sql = $wpdb->prepare($sql, [ $from_background_color, $from_text_color ]);
