@@ -14,10 +14,13 @@
         </div>
     </header>
 
+    {% set is_action = taxonomy.taxonomy == 'action-type' %}
 
     <div class="page-content container">
-        {% if query_loop %}
-            {{ query_loop|raw }}
+        {% if list_content and grid_content %}
+            {% include 'listing-page.twig' with {
+                listing_page_title: is_action ? __( 'All actions', 'planet4-master-theme' ) : __( 'All articles', 'planet4-master-theme' )
+            } %}
         {% else %}
             <h3>{{ __( 'Results', 'planet4-master-theme' ) }}</h3>
 

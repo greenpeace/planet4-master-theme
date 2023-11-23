@@ -1,0 +1,14 @@
+<div class="wp-block-separator is-style-wide listing-page-separator"></div>
+
+<div class="d-flex align-items-center justify-content-between listing-page-title">
+    <h2>{{ listing_page_title ?? __( 'All articles', 'planet4-master-theme' ) }}</h2>
+    <span class="grid-view-toggle" title="{{__( 'Grid layout', 'planet4-master-theme' ) }}">
+        {{ 'grid-view'|svgicon }}
+    </span>
+    <span class="list-view-toggle d-none" title="{{__( 'List layout', 'planet4-master-theme' ) }}">
+        {{ 'list-view'|svgicon }}
+    </span>
+</div>
+
+<div id="grid-view" class="d-none">{{ grid_content|raw }}</div>
+<div id="list-view">{{ list_content|raw }}</div>

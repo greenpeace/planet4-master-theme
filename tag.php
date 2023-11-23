@@ -11,7 +11,6 @@
  */
 
 use P4\MasterTheme\Context;
-use P4\MasterTheme\Features\Dev\ListingPageGridView;
 use P4\MasterTheme\Post;
 use P4\MasterTheme\TaxonomyCampaign;
 use Timber\Timber;
@@ -52,10 +51,12 @@ $context['og_type'] = 'website';
 // Temporary fix with rewind, cf. https://github.com/WordPress/gutenberg/issues/53593
 rewind_posts();
 $context['page_category'] = 'Listing Page';
-$view = ListingPageGridView::is_active() ? 'grid' : 'list';
-$query_template = file_get_contents(get_template_directory() . "/parts/query-$view.html");
-$content = do_blocks($query_template);
-$context['query_loop'] = $content;
+$grid_template = file_get_contents(get_template_directory() . "/parts/query-grid.html");
+$list_template = file_get_contents(get_template_directory() . "/parts/query-list.html");
+$grid_content = do_blocks($grid_template);
+$list_content = do_blocks($list_template);
+$context['grid_content'] = $grid_content;
+$context['list_content'] = $list_content;
 
 $templates = ['tag.twig', 'archive.twig', 'index.twig'];
 $campaign = new TaxonomyCampaign($templates, $context);

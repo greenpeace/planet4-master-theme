@@ -15,7 +15,6 @@
  */
 
 use P4\MasterTheme\Context;
-use P4\MasterTheme\Features\Dev\ListingPageGridView;
 use P4\MasterTheme\Post;
 use Timber\Timber;
 
@@ -44,13 +43,12 @@ if (is_home()) {
     array_unshift($templates, 'all-posts.twig');
 
     if (!empty(planet4_get_option('new_ia'))) {
-        $view = ListingPageGridView::is_active() ? 'grid' : 'list';
-
-        $query_template = file_get_contents(get_template_directory() . "/parts/query-$view.html");
-
-        $content = do_blocks($query_template);
-
-        $context['query_loop'] = $content;
+        $grid_template = file_get_contents(get_template_directory() . "/parts/query-grid.html");
+        $list_template = file_get_contents(get_template_directory() . "/parts/query-list.html");
+        $grid_content = do_blocks($grid_template);
+        $list_content = do_blocks($list_template);
+        $context['grid_content'] = $grid_content;
+        $context['list_content'] = $list_content;
         $context['page_category'] = 'News';
         Timber::render($templates, $context);
         exit();
