@@ -15,4 +15,11 @@ async function publishPostAndVisit({page, editor}) {
   await page.goto(urlString);
 }
 
-export {publishPost, publishPostAndVisit};
+async function updatePost({page}) {
+  const updateButton = await page.locator('.edit-post-header__settings').getByRole('button', {name: 'Update'});
+  await updateButton.click();
+
+  return page.waitForSelector('.components-snackbar');
+}
+
+export {publishPost, publishPostAndVisit, updatePost};
