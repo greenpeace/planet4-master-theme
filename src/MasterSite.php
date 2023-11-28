@@ -1386,7 +1386,7 @@ class MasterSite extends TimberSite
     {
         // @see https://stackoverflow.com/questions/3392993/php-regex-to-get-youtube-video-id
         // phpcs:ignore Generic.Files.LineLength.MaxExceeded
-        $re = '/(?im)\b(?:https?:\/\/)?(?:w{3}\.)?youtu(?:be)?\.(?:com|be)\/(?:(?:\??v=?i?=?\/?)|watch\?vi?=|watch\?.*?&v=|embed\/|)([A-Z0-9_-]{11})\S*(?=\s|$)/';
+        $re = "/^(?:http(?:s)?:\/\/)?(?:www\.)?(?:m\.)?(?:youtu\.be\/|youtube\.com\/(?:(?:watch)?\?(?:.*&)?v(?:i)?=|(?:embed|v|vi|user|shorts)\/))([^\?&\"'>]+)/";
         preg_match_all($re, $url, $matches, PREG_SET_ORDER);
         $youtube_id = $matches[0][1] ?? null;
 
