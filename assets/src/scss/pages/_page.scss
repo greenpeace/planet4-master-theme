@@ -42,12 +42,11 @@
       }
     }
 
-    & > .wp-block-group {
-      margin-top: 0;
-    }
-
-    & > .wp-block-image:first-child {
-      margin-top: 0;
+    > .wp-block-group,
+    > .wp-block-image {
+      &:first-child {
+        margin-top: 0;
+      }
     }
 
     .navigation-bar_min ~ & {
