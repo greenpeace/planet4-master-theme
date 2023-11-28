@@ -7,18 +7,7 @@ const template = ({
   imageFill = false,
   titlePlaceholder = __('Enter title', 'planet4-blocks-backend'),
 }) => ([
-  ['core/group',
-    {
-      align: 'full',
-      style: {
-        spacing: {
-          padding: {
-            top: '56px',
-            bottom: '56px',
-          },
-        },
-      },
-    },
+  ['core/group', {align: 'full'},
     [
       ['core/group', {className: 'container'}, [
         ['core/media-text', {
