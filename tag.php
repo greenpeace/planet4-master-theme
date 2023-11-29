@@ -22,6 +22,14 @@ if (!is_tag()) {
 
 $tag = get_queried_object();
 $redirect_id = get_term_meta($tag->term_id, 'redirect_page', true);
+$featured_action = get_posts([
+    'post_type' => 'p4_action',
+    'tag_id' => $tag->term_id,
+    'orderby' => 'date',
+    'order' => 'DESC',
+    'numberposts' => 1,
+])[0] ?? null;
+$featured_action_id = $featured_action->ID ?? null;
 
 if ($redirect_id) {
     global $wp_query;
@@ -48,6 +56,10 @@ $context['tag_name'] = single_tag_title('', false);
 $context['tag_description'] = wpautop($context['tag']->description);
 $context['canonical_link'] = home_url($wp->request);
 $context['og_type'] = 'website';
+$context['featured_action'] = $featured_action;
+$context['featured_action_image'] = has_post_thumbnail($featured_action_id) ?
+    get_the_post_thumbnail($featured_action_id, 'medium') : null;
+$context['featured_action_url'] = get_permalink($featured_action_id);
 
 // Temporary fix with rewind, cf. https://github.com/WordPress/gutenberg/issues/53593
 rewind_posts();
