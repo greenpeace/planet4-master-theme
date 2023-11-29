@@ -13,7 +13,8 @@
   }
 
   @include mobile-only {
-    height: 544px;
+    height: auto;
+    min-height: 544px;
   }
 
   @include medium-and-up {
