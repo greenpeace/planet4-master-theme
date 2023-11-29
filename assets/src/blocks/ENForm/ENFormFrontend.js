@@ -1,6 +1,5 @@
 import {ShareButtons} from '../../components/ShareButtons/ShareButtons';
 import {FormGenerator} from './FormGenerator';
-import * as wpData from '@wordpress/data';
 import {useState} from '@wordpress/element';
 import {unescape} from '../../functions/unescape';
 
@@ -11,7 +10,6 @@ const {__} = wp.i18n;
 export const ENFormFrontend = ({attributes}) => {
   const {
     en_page_id,
-    en_form_id,
     en_form_style,
     en_form_fields,
     enform_goal,
@@ -42,16 +40,7 @@ export const ENFormFrontend = ({attributes}) => {
 
   const style_has_image = ['full-width-bg', 'side-style'].includes(en_form_style);
   const is_side_style = en_form_style === 'side-style';
-
-  let fields = en_form_fields ?? [];
-  if (!fields.length && wpData?.useSelect !== undefined) {
-    const form_post = wpData.useSelect(select => {
-      return en_form_id ?
-        select('core').getEntityRecord('postType', 'p4en_form', en_form_id) :
-        [];
-    });
-    fields = form_post?.p4enform_fields ?? [];
-  }
+  const fields = en_form_fields ?? [];
 
   const HeadingTag = content_title_size;
 

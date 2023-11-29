@@ -179,6 +179,7 @@ const Signup = ({attributes, setAttributes}) => {
     const enform_post = en_form_id ? select('core').getEntityRecord('postType', 'p4en_form', en_form_id) : {};
     return enform_post?.p4enform_fields || [];
   }, [en_form_id]);
+  setAttributes({en_form_fields: fields});
 
   return (
     <div className="enform">

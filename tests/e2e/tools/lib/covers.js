@@ -14,7 +14,8 @@ async function addCoversBlock(page, editor, style = '') {
   if (style) {
     const stylePicker = await page.locator('.block-editor-block-styles__variants');
     //CSS selector needs single word,hence remove word after space(eg Take Action=>Take).
-    await stylePicker.locator(`button[aria-label^=${style.split(' ')[0]}]`).click();
+    const label = style === 'Content' ? /Content|Default/ : style.split(' ')[0];
+    await stylePicker.getByRole('button', {name: label}).click();
   }
 
   const settings = await editor.canvas.getByRole('region', {name: 'Editor settings'});
@@ -54,7 +55,7 @@ async function addCoversBlock(page, editor, style = '') {
   }
 
   // Default style, i.e 'Content cover'.
-  if (style === 'Default') {
+  if (style === 'Content') {
     // Fill in the Post types.
     const postTypesInput = await page.getByLabel('Select Post Types');
     await postTypesInput.scrollIntoViewIfNeeded();
@@ -70,7 +71,7 @@ async function addCoversBlock(page, editor, style = '') {
 
 async function checkCoversBlock(page, style) {
   // Default style, i.e 'Content cover'.
-  if (style === 'Default') {
+  if (style === 'Content') {
     await expect(page.locator('.content-covers-block')).toBeVisible();
     const frontendCovers = await page.locator('.post-column.cover').all();
     for (const [, cover] of frontendCovers.entries()) {

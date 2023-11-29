@@ -8,11 +8,11 @@ test('Test Covers block with Content covers style', async ({page, admin, editor}
   await admin.createNewPost({postType: 'page', title: 'Test Covers block', legacyCanvas: true});
 
   // Add Covers block.
-  await addCoversBlock(page, editor, 'Default');
+  await addCoversBlock(page, editor, 'Content');
 
   // Publish page.
   await publishPostAndVisit({page, editor});
 
   // Make sure block shows as expected in the frontend.
-  await checkCoversBlock(page, 'Default');
+  await checkCoversBlock(page, 'Content');
 });
