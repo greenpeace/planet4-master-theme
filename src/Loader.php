@@ -165,7 +165,14 @@ final class Loader
         add_filter(
             'allowed_block_types_all',
             function ($allowed_block_types) {
-                $allowed_block_types[] = 'core/query';
+                if (!is_array($allowed_block_types)) {
+                    return $allowed_block_types;
+                }
+
+                if (!in_array('core/query', $allowed_block_types)) {
+                    $allowed_block_types[] = 'core/query';
+                }
+
                 return $allowed_block_types;
             },
             10,
