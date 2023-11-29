@@ -50,5 +50,9 @@
     background-repeat: no-repeat;
     background-color: var(--gp-green-800);
     display: inline-block;
+
+    html[dir="rtl"] & {
+      rotate: 180deg;
+    }
   }
 }
