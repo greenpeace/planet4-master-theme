@@ -10,9 +10,15 @@ let canPublish = true;
 
 export const blockEditorValidation = () => {
   subscribe(() => {
+    const title = select('core/editor').getEditedPostAttribute('title');
     const blocks = select('core/block-editor').getBlocks();
-
     const currentMessages = [];
+
+    const invalidTitle = !title || title.trim().length <= 0;
+    if (invalidTitle) {
+      currentMessages.push('Title is required.');
+    }
+
     const invalidBlocks = blocks.reduce((invalidBlocksArray, block) => {
       // Normally `blocks` contains a valid list of blocks, however it can happen that one of them is `null` in rare
       // cases. It happened to me once while running with WordPress 5.8.1 and undoing multiple edits. This made the
@@ -39,7 +45,7 @@ export const blockEditorValidation = () => {
     }, []);
     invalidBlocks.forEach(block => currentMessages.push(...block.messages));
 
-    const currentlyValid = (0 === invalidBlocks.length);
+    const currentlyValid = (0 === invalidBlocks.length) && !invalidTitle;
     messages = currentMessages;
 
     if (canPublish === currentlyValid) {
