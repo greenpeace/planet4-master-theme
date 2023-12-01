@@ -107,6 +107,15 @@ abstract class Search
      */
     public static function add_general_filters(): void
     {
+        // Allow ajax search.
+        add_filter(
+            'ep_ajax_wp_query_integration',
+            function () {
+                return true;
+            },
+            10
+        );
+
         // Call apply filters to catch issue in WPML's ElasticPress integration, which uses the wrong filter name.
         add_filter(
             'ep_formatted_args',
