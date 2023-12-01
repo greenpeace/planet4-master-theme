@@ -454,3 +454,52 @@ input.describe[type=text][data-setting=caption] {
     }
   }
 }
+
+// Override Query Loop within editor
+.is-custom-layout-carousel {
+  flex-direction: column;
+
+  & > .wp-block-heading.rich-text {
+    margin-bottom: 0;
+  }
+
+  .wp-block-post-template {
+    display: flex;
+    padding: 0 8px 8px 8px !important;
+    overflow-x: scroll;
+    scrollbar-width: none;
+    scroll-behavior: smooth;
+  }
+
+  .wp-block-post {
+    flex-basis: 356px;
+    flex-shrink: 0;
+
+    &:not(:last-child) {
+      margin-inline-end: $sp-2;
+    }
+  }
+
+  .carousel-controls {
+    .carousel-control-prev,
+    .carousel-control-next {
+      .wp-block-button__link {
+        display: none !important;
+      }
+    }
+  }
+
+  .wp-block-query-pagination {
+    display: none !important;
+  }
+
+  @include large-and-up {
+    .wp-block-post {
+      flex-basis: calc((100% / 3) - $sp-2);
+
+      &:not(:last-child) {
+        margin-inline-end: $sp-3;
+      }
+    }
+  }
+}

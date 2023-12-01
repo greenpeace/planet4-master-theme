@@ -1,30 +1,32 @@
 .actions-list {
-  margin-bottom: $sp-4;
+  // TODO: Review this logic and standarize the code between all layouts
+  &:not(.is-custom-layout-carousel) {
+    margin-bottom: $sp-4;
 
-  .wp-block-post {
-    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.16);
-    transition: box-shadow 0.2s;
-    border-radius: 4px;
-    background: white;
-    cursor: pointer;
-    overflow: hidden;
-    justify-content: space-between;
-    display: flex;
-    flex-direction: column;
+    .wp-block-post {
+      box-shadow: 0 1px 8px rgba(0, 0, 0, 0.16);
+      transition: box-shadow 0.2s;
+      border-radius: 4px;
+      background: white;
+      cursor: pointer;
+      overflow: hidden;
+      justify-content: space-between;
+      display: flex;
+      flex-direction: column;
 
-    &:hover {
-      box-shadow: 0 1px 8px rgba(0, 0, 0, 0.32);
+      &:hover {
+        box-shadow: 0 1px 8px rgba(0, 0, 0, 0.32);
+      }
     }
-  }
 
-  .wp-block-group.is-layout-flow {
-    padding: $sp-3;
-    height: 100%;
+    .wp-block-group.is-layout-flow {
+      padding: $sp-3;
+      height: 100%;
+    }
   }
 
   .wp-block-post-title {
     font-size: 20px;
-    font-weight: bold;
     margin-bottom: 0;
     display: -webkit-box;
     -webkit-line-clamp: 2;
