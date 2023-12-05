@@ -27,12 +27,9 @@ $context['og_description'] = $taxonomy->description;
 
 if (!empty(planet4_get_option('new_ia'))) {
     $context['page_category'] = 'Listing Page';
-    $grid_template = file_get_contents(get_template_directory() . "/parts/query-grid.html");
-    $list_template = file_get_contents(get_template_directory() . "/parts/query-list.html");
-    $grid_content = do_blocks($grid_template);
-    $list_content = do_blocks($list_template);
-    $context['grid_content'] = $grid_content;
-    $context['list_content'] = $list_content;
+    $template = file_get_contents(get_template_directory() . "/parts/query-listing-page.html");
+    $content = do_blocks($template);
+    $context['listing_page_content'] = $content;
     Timber::render($templates, $context);
     exit();
 }

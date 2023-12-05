@@ -7,17 +7,6 @@
   }
 }
 
-.query-list-item {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  margin-top: var(--query-list--item--margin-top, $sp-4);
-
-  @include medium-and-up {
-    flex-direction: row;
-  }
-}
-
 .query-list-item-image {
   flex-basis: 30%;
 
@@ -176,6 +165,17 @@
 
   // Only applied to "list" layout
   &.wp-block-query--list {
+    .wp-block-post {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      margin-top: $sp-4;
+
+      @include medium-and-up {
+        flex-direction: row;
+      }
+    }
+
     .query-list-item-body {
       @include medium-and-up {
         padding-inline-start: $sp-2x;
@@ -196,6 +196,11 @@
   // Only applied to "grid" layout
   &.wp-block-query--grid {
     .wp-block-post-template {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 1.25em;
+
       li {
         @include small-and-up {
           width: calc((100% / 2) - 1.25em + (1.25em / 2)) !important;

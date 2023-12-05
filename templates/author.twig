@@ -18,7 +18,7 @@
     </header>
 
     <div class="page-content container">
-        {% if list_content and grid_content %}
+        {% if listing_page_content %}
             {% include 'listing-page.twig' with { listing_page_title: __( 'All articles by ', 'planet4-master-theme' ) ~ author.name } %}
         {% else %}
             <div class="wp-block-separator is-style-wide listing-page-separator"></div>

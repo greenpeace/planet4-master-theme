@@ -43,12 +43,9 @@ if (is_home()) {
     array_unshift($templates, 'all-posts.twig');
 
     if (!empty(planet4_get_option('new_ia'))) {
-        $grid_template = file_get_contents(get_template_directory() . "/parts/query-grid.html");
-        $list_template = file_get_contents(get_template_directory() . "/parts/query-list.html");
-        $grid_content = do_blocks($grid_template);
-        $list_content = do_blocks($list_template);
-        $context['grid_content'] = $grid_content;
-        $context['list_content'] = $list_content;
+        $template = file_get_contents(get_template_directory() . "/parts/query-listing-page.html");
+        $content = do_blocks($template);
+        $context['listing_page_content'] = $content;
         $context['page_category'] = 'News';
         Timber::render($templates, $context);
         exit();

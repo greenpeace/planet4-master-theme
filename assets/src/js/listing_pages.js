@@ -2,16 +2,15 @@ export const setupListingPages = () => {
   const listViewToggle = document.querySelector('.list-view-toggle');
   const gridViewToggle = document.querySelector('.grid-view-toggle');
 
-  const gridView = document.getElementById('grid-view');
-  const listView = document.getElementById('list-view');
+  const listingPageContent = document.getElementById('listing-page-content');
 
-  if (!gridView || !listView || !listViewToggle || !gridViewToggle) {
+  if (!listingPageContent || !listViewToggle || !gridViewToggle) {
     return;
   }
 
   const switchViews = () => {
-    listView.classList.toggle('d-none');
-    gridView.classList.toggle('d-none');
+    listingPageContent.classList.toggle('wp-block-query--list');
+    listingPageContent.classList.toggle('wp-block-query--grid');
     gridViewToggle.classList.toggle('d-none');
     listViewToggle.classList.toggle('d-none');
   };
