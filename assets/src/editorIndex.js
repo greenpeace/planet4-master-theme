@@ -18,7 +18,6 @@ import {blockEditorValidation} from './BlockEditorValidation';
 import {registerBlock as registerShareButtonsBlock} from './blocks/ShareButtons/ShareButtonsBlock';
 import {registerBlockTemplates} from './block-templates/register';
 
-blockEditorValidation();
 registerColumnsBlock();
 new CookiesBlock();
 new HappypointBlock();
