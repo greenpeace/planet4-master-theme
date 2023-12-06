@@ -11,7 +11,6 @@
  * @subpackage  Timber
  */
 
-use P4\MasterTheme\Features\Dev\ListingPageGridView;
 use P4\MasterTheme\Post;
 use P4\MasterTheme\ActionPage;
 use Timber\Timber;
@@ -28,13 +27,9 @@ $context['og_description'] = $taxonomy->description;
 
 if (!empty(planet4_get_option('new_ia'))) {
     $context['page_category'] = 'Listing Page';
-    $view = ListingPageGridView::is_active() ? 'grid' : 'list';
-
-    $query_template = file_get_contents(get_template_directory() . "/parts/query-$view.html");
-
-    $content = do_blocks($query_template);
-
-    $context['query_loop'] = $content;
+    $template = file_get_contents(get_template_directory() . "/parts/query-listing-page.html");
+    $content = do_blocks($template);
+    $context['listing_page_content'] = $content;
     Timber::render($templates, $context);
     exit();
 }

@@ -18,12 +18,11 @@
     </header>
 
     <div class="page-content container">
-        <div class="wp-block-separator is-style-wide"></div>
-        <h2>{{ __( 'Posts by ', 'planet4-master-theme' ) }} {{ author.name }}</h2>
-
-        {% if query_loop %}
-            {{ query_loop|raw }}
+        {% if listing_page_content %}
+            {% include 'listing-page.twig' with { listing_page_title: __( 'All articles by ', 'planet4-master-theme' ) ~ author.name } %}
         {% else %}
+            <div class="wp-block-separator is-style-wide listing-page-separator"></div>
+            <h2>{{ __( 'All articles by ', 'planet4-master-theme' ) }} {{ author.name }}</h2>
             <div class="row">
                 <div class="col-lg-8 multiple-search-result">
                     <ul class="list-unstyled">

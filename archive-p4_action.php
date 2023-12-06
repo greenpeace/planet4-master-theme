@@ -9,7 +9,6 @@
  * @subpackage  Timber
  */
 
-use P4\MasterTheme\Features\Dev\ListingPageGridView;
 use P4\MasterTheme\Post;
 use Timber\Timber;
 
@@ -21,13 +20,9 @@ $context['custom_body_classes'] = 'tax-p4-page-type';
 $context['header_title'] = post_type_archive_title('', false);
 
 if (!empty(planet4_get_option('new_ia'))) {
-    $view = ListingPageGridView::is_active() ? 'grid' : 'list';
-
-    $query_template = file_get_contents(get_template_directory() . "/parts/action/query-$view.html");
-
-    $content = do_blocks($query_template);
-
-    $context['query_loop'] = $content;
+    $template = file_get_contents(get_template_directory() . "/parts/action/query-listing-page.html");
+    $content = do_blocks($template);
+    $context['listing_page_content'] = $content;
     Timber::render($templates, $context);
     exit();
 }

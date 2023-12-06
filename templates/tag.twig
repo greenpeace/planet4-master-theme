@@ -21,12 +21,6 @@
     </div>
 
     <div class="page-content container">
-        {% if query_loop  %}
-        <h2>{{ __( 'All articles', 'planet4-master-theme' ) }}</h2>
-        {{ query_loop|raw }}
-        {% endif  %}
-        {% for name, block in blocks %}
-            {{ fn('do_blocks', block )|raw }}
-        {% endfor %}
+        {% include 'listing-page.twig' %}
     </div>
 {% endblock %}

@@ -5,8 +5,8 @@
     <div class="skewed-overlay"></div>
 
     <div class="page-content container">
-        {% if query_loop %}
-            {{ query_loop|raw }}
+        {% if listing_page_content %}
+            {% include 'listing-page.twig' with { listing_page_title: __( 'All actions', 'planet4-master-theme' ) } %}
         {% else %}
             <h3>{{ __( 'Results', 'planet4-master-theme' ) }}</h3>
 
