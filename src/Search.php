@@ -107,11 +107,12 @@ abstract class Search
      */
     public static function add_general_filters(): void
     {
-        // Allow ajax search.
+        // Allow ajax search in elasticpress search query.
         add_filter(
             'ep_ajax_wp_query_integration',
             function () {
-                return true;
+                $action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
+                return 'get_paged_posts' === $action;
             },
             10
         );
