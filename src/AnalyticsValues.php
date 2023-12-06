@@ -173,14 +173,21 @@ final class AnalyticsValues
 
             return self::from_cache_array($cache);
         }
-        $instance = self::using_google();
 
-        wp_cache_add(
-            self::CACHE_KEY,
-            ! $instance ? null : $instance->to_cache_array(),
-            null,
-            300
-        );
+        try {
+            $instance = self::using_google();
+            wp_cache_add(
+                self::CACHE_KEY,
+                ! $instance ? null : $instance->to_cache_array(),
+                null,
+                300
+            );
+        } catch (\Throwable $e) {
+            if (function_exists('\Sentry\captureException')) {
+                \Sentry\captureException($e);
+            }
+            $instance = null;
+        }
 
         return $instance ?? self::from_hardcoded_values();
     }
