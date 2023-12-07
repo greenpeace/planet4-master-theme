@@ -1,3 +1,6 @@
+@import "../../master-theme/assets/src/scss/base/variables";
+@import "../../master-theme/assets/src/scss/base/mixins";
+
 .cookies-block {
   .custom-control-description,
   .custom-control input[type="checkbox"] ~ .custom-control-description {
