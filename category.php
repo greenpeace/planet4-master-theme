@@ -16,11 +16,24 @@ $templates = [ 'taxonomy.twig', 'index.twig' ];
 
 $context = Timber::get_context();
 $taxonomy = get_queried_object();
+$featured_action = get_posts([
+    'post_type' => 'p4_action',
+    'category' => $taxonomy->term_id,
+    'orderby' => 'date',
+    'order' => 'DESC',
+    'numberposts' => 1,
+])[0] ?? null;
+$featured_action_id = $featured_action->ID ?? null;
+
 $context['taxonomy'] = $taxonomy;
 $context['wp_title'] = $taxonomy->name;
 $context['canonical_link'] = home_url($wp->request);
 $context['og_type'] = 'website';
 $context['og_description'] = $taxonomy->description;
+$context['featured_action'] = $featured_action;
+$context['featured_action_image'] = has_post_thumbnail($featured_action_id) ?
+    get_the_post_thumbnail($featured_action_id, 'medium') : null;
+$context['featured_action_url'] = get_permalink($featured_action_id);
 
 if (!empty(planet4_get_option('new_ia'))) {
     $template = file_get_contents(get_template_directory() . "/parts/query-listing-page.html");

@@ -1,0 +1,18 @@
+<div class="featured-action-section">
+    <div class="featured-action-section__image">
+        {{ image|raw }}
+    </div>
+    <div class="featured-action-section__content">
+        <h5>{{ post_title }}</h5>
+        <p>{{ post_excerpt }}</p>
+        <div class="featured-action-section__content-btn">
+            <a href="{{ url }}"
+                class="btn btn-primary search-btn btn-block"
+            >
+                {{ __('Take Action', 'planet4-master-theme' ) }}
+            </a>
+        </div>
+    </div>
+    <a class="featured-action-section__link" href="{{ url }}"></a>
+</div>
+

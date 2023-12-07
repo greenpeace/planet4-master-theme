@@ -11,6 +11,16 @@
             <div class="page-header-content">
                 <p>{{ taxonomy.description|e('wp_kses_post')|raw }}</p>
             </div>
+            {% if ( featured_action ) %}
+                {% include 'featured-action.twig'
+                    with {
+                        'image': featured_action_image,
+                        'post_title': featured_action.post_title,
+                        'post_excerpt': featured_action.post_excerpt,
+                        'url': featured_action_url
+                    }
+                %}
+            {% endif %}
         </div>
     </header>
 
