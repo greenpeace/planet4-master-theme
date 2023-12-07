@@ -14,14 +14,15 @@ test('check the Gravity Forms confirmation message, text type', async ({requestU
   // Create a new form.
   const createdForm = await createForm({page}, {
     title: 'A test form for confirmation message, text type',
-    confirmations: [
-      {
-        isDefault: true,
-        type: 'message',
-        message: CONFIRMATION_MESSAGE,
-      },
-    ],
   });
+
+  // Update the form's default confirmation text.
+  await page.goto(`./wp-admin/admin.php?page=gf_edit_forms&view=settings&subview=confirmation&id=${createdForm.id}`);
+  await page.locator('#the-list').hover();
+  await page.getByRole('link', {name: 'Edit', exact: true}).click();
+  await page.frameLocator('#_gform_setting_message_ifr').locator('#tinymce').fill(CONFIRMATION_MESSAGE);
+  await page.getByRole('button', {name: 'Save Confirmation'}).click();
+  await expect(page.locator('.gforms_note_success')).toBeVisible();
 
   // Create a new post with the new form.
   const newPost = await requestUtils.createPost({

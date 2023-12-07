@@ -13,7 +13,7 @@ const toggleRestAPI = async ({page}, enabled) => {
   await expect(page.locator('.gforms_note_success')).toBeVisible();
 };
 
-const createForm = async ({page}, {title, confirmations}) => {
+const createForm = async ({page}, {title}) => {
   const response = await page.request.post('./wp-json/gf/v2/forms', {
     data: {
       title,
@@ -33,7 +33,6 @@ const createForm = async ({page}, {title, confirmations}) => {
           isRequired: 1,
         },
       ],
-      confirmations,
     },
   });
 
