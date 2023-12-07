@@ -39,6 +39,8 @@ module.exports = {
     CarouselHeaderEditorScript: './assets/src/blocks/CarouselHeader/CarouselHeaderEditorScript.js',
     AccordionScript: './assets/src/blocks/Accordion/AccordionScript.js',
     AccordionEditorScript: './assets/src/blocks/Accordion/AccordionEditorScript.js',
+    CookiesScript: './assets/src/blocks/Cookies/CookiesScript.js',
+    CookiesEditorScript: './assets/src/blocks/Cookies/CookiesEditorScript.js',
   },
   output: {
     filename: '[name].js',

@@ -1,0 +1,33 @@
+.cookies-block {
+  .cookies-checkbox-description.rich-text {
+    display: inline-block;
+  }
+
+  .field-reset-button {
+    display: inline-block;
+    color: var(--grey-600);
+    margin-inline-start: 16px;
+    font-family: var(--font-family-tertiary);
+    font-size: 13px;
+    vertical-align: middle;
+    white-space: nowrap;
+
+    .cta {
+      cursor: pointer;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    .info {
+      margin-inline-end: 8px;
+      border-radius: 50%;
+      width: 18px;
+      height: 18px;
+      display: inline-block;
+      text-align: center;
+      border: solid 1px var(--grey-600);
+    }
+  }
+}
