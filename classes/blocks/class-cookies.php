@@ -7,6 +7,8 @@
 
 namespace P4GBKS\Blocks;
 
+use WP_Block_Type_Registry;
+
 /**
  * Class Cookies
  *
@@ -21,6 +23,10 @@ class Cookies extends Base_Block {
 	 * Cookies constructor.
 	 */
 	public function __construct() {
+		if ( WP_Block_Type_Registry::get_instance()->is_registered( self::get_full_block_name() ) ) {
+			return;
+		}
+
 		register_block_type(
 			self::get_full_block_name(),
 			[
