@@ -2,8 +2,8 @@ import {test, expect} from './tools/lib/test-utils.js';
 import {toggleRestAPI, createForm} from './tools/lib/gravity-forms.js';
 
 const CONFIRMATION_MESSAGE = 'This is a dummy confirmation message for testing purposes.';
-const TEST_NAME = 'John Doe';
-const TEST_EMAIL = 'john.doe@gmail.com';
+const TEST_NAME = 'Jon Snow';
+const TEST_EMAIL = 'jon.snow@gmail.com';
 
 test.useAdminLoggedIn();
 
