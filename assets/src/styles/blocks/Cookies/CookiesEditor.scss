@@ -5,10 +5,10 @@
 
   .field-reset-button {
     display: inline-block;
-    color: var(--link--color);
+    color: var(--grey-600);
     margin-inline-start: 16px;
-    font-family: var(--font-family-primary);
-    font-size: 14px;
+    font-family: var(--font-family-tertiary);
+    font-size: 13px;
     vertical-align: middle;
     white-space: nowrap;
 
@@ -21,13 +21,13 @@
     }
 
     .info {
-      margin-inline-start: 8px;
+      margin-inline-end: 8px;
       border-radius: 50%;
       width: 18px;
       height: 18px;
       display: inline-block;
       text-align: center;
-      border: solid 1px var(--grey-900);
+      border: solid 1px var(--grey-600);
     }
   }
 }
