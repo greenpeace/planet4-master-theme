@@ -8,6 +8,10 @@
   h5, h3 {
     margin: 0 !important;
   }
+
+  h5 {
+    font-size: var(--font-size-m--font-family-primary);
+  }
 }
 
 .column-image-error {

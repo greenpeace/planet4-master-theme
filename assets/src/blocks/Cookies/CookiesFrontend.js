@@ -118,7 +118,7 @@ export const CookiesFrontend = props => {
         <header>
           <FrontendRichText
             tagName="h2"
-            className="page-section-header"
+            className="page-section-header cookies-title"
             placeholder={__('Enter title', 'planet4-blocks-backend')}
             value={title}
             onChange={toAttribute('title')}
@@ -131,7 +131,7 @@ export const CookiesFrontend = props => {
         {(isEditing || description) &&
         <FrontendRichText
           tagName="p"
-          className="page-section-description"
+          className="page-section-description cookies-description"
           placeholder={__('Enter description', 'planet4-blocks-backend')}
           value={description}
           onChange={toAttribute('description')}
@@ -145,7 +145,7 @@ export const CookiesFrontend = props => {
             <div className="d-flex align-items-center">
               <FrontendRichText
                 tagName="span"
-                className="custom-control-description"
+                className="custom-control-description cookies-header-text"
                 placeholder={__('Enter necessary cookies name', 'planet4-blocks-backend')}
                 value={getFieldValue('necessary_cookies_name')}
                 onChange={toAttribute('necessary_cookies_name')}
@@ -212,7 +212,7 @@ export const CookiesFrontend = props => {
                 />
                 <FrontendRichText
                   tagName="span"
-                  className="custom-control-description"
+                  className="custom-control-description cookies-header-text"
                   placeholder={__('Enter analytical cookies name', 'planet4-blocks-backend')}
                   value={getFieldValue('analytical_cookies_name')}
                   onChange={toAttribute('analytical_cookies_name')}
@@ -279,7 +279,7 @@ export const CookiesFrontend = props => {
                 />
                 <FrontendRichText
                   tagName="span"
-                  className="custom-control-description"
+                  className="custom-control-description cookies-header-text"
                   placeholder={__('Enter all cookies name', 'planet4-blocks-backend')}
                   value={getFieldValue('all_cookies_name')}
                   onChange={toAttribute('all_cookies_name')}

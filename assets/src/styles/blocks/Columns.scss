@@ -223,6 +223,8 @@
         }
 
         p {
+          font-family: var(--font-family-tertiary);
+
           @include x-large-and-up {
             font-size: $font-size-sm;
           }
