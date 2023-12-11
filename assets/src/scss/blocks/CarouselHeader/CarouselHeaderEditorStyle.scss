@@ -1,0 +1,114 @@
+@import "./SidebarSlidesEditor.scss";
+
+// Fix for the block being inside of a wrapper element.
+// We can remove this fix once this block starts using the v2 block registration API.
+div[data-type="planet4-blocks/carousel-header"] {
+  max-width: 100vw !important;
+}
+
+.visually-hidden {
+  display: none;
+}
+
+.slide-number-row {
+  vertical-align: middle;
+  cursor: pointer;
+  height: 48px;
+  line-height: 48px;
+  padding: 0 16px;
+  border-bottom: 1px solid var(--grey-600);
+}
+
+.slide-arrow {
+  padding-left: 10px;
+
+  svg {
+    transition: transform .3s ease-in-out;
+    transform: rotate(0deg);
+  }
+}
+
+.slide-open {
+  svg {
+    transform: rotate(180deg);
+  }
+}
+
+.editor-url-input {
+  flex: 1;
+  margin: 0;
+
+  input {
+    //width: 100% !important;
+    min-width: 100px;
+  }
+}
+
+.carousel-header-editor-controls {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 1;
+
+  html[dir="rtl"] & {
+    left: 20px;
+    right: auto;
+  }
+
+  .carousel-header-exit-to-start &,
+  .carousel-header-exit-to-end & {
+    display: none;
+  }
+}
+
+.carousel-header-editor-controls-menu {
+  margin-bottom: 0;
+
+  button {
+    width: 100%;
+    color: var(grey-900);
+    background-color: var(--white);
+    font-weight: 700;
+    font-size: 14px;
+    border: none;
+    outline: none;
+    white-space: nowrap;
+
+    .dashicon {
+      margin-inline-end: 10px;
+    }
+
+    &:hover,
+    &:focus:not(:disabled) {
+      box-shadow: none;
+      background-color: var(--grey-200);
+      color: var(grey-900);
+    }
+  }
+}
+
+.carousel-header-image-placeholder {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  opacity: .75;
+  text-align: center;
+  height: 120px;
+  top: 50%;
+  margin-top: -60px;
+
+  p {
+    margin: 0 !important;
+  }
+}
+
+@include x-large-and-up {
+  .carousel-header .carousel-item .carousel-caption .main-header .row {
+    padding-inline-start: 110px;
+  }
+}
+
+// Fix Safari issue with forced min-width:1px in editor
+.carousel-header .carousel-item .carousel-caption .main-header .action-button div.btn {
+  overflow: initial;
+}
