@@ -40,6 +40,11 @@ if (!empty(planet4_get_option('new_ia'))) {
     $content = do_blocks($template);
     $context['listing_page_content'] = $content;
     $context['page_category'] = 'Listing Page';
+    $news_page = (int) get_option('page_for_posts');
+    if ($news_page) {
+        $news_page_link = get_permalink($news_page);
+        $context['news_page_link'] = $news_page_link;
+    }
     Timber::render($templates, $context);
     exit();
 }
