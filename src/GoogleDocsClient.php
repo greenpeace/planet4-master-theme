@@ -40,9 +40,9 @@ final class GoogleDocsClient
             $instance->client = $client;
 
             return $instance;
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             if (function_exists('\Sentry\captureException')) {
-                \Sentry\captureException($exception);
+                \Sentry\captureException($e);
             }
             return null;
         }
