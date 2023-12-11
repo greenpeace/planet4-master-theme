@@ -44,10 +44,6 @@ export const registerActionsList = () => {
           postType: queryPostType,
           ...!IS_NEW_IA && {postParent: ACT_PAGE},
         },
-        displayLayout: {
-          type: 'flex',
-          columns: 3,
-        },
       },
       innerBlocks: [
         ['core/heading', {placeholder: __('Enter title', 'planet4-blocks-backend')}],
@@ -62,7 +58,7 @@ export const registerActionsList = () => {
             },
           },
         }],
-        ['core/post-template', {}, [
+        ['core/post-template', {layout: {type: 'grid', columnCount: 3}}, [
           ['core/post-featured-image', {isLink: true}],
           ['core/group', {}, [
             ['core/post-terms', {term: 'post_tag', separator: ' '}],
