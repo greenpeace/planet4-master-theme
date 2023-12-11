@@ -82,10 +82,8 @@ export const setupQueryLoopCarousel = () => {
       // Align the controls in the middle
       const controls = layout.querySelector('.wp-block-buttons');
       controls.style.top = (list.getBoundingClientRect().height / 2) - (controls.getBoundingClientRect().height / 2);
-    }
-
-    // Only apply to flex and list views
-    if (layout.className.includes('flex') || layout.className.includes('list')) {
+    } else if (layout.className.includes('flex') || layout.className.includes('list')) {
+      // Only apply to flex and list views
       // Ensure to not only to hide controls nav but also remove it
       const controlsNav = list.parentNode.querySelector('.wp-block-buttons.carousel-controls');
 
