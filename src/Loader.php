@@ -157,6 +157,7 @@ final class Loader
         new MasterBlocks();//NOSONAR
         new Blocks\GuestBook();//NOSONAR
         new Blocks\CarouselHeader();//NOSONAR
+        new Blocks\Accordion();//NOSONAR
 
         if (!BetaBlocks::is_active()) {
             return;

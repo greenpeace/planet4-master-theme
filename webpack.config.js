@@ -37,6 +37,8 @@ module.exports = {
     GuestBookEditorScript: './assets/src/blocks/GuestBook/GuestBookEditorScript.js',
     CarouselHeaderScript: './assets/src/blocks/CarouselHeader/CarouselHeaderScript.js',
     CarouselHeaderEditorScript: './assets/src/blocks/CarouselHeader/CarouselHeaderEditorScript.js',
+    AccordionScript: './assets/src/blocks/Accordion/AccordionScript.js',
+    AccordionEditorScript: './assets/src/blocks/Accordion/AccordionEditorScript.js',
   },
   output: {
     filename: '[name].js',
