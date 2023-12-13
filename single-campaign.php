@@ -30,7 +30,7 @@ if (isset($_GET['preview'])) { // phpcs:ignore WordPress.Security.NonceVerificat
         $meta = array_merge($meta, get_post_meta($post_preview->ID));
     }
 }
-$meta = array_map('reset', $meta);
+$meta = array_map(fn ($v) => reset($v), $meta);
 
 $current_level_campaign_id = $post->ID;
 
@@ -43,7 +43,7 @@ if ($top_level_campaign_id === $post->ID) {
     $campaign_meta = $meta;
 } else {
     $campaign_meta = get_post_meta($top_level_campaign_id);
-    $campaign_meta = array_map('reset', $campaign_meta);
+    $campaign_meta = array_map(fn ($v) => reset($v), $campaign_meta);
 }
 
 // This is just an example of how to get children pages, this will probably be done in some kind of menu block.

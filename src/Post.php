@@ -530,7 +530,7 @@ class Post extends TimberPost
         $is_valid = true;
 
         // Check if page url has a unique id(custom hash), appended with it, if not add one.
-        $custom_hash = sanitize_text_field($_GET['ch']);
+        $custom_hash = empty($_GET['ch']) ? null : sanitize_text_field($_GET['ch']);
         if (!$custom_hash) {
             wp_safe_redirect(add_query_arg('ch', password_hash(uniqid('', true), PASSWORD_DEFAULT), get_permalink()));
             exit();

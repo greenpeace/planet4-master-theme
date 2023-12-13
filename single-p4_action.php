@@ -19,7 +19,7 @@ use Timber\Timber;
 $context = Timber::get_context();
 $post = new Post(); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 $page_meta_data = get_post_meta($post->ID);
-$page_meta_data = array_map('reset', $page_meta_data);
+$page_meta_data = array_map(fn ($v) => reset($v), $page_meta_data);
 
 // Set GTM Data Layer values.
 $post->set_data_layer();

@@ -265,6 +265,9 @@ WHERE m.meta_key = "' . Image::ARCHIVE_ID_META_KEY . '"
         $prepared = $wpdb->prepare($sql, array_merge([ $wpdb->posts, $wpdb->postmeta ], $ids));
         // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
         $results = $wpdb->get_results($prepared, ARRAY_A);
+        if (!is_array($results)) {
+            return [];
+        }
 
         // Return as indexed array to make lookups easier.
         $indexed = [];
