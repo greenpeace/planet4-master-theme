@@ -27,7 +27,7 @@ if (is_home()) {
     $data_layer = $post->get_data_layer();
 
     $page_meta_data = get_post_meta($post->ID);
-    $page_meta_data = array_map('reset', $page_meta_data);
+    $page_meta_data = array_map(fn ($v) => reset($v), $page_meta_data);
 
     $context['title'] = ( $page_meta_data['p4_title'] ?? '' )
         ? ( $page_meta_data['p4_title'] ?? '' )

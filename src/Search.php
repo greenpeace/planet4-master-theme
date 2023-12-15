@@ -540,7 +540,8 @@ abstract class Search
             parse_str($query_string, $filters_array);
             $selected_sort = $filters_array['orderby'] ?? self::DEFAULT_SORT;
         } else {
-            $selected_sort = sanitize_text_field($_GET['orderby']);
+            $selected_sort = empty($_GET['orderby'])
+                ? null : sanitize_text_field($_GET['orderby']);
         }
         $selected_sort = sanitize_sql_orderby($selected_sort);
 

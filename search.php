@@ -21,7 +21,8 @@ if ('GET' !== filter_input(INPUT_SERVER, 'REQUEST_METHOD')) {
     return;
 }
 
-$selected_sort = sanitize_text_field($_GET['orderby']);
+$selected_sort = empty($_GET['orderby'])
+                ? null : sanitize_text_field($_GET['orderby']);
 $selected_filters = $_GET['f'] ?? ''; // phpcs:ignore
 $filters = [];
 
