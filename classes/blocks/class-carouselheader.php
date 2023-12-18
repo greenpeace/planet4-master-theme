@@ -8,6 +8,8 @@
 
 namespace P4GBKS\Blocks;
 
+use WP_Block_Type_Registry;
+
 /**
  * Class CarouselHeader
  * Registers the CarouselHeader block.
@@ -28,6 +30,10 @@ class CarouselHeader extends Base_Block {
 	 * CarouselHeader constructor.
 	 */
 	public function __construct() {
+		if ( WP_Block_Type_Registry::get_instance()->is_registered( self::get_full_block_name() ) ) {
+			return;
+		}
+
 		$this->register_carouselheader_block();
 	}
 
