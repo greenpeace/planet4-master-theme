@@ -1,6 +1,6 @@
 import {createRoot} from 'react-dom/client';
-import {SubmenuFrontend} from './Submenu/SubmenuFrontend';
-import {HappypointFrontend} from './Happypoint/HappypointFrontend';
+import {SubmenuFrontend} from './blocks/Submenu/SubmenuFrontend';
+import {HappypointFrontend} from './blocks/Happypoint/HappypointFrontend';
 
 // Render React components
 const COMPONENTS = {

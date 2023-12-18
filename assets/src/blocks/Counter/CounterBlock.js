@@ -1,5 +1,5 @@
 import {CounterEditor} from './CounterEditor';
-import {frontendRendered} from '../frontendRendered';
+import {frontendRendered} from '../../functions/frontendRendered';
 import {CounterFrontend} from './CounterFrontend';
 import {renderToString} from 'react-dom/server';
 

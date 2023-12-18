@@ -1,4 +1,4 @@
-import {frontendRendered} from '../frontendRendered';
+import {frontendRendered} from '../../functions/frontendRendered';
 import {GuestBookFrontend} from './GuestBookFrontend';
 
 export const BLOCK_NAME = 'planet4-blocks/guestbook';

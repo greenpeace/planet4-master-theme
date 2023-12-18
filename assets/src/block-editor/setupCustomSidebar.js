@@ -1,5 +1,5 @@
 import {registerPlugin} from '@wordpress/plugins';
-import {OpenGraphSidebar} from '../components/Sidebar/OpenGraphSidebar';
+import {OpenGraphSidebar} from './Sidebar/OpenGraphSidebar';
 
 const sidebarsForPostType = postType => {
   switch (postType) {

@@ -1,6 +1,6 @@
 import {renderToString} from 'react-dom/server';
 import {GalleryEditor} from './GalleryEditor';
-import {frontendRendered} from '../frontendRendered';
+import {frontendRendered} from '../../functions/frontendRendered';
 import {getStyleLabel} from '../../functions/getStyleLabel';
 import {GalleryFrontend} from './GalleryFrontend';
 
