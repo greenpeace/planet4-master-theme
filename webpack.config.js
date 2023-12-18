@@ -35,6 +35,8 @@ module.exports = {
     editorIndex: './assets/src/blocks/editorIndex.js',
     GuestBookScript: './assets/src/blocks/GuestBook/GuestBookScript.js',
     GuestBookEditorScript: './assets/src/blocks/GuestBook/GuestBookEditorScript.js',
+    CarouselHeaderScript: './assets/src/blocks/CarouselHeader/CarouselHeaderScript.js',
+    CarouselHeaderEditorScript: './assets/src/blocks/CarouselHeader/CarouselHeaderEditorScript.js',
   },
   output: {
     filename: '[name].js',
