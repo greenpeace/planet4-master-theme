@@ -1,0 +1,160 @@
+.block-spreadsheet {
+  display: inline-block;
+  margin-top: $sp-1;
+  margin-bottom: $sp-2;
+
+  @include large-and-up {
+    margin-top: $sp-2;
+    margin-bottom: $sp-4;
+  }
+}
+
+.table-wrapper {
+  overflow: auto;
+
+  max-height: 320px;
+  margin-top: $sp-3;
+
+  @include medium-and-up {
+    max-height: 520px;
+    margin-top: $sp-2;
+  }
+
+  @include large-and-up {
+    max-height: 575px;
+  }
+}
+
+table.spreadsheet-table {
+  min-width: 100%;
+  margin-bottom: 0;
+
+  @include mobile-only {
+    overflow: visible;
+  }
+
+  tr {
+    background-color: var(--grey-100);
+
+    &:nth-child(odd) {
+      background-color: var(--grey-200);
+    }
+
+    td {
+      color: var(--color-text-body);
+      padding: 5px $sp-2x;
+      font-size: var(--font-size-s--font-family-tertiary);
+      white-space: pre-wrap;
+
+      @include x-large-and-up {
+        font-size: var(--font-size-s--font-family-tertiary);
+      }
+
+      .highlighted-text {
+        font-weight: bold;
+      }
+    }
+  }
+
+  th {
+    background-color: var(--grey-800);
+
+    button {
+      background-color: inherit;
+      color: inherit;
+      border: none;
+    }
+
+    color: var(--white);
+    cursor: pointer;
+    font-size: var(--font-size-xxs--font-family-primary);
+    position: sticky;
+    top: 0;
+
+    svg {
+      width: $sp-2;
+      margin-left: $sp-1;
+      // Compensate for a small baseline misalignment
+      margin-top: -2px;
+      // Use opacity instead of `display: none` to avoid jumpyness on headers
+      opacity: 0;
+      transition: opacity .3s, transform .4s;
+    }
+  }
+}
+
+table.spreadsheet-table.is-color-green {
+  th {
+    background-color: var(--p4-dark-green-800);
+  }
+
+  tr {
+    background-color: var(--beige-100);
+  }
+
+  tr:nth-child(odd) {
+    background-color: var(--beige-200);
+  }
+}
+
+table.spreadsheet-table.is-color-blue {
+  th {
+    background-color: var(--blue-green-800);
+  }
+
+  tr {
+    background-color: var(--beige-100);
+  }
+
+  tr:nth-child(odd) {
+    background-color: var(--beige-200);
+  }
+}
+
+table.spreadsheet-table.is-color-gp-green {
+  th {
+    background-color: var(--gp-green-800);
+  }
+
+  tr {
+    background-color: var(--beige-100);
+  }
+
+  tr:nth-child(odd) {
+    background: var(--beige-200);
+  }
+}
+
+table.spreadsheet-table.spreadsheet-sorted-by {
+  svg {
+    opacity: 1;
+  }
+
+  &.sort-desc {
+    svg {
+      transform: rotate(180deg);
+    }
+  }
+}
+
+.spreadsheet-loading {
+  padding: $sp-6;
+  text-align: center;
+}
+
+.spreadsheet-search {
+  width: 350px;
+  max-width: 100%;
+}
+
+.spreadsheet-empty-message {
+  padding: $sp-2;
+  font-size: var(--font-size-s--font-family-primary);
+  line-height: 1.375rem;
+
+  @include medium-and-up {
+    font-size: var(--font-size-m--font-family-primary);
+    line-height: var(--line-height-m--font-family-primary);
+    margin: 0 0 $sp-3 0;
+  }
+}

@@ -47,6 +47,8 @@ module.exports = {
     CookiesEditorScript: './assets/src/blocks/Cookies/CookiesEditorScript.js',
     CounterScript: './assets/src/blocks/Counter/CounterScript.js',
     CounterEditorScript: './assets/src/blocks/Counter/CounterEditorScript.js',
+    SpreadsheetScript: './assets/src/blocks/Spreadsheet/SpreadsheetScript.js',
+    SpreadsheetEditorScript: './assets/src/blocks/Spreadsheet/SpreadsheetEditorScript.js',
   },
   output: {
     filename: '[name].js',

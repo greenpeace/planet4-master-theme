@@ -627,13 +627,13 @@ $medium-image-height: 600px;
     z-index: 3000;
 
     @include large-and-up {
-      >.container {
+      > .container {
         margin-inline-start: 80px;
       }
     }
 
     @include x-large-and-up {
-      >.container {
+      > .container {
         margin-inline-start: auto;
       }
     }
