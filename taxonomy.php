@@ -13,6 +13,7 @@
 
 use P4\MasterTheme\Post;
 use P4\MasterTheme\ActionPage;
+use P4\MasterTheme\Context;
 use Timber\Timber;
 
 $templates = [ 'taxonomy.twig', 'index.twig' ];
@@ -30,6 +31,8 @@ if (!empty(planet4_get_option('new_ia'))) {
     $template = file_get_contents(get_template_directory() . "/parts/query-listing-page.html");
     $content = do_blocks($template);
     $context['listing_page_content'] = $content;
+    Context::set_news_page_link($context);
+
     Timber::render($templates, $context);
     exit();
 }

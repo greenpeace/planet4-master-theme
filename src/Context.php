@@ -184,4 +184,20 @@ class Context
             'nav_type' => $meta['nav_type'] ?? 'planet4',
         ];
     }
+
+    /**
+     * Set the 'News & stories' page in the context, needed for some listing pages.
+     *
+     * @param array       $context   Context to be set.
+     */
+    public static function set_news_page_link(array &$context): void
+    {
+        $news_page = (int) get_option('page_for_posts');
+        if (!$news_page) {
+            return;
+        }
+
+        $news_page_link = get_permalink($news_page);
+        $context['news_page_link'] = $news_page_link;
+    }
 }

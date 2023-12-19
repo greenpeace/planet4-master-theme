@@ -36,6 +36,26 @@
     &:not(:only-child):not(:last-child):not(.page-type) {
       margin-inline-end: $sp-1;
     }
+
+    &.back-to-news::before {
+      content: "";
+      pointer-events: none;
+      margin-inline-end: $sp-1;
+      height: 12px;
+      width: 7px;
+      mask-image: url("../../images/chevron.svg");
+      mask-repeat: no-repeat;
+      mask-size: contain;
+      mask-position: center;
+      background-repeat: no-repeat;
+      background-color: var(--gp-green-800);
+      display: inline-block;
+      rotate: 180deg;
+
+      html[dir="rtl"] & {
+        rotate: 0deg;
+      }
+    }
   }
 
   .main-tag-chevron {

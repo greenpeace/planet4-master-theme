@@ -1,12 +1,20 @@
 {% extends "base.twig" %}
 
 {% block content %}
+    {% set is_action = taxonomy.taxonomy == 'action-type' %}
 
     <div class="clearfix"></div>
     <div class="skewed-overlay"></div>
 
     <header class="page-header">
         <div class="container">
+            <div class="top-page-tags">
+                {% if ( news_page_link and not is_action ) %}
+                    <a class="back-to-news tag-item" href="{{ news_page_link }}">
+                        {{__( 'News & stories', 'planet4-master-theme' )}}
+                    </a>
+                {% endif %}
+            </div>
             <h1 class="page-header-title">{{ taxonomy.name }}</h1>
             <div class="page-header-content">
                 <p>{{ taxonomy.description|e('wp_kses_post')|raw }}</p>
@@ -23,8 +31,6 @@
             {% endif %}
         </div>
     </header>
-
-    {% set is_action = taxonomy.taxonomy == 'action-type' %}
 
     <div class="page-content container">
         {% if listing_page_content %}
