@@ -42,16 +42,16 @@
       cursor: pointer;
       position: relative;
       display: block;
-      padding-top: 16px;
-      padding-bottom: 16px;
-      padding-inline-start: 16px;
-      padding-inline-end: 44px;
+      padding-top: $sp-2;
+      padding-bottom: $sp-2;
+      padding-inline-start: $sp-2;
+      padding-inline-end: $sp-5x;
       font-size: $font-size-sm;
       border-radius: 4px;
-      font-weight: 500;
+      font-weight: var(--font-weight-regular);
       line-height: 1;
       margin-top: 0;
-      margin-bottom: 16px;
+      margin-bottom: $sp-2;
       border-width: 1px;
       border-style: solid;
 
@@ -85,8 +85,8 @@
     }
 
     .panel {
-      padding: 0 16px 24px 16px;
-      background-color: white;
+      padding: 0 $sp-2 $sp-3 $sp-2;
+      background-color: var(--white);
       overflow: hidden;
       transition: display 1s, opacity 1s, height 1s ease-in-out;
 
@@ -101,11 +101,11 @@
     .accordion-text {
       margin: 0;
       font-family: var(--body--font-family);
-      font-weight: 400;
+      font-weight: var(--font-weight-regular);
     }
 
     .accordion-btn {
-      margin: 24px 10% 0 10%;
+      margin: $sp-3 10% 0 10%;
       line-height: 2.5;
       width: 80%;
     }
@@ -114,9 +114,9 @@
   @include medium-and-up {
     .accordion-content {
       .accordion-headline {
-        padding-inline-start: 24px;
-        font-size: $font-size-md;
-        margin-bottom: 24px;
+        padding-inline-start: $sp-3;
+        font-size: var(--font-size-m--font-family-primary);
+        margin-bottom: $sp-3;
 
         &:after {
           height: 1.25rem;
@@ -130,12 +130,12 @@
       }
 
       .panel {
-        padding: 0 24px 40px 24px;
+        padding: 0 $sp-3 $sp-5 $sp-3;
       }
 
       .accordion-btn {
         width: 40%;
-        margin: 24px 0 0 0;
+        margin: $sp-3 0 0 0;
       }
     }
   }

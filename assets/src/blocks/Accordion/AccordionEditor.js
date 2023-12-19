@@ -1,4 +1,4 @@
-import {Fragment, useState} from '@wordpress/element';
+import {useState} from '@wordpress/element';
 import {InspectorControls, RichText} from '@wordpress/block-editor';
 import {URLInput} from '../../block-editor/URLInput/URLInput';
 import {
@@ -182,10 +182,10 @@ export const AccordionEditor = ({attributes, isSelected, setAttributes, classNam
   };
 
   return (
-    <Fragment>
+    <>
       {isSelected && renderEdit({tabs}, setAttributes, updateTabAttribute)}
       {renderView({tabs, title, description, className}, setAttributes, isSelected, updateTabAttribute)}
-    </Fragment>
+    </>
   );
 };
 

@@ -1,15 +1,15 @@
 .add-button {
   cursor: pointer;
-  font-weight: 500;
-  color: #0075af;
+  font-weight: var(--font-weight-regular);
+  color: var(--p4-dark-green-800);
   width: fit-content;
-  margin-top: 24px;
+  margin-top: $sp-3;
 
   .plus {
-    border: 1px solid #0075af;
-    color: #0075af;
-    padding: 3px 8px;
-    margin-inline-end: 10px;
+    border: 1px solid var(--p4-dark-green-800);
+    color: var(--p4-dark-green-800);
+    padding: $sp-x $sp-1;
+    margin-inline-end: $sp-1x;
     border-radius: 50%;
   }
 
@@ -17,8 +17,8 @@
     text-decoration: underline;
 
     .plus {
-      color: white;
-      background-color: #0075af;
+      color: var(--white);
+      background-color: var(--p4-dark-green-800);
       text-decoration: none;
     }
   }
