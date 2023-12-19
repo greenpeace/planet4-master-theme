@@ -66,12 +66,7 @@ $context['page_category'] = 'Listing Page';
 $template = file_get_contents(get_template_directory() . "/parts/query-listing-page.html");
 $content = do_blocks($template);
 $context['listing_page_content'] = $content;
-
-$news_page = (int) get_option('page_for_posts');
-if ($news_page) {
-    $news_page_link = get_permalink($news_page);
-    $context['news_page_link'] = $news_page_link;
-}
+Context::set_news_page_link($context);
 
 $templates = ['tag.twig', 'archive.twig', 'index.twig'];
 $campaign = new TaxonomyCampaign($templates, $context);
