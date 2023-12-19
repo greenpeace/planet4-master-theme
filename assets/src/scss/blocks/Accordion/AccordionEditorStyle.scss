@@ -1,0 +1,57 @@
+.add-button {
+  cursor: pointer;
+  font-weight: var(--font-weight-regular);
+  color: var(--p4-dark-green-800);
+  width: fit-content;
+  margin-top: $sp-3;
+
+  .plus {
+    border: 1px solid var(--p4-dark-green-800);
+    color: var(--p4-dark-green-800);
+    padding: $sp-x $sp-1;
+    margin-inline-end: $sp-1x;
+    border-radius: 50%;
+  }
+
+  &:hover {
+    text-decoration: underline;
+
+    .plus {
+      color: var(--white);
+      background-color: var(--p4-dark-green-800);
+      text-decoration: none;
+    }
+  }
+}
+
+.accordion-block .accordion-content .button-container {
+  position: relative;
+  width: 80%;
+
+  .accordion-btn {
+    width: 100%;
+  }
+
+  .remove-btn {
+    background-color: var(--grey-500);
+    border-radius: 50%;
+    position: absolute;
+    top: 10px;
+    right: -15px;
+    color: var(--white);
+
+    &:hover {
+      background-color: var(--grey-600) !important;
+      box-shadow: none !important;
+      color: var(--white) !important;
+    }
+  }
+
+  @include medium-and-up {
+    width: 40%;
+  }
+
+  @include large-and-up {
+    width: 25%;
+  }
+}
