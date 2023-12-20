@@ -92,7 +92,7 @@ export default function MultiSearchOption() {
               searchText.map(item => (
                 <li key={item} className="multiple-search-item">
                   {item}
-                  <span role="button" className="close-icon" aria-hidden="true" tabIndex={0} onClick={() => removeItem(item)} />
+                  <span role="button" className="delete-icon" aria-hidden="true" tabIndex={0} onClick={() => removeItem(item)} />
                 </li>
               ))
             }

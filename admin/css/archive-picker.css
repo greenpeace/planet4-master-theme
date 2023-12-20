@@ -322,8 +322,8 @@
   height: 24px;
 }
 
-.picker-sidebar-header .close-sidebar {
-  background: url("../../images/black-cross.svg");
+#archive-picker-root .picker-sidebar-header .close-sidebar,
+.media-modal-content .picker-sidebar-header .close-sidebar {
   border: none;
   cursor: pointer;
   min-height: 16px;
@@ -331,11 +331,19 @@
   background-repeat: no-repeat;
   position: absolute;
   top: 10px;
-  right: 20px;
-  text-indent: -9999px; /* hide button text on admin page  */
 }
 
-.close-icon {
+#archive-picker-root .picker-sidebar-header .close-sidebar {
+  right: 20px;
+  background: url("../../images/black-cross.svg");
+}
+
+.media-modal-content .picker-sidebar-header .close-sidebar {
+  right: 35px;
+  background: url("../../images/arrow-right.svg");
+}
+
+.multiple-search-item .delete-icon {
   background: url("../../images/black-cross.svg");
   cursor: pointer;
   height: 8px;

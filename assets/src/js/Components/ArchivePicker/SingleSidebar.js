@@ -76,12 +76,11 @@ export default function SingleSidebar({image}) {
         </div>
         <button
           className="close-sidebar"
+          aria-label={__('Close', 'planet4-master-theme-backend')}
           onClick={() => {
             dispatch({type: ACTIONS.CLOSE_SIDEBAR});
           }}
-        >
-          Close
-        </button>
+        />
       </div>
 
       {!!errors && errors[ACTIONS.PROCESS_IMAGES] && (
