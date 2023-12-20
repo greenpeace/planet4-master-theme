@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2023-12-20 11:08+0000\n"
+"PO-Revision-Date: 2023-12-20 11:09+0000\n"
 "Language-Team: Bulgarian\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -385,7 +385,7 @@ msgstr "Страница с карта на сайта"
 
 #: templates/base.twig:18
 msgid "Skip to Content"
-msgstr ""
+msgstr "Преминете към съдържанието"
 
 #: templates/base.twig:19
 msgid "Skip to Footer"
@@ -393,7 +393,7 @@ msgstr ""
 
 #: templates/base.twig:17
 msgid "Skip to Navigation"
-msgstr ""
+msgstr "Преминете към навигацията"
 
 #: 404.php:19
 msgid "Sorry, we can't find that page!"
@@ -432,6 +432,9 @@ msgid ""
 "\\\"All Posts\\\" listing page. You can disable this by un-setting the "
 "\\\"Posts page\\\""
 msgstr ""
+"Съдържанието на тази страница е скрито, защото тази страница се използва "
+"като страница с списък с \\\"Всички публикации\\\". Можете да деактивирате "
+"това, като деактивирате \\\"Страница с публикации\\\""
 
 #: assets/src/js/pdf_icon.js:20
 msgid "This link will open a PDF file"
@@ -445,7 +448,7 @@ msgstr ""
 
 #: src/MasterSite.php:599
 msgid "Toggle search box"
-msgstr ""
+msgstr "Превключване на полето за търсене"
 
 #: templates/desktop-menu.twig:57 templates/navigation-bar.twig:38
 msgid "Toggle search form"
@@ -453,7 +456,7 @@ msgstr "Включи формата за търсене"
 
 #: src/MasterSite.php:598
 msgid "Toggle worldwide site selection menu"
-msgstr ""
+msgstr "Превключване на световното меню за избор на сайт"
 
 #: templates/search.twig:22
 msgid "Try searching for somthing else"
