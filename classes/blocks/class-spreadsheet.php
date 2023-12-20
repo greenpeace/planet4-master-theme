@@ -6,6 +6,8 @@
 
 namespace P4GBKS\Blocks;
 
+use WP_Block_Type_Registry;
+
 /**
  * Fetch a google spreadsheet from the provided url and display it as a sortable and filterable table.
  */
@@ -25,6 +27,10 @@ class Spreadsheet extends Base_Block {
 	 * SpreadsheetTable constructor.
 	 */
 	public function __construct() {
+		if ( WP_Block_Type_Registry::get_instance()->is_registered( self::get_full_block_name() ) ) {
+			return;
+		}
+
 		$this->register_spreadsheet_block();
 	}
 
