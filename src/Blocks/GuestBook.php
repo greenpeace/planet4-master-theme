@@ -3,7 +3,7 @@
 /**
  * GuestBook block class.
  *
- * @package P4GBKS
+ * @package P4\MasterTheme;
  * @since 0.1
  */
 
