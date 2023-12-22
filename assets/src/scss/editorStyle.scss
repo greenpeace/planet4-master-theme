@@ -28,9 +28,9 @@
 @import "base/css-variables";
 
 // Blocks
-@import "blocks/ActionsList";
-@import "blocks/PostsList";
-@import "blocks/CarouselHeader/CarouselHeaderStyle";
+@import "blocks";
+
+// Blocks editor styles
 @import "blocks/CarouselHeader/CarouselHeaderEditorStyle";
-@import "blocks/Accordion/AccordionStyle";
 @import "blocks/Accordion/AccordionEditorStyle";
+@import "blocks/Cookies/CookiesEditorStyle";

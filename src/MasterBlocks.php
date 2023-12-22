@@ -59,6 +59,9 @@ class MasterBlocks
                 'wp-edit-post',
             ]
         );
+
+        $reflection_vars = self::get_js_variables();
+        wp_localize_script('planet4-blocks-theme-editor-script', 'p4_vars', $reflection_vars);
     }
 
     /**
@@ -82,6 +85,34 @@ class MasterBlocks
             $js_creation,
             true
         );
-        wp_enqueue_script('planet4-blocks-script');
+        wp_enqueue_script('planet4-blocks-theme-script');
+
+        $reflection_vars = self::get_js_variables();
+        wp_localize_script('planet4-blocks-theme-script', 'p4_vars', $reflection_vars);
+    }
+
+    /**
+     * Add variables reflected from PHP to JS.
+     */
+    public function get_js_variables(): array
+    {
+        $option_values = get_option('planet4_options');
+
+        $cookies_default_copy = [
+            'necessary_cookies_name' => $option_values['necessary_cookies_name'] ?? '',
+            'necessary_cookies_description' => $option_values['necessary_cookies_description'] ?? '',
+            'analytical_cookies_name' => $option_values['analytical_cookies_name'] ?? '',
+            'analytical_cookies_description' => $option_values['analytical_cookies_description'] ?? '',
+            'all_cookies_name' => $option_values['all_cookies_name'] ?? '',
+            'all_cookies_description' => $option_values['all_cookies_description'] ?? '',
+        ];
+
+        $reflection_vars = [
+            'enable_analytical_cookies' => $option_values['enable_analytical_cookies'] ?? '',
+            'enable_google_consent_mode' => $option_values['enable_google_consent_mode'] ?? '',
+            'cookies_default_copy' => $cookies_default_copy,
+        ];
+
+        return $reflection_vars;
     }
 }
