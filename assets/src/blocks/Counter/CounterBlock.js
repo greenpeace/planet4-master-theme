@@ -92,10 +92,9 @@ export const registerCounterBlock = () => {
       name: 'arc',
       label: 'Progress Dial',
     },
-
   ];
 
-  if (window.p4ge_vars.features.feature_engaging_networks) {
+  if (window.p4_vars.features.feature_engaging_networks) {
     styles.push({
       name: 'en-forms-bar',
       label: 'Progress Bar inside EN Form',

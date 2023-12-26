@@ -60,7 +60,7 @@ class MasterBlocks
             ]
         );
 
-        $reflection_vars = self::get_js_variables();
+        $reflection_vars = self::reflect_js_variables();
         wp_localize_script('planet4-blocks-theme-editor-script', 'p4_vars', $reflection_vars);
     }
 
@@ -87,14 +87,16 @@ class MasterBlocks
         );
         wp_enqueue_script('planet4-blocks-theme-script');
 
-        $reflection_vars = self::get_js_variables();
+        $reflection_vars = self::reflect_js_variables();
         wp_localize_script('planet4-blocks-theme-script', 'p4_vars', $reflection_vars);
     }
 
     /**
-     * Add variables reflected from PHP to JS.
+     * Get Planet 4 options
+     *
+     * @return array
      */
-    public function get_js_variables(): array
+    private function get_p4_options(): array
     {
         $option_values = get_option('planet4_options');
 
@@ -107,12 +109,31 @@ class MasterBlocks
             'all_cookies_description' => $option_values['all_cookies_description'] ?? '',
         ];
 
-        $reflection_vars = [
+        return [
             'enable_analytical_cookies' => $option_values['enable_analytical_cookies'] ?? '',
             'enable_google_consent_mode' => $option_values['enable_google_consent_mode'] ?? '',
             'cookies_default_copy' => $cookies_default_copy,
         ];
+    }
 
-        return $reflection_vars;
+    /**
+     * Get Planet 4 features
+     *
+     * @return array
+     */
+    private function get_p4_features(): array
+    {
+        return get_option('planet4_features');
+    }
+
+    /**
+     * Add variables reflected from PHP to JS.
+     */
+    public function reflect_js_variables(): array
+    {
+        return [
+            'options' => $this->get_p4_options(),
+            'features' => $this->get_p4_features(),
+        ];
     }
 }
