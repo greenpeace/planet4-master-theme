@@ -7,17 +7,17 @@ const {__} = wp.i18n;
 
 const dataLayer = window.dataLayer || [];
 
-const COOKIES_DEFAULT_COPY = window.p4_vars.cookies_default_copy || {};
+const COOKIES_DEFAULT_COPY = window.p4_vars.options.cookies_default_copy || {};
 
 function gtag() {
   dataLayer.push(arguments);
 }
 
 // Planet4 settings(Planet 4 > Cookies > Enable Analytical Cookies).
-const ENABLE_ANALYTICAL_COOKIES = window.p4_vars.enable_analytical_cookies;
+const ENABLE_ANALYTICAL_COOKIES = window.p4_vars.options.enable_analytical_cookies;
 
 // Planet4 settings (Planet 4 > Analytics > Enable Google Consent Mode).
-const ENABLE_GOOGLE_CONSENT_MODE = window.p4_vars.enable_google_consent_mode;
+const ENABLE_GOOGLE_CONSENT_MODE = window.p4_vars.options.enable_google_consent_mode;
 
 const CONSENT_COOKIE = 'greenpeace';
 const NO_TRACK_COOKIE = 'no_track';
