@@ -113,6 +113,8 @@ class MasterBlocks
             'enable_analytical_cookies' => $option_values['enable_analytical_cookies'] ?? '',
             'enable_google_consent_mode' => $option_values['enable_google_consent_mode'] ?? '',
             'cookies_default_copy' => $cookies_default_copy,
+            'take_action_covers_button_text' => $option_values['take_action_covers_button_text'] ?? '',
+            'take_action_page' => $option_values['take_action_page'] ?? '',
         ];
     }
 

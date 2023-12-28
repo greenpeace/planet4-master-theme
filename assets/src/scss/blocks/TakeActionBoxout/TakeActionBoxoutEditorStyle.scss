@@ -1,0 +1,36 @@
+.boxout {
+  position: relative;
+
+  a {
+    pointer-events: none;
+  }
+
+  .btn {
+    min-width: auto !important;
+  }
+
+  // Prevent line clamp on editable stuff, because it's very buggy.
+  [contenteditable] {
+    -webkit-line-clamp: unset !important;
+  }
+}
+
+// I had to put these styles on the container to get the image controls to work, and remove some from the image itself.
+.boxout-image-container {
+  position: relative;
+  background: var(--grey-500);
+  height: 100%;
+  width: 336px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  img {
+    width: 100%;
+  }
+}
+
+.sticky-boxout-checkbox .components-base-control__field {
+  display: flex;
+}

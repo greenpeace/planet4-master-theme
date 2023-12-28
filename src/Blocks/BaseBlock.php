@@ -33,10 +33,7 @@ abstract class BaseBlock
      */
     public function render(array $attributes)
     {
-
         $data = $this->prepare_data($attributes);
-
-        \Timber::$locations = '/block_templates/blocks';
 
         $block_output = \Timber::compile(static::BLOCK_NAME . '.twig', $data);
 
