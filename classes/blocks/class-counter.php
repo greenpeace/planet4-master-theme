@@ -8,6 +8,8 @@
 
 namespace P4GBKS\Blocks;
 
+use WP_Block_Type_Registry;
+
 /**
  * Class Counter
  *
@@ -26,6 +28,10 @@ class Counter extends Base_Block {
 	 * Counter constructor.
 	 */
 	public function __construct() {
+		if ( WP_Block_Type_Registry::get_instance()->is_registered( self::get_full_block_name() ) ) {
+			return;
+		}
+
 		register_block_type(
 			self::get_full_block_name(),
 			[  // - Register the block for the editor
