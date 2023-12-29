@@ -41,6 +41,8 @@ module.exports = {
     AccordionEditorScript: './assets/src/blocks/Accordion/AccordionEditorScript.js',
     CookiesScript: './assets/src/blocks/Cookies/CookiesScript.js',
     CookiesEditorScript: './assets/src/blocks/Cookies/CookiesEditorScript.js',
+    CounterScript: './assets/src/blocks/Counter/CounterScript.js',
+    CounterEditorScript: './assets/src/blocks/Counter/CounterEditorScript.js',
   },
   output: {
     filename: '[name].js',
