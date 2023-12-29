@@ -1,4 +1,4 @@
-import {useScript, removeScript} from '../../hooks/useScript/useScript';
+import {useScript, removeScript} from './useScript/useScript';
 
 //  Find Hubspot parameters in the embed code
 //  Load the Hubspot form if found

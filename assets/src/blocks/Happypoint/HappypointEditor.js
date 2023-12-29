@@ -1,16 +1,15 @@
-import {Fragment, useState} from '@wordpress/element';
-import {useSelect} from '@wordpress/data';
-import {HappypointFrontend} from './HappypointFrontend';
-import {OverrideFormHelp} from './OverrideFormHelp';
-import {USE_NONE, USE_IFRAME_URL, USE_EMBED_CODE} from './HappyPointConstants';
-import {debounce} from '@wordpress/compose';
-
 import {
   InspectorControls,
   BlockControls,
   MediaUpload,
   MediaUploadCheck,
 } from '@wordpress/block-editor';
+import {useState} from '@wordpress/element';
+import {useSelect} from '@wordpress/data';
+import {debounce} from '@wordpress/compose';
+import {HappypointFrontend} from './HappypointFrontend';
+import {USE_EMBED_CODE, USE_IFRAME_URL, USE_NONE} from './HappypointConstants';
+import {OverrideFormHelp} from './OverrideFormHelp';
 
 const {__} = wp.i18n;
 
@@ -102,7 +101,7 @@ export const HappypointEditor = ({attributes, setAttributes, isSelected}) => {
   }, 300);
 
   return (
-    <Fragment>
+    <>
       {isSelected && (
         <div>
           <InspectorControls>
@@ -235,6 +234,6 @@ export const HappypointEditor = ({attributes, setAttributes, isSelected}) => {
         />
       </MediaUploadCheck>
       {(!id || id < 0) && <HappypointFrontend {...attributes} />}
-    </Fragment>
+    </>
   );
 };

@@ -1,6 +1,6 @@
 import {useHappypointImageData} from './useHappypointImageData';
-import {HubspotEmbed} from './useHubspotEmbedCode';
-import {USE_IFRAME_URL, USE_EMBED_CODE, USE_NONE} from './HappyPointConstants';
+import {HubspotEmbed} from '../../hooks/useHubspotEmbedCode';
+import {USE_EMBED_CODE, USE_IFRAME_URL, USE_NONE} from './HappypointConstants';
 
 export const HappypointFrontend = ({
   focus_image,
@@ -54,7 +54,7 @@ export const HappypointFrontend = ({
   return (
     <section className={`block block-footer alignfull happy-point-block-wrap ${className ?? ''}`}>
       <picture>
-        <img {...imgProps} loading="lazy" alt="HappyPoint" />
+        <img {...imgProps} loading="lazy" alt="Happypoint" />
       </picture>
       <div className="container">
         <div className="row justify-content-md-center">

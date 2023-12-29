@@ -9,6 +9,8 @@
 
  namespace P4\MasterTheme\Blocks;
 
+ use WP_REST_Server;
+
 /**
  * Class Happypoint
  *
@@ -67,10 +69,12 @@ class Happypoint extends BaseBlock
                 ],
             ]
         );
+
+        add_action('rest_api_init', [ self::class, 'register_endpoints' ]);
     }
 
     /**
-     * Required by the `Base_Block` class.
+     * Required by the `BaseBlock` class.
      *
      * @param array $fields Unused, required by the abstract function.
      * @phpcs:disable SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter
@@ -107,5 +111,28 @@ class Happypoint extends BaseBlock
         $data['default_embed_code'] = $options['happy_point_embed_code'] ?? '';
 
         return $data;
+    }
+
+    /**
+     * Endpoint to retrieve the data for the Happypoint block
+     */
+    public static function register_endpoints(): void
+    {
+        register_rest_route(
+            self::REST_NAMESPACE,
+            '/get-happypoint-data',
+            [
+                [
+                    'permission_callback' => static function () {
+                        return true;
+                    },
+                    'methods' => WP_REST_Server::READABLE,
+                    'callback' => static function ($fields) {
+                        $to_return = self::get_data($fields['id']);
+                        return rest_ensure_response($to_return);
+                    },
+                ],
+            ]
+        );
     }
 }

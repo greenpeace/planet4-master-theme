@@ -1,6 +1,6 @@
-import {USE_NONE, USE_IFRAME_URL} from '../HappyPointConstants';
+import {USE_IFRAME_URL, USE_NONE} from '../HappypointConstants';
 
-export const HappyPointV1 = {
+export const HappypointBlock = {
   attributes: {
     focus_image: {type: 'string'},
     opacity: {type: 'number', default: 30},
