@@ -1,4 +1,4 @@
-export const GuestBookFrontend = () => {
+const GuestBook = () => {
   const buildURL = () => {
     const hostname = window.location.hostname;
     const pathname = window.location.pathname.slice(1);
@@ -13,3 +13,5 @@ export const GuestBookFrontend = () => {
     </p>
   );
 };
+
+export default GuestBook;

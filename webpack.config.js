@@ -1,12 +1,21 @@
-
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+const {basename} = require('path');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const TerserJSPlugin = require('terser-webpack-plugin');
 const SpriteLoaderPlugin = require('svg-sprite-loader/plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const dashDash = require('@greenpeace/dashdash');
+const {getWebpackEntryPoints} = require('@wordpress/scripts/utils');
 
 const isProduction = process.env.NODE_ENV === 'production';
 const mode = isProduction ? 'production' : 'development';
+
+const relAssetsDir = './assets/src/';
+const scriptFields = ['viewScript', 'script', 'editorScript'];
+const getBlocksEntries = () => {
+  process.env.WP_SRC_DIRECTORY = relAssetsDir;
+  return getWebpackEntryPoints();
+};
 
 const mediaQueryAliases = {
   '(max-width: 576px)': 'mobile-only',
@@ -26,17 +35,15 @@ module.exports = {
     post: './assets/src/scss/post.scss',
     editorStyle: './assets/src/scss/editorStyle.scss',
     bootstrap: './assets/src/scss/bootstrap-build.scss',
-    "country-selector": './assets/src/scss/partials/country-selector.scss',
-    "gravity-forms": './assets/src/scss/layout/_gravity-forms.scss',
-    "gravityforms-client-side": './assets/src/js/gravityforms-client-side.js',
+    'country-selector': './assets/src/scss/partials/country-selector.scss',
+    'gravity-forms': './assets/src/scss/layout/_gravity-forms.scss',
+    'gravityforms-client-side': './assets/src/js/gravityforms-client-side.js',
     media_archive: './assets/src/js/media_archive.js',
     media_archive_editor_view: './assets/src/js/media_archive_editor_view.js',
-    "lite-yt-embed": './node_modules/lite-youtube-embed/src/lite-yt-embed.js',
+    'lite-yt-embed': './node_modules/lite-youtube-embed/src/lite-yt-embed.js',
     menu_editor: './assets/src/js/menu_editor.js',
     frontendIndex: './assets/src/blocks/frontendIndex.js',
     editorIndex: './assets/src/blocks/editorIndex.js',
-    GuestBookScript: './assets/src/blocks/GuestBook/GuestBookScript.js',
-    GuestBookEditorScript: './assets/src/blocks/GuestBook/GuestBookEditorScript.js',
     CarouselHeaderScript: './assets/src/blocks/CarouselHeader/CarouselHeaderScript.js',
     CarouselHeaderEditorScript: './assets/src/blocks/CarouselHeader/CarouselHeaderEditorScript.js',
     AccordionScript: './assets/src/blocks/Accordion/AccordionScript.js',
@@ -45,10 +52,11 @@ module.exports = {
     CookiesEditorScript: './assets/src/blocks/Cookies/CookiesEditorScript.js',
     CounterScript: './assets/src/blocks/Counter/CounterScript.js',
     CounterEditorScript: './assets/src/blocks/Counter/CounterEditorScript.js',
+    ...getBlocksEntries(),
   },
   output: {
     filename: '[name].js',
-    path: __dirname + '/assets/build'
+    path: __dirname + '/assets/build',
   },
   module: {
     rules: [
@@ -78,7 +86,7 @@ module.exports = {
             options: {
               url: false,
               sourceMap: !isProduction,
-            }
+            },
           },
           {
             loader: 'postcss-loader',
@@ -87,7 +95,7 @@ module.exports = {
               postcssOptions: {
                 ident: 'postcss',
                 plugins: [
-                  dashDash({ mediaQueryAliases, mediaQueryAtStart: false }),
+                  dashDash({mediaQueryAliases, mediaQueryAtStart: false}),
                   require.resolve('autoprefixer'),
                 ],
               },
@@ -98,9 +106,9 @@ module.exports = {
             options: {
               implementation: require.resolve("sass"),
               sourceMap: !isProduction,
-            }
-          }
-        ]
+            },
+          },
+        ],
       },
       {
         test: /icons\/.*\.svg$/,
@@ -109,13 +117,44 @@ module.exports = {
           options: {
             extract: true,
             spriteFilename: '../../assets/build/sprite.symbol.svg',
-            runtimeCompat: true
-          }
+            runtimeCompat: true,
+          },
         }],
       },
-    ]
+    ],
   },
   plugins: [
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: '**/block.json',
+          context: relAssetsDir,
+          noErrorOnMissing: true,
+          transform(content, absoluteFrom) {
+            const convertExtension = path => {
+              return path.replace(/\.(j|t)sx?$/, '.js');
+            };
+
+            if (basename(absoluteFrom) !== 'block.json') {
+              return content;
+            }
+
+            const blockJson = JSON.parse(content.toString());
+            scriptFields.forEach(
+              key => {
+                if (Array.isArray(blockJson[key])) {
+                  blockJson[key] = blockJson[key].map(convertExtension);
+                } else if (typeof blockJson[key] === 'string') {
+                  blockJson[key] = convertExtension(blockJson[key]);
+                }
+              }
+            );
+
+            return JSON.stringify(blockJson, null, 2);
+          },
+        },
+      ],
+    }),
     // extract css into dedicated file
     new MiniCssExtractPlugin({
       chunkFilename: '[id].css',
@@ -123,17 +162,17 @@ module.exports = {
       filename: './[name].min.css',
     }),
     new SpriteLoaderPlugin({
-      plainSprite: true
+      plainSprite: true,
     }),
   ],
   optimization: {
     concatenateModules: isProduction,
     minimizer: [
       // enable the css minification plugin
-      new TerserJSPlugin( {
+      new TerserJSPlugin({
         parallel: true,
       }),
       new CssMinimizerPlugin(),
-    ]
-  }
+    ],
+  },
 };
