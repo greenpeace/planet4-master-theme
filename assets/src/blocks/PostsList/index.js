@@ -1,5 +1,9 @@
 const POSTS_LIST_BLOCK = 'planet4-blocks/posts-list-block';
 
+import {InspectorControls} from '@wordpress/block-editor';
+import {PanelBody} from '@wordpress/components';
+import {PostSelector} from '../../block-editor/PostSelector/PostSelector';
+
 export const registerPostsListBlock = () => {
   const {registerBlockVariation} = wp.blocks;
   const {__} = wp.i18n;
@@ -31,6 +35,7 @@ export const registerPostsListBlock = () => {
         exclude: [],
         sticky: '',
         inherit: false,
+        postIn: [],
       },
     },
     scope: ['inserter'],
@@ -69,3 +74,41 @@ export const registerPostsListBlock = () => {
   }
   );
 };
+
+export const withManualPostSelection = BlockEdit => props => {
+  const {__} = wp.i18n;
+  const {name, attributes, setAttributes} = props;
+  const updateQuery = (value, query) => {
+    setAttributes({query: {
+      ...query,
+      postIn: value && value.length > 0 ? value : [],
+    }});
+  };
+
+  if (name === 'core/query' && attributes.namespace === POSTS_LIST_BLOCK) {
+    const {query} = attributes;
+    return (
+      <>
+        <BlockEdit {...props} />
+        <InspectorControls>
+          <PanelBody title={__('Manual override', 'planet4-blocks-backend')} initialOpen={query.postIn.length > 0}>
+            <PostSelector
+              label={__('CAUTION: Adding articles individually will override the automatic functionality of this block. For good user experience, please include at least three articles so that spacing and alignment of the design remains intact.', 'planet4-blocks-backend')}
+              selected={query.postIn || []}
+              onChange={value => updateQuery(value, query)}
+              postType={query.postType || 'post'}
+              placeholder={__('Select articles', 'planet4-blocks-backend')}
+              maxLength={10}
+              maxSuggestions={20}
+            />
+          </PanelBody>
+        </InspectorControls>
+      </>
+    );
+  }
+
+  return <BlockEdit {...props} />;
+};
+
+wp.hooks.addFilter('editor.BlockEdit', 'core/query', withManualPostSelection);
+
