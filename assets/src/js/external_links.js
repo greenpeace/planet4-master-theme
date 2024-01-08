@@ -1,4 +1,4 @@
-const {__} = wp.i18n;
+const {__, sprintf} = wp.i18n;
 
 export const setupExternalLinks = () => {
   const siteURL = window.location.host;
@@ -23,6 +23,10 @@ export const setupExternalLinks = () => {
     const url = new URL(link.href);
     const domain = url.hostname.replace('www.', '');
 
-    link.title = __('This link will lead you to ' + domain, 'planet4-master-theme');
+    link.title = sprintf(
+      // translators: 1: URL domain
+      __('This link will lead you to %1$s', 'planet4-master-theme'),
+      domain
+    );
   });
 };
