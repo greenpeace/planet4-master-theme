@@ -13,7 +13,7 @@ import {Columns} from './Columns';
 import {MAX_COLUMNS_AMOUNT, MIN_COLUMNS_AMOUNT} from './ColumnConstants';
 import {getStyleFromClassName} from '../../functions/getStyleFromClassName';
 
-const {__} = wp.i18n;
+const {__, sprintf} = wp.i18n;
 
 const renderEdit = (attributes, toAttribute, setAttributes, isSelected) => {
   const {columns} = attributes;
@@ -61,8 +61,10 @@ const renderEdit = (attributes, toAttribute, setAttributes, isSelected) => {
             return (
               <div key={`column-${index}`}>
                 <URLInput
-                  label={__('Column %s link', 'planet4-blocks-backend').replace('%s', index + 1)}
-                  placeholder={__('Enter link for column %s', 'planet4-blocks-backend').replace('%s', index + 1)}
+                  // translators: %s: column index
+                  label={sprintf(__('Column %s link', 'planet4-blocks-backend'), index + 1)}
+                  // translators: %s: column index
+                  placeholder={sprintf(__('Enter link for column %s', 'planet4-blocks-backend'), index + 1)}
                   value={cta_link}
                   onChange={toAttribute('cta_link', index)}
                 />

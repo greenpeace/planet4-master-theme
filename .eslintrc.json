@@ -56,6 +56,7 @@
     "react/jsx-indent": "off",
     "react/jsx-indent-props": "off",
     "react-hooks/rules-of-hooks": "off",
+    "prettier/prettier": "off",
     "@wordpress/dependency-group": "off",
     "operator-linebreak": [
       "error",
