@@ -54,20 +54,20 @@ export const SpreadsheetEditor = ({
           <div className="sidebar-blocks-help">
             <ul>
               <li>
-                {/* eslint-disable-next-line no-restricted-syntax */}
+                {/* eslint-disable-next-line no-restricted-syntax, @wordpress/i18n-no-collapsible-whitespace */}
                 { __(`From Your Google Spreadsheet Table choose File -> Publish on web.
                 No need to choose the output format, any of them will work.
                 A pop-up window will show up, click on the Publish button and then OK when the confirmation message is displayed.
                 Copy the URL that is highlighted and paste it in this block.`, 'planet4-blocks-backend') }
               </li>
               <li>
-                {/* eslint-disable-next-line no-restricted-syntax */}
+                {/* eslint-disable-next-line no-restricted-syntax, @wordpress/i18n-no-collapsible-whitespace */}
                 { __(`If you make changes to the sheet after publishing
                   then these changes do not always immediately get reflected,
                   even when "Automatically republish when changes are made" is checked.`, 'planet4-blocks-backend') }
               </li>
               <li>
-                {/* eslint-disable-next-line no-restricted-syntax */}
+                {/* eslint-disable-next-line no-restricted-syntax, @wordpress/i18n-no-collapsible-whitespace */}
                 { __(`You can force an update by unpublishing and republishing the sheet.
                   This will not change the sheet's public url.`, 'planet4-blocks-backend') }
               </li>
