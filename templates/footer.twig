@@ -6,15 +6,12 @@
         {% include 'footer_country_selector.twig' %}
     </div>
     {% endif %}
-    <div class="container d-flex flex-column flex-lg-row-reverse">
-        {% if (social_overrides is defined and social_overrides|length) or footer_social_menu|length %}
-            {% include 'footer_social_media.twig' %}
-        {% endif %}
+    <div class="container d-flex flex-column flex-lg-row">
         {% if nav_type != 'minimal' %}
             <nav class="footer-menu">
                 <ul class="list-unstyled">
                     {% for primary in footer_primary_menu %}
-                        <li>
+                        <li tabindex="0">
                             <a
                                 href="{{ primary.url }}"
                                 target="{{ item.target }}"
@@ -32,7 +29,7 @@
                     {% endfor %}
 
                     {% for secondary in footer_secondary_menu %}
-                        <li>
+                        <li tabindex="0">
                             <a
                                 href="{{ secondary.url }}"
                                 target="{{ item.target }}"
@@ -50,6 +47,9 @@
                     {% endfor %}
                 </ul>
             </nav>
+        {% endif %}
+        {% if (social_overrides is defined and social_overrides|length) or footer_social_menu|length %}
+            {% include 'footer_social_media.twig' %}
         {% endif %}
     </div>
 

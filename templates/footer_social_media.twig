@@ -3,7 +3,7 @@
   <ul class="list-unstyled">
     {% if social_overrides is defined and social_overrides|length %}
       {% for social in social_overrides %}
-        <li>
+        <li tabindex="0">
           <a
             href="{{ social.url }}"
             data-ga-category="Footer Navigation"
@@ -29,7 +29,7 @@
             {% set name = class_name %}
           {% endif %}
         {% endfor %}
-        <li>
+        <li tabindex="0">
           <a
             href="{{ social.url }}"
             data-ga-category="Footer Navigation"

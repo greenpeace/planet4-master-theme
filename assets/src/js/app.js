@@ -11,6 +11,7 @@ import {setupQueryLoopCarousel} from './query_loop_carousel';
 import {setupClickabelActionsListCards} from './actions_list_clickable_cards';
 import {removeNoPostText} from './query-no-posts';
 import {removeRelatedPostsSection} from './remove_related_section_no_posts';
+import {setupCountrySelector} from './country_selector';
 
 function requireAll(r) {
   r.keys().forEach(r);
@@ -29,3 +30,4 @@ setupQueryLoopCarousel();
 removeNoPostText();
 removeRelatedPostsSection();
 setupClickabelActionsListCards();
+setupCountrySelector();
