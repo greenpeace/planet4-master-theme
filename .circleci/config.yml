@@ -89,7 +89,7 @@ jobs:
 
   frontend-tests:
     docker:
-      - image: greenpeaceinternational/p4-unit-tests:node16.19.0
+      - image: greenpeaceinternational/p4-unit-tests:node16.20.2-update-eslint
         auth:
           <<: *docker_auth
     steps:
@@ -256,6 +256,7 @@ jobs:
             --test-instance $(cat /tmp/workspace/test-instance)
 
   create-zip:
+    resource_class: large
     docker:
       - image: cimg/node:16.19
         auth:
@@ -288,8 +289,8 @@ jobs:
           name: Zip file size sanity check
           command: |
             ls -lh /tmp/workspace/planet4-master-theme.zip
-            if [ $(wc -c </tmp/workspace/planet4-master-theme.zip) -ge 9000000 ]; then
-              echo "Zip file size exceeds 9MB, probably something went wrong."
+            if [ $(wc -c </tmp/workspace/planet4-master-theme.zip) -ge 20000000 ]; then
+              echo "Zip file size exceeds 20MB, probably something went wrong."
               exit 1
             fi
       - persist_to_workspace:

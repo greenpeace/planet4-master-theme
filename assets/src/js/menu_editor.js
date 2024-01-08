@@ -166,6 +166,7 @@ const menuEditorRestrictions = () => {
           errors,
           children,
           subLevelConf.maxItems,
+          // translators: %s: sub menu title
           sprintf(__('Sub menu "%s"', 'planet4-master-theme-backend'), title)
         );
       }
@@ -176,6 +177,7 @@ const menuEditorRestrictions = () => {
         errors.push({
           target: item.id,
           message: sprintf(
+            // translators: 1: item label, 2: max char count, 3: current char count
             __(
               'This item label "%1$s" should not be longer than %2$s characters (currently %3$s).',
               'planet4-master-theme-backend'
@@ -205,13 +207,13 @@ const menuEditorRestrictions = () => {
   /**
    * Gets the current conf.
    *
-   * @return {Object} The current conf
+   * @return {Object|null} The current conf
    */
   const getCurrentConf = () => {
     const location = getCurrentLocation();
     const conf = p4_menu_config[location] || null;
     if (!conf) {
-      return;
+      return null;
     }
 
     return {...{maxItems: 5, maxChars: 18, maxDepth: 1}, ...conf};
@@ -220,8 +222,8 @@ const menuEditorRestrictions = () => {
   /**
    * Get item children
    *
-   * @param {NodeElement} item
-   * @return {NodeElement[]|null} Children list of this item
+   * @param {HTMLElement} item
+   * @return {HTMLElement[]|null} Children list of this item
    */
   const getItemChildren = item => {
     const depth = getItemDepth(item);
@@ -247,7 +249,7 @@ const menuEditorRestrictions = () => {
   /**
    * Get the depth of the item
    *
-   * @param {NodeElement} item The item
+   * @param {HTMLElement} item The item
    * @return {number} Depth of the item in the menu
    */
   const getItemDepth = item => {
@@ -271,9 +273,9 @@ const menuEditorRestrictions = () => {
   /**
    * Check menu items' depth and show an error message if needed
    *
-   * @param {NodeElement} item The menu item
+   * @param {HTMLElement} item     The menu item
    * @param {number}      maxDepth The maximum allowed depth
-   * @param {Array}       errors The errors to be displayed
+   * @param {Array}       errors   The errors to be displayed
    */
   const checkDepth = (item, maxDepth, errors) => {
     const depth = getItemDepth(item);
@@ -283,6 +285,7 @@ const menuEditorRestrictions = () => {
       errors.push({
         target: item.id,
         message: sprintf(
+          // translators: 1: item title, 2: item depth
           __(
             'Menus should have a depth of maximum 1 (currently item "%1$s" is at depth %2$s and therefore will not be displayed).',
             'planet4-master-theme-backend'
@@ -296,13 +299,14 @@ const menuEditorRestrictions = () => {
   /**
    * Mark errors for too many items in a menu/submenu
    *
-   * @param {Array} errors    Errors
-   * @param {NodeList} items     Items
-   * @param {number}   maxItems  Max number of items
-   * @param {string}   menuName  Menu name for the message
+   * @param {Array}    errors   Errors
+   * @param {NodeList} items    Items
+   * @param {number}   maxItems Max number of items
+   * @param {string}   menuName Menu name for the message
    */
   const markItemsOverflow = (errors, items, maxItems, menuName) => {
     errors.push({message: sprintf(
+      // translators: 1: menu name, 2: max item count, 3: current item count
       __(
         '%1$s should not contain more than %2$s items at this level (currently %3$s).',
         'planet4-master-theme-backend'
@@ -373,7 +377,7 @@ const menuEditorRestrictions = () => {
   /**
    * Get the errors container, create it if needed
    *
-   * @return {NodeElement} The errors container
+   * @return {HTMLElement} The errors container
    */
   const getErrorsContainer = () => {
     let errorsContainer = menuEditorFooter.querySelector('.errors-list');
