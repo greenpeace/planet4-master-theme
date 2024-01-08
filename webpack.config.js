@@ -1,3 +1,4 @@
+
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const TerserJSPlugin = require('terser-webpack-plugin');
@@ -17,7 +18,6 @@ const mediaQueryAliases = {
 };
 
 module.exports = {
-  //stats: 'verbose',
   mode,
   devtool: isProduction ? false : 'source-map',
   entry: {
@@ -121,7 +121,6 @@ module.exports = {
       chunkFilename: '[id].css',
       ignoreOrder: false, // Enable to remove warnings about conflicting order
       filename: './[name].min.css',
-      runtime: false,
     }),
     new SpriteLoaderPlugin({
       plainSprite: true
