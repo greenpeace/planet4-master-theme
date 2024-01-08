@@ -256,6 +256,7 @@ jobs:
             --test-instance $(cat /tmp/workspace/test-instance)
 
   create-zip:
+    resource_class: large
     docker:
       - image: cimg/node:16.19
         auth:

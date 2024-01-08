@@ -1,11 +1,11 @@
-const defaultConfig = require("./node_modules/@wordpress/scripts/config/webpack.config");    // Require default Webpack config
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const TerserJSPlugin = require('terser-webpack-plugin');
-const FixStyleOnlyEntriesPlugin = require("webpack-fix-style-only-entries");
-const RemovePlugin = require('remove-files-webpack-plugin');
 const SpriteLoaderPlugin = require('svg-sprite-loader/plugin');
 const dashDash = require('@greenpeace/dashdash');
+
+const isProduction = process.env.NODE_ENV === 'production';
+const mode = isProduction ? 'production' : 'development';
 
 const mediaQueryAliases = {
   '(max-width: 576px)': 'mobile-only',
@@ -17,7 +17,9 @@ const mediaQueryAliases = {
 };
 
 module.exports = {
-  ...defaultConfig,
+  //stats: 'verbose',
+  mode,
+  devtool: isProduction ? false : 'source-map',
   entry: {
     index: './assets/src/js/app.js',
     style: './assets/src/scss/style.scss',
@@ -49,9 +51,24 @@ module.exports = {
     path: __dirname + '/assets/build'
   },
   module: {
-    ...defaultConfig.module,
     rules: [
-      ...defaultConfig.module.rules,
+      {
+        test: /\.(j|t)sx?$/,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: require.resolve('babel-loader'),
+            options: {
+              cacheDirectory: process.env.BABEL_CACHE_DIRECTORY || true,
+              babelrc: false,
+              configFile: false,
+              presets: [
+                require.resolve('@wordpress/babel-preset-default'),
+              ],
+            },
+          },
+        ],
+      },
       {
         test: /\.(sass|scss)$/,
         use: [
@@ -60,89 +77,64 @@ module.exports = {
             loader: 'css-loader',
             options: {
               url: false,
-              sourceMap: true,
+              sourceMap: !isProduction,
             }
           },
           {
             loader: 'postcss-loader',
             options: {
-              ident: 'postcss',
-              plugins: () => [
-                dashDash({ mediaQueryAliases, mediaQueryAtStart: false }),
-                require('autoprefixer'),
-              ],
-              sourceMap: true,
-            }
+              sourceMap: !isProduction,
+              postcssOptions: {
+                ident: 'postcss',
+                plugins: [
+                  dashDash({ mediaQueryAliases, mediaQueryAtStart: false }),
+                  require.resolve('autoprefixer'),
+                ],
+              },
+            },
           },
           {
             loader: 'sass-loader',
             options: {
-              sourceMap: true,
+              implementation: require.resolve("sass"),
+              sourceMap: !isProduction,
             }
           }
         ]
       },
       {
         test: /icons\/.*\.svg$/,
-        loader: 'svg-sprite-loader',
-        options: {
-          extract: true,
-          spriteFilename: '../../assets/build/sprite.symbol.svg',
-          runtimeCompat: true
-        }
+        use: [{
+          loader: 'svg-sprite-loader',
+          options: {
+            extract: true,
+            spriteFilename: '../../assets/build/sprite.symbol.svg',
+            runtimeCompat: true
+          }
+        }],
       },
     ]
   },
   plugins: [
-    ...defaultConfig.plugins,
     // extract css into dedicated file
-    new FixStyleOnlyEntriesPlugin(),
     new MiniCssExtractPlugin({
       chunkFilename: '[id].css',
       ignoreOrder: false, // Enable to remove warnings about conflicting order
-      filename: './[name].min.css'
-    }),
-    new RemovePlugin({
-      /**
-       * After compilation removes all files in `dist/styles` folder,
-       * that have `.map` type.
-       */
-      after: {
-        test: [
-          {
-            folder: 'assets/build/',
-            method: (filePath) => {
-              return [
-                'style.deps.json',
-                'index.asset.php',
-                'bootstrap.asset.php',
-                'style.asset.php',
-              ].filter(item => {
-                return new RegExp(item, 'm').test(filePath);
-              }).length > 0;
-            }
-          }
-        ]
-      }
+      filename: './[name].min.css',
+      runtime: false,
     }),
     new SpriteLoaderPlugin({
       plainSprite: true
     }),
   ],
   optimization: {
-    ...defaultConfig.optimization,
+    concatenateModules: isProduction,
     minimizer: [
       // enable the css minification plugin
-      new TerserJSPlugin({}),
-      new OptimizeCSSAssetsPlugin({
-        cssProcessorOptions: {
-          sourceMap: true,
-          map: {
-            inline: false,
-            annotation: true,
-          }
-        }
-      })
+      new TerserJSPlugin( {
+        parallel: true,
+      }),
+      new CssMinimizerPlugin(),
     ]
   }
 };
