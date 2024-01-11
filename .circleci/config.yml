@@ -272,7 +272,7 @@ jobs:
             filename="planet4-master-theme.zip"
             echo "planet4-packages/planet4-master-theme/${CIRCLE_SHA1}.zip" > /tmp/workspace/zip-path
             gs_path="gs://$(cat /tmp/workspace/zip-path)"
-            gsutil -q stat "$gs_path" || gsutil cp "/tmp/workspace/$filename" "$gs_path"
+            gcloud storage cp "/tmp/workspace/$filename" "$gs_path"
       - run:
           name: Commit to test instance repo
           command: trigger_test_instance.sh planet4-master-theme $(cat /tmp/workspace/is_merge_commit)
