@@ -159,13 +159,14 @@ final class Loader
         new Blocks\CarouselHeader();//NOSONAR
         new Blocks\Cookies();//NOSONAR
         new Blocks\Counter();//NOSONAR
+        new Blocks\ENForm();//NOSONAR
         new Blocks\Gallery();//NOSONAR
         new Blocks\GuestBook();//NOSONAR
+        new Blocks\Happypoint();//NOSONAR
+        new Blocks\SocialMedia();//NOSONAR
         new Blocks\Spreadsheet();//NOSONAR
         new Blocks\Submenu();//NOSONAR
         new Blocks\TakeActionBoxout();//NOSONAR
-        new Blocks\Happypoint();//NOSONAR
-        new Blocks\SocialMedia();//NOSONAR
 
         if (!BetaBlocks::is_active()) {
             return;
