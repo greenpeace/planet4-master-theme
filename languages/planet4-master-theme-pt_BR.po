@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2024-01-11 13:02+0000\n"
+"PO-Revision-Date: 2024-01-11 13:03+0000\n"
 "Last-Translator: Rickson Figueira\n"
 "Language-Team: Portuguese (Brazil)\n"
 "MIME-Version: 1.0\n"
@@ -87,11 +87,11 @@ msgstr "FILTROS ATIVOS"
 
 #: templates/all-actions.twig:9 templates/taxonomy.twig:32
 msgid "All actions"
-msgstr ""
+msgstr "Todas ações"
 
 #: templates/listing-page.twig:4 templates/taxonomy.twig:32
 msgid "All articles"
-msgstr ""
+msgstr "Todos os artigos"
 
 #: templates/author.twig:22 templates/author.twig:25
 msgid "All articles by "
