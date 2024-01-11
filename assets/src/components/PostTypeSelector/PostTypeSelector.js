@@ -1,43 +1,34 @@
-import {Component} from '@wordpress/element';
+import {memo, useMemo} from '@wordpress/element';
 import {compose} from '@wordpress/compose';
 import {withSelect} from '@wordpress/data';
 import {FormTokenField} from '@wordpress/components';
+import {useSelector} from '../../functions/useSelector';
 
-class PostTypeSelector extends Component {
-  constructor(props) {
-    super(props);
+const PostTypeSelector = memo(props => {
+  const {suggestions, onChange, label, placeholder, value, ...ownProps} = props;
+  const [parsedSuggestions, parsedValue, handleChange] = useSelector(suggestions, value, onChange);
 
-    this.handleChange = this.handleChange.bind(this);
-  }
-
-  handleChange(value) {
-    const postTypeIds = value.map(postTypeName => {
-      return this.props.postTypes.find(postType => postType.name === postTypeName).id;
-    });
-    this.props.onChange(postTypeIds);
-  }
-
-  render() {
-    // eslint-disable-next-line no-unused-vars
-    const {postTypes, onChange, label, placeholder, value, ...ownProps} = this.props;
-
-    if (!postTypes || postTypes.length === 0) {
-      return null;
-    }
-
-    return <FormTokenField
-      suggestions={postTypes.map(postType => postType.name)}
+  return useMemo(() => (
+    <FormTokenField
+      suggestions={parsedSuggestions}
       label={label || 'Select Post Types'}
-      onChange={this.handleChange}
+      onChange={handleChange}
       placeholder={placeholder || 'Select Post Types'}
-      value={value ? value.map(postTypeId => postTypes.find(postType => Number(postType.id) === Number(postTypeId)).name) : []}
+      value={parsedValue}
       {...ownProps}
-    />;
-  }
-}
+    />
+  ), [
+    label,
+    handleChange,
+    ownProps,
+    placeholder,
+    parsedSuggestions,
+    parsedValue,
+  ]);
+});
 
 export default compose(
   withSelect(select => ({
-    postTypes: select('core').getEntityRecords('taxonomy', 'p4-page-type'),
+    suggestions: select('core').getEntityRecords('taxonomy', 'p4-page-type') || [],
   }))
 )(PostTypeSelector);

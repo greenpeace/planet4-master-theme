@@ -1,64 +1,34 @@
-import {Component} from '@wordpress/element';
+import {memo, useMemo} from '@wordpress/element';
 import {compose} from '@wordpress/compose';
 import {withSelect} from '@wordpress/data';
-import {
-  FormTokenField,
-} from '@wordpress/components';
+import {FormTokenField} from '@wordpress/components';
+import {useSelector} from '../../functions/useSelector';
 
-class TagSelector extends Component {
-  constructor(props) {
-    super(props);
+const TagSelector = memo(props => {
+  const {suggestions, onChange, label, placeholder, value, ...ownProps} = props;
+  const [parsedSuggestions, parsedValue, handleChange] = useSelector(suggestions, value, onChange);
 
-    this.handleChange = this.handleChange.bind(this);
-    this.getValue = this.getValue.bind(this);
-  }
-
-  handleChange(value) {
-    const tagIds = value.map(token => {
-      return this.props.tagSuggestions.find(tag => tag.name === token).id;
-    });
-    this.props.onChange(tagIds);
-  }
-
-  getValue() {
-    const {tagSuggestions, value} = this.props;
-
-    if (!tagSuggestions || !value) {
-      return null;
-    }
-
-    const tags = value.reduce((accumulator, tagId) => {
-      const tag = tagSuggestions.find(tagFound => Number(tagFound.id) === Number(tagId));
-      if (tag) {
-        accumulator.push(tag);
-      }
-      return accumulator;
-    }, []);
-
-    return tags.map(tag => tag.name);
-  }
-
-  render() {
-    // eslint-disable-next-line no-unused-vars
-    const {tagSuggestions, onChange, label, placeholder, value, ...ownProps} = this.props;
-
-    if (!tagSuggestions || tagSuggestions.length === 0) {
-      return null;
-    }
-
-    return <FormTokenField
-      suggestions={tagSuggestions.map(tagSuggestion => tagSuggestion.name)}
+  return useMemo(() => (
+    <FormTokenField
+      suggestions={parsedSuggestions}
       label={label || 'Select Tags'}
-      onChange={this.handleChange}
+      onChange={handleChange}
       placeholder={placeholder || 'Select Tags'}
-      value={this.getValue()}
+      value={parsedValue}
       {...ownProps}
-    />;
-  }
-}
+    />
+  ), [
+    label,
+    handleChange,
+    ownProps,
+    placeholder,
+    parsedSuggestions,
+    parsedValue,
+  ]);
+});
 
 export default compose(
   withSelect(select => ({
-    tagSuggestions: select('core').getEntityRecords('taxonomy', 'post_tag', {hide_empty: false, per_page: -1}),
+    suggestions: select('core').getEntityRecords('taxonomy', 'post_tag', {hide_empty: false, per_page: -1}) || [],
   }))
 )(TagSelector);
