@@ -1,0 +1,47 @@
+@mixin campaign-en-block($form-caption-transform: false) {
+  .form-caption {
+    padding-bottom: $sp-8;
+
+    h1, h2, h3 {
+      @if $form-caption-transform {
+        text-transform: $form-caption-transform;
+      }
+    }
+
+    p {
+      font-size: $font-size-sm;
+      line-height: 1.875rem;
+    }
+
+    h1 {
+      font-size: 3.62rem;
+      color: white !important;
+      margin-bottom: 16px;
+      line-height: 1.225;
+    }
+
+    h2 {
+      margin-bottom: 18px;
+    }
+
+    h3 {
+      margin-bottom: 16px;
+    }
+
+    .campaign-logo {
+      width: 380px;
+      max-width: 100%;
+      padding-bottom: 30px;
+      padding-top: 10px;
+      display: block;
+    }
+  }
+
+  .enform {
+    .submit button {
+      margin-bottom: 0;
+      box-sizing: border-box;
+      width: 100%;
+    }
+  }
+}

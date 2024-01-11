@@ -32,9 +32,10 @@
 @import "blocks";
 
 // Blocks editor styles
-@import "blocks/CarouselHeader/CarouselHeaderEditorStyle";
 @import "blocks/Accordion/AccordionEditorStyle";
+@import "blocks/CarouselHeader/CarouselHeaderEditorStyle";
 @import "blocks/Cookies/CookiesEditorStyle";
-@import "blocks/Submenu/SubmenuEditorStyle.scss";
-@import "blocks/TakeActionBoxout/TakeActionBoxoutEditorStyle.scss";
+@import "blocks/ENForm/ENFormEditorStyle";
 @import "blocks/Happypoint/HappypointEditorStyle";
+@import "blocks/Submenu/SubmenuEditorStyle";
+@import "blocks/TakeActionBoxout/TakeActionBoxoutEditorStyle";

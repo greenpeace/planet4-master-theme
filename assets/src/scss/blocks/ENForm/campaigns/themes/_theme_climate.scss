@@ -1,0 +1,37 @@
+body.theme-climate {
+  $form-caption-transform: uppercase;
+
+  .enform-wrap {
+    @include campaign-en-block($form-caption-transform);
+
+    &.enform-side-style {
+      .form-caption {
+        padding-top: 33px;
+
+        @include large-and-up {
+          padding-top: 117px;
+        }
+      }
+
+      .enform {
+        @include large-and-up {
+          padding: $sp-4;
+        }
+
+        .form-description {
+          font-family: var(--font-family-heading, var(--header-primary-font));
+          margin-bottom: $sp-2;
+
+          p:first-child {
+            font-weight: bold;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            font-family: var(--font-family-heading, var(--header-primary-font));
+            margin-bottom: 4px;
+            display: inline-block;
+          }
+        }
+      }
+    }
+  }
+}
