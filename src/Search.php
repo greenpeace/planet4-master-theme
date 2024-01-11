@@ -767,21 +767,22 @@ abstract class Search
 
         if ($this->search_query) {
             $context['page_title'] = sprintf(
-                // translators: %1$d = Number of results.
+                // translators: %1$s = Number of results.
+                // translators: %2$s = Search terms.
                 _n(
-                    '%1$d result for \'%2$s\'',
-                    '%1$d results for \'%2$s\'',
-                    $context['found_posts'],
+                    '%1$s result for \'%2$s\'',
+                    '%1$s results for \'%2$s\'',
+                    (int) $context['found_posts'],
                     'planet4-master-theme'
                 ),
-                $context['found_posts'],
+                (int) $context['found_posts'],
                 $this->search_query
             );
         } else {
             $context['page_title'] = sprintf(
-                // translators: %d = Number of results.
-                _n('%d result', '%d results', $context['found_posts'], 'planet4-master-theme'),
-                $context['found_posts']
+                // translators: %s = Number of results.
+                _n('%s result', '%s results', (int) $context['found_posts'], 'planet4-master-theme'),
+                (int) $context['found_posts']
             );
         }
 
