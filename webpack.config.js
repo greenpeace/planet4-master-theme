@@ -52,6 +52,8 @@ module.exports = {
     SocialMediaEditorScript: './assets/src/blocks/SocialMedia/SocialMediaEditorScript.js',
     SocialMediaStyle: './assets/src/scss/blocks/SocialMedia/SocialMediaStyle.scss',
     SocialMediaEditorStyle: './assets/src/scss/blocks/SocialMedia/SocialMediaEditorStyle.scss',
+    ENFormScript: './assets/src/blocks/ENForm/ENFormScript.js',
+    ENFormEditorScript: './assets/src/blocks/ENForm/ENFormEditorScript.js',
   },
   output: {
     filename: '[name].js',

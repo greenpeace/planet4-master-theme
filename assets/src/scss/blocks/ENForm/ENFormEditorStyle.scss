@@ -1,0 +1,55 @@
+.enform {
+  background: none;
+}
+
+.enform .form-container {
+  input {
+    box-sizing: border-box;
+  }
+}
+
+.wp-core-ui {
+  .enform a.btn-primary {
+    color: var(--btn-primary-color, #fff);
+  }
+  /* Let select inputs follow the flow */
+  .enform select {
+    max-width: 90%;
+  }
+  /* Nullify default editor border */
+  .enform input[type="checkbox"] {
+    border: 0;
+  }
+
+  .enform-side-style,
+  .enform-full-width-bg {
+    width: 100%;
+
+    .container {
+      z-index: 1;
+    }
+  }
+
+  .enform-full-width {
+    /* Default enform text color is white, editor background color too */
+    background: grey;
+
+    div.submit div.btn {
+      width: 32%;
+      margin-top: 32px;
+    }
+  }
+
+  .enform-full-width-bg {
+    div.submit {
+      padding: 0;
+    }
+  }
+
+  .enform-side-style {
+    .submit div.btn {
+      padding: 0;
+      margin-top: 32px;
+    }
+  }
+}

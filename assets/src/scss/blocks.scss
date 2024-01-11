@@ -1,12 +1,16 @@
+// Beta blocks
 @import "blocks/ActionsList";
 @import "blocks/PostsList";
-@import "blocks/CarouselHeader/CarouselHeaderStyle";
+
+// P4 Blocks
 @import "blocks/Accordion/AccordionStyle";
+@import "blocks/CarouselHeader/CarouselHeaderStyle";
 @import "blocks/Cookies/CookiesStyle";
 @import "blocks/Counter/CounterStyle";
+@import "blocks/ENForm/ENFormStyle";
+@import "blocks/Happypoint/HappypointStyle";
+@import "blocks/Media";
+@import "blocks/SocialMedia/SocialMediaStyle";
 @import "blocks/Spreadsheet";
 @import "blocks/Submenu/SubmenuStyle";
-@import "blocks/TakeActionBoxout/TakeActionBoxoutStyle";
-@import "blocks/Happypoint/HappypointStyle";
-@import "blocks/SocialMedia/SocialMediaStyle";
-@import "blocks/Media";
+@import "blocks/TakeActionBoxout/TakeActionBoxoutStyle.scss";

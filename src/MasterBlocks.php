@@ -2,6 +2,9 @@
 
 namespace P4\MasterTheme;
 
+use P4\MasterTheme\Controllers\EnsapiController;
+use P4\MasterTheme\Blocks\ENForm;
+
 /**
  * Class MasterBlocks
  * The main class that handles Planet4 blocks.
@@ -134,6 +137,52 @@ class MasterBlocks
     }
 
     /**
+     * Get all available EN pages.
+     */
+    public function get_en_pages(): array
+    {
+        $main_settings = get_option('p4en_main_settings');
+
+        // Get EN pages only on admin panel.
+        if (!is_admin() || !isset($main_settings['p4en_private_api'])) {
+            return [];
+        }
+
+        $pages = [];
+        $pages[] = $main_settings['p4en_private_api'];
+        $ens_private_token = $main_settings['p4en_private_api'];
+        $ens_api = new EnsapiController($ens_private_token);
+        $pages = $ens_api->get_pages_by_types_status(ENForm::ENFORM_PAGE_TYPES, 'live');
+        uasort(
+            $pages,
+            function ($a, $b) {
+                return ($a['name'] ?? '') <=> ($b['name'] ?? '');
+            }
+        );
+
+        return $pages;
+    }
+
+    /**
+     * Get all available EN forms.
+     */
+    public function get_en_forms(): array
+    {
+        // Get EN Forms.
+        $query = new \WP_Query(
+            [
+                'post_status' => 'publish',
+                'post_type' => 'p4en_form',
+                'orderby' => 'post_title',
+                'order' => 'asc',
+                'suppress_filters' => false,
+                'posts_per_page' => -1,
+            ]
+        );
+        return $query->posts;
+    }
+
+    /**
      * Add variables reflected from PHP to JS.
      */
     public function reflect_js_variables(): array
@@ -141,6 +190,8 @@ class MasterBlocks
         return [
             'options' => $this->get_p4_options(),
             'features' => $this->get_p4_features(),
+            'pages' => $this->get_en_pages(),
+            'forms' => $this->get_en_forms(),
         ];
     }
 }
