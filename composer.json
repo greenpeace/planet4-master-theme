@@ -46,7 +46,8 @@
     "laminas/laminas-dom": "^2.12",
     "phpunit/phpunit": "^7.5||^9.5",
     "wpackagist-plugin/timber-library": "1.22.*",
-    "yoast/phpunit-polyfills": "^1.0"
+    "yoast/phpunit-polyfills": "^1.1.0",
+    "doctrine/instantiator": "^1.5.0"
   },
   "scripts": {
     "fixes": "vendor/bin/phpcbf",
