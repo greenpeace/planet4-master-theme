@@ -2,11 +2,10 @@ import {HappypointEditor} from './HappypointEditor';
 import {HappypointBlock as HappypointBlockV1} from './deprecated/HappypointBlocklV1.js';
 
 const {registerBlockType} = wp.blocks;
-const {__} = wp.i18n;
 
 export const registerHappypointBlock = () =>
   registerBlockType('planet4-blocks/happypoint', {
-    title: __('Happypoint', 'planet4-blocks-backend'),
+    title: 'Happypoint',
     icon: 'format-image',
     category: 'planet4-blocks',
     supports: {

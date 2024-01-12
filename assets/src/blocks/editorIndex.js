@@ -11,9 +11,9 @@ wp.domReady(() => {
   // Blocks
   registerSubmenuBlock();
   registerTakeActionBoxoutBlock();
+  registerHappypointBlock();
 
   // Beta blocks
   registerActionsList();
   registerPostsListBlock();
-  registerHappypointBlock();
 });
