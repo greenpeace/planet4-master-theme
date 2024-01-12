@@ -8,6 +8,8 @@
 
 namespace P4GBKS\Blocks;
 
+use WP_Block_Type_Registry;
+
 /**
  * Class Gallery_Controller
  *
@@ -38,6 +40,10 @@ class Gallery extends Base_Block {
 	 * Gallery constructor.
 	 */
 	public function __construct() {
+		if ( WP_Block_Type_Registry::get_instance()->is_registered( self::get_full_block_name() ) ) {
+			return;
+		}
+
 		$this->register_gallery_block();
 	}
 
