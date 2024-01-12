@@ -14,7 +14,7 @@ export const setupCountrySelector = () => {
             // This check applies not only to the parent link but also to children
             // In some cases, the country has also different link's languages
             if (countryItem.classList.contains('country-group')) {
-              countryItem.setAttribute('tabIndex', isOpen ? 0 : -1);
+              countryItem.setAttribute('tabIndex', -1);
 
               for (const link of countryItem.querySelectorAll('li')) {
                 link.setAttribute('tabIndex', isOpen ? 0 : -1);
