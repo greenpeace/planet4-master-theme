@@ -115,6 +115,7 @@ add_action(
     'rest_api_init',
     function (): void {
         Rest::register_endpoints();
+        Api\Gallery::register_endpoint();
         Api\Settings::register_endpoint();
     }
 );

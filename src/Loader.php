@@ -155,11 +155,12 @@ final class Loader
         }
 
         new MasterBlocks();//NOSONAR
-        new Blocks\GuestBook();//NOSONAR
-        new Blocks\CarouselHeader();//NOSONAR
         new Blocks\Accordion();//NOSONAR
+        new Blocks\CarouselHeader();//NOSONAR
         new Blocks\Cookies();//NOSONAR
         new Blocks\Counter();//NOSONAR
+        new Blocks\Gallery();//NOSONAR
+        new Blocks\GuestBook();//NOSONAR
 
         if (!BetaBlocks::is_active()) {
             return;
