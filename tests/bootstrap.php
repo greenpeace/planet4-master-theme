@@ -5,6 +5,8 @@
  * @package Planet4_Plugin_Blocks
  */
 
+define( 'WP_DEBUG', false );
+
 $_tests_dir = getenv( 'WP_TESTS_DIR' );
 
 if ( ! $_tests_dir ) {
