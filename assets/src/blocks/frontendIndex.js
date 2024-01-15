@@ -1,5 +1,9 @@
+import {createRoot} from 'react-dom/client';
+import {SubmenuFrontend} from './Submenu/SubmenuFrontend';
+
 // Render React components
 const COMPONENTS = {
+  'planet4-blocks/submenu': SubmenuFrontend,
 };
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -15,7 +19,8 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
       const attributes = JSON.parse(blockNode.dataset.attributes);
-      wp.element.render(<BlockFrontend {...attributes.attributes} />, blockNode);
+      const rootElement = createRoot(blockNode);
+      rootElement.render(<BlockFrontend {...attributes.attributes} />);
     }
   );
 });
