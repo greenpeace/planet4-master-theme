@@ -161,6 +161,7 @@ final class Loader
         new Blocks\Counter();//NOSONAR
         new Blocks\Gallery();//NOSONAR
         new Blocks\GuestBook();//NOSONAR
+        new Blocks\Spreadsheet();//NOSONAR
 
         if (!BetaBlocks::is_active()) {
             return;
