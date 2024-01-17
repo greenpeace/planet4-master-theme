@@ -1,0 +1,61 @@
+{% block take_action_boxout %}
+	{% if ( boxout ) %}
+		<section
+			class="boxout{% if boxout.stickyMobile %} sticky-bottom-mobile collapse show{% endif %}"
+			{{ boxout.stickyMobile ? 'id="action-card"' }}
+		>
+			<a
+				data-ga-category="Take Action Boxout"
+				data-ga-action="Image"
+				data-ga-label="n/a"
+				class="cover-card-overlay"
+				href="{{ boxout.link|default('#') }}" {{ boxout.new_tab and boxout.link ? 'target="_blank"' }}
+			></a>
+			{% if boxout.image %}
+				<img
+						src="{{ boxout.image }}"
+						srcset="{{ boxout.image_srcset }}"
+						sizes="(min-width: 1000px) 358px, (min-width: 780px) 313px, 88px"
+						alt="{{ boxout.image_alt }}" title="{{ boxout.image_alt }}"
+				/>
+			{% endif %}
+			<div class="boxout-content">
+				{% if ( boxout.title ) %}
+					<a
+						class="boxout-heading"
+						data-ga-category="Take Action Boxout"
+						data-ga-action="Title"
+						data-ga-label="n/a"
+						href="{{ boxout.link|default('#') }}"
+						{{ boxout.new_tab and boxout.link ? 'target="_blank"' }}
+					>
+						{{ boxout.title|e('wp_kses_post')|raw }}
+					</a>
+				{% endif %}
+				{% if ( boxout.excerpt ) %}
+					<p class="boxout-excerpt">{{ boxout.excerpt|e('wp_kses_post')|raw }}</p>
+				{% endif %}
+			</div>
+			{% if ( boxout.link and boxout.link_text ) %}
+				<a
+					class="btn btn-primary"
+					data-ga-category="Take Action Boxout"
+					data-ga-action="Call to Action"
+					data-ga-label="n/a"
+					href="{{ boxout.link|default('#') }}"
+					{{ boxout.new_tab and boxout.link ? 'target="_blank"' }}
+				>
+					{{ boxout.link_text }}
+				</a>
+			{% endif %}
+			{% if boxout.stickyMobile %}
+				<a
+					class="not-now"
+					role="button"
+					data-bs-toggle="collapse"
+					href="#action-card"
+				></a>
+			{% endif %}
+		</section>
+	{% endif %}
+{% endblock %}

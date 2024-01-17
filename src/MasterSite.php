@@ -81,7 +81,7 @@ class MasterSite extends TimberSite
     protected function settings(): void
     {
         Timber::$autoescape = true;
-        Timber::$dirname = ['templates', 'views'];
+        Timber::$dirname = ['templates', 'templates/blocks', 'views'];
         $this->theme_dir = get_template_directory_uri();
         $this->theme_images_dir = $this->theme_dir . '/images/';
         $this->sort_options = [
