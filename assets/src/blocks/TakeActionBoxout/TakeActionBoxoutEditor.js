@@ -15,10 +15,10 @@ import {
   MediaUploadCheck,
   InspectorControls,
 } from '@wordpress/block-editor';
-import {URLInput} from '../../components/URLInput/URLInput';
+import {URLInput} from '../../block-editor/URLInput/URLInput';
+import {ImageHoverControls} from '../../block-editor/ImageHoverControls';
 import {TakeActionBoxoutFrontend} from './TakeActionBoxoutFrontend';
 import {ImagePlaceholder} from './ImagePlaceholder';
-import {ImageHoverControls} from '../../components/ImageHoverControls';
 
 const {__} = wp.i18n;
 

@@ -1,4 +1,4 @@
-import {ImagePlaceholderIcon} from '../../components/ImagePlaceholderIcon';
+import {ImagePlaceholderIcon} from '../../block-editor/ImagePlaceholderIcon/ImagePlaceholderIcon';
 
 export const ImagePlaceholder = ({children}) =>
   <div className="boxout-image-placeholder">
