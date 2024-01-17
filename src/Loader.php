@@ -162,6 +162,7 @@ final class Loader
         new Blocks\Gallery();//NOSONAR
         new Blocks\GuestBook();//NOSONAR
         new Blocks\Spreadsheet();//NOSONAR
+        new Blocks\Submenu();//NOSONAR
 
         if (!BetaBlocks::is_active()) {
             return;
