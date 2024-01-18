@@ -1,4 +1,4 @@
-{% set is_listing_page = tag_name is defined or taxonomy is defined or author is defined %}
+{% set is_listing_page = taxonomy is defined or author is defined %}
 {% set is_news_page = page_category == 'News' %}
 
 {% if (post and (1 != fn('post_password_required', post))) or is_listing_page or is_news_page %}

@@ -127,7 +127,7 @@ class CategoryPageTest extends P4TestCase
         $output = TimberHelper::ob_function(
             function (): void {
                 global $wp;
-                include get_template_directory() . '/category.php';
+                include get_template_directory() . '/taxonomy.php';
             }
         );
 

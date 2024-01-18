@@ -16,6 +16,7 @@
 
 use P4\MasterTheme\Context;
 use P4\MasterTheme\Post;
+use P4\MasterTheme\ListingPage;
 use Timber\Timber;
 
 $context = Timber::get_context();
@@ -42,41 +43,8 @@ if (is_home()) {
 
     array_unshift($templates, 'all-posts.twig');
 
-    if (!empty(planet4_get_option('new_ia'))) {
-        $template = file_get_contents(get_template_directory() . "/parts/query-listing-page.html");
-        $content = do_blocks($template);
-        $context['listing_page_content'] = $content;
-        $context['page_category'] = 'News';
-        Timber::render($templates, $context);
-        exit();
-    }
-
-    // Only applied to the "Load More" feature.
-    if (null !== get_query_var('page_num')) {
-        $wp_query->query_vars['page'] = get_query_var('page_num');
-    }
-
-    $post_args = [
-        'posts_per_page' => 10,
-        'post_type' => 'post',
-        'paged' => 1,
-        'has_password' => false, // Skip password protected content.
-    ];
-
-    if (get_query_var('page')) {
-        $templates = [ 'tease-taxonomy-post.twig' ];
-        $post_args['paged'] = get_query_var('page');
-        $pagetype_posts = new \Timber\PostQuery($post_args, Post::class);
-        foreach ($pagetype_posts as $pagetype_post) {
-            $context['post'] = $pagetype_post;
-            Timber::render($templates, $context);
-        }
-    } else {
-        $pagetype_posts = new \Timber\PostQuery($post_args, Post::class);
-        $context['posts'] = $pagetype_posts;
-        $context['url'] = home_url($wp->request);
-        Timber::render($templates, $context);
-    }
+    $page = new ListingPage($templates, $context);
+    $page->view();
 } else {
     Timber::render($templates, $context);
 }

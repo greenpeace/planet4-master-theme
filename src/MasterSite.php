@@ -307,6 +307,17 @@ class MasterSite extends TimberSite
         }
 
         $this->register_meta_fields();
+
+        // Override category template to use taxonomy.php.
+        add_filter(
+            'template_include',
+            function ($tax_template) {
+                if (!is_category()) {
+                    return $tax_template;
+                }
+                return get_template_directory() . '/taxonomy.php';
+            }
+        );
     }
 
     /**
