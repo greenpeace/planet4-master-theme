@@ -30,8 +30,6 @@ class Spreadsheet extends BaseBlock
 
     private const CACHE_LIFETIME = 30;
 
-    private const REST_NAMESPACE = 'planet4/v1';
-
     /**
      * Spreadsheet Table constructor.
      */
