@@ -16,6 +16,7 @@ namespace P4\MasterTheme\Blocks;
 abstract class BaseBlock
 {
     public const NAMESPACE = 'planet4-blocks';
+    public const REST_NAMESPACE = 'planet4/v1';
 
     /**
      * Get all the data that will be needed to render the block correctly.
