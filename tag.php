@@ -12,7 +12,7 @@
 
 use P4\MasterTheme\Context;
 use P4\MasterTheme\Post;
-use P4\MasterTheme\TaxonomyCampaign;
+use P4\MasterTheme\ListingPage;
 use Timber\Timber;
 
 if (!is_tag()) {
@@ -21,14 +21,6 @@ if (!is_tag()) {
 
 $tag = get_queried_object();
 $redirect_id = get_term_meta($tag->term_id, 'redirect_page', true);
-$featured_action = get_posts([
-    'post_type' => 'p4_action',
-    'tag_id' => $tag->term_id,
-    'orderby' => 'date',
-    'order' => 'DESC',
-    'numberposts' => 1,
-])[0] ?? null;
-$featured_action_id = $featured_action->ID ?? null;
 
 if ($redirect_id) {
     global $wp_query;
@@ -50,24 +42,13 @@ if ($post instanceof \WP_Post) {
     Context::set_og_meta_fields($context, $post);
 }
 
-$context['tag'] = $tag;
+$context['taxonomy'] = $tag;
 $context['tag_name'] = single_tag_title('', false);
-$context['tag_description'] = wpautop($context['tag']->description);
-$context['canonical_link'] = home_url($wp->request);
-$context['og_type'] = 'website';
-$context['featured_action'] = $featured_action;
-$context['featured_action_image'] = has_post_thumbnail($featured_action_id) ?
-    get_the_post_thumbnail($featured_action_id, 'medium') : null;
-$context['featured_action_url'] = get_permalink($featured_action_id);
+$context['tag_description'] = wpautop($tag->description);
 
 // Temporary fix with rewind, cf. https://github.com/WordPress/gutenberg/issues/53593
 rewind_posts();
-$context['page_category'] = 'Listing Page';
-$template = file_get_contents(get_template_directory() . "/parts/query-listing-page.html");
-$content = do_blocks($template);
-$context['listing_page_content'] = $content;
-Context::set_news_page_link($context);
 
 $templates = ['tag.twig', 'archive.twig', 'index.twig'];
-$campaign = new TaxonomyCampaign($templates, $context);
-$campaign->view();
+$page = new ListingPage($templates, $context);
+$page->view();

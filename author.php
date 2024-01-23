@@ -12,8 +12,8 @@
 
 use P4\MasterTheme\User;
 use P4\MasterTheme\Post;
+use P4\MasterTheme\ListingPage;
 use Timber\Timber;
-use Timber\PostQuery;
 
 $context = Timber::get_context();
 
@@ -42,43 +42,20 @@ if (isset($wp_query->query_vars['author'])) {
         'width' => '300',
         'height' => '300',
     ];
-    $context['og_type'] = 'profile';
 
     $author_share_buttons = new stdClass();
     $author_share_buttons->title = $author->name;
     $author_share_buttons->description = get_the_author_meta('description', $author->ID);
     $author_share_buttons->link = $author->link;
     $context['author_share_buttons'] = $author_share_buttons;
-    $context['canonical_link'] = home_url($wp->request);
 }
 
-if (!empty(planet4_get_option('new_ia'))) {
-    // Adjust global query to exclude author override.
-    // We can remove this once we convert author overrides to actual users.
-    $wp_query->query_vars['meta_key'] = 'p4_author_override';
-    $wp_query->query_vars['meta_compare'] = 'NOT EXISTS';
-    $wp_query->query_vars['has_password'] = false;
-    $template = file_get_contents(get_template_directory() . "/parts/query-listing-page.html");
-    $content = do_blocks($template);
-    $context['listing_page_content'] = $content;
-    $context['page_category'] = 'Listing Page';
-    Timber::render([ 'author.twig', 'archive.twig' ], $context);
-    exit();
-}
+// Adjust global query to exclude author override.
+// We can remove this once we convert author overrides to actual users.
+$wp_query->query_vars['meta_key'] = 'p4_author_override';
+$wp_query->query_vars['meta_compare'] = 'NOT EXISTS';
+$wp_query->query_vars['has_password'] = false;
 
-if (get_query_var('page')) {
-    $templates = [ 'tease-author.twig' ];
-    $page_num = get_query_var('page');
-    $post_args['paged'] = $page_num;
-
-    $author_posts = new PostQuery($post_args, Post::class);
-    foreach ($author_posts as $author_post) {
-        $context['post'] = $author_post;
-        Timber::render($templates, $context);
-    }
-} else {
-    $templates = [ 'author.twig', 'archive.twig' ];
-    $context['posts'] = new PostQuery($post_args, Post::class);
-
-    Timber::render($templates, $context);
-}
+$templates = ['author.twig', 'archive.twig'];
+$page = new ListingPage($templates, $context);
+$page->view();

@@ -127,12 +127,12 @@ class CategoryPageTest extends P4TestCase
         $output = TimberHelper::ob_function(
             function (): void {
                 global $wp;
-                include get_template_directory() . '/category.php';
+                include get_template_directory() . '/taxonomy.php';
             }
         );
 
         // Test that contains 10 posts in the markup.
-        $this->assertSelectorCount(10, 'li.search-result-list-item', $output);
+        $this->assertSelectorCount(10, 'li.wp-block-post', $output);
     }
 
     /**
