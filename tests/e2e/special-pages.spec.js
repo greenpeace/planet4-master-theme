@@ -33,7 +33,7 @@ test('Test special pages (Act and Explore)', async ({page, requestUtils, admin})
     // Set the 2 new pages instead.
     await page.selectOption('#act_page', actPage.id.toString());
     await page.selectOption('#explore_page', explorePage.id.toString());
-    await page.locator('input[type="submit"]').click();
+    await page.getByRole('button', {name: 'Save'}).click();
     await page.locator('.notice-success').isVisible();
 
     // Go to each page and make sure they have the right datalayer "pageType" value.
@@ -57,7 +57,7 @@ test('Test special pages (Act and Explore)', async ({page, requestUtils, admin})
     await page.waitForSelector('#explore_page');
     await page.selectOption('#act_page', previousActPage);
     await page.selectOption('#explore_page', previousExplorePage);
-    await page.locator('input[type="submit"]').click();
+    await page.getByRole('button', {name: 'Save'}).click();
     await page.locator('.notice-success').isVisible();
   }
 });
