@@ -132,7 +132,7 @@ class CategoryPageTest extends P4TestCase
         );
 
         // Test that contains 10 posts in the markup.
-        $this->assertSelectorCount(10, 'li.search-result-list-item', $output);
+        $this->assertSelectorCount(10, 'li.wp-block-post', $output);
     }
 
     /**
