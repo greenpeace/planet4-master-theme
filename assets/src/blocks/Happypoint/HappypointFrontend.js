@@ -64,8 +64,6 @@ export const HappypointFrontend = ({
                 <iframe
                   src={url}
                   cellSpacing={0}
-                  frameBorder={0}
-                  scrolling="no"
                   width="100%"
                   loading="lazy"
                   title="Happy Point"
