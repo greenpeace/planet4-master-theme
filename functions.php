@@ -497,3 +497,11 @@ add_filter(
     10,
     2
 );
+
+if (class_exists('\\Sentry\\Options')) {
+    add_filter('wp_sentry_options', function (\Sentry\Options $options) {
+        // Only sample 25% of the events
+        $options->setSampleRate(0.25);
+        return $options;
+    });
+}
