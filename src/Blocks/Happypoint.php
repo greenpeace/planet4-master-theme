@@ -88,19 +88,18 @@ class Happypoint extends BaseBlock
     /**
      * Get the required data for the frontend.
      *
-     * @param int $id Image id.
+     * @param object $fields This object contains image search params, such as `id`.
      *
      * @return array Image data.
      */
-    public static function get_data(int $id): array
+    public static function get_data(object $fields): array
     {
-        $data = [];
         $options = get_option('planet4_options');
-        $p4_happy_point_bg_image = $options['happy_point_bg_image_id'] ?? '';
-        $image_id = $id ? $id : $p4_happy_point_bg_image;
+        $image_id = $fields['id'] ? $fields['id'] : $options['happy_point_bg_image_id'];
         $img_meta = wp_get_attachment_metadata($image_id);
         $image_alt = get_post_meta($image_id, '_wp_attachment_image_alt', true);
 
+        $data = [];
         $data['background_src'] = wp_get_attachment_image_src($image_id, 'retina-large')[0] ?? false;
         $data['background_srcset'] = wp_get_attachment_image_srcset($image_id, 'retina-large', $img_meta);
         $data['background_sizes'] = wp_calculate_image_sizes('retina-large', null, null, $image_id);
@@ -128,7 +127,7 @@ class Happypoint extends BaseBlock
                     },
                     'methods' => WP_REST_Server::READABLE,
                     'callback' => static function ($fields) {
-                        $to_return = self::get_data($fields['id']);
+                        $to_return = self::get_data($fields);
                         return rest_ensure_response($to_return);
                     },
                 ],
