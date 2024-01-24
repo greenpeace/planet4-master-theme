@@ -949,7 +949,7 @@ class MasterSite extends TimberSite
             'default',
             array(
                 'id' => 'post-revisions-field',
-                'option_name' => 'revisions_to_keep'
+                'option_name' => 'revisions_to_keep',
             )
         );
     }
