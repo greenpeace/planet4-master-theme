@@ -2,9 +2,6 @@
 
 /**
  * Cookies block class.
- *
- * @package P4GBKS
- * @since 0.1
  */
 
  namespace P4\MasterTheme\Blocks;
