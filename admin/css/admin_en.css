@@ -1,0 +1,30 @@
+.enform-required-field {
+  border-color: #f75848 !important;
+}
+
+#fields_list_box, #questions_list_box, #optins_list_box {
+  max-height: 400px;
+  overflow: auto;
+}
+
+#meta-box-selected .inside {
+  overflow-x: auto;
+}
+
+.add-en-field, .remove-en-field, .pointer {
+  cursor: pointer;
+}
+
+.ui-tooltip {
+  background: #444;
+  border-radius: 5px;
+  box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, .75);
+  color: white;
+  display: inline-block;
+  padding: 10px;
+  width: 100px;
+}
+
+tr.not-tagged-field {
+  background-color: #faffd3 !important;
+}

@@ -115,6 +115,30 @@ final class Loader
                 // phpcs:enable
                 $this->default_services[] = Importer::class;
             }
+
+            if (Planet4Blocks::is_active()) {
+                if (! defined('P4_MASTER_THEME_EN_SLUG_NAME')) {
+                    define('P4_MASTER_THEME_EN_SLUG_NAME', 'engagingnetworks');
+                }
+
+                if (! defined('P4_MASTER_THEME_ADMIN_DIR')) {
+                    define('P4_MASTER_THEME_ADMIN_DIR', get_template_directory_uri() . '/admin/');
+                }
+
+                if (! defined('P4_MASTER_THEME_LANGUAGES')) {
+                    define(
+                        'P4_MASTER_THEME_LANGUAGES',
+                        [
+                            'en_US' => 'English',
+                            'el_GR' => 'Ελληνικά',
+                        ]
+                    );
+                }
+
+                $this->default_services[] = Controllers\Api\RestController::class;
+                // $this->default_services[] = Controllers\Menu\EnformPostController::class;
+                // $this->default_services[] = Controllers\Menu\EnSettingsController::class;
+            }
         }
 
         // Run Activator after theme switched to planet4-master-theme or a planet4 child theme.
