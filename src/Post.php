@@ -5,7 +5,6 @@ namespace P4\MasterTheme;
 use Timber\Post as TimberPost;
 use WP_Block;
 use WP_Error;
-use WP_Query;
 
 /**
  * Add planet4 specific functionality.
@@ -63,30 +62,21 @@ class Post extends TimberPost
      */
     public function set_data_layer(): void
     {
-        $is_new_ia = !empty(planet4_get_option('new_ia'));
         $new_ia_child_page_DLV = $this->get_new_ia_child_page_DLV();
 
         if (is_front_page()) {
             $this->data_layer['page_category'] = 'Homepage';
-        } elseif (!$is_new_ia && $this->is_act_page()) {
-            $this->data_layer['page_category'] = 'Actions';
-        } elseif (!$is_new_ia && $this->is_explore_page()) {
-            $this->data_layer['page_category'] = 'Explore';
-        } elseif (!$is_new_ia && $this->is_act_page_child()) {
-            $this->data_layer['page_category'] = 'Actions';
-        } elseif (!$is_new_ia && $this->is_issue_page()) {
-            $this->data_layer['page_category'] = 'Issue Page';
         } elseif ($this->is_campaign_page()) {
             $this->data_layer['page_category'] = 'Campaign Page';
         } elseif (is_tag()) {
             $this->data_layer['page_category'] = 'Tag Page';
-        } elseif ($is_new_ia && $this->is_get_informed_page()) {
+        } elseif ($this->is_get_informed_page()) {
             $this->data_layer['page_category'] = 'Get Informed Page';
-        } elseif ($is_new_ia && $this->is_take_action_page()) {
+        } elseif ($this->is_take_action_page()) {
             $this->data_layer['page_category'] = 'Actions';
-        } elseif ($is_new_ia && $this->is_about_us_page()) {
+        } elseif ($this->is_about_us_page()) {
             $this->data_layer['page_category'] = 'About Us Page';
-        } elseif ($is_new_ia && $new_ia_child_page_DLV) {
+        } elseif ($new_ia_child_page_DLV) {
             $this->data_layer['page_category'] = $new_ia_child_page_DLV;
         } else {
             $this->data_layer['page_category'] = 'Default Page';
@@ -99,75 +89,6 @@ class Post extends TimberPost
     public function get_data_layer(): array
     {
         return $this->data_layer;
-    }
-
-    /**
-     * Checks if post is the Act page.
-     *
-     */
-    public function is_act_page(): bool
-    {
-        $act_page_id = planet4_get_option('act_page');
-
-        return absint($act_page_id) === $this->id;
-    }
-
-    /**
-     * Checks if post is the Explore page.
-     *
-     */
-    public function is_explore_page(): bool
-    {
-        $explore_page_id = planet4_get_option('explore_page');
-        return absint($explore_page_id) === $this->id;
-    }
-
-    /**
-     * Checks if post is a Take Action page (child of act page).
-     *
-     */
-    public function is_act_page_child(): bool
-    {
-        $act_page_id = planet4_get_option('act_page');
-        $pages = [];
-
-        if (0 !== absint($act_page_id)) {
-            $take_action_pages_args = [
-                'post_type' => 'page',
-                'post_parent' => $act_page_id,
-                'numberposts' => -1,
-                'fields' => 'ids',
-                'suppress_filters' => false,
-            ];
-
-            $pages = get_posts($take_action_pages_args);
-        }
-
-        return in_array($this->id, $pages, true);
-    }
-
-    /**
-     * Checks if post is an Issue page (child of explore page).
-     *
-     */
-    public function is_issue_page(): bool
-    {
-        $explore_page_id = planet4_get_option('explore_page');
-        $pages = [];
-
-        if (0 !== absint($explore_page_id)) {
-            $issue_pages_args = [
-                'post_type' => 'page',
-                'post_parent' => $explore_page_id,
-                'numberposts' => -1,
-                'fields' => 'ids',
-                'suppress_filters' => false,
-            ];
-
-            $pages = get_posts($issue_pages_args);
-        }
-
-        return in_array($this->id, $pages, true);
     }
 
     /**
@@ -243,58 +164,15 @@ class Post extends TimberPost
     {
         // Retrieve P4 settings in order to check that we add only categories that are children of the Issues category.
         $options = get_option('planet4_options');
-        $explore_page_id = $options['explore_page'] ?? '';
         $categories = get_the_category($this->ID);
 
-        if (!empty(planet4_get_option('new_ia'))) {
-            $this->issues_nav_data = array_map(
-                fn ($category) => [
-                    'name' => $category->name,
-                    'link' => get_term_link($category),
-                ],
-                array_filter($categories, fn ($category) => 'uncategorised' !== $category->slug)
-            );
-            return;
-        }
-
-        // Handle navigation links.
-        if (!$categories) {
-            return;
-        }
-
-        $categories_ids = [];
-
-        foreach ($categories as $category) {
-            $categories_ids[] = $category->term_id;
-        }
-        // Get the Issue pages that are relevant to the Categories of the current Post.
-        if (!$categories_ids || !$explore_page_id) {
-            return;
-        }
-
-        $args = [
-            'post_parent' => $explore_page_id,
-            'post_type' => 'page',
-            'post_status' => 'publish',
-        ];
-
-        $args['category__in'] = $categories_ids;
-        $issues = (new WP_Query($args))->posts;
-
-        if (!$issues) {
-            return;
-        }
-
-        foreach ($issues as $issue) {
-            if (!$issue || $this->post_parent === (int) $explore_page_id) {
-                continue;
-            }
-
-            $this->issues_nav_data[] = [
-                'name' => $issue->post_title,
-                'link' => get_permalink($issue),
-            ];
-        }
+        $this->issues_nav_data = array_map(
+            fn ($category) => [
+                'name' => $category->name,
+                'link' => get_term_link($category),
+            ],
+            array_filter($categories, fn ($category) => 'uncategorised' !== $category->slug)
+        );
     }
 
     /**
