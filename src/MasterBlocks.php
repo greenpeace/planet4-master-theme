@@ -36,6 +36,8 @@ class MasterBlocks
             return $categories;
         });
 
+        add_filter( 'timber/twig', 'p4_blocks_en_forms_twig_filters' );
+
         // Admin scripts.
         add_action('enqueue_block_editor_assets', [ $this, 'enqueue_block_editor_script' ]);
         // Frontend scripts.
@@ -193,5 +195,30 @@ class MasterBlocks
             'pages' => $this->get_en_pages(),
             'forms' => $this->get_en_forms(),
         ];
+    }
+
+    /**
+     * Adds functionality to Twig.
+     *
+     * @param \Twig\Environment $twig The Twig environment.
+     * @return \Twig\Environment
+     */
+    function p4_blocks_en_forms_twig_filters(\Twig\Environment $twig): \Twig\Environment
+    {
+        // Adding functions as filters.
+        $twig->addFilter(
+            new Twig_SimpleFilter(
+                'object_to_array',
+                function ($std_class_object) {
+                    $response = [];
+                    foreach ($std_class_object as $key => $value) {
+                        $response[$key] = $value;
+                    }
+                    return $response;
+                }
+            )
+        );
+
+        return $twig;
     }
 }

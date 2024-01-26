@@ -225,7 +225,7 @@ class ENForm extends BaseBlock
      *
      * @return array The campaign data.
      */
-    private static function get_campaign_data(WP_POST $post): array
+    private static function get_campaign_data(WP_Post $post): array
     {
         $page_meta_data = get_post_meta($post->ID);
         if (!empty($page_meta_data['theme'])) {
