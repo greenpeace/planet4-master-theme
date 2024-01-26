@@ -35,7 +35,7 @@ class Like {
 
 		if ( 'core' === $block_ns ) {
 			$block = '%';
-		} elseif ( 0 === strpos( $block_name, 'core/' ) ) {
+		} elseif ( $block_name && 0 === strpos( $block_name, 'core/' ) ) {
 			$block = explode( '/', $block_name )[1];
 		} else {
 			$name  = $block_name ? $block_name : '%';
