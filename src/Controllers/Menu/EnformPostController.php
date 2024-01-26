@@ -47,9 +47,9 @@ class EnformPostController extends Controller
         add_shortcode(self::POST_TYPE, [$this, 'handle_form_shortcode']);
         add_filter('post_row_actions', [$this, 'modify_post_row_actions'], 10, 2);
 
-        add_action('add_meta_boxes', [$this, 'add_form_meta_box'], 10);
-        add_action('add_meta_boxes', [$this, 'add_selected_meta_box'], 11);
-        add_action('add_meta_boxes', [$this, 'add_fields_meta_box'], 12);
+        add_action('add_meta_boxes', [$this, 'add_form_meta_box'], 10, 2);
+        add_action('add_meta_boxes', [$this, 'add_selected_meta_box'], 11, 2);
+        add_action('add_meta_boxes', [$this, 'add_fields_meta_box'], 12, 2);
         add_action('add_meta_boxes', [$this, 'add_questions_custom_box']);
         add_action('add_meta_boxes', [$this, 'add_optins_custom_box']);
         add_action('save_post_' . self::POST_TYPE, [$this, 'save_fields_meta_box'], 10, 2);
@@ -169,7 +169,7 @@ class EnformPostController extends Controller
      *
      * @return array  The filtered actions array.
      */
-    public function modify_post_row_actions(array $actions, \WP_POST $post): array
+    public function modify_post_row_actions(array $actions, \WP_Post $post): array
     {
         // Check if post is of p4en_form_post type.
         if (self::POST_TYPE === $post->post_type) {
@@ -226,9 +226,11 @@ class EnformPostController extends Controller
     /**
      * Creates a Meta box for the Selected Components of the current EN Form.
      *
+     * @param string   $post_type The current post type (unused).
      * @param \WP_Post $post The currently Added/Edited EN Form.
+     * phpcs:disable SlevomatCodingStandard.Functions.UnusedParameter
      */
-    public function add_form_meta_box(\WP_POST $post): void
+    public function add_form_meta_box(string $post_type, \WP_Post $post): void
     {
         add_meta_box(
             'meta-box-form',
@@ -240,13 +242,14 @@ class EnformPostController extends Controller
             $post
         );
     }
+    // phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter
 
     /**
      * View an EN form.
      *
      * @param \WP_Post $post The currently Added/Edited EN Form.
      */
-    public function view_meta_box_form(\WP_POST $post): void
+    public function view_meta_box_form(\WP_Post $post): void
     {
         echo do_shortcode('[' . self::POST_TYPE . ' id="' . $post->ID . '" /]');
     }
@@ -254,9 +257,11 @@ class EnformPostController extends Controller
     /**
      * Creates a Meta box for the Selected Components of the current EN Form.
      *
+     * @param string   $post_type The current post type (unused).
      * @param \WP_Post $post The currently Added/Edited EN Form.
+     * phpcs:disable SlevomatCodingStandard.Functions.UnusedParameter
      */
-    public function add_selected_meta_box(\WP_POST $post): void
+    public function add_selected_meta_box(string $post_type, \WP_Post $post): void
     {
         add_meta_box(
             'meta-box-selected',
@@ -268,13 +273,14 @@ class EnformPostController extends Controller
             $post
         );
     }
+    // phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter
 
     /**
      * Prepares data to render the Selected Components meta box.
      *
      * @param \WP_Post $post The currently Added/Edited EN Form.
      */
-    public function view_selected_meta_box(\WP_POST $post): void
+    public function view_selected_meta_box(\WP_Post $post): void
     {
         $form_fields = get_post_meta($post->ID, self::FIELDS_META, true);
         $this->view->en_selected_meta_box(
@@ -287,9 +293,11 @@ class EnformPostController extends Controller
     /**
      * Adds available fields custom meta box to p4en_form edit post page.
      *
+     * @param string   $post_type The current post type (unused).
      * @param \WP_Post $post The currently Added/Edited EN Form.
+     * phpcs:disable SlevomatCodingStandard.Functions.UnusedParameter
      */
-    public function add_fields_meta_box(\WP_POST $post): void
+    public function add_fields_meta_box(string $post_type, \WP_Post $post): void
     {
         add_meta_box(
             'fields_list_box',
@@ -301,6 +309,7 @@ class EnformPostController extends Controller
             $post
         );
     }
+    // phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter
 
     /**
      * Display fields custom box content.
@@ -417,12 +426,11 @@ class EnformPostController extends Controller
         wp_enqueue_style('wp-jquery-ui-dialog');
         wp_enqueue_style(
             'p4en_admin_style_blocks',
-            P4_MASTER_THEME_ADMIN_DIR . 'css/admin_en.css',
+            get_template_directory_uri() . '/admin/css/admin_en.css',
             [],
-            \P4\MasterTheme\Loader::file_ver(P4_MASTER_THEME_ADMIN_DIR . 'css/admin_en.css'),
+            \P4\MasterTheme\Loader::theme_file_ver('admin/css/admin_en.css'),
         );
-        \P4\MasterTheme\Loader::enqueue_local_script(
-            'enforms',
+        \P4\MasterTheme\Loader::enqueue_versioned_script(
             'admin/js/enforms.js',
             [
                 'jquery',
@@ -434,7 +442,7 @@ class EnformPostController extends Controller
     /**
      * Saves the p4 enform fields of the Post.
      *
-     * @param int      $post_id The ID of the current Post.
+     * @param int             $post_id The ID of the current Post.
      * @param \WP_Post $post The current Post.
      * phpcs:disable SlevomatCodingStandard.Functions.UnusedParameter
      */

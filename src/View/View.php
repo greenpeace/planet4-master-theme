@@ -4,7 +4,7 @@
  * View class
  */
 
-namespace P4\MasterTheme\Views;
+namespace P4\MasterTheme\View;
 
 use Timber\Timber;
 
@@ -20,7 +20,7 @@ class View
     private string $template_override_subdir = '/templates/plugins/planet4-plugin-gutenberg-blocks/includes/';
 
     /**
-     * Creates the plugin's View object.
+     * Creates the View object.
      */
     public function __construct()
     {

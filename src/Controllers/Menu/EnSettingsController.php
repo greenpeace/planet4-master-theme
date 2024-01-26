@@ -32,7 +32,7 @@ class EnSettingsController extends Controller
                 'edit_pages',
                 P4_MASTER_THEME_EN_SLUG_NAME,
                 '',
-                P4_MASTER_THEME_ADMIN_DIR . 'images/en.png'
+                get_template_directory_uri() . '/images/en.png'
             );
 
             add_submenu_page(

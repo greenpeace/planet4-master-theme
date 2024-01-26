@@ -6,7 +6,7 @@
 
 namespace P4\MasterTheme\Controllers\Menu;
 
-use P4\MasterTheme\Views\View;
+use P4\MasterTheme\View\View;
 
 if (! class_exists('Controller')) {
 
