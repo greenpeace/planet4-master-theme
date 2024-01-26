@@ -69,7 +69,7 @@ class M025CreateDefaultPostsPage extends MigrationScript
                 'element_type' => $wpml_element_type, // post_page
                 'trid' => $original_post_language_info->trid,
                 'language_code' => $locale,
-                'source_language_code' => $default_locale
+                'source_language_code' => $default_locale,
             );
 
             do_action('wpml_set_element_language_details', $set_language_args);
