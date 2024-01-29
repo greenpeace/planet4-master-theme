@@ -1,6 +1,10 @@
 .actions-list {
   margin-bottom: $sp-4;
 
+  & > .wp-block-heading, & > p {
+    width: 100%;
+  }
+
   .wp-block-post {
     box-shadow: 0 1px 8px rgba(0, 0, 0, 0.16);
     transition: box-shadow 0.2s;
@@ -79,5 +83,22 @@
   .wp-block-group .btn-primary {
     margin-bottom: $sp-3;
     margin-inline-end: $sp-3;
+  }
+
+  &.is-custom-layout-grid {
+    display: block !important;
+
+    .wp-block-post-template {
+      display: grid;
+      gap: $sp-2;
+
+      @include medium-and-up {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      @include large-and-up {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
   }
 }

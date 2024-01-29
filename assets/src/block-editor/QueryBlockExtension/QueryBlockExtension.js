@@ -8,9 +8,9 @@ const {__} = wp.i18n;
 const targetBlocks = ['core/post-template'];
 
 const layoutTypes = [
-  {label: 'List', value: 'default', columnCount: 3},
   {label: 'Grid', value: 'grid', columnCount: 3},
   {label: 'Carousel', value: 'flex', columnCount: 6},
+  // {label: 'List', value: 'default', columnCount: 3}, // This might be enabled within Posts List
 ];
 
 export const setupQueryBlockExtension = function() {

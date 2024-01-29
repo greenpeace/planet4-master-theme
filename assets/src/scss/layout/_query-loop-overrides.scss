@@ -16,6 +16,10 @@
       margin: 0 0 48px 0 !important;
     }
 
+    .carousel {
+      width: 100%;
+    }
+
     .carousel-indicators {
       display: none;
     }
@@ -74,7 +78,6 @@
         top: 0;
         bottom: 0;
         margin: auto;
-        margin-left: -$sp-3;
 
         .wp-block-button {
           overflow: hidden;
@@ -121,7 +124,6 @@
     @include x-large-and-up {
       .carousel-controls {
         width: calc(100% + calc($sp-8 * 2));
-        margin-left: -$sp-8;
       }
     }
   }
