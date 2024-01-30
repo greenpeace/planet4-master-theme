@@ -4,7 +4,7 @@ msgstr ""
 "=0)))? 2 : 1));\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2024-01-30 10:01+0000\n"
+"PO-Revision-Date: 2024-01-30 10:02+0000\n"
 "Language-Team: Romanian\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -352,7 +352,7 @@ msgstr "Selectat"
 
 #: templates/cookies.twig:18
 msgid "Settings"
-msgstr ""
+msgstr "Mai multe setări"
 
 #: templates/blocks/share_buttons.twig:44
 #: templates/blocks/share_buttons.twig:53
