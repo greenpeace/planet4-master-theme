@@ -35,6 +35,8 @@ class ListingPage
         $this->context = $context;
 
         $this->update_context();
+
+        add_action('rest_api_init', [ self::class, 'register_endpoints' ]);
     }
 
     /**
