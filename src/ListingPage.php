@@ -68,8 +68,11 @@ class ListingPage
      */
     private function set_featured_action(): void
     {
-        $taxonomy = $this->context['taxonomy'];
-        if ($taxonomy->taxonomy !== 'category' && ! is_tag()) {
+        $taxonomy = $this->context['taxonomy'] ?? null;
+        if (
+            !$taxonomy
+            || ($taxonomy->taxonomy !== 'category' && ! is_tag())
+        ) {
             return;
         }
 
