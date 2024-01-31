@@ -4,7 +4,7 @@ jQuery($ => {
   /**
    * Event listener for add field/question button.
    */
-  $('.add-en-field').off('click').on('click', function (e) {
+  $('.add-en-field').off('click').on('click', e => {
     e.preventDefault();
 
     $(this).prop('disabled', true);

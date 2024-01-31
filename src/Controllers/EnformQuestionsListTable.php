@@ -116,7 +116,8 @@ class EnformQuestionsListTable extends \WP_List_Table
      *
      * @return string Content for column.
      */
-    protected function column_default(object $item, string $column_name): string
+    // phpcs:ignore SlevomatCodingStandard.TypeHints.ParameterTypeHint -- compatible with parent class
+    protected function column_default($item, $column_name): string
     {
         switch ($column_name) {
             case 'id':
@@ -159,7 +160,8 @@ class EnformQuestionsListTable extends \WP_List_Table
      *
      * @see \WP_List_Table::display_tablenav
      */
-    protected function display_tablenav(string $which): void
+    // phpcs:ignore SlevomatCodingStandard.TypeHints.ParameterTypeHint -- compatible with parent class
+    protected function display_tablenav($which): void
     {
         if (empty($this->error) || 'top' !== $which) {
             return;
