@@ -6,7 +6,7 @@
 
 namespace P4\MasterTheme\Controllers\Menu;
 
-use P4\MasterTheme\Features;
+use P4\MasterTheme\Settings\Features;
 use P4\MasterTheme\MigrationLog;
 use P4\MasterTheme\Migrations\M001EnableEnFormFeature;
 

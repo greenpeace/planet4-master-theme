@@ -145,14 +145,14 @@
 				{% set errorMessage = __( 'Please select a country.', 'planet4-engagingnetworks' ) %}
 				<div class="en__field en__field--select en__field--{{ field.id }}">
 					<div class="en__field__element en__field__element--select form-group">
-						{% include 'blocks/enform/country_select.twig' with { errorMessage: errorMessage } %}
+						{% include 'block_templates/enform/country_select.twig' with { errorMessage: errorMessage } %}
 					</div>
 				</div>
 			{% elseif 'position' == field.input_type %}
 				{% set errorMessage = __( 'Please select a position.', 'planet4-engagingnetworks' ) %}
 				<div class="en__field en__field--select en__field--{{ field.id }}">
 					<div class="en__field__element en__field__element--select form-group">
-						{% include 'blocks/enform/position_select.twig' with { errorMessage: errorMessage } %}
+						{% include 'block_templates/enform/position_select.twig' with { errorMessage: errorMessage } %}
 					</div>
 				</div>
 			{% endif %}

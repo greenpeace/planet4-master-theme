@@ -11,6 +11,9 @@ namespace P4\MasterTheme\Blocks;
 
 use P4\MasterTheme\Controllers\EnsapiController;
 use WP_Post;
+use WP_REST_Request;
+use WP_REST_Server;
+use WP_Error;
 
 /**
  * Class ENForm
@@ -129,6 +132,8 @@ class ENForm extends BaseBlock
 
         add_action('enqueue_block_editor_assets', [self::class, 'enqueue_editor_assets']);
         add_action('wp_enqueue_scripts', [self::class, 'enqueue_frontend_assets']);
+
+        add_action('rest_api_init', [ self::class, 'register_endpoints' ]);
     }
 
     /**
@@ -338,5 +343,116 @@ class ENForm extends BaseBlock
         $ens_api = new EnsapiController($ens_private_token, false);
 
         return $ens_api->get_public_session_token();
+    }
+
+    /**
+     * Endpoint to retrieve the data for the ENform block
+     */
+    public static function register_endpoints(): void
+    {
+        register_rest_route(
+            self::REST_NAMESPACE,
+            '/enform/(?P<en_page_id>\d+)',
+            [
+                [
+                    'methods' => WP_REST_Server::CREATABLE,
+                    'callback' => static function (WP_REST_Request $request) {
+                        return self::send_enform($request);
+                    },
+                    'permission_callback' => static function () {
+                        return true;
+                    },
+                ],
+            ]
+        );
+    }
+
+    /**
+     * Function to send an ENForm.
+     *
+     * @param WP_REST_Request $request the form data.
+     */
+    private static function send_enform(WP_REST_Request $request): array|WP_Error
+    {
+        $form = $request->get_json_params();
+        $token = self::get_session_token();
+        $en_page_id = (int) $request['en_page_id'] ?? null;
+        if (! $en_page_id) {
+            self::log_message('Invalid EN page ID', ['page_id' => $en_page_id]);
+            return new WP_Error(
+                'no_en_page_id',
+                'Invalid EN page ID',
+                ['status' => 404]
+            );
+        }
+
+        $form = apply_filters('planet4_enform_data', $form, $en_page_id);
+        $request = [
+            'url' => 'https://e-activist.com/ens/service/page/' . $en_page_id . '/process',
+            'args' => [
+                'headers' => [
+                    'content-type' => 'application/json',
+                    'ens-auth-token' => $token,
+                ],
+                'body' => wp_json_encode($form),
+            ],
+        ];
+        $response = wp_remote_post($request['url'], $request['args']);
+
+        if (is_wp_error($response)) {
+            self::log_message(
+                'Error submitting EN form',
+                [
+                    'en_api_request' => $request,
+                    'wp_error' => $response->get_all_error_data(),
+                ]
+            );
+
+            return $response;
+        }
+
+        $response_code = $response['response']['code'] ?? 0;
+        if (200 !== $response_code) {
+            self::log_message(
+                'Error submitting EN form',
+                [
+                    'en_api_request' => $request,
+                    'en_api_response' => $response ?? [],
+                ]
+            );
+
+            return new WP_Error(
+                'submit_error',
+                'Error submitting EN form',
+                [
+                    'status' => $response['response']['code'],
+                    'response' => $response['response'],
+                ]
+            );
+        }
+
+        return rest_ensure_response([]);
+    }
+
+    /**
+     * Log API response to Sentry.
+     *
+     * @param string $message Message.
+     * @param array  $data    Data to log.
+     */
+    private static function log_message(string $message, array $data = []): void
+    {
+        if (! function_exists('\\Sentry\\withScope')) {
+            return;
+        }
+
+        \Sentry\withScope(
+            function (\Sentry\State\Scope $scope) use ($message, $data): void {
+                foreach ($data as $key => $val) {
+                    $scope->setContext($key, $val);
+                }
+                \Sentry\captureMessage($message);
+            }
+        );
     }
 }

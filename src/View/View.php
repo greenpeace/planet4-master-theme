@@ -39,7 +39,7 @@ class View
     public function get_template(
         array|string $template_name,
         array $data,
-        string $relevant_dir = 'blocks_templates/'
+        string $relevant_dir = 'block_templates/'
     ): bool|string {
         Timber::$locations = $this->get_template_dir($template_name, $relevant_dir);
 
@@ -82,12 +82,9 @@ class View
      */
     private function get_template_dir(
         array|string $template_name,
-        string $relevant_dir = 'blocks_templates/',
+        string $relevant_dir = 'block_templates/',
         string $template_ext = 'twig'
     ): string {
-        if ('' === $relevant_dir) {
-            return $this->template_dir;
-        }
         if (is_child_theme()) {
             $override_dir = get_stylesheet_directory() . $this->template_override_subdir;
             if (file_exists($override_dir . $relevant_dir . $template_name . '.' . $template_ext)) {
@@ -121,7 +118,7 @@ class View
         array|string $template_name,
         array $data,
         string $template_ext = 'twig',
-        string $relevant_dir = 'blocks_templates/'
+        string $relevant_dir = 'block_templates/'
     ): void {
         $template_dir = $this->get_template_dir($template_name, $relevant_dir, $template_ext);
         if ('twig' === $template_ext) {
