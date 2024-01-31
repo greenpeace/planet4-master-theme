@@ -352,6 +352,11 @@ class CustomTaxonomy
         $terms_slugs = $this->get_terms_slugs();
 
         if ($terms_slugs) {
+            // {p4-page-type}/feed urls have to be caught before {p4-page-type}/{cat}
+            $terms = implode('|', $terms_slugs);
+            $rules[sprintf('(%s)/(feed|rdf|rss|rss2|atom)/?$', $terms)] = 'index.php?'
+                    . self::TAXONOMY . '=$matches[1]&feed=$matches[2]';
+
             foreach ($terms_slugs as $slug) {
                 $rules[$slug . '(/page/([0-9]+)?)?/?$'] = 'index.php?'
                     . self::TAXONOMY . '=' . $slug
