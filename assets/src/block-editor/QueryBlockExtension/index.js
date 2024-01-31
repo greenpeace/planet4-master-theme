@@ -10,10 +10,9 @@ const targetBlocks = ['core/post-template'];
 const layoutTypes = [
   {label: 'Grid', value: 'grid', columnCount: 3},
   {label: 'Carousel', value: 'flex', columnCount: 6},
-  // {label: 'List', value: 'default', columnCount: 3}, // This might be enabled within Posts List
 ];
 
-export const setupQueryBlockExtension = function() {
+export const setupQueryBlockExtension = () => {
   const {createHigherOrderComponent} = wp.compose;
 
   addFilter(
@@ -110,7 +109,7 @@ export const setupQueryBlockExtension = function() {
               <BlockEdit {...props} />
             </>
           ), [
-            attributes,
+            props,
             isPostTemplate,
             selectedBlock,
             wp.data.select('core/block-editor').getSelectedBlock(),

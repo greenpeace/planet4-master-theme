@@ -119,6 +119,7 @@ class MasterBlocks
             'cookies_default_copy' => $cookies_default_copy,
             'take_action_covers_button_text' => $option_values['take_action_covers_button_text'] ?? '',
             'take_action_page' => $option_values['take_action_page'] ?? '',
+            'new_ia' => $option_values['new_ia'] ?? '',
         ];
     }
 
