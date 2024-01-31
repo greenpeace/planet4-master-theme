@@ -16,7 +16,8 @@ $post = new Post(); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibi
 $page_meta_data = get_post_meta($post->ID);
 
 $context['post'] = $post;
-$context['header_title'] = is_front_page() ? '' : ($page_meta_data['p4_title'][0] ?? $post->title);
+$context['header_title'] = is_front_page() ? ''
+    : (!empty($page_meta_data['p4_title'][0]) ? $page_meta_data['p4_title'][0] : $post->title);
 $context['background_image'] = wp_get_attachment_url(get_post_meta(get_the_ID(), 'background_image_id', 1));
 $context['custom_body_classes'] = 'white-bg';
 $context['page_category'] = 'Sitemap Page';
