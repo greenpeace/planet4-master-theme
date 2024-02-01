@@ -392,7 +392,7 @@ class EnformPostController extends Controller
      */
     public function print_admin_footer_scripts(): void
     {
-        $this->view->view_template('selected_enform_fields', []);
+        $this->view->view_template('selected_enform_fields', [], 'block_templates/');
     }
 
     /**

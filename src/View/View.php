@@ -60,14 +60,15 @@ class View
         array $data,
         string $relevant_dir = '',
         bool $compile = false
-    ): string {
+    ): string|null {
         Timber::$locations = $this->get_template_dir($template_name, $relevant_dir);
 
-        if (! $compile) {
+        if ($compile) {
             return Timber::compile([$relevant_dir . $template_name . '.twig'], $data);
         }
 
         Timber::render([$relevant_dir . $template_name . '.twig'], $data);
+        return null;
     }
 
     /**
@@ -102,7 +103,7 @@ class View
      */
     public function settings(array $data): void
     {
-        $this->view_template(__FUNCTION__, $data);
+        $this->view_template(__FUNCTION__, $data, 'block_templates/');
     }
 
     /**
@@ -146,6 +147,6 @@ class View
      */
     public function en_selected_meta_box(array $data): void
     {
-        $this->view_template(__FUNCTION__, $data);
+        $this->view_template(__FUNCTION__, $data, 'block_templates/');
     }
 }
