@@ -1,5 +1,5 @@
-import {registerPostsListBlock} from './blocks/PostsList';
 import {registerActionsListBlock} from './blocks/ActionsList';
+import {registerPostsListBlock} from './blocks/PostsList';
 import {registerSubmenuBlock} from './blocks/Submenu/SubmenuBlock';
 import {registerTakeActionBoxoutBlock} from './blocks/TakeActionBoxout/TakeActionBoxoutBlock';
 import {registerHappypointBlock} from './blocks/Happypoint/HappypointBlock';
