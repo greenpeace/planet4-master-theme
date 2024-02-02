@@ -2,7 +2,6 @@ import {registerPlugin} from '@wordpress/plugins';
 import {PageHeaderSidebar} from './components/Sidebar/PageHeaderSidebar';
 import {CampaignThemeSidebar} from './components/Sidebar/CampaignThemeSidebar';
 import {ActionSidebar} from './components/Sidebar/ActionSidebar';
-import {OpenGraphSidebar} from './components/Sidebar/OpenGraphSidebar';
 import {SearchEngineOptimizationsSidebar} from './components/Sidebar/SearchEngineOptimizationsSidebar';
 import {AnalyticsTrackingSidebar} from './components/Sidebar/AnalyticsTrackingSidebar';
 
@@ -16,27 +15,23 @@ const sidebarsForPostType = postType => {
         getIcon: CampaignThemeSidebar.getIcon,
         render: CampaignThemeSidebar,
       },
-      OpenGraphSidebar,
       SearchEngineOptimizationsSidebar,
       AnalyticsTrackingSidebar,
     ];
   case 'p4_action':
     return [
       ActionSidebar,
-      OpenGraphSidebar,
       SearchEngineOptimizationsSidebar,
       AnalyticsTrackingSidebar,
     ];
   case 'page':
     return [
       PageHeaderSidebar,
-      OpenGraphSidebar,
       SearchEngineOptimizationsSidebar,
       AnalyticsTrackingSidebar,
     ];
   case 'post':
     return [
-      OpenGraphSidebar,
       SearchEngineOptimizationsSidebar,
       AnalyticsTrackingSidebar,
     ];
