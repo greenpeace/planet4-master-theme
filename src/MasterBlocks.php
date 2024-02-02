@@ -34,7 +34,7 @@ class MasterBlocks
         });
 
         // Admin scripts.
-        add_action('admin_enqueue_scripts', [ $this, 'enqueue_block_editor_script' ]);
+        add_action('enqueue_block_editor_assets', [ $this, 'enqueue_block_editor_script' ]);
         // Frontend scripts.
         add_action('wp_enqueue_scripts', [ $this, 'enqueue_block_public_assets' ]);
     }
@@ -45,6 +45,8 @@ class MasterBlocks
     public function enqueue_block_editor_script(): void
     {
         $theme_dir = get_template_directory_uri();
+
+        $js_creation = filectime(get_template_directory() . '/assets/build/editorIndex.js');
         // Enqueue editor script for all Blocks in this Plugin.
         wp_enqueue_script(
             'planet4-blocks-theme-editor-script',
@@ -57,7 +59,9 @@ class MasterBlocks
                 'wp-i18n', // Exports the __() function.
                 'wp-editor',
                 'wp-edit-post',
-            ]
+            ],
+            $js_creation,
+            true
         );
 
         $reflection_vars = self::reflect_js_variables();

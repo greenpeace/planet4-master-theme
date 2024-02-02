@@ -1,5 +1,5 @@
 import {SpreadsheetEditor} from './SpreadsheetEditor';
-import {frontendRendered} from '../frontendRendered';
+import {frontendRendered} from '../../functions/frontendRendered';
 import {SpreadsheetFrontend} from './SpreadsheetFrontend';
 import {renderToString} from 'react-dom/server';
 
