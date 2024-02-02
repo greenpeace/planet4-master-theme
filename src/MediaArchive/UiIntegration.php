@@ -56,8 +56,8 @@ class UiIntegration
         }
 
         add_media_page(
-            __('Archive', 'planet4-master-theme-backend'),
-            __('Archive', 'planet4-master-theme-backend'),
+            __('Greenpeace Media', 'planet4-master-theme-backend'),
+            __('Greenpeace Media', 'planet4-master-theme-backend'),
             Capability::USE_MEDIA_ARCHIVE,
             'media-picker',
             [ self::class, 'output_picker' ],
@@ -74,8 +74,8 @@ class UiIntegration
         }
 
         add_media_page(
-            __('Media Archive Settings', 'planet4-master-theme-backend'),
-            __('Archive Settings', 'planet4-master-theme-backend'),
+            __('Greenpeace Media Settings', 'planet4-master-theme-backend'),
+            __('Greenpeace Media Settings', 'planet4-master-theme-backend'),
             Capability::USE_MEDIA_ARCHIVE,
             'media-archive-settings',
             function (): void {
