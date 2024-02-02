@@ -1,5 +1,5 @@
 import {BLOCK_NAME, attributes} from '../ENFormBlock';
-import {frontendRendered} from '../../frontendRendered';
+import {frontendRendered} from '../../../functions/frontendRendered';
 
 export const ENFormV2 = {
   attributes,

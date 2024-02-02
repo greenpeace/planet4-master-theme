@@ -20,6 +20,10 @@ class EnSettingsController extends Controller
      */
     public function create_admin_menu(): void
     {
+        // If the plugin is activated, this menu already exists so we don't need to add it.
+        if (! empty($GLOBALS['admin_page_hooks'][P4_MASTER_THEME_EN_SLUG_NAME])) {
+            return;
+        }
         // We need to check if the migration already ran, as the EN block is on by default, but we cannot give an option
         // that was added using CMB2 a default value of 'on', because then it can't be turned off.
         $migration_ran = MigrationLog::from_wp_options()->already_ran(M001EnableEnFormFeature::get_id());
