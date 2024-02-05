@@ -19,7 +19,7 @@ const frame = wp.media.view.MediaFrame.Select;
         new State({
           id: 'mediaArchive',
           search: false,
-          title: 'Media Archive',
+          title: __('Greenpeace Media', 'planet4-master-theme-backend'),
         }),
       ]);
 
@@ -33,7 +33,7 @@ const frame = wp.media.view.MediaFrame.Select;
           priority: 20,
         },
         mediaArchive: {
-          text: __('Media Archive', 'planet4-master-theme-backend'),
+          text: __('Greenpeace Media', 'planet4-master-theme-backend'),
           priority: 30,
         },
         browse: {
