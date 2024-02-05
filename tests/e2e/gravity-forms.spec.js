@@ -22,6 +22,16 @@ test.beforeAll(async ({browser}) => {
   });
 });
 
+test.afterAll(async ({browser}) => {
+  const page = await browser.newPage();
+
+  // Disable Gravity Forms rest API.
+  await toggleRestAPI({page}, false);
+
+  // Delete the form.
+  await page.request.delete(`./wp-json/gf/v2/forms/${createdForm.id}?force=1`);
+});
+
 test('check the Gravity Forms confirmation message, text type', async ({requestUtils, page}) => {
   // Update the form's default confirmation text.
   await page.goto(`./wp-admin/admin.php?page=gf_edit_forms&view=settings&subview=confirmation&id=${createdForm.id}`);
@@ -81,14 +91,4 @@ test('check the Gravity Forms Hubspot feeds', async ({page}) => {
     const hubspotFeed = page.locator('#the-list > tr').first();
     await expect(hubspotFeed.locator('gform-status-indicator-status')).toContainText('Active');
   }
-});
-
-test.afterAll(async ({browser}) => {
-  const page = await browser.newPage();
-
-  // Disable Gravity Forms rest API.
-  await toggleRestAPI({page}, false);
-
-  // Delete the form.
-  await page.request.delete(`./wp-json/gf/v2/forms/${createdForm.id}`);
 });
