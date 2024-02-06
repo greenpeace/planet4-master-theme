@@ -74,7 +74,7 @@ if ('yes' === $post->include_articles) {
     $block_attributes = [
         'exclude_post_id' => $post->ID,
         'tags' => $tag_id_array,
-        'post_categories' => $category_id_array,
+        'categories' => $category_id_array,
         'article_heading' => __('Related Articles', 'planet4-blocks'),
         'read_more_text' => __('Load more', 'planet4-blocks'),
     ];
