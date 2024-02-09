@@ -9,13 +9,6 @@ export const setupQueryLoopCarousel = () => {
       const uniqueId = `carousel-${uuid()}`;
       const itemsPerSlide = 3;
 
-      // Remove Query Pagination since it is not neccesary within the carousel
-      const queryPagination = layout.querySelector('.wp-block-query-pagination');
-
-      if (layout.contains(queryPagination)) {
-        layout.removeChild(queryPagination);
-      }
-
       // Adapt it as bootstrap carousel
       const carousel = document.createElement('div');
       carousel.setAttribute('id', uniqueId);

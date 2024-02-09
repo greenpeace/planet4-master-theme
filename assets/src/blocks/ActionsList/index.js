@@ -74,13 +74,10 @@ export const registerActionsList = () => {
           className: 'carousel-controls',
           lock: {move: true},
           layout: {type: 'flex', justifyContent: 'space-between', orientation: 'horizontal', flexWrap: 'nowrap'},
-        },
-        [
+        }, [
           ['core/button', {className: 'carousel-control-prev', text: __('Prev', 'planet4-blocks-backend')}],
           ['core/button', {className: 'carousel-control-next', text: __('Next', 'planet4-blocks-backend')}],
-        ],
-        ],
-        ['core/query-pagination', {lock: {move: true}}],
+        ]],
       ],
     }
   );
