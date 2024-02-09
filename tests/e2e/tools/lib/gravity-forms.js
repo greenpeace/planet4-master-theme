@@ -24,7 +24,12 @@ const createForm = async ({page}, {title}) => {
       fields: [
         {
           type: 'text',
-          label: 'Name',
+          label: 'First name',
+          isRequired: 1,
+        },
+        {
+          type: 'text',
+          label: 'Last name',
           isRequired: 1,
         },
         {
