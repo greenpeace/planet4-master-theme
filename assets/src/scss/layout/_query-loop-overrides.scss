@@ -24,6 +24,10 @@
       display: none;
     }
 
+    .carousel-inner {
+      display: flex;
+    }
+
     @include medium-and-less {
       .carousel {
         overflow: hidden;
@@ -31,7 +35,6 @@
       }
 
       .carousel-inner {
-        display: flex;
         overflow-x: scroll;
         scrollbar-width: none;
         scroll-behavior: smooth;

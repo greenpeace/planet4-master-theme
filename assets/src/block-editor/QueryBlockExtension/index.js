@@ -89,22 +89,20 @@ export const setupQueryBlockExtension = () => {
           return useMemo(() => (
             <>
               <InspectorControls>
-                <PanelBody
-                  title={__('Layout view', 'planet4-blocks-backend')}
-                  initialOpen={true}
-                >
-                  {attributes.layout && (
-                    <>
-                      <RadioControl
-                        label={__('Display as', 'planet4-blocks-backend')}
-                        help={__('The layout of the action|post list', 'planet4-blocks-backend')}
-                        selected={attributes.layout.type}
-                        options={layoutTypes}
-                        onChange={type => onChangeHandler(type)}
-                      />
-                    </>
-                  )}
-                </PanelBody>
+                {attributes.layout && (
+                  <PanelBody
+                    title={__('Layout view', 'planet4-blocks-backend')}
+                    initialOpen={true}
+                  >
+                    <RadioControl
+                      label={__('Display as', 'planet4-blocks-backend')}
+                      help={__('The layout of the action|post list', 'planet4-blocks-backend')}
+                      selected={attributes.layout.type}
+                      options={layoutTypes}
+                      onChange={type => onChangeHandler(type)}
+                    />
+                  </PanelBody>
+                )}
               </InspectorControls>
               <BlockEdit {...props} />
             </>
