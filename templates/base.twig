@@ -4,7 +4,12 @@
 
 {% endblock %}
 
-<body class="{{ body_class }} {{ custom_body_classes|default("") }}" data-nro="{{ site.link }}" data-post-type="{{ fn( 'get_post_type' ) }}">
+<body
+    class="{{ body_class }} {{ custom_body_classes|default("") }}"
+    data-nro="{{ site.link }}"
+    data-post-type="{{ fn( 'get_post_type' ) }}"
+    data-post-categories="{{ fn( 'get_the_category')|map(cat => cat.term_id)|join(',') }}"
+>
     {% if google_tag_value %}
         <!-- Google Tag Manager (noscript) -->
         <noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{ google_tag_value }}"
