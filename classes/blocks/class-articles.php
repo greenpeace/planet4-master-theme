@@ -148,6 +148,24 @@ class Articles extends Base_Block {
 			$args = self::filter_posts_by_pages_tags( $fields );
 		}
 
+		// These should not be applied if there is a manual override of posts.
+		if ( empty( $fields['posts'] ) ) {
+			// Take categories into account if needed.
+			if (
+				true !== $fields['ignore_categories'] &&
+				isset( $fields['categories'] ) &&
+				! empty( $fields['categories'] )
+			) {
+				$args['category__in'] = $fields['categories'];
+			}
+
+			// For posts we need to exclude the current post.
+			$exclude_post_id = (int) ( $fields['exclude_post_id'] ?? '' );
+			if ( $exclude_post_id ) {
+				$args['post__not_in'] = [ $exclude_post_id ];
+			}
+		}
+
 		// If there is an offset, it means that it's not a first load, but a load more action.
 		// In this case we want to get only the needed amount of posts,
 		// since we already got the total amount in the first load.
@@ -285,13 +303,6 @@ class Articles extends Base_Block {
 	 * @return array
 	 */
 	private static function filter_posts_by_page_types_or_tags( &$fields ) {
-
-		$exclude_post_id   = (int) ( $fields['exclude_post_id'] ?? '' );
-		$ignore_categories = $fields['ignore_categories'];
-
-		// Get page categories.
-		$category_id_array = $fields['categories'] ?? [];
-
 		// If any p4_page_type was selected extract the term's slug to be used in the wp query below.
 		// post_types attribute filtering.
 		$post_types = $fields['post_types'] ?? [];
@@ -321,17 +332,6 @@ class Articles extends Base_Block {
 
 		// Get all posts with arguments.
 		$args = self::DEFAULT_POST_ARGS;
-
-		if ( true !== $ignore_categories ) {
-			if ( $category_id_array ) {
-				$args['category__in'] = $category_id_array;
-			}
-		}
-
-		// For post page block so current main post will exclude.
-		if ( $exclude_post_id ) {
-			$args['post__not_in'] = [ $exclude_post_id ];
-		}
 
 		// Add filter for p4-page-type terms.
 		if ( ! empty( $post_types ) ) {

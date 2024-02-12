@@ -143,21 +143,19 @@ const renderView = ({attributes, postType, posts, totalPosts}, toAttribute) => {
 export const ArticlesEditor = props => {
   const {isSelected, attributes, setAttributes} = props;
 
-  const {postType, postId} = useSelect(select => ({
+  const {postType, postId, postCategories} = useSelect(select => ({
     postType: select('core/editor').getCurrentPostType(),
     postId: select('core/editor').getCurrentPostId(),
-  })
-  , []);
+    postCategories: select('core/editor').getEditedPostAttribute('categories'),
+  }), []);
 
-  const {posts, totalPosts} = useArticlesFetch(attributes, postType, postId);
+  const {posts, totalPosts} = useArticlesFetch(attributes, postType, postId, postCategories);
 
   const toAttribute = attributeName => value => setAttributes({[attributeName]: value});
 
   return (
     <div>
-      {
-        isSelected && renderEdit(attributes, toAttribute)
-      }
+      {isSelected && renderEdit(attributes, toAttribute)}
       {renderView({attributes, postType, posts, totalPosts}, toAttribute)}
     </div>
   );

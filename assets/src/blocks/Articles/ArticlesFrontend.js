@@ -12,14 +12,14 @@ export const ArticlesFrontend = ({attributes}) => {
   } = attributes;
 
   const postType = document.body.getAttribute('data-post-type');
+  const postCategories = document.body.getAttribute('data-post-categories') ?
+    document.body.getAttribute('data-post-categories').split(',') : [];
 
   const postIdClass = [...document.body.classList].find(classNameFound => /^postid-\d+$/.test(classNameFound));
 
   const postId = !postIdClass ? null : postIdClass.split('-')[1];
 
-  const postCategories = attributes.post_categories || [];
-
-  const {posts, loadNextPage, hasMorePages, loading} = useArticlesFetch(attributes, postType, postId, document.body.dataset.nro, postCategories);
+  const {posts, loadNextPage, hasMorePages, loading} = useArticlesFetch(attributes, postType, postId, postCategories, document.body.dataset.nro);
 
   if (!posts.length) {
     return null;

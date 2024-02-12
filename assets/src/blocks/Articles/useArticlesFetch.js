@@ -5,7 +5,7 @@ import {getAbortController} from '../../functions/getAbortController';
 
 const {apiFetch} = wp;
 
-export const useArticlesFetch = (attributes, postType, postId, baseUrl = null, postCategories = []) => {
+export const useArticlesFetch = (attributes, postType, postId, postCategories = [], baseUrl = null) => {
   const {article_count, post_types, posts, tags, ignore_categories} = attributes;
 
   const [totalPosts, setTotalPosts] = useState(null);
@@ -31,9 +31,12 @@ export const useArticlesFetch = (attributes, postType, postId, baseUrl = null, p
       offset: prevPosts.length,
     };
 
+    if (!ignore_categories) {
+      args.categories = postCategories;
+    }
+
     if (postType === 'post') {
       args.exclude_post_id = postId;
-      args.categories = postCategories;
     }
 
     const path = addQueryArgs('planet4/v1/get-posts', args);
