@@ -109,7 +109,6 @@ class GravityFormsExtensions
         add_filter('gform_suppress_confirmation_redirect', '__return_true');
         add_filter('gform_confirmation', [ $this, 'p4_gf_custom_confirmation_redirect' ], 11, 2);
         add_filter('gform_pre_render', [ $this, 'p4_client_side_gravityforms_prefill' ], 10, 1);
-        add_action('gform_post_form_duplicated', [ $this, 'p4_gf_duplicated_form' ], 10, 2);
         add_filter('gform_form_post_get_meta', [$this, 'p4_gf_enable_default_meta_settings'], 10, 1);
         add_filter('gform_hubspot_form_object_pre_save_feed', [$this, 'p4_gf_hb_form_object_pre_save_feed'], 10, 1);
 
@@ -706,35 +705,6 @@ class GravityFormsExtensions
         }
 
         return $confirmation;
-    }
-
-    /**
-     * Duplicate feeds related to the duplicated form.
-     *
-     * @param int $form_id     The form ID to be duplicated.
-     * @param int $new_form_id The new duplicated form ID.
-     *
-     */
-    public function p4_gf_duplicated_form(int $form_id, int $new_form_id): void
-    {
-        if (!GFAPI::form_id_exists($form_id)) {
-            return;
-        }
-
-        $feeds = GFAPI::get_feeds();
-
-        $form_feed = array_filter(
-            $feeds,
-            function ($feed) use ($form_id) {
-                if ((int) $feed['form_id'] === $form_id) {
-                    return $feed;
-                }
-            }
-        );
-
-        foreach ($form_feed as $key => $value) {
-            GFAPI::add_feed($new_form_id, $value['meta'], $value['addon_slug']);
-        }
     }
 
     /**
