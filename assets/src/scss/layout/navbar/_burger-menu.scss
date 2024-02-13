@@ -22,9 +22,8 @@ $transition-duration: .2s;
 
 .burger-menu {
   _-- {
-    background: $white;
-    color: $grey-80;
-    font-family: $roboto;
+    background: var(--white);
+    font-family: var(--font-family-primary);
   }
 
   position: fixed;
@@ -45,7 +44,7 @@ $transition-duration: .2s;
   }
 
   a.nav-link {
-    color: $grey-80;
+    color: var(--color-text-nav_link);
     width: auto;
   }
 
@@ -74,7 +73,7 @@ $transition-duration: .2s;
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  border-bottom: var(--top-navigation--separation);
   padding-block-end: $sp-2;
 
   .site-logo {
@@ -120,14 +119,12 @@ $transition-duration: .2s;
   margin-top: auto;
   width: 100%;
   padding: $sp-3 0 0;
-  border-top: 1px solid rgba(0, 0, 0, 0.2);
+  border-top: var(--top-navigation--separation);
 
   .btn-donate {
     width: 100%;
     padding-top: $sp-1x;
     padding-bottom: $sp-1x;
-    background: $orange;
-    color: $white;
   }
 }
 
@@ -149,12 +146,15 @@ $transition-duration: .2s;
 }
 
 .nav-subitems {
+  --burger-menu-subitems-- {
+    font-family: var(--font-family-tertiary);
+  }
   padding-inline-start: $sp-2;
   padding-block-start: $sp-1x;
   padding-block-end: $sp-1x;
 
   .nav-item.active {
-    pointer-events: none;
+    pointer-events: inherit;
 
     a.nav-link {
       font-weight: bold;
@@ -200,7 +200,7 @@ $transition-duration: .2s;
     background-color: currentColor;
     transform: rotate(-90deg);
     transition: transform 0.3s linear;
-    color: $grey-80;
+    color: var(--color-text-nav_link);
   }
 
   &.collapsed {
@@ -219,7 +219,7 @@ $transition-duration: .2s;
   height: 16px;
   width: 16px;
   mask: url("../../images/cross.svg") 50% 50%/16px 16px no-repeat;
-  background-color: $grey-80;
+  background-color: var(--grey-900);
   z-index: 5;
 
   @supports not (inset-inline-end: $sp-3) {
@@ -234,10 +234,7 @@ $transition-duration: .2s;
 }
 
 .burger-menu-overlay {
-  _-- {
-    background: $black;
-  }
-
+  background: var(--grey-900);
   transition: opacity $transition-duration ease-in, z-index;
 
   .burger-menu.open ~ & {

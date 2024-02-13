@@ -20,16 +20,20 @@
     }
   }
 
-  .cancelbtn {
+  .cancelbtn,
+  .btn-secondary {
     min-width: 45%;
-    border-color: $orange;
-    color: $orange;
+  }
+
+  .cancelbtn {
+    border-color: var(--p4-action-yellow-500);
+    color: var(--p4-action-yellow-500);
     padding-left: 0;
     padding-right: 0;
 
     &:hover {
       background: transparent;
-      color: $grey-80;
+      color: var(--grey-900);
     }
   }
 
@@ -41,21 +45,20 @@
   }
 
   .closebtn {
+    background-color: var(--white);
+    border: none;
     margin-top: -5px;
     border-radius: 50%;
-    border: 2px solid $grey-40;
-    padding: 8px 14px;
+    padding: 8px 12px;
     margin-right: 0;
     transition: color, border-color, background-color 150ms linear;
 
-    @include small-and-up {
-      padding: -15px;
+    &:hover {
+      background-color: var(--grey-200);
     }
 
-    &:hover {
-      background-color: $orange;
-      border-color: $orange;
-      color: $white;
+    .icon {
+      top: 0;
     }
 
     .icon-cross {

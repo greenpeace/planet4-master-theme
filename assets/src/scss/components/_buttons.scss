@@ -1,11 +1,13 @@
 .btn,
 .wp-block-button a,
 .wp-block-file a.wp-block-file__button,
-.gfield button:not(.add_list_item):not(.delete_list_item),
+.gfield button:not(.add_list_item):not(.delete_list_item):not([id^="mceu"]),
 .gform_button_select_files,
-.gform_footer input[type="submit"] {
+[id^="gform_submit_button"] {
   --button-- {
-    font-family: $roboto;
+    font-family: var(--font-family-button);
+    font-size: $font-size-sm;
+    line-height: 3;
     text-align: center;
     font-weight: bold;
     border-radius: 4px;
@@ -32,11 +34,9 @@
 
   display: inline-block;
   position: relative;
-  font-size: $font-size-sm;
   text-decoration: none;
   border: 1px solid transparent;
   cursor: pointer;
-  line-height: 3;
   appearance: none;
 
   &:hover,
@@ -57,56 +57,56 @@
   }
 
   &.has-grey-80-color {
-    color: $grey-80 !important;
+    color: var(--grey-900) !important;
 
     &:hover,
     &:active {
-      color: $grey-80 !important;
+      color: var(--grey-900) !important;
     }
   }
 }
 
 .btn-small,
-.gfield button:not(.add_list_item):not(.delete_list_item),
+.gfield button:not(.add_list_item):not(.delete_list_item):not([id^="mceu"]),
 .gform_button_select_files {
-  font-size: $font-size-xxs;
-  line-height: 2.8;
+  _-- {
+    font-size: $font-size-xxs;
+    line-height: 2.8;
+  }
 }
 
 .btn-large {
-  font-size: $font-size-md;
-  line-height: 3.1;
+  _-- {
+    font-size: $font-size-md;
+    line-height: 3.1;
+  }
 }
-
-$primary-button-box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
 
 .btn-primary,
 .wp-block-button.is-style-cta a,
-.gform_footer input[type="submit"] {
+[id^="gform_submit_button"] {
   --button-primary-- {
-    background: $orange;
-    color: $white;
+    background: var(--color-background-button--cta);
+    color: var(--color-text-button--primary);
     // Adding this here so that the variable exists, though technically not needed.
     // This allows for the hover variable to be previewed.
     border-color: transparent;
-    box-shadow: $primary-button-box-shadow;
 
     &:visited {
-      color: $white;
+      color: var(--color-text-button--cta);
     }
 
     &:hover,
     &:active {
-      background: $orange-hover;
-      color: $white;
-      border: 1px solid $orange-hover;
-      box-shadow: $primary-button-box-shadow;
+      background: var(--color-background-button--primary-hover);
+      color: var(--color-text-button--cta);
+      border: 1px solid transparent;
     }
 
     &:disabled,
     &.disabled,
     &[disabled] {
-      background: $orange;
+      background: var(--p4-action-yellow-500);
     }
   }
 }
@@ -115,34 +115,34 @@ $primary-button-box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
 .wp-block-button.is-style-secondary a,
 [class="wp-block-button"] a,
 .wp-block-file a.wp-block-file__button,
-.gfield button:not(.add_list_item):not(.delete_list_item),
+.gfield button:not(.add_list_item):not(.delete_list_item):not([id^="mceu"]),
 .gform_button_select_files {
   --button-secondary-- {
-    background: transparentize($white, .7);
-    border-color: $dark-blue;
-    color: $dark-blue;
-    box-shadow: none;
+    background: rgba($white, 0.7);
+    border-color: var(--color-border-button--secondary);
+    color: var(--color-text-button--secondary);
 
     &:visited {
-      color: $dark-blue;
+      color: var(--p4-dark-green-800);
     }
 
     &:hover {
-      background: $dark-blue;
-      border-color: $dark-blue;
-      color: $white;
+      background: var(--color-background-button--secondary-hover);
+      border-color: var(--p4-dark-green-800);
+      color: var(--white);
     }
 
     &:active {
-      background: $active-blue;
-      border-color: $active-blue;
+      background: var(--p4-dark-green-800);
+      border-color: var(--p4-dark-green-800);
+      color: var(--white);
     }
 
     &:disabled,
     &.disabled,
     &[disabled] {
-      background: $white;
-      color: $dark-blue;
+      background: var(--white);
+      color: var(--p4-dark-green-800);
     }
   }
 }
@@ -155,102 +155,32 @@ $primary-button-box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
   margin-right: unset;
 }
 
-.btn-action {
-  background-color: transparentize($white, .8);
-  border-color: $white;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
-
-  &:hover {
-    background-color: $orange;
-    border-color: $orange;
-  }
-
-  &:active {
-    background-color: $orange-hover;
-    border-color: $orange-hover;
-  }
-}
-
-$donate-button-box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
-
 .btn-donate {
   --button-donate-- {
-    background: $orange;
-    color: $grey-80;
+    background: var(--gp-green-400);
+    color: var(--grey-900);
     min-width: 180px;
     padding: 2px 30px;
-    box-shadow: $donate-button-box-shadow;
     border-width: 1px;
     border-color: transparent;
+    line-height: 1.65;
 
     &:hover {
-      background: $orange-hover;
-      color: transparentize($grey-80, 0.2);
-      box-shadow: $donate-button-box-shadow;
+      background: var(--gp-green-500);
+      color: var(--grey-900);
       border: 1px solid transparent;
+    }
+
+    &:visited {
+      color: var(--grey-900);
     }
 
     @include large-and-up {
       font-size: $font-size-md;
     }
   }
-  line-height: 1.65;
   margin: 0;
   text-transform: none;
-}
-
-.btn-navbar-toggle {
-  // Use label because auto-generate doesn't work yet with multiple selectors.
-  --btn-navbar-toggle-- {
-    font-size: $font-size-sm;
-    color: $gp-green;
-    background-color: transparent;
-
-    &:hover,
-    &:active {
-      color: $white;
-      box-shadow: none;
-      background-color: $x-dark-blue;
-      border: 1px solid transparent;
-    }
-
-    @include small-and-up {
-      background-color: $dark-blue;
-      border-radius: 0;
-      border: 1px solid transparent;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
-    }
-  }
-  cursor: pointer;
-  transition: background-color color font-weight 100ms;
-  display: inline-block;
-}
-
-.btn-filter-item {
-  background-color: transparent;
-  border-color: $dark-blue;
-  color: $dark-blue;
-  padding: 0 $sp-6x 0 $sp-4;
-  position: relative;
-  font-weight: 400;
-
-  &:hover {
-    background-color: $dark-blue;
-    border-color: $dark-blue;
-  }
-
-  &:active {
-    background-color: $grey-80;
-    border-color: $grey-80;
-  }
-
-  i {
-    position: absolute;
-    font-size: $font-size-xxs;
-    right: 10px;
-    top: 50%;
-    transform: translate(0, -40%);
-  }
 }
 
 .no-btn {
@@ -269,43 +199,44 @@ button.load-more-mt {
 
 .post-tag-button {
   _-- {
-    border-color: $link-color;
-    color: $link-color;
-    background-color: $white;
-    font-weight: 500;
-
-    &:visited {
-      color: $link-color;
-    }
-
-    &:hover {
-      background-color: $link-color;
-      color: $white;
-    }
-
-    &:active {
-      background-color: $link-color;
-      color: $white;
-    }
+    font-weight: var(--font-weight-regular);
+    line-height: 2.3;
   }
+
+  border-color: var(--gp-green-100);
+  color: var(--grey-900);
+  background-color: var(--color-background-tag_button--passive);
   margin-inline-end: $sp-2;
   margin-bottom: $sp-2;
-  line-height: 2.3;
   padding: 0 $sp-2;
   transition-duration: 100ms;
+
+  &:visited {
+    color: var(--grey-900);
+  }
+
+  &:hover {
+    background-color: var(--color-background-tag_button--hover);
+    border-color: var(--gp-green-200);
+    color: var(--grey-900);
+  }
+
+  &:active {
+    background-color: var(--gp-green-200);
+    color: var(--grey-900);
+  }
 }
 
-.wp-block-button.transparent-button a,
 .wp-block-button.is-style-transparent a {
   --transparent-button-- {
-    border-color: $white;
-    color: $white;
+    border-color: var(--white);
+    color: var(--color-text-button-inverse);
     background: transparent;
 
     &:hover,
     &:active {
-      background: $white;
-      color: $grey-80;
+      background: var(--white);
+      color: var(--color-text-button--secondary);
     }
   }
 }

@@ -1,37 +1,39 @@
 {% extends "base.twig" %}
 
 {% block content %}
-	{% if not hide_background %}
-		<div class="skewed-overlay"></div>
-	{% endif %}
-	<div class="page-header">
-		{% if ( tag_image and not hide_background ) %}
-			<div class="page-header-background">
-				<img src="{{ tag_image }}" class="page-header-image">
-			</div>
-		{% endif %}
-		<div class="container">
-			<div class="left">
-				<div class="top-page-tags">
-					{% if ( category_name ) %}
-						<a class="tag-item tag-item--main" href="{{ category_link|default('#') }}">{{ category_name|e('wp_kses_post')|raw }}</a>
-					{% endif %}
-				</div>
-				<h1 class="page-header-title">
-					<span aria-label="hashtag">#</span>{{ tag_name|e('wp_kses_post')|raw }}
-				</h1>
-				<div class="page-header-content">{{ tag_description|e('wp_kses_post')|raw }}</div>
-			</div>
-			<div class="pull-right d-none d-md-block">
-				<div class="sharethis-inline-share-buttons"></div>
-			</div>
-		</div>
-	</div>
+    <div class="page-header">
+        <div class="container">
+            <div class="left">
+                <div class="top-page-tags">
+                    {% if ( category_name ) %}
+                        <a class="tag-item tag-item--main" href="{{ category_link|default('#') }}">{{ category_name|e('wp_kses_post')|raw }}</a>
+                    {% endif %}
+                    {% if ( news_page_link ) %}
+                        <a class="back-to-news tag-item" href="{{ news_page_link }}">
+                            {{__( 'News & stories', 'planet4-master-theme' )}}
+                        </a>
+                    {% endif %}
+                </div>
+                <h1 class="page-header-title">
+                    <span aria-label="hashtag">#</span>{{ tag_name|e('wp_kses_post')|raw }}
+                </h1>
+                <div class="page-header-content">{{ tag_description|e('wp_kses_post')|raw }}</div>
+                {% if ( featured_action ) %}
+                    {% include 'featured-action.twig'
+                        with {
+                            'image': featured_action_image,
+                            'post_title': featured_action.post_title,
+                            'post_excerpt': featured_action.post_excerpt,
+                            'url': featured_action_url
+                        }
+                    %}
+                {% endif %}
+            </div>
+            <div class="pull-right d-none d-md-block">
+                <div class="sharethis-inline-share-buttons"></div>
+            </div>
+        </div>
+    </div>
 
-	<div class="page-content container">
-		{{ query_loop|raw }}
-		{% for name, block in blocks %}
-			{{ fn('do_blocks', block )|raw }}
-		{% endfor %}
-	</div>
+    {% include 'listing-page.twig' %}
 {% endblock %}

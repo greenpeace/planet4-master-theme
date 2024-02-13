@@ -1,4 +1,4 @@
-.planet4_options .cmb-row {
+.planet4_options .cmb-row:not(.hidden) {
   display: grid;
   grid-template-columns: 1fr 1fr;
 }
@@ -16,8 +16,12 @@
   float: none;
 }
 
+.hidden {
+  display: none;
+}
+
 @media (min-width: 768px) {
-  .planet4_options .cmb-row {
+  .planet4_options .cmb-row:not(.hidden) {
     display: grid;
     grid-template-columns: 1fr 4fr;
   }

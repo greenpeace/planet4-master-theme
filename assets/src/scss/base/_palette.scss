@@ -1,29 +1,29 @@
 // Allow colors for blocks palette
 $palette: (
-  "grey-80": $grey-80,
-  "grey-60": $grey-60,
-  "grey-40": $grey-40,
-  "grey-20": $grey-20,
-  "grey-10": $grey-10,
-  "grey-05": $grey-05,
-  "grey": $grey,
-  "gp-green": $gp-green,
-  "x-dark-blue": $x-dark-blue,
-  "dark-blue": $dark-blue,
-  "blue": $blue,
-  "orange-hover": $orange-hover,
-  "yellow": $yellow,
-  "white": $white,
+  "green-400": var(--gp-green-400),
+  "green-500": var(--gp-green-500),
+  "green-800": var(--gp-green-800),
+  "action-yellow": var(--p4-action-yellow-500),
+  "dark-green-800": var(--p4-dark-green-800),
+  "beige-100": var(--beige-100),
+  "blue-green-800": var(--blue-green-800),
+  "red-500": var(--red-500),
+  "white": var(--white),
+  "grey-100": var(--grey-100),
+  "grey-200": var(--grey-200),
+  "grey-600": var(--grey-600),
+  "grey-800": var(--grey-800),
+  "grey-900": var(--grey-900),
 );
 
 @each $name, $color in $palette {
   .has-#{$name}-color {
-    color: $color;
+    --transparent-button--border-color: #{$color};
+    --transparent-button--color: #{$color};
+    --transparent-button--hover--background: #{$color};
   }
 
   .has-#{$name}-background-color {
-    background-color: $color;
-
     --transparent-button--hover--color: #{$color};
     --transparent-button--active--color: #{$color};
   }

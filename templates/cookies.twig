@@ -1,40 +1,40 @@
 {% set show_settings = cookies.settings_copy.analytical_cookies_name or cookies.settings_copy.all_cookies_name %}
 
 {% if ( cookies.text ) %}
-	<div class="cookie-notice" id="set-cookie">
-		{% include 'cookies/cookies_settings.twig' %}
-		<div class="cookies-intro">
-			<div class="cookies-text">
-				{{ cookies.text|e('wp_kses_post')|raw }}
-			</div>
-			<div class="cookies-buttons">
-				{% if show_settings %}
-					<button
-						class="btn btn-secondary p-0"
-						id="show-cookies-settings"
-						data-ga-category="Cookies box"
-						data-ga-action="Settings"
-					>
-						{{ __( 'Settings', 'planet4-master-theme' ) }}
-					</button>
-				{% endif %}
-				<button
-					class="btn btn-primary p-0 allow-all-cookies"
-					data-ga-category="Cookies box"
-					data-ga-action="Accept all cookies"
-				>
-					{{ __( 'Accept all cookies', 'planet4-master-theme' ) }}
-				</button>
-			</div>
-			{% if show_settings and cookies.enable_reject_all_cookies %}
-				<button
-					class="btn btn-discrete reject-all-cookies"
-					data-ga-category="Cookies box"
-					data-ga-action="Reject all cookies"
-				>
-					{{ __( 'Reject all cookies', 'planet4-master-theme' ) }}
-				</button>
-			{% endif %}
-		</div>
-	</div>
+    <div class="cookie-notice" id="set-cookie">
+        {% include 'cookies/cookies_settings.twig' %}
+        <div class="cookies-intro">
+            <div class="cookies-text">
+                {{ cookies.text|e('wp_kses_post')|raw }}
+            </div>
+            <div class="cookies-buttons">
+                {% if show_settings %}
+                    <button
+                        class="btn btn-secondary p-0"
+                        id="show-cookies-settings"
+                        data-ga-category="Cookies box"
+                        data-ga-action="Settings"
+                    >
+                        {{ __( 'Settings', 'planet4-master-theme' ) }}
+                    </button>
+                {% endif %}
+                <button
+                    class="btn btn-primary p-0 allow-all-cookies"
+                    data-ga-category="Cookies box"
+                    data-ga-action="Accept all cookies"
+                >
+                    {{ __( 'Accept all cookies', 'planet4-master-theme' ) }}
+                </button>
+            </div>
+            {% if show_settings and cookies.enable_reject_all_cookies %}
+                <button
+                    class="btn btn-discrete reject-all-cookies"
+                    data-ga-category="Cookies box"
+                    data-ga-action="Reject all cookies"
+                >
+                    {{ __( 'Reject all cookies', 'planet4-master-theme' ) }}
+                </button>
+            {% endif %}
+        </div>
+    </div>
 {% endif %}

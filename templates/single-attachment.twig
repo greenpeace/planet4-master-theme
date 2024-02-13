@@ -2,35 +2,35 @@
 
 {% block content %}
 
-	<div class="clearfix"></div>
+    <div class="clearfix"></div>
 
-	<article id="post-{{ post.ID }}">
+    <article id="post-{{ post.ID }}">
 
-		<div class="container narrow-container">
-			<header class="page-header">
-				<h1 class="page-header-title">{{ post.title|raw }}</h1>
-				<div class="single-post-meta">
-					{% if post.author.name %}
-						<address class="single-post-author">
-							<a href="{{ post.author.path }}">{{ post.author.name }}</a>
-						</address>
-					{% endif %}
-					<span class="single-post-meta-bullet" aria-hidden="true">&#8226;</span>
-					<time class="single-post-time" pubdate>{{ post.post_date|date }}</time>
-				</div>
-				{% include "blocks/share_buttons.twig" with {social:post.share_meta} %}
-			</header>
-		</div>
+        <div class="container narrow-container">
+            <header class="page-header">
+                <h1 class="page-header-title">{{ post.title|raw }}</h1>
+                <div class="single-post-meta">
+                    {% if post.author.name %}
+                        <address class="single-post-author">
+                            <a href="{{ post.author.path }}">{{ post.author.name }}</a>
+                        </address>
+                    {% endif %}
+                    <span class="single-post-meta-bullet" aria-hidden="true">&#8226;</span>
+                    <time class="single-post-time" pubdate>{{ post.post_date|date }}</time>
+                </div>
+                {% include "blocks/share_buttons.twig" with {social:post.share_meta} %}
+            </header>
+        </div>
 
-		<!-- Attachment Post Block Start -->
-		<div class="container narrow-container">
-			<div class="post-content">
-				<article class="post-details clearfix">
-					{{ post.content|e('wp_kses_post')|raw }}
-				</article>
-			</div>
-		</div>
-		<!-- Attachment Post Page Block End -->
-	</article>
+        <!-- Attachment Post Block Start -->
+        <div class="container narrow-container">
+            <div class="post-content">
+                <article class="post-details clearfix">
+                    {{ post.content|e('wp_kses_post')|raw }}
+                </article>
+            </div>
+        </div>
+        <!-- Attachment Post Page Block End -->
+    </article>
 
 {% endblock %}

@@ -1,5 +1,5 @@
-<?php
-// phpcs:ignoreFile
+<?php // phpcs:ignoreFile
+
 /**
  * Placeholder file to avoid this error:
  * "Notice: Theme without sidebar.php is deprecated since

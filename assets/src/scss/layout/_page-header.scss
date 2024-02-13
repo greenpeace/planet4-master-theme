@@ -24,7 +24,7 @@
 
 .page-header {
   _-- {
-    color: $grey-80;
+    color: var(--color-text-body);
     background: inherit;
     padding-top: 90px;
     padding-bottom: 0;
@@ -118,7 +118,7 @@
     _-- {
       height: 75%;
       bottom: -.5%;
-      background: linear-gradient(360deg, $white 0%, transparent 100%);
+      background: linear-gradient(360deg, var(--white) 0%, transparent 100%);
     }
   }
 
@@ -140,8 +140,9 @@
 }
 
 .page-header-title _-- {
-  font-family: $roboto;
+  font-family: var(--font-family-heading);
   font-weight: bold;
+  line-height: 1.5em;
   text-transform: none;
   max-width: 80%;
   margin-bottom: 10px;

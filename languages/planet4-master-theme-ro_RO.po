@@ -4,12 +4,12 @@ msgstr ""
 "=0)))? 2 : 1));\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2020-11-06 11:40+0200\n"
+"PO-Revision-Date: 2024-01-30 12:27+0000\n"
 "Language-Team: Romanian\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.4.1\n"
+"X-Generator: Loco https://localise.biz/\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-Flags-xgettext: --add-comments=translators:\n"
 "X-Poedit-WPHeader: style.css\n"
@@ -17,99 +17,15 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
 "esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
 "_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
-"Last-Translator: Andrada Radu <aradu@greenpeace.org>\n"
+"Last-Translator: Marton Torok\n"
 "Language: ro_RO\n"
 "Report-Msgid-Bugs-To: \n"
-"X-Loco-Version: 2.3.0; wp-5.2.2\n"
+"X-Loco-Version: 2.6.6; wp-6.4.2\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
-#: single.php:33
-msgid "Post page"
-msgstr "Pagină tip articol"
-
-#: single.php:67
-msgid "Leave your reply"
-msgstr "Adaugă răspunsul tău"
-
-#: 404.php:16
-msgid "Sorry, we can't find that page!"
-msgstr "Ne pare rău, nu putem găsi pagina pe care o cauţi!"
-
-#: 404.php:17
-msgid "Enter your search term below"
-msgstr "Introdu termenii de căutare"
-
-#: 404.php:18
-msgid "404 Page"
-msgstr "Eroare 404"
-
-#: tag.php:48
-msgid "Unknown Campaign page"
-msgstr "Pagină de campanie necunoscută"
-
-#: tag.php:54
-msgid "Things you can do"
-msgstr "Ce poţi face"
-
-#: tag.php:55
-msgid "We want you to take action because together we're strong."
-msgstr "Avem nevoie de implicarea ta pentru că împreună suntem puternici."
-
-#: tag.php:83
-msgid "Related Campaigns"
-msgstr "Campanii asemănătoare"
-
-#: tag.php:84
-msgid "This Campaign is not assigned to an Issue"
-msgstr "Această campanie nu este asociată unui proiect"
-
-#: functions.php:85
-msgid "Most relevant"
-msgstr "Cele mai relevante"
-
-#: functions.php:89
-msgid "Most recent"
-msgstr "Cele mai recente"
-
-#: functions.php:247
-msgid "Toggle worldwide site selection menu"
-msgstr ""
-
-#: functions.php:248
-msgid "Toggle search box"
-msgstr ""
-
-#: functions.php:270
-msgid "DONATE"
-msgstr "DONEAZĂ"
-
-#: functions.php:271
-msgid "International (English)"
-msgstr "Internaţional (Engleză)"
-
-#: classes/class-p4-post.php:190 classes/class-p4-search.php:570
-msgid "ACTION"
-msgstr "ACŢIUNE"
-
-#: classes/class-p4-post.php:192 classes/class-p4-search.php:574
-msgid "PAGE"
-msgstr "PAGINĂ"
-
-#: classes/class-p4-post.php:196 classes/class-p4-search.php:580
-msgid "DOCUMENT"
-msgstr "DOCUMENT"
-
-#: classes/class-p4-post.php:199 classes/class-p4-search.php:585
-msgid "POST"
-msgstr "ARTICOL"
-
-#: classes/class-p4-search.php:407
-msgid "Search page"
-msgstr "Pagină de căutare"
-
-#. translators:
-#: classes/class-p4-search.php:412
+#. %1$d = Number of results.
+#: src/Search.php:770
 #, php-format
 msgid "%1$d result for '%2$s'"
 msgid_plural "%1$d results for '%2$s'"
@@ -117,285 +33,441 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#. translators:
-#: classes/class-p4-search.php:418
-#, php-format
+#. reading time in min.
+#. %d = Number of minutes for reading time.
+#: src/Post.php:613 src/Post/ReadingTimeCalculator.php:135
+#: templates/tease-taxonomy-action.twig:53
+#: templates/tease-taxonomy-post.twig:63 templates/tease-author.twig:54
+#: templates/single.twig:69
+msgid "%d min read"
+msgstr ""
+
+#. %d = Number of results.
+#: src/Search.php:782
 msgid "%d result"
 msgid_plural "%d results"
 msgstr[0] "rezultat"
 msgstr[1] "rezultate"
 msgstr[2] ""
 
-#: classes/class-p4-search.php:478
+#: 404.php:21
+msgid "404 Page"
+msgstr "Eroare 404"
+
+#: page-templates/sitemap.php:43
+msgid "About Greenpeace"
+msgstr "Despre Greenpeace"
+
+#: templates/blocks/author_profile.twig:14
+#, fuzzy
+#| msgid "about the author"
+msgid "About the author"
+msgstr "despre autor"
+
+#: templates/cookies.twig:26
+msgid "Accept all cookies"
+msgstr "Sunt de acord"
+
+#: page-templates/sitemap.php:41
+msgid "Act"
+msgstr "Implică-te"
+
+#: src/Post.php:358
+msgid "ACTION"
+msgstr "ACŢIUNE"
+
+#: src/Search/Filters/ContentTypes.php:112
 msgid "Action"
 msgstr "Acţiune"
 
-#: classes/class-p4-search.php:482
+#: templates/search.twig:145 templates/search.twig:289
+msgid "Action Type"
+msgstr ""
+
+#: templates/search.twig:215
+msgid "ACTIVE FILTERS"
+msgstr "FILTRE ACTIVE"
+
+#: templates/all-actions.twig:9 templates/taxonomy.twig:32
+msgid "All actions"
+msgstr ""
+
+#: templates/listing-page.twig:4 templates/taxonomy.twig:32
+msgid "All articles"
+msgstr ""
+
+#: templates/author.twig:22 templates/author.twig:25
+msgid "All articles by "
+msgstr ""
+
+#: templates/cookies/cookies_settings.twig:55
+msgid "Allow all"
+msgstr ""
+
+#: templates/cookies/cookies_settings.twig:16
+msgid "Always enabled"
+msgstr ""
+
+#: templates/search.twig:205
+msgid "Apply filters"
+msgstr "Aplică filtre"
+
+#: src/Search/Filters/ContentTypes.php:108 templates/tease-search.twig:43
+#: templates/tease-search.twig:123
+msgid "Archive"
+msgstr "Arhivă"
+
+#: src/PostArchive.php:80
+msgid "Archive URL"
+msgstr ""
+
+#: page-templates/sitemap.php:44
+msgid "Articles"
+msgstr "Articole"
+
+#: src/Search/Filters/ContentTypes.php:104 templates/tease-search.twig:41
+#: templates/tease-search.twig:121
+msgid "Campaign"
+msgstr "Campanie"
+
+#: templates/search.twig:204
+msgid "Cancel"
+msgstr "Anulează"
+
+#: templates/search.twig:87 templates/search.twig:231
+msgid "Category"
+msgstr "Categorie"
+
+#: templates/footer_country_selector.twig:11
+msgid "Change Country"
+msgstr "Schimbă ţara"
+
+#: templates/search.twig:21
+msgid "Check for typos, and try your search again"
+msgstr "Verifică dacă sunt greşeli de scriere şi caută din nou"
+
+#: templates/search.twig:224
+msgid "Clear all"
+msgstr "Şterge tot"
+
+#: templates/search-form.twig:32 templates/search.twig:39
+msgid "Clear search"
+msgstr ""
+
+#: templates/burger-menu.twig:10
+msgid "Close navigation mobile menu"
+msgstr ""
+
+#: templates/comment_form/comment_field.twig:4
+msgid "Comment"
+msgstr "Comentariu"
+
+#: templates/single.twig:76 templates/comments_section.twig:2
+msgid "Comments"
+msgstr "Comentarii"
+
+#: templates/search.twig:174 templates/search.twig:318
+#, fuzzy
+#| msgid "Content type"
+msgid "Content Type"
+msgstr "Tip de conţinut"
+
+#: templates/comments_section.twig:9
+msgid "Discussion"
+msgstr "Discuţie"
+
+#: src/Post.php:364
+msgid "DOCUMENT"
+msgstr "DOCUMENT"
+
+#: src/Search/Filters/ContentTypes.php:92
 msgid "Document"
 msgstr "Document"
 
-#: classes/class-p4-search.php:486
-msgid "Page"
-msgstr "Pagină"
+#: templates/tease-search.twig:116
+msgid "Download"
+msgstr "Download"
 
-#: classes/class-p4-search.php:490
-msgid "Post"
-msgstr "Articol"
+#: templates/comment_form/email_field.twig:13
+msgid "Email"
+msgstr "Email"
 
-#: classes/class-p4-search.php:660
-#, php-format
-msgid "SHOW %s MORE RESULTS"
-msgstr "ARATĂ MAI MULTE REZULTATE"
+#: 404.php:20
+msgid "Enter your search term below"
+msgstr "Introdu termenii de căutare"
 
 #. Name of the template
 msgid "Evergreen Page"
 msgstr "Pagină tip Evergreen"
 
+#: page-templates/sitemap.php:42
+msgid "Explore"
+msgstr "Află mai multe"
+
+#: templates/search.twig:64
+msgid "Filters"
+msgstr "Filtre"
+
+#: templates/footer_social_media.twig:2
+msgid "Follow us"
+msgstr ""
+
+#. Author of the theme
+msgid "Greenpeace International"
+msgstr "Greenpeace International"
+
+#. Name of the theme
+msgid "Greenpeace Planet 4 Master Theme"
+msgstr "Greenpeace Planet 4 Master Theme"
+
+#. phpcs:ignore Generic.Files.LineLength.MaxExceeded
+#: functions.php:454
+msgid "here"
+msgstr ""
+
+#: templates/burger-menu.twig:34
+msgid "Home"
+msgstr ""
+
+#. Author URI of the theme
+msgid "https://github.com/greenpeace"
+msgstr "https://github.com/greenpeace"
+
+#. URI of the theme
+msgid "https://github.com/greenpeace/planet4-master-theme"
+msgstr "https://github.com/greenpeace"
+
+#: single.php:108
+msgid ""
+"I agree on providing my name, email and content so that my comment can be "
+"stored and displayed in the website."
+msgstr ""
+
+#: src/MasterSite.php:668
+msgid "International (English)"
+msgstr "Internaţional (Engleză)"
+
+#: templates/single-password.twig:18 templates/single-page.twig:15
+msgid "Invalid password, please try again"
+msgstr ""
+
+#: single.php:115
+msgid "Leave your reply"
+msgstr "Adaugă răspunsul tău"
+
+#: templates/all-posts.twig:35 templates/author.twig:48
+#: templates/all-actions.twig:35 templates/taxonomy.twig:59
+msgid "Load More"
+msgstr "Încarcă mai multe"
+
+#: templates/tease-search.twig:156
+msgid "Manage"
+msgstr ""
+
+#: templates/cookies/cookies_settings.twig:11
+msgid "Manage your cookies preferences"
+msgstr ""
+
+#. Description of the theme
+msgid "Master theme for the Planet 4 Wordpress project"
+msgstr ""
+
+#: templates/navigation-bar.twig:19
+msgid "Menu"
+msgstr "Meniu"
+
+#: src/Search.php:754 src/MasterSite.php:89
+msgid "Most relevant"
+msgstr "Cele mai relevante"
+
+#: templates/comment_form/author_field.twig:13
+msgid "Name"
+msgstr "Nume"
+
+#: src/Search.php:758 src/MasterSite.php:93
+msgid "Newest"
+msgstr ""
+
+#: src/Search.php:762 src/MasterSite.php:97
+msgid "Oldest"
+msgstr ""
+
+#: src/Post.php:360
+msgid "PAGE"
+msgstr "PAGINĂ"
+
+#: src/Search/Filters/ContentTypes.php:96
+msgid "Page"
+msgstr "Pagină"
+
+#: templates/cookies/cookies_settings.twig:12
+msgid "Please select which cookies you are willing to store."
+msgstr ""
+
+#: src/Post.php:367
+msgid "POST"
+msgstr "ARTICOL"
+
+#: src/Search/Filters/ContentTypes.php:100
+msgid "Post"
+msgstr "Articol"
+
+#: templates/comment_form/submit_button.twig:23
+msgid "Post comment"
+msgstr "Adaugă comentariu"
+
+#: templates/search.twig:116 templates/search.twig:260
+msgid "Post Type"
+msgstr ""
+
+#: templates/search.twig:73 templates/search.twig:212
+msgid "Refine your search"
+msgstr "Rafinează căutarea"
+
+#: templates/cookies/cookies_settings.twig:47
+msgid "Reject all"
+msgstr "Respinge toate"
+
+#: templates/cookies.twig:35
+msgid "Reject all cookies"
+msgstr "Respinge toate cookie-urile"
+
+#: templates/all-posts.twig:11 templates/all-actions.twig:11
+#: templates/taxonomy.twig:35
+msgid "Results"
+msgstr "Rezultate"
+
+#: templates/cookies/cookies_settings.twig:63
+msgid "Save preferences"
+msgstr ""
+
+#: templates/search-form.twig:2 templates/404.twig:17 templates/search.twig:8
+#: templates/search.twig:50
+msgid "Search"
+msgstr "Caută"
+
+#: templates/footer_country_selector.twig:11
+msgid "Selected"
+msgstr "Selectat"
+
+#: templates/cookies.twig:18
+msgid "Settings"
+msgstr "Mai multe setări"
+
+#: templates/blocks/share_buttons.twig:44
+#: templates/blocks/share_buttons.twig:53
+#: templates/blocks/share_buttons.twig:62
+msgid "Share on"
+msgstr "Distribuie"
+
+#: templates/blocks/share_buttons.twig:71
+#: templates/blocks/share_buttons.twig:81
+msgid "Share via"
+msgstr "Distribuie via"
+
+#. %s = number of results per page.
+#: src/Search.php:1014
+#, fuzzy, php-format
+#| msgid "SHOW %s MORE RESULTS"
+msgid "Show %s more results"
+msgstr "ARATĂ MAI MULTE REZULTATE"
+
+#: templates/blocks/author_profile.twig:45
+msgid "Show less"
+msgstr ""
+
+#: templates/blocks/author_profile.twig:44
+msgid "Show more"
+msgstr ""
+
 #. Name of the template
 msgid "Sitemap Page"
 msgstr "Sitemap"
 
-#: page-templates/sitemap.php:18
-msgid "Act"
-msgstr "Implică-te"
-
-#: page-templates/sitemap.php:19
-msgid "Explore"
-msgstr "Află mai multe"
-
-#: page-templates/sitemap.php:20
-msgid "About Greenpeace"
-msgstr "Despre Greenpeace"
-
-#: page-templates/sitemap.php:21
-msgid "Articles"
-msgstr "Articole"
-
-#: templates/author.twig:36
-msgid "Posts by "
-msgstr "Articole de"
-
-#: templates/author.twig:56 templates/taxonomy.twig:38
-msgid "Load More"
-msgstr "Încarcă mai multe"
-
-#: templates/navigation-bar.twig:6
-msgid "Toggle navigation menu"
-msgstr ""
-
-#: templates/navigation-bar.twig:7 templates/search.twig:8
-#: templates/search.twig:45 templates/404.twig:17
-msgid "Search"
-msgstr "Caută"
-
-#: templates/navigation-bar.twig:15
-msgid "Menu"
-msgstr "Meniu"
-
-#: templates/navigation-bar.twig:20
-msgid "Close Menu"
-msgstr "Închide meniu"
-
-#: templates/navigation-bar.twig:29
-msgid "Selected"
-msgstr "Selectat"
-
-#: templates/navigation-bar.twig:30
-msgid "Change Country"
-msgstr "Schimbă ţara"
-
-#: templates/navigation-bar.twig:60
-msgid "Toggle search form"
-msgstr ""
-
-#: templates/cookies.twig:8
-msgid "GOT IT!"
-msgstr "AM ÎNŢELES!"
-
-#: templates/search.twig:16
-msgid "We're sorry we couldn't find any matches for your search term."
-msgstr "Ne pare rău, nu am putut găsi niciun rezultat pentru căutarea ta."
-
-#: templates/search.twig:18
-msgid "Check for typos, and try your search again"
-msgstr "Verifică dacă sunt greşeli de scriere şi caută din nou"
-
-#: templates/search.twig:19
-msgid "Try searching for somthing else"
-msgstr "Încearcă să cauţi utilizând termeni asemănători"
-
-#: templates/search.twig:20
-msgid "Search our archive. You'll be redirected to the archive site."
-msgstr "Caută în arhivă. Vei fi redirecţionat către site-ul arhivat"
-
-#: templates/search.twig:24
-msgid "We also included results for "
-msgstr "Am inclus rezultate şi pentru"
-
-#: templates/search.twig:38
-msgid "This Site"
-msgstr "Acest site"
-
-#: templates/search.twig:39
-msgid "Archive"
-msgstr "Arhivă"
-
-#: templates/search.twig:57
-msgid "Filters"
-msgstr "Filtre"
-
-#: templates/search.twig:63 templates/search.twig:164
-msgid "Refine your search"
-msgstr "Rafinează căutarea"
-
-#: templates/search.twig:71
-msgid "ISSUE"
-msgstr "PROIECT"
-
-#: templates/search.twig:92
-msgid "CATEGORY"
-msgstr "CATEGORIE"
-
-#: templates/search.twig:113
-msgid "CONTENT TYPES"
-msgstr "TIPURI DE CONŢINUT"
-
-#: templates/search.twig:137
-msgid "CAMPAIGN"
-msgstr "CAMPANIE"
-
-#: templates/search.twig:156
-msgid "Cancel"
-msgstr "Anulează"
-
-#: templates/search.twig:157
-msgid "Apply filters"
-msgstr "Aplică filtre"
-
-#: templates/search.twig:167
-msgid "ACTIVE FILTERS"
-msgstr "FILTRE ACTIVE"
-
-#: templates/search.twig:176
-msgid "Clear all"
-msgstr "Şterge tot"
-
-#: templates/search.twig:183
-msgid "Issue"
-msgstr "Proiect"
-
-#: templates/search.twig:202
-msgid "Campaign"
-msgstr "Campanie"
-
-#: templates/search.twig:221
-msgid "Category"
-msgstr "Categorie"
-
-#: templates/search.twig:240
-msgid "Content type"
-msgstr "Tip de conţinut"
-
-#: templates/search.twig:263
-msgid "Sort by"
-msgstr "Sortează în funcţie de"
-
-#: templates/search.twig:300
-msgid "Suggested search terms"
-msgstr "Termeni de căutare sugeraţi"
-
-#: templates/tease-search.twig:67
-msgid "Take action"
-msgstr "implică-te"
-
-#: templates/tease-search.twig:70
-msgid "Download"
-msgstr "Download"
-
-#: templates/base.twig:10
-msgid "Skip to Navigation"
-msgstr "Mergi la navigare"
-
-#: templates/base.twig:11
+#: templates/base.twig:18
 msgid "Skip to Content"
 msgstr "Mergi la conţinut"
 
-#: templates/base.twig:12
+#: templates/base.twig:19
 msgid "Skip to Footer"
 msgstr "Mergi la meniul din subsol"
 
-#: templates/single.twig:41 templates/tease-taxonomy-post.twig:26
-msgid "by"
-msgstr "de"
+#: templates/base.twig:17
+msgid "Skip to Navigation"
+msgstr "Mergi la navigare"
 
-#: templates/single.twig:53 templates/comments_section.twig:2
-msgid "Comments"
-msgstr "Comentarii"
+#: 404.php:19
+msgid "Sorry, we can't find that page!"
+msgstr "Ne pare rău, nu putem găsi pagina pe care o cauţi!"
 
-#: templates/comments_section.twig:8
-msgid "Discussion"
-msgstr "Discuţie"
+#: templates/search.twig:351
+msgid "Sort by"
+msgstr "Sortează în funcţie de"
 
-#: templates/taxonomy.twig:18
-msgid "Results"
-msgstr "Rezultate"
+#: templates/single-password.twig:22 templates/single-page.twig:19
+msgid "Submit"
+msgstr ""
 
-#: templates/blocks/share_buttons.twig:7 templates/blocks/share_buttons.twig:14
-msgid "Share on"
-msgstr "Distribuie"
+#: templates/featured-action.twig:12
+msgid "Take Action"
+msgstr ""
 
-#: templates/blocks/share_buttons.twig:21
-msgid "Share via"
-msgstr "Distribuie via"
+#: src/Search.php:424 src/ActionPage.php:209
+msgid "Take action"
+msgstr "implică-te"
 
-#: templates/blocks/author_profile.twig:4
-msgid "about the author"
-msgstr "despre autor"
+#. %s = Redirection url variable.
+#: src/GravityFormsExtensions.php:668
+#, php-format
+msgid ""
+"Thank you! Please <a href=\"%s\">click here</a> if you are not redirected "
+"within a few seconds."
+msgstr ""
 
-#: templates/comment_form/email_field.twig:2
-msgid "Email"
-msgstr "Email"
+#. phpcs:ignore Generic.Files.LineLength.MaxExceeded
+#: functions.php:453
+msgid ""
+"The content on this page is hidden because this page is being used as your "
+"\\\"All Posts\\\" listing page. You can disable this by un-setting the "
+"\\\"Posts page\\\""
+msgstr ""
 
-#: templates/comment_form/email_field.twig:3
-msgid "Your Email"
-msgstr "Email-ul tău"
+#: assets/src/js/pdf_icon.js:20
+msgid "This link will open a PDF file"
+msgstr ""
+
+#: templates/single-password.twig:15 templates/single-page.twig:12
+msgid "To see the content of this page, please enter your password  below"
+msgstr ""
+
+#: src/MasterSite.php:599
+msgid "Toggle search box"
+msgstr ""
+
+#: templates/desktop-menu.twig:57 templates/navigation-bar.twig:38
+msgid "Toggle search form"
+msgstr ""
+
+#: src/MasterSite.php:598
+msgid "Toggle worldwide site selection menu"
+msgstr ""
+
+#: templates/search.twig:22
+msgid "Try searching for somthing else"
+msgstr "Încearcă să cauţi utilizând termeni asemănători"
+
+#: templates/search.twig:19
+msgid "We're sorry we couldn't find any matches for your search term."
+msgstr "Ne pare rău, nu am putut găsi niciun rezultat pentru căutarea ta."
 
 #: templates/comment_form/comment_field.twig:2
-msgid "Comment"
-msgstr "Comentariu"
-
-#: templates/comment_form/comment_field.twig:3
 msgid "Your Comment"
 msgstr "Comentariul tău"
 
-#: templates/comment_form/author_field.twig:2
-msgid "Name"
-msgstr "Nume"
+#: templates/comment_form/email_field.twig:2
+msgid "Your Email"
+msgstr "Email-ul tău"
 
-#: templates/comment_form/author_field.twig:3
+#: templates/comment_form/author_field.twig:2
 msgid "Your Name"
 msgstr "Numele tău"
-
-#: templates/comment_form/submit_button.twig:1
-msgid "Post comment"
-msgstr "Adaugă comentariu"
-
-#. Theme Name of the plugin/theme
-msgid "Greenpeace Planet 4 Master Theme"
-msgstr "Greenpeace Planet 4 Master Theme"
-
-#. Description of the plugin/theme
-msgid "Master theme for the Planet 4 Wordpress project"
-msgstr ""
-
-#. Theme URI of the plugin/theme
-msgid "https://github.com/greenpeace/planet4-master-theme"
-msgstr "https://github.com/greenpeace"
-
-#. Author of the plugin/theme
-msgid "Greenpeace International"
-msgstr "Greenpeace International"
-
-#. Author URI of the plugin/theme
-msgid "https://github.com/greenpeace"
-msgstr "https://github.com/greenpeace"

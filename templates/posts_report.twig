@@ -17,7 +17,7 @@
     <div class="wrap">
         <h1>{{ __( 'Posts List', 'planet4-master-theme-backend' ) }}</h1>
         <div class="hidden" id="posts_loader">
-            <img src="/wp-admin/images/wpspin_light-2x.gif"/>
+            <img src={{ spinner_gif }} alt="Spinner" />
         </div>
         <div id="posts-table"></div>
     </div>
@@ -25,7 +25,7 @@
     <div class="wrap">
         <h1>{{ __( 'Pages List', 'planet4-master-theme-backend' ) }}</h1>
         <div class="hidden" id="pages_loader">
-            <img src="/wp-admin/images/wpspin_light-2x.gif"/>
+            <img src={{ spinner_gif }} alt="Spinner" />
         </div>
         <div id="pages-table"></div>
     </div>
@@ -33,9 +33,19 @@
     <div class="wrap">
         <h1>{{ __( 'Campaigns List', 'planet4-master-theme-backend' ) }}</h1>
         <div class="hidden" id="campaigns_loader">
-            <img src="/wp-admin/images/wpspin_light-2x.gif"/>
+            <img src={{ spinner_gif }} alt="Spinner" />
         </div>
         <div id="campaigns-table"></div>
     </div>
+    {% if new_ia %}
+        <br>
+        <div class="wrap">
+            <h1>{{ __( 'Actions List', 'planet4-master-theme-backend' ) }}</h1>
+            <div class="hidden" id="actions_loader">
+                <img src={{ spinner_gif }} alt="Spinner" />
+            </div>
+            <div id="actions-table"></div>
+        </div>
+    {% endif %}
 
 {% endblock %}

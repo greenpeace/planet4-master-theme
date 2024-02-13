@@ -1,6 +1,6 @@
 .comments-block {
   .form-section .comment-respond {
-    background: $grey-05;
+    background: var(--color-background-comments_block);
     border-radius: 4px;
     padding: 24px 16px;
   }
@@ -39,7 +39,9 @@
 }
 
 #gdpr-comments-compliance {
-  font-family: $roboto;
+  --comments-compliance-- {
+    font-family: var(--font-family-primary);
+  }
   margin-bottom: 8px;
 
   #gdpr-comments-checkbox {
@@ -49,8 +51,9 @@
   }
 
   #gdpr-comments-label {
+    line-height: var(--line-height-m--font-family-tertiary);
+    font-size: var(--font-size-m--font-family-tertiary);
     display: inline-block;
-    font-size: 14px;
   }
 }
 
@@ -59,17 +62,26 @@
 }
 
 .logged-in-as {
-  font-size: 14px;
-  font-family: $roboto;
+  font-size: var(--font-size-s--font-family-tertiary);
+  font-family: var(--font-family-tertiary);
+
+  a {
+    color: var(--gp-green-800);
+
+    &:hover,
+    &:visited {
+      color: var(--gp-green-800);
+    }
+  }
 }
 
 #cancel-comment-reply-link {
   margin-inline-start: 8px;
-  color: $grey-40;
+  color: var(--grey-600);
 
   &:hover,
   &:focus {
-    color: $grey-40;
+    color: var(--grey-600);
   }
 }
 
@@ -85,6 +97,8 @@
       position: absolute;
       top: 32px;
       right: 32px;
+      max-width: 70%;
+      line-height: 1.3;
 
       html[dir="rtl"] & {
         left: 32px;

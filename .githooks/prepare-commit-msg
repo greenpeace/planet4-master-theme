@@ -21,7 +21,7 @@ fi
 
 # Customize which branches should be skipped when
 # prepending commit message.
-BRANCHES_TO_SKIP=(master develop)
+BRANCHES_TO_SKIP=(main)
 
 # Get current branch.
 BRANCH_NAME=$(git symbolic-ref --short HEAD)

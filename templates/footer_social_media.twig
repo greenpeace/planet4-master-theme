@@ -4,10 +4,16 @@
     {% if social_overrides is defined and social_overrides|length %}
       {% for social in social_overrides %}
         <li>
-          <a href="{{ social.url }}"
+          <a
+            href="{{ social.url }}"
             data-ga-category="Footer Navigation"
             data-ga-action="Social Icons"
-            data-ga-label="{{ social.icon }}">
+            data-ga-label="{{ social.icon }}"
+            {% if ( social.target is same as '_blank' ) %}
+              target="_blank"
+              rel="noopener noreferrer"
+            {% endif %}
+          >
             {{ social.icon|svgicon }}
             <span class="visually-hidden">{{ social.icon }}</span>
           </a>
@@ -24,10 +30,18 @@
           {% endif %}
         {% endfor %}
         <li>
-          <a href="{{ social.url }}"
+          <a
+            href="{{ social.url }}"
             data-ga-category="Footer Navigation"
             data-ga-action="Social Icons"
-            data-ga-label="{{ social.title }}">
+            data-ga-label="{{ social.title }}"
+            {% if ( social.target is same as '_blank' ) %}
+              target="_blank"
+              rel="me noopener noreferrer"
+            {% else %}
+              rel="me"
+            {% endif %}
+          >
             {{ name|svgicon }}
             <span class="visually-hidden">{{ social.title }}</span>
           </a>

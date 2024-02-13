@@ -1,34 +1,34 @@
 <form id="search_form" class="form nav-search-form" action="{{ data_nav_bar.home_url }}">
-	{% set search_label = __( 'Search', 'planet4-master-theme' ) %}
-	<button class="nav-search-btn"
-			aria-label="{{ __( 'Press return/enter or click to search', 'planet4-master-theme' ) }}"
-			type="submit"
-			data-ga-category="Menu Navigation"
-			data-ga-action="Search"
-			data-ga-label="{{ page_category }}"
-	>
-		{{ search_icon|replace({'<svg': "<svg " ~ data_ga_attrs })|raw }}
-		<span class="visually-hidden"
-			  data-ga-category="Menu Navigation"
-			  data-ga-action="Search"
-			  data-ga-label="{{ page_category }}"
-		>
-					{{ search_label }}
-			</span>
-	</button>
-	<input id="{{ search_input_id }}"
-		   type="search"
-		   name="s"
-		   class="form-control"
-		   placeholder="{{ search_label }}"
-		   value="{{ data_nav_bar.search_query|e('wp_kses_post')|raw }}"
-		   aria-label="{{ __( 'Search input', 'planet4-master-theme' ) }}"/>
-	<input id="orderby" type="hidden" name="orderby" value="{{ selected_sort ?? default_sort }}"/>
-	<button class="nav-search-clear"
-			aria-label="{{ __( 'Clear search', 'planet4-master-theme' ) }}"
-			type="button"
-			onclick="document.getElementById('{{ search_input_id }}').value=null;"
-	>
-		<span class="visually-hidden">{{ __( 'Clear search', 'planet4-master-theme' ) }}</span>
-	</button>
+    {% set search_label = __( 'Search', 'planet4-master-theme' ) %}
+    <button class="nav-search-btn"
+            aria-label="{{ __( 'Press return/enter or click to search', 'planet4-master-theme' ) }}"
+            type="submit"
+            data-ga-category="Menu Navigation"
+            data-ga-action="Search"
+            data-ga-label="{{ page_category }}"
+    >
+        {{ search_icon|replace({'<svg': "<svg " ~ data_ga_attrs })|raw }}
+        <span class="visually-hidden"
+              data-ga-category="Menu Navigation"
+              data-ga-action="Search"
+              data-ga-label="{{ page_category }}"
+        >
+                    {{ search_label }}
+            </span>
+    </button>
+    <input id="{{ search_input_id }}"
+           type="search"
+           name="s"
+           class="form-control"
+           placeholder="{{ search_label }}"
+           value="{{ data_nav_bar.search_query|e('wp_kses_post')|raw }}"
+           aria-label="{{ __( 'Search input', 'planet4-master-theme' ) }}"/>
+    <input id="orderby" type="hidden" name="orderby" value="{{ selected_sort ?? default_sort }}"/>
+    <button class="nav-search-clear"
+            aria-label="{{ __( 'Clear search', 'planet4-master-theme' ) }}"
+            type="button"
+            onclick="document.getElementById('{{ search_input_id }}').value=null;"
+    >
+        <span class="visually-hidden">{{ __( 'Clear search', 'planet4-master-theme' ) }}</span>
+    </button>
 </form>

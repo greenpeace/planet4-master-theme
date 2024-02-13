@@ -51,7 +51,7 @@
     font-size: $font-size-sm;
     margin-bottom: 24px;
     padding-left: 20px;
-    color: $grey-60;
+    color: var(--grey-800);
     line-height: 1.8;
 
     @include small-and-up {

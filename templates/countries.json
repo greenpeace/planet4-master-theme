@@ -50,7 +50,7 @@
       "lang": [
         {
           "name": "English",
-          "url": "https://www.greenpeace.org/australia",
+          "url": "https://www.greenpeace.org.au/",
           "locale": ["en-AU"]
         }
       ]
@@ -61,7 +61,7 @@
       "lang": [
         {
           "name": "Deutsch",
-          "url": "https://www.greenpeace.at/",
+          "url": "https://greenpeace.at/",
           "locale": ["de-AT"]
         }
       ]
@@ -152,7 +152,7 @@
       "lang": [
         {
           "name": "Hrvatski",
-          "url": "https://www.greenpeace.org/croatia",
+          "url": "https://www.greenpeace.org/croatia/",
           "locale": ["hr-HR"]
         }
       ]
@@ -219,7 +219,7 @@
       "lang": [
         {
           "name": "English",
-          "url": "https://www.greenpeace.org/eu-unit",
+          "url": "https://www.greenpeace.org/eu-unit/",
           "locale": ["en-EU"]
         }
       ]
@@ -232,7 +232,7 @@
       "lang": [
         {
           "name": "Suomi",
-          "url": "https://www.greenpeace.org/finland",
+          "url": "https://www.greenpeace.org/finland/",
           "locale": ["fi-FI"]
         }
       ]
@@ -243,7 +243,7 @@
       "lang": [
         {
           "name": "Français",
-          "url": "https://www.greenpeace.org/france",
+          "url": "https://www.greenpeace.fr/",
           "locale": ["fr-FR"]
         }
       ]
@@ -256,7 +256,7 @@
       "lang": [
         {
           "name": "Deutsch",
-          "url": "https://www.greenpeace.de",
+          "url": "https://www.greenpeace.de/",
           "locale": ["de-DE"]
         }
       ]
@@ -419,7 +419,7 @@
       "lang": [
         {
           "name": "Nederlands",
-          "url": "https://www.greenpeace.org/nl",
+          "url": "https://www.greenpeace.org/nl/",
           "locale": ["nl-NL"]
         }
       ]
@@ -465,7 +465,7 @@
       "lang": [
         {
           "name": "Polska",
-          "url": "https://www.greenpeace.pl",
+          "url": "https://www.greenpeace.org/poland/",
           "locale": ["pl-PL"]
         }
       ]
@@ -480,17 +480,6 @@
           "name": "Română",
           "url": "https://www.greenpeace.org/romania/",
           "locale": ["ro-RO"]
-        }
-      ]
-    },
-    {
-      "name": "Russia",
-      "codes": ["RU"],
-      "lang": [
-        {
-          "name": "Русский",
-          "url": "https://www.greenpeace.ru",
-          "locale": ["ru-RU"]
         }
       ]
     }
@@ -515,6 +504,16 @@
           "name": "Slovenjia",
           "url": "https://www.greenpeace.org/slovenia/",
           "locale": ["sl-SI"]
+        }
+      ]
+    },
+    {
+      "name": "South Asia",
+      "lang": [
+        {
+          "name": "English",
+          "url": "https://www.greenpeace.org/southasia/",
+          "locale": ["en-BT", "en-NP", "en-BD", "en-LK", "en-MV"]
         }
       ]
     },
@@ -613,7 +612,7 @@
       "lang": [
         {
           "name": "English",
-          "url": "https://www.greenpeace.org.uk",
+          "url": "https://www.greenpeace.org.uk/",
           "locale": ["en-GB"]
         }
       ]

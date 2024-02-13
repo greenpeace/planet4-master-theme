@@ -6,3 +6,10 @@ tests/backstop/
 
 # Built css and js assets
 assets/build/*
+
+# Playwright
+/e2e-results/
+/e2e-report/
+/playwright/.cache/
+/playwright/.auth/
+.env

@@ -1,6 +1,6 @@
 .author-block {
+  background: var(--color-background-author_block);
   overflow: hidden;
-  background: $grey-10;
   padding: 24px 16px;
   border-radius: 4px;
   margin-bottom: 24px;
@@ -26,8 +26,8 @@
 }
 
 .author-block-info-title {
+  font-weight: var(--font-weight-regular);
   font-size: 20px;
-  font-weight: bold;
   text-align: center;
   margin-bottom: 16px;
 }
@@ -48,8 +48,9 @@
 }
 
 .author-block-info-name {
-  font-size: 1.0625rem;
-  font-weight: bold;
+  font-family: var(--font-family-paragraph-secondary);
+  font-size: var(--font-size-m--font-family-tertiary);
+  font-weight: var(--font-weight-regular);
   margin: 16px 0;
   text-align: center;
 }
@@ -71,14 +72,20 @@
     display: none;
     transition: none;
   }
+
+  & > div a,
+  .author-details a {
+    @include shared-link-styles;
+  }
 }
 
 .author-block-description-button {
+  color: var(--gp-green-800);
+  background: none;
   outline: none;
   border: none;
   padding: 0;
   display: block;
-  color: $link-color;
 
   .show-less {
     display: none;
@@ -88,14 +95,27 @@
     display: inline-block;
   }
 
+  &:hover {
+    color: var(--gp-green-800);
+
+    span {
+      text-decoration: underline;
+    }
+  }
+
   &:after {
     content: "";
-    background-image: url("../../images/blue-chevron.svg");
+    height: 10px;
+    width: 8px;
     display: inline-block;
-    vertical-align: middle;
-    margin-inline-start: 8px;
-    width: 10px;
-    height: 6px;
+    mask-image: url("../../images/chevron.svg");
+    mask-repeat: no-repeat;
+    mask-size: contain;
+    mask-position: center;
+    background-repeat: no-repeat;
+    background-color: currentColor;
+    transform: rotate(90deg);
+    margin-inline-start: $sp-x;
   }
 
   &[aria-expanded="true"] {
@@ -108,15 +128,7 @@
     }
 
     &:after {
-      transform: rotate(180deg);
-    }
-  }
-
-  &:hover {
-    color: $link-color;
-
-    span {
-      text-decoration: underline;
+      transform: rotate(-90deg);
     }
   }
 }

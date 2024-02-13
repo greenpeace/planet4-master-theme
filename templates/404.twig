@@ -1,27 +1,27 @@
 {% extends "base.twig" %}
 
 {% block content %}
-	<div class="skewed-overlay"></div>
-	<div class="page-header">
-		<div class="page-header-background">
-			<img src="{{ page_notfound_image }}" class="page-header-image img-fluid" />
-		</div>
-		<div class="container">
-			<div class="speech-bubble">
-				{{ page_notfound_text|raw }}
-			</div>
-			<div class="row">
-				<div class="col-md-4">
-					{{ page_notfound_help }}
-					<form class="form search-form" action="{{ data_nav_bar.home_url }}">
-						{% set search = __( 'Search', 'planet4-master-theme' ) %}
-						<input class="form-control" placeholder="{{ search|e( 'html_attr' ) }}" name="s" aria-label="{{ search|e( 'html_attr' ) }}" type="text">
-						<button class="search-form-btn" type="submit">
-							{{ 'search'|svgicon }}
-						</button>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
+    <div class="skewed-overlay"></div>
+    <div class="page-header">
+        <div class="page-header-background">
+            <img src="{{ page_notfound_image }}" class="page-header-image img-fluid" />
+        </div>
+        <div class="container">
+            <div class="speech-bubble">
+                {{ page_notfound_text|raw }}
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    {{ page_notfound_help }}
+                    <form class="form search-form" action="{{ data_nav_bar.home_url }}">
+                        {% set search = __( 'Search', 'planet4-master-theme' ) %}
+                        <input class="form-control" placeholder="{{ search|e( 'html_attr' ) }}" name="s" aria-label="{{ search|e( 'html_attr' ) }}" type="text">
+                        <button class="search-form-btn" type="submit">
+                            {{ 'search'|svgicon }}
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

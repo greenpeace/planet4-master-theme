@@ -1,0 +1,150 @@
+.split-three-column {
+  .three-column-images {
+    min-height: 184px;
+    position: relative;
+    overflow: hidden;
+    max-width: 100%;
+    margin: auto;
+
+    @include medium-and-up {
+      min-height: 330px;
+      margin-left: 0;
+      margin-right: 0;
+    }
+
+    @include x-large-and-up {
+      min-height: 430px;
+    }
+  }
+
+  .col {
+    position: relative;
+  }
+
+  .split-image {
+    position: absolute;
+
+    img {
+      height: 184px;
+      position: relative;
+      left: -35%;
+      max-width: inherit;
+      object-fit: cover;
+      cursor: pointer;
+
+      @include mobile-only {
+        width: 260px;
+      }
+
+      @include medium-and-up {
+        height: 330px;
+        width: 400px;
+      }
+
+      @include large-and-up {
+        left: -25%;
+      }
+
+      @include x-large-and-up {
+        left: -30%;
+        height: 430px;
+        width: 530px;
+      }
+
+      @include xx-large-and-up {
+        width: 620px;
+      }
+
+      html[dir="rtl"] & {
+        right: -25%;
+
+        @include large-and-up {
+          right: -15%;
+        }
+
+        @include x-large-and-up {
+          right: -20%;
+          height: 430px;
+        }
+      }
+    }
+  }
+
+  html[dir="rtl"] & {
+    .first-column {
+      margin-right: -50px;
+      margin-left: -130px;
+
+      img {
+        right: 35px;
+      }
+    }
+
+    .second-column {
+      transform: skew(-25deg);
+      border-left: 10px solid var(--body-background-color, var(--white));
+      border-right: 10px solid var(--body-background-color, var(--white));
+      z-index: 2;
+      width: 110%;
+      right: 0;
+      top: 0;
+      overflow: hidden;
+
+      img {
+        transform: skew(25deg);
+        @include mobile-only {
+          right: -50px;
+        }
+      }
+    }
+  }
+
+  .first-column {
+    margin-left: -50px;
+    margin-right: -130px;
+
+    img {
+      left: 35px;
+    }
+  }
+
+  .second-column {
+    transform: skew(25deg);
+    border-left: 10px solid var(--body-background-color, var(--white));
+    border-right: 10px solid var(--body-background-color, var(--white));
+    z-index: 2;
+    width: 110%;
+    left: 0;
+    top: 0;
+    overflow: hidden;
+
+    img {
+      width: 660px;
+      transform: skew(-25deg);
+
+      @include mobile-only {
+        width: 280px;
+        left: -50px;
+      }
+
+      @include small-and-up {
+        left: -180px;
+      }
+
+      @include medium-and-up {
+        left: -100px;
+      }
+    }
+
+    .img_post {
+      @include small-and-up {
+        width: 500px;
+        left: -150px;
+      }
+    }
+  }
+
+  .third-column {
+    z-index: 1;
+  }
+}

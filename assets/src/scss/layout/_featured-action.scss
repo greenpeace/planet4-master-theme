@@ -1,0 +1,103 @@
+.featured-action-section {
+  position: relative;
+  margin-top: $sp-6x;
+  margin-bottom: $sp-6x;
+  display: flex;
+  border-radius: $sp-x;
+  gap: $sp-3;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, .16);
+  transition: box-shadow 0.2s;
+
+  &:hover {
+    box-shadow: 0 1px 14px rgba(0, 0, 0, 0.3);
+
+    .btn {
+      background-color: var(--button-primary--hover--background);
+    }
+
+    .featured-action-section__content h5 {
+      text-decoration: underline;
+    }
+  }
+}
+
+.featured-action-section__link {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+
+.featured-action-section__image img {
+  width: 356px;
+  height: 210px;
+  object-fit: fill;
+  border-top-left-radius: $sp-x;
+  border-bottom-left-radius: $sp-x;
+}
+
+.featured-action-section__content {
+  width: 100%;
+  padding: $sp-3 $sp-2 $sp-2 0;
+  position: relative;
+}
+
+.featured-action-section__content h5,
+.featured-action-section__content p {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  -webkit-line-clamp: 2;
+}
+
+.featured-action-section__content p {
+  font-size: var(--font-size-s--font-family-tertiary);
+  font-family: var(--font-family-paragraph-secondary);
+}
+
+.featured-action-section__content-btn {
+  position: absolute;
+  right: $sp-2;
+  bottom: $sp-2;
+}
+
+.featured-action-section__content-btn a {
+  height: 38px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media (max-width: 1200px) {
+  .featured-action-section__image img {
+    width: 296px;
+  }
+}
+
+@media (max-width: 991px) {
+  .featured-action-section__image {
+    padding: $sp-2 0 $sp-2 $sp-2;
+  }
+
+  .featured-action-section__image img {
+    width: 96px;
+    height: 96px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  .featured-action-section__content {
+    padding: $sp-2 $sp-2 $sp-2 0;
+  }
+
+  .featured-action-section__content p {
+    display: none;
+  }
+}
+
+@media (max-width: 500px) {
+  .featured-action-section {
+    gap: $sp-1;
+  }
+}

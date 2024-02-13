@@ -41,11 +41,12 @@
 
   .nav-item {
     line-height: 50px;
+    font-weight: var(--font-weight-regular);
     margin: 0 20px;
   }
 
   .nav-link {
-    color: var(--nav-link--color, transparentize($white, 0.5));
+    color: var(--grey-600);
     white-space: nowrap;
     padding: 0;
 
@@ -56,7 +57,7 @@
   }
 
   .active .nav-link {
-    color: var(--nav-link--active--color, $white);
+    color: var(--color-text-nav_link);
     opacity: 1;
     text-decoration: none;
   }

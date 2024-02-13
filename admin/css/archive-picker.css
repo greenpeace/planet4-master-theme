@@ -1,0 +1,694 @@
+/* Todo: Change to scss, separate styles that are essential to the ImagePicker component to work (if there are any)
+     from ArchivePicker styles*/
+
+:root {
+  --sidebar-width-large: 450px;
+  --sidebar-width-tablet: 400px;
+}
+
+#wpcontent {
+  padding-right: 10px;
+  padding-left: 10px;
+}
+
+#wpbody-content {
+  padding-bottom: 0;
+}
+
+#wpfooter {
+  display: none;
+}
+
+.media-archive-info {
+  text-align: center;
+  margin-top: 100px;
+}
+
+.archive-picker {
+  width: 100%;
+  display: flex;
+  height: 94vh;
+  gap: 10px;
+}
+
+.archive-picker-main {
+  position: relative;
+  flex: 100%;
+}
+
+.archive-picker-sidebar {
+  display: none;
+}
+
+.archive-picker-sidebar-open {
+  display: block;
+  height: 100%;
+  overflow-y: auto;
+  flex: 70%;
+}
+
+.archive-picker-sidebar-open::-webkit-scrollbar,
+.picker-sidebar-fields::-webkit-scrollbar {
+  display: none;
+}
+
+.archive-picker-search {
+  margin-top: 20px;
+  display: flex;
+}
+
+.picker-list {
+  max-height: 80vh;
+  overflow-y: scroll;
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 0 16px;
+  position: relative;
+  margin-top: 54px;
+}
+
+.picker-list li {
+  position: relative;
+}
+
+.item-disabled {
+  opacity: .2;
+}
+
+.picker-list li .components-spinner {
+  position: absolute;
+  top: 8px;
+  left: 0;
+}
+
+.picker-list.bulk-select li img {
+  opacity: 0.8;
+  transition: opacity 250ms ease;
+}
+
+.picker-list.bulk-select li img.picker-selected {
+  opacity: 1;
+}
+
+.archive-picker-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 50px;
+  margin-bottom: 16px;
+  width: 100%;
+}
+
+.archive-picker-title {
+  font-size: 24px;
+  font-weight: 400;
+  margin: 0;
+}
+
+.nav-bulk-select {
+  display: flex;
+  align-items: center;
+}
+
+.nav-bulk-select.bulk-enabled {
+  width: 100%;
+  justify-content: space-between;
+}
+
+.nav-bulk-select button {
+  height: 36px;
+}
+
+.nav-bulk-select button:not(:last-child) {
+  margin-inline-end: 8px;
+}
+
+.bulk-select-checkbox {
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  right: 2px;
+  top: 2px;
+  background-color: white;
+  border: 1px solid #979797;
+  cursor: pointer;
+}
+
+.bulk-select-checkbox.is-checked {
+  background: url("../../images/checkmark.svg"), white;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.archive-picker-main li img {
+  margin: 0;
+  border: 2px solid transparent;
+  box-sizing: border-box;
+  width: 100%;
+  object-fit: cover;
+  cursor: pointer;
+}
+
+.archive-picker-main li {
+  position: relative;
+}
+
+.archive-picker-main .added-to-library {
+  display: block;
+  position: absolute;
+  top: 2px;
+  background: white;
+  opacity: 90%;
+  height: 25px;
+  padding: 0 4px;
+  cursor: pointer;
+}
+
+.archive-picker-main .added-to-library:before {
+  content: "";
+  display: block;
+  background: url("../../images/added-to-library.svg");
+  width: 25px;
+  height: 25px;
+  position: absolute;
+  top: 0;
+  left: 2px;
+}
+
+.archive-picker-main .added-to-library span {
+  display: none;
+}
+
+.archive-picker-main .added-to-library:hover span {
+  display: block;
+  margin-left: 25px;
+  font-size: 10px;
+  color: black;
+  line-height: 25px;
+}
+
+.archive-picker-main.is-open li img {
+  opacity: 20%;
+}
+
+.archive-picker-main.is-open li img:hover {
+  opacity: 100%;
+}
+
+.archive-picker.is-open .help {
+  display: none;
+}
+
+.picker-list li.is-selected img {
+  opacity: 100% !important;
+}
+
+.archive-picker-main.is-open li img.picker-selected {
+  border-color: #1772a5;
+  opacity: 100%;
+}
+
+.archive-picker-main .help {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  z-index: 1;
+}
+
+.archive-picker-main .help span {
+  background: white;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 24px;
+  font-weight: 500;
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+}
+
+.archive-picker-main .help .tooltip {
+  display: none;
+}
+
+.archive-picker-main .help:hover .tooltip {
+  display: block;
+  position: relative;
+  background: white;
+  width: 80%;
+  font-size: 12px;
+  line-height: 1.5;
+  border-radius: 4px;
+  padding: 16px;
+  margin-bottom: 8px;
+  color: black;
+}
+
+.archive-picker-main .help:hover .tooltip:after {
+  content: "";
+  position: absolute;
+  bottom: -14px;
+  right: 4px;
+  border: 8px solid transparent;
+  border-top-color: white;
+}
+
+.archive-picker-main .help:hover .tooltip a {
+  color: black;
+}
+
+.picker-sidebar-fields {
+  display: flex;
+  flex-direction: column;
+  max-height: 100%;
+  overflow: auto;
+  margin-top: 0;
+}
+
+.picker-sidebar-fields dd {
+  overflow-wrap: anywhere;
+}
+
+.picker-sidebar {
+  background: white;
+  padding: 64px 20px 0 20px;
+  border-left: 2px solid black;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.picker-sidebar img {
+  object-fit: cover;
+  width: 100%;
+  margin-bottom: 10px;
+  height: 270px;
+}
+
+.picker-sidebar-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 20px;
+  margin-bottom: 10px;
+}
+
+.picker-sidebar-header .info {
+  width: fit-content;
+}
+
+.picker-sidebar .error {
+  margin-top: 16px;
+}
+
+.picker-sidebar .sidebar-action {
+  width: fit-content;
+  align-self: center;
+  margin-bottom: 24px;
+}
+
+.archive-picker-loading {
+  text-align: center;
+}
+
+.archive-picker-loading svg {
+  width: 24px;
+  height: 24px;
+}
+
+#archive-picker-root .picker-sidebar-header .close-sidebar,
+.media-modal-content .picker-sidebar-header .close-sidebar {
+  border: none;
+  cursor: pointer;
+  min-height: 16px;
+  width: 15px;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 10px;
+}
+
+#archive-picker-root .picker-sidebar-header .close-sidebar {
+  right: 20px;
+  background: url("../../images/black-cross.svg");
+}
+
+.media-modal-content .picker-sidebar-header .close-sidebar {
+  right: 35px;
+  background: url("../../images/arrow-right.svg");
+}
+
+.multiple-search-item .delete-icon {
+  background: url("../../images/black-cross.svg");
+  cursor: pointer;
+  height: 8px;
+  width: 8px;
+  background-size: contain;
+}
+
+.picker-sidebar .edit-image {
+  align-self: flex-end;
+  margin-top: 16px;
+  margin-bottom: 16px;
+  height: 36px;
+}
+
+.multiple-search {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  border: 1px solid #979797;
+  border-radius: 0;
+  width: 100%;
+  margin: 20px 0;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.multiple-search-form {
+  display: flex;
+  height: auto;
+  align-items: flex-start;
+}
+
+.multiple-search-item {
+  display: inline-flex;
+  justify-content: space-between;
+  padding: 6px 8px;
+  margin: 0;
+  color: #1b1b1b;
+  border-radius: 2px;
+  background: #dfddde;
+  font-size: 12px;
+  align-items: center;
+}
+
+.multiple-search-item > span {
+  margin-left: 8px;
+  cursor: pointer;
+}
+
+.multiple-search-wrapper-input {
+  background: url("../../images/search.svg");
+  background-size: 20px auto;
+  background-repeat: no-repeat;
+  background-position: right center;
+  background-origin: content-box, padding-box;
+  padding-right: 8px;
+}
+
+.multiple-search-wrapper-input input {
+  position: relative;
+  width: calc(100% - 20px);
+  height: 100%;
+  margin: 0;
+
+  border-radius: 0;
+  font-size: 14px;
+  outline: 0;
+  border: none;
+  border-bottom: 1px solid transparent;
+}
+
+.multiple-search-wrapper-input input:focus {
+  outline-width: 0 !important;
+  border-bottom-color: transparent !important;
+  box-shadow: none !important;
+}
+
+.multiple-search-nav {
+  display: none;
+}
+
+.multiple-search-nav > button {
+  height: 36px !important;
+}
+
+.multiple-search-nav > button:not(:last-child) {
+  margin-right: 8px;
+}
+
+.empty-media-items-message {
+  height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.multiple-search-form {
+  width: 100%;
+  height: auto;
+}
+
+.multiple-search-list {
+  box-sizing: border-box;
+  display: grid;
+  grid-gap: 8px;
+  grid-template-columns: repeat(3, 1fr);
+  margin: 0;
+  padding: 8px;
+  width: 100%;
+  border-top: 1px solid #979797;
+}
+
+.multiple-search-wrapper-input.disabled {
+  display: none;
+}
+
+.archive-picker-title {
+  line-height: 150%;
+}
+
+@media (max-width: 767px) {
+  .picker-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .archive-picker-main.is-open .picker-list {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  .archive-picker-sidebar-open {
+    flex: 100%;
+  }
+}
+
+@media (min-width: 768px) {
+  #wpcontent {
+    padding-top: 10px;
+    padding-right: 20px;
+    padding-left: 20px;
+  }
+
+  .archive-picker.is-open .help {
+    display: flex;
+    right: var(--sidebar-width-large);
+  }
+
+  .archive-picker.is-open .multiple-search-form {
+    width: 100%;
+    margin-top: 16px;
+  }
+
+  .archive-picker.is-open .nav-bulk-select {
+    order: 0;
+  }
+
+  .picker-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .archive-picker-main li img {
+    height: 160px;
+  }
+
+  .archive-picker-main .help:hover .tooltip {
+    max-width: 330px;
+  }
+
+  .archive-picker-title {
+    margin-right: 12px;
+  }
+
+  .multiple-search {
+    max-width: 400px;
+    margin: 0;
+  }
+
+  .multiple-search-form {
+    width: auto;
+  }
+
+  .multiple-search-wrapper-input {
+    flex: 100%;
+    margin: 0;
+  }
+
+  .multiple-search-wrapper-input input {
+    height: 34px;
+    padding: 8px;
+  }
+
+  .multiple-search-nav {
+    display: flex;
+    align-items: center;
+    margin-left: 8px;
+  }
+
+  .multiple-search-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .nav-bulk-select.bulk-enabled {
+    justify-content: flex-end;
+  }
+
+  .nav-bulk-select.bulk-enabled .info {
+    margin-right: auto;
+  }
+}
+
+@media (max-width: 782px) {
+  .btn-cancel-bulk-select {
+    padding: 0 !important;
+    background-color: transparent !important;
+    border: none !important;
+    display: flex !important;;
+    align-items: center;
+    color: #1D2327 !important;
+  }
+
+  .btn-cancel-bulk-select::before {
+    content: "";
+    height: 18px;
+    width: 18px;
+    display: block;
+    background-color: #1D2327;;
+    mask: url("../../images/chevron.svg");
+    mask-size: contain;
+    mask-repeat: no-repeat;
+    margin-inline-end: 8px;
+    transform: rotate(180deg);
+  }
+}
+
+@media (min-width: 783px) {
+  .picker-sidebar {
+    padding-top: 56px;
+  }
+
+  .nav-bulk-select {
+    order: 1;
+    margin-left: auto;
+  }
+
+  .archive-picker-main.is-open .picker-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1200px) {
+  .archive-picker.is-open .multiple-search-form {
+    width: 100%;
+  }
+
+  .archive-picker.is-open .multiple-search-form .multiple-search {
+    max-width: 100%;
+  }
+
+  .archive-picker.is-open .help {
+    display: flex;
+    right: calc(var(--sidebar-width-large) + 50px);
+  }
+
+  .archive-picker-main .help span {
+    line-height: 32px;
+    width: 32px;
+    height: 32px;
+    font-size: 18px;
+  }
+
+  .archive-picker-main .help:hover .tooltip {
+    font-size: 14px;
+  }
+
+  .archive-picker-main .help:hover .tooltip:after {
+    right: 8px;
+  }
+
+  .archive-picker-main.is-open .picker-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .archive-picker-sidebar-open {
+    flex: 50%;
+  }
+}
+
+@media (max-width: 1230px) {
+  .archive-picker-main.is-open .archive-picker-title {
+    width: 100%;
+  }
+}
+
+/* @media (max-width: 1350px) {
+  .archive-picker-sidebar-open {
+    flex: 70%;
+  }
+} */
+
+@media (min-width: 1440px) {
+  .archive-picker-main.is-open .multiple-search-form {
+    width: fit-content;
+    margin-top: 0;
+  }
+
+  .archive-picker.is-open .nav-bulk-select {
+    order: 1;
+  }
+
+  .picker-list {
+    grid-template-columns: repeat(5, 1fr);
+  }
+
+  .archive-picker-main.is-open .picker-list {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .multiple-search {
+    display: flex;
+    max-width: 100%;
+    width: fit-content;
+    flex-direction: row;
+    height: 36px;
+  }
+
+  .multiple-search-list {
+    display: flex;
+    height: 100%;
+    border-top: none;
+    flex: 40%;
+  }
+
+  .archive-picker-sidebar-open {
+    flex: 40%;
+  }
+}
+
+@media (min-width: 1600px) {
+  .picker-list {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+
+@media (max-width: 600px) {
+  .picker-sidebar-header .close-sidebar {
+    top: 50px;
+  }
+}

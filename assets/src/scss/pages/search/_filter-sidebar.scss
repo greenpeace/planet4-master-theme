@@ -9,14 +9,17 @@
 
   .filteritem {
     a {
+      border-color: var(--grey-300);
+      text-transform: none;
+      border-bottom-width: 2px;
+      border-style: solid;
       display: block;
-      border: 1px solid $dark-blue;
       border-top: 0;
-      border-bottom-width: 4px;
+      border-left-width: 1px;
+      border-right-width: 1px;
       padding: 11px $sp-4;
-      text-transform: uppercase;
       text-decoration: none;
-      color: $grey-80;
+      color: var(--color-text-body);
       font-weight: bold;
       position: relative;
       font-size: $font-size-sm;
@@ -51,7 +54,7 @@
         &:after {
           content: "";
           position: absolute;
-          background-color: $grey-80;
+          background-color: var(--grey-900);
           transition: transform 0.25s ease-out;
         }
 
@@ -120,18 +123,12 @@
       height: 40px;
       width: 130px;
       line-height: 40px;
-      background: $orange;
       padding: 0 $sp-1;
-      color: $white;
 
       svg {
         margin-right: 4px;
         vertical-align: baseline;
-      }
-
-      &:hover {
-        color: $grey-80;
-        cursor: pointer;
+        transition: none;
       }
 
       .icon-cross {
@@ -144,20 +141,6 @@
         height: 48px;
         width: 150px;
         line-height: 48px;
-
-        &:hover {
-          background: $orange-hover;
-          color: $white;
-        }
-      }
-
-      &.disabled {
-        background: $grey-40;
-
-        &:hover {
-          color: $white;
-          cursor: not-allowed;
-        }
       }
     }
   }
@@ -165,27 +148,29 @@
   .active-filter {
     h5 {
       font-size: $font-size-md;
-      color: $grey-40;
+      color: var(--grey-600);
       margin-bottom: 20px;
     }
 
     .activefilter-list {
       margin-bottom: 20px;
-      border-bottom: 1px solid $grey-20;
+      border-bottom: 1px solid var(--grey-500);
       padding-bottom: 10px;
 
       .activefilter-tag {
+        border: none;
+        background: var(--grey-200);
+        color: var(--grey-900);
+        border-radius: 4px;
         font-size: 1.125rem;
-        border: 1px solid $dark-blue;
-        padding: 0 $sp-5 0 $sp-2x;
+        padding-inline-end: $sp-5;
+        padding-inline-start: $sp-2x;
         display: inline-block;
         margin-bottom: 16px;
         line-height: 42px;
         text-decoration: none;
         position: relative;
         cursor: pointer;
-        background-color: transparent;
-        color: $dark-blue;
         margin-inline-end: 8px;
         min-width: 40%;
         text-align: left;
@@ -196,13 +181,16 @@
         position: absolute;
         right: 0;
         top: 0;
-        margin-right: $sp-2;
+        margin-inline-end: $sp-2;
+
+        html[dir="rtl"] & {
+          right: auto;
+          left: 0;
+        }
       }
 
       .clearall {
         width: 100%;
-        background: $dark-blue;
-        color: $white;
       }
     }
   }

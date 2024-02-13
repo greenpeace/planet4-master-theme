@@ -1,16 +1,16 @@
 <article class="single-comment {{ comment.comment_type }} comment-level-{{ comment.depth }}" id="comment-{{ comment.ID }}" >
-	<p itemprop="commentText" class="single-comment-text">{{ comment.comment_content|raw }}</p>
-	<footer class="single-comment-meta">
-		<span class="author-info" itemprop="author">{{ comment.comment_author }}</span>
-		<time datetime="" class="comment-date" itemprop="commentTime">{{ comment.date }}</time>
-		{# Add custom css classes to reply button #}
-		{% if ( comment.depth < p4_comments_depth ) %}
-			{{ comment.reply_link|raw }}
-		{% endif %}
-	</footer>
+    <p itemprop="commentText" class="single-comment-text">{{ comment.comment_content|raw }}</p>
+    <footer class="single-comment-meta">
+        <span class="author-info" itemprop="author">{{ comment.comment_author }}</span>
+        <time datetime="" class="comment-date" itemprop="commentTime">{{ comment.date }}</time>
+        {# Add custom css classes to reply button #}
+        {% if ( comment.depth < p4_comments_depth ) %}
+            {{ comment.reply_link|raw }}
+        {% endif %}
+    </footer>
 </article>
 {% for cmt in comment.children %}
-	{% if ( comment.depth < p4_comments_depth ) %}
-		{% include "child_comments.twig" with {comment:cmt, index: loop.index} %}
-	{% endif %}
+    {% if ( comment.depth < p4_comments_depth ) %}
+        {% include "child_comments.twig" with {comment:cmt, index: loop.index} %}
+    {% endif %}
 {% endfor %}

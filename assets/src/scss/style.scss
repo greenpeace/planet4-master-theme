@@ -12,8 +12,9 @@ Text Domain: planet4-master-theme
 */
 
 // Base
-@import "base/variables";
+@import "base/tokens";
 @import "base/colors";
+@import "base/variables";
 @import "base/palette";
 @import "base/functions";
 @import "base/mixins";
@@ -35,9 +36,9 @@ Text Domain: planet4-master-theme
 @import "components/tweet-block";
 
 // Layout
+@import "layout/navbar";
 @import "layout/breadcrumbs";
 @import "layout/blocks";
-@import "layout/block-classes";
 @import "layout/cookies";
 @import "layout/cookies-settings";
 @import "layout/footer";
@@ -48,6 +49,8 @@ Text Domain: planet4-master-theme
 @import "layout/page-section";
 @import "layout/skewed-overlay";
 @import "layout/tables";
+@import "layout/featured-action";
+@import "layout/wide-blocks";
 
 // Pages
 @import "pages/page";
@@ -57,6 +60,7 @@ Text Domain: planet4-master-theme
 @import "pages/author";
 @import "pages/page_type";
 @import "pages/category";
+@import "pages/listing-page";
 
 // Search
 @import "pages/search/search";
@@ -73,3 +77,14 @@ Text Domain: planet4-master-theme
 @import "vendors/usabilla";
 @import "vendors/gtm";
 @import "~lite-youtube-embed";
+
+// CSS variables
+@import "base/css-variables";
+
+// Blocks
+@import "blocks";
+
+// Hide WPML footer language switcher.
+.wpml-ls-statics-footer {
+  display: none;
+}

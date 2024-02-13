@@ -1,0 +1,4 @@
+div[id="wpml-language-switcher-footer"],
+div[id="ml-content-setup-sec-wp-login"] {
+  display: none;
+}

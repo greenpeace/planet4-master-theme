@@ -1,0 +1,19 @@
+:root {
+  --body--background-color: var(--white);
+  --body--font-family: var(--font-family-secondary);
+  --button--font-family: var(--font-family-button);
+  --button--font-size: var(--font-size-xxxs--font-family-primary);
+  --button--font-weight: var(--font-weight-regular);
+  --button-primary--hover--background: var(--p4-action-yellow-600);
+  --font-family-heading: var(--font-family-primary);
+  --link--hover--text-decoration: underline;
+  --link--color: var(--grey-900);
+  --link--visited--color: var(--grey-900);
+  --link--hover--color: var(--grey-900);
+  --link--text-decoration: none;
+  --navbar-menu-height: 68px;
+  --navbar-menu-min-height: 40px;
+  --navbar-menu-height--small: 60px;
+  --navbar-menu-height--large: 68px;
+  --top-navigation--separation: 1px solid var(--grey-300);
+}

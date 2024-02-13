@@ -1,0 +1,5210 @@
+# Translation of RocketGenius - Gravity Forms in Arabic
+# This file is distributed under the same license as the RocketGenius - Gravity Forms package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2022-06-23 16:56:29+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+"X-Generator: GlotPress/3.0.0-rc.4\n"
+"Language: ar\n"
+"Project-Id-Version: RocketGenius - Gravity Forms\n"
+
+#: includes/license/class-gf-license-api-response.php:225
+msgid "N/A"
+msgstr "غير متاح"
+
+#: includes/form-editor/save-form/config/class-gf-form-editor-form-save-config.php:43
+msgid "Close"
+msgstr "إغلاق"
+
+#: includes/splash-page/gf_splash.php:114
+msgid "and"
+msgstr "و"
+
+#: includes/splash-page/gf_splash.php:16 includes/splash-page/gf_splash.php:36
+#: includes/splash-page/gf_splash.php:57 includes/splash-page/gf_splash.php:77
+msgid "Read More"
+msgstr "قراءة المزيد"
+
+#: includes/splash-page/class-gf-splash-page.php:112
+msgid "About"
+msgstr "حول"
+
+#: includes/orders/summaries/views/view-order-summary.php:48
+#: includes/orders/summaries/views/view-pricing-fields-html.php:44
+#: includes/orders/summaries/views/view-pricing-fields-text.php:23
+msgid "Sub Total"
+msgstr "الإجمالي الفرعي"
+
+#: includes/form-editor/save-form/config/class-gf-form-editor-form-save-config.php:41
+msgid "Saved"
+msgstr "تم الحفظ"
+
+#: includes/embed-form/dom/class-gf-embed-button.php:21
+msgid "Embed"
+msgstr "تضمين"
+
+#: includes/embed-form/config/class-gf-embed-config.php:180
+msgid "Post"
+msgstr "مقالة"
+
+#: includes/embed-form/config/class-gf-embed-config-i18n.php:59
+msgid "Copied"
+msgstr "تم النسخ"
+
+#: includes/embed-form/config/class-gf-embed-config-i18n.php:49
+msgid "Create"
+msgstr "إنشاء"
+
+#: form_detail.php:2190
+msgid "Auto"
+msgstr "تلقائي"
+
+#: form_detail.php:241
+#: includes/embed-form/config/class-gf-embed-config-i18n.php:53
+#: includes/form-editor/save-form/config/class-gf-form-editor-form-save-config.php:39
+msgid "Saving"
+msgstr "جاري الحفظ"
+
+#: common.php:5263
+msgid "Configure"
+msgstr "إعدادات"
+
+#: includes/license/class-gf-license-api-response.php:219
+msgid "Upgrade"
+msgstr "تحديث"
+
+#: includes/license/class-gf-license-api-response.php:144
+msgid "Expired"
+msgstr "انتهت الصلاحية"
+
+#: includes/license/class-gf-license-api-response.php:142
+msgid "Invalid"
+msgstr "غير صالح"
+
+#: common.php:4016
+msgid "Sorry, this file type is not permitted for security reasons."
+msgstr "عفوًا، هذا النوع من الملفات غير مسموح به لأسباب أمنية."
+
+#: includes/system-status/class-gf-system-report.php:431
+msgid "Translations"
+msgstr "الترجمات"
+
+#: js.php:429 js.php:1520 js.php:1570
+msgid "Learn more"
+msgstr "أعرف أكثر"
+
+#: includes/addon/class-gf-addon.php:3208
+msgid "Update Settings"
+msgstr "تحديث الاعدادات"
+
+#: includes/config/items/class-gf-config-i18n.php:34
+msgid "Sun"
+msgstr "الأحد"
+
+#: includes/config/items/class-gf-config-i18n.php:33
+msgid "Sat"
+msgstr "السبت"
+
+#: includes/config/items/class-gf-config-i18n.php:32
+msgid "Fri"
+msgstr "الجمعة"
+
+#: includes/config/items/class-gf-config-i18n.php:31
+msgid "Thu"
+msgstr "الخميس"
+
+#: includes/config/items/class-gf-config-i18n.php:30
+msgid "Wed"
+msgstr "الأربعاء"
+
+#: includes/config/items/class-gf-config-i18n.php:29
+msgid "Tue"
+msgstr "الثلاثاء"
+
+#: includes/config/items/class-gf-config-i18n.php:28
+msgid "Mon"
+msgstr "الأثنين"
+
+#: common.php:5243
+msgid "Column"
+msgstr "عمود"
+
+#: entry_list.php:265
+msgid "Full Width"
+msgstr "كامل العرض"
+
+#: includes/fields/class-gf-field.php:1561
+msgid "Move"
+msgstr "نقل"
+
+#: gravityforms.php:3101 gravityforms.php:5746
+msgid "Disable auto-updates"
+msgstr "تعطيل التحديثات التلقائية"
+
+#: gravityforms.php:3100 gravityforms.php:5750
+msgid "Enable auto-updates"
+msgstr "تفعيل التحديثات التلقائية"
+
+#: js.php:330 js.php:1077
+msgid "Minute"
+msgstr "الدقيقة"
+
+#: entry_detail.php:1466
+msgid "Resend"
+msgstr "إعاده الإرسال"
+
+#: js.php:929
+msgid "Donation"
+msgstr "تبرع"
+
+#: js.php:918
+msgid "Third Option"
+msgstr "الخيار الثالث"
+
+#: js.php:918
+msgid "Second Option"
+msgstr "الخيار الثانى"
+
+#: js.php:918
+msgid "First Option"
+msgstr "الخيار الاول"
+
+#: js.php:873
+msgid "Product Name"
+msgstr "اسم المنتج"
+
+#: js.php:854
+msgid "Post Custom Field"
+msgstr "حقل منشورة مخصص"
+
+#: js.php:847
+msgid "Post Tags"
+msgstr "وسوم المقال"
+
+#: js.php:842
+msgid "Post Excerpt"
+msgstr "الوصف المختصر للمقال"
+
+#: js.php:838
+msgid "Post Body"
+msgstr "محتوى المقال"
+
+#: js.php:834
+msgid "Post Title"
+msgstr "عنوان المقال"
+
+#: js.php:830
+msgid "Hidden Field"
+msgstr "حقل مخفى"
+
+#: js.php:766
+msgid "Card Type"
+msgstr "نوع البطاقه"
+
+#: js.php:681 js.php:696 js.php:697 js.php:712 js.php:713
+msgid "Third Choice"
+msgstr "الخيار الثالث"
+
+#: js.php:681 js.php:696 js.php:697 js.php:712 js.php:713
+msgid "Second Choice"
+msgstr "الخيار الثانى"
+
+#: js.php:681 js.php:696 js.php:697 js.php:712 js.php:713
+msgid "First Choice"
+msgstr "الخيار الاول"
+
+#: js.php:678 js.php:691 js.php:705 js.php:987
+msgid "Untitled"
+msgstr "غير معنون"
+
+#: js.php:652
+msgid "HTML Block"
+msgstr "مربع HTML"
+
+#: js.php:636
+msgid "Section Break"
+msgstr "قسم جديد"
+
+#: js.php:514
+msgid "Column 3"
+msgstr "عامود ٣"
+
+#: js.php:514
+msgid "Column 2"
+msgstr "عامود ٢"
+
+#: js.php:514
+msgid "Column 1"
+msgstr "عامود ١"
+
+#: js.php:279
+msgid "Custom Sub-Label"
+msgstr "حقل ثانوي مخصص"
+
+#: js.php:271
+msgid "Sub-Label:"
+msgstr "عنوان ثانوي:"
+
+#: js.php:146
+msgid "Select a category"
+msgstr "اختار تصنيف"
+
+#: common.php:5374 js.php:66
+msgid "To use conditional logic, please create a field that supports conditional logic."
+msgstr "لاستخدام الظهور المشروط، من فضلك قم باخيتار حقل يدعم خاصية الظهور المشروط."
+
+#: js.php:32
+msgid "Please enter name."
+msgstr "من فضلك ادخل الاسم."
+
+#: js.php:25
+msgid "Item has been deleted."
+msgstr "تم حذف العنصر"
+
+#: select_columns.php:224
+msgid "Inactive Columns"
+msgstr "العواميد الغير مفعلة"
+
+#: select_columns.php:211
+msgid "Active Columns"
+msgstr "العواميد المفعلة"
+
+#: settings.php:890
+msgid "reCAPTCHA Settings"
+msgstr "اعدادات reCAPTCHA"
+
+#: includes/config/items/class-gf-config-multifile.php:35
+msgid "Cancel this upload"
+msgstr "الغاء هذا الرفع"
+
+#: includes/config/items/class-gf-config-multifile.php:33
+msgid "Please wait for the uploading to complete"
+msgstr "من فضلك انتظر اكتمال الرفع"
+
+#: includes/config/items/class-gf-config-multifile.php:29
+msgid "File exceeds size limit"
+msgstr "الملف يتخطى الحجم الاقصى"
+
+#: includes/config/items/class-gf-config-multifile.php:28
+msgid "in progress"
+msgstr "جارى"
+
+#: includes/config/items/class-gf-config-multifile.php:27
+msgid "Delete this file"
+msgstr "p`t hglgt"
+
+#: includes/config/items/class-gf-config-multifile.php:26
+msgid "This type of file is not allowed. Must be one of the following: "
+msgstr "نوع الملف التالى . لابد ان يكون من التالى:"
+
+#: common.php:5963 includes/config/items/class-gf-config-multifile.php:36
+msgid "Cancelled"
+msgstr "تم الالغاء"
+
+#: common.php:5938
+msgid "Transaction ID"
+msgstr "رقم التحويل"
+
+#: common.php:5919
+msgid "Source URL"
+msgstr "رابط المصدر"
+
+#: common.php:5901
+msgid "Starred"
+msgstr "مفضلة"
+
+#: common.php:5784
+msgid "Any form field"
+msgstr "جميع حقول النموذج"
+
+#: js.php:319
+msgid "YYYY"
+msgstr "DD"
+
+#: js.php:317
+msgid "DD"
+msgstr "DD"
+
+#: js.php:117
+msgid "Completed"
+msgstr "اكتمل"
+
+#: settings.php:912
+msgid "Secret Key"
+msgstr "المفتاح السري"
+
+#: common.php:6833
+msgid "Visible"
+msgstr "عرض"
+
+#: common.php:5966
+msgid "Voided"
+msgstr "باطلة"
+
+#: common.php:5965
+msgid "Refunded"
+msgstr "تم استعادة المبلغ المالي"
+
+#: common.php:5961
+msgid "Failed"
+msgstr "فشل"
+
+#: common.php:5959
+msgid "Paid"
+msgstr "مدفوعه"
+
+#: common.php:5958
+msgid "Authorized"
+msgstr "مُصرح له"
+
+#: common.php:5321
+msgid "Remove a condition"
+msgstr "حذف شرط"
+
+#: common.php:5320
+msgid "Add a condition"
+msgstr "اضف شرط"
+
+#: common.php:5303
+msgid "Please enter a confirmation name."
+msgstr "من فضلك ادخل اسم التاكيد."
+
+#: common.php:5302
+msgid "Please enter a URL."
+msgstr "من فضلك ادخل الرابط."
+
+#: common.php:5301
+msgid "Please select a page."
+msgstr "من فضلك اختار الصفحة"
+
+#: common.php:5299
+msgid "Untitled Confirmation"
+msgstr "تاكيد غير معنون"
+
+#: common.php:5296
+msgid "Are you sure you wish to delete this confirmation?"
+msgstr "هل انت متاكد من حذف  هذه التغييرات؟"
+
+#: common.php:5294
+msgid "Are you sure you wish to cancel these changes?"
+msgstr "هل انت متاكد من الغاء هذه التغييرات؟"
+
+#: common.php:5293
+msgid "Saving..."
+msgstr "جارى الحفظ ..."
+
+#: common.php:5291
+msgid "Send this notification if"
+msgstr "ارسل التنبيه اذا"
+
+#: common.php:5290
+msgid "Use this confirmation if"
+msgstr "استخدم هذا التاكيد اذا"
+
+#: common.php:5279
+msgid "of the following match:"
+msgstr "من التالي يطابق:"
+
+#: common.php:5278
+msgctxt "Conditional Logic"
+msgid "Any"
+msgstr "أي"
+
+#: common.php:5277
+msgctxt "Conditional Logic"
+msgid "All"
+msgstr "الكل"
+
+#: common.php:5258
+msgid "Hide"
+msgstr "اخفاء"
+
+#: common.php:5257 js.php:277
+msgid "Show"
+msgstr "عرض"
+
+#: common.php:5256
+msgid "this form button if"
+msgstr "هذا النموذج إذا"
+
+#: common.php:5253
+msgid "this field if"
+msgstr "هذا الحقل اذا"
+
+#: common.php:5247
+msgid "Untitled Form"
+msgstr "نموذج غير معنون"
+
+#: common.php:5246
+msgid "Enter a value"
+msgstr "ادخل قيمة"
+
+#: common.php:3186
+msgid "%1$s at %2$s"
+msgstr "%1$s في %2$s"
+
+#. translators: %s: relative time from now, used for generic date comparisons.
+#. "1 day ago", or "20 seconds ago"
+#: common.php:1387 common.php:3173
+msgid "%s ago"
+msgstr "%s مضى"
+
+#: common.php:917
+msgid "Full Size - Right Aligned"
+msgstr "الحجم الكامل - جهة اليمين"
+
+#: common.php:916
+msgid "Full Size - Centered"
+msgstr "الحجم الكامل - فى الوسط"
+
+#: common.php:915
+msgid "Full Size - Left Aligned"
+msgstr "الحجم الكامل - جهة الشمال"
+
+#: common.php:914
+msgid "Full Size"
+msgstr "الحجم الكامل"
+
+#: common.php:912
+msgid "Large - Right Aligned"
+msgstr "الصورة الكبيرة  - جهة اليمين"
+
+#: common.php:911
+msgid "Large - Centered"
+msgstr "الصورة الكبيرة  - فى الوسط"
+
+#: common.php:910
+msgid "Large - Left Aligned"
+msgstr "الصورة الكبيرة  - جهة الشمال"
+
+#: common.php:907
+msgid "Medium - Right Aligned"
+msgstr "الصورة المتوسط - جهة اليمين"
+
+#: common.php:906
+msgid "Medium - Centered"
+msgstr "الصورة المتوسط - فى الوسط"
+
+#: common.php:905
+msgid "Medium - Left Aligned"
+msgstr "الصورة المتوسط - جهة اليسار"
+
+#: common.php:902
+msgid "Thumbnail - Right Aligned"
+msgstr "الصورة المصغرة  - جهة اليمين"
+
+#: common.php:901
+msgid "Thumbnail - Centered"
+msgstr "الصورة المصغرة - فى الوسط"
+
+#: common.php:900
+msgid "Thumbnail - Left Aligned"
+msgstr "الصورة المصغره - جهة اليسار"
+
+#: common.php:899
+msgid "Thumbnail"
+msgstr "الصور المصغره"
+
+#: common.php:898
+msgid "Select image size"
+msgstr "اختار حجم الصورة"
+
+#: common.php:770
+msgid "Post Edit URL"
+msgstr "رابط تعديل المقالات"
+
+#: common.php:761
+msgid "Form Id"
+msgstr "رقم النموذج"
+
+#: common.php:760
+msgid "Entry URL"
+msgstr "رابط المدخلة"
+
+#: common.php:732
+msgid "All Pricing Fields"
+msgstr "جميع حقول السعر"
+
+#: gravityforms.php:6292
+msgid "Forms per page"
+msgstr "النماذج بكل صفحة"
+
+#: gravityforms.php:6039
+msgid "Can't find your form? Make sure it is active."
+msgstr "لايمكنك ايجاد النموذج ؟ تاكد ان النموذج فعال."
+
+#: gravityforms.php:6034
+msgid "Select a form below to add it to your post or page."
+msgstr "اختار نموذج من الاسفل لاضافتة الى المقال او الصفحة."
+
+#: gravityforms.php:5302
+msgid "View entries generated by this form"
+msgstr "شاهد المدخلات المدخله بهذا النموذج"
+
+#: gravityforms.php:5286
+msgid "Edit settings for this form"
+msgstr "تعديل الاعدادات لهذا النموذج"
+
+#: gravityforms.php:2566
+msgid "View All Forms"
+msgstr "شاهد جميع النماذج"
+
+#: gravityforms.php:2554
+msgid "View All Entries"
+msgstr "شاهد جميع المدخلات"
+
+#: gravityforms.php:2529
+msgid "Unread"
+msgstr "غير مقروء "
+
+#: gravityforms.php:2182
+msgid "Please select a form"
+msgstr "من فضلك اختار نموذج"
+
+#: gravityforms.php:2167
+msgid "Add Form"
+msgstr "اضف نموذج"
+
+#: gravityforms.php:2167
+msgid "Add Gravity Form"
+msgstr "اضف نموذج"
+
+#: gravityforms.php:1922
+msgid "%1$s &lsaquo; %2$s &#8212; WordPress"
+msgstr "%1$s &lsaquo; %2$s &#8212; الوردبرس"
+
+#: gravityforms.php:1744
+msgid "Update Available"
+msgstr "يوجد تحديث متاح"
+
+#: gravityforms.php:1562 settings.php:163 settings.php:251 settings.php:265
+msgid "Uninstall Gravity Forms"
+msgstr "الغاء تثبيت النماذج"
+
+#: tooltips.php:144
+msgid "Export Selected Fields"
+msgstr "تصدير الحقول المختارة"
+
+#: tooltips.php:142
+msgid "Export Selected Forms"
+msgstr "تصدير النموذج المختار"
+
+#: tooltips.php:141
+msgid "Export Selected Form"
+msgstr "تصدير النموذج المختار"
+
+#: tooltips.php:135
+msgid "Product Field"
+msgstr "حقل المنتج"
+
+#: tooltips.php:134
+msgid "Disable Quantity"
+msgstr "تعطيل الكمية"
+
+#: tooltips.php:133
+msgid "Enter the base price for this product."
+msgstr "أدخل السعر الأساسي لهذا المنتج."
+
+#: tooltips.php:133
+msgid "Base Price"
+msgstr "السعر الأساسي "
+
+#: tooltips.php:123
+msgid "Post Author"
+msgstr "كاتب المقال"
+
+#: tooltips.php:101
+msgid "Field Choices"
+msgstr "خيارات الحقل"
+
+#: tooltips.php:72
+msgid "Required Field"
+msgstr "حقل مطلوب"
+
+#: tooltips.php:71
+msgid "Field Description"
+msgstr "وصف الحقل"
+
+#: tooltips.php:57
+msgid "Hide Address Line 2"
+msgstr "إخفاء عنوان السطر الثاني"
+
+#: tooltips.php:56
+msgid "Hide Country"
+msgstr "اخفاء الدولة"
+
+#: tooltips.php:48
+msgid "Field type"
+msgstr "نوع الحقل"
+
+#: tooltips.php:12
+msgid "From Email Address"
+msgstr "من البريد الالكترونى"
+
+#: tooltips.php:9
+msgid "Send To Email Address"
+msgstr "ارسل الى البريد الالكترونى"
+
+#: includes/save-form/class-gf-form-crud-handler.php:338
+msgid "New submission from"
+msgstr "تقديم الجديد من"
+
+#: common.php:779 form_detail.php:2981
+msgid "User Login"
+msgstr "تسجيل دخول العضو"
+
+#: common.php:778 form_detail.php:2980
+msgid "User Email"
+msgstr "البريد الالكترونى للعضو"
+
+#: common.php:776 form_detail.php:2979
+msgid "User Display Name"
+msgstr "الاسم الظاهر للعضو"
+
+#: form_detail.php:2759 tooltips.php:140
+msgid "Pricing Fields"
+msgstr "حقول السعر"
+
+#: form_detail.php:2746 tooltips.php:139
+msgid "Post Fields"
+msgstr "حقول المقال"
+
+#: form_detail.php:2627
+msgid "Enable Next Button Conditional Logic"
+msgstr "تفعيل زر التالي المشروط"
+
+#: form_detail.php:2607
+msgid "Enable Page Conditional Logic"
+msgstr "تفعيل ظهور الصفحة المشروط"
+
+#: form_detail.php:2541
+msgid "Allow field to be populated dynamically"
+msgstr "السماح للحقل بالتأهيل ديناميكياً"
+
+#: form_detail.php:2534
+msgid "Use the Rich Text Editor"
+msgstr "استخدام محرر النص الغني"
+
+#: common.php:6876 form_detail.php:2517
+msgid "Visibility"
+msgstr "الظهور"
+
+#: form_detail.php:2504
+msgid "Enable Password Input"
+msgstr "تفعيل حقل كلمة المرور"
+
+#: form_detail.php:2494 tooltips.php:34
+msgid "Delete Icon URL"
+msgstr "حذف رابط الأيقونة"
+
+#: form_detail.php:2484 tooltips.php:33
+msgid "Add Icon URL"
+msgstr "إضافة رابط أيقونة"
+
+#: form_detail.php:2471
+msgid "Turkish"
+msgstr "تركى"
+
+#: form_detail.php:2464
+msgid "Spanish"
+msgstr "اسبانى"
+
+#: form_detail.php:2459
+msgid "Russian"
+msgstr "روسى"
+
+#: form_detail.php:2455
+msgid "Portuguese"
+msgstr "برتغالى"
+
+#: form_detail.php:2431
+msgid "German"
+msgstr "المانى"
+
+#: form_detail.php:2427
+msgid "French"
+msgstr "فرنساوى"
+
+#: form_detail.php:2421
+msgid "Dutch"
+msgstr "هولندى"
+
+#: form_detail.php:2401
+msgid "Language"
+msgstr "اللغة"
+
+#: form_detail.php:2366
+msgid "To activate this option, please add a field to be used as the source."
+msgstr "لتفعيل هذا الخيار قم بإضافة حقل ليستخدم كمصدر لهذا الحقل."
+
+#: form_detail.php:2360
+msgid "Display option to use the values submitted in different field"
+msgstr "إظهار خيار لاستخدام قيم مدخلة في حقل آخر."
+
+#: form_detail.php:2345 tooltips.php:89
+msgid "Default Values"
+msgstr "القيم الافتراضية"
+
+#: form_detail.php:2299 form_detail.php:2309 js.php:194 tooltips.php:88
+msgid "Default Value"
+msgstr "القيمة الافتراضية"
+
+#: form_detail.php:2285
+msgid "Admin Field Label"
+msgstr "عنوان الحقل في لوحة التحكم"
+
+#: form_detail.php:2250 tooltips.php:84
+msgid "Field Size"
+msgstr "حجم الحقل"
+
+#: form_detail.php:2237
+msgid "Enable enhanced user interface"
+msgstr "تفعيل واجهة المستخدم الغنيّة"
+
+#: form_detail.php:2224
+msgid "Custom CSS Class"
+msgstr "اسم CSS مخصص"
+
+#: form_detail.php:2174
+msgid "Custom Validation Message"
+msgstr "رسالة تأكيد مخصصة"
+
+#: form_detail.php:2128
+msgid "Field Label Visibility"
+msgstr "ظهور عناوين الحقول"
+
+#: form_detail.php:2098 tooltips.php:91
+msgid "Placeholders"
+msgstr "نصوص مؤقتة"
+
+#: form_detail.php:2035 tooltips.php:73
+msgid "No Duplicates"
+msgstr "بدون نسخ مماثلة"
+
+#: form_detail.php:2026 includes/settings/class-settings.php:899
+msgid "Required"
+msgstr "مطلوب"
+
+#: form_detail.php:2020
+msgid "Rules"
+msgstr "شروط"
+
+#: form_detail.php:1970 tooltips.php:76
+msgid "Enable Calculation"
+msgstr "تفعيل الحساب"
+
+#: form_detail.php:1954
+msgid "Max"
+msgstr "الأقصى"
+
+#: form_detail.php:1948
+msgid "Min"
+msgstr "الأقل"
+
+#: form_detail.php:1941
+msgid "Range"
+msgstr "المجال"
+
+#: form_detail.php:1929 tooltips.php:49
+msgid "Maximum Characters"
+msgstr "عدد الحروف الأقصى"
+
+#: form_detail.php:1910
+msgid "Select a Mask"
+msgstr "تحديد قيد"
+
+#: form_detail.php:1877
+msgid "Social Security Number"
+msgstr "رقم التضامن الاجتماعى"
+
+#: form_detail.php:1867
+msgid "Examples"
+msgstr "الامثلة"
+
+#: form_detail.php:1852
+msgid "Custom Mask Instructions"
+msgstr "تعليمات القيد المخصص"
+
+#: form_detail.php:1851
+msgid "Enter a custom mask"
+msgstr "قم بادخال قيد مخصص"
+
+#: form_detail.php:1831 tooltips.php:136
+msgid "Input Mask"
+msgstr "قيد الادخال"
+
+#: entry_list.php:261 form_detail.php:1840
+msgid "Standard"
+msgstr "اعتيادي"
+
+#: form_detail.php:1790 tooltips.php:80
+msgid "Sub-Labels"
+msgstr "عنوان ثانوي"
+
+#: form_detail.php:1775 tooltips.php:62
+msgid "Number Format"
+msgstr "صيغة الرقم"
+
+#: form_detail.php:1764
+msgid "Good"
+msgstr "جيد"
+
+#: form_detail.php:1763
+msgid "Bad"
+msgstr "سئ"
+
+#: form_detail.php:1716
+msgid "Enable Email Confirmation"
+msgstr "تفعيل تأكيد البريد الإلكتروني"
+
+#: form_detail.php:1703
+msgid "Enable \"other\" choice"
+msgstr "تفعيل خيار \"أخرى\""
+
+#: form_detail.php:1653
+msgid "enter name"
+msgstr "ادخل الاسم"
+
+#: form_detail.php:1653
+msgid "Enter name"
+msgstr "ادخل الاسم"
+
+#: form_detail.php:1652
+msgid "Save as"
+msgstr "حفظ كـ"
+
+#: form_detail.php:1648
+msgid "Save as new custom choice"
+msgstr "حفظ كخيار مخصص"
+
+#: form_detail.php:1643
+msgid "Insert Choices"
+msgstr "ادخل الخيارات"
+
+#: form_detail.php:1558
+msgid "Select a category and customize the predefined choices or paste your own list to bulk add choices."
+msgstr "حدد التصنيف وقم بتخصيص القيم المحددة مسبقاً أو قم بلصق قائمتك المخصصة لإضافة قوائم كبيرة."
+
+#: form_detail.php:1603
+msgid "Not Sure"
+msgstr "غير متاكد"
+
+#: form_detail.php:1602
+msgid "Much Better"
+msgstr "افضل بكثير"
+
+#: form_detail.php:1601
+msgid "Strongly Disagree"
+msgstr "غير موافق بشدة"
+
+#: form_detail.php:1601
+msgid "Disagree"
+msgstr "غير موافق"
+
+#: form_detail.php:1601
+msgid "Agree"
+msgstr "موافق"
+
+#: form_detail.php:1600
+msgid "Not Important"
+msgstr "غير مهم"
+
+#: gravityforms.php:1758 gravityforms.php:5607
+msgid "New Form"
+msgstr "نموذج جديد"
+
+#: form_detail.php:1600
+msgid "Important"
+msgstr "مهم"
+
+#: form_detail.php:2595
+msgid "Enable Conditional Logic"
+msgstr "تفعيل الظهور المشروط"
+
+#: common.php:5239 common.php:5292 form_detail.php:1655
+#: includes/form-editor/save-form/config/class-gf-form-editor-form-save-config.php:44
+#: select_columns.php:276
+msgid "Save"
+msgstr "حفظ"
+
+#: gravityforms.php:6084
+msgid "Select an action"
+msgstr "اختر إجراء"
+
+#: gravityforms.php:5272 gravityforms.php:5273
+msgid "Editor"
+msgstr "محرر"
+
+#: gravityforms.php:2609
+msgid "Dismiss"
+msgstr "تجاهل"
+
+#: tooltips.php:11
+msgid "Routing"
+msgstr "التوجيه"
+
+#: form_detail.php:2475
+msgid "Zulu"
+msgstr "زولو"
+
+#: form_detail.php:2474
+msgid "Vietnamese"
+msgstr "فيتانامية"
+
+#: form_detail.php:2472
+msgid "Ukrainian"
+msgstr "اوكراني"
+
+#: form_detail.php:2470
+msgid "Thai"
+msgstr "تايلاندي"
+
+#: form_detail.php:2467
+msgid "Swedish"
+msgstr "سويدي"
+
+#: form_detail.php:2466
+msgid "Swahili"
+msgstr "سواحلية"
+
+#: form_detail.php:2463
+msgid "Slovenian"
+msgstr "سلوفينية"
+
+#: form_detail.php:2462
+msgid "Slovak"
+msgstr "سلوفاكية"
+
+#: form_detail.php:2460
+msgid "Serbian"
+msgstr "صربي"
+
+#: form_detail.php:2458
+msgid "Romanian"
+msgstr "روماني"
+
+#: form_detail.php:2454
+msgid "Polish"
+msgstr "بولندية"
+
+#: form_detail.php:2453
+msgid "Persian"
+msgstr "الفارسية"
+
+#: form_detail.php:2452
+msgid "Norwegian"
+msgstr "نرويجي"
+
+#: form_detail.php:2448
+msgid "Malay"
+msgstr "المالية"
+
+#: form_detail.php:2447
+msgid "Lithuanian"
+msgstr "الليتوانية"
+
+#: form_detail.php:2446
+msgid "Latvian"
+msgstr "اللاتفية"
+
+#: form_detail.php:2444
+msgid "Korean"
+msgstr "الكورية"
+
+#: form_detail.php:2442
+msgid "Japanese"
+msgstr "يابانية"
+
+#: form_detail.php:2441
+msgid "Italian"
+msgstr "إيطالية"
+
+#: form_detail.php:2440
+msgid "Indonesian"
+msgstr "أندونيسية"
+
+#: form_detail.php:2439
+msgid "Icelandic"
+msgstr "أيسلندية"
+
+#: form_detail.php:2438
+msgid "Hungarian"
+msgstr "الهنغارية"
+
+#: form_detail.php:2437
+msgid "Hindi"
+msgstr "الهندية"
+
+#: form_detail.php:2436
+msgid "Hebrew"
+msgstr "العبرية"
+
+#: form_detail.php:2434
+msgid "Greek"
+msgstr "اليونانية"
+
+#: form_detail.php:2429
+msgid "Galician"
+msgstr "الجاليكية"
+
+#: form_detail.php:2426
+msgid "Finnish"
+msgstr "الفنلندية"
+
+#: form_detail.php:2425
+msgid "Filipino"
+msgstr "الفلبينية"
+
+#: form_detail.php:2424
+msgid "Estonian"
+msgstr "الإستونية"
+
+#: form_detail.php:2420
+msgid "Danish"
+msgstr "دنماركية"
+
+#: form_detail.php:2419
+msgid "Czech"
+msgstr "تشيكية"
+
+#: form_detail.php:2418
+msgid "Croatian"
+msgstr "الكرواتية"
+
+#: form_detail.php:2417
+msgid "Chinese (Traditional)"
+msgstr "صينية (التقليدية)"
+
+#: form_detail.php:2416
+msgid "Chinese (Simplified)"
+msgstr "صينية (المبسطة)"
+
+#: form_detail.php:2414
+msgid "Catalan"
+msgstr "كاتالونية"
+
+#: form_detail.php:2413
+msgid "Bulgarian"
+msgstr "بلغارية"
+
+#: form_detail.php:2407
+msgid "Afrikaans"
+msgstr "الإفريقانية"
+
+#: form_detail.php:2406
+msgid "Arabic"
+msgstr "العربية"
+
+#: form_detail.php:1604
+msgid "Extra Large"
+msgstr "كبير جداً"
+
+#: common.php:3850 gravityforms.php:5581
+#: assets/js/src/legacy/admin/blocks/blocks/form/edit.js:229
+msgid "Preview"
+msgstr "مشاهدة"
+
+#: form_detail.php:2137 form_settings.php:187 tooltips.php:27 tooltips.php:82
+msgid "Description Placement"
+msgstr "مكان الوصف"
+
+#: form_detail.php:1380 form_detail.php:2075 form_detail.php:2086 js.php:218
+#: tooltips.php:90
+msgid "Placeholder"
+msgstr "نص مؤقت"
+
+#: form_detail.php:1600
+msgid "Very Important"
+msgstr "مهم جدا"
+
+#: form_detail.php:1598
+msgid "1-3 years"
+msgstr "1-3 سنوات"
+
+#: form_detail.php:1598
+msgid "1-6 months"
+msgstr "1-6 اشهر"
+
+#: form_detail.php:1597
+msgid "Once a month"
+msgstr "مرة كل شهر"
+
+#: form_detail.php:1597
+msgid "2 to 3 times a week"
+msgstr "مرتين او ثلاثة فى الاسبوع"
+
+#: form_detail.php:1597
+msgid "Once a week"
+msgstr "مرة فى الاسبوع"
+
+#: form_detail.php:1596 includes/config/items/class-gf-config-i18n.php:48
+msgid "December"
+msgstr "ديسمبر"
+
+#: form_detail.php:1596 includes/config/items/class-gf-config-i18n.php:47
+msgid "November"
+msgstr "نوفمبر"
+
+#: form_detail.php:1596 includes/config/items/class-gf-config-i18n.php:46
+msgid "October"
+msgstr "اكتوبر"
+
+#: form_detail.php:1596 includes/config/items/class-gf-config-i18n.php:45
+msgid "September"
+msgstr "سبتمبر"
+
+#: form_detail.php:1596 includes/config/items/class-gf-config-i18n.php:44
+msgid "August"
+msgstr "اغسطس"
+
+#: form_detail.php:1596 includes/config/items/class-gf-config-i18n.php:43
+msgid "July"
+msgstr "يوليو"
+
+#: form_detail.php:1596 includes/config/items/class-gf-config-i18n.php:42
+msgid "June"
+msgstr "يونية"
+
+#: form_detail.php:1596 includes/config/items/class-gf-config-i18n.php:40
+msgid "April"
+msgstr "ابريل"
+
+#: form_detail.php:1596 includes/config/items/class-gf-config-i18n.php:39
+msgid "March"
+msgstr "مارس"
+
+#: form_detail.php:1596 includes/config/items/class-gf-config-i18n.php:38
+msgid "February"
+msgstr "فبراير"
+
+#: form_detail.php:1596 includes/config/items/class-gf-config-i18n.php:37
+msgid "January"
+msgstr "يناير"
+
+#: form_detail.php:1596
+msgid "Months of the Year"
+msgstr "اشهر السنه"
+
+#: form_detail.php:1595
+msgid "Saturday"
+msgstr "السبت"
+
+#: form_detail.php:1595
+msgid "Friday"
+msgstr "الجمعه"
+
+#: form_detail.php:1595
+msgid "Thursday"
+msgstr "الخميس"
+
+#: form_detail.php:1595
+msgid "Wednesday"
+msgstr "الاربعاء"
+
+#: form_detail.php:1595
+msgid "Tuesday"
+msgstr "الثلاثاء"
+
+#: form_detail.php:1595
+msgid "Monday"
+msgstr "الاثنين"
+
+#: form_detail.php:1595
+msgid "Sunday"
+msgstr "الاحد"
+
+#: form_detail.php:1595
+msgid "Days of the Week"
+msgstr "ايام الاسبوع"
+
+#: form_detail.php:1594
+msgid "High School"
+msgstr "مدرسة ثانوية"
+
+#: form_detail.php:1594
+msgid "Education"
+msgstr "التعليم"
+
+#: form_detail.php:1593
+msgid "Technology"
+msgstr "التكنولوجيا"
+
+#: form_detail.php:1592
+msgid "Temporary"
+msgstr "مؤقت"
+
+#: form_detail.php:1592
+msgid "Part-Time"
+msgstr "دوام جزئى"
+
+#: form_detail.php:1592
+msgid "Full-Time"
+msgstr "دوام كامل"
+
+#: form_detail.php:1592
+msgid "Job Type"
+msgstr "نوع الوظيفة"
+
+#: form_detail.php:1591
+msgid "Student"
+msgstr "الطلب"
+
+#: form_detail.php:1591
+msgid "Retired"
+msgstr "متقاعد"
+
+#: form_detail.php:1590
+msgid "Widowed"
+msgstr "ارمل"
+
+#: form_detail.php:1590
+msgid "Divorced"
+msgstr "مطلق"
+
+#: form_detail.php:1590
+msgid "Married"
+msgstr "متزوج"
+
+#: form_detail.php:1590
+msgid "Single"
+msgstr "اعزب"
+
+#: form_detail.php:1590
+msgid "Marital Status"
+msgstr "الحالة الاجتماعية"
+
+#: form_detail.php:1589
+msgid "65 or Above"
+msgstr "65 او اعلى"
+
+#: form_detail.php:1589
+msgid "55-64"
+msgstr "55-64"
+
+#: form_detail.php:1589
+msgid "45-54"
+msgstr "45-54"
+
+#: form_detail.php:1589
+msgid "35-44"
+msgstr "35-44"
+
+#: form_detail.php:1589
+msgid "25-34"
+msgstr "25-34"
+
+#: form_detail.php:1589
+msgid "18-24"
+msgstr "18-24"
+
+#: form_detail.php:1589
+msgid "Under 18"
+msgstr "اقل من 18"
+
+#: form_detail.php:1589
+msgid "Age"
+msgstr "السن"
+
+#: form_detail.php:1589 form_detail.php:1591 form_detail.php:1594
+msgid "Prefer Not to Answer"
+msgstr "افضل عدم الاجابة"
+
+#: form_detail.php:1588
+msgid "Gender"
+msgstr "الجنس"
+
+#: form_detail.php:1587
+msgid "South America"
+msgstr "South America"
+
+#: form_detail.php:1587
+msgid "North America"
+msgstr "North America"
+
+#: form_detail.php:1587
+msgid "Europe"
+msgstr "Europe"
+
+#: form_detail.php:1587
+msgid "Asia"
+msgstr "Asia"
+
+#: form_detail.php:1587
+msgid "Africa"
+msgstr "افريقيا"
+
+#: form_detail.php:1586
+msgid "Canadian Province/Territory"
+msgstr "Canadian Province/Territory"
+
+#: form_detail.php:1585
+msgid "U.S. States"
+msgstr "U.S. States"
+
+#: form_detail.php:1584
+msgid "Countries"
+msgstr "الدول"
+
+#: form_detail.php:1557
+msgid "Bulk Add / Predefined Choices"
+msgstr "ادخال كبير / قيم محددة مسبقاً"
+
+#: form_detail.php:1532 form_detail.php:2324
+msgid "Label"
+msgstr "العنوان"
+
+#: form_detail.php:1519
+#: includes/form-editor/choices-ui/config/class-gf-choices-ui-config-i18n.php:28
+msgid "Choices"
+msgstr "خيارات"
+
+#: form_detail.php:1500
+msgid "Phone Format"
+msgstr "صيغة الهاتف"
+
+#: form_detail.php:1490
+msgid "24 hour"
+msgstr "24 ساعه"
+
+#: form_detail.php:1489
+msgid "12 hour"
+msgstr "12 ساعه"
+
+#: form_detail.php:1485 tooltips.php:65
+msgid "Time Format"
+msgstr "صيغة الوقت"
+
+#: form_detail.php:1473 tooltips.php:50
+msgid "Maximum Rows"
+msgstr "عدد العواميد الأقصى"
+
+#: form_detail.php:1460
+msgid "Enable multiple columns"
+msgstr "تفعيل العواميد المتعددة"
+
+#: form_detail.php:1448
+msgid "Maximum allowed on this server: %sMB"
+msgstr "الحجم المسموح على هذا السيرفر:%s ميجابايت"
+
+#: form_detail.php:1441 tooltips.php:69
+msgid "Maximum File Size"
+msgstr "حجم الملف الأقصى"
+
+#: form_detail.php:1427 tooltips.php:68
+msgid "Maximum Number of Files"
+msgstr "عدد الملفات الأقصى"
+
+#: form_detail.php:1418 tooltips.php:67
+msgid "Enable Multi-File Upload"
+msgstr "تفعيل رفع الملفات المتعدد"
+
+#: form_detail.php:1407
+msgid "Separated with commas (i.e. jpg, gif, png, pdf)"
+msgstr "مفصولة بفواصل (مثال: jpg, gif, png, pdf)"
+
+#: form_detail.php:1401
+msgid "Allowed file extensions"
+msgstr "الصيغ المسموحة"
+
+#: form_detail.php:1343
+msgid "Image Path: "
+msgstr "مسار الصورة:"
+
+#: form_detail.php:1333
+msgid "No Icon"
+msgstr "بدون ايقونة"
+
+#: form_detail.php:1325
+msgid "Date Field"
+msgstr "حقل التاريخ"
+
+#: form_detail.php:1306 tooltips.php:85
+msgid "Name Fields"
+msgstr "حقول الاسم"
+
+#: form_detail.php:1273 tooltips.php:55
+msgid "Default Country"
+msgstr "الدولةة الافتراضية"
+
+#: form_detail.php:1261
+msgid "Default %s"
+msgstr "الافتراضى %s"
+
+#: form_detail.php:1238 tooltips.php:87
+msgid "Address Fields"
+msgstr "حقول العنوان"
+
+#: form_detail.php:1223 tooltips.php:52
+msgid "Address Type"
+msgstr "نوع العنوان"
+
+#: form_detail.php:1211 tooltips.php:130
+msgid "Set as Featured Image"
+msgstr "تحديد كصورة مميزة"
+
+#: form_detail.php:1182
+msgid "Image Metadata"
+msgstr "بيانات الصورة"
+
+#: form_detail.php:1134 form_detail.php:1152 form_detail.php:1167
+msgid "Create content template"
+msgstr "إنشاء قالب محتوى"
+
+#: form_detail.php:1095
+msgid "Select Categories"
+msgstr "اختار التصنيفات"
+
+#: form_detail.php:1092
+msgid "All Categories"
+msgstr "كل الاقسام"
+
+#: form_detail.php:1059 js.php:628 tooltips.php:121 tooltips.php:127
+msgid "Post Category"
+msgstr "تصنيف المقال"
+
+#: form_detail.php:1031 tooltips.php:124
+msgid "Post Format"
+msgstr "نوع المقال"
+
+#: form_detail.php:1019
+msgid "Use logged in user as author"
+msgstr "استخدام العضو مسجل الدخول كـ كاتب"
+
+#: form_detail.php:1009
+msgid "Default Post Author"
+msgstr "كاتب المنشورة الافتراضي"
+
+#: form_detail.php:988 tooltips.php:122
+msgid "Post Status"
+msgstr "حالة المقال"
+
+#: form_detail.php:971
+msgid "Select an existing custom field"
+msgstr "تحديد حقل مستخدم مسبقاً"
+
+#: form_detail.php:966
+msgid "New"
+msgstr "جديد"
+
+#: form_detail.php:962
+msgid "Existing"
+msgstr "موجود بالفعل"
+
+#: form_detail.php:956 tooltips.php:47
+msgid "Custom Field Name"
+msgstr "اسم حقل مخصص"
+
+#: form_detail.php:927
+msgid "Theme"
+msgstr "القالب"
+
+#: form_detail.php:906
+msgid "Font Color"
+msgstr "لون الخط"
+
+#: common.php:909 form_detail.php:898 form_detail.php:1604
+#: includes/fields/class-gf-field.php:2508
+msgid "Large"
+msgstr "كبير"
+
+#: form_detail.php:896 form_detail.php:1604
+#: includes/fields/class-gf-field.php:2506
+msgid "Small"
+msgstr "صغير"
+
+#: form_detail.php:893 form_detail.php:1604
+msgid "Size"
+msgstr "الحجم"
+
+#: form_detail.php:885
+msgid "Math Challenge"
+msgstr "تحدى رياضى"
+
+#: form_detail.php:843 form_detail.php:2729 tooltips.php:138
+msgid "Advanced Fields"
+msgstr "حقول متقدمة"
+
+#: form_detail.php:833 form_detail.php:2711 tooltips.php:137
+msgid "Standard Fields"
+msgstr "حقول اساسية"
+
+#: form_detail.php:819
+msgid "Disable default margins"
+msgstr "تعطيل التباعد الافتراضي"
+
+#: form_detail.php:767 form_detail.php:799
+msgid "Text:"
+msgstr "النص:"
+
+#: common.php:5275 form_detail.php:754
+msgid "Next Button"
+msgstr "الزرار التالى"
+
+#: form_detail.php:642 form_detail.php:660 form_detail.php:696
+#: form_detail.php:711 form_detail.php:726 form_detail.php:828
+#: form_detail.php:859 form_detail.php:1071
+msgid "Field Type"
+msgstr "نوع الحقل"
+
+#: form_detail.php:574 tooltips.php:41 tooltips.php:42
+msgid "Field Label"
+msgstr "العنوان"
+
+#: form_detail.php:153 form_detail.php:1297 form_detail.php:2269
+#: assets/js/src/legacy/admin/blocks/blocks/form/edit.js:222
+msgid "Advanced"
+msgstr "الخصائص المتقدمة"
+
+#: form_detail.php:344
+msgid "Preview this Form"
+msgstr "Preview this form"
+
+#: form_detail.php:341
+msgid "What would you like to do next?"
+msgstr "ماذا تحب ان تفعل فى الخطوة التالية؟"
+
+#: form_detail.php:339
+msgid "You have successfully saved your form!"
+msgstr "لقد قمت بحفظ النموذج بنجاح"
+
+#: form_detail.php:554 form_detail.php:774 form_detail.php:806
+msgid "Image Path:"
+msgstr "مسار الصورة:"
+
+#: form_detail.php:540 form_detail.php:759 form_detail.php:792
+msgid "Default"
+msgstr "الافتراضى"
+
+#: form_detail.php:534 form_detail.php:786
+msgid "Previous Button"
+msgstr "زر السابق"
+
+#: form_detail.php:330
+msgid "END PAGING"
+msgstr "نهاية الصفحات"
+
+#: form_detail.php:527
+msgid "Completion Text"
+msgstr "نص الاكتمال"
+
+#: form_detail.php:520
+msgid "Display completed progress bar on confirmation"
+msgstr "إظهار شريط تقدم مكتمل عند مرحلة التأكيد"
+
+#: form_detail.php:509 tooltips.php:114
+msgid "Page Names"
+msgstr "اسماء الصفحات"
+
+#: form_detail.php:502 form_detail.php:915
+msgid "Background Color"
+msgstr "لون الخلفية"
+
+#: form_detail.php:496
+msgid "Text Color"
+msgstr "لون النص"
+
+#: common.php:808 common.php:966 form_detail.php:491 form_detail.php:1844
+msgid "Custom"
+msgstr "مخصص"
+
+#: form_detail.php:487
+msgid "Red"
+msgstr "احمر"
+
+#: form_detail.php:486
+msgid "Orange"
+msgstr "برتقالى"
+
+#: form_detail.php:485 form_detail.php:1593
+msgid "Green"
+msgstr "اخضر"
+
+#: form_detail.php:484
+msgid "Gray"
+msgstr "رصاصي"
+
+#: form_detail.php:483
+msgid "Blue"
+msgstr "ازرق"
+
+#: form_detail.php:479 tooltips.php:113
+msgid "Progress Bar Style"
+msgstr "أسلوب شريط التقدم"
+
+#: form_detail.php:473 form_detail.php:1761
+msgid "None"
+msgstr "لا شيء"
+
+#: form_detail.php:471
+msgid "Steps"
+msgstr "الخطوات"
+
+#: form_detail.php:469
+msgid "Progress Bar"
+msgstr "شريط التقدم"
+
+#: form_detail.php:464 tooltips.php:112
+msgid "Progress Indicator"
+msgstr "علامة التقدم"
+
+#: form_detail.php:150 form_detail.php:2050
+msgid "Appearance"
+msgstr "المظهر"
+
+#: form_detail.php:147 form_detail.php:459
+msgid "General"
+msgstr "عام"
+
+#: form_detail.php:306
+msgid "START PAGING"
+msgstr "بداية الصفحات"
+
+#: gravityforms.php:6051 widget.php:160
+msgid "Display form description"
+msgstr "عرض وصف النموذج"
+
+#: gravityforms.php:6043 widget.php:158
+msgid "Display form title"
+msgstr "عرض عنوان النموذج"
+
+#: export.php:644 gravityforms.php:6018 widget.php:142
+#: assets/js/src/legacy/admin/blocks/blocks/form/edit.js:96
+msgid "Select a Form"
+msgstr "اختار نموذج"
+
+#: widget.php:135
+msgid "Contact Us"
+msgstr "اتصل بنا"
+
+#: gravityforms.php:5482 widget.php:38
+#: assets/js/src/legacy/admin/blocks/blocks/form/edit.js:200
+msgid "Form"
+msgstr "نموذج"
+
+#: common.php:767 export.php:1116
+msgid "Post Id"
+msgstr "رقم المقال"
+
+#: export.php:1107
+msgid "Created By (User Id)"
+msgstr "أنشئت بواسطة (User Id)"
+
+#: export.php:708
+msgid "Date Range is optional, if no date range is selected all entries will be exported."
+msgstr "نطاق التاريخ هو خيار اختياري، إذا لم يتم تحديد تاريخ معيّن سيتم تصدير جميع المدخلات."
+
+#: export.php:693
+msgid "Select Date Range"
+msgstr "تحديد نطاق التاريخ"
+
+#: export.php:674
+msgid "Select Fields"
+msgstr "تحديد الحقول"
+
+#: export.php:649
+msgid "Select a form"
+msgstr "اختار الننموذج"
+
+#: export.php:638
+msgid "Select a form below to export entries. Once you have selected a form you may select the fields you would like to export and then define optional filters for field values and the date range. When you click the download button below, Gravity Forms will create a CSV file for you to save to your computer."
+msgstr "حدد نموذج أدناه لتتمكن من تصديره، وعند تحديد النموذج يمكنك اختيار الحقول المراد تصديرها وتصفيتها بقيم معيّنة ونطاق التاريخ. عند الضغط على زر \"تحميل ملف التصدير\" ستقوم \"Gravity Forms\" بإنشاء ملف بصيغة CSV ليمكنك حفظه في حاسبك الآلي."
+
+#: export.php:565
+msgid "Export entries if {0} of the following match:"
+msgstr "تصدير المدخلات إذا {0} من التالي يطابق:"
+
+#: export.php:635 export.php:1158
+msgid "Export Entries"
+msgstr "تصدير المدخلات"
+
+#: export.php:427
+msgid "Select Forms"
+msgstr "اختيار النماذج"
+
+#: export.php:419 export.php:1167
+msgid "Export Forms"
+msgstr "تصدير نموذج"
+
+#: export.php:373
+msgid "Import"
+msgstr "استيراد"
+
+#: export.php:352 export.php:1175
+msgid "Import Forms"
+msgstr "استيراد النماذج"
+
+#: export.php:341 includes/config/items/class-gf-config-admin-i18n.php:43
+#: assets/js/src/legacy/admin/blocks/blocks/form/edit.js:143
+#: assets/js/src/legacy/admin/blocks/blocks/form/edit.js:149
+msgid "Edit Form"
+msgstr "تعديل نموذج"
+
+#: export.php:340
+msgid "form"
+msgstr "نموذج"
+
+#: export.php:340
+msgid "forms"
+msgstr "النماذج"
+
+#: forms_model.php:6782 forms_model.php:6846
+msgid "Default Confirmation"
+msgstr "التاكيد الافتراضى"
+
+#: common.php:5928 export.php:1113 forms_model.php:6477 select_columns.php:203
+msgid "Payment Date"
+msgstr "تاريخ الدفع"
+
+#: common.php:5923 export.php:1114 forms_model.php:6471 select_columns.php:200
+msgid "Payment Status"
+msgstr "حالة الدفع"
+
+#: forms_model.php:1424
+msgid "Notification not found"
+msgstr "التنبيه غير موجود"
+
+#: forms_model.php:1256
+msgid "User Notification"
+msgstr "تنبيهات العضو"
+
+#: forms_model.php:1232 includes/save-form/class-gf-form-crud-handler.php:335
+msgid "Admin Notification"
+msgstr "تنبيهات الادارة"
+
+#: form_list.php:790 form_list.php:821
+msgid "Form duplicated."
+msgstr "تم نسخ النموذج."
+
+#: form_list.php:780
+msgid "Form deleted."
+msgstr "تم حذف النموذج."
+
+#: form_list.php:770
+msgid "Form restored."
+msgstr "تم استرجاع النموذج."
+
+#: form_list.php:760 form_list.php:809
+msgid "Form moved to the trash."
+msgstr "تم نقل النموذج لسلة المهملات"
+
+#: form_list.php:540
+msgid "Conversion"
+msgstr "التحويلات"
+
+#: form_list.php:539
+msgid "Views"
+msgstr "المشاهدات"
+
+#: form_list.php:538 gravityforms.php:1763 gravityforms.php:5301
+#: gravityforms.php:5554
+msgid "Entries"
+msgstr "المدخلات"
+
+#: form_list.php:537
+msgid "ID"
+msgstr "الهويّة"
+
+#: form_list.php:525
+msgid "Move to trash"
+msgstr "نقل الى سلة المهملات"
+
+#: form_list.php:524
+msgid "Permanently Delete Entries"
+msgstr "حذف المدخلات بشكل دائم"
+
+#: form_list.php:523
+msgid "Reset Views"
+msgstr "إعادة تعيين المشاهدات"
+
+#: form_list.php:522
+msgid "Mark as Inactive"
+msgstr "تحديد كغير مفعل"
+
+#: form_list.php:521
+msgid "Mark as Active"
+msgstr "تحديد كمفعل"
+
+#: form_list.php:517 form_list.php:676
+msgid "Delete permanently"
+msgstr "حذف دائم"
+
+#: form_list.php:440
+msgctxt "Form List"
+msgid "Trash"
+msgstr "سلة المهملات"
+
+#: form_list.php:439
+msgctxt "Form List"
+msgid "Inactive"
+msgstr "غير مفعل"
+
+#: form_list.php:438
+msgctxt "Form List"
+msgid "Active"
+msgstr "مفعل"
+
+#: form_list.php:437
+msgctxt "Form List"
+msgid "All"
+msgstr "الكل"
+
+#: form_list.php:352
+msgid "Saved! Redirecting..."
+msgstr "تم الحفظ ! جارى التوجيه  ..."
+
+#: form_list.php:318
+msgid "Creating Form..."
+msgstr "جارى انشاء النموذج ..."
+
+#: form_list.php:302
+msgid "Create a New Form"
+msgstr "انشئ نموذج جديد"
+
+#: form_list.php:65
+msgid "Create Form"
+msgstr "انشئ نموذج"
+
+#: form_list.php:54 form_settings.php:154 tooltips.php:25
+#: assets/js/src/legacy/admin/blocks/blocks/form/edit.js:214
+msgid "Form Description"
+msgstr "وصف النموذج"
+
+#: form_settings.php:1054
+msgid "Confirmation deleted."
+msgstr "تم حذف التاكيد"
+
+#: form_settings.php:493
+msgid "Form Options"
+msgstr "خيارات النموذج"
+
+#: form_settings.php:318
+msgid "Restrictions"
+msgstr "القيود"
+
+#: form_settings.php:279
+msgid "Form Button"
+msgstr "زر النموذج"
+
+#: form_settings.php:161
+msgid "Form Layout"
+msgstr "تنسيق النموذج"
+
+#: form_settings.php:109
+msgid "Form Basics"
+msgstr "اساسيات النموذج"
+
+#: form_settings.php:476 tooltips.php:110
+msgid "Require Login Message"
+msgstr "رسالة إجبار الدخول"
+
+#: form_settings.php:464 form_settings.php:469 tooltips.php:109
+msgid "Require user to be logged in"
+msgstr "إجبار المستخدم أن يكون مسجل الدخول"
+
+#: form_settings.php:504
+msgid "Animated transitions"
+msgstr "التنقلات المتحركة"
+
+#: form_settings.php:447
+msgid "Form Expired Message"
+msgstr "رسالة النموذج المنتهي"
+
+#: form_settings.php:433
+msgid "Form Pending Message"
+msgstr "رسالة النموذج المعلق"
+
+#: form_settings.php:420
+msgid "Schedule Form End Date/Time"
+msgstr "نهاية تاريخ/وقت جدول النموذج"
+
+#: form_settings.php:407
+msgid "Schedule Start Date/Time"
+msgstr "بداية تاريخ/وقت جدول النموذج"
+
+#: form_settings.php:379
+msgid "Entry Limit Reached Message"
+msgstr "رسالة وصول حد المدخلات"
+
+#: form_settings.php:335
+msgid "Number of Entries"
+msgstr "عدد المدخلات"
+
+#: form_settings.php:328
+msgid "Enable entry limit"
+msgstr "تفعيل حد المدخلات"
+
+#: form_settings.php:323
+msgid "Limit number of entries"
+msgstr "حد عدد المدخلات"
+
+#: form_settings.php:369
+msgid "per year"
+msgstr "كل سنه"
+
+#: form_settings.php:365
+msgid "per month"
+msgstr "كل شهر"
+
+#: form_settings.php:361
+msgid "per week"
+msgstr "كل اسبوع"
+
+#: form_settings.php:357
+msgid "per day"
+msgstr "كل يوم"
+
+#: form_settings.php:294
+msgid "Enable Save and Continue"
+msgstr "تفعيل الحفط والاستمرار لاحقاً"
+
+#: form_settings.php:289
+msgid "Save and Continue"
+msgstr "الحفط والاستمرار"
+
+#: form_settings.php:300
+msgid "Save and Continue Later"
+msgstr "الحفط والاستمرار لاحقاً"
+
+#: form_detail.php:543 form_detail.php:589 form_detail.php:763
+#: form_detail.php:795
+msgid "Image"
+msgstr "صورة"
+
+#: form_detail.php:2056 form_settings.php:273 tooltips.php:99
+msgid "CSS Class Name"
+msgstr "اسم CSS"
+
+#: form_detail.php:2158 form_settings.php:213 tooltips.php:28 tooltips.php:83
+msgid "Sub-Label Placement"
+msgstr "مكان العنوان الثانوي"
+
+#: form_detail.php:1378 form_detail.php:2124 form_detail.php:2145
+#: form_detail.php:2154 form_detail.php:2166 form_settings.php:205
+#: form_settings.php:221
+msgid "Above inputs"
+msgstr "أعلى الحقول"
+
+#: form_detail.php:1377 form_detail.php:2124 form_detail.php:2144
+#: form_detail.php:2154 form_detail.php:2165 form_settings.php:201
+#: form_settings.php:217
+msgid "Below inputs"
+msgstr "أسفل الحقول"
+
+#: form_detail.php:2116 form_settings.php:179
+msgid "Right aligned"
+msgstr "محاذاة لليمين"
+
+#: form_detail.php:2113 form_settings.php:175
+msgid "Left aligned"
+msgstr "محاذاة لليسار"
+
+#: form_detail.php:2120 form_settings.php:171
+msgid "Top aligned"
+msgstr "محاذاة للأعلى"
+
+#: preview.php:50 preview.php:115
+msgid "Form Preview"
+msgstr "مشاهدة النموذج"
+
+#: entry_list.php:2174
+msgid "Add page break between entries"
+msgstr "أضف فاصل صفحة بين المدخلات"
+
+#: entry_list.php:2169
+msgid "Include notes"
+msgstr "إدراج الملاحظات"
+
+#: entry_list.php:2165
+msgid "Print all of the selected entries at once."
+msgstr "اطبع جميع المدخلات المحددة مرة واحدة."
+
+#: entry_list.php:2150
+msgid "Close Window"
+msgstr "اغلق النافذه"
+
+#: entry_list.php:2132
+msgid "You may override the default notification settings by entering a comma delimited list of emails to which the selected notifications should be sent."
+msgstr "يمكنك تجاوز إعدادات التنبيه الافتراضية من خلال إدخال قائمة إيميلات مفصولة بعلامة فاصلة لإرسال التنبيهات المحددة إليها."
+
+#: entry_list.php:1999
+msgid "Entry List"
+msgstr "قائمة المدخلة"
+
+#: entry_list.php:1911
+msgid "Select all %s{0}%s entries."
+msgstr "اختار جميع الـ %s{0}%s المدخلات"
+
+#: entry_list.php:1790
+msgid "entries"
+msgstr "المدخلات"
+
+#: entry_list.php:1790
+msgid "entry"
+msgstr "المدخلة"
+
+#: entry_list.php:1726 entry_list.php:2078
+msgid "Print Entries"
+msgstr "طباعة المدخلات"
+
+#: entry_list.php:1712
+msgid "Please select at least one entry."
+msgstr "من فضلك اختار على الاقل مدخل واحد"
+
+#: entry_list.php:1485
+msgid "%s restored from the spam."
+msgstr "%s استرجع من البريد المزعج"
+
+#: entry_list.php:1466
+msgid "%s moved to Trash."
+msgstr "%s نقل الى سلة المهملات"
+
+#: entry_list.php:1456
+msgid "%s deleted."
+msgstr "%s حذف"
+
+#: entry_list.php:1448
+msgid "%d entries"
+msgstr "المدخلات %d "
+
+#: entry_list.php:1417
+msgid "Entry deleted."
+msgstr "تم حذف المدخلة"
+
+#: entry_list.php:1376
+msgid "Delete All Spam"
+msgstr "حذف جميع النماذج العشوائية"
+
+#: entry_list.php:1376
+msgid "Empty Trash"
+msgstr "تفريغ سلة المهملات"
+
+#: entry_list.php:1333
+msgid "Remove Star"
+msgstr "مسح نجمه"
+
+#: entry_list.php:1332
+msgid "Add Star"
+msgstr "اضف نجمه"
+
+#: entry_list.php:1331
+msgid "Mark as Unread"
+msgstr "تحديد كغير مقروء"
+
+#: entry_list.php:1330
+msgid "Mark as Read"
+msgstr "تحديد كمقروء"
+
+#: entry_list.php:1259
+msgid "Move this entry to the trash"
+msgstr "نقل هذا المدخلة الى سلة المهملات"
+
+#: entry_list.php:1243
+msgid "Mark unread"
+msgstr "غير مقروء"
+
+#: entry_list.php:1243
+msgid "Mark read"
+msgstr "مقروء"
+
+#: entry_list.php:1140
+msgid "This form does not have any entries yet."
+msgstr "هذا النموذج لا يحتوي على أي مدخلات حتى الآن."
+
+#: entry_list.php:1140
+msgid "This form does not have any entries matching the search criteria."
+msgstr "هذا النموذج لا يحتوي على مدخلات تطابق معايير البحث."
+
+#: entry_list.php:1136
+msgid "This form does not have any entries in the trash."
+msgstr "هذا النموذج لا يحتوي على مدخلات في سلة المهملات."
+
+#: entry_list.php:1136
+msgid "This form does not have any entries in the trash matching the search criteria."
+msgstr "هذا النموذج لا يحتوي على مدخلات في سلة المهملات تطابق معايير البحث."
+
+#: entry_list.php:1132
+msgid "This form does not have any spam."
+msgstr "هذا النموذج لا يحتوي على مدخلات عشوائية."
+
+#: entry_list.php:1128
+msgid "This form does not have any starred entries."
+msgstr "هذا النموذج لا يحتوي على مدخلات مفضلة."
+
+#: entry_list.php:1128
+msgid "This form does not have any starred entries matching the search criteria."
+msgstr "هذا النموذج لا يحتوي على مدخلات مفضلة تطابق معايير البحث."
+
+#: entry_list.php:1124
+msgid "This form does not have any unread entries."
+msgstr "هذا النموذج لا يحتوي على مدخلات غير مقروءة."
+
+#: entry_list.php:1124
+msgid "This form does not have any unread entries matching the search criteria."
+msgstr "هذا النموذج لا يحتوي على مدخلات غير مقروءة تطابق معايير البحث."
+
+#: entry_list.php:1021
+msgid "View this entry"
+msgstr "شاهد "
+
+#: entry_list.php:885
+msgid "click to select columns to display"
+msgstr "اضغط لتحديد العواميد المفعلة"
+
+#: entry_list.php:502 entry_list.php:1259 entry_list.php:1341 form_list.php:703
+msgid "Trash"
+msgstr "سلة المهملات"
+
+#: entry_list.php:495 entry_list.php:1250 entry_list.php:1338
+msgid "Spam"
+msgstr "عشوائي"
+
+#: entry_list.php:487
+msgctxt "Entry List"
+msgid "Starred"
+msgstr "مفضلة"
+
+#: entry_list.php:479
+msgctxt "Entry List"
+msgid "Unread"
+msgstr "غير مقروء"
+
+#: entry_list.php:471
+msgctxt "Entry List"
+msgid "All"
+msgstr "الكل"
+
+#: entry_list.php:337
+msgid "Search"
+msgstr "بحث"
+
+#: entry_list.php:218
+msgid "Number of entries per page:"
+msgstr "عدد المدخلات في كل صفحة:"
+
+#: entry_list.php:217
+msgid "Pagination"
+msgstr "الصفحات"
+
+#: entry_list.php:216
+msgid "Default Filter"
+msgstr "التصفية الافتراضية"
+
+#: entry_list.php:48 entry_list.php:62 entry_list.php:1448
+msgid "1 entry"
+msgstr "مدخل واحد"
+
+#: entry_list.php:47 entry_list.php:1476
+msgid "%s restored from the Trash."
+msgstr "%s استرجع من سلة المهملات"
+
+#: currency.php:394
+msgid "Thai Baht"
+msgstr "البات التايلندي"
+
+#: currency.php:384
+msgid "Taiwan New Dollar"
+msgstr "تايوان الدولار جديد"
+
+#: currency.php:373
+msgid "Swiss Franc"
+msgstr "الفرنك السويسري"
+
+#: currency.php:363
+msgid "Swedish Krona"
+msgstr "الكرونا السويدية"
+
+#: currency.php:343
+msgid "Singapore Dollar"
+msgstr "دولار سنغافورى"
+
+#: currency.php:323
+msgid "Polish Zloty"
+msgstr "الزلوتي البولندية"
+
+#: currency.php:313
+msgid "Philippine Peso"
+msgstr "بيزو فلبيني"
+
+#: currency.php:303
+msgid "New Zealand Dollar"
+msgstr "الدولار النيوزلاندى"
+
+#: currency.php:293
+msgid "Norwegian Krone"
+msgstr "الكورن النيرويجى"
+
+#: currency.php:283
+msgid "Mexican Peso"
+msgstr "البيزو المكسيكى"
+
+#: currency.php:273
+msgid "Malaysian Ringgit"
+msgstr "رينغيت ماليزي"
+
+#: currency.php:263
+msgid "Japanese Yen"
+msgstr "الين اليابانى"
+
+#: currency.php:253
+msgid "Israeli New Sheqel"
+msgstr "الشيكل الاسرائيلى"
+
+#: currency.php:243
+msgid "Hungarian Forint"
+msgstr "الفورنت الهنغاري"
+
+#: currency.php:233
+msgid "Hong Kong Dollar"
+msgstr "دولار هونج كونج"
+
+#: currency.php:223
+msgid "Danish Krone"
+msgstr "الكورنى الدنماركى"
+
+#: currency.php:213
+msgid "Czech Koruna"
+msgstr "الكورنا التشيكى"
+
+#: currency.php:203
+msgid "Canadian Dollar"
+msgstr "دولار كندى"
+
+#: currency.php:193
+msgid "Brazilian Real"
+msgstr "الريل البرازيلى"
+
+#: currency.php:183
+msgid "Australian Dollar"
+msgstr "دولار استرالى"
+
+#: currency.php:173
+msgid "Euro"
+msgstr "اليورو"
+
+#: currency.php:163
+msgid "Pound Sterling"
+msgstr "الجنيه الاسترليني"
+
+#: currency.php:153
+msgid "U.S. Dollar"
+msgstr "الدولار الامريكى"
+
+#: entry_detail.php:1468 entry_list.php:2141
+msgid "Resending..."
+msgstr "جارى اعادة الارسال ..."
+
+#: entry_list.php:1334 entry_list.php:1720 entry_list.php:2072
+#: entry_list.php:2139
+msgid "Resend Notifications"
+msgstr "اعادة التنبيهات"
+
+#: entry_detail.php:1390
+msgid "Mark as Spam"
+msgstr "تحديد كعشوائي"
+
+#: entry_detail.php:1384
+msgid "Move to Trash"
+msgstr "نقل الى سلة المهملات"
+
+#: entry_detail.php:1373 entry_list.php:1184 entry_list.php:1318
+#: form_list.php:516 form_list.php:668
+msgid "Restore"
+msgstr "استرجاع"
+
+#: entry_detail.php:1364 entry_detail.php:1375 entry_list.php:1190
+#: entry_list.php:1221 entry_list.php:1319 entry_list.php:1325
+msgid "Delete Permanently"
+msgstr "حذف دائم"
+
+#: entry_detail.php:1359 entry_list.php:1212 entry_list.php:1323
+msgid "Not Spam"
+msgstr "ليس بريد مزعج"
+
+#: entry_detail.php:1337
+msgid "Edit Post"
+msgstr "تعديل المقال"
+
+#: entry_detail.php:1330
+msgid "Embed Url"
+msgstr "الرابط المضمن"
+
+#: entry_detail.php:1309
+msgid "Submitted on"
+msgstr "استلمت في"
+
+#: common.php:759 entry_detail.php:1308 entry_list.php:874 export.php:1108
+#: forms_model.php:6459 select_columns.php:196
+msgid "Entry Id"
+msgstr "رقم المدخلة"
+
+#: entry_detail.php:1185 export.php:1111 forms_model.php:6474
+#: select_columns.php:201
+msgid "Transaction Id"
+msgstr "هويّة العملية"
+
+#: entry_detail.php:1185
+msgid "Subscription Id"
+msgstr "رقم الاشتراك"
+
+#: entry_detail.php:1168
+msgid "Start Date"
+msgstr "تاريخ البدء"
+
+#: entry_detail.php:1152 form_list.php:535
+msgid "Status"
+msgstr "الحالة"
+
+#: includes/orders/summaries/class-gf-order-summary.php:64
+msgid "Unit Price"
+msgstr "سعر الوحدة"
+
+#: includes/orders/summaries/class-gf-order-summary.php:61
+msgid "Order"
+msgstr "الطلب"
+
+#: entry_detail.php:983
+msgid "show empty fields"
+msgstr "عرض الحقول الفارغة"
+
+#: entry_detail.php:935
+msgid "Subject:"
+msgstr "العنوان"
+
+#: entry_detail.php:927
+msgid "Also email this note to"
+msgstr "قم بإرسال هذه الملاحظة إلى"
+
+#: entry_detail.php:913
+msgid "Add Note"
+msgstr "اضف الملاحظه"
+
+#: entry_detail.php:826 entry_list.php:222
+msgid "Apply"
+msgstr "تطبيق"
+
+#: entry_detail.php:822
+msgid " Bulk action "
+msgstr "تطبيق الامر"
+
+#: entry_detail.php:820
+msgid " Bulk action"
+msgstr "تنفيذ الامر"
+
+#: entry_detail.php:735
+msgid "Details"
+msgstr "التفاصيل"
+
+#: entry_detail.php:610
+msgid "Entry Updated."
+msgstr "تم تحديث المدخلة"
+
+#: entry_detail.php:1269 entry_list.php:1335 entry_list.php:2177
+msgid "Print"
+msgstr "طباعة"
+
+#: entry_detail.php:566
+msgid "Notifications were resent successfully."
+msgstr "تم اعادة ارسال التنبيهات بنجاح"
+
+#: form_detail.php:1593
+msgid "Real Estate"
+msgstr "العقارات"
+
+#: form_detail.php:1593
+msgid "Engineering"
+msgstr "الهندسة"
+
+#: form_detail.php:1592
+msgid "Seasonal"
+msgstr "موسمي"
+
+#: form_detail.php:1457
+msgid "Columns"
+msgstr "أعمدة"
+
+#: form_detail.php:1356
+msgid "Date Format"
+msgstr "صيغة التاريخ"
+
+#: form_detail.php:995
+msgid "Published"
+msgstr "منشور"
+
+#: form_detail.php:994
+msgid "Pending Review"
+msgstr "بإنتظار المراجعة"
+
+#: form_detail.php:993
+msgid "Draft"
+msgstr "مسودة"
+
+#: form_detail.php:947
+msgid "Inline"
+msgstr "مضمنة"
+
+#: form_detail.php:946
+msgid "Bottom Left"
+msgstr "أسفل اليسار"
+
+#: form_detail.php:945
+msgid "Bottom Right"
+msgstr "أسفل اليمين"
+
+#: form_detail.php:932
+msgid "Dark"
+msgstr "داكن"
+
+#: form_detail.php:931
+msgid "Light"
+msgstr "الفاتح"
+
+#: export.php:1117
+msgid "User Agent"
+msgstr "وكيل المستخدم"
+
+#: export.php:463 export.php:716
+msgid "Download Export File"
+msgstr "تنزيل ملف التصدير"
+
+#: export.php:367 tooltips.php:146
+msgid "Select Files"
+msgstr "تحديد الملفات"
+
+#: form_settings.php:299
+msgid "Link Text"
+msgstr "نص الرابط"
+
+#: form_settings.php:250
+msgid "Custom:"
+msgstr "مخصص:"
+
+#: includes/orders/summaries/class-gf-order-summary.php:63
+msgid "Qty"
+msgstr "الكميه"
+
+#: form_detail.php:1551
+msgid "Show Values"
+msgstr "عرض القيم"
+
+#: includes/class-confirmation.php:1150
+msgid "<em>This page does not exist.</em>"
+msgstr "<em>هذه الصفحة غير موجودة</em>"
+
+#: form_detail.php:742 includes/class-confirmation.php:875 tooltips.php:132
+msgid "Content"
+msgstr "المحتوى"
+
+#: form_detail.php:880 includes/class-confirmation.php:874 settings.php:922
+msgid "Type"
+msgstr "النوع"
+
+#: includes/class-confirmation.php:301
+msgid "Redirect URL"
+msgstr "رابط التوجيه"
+
+#: includes/class-confirmation.php:239 includes/class-confirmation.php:1187
+msgid "Redirect"
+msgstr "التوجيه"
+
+#: includes/class-confirmation.php:225
+msgid "Confirmation Type"
+msgstr "نوع التاكيد"
+
+#: includes/class-confirmation.php:214
+msgid "Confirmation Name"
+msgstr "اسم التاكيد"
+
+#: includes/class-confirmation.php:355
+msgid "Save Confirmation"
+msgstr "حفظ التاكيد"
+
+#: form_settings.php:44 form_settings.php:992
+#: includes/class-confirmation.php:96 includes/class-confirmation.php:210
+msgid "Confirmations"
+msgstr "التاكيدات"
+
+#: form_detail.php:586 includes/class-confirmation.php:231
+#: includes/class-confirmation.php:1181 js.php:969
+msgid "Text"
+msgstr "نص"
+
+#: entry_detail.php:68 entry_detail.php:1126
+msgid "Payment Details"
+msgstr "تفاصيل الدفع"
+
+#: entry_detail.php:68 entry_detail.php:1126
+msgid "Subscription Details"
+msgstr "تفاصيل الاشتراك"
+
+#: entry_detail.php:60 entry_detail.php:844
+msgid "Notes"
+msgstr "الملاحظات"
+
+#: entry_detail.php:44 entry_detail.php:633
+msgid "Entry"
+msgstr "المدخلة"
+
+#: notification.php:1528
+msgid "WARNING: You are about to delete this notification."
+msgstr "تحذير: سوف تقوم بحذف هذا التنبيه"
+
+#: includes/class-confirmation.php:346 notification.php:471
+msgid "Enable conditional logic"
+msgstr "تفعيل الظهور المشروط"
+
+#: includes/class-confirmation.php:268 notification.php:445
+msgid "Disable auto-formatting"
+msgstr "تعطيل التنسيق الآلي"
+
+#: notification.php:439
+msgid "Auto-formatting"
+msgstr "التنسيق الآلي"
+
+#: includes/class-confirmation.php:247 notification.php:432
+msgid "Message"
+msgstr "الرسالة"
+
+#: notification.php:425 notification.php:1303
+msgid "Subject"
+msgstr "العنوان"
+
+#: notification.php:413
+msgid "BCC"
+msgstr "BCC"
+
+#: notification.php:375 tooltips.php:14
+msgid "Reply To"
+msgstr "رد الى"
+
+#: notification.php:361
+msgid "From Email"
+msgstr "من البريد الالكترونى"
+
+#: notification.php:354 tooltips.php:13
+msgid "From Name"
+msgstr "اسم النموذج"
+
+#: notification.php:220
+msgid "Configure Routing"
+msgstr "إدارة التوجيه"
+
+#: entry_detail.php:1460 entry_list.php:2134 notification.php:206
+msgid "Send To"
+msgstr "ارسال الى"
+
+#: notification.php:948
+msgid "Notification deleted."
+msgstr "حذف التنبيهات."
+
+#: notification.php:477
+msgid "Update Notification"
+msgstr "تحديث التنبيهات"
+
+#: entry_detail.php:52 form_settings.php:999 notification.php:111
+#: notification.php:231 notification.php:849
+msgid "Notifications"
+msgstr "التنبيهات"
+
+#: print-entry.php:237
+msgid "Print Preview"
+msgstr "طباعه المشاهده"
+
+#: print-entry.php:237
+msgid "close window"
+msgstr "اغلاق النافذه"
+
+#: entry_detail.php:965 print-entry.php:199
+msgid "Entry # "
+msgstr "المدخلة #"
+
+#: form_display.php:3979
+msgid "This form is not yet available."
+msgstr "هذا النموذج غير متاح"
+
+#: form_display.php:3869
+msgid "Step"
+msgstr "خطوة"
+
+#: form_display.php:3634
+msgid "Next Page"
+msgstr "الصفحة التالية"
+
+#: form_detail.php:1765 form_display.php:3231
+msgid "Strong"
+msgstr "قوى"
+
+#: common.php:904 form_detail.php:897 form_detail.php:1604
+#: form_display.php:3231 includes/fields/class-gf-field.php:2507
+msgid "Medium"
+msgstr "متوسط"
+
+#: form_display.php:3231
+msgid "Mismatch"
+msgstr "عدم تطابق"
+
+#: form_display.php:3214
+msgid "max characters"
+msgstr "حرف كحد أقصى"
+
+#: form_display.php:3214 form_display.php:3869
+msgid "of"
+msgstr "من "
+
+#: form_display.php:3161
+msgid "No results matched"
+msgstr "لايوجد نتائج متطابقة"
+
+#: form_display.php:2043
+msgid "Please enter a valid value."
+msgstr "من فضلك ادخل قيمة صالحة."
+
+#: form_display.php:1139 form_display.php:3628
+msgid "Previous Page"
+msgstr "الصفحة السابقة"
+
+#: form_display.php:4475
+msgid "There was a problem with your submission."
+msgstr "كانت هناك مشكلة مع تقديمكم."
+
+#: form_display.php:913
+msgid "Sorry. You must be logged in to view this form."
+msgstr "آسف. يجب عليك تسجيل الدخول لمشاهدة هذا النموذج."
+
+#: form_display.php:4442
+msgid "Oops! We could not locate your form."
+msgstr "عفوا! لم نتمكن من تحديد موقع النموذج الخاص بك."
+
+#: common.php:5241 form_display.php:289 form_display.php:1140
+#: form_display.php:3629 js.php:648
+msgid "Previous"
+msgstr "السابق"
+
+#: includes/upload.php:29 includes/upload.php:57
+msgid "Failed to upload file."
+msgstr "خطأ فى رفع الملف"
+
+#: common.php:5915 includes/class-personal-data.php:684 tooltips.php:165
+msgid "IP Address"
+msgstr "IP Address"
+
+#: includes/class-personal-data.php:80
+msgid "General Settings"
+msgstr "الخيارات العامة"
+
+#: includes/webapi/webapi.php:2378
+msgid "Not found"
+msgstr "غير موجود"
+
+#: includes/webapi/webapi.php:2358
+msgid "Not authorized"
+msgstr "غير مصرح"
+
+#: includes/webapi/webapi.php:1619
+msgid "Form updated successfully"
+msgstr "تم تحديث النموذج بنجاح"
+
+#: includes/webapi/webapi.php:1619
+msgid "Forms updated successfully"
+msgstr "تم تحديث النماذج بنجاح"
+
+#: includes/webapi/webapi.php:1527 includes/webapi/webapi.php:1558
+msgid "Success"
+msgstr "نجاح"
+
+#: includes/webapi/webapi.php:1498
+msgid "Entries updated successfully"
+msgstr "تم تحديث المدخلات بنجاح"
+
+#: common.php:5240 entry_detail.php:1400 gravityforms.php:4590
+#: includes/webapi/webapi.php:446 includes/webapi/webapi.php:539
+#: includes/webapi/webapi.php:618
+msgid "Update"
+msgstr "تحديث"
+
+#: includes/webapi/v2/includes/controllers/class-controller-entry-properties.php:74
+#: includes/webapi/webapi.php:1498
+msgid "Entry updated successfully"
+msgstr "تم تحديث المدخلة بنجاح"
+
+#: common.php:5942 entry_detail.php:1324 forms_model.php:6483
+#: includes/webapi/includes/class-gf-api-keys-table.php:28
+#: includes/webapi/webapi.php:401 select_columns.php:204
+msgid "User"
+msgstr "العضو"
+
+#: includes/wizard/steps/class-gf-installation-wizard-step-settings.php:28
+#: settings.php:378
+msgid "Select a Currency"
+msgstr "اختار العملة"
+
+#: form_display.php:3635
+#: includes/wizard/steps/class-gf-installation-wizard-step.php:102 js.php:646
+msgid "Next"
+msgstr "التالى"
+
+#: form_detail.php:1891
+#: includes/wizard/steps/class-gf-installation-wizard-step-license-key.php:53
+msgid "License Key"
+msgstr "مفتاح التفعيل"
+
+#: common.php:5238 form_list.php:147 form_list.php:611
+#: includes/addon/class-gf-feed-addon.php:2468
+#: includes/class-confirmation.php:152 includes/class-confirmation.php:1067
+#: includes/config/items/class-gf-config-admin-i18n.php:39 js.php:289
+#: js.php:391 notification.php:906 notification.php:1495
+msgid "Inactive"
+msgstr "تعطيل"
+
+#: common.php:5237 common.php:5962 form_list.php:151 form_list.php:608
+#: includes/addon/class-gf-feed-addon.php:2465
+#: includes/class-confirmation.php:156 includes/class-confirmation.php:1064
+#: includes/config/items/class-gf-config-admin-i18n.php:40
+#: includes/license/class-gf-license-api-response.php:149 js.php:289 js.php:389
+#: notification.php:910 notification.php:1492
+msgid "Active"
+msgstr "تفعيل"
+
+#: includes/addon/class-gf-feed-addon.php:1684
+msgid "WARNING: You are about to delete this item."
+msgstr "تحذير:سوف تقوم بحذف هذا العنصر"
+
+#: form_list.php:694 includes/addon/class-gf-feed-addon.php:1683
+#: includes/class-confirmation.php:1092 includes/fields/class-gf-field.php:1503
+#: notification.php:1527
+msgid "Duplicate"
+msgstr "نسخ"
+
+#: entry_detail.php:1400 gravityforms.php:5271 gravityforms.php:5543
+#: includes/addon/class-gf-feed-addon.php:1682
+#: includes/class-confirmation.php:1091
+#: includes/webapi/includes/class-gf-api-keys-table.php:68
+#: notification.php:1526
+msgid "Edit"
+msgstr "تعديل"
+
+#: entry_detail.php:823 form_detail.php:1657
+#: includes/addon/class-gf-feed-addon.php:1637
+#: includes/addon/class-gf-feed-addon.php:1684
+#: includes/class-confirmation.php:1093 includes/fields/class-gf-field.php:1524
+#: notification.php:1528
+#: assets/js/src/legacy/admin/settings/field-map/mapping.js:354
+msgid "Delete"
+msgstr "حذف"
+
+#: form_list.php:185 includes/addon/class-gf-feed-addon.php:1242
+#: includes/addon/class-gf-feed-addon.php:2497
+#: includes/class-confirmation.php:1210 notification.php:1633
+msgid "Add New"
+msgstr "اضف جديد"
+
+#: includes/addon/class-gf-addon.php:4768
+msgid "Warning"
+msgstr "تحديث"
+
+#: includes/addon/class-gf-addon.php:1431
+#: includes/addon/class-gf-addon.php:4733
+#: includes/addon/class-gf-addon.php:5088 settings.php:1199
+msgid "Uninstall"
+msgstr "الغاء التثبيت"
+
+#: includes/addon/class-gf-results.php:645
+msgid "Item"
+msgstr "عنصر"
+
+#: includes/addon/class-gf-results.php:504
+msgid "Choice"
+msgstr "خيار"
+
+#: includes/addon/class-gf-results.php:416
+msgid "No results"
+msgstr "لا يوجد نتائج"
+
+#: includes/addon/class-gf-results.php:360
+msgid "No results."
+msgstr "لا يوجد نتائج"
+
+#: export.php:704
+msgid "End"
+msgstr "نهاية"
+
+#: export.php:699
+msgid "Start"
+msgstr "بداية"
+
+#: includes/addon/class-gf-results.php:150
+#: includes/addon/class-gf-results.php:156
+msgid "Results"
+msgstr "النتائج"
+
+#: includes/addon/class-gf-payment-addon.php:3706
+msgid "Cancel Subscription"
+msgstr "الغاء الاشتراك"
+
+#: includes/addon/class-gf-payment-addon.php:3439
+msgid "Canceled"
+msgstr "ملغى"
+
+#: includes/addon/class-gf-payment-addon.php:3316
+msgid "Payment Method"
+msgstr "طريقة الدفع"
+
+#: entry_list.php:1176 entry_list.php:1207 entry_list.php:1239
+#: includes/addon/class-gf-payment-addon.php:3294
+#: includes/addon/class-gf-payment-addon.php:3295
+msgid "View"
+msgstr "مشاهدة"
+
+#: includes/addon/class-gf-payment-addon.php:3289
+msgid "Monthly"
+msgstr "شهرى"
+
+#: includes/addon/class-gf-payment-addon.php:3288
+msgid "Weekly"
+msgstr "اسبوعى"
+
+#: includes/addon/class-gf-payment-addon.php:3287
+msgid "Daily"
+msgstr "يومى"
+
+#: includes/addon/class-gf-payment-addon.php:3168
+msgid "Dec"
+msgstr "ديسمبر"
+
+#: includes/addon/class-gf-payment-addon.php:3167
+msgid "Nov"
+msgstr "نوفمبر"
+
+#: includes/addon/class-gf-payment-addon.php:3166
+msgid "Oct"
+msgstr "اكتوبر"
+
+#: includes/addon/class-gf-payment-addon.php:3165
+msgid "Sep"
+msgstr "اغسطس"
+
+#: includes/addon/class-gf-payment-addon.php:3164
+msgid "Aug"
+msgstr "يوليو"
+
+#: includes/addon/class-gf-payment-addon.php:3163
+msgid "Jul"
+msgstr "يونية"
+
+#: includes/addon/class-gf-payment-addon.php:3162
+msgid "Jun"
+msgstr "مايو"
+
+#: form_detail.php:1596 includes/addon/class-gf-payment-addon.php:3161
+#: includes/config/items/class-gf-config-i18n.php:41
+msgid "May"
+msgstr "مايو"
+
+#: includes/addon/class-gf-payment-addon.php:3160
+msgid "Apr"
+msgstr "ابريل"
+
+#: includes/addon/class-gf-payment-addon.php:3159
+msgid "Mar"
+msgstr "مارس"
+
+#: includes/addon/class-gf-payment-addon.php:3158
+msgid "Feb"
+msgstr "فبراير"
+
+#: includes/addon/class-gf-payment-addon.php:3157
+msgid "Jan"
+msgstr "يناير"
+
+#: includes/addon/class-gf-payment-addon.php:2979
+#: includes/addon/class-gf-payment-addon.php:2980
+msgid "Week"
+msgstr "اسبووع"
+
+#: includes/addon/class-gf-payment-addon.php:2956
+msgid "Refunds"
+msgstr "استرجاع الاموال"
+
+#: includes/addon/class-gf-payment-addon.php:2954
+msgid "Subscriptions"
+msgstr "الاشتراكات"
+
+#: includes/addon/class-gf-payment-addon.php:2953
+msgid "Orders"
+msgstr "الطلبات"
+
+#: includes/addon/class-gf-payment-addon.php:2821
+msgid "subscriptions"
+msgstr "الاشتراكات"
+
+#: includes/addon/class-gf-payment-addon.php:2803
+msgid "Last 30 Days"
+msgstr "اخر 30 يوم"
+
+#: includes/addon/class-gf-payment-addon.php:2802
+msgid "Yesterday"
+msgstr "امس"
+
+#: includes/addon/class-gf-payment-addon.php:2801
+msgid "Today"
+msgstr "اليوم"
+
+#: includes/addon/class-gf-payment-addon.php:2758
+msgid "Select a product field"
+msgstr "اختار حقل المنتج"
+
+#: includes/addon/class-gf-payment-addon.php:2710
+msgid "Sample Option"
+msgstr "خيار بسيط"
+
+#: common.php:5264 export.php:683
+#: includes/addon/class-gf-payment-addon.php:2535
+#: includes/addon/class-gf-payment-addon.php:2537 tooltips.php:103
+#: tooltips.php:120 tooltips.php:143
+msgid "Conditional Logic"
+msgstr "الظهور المشروط"
+
+#: form_detail.php:1539 includes/addon/class-gf-payment-addon.php:2527
+msgid "Options"
+msgstr "الخيارات"
+
+#: common.php:5934 export.php:1112 forms_model.php:6480
+#: includes/addon/class-gf-payment-addon.php:2491
+#: includes/addon/class-gf-payment-addon.php:2496 select_columns.php:202
+msgid "Payment Amount"
+msgstr "مبلغ الدفع"
+
+#: entry_detail.php:1203 includes/addon/class-gf-payment-addon.php:2334
+msgid "Amount"
+msgstr "المبلغ"
+
+#: includes/addon/class-gf-payment-addon.php:1408
+msgid "options: "
+msgstr "الخيارات:"
+
+#: form_settings.php:985 includes/addon/class-gf-addon.php:1428
+#: includes/class-gf-osdxp.php:245 includes/class-gf-osdxp.php:246
+#: assets/js/src/legacy/admin/blocks/blocks/form/edit.js:155
+#: assets/js/src/legacy/admin/blocks/blocks/form/edit.js:156
+#: assets/js/src/legacy/admin/blocks/blocks/form/edit.js:162
+#: assets/js/src/legacy/admin/blocks/blocks/form/edit.js:197
+msgid "Form Settings"
+msgstr "اعدادات النموذج"
+
+#: form_list.php:183 gravityforms.php:1748 gravityforms.php:1753
+#: gravityforms.php:5505 includes/class-gf-osdxp.php:236
+#: includes/class-gf-osdxp.php:237 includes/class-personal-data.php:893
+msgid "Forms"
+msgstr "النماذج"
+
+#: form_detail.php:1852 gravityforms.php:1799 includes/class-gf-osdxp.php:30
+#: includes/class-gf-osdxp.php:283 includes/class-gf-osdxp.php:284
+msgid "Help"
+msgstr "مساعدة"
+
+#: gravityforms.php:1556 gravityforms.php:1782 includes/class-gf-osdxp.php:28
+#: includes/class-gf-osdxp.php:254 includes/class-gf-osdxp.php:255
+msgid "Import/Export"
+msgstr "استيراد / الاستيراد"
+
+#: includes/fields/class-gf-field-post-content.php:14
+msgid "Body"
+msgstr "المحتوى"
+
+#: includes/fields/class-gf-field-page.php:51
+msgid "PAGE BREAK"
+msgstr "فاصل الصفحة"
+
+#: common.php:5274 includes/class-confirmation.php:235
+#: includes/class-confirmation.php:285 includes/class-confirmation.php:1184
+#: includes/embed-form/config/class-gf-embed-config.php:179
+#: includes/fields/class-gf-field-page.php:12 js.php:82
+msgid "Page"
+msgstr "صفحة"
+
+#: includes/fields/class-gf-field-shipping.php:26 js.php:895
+msgid "Shipping"
+msgstr "الشحن"
+
+#: includes/fields/class-gf-field-email.php:151 js.php:1098
+msgid "Confirm Email"
+msgstr "تاكيد البريد الالكترونى"
+
+#: includes/fields/class-gf-field-email.php:149 js.php:1093
+#: notification.php:212
+msgid "Enter Email"
+msgstr "ادخل البريد الالكترونى"
+
+#: includes/fields/class-gf-field-email.php:110
+msgid "Your emails do not match."
+msgstr "البريد الالكترونى غير متطابق."
+
+#: form_display.php:4135 notification.php:293
+msgid "Please enter a valid email address."
+msgstr "من فضلك ادخل بريد الكترونى صالح"
+
+#: form_detail.php:848 includes/addon/class-gf-payment-addon.php:2722
+#: includes/fields/class-gf-field-email.php:13 js.php:775
+msgid "Email"
+msgstr "البريد الالكترونى"
+
+#: includes/fields/class-gf-field-post-tags.php:12
+msgid "Tags"
+msgstr "وسوم"
+
+#: includes/fields/class-gf-field-html.php:57
+msgid "This is a content placeholder. HTML content is not displayed in the form admin. Preview this form to view the content."
+msgstr "هذا محتوى مؤقت. ومحتوى مربع HTML لا يظهر في لوحة التحكم. استعرض هذا النموذج للاطلاع على المحتوى."
+
+#: entry_detail.php:471
+msgid "Would you like to delete this file? 'Cancel' to stop. 'OK' to delete"
+msgstr "هل تريد حذف هذا الملف؟ 'إلغاء' لإيقاف. 'موافق' لحذف"
+
+#: notification.php:249 notification.php:1307
+msgid "Event"
+msgstr "الحدث"
+
+#: notification.php:241
+msgid "Email Service"
+msgstr "خدمة البريد الإلكتروني"
+
+#: print-entry.php:199
+msgid "Bulk Print"
+msgstr "طباعه الكل"
+
+#: form_display.php:3231
+msgid "Very weak"
+msgstr "ضعيفة جدا"
+
+#: form_display.php:3231
+msgid "Weak"
+msgstr "ضعيفة"
+
+#: form_display.php:3231
+msgid "Password strength unknown"
+msgstr "قوة كلمة المرور غير معروفة"
+
+#: form_display.php:2043
+msgid "Invalid selection. Please select one of the available choices."
+msgstr "اختيار غير صالح. يرجى اختيار واحد من الخيارات المتاحة."
+
+#. translators: deleted text
+#: includes/class-personal-data.php:1295
+msgid "[deleted]"
+msgstr "[تم الحذف]"
+
+#: includes/class-personal-data.php:304
+msgid "Fields"
+msgstr "الحقول"
+
+#: includes/class-personal-data.php:257
+msgid "Created By"
+msgstr "تم الإنشاء بواسطة"
+
+#: includes/webapi/webapi.php:2368
+msgid "Forbidden"
+msgstr "ممنوع"
+
+#: includes/webapi/webapi.php:446
+#: assets/js/src/legacy/admin/settings/field-map/mapping.js:334
+msgid "Add"
+msgstr "أضف"
+
+#: includes/wizard/steps/class-gf-installation-wizard-step-complete.php:19
+msgid "Installation Complete"
+msgstr "إكمال التثبيت"
+
+#: includes/wizard/steps/class-gf-installation-wizard-step-settings.php:84
+msgid "Global Settings"
+msgstr "إعدادات عامة"
+
+#: includes/wizard/steps/class-gf-installation-wizard-step-settings.php:47
+#: includes/wizard/steps/class-gf-installation-wizard-step-settings.php:58
+msgid "On"
+msgstr "في"
+
+#: includes/wizard/steps/class-gf-installation-wizard-step-license-key.php:68
+msgid "Invalid or Expired Key : Please make sure you have entered the correct value and that your key is not expired."
+msgstr "مفتاح غير صالح أو منتهي الصلاحية: يرجى التأكد من إدخال القيمة الصحيحة و أن مفتاح الترخيص المدخل غير منتهي الصلاحية."
+
+#: includes/wizard/steps/class-gf-installation-wizard-step-license-key.php:62
+msgid "Please enter a valid license key."
+msgstr "الرجاء إدخال مفتاح ترخيص صحيح"
+
+#: includes/wizard/steps/class-gf-installation-wizard-step-background-updates.php:102
+msgid "Please accept the terms."
+msgstr "الرجاء الموافقه على الشروط"
+
+#: includes/wizard/steps/class-gf-installation-wizard-step-background-updates.php:58
+msgid "Are you sure?"
+msgstr "هل أنت متأكد؟"
+
+#: includes/addon/class-gf-feed-addon.php:2371
+msgid "feed"
+msgstr "خلاصة Feed"
+
+#: includes/addon/class-gf-feed-addon.php:2356 settings.php:929
+msgid "Checkbox"
+msgstr "مربع اختيار"
+
+#: includes/addon/class-gf-addon.php:4578
+#: includes/addon/class-gf-addon.php:4751
+#: includes/addon/class-gf-addon.php:4872
+msgid "%s has been successfully uninstalled. It can be re-activated from the %splugins page%s."
+msgstr "%s تم ازالته بنجاح. يمكن اعاده التفعيل من %sصفحه الإضافات %s."
+
+#: includes/addon/class-gf-addon.php:745
+msgid "Please resolve the following issues to use %s:"
+msgstr "يرجى حل المشاكل التالية للاستخدام %s:"
+
+#: includes/addon/class-gf-addon.php:744
+msgid "%s is not able to run because your WordPress environment has not met the minimum requirements."
+msgstr "%s غير قادر على التشغيل لأن بيئة ووردبريس لم تف بالمتطلبات الدنيا."
+
+#: includes/addon/class-gf-results.php:289
+msgid "Clear"
+msgstr "إزالة"
+
+#: includes/addon/class-gf-payment-addon.php:3934
+msgid "Go to the last page"
+msgstr "إذهب إلى الصفحة الأخيرة"
+
+#: includes/addon/class-gf-payment-addon.php:3925
+msgid "Go to the next page"
+msgstr "إذهب إلى الصفحة التالية"
+
+#: includes/addon/class-gf-payment-addon.php:3910
+msgid "Go to the previous page"
+msgstr "إذهب إلى الصفحة السابقة"
+
+#: includes/addon/class-gf-payment-addon.php:3903
+msgid "Go to the first page"
+msgstr "إذهب إلى الصفحة الأولى"
+
+#: includes/addon/class-gf-payment-addon.php:2746
+msgid "day(s)"
+msgstr "أيام"
+
+#: includes/addon/class-gf-payment-addon.php:3920
+msgctxt "paging"
+msgid "%1$s of %2$s"
+msgstr "%1$s من %2$s"
+
+#: includes/addon/class-gf-payment-addon.php:3305
+msgctxt "regarding a payment method"
+msgid "Any"
+msgstr "أي"
+
+#: includes/fields/class-gf-field-html.php:56
+msgid "HTML Content"
+msgstr "محتوى HTML "
+
+#: includes/fields/class-gf-field-html.php:12
+msgid "HTML"
+msgstr "HTML"
+
+#: common.php:804 common.php:4554 form_detail.php:1593 form_detail.php:1594
+#: includes/fields/class-gf-field-radio.php:371
+msgid "Other"
+msgstr "اخر"
+
+#: form_detail.php:649 form_detail.php:667 form_detail.php:703
+#: form_detail.php:718 form_detail.php:840 form_detail.php:867
+#: form_detail.php:1077 includes/fields/class-gf-field-radio.php:22
+msgid "Radio Buttons"
+msgstr "خيارات متعددة"
+
+#: includes/fields/class-gf-field-option.php:29 js.php:912
+msgid "Option"
+msgstr "خيار"
+
+#: includes/fields/class-gf-field-list.php:430
+msgid "Remove this row"
+msgstr "حذف هذا السطر"
+
+#: includes/fields/class-gf-field-list.php:238
+#: includes/fields/class-gf-field-list.php:429
+msgid "Add another row"
+msgstr "اضف صف اخر"
+
+#: form_detail.php:850 includes/fields/class-gf-field-list.php:36 js.php:659
+msgid "List"
+msgstr "قائمة"
+
+#: form_detail.php:835 includes/fields/class-gf-field-textarea.php:13
+msgid "Paragraph Text"
+msgstr "نص فقرة"
+
+#: form_detail.php:1195 includes/fields/class-gf-field-post-image.php:161
+#: includes/fields/class-gf-field-post-image.php:163
+#: includes/fields/class-gf-field-post-image.php:225
+#: includes/fields/class-gf-field-post-image.php:233
+msgid "Caption"
+msgstr "الوصف"
+
+#: includes/fields/class-gf-field-post-image.php:132 js.php:825
+msgid "File"
+msgstr "ملف"
+
+#: includes/fields/class-gf-field-post-image.php:128
+msgid "delete"
+msgstr "حذف"
+
+#: includes/fields/class-gf-field-post-image.php:32 js.php:857
+msgid "Post Image"
+msgstr "صورة التدوينة"
+
+#: form_detail.php:648 form_detail.php:666 form_detail.php:701
+#: form_detail.php:716 form_detail.php:732 form_detail.php:836
+#: form_detail.php:865 form_detail.php:1075
+#: includes/fields/class-gf-field-select.php:22
+msgid "Drop Down"
+msgstr "قائمة منبثقة"
+
+#: includes/fields/class-gf-field-fileupload.php:747
+msgid "Click to view"
+msgstr "اضغط هنا للمشاهدة"
+
+#: includes/fields/class-gf-field-fileupload.php:687
+msgid "%d files"
+msgstr "%d ملفات"
+
+#: includes/fields/class-gf-field-fileupload.php:405
+#: includes/fields/class-gf-field-fileupload.php:434
+#: includes/fields/class-gf-field-fileupload.php:440
+msgid "Delete file"
+msgstr "حذف ملف"
+
+#: includes/fields/class-gf-field-fileupload.php:404
+msgid "Download file"
+msgstr "تنزيل الملف"
+
+#: includes/fields/class-gf-field-fileupload.php:343
+msgid "Select files"
+msgstr "اختار الملفات"
+
+#: includes/fields/class-gf-field-fileupload.php:342
+msgid "Drop files here or"
+msgstr "اترك الملفات هنا او"
+
+#: includes/fields/class-gf-field-fileupload.php:313
+#: includes/fields/class-gf-field-fileupload.php:336
+msgid "Allowed Files"
+msgstr "الملفات المتاحه"
+
+#: includes/fields/class-gf-field-post-image.php:115
+msgid "Accepted file types: %s."
+msgstr "صيغ الملفات المسموحة: %s."
+
+#: includes/fields/class-gf-field-fileupload.php:200
+#: includes/fields/class-gf-field-fileupload.php:216 includes/upload.php:117
+msgid "The uploaded file type is not allowed."
+msgstr "نوع الملف المرفوع غير مصرح به."
+
+#: form_detail.php:849 includes/fields/class-gf-field-fileupload.php:109
+msgid "File Upload"
+msgstr "رفع ملف"
+
+#: includes/fields/class-gf-field-text.php:13
+msgid "Single Line Text"
+msgstr "نص من سطر واحد"
+
+#: includes/fields/class-gf-field-section.php:12
+msgid "Section"
+msgstr "قسم"
+
+#: includes/fields/class-gf-field-address.php:1072
+msgid "Yukon"
+msgstr "Yukon"
+
+#: includes/fields/class-gf-field-address.php:1071
+msgid "Saskatchewan"
+msgstr "Saskatchewan"
+
+#: includes/fields/class-gf-field-address.php:1070
+msgid "Quebec"
+msgstr "Quebec"
+
+#: includes/fields/class-gf-field-address.php:1069
+msgid "Prince Edward Island"
+msgstr "Prince Edward Island"
+
+#: includes/fields/class-gf-field-address.php:1068
+msgid "Ontario"
+msgstr "Ontario"
+
+#: includes/fields/class-gf-field-address.php:1067
+msgid "Nunavut"
+msgstr "Nunavut"
+
+#: includes/fields/class-gf-field-address.php:1066
+msgid "Nova Scotia"
+msgstr "Nova Scotia"
+
+#: includes/fields/class-gf-field-address.php:1065
+msgid "Northwest Territories"
+msgstr "Northwest Territories"
+
+#: includes/fields/class-gf-field-address.php:1063
+msgid "New Brunswick"
+msgstr "New Brunswick"
+
+#: includes/fields/class-gf-field-address.php:1062
+msgid "Manitoba"
+msgstr "Manitoba"
+
+#: includes/fields/class-gf-field-address.php:1061
+msgid "British Columbia"
+msgstr "British Columbia"
+
+#: includes/fields/class-gf-field-address.php:1060
+msgid "Alberta"
+msgstr "Alberta"
+
+#: includes/fields/class-gf-field-address.php:975
+#: includes/fields/class-gf-field-address.php:1049
+msgid "Armed Forces Pacific"
+msgstr "Armed Forces Pacific"
+
+#: includes/fields/class-gf-field-address.php:974
+#: includes/fields/class-gf-field-address.php:1048
+msgid "Armed Forces Europe"
+msgstr "Armed Forces Europe"
+
+#: includes/fields/class-gf-field-address.php:973
+#: includes/fields/class-gf-field-address.php:1047
+msgid "Armed Forces Americas"
+msgstr "Armed Forces Americas"
+
+#: includes/fields/class-gf-field-address.php:971
+#: includes/fields/class-gf-field-address.php:1045
+msgid "Wisconsin"
+msgstr "Wisconsin"
+
+#: includes/fields/class-gf-field-address.php:970
+#: includes/fields/class-gf-field-address.php:1044
+msgid "West Virginia"
+msgstr "West Virginia"
+
+#: includes/fields/class-gf-field-address.php:969
+#: includes/fields/class-gf-field-address.php:1043
+msgid "Washington"
+msgstr "Washington"
+
+#: includes/fields/class-gf-field-address.php:968
+#: includes/fields/class-gf-field-address.php:1042
+msgid "Virginia"
+msgstr "Virginia"
+
+#: includes/fields/class-gf-field-address.php:967
+#: includes/fields/class-gf-field-address.php:1041
+msgid "Vermont"
+msgstr "Vermont"
+
+#: includes/fields/class-gf-field-address.php:965
+#: includes/fields/class-gf-field-address.php:1039
+msgid "Utah"
+msgstr "Utah"
+
+#: includes/fields/class-gf-field-address.php:964
+#: includes/fields/class-gf-field-address.php:1038
+msgid "Texas"
+msgstr "Texas"
+
+#: includes/fields/class-gf-field-address.php:963
+#: includes/fields/class-gf-field-address.php:1037
+msgid "Tennessee"
+msgstr "Tennessee"
+
+#: includes/fields/class-gf-field-address.php:962
+#: includes/fields/class-gf-field-address.php:1036
+msgid "South Dakota"
+msgstr "South Dakota"
+
+#: includes/fields/class-gf-field-address.php:961
+#: includes/fields/class-gf-field-address.php:1035
+msgid "South Carolina"
+msgstr "South Carolina"
+
+#: includes/fields/class-gf-field-address.php:960
+#: includes/fields/class-gf-field-address.php:1034
+msgid "Rhode Island"
+msgstr "Rhode Island"
+
+#: includes/fields/class-gf-field-address.php:958
+#: includes/fields/class-gf-field-address.php:1032
+msgid "Pennsylvania"
+msgstr "Pennsylvania"
+
+#: includes/fields/class-gf-field-address.php:957
+#: includes/fields/class-gf-field-address.php:1031
+msgid "Oregon"
+msgstr "Oregon"
+
+#: includes/fields/class-gf-field-address.php:956
+#: includes/fields/class-gf-field-address.php:1030
+msgid "Oklahoma"
+msgstr "Oklahoma"
+
+#: includes/fields/class-gf-field-address.php:955
+#: includes/fields/class-gf-field-address.php:1029
+msgid "Ohio"
+msgstr "Ohio"
+
+#: includes/fields/class-gf-field-address.php:953
+#: includes/fields/class-gf-field-address.php:1027
+msgid "North Dakota"
+msgstr "North Dakota"
+
+#: includes/fields/class-gf-field-address.php:952
+#: includes/fields/class-gf-field-address.php:1026
+msgid "North Carolina"
+msgstr "North Carolina"
+
+#: includes/fields/class-gf-field-address.php:951
+#: includes/fields/class-gf-field-address.php:1025
+msgid "New York"
+msgstr "New York"
+
+#: includes/fields/class-gf-field-address.php:950
+#: includes/fields/class-gf-field-address.php:1024
+msgid "New Mexico"
+msgstr "New Mexico"
+
+#: includes/fields/class-gf-field-address.php:949
+#: includes/fields/class-gf-field-address.php:1023
+msgid "New Jersey"
+msgstr "New Jersey"
+
+#: includes/fields/class-gf-field-address.php:948
+#: includes/fields/class-gf-field-address.php:1022
+msgid "New Hampshire"
+msgstr "New Hampshire"
+
+#: includes/fields/class-gf-field-address.php:947
+#: includes/fields/class-gf-field-address.php:1021
+msgid "Nevada"
+msgstr "Nevada"
+
+#: includes/fields/class-gf-field-address.php:946
+#: includes/fields/class-gf-field-address.php:1020
+msgid "Nebraska"
+msgstr "Nebraska"
+
+#: includes/fields/class-gf-field-address.php:945
+#: includes/fields/class-gf-field-address.php:1019
+msgid "Montana"
+msgstr "Montana"
+
+#: includes/fields/class-gf-field-address.php:944
+#: includes/fields/class-gf-field-address.php:1018
+msgid "Missouri"
+msgstr "Missouri"
+
+#: includes/fields/class-gf-field-address.php:943
+#: includes/fields/class-gf-field-address.php:1017
+msgid "Mississippi"
+msgstr "Mississippi"
+
+#: includes/fields/class-gf-field-address.php:942
+#: includes/fields/class-gf-field-address.php:1016
+msgid "Minnesota"
+msgstr "Minnesota"
+
+#: includes/fields/class-gf-field-address.php:941
+#: includes/fields/class-gf-field-address.php:1015
+msgid "Michigan"
+msgstr "Michigan"
+
+#: includes/fields/class-gf-field-address.php:940
+#: includes/fields/class-gf-field-address.php:1014
+msgid "Massachusetts"
+msgstr "Massachusetts"
+
+#: includes/fields/class-gf-field-address.php:939
+#: includes/fields/class-gf-field-address.php:1013
+msgid "Maryland"
+msgstr "Maryland"
+
+#: includes/fields/class-gf-field-address.php:938
+#: includes/fields/class-gf-field-address.php:1012
+msgid "Maine"
+msgstr "Maine"
+
+#: includes/fields/class-gf-field-address.php:937
+#: includes/fields/class-gf-field-address.php:1011
+msgid "Louisiana"
+msgstr "Louisiana"
+
+#: includes/fields/class-gf-field-address.php:936
+#: includes/fields/class-gf-field-address.php:1010
+msgid "Kentucky"
+msgstr "Kentucky"
+
+#: includes/fields/class-gf-field-address.php:935
+#: includes/fields/class-gf-field-address.php:1009
+msgid "Kansas"
+msgstr "Kansas"
+
+#: includes/fields/class-gf-field-address.php:934
+#: includes/fields/class-gf-field-address.php:1008
+msgid "Iowa"
+msgstr "Iowa"
+
+#: includes/fields/class-gf-field-address.php:933
+#: includes/fields/class-gf-field-address.php:1007
+msgid "Indiana"
+msgstr "Indiana"
+
+#: includes/fields/class-gf-field-address.php:932
+#: includes/fields/class-gf-field-address.php:1006
+msgid "Illinois"
+msgstr "Illinois"
+
+#: includes/fields/class-gf-field-address.php:931
+#: includes/fields/class-gf-field-address.php:1005
+msgid "Idaho"
+msgstr "Idaho"
+
+#: includes/fields/class-gf-field-address.php:930
+#: includes/fields/class-gf-field-address.php:1004
+msgid "Hawaii"
+msgstr "Hawaii"
+
+#: includes/fields/class-gf-field-address.php:927
+#: includes/fields/class-gf-field-address.php:1001
+msgid "Florida"
+msgstr "Florida"
+
+#: includes/fields/class-gf-field-address.php:926
+#: includes/fields/class-gf-field-address.php:1000
+msgid "District of Columbia"
+msgstr "District of Columbia"
+
+#: includes/fields/class-gf-field-address.php:925
+#: includes/fields/class-gf-field-address.php:999
+msgid "Delaware"
+msgstr "Delaware"
+
+#: includes/fields/class-gf-field-address.php:924
+#: includes/fields/class-gf-field-address.php:998
+msgid "Connecticut"
+msgstr "Connecticut"
+
+#: includes/fields/class-gf-field-address.php:923
+#: includes/fields/class-gf-field-address.php:997
+msgid "Colorado"
+msgstr "Colorado"
+
+#: includes/fields/class-gf-field-address.php:922
+#: includes/fields/class-gf-field-address.php:996
+msgid "California"
+msgstr "California"
+
+#: includes/fields/class-gf-field-address.php:921
+#: includes/fields/class-gf-field-address.php:995
+msgid "Arkansas"
+msgstr "Arkansas"
+
+#: includes/fields/class-gf-field-address.php:920
+#: includes/fields/class-gf-field-address.php:994
+msgid "Arizona"
+msgstr "Arizona"
+
+#: includes/fields/class-gf-field-address.php:918
+#: includes/fields/class-gf-field-address.php:992
+msgid "Alaska"
+msgstr "Alaska"
+
+#: includes/fields/class-gf-field-address.php:917
+#: includes/fields/class-gf-field-address.php:991
+msgid "Alabama"
+msgstr "Alabama"
+
+#: includes/fields/class-gf-field-address.php:866
+msgid "Zimbabwe"
+msgstr "Zimbabwe"
+
+#: includes/fields/class-gf-field-address.php:865
+msgid "Zambia"
+msgstr "Zambia"
+
+#: includes/fields/class-gf-field-address.php:864
+msgid "Yemen"
+msgstr "Yemen"
+
+#: includes/fields/class-gf-field-address.php:861
+msgid "Virgin Islands, U.S."
+msgstr "Virgin Islands, U.S."
+
+#: includes/fields/class-gf-field-address.php:860
+msgid "Virgin Islands, British"
+msgstr "Virgin Islands, British"
+
+#: includes/fields/class-gf-field-address.php:858
+msgid "Venezuela"
+msgstr "Venezuela"
+
+#: includes/fields/class-gf-field-address.php:857
+msgid "Vanuatu"
+msgstr "Vanuatu"
+
+#: includes/fields/class-gf-field-address.php:856
+msgid "Uzbekistan"
+msgstr "Uzbekistan"
+
+#: includes/fields/class-gf-field-address.php:854
+msgid "Uruguay"
+msgstr "Uruguay"
+
+#: includes/fields/class-gf-field-address.php:852
+msgid "United Kingdom"
+msgstr "United Kingdom"
+
+#: includes/fields/class-gf-field-address.php:851
+msgid "United Arab Emirates"
+msgstr "United Arab Emirates"
+
+#: includes/fields/class-gf-field-address.php:850
+msgid "Ukraine"
+msgstr "Ukraine"
+
+#: includes/fields/class-gf-field-address.php:849
+msgid "Uganda"
+msgstr "Uganda"
+
+#: includes/fields/class-gf-field-address.php:848
+msgid "Tuvalu"
+msgstr "Tuvalu"
+
+#: includes/fields/class-gf-field-address.php:846
+msgid "Turkmenistan"
+msgstr "Turkmenistan"
+
+#: includes/fields/class-gf-field-address.php:844
+msgid "Tunisia"
+msgstr "Tunisia"
+
+#: includes/fields/class-gf-field-address.php:843
+msgid "Trinidad and Tobago"
+msgstr "Trinidad and Tobago"
+
+#: includes/fields/class-gf-field-address.php:842
+msgid "Tonga"
+msgstr "Tonga"
+
+#: includes/fields/class-gf-field-address.php:840
+msgid "Togo"
+msgstr "Togo"
+
+#: includes/fields/class-gf-field-address.php:838
+msgid "Thailand"
+msgstr "Thailand"
+
+#: includes/fields/class-gf-field-address.php:836
+msgid "Tajikistan"
+msgstr "Tajikistan"
+
+#: includes/fields/class-gf-field-address.php:835
+msgid "Taiwan"
+msgstr "Taiwan"
+
+#: includes/fields/class-gf-field-address.php:833
+msgid "Switzerland"
+msgstr "Switzerland"
+
+#: includes/fields/class-gf-field-address.php:832
+msgid "Sweden"
+msgstr "Sweden"
+
+#: includes/fields/class-gf-field-address.php:830
+msgid "Suriname"
+msgstr "Suriname"
+
+#: includes/fields/class-gf-field-address.php:829
+msgid "Sudan"
+msgstr "Sudan"
+
+#: includes/fields/class-gf-field-address.php:828
+msgid "Sri Lanka"
+msgstr "Sri Lanka"
+
+#: includes/fields/class-gf-field-address.php:827
+msgid "Spain"
+msgstr "Spain"
+
+#: includes/fields/class-gf-field-address.php:824
+msgid "South Africa"
+msgstr "South Africa"
+
+#: includes/fields/class-gf-field-address.php:823
+msgid "Somalia"
+msgstr "Somalia"
+
+#: includes/fields/class-gf-field-address.php:822
+msgid "Solomon Islands"
+msgstr "Solomon Islands"
+
+#: includes/fields/class-gf-field-address.php:821
+msgid "Slovenia"
+msgstr "Slovenia"
+
+#: includes/fields/class-gf-field-address.php:820
+msgid "Slovakia"
+msgstr "Slovakia"
+
+#: includes/fields/class-gf-field-address.php:818
+msgid "Singapore"
+msgstr "Singapore"
+
+#: includes/fields/class-gf-field-address.php:817
+msgid "Sierra Leone"
+msgstr "Sierra Leone"
+
+#: includes/fields/class-gf-field-address.php:816
+msgid "Seychelles"
+msgstr "Seychelles"
+
+#: includes/fields/class-gf-field-address.php:814
+msgid "Senegal"
+msgstr "Senegal"
+
+#: includes/fields/class-gf-field-address.php:813
+msgid "Saudi Arabia"
+msgstr "Saudi Arabia"
+
+#: includes/fields/class-gf-field-address.php:812
+msgid "Sao Tome and Principe"
+msgstr "Sao Tome and Principe"
+
+#: includes/fields/class-gf-field-address.php:811
+msgid "San Marino"
+msgstr "San Marino"
+
+#: includes/fields/class-gf-field-address.php:810
+msgid "Samoa"
+msgstr "Samoa"
+
+#: includes/fields/class-gf-field-address.php:809
+msgid "Saint Vincent and the Grenadines"
+msgstr "Saint Vincent and the Grenadines"
+
+#: includes/fields/class-gf-field-address.php:806
+msgid "Saint Lucia"
+msgstr "Saint Lucia"
+
+#: includes/fields/class-gf-field-address.php:805
+msgid "Saint Kitts and Nevis"
+msgstr "Saint Kitts and Nevis"
+
+#: includes/fields/class-gf-field-address.php:802
+msgid "Rwanda"
+msgstr "Rwanda"
+
+#: includes/fields/class-gf-field-address.php:800
+msgid "Romania"
+msgstr "Romania"
+
+#: includes/fields/class-gf-field-address.php:798
+msgid "Qatar"
+msgstr "Qatar"
+
+#: includes/fields/class-gf-field-address.php:797
+#: includes/fields/class-gf-field-address.php:959
+#: includes/fields/class-gf-field-address.php:1033
+msgid "Puerto Rico"
+msgstr "Puerto Rico"
+
+#: includes/fields/class-gf-field-address.php:796
+msgid "Portugal"
+msgstr "Portugal"
+
+#: includes/fields/class-gf-field-address.php:795
+msgid "Poland"
+msgstr "Poland"
+
+#: includes/fields/class-gf-field-address.php:793
+msgid "Philippines"
+msgstr "Philippines"
+
+#: includes/fields/class-gf-field-address.php:792
+msgid "Peru"
+msgstr "Peru"
+
+#: includes/fields/class-gf-field-address.php:791
+msgid "Paraguay"
+msgstr "Paraguay"
+
+#: includes/fields/class-gf-field-address.php:790
+msgid "Papua New Guinea"
+msgstr "Papua New Guinea"
+
+#: includes/fields/class-gf-field-address.php:789
+msgid "Panama"
+msgstr "Panama"
+
+#: includes/fields/class-gf-field-address.php:787
+msgid "Palau"
+msgstr "Palau"
+
+#: includes/fields/class-gf-field-address.php:786
+msgid "Pakistan"
+msgstr "Pakistan"
+
+#: includes/fields/class-gf-field-address.php:785
+msgid "Oman"
+msgstr "Oman"
+
+#: includes/fields/class-gf-field-address.php:784
+msgid "Norway"
+msgstr "Norway"
+
+#: includes/fields/class-gf-field-address.php:783
+#: includes/fields/class-gf-field-address.php:954
+#: includes/fields/class-gf-field-address.php:1028
+msgid "Northern Mariana Islands"
+msgstr "Northern Mariana Islands"
+
+#: includes/fields/class-gf-field-address.php:779
+msgid "Nigeria"
+msgstr "Nigeria"
+
+#: includes/fields/class-gf-field-address.php:778
+msgid "Niger"
+msgstr "Niger"
+
+#: includes/fields/class-gf-field-address.php:777
+msgid "Nicaragua"
+msgstr "Nicaragua"
+
+#: includes/fields/class-gf-field-address.php:776
+msgid "New Zealand"
+msgstr "New Zealand"
+
+#: includes/fields/class-gf-field-address.php:774
+msgid "Netherlands"
+msgstr "Netherlands"
+
+#: includes/fields/class-gf-field-address.php:773
+msgid "Nepal"
+msgstr "Nepal"
+
+#: includes/fields/class-gf-field-address.php:772
+msgid "Nauru"
+msgstr "Nauru"
+
+#: includes/fields/class-gf-field-address.php:771
+msgid "Namibia"
+msgstr "Namibia"
+
+#: includes/fields/class-gf-field-address.php:770
+msgid "Myanmar"
+msgstr "Myanmar"
+
+#: includes/fields/class-gf-field-address.php:769
+msgid "Mozambique"
+msgstr "Mozambique"
+
+#: includes/fields/class-gf-field-address.php:768
+msgid "Morocco"
+msgstr "Morocco"
+
+#: includes/fields/class-gf-field-address.php:766
+msgid "Montenegro"
+msgstr "Montenegro"
+
+#: includes/fields/class-gf-field-address.php:765
+msgid "Mongolia"
+msgstr "Mongolia"
+
+#: includes/fields/class-gf-field-address.php:764
+msgid "Monaco"
+msgstr "Monaco"
+
+#: includes/fields/class-gf-field-address.php:763
+msgid "Moldova"
+msgstr "Moldova"
+
+#: includes/fields/class-gf-field-address.php:762
+msgid "Micronesia"
+msgstr "Micronesia"
+
+#: includes/fields/class-gf-field-address.php:761
+msgid "Mexico"
+msgstr "Mexico"
+
+#: includes/fields/class-gf-field-address.php:759
+msgid "Mauritius"
+msgstr "Mauritius"
+
+#: includes/fields/class-gf-field-address.php:758
+msgid "Mauritania"
+msgstr "Mauritania"
+
+#: includes/fields/class-gf-field-address.php:756
+msgid "Marshall Islands"
+msgstr "Marshall Islands"
+
+#: includes/fields/class-gf-field-address.php:755
+msgid "Malta"
+msgstr "Malta"
+
+#: includes/fields/class-gf-field-address.php:754
+msgid "Mali"
+msgstr "Mali"
+
+#: includes/fields/class-gf-field-address.php:753
+msgid "Maldives"
+msgstr "Maldives"
+
+#: includes/fields/class-gf-field-address.php:752
+msgid "Malaysia"
+msgstr "Malaysia"
+
+#: includes/fields/class-gf-field-address.php:751
+msgid "Malawi"
+msgstr "Malawi"
+
+#: includes/fields/class-gf-field-address.php:748
+msgid "Luxembourg"
+msgstr "Luxembourg"
+
+#: includes/fields/class-gf-field-address.php:747
+msgid "Lithuania"
+msgstr "Lithuania"
+
+#: includes/fields/class-gf-field-address.php:746
+msgid "Liechtenstein"
+msgstr "Liechtenstein"
+
+#: includes/fields/class-gf-field-address.php:745
+msgid "Libya"
+msgstr "Libya"
+
+#: includes/fields/class-gf-field-address.php:744
+msgid "Liberia"
+msgstr "Liberia"
+
+#: includes/fields/class-gf-field-address.php:743
+msgid "Lesotho"
+msgstr "Lesotho"
+
+#: includes/fields/class-gf-field-address.php:742
+msgid "Lebanon"
+msgstr "Lebanon"
+
+#: includes/fields/class-gf-field-address.php:741
+msgid "Latvia"
+msgstr "Latvia"
+
+#: includes/fields/class-gf-field-address.php:739
+msgid "Kyrgyzstan"
+msgstr "Kyrgyzstan"
+
+#: includes/fields/class-gf-field-address.php:738
+msgid "Kuwait"
+msgstr "Kuwait"
+
+#: includes/fields/class-gf-field-address.php:735
+msgid "Kiribati"
+msgstr "Kiribati"
+
+#: includes/fields/class-gf-field-address.php:734
+msgid "Kenya"
+msgstr "Kenya"
+
+#: includes/fields/class-gf-field-address.php:733
+msgid "Kazakhstan"
+msgstr "Kazakhstan"
+
+#: includes/fields/class-gf-field-address.php:732
+msgid "Jordan"
+msgstr "Jordan"
+
+#: includes/fields/class-gf-field-address.php:730
+msgid "Japan"
+msgstr "Japan"
+
+#: includes/fields/class-gf-field-address.php:729
+msgid "Jamaica"
+msgstr "Jamaica"
+
+#: includes/fields/class-gf-field-address.php:728
+msgid "Italy"
+msgstr "Italy"
+
+#: includes/fields/class-gf-field-address.php:727
+msgid "Israel"
+msgstr "Israel"
+
+#: includes/fields/class-gf-field-address.php:725
+msgid "Ireland"
+msgstr "Ireland"
+
+#: includes/fields/class-gf-field-address.php:724
+msgid "Iraq"
+msgstr "Iraq"
+
+#: includes/fields/class-gf-field-address.php:723
+msgid "Iran"
+msgstr "Iran"
+
+#: includes/fields/class-gf-field-address.php:722
+msgid "Indonesia"
+msgstr "Indonesia"
+
+#: includes/fields/class-gf-field-address.php:721
+msgid "India"
+msgstr "India"
+
+#: includes/fields/class-gf-field-address.php:720
+msgid "Iceland"
+msgstr "Iceland"
+
+#: includes/fields/class-gf-field-address.php:719
+msgid "Hungary"
+msgstr "Hungary"
+
+#: includes/fields/class-gf-field-address.php:718
+msgid "Hong Kong"
+msgstr "Hong Kong"
+
+#: includes/fields/class-gf-field-address.php:717
+msgid "Honduras"
+msgstr "Honduras"
+
+#: includes/fields/class-gf-field-address.php:714
+msgid "Haiti"
+msgstr "Haiti"
+
+#: includes/fields/class-gf-field-address.php:713
+msgid "Guyana"
+msgstr "Guyana"
+
+#: includes/fields/class-gf-field-address.php:712
+msgid "Guinea-Bissau"
+msgstr "Guinea-Bissau"
+
+#: includes/fields/class-gf-field-address.php:711
+msgid "Guinea"
+msgstr "Guinea"
+
+#: includes/fields/class-gf-field-address.php:709
+msgid "Guatemala"
+msgstr "Guatemala"
+
+#: includes/fields/class-gf-field-address.php:708
+#: includes/fields/class-gf-field-address.php:929
+#: includes/fields/class-gf-field-address.php:1003
+msgid "Guam"
+msgstr "Guam"
+
+#: includes/fields/class-gf-field-address.php:706
+msgid "Grenada"
+msgstr "Grenada"
+
+#: includes/fields/class-gf-field-address.php:705
+msgid "Greenland"
+msgstr "Greenland"
+
+#: includes/fields/class-gf-field-address.php:704
+msgid "Greece"
+msgstr "Greece"
+
+#: includes/fields/class-gf-field-address.php:702
+msgid "Ghana"
+msgstr "Ghana"
+
+#: includes/fields/class-gf-field-address.php:701
+msgid "Germany"
+msgstr "Germany"
+
+#: includes/fields/class-gf-field-address.php:699
+msgid "Gambia"
+msgstr "Gambia"
+
+#: includes/fields/class-gf-field-address.php:698
+msgid "Gabon"
+msgstr "Gabon"
+
+#: includes/fields/class-gf-field-address.php:696
+msgid "French Polynesia"
+msgstr "French Polynesia"
+
+#: includes/fields/class-gf-field-address.php:694
+msgid "France"
+msgstr "France"
+
+#: includes/fields/class-gf-field-address.php:693
+msgid "Finland"
+msgstr "Finland"
+
+#: form_detail.php:1185 includes/fields/class-gf-field-post-image.php:145
+#: includes/fields/class-gf-field-post-image.php:147
+#: includes/fields/class-gf-field-post-image.php:223
+#: includes/fields/class-gf-field-post-image.php:231
+msgid "Alternative Text"
+msgstr "النص البديل"
+
+#: includes/fields/class-gf-field-post-tags.php:90
+#: includes/fields/class-gf-field-text.php:127
+msgid "Separate tags with commas"
+msgstr "افصل بين الوسوم بفواصل"
+
+#: includes/fields/class-gf-field-address.php:863
+msgid "Western Sahara"
+msgstr "الصحراء الغربية"
+
+#: includes/fields/class-gf-field-address.php:847
+msgid "Turks and Caicos Islands"
+msgstr "جزر تركس وكايكوس"
+
+#: includes/fields/class-gf-field-address.php:841
+msgid "Tokelau"
+msgstr "توكيلاو"
+
+#: includes/fields/class-gf-field-address.php:839
+msgid "Timor-Leste"
+msgstr "تيمور الشرقية"
+
+#: includes/fields/class-gf-field-address.php:826
+msgid "South Sudan"
+msgstr "جنوب السودان"
+
+#: includes/fields/class-gf-field-address.php:815
+msgid "Serbia"
+msgstr "صربيا"
+
+#: includes/fields/class-gf-field-address.php:794
+msgid "Pitcairn"
+msgstr "بيتكيرن"
+
+#: includes/fields/class-gf-field-address.php:781
+msgid "Norfolk Island"
+msgstr "جزيرة نورفولك"
+
+#: includes/fields/class-gf-field-address.php:775
+msgid "New Caledonia"
+msgstr "كاليدونيا الجديدة"
+
+#: includes/fields/class-gf-field-address.php:767
+msgid "Montserrat"
+msgstr "مونتسيرات"
+
+#: includes/fields/class-gf-field-address.php:757
+msgid "Martinique"
+msgstr "مارتينيك"
+
+#: includes/fields/class-gf-field-address.php:750
+msgid "Madagascar"
+msgstr "مدغشقر"
+
+#: includes/fields/class-gf-field-address.php:731
+msgid "Jersey"
+msgstr "جيرسى"
+
+#: includes/fields/class-gf-field-address.php:726
+msgid "Isle of Man"
+msgstr "إسلي أوف مان"
+
+#: includes/fields/class-gf-field-address.php:710
+msgid "Guernsey"
+msgstr "جويرنيسي"
+
+#: includes/fields/class-gf-field-address.php:707
+msgid "Guadeloupe"
+msgstr "غوادلوب"
+
+#: includes/fields/class-gf-field-address.php:703
+msgid "Gibraltar"
+msgstr "جبل طارق"
+
+#: includes/fields/class-gf-field-address.php:697
+msgid "French Southern Territories"
+msgstr "الأقاليم الجنوبية الفرنسية"
+
+#: includes/settings/class-settings.php:986
+msgid "Save Settings"
+msgstr "حفظ الخيارات"
+
+#: includes/settings/fields/class-notification-routing.php:379
+#: includes/settings/fields/class-notification-routing.php:586
+msgid "Enter value"
+msgstr "ادخل القيمة"
+
+#: common.php:5252 includes/settings/fields/class-notification-routing.php:350
+msgid "Loading..."
+msgstr "تحميل ..."
+
+#: includes/settings/fields/class-notification-routing.php:163
+#: includes/settings/fields/class-notification-routing.php:225
+msgid "if"
+msgstr "لو"
+
+#: includes/settings/fields/class-notification-routing.php:161
+#: includes/settings/fields/class-notification-routing.php:224
+msgid "Send to"
+msgstr "ارسل الى"
+
+#: common.php:5250 form_display.php:1442 form_list.php:327
+#: gravityforms.php:3130 includes/fields/class-gf-field-submit.php:158
+#: includes/settings/fields/class-button.php:50
+msgid "Submit"
+msgstr "ارسال"
+
+#: includes/addon/class-gf-feed-addon.php:1803
+#: includes/settings/fields/class-conditional-logic.php:47
+msgid "Enable Condition"
+msgstr "تفعيل الشرط"
+
+#: common.php:5286 includes/addon/class-gf-addon.php:3871
+#: includes/settings/fields/class-notification-routing.php:82
+#: includes/settings/fields/class-notification-routing.php:233
+msgid "ends with"
+msgstr "ينتهى بـ"
+
+#: common.php:5285 includes/addon/class-gf-addon.php:3867
+#: includes/settings/fields/class-notification-routing.php:81
+#: includes/settings/fields/class-notification-routing.php:232
+msgid "starts with"
+msgstr "يبدء بـ"
+
+#: common.php:5284 includes/addon/class-gf-addon.php:3863
+#: includes/settings/fields/class-notification-routing.php:80
+#: includes/settings/fields/class-notification-routing.php:231
+msgid "contains"
+msgstr "يحتوى على"
+
+#: common.php:5283 includes/addon/class-gf-addon.php:3859
+#: includes/settings/fields/class-notification-routing.php:79
+#: includes/settings/fields/class-notification-routing.php:230
+msgid "less than"
+msgstr "اقل من"
+
+#: common.php:5282 includes/addon/class-gf-addon.php:3855
+#: includes/settings/fields/class-notification-routing.php:78
+#: includes/settings/fields/class-notification-routing.php:229
+msgid "greater than"
+msgstr "اكبر  من"
+
+#: common.php:5281 includes/addon/class-gf-addon.php:3851
+#: includes/settings/fields/class-notification-routing.php:77
+#: includes/settings/fields/class-notification-routing.php:228
+msgid "is not"
+msgstr "ليس"
+
+#: common.php:5280 includes/addon/class-gf-addon.php:3847
+#: includes/settings/fields/class-notification-routing.php:76
+#: includes/settings/fields/class-notification-routing.php:227
+msgid "is"
+msgstr "هو"
+
+#: includes/addon/class-gf-addon.php:2859
+#: includes/settings/fields/class-field-select.php:244
+#: includes/settings/fields/class-generic-map.php:475
+msgid "Selected"
+msgstr "مختار"
+
+#: includes/addon/class-gf-addon.php:2845
+#: includes/addon/class-gf-addon.php:2852
+#: includes/addon/class-gf-addon.php:2872
+#: includes/settings/fields/class-field-select.php:233
+#: includes/settings/fields/class-generic-map.php:498
+msgid "Full"
+msgstr "كامل"
+
+#: common.php:762 form_list.php:47 form_settings.php:114 gravityforms.php:4582
+#: includes/addon/class-gf-addon.php:2808
+#: includes/settings/fields/class-generic-map.php:580 js.php:1480
+#: tooltips.php:24 assets/js/src/legacy/admin/blocks/blocks/form/edit.js:207
+msgid "Form Title"
+msgstr "عنوان النموذج"
+
+#: export.php:1110 forms_model.php:6468 includes/addon/class-gf-addon.php:2807
+#: includes/settings/fields/class-generic-map.php:576 select_columns.php:199
+msgid "Source Url"
+msgstr "رابط المصدر"
+
+#: entry_detail.php:1318 export.php:1118 forms_model.php:6462
+#: includes/addon/class-gf-addon.php:2806
+#: includes/settings/fields/class-generic-map.php:572 select_columns.php:198
+msgid "User IP"
+msgstr "IP العضو"
+
+#: common.php:5895 export.php:1109 forms_model.php:6465
+#: includes/addon/class-gf-addon.php:2805
+#: includes/settings/fields/class-generic-map.php:568 select_columns.php:197
+msgid "Entry Date"
+msgstr "تاريخ المدخلة"
+
+#: common.php:5891 includes/addon/class-gf-addon.php:2804
+#: includes/settings/fields/class-generic-map.php:564
+msgid "Entry ID"
+msgstr "رقم المدخلة"
+
+#: includes/addon/class-gf-addon.php:2789
+#: includes/settings/fields/class-field-select.php:69
+#: includes/settings/fields/class-generic-map.php:531 notification.php:216
+#: assets/js/src/legacy/admin/settings/field-map/mapping.js:158
+msgid "Select a Field"
+msgstr "اختار حقل"
+
+#: includes/addon/class-gf-addon.php:2757
+#: includes/settings/fields/class-field-map.php:35 js.php:244 js.php:279
+msgid "Field"
+msgstr "حقل"
+
+#: includes/addon/class-gf-addon.php:2739
+#: includes/settings/fields/class-field-map.php:40
+msgid "Form Field"
+msgstr "حقل النموذج"
+
+#: form_detail.php:1533 form_detail.php:2324
+#: includes/settings/fields/class-generic-map.php:178
+msgid "Value"
+msgstr "قيمة"
+
+#: includes/addon/class-gf-payment-addon.php:2727
+#: includes/settings/fields/class-field-select.php:149
+#: includes/settings/fields/class-generic-map.php:341
+msgid "Zip"
+msgstr "الرمز البريدى"
+
+#: includes/addon/class-gf-payment-addon.php:2724
+#: includes/settings/fields/class-field-select.php:146
+#: includes/settings/fields/class-generic-map.php:338
+msgid "Address 2"
+msgstr "العنوان الثاني"
+
+#: includes/fields/class-gf-field-address.php:692
+msgid "Fiji"
+msgstr "Fiji"
+
+#: includes/fields/class-gf-field-address.php:689
+msgid "Ethiopia"
+msgstr "Ethiopia"
+
+#: includes/fields/class-gf-field-address.php:687
+msgid "Estonia"
+msgstr "Estonia"
+
+#: includes/fields/class-gf-field-address.php:686
+msgid "Eritrea"
+msgstr "Eritrea"
+
+#: includes/fields/class-gf-field-address.php:685
+msgid "Equatorial Guinea"
+msgstr "Equatorial Guinea"
+
+#: includes/fields/class-gf-field-address.php:684
+msgid "El Salvador"
+msgstr "El Salvador"
+
+#: includes/fields/class-gf-field-address.php:683
+msgid "Egypt"
+msgstr "Egypt"
+
+#: includes/fields/class-gf-field-address.php:682
+msgid "Ecuador"
+msgstr "Ecuador"
+
+#: includes/fields/class-gf-field-address.php:681
+msgid "Dominican Republic"
+msgstr "Dominican Republic"
+
+#: includes/fields/class-gf-field-address.php:680
+msgid "Dominica"
+msgstr "Dominica"
+
+#: includes/fields/class-gf-field-address.php:679
+msgid "Djibouti"
+msgstr "Djibouti"
+
+#: includes/fields/class-gf-field-address.php:678
+msgid "Denmark"
+msgstr "Denmark"
+
+#: includes/fields/class-gf-field-address.php:676
+msgid "Cyprus"
+msgstr "Cyprus"
+
+#: includes/fields/class-gf-field-address.php:674
+msgid "Cuba"
+msgstr "Cuba"
+
+#: includes/fields/class-gf-field-address.php:673
+msgid "Croatia"
+msgstr "Croatia"
+
+#: includes/fields/class-gf-field-address.php:671
+msgid "Costa Rica"
+msgstr "Costa Rica"
+
+#: includes/fields/class-gf-field-address.php:668
+msgid "Congo, Democratic Republic of the"
+msgstr "Congo, Democratic Republic of the"
+
+#: includes/fields/class-gf-field-address.php:667
+msgid "Comoros"
+msgstr "Comoros"
+
+#: includes/fields/class-gf-field-address.php:666
+msgid "Colombia"
+msgstr "Colombia"
+
+#: includes/fields/class-gf-field-address.php:663
+msgid "China"
+msgstr "China"
+
+#: includes/fields/class-gf-field-address.php:662
+msgid "Chile"
+msgstr "Chile"
+
+#: includes/fields/class-gf-field-address.php:661
+msgid "Chad"
+msgstr "Chad"
+
+#: includes/fields/class-gf-field-address.php:660
+msgid "Central African Republic"
+msgstr "Central African Republic"
+
+#: includes/fields/class-gf-field-address.php:659
+msgid "Cayman Islands"
+msgstr "Cayman Islands"
+
+#: includes/fields/class-gf-field-address.php:658
+msgid "Canada"
+msgstr "Canada"
+
+#: includes/fields/class-gf-field-address.php:657
+msgid "Cameroon"
+msgstr "Cameroon"
+
+#: includes/fields/class-gf-field-address.php:656
+msgid "Cambodia"
+msgstr "Cambodia"
+
+#: includes/fields/class-gf-field-address.php:654
+msgid "Burundi"
+msgstr "Burundi"
+
+#: includes/fields/class-gf-field-address.php:653
+msgid "Burkina Faso"
+msgstr "Burkina Faso"
+
+#: includes/fields/class-gf-field-address.php:652
+msgid "Bulgaria"
+msgstr "Bulgaria"
+
+#: includes/fields/class-gf-field-address.php:649
+msgid "Brazil"
+msgstr "Brazil"
+
+#: includes/fields/class-gf-field-address.php:647
+msgid "Botswana"
+msgstr "Botswana"
+
+#: includes/fields/class-gf-field-address.php:646
+msgid "Bosnia and Herzegovina"
+msgstr "Bosnia and Herzegovina"
+
+#: includes/fields/class-gf-field-address.php:644
+msgid "Bolivia"
+msgstr "Bolivia"
+
+#: includes/fields/class-gf-field-address.php:643
+msgid "Bhutan"
+msgstr "Bhutan"
+
+#: includes/fields/class-gf-field-address.php:642
+msgid "Bermuda"
+msgstr "Bermuda"
+
+#: includes/fields/class-gf-field-address.php:641
+msgid "Benin"
+msgstr "Benin"
+
+#: includes/fields/class-gf-field-address.php:640
+msgid "Belize"
+msgstr "Belize"
+
+#: includes/fields/class-gf-field-address.php:639
+msgid "Belgium"
+msgstr "Belgium"
+
+#: includes/fields/class-gf-field-address.php:638
+msgid "Belarus"
+msgstr "Belarus"
+
+#: includes/fields/class-gf-field-address.php:637
+msgid "Barbados"
+msgstr "Barbados"
+
+#: includes/fields/class-gf-field-address.php:636
+msgid "Bangladesh"
+msgstr "Bangladesh"
+
+#: includes/fields/class-gf-field-address.php:635
+msgid "Bahrain"
+msgstr "Bahrain"
+
+#: includes/fields/class-gf-field-address.php:634
+msgid "Bahamas"
+msgstr "Bahamas"
+
+#: includes/fields/class-gf-field-address.php:633
+msgid "Azerbaijan"
+msgstr "Azerbaijan"
+
+#: includes/fields/class-gf-field-address.php:632
+msgid "Austria"
+msgstr "Austria"
+
+#: form_detail.php:1587 includes/fields/class-gf-field-address.php:631
+msgid "Australia"
+msgstr "Australia"
+
+#: includes/fields/class-gf-field-address.php:629
+msgid "Armenia"
+msgstr "Armenia"
+
+#: includes/fields/class-gf-field-address.php:628
+msgid "Argentina"
+msgstr "Argentina"
+
+#: includes/fields/class-gf-field-address.php:627
+msgid "Antigua and Barbuda"
+msgstr "Antigua and Barbuda"
+
+#: form_detail.php:1587 includes/fields/class-gf-field-address.php:626
+msgid "Antarctica"
+msgstr "Antarctica"
+
+#: includes/fields/class-gf-field-address.php:624
+msgid "Angola"
+msgstr "Angola"
+
+#: includes/fields/class-gf-field-address.php:623
+msgid "Andorra"
+msgstr "Andorra"
+
+#: includes/fields/class-gf-field-address.php:622
+#: includes/fields/class-gf-field-address.php:919
+#: includes/fields/class-gf-field-address.php:993
+msgid "American Samoa"
+msgstr "American Samoa"
+
+#: includes/fields/class-gf-field-address.php:621
+msgid "Algeria"
+msgstr "Algeria"
+
+#: includes/fields/class-gf-field-address.php:620
+msgid "Albania"
+msgstr "Albania"
+
+#: includes/fields/class-gf-field-address.php:618
+msgid "Afghanistan"
+msgstr "Afghanistan"
+
+#: form_detail.php:1253 includes/fields/class-gf-field-address.php:479
+msgid "Postal Code"
+msgstr "الرمز البريدى"
+
+#: includes/fields/class-gf-field-address.php:478
+msgid "Canadian"
+msgstr "الكندى"
+
+#: includes/fields/class-gf-field-address.php:472
+msgid "ZIP Code"
+msgstr "الرمز البريدى"
+
+#: includes/fields/class-gf-field-address.php:471
+#: includes/fields/class-gf-field-address.php:853
+msgid "United States"
+msgstr "United States"
+
+#: includes/fields/class-gf-field-address.php:468
+msgid "State / Province / Region"
+msgstr "الولاية / المنطقة / الاقليم"
+
+#: includes/fields/class-gf-field-address.php:467 js.php:745
+msgid "ZIP / Postal Code"
+msgstr "الرمز البريدى"
+
+#: includes/addon/class-gf-payment-addon.php:2728
+#: includes/fields/class-gf-field-address.php:215
+#: includes/settings/fields/class-field-select.php:150
+#: includes/settings/fields/class-generic-map.php:342 js.php:750
+msgid "Country"
+msgstr "الدولة"
+
+#: includes/addon/class-gf-payment-addon.php:2725
+#: includes/fields/class-gf-field-address.php:211
+#: includes/settings/fields/class-field-select.php:147
+#: includes/settings/fields/class-generic-map.php:339 js.php:735
+msgid "City"
+msgstr "المدينة"
+
+#: includes/fields/class-gf-field-address.php:207 js.php:730
+msgid "Address Line 2"
+msgstr "العنوان: السطر الثاني"
+
+#: includes/fields/class-gf-field-address.php:205 js.php:725
+msgid "Street Address"
+msgstr "عنوان الشارع"
+
+#: includes/fields/class-gf-field-address.php:183
+msgid "Zip Code"
+msgstr "الرمز البريدى"
+
+#: includes/addon/class-gf-payment-addon.php:2723
+#: includes/fields/class-gf-field-address.php:37
+#: includes/settings/fields/class-field-select.php:145
+#: includes/settings/fields/class-generic-map.php:337 js.php:720
+msgid "Address"
+msgstr "العنوان"
+
+#: includes/fields/class-gf-field-name.php:278 js.php:1035
+msgid "Suffix"
+msgstr "عبارة لاحقة"
+
+#: includes/fields/class-gf-field-name.php:277
+#: includes/fields/class-gf-field-name.php:397 js.php:1030
+msgid "Last"
+msgstr "الاخير"
+
+#: includes/fields/class-gf-field-name.php:276 js.php:1023
+msgid "Middle"
+msgstr "الوسطي"
+
+#: includes/fields/class-gf-field-name.php:275
+#: includes/fields/class-gf-field-name.php:396 js.php:1011
+msgid "First"
+msgstr "الاول"
+
+#: includes/fields/class-gf-field-name.php:274 js.php:1003
+msgid "Prefix"
+msgstr "عبارة سابقة"
+
+#: includes/addon/class-gf-payment-addon.php:2332
+#: includes/addon/class-gf-payment-addon.php:2408
+#: includes/addon/class-gf-payment-addon.php:2412
+#: includes/class-confirmation.php:873
+#: includes/fields/class-gf-field-name.php:58 js.php:667 js.php:883
+#: notification.php:235 notification.php:1302
+msgid "Name"
+msgstr "الاسم"
+
+#: includes/fields/class-gf-field-calculation.php:152
+#: includes/fields/class-gf-field-hiddenproduct.php:107
+#: includes/fields/class-gf-field-singleproduct.php:212
+msgid "Price: "
+msgstr "المبلغ:"
+
+#: form_detail.php:675 form_detail.php:1534
+#: includes/fields/class-gf-field-calculation.php:110
+#: includes/fields/class-gf-field-singleproduct.php:144
+#: includes/fields/class-gf-field-singleproduct.php:154
+#: includes/fields/class-gf-field-singleproduct.php:155
+#: includes/fields/class-gf-field-singleproduct.php:163
+#: includes/orders/summaries/class-gf-order-summary.php:65 js.php:883
+#: js.php:942
+msgid "Price"
+msgstr "السعر"
+
+#: includes/fields/class-gf-field.php:2631
+msgid "Quantity:"
+msgstr "الكمية"
+
+#: includes/fields/class-gf-field-captcha.php:169
+msgid "The reCAPTCHA was invalid. Go back and try it again."
+msgstr "التحقق لم يكن صحيحاً، من فضلك حاول مجدداً."
+
+#: includes/fields/class-gf-field-captcha.php:37 js.php:865
+msgid "CAPTCHA"
+msgstr "CAPTCHA"
+
+#: includes/fields/class-gf-field-multiselect.php:153
+msgid "Click to select..."
+msgstr "اضغط هنا للاختيار ..."
+
+#: form_detail.php:837 form_detail.php:868 form_detail.php:1078
+#: includes/fields/class-gf-field-multiselect.php:30
+msgid "Multi Select"
+msgstr "خيارات متعددة"
+
+#: common.php:5897 common.php:5930 includes/fields/class-gf-field-date.php:870
+#: includes/fields/class-gf-field-date.php:1064
+msgid "yyyy-mm-dd"
+msgstr "yyyy-mm-dd"
+
+#: includes/addon/class-gf-payment-addon.php:3015
+#: includes/addon/class-gf-payment-addon.php:3018
+#: includes/fields/class-gf-field-date.php:748
+#: includes/fields/class-gf-field-date.php:958
+#: includes/fields/class-gf-field-date.php:1114 js.php:318 js.php:1054
+#: js.php:1060 js.php:1061
+msgid "Day"
+msgstr "يوم"
+
+#: includes/fields/class-gf-field-date.php:133
+msgid "Please enter a valid date."
+msgstr "من فضلك ادخل تاريخ صالح"
+
+#: common.php:744 common.php:748 entry_detail.php:1168 form_detail.php:844
+#: form_detail.php:1870 form_detail.php:2972 form_detail.php:2973
+#: includes/addon/class-gf-payment-addon.php:3017
+#: includes/fields/class-gf-field-date.php:13 js.php:802 js.php:1480
+msgid "Date"
+msgstr "التاريخ"
+
+#: includes/fields/class-gf-field-time.php:255
+#: includes/fields/class-gf-field-time.php:295 js.php:324 js.php:327
+msgid "HH"
+msgstr "HH"
+
+#: includes/fields/class-gf-field-time.php:277
+msgid "PM"
+msgstr "مساء"
+
+#: includes/fields/class-gf-field-time.php:276
+msgid "AM"
+msgstr "صباحا"
+
+#: includes/fields/class-gf-field-time.php:158
+msgid "Please enter a valid time."
+msgstr "من فضلك ادخل وقت صالح."
+
+#: form_detail.php:845 includes/fields/class-gf-field-time.php:43 js.php:807
+msgid "Time"
+msgstr "الوقت"
+
+#: includes/fields/class-gf-field-post-excerpt.php:12
+msgid "Excerpt"
+msgstr "الوصف المختصر"
+
+#: includes/fields/class-gf-field-password.php:215 js.php:1110
+msgid "Confirm Password"
+msgstr "تاكيد كلمة المرور"
+
+#: includes/fields/class-gf-field-password.php:212 js.php:1109
+msgid "Enter Password"
+msgstr "ادخل كلمة المرور"
+
+#: includes/fields/class-gf-field-password.php:92
+msgid "Your passwords do not match."
+msgstr "كلمات المرور لا تتطابق"
+
+#: includes/fields/class-gf-field-password.php:14 js.php:820
+msgid "Password"
+msgstr "كلمة المرور"
+
+#: includes/fields/class-gf-field-post-custom-field.php:12
+msgid "Custom Field"
+msgstr "حقل خاص"
+
+#: includes/fields/class-gf-field-calculation.php:35
+#: includes/fields/class-gf-field-hiddenproduct.php:40
+#: includes/fields/class-gf-field-number.php:131
+#: includes/fields/class-gf-field-singleproduct.php:47
+msgid "Please enter a valid quantity"
+msgstr "يرجى إدخال كمية صالحة"
+
+#: form_detail.php:731 form_detail.php:838
+#: includes/fields/class-gf-field-number.php:13 js.php:782
+msgid "Number"
+msgstr "رقم"
+
+#: form_detail.php:1190 form_list.php:536 gravityforms.php:2527
+#: includes/fields/class-gf-field-post-image.php:153
+#: includes/fields/class-gf-field-post-image.php:155
+#: includes/fields/class-gf-field-post-image.php:224
+#: includes/fields/class-gf-field-post-image.php:232
+#: includes/fields/class-gf-field-post-title.php:13 widget.php:138
+msgid "Title"
+msgstr "العنوان"
+
+#: gravityforms.php:2531 includes/addon/class-gf-payment-addon.php:2804
+#: includes/fields/class-gf-field-total.php:24
+#: includes/orders/summaries/views/view-order-summary.php:60
+#: includes/orders/summaries/views/view-pricing-fields-html.php:61
+#: includes/orders/summaries/views/view-pricing-fields-text.php:25 js.php:906
+msgid "Total"
+msgstr "المجموع"
+
+#: includes/fields/class-gf-field-product.php:13
+#: includes/orders/summaries/class-gf-order-summary.php:62
+msgid "Product"
+msgstr "المنتج"
+
+#: form_detail.php:1087 includes/fields/class-gf-field-post-category.php:12
+msgid "Category"
+msgstr "تصنيف"
+
+#: includes/fields/class-gf-field-creditcard.php:345
+#: includes/fields/class-gf-field-creditcard.php:484
+#: includes/fields/class-gf-field-date.php:779
+#: includes/fields/class-gf-field-date.php:961
+#: includes/fields/class-gf-field-date.php:1119 js.php:320 js.php:1055
+#: js.php:1062 js.php:1063
+msgid "Year"
+msgstr "سنة"
+
+#: includes/addon/class-gf-payment-addon.php:2997
+#: includes/addon/class-gf-payment-addon.php:2998
+#: includes/fields/class-gf-field-creditcard.php:332
+#: includes/fields/class-gf-field-creditcard.php:453
+#: includes/fields/class-gf-field-date.php:724
+#: includes/fields/class-gf-field-date.php:955
+#: includes/fields/class-gf-field-date.php:1109 js.php:316 js.php:1053
+#: js.php:1058 js.php:1059
+msgid "Month"
+msgstr "شهر"
+
+#: includes/fields/class-gf-field-creditcard.php:417 js.php:767 js.php:1125
+msgid "Cardholder Name"
+msgstr "اسم حامل البطاقه"
+
+#: includes/fields/class-gf-field-creditcard.php:395 js.php:765
+msgid "Security Code"
+msgstr "الرمز السرى"
+
+#: includes/fields/class-gf-field-creditcard.php:328 js.php:763 js.php:1121
+msgid "Expiration Date"
+msgstr "تاريخ الانتهاء"
+
+#: includes/fields/class-gf-field-creditcard.php:304 js.php:761
+msgid "Card Number"
+msgstr "رقم البطاقه الائتمانية"
+
+#: includes/fields/class-gf-field-creditcard.php:121
+msgid "Invalid credit card number."
+msgstr "رقم البطاقة الائتمانية غير صالح."
+
+#: includes/fields/class-gf-field-creditcard.php:13 js.php:758
+msgid "Credit Card"
+msgstr "بطاقة ائتمان"
+
+#: includes/addon/class-gf-addon.php:3544
+#: includes/fields/class-gf-field-calculation.php:32
+#: includes/fields/class-gf-field-consent.php:321
+#: includes/fields/class-gf-field-hiddenproduct.php:37
+#: includes/fields/class-gf-field-radio.php:90
+#: includes/fields/class-gf-field-repeater.php:598
+#: includes/fields/class-gf-field-singleproduct.php:44
+#: includes/fields/class-gf-field-website.php:68
+#: includes/fields/class-gf-field.php:746
+#: includes/settings/fields/class-base.php:637
+msgid "This field is required."
+msgstr "هذا الحقل مطلوب."
+
+#: form_detail.php:847 includes/fields/class-gf-field-website.php:13 js.php:812
+msgid "Website"
+msgstr "الموقع الشخصى"
+
+#: includes/fields/class-gf-field-address.php:466
+#: includes/fields/class-gf-field-phone.php:340
+msgid "International"
+msgstr "الدولى"
+
+#: form_detail.php:846 includes/fields/class-gf-field-phone.php:38 js.php:791
+msgid "Phone"
+msgstr "رقم الجوال"
+
+#: common.php:6838 form_detail.php:651 form_detail.php:733 form_detail.php:841
+#: form_detail.php:1379 form_detail.php:2133 form_detail.php:2167
+#: includes/fields/class-gf-field-hidden.php:13
+msgid "Hidden"
+msgstr "مخفى"
+
+#: includes/fields/class-gf-field-quantity.php:29
+#: includes/fields/class-gf-field-singleproduct.php:124 js.php:883 js.php:953
+msgid "Quantity"
+msgstr "الكمية"
+
+#: export.php:433 export.php:556
+#: includes/fields/class-gf-field-checkbox.php:180
+#: includes/fields/class-gf-field-checkbox.php:716
+msgid "Deselect All"
+msgstr "الغاء تحديد الكل"
+
+#: common.php:5245 export.php:433 export.php:556
+#: includes/fields/class-gf-field-checkbox.php:169
+#: includes/fields/class-gf-field-checkbox.php:705
+msgid "Select All"
+msgstr "تحديد الكل"
+
+#: form_detail.php:702 form_detail.php:839 form_detail.php:866
+#: form_detail.php:1076 includes/fields/class-gf-field-checkbox.php:35
+msgid "Checkboxes"
+msgstr "مربعات الخيارات"
+
+#: includes/config/items/class-gf-config-admin-i18n.php:44
+#: includes/embed-form/config/class-gf-embed-config-i18n.php:45
+#: includes/templates/edit-shortcode-form.tpl.php:18
+msgid "Insert Form"
+msgstr "ادخل نموذج"
+
+#: includes/templates/edit-shortcode-form.tpl.php:17
+msgid "Update Form"
+msgstr "تحديث النموذج"
+
+#: includes/api.php:842 includes/api.php:1211
+#: includes/legacy/forms_model_legacy.php:2051
+#: includes/legacy/forms_model_legacy.php:2273
+msgid "The form for this entry does not exist"
+msgstr "النموذج لهذا المدخلة غير موجود"
+
+#: includes/api.php:827 includes/legacy/forms_model_legacy.php:2037
+msgid "Entry not found"
+msgstr "المدخلة غير موجودة"
+
+#: gravityforms.php:5881 includes/locking/class-gf-locking.php:209
+msgid "Error"
+msgstr "خطأ"
+
+#: includes/locking/class-gf-locking.php:207
+msgid "No response"
+msgstr "لا يوجد رد"
+
+#: common.php:5964 includes/locking/class-gf-locking.php:206
+msgid "Pending"
+msgstr "معلق"
+
+#: entry_detail.php:1414 form_detail.php:1644 form_detail.php:1656
+#: includes/addon/class-gf-results.php:305
+#: includes/config/items/class-gf-config-multifile.php:34
+#: includes/embed-form/config/class-gf-embed-config-i18n.php:54
+#: includes/form-editor/save-form/config/class-gf-form-editor-form-save-config.php:42
+#: includes/locking/class-gf-locking.php:201 select_columns.php:277
+msgid "Cancel"
+msgstr "الغاء"
+
+#: includes/locking/class-gf-locking.php:200 includes/locking/locking.php:21
+msgid "Accept"
+msgstr "موافق"
+
+#: form_detail.php:1781 includes/system-status/class-gf-system-report.php:931
+#: includes/wizard/steps/class-gf-installation-wizard-step-settings.php:20
+#: tooltips.php:154
+msgid "Currency"
+msgstr "العملة"
+
+#: includes/system-status/class-gf-system-report.php:492
+#: includes/system-status/class-gf-system-report.php:503
+#: includes/system-status/class-gf-system-report.php:509
+#: includes/system-status/class-gf-system-report.php:515
+#: includes/system-status/class-gf-system-report.php:521
+#: includes/system-status/class-gf-system-report.php:527
+#: includes/system-status/class-gf-system-report.php:534
+#: includes/system-status/class-gf-system-report.php:629
+#: includes/system-status/class-gf-system-report.php:635
+#: includes/system-status/class-gf-system-report.php:641
+#: includes/system-status/class-gf-system-report.php:647
+#: includes/system-status/class-gf-system-report.php:915
+#: includes/system-status/class-gf-system-report.php:921
+#: includes/system-status/class-gf-system-report.php:927
+#: includes/system-status/class-gf-system-report.php:938
+#: includes/system-status/class-gf-system-report.php:944
+#: includes/wizard/steps/class-gf-installation-wizard-step-settings.php:72
+msgid "No"
+msgstr "لا"
+
+#: includes/system-status/class-gf-system-report.php:492
+#: includes/system-status/class-gf-system-report.php:503
+#: includes/system-status/class-gf-system-report.php:509
+#: includes/system-status/class-gf-system-report.php:515
+#: includes/system-status/class-gf-system-report.php:521
+#: includes/system-status/class-gf-system-report.php:527
+#: includes/system-status/class-gf-system-report.php:534
+#: includes/system-status/class-gf-system-report.php:629
+#: includes/system-status/class-gf-system-report.php:641
+#: includes/system-status/class-gf-system-report.php:647
+#: includes/system-status/class-gf-system-report.php:915
+#: includes/system-status/class-gf-system-report.php:921
+#: includes/system-status/class-gf-system-report.php:927
+#: includes/system-status/class-gf-system-report.php:938
+#: includes/system-status/class-gf-system-report.php:944
+#: includes/wizard/steps/class-gf-installation-wizard-step-settings.php:71
+msgid "Yes"
+msgstr "نعم"
+
+#: includes/system-status/class-gf-system-report.php:466
+msgid "WordPress Version"
+msgstr "نسخة الوردبرس"
+
+#: gravityforms.php:1788 includes/class-gf-osdxp.php:29
+#: includes/class-gf-osdxp.php:264 includes/class-gf-osdxp.php:265
+#: includes/system-status/class-gf-system-report.php:421
+msgid "Add-Ons"
+msgstr "الاضافات"
+
+#: gravityforms.php:1777 gravityforms.php:2233 gravityforms.php:5285
+#: gravityforms.php:5565 includes/addon/class-gf-addon.php:4270
+#: includes/addon/class-gf-addon.php:4548
+#: includes/addon/class-gf-addon.php:4721
+#: includes/addon/class-gf-addon.php:5154 includes/class-gf-osdxp.php:27
+#: includes/fields/class-gf-field.php:1548
+#: includes/system-status/class-gf-update.php:75 settings.php:1163
+msgid "Settings"
+msgstr "الاعدادات"
+
+#: form_detail.php:620 form_detail.php:1200
+#: includes/fields/class-gf-field-post-image.php:169
+#: includes/fields/class-gf-field-post-image.php:171
+#: includes/fields/class-gf-field-post-image.php:226
+#: includes/fields/class-gf-field-post-image.php:234
+#: includes/system-status/class-gf-update.php:53
+#: includes/webapi/includes/class-gf-api-keys-table.php:27
+#: includes/webapi/webapi.php:395 js.php:969
+msgid "Description"
+msgstr "الوصف"
+
+#: includes/system-status/class-gf-update.php:30
+msgid "You don't have permissions to view this page"
+msgstr "ليس لديك تصريح لعرض هذهالصفحة"
+
+#: includes/system-status/class-gf-system-status.php:70
+#: includes/system-status/class-gf-update.php:47
+msgid "Updates"
+msgstr "التحديثات"
+
+#: includes/fields/class-gf-field-address.php:691
+msgid "Faroe Islands"
+msgstr "جزر فارو"
+
+#: includes/fields/class-gf-field-address.php:690
+msgid "Falkland Islands"
+msgstr "جزر فوكلاند"
+
+#: includes/fields/class-gf-field-address.php:670
+msgid "Cook Islands"
+msgstr "جزر كوك"
+
+#: includes/fields/class-gf-field-address.php:664
+msgid "Christmas Island"
+msgstr "جزيرة كريسماس"
+
+#: includes/fields/class-gf-field-address.php:650
+msgid "British Indian Ocean Territory"
+msgstr "إقليم المحيط الهندي البريطاني"
+
+#: includes/fields/class-gf-field-time.php:297
+msgid "Hours"
+msgstr "الساعات"
+
+#: form_display.php:3231 includes/fields/class-gf-field-password.php:193
+msgid "Strength indicator"
+msgstr "مؤشر القوة"
+
+#: includes/addon/class-gf-addon.php:2717
+#: includes/settings/fields/class-select-custom.php:150
+msgid "Reset"
+msgstr "إعادة تعيين"
+
+#: includes/addon/class-gf-addon.php:2796
+#: includes/settings/fields/class-field-select.php:80
+#: includes/settings/fields/class-generic-map.php:540
+msgid "Select a %s Field"
+msgstr "اختار حقل %s"
+
+#: includes/templates/edit-shortcode-form.tpl.php:11 widget.php:163
+msgid "Advanced Options"
+msgstr "خيارات متقدمة"
+
+#: common.php:5259 includes/logging/logging.php:365
+#: includes/settings/fields/class-checkbox-and-select.php:50
+msgid "Enable"
+msgstr "تفعيل"
+
+#: includes/locking/class-gf-locking.php:490
+msgid "Take Over"
+msgstr "تولى المهمة"
+
+#: includes/locking/class-gf-locking.php:203
+msgid "%s has taken over and is currently editing."
+msgstr "%s تولى التحرير ويقوم حاليًا بإجراء تغييرات."
+
+#: includes/locking/class-gf-locking.php:202
+msgid "%s is currently editing"
+msgstr "%s قيد التحرير حالياً"
+
+#: includes/system-status/class-gf-system-report.php:1572
+msgid "Parent"
+msgstr "أب"
+
+#: includes/system-status/class-gf-system-report.php:936
+msgid "Background updates"
+msgstr "التحديثات في الخلفية"
+
+#: includes/system-status/class-gf-system-report.php:907
+msgid "Not writable"
+msgstr "غير قابل للكتابة"
+
+#: includes/system-status/class-gf-system-report.php:907
+msgid "Writable"
+msgstr "قابل للكتابة"
+
+#: includes/system-status/class-gf-system-report.php:588
+#: includes/system-status/class-gf-system-report.php:668
+#: includes/system-status/class-gf-system-report.php:888
+msgid "Version"
+msgstr "النسخة"
+
+#: includes/system-status/class-gf-system-report.php:572
+msgid "Port"
+msgstr "المنفذ"
+
+#: includes/system-status/class-gf-system-report.php:567
+msgid "Software"
+msgstr "البرنامج"
+
+#: includes/system-status/class-gf-system-report.php:547
+msgid "Active Plugins"
+msgstr "الإضافات النشطة"
+
+#: includes/system-status/class-gf-system-report.php:542
+msgid "Active Theme"
+msgstr "القالب النشط"
+
+#: includes/system-status/class-gf-system-report.php:456
+msgid "Site URL"
+msgstr "رابط الموقع"
+
+#: includes/system-status/class-gf-system-report.php:451
+msgid "Home URL"
+msgstr "رابط الرئيسية"
+
+#: includes/system-status/class-gf-system-report.php:447 notification.php:977
+#: notification.php:1578
+msgid "WordPress"
+msgstr "ووردبريس"
+
+#: includes/system-status/class-gf-system-report.php:426
+msgid "Database"
+msgstr "قاعدة البيانات"
+
+#: includes/system-status/class-gf-system-report.php:117
+#: includes/wizard/steps/class-gf-installation-wizard-step-license-key.php:25
+msgid "Enter Your License Key"
+msgstr "ادخل مفتاح الترخيص"
+
+#: includes/fields/class-gf-field-date.php:912
+msgctxt "Abbreviation: Year"
+msgid "YYYY"
+msgstr "DD"
+
+#: includes/fields/class-gf-field-date.php:909
+msgctxt "Abbreviation: Day"
+msgid "DD"
+msgstr "DD"
+
+#: includes/fields/class-gf-field-address.php:675
+msgid "Curaçao"
+msgstr "كوراساو"
+
+#: includes/fields/class-gf-field-address.php:619
+msgid "Åland Islands"
+msgstr "جزر أولاند"

@@ -1,0 +1,119 @@
+// On outer element as otherwise it will not be clickable when floating on the right.
+div[data-render="planet4-blocks/submenu"] {
+  z-index: 4;
+}
+
+.submenu-block {
+  _-- {
+    border-radius: 4px;
+    box-shadow: 0 3px 8px 0 rgba(28, 28, 28, 0.2);
+    background-color: var(--white);
+    padding: $sp-5 $sp-6 $sp-6 $sp-6;
+  }
+
+  h1,
+  h2 {
+    --submenu-block-heading-- {
+      font-family: var(--font-family-primary);
+      color: var(--grey-900);
+      padding-inline-start: 0;
+    }
+  }
+
+  .submenu-menu {
+    display: flex;
+    flex-wrap: wrap;
+
+    ul.submenu-item {
+      flex-basis: 100%;
+
+      @include large-and-up {
+        flex-basis: 50%;
+      }
+    }
+
+    a {
+      color: var(--color-text-body);
+    }
+
+    ul {
+      --submenu-block-menu-- {
+        font-family: var(--font-family-tertiary);
+        color: var(--color-text-body);
+        margin: 0;
+        padding: 0;
+      }
+      list-style: none;
+    }
+
+    li {
+      &.list-style-bullet {
+        --submenu-block-bullet-item-- {
+          margin-inline-end: 0;
+          margin-inline-start: $sp-4;
+        }
+        list-style: disc;
+      }
+
+      &.list-style-number {
+        --submenu-block-number-item-- {
+          margin-inline-start: $sp-4;
+        }
+        list-style: decimal;
+      }
+    }
+  }
+
+  &.submenu-short {
+    .submenu-menu {
+      @include medium-and-up {
+        ul.submenu-item {
+          flex-basis: 100%;
+          column-count: 3;
+
+          li:before {
+            content: "";
+          }
+        }
+      }
+    }
+  }
+
+  &.submenu-long {
+    .submenu-menu {
+      ul.submenu-item {
+        flex-basis: 100%;
+        column-count: 1;
+
+        @include medium-and-up {
+          column-count: 2;
+        }
+      }
+    }
+  }
+
+  &.submenu-sidebar {
+    z-index: 4;
+
+    @include medium-and-up {
+      float: right;
+      max-width: 350px;
+      margin-bottom: $sp-2;
+      margin-inline-start: $sp-2;
+
+      html[dir="rtl"] & {
+        float: left;
+      }
+    }
+
+    .submenu-menu {
+      ul.submenu-item {
+        flex-basis: 100%;
+
+        @include large-and-up {
+          flex-basis: 100%;
+        }
+      }
+    }
+  }
+}

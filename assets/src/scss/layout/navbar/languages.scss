@@ -8,9 +8,9 @@
   padding: 0 $sp-2;
 
   @include large-and-up {
-    border-inline-start: var(--top-navigation--separation, 1px solid transparentize($white, 0.5));
+    border-inline-start: var(--top-navigation--separation);
     display: inline-block;
-    line-height: $menu-height;
+    line-height: var(--navbar-menu-height);
 
     &::after {
       content: "";
@@ -21,7 +21,7 @@
       mask: url("../../images/chevron.svg") 0 0/10px 10px;
       transform: rotate(90deg);
       transition: transform 150ms linear;
-      background-color: $white;
+      background-color: currentColor;
       background-repeat: no-repeat;
     }
 
@@ -100,9 +100,9 @@
       list-style: none;
       margin: 0;
       padding: 16px 0;
-      background: var(--top-navigation--background, $white);
+      background: var(--top-navigation--background, var(--white));
       border-radius: 4px;
-      box-shadow: 0 1px 4px transparentize($black, 0.88);
+      box-shadow: 0 1px 4px rgba($grey-900, 0.88);
     }
 
     li {
@@ -128,7 +128,7 @@
     }
 
     a.nav-link {
-      color: $grey-80;
+      color: var(--color-text-nav_link);
       display: inline-block;
       padding-inline: 16px 12px;
       text-decoration: none;
@@ -140,7 +140,7 @@
     }
 
     .current-language a::after {
-      background-color: $grey-80;
+      background-color: var(--grey-900);
       content: "";
       float: right;
       height: 48px;

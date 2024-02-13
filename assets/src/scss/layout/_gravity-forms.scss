@@ -1,21 +1,22 @@
-@import "../base/variables";
+@import "../base/tokens";
 @import "../base/colors";
+@import "../base/variables";
 @import "../base/mixins";
 @import "../base/fonts";
 @import "../base/typography";
 
 .gform_wrapper {
-  font-family: $roboto;
+  font-family: var(--font-family-paragraph-secondary);
 
   &.gform_validation_error .gform_validation_errors {
-    color: $dark-orange;
-    background: $white;
-    border-color: $dark-orange;
+    color: var(--p4-action-yellow-600);
+    background: var(--white);
+    border-color: var(--p4-action-yellow-600);
     box-shadow: none;
     width: fit-content;
 
     > h2 {
-      color: $dark-orange;
+      color: var(--p4-action-yellow-600);
     }
   }
 
@@ -29,37 +30,17 @@
 }
 
 .gfield {
-  .ginput_container_select,
-  .gfield_time_ampm,
-  .ginput_address_country {
-    position: relative;
-
-    &::after {
-      content: "";
-      position: absolute;
-      mask-image: url("../../images/chevron.svg");
-      mask-repeat: no-repeat;
-      mask-size: contain;
-      mask-position: center;
-      background-repeat: no-repeat;
-      background-color: currentColor;
-      transform: rotate(90deg);
-      width: 12px;
-      height: 12px;
-      right: $sp-2;
-      top: 19px;
-
-      html[dir="rtl"] & {
-        right: auto;
-        left: $sp-2;
-      }
-    }
-  }
-
   select {
     appearance: none;
-    position: relative;
+    background-image: url("../../images/select-arrow.svg");
     height: 48px;
+    background-repeat: no-repeat;
+    background-size: 12px;
+    background-position: right $sp-1 top 50%;
+
+    html[dir="rtl"] & {
+      background-position: left $sp-1 top 50%;
+    }
   }
 
   .ginput_container_time {
@@ -74,12 +55,13 @@
   }
 
   .gchoice {
+    font-family: var(--font-family-paragraph-secondary);
     margin-bottom: $sp-1;
     position: relative;
   }
 
   .gfield_required .gfield_required_text {
-    color: $grey-60;
+    color: var(--grey-800);
     font-style: normal;
   }
 
@@ -97,33 +79,35 @@
 
   &.gfield_error {
     .gfield_label {
-      color: $grey-80;
+      color: var(--color-text-body);
     }
 
     input:not([type="file"]):not(:disabled),
     textarea[aria-invalid="true"],
     select[aria-invalid="true"] {
-      border-color: $dark-orange;
-      background: $white;
+      border-color: var(--red-500);
+      background: var(--white);
       background-image: none;
 
       ~ label {
-        color: $grey-80;
+        color: var(--color-text-body);
       }
 
       &:focus {
-        border-color: $dark-orange;
+        border-color: var(--p4-action-yellow-600);
       }
     }
 
     .validation_message.gfield_validation_message {
-      background: $dark-orange;
-      color: $white;
+      --gfield-validation-message-- {
+        font-size: var(--font-size-xs--font-family-tertiary);
+        font-weight: var(--font-weight-semibold);
+      }
+      background: var(--red-500);
+      color: var(--white);
       border-radius: 4px;
-      font-size: $font-size-xxxs;
-      font-weight: 500;
-      border-color: $dark-orange;
-      padding: $sp-1 $sp-2;
+      border-color: var(--color-background-tooltip--error);
+      padding: $sp-1 $sp-2 !important;
       width: fit-content;
       pointer-events: none;
       position: relative;
@@ -135,7 +119,7 @@
         height: 0;
         width: 0;
         position: absolute;
-        border-bottom-color: $dark-orange;
+        border-bottom-color: var(--color-background-tooltip--error);
         border-width: 5px;
         right: auto;
         left: $sp-2;
@@ -150,5 +134,21 @@
 }
 
 .ui-datepicker {
-  font-family: $roboto;
+  _-- {
+    font-family: var(--font-family-primary);
+  }
+}
+
+.gform_p4_confirmation {
+  .share-buttons {
+    margin-top: $sp-3;
+  }
+
+  hr {
+    margin: $sp-5 0;
+  }
+}
+
+.gform_description {
+  font-family: var(--font-family-paragraph-secondary);
 }

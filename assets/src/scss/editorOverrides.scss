@@ -1,7 +1,9 @@
+@import "./base/tokens";
+
 // Moved from another repo, for history please see https://github.com/greenpeace/planet4-plugin-gutenberg-blocks/blame/f5c532ed5704738136224cde305e9a0ffe614ceb/assets/src/styles/editorOverrides.scss
 .editor-post-title__block textarea.editor-post-title__input {
   --headings-- {
-    font-family: $roboto;
+    font-family: var(--font-family-heading);
   }
 
   font-size: $font-size-xl;
@@ -18,7 +20,7 @@
 }
 
 .editor-styles-wrapper {
-  padding: 0 1rem;
+  padding: 0 1rem !important;
 }
 
 .edit-post-visual-editor {
@@ -60,7 +62,7 @@
 .wp-block-button .wp-block-button__link[role="textbox"],
 .wp-block-file .wp-block-file__button {
   display: inline-block;
-  font-family: $roboto;
+  font-family: var(--font-family-button);
   text-align: center;
   text-decoration: none;
   font-weight: bold;
@@ -85,13 +87,11 @@
 [class="wp-block-button"] .wp-block-button__link[role="textbox"],
 .wp-block-file .wp-block-file__button {
   --button-secondary-- {
-    background: transparentize($white, .7);
-    border-color: $dark-blue;
-    color: $dark-blue;
+    background: rgba($white, 0.7);
+    border-color: var(--p4-dark-green-800);
+    color: var(--p4-dark-green-800);
     padding: 2px $sp-4;
   }
-
-  box-shadow: none;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -107,10 +107,9 @@
 
 .wp-block-button.is-style-cta .wp-block-button__link[role="textbox"] {
   --button-primary-- {
-    background: $orange;
-    border-color: $orange;
-    color: $white;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
+    background: var(--p4-action-yellow-500);
+    border-color: transparent;
+    color: var(--grey-900);
   }
 
   &.has-background {
@@ -118,11 +117,10 @@
   }
 }
 
-.wp-block-button.transparent-button .wp-block-button__link[role="textbox"],
 .wp-block-button.is-style-transparent .wp-block-button__link[role="textbox"] {
   --transparent-button-- {
-    border-color: $white;
-    color: $white;
+    border-color: var(--white);
+    color: var(--white);
     background: transparent;
   }
 }
@@ -139,13 +137,17 @@
       line-height: 1.75rem;
     }
   }
+
+  & > a {
+    @include shared-link-styles;
+  }
 }
 
 .editor-rich-text__editable.wp-block-button__link:not([role="textbox"]) {
-  background: $white;
+  background: var(--white);
   border-radius: 0;
   border: none;
-  color: $grey-80 !important;
+  color: var(--color-text-body) !important;
 }
 
 // The color picker cannot be configured to show a clear button without giving the ability to enter any color with its
@@ -171,12 +173,24 @@
     display: none;
   }
 
+  .components-form-token-field__label {
+    font-weight: bold;
+    text-transform: none;
+  }
+
+  .components-input-control__label {
+    font-size: 13px !important;
+    font-weight: bold !important;
+    text-transform: none !important;
+  }
+
   // By default all but the first .component-base-control have margin-bottom, causing weird spacing.
   .components-base-control {
     margin-bottom: 0;
 
     .components-base-control__label {
       font-weight: bold;
+      text-transform: none;
     }
   }
 }
@@ -189,7 +203,7 @@
 
   h1, h2, h3, h4, h5 {
     --headings-- {
-      font-family: $roboto;
+      font-family: var(--font-family-heading);
     }
   }
 }
@@ -221,17 +235,17 @@ input.describe[type=text][data-setting=caption] {
 }
 
 .p4-plugin-pre-publish-panel-error {
-  background-color: #f9e2e2 !important;
+  background-color: var(--beige-100) !important;
 }
 
 .cmb2_required_field_error {
-  border-color: $dark-orange !important;
+  border-color: var(--p4-action-yellow-600) !important;
 }
 
 .input_error {
-  font-family: $roboto;
+  font-family: var(--font-family-primary);
   font-size: 13px;
-  color: red;
+  color: var(--color-text--error);
 }
 
 // Sidebar help texts
@@ -255,7 +269,7 @@ input.describe[type=text][data-setting=caption] {
 }
 
 .block-editor-block-preview__content-iframe .wp-block-button.is-style-transparent {
-  background: $dark-blue;
+  background: var(--p4-dark-green-800);
 }
 
 .block-editor-block-patterns-list__item {
@@ -263,8 +277,180 @@ input.describe[type=text][data-setting=caption] {
   flex-direction: column-reverse;
 
   .block-editor-block-patterns-list__item-title {
-    color: $grey-80;
+    color: var(--color-text-body);
     font-weight: bold;
     margin-bottom: $sp-1;
+  }
+}
+
+// Media Archive Style Override
+.media-archive-content {
+  .archive-picker-title,
+  .nav-bulk-select {
+    display: none;
+  }
+
+  .archive-picker {
+    gap: 0;
+  }
+
+  .archive-picker-toolbar {
+    margin-top: 65px;
+  }
+
+  #import-to-library,
+  #import-to-library:disabled {
+    display: none;
+  }
+
+  .multiple-search {
+    margin-inline-start: 20px;
+  }
+
+  .multiple-search-nav button:first-child {
+    display: none;
+  }
+
+  .multiple-search-wrapper-input input {
+    width: 100%;
+    margin: 0;
+    height: 100%;
+    background: transparent;
+    border-radius: 0;
+    font-size: 14px;
+    outline: 0;
+    border: none;
+    border-bottom: 1px solid transparent;
+  }
+
+  .picker-list {
+    padding: 15px;
+    margin-top: 23px;
+  }
+
+  .help {
+    display: none;
+  }
+
+  .media-archive-help {
+    position: absolute;
+    top: 75px;
+    right: 18px;
+    display: flex;
+    flex-direction: column;
+
+    span {
+      background: #7e7e7e;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 24px;
+      font-weight: 500;
+      cursor: pointer;
+      width: 24px;
+      height: 24px;
+      color: var(--white);
+    }
+
+    .tooltip {
+      display: none;
+    }
+
+    &:hover .tooltip {
+      display: block;
+      position: absolute;
+      background: var(--white);
+      width: 330px;
+      font-size: 12px;
+      line-height: 1.5;
+      border-radius: 4px;
+      padding: 16px;
+      margin-bottom: 8px;
+      color: black;
+      opacity: 1;
+      top: -14px;
+      right: 34px;
+      border: 1px solid #ccc;
+      box-shadow: 0 7px 10px rgba(0, 0, 0, 0.6);
+    }
+
+    &:hover .tooltip:after {
+      content: "";
+      position: absolute;
+      top: 15px;
+      right: -16px;
+      border: 8px solid transparent;
+      border-left-color: var(--white);
+    }
+
+    &:hover .tooltip a {
+      color: $black;
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .media-archive-content {
+    .picker-list {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .media-archive-help {
+      top: 110px;
+    }
+
+    .multiple-search {
+      margin-inline-start: none;
+      width: 95%;
+      margin: 20px auto;
+    }
+
+    .media-archive-help:hover .tooltip {
+      width: 248px;
+    }
+  }
+}
+
+// Posts List Block Override
+.posts-list-query {
+  .wp-block-post-template.is-layout-flow li {
+    height: 240px;
+    margin-bottom: 12px;
+  }
+
+  .wp-block-post-featured-image {
+    flex-basis: 30%;
+  }
+
+  .wp-block-group.is-layout-flow {
+    flex-basis: 65%;
+  }
+
+  .wp-block-post-title {
+    margin-top: -25px !important;
+  }
+
+  .wp-block-post-excerpt {
+    margin-top: -24px;
+
+    &__more-text {
+      display: none;
+    }
+  }
+
+  .is-layout-flow > .is-layout-flow {
+    margin-top: -36px;
+  }
+}
+
+@media (max-width: 991px) {
+  .posts-list-query {
+    .wp-block-post-title,
+    .wp-block-post-excerpt {
+      margin-top: -12px;
+    }
+
+    .is-layout-flow > .is-layout-flow {
+      margin-top: -16px;
+    }
   }
 }

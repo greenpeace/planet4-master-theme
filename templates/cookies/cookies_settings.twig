@@ -6,61 +6,61 @@
 {% set all_cookies_description = cookies.settings_copy.all_cookies_description %}
 
 <div class="d-none cookies-settings">
-	<div class="close-cookies-settings"></div>
-	<div class="cookies-settings-header">
-		<h4>{{__('Manage your cookies preferences', 'planet4-master-theme')}}</h4>
-		<p>{{__('Please select which cookies you are willing to store.', 'planet4-master-theme')}}</p>
-	</div>
-	<div class="cookies-settings-details">
-		{% if necessary_cookies_name is not empty %}
-			<div class="custom-control-description">{{ necessary_cookies_name }} <span class="always-enabled">{{__('Always enabled', 'planet4-master-theme')}}</span></div>
-			{% if necessary_cookies_description is not empty %}
-				<p>{{ necessary_cookies_description|e('wp_kses_post')|raw }}</p>
-			{% endif %}
-		{% endif %}
-		{% if cookies.enable_analytical_cookies and analytical_cookies_name is not empty %}
-			<label class="custom-control">
-				<input type="checkbox" name="analytical_cookies" />
-				<span class="custom-control-description">{{ analytical_cookies_name }}</span>
-			</label>
-			{% if analytical_cookies_description is not empty %}
-				<p>{{ analytical_cookies_description|e('wp_kses_post')|raw }}</p>
-			{% endif %}
-		{% endif %}
-		{% if all_cookies_name is not empty %}
-			<label class="custom-control">
-				<input type="checkbox" name="all_cookies" />
-				<span class="custom-control-description">{{ all_cookies_name }}</span>
-			</label>
-			{% if all_cookies_description is not empty %}
-				<p>{{ all_cookies_description|e('wp_kses_post')|raw }}</p>
-			{% endif %}
-		{% endif %}
-	</div>
-	<div class="cookies-settings-buttons {{ cookies.enable_reject_all_cookies ? 'with-reject-all' : '' }}">
-		{% if cookies.enable_reject_all_cookies %}
-			<button
-				class="btn btn-secondary reject-all-cookies"
-				data-ga-category="Cookies box"
-				data-ga-action="Reject all"
-			>
-				{{ __( 'Reject all', 'planet4-master-theme' ) }}
-			</button>
-		{% endif %}
-		<button
-			class="btn btn-secondary allow-all-cookies"
-			data-ga-category="Cookies box"
-			data-ga-action="Allow all"
-		>
-			{{ __( 'Allow all', 'planet4-master-theme' ) }}
-		</button>
-		<button
-			class="btn btn-primary"
-			id="save-cookies-settings"
-			data-ga-category="Cookies box"
-			data-ga-action="Save preferences"
-		>
-			{{ __( 'Save preferences', 'planet4-master-theme' ) }}
-		</button>
-	</div>
+    <div class="close-cookies-settings"></div>
+    <div class="cookies-settings-header">
+        <h4>{{__('Manage your cookies preferences', 'planet4-master-theme')}}</h4>
+        <p>{{__('Please select which cookies you are willing to store.', 'planet4-master-theme')}}</p>
+    </div>
+    <div class="cookies-settings-details">
+        {% if necessary_cookies_name is not empty %}
+            <div class="custom-control-description">{{ necessary_cookies_name }} <span class="always-enabled">{{__('Always enabled', 'planet4-master-theme')}}</span></div>
+            {% if necessary_cookies_description is not empty %}
+                <p>{{ necessary_cookies_description|e('wp_kses_post')|raw }}</p>
+            {% endif %}
+        {% endif %}
+        {% if cookies.enable_analytical_cookies and analytical_cookies_name is not empty %}
+            <label class="custom-control">
+                <input type="checkbox" name="analytical_cookies" />
+                <span class="custom-control-description">{{ analytical_cookies_name }}</span>
+            </label>
+            {% if analytical_cookies_description is not empty %}
+                <p>{{ analytical_cookies_description|e('wp_kses_post')|raw }}</p>
+            {% endif %}
+        {% endif %}
+        {% if all_cookies_name is not empty %}
+            <label class="custom-control">
+                <input type="checkbox" name="all_cookies" />
+                <span class="custom-control-description">{{ all_cookies_name }}</span>
+            </label>
+            {% if all_cookies_description is not empty %}
+                <p>{{ all_cookies_description|e('wp_kses_post')|raw }}</p>
+            {% endif %}
+        {% endif %}
+    </div>
+    <div class="cookies-settings-buttons {{ cookies.enable_reject_all_cookies ? 'with-reject-all' : '' }}">
+        {% if cookies.enable_reject_all_cookies %}
+            <button
+                class="btn btn-secondary reject-all-cookies"
+                data-ga-category="Cookies box"
+                data-ga-action="Reject all"
+            >
+                {{ __( 'Reject all', 'planet4-master-theme' ) }}
+            </button>
+        {% endif %}
+        <button
+            class="btn btn-secondary allow-all-cookies"
+            data-ga-category="Cookies box"
+            data-ga-action="Allow all"
+        >
+            {{ __( 'Allow all', 'planet4-master-theme' ) }}
+        </button>
+        <button
+            class="btn btn-primary"
+            id="save-cookies-settings"
+            data-ga-category="Cookies box"
+            data-ga-action="Save preferences"
+        >
+            {{ __( 'Save preferences', 'planet4-master-theme' ) }}
+        </button>
+    </div>
 </div>

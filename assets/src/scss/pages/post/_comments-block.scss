@@ -1,17 +1,23 @@
-.comments-block h3 {
-  font-size: 16px;
-  margin-bottom: 16px;
-}
-
 // Adds nesting on comments
 @include comment-level;
 
+.comments-block {
+  h3 {
+    font-size: 16px;
+    margin-bottom: 16px;
+  }
+
+  .comment-respond button {
+    height: 48px;
+  }
+}
+
 .single-comment {
+  font-family: var(--font-family-paragraph-secondary);
   padding-bottom: 24px;
-  font-family: $roboto;
 
   &:not(:first-of-type) {
-    border-top: 1px solid transparentize($grey-20, 0.5);
+    border-top: 1px solid rgba($grey-500, 0.5);
     padding-top: 24px;
   }
 }
@@ -19,13 +25,14 @@
 .single-comment-text {
   font-size: 16px;
   line-height: 1.5;
-  color: $grey-80;
   margin-bottom: 8px;
+  overflow-wrap: break-word;
 }
 
 .single-comment-meta {
+  font-family: var(--font-family-paragraph-secondary);
   font-size: 14px;
-  color: $grey-40;
+  color: var(--grey-600);
 
   .author-info,
   .comment-date {
@@ -53,6 +60,11 @@
 
   .single-comment-meta {
     .comment-reply-link {
+      _-- {
+        font-family: var(--font-family-primary);
+        font-weight: var(--font-weight-regular);
+      }
+
       float: right;
       margin-top: 0;
 

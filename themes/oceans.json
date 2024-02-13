@@ -22,7 +22,7 @@
   "--top-page-tags--tag-wrap--display": "none",
   "--body--font-family": "Roboto, sans-serif",
   "--button--font-family": "Montserrat,sans-serif",
-  "--headings--font-family": "Montserrat, sans-serif",
+  "--font-family-heading": "Montserrat, sans-serif",
   "--page-header-title--font-family": "Montserrat, sans-serif",
   "--page-section-header--font-family": "Montserrat, sans-serif",
   "--block-articles--article--content--font-size": "14px",

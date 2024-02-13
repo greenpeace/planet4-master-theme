@@ -1,23 +1,7 @@
-@mixin slide-from($direction, $margin) {
-  $animation-name: unique-id() !global;
-
-  @keyframes #{$animation-name} {
-    0% {
-      #{$direction}: -100%;
-    }
-
-    100% {
-      #{$direction}: $margin;
-    }
-  }
-
-  &.shown {
-    animation: 1s $animation-name;
-  }
-}
-
 .cookie-notice {
-  font-family: $roboto;
+  _-- {
+    font-family: var(--font-family-paragraph-secondary);
+  }
   z-index: 100;
   position: fixed;
   width: 100vw;
@@ -30,8 +14,6 @@
   border-top-right-radius: 4px;
   box-shadow: 0 0 12px rgba(0, 0, 0, 0.15);
   bottom: 0;
-  color: $grey-80;
-  @include slide-from(bottom, 0);
 
   &.shown {
     opacity: 1;
@@ -46,23 +28,19 @@
     border-radius: 4px;
     padding: $sp-3 $sp-4;
     box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
-    @include slide-from(right, $sp-2);
 
     html[dir="rtl"] & {
       right: auto;
       left: $sp-2;
-      @include slide-from(left, $sp-2);
     }
   }
 
   @include large-and-up {
     bottom: $sp-3;
     right: $sp-3;
-    @include slide-from(right, $sp-3);
 
     html[dir="rtl"] & {
       left: $sp-3;
-      @include slide-from(left, $sp-3);
     }
   }
 }
@@ -77,16 +55,25 @@
   font-size: 14px;
   margin-bottom: $sp-3;
   font-weight: 400;
-  color: $grey-80;
   line-height: 1.5rem;
   width: 100%;
 }
 
+.cookies-text,
+.cookies-settings-details {
+  a {
+    @include shared-link-styles;
+    transition-timing-function: cubic-bezier(0.5, 0, 0, 0.5);
+  }
+}
+
 .cookies-buttons {
   .btn {
+    _-- {
+      line-height: 2.4;
+      font-size: 14px;
+    }
     width: 100%;
-    line-height: 2.4;
-    font-size: 14px;
   }
 
   .btn-primary {
@@ -118,7 +105,7 @@
   display: block;
   background: none;
   border: none;
-  color: $grey-40;
+  color: var(--grey-600);
   margin: $sp-2 auto 0 auto;
   line-height: 2.4;
   font-size: 14px;

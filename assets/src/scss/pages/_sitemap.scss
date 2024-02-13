@@ -2,11 +2,12 @@
   margin-bottom: 100px;
 
   a {
-    color: $grey-80;
-    font-family: $roboto;
+    color: var(--color-text-body);
 
-    &:visited {
-      color: $link-color-visited;
+    &:visited,
+    &:active,
+    &:hover {
+      color: inherit;
     }
   }
 
@@ -15,6 +16,20 @@
   }
 
   h5 {
+    font-family: var(--font-family-heading);
     margin-bottom: 1rem;
+  }
+
+  ul {
+    list-style: none;
+    padding-inline-start: 0;
+    @include small-and-less {
+      margin-bottom: 0;
+    }
+
+    li {
+      font-size: inherit;
+      line-height: inherit;
+    }
   }
 }

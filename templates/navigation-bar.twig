@@ -1,125 +1,77 @@
-{% block navigation_bar %}
-	<nav id="header" class="top-navigation navbar {% if custom_styles.nav_border == 'border' %}navigation-bar_border{% endif %}">
-		<a class="site-logo" href="{{ data_nav_bar.home_url }}">
-			{% include 'blocks/site_logo.twig' %}
-		</a>
-		{% set toggle_label = __( 'Toggle navigation menu', 'planet4-master-theme' ) %}
-		{% set search_label = __( 'Search', 'planet4-master-theme' ) %}
-		<button
-			class="btn btn-navbar-toggle navbar-dropdown-toggle"
-			data-bs-toggle="open"
-			data-bs-target="#navbar-dropdown"
-			aria-expanded="false"
-			aria-label="{{ toggle_label }}">
-			<span
-				data-ga-category="Menu Navigation"
-				data-ga-action="Open Menu"
-				data-ga-label="{{ page_category }}">
-					{{ __( 'Menu', 'planet4-master-theme' ) }}
-			</span>
-		</button>
-		<ul id="navbar-dropdown" class="navbar-dropdown list-unstyled">
-			{% if not new_design_country_selector %}
-			<li class="nav-item" id="country-select">
-				<button class="close-navbar-dropdown"
-					data-ga-category="Menu Navigation"
-					data-ga-action="Close Menu"
-					data-ga-label="{{ page_category }}">
-						<span
-							class="visually-hidden"
-							data-ga-category="Menu Navigation"
-							data-ga-action="Close Menu"
-							data-ga-label="{{ page_category }}">
-								{{ __( 'Close Menu', 'planet4-master-theme' ) }}
-						</span>
-				</button>
-				<button
-					class="country-dropdown-toggle"
-					data-bs-toggle="open"
-					data-bs-target="#country-list"
-					aria-expanded="false"
-					aria-label="{{ data_nav_bar.country_dropdown_toggle }}"
-					data-ga-category="Menu Navigation"
-					data-ga-action="Open Country Selector"
-					data-ga-label="{{ page_category }}">
-						<span class="visually-hidden">{{ __( 'Selected', 'planet4-master-theme' ) }}:</span> {{ website_navbar_title }}
-						<span class="visually-hidden">{{ __( 'Change Country', 'planet4-master-theme' ) }}</span>
-				</button>
-			</li>
-			{% endif %}
-			{% for key,item in navbar_menu.get_items %}
-				{% if 'wpml-ls-item' in item.class %}
-					{% if key == 0 %}
-						<li class="nav-item {{ item.class }}">
-					{% endif %}
-						<a class="nav-link" href="{{ item.get_link }}">{{ item.title|striptags|trim|slice(0, 2) }}</a>
-					{% if key == (languages - 1) %}
-						</li>
-					{% endif %}
-				{% else %}
-					<li class="nav-item {{ item.class }} {{ item == item.current ? 'active' : '' }}">
-						{% if fn('get_post_meta', item.ID, '_menu_item_object_id', true ) == act_page_id %}
-							{% set link_ga_action = 'Act' %}
-						{% elseif fn('get_post_meta', item.ID, '_menu_item_object_id', true ) == explore_page_id %}
-							{% set link_ga_action = 'Explore' %}
-						{% else %}
-							{% set link_ga_action = item.title %}
-						{% endif %}
-						<a
-							class="nav-link"
-							href="{{ item.get_link }}"
-							data-ga-category="Menu Navigation"
-							data-ga-action="{{ link_ga_action }}"
-							data-ga-label="{{ page_category }}">
-								{{ item.title }}
-						</a>
-					</li>
-				{% endif %}
-			{% endfor %}
-			<li class="nav-item donate-nav-item">
-				<a
-					class="btn btn-donate"
-					href="{{ donatelink }}"
-					data-ga-category="Menu Navigation"
-					data-ga-action="Donate"
-					data-ga-label="{{ page_category }}">
-						{{ donatetext }}
-				</a>
-			</li>
-		</ul>
-		<button
-			class="navbar-search-toggle"
-			data-bs-toggle="open"
-			data-bs-target="#search_form"
-			aria-expanded="false"
-			aria-label="{{ data_nav_bar.navbar_search_toggle }}"
-			data-ga-category="Menu Navigation"
-			data-ga-action="Open Search"
-			data-ga-label="{{ page_category }}">
-				<span class="visually-hidden">{{ __( 'Toggle search form', 'planet4-master-theme' ) }}</span>
-		</button>
-		<form id="search_form" action="{{ data_nav_bar.home_url }}" class="form nav-item nav-search-wrap">
-			<input id="search_input" type="search" class="form-control" placeholder="{{ search_label }}"
-				   value="{{ data_nav_bar.search_query|e('wp_kses_post')|raw }}" name="s" aria-label="{{ __( 'Search input', 'planet4-master-theme' ) }}">
-			<input id="orderby" type="hidden" name="orderby" value="{{ selected_sort ?? default_sort }}"/>
-			<button
-				class="top-nav-search-btn"
-				aria-label="{{ __( 'Press return/enter or click to search', 'planet4-master-theme' ) }}"
-				type="submit"
-				data-ga-category="Menu Navigation"
-				data-ga-action="Search"
-				data-ga-label="{{ page_category }}">
-					{% set search_icon = 'search'|svgicon %}
-					{% set data_ga_attrs = 'data-ga-category="Menu Navigation" data-ga-action="Search" data-ga-label="' ~ page_category ~ '"' %}
-					{{ search_icon|replace({'<svg': "<svg " ~ data_ga_attrs })|raw }}
-				<span
-					class="visually-hidden"
-					data-ga-category="Menu Navigation"
-					data-ga-action="Search"
-					data-ga-label="{{ page_category }}">
-						{{ search_label }}
-				</span>
-			</button>
-		</form>
-	</nav>
-{% endblock %}
+{% set header_classes = 'top-navigation navbar'
+    ~ (custom_styles.nav_border == 'border' ? ' navigation-bar_border' : '')
+    ~ (mobile_tabs_menu ? ' with-mobile-tabs' : '') %}
+{% set search_icon = 'search'|svgicon %}
+{% set search_input_id = 'search_input' %}
+{% set data_ga_attrs = 'data-ga-category="Menu Navigation" data-ga-action="Search" data-ga-label="' ~ page_category ~ '"' %}
+<header id="header" class="{{ header_classes }}">
+    {% set data_ga_attrs = 'data-ga-category="Menu Navigation" data-ga-action="Menu" data-ga-label="' ~ page_category ~ '"' %}
+    <button class="nav-menu-toggle" type="button"
+        aria-label="{{ __( 'Toggle navigation menu', 'planet4-master-theme' ) }}"
+        data-ga-category="Menu Navigation"
+        data-ga-action="Open Menu"
+        data-ga-label="{{ page_category }}"
+        aria-expanded="false"
+        data-bs-toggle="open"
+        data-bs-target="#nav-main">
+        {{ 'menu'|svgicon|replace({'<svg': "<svg " ~ data_ga_attrs })|raw }}
+        <span class="visually-hidden">
+            {{ __( 'Menu', 'planet4-master-theme' ) }}
+        </span>
+    </button>
+    <a class="site-logo" href="{{ data_nav_bar.home_url }}">
+        {% include 'blocks/site_logo.twig' %}
+    </a>
+    {% include 'desktop-menu.twig' %}
+
+    <div class="nav-search-toggle-container medium-and-less">
+        <button class="nav-search-toggle" type="button"
+            aria-label="{{ data_nav_bar.navbar_search_toggle }}"
+            aria-expanded="false"
+            data-bs-toggle="open"
+            data-bs-target="#search_form"
+            data-ga-category="Menu Navigation"
+            data-ga-action="Open Search"
+            data-ga-label="{{ page_category }}">
+            {{ search_icon|replace({'<svg': "<svg " ~ data_ga_attrs })|raw }}
+            <span class="visually-hidden">
+                {{ __( 'Toggle search form', 'planet4-master-theme' ) }}
+            </span>
+        </button>
+    </div>
+
+    {% include 'search-form.twig' %}
+
+    {% if site_languages is not empty and site_languages|length > 1 %}
+    {% set current_lang = site_languages|filter(i => i.active)|first %}
+        <button
+            class="nav-languages-toggle"
+            type="button"
+        >{{ current_lang.code|capitalize }}
+            {% include 'language-switcher.twig' %}
+        </button>
+    {% endif %}
+
+    {% if mobile_tabs_menu %}
+    <div id="nav-mobile">
+        <nav id="nav-mobile-menu">
+            <ul>
+                {% for key,item in navbar_menu_items %}
+                <li class="nav-item {{ item.class }} {{ item == item.current ? 'active' : '' }}">
+                    <a
+                        class="nav-link"
+                        href="{{ item.get_link }}"
+                        data-ga-category="Menu Navigation"
+                        data-ga-action="{{ item.title }}"
+                        data-ga-label="{{ page_category }}">
+                            {{ item.title }}
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </nav>
+    </div>
+    {% endif %}
+    {% include 'country_selector_banner.twig' ignore missing %}
+</header>
+{% include 'burger-menu.twig' %}

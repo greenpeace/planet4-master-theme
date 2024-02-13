@@ -1,7 +1,9 @@
 .top-page-tags {
-  font-size: 16px;
+  _-- {
+    font-family: var(--font-family-tertiary);
+    font-size: var(--font-size-m--font-family-tertiary);
+  }
   margin-bottom: $sp-1;
-  font-family: $roboto;
 
   .tag-wrap {
     display: inline;
@@ -13,7 +15,7 @@
     pointer-events: none;
     font-weight: 400;
     margin-inline-end: $sp-1;
-    color: $link-color;
+    color: var(--gp-green-800);
   }
 
   .tag-wrap-bullet {
@@ -22,17 +24,37 @@
 
   .tag-item {
     _-- {
-      color: $link-color;
-      font-weight: 500;
+      color: var(--gp-green-800);
+      font-weight: var(--font-weight-semibold);
 
       &:visited {
-        color: $link-color-visited;
+        color: var(--gp-green-800);
       }
     }
     display: inline-block;
 
     &:not(:only-child):not(:last-child):not(.page-type) {
       margin-inline-end: $sp-1;
+    }
+
+    &.back-to-news::before {
+      content: "";
+      pointer-events: none;
+      margin-inline-end: $sp-1;
+      height: 12px;
+      width: 7px;
+      mask-image: url("../../images/chevron.svg");
+      mask-repeat: no-repeat;
+      mask-size: contain;
+      mask-position: center;
+      background-repeat: no-repeat;
+      background-color: var(--gp-green-800);
+      display: inline-block;
+      rotate: 180deg;
+
+      html[dir="rtl"] & {
+        rotate: 0deg;
+      }
     }
   }
 
@@ -46,7 +68,11 @@
     mask-size: contain;
     mask-position: center;
     background-repeat: no-repeat;
-    background-color: $link-color;
+    background-color: var(--gp-green-800);
     display: inline-block;
+
+    html[dir="rtl"] & {
+      rotate: 180deg;
+    }
   }
 }

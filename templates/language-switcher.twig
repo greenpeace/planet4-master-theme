@@ -1,10 +1,10 @@
 <nav id="nav-languages" class="nav-languages">
-	<ul>
-		{% for key,item in site_languages %}
-			<li class="nav-item {{ item.active ? 'current-language' : '' }}">
-				<a class="nav-link" href="{{ item.url }}">{{ item.native_name }}</a>
-				<span aria-hidden="true">&nbsp;|&nbsp;</span>
-			</li>
-		{% endfor %}
-	</ul>
+    <ul>
+        {% for key,item in site_languages %}
+            <li class="nav-item {{ item.active ? 'current-language' : '' }}">
+                <a class="nav-link" href="{{ item.url }}">{{ item.native_name }}</a>
+                <span aria-hidden="true">&nbsp;|&nbsp;</span>
+            </li>
+        {% endfor %}
+    </ul>
 </nav>

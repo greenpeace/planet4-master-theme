@@ -4,8 +4,9 @@
 @import "~bootstrap/scss/tooltip";
 @import "~bootstrap/scss/buttons";
 
-@import "base/variables";
+@import "base/tokens";
 @import "base/colors";
+@import "base/variables";
 @import "base/palette";
 @import "base/functions";
 @import "base/mixins";
@@ -22,3 +23,17 @@
 @import "layout/gravity-forms";
 
 @import "editorOverrides";
+
+// CSS variables
+@import "base/css-variables";
+
+// Blocks
+@import "blocks";
+
+// Blocks editor styles
+@import "blocks/CarouselHeader/CarouselHeaderEditorStyle";
+@import "blocks/Accordion/AccordionEditorStyle";
+@import "blocks/Cookies/CookiesEditorStyle";
+@import "blocks/Submenu/SubmenuEditorStyle.scss";
+@import "blocks/TakeActionBoxout/TakeActionBoxoutEditorStyle.scss";
+@import "blocks/Happypoint/HappypointEditorStyle";

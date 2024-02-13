@@ -23,8 +23,7 @@ blockquote > p {
 
 blockquote > h5 {
   @include blockquote;
-  font-family: $lora;
-  color: $grey-80;
+  font-family: var(--body--font-family);
   font-size: $font-size-xxl;
 
   @include medium-and-up {
@@ -34,8 +33,7 @@ blockquote > h5 {
 
 blockquote > h6 {
   @include blockquote;
-  font-family: $lora;
-  color: $grey-80;
+  font-family: var(--body--font-family);
   font-size: $font-size-xl;
 
   @include medium-and-up {

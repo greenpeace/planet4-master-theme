@@ -54,6 +54,13 @@
   }
 }
 
+// Mobile, small, medium and large width (less than 1200px)
+@mixin large-and-less {
+  @media (max-width: #{$extra-large-width - 1}) {
+    @content;
+  }
+}
+
 // Margins and padding. Use to consistently apply gutters
 // use like this: @include padding($left: $sp-2, $right: $sp-2); wich will be compiled as padding-left: 16px; padding-right: 16px;
 
@@ -247,5 +254,27 @@ $nested-comment-left-margin: 50px;
 
   &::-webkit-scrollbar-thumb:hover {
     background: rgba(0, 0, 0, 0.2);
+  }
+}
+
+// Apply background effect to link
+@mixin shared-link-styles {
+  --link--height: 26px;
+  --transition--duration: 0.3s;
+
+  border-bottom: 2px solid var(--gp-green-500);
+  transition: var(--transition--duration) cubic-bezier(0.5, 0, 0, 1);
+
+  &:hover {
+    box-shadow: inset 0 calc(var(--link--height) * -1) var(--color-background-link--hover);
+  }
+
+  &:hover,
+  &:active {
+    text-decoration: none !important;
+  }
+
+  &:focus {
+    --link--focus--border-radius: 0;
   }
 }

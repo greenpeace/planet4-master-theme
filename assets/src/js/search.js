@@ -89,11 +89,11 @@ export const setupSearch = () => {
   const loadMoreButton = document.querySelector('.btn-load-more-click-scroll');
   if (loadMoreButton) {
     loadMoreButton.onclick = () => {
-      const { total_posts, posts_per_load, current_page } = loadMoreButton.dataset;
+      const {total_posts, posts_per_load, current_page} = loadMoreButton.dataset;
       const nextPage = parseInt(current_page) + 1;
       loadMoreButton.dataset.current_page = nextPage;
 
-      let url = new URL(localizations.ajaxurl);
+      const url = new URL(localizations.ajaxurl);
       url.searchParams.append('action', 'get_paged_posts');
       url.searchParams.append('search_query', navSearchInput.value.trim());
       url.searchParams.append('paged', nextPage);
@@ -127,21 +127,20 @@ export const setupSearch = () => {
       return;
     }
 
-    let elementTop = loadMoreButton.offsetTop,
-      elementHeight = loadMoreButton.clientHeight,
-      windowHeight = window.innerHeight,
-      windowScroll = window.scrollY,
-      loadEarlierOffset = 250;
+    const elementTop = loadMoreButton.offsetTop;
+    const elementHeight = loadMoreButton.clientHeight;
+    const windowHeight = window.innerHeight;
+    const windowScroll = window.scrollY;
+    const loadEarlierOffset = 250;
 
-    const { posts_per_load, total_posts } = loadMoreButton.dataset;
+    const {posts_per_load, total_posts} = loadMoreButton.dataset;
 
     if (loadMoreCount < localizations.show_scroll_times) {
       // If next page has not loaded then load next page as soon as scrolling
       // reaches 'loadEarlierOffset' pixels before the Load more button.
-      if (!loadedMore
-        && windowScroll > (elementTop + elementHeight - windowHeight - loadEarlierOffset)
-        && (loadMoreCount + 1) * posts_per_load < total_posts) {
-
+      if (!loadedMore &&
+        windowScroll > (elementTop + elementHeight - windowHeight - loadEarlierOffset) &&
+        (loadMoreCount + 1) * posts_per_load < total_posts) {
         loadMoreCount += 1;
         loadMoreButton.click();
         loadedMore = true;

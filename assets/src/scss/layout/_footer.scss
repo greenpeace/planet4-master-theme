@@ -1,8 +1,9 @@
 .site-footer {
   _-- {
-    font-family: $roboto;
-    background: $dark-blue;
-    color: $white;
+    font-family: var(--font-family-paragraph-secondary);
+    background: var(--color-background-footer);
+    color: var(--white);
+    line-height: 0;
   }
   position: relative;
   z-index: 2;
@@ -10,21 +11,20 @@
   transition: margin 1s;
   padding-top: 24px;
   clear: both;
-  line-height: 0;
 
   a _-- {
-    color: $white;
+    color: var(--white);
 
     &:visited {
-      color: $white;
+      color: var(--white);
     }
 
     &:hover {
-      color: $white;
+      color: var(--white);
     }
 
     &:active {
-      color: $white;
+      color: var(--white);
     }
   }
 
@@ -61,23 +61,28 @@
   }
 
   li {
-    font-size: $font-size-sm;
+    _-- {
+      font-size: var(--font-size-m--font-family-tertiary);
+      font-weight: var(--font-weight-semibold);
+      line-height: var(--line-height-m--font-family-tertiary);
+    }
 
     &:not(:last-child) {
       margin-bottom: 24px;
+    }
+
+    a {
+      font-family: var(--font-family-paragraph-secondary);
     }
   }
 }
 
 .site-footer .copyright {
-  _-- {
-    background: $active-blue;
-    color: $grey-10;
-  }
-
+  font-size: $font-size-xxs;
+  background: var(--color-background-copyright_block);
+  color: var(--white);
   padding-top: 16px;
   padding-bottom: 16px;
-  font-size: $font-size-xxs;
   text-align: left;
 
   .icon {
@@ -90,16 +95,18 @@
   }
 
   a _-- {
-    color: $grey-10;
+    color: var(--grey-200);
 
     &:hover {
-      color: $grey-10;
+      color: var(--grey-200);
     }
   }
 
   span {
-    font-size: $font-size-xxxs;
-    line-height: 1.4;
+    _-- {
+      font-size: var(--font-size-xs--font-family-tertiary);
+      line-height: var(--line-height-xs--font-family-tertiary);
+    }
     word-break: keep-all;
     width: auto;
     margin-bottom: 12px;

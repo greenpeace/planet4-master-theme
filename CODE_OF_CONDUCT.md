@@ -7,4 +7,4 @@ size, disability, ethnicity, sex characteristics, gender identity and expression
 level of experience, education, socio-economic status, nationality, personal
 appearance, race, religion, or sexual identity and orientation.
 
-Read the full [Code of Conduct](https://github.com/greenpeace/planet4/blob/master/CODE_OF_CONDUCT.md).
+Read the full [Code of Conduct](https://github.com/greenpeace/planet4/blob/main/CODE_OF_CONDUCT.md).
