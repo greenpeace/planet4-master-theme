@@ -20,4 +20,10 @@ setupLoadMore();
 setupPDFIcon();
 setupSearch();
 setupExternalLinks();
-setupListingPages();
+
+window.addEventListener('load', () => {
+  if(document.getElementById('listing-page-root')) {
+    setupListingPages();
+  }
+});
+
