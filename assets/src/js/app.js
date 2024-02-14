@@ -5,6 +5,7 @@ import {setupPDFIcon} from './pdf_icon';
 import {setupSearch} from './search';
 import {setupExternalLinks} from './external_links';
 import {setupListingPages} from './listing_pages';
+import {setupCountrySelector} from './country_selector';
 
 import 'bootstrap';
 
@@ -21,3 +22,4 @@ setupPDFIcon();
 setupSearch();
 setupExternalLinks();
 setupListingPages();
+setupCountrySelector();
