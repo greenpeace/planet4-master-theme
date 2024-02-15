@@ -235,7 +235,10 @@ input.describe[type=text][data-setting=caption] {
 }
 
 .p4-plugin-pre-publish-panel-error {
-  background-color: var(--beige-100) !important;
+  ul {
+    background: var(--red-500);
+    color: var(--white);
+  }
 }
 
 .cmb2_required_field_error {
