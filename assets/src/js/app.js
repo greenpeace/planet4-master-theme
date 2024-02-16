@@ -21,5 +21,10 @@ setupLoadMore();
 setupPDFIcon();
 setupSearch();
 setupExternalLinks();
-setupListingPages();
 setupQueryLoopCarousel();
+
+window.addEventListener('load', () => {
+  if (document.getElementById('listing-page-root')) {
+    setupListingPages();
+  }
+});
