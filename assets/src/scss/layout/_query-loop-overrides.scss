@@ -1,0 +1,133 @@
+.p4-query-loop {
+  & > .wp-block-group {
+    position: relative;
+    padding: 0 !important;
+  }
+
+  .carousel-controls {
+    display: none !important;
+  }
+
+  &.is-custom-layout-carousel {
+    display: flex;
+    flex-direction: column;
+
+    & > p {
+      margin: 0 0 48px 0 !important;
+    }
+
+    .carousel {
+      width: 100%;
+    }
+
+    .carousel-indicators {
+      display: none;
+    }
+
+    .carousel-inner {
+      display: flex;
+    }
+
+    @include medium-and-less {
+      .carousel {
+        overflow: hidden;
+        padding: $sp-x $sp-x $sp-x 0;
+      }
+
+      .carousel-inner {
+        overflow-x: scroll;
+        scrollbar-width: none;
+        scroll-behavior: smooth;
+      }
+
+      .carousel-item {
+        width: auto;
+        display: block;
+        margin-right: 0;
+        margin-left: 0;
+
+        .carousel-item-wrapper {
+          display: flex;
+          padding: $sp-x;
+
+          .wp-block-post {
+            width: 354px;
+
+            &:not(:last-child) {
+              margin-inline-end: $sp-1x;
+            }
+          }
+        }
+      }
+    }
+
+    @include large-and-up {
+      .carousel-item {
+        width: 100%;
+
+        .carousel-item-wrapper {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          column-gap: $sp-3;
+          padding: $sp-1x $sp-1;
+        }
+      }
+
+      .carousel-controls {
+        display: flex !important;
+        position: absolute;
+        height: 48px;
+        width: calc(100% + calc($sp-3*2));
+        top: 0;
+        bottom: 0;
+        margin: auto;
+
+        .wp-block-button {
+          overflow: hidden;
+          box-shadow: 0 1px 8px rgba($grey-900, .2);
+          border-radius: 50%;
+          width: 48px;
+          height: 48px;
+          background-color: var(--white);
+          background-image: url("../../images/chevron.svg");
+          background-size: 28px 18px;
+          background-repeat: no-repeat;
+          background-position: center;
+          opacity: 1 !important;
+          cursor: pointer;
+
+          &.carousel-control-prev {
+            transform: rotate(180deg);
+          }
+
+          .wp-block-button__link {
+            background-color: var(--white) !important;
+            color: var(--grey-900);
+          }
+
+          &:hover {
+            background-color: var(--grey-200);
+          }
+        }
+      }
+
+      .carousel-indicators {
+        display: flex;
+        position: relative;
+        margin-top: 12px;
+
+        & [data-bs-target] {
+          width: 24px;
+          height: 4px;
+          background-color: var(--grey-900);
+        }
+      }
+    }
+
+    @include x-large-and-up {
+      .carousel-controls {
+        width: calc(100% + calc($sp-8 * 2));
+      }
+    }
+  }
+}
