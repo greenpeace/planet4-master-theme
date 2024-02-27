@@ -10,7 +10,6 @@ import {addBlockFilters} from './BlockFilters';
 import {setupImageBlockExtension} from './ImageBlockExtension';
 import {replaceTaxonomyTermSelectors} from './replaceTaxonomyTermSelectors';
 import {addButtonLinkPasteWarning} from './addButtonLinkPasteWarning';
-import {setupCustomSidebar} from './setupCustomSidebar';
 import {setUpCssVariables} from './connectCssVariables';
 import {SubPagesBlock} from './blocks/SubPages/SubPagesBlock';
 import {blockEditorValidation} from './BlockEditorValidation';
@@ -32,7 +31,6 @@ addBlockFilters();
 setupImageBlockExtension();
 addButtonLinkPasteWarning();
 replaceTaxonomyTermSelectors();
-setupCustomSidebar();
 setUpCssVariables();
 blockEditorValidation();
 
