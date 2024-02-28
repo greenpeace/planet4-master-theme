@@ -2,7 +2,7 @@ const {__} = wp.i18n;
 window.dataLayer = window.dataLayer || [];
 
 const SvgIcon = props => {
-  const theme_dir = window.p4bk_vars.themeUrl;
+  const theme_dir = window.p4_vars.themeUrl;
   const {
     name,
     sprite = `${theme_dir}/assets/build/sprite.symbol.svg`,

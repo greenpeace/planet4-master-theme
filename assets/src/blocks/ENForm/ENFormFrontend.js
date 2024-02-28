@@ -217,7 +217,8 @@ const submitENForm = props => {
   const post_data = makePostData(form_data, fields);
 
   // Send form
-  const post_url = `${window.p4bk_vars.siteUrl}/wp-json/planet4/v1/enform/${en_page_id}`;
+  const baseUrl = document.body.dataset.nro;
+  const post_url = `${baseUrl}/wp-json/planet4/v1/enform/${en_page_id}`;
   fetch(post_url, {
     method: 'POST',
     contentType: 'application/json',
