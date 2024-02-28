@@ -569,6 +569,8 @@ class MasterSite extends TimberSite
         $domains = [
             'planet4-master-theme',
             'planet4-master-theme-backend',
+            'planet4-engagingnetworks',
+            'planet4-engagingnetworks-backend',
         ];
         $locale = is_admin() ? get_user_locale() : get_locale();
 
