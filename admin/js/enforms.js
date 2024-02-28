@@ -1,117 +1,7 @@
 /* global ajaxurl, Backbone, _ */
 
-jQuery($ => {
-  /**
-   * Event listener for add field/question button.
-   */
-  $('.add-en-field').off('click').on('click', e => {
-    e.preventDefault();
-
-    $(this).prop('disabled', true);
-    const field_data = {
-      name: $(this).data('name'),
-      en_type: $(this).data('type'),
-      property: $(this).data('property'),
-      id: $(this).data('id'),
-      htmlFieldType: '',
-      selected_locale: '',
-      locales: {},
-      question_options: {},
-      radio_options: {},
-      selected: '',
-    };
-
-    // If we add an Opt-in then retrieve the labels for all locales that exist for it from EN.
-    if ('OPT' === field_data.en_type || 'GEN' === field_data.en_type) {
-      $.ajax({
-        url: ajaxurl,
-        type: 'GET',
-        data: {
-          action: 'get_supporter_question_by_id',
-          id: $(this).data('id'),
-        },
-      }).done(response => {
-        // Checking response type to avoid error if string was returned (in case of an error).
-        if ('object' === typeof response) {
-          $.each(response, (i, value) => {
-            if (value.content && 'undefined' !== typeof value.content.data[0]) {
-              field_data.htmlFieldType = value.htmlFieldType;
-              let label = '';
-              let selected = '';
-
-              switch (field_data.htmlFieldType) {
-              case 'checkbox':
-                if ('OPT' === field_data.en_type) {
-                  label = value.content.data[0].label;
-                  selected = value.content.data[0].selected;
-                } else if ('GEN' === field_data.en_type) {
-                  label = value.label;
-                  field_data.question_options[value.locale] = [];
-
-                  $.each(value.content.data, (j, option) => {
-                    field_data.question_options[value.locale].push({
-                      option_labee: _.escape(option.label),
-                      option_value: _.escape(option.value),
-                      option_selected: option.selected,
-                    });
-                  });
-                }
-                field_data.locales[value.locale] = _.escape(label);
-                field_data.selected = selected;
-                break;
-
-              case 'radio':
-                label = value.label;
-                field_data.locales[value.locale] = _.escape(label);
-                field_data.radio_options[value.locale] = [];
-
-                $.each(value.content.data, (j, option) => {
-                  field_data.radio_options[value.locale].push({
-                    option_label: _.escape(option.label),
-                    option_value: _.escape(option.value),
-                    option_selected: option.selected,
-                  });
-                });
-                break;
-              }
-            }
-          });
-          // Add new field.
-          p4_enform.fields.add(new p4_enform.Models.EnformField(field_data));
-        }
-      }).fail(response => {
-        console.log(response); //eslint-disable-line no-console
-      });
-    } else {
-      p4_enform.fields.add(new p4_enform.Models.EnformField(field_data));
-    }
-  });
-
-  /**
-   * Make form selected fields table sortable.
-   */
-  $('#en_form_selected_fields_table > tbody').sortable({
-    handle: '.dashicons-sort',
-    stop(event, ui) {
-      ui.item.trigger('sort-field', ui.item.index());
-    },
-  });
-
-  /**
-   * Hook into post submit to inject form fields.
-   */
-  $('#post').on('submit', () => {
-    $('#p4enform_fields').val(JSON.stringify(p4_enform.fields.toJSON()));
-  });
-
-  /**
-   * Disable preview form fields.
-   */
-  $('#meta-box-form :input').prop('disabled', true);
-});
-
 /**
- * Define models, collections, views for p4 en forms.
+ * Define models, collections, views for P4 ENForms.
  */
 const p4_enform = ($ => {
   const app = {
@@ -121,7 +11,7 @@ const p4_enform = ($ => {
   };
 
   /**
-   * Model for en form field.
+   * Model for ENForm field.
    */
   app.Models.EnformField = Backbone.Model.extend({
     urlRoot: '',
@@ -626,6 +516,116 @@ const p4_enform = ($ => {
 
   return app;
 })(jQuery);
+
+jQuery($ => {
+  /**
+   * Event listener for add field/question button.
+   */
+  $('.add-en-field').off('click').on('click', e => {
+    e.preventDefault();
+
+    $(this).prop('disabled', true);
+    const field_data = {
+      name: $(this).data('name'),
+      en_type: $(this).data('type'),
+      property: $(this).data('property'),
+      id: $(this).data('id'),
+      htmlFieldType: '',
+      selected_locale: '',
+      locales: {},
+      question_options: {},
+      radio_options: {},
+      selected: '',
+    };
+
+    // If we add an Opt-in then retrieve the labels for all locales that exist for it from EN.
+    if ('OPT' === field_data.en_type || 'GEN' === field_data.en_type) {
+      $.ajax({
+        url: ajaxurl,
+        type: 'GET',
+        data: {
+          action: 'get_supporter_question_by_id',
+          id: $(this).data('id'),
+        },
+      }).done(response => {
+        // Checking response type to avoid error if string was returned (in case of an error).
+        if ('object' === typeof response) {
+          $.each(response, (i, value) => {
+            if (value.content && 'undefined' !== typeof value.content.data[0]) {
+              field_data.htmlFieldType = value.htmlFieldType;
+              let label = '';
+              let selected = '';
+
+              switch (field_data.htmlFieldType) {
+              case 'checkbox':
+                if ('OPT' === field_data.en_type) {
+                  label = value.content.data[0].label;
+                  selected = value.content.data[0].selected;
+                } else if ('GEN' === field_data.en_type) {
+                  label = value.label;
+                  field_data.question_options[value.locale] = [];
+
+                  $.each(value.content.data, (j, option) => {
+                    field_data.question_options[value.locale].push({
+                      option_labee: _.escape(option.label),
+                      option_value: _.escape(option.value),
+                      option_selected: option.selected,
+                    });
+                  });
+                }
+                field_data.locales[value.locale] = _.escape(label);
+                field_data.selected = selected;
+                break;
+
+              case 'radio':
+                label = value.label;
+                field_data.locales[value.locale] = _.escape(label);
+                field_data.radio_options[value.locale] = [];
+
+                $.each(value.content.data, (j, option) => {
+                  field_data.radio_options[value.locale].push({
+                    option_label: _.escape(option.label),
+                    option_value: _.escape(option.value),
+                    option_selected: option.selected,
+                  });
+                });
+                break;
+              }
+            }
+          });
+          // Add new field.
+          p4_enform.fields.add(new p4_enform.Models.EnformField(field_data));
+        }
+      }).fail(response => {
+        console.log(response); //eslint-disable-line no-console
+      });
+    } else {
+      p4_enform.fields.add(new p4_enform.Models.EnformField(field_data));
+    }
+  });
+
+  /**
+   * Make form selected fields table sortable.
+   */
+  $('#en_form_selected_fields_table > tbody').sortable({
+    handle: '.dashicons-sort',
+    stop(event, ui) {
+      ui.item.trigger('sort-field', ui.item.index());
+    },
+  });
+
+  /**
+   * Hook into post submit to inject form fields.
+   */
+  $('#post').on('submit', () => {
+    $('#p4enform_fields').val(JSON.stringify(p4_enform.fields.toJSON()));
+  });
+
+  /**
+   * Disable preview form fields.
+   */
+  $('#meta-box-form :input').prop('disabled', true);
+});
 
 // Handles initial page load of new/edit enform page.
 // Create fields collections and views and populate views if there are any saved fields.
