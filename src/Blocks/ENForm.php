@@ -12,7 +12,6 @@ namespace P4\MasterTheme\Blocks;
 use P4\MasterTheme\Controllers\EnsapiController;
 use WP_Post;
 use WP_REST_Request;
-use WP_REST_Server;
 use WP_Error;
 
 /**
@@ -132,8 +131,6 @@ class ENForm extends BaseBlock
 
         add_action('enqueue_block_editor_assets', [self::class, 'enqueue_editor_assets']);
         add_action('wp_enqueue_scripts', [self::class, 'enqueue_frontend_assets']);
-
-        add_action('rest_api_init', [ self::class, 'register_endpoints' ]);
     }
 
     /**
@@ -346,33 +343,11 @@ class ENForm extends BaseBlock
     }
 
     /**
-     * Endpoint to retrieve the data for the ENform block
-     */
-    public static function register_endpoints(): void
-    {
-        register_rest_route(
-            self::REST_NAMESPACE,
-            '/enform/(?P<en_page_id>\d+)',
-            [
-                [
-                    'methods' => WP_REST_Server::CREATABLE,
-                    'callback' => static function (WP_REST_Request $request) {
-                        return self::send_enform($request);
-                    },
-                    'permission_callback' => static function () {
-                        return true;
-                    },
-                ],
-            ]
-        );
-    }
-
-    /**
      * Function to send an ENForm.
      *
      * @param WP_REST_Request $request the form data.
      */
-    private static function send_enform(WP_REST_Request $request): array|WP_Error
+    public static function send_enform(WP_REST_Request $request): array|WP_Error
     {
         $form = $request->get_json_params();
         $token = self::get_session_token();
