@@ -213,6 +213,7 @@ class MasterBlocks
             'features' => $this->get_p4_features(),
             'pages' => $this->get_en_pages(),
             'forms' => $this->get_en_forms(),
+            'themeUrl' => get_template_directory_uri(),
         ];
     }
 }
