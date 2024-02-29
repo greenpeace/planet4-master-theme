@@ -2,7 +2,7 @@
 
 namespace P4\MasterTheme\Api;
 
-use P4\MasterTheme\Blocks\ENForm as EnformBlock;
+use P4\MasterTheme\Blocks\ENForm as ENFormBlock;
 use WP_REST_Server;
 
 /**
@@ -11,11 +11,11 @@ use WP_REST_Server;
 class ENForm
 {
     /**
-     * Register endpoint to read settings.
+     * Register endpoint to get ENForm data.
      *
      * @example GET /wp-json/planet4/v1/enform/(?P<en_page_id>\d+)/
      */
-    public static function register_endpoints(): void
+    public static function register_endpoint(): void
     {
         /**
          * Endpoint to get data for the Enform block
@@ -27,7 +27,7 @@ class ENForm
                 [
                     'methods' => WP_REST_Server::CREATABLE,
                     'callback' => static function ($request) {
-                        return EnformBlock::send_enform($request);
+                        return ENFormBlock::send_enform($request);
                     },
                     'permission_callback' => static function () {
                         return true;
