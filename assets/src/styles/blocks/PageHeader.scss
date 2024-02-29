@@ -7,7 +7,10 @@ $text-column-padding-in: 24px;
 .wp-block-media-text.alignfull.is-pattern-p4-page-header {
   grid-template-columns: 100%;
   width: 100vw;
-  padding: $sp-6 0;
+
+  @include medium-and-up {
+    padding-bottom: $sp-5;
+  }
 
   @include large-and-up {
     padding: $sp-7 0;
@@ -18,7 +21,6 @@ $text-column-padding-in: 24px;
     grid-row: 1;
 
     img {
-      max-height: 270px;
       object-fit: cover;
     }
   }
