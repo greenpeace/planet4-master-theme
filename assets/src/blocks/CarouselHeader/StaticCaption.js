@@ -1,10 +1,15 @@
+const htmlDecode = input => {
+  const doc = new DOMParser().parseFromString(input, 'text/html');
+  return doc.documentElement.textContent;
+};
+
 export const StaticCaption = ({slide}) => (
   <div className="carousel-caption">
     <div className="caption-overlay"></div>
     <div className="container main-header">
       <div className="carousel-captions-wrapper">
         <h2>
-          {slide.header}
+          {htmlDecode(slide.header)}
         </h2>
         <p dangerouslySetInnerHTML={{__html: slide.description}} />
       </div>
