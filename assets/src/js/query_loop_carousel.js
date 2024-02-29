@@ -7,7 +7,8 @@ export const setupQueryLoopCarousel = () => {
     // Only apply to carousel view
     if (layout.className.includes('carousel')) {
       const uniqueId = `carousel-${uuid()}`;
-      const itemsPerSlide = 3;
+      const isPostsList = layout.className.includes('posts-list');
+      const itemsPerSlide = isPostsList ? 4 : 3;
 
       // Adapt it as bootstrap carousel
       const carousel = document.createElement('div');
@@ -75,8 +76,8 @@ export const setupQueryLoopCarousel = () => {
       // Align the controls in the middle
       const controls = layout.querySelector('.wp-block-buttons');
       controls.style.top = (list.getBoundingClientRect().height / 2) - (controls.getBoundingClientRect().height / 2);
-    } else if (layout.className.includes('flex') || layout.className.includes('list')) {
-      // Only apply to flex and list views
+    } else if (layout.className.includes('grid') || layout.className.includes('list')) {
+      // Only apply to Grid and List views
       // Ensure to not only to hide controls nav but also remove it
       const controlsNav = list.parentNode.querySelector('.wp-block-buttons.carousel-controls');
 

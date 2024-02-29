@@ -28,6 +28,27 @@
       display: flex;
     }
 
+    .wp-block-post {
+      margin-bottom: 0;
+    }
+
+    // Apply only to Posts List.
+    &.posts-list {
+      .wp-block-post-terms {
+        display: none;
+      }
+
+      .wp-block-columns {
+        flex-direction: column;
+        gap: $sp-1;
+        margin-bottom: 0;
+      }
+
+      .wp-block-post-author-name {
+        display: none;
+      }
+    }
+
     @include medium-and-less {
       .carousel {
         overflow: hidden;
@@ -50,13 +71,42 @@
           display: flex;
           padding: $sp-x;
 
-          .wp-block-post {
-            width: 354px;
-
-            &:not(:last-child) {
-              margin-inline-end: $sp-1x;
-            }
+          .wp-block-post:not(:last-child) {
+            margin-inline-end: $sp-1x;
           }
+        }
+      }
+
+      // Apply only to Actions List.
+      &.actions-list .wp-block-post {
+        width: 354px;
+      }
+
+      // Apply only to Posts List.
+      &.posts-list {
+        .wp-block-post {
+          width: 132px;
+        }
+
+        .wp-block-post-featured-image img {
+          height: 180px;
+        }
+
+        .wp-block-post-excerpt__excerpt {
+          display: none;
+        }
+      }
+    }
+
+    @include medium-and-up {
+      // Apply only to Posts List.
+      &.posts-list {
+        .wp-block-post {
+          width: 180px;
+        }
+
+        .wp-block-post-featured-image img {
+          height: 300px;
         }
       }
     }
@@ -64,13 +114,28 @@
     @include large-and-up {
       .carousel-item {
         width: 100%;
+      }
 
+      .carousel-item-wrapper {
+        display: grid;
+        column-gap: $sp-3;
+        padding: $sp-1x $sp-1;
+      }
+
+      // Apply only to Posts List.
+      &.posts-list {
         .carousel-item-wrapper {
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          column-gap: $sp-3;
-          padding: $sp-1x $sp-1;
+          grid-template-columns: repeat(4, 1fr);
         }
+
+        .wp-block-post {
+          width: 100%;
+        }
+      }
+
+      // Apply only to Actions List.
+      &.actions-list .carousel-item-wrapper {
+        grid-template-columns: repeat(3, 1fr);
       }
 
       .carousel-controls {

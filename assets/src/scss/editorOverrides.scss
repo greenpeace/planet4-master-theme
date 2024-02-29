@@ -414,7 +414,7 @@ input.describe[type=text][data-setting=caption] {
 }
 
 // Posts List Block Override
-.posts-list-query {
+.posts-list {
   .wp-block-post-template.is-layout-flow li {
     height: 240px;
     margin-bottom: 12px;
@@ -446,7 +446,7 @@ input.describe[type=text][data-setting=caption] {
 }
 
 @media (max-width: 991px) {
-  .posts-list-query {
+  .posts-list {
     .wp-block-post-title,
     .wp-block-post-excerpt {
       margin-top: -12px;
