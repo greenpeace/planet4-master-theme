@@ -1,4 +1,188 @@
-/* global ajaxurl, Backbone, _ */
+/* global ajaxurl, Backbone, _, wp */
+
+const enformTemplates = {
+  enSelectedField: (data) => {
+    const __ = wp.i18n.__;
+    const escAttr = wp.escapeHtml.escapeAttribute;
+    console.log('enSelectedField', data);
+
+    return `
+    <tr class="field-item"
+        data-en-id="${data.id}"
+        data-en-name="${data.name}"
+        data-en-type="${data.en_type}">
+      <td><a><span class="dashicons dashicons-sort pointer"></span></a></td>
+      <td style="width:25%;">${data.name}</td>
+      <td>${data.en_type}</td>
+      <td>
+        <input type="checkbox" data-attribute="required"
+               ${data.required ? 'checked' : ''} ${data.input_type === 'hidden' ? 'disabled' : ''} />
+      </td>
+      <td>
+        <input type="text" data-attribute="label" value="${escAttr(data.label)}"
+               ${['hidden', 'checkbox', 'radio'].includes(data.input_type) ? 'disabled' : ''} />
+      </td>
+      <td>
+        <select class="field-type-select" data-attribute="input_type">
+          <option value="0">${__('--Select--', 'planet4-engagingnetworks-backend' )}</option>
+          <option value="checkbox" ${data.en_type === 'checkbox' ? 'selected' : ''}>${__('Checkbox', 'planet4-engagingnetworks-backend')}</option>
+          <option value="country" ${data.en_type === 'country' ? 'selected' : ''} >${__('Country', 'planet4-engagingnetworks-backend')}</option>
+          <option value="position" ${data.en_type === 'position' ? 'selected' : ''} >${__('Position', 'planet4-engagingnetworks-backend')}</option>
+          <option value="email" ${data.en_type === 'email' ? 'selected' : ''} >${__('Email', 'planet4-engagingnetworks-backend')}</option>
+          <option value="hidden" ${data.en_type === 'hidden' ? 'selected' : ''} >${__('Hidden', 'planet4-engagingnetworks-backend')}</option>
+          <option value="text" ${data.en_type === 'text' ? 'selected' : ''} >${__('Text', 'planet4-engagingnetworks-backend')}</option>
+          <option value="radio" ${data.en_type === 'radio' ? 'selected' : ''} >${__('Radio', 'planet4-engagingnetworks-backend')}</option>
+        </select>
+      </td>
+      <td class="actions">
+        ${data.input_type != 'email' ? `
+        <a><span class="dashicons dashicons-edit pointer"></span></a>
+        <a><span class="dashicons dashicons-no remove-en-field"></span></a>
+        ` : ''}
+      </td>
+    </tr>
+    `;
+  },
+  enHiddenField: (data) => {
+    const __ = wp.i18n.__;
+    const escAttr = wp.escapeHtml.escapeAttribute;
+    console.log('enHiddenField', data);
+    return `
+    <div style="display: none;" class="dialog">
+      <p>${__( 'Hidden Field customization', 'planet4-engagingnetworks-backend')}</p>
+      <p>
+        <label class="control-label">${__('Default Value', 'planet4-engagingnetworks-backend')}</label>
+        <div>
+          <input type="text" class="form-control"
+                 data-attribute="default_value"
+                 value="${escAttr(data.default_value)}" />
+        </div>
+      </p>
+    </div>
+    `;
+  },
+  enTextFieldDialog: (data) => {
+    const __ = wp.i18n.__;
+    const escAttr = wp.escapeHtml.escapeAttribute;
+    console.log('enTextFieldDialog', data);
+    return  `
+    <div style="display: none;" class="dialog">
+      <p>${__('Text Field customization', 'planet4-engagingnetworks-backend')}</p>
+      <hr>
+      <p>${__('The next two fields handle the validation of the text input. If both regex and function name are entered, only the regex will be used.', 'planet4-engagingnetworks-backend')}</p>
+      <hr>
+      <label class="control-label">${__('JS Function validation regex', 'planet4-engagingnetworks-backend')}</label>
+      <div>
+        <p>Use the regex <b>without</b> leading and trailing / character</p>
+        <p> <a href="https://planet4.greenpeace.org/handbook/block-form/#regex-validation" target="_blank"> Documentation in handbook </a></p>
+        <input type="text" class="form-control" data-attribute="js_validate_regex"
+             value="${escAttr(data.js_validate_regex)}"/>
+      </div>
+      <label class="control-label">${__('JS validation regex error message', 'planet4-engagingnetworks-backend')}</label>
+      <div>
+        <input type="text" class="form-control" data-attribute="js_validate_regex_msg"
+             value="<%= js_validate_regex_msg %>"/>
+      </div>
+
+      <hr>
+      <label class="control-label">${__('JS Function validation callback', 'planet4-engagingnetworks-backend')}</label>
+      <div>
+        <p><a href="https://planet4.greenpeace.org/handbook/block-form/#callback-js-function" target="_blank">
+            Documentation in handbook </a></p>
+        <input type="text" class="form-control" data-attribute="js_validate_function"
+             value="${escAttr(data.js_validate_function)}"/>
+      </div>
+    </div>
+    `;
+  },
+  enCheckboxDialog: (data) => {
+    const __ = wp.i18n.__;
+    const escAttr = wp.escapeHtml.escapeAttribute;
+    console.log('enCheckboxDialog', data);
+
+    let options = [];
+    Object.keys(data.locales).forEach((locale, index) => {
+      options.push(`<option value="${escAttr(data.locales[locale])}"
+          ${data.locales[locale] === data.lobel_option ? 'selected' : ''}>${locale}</option>`);
+    });
+
+    let genOptions = [];
+    if (data.en_type === 'GEN') {
+      genOptions = data.question_options[data.selected_locale].map(opt => {
+        return `<input type="checkbox" value="${escAttr(opt.option_value)}"
+            ${opt.option_selected ? 'selected' : ''} disabled />${opt.option_label}<br />`
+      });
+    }
+
+    return  `
+    <div style="display: none;" class="dialog" data-en-id="${escAttr(data.id)}">
+      <p>
+        <label class="control-label">${__( 'Locales', 'planet4-engagingnetworks-backend')}}</label>
+        <div>
+          <select class="form-control question-locale-select" data-attribute="selected_locale">
+            ${options.join('')}
+          </select>
+        </div>
+        <br />
+        <strong>${data.en_type === 'GEN'
+            ? __('Question', 'planet4-engagingnetworks-backend')
+            : __('Opt-in', 'planet4-engagingnetworks-backend')}</strong>
+        <br /><label class="question-label">${data.label}</label><br /><br />
+        ${genOptions.join('')}
+      </p>
+      <label class="control-label">${__( 'Dependency', 'planet4-engagingnetworks-backend')}</label>
+      <div>
+        <select class="form-control dependency-select" id="dependency-${escAttr(data.id)}"
+                data-attribute="dependency" name="dependency">
+          <option value="">${__('Select Dependency', 'planet4-engagingnetworks-backend')}</option>
+        </select>
+        <span></span>
+      </div>
+    </div>
+    `;
+  },
+  enRadioDialog: (data) => {
+    const __ = wp.i18n.__;
+    const escAttr = wp.escapeHtml.escapeAttribute;
+    console.log('enRadioDialog', data);
+
+    let options = [];
+    Object.keys(data.locales).forEach((locale, index) => {
+      options.push(`<option value="${escAttr(data.locales[locale])}"
+          ${data.locales[locale] === data.lobel_option ? 'selected' : ''}>${locale}</option>`);
+    });
+
+    let radioOptions = [];
+    if (data.en_type === 'GEN') {
+      radioOptions = data.radio_options[data.selected_locale].map(opt => {
+        return `<input type="radio"
+            id="en__field_supporter_${opt.name}"
+            class="en__field__input en__field__input--radio"
+            value="${escAttr(opt.option_value)}"
+            ${opt.option_selected ? 'checked' : ''} disabled />${opt.option_label}<br />`
+      });
+    }
+    return  `
+    <div style="display: none;" class="dialog" data-en-id="${escAttr(data.id)}">
+      <p>
+        <label class="control-label">${__('Locales', 'planet4-engagingnetworks-backend')}</label>
+        <div>
+          <select class="form-control question-locale-select" data-attribute="selected_locale">
+            ${options.join('')}
+          </select>
+        </div>
+        <br />
+        <strong>${data.en_type === 'GEN'
+            ? __('Question', 'planet4-engagingnetworks-backend')
+            : __('Opt-in', 'planet4-engagingnetworks-backend')}</strong>
+        <br /><label class="question-label">${data.label}</label><br /><br />
+        ${radioOptions.join('')}
+      </p>
+    </div>
+    `;
+  },
+
+};
 
 /**
  * Define models, collections, views for P4 ENForms.
@@ -52,7 +236,8 @@ const p4_enform = ($ => {
    */
   app.Views.FieldsListView = Backbone.View.extend({
     el: '#en_form_selected_fields_table',
-    template: _.template($('#tmpl-en-selected-fields').html()),
+    //template: _.template($('#tmpl-en-selected-fields').html()),
+    template: () => '',
     events: {
       'click .remove-en-field': 'removeField',
       'update-sort': 'updateSort',
@@ -150,7 +335,8 @@ const p4_enform = ($ => {
    */
   app.Views.FieldsListItemView = Backbone.View.extend({
     className: 'field-item',
-    template: _.template($('#tmpl-en-selected-field').html()),
+    //template: _.template($('#tmpl-en-selected-field').html()),
+    template: enformTemplates.enSelectedField,
     dialog_view: null,
 
     events: {
@@ -281,16 +467,16 @@ const p4_enform = ($ => {
 
       switch (input_type) {
       case 'text':
-        tmpl = '#tmpl-en-text-field-dialog';
+        tmpl = enformTemplates.enTextFieldDialog;
         break;
       case 'hidden':
-        tmpl = '#tmpl-en-hidden-field-dialog';
+        tmpl = enformTemplates.enHiddenField;
         break;
       case 'checkbox':
-        tmpl = '#tmpl-en-checkbox-dialog';
+        tmpl = enformTemplates.enCheckboxDialog;
         break;
       case 'radio':
-        tmpl = '#tmpl-en-radio-dialog';
+        tmpl = enformTemplates.enRadioDialog;
         break;
       }
 
@@ -300,7 +486,11 @@ const p4_enform = ($ => {
       }
 
       if (tmpl) {
-        this.dialog_view = new app.Views.FieldDialog({row: this.model.id, model: this.model, template: tmpl});
+        this.dialog_view = new app.Views.FieldDialog({
+          row: this.model.id,
+          model: this.model,
+          template: tmpl
+        });
       }
     },
 
@@ -424,7 +614,8 @@ const p4_enform = ($ => {
      * @param {Object} options Options object.
      */
     initialize(options) {
-      this.template = _.template($(options.template).html());
+      //this.template = _.template($(options.template).html());
+      this.template = () => '';
       this.rowid = options.row;
       this.row = $('tr[data-en-id="' + this.rowid + '"]');
       this.model = options.model;
