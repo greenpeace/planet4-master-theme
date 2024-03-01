@@ -437,11 +437,34 @@ class Post extends TimberPost
 
     /**
      * Calculate post reading time.
+     *
+     * @return int Reading time in seconds.
+     */
+    public function reading_time(): int
+    {
+        $cache_key = $this->id . '~' . $this->post_modified;
+        $from_cache = wp_cache_get($cache_key);
+        if ($from_cache) {
+            return (int) $from_cache;
+        }
+
+        $locale = $this->get_locale();
+        $wpm = Settings\ReadingTime::get_option();
+        $rt = new Post\ReadingTimeCalculator($locale, $wpm);
+        $time = $rt->get_time($this->content() ?? '');
+        // Cache for 1 day. This could be infinitely long as the key checks the modified date.
+        wp_cache_add($cache_key, $time, null, 3600 * 24);
+
+        return $time;
+    }
+
+    /**
+     * Return post reading time for display, in minutes.
      * Return 1 at minimum, to not get a "0 min read".
      *
-     * @return int|null Reading time in minutes, null if option not activated on post type.
+     * @return int Reading time in minutes, null if option not activated on post type.
      */
-    public function reading_time(): ?int
+    public function reading_time_for_display(): ?int
     {
         $terms_rt_option = array_map(
             fn ($t) => get_term_meta($t->term_id, CustomTaxonomy::READING_TIME_FIELD, true),
@@ -452,21 +475,7 @@ class Post extends TimberPost
             return null;
         }
 
-        $cache_key = $this->id . '~' . $this->post_modified;
-
-        $from_cache = wp_cache_get($cache_key);
-        if ($from_cache) {
-            return (int) $from_cache;
-        }
-
-        $locale = $this->get_locale();
-        $wpm = Settings\ReadingTime::get_option();
-        $rt = new Post\ReadingTimeCalculator($locale, $wpm);
-        $time = (int) max(1, round($rt->get_time($this->content() ?? '') / 60));
-        // Cache for 1 day. This could be infinitely long as the key checks the modified date.
-        wp_cache_add($cache_key, $time, null, 3600 * 24);
-
-        return $time;
+        return (int) max(1, round($this->reading_time() / 60));
     }
 
     /**
@@ -484,7 +493,7 @@ class Post extends TimberPost
         string $content,
         WP_Block $block
     ): string {
-        $time = (new self($block->context['postId'] ?? null))->reading_time();
+        $time = (new self($block->context['postId'] ?? null))->reading_time_for_display();
         return $time ?
             '<span class="article-list-item-readtime">'
             // translators: reading time in min.
