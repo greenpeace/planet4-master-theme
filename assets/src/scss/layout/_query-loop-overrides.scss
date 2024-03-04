@@ -5,7 +5,7 @@
   }
 
   .carousel-controls {
-    display: none !important;
+    display: none;
   }
 
   &.is-custom-layout-carousel {
@@ -139,7 +139,7 @@
       }
 
       .carousel-controls {
-        display: flex !important;
+        display: flex;
         position: absolute;
         height: 48px;
         width: calc(100% + calc($sp-3*2));
