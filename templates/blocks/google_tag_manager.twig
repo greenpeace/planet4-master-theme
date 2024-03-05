@@ -26,6 +26,8 @@
     if ( cookie_consent ) {
       var capabilities = {
         ad_storage: marketing_consent ? 'granted' : 'denied',
+        ad_user_data: marketing_consent ? 'granted' : 'denied',
+        ad_personalization: marketing_consent ? 'granted' : 'denied',
         {% if cookies.enable_analytical_cookies %}
         ...{'analytics_storage': analytical_consent ? 'granted' : 'denied'}
         {% endif %}
@@ -35,11 +37,15 @@
     } else {
       var capabilities = {
         ad_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
         {% if cookies.enable_analytical_cookies %}
         ...{'analytics_storage': 'denied'}
         {% endif %}
       };
       gtag('consent', 'default', capabilities);
+      gtag('set', 'url_passthrough', true);
+      gtag('set', 'ads_data_redaction', capabilities.ad_storage === 'denied');
       dataLayer.push({event: 'defaultConsent', ...capabilities});
     }
     {% endif %}

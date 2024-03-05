@@ -92,6 +92,8 @@ export const setupCookies = () => {
     if (ENABLE_GOOGLE_CONSENT_MODE) {
       updateGoogleConsent({
         ad_storage: 'granted',
+        ad_user_data: 'granted',
+        ad_personalization: 'granted',
         ...ENABLE_ANALYTICAL_COOKIES && {analytics_storage: 'granted'},
       });
     }
@@ -155,6 +157,8 @@ export const setupCookies = () => {
       if (ENABLE_GOOGLE_CONSENT_MODE) {
         updateGoogleConsent({
           ad_storage: marketingCookiesChecked ? 'granted' : 'denied',
+          ad_user_data: marketingCookiesChecked ? 'granted' : 'denied',
+          ad_personalization: marketingCookiesChecked ? 'granted' : 'denied',
           ...ENABLE_ANALYTICAL_COOKIES && {analytics_storage: analyticalCookiesChecked ? 'granted' : 'denied'},
         });
       }
@@ -176,6 +180,8 @@ export const setupCookies = () => {
     if (ENABLE_GOOGLE_CONSENT_MODE) {
       updateGoogleConsent({
         ad_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
         ...ENABLE_ANALYTICAL_COOKIES && {analytics_storage: 'denied'},
       });
     }
