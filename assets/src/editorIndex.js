@@ -5,6 +5,7 @@ import {registerTakeActionBoxoutBlock} from './blocks/TakeActionBoxout/TakeActio
 import {registerHappypointBlock} from './blocks/Happypoint/HappypointBlock';
 import {setupCustomSidebar} from './block-editor/setupCustomSidebar';
 import {setupQueryLoopBlockExtension} from './block-editor/QueryLoopBlockExtension';
+import {registerSocialMediaBlock} from './blocks/SocialMedia/SocialMediaBlock';
 
 wp.domReady(() => {
   // Make sure to unregister the posts-list native variation before registering planet4-blocks/posts-list
@@ -14,6 +15,7 @@ wp.domReady(() => {
   registerSubmenuBlock();
   registerTakeActionBoxoutBlock();
   registerHappypointBlock();
+  registerSocialMediaBlock();
 
   // Beta blocks
   registerActionsListBlock();
