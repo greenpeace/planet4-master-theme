@@ -57,10 +57,16 @@ export const registerPostsListBlock = () => {
         ['core/columns', {}, [
           ['core/post-featured-image', {isLink: true}],
           ['core/group', {}, [
-            ['core/post-terms', {
-              term: 'category',
-              separator: ' | ',
-            }],
+            ['core/group', {layout: {type: 'flex'}}, [
+              ['core/post-terms', {
+                term: 'category',
+                separator: ' | ',
+              }],
+              ['core/post-terms', {
+                term: 'post_tag',
+                separator: ' ',
+              }],
+            ]],
             ['core/post-title', {isLink: true}],
             ['core/post-excerpt'],
             ['core/group', {className: 'posts-list-meta'}, [

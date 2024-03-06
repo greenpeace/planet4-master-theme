@@ -1,6 +1,11 @@
 .actions-list {
   margin-bottom: $sp-4;
 
+  .carousel-controls,
+  .carousel-indicators {
+    display: none;
+  }
+
   & > .wp-block-heading, & > p {
     width: 100%;
   }

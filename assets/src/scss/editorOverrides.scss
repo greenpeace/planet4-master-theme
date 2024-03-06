@@ -413,6 +413,14 @@ input.describe[type=text][data-setting=caption] {
   }
 }
 
+.posts-list,
+.actions-list {
+  .carousel-controls,
+  .wp-block-query-pagination {
+    display: none !important;
+  }
+}
+
 // Posts List Block Override
 .posts-list:not(.is-custom-layout-carousel) {
   .wp-block-post-template.is-layout-flow li {
@@ -483,11 +491,6 @@ input.describe[type=text][data-setting=caption] {
     &:not(:last-child) {
       margin-inline-end: $sp-2;
     }
-  }
-
-  .carousel-controls,
-  .wp-block-query-pagination {
-    display: none !important;
   }
 
   @include large-and-up {

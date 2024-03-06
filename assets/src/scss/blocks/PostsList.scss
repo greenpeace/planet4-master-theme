@@ -1,4 +1,24 @@
 .posts-list {
+  .carousel-controls,
+  .carousel-indicators {
+    display: none;
+  }
+
+  .taxonomy-post_tag a {
+    display: inline-block;
+
+    &:before {
+      content: "#";
+      speak-as: none;
+    }
+  }
+
+  .wp-block-post-terms:not(:first-child):before {
+    margin-inline-end: $sp-1;
+    color: var(--gp-green-800);
+    content: "•";
+  }
+
   & > .wp-block-heading,
   & > p {
     width: 100%;
@@ -45,7 +65,7 @@
     }
   }
 
-  .wp-block-post-title  a,
+  .wp-block-post-title a,
   .wp-block-post-excerpt__excerpt {
     display: -webkit-box;
     -webkit-box-orient: vertical;
@@ -59,6 +79,7 @@
       width: 100%;
       margin-bottom: $sp-1;
       font-size: var(--font-size-m--font-family-secondary);
+      -webkit-line-clamp: 3;
 
       @include medium-and-up {
         -webkit-line-clamp: 2;
