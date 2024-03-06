@@ -7,6 +7,8 @@
 
 namespace P4GBKS\Blocks;
 
+use WP_Block_Type_Registry;
+
 /**
  * Class SocialMedia
  *
@@ -35,6 +37,10 @@ class SocialMedia extends Base_Block {
 	 * SocialMedia constructor.
 	 */
 	public function __construct() {
+		if ( WP_Block_Type_Registry::get_instance()->is_registered( self::get_full_block_name() ) ) {
+			return;
+		}
+
 		$this->register_socialmedia_block();
 	}
 
