@@ -53,11 +53,19 @@
     flex-basis: 70%;
   }
 
+  &.is-custom-layout-carousel {
+    .wp-block-post-title {
+      font-size: 18px;
+
+      @include large-and-up {
+        font-size: 20px;
+      }
+    }
+  }
+
   .wp-block-post-title {
-    font-weight: var(--font-weight-bold);
     color: var(--grey-900);
     font-family: var(--font-family-tertiary);
-    font-size: var(--font-size-l--font-family-primary);
     margin-top: 5px;
 
     a {
