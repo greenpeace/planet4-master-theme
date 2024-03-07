@@ -1,0 +1,46 @@
+@import "./assets/src/scss/base/colors";
+@import "./assets/src/scss/base/variables";
+@import "./assets/src/scss/base/mixins";
+
+.social-media-block {
+  z-index: 3;
+
+  .social-media-embed {
+    &.aligncenter {
+      text-align: center;
+
+      > * {
+        margin-left: auto !important;
+        margin-right: auto !important;
+      }
+    }
+
+    &.alignright {
+      float: right;
+    }
+
+    &-facebook {
+      border: none;
+      overflow: hidden;
+      height: 500px;
+
+      &--small {
+        width: 240px;
+        display: block;
+
+        @include medium-and-up {
+          display: none;
+        }
+      }
+
+      &--large {
+        width: 500px;
+        display: none;
+
+        @include medium-and-up {
+          display: block;
+        }
+      }
+    }
+  }
+}

@@ -165,6 +165,7 @@ final class Loader
         new Blocks\Submenu();//NOSONAR
         new Blocks\TakeActionBoxout();//NOSONAR
         new Blocks\Happypoint();//NOSONAR
+        new Blocks\SocialMedia();//NOSONAR
 
         if (!BetaBlocks::is_active()) {
             return;
