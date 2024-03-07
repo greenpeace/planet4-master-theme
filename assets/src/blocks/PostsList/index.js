@@ -1,28 +1,25 @@
-const POSTS_LIST_BLOCK = 'planet4-blocks/posts-list-block';
-
-import {InspectorControls} from '@wordpress/block-editor';
-import {PanelBody} from '@wordpress/components';
-import {PostSelector} from '../../block-editor/PostSelector/PostSelector';
+export const POSTS_LIST_BLOCK_NAME = 'planet4-blocks/posts-list';
+export const POSTS_LISTS_LAYOUT_TYPES = [
+  {label: 'List', value: 'default', columnCount: 3},
+  {label: 'Carousel', value: 'flex', columnCount: 8},
+];
 
 export const registerPostsListBlock = () => {
   const {registerBlockVariation} = wp.blocks;
   const {__} = wp.i18n;
 
   return registerBlockVariation('core/query', {
-    name: POSTS_LIST_BLOCK,
+    name: POSTS_LIST_BLOCK_NAME,
     title: 'Posts List',
     icon: 'list-view',
     description: __('Posts List is the place in Planet 4 that the latest articles, press releases and publications can be found.', 'planet4-blocks-backend'),
     category: 'planet4-blocks-beta',
-    isActive: ({namespace, query}) => {
-      return (
-        namespace === POSTS_LIST_BLOCK &&
-              query.postType === 'post'
-      );
-    },
+    scope: ['inserter'],
+    allowedControls: ['taxQuery'],
+    isActive: ({namespace, query}) => namespace === POSTS_LIST_BLOCK_NAME && query.postType === 'post',
     attributes: {
-      namespace: POSTS_LIST_BLOCK,
-      className: 'posts-list-query',
+      namespace: POSTS_LIST_BLOCK_NAME,
+      className: 'posts-list p4-query-loop is-custom-layout-list',
       query: {
         perPage: 3,
         pages: 0,
@@ -37,12 +34,15 @@ export const registerPostsListBlock = () => {
         inherit: false,
         postIn: [],
       },
+      layout: {
+        type: 'default',
+        columnCount: 3,
+      },
     },
-    scope: ['inserter'],
-    allowedControls: ['taxQuery'],
     innerBlocks: [
-      ['core/heading', {content: __('Related Posts', 'planet4-blocks-backend')}],
+      ['core/heading', {lock: {move: true}, content: __('Related Posts', 'planet4-blocks-backend')}],
       ['core/paragraph', {
+        lock: {move: true},
         placeholder: __('Enter description', 'planet4-blocks-backend'),
         style: {
           spacing: {
@@ -53,14 +53,20 @@ export const registerPostsListBlock = () => {
           },
         },
       }],
-      ['core/post-template', {}, [
+      ['core/post-template', {lock: {move: true, remove: true}}, [
         ['core/columns', {}, [
           ['core/post-featured-image', {isLink: true}],
           ['core/group', {}, [
-            ['core/post-terms', {
-              term: 'category',
-              separator: ' | ',
-            }],
+            ['core/group', {layout: {type: 'flex'}}, [
+              ['core/post-terms', {
+                term: 'category',
+                separator: ' | ',
+              }],
+              ['core/post-terms', {
+                term: 'post_tag',
+                separator: ' ',
+              }],
+            ]],
             ['core/post-title', {isLink: true}],
             ['core/post-excerpt'],
             ['core/group', {className: 'posts-list-meta'}, [
@@ -70,45 +76,15 @@ export const registerPostsListBlock = () => {
           ]],
         ]],
       ]],
+      ['core/buttons', {
+        className: 'carousel-controls',
+        lock: {move: true},
+        layout: {type: 'flex', justifyContent: 'space-between', orientation: 'horizontal', flexWrap: 'nowrap'},
+      }, [
+        ['core/button', {className: 'carousel-control-prev', text: __('Prev', 'planet4-blocks-backend')}],
+        ['core/button', {className: 'carousel-control-next', text: __('Next', 'planet4-blocks-backend')}],
+      ]],
     ],
-  }
-  );
+  });
 };
-
-export const withManualPostSelection = BlockEdit => props => {
-  const {__} = wp.i18n;
-  const {name, attributes, setAttributes} = props;
-  const updateQuery = (value, query) => {
-    setAttributes({query: {
-      ...query,
-      postIn: value && value.length > 0 ? value : [],
-    }});
-  };
-
-  if (name === 'core/query' && attributes.namespace === POSTS_LIST_BLOCK) {
-    const {query} = attributes;
-    return (
-      <>
-        <BlockEdit {...props} />
-        <InspectorControls>
-          <PanelBody title={__('Manual override', 'planet4-blocks-backend')} initialOpen={query.postIn.length > 0}>
-            <PostSelector
-              label={__('CAUTION: Adding articles individually will override the automatic functionality of this block. For good user experience, please include at least three articles so that spacing and alignment of the design remains intact.', 'planet4-blocks-backend')}
-              selected={query.postIn || []}
-              onChange={value => updateQuery(value, query)}
-              postType={query.postType || 'post'}
-              placeholder={__('Select articles', 'planet4-blocks-backend')}
-              maxLength={10}
-              maxSuggestions={20}
-            />
-          </PanelBody>
-        </InspectorControls>
-      </>
-    );
-  }
-
-  return <BlockEdit {...props} />;
-};
-
-wp.hooks.addFilter('editor.BlockEdit', 'core/query', withManualPostSelection);
 

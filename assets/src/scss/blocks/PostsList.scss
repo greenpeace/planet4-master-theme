@@ -1,5 +1,30 @@
-.posts-list-query {
-  .wp-block-post-template.is-layout-flow li {
+.posts-list {
+  .carousel-controls,
+  .carousel-indicators {
+    display: none;
+  }
+
+  .taxonomy-post_tag a {
+    display: inline-block;
+
+    &:before {
+      content: "#";
+      speak-as: none;
+    }
+  }
+
+  .wp-block-post-terms:not(:first-child):before {
+    margin-inline-end: $sp-1;
+    color: var(--gp-green-800);
+    content: "•";
+  }
+
+  & > .wp-block-heading,
+  & > p {
+    width: 100%;
+  }
+
+  &:not(.is-custom-layout-carousel).wp-block-post-template.is-layout-flow li {
     width: 100% !important;
   }
 
@@ -28,11 +53,19 @@
     flex-basis: 70%;
   }
 
+  &.is-custom-layout-carousel {
+    .wp-block-post-title {
+      font-size: 18px;
+
+      @include large-and-up {
+        font-size: 20px;
+      }
+    }
+  }
+
   .wp-block-post-title {
-    font-weight: var(--font-weight-bold);
     color: var(--grey-900);
     font-family: var(--font-family-tertiary);
-    font-size: var(--font-size-l--font-family-primary);
     margin-top: 5px;
 
     a {
@@ -40,7 +73,7 @@
     }
   }
 
-  .wp-block-post-title  a,
+  .wp-block-post-title a,
   .wp-block-post-excerpt__excerpt {
     display: -webkit-box;
     -webkit-box-orient: vertical;
@@ -54,6 +87,7 @@
       width: 100%;
       margin-bottom: $sp-1;
       font-size: var(--font-size-m--font-family-secondary);
+      -webkit-line-clamp: 3;
 
       @include medium-and-up {
         -webkit-line-clamp: 2;
@@ -103,19 +137,14 @@
       font-size: var(--font-size-m--font-family-tertiary);
     }
   }
-}
 
-@media (max-width: 1200px) {
-  .posts-list-query {
-    .wp-block-post-excerpt,
-    .wp-block-post-terms {
-      margin-top: 0;
+  @media (max-width: 767px) {
+    .wp-block-heading {
+      font-size: var(--font-size-2xl--font-family-primary);
     }
   }
-}
 
-@media (max-width: 781px) {
-  .posts-list-query {
+  @media (max-width: 781px) {
     .wp-block-post-featured-image {
       flex-basis: 100%;
 
@@ -134,12 +163,11 @@
       }
     }
   }
-}
 
-@media (max-width: 767px) {
-  .posts-list-query {
-    .wp-block-heading {
-      font-size: var(--font-size-2xl--font-family-primary);
+  @media (max-width: 1200px) {
+    .wp-block-post-excerpt,
+    .wp-block-post-terms {
+      margin-top: 0;
     }
   }
 }
