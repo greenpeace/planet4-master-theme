@@ -23,6 +23,7 @@ export const PostSelector = attributes => {
     selected,
     placeholder,
     postType,
+    postParent,
     onChange,
     maxLength,
     maxSuggestions,
@@ -34,10 +35,14 @@ export const PostSelector = attributes => {
   const act_parent = window?.p4ge_vars?.planet4_options.act_page || null;
   const args = {per_page: -1, orderby: 'title', post_status: 'publish'};
   const posts = useSelect(select => {
-    if ('post' === postType || 'p4_action' === postType) {
+    if ('post' === postType || 'p4_action' === postType || 'page' === postType) {
       return [
         ...select('core').getEntityRecords('postType', postType, {include: selected}) || [],
-        ...select('core').getEntityRecords('planet4/v1', 'published', {post_type: postType, ...args}) || [],
+        ...select('core').getEntityRecords('planet4/v1', 'published', {
+          post_type: postType,
+          ...postParent && {post_parent: postParent},
+          ...args,
+        }) || [],
       ];
     }
 

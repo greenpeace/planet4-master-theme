@@ -28,6 +28,7 @@ class QueryLoopExtension
         };
 
         add_filter('rest_post_query', $postInFilter, 10, 2);
+        add_filter('rest_page_query', $postInFilter, 10, 2);
         add_filter('rest_p4_action_query', $postInFilter, 10, 2);
     }
 
