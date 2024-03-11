@@ -37,6 +37,7 @@ export const registerActionsListBlock = () => {
         sticky: '',
         inherit: false,
         postType: queryPostType,
+        postIn: [],
         ...!IS_NEW_IA && {postParent: ACT_PAGE},
       },
       layout: {
