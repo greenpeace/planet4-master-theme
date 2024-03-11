@@ -62,7 +62,7 @@
                             </address>
                         {% endif %}
                         <time class="single-post-time" pubdate>{{ post.post_date|date }}</time>
-                        {% set reading_time = post.reading_time %}
+                        {% set reading_time = post.reading_time_for_display %}
                         {% if reading_time %}
                             <span class="single-post-meta-bullet" aria-hidden="true">&#8226;</span>
                             <span class="single-post-meta-readtime">

@@ -131,6 +131,20 @@ class Context
     }
 
     /**
+     * Set reading_time datalayer value
+     * Requires milliseconds
+     */
+    public static function set_reading_time_datalayer(array &$context, object $post): void
+    {
+        $rt = $post->reading_time();
+        if ($rt === null) {
+            return;
+        }
+
+        $context['reading_time'] = $rt * 1000;
+    }
+
+    /**
      * Get campaign scope from value selected in the Global Projects dropdown.
      * Conditions:
      * - If Global Project equals "Local Campaign" then Scope is Local.

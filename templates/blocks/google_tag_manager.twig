@@ -59,6 +59,7 @@
       'gPlatform': 'Planet 4',
       'p4_blocks': '{{ p4_blocks }}',
       'post_categories': '{{ post_categories }}',
+      {{ reading_time ? "'reading_time': #{reading_time},"|raw : '' }}
     });
 
     {% if not post.password_required %}
