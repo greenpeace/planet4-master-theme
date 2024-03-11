@@ -20,7 +20,7 @@ class Published {
 	 *
 	 * @var string[]
 	 */
-	public const ALLOWED_TYPES = [ 'post', 'page' ];
+	public const ALLOWED_TYPES = [ 'post', 'page', 'p4_action' ];
 
 	/**
 	 * @var wpdb
