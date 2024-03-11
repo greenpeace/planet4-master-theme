@@ -24,7 +24,6 @@ class OpenGraphTest extends P4TestCase
      */
     public function test_post_custom_open_graph_data(array $post_data, string $template): void
     {
-
         // Get author user.
         $user = get_user_by('login', 'p4_author');
         wp_set_current_user($user->ID);
@@ -34,6 +33,7 @@ class OpenGraphTest extends P4TestCase
             0
         );
         $post_data['meta_input']['p4_og_image_id'] = $attachment_id;
+        $post_data['meta_input']['_thumbnail_id'] = $attachment_id;
         $post_id = $this->factory->post->create($post_data);
 
         $permalink = get_permalink($post_id);
@@ -94,12 +94,16 @@ class OpenGraphTest extends P4TestCase
      */
     public function test_post_open_graph_data(array $post_data, string $template): void
     {
-
         // Get author user.
         $user = get_user_by('login', 'p4_author');
         wp_set_current_user($user->ID);
 
         // Create a sample post.
+        $attachment_id = $this->factory->attachment->create_upload_object(
+            dirname(__DIR__) . '/tests/data/images/pressmedia.jpg',
+            0
+        );
+        $post_data['meta_input']['_thumbnail_id'] = $attachment_id;
         $post_id = $this->factory->post->create($post_data);
 
         $permalink = get_permalink($post_id);
@@ -142,7 +146,6 @@ class OpenGraphTest extends P4TestCase
      */
     public function posts_with_custom_og_provider(): array
     {
-
         return [
             [
                 [
