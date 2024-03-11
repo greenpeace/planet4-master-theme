@@ -442,17 +442,15 @@ class MasterSite extends TimberSite
      */
     public static function require_post_featured_image(array $data, array $postarr): ?array
     {
-        $thumbnail = (get_the_post_thumbnail() ?: null)
-            ?? $postarr['meta_input']['_thumbnail_id']
-            ?? null;
+        $post_id = $postarr['ID'];
+        $has_thumbnail = has_post_thumbnail($post_id) || isset($postarr['meta_input']['_thumbnail_id']);
         $types = Search\Filters\ContentTypes::get_all();
         if (
-            empty($thumbnail)
-            && !empty($data['post_status'])
+            !empty($data['post_status'])
             && $data['post_status'] === 'publish'
             && in_array($data['post_type'], array_keys($types))
+            && !$has_thumbnail
         ) {
-            debug_print_backtrace(\DEBUG_BACKTRACE_IGNORE_ARGS);
             wp_die(__('Featured image is a required field.', 'planet4-master-theme-backend'));
         }
 
