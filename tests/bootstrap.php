@@ -6,7 +6,9 @@
  * @package P4MT
  */
 
-define('WP_DEBUG', false);
+if (!defined('WP_DEBUG')) {
+    define('WP_DEBUG', false);
+}
 
 $_tests_dir = getenv('WP_TESTS_DIR');
 if (! $_tests_dir) {

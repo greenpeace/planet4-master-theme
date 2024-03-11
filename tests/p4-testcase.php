@@ -12,6 +12,8 @@
 // phpcs:ignore PSR1.Classes.ClassDeclaration.MissingNamespace
 class P4TestCase extends WP_UnitTestCase
 {
+    public int $attachment_id;
+
     /**
      * Setup test
      */
@@ -27,6 +29,10 @@ class P4TestCase extends WP_UnitTestCase
      */
     private function initialize_planet4_data(): void
     {
+        $this->attachment_id = (int) $this->factory->attachment->create_upload_object(
+            dirname(__DIR__) . '/tests/data/images/pressmedia.jpg',
+            0
+        );
 
         // Create a user with editor role.
         $this->factory->user->create(
@@ -55,6 +61,9 @@ class P4TestCase extends WP_UnitTestCase
                 'post_type' => 'page',
                 'post_title' => 'ACT',
                 'post_name' => 'act',
+                'meta_input' => [
+                    '_thumbnail_id' => $this->attachment_id,
+                ],
             ]
         );
 
@@ -63,6 +72,9 @@ class P4TestCase extends WP_UnitTestCase
                 'post_type' => 'page',
                 'post_title' => 'EXPLORE',
                 'post_name' => 'explore',
+                'meta_input' => [
+                    '_thumbnail_id' => $this->attachment_id,
+                ],
             ]
         );
 
@@ -72,6 +84,9 @@ class P4TestCase extends WP_UnitTestCase
                 'post_title' => 'Take action page',
                 'post_name' => 'take-action-page',
                 'post_parent' => $act_page_id,
+                'meta_input' => [
+                    '_thumbnail_id' => $this->attachment_id,
+                ],
             ]
         );
 

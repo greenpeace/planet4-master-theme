@@ -135,7 +135,7 @@ class MasterSite extends TimberSite
         add_action('save_post', [$this, 'save_meta_box_search'], 10, 2);
         add_action('save_post', [$this, 'set_featured_image'], 10, 2);
         add_filter('wp_insert_post_data', [$this, 'require_post_title'], 10, 1);
-        add_filter('wp_insert_post_data', [$this, 'require_post_featured_image'], 10, 1);
+        add_filter('wp_insert_post_data', [$this, 'require_post_featured_image'], 10, 2);
         // Save "p4_global_project_tracking_id" on post save.
         add_action('save_post', [$this, 'save_global_project_id'], 10, 1);
         add_action('post_updated', [$this, 'clean_post_cache'], 10, 3);
@@ -440,15 +440,19 @@ class MasterSite extends TimberSite
     /**
      * Make post featured image mandatory on publish.
      */
-    public static function require_post_featured_image(array $data): ?array
+    public static function require_post_featured_image(array $data, array $postarr): ?array
     {
+        $thumbnail = (get_the_post_thumbnail() ?: null)
+            ?? $postarr['meta_input']['_thumbnail_id']
+            ?? null;
         $types = Search\Filters\ContentTypes::get_all();
         if (
-            empty(get_the_post_thumbnail())
+            empty($thumbnail)
             && !empty($data['post_status'])
             && $data['post_status'] === 'publish'
             && in_array($data['post_type'], array_keys($types))
         ) {
+            debug_print_backtrace(\DEBUG_BACKTRACE_IGNORE_ARGS);
             wp_die(__('Featured image is a required field.', 'planet4-master-theme-backend'));
         }
 

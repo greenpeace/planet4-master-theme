@@ -32,6 +32,9 @@ class ActionTypeCustomTaxonomyTest extends P4TestCase
                 'post_title' => 'The name of the place is Babylon',
                 'post_name' => 'test-taxonomy-url',
                 'post_content' => 'test content',
+                'meta_input' => [
+                    '_thumbnail_id' => $this->attachment_id,
+                ],
             ]
         );
 
@@ -63,6 +66,9 @@ class ActionTypeCustomTaxonomyTest extends P4TestCase
                 'post_content' => 'test content',
                 'tax_input' => [
                     'action-type' => [ 'contest', 'event', 'petition' ],
+                ],
+                'meta_input' => [
+                    '_thumbnail_id' => $this->attachment_id,
                 ],
             ]
         );
