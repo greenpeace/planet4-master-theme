@@ -24,10 +24,6 @@
     width: 100%;
   }
 
-  &:not(.is-custom-layout-carousel).wp-block-post-template.is-layout-flow li {
-    width: 100% !important;
-  }
-
   .wp-block-columns.is-layout-flex {
     gap: $sp-2x;
   }
@@ -49,27 +45,65 @@
     }
   }
 
+  .wp-block-post-title {
+    font-size: 18px;
+
+    a {
+      -webkit-line-clamp: 2;
+    }
+
+    @include medium-and-less {
+      margin-top: $sp-x;
+    }
+
+    @include large-and-up {
+      font-size: 20px;
+    }
+  }
+
   .wp-block-group.is-layout-flow {
     flex-basis: 70%;
   }
 
   &.is-custom-layout-carousel {
-    .wp-block-post-title {
-      font-size: 18px;
+    .wp-block-columns {
+      flex-direction: column;
+      gap: $sp-2;
+      margin-bottom: 0;
+    }
 
-      @include large-and-up {
-        font-size: 20px;
+    .wp-block-post-terms:not(:first-child) {
+      display: none;
+    }
+
+    @include medium-and-less {
+      .wp-block-post {
+        width: 250px;
+      }
+
+      .wp-block-post-featured-image img {
+        height: 192px;
       }
     }
-  }
 
-  .wp-block-post-title {
-    color: var(--grey-900);
-    font-family: var(--font-family-tertiary);
-    margin-top: 5px;
+    @include medium-and-up {
+      .wp-block-post {
+        width: 276px;
+      }
+    }
 
-    a {
-      -webkit-line-clamp: 2;
+    @include large-and-up {
+      .wp-block-post-terms:not(:first-child) {
+        display: block;
+      }
+
+      .carousel-item-wrapper {
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+      .wp-block-post {
+        width: 100%;
+      }
     }
   }
 
@@ -83,19 +117,14 @@
   .wp-block-post-excerpt {
     margin-top: -15px;
 
-    &__excerpt {
+    p {
       width: 100%;
       margin-bottom: $sp-1;
       font-size: var(--font-size-m--font-family-secondary);
       -webkit-line-clamp: 3;
 
-      @include medium-and-up {
-        -webkit-line-clamp: 2;
-        width: 100%;
-      }
-
       @include large-and-up {
-        -webkit-line-clamp: 3;
+        line-height: 1.5;
       }
     }
   }
@@ -168,6 +197,29 @@
     .wp-block-post-excerpt,
     .wp-block-post-terms {
       margin-top: 0;
+    }
+  }
+
+  &.is-custom-layout-grid {
+    display: block !important;
+
+    .wp-block-columns {
+      flex-direction: column;
+      gap: $sp-2;
+      margin-bottom: 0;
+    }
+
+    .wp-block-post-template {
+      display: grid;
+      gap: $sp-3;
+
+      @include medium-and-up {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      @include large-and-up {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
     }
   }
 }

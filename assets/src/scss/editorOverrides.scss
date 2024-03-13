@@ -421,8 +421,8 @@ input.describe[type=text][data-setting=caption] {
   }
 }
 
-// Posts List Block Override
-.posts-list:not(.is-custom-layout-carousel) {
+// Posts List Block Override for the List layout
+.posts-list.is-custom-layout-list {
   .wp-block-post-template.is-layout-flow li {
     height: 240px;
     margin-bottom: 12px;

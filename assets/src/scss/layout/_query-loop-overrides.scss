@@ -24,19 +24,6 @@
       margin-bottom: 0;
     }
 
-    // Apply only to Posts List.
-    &.posts-list {
-      .wp-block-columns {
-        flex-direction: column;
-        gap: $sp-1;
-        margin-bottom: 0;
-      }
-
-      .wp-block-post-terms:not(:first-child) {
-        display: none;
-      }
-    }
-
     @include medium-and-less {
       .carousel {
         overflow: hidden;
@@ -64,31 +51,6 @@
           }
         }
       }
-
-      // Apply only to Actions List.
-      &.actions-list .wp-block-post {
-        width: 354px;
-      }
-
-      // Apply only to Posts List.
-      &.posts-list {
-        .wp-block-post {
-          width: 250px;
-        }
-
-        .wp-block-post-featured-image img {
-          height: 192px;
-        }
-      }
-    }
-
-    @include medium-and-up {
-      // Apply only to Posts List.
-      &.posts-list {
-        .wp-block-post {
-          width: 276px;
-        }
-      }
     }
 
     @include large-and-up {
@@ -100,26 +62,6 @@
         display: grid;
         column-gap: $sp-3;
         padding: $sp-1x $sp-1;
-      }
-
-      // Apply only to Posts List.
-      &.posts-list {
-        .wp-block-post-terms:not(:first-child) {
-          display: block;
-        }
-
-        .carousel-item-wrapper {
-          grid-template-columns: repeat(4, 1fr);
-        }
-
-        .wp-block-post {
-          width: 100%;
-        }
-      }
-
-      // Apply only to Actions List.
-      &.actions-list .carousel-item-wrapper {
-        grid-template-columns: repeat(3, 1fr);
       }
 
       .carousel-controls {
