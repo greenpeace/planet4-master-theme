@@ -63,14 +63,19 @@
     position: relative;
   }
 
-  .alignleft {
-    margin: 0 $sp-1 $sp-1 0;
-    padding-top: 6px;
+  &.alignleft {
+    float: left;
+    margin-inline-end: $sp-1;
   }
 
-  .alignright {
-    margin: 0 0 $sp-1 $sp-1;
-    padding-top: 6px;
+  &.alignright {
+    float: right;
+    margin-inline-start: $sp-1;
+  }
+
+  &.aligncenter {
+    margin-left: auto;
+    margin-right: auto;
   }
 
   @include medium-and-up {
