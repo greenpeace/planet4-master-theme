@@ -29,15 +29,7 @@
       "P4\\MasterTheme\\": "src/"
     }
   },
-  "extra": {
-    "installer-paths": {
-      "vendor/plugins/{$name}/": ["type:wordpress-plugin"]
-    }
-  },
   "require": {
-    "google/apiclient": "2.15.3",
-    "psr/log": "1.*",
-    "monolog/monolog": "^2.9"
   },
   "require-dev": {
     "squizlabs/php_codesniffer": "^3.7",
@@ -46,9 +38,9 @@
     "dealerdirect/phpcodesniffer-composer-installer": "^0.7.1",
     "laminas/laminas-dom": "^2.12",
     "phpunit/phpunit": "^7.5||^9.5",
-    "wpackagist-plugin/timber-library": "1.22.*",
     "yoast/phpunit-polyfills": "^1.1.0",
-    "doctrine/instantiator": "^1.5.0"
+    "doctrine/instantiator": "^1.5.0",
+    "timber/timber": "1.24.0"
   },
   "scripts": {
     "fixes": "vendor/bin/phpcbf",

@@ -138,7 +138,6 @@ class OpenGraphTest extends P4TestCase
      * Each row contains:
      * Post data, Php template, Attachment id
      *
-     * @return array
      */
     public function posts_with_custom_og_provider(): array
     {
@@ -192,7 +191,6 @@ class OpenGraphTest extends P4TestCase
      * Each row contains:
      * Post data, Php template
      *
-     * @return array
      */
     public function posts_provider(): array
     {

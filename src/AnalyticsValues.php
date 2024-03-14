@@ -314,7 +314,6 @@ final class AnalyticsValues
      * Returns local(NRO) project spreadsheet options.
      *
      * @param int $post_id The post id.
-     * @return array
      */
     public function local_projects_options(int $post_id): array
     {

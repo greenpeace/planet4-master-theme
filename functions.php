@@ -1,22 +1,22 @@
 <?php // phpcs:disable PSR1.Files.SideEffects.FoundWithSymbols
 
-/**
- * Functions
- *
- * @package P4MT
- */
+use P4\MasterTheme\Api;
+use P4\MasterTheme\Loader;
+use P4\MasterTheme\MediaArchive\Rest;
+use P4\MasterTheme\Post;
+use Timber\Timber;
 
-// Composer install might have happened inside the master-theme directory, instead of the app root. Specifically for
-// php lint and unit test job this is the case.
-// Also this helps with local development environments that pulled in changes for master-theme but did not rerun
-// base-fork's composer installation, which is currently tricky to do as it puts the fetched versions of master theme
-// and the plugins into the theme and plugin folders, which might be messy if you have changes there.
-// With this fallback for tests in place, you can just run composer dump autoload in master-theme.
-// Probably there's a better way to handle this, but for now let's try load both.
+// This theme vendor dir
 if (file_exists(__DIR__ . '/vendor/autoload.php')) {
     require_once __DIR__ . '/vendor/autoload.php';
-} else {
-    require_once __DIR__ . '/../../../../vendor/autoload.php';
+}
+// Local env base vendor dir
+if (file_exists(WP_CONTENT_DIR . '/vendor/autoload.php')) {
+    require_once WP_CONTENT_DIR . '/vendor/autoload.php';
+}
+// Prod env base vendor dir
+if (file_exists(dirname(ABSPATH) . '/vendor/autoload.php')) {
+    require_once dirname(ABSPATH) . '/vendor/autoload.php';
 }
 
 /**
@@ -79,37 +79,20 @@ function planet4_get_option(string $key = '', $default = null)
     return $options[ $key ] ?? $default;
 }
 
-use P4\MasterTheme\MediaArchive\Rest;
-use P4\MasterTheme\Api;
-use P4\MasterTheme\Loader;
-use P4\MasterTheme\Post;
-use Timber\Timber;
-
-if (! class_exists('Timber')) {
-    add_action(
-        'admin_notices',
-        function (): void {
-            printf(
-                '<div class="error"><p>Timber not activated. Make sure you activate the plugin in <a href="%s">Plugins menu</a></p></div>', // phpcs:ignore Generic.Files.LineLength.MaxExceeded
-                esc_url(admin_url('plugins.php#timber'))
-            );
-        }
-    );
-
+// Timber loading
+if (!class_exists(Timber::class)) {
+    add_action('admin_notices', function (): void {
+        echo '<div class="error"><p>Timber not activated. '
+            . 'Make sure you installed the composer package `timber/timber`.</p></div>';
+    });
     add_filter(
         'template_include',
         fn() => get_stylesheet_directory() . '/static/no-timber.html'
     );
-
     return;
 }
-
-// Enable Timber template cache unless this is a debug environment.
-if (defined('WP_DEBUG') && is_bool(WP_DEBUG)) {
-    Timber::$cache = ! WP_DEBUG;
-} else {
-    Timber::$cache = true;
-}
+Timber::$cache = defined('WP_DEBUG') ? !WP_DEBUG : true;
+$timber = new Timber();
 
 add_action(
     'rest_api_init',
