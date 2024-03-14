@@ -55,7 +55,6 @@ class MasterSite extends TimberSite
     /**
      * Sort options
      *
-     * @var array $sort_options
      */
     protected array $sort_options;
 
@@ -759,7 +758,6 @@ class MasterSite extends TimberSite
      *
      * @param array $allowedproperties Default allowed CSS properties.
      *
-     * @return array
      */
     public function set_custom_allowed_css_properties(array $allowedproperties): array
     {
@@ -781,7 +779,6 @@ class MasterSite extends TimberSite
      * @param array  $allowedposttags Default allowed tags.
      * @param string $context         The context for which to retrieve tags.
      *
-     * @return array
      */
     public function set_custom_allowed_attributes_filter(array $allowedposttags, string $context): array
     {
@@ -1646,7 +1643,6 @@ class MasterSite extends TimberSite
      *
      * @param array $endpoints The available endpoints.
      *
-     * @return array
      */
     public function disable_block_directory_endpoint(array $endpoints): array
     {

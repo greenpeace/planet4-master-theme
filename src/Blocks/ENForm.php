@@ -135,8 +135,6 @@ class ENForm extends BaseBlock
 
     /**
      * @param array $attributes Block attributes.
-     *
-     * @return array
      */
     public static function update_data(array $attributes): array
     {
@@ -201,8 +199,6 @@ class ENForm extends BaseBlock
      * Additional background image data.
      *
      * @param array $attributes Block attributes.
-     *
-     * @return array
      */
     private static function get_background_data(array $attributes): array
     {
@@ -257,8 +253,6 @@ class ENForm extends BaseBlock
      * Get post data to share via social sharing functionalities.
      *
      * @param int $post_id Post ID.
-     *
-     * @return array
      */
     private static function get_shareable_data(int $post_id): array
     {

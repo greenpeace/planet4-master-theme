@@ -133,7 +133,6 @@ class CategoryPageTest extends P4TestCase
     /**
      * Provide posts data to be used by wp factories.
      *
-     * @return array
      */
     public function get_posts(): array
     {
