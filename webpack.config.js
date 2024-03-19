@@ -54,6 +54,10 @@ module.exports = {
     SocialMediaEditorStyle: './assets/src/scss/blocks/SocialMedia/SocialMediaEditorStyle.scss',
     ENFormScript: './assets/src/blocks/ENForm/ENFormScript.js',
     ENFormEditorScript: './assets/src/blocks/ENForm/ENFormEditorScript.js',
+    TimelineScript: './assets/src/blocks/Timeline/TimelineScript.js',
+    TimelineEditorScript: './assets/src/blocks/Timeline/TimelineEditorScript.js',
+    TimelineStyle: './assets/src/scss/blocks/Timeline/TimelineStyle.scss',
+    TimelineEditorStyle: './assets/src/scss/blocks/Timeline/TimelineEditorStyle.scss',
   },
   output: {
     filename: '[name].js',

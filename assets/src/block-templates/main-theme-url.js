@@ -1,1 +1,1 @@
-export default window.p4bk_vars.themeUrl || '';
+export default window.p4_vars.themeUrl || '';
