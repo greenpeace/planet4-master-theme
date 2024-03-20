@@ -47,7 +47,7 @@ class M028MovePageHeaderSideBarOptions extends MigrationScript
 
                 $updated_args = array(
                     'ID' => $page->ID,
-                    'post_title' => $page_header_title,
+                    'post_title' => wp_slash($page_header_title),
                 );
 
                 self::update_meta_options($page_meta_data, $page_header_title, $page);
@@ -125,7 +125,7 @@ class M028MovePageHeaderSideBarOptions extends MigrationScript
                 self::update_meta_options($page_meta_data, $page_header_title, $page, true);
 
                 $post_args = array(
-                    'post_content' => $updated_post_content,
+                    'post_content' => wp_slash($updated_post_content),
                     'ID' => $page->ID,
                 );
 
@@ -180,8 +180,8 @@ class M028MovePageHeaderSideBarOptions extends MigrationScript
                 self::update_meta_options($page_meta_data, $page_header_title, $page);
 
                 $post_args = array(
-                    'post_content' => $updated_post_content,
-                    'post_title' => $post_title,
+                    'post_content' => wp_slash($updated_post_content),
+                    'post_title' => wp_slash($post_title),
                     'ID' => $page->ID,
                 );
 
