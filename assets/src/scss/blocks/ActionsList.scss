@@ -15,6 +15,34 @@
     }
   }
 
+  ul li {
+    position: relative;
+  }
+
+  .actions-list-links {
+    text-decoration: none;
+    height: 100%;
+
+    & > *:first-child:not(.wp-block-post-featured-image) {
+      // This padding-top is added only when the figure is not being rendered
+      padding-top: calc(196px + $sp-3);
+
+      @include large-and-up {
+        padding-top: calc(220px + $sp-3);
+      }
+    }
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+  }
+
   .carousel-controls,
   .carousel-indicators {
     display: none;
@@ -35,27 +63,29 @@
     flex-direction: column;
     min-height: 490px;
 
-    &:hover {
-      box-shadow: 0 1px 8px rgba(0, 0, 0, 0.32);
+    &:hover,
+    &:focus {
+      box-shadow: 0 4px 14px rgba(0, 0, 0, .2);
+
+      .wp-block-read-more {
+        background: var(--button-primary--hover--background);
+        color: var(--button-primary--hover--color, var(--color-text-button--cta));
+        border: var(--button-primary--hover--border, 1px solid transparent);
+      }
+
+      .wp-block-post-title a {
+        text-decoration: underline;
+      }
     }
 
     .read-more-nav {
       display: flex;
       justify-content: flex-end;
-      margin-top: auto;
+      margin-top: 25%;
 
       a {
         margin-bottom: 0;
         margin-inline-end: 0;
-      }
-    }
-
-    & > *:first-child:not(.wp-block-post-featured-image) {
-      // This padding-top is added only when the figure is not being rendered
-      padding-top: calc(196px + $sp-3);
-
-      @include large-and-up {
-        padding-top: calc(220px + $sp-3);
       }
     }
   }
