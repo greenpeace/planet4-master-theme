@@ -81,7 +81,7 @@ class UiIntegration
             function (): void {
                 $option_key = 'p4ml_main_settings';
                 // phpcs:disable Generic.Files.LineLength.MaxExceeded
-                $description = __('Please enter your Image Archive username and password. Please note that you will need to ask from the Image Archive administrators to enable API access for your account.', 'planet4-master-theme-backend');
+                $description = __('Please enter your Greenpeace Media username and password. Please note that you will need to ask from the Greenpeace Media administrators to enable API access for your account.', 'planet4-master-theme-backend');
                 // phpcs:enable Generic.Files.LineLength.MaxExceeded
                 $form = cmb2_metabox_form(
                     [
