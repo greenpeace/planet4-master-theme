@@ -1,6 +1,7 @@
 export const POSTS_LIST_BLOCK_NAME = 'planet4-blocks/posts-list';
 export const POSTS_LISTS_LAYOUT_TYPES = [
   {label: 'List', value: 'default', columnCount: 3},
+  {label: 'Grid', value: 'grid', columnCount: 4},
   {label: 'Carousel', value: 'flex', columnCount: 8},
 ];
 
