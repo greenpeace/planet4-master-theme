@@ -44,8 +44,7 @@ abstract class BaseBlock
 
         // Return empty string if rendered output contains only whitespace or new lines.
         // If it is a rest request from editor/admin area, return a message that block has no content.
-        $empty_content = (defined('REST_REQUEST') && REST_REQUEST) ?
-            '<div class="EmptyMessage">' . $empty_message . '</div>' : '';
+        $empty_content = $this->is_rest_request() ? '<div class="EmptyMessage">' . $empty_message . '</div>' : '';
 
         return ctype_space($block_output) ? $empty_content : $block_output;
     }
@@ -69,6 +68,14 @@ abstract class BaseBlock
                 'message' => $message,
             ]
         );
+    }
+
+    /**
+     * Returns if current request is a rest api request.
+     */
+    public static function is_rest_request(): bool
+    {
+        return defined('REST_REQUEST') && REST_REQUEST;
     }
 
     /**
