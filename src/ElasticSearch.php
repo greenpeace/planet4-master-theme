@@ -87,8 +87,9 @@ class ElasticSearch extends Search
         add_filter('ep_formatted_args', [ $this, 'ensure_function_score_exists' ], 18, 1);
         add_filter('ep_formatted_args', [ $this, 'set_full_text_search' ], 19, 1);
         add_filter('ep_formatted_args', [ $this, 'set_results_weight' ], 20, 1);
-
         add_filter('ep_formatted_args', [ $this, 'add_mime_type_filter' ], 21, 1);
+
+        add_filter('ep_bypass_exclusion_from_search', fn() => false, 10, 0);
 
         if (wp_doing_ajax()) {
             return;
