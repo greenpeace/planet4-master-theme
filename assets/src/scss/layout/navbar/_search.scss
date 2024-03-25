@@ -146,7 +146,7 @@
 }
 
 .nav-search-clear {
-  background-color: var(--grey-900);
+  background-color: var(--top-navigation--color, var(--grey-900));
   border: none;
   float: right;
   margin-inline-end: 36px;
@@ -162,7 +162,6 @@
   }
 
   @include x-large-and-up {
-    background-color: var(--top-navigation--color, var(--white));
     display: inline-block;
     margin-inline-end: 0;
   }
