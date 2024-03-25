@@ -18,7 +18,6 @@
   "--page-section-header--color": "#044362",
   "--top-page-tags--tag-item--color": "#2cabb1",
   "--block-articles--article--tags--display": "none",
-  "--skewed-overlay--display": "none",
   "--top-page-tags--tag-wrap--display": "none",
   "--body--font-family": "Roboto, sans-serif",
   "--button--font-family": "Montserrat,sans-serif",
