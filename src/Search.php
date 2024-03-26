@@ -107,25 +107,6 @@ abstract class Search
      */
     public static function add_general_filters(): void
     {
-        // Allow ajax search in elasticpress search query.
-        add_filter(
-            'ep_ajax_wp_query_integration',
-            function () {
-                $action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
-                return 'get_paged_posts' === $action;
-            },
-            10
-        );
-
-        // Call apply filters to catch issue in WPML's ElasticPress integration, which uses the wrong filter name.
-        add_filter(
-            'ep_formatted_args',
-            function ($args) {
-                return apply_filters('ep_search_args', $args);
-            },
-            10,
-            1
-        );
         // Not sure if still needed, but there were cases in which the filters were not suppressed, causing content
         // to be unintentionally translated while syncing.
         add_filter(
@@ -223,20 +204,7 @@ abstract class Search
                 return $args;
             }
         );
-        // Because of how the search is currently set up (using admin-ajax) this ElasticPress filter was not being
-        // applied for subsequent page loads, only for the initial one.
-        if (
-            ( ! isset($_GET['orderby']) || '_score' === $_GET['orderby'] )
-            && wp_doing_ajax()
-            && class_exists(\ElasticPress\Feature\Search\Search::class)
-        ) {
-            add_filter(
-                'ep_formatted_args',
-                [ new \ElasticPress\Feature\Search\Search(), 'weight_recent' ],
-                10,
-                2
-            );
-        }
+
         // Only invoked if the page for posts is set.
         if (null !== get_option('page_for_posts')) {
             add_filter(
@@ -319,7 +287,7 @@ abstract class Search
         $search_async->search_query = urldecode(sanitize_text_field($_GET['search_query']));
 
         // Get the decoded url query string and then use it as key for redis.
-        $query_string_full = urldecode(sanitize_text_field($_SERVER['QUERY_STRING']));
+        $query_string_full = urldecode($_SERVER['QUERY_STRING']);
         $query_string = str_replace('&query-string=', '', strstr($query_string_full, '&query-string='));
 
         $search_async->current_page = $paged;
@@ -528,23 +496,11 @@ abstract class Search
         }
 
         $args['s'] = $this->search_query;
-        // Add sort by date.
-        if (wp_doing_ajax()) {
-            // Get the decoded url query string and then use it as key for redis.
-            $query_string_full = urldecode(sanitize_text_field($_SERVER['QUERY_STRING']));
-            $query_string = str_replace(
-                '&query-string=',
-                '',
-                strstr($query_string_full, '&query-string=')
-            );
-            parse_str($query_string, $filters_array);
-            $selected_sort = $filters_array['orderby'] ?? self::DEFAULT_SORT;
-        } else {
-            $selected_sort = empty($_GET['orderby'])
-                ? null : sanitize_text_field($_GET['orderby']);
-        }
+
+        $selected_sort = empty($_GET['orderby']) ? null : sanitize_text_field($_GET['orderby']);
         $selected_sort = sanitize_sql_orderby($selected_sort);
 
+        // Add sort by date.
         if ($selected_sort && self::DEFAULT_SORT !== $selected_sort) {
             $args['orderby'] = 'date';
             // Order by post_date = Newest[desc]/Oldest[asc].
