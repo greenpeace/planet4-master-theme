@@ -77,6 +77,16 @@ jobs:
         auth:
           <<: *docker_auth
 
+  php83-tests:
+    <<: *php_job
+    docker:
+      - image: greenpeaceinternational/p4-unit-tests:php8.3
+        auth:
+          <<: *docker_auth
+      - image: cimg/mysql:5.7
+        auth:
+          <<: *docker_auth
+
   frontend-tests:
     docker:
       - image: greenpeaceinternational/p4-unit-tests:node16.19.0
@@ -365,6 +375,8 @@ workflows:
   branch:
     jobs:
       - php81-tests:
+          <<: *on_pr
+      - php83-tests:
           <<: *on_pr
       - frontend-tests:
           <<: *on_pr
