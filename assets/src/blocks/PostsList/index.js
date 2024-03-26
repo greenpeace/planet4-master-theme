@@ -34,6 +34,7 @@ export const registerPostsListBlock = () => {
         sticky: '',
         inherit: false,
         postIn: [],
+        hasPassword: false,
       },
       layout: {
         type: 'default',
