@@ -267,12 +267,14 @@ final class Loader
      * Enqueue a style with a version based on the file change time.
      *
      * @param string $relative_path An existing css file.
-     * @param null   $handle The handle to enqueue with. Generated from path if empty.
+     * @param string|null   $handle The handle to enqueue with. Generated from path if empty.
      * @param array  $deps Dependencies of this style.
      */
-    public static function enqueue_versioned_style(string $relative_path, $handle = null, array $deps = []): void
-    {
-
+    public static function enqueue_versioned_style(
+        string $relative_path,
+        ?string $handle = null,
+        array $deps = []
+    ): void {
         $relative_path = '/' . ltrim($relative_path, '/');
 
         $version = self::get_timestamp(get_template_directory() . $relative_path);
