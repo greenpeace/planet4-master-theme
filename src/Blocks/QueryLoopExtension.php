@@ -7,6 +7,7 @@ namespace P4\MasterTheme\Blocks;
 /**
  * Handle Posts/Actions List block manual override query with custom `postIn` filter.
  * `include` is not used because it generates some issues with getEntityRecords filters.
+ * Handle filtering password-potected posts.
  */
 class QueryLoopExtension
 {
@@ -23,6 +24,10 @@ class QueryLoopExtension
             if (!empty($postIn)) {
                 $args['post__in'] = array_map('intval', (array) $postIn);
                 $args['orderby'] = 'post__in';
+            }
+            if ($request->has_param('hasPassword')) {
+                $hasPassword = $request->get_param('hasPassword');
+                $args['has_password'] = $hasPassword !== false && $hasPassword !== 'false';
             }
             return $args;
         };
@@ -41,6 +46,9 @@ class QueryLoopExtension
                 if (!empty($blockQuery['postIn'])) {
                     $query['post__in'] = array_map('intval', (array) $blockQuery['postIn']);
                     $query['orderby'] = 'post__in';
+                }
+                if (isset($blockQuery['hasPassword'])) {
+                    $query['has_password'] = (bool) $blockQuery['hasPassword'];
                 }
                 return $query;
             },
