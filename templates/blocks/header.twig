@@ -1,5 +1,5 @@
 {% if ( header_title ) %}
-    {% if not hide_background %}
+    {% if not hide_background and page_category != 'News' %}
         <div class="skewed-overlay"></div>
     {% endif %}
     {% set page_header_show = ( header_subtitle or header_description or not hide_page_title )  %}

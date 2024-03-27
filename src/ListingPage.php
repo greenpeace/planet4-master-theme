@@ -48,6 +48,11 @@ class ListingPage
         $this->context['page_category'] = is_home() ? 'News' : 'Listing Page';
         $this->context['og_type'] = isset($this->context['author']) ? 'profile' : 'website';
 
+        // For the News & Stories page we don't need more context.
+        if (is_home()) {
+            return;
+        }
+
         $this->add_listing_page_content();
         $this->set_featured_action();
         $this->set_news_page_link();
@@ -111,5 +116,69 @@ class ListingPage
     public function view(): void
     {
         Timber::render($this->templates, $this->context);
+    }
+
+    /**
+     * Return posts to be dynamically rendered in the frontend.
+     */
+    public static function get_posts(): array
+    {
+        $posts = wp_get_recent_posts([
+            'orderby' => 'date',
+            'post_status' => 'publish',
+            'has_password' => false,
+            'suppress_filters' => false,
+            'numberposts' => -1,
+        ]);
+
+        $to_return = [];
+
+        foreach ($posts as $post) {
+            $post['alt_text'] = '';
+            $author_override = get_post_meta($post['ID'], 'p4_author_override', true);
+            $post['author_name'] = '' === $author_override ?
+                get_the_author_meta('display_name', $post['post_author']) : $author_override;
+            $post['author_url'] = '' === $author_override ? get_author_posts_url($post['post_author']) : '#';
+
+            if (has_post_thumbnail($post['ID'])) {
+                $img_id = get_post_thumbnail_id($post['ID']);
+                $post['alt_text'] = get_post_meta($img_id, '_wp_attachment_image_alt', true);
+                $post['thumbnail_url'] = get_the_post_thumbnail_url($post['ID'], 'articles-medium-large');
+                $post['thumbnail_srcset'] = wp_get_attachment_image_srcset($img_id, 'articles-medium-large');
+            }
+
+            $wp_tags = wp_get_post_tags($post['ID']);
+            $tags = [];
+
+            if ($wp_tags) {
+                foreach ($wp_tags as $wp_tag) {
+                    $tags_data['name'] = $wp_tag->name;
+                    $tags_data['link'] = get_tag_link($wp_tag);
+                    $tags_data['id'] = $wp_tag->term_id;
+                    $tags[] = $tags_data;
+                }
+            }
+
+            $post['tags'] = $tags;
+            $page_type_data = get_the_terms($post['ID'], 'p4-page-type');
+            $page_type = '';
+            $page_type_id = '';
+
+            if ($page_type_data && ! is_wp_error($page_type_data)) {
+                $page_type = $page_type_data[0]->name;
+                $page_type_id = $page_type_data[0]->term_id;
+            }
+
+            $post['page_type'] = $page_type;
+            $post['page_type_link'] = get_term_link($page_type_id);
+            $post['page_type_id'] = $page_type_id;
+            $post['link'] = get_permalink($post['ID']);
+            $post['date_formatted'] = get_the_date('', $post['ID']);
+            $post['reading_time'] = (new Post($post['ID']))->reading_time();
+
+            $to_return[] = $post;
+        }
+
+        return $to_return;
     }
 }
