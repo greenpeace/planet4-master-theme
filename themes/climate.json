@@ -29,7 +29,6 @@
   "--link--hover--color": "#837ac3",
   "--article-list-item-tags--tag-wrap--display": "none",
   "--enform-extra-header-placeholder--counter-block--progress-container--display": "none",
-  "--skewed-overlay--display": "none",
   "--site-footer--minimal--icon--fill": "#66cc00",
   "--block-articles--article--meta--font-family": "Jost,sans-serif",
   "--block-columns--column-heading--font-family": "Jost,sans-serif",
