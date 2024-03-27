@@ -318,6 +318,8 @@ class MasterSite extends TimberSite
                 return get_template_directory() . '/taxonomy.php';
             }
         );
+
+        AuthorPage::hooks();
     }
 
     /**
