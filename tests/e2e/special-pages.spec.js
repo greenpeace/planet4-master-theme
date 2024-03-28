@@ -15,11 +15,17 @@ test('Test special pages (Act and Explore)', async ({page, requestUtils, admin})
     const actPage = await requestUtils.createPage({
       title: 'Act page test',
       content: '<!-- wp:paragraph --><p>Random content</p><!-- /wp:paragraph -->',
+      meta: {
+        _thumbnail_id: 354,
+      },
       status: 'publish',
     });
     const explorePage = await requestUtils.createPage({
       title: 'Explore page test',
       content: '<!-- wp:paragraph --><p>Random content</p><!-- /wp:paragraph -->',
+      meta: {
+        _thumbnail_id: 354,
+      },
       status: 'publish',
     });
 

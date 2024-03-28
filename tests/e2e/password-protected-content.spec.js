@@ -1,5 +1,6 @@
 import {test, expect} from './tools/lib/test-utils.js';
 import {publishPostAndVisit} from './tools/lib/post.js';
+import {addFeaturedImage} from './tools/lib/editor.js';
 
 const TEST_TITLE = 'Test Private Page';
 const TEST_PARAGRAPH = 'This is a paragraph.';
@@ -9,6 +10,7 @@ test.useAdminLoggedIn();
 
 test('check password protected content', async ({page, admin, editor}) => {
   await admin.createNewPost({postType: 'page', title: TEST_TITLE, legacyCanvas: true});
+  addFeaturedImage({editor});
 
   // Add a dummy paragraph.
   await editor.canvas.getByRole('button', {name: 'Add default block'}).click();

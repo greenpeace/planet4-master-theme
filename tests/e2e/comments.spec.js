@@ -11,6 +11,9 @@ test('Test adding a Comment to a Post', async ({page, requestUtils, admin}) => {
         <p>This is a test post</p>
       <!-- /wp:paragraph -->
     `,
+    meta: {
+      _thumbnail_id: 354,
+    },
     status: 'publish',
   });
 
