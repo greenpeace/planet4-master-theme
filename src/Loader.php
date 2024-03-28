@@ -167,6 +167,7 @@ final class Loader
         new Blocks\Happypoint();//NOSONAR
         new Blocks\SocialMedia();//NOSONAR
         new Blocks\Media();//NOSONAR
+        new Blocks\Timeline();//NOSONAR
 
         if (!BetaBlocks::is_active()) {
             return;
