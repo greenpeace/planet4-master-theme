@@ -133,7 +133,8 @@ class MasterSite extends TimberSite
         add_filter('wp_kses_allowed_html', [$this, 'set_custom_allowed_attributes_filter'], 10, 2);
         add_action('add_meta_boxes', [$this, 'add_meta_box_search'], 10, 2);
         add_action('save_post', [$this, 'save_meta_box_search'], 10, 2);
-        add_action('save_post', [$this, 'require_post_data'], 10, 2);
+        add_action('save_post', [$this, 'set_featured_image'], 10, 2);
+        add_filter('wp_insert_post_data', [$this, 'require_post_title'], 10, 1);
         // Save "p4_global_project_tracking_id" on post save.
         add_action('save_post', [$this, 'save_global_project_id'], 10, 1);
         add_action('post_updated', [$this, 'clean_post_cache'], 10, 3);
@@ -380,31 +381,29 @@ class MasterSite extends TimberSite
     }
 
     /**
-     * Make post title and featured image mandatory on publish.
+     * Sets as featured image of the post the first image found attached in the post's content (if any).
      *
-     * @param int     $post_id The ID of the current Post.
-     * @param WP_Post $post The current Post.
+     * @param int     $post_id The ID of the current post.
+     * @param WP_Post $post The current post.
      */
-    public function require_post_data(int $post_id, WP_Post $post): void
+    public function set_featured_image(int $post_id, WP_Post $post): void
     {
+
         $types = Search\Filters\ContentTypes::get_all();
-        // Ignore autosave, check user's capabilities, post status and post type.
+        // Ignore autosave, check user's capabilities and post type.
         if (
             defined('DOING_AUTOSAVE') && DOING_AUTOSAVE
             || !current_user_can('edit_post', $post_id)
-            || $post->post_status !== 'publish'
             || !in_array($post->post_type, array_keys($types))
         ) {
             return;
         }
 
-        // Check if post has title.
-        if (empty($post->post_title)) {
-            wp_die(__('Title is a required field.', 'planet4-master-theme-backend'));
-        }
+        // Check if user has set the featured image manually.
+        $user_set_featured_image = get_post_meta($post_id, '_thumbnail_id', true);
 
-        // Check if post already has a featured image.
-        if (get_post_meta($post_id, '_thumbnail_id', true) || has_post_thumbnail($post_id)) {
+        // Apply this behavior only if there is not already a featured image.
+        if ($user_set_featured_image) {
             return;
         }
 
@@ -412,10 +411,28 @@ class MasterSite extends TimberSite
         // and get the id of the image from the elements class name.
         preg_match_all('/<img.+wp-image-(\d+).*>/i', $post->post_content, $matches);
         if (!isset($matches[1][0]) || !is_numeric($matches[1][0])) {
-            wp_die(__('Featured image is a required field.', 'planet4-master-theme-backend'));
+            return;
         }
 
         set_post_thumbnail($post_id, $matches[1][0]);
+    }
+
+    /**
+     * Make post title mandatory on publish.
+     */
+    public static function require_post_title(array $data): ?array
+    {
+        $types = Search\Filters\ContentTypes::get_all();
+        if (
+            empty($data['post_title'])
+            && !empty($data['post_status'])
+            && $data['post_status'] === 'publish'
+            && in_array($data['post_type'], array_keys($types))
+        ) {
+            wp_die(__('Title is a required field.', 'planet4-master-theme-backend'));
+        }
+
+        return $data;
     }
 
     /**
