@@ -15,6 +15,9 @@ test('check search works', async ({page, requestUtils}) => {
         <p>The redirect page for the tag</p>
       <!-- /wp:paragraph -->
     `,
+    meta: {
+      _thumbnail_id: 354,
+    },
     status: 'publish',
   });
 
@@ -38,6 +41,9 @@ test('check search works', async ({page, requestUtils}) => {
         <p>This is a search test post</p>
       <!-- /wp:paragraph -->
     `,
+    meta: {
+      _thumbnail_id: 354,
+    },
     status: 'publish',
     tags: [tag.id],
   });

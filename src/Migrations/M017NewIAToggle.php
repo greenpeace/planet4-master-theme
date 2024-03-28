@@ -23,10 +23,10 @@ class M017NewIAToggle extends MigrationScript
 
         // If any of the old options was on then enable new IA toggle.
         if (
-            $planet4_ia['action_post_type']
-            || $planet4_ia['list_page_pagination']
-            || $planet4_ia['mobile_tabs_menu']
-            || $planet4_ia['post_page_category_links']
+            $planet4_ia['action_post_type'] ?? null
+            || $planet4_ia['list_page_pagination'] ?? null
+            || $planet4_ia['mobile_tabs_menu'] ?? null
+            || $planet4_ia['post_page_category_links'] ?? null
         ) {
             $options['new_ia'] = true;
         }

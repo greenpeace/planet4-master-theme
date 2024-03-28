@@ -47,6 +47,9 @@ test.describe('Gravity Forms tests', () => {
     const newPost = await requestUtils.createPost({
       title: `Gravity Forms test post - ${testId}`,
       content: `<!-- wp:gravityforms/form {"formId":"${createdForm.id}"} /-->`,
+      meta: {
+        _thumbnail_id: 354,
+      },
       status: 'publish',
     });
     await page.goto(newPost.link);

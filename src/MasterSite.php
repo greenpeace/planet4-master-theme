@@ -383,25 +383,27 @@ class MasterSite extends TimberSite
     /**
      * Sets as featured image of the post the first image found attached in the post's content (if any).
      *
-     * @param int     $post_id The ID of the current Post.
-     * @param WP_Post $post The current Post.
+     * @param int     $post_id The ID of the current post.
+     * @param WP_Post $post The current post.
      */
     public function set_featured_image(int $post_id, WP_Post $post): void
     {
 
-        // Ignore autosave.
-        if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+        $types = Search\Filters\ContentTypes::get_all();
+        // Ignore autosave, check user's capabilities and post type.
+        if (
+            defined('DOING_AUTOSAVE') && DOING_AUTOSAVE
+            || !current_user_can('edit_post', $post_id)
+            || !in_array($post->post_type, array_keys($types))
+        ) {
             return;
         }
-        // Check user's capabilities.
-        if (!current_user_can('edit_post', $post_id)) {
-            return;
-        }
-        // Check if user has set the featured image manually or if he has removed it.
+
+        // Check if user has set the featured image manually.
         $user_set_featured_image = get_post_meta($post_id, '_thumbnail_id', true);
 
-        // Apply this behavior to a Post and only if it does not already a featured image.
-        if ('post' !== $post->post_type || $user_set_featured_image) {
+        // Apply this behavior only if there is not already a featured image.
+        if ($user_set_featured_image) {
             return;
         }
 
