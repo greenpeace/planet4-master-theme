@@ -1,0 +1,86 @@
+.enform-full-width {
+  .container {
+    padding: 0;
+  }
+
+  .enform {
+    color: white;
+    padding: $sp-4;
+    padding-bottom: 42px;
+
+    .title-and-description {
+      h2 {
+        margin-bottom: 16px;
+      }
+
+      .form-description {
+        margin-bottom: 32px;
+      }
+    }
+
+    form {
+      .custom-control .custom-control-description {
+        color: var(--white);
+
+        a {
+          color: var(--white);
+        }
+      }
+
+      .en__field--check {
+        margin-top: 16px;
+
+        @include medium-and-up {
+          width: 100%;
+        }
+
+        label {
+          margin-bottom: 0;
+        }
+
+        .form-group {
+          margin-bottom: 0;
+        }
+      }
+
+      .form-check-label-block {
+        padding: 0;
+      }
+
+      .submit {
+        display: flex;
+        margin-top: 0;
+
+        @include medium-and-up {
+          justify-content: center;
+        }
+
+        @include large-and-up {
+          justify-content: left;
+        }
+
+        button {
+          padding: 0;
+          margin-bottom: 0;
+
+          @include medium-and-up {
+            width: 380px !important;
+          }
+
+          @include large-and-up {
+            width: 32% !important;
+          }
+        }
+      }
+
+      .enform-legal {
+        margin-top: 24px;
+
+        @include large-and-up {
+          margin-top: 16px;
+          width: 66%;
+        }
+      }
+    }
+  }
+}

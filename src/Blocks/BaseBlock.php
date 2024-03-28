@@ -85,11 +85,11 @@ abstract class BaseBlock
      * exception, so adding a return after triggers another CS rule. Disabling the violated rule,
      * Squiz.Commenting.FunctionComment.InvalidNoReturn, is not working in the doc comment.
      *
-     * @param array $fields The old version of the block attributes.
+     * @param array $attributes The old version of the block attributes.
      * @throws NotImplemented If no implementation is given by the subclass.
      * @phpcs:disable SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter
      */
-    public static function update_data(array $fields): void
+    public static function update_data(array $attributes): array
     {
         throw new NotImplemented('Method update_data is not implemented for ' . static::class);
     }

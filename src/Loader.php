@@ -5,6 +5,7 @@ namespace P4\MasterTheme;
 use P4\MasterTheme\Settings\Features;
 use P4\MasterTheme\Features\Planet4Blocks;
 use P4\MasterTheme\Features\Dev\BetaBlocks;
+use P4\MasterTheme\View\View;
 use RuntimeException;
 
 /**
@@ -54,6 +55,7 @@ final class Loader
     private function __construct(array $services)
     {
         $this->load_services($services);
+        $this->load_block_services();
         $this->add_filters();
         Commands::load();
 
@@ -135,6 +137,40 @@ final class Loader
         }
     }
 
+     /**
+     * Inject dependencies for blocks.
+     */
+    private function load_block_services(): void
+    {
+        if (!is_admin() || ! Planet4Blocks::is_active()) {
+            return;
+        }
+
+        if (! defined('P4_MASTER_THEME_EN_SLUG_NAME')) {
+            define('P4_MASTER_THEME_EN_SLUG_NAME', 'engagingnetworks');
+        }
+
+        if (! defined('P4_MASTER_THEME_LANGUAGES')) {
+            define(
+                'P4_MASTER_THEME_LANGUAGES',
+                [
+                    'en_US' => 'English',
+                    'el_GR' => 'Ελληνικά',
+                ]
+            );
+        }
+
+        $services = [];
+        $services[] = Controllers\Api\RestController::class;
+        $services[] = Controllers\Menu\EnformPostController::class;
+        $services[] = Controllers\Menu\EnSettingsController::class;
+
+        $view = new View();
+        foreach ($services as $service) {
+            (new $service($view))->load();
+        }
+    }
+
     /**
      * Gets the loaded services.
      *
@@ -159,14 +195,15 @@ final class Loader
         new Blocks\CarouselHeader();//NOSONAR
         new Blocks\Cookies();//NOSONAR
         new Blocks\Counter();//NOSONAR
+        new Blocks\ENForm();//NOSONAR
         new Blocks\Gallery();//NOSONAR
         new Blocks\GuestBook();//NOSONAR
+        new Blocks\Happypoint();//NOSONAR
+        new Blocks\Media();//NOSONAR
+        new Blocks\SocialMedia();//NOSONAR
         new Blocks\Spreadsheet();//NOSONAR
         new Blocks\Submenu();//NOSONAR
         new Blocks\TakeActionBoxout();//NOSONAR
-        new Blocks\Happypoint();//NOSONAR
-        new Blocks\SocialMedia();//NOSONAR
-        new Blocks\Media();//NOSONAR
 
         if (!BetaBlocks::is_active()) {
             return;
