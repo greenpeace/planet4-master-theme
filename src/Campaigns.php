@@ -17,13 +17,11 @@ class Campaigns
     /**
      * Page Types
      *
-     * @var array $page_types
      */
     public array $page_types = [];
     /**
      * Localizations
      *
-     * @var array $localizations
      */
     public array $localizations = [];
 

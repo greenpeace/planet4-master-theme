@@ -77,7 +77,6 @@ class CloudflarePurger
      * Get all URLs from the instance.
      *
      * @param ?array $post_types Specify post types, all editable types are used if null.
-     * @return array
      */
     public static function get_all_urls(?array $post_types = null): array
     {

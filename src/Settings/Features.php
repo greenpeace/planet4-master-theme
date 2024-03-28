@@ -34,7 +34,6 @@ class Features
     /**
      * Register current options status before processing, to detect any change later.
      *
-     * @var array $preprocess_fields
      */
     public static array $preprocess_fields = [];
 
