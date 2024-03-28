@@ -2,19 +2,19 @@ import {test, expect} from './tools/lib/test-utils.js';
 
 test.useAdminLoggedIn();
 
-test('Test adding a Comment to a Post', async ({page, requestUtils, admin}) => {
-  // Post creation using rest api since we already have a test for Post creation
-  const newPost = await requestUtils.createPost({
-    title: 'Test Post',
-    content: `
-      <!-- wp:paragraph -->
-        <p>This is a test post</p>
-      <!-- /wp:paragraph -->
-    `,
-    status: 'publish',
+test('Test adding a Comment to a Post', async ({page, admin, requestUtils}) => {
+  const newPost = await requestUtils.rest({
+    path: '/wp/v2/posts',
+    method: 'POST',
+    data: {
+      title: 'Test post',
+      content: '<!-- wp:paragraph --><p>This is a test post</p><!-- /wp:paragraph -->',
+      status: 'publish',
+      featured_media: 357,
+    },
   });
-
   await page.goto(newPost.link);
+
   await page.getByPlaceholder('Your Comment').fill('Nice Post');
   await page.locator('label#gdpr-comments-label').click();
   if (await page.getByRole('button', {name: 'Post comment'}).isEnabled()) {

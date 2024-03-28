@@ -6,15 +6,16 @@ test('Test navigation bar menu', async ({page, admin, requestUtils}) => {
   const testId = Math.floor(Math.random() * 10000); // NOSONAR
   const testPageTitle = `Navbar test ${testId}`;
 
-  // Create a new page
-  await requestUtils.createPage({
-    title: testPageTitle,
-    content: `
-      <!-- wp:paragraph -->
-        <p>The new page for the navigation bar test</p>
-      <!-- /wp:paragraph -->
-    `,
-    status: 'publish',
+  // Create a new page with a dummy paragraph
+  await requestUtils.rest({
+    path: '/wp/v2/pages',
+    method: 'POST',
+    data: {
+      title: testPageTitle,
+      content: '<!-- wp:paragraph --><p>The new page for the navigation bar test</p><!-- /wp:paragraph -->',
+      status: 'publish',
+      featured_media: 357,
+    },
   });
 
   // Go to Appearance > Menus

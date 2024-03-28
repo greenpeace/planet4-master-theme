@@ -2,7 +2,7 @@ import {test, expect} from './tools/lib/test-utils.js';
 
 test.useAdminLoggedIn();
 
-test('Test special pages (Act and Explore)', async ({page, requestUtils, admin}) => {
+test('Test special pages (Act and Explore)', async ({page, admin, requestUtils}) => {
   // Check if new IA is enabled, in which case the Act and Explore pages have been removed.
   await admin.visitAdminPage('admin.php', 'page=planet4_settings_navigation');
   await page.waitForSelector('#new_ia');
@@ -12,19 +12,30 @@ test('Test special pages (Act and Explore)', async ({page, requestUtils, admin})
     await expect(page.locator('#explore_page')).toBeHidden();
   } else {
     // Create 2 new pages.
-    const actPage = await requestUtils.createPage({
-      title: 'Act page test',
-      content: '<!-- wp:paragraph --><p>Random content</p><!-- /wp:paragraph -->',
-      status: 'publish',
-    });
-    const explorePage = await requestUtils.createPage({
-      title: 'Explore page test',
-      content: '<!-- wp:paragraph --><p>Random content</p><!-- /wp:paragraph -->',
-      status: 'publish',
+    const actPage = await requestUtils.rest({
+      path: '/wp/v2/pages',
+      method: 'POST',
+      data: {
+        title: 'Act page test',
+        content: '<!-- wp:paragraph --><p>Random content</p><!-- /wp:paragraph -->',
+        status: 'publish',
+        featured_media: 357,
+      },
     });
 
-    // Reload the page to make sure that the new pages are available.
-    await page.reload();
+    const explorePage = await requestUtils.rest({
+      path: '/wp/v2/pages',
+      method: 'POST',
+      data: {
+        title: 'Explore page test',
+        content: '<!-- wp:paragraph --><p>Random content</p><!-- /wp:paragraph -->',
+        status: 'publish',
+        featured_media: 357,
+      },
+    });
+
+    // Go back to the Navigation settings.
+    await admin.visitAdminPage('admin.php', 'page=planet4_settings_navigation');
 
     // Save previous values to restore them after the test.
     const previousActPage = await page.locator('#act_page').inputValue();

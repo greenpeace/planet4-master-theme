@@ -1,5 +1,4 @@
 import {test, expect} from './tools/lib/test-utils.js';
-import {publishPostAndVisit} from './tools/lib/post.js';
 
 const TEST_TITLE = 'Test Private Page';
 const TEST_PARAGRAPH = 'This is a paragraph.';
@@ -7,25 +6,19 @@ const TEST_PASSWORD = 'password';
 
 test.useAdminLoggedIn();
 
-test('check password protected content', async ({page, admin, editor}) => {
-  await admin.createNewPost({postType: 'page', title: TEST_TITLE, legacyCanvas: true});
-
-  // Add a dummy paragraph.
-  await editor.canvas.getByRole('button', {name: 'Add default block'}).click();
-  await page.keyboard.type(TEST_PARAGRAPH);
-
-  await editor.openDocumentSettingsSidebar();
-  await editor.canvas.getByRole('region', {name: 'Editor settings'})
-    .getByRole('button', {name: 'Page'})
-    .click();
-
-  // Change the page visibility to "Password protected" and set a password.
-  await editor.canvas.getByRole('button', {name: 'Select visibility: Public'}).click();
-  await editor.canvas.getByRole('radio', {name: 'Password protected'}).click();
-  await editor.canvas.getByPlaceholder('Use a secure password').fill(TEST_PASSWORD);
-
-  // Publish page and navigate to it.
-  await publishPostAndVisit({page, editor});
+test('check password protected content', async ({page, requestUtils}) => {
+  const protectedPost = await requestUtils.rest({
+    path: '/wp/v2/posts',
+    method: 'POST',
+    data: {
+      title: TEST_TITLE,
+      content: `<!-- wp:paragraph --><p>${TEST_PARAGRAPH}</p><!-- /wp:paragraph -->`,
+      status: 'publish',
+      featured_media: 357,
+      password: TEST_PASSWORD,
+    },
+  });
+  await page.goto(protectedPost.link);
 
   // Make sure that the title and paragraph are not visible, but the form label is.
   await expect(page.getByText(TEST_TITLE)).toBeHidden();

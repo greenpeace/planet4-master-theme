@@ -1,11 +1,13 @@
 import {test, expect} from './tools/lib/test-utils.js';
-import {publishPostAndVisit} from './tools/lib/post.js';
+import {publishPostAndVisit, createPostWithFeaturedImage} from './tools/lib/post.js';
 
 test.useAdminLoggedIn();
 
 test('Test Gallery basic functionalities', async ({page, admin, editor}) => {
-  await admin.createNewPost({postType: 'page', title: 'Test Page for Gallery', legacyCanvas: true});
-
+  await createPostWithFeaturedImage({admin, editor}, {
+    title: 'Test page for Gallery',
+    postType: 'page',
+  });
   await editor.canvas.getByRole('button', {name: 'Add default block'}).click();
   await page.keyboard.type('This is a test Page for gallery.');
   await page.keyboard.press('Enter');

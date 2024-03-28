@@ -1,3 +1,5 @@
+import {openComponentPanel} from './editor.js';
+
 async function publishPost({page, editor}) {
   await editor.publishPost();
 
@@ -15,4 +17,20 @@ async function publishPostAndVisit({page, editor}) {
   await page.goto(urlString);
 }
 
-export {publishPost, publishPostAndVisit};
+async function createPostWithFeaturedImage({admin, editor}, params) {
+  const newPost = await admin.createNewPost({...params, legacyCanvas: true});
+  const editorSettings = await openComponentPanel({editor}, 'Featured image');
+  await editorSettings.getByRole('button', {name: 'Set featured image'}).click();
+  const imageModal = await editor.canvas.getByRole('dialog', {name: 'Featured image'});
+  const mediaLibraryTab = await imageModal.locator('#menu-item-browse');
+  const mediaLibraryTabOpen = await mediaLibraryTab.getAttribute('aria-selected');
+  if (mediaLibraryTabOpen === 'false') {
+    await mediaLibraryTab.click();
+  }
+  await imageModal.getByRole('checkbox', {name: 'OCEANS-GP0STOM6C'}).click();
+  await imageModal.getByRole('button', {name: 'Set featured image'}).click();
+
+  return newPost;
+}
+
+export {publishPost, publishPostAndVisit, createPostWithFeaturedImage};
