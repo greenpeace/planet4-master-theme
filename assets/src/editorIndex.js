@@ -7,6 +7,7 @@ import {setupCustomSidebar} from './block-editor/setupCustomSidebar';
 import {setupQueryLoopBlockExtension} from './block-editor/QueryLoopBlockExtension';
 import {registerSocialMediaBlock} from './blocks/SocialMedia/SocialMediaBlock';
 import {registerMediaBlock} from './blocks/Media/MediaBlock';
+import {registerBlockTemplates} from './block-templates/register';
 
 wp.domReady(() => {
   // Make sure to unregister the posts-list native variation before registering planet4-blocks/posts-list
@@ -18,6 +19,9 @@ wp.domReady(() => {
   registerHappypointBlock();
   registerSocialMediaBlock();
   registerMediaBlock();
+
+  // Block Templates
+  registerBlockTemplates();
 
   // Beta blocks
   registerActionsListBlock();

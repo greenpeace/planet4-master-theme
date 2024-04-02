@@ -5,6 +5,7 @@ namespace P4\MasterTheme;
 use P4\MasterTheme\Settings\Features;
 use P4\MasterTheme\Features\Planet4Blocks;
 use P4\MasterTheme\Features\Dev\BetaBlocks;
+use P4\MasterTheme\Patterns\BlockPattern;
 use RuntimeException;
 
 /**
@@ -167,6 +168,9 @@ final class Loader
         new Blocks\Happypoint();//NOSONAR
         new Blocks\SocialMedia();//NOSONAR
         new Blocks\Media();//NOSONAR
+
+        // Load block patterns.
+        BlockPattern::register_all();
 
         if (!BetaBlocks::is_active()) {
             return;
