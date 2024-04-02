@@ -18,6 +18,7 @@ export const setupCookies = () => {
 
   const updateGoogleConsent = (capabilities, event = 'update') => {
     gtag('consent', event, capabilities);
+    gtag('set', 'ads_data_redaction', capabilities.ad_storage === 'denied');
 
     dataLayer.push({
       event: event + 'Consent',

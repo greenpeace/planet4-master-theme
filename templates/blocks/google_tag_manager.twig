@@ -32,8 +32,6 @@
         ...{'analytics_storage': analytical_consent ? 'granted' : 'denied'}
         {% endif %}
       };
-      gtag('consent', 'update', capabilities);
-      dataLayer.push({event: 'updateConsent', ...capabilities});
     } else {
       var capabilities = {
         ad_storage: 'denied',
@@ -43,11 +41,11 @@
         ...{'analytics_storage': 'denied'}
         {% endif %}
       };
-      gtag('consent', 'default', capabilities);
-      gtag('set', 'url_passthrough', true);
-      gtag('set', 'ads_data_redaction', capabilities.ad_storage === 'denied');
-      dataLayer.push({event: 'defaultConsent', ...capabilities});
     }
+    gtag('consent', 'default', capabilities);
+    gtag('set', 'url_passthrough', true);
+    gtag('set', 'ads_data_redaction', capabilities.ad_storage === 'denied');
+    dataLayer.push({event: 'defaultConsent', ...capabilities});
     {% endif %}
 
     dataLayer.push({
