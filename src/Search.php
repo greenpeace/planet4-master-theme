@@ -508,10 +508,11 @@ abstract class Search
         }
 
         $args['search_fields'] = [
-            'post_title',
-            'post_content',
-            'post_excerpt',
-            'post_author.display_name',
+            'post_title^1',
+            'post_content^1',
+            'post_excerpt^1',
+            'post_author.display_name^1',
+            'terms.ep_custom_result.name^9999',
         ];
 
         return $args;
