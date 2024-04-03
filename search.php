@@ -2,15 +2,9 @@
 
 /**
  * Search results page
- *
- * Methods for TimberHelper can be found in the /lib sub-directory
- *
- * @package  WordPress
- * @subpackage  Timber
- * @since   Timber 0.1
  */
 
-use P4\MasterTheme\ElasticSearch;
+use P4\MasterTheme\Search\SearchPage;
 
 /**
  * Planet4 - Search functionality.
@@ -41,7 +35,7 @@ if ($selected_filters && is_array($selected_filters)) {
     }
 }
 
-$p4_search = new ElasticSearch();
-$p4_search->load(trim(get_search_query()), $selected_sort, $filters);
-$p4_search->add_load_more();
-$p4_search->view();
+global $wp_query;
+$page = new SearchPage($wp_query);
+$page->render();
+

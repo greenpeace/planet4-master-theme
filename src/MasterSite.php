@@ -6,6 +6,7 @@ use P4\MasterTheme\Features\Dev\CoreBlockPatterns;
 use P4\MasterTheme\Features\Dev\WPTemplateEditor;
 use P4\MasterTheme\Features\LazyYoutubePlayer;
 use P4\MasterTheme\Features\SendGrid as SendgridFeature;
+use P4\MasterTheme\Search\SearchPage;
 use Timber\Timber;
 use Timber\Site as TimberSite;
 use Timber\Menu as TimberMenu;
@@ -145,12 +146,6 @@ class MasterSite extends TimberSite
         add_filter('http_request_timeout', fn () => 10);
         add_action('after_setup_theme', [$this, 'add_image_sizes']);
         add_action('save_post', [$this, 'p4_auto_generate_excerpt'], 10, 2);
-
-        if (wp_doing_ajax()) {
-            Search::add_general_filters();
-        }
-        add_action('wp_ajax_get_paged_posts', [ElasticSearch::class, 'get_paged_posts']);
-        add_action('wp_ajax_nopriv_get_paged_posts', [ElasticSearch::class, 'get_paged_posts']);
 
         add_action('admin_head', [$this, 'add_help_sidebar']);
 
@@ -319,6 +314,7 @@ class MasterSite extends TimberSite
         );
 
         AuthorPage::hooks();
+        Search\Search::hooks();
     }
 
     /**
@@ -647,7 +643,7 @@ class MasterSite extends TimberSite
         $context['site'] = $this;
         $context['current_url'] = trailingslashit(home_url($wp->request));
         $context['sort_options'] = $this->sort_options;
-        $context['default_sort'] = Search::DEFAULT_SORT;
+        $context['default_sort'] = SearchPage::DEFAULT_SORT;
 
         $options = get_option('planet4_options');
 

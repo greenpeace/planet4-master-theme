@@ -93,12 +93,10 @@ export const setupSearch = () => {
       const nextPage = parseInt(current_page) + 1;
       loadMoreButton.dataset.current_page = nextPage;
 
-      const url = new URL(localizations.ajaxurl);
-      url.searchParams.append('action', 'get_paged_posts');
-      url.searchParams.append('search_query', navSearchInput.value.trim());
+      const url = new URL(document.body.dataset.base + '/wp-json/planet4/v1/search/');
+      url.searchParams.append('s', navSearchInput.value.trim());
       url.searchParams.append('paged', nextPage);
       url.searchParams.append('orderby', orderInput.value);
-      url.searchParams.append('query-string', decodeURIComponent(location.search).substring(1)); // Ignore the ? in the search url (first char)
 
       fetch(url)
         .then(response => response.text())
