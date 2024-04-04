@@ -1,0 +1,84 @@
+{% block enblock %}
+	<section class="block enform-wrap enform-{{ fields.en_form_style }} {% if fields.en_form_style == 'side-style' %}block-header alignfull{% endif %} {%if fields.en_form_style == 'full-width-bg' %}block-footer alignfull{% endif %} {% if campaign_data.template %}campaign-{{ campaign_data.template }}{% endif %}">
+		{% if fields.en_form_style == 'full-width-bg' or fields.en_form_style == 'side-style' %}
+			<picture>
+				<img src="{{ fields.background_src.0|default(fields.default_image) }}"
+					 style="object-position:{{ fields.focus_image }};opacity:{{ fields.opacity }};"
+					 border="0"
+					 srcset="{{ fields.background_srcset }}"
+					 sizes="{{ fields.background_sizes }}"
+                     alt="Background image"
+				/>
+			</picture>
+		{% endif %}
+
+		<div class="caption-overlay"></div>
+
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+
+					{% if fields.en_form_style == 'side-style' %}
+						<div class="form-caption">
+							{% if campaign_data.logo_path %}
+								<img src="{{ campaign_data.logo_path }}" alt="{{ campaign_data.template }}" class="campaign-logo">
+							{% endif %}
+							<{{ fields.content_title_size | default('h1') }}>{{ fields.content_title }}</{{ fields.content_title_size | default('h1') }}>
+							<p>{{ fields.content_description|e('wp_kses_post')|wpautop|raw }}</p>
+						</div>
+					{% endif %}
+
+					<div class="enform" id="enform" data-redirect-url="{{ redirect_url|default('') }}">
+
+						<div id="enform-content">
+
+							<div class="title-and-description">
+								{% if fields.title %}
+									<h2>{{ fields.title }}</h2>
+								{% endif %}
+								{% if fields.en_form_style == 'side-style' %}
+									<div class="enform-extra-header-placeholder"></div>
+								{% endif %}
+								<div class="form-description">{{ fields.description|e('wp_kses_post')|wpautop|raw }}</div>
+							</div>
+							<div class="form-container">
+								<form id="p4en_form" name="p4en_form" method="post" novalidate>
+									<input type="hidden" name="enblock_submit" value="{{ enblock_submit }}">
+									<input type="hidden" name="en_page_id" value="{{ fields.en_page_id }}">
+									<input type="hidden" name="thankyou_title" value="{{ fields.thankyou_title }}">
+									<input type="hidden" name="thankyou_subtitle" value="{{ fields.thankyou_subtitle }}">
+									<input type="hidden" name="enform_goal" id="enform_goal" value="{{ fields.enform_goal|default('not set') }}">
+
+
+									{{ error_msg }}
+									<div class="{% if fields.en_form_style == 'full-width-bg' %}row{% endif %}">
+										<div class="{% if fields.en_form_style == 'full-width-bg' %}col-md-8{% endif %}">
+												{{ form|raw }}
+										</div>
+
+										<div class="{% if fields.en_form_style == 'full-width-bg' %}col-md-4{% endif %} submit">
+											<button type="submit" form="p4en_form" name="p4en_form_save_button" id="p4en_form_save_button" class="btn btn-primary {% if fields.en_form_style == 'full-width' %}w-auto{% endif %}" >{{ '' != fields.button_text ? fields.button_text : __( 'Sign', 'planet4-engagingnetworks' ) }}
+												<div class="three-quarters en-spinner" id="spinner" style="display:none;">...</div>
+											</button>
+											<div class="enform-notice"></div>
+										</div>
+
+										<div class="enform-legal {% if fields.en_form_style == 'full-width-bg' %}col-md-8{% endif %}">
+												<p>{{ fields.text_below_button|e('wp_kses_post')|raw }}</p>
+										</div>
+									</div>
+								</form>
+							</div>
+
+						</div>
+
+						{% embed 'tease-thankyou.twig' %}
+						{% endembed %}
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</section>
+{% endblock %}

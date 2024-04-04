@@ -27,7 +27,7 @@
   <!-- Add rule for theme's textdomains -->
   <rule ref="WordPress.WP.I18n">
     <properties>
-      <property name="text_domain" type="array" value="planet4-master-theme,planet4-master-theme-backend,planet4-blocks,planet4-blocks-backend"/>
+      <property name="text_domain" type="array" value="planet4-master-theme,planet4-master-theme-backend,planet4-blocks,planet4-blocks-backend,planet4-engagingnetworks,planet4-engagingnetworks-backend"/>
     </properties>
   </rule>
 
