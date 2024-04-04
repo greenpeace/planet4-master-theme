@@ -40,6 +40,7 @@ class Post extends TimberPost
     /**
      * Associative array with the values to be passed to GTM Data Layer.
      *
+     * @var array $datalayer
      */
     protected array $data_layer;
 
@@ -282,6 +283,7 @@ class Post extends TimberPost
     /**
      * Get image data for open graph image meta.
      *
+     * @return array
      */
     public function get_og_image(): array
     {

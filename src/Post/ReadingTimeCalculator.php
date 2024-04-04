@@ -154,6 +154,7 @@ class ReadingTimeCalculator
      *
      * @param string $content The post content.
      *
+     * @return array
      */
     private function extract_images(string $content): array
     {
@@ -174,6 +175,7 @@ class ReadingTimeCalculator
      *
      * @param string $content The post content.
      *
+     * @return array
      */
     private function extract_videos(string $content): array
     {

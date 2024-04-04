@@ -6,7 +6,6 @@ use P4\MasterTheme\Features\Dev\CoreBlockPatterns;
 use P4\MasterTheme\Features\Dev\WPTemplateEditor;
 use P4\MasterTheme\Features\LazyYoutubePlayer;
 use P4\MasterTheme\Features\SendGrid as SendgridFeature;
-use P4\MasterTheme\Search\SearchPage;
 use Timber\Timber;
 use Timber\Site as TimberSite;
 use Timber\Menu as TimberMenu;
@@ -643,9 +642,9 @@ class MasterSite extends TimberSite
         $context['site'] = $this;
         $context['current_url'] = trailingslashit(home_url($wp->request));
         $context['sort_options'] = $this->sort_options;
-        $context['default_sort'] = SearchPage::DEFAULT_SORT;
+        $context['default_sort'] = Search\SearchPage::DEFAULT_SORT;
 
-        $options = get_option('planet4_options');
+        $ops = get_option('planet4_options');
 
         // Do not embed google tag manager js if 'greenpeace' cookie is not set
         // or enforce_cookies_policy setting is not enabled.
@@ -1000,16 +999,16 @@ class MasterSite extends TimberSite
 
         echo '<label for="my_meta_box_text">'
             . esc_html__('Weight', 'planet4-master-theme-backend')
-            . ' (1-' . esc_attr(Search::DEFAULT_MAX_WEIGHT) . ')</label>
+            . ' (1-' . esc_attr(Search\Search::DEFAULT_MAX_WEIGHT) . ')</label>
                 <input id="weight" type="text" name="weight" value="' . esc_attr($weight) . '" />';
 ?><script>
             $ = jQuery;
             $('#parent_id').off('change').on('change', function() {
                 // Check selected Parent page and give bigger weight if it will be an Action page
                 if ('<?php echo esc_js($options['act_page'] ?? -1); ?>' === $(this).val()) {
-                    $('#weight').val(<?php echo esc_js(Search::DEFAULT_ACTION_WEIGHT); ?>);
+                    $('#weight').val(<?php echo esc_js(Search\Search::DEFAULT_ACTION_WEIGHT); ?>);
                 } else {
-                    $('#weight').val(<?php echo esc_js(Search::DEFAULT_PAGE_WEIGHT); ?>);
+                    $('#weight').val(<?php echo esc_js(Search\Search::DEFAULT_PAGE_WEIGHT); ?>);
                 }
             });
         </script>
@@ -1124,8 +1123,8 @@ class MasterSite extends TimberSite
             FILTER_VALIDATE_INT,
             [
                 'options' => [
-                    'min_range' => Search::DEFAULT_MIN_WEIGHT,
-                    'max_range' => Search::DEFAULT_MAX_WEIGHT,
+                    'min_range' => Search\Search::DEFAULT_MIN_WEIGHT,
+                    'max_range' => Search\Search::DEFAULT_MAX_WEIGHT,
                 ],
             ]
         );
@@ -1133,7 +1132,7 @@ class MasterSite extends TimberSite
         // If this is a new Page then set default weight for it.
         if (!$weight && 'post-new.php' === $pagenow) {
             if ('page' === $post->post_type) {
-                $weight = Search::DEFAULT_PAGE_WEIGHT;
+                $weight = Search\Search::DEFAULT_PAGE_WEIGHT;
             }
         }
 

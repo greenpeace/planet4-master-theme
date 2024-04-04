@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace P4\MasterTheme\Search\Filters;
 
+use WP_Query;
 use WP_Term;
 
 /**
@@ -12,6 +13,10 @@ use WP_Term;
  */
 class PostTypes
 {
+    public const QUERY_ID = 'ptype';
+    public const CONTEXT_ID = 'post_types';
+    public const TAXONOMY_ID = 'p4-page-type';
+
     /**
      * @return WP_Term[]
      */
@@ -53,5 +58,15 @@ class PostTypes
         }
 
         return $filters;
+    }
+
+    public static function apply_to_query(array $values, WP_Query $query): void
+    {
+        $query->set('post_type', 'post');
+        $query->set('tax_query', [[
+            'taxonomy' => self::TAXONOMY_ID,
+            'field' => 'term_id',
+            'terms' => array_map('intval', $values),
+        ]]);
     }
 }

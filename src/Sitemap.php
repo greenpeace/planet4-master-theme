@@ -15,6 +15,7 @@ class Sitemap
     /**
      * Gets data for the Action pages.
      *
+     * @return array
      */
     public function get_actions(): array
     {
@@ -51,6 +52,7 @@ class Sitemap
     /**
      * Gets data for the Issue pages.
      *
+     * @return array
      */
     public function get_issues(): array
     {
@@ -101,6 +103,7 @@ class Sitemap
     /**
      * Gets data for the Evergreen pages.
      *
+     * @return array
      */
     public function get_evergreen_pages(): array
     {
@@ -133,6 +136,7 @@ class Sitemap
     /**
      * Gets data for the custom article types.
      *
+     * @return array
      */
     public function get_page_types(): array
     {

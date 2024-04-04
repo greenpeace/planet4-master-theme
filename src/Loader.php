@@ -23,11 +23,13 @@ final class Loader
     /**
      * Indexed array of all the classes/services that are needed.
      *
+     * @var array $services
      */
     private array $services;
     /**
      * Indexed array of all the classes/services that are used by Planet4.
      *
+     * @var array $default_services
      */
     private array $default_services;
 

@@ -490,6 +490,7 @@ class CustomTaxonomy
      *
      * @param array $columns The columns.
      *
+     * @return array
      */
     public function add_taxonomy_column(array $columns): array
     {

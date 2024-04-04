@@ -12,12 +12,14 @@ class ListingPage
     /**
      * Context
      *
+     * @var array $context
      */
     public array $context = [];
 
     /**
      * Templates
      *
+     * @var array $templates
      */
     protected array $templates = [];
 

@@ -10,6 +10,7 @@ class Importer
     /**
      * Old and new attachment ids mapping var
      *
+     * @var array $attachment_mapping
      */
     private array $attachment_mapping = [];
 
@@ -260,6 +261,7 @@ class Importer
      *
      * @param array $postdata Post data that can be filtered.
      *
+     * @return array
      */
     public function set_imported_posts_as_drafts(array $postdata): array
     {

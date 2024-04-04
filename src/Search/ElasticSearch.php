@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace P4\MasterTheme\Search;
 
 class ElasticSearch
@@ -8,40 +10,21 @@ class ElasticSearch
 
     public static function hooks(): void
     {
-        add_filter('ep_search_post_return_args', function ($args) {
-                $args[] = 'guid';
-                $args[] = 'terms';
-                return $args;
+        if (!self::is_active()) {
+            return;
+        }
+
+        // Disable facets until we control it
+        // It modifies the output of aggregation when activated
+        add_action('ep_setup_features', function (): void {
+            \ElasticPress\Features::factory()->deactivate_feature('facets');
         });
 
-        add_filter('ep_formatted_args', function ($formatted_args) {
-            $formatted_args['_source'] = [
-                'post_id',
-                'ID',
-                'post_author',
-                'post_date',
-                'post_date_gmt',
-                'post_title',
-                'post_excerpt',
-                'post_name',
-                'post_modified',
-                'post_modified_gmt',
-                'post_content',
-                'post_parent',
-                'post_type',
-                'post_mime_type',
-                'permalink',
-                'post_slug',
-                'terms',
-                'date_terms',
-                'comment_count',
-                'comment_status',
-                'guid',
-                'post_lang',
-            ];
-
-            return $formatted_args;
-        }, 10, 1);
+        // Return more post fields
+        add_filter('ep_search_post_return_args', function ($properties): array {
+            $properties[] = 'guid';
+            return $properties;
+        });
     }
 
     public static function is_active(): bool

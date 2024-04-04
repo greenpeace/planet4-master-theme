@@ -4,11 +4,17 @@ declare(strict_types=1);
 
 namespace P4\MasterTheme\Search\Filters;
 
+use WP_Query;
+
 /**
  * Tags used for search.
  */
 class Tags
 {
+    public const QUERY_ID = 'tag';
+    public const CONTEXT_ID = 'tags';
+    public const TAXONOMY_ID = 'post_tag';
+
     /**
      * @return WP_Term[]
      */
@@ -45,5 +51,14 @@ class Tags
         }
 
         return $filters;
+    }
+
+    public static function apply_to_query(array $values, WP_Query $query): void
+    {
+        $query->set('tax_query', [[
+            'taxonomy' => self::TAXONOMY_ID,
+            'field' => 'term_id',
+            'terms' => array_map('intval', $values),
+        ]]);
     }
 }
