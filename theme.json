@@ -130,6 +130,11 @@
       ]
     },
     "blocks": {
+      "core/query": {
+        "layout": {
+          "allowEditing": false
+        }
+      },
       "core/button": {
         "border": {
           "radius": false
