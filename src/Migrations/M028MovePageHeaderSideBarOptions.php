@@ -52,7 +52,12 @@ class M028MovePageHeaderSideBarOptions extends MigrationScript
 
                 self::update_meta_options($page_meta_data, $page_header_title, $page);
 
-                wp_update_post($updated_args);
+                try {
+                    wp_update_post($updated_args);
+                } catch (\Throwable $e) {
+                    echo 'Error on page ', $page->ID, "\n";
+                    echo $e->getMessage(), "\n";
+                }
 
                 continue;
             }
@@ -129,7 +134,12 @@ class M028MovePageHeaderSideBarOptions extends MigrationScript
                     'ID' => $page->ID,
                 );
 
-                wp_update_post($post_args);
+                try {
+                    wp_update_post($post_args);
+                } catch (\Throwable $e) {
+                    echo 'Error on page ', $page->ID, "\n";
+                    echo $e->getMessage(), "\n";
+                }
 
                 continue;
             }
@@ -185,7 +195,12 @@ class M028MovePageHeaderSideBarOptions extends MigrationScript
                     'ID' => $page->ID,
                 );
 
-                wp_update_post($post_args);
+                try {
+                    wp_update_post($post_args);
+                } catch (\Throwable $e) {
+                    echo 'Error on page ', $page->ID, "\n";
+                    echo $e->getMessage(), "\n";
+                }
 
                 continue;
             }
