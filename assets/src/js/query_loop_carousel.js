@@ -36,7 +36,7 @@ export const setupQueryLoopCarousel = () => {
         posts.forEach((post, index) => {
           if (index % itemsPerSlide === 0) {
             carouselItem = document.createElement('li');
-            carouselItem.classList.add('carousel-item');
+            carouselItem.classList.add('carousel-item', 'carousel-li');
             list.append(carouselItem);
 
             itemWrapper = document.createElement('div');
@@ -45,6 +45,7 @@ export const setupQueryLoopCarousel = () => {
             carouselItem.append(itemWrapper);
 
             indicator = document.createElement('li');
+            indicator.classList.add('carousel-li');
             indicator.dataset.bsTarget = `#${uniqueId}`;
             indicator.dataset.bsSlideTo = totalCarouselItems;
             indicators.append(indicator);
