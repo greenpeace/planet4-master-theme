@@ -17,7 +17,13 @@ export const lacksAttributes = attributes => {
 };
 
 export const registerMediaBlock = () => {
-  const {registerBlockType} = wp.blocks;
+  const {registerBlockType, getBlockTypes} = wp.blocks;
+
+  const blockAlreadyExists = getBlockTypes().find(block => block.name === BLOCK_NAME);
+
+  if (blockAlreadyExists) {
+    return;
+  }
 
   registerBlockType(BLOCK_NAME, {
     title: __('Media block', 'planet4-blocks-backend'),

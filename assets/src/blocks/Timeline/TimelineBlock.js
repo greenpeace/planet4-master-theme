@@ -33,8 +33,14 @@ const attributes = {
 };
 
 export const registerTimelineBlock = () => {
-  const {registerBlockType} = wp.blocks;
+  const {registerBlockType, getBlockTypes} = wp.blocks;
   const {RawHTML} = wp.element;
+
+  const blockAlreadyExists = getBlockTypes().find(block => block.name === BLOCK_NAME);
+
+  if (blockAlreadyExists) {
+    return;
+  }
 
   registerBlockType(BLOCK_NAME, {
     title: 'Timeline',

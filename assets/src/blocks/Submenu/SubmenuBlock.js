@@ -7,7 +7,13 @@ const {__} = wp.i18n;
 const BLOCK_NAME = 'planet4-blocks/submenu';
 
 export const registerSubmenuBlock = () => {
-  const {registerBlockType} = wp.blocks;
+  const {registerBlockType, getBlockTypes} = wp.blocks;
+
+  const blockAlreadyExists = getBlockTypes().find(block => block.name === BLOCK_NAME);
+
+  if (blockAlreadyExists) {
+    return;
+  }
 
   registerBlockType(BLOCK_NAME, {
     title: 'Submenu',
