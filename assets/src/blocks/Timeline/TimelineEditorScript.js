@@ -14,6 +14,7 @@ import {Timeline} from './Timeline';
 import {languages} from './TimelineLanguages';
 import {URLDescriptionHelp} from './URLDescriptionHelp';
 import {debounce} from '@wordpress/compose';
+import {isLodash} from '../../functions/isLodash';
 
 const {__} = wp.i18n;
 const TIMELINE_JS_VERSION = '3.8.12';
@@ -24,9 +25,17 @@ const positions = [
 ];
 
 const loadAssets = () => {
+  const revertLodash = function() {
+    // Address conflicts between the underscore and lodash libraries.
+    if (isLodash()) {
+      // eslint-disable-next-line no-undef
+      _.noConflict();
+    }
+  };
   // eslint-disable-next-line no-unused-vars
   const [scriptLoaded, scriptError] = useScript(
-    `https://cdn.knightlab.com/libs/timeline3/${TIMELINE_JS_VERSION}/js/timeline-min.js`
+    `https://cdn.knightlab.com/libs/timeline3/${TIMELINE_JS_VERSION}/js/timeline-min.js`,
+    revertLodash
   );
 
   // eslint-disable-next-line no-unused-vars
