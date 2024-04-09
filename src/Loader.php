@@ -205,6 +205,7 @@ final class Loader
         new Blocks\Spreadsheet();//NOSONAR
         new Blocks\Submenu();//NOSONAR
         new Blocks\TakeActionBoxout();//NOSONAR
+        new Blocks\Timeline();//NOSONAR
 
         // Load block patterns.
         BlockPattern::register_all();
