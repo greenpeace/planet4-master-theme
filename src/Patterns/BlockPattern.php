@@ -3,7 +3,7 @@
 /**
  * Base pattern class.
  *
- * @package P4\MasterTheme
+ * @package P4\MasterTheme\Patterns
  */
 
 namespace P4\MasterTheme\Patterns;
@@ -42,6 +42,7 @@ abstract class BlockPattern
     {
         return [
             SideImageWithTextAndCta::class,
+            Issues::class,
         ];
     }
 
