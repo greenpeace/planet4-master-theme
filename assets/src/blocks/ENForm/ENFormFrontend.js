@@ -42,7 +42,7 @@ export const ENFormFrontend = ({attributes}) => {
   const is_side_style = en_form_style === 'side-style';
   const fields = en_form_fields ?? [];
 
-  const HeadingTag = content_title_size;
+  const HeadingTag = content_title_size || 'h1';
 
   const [activeTplId, setActiveTplId] = useState('signup');
   const [errors, setErrors] = useState({});
