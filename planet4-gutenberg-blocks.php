@@ -384,32 +384,6 @@ if ( class_exists( Elasticpress\Indexables::class ) ) {
 	);
 }
 
-add_filter( 'timber/twig', 'p4_blocks_en_forms_twig_filters' );
-
-/**
- * Adds functionality to Twig.
- *
- * @param \Twig\Environment $twig The Twig environment.
- * @return \Twig\Environment
- */
-function p4_blocks_en_forms_twig_filters( $twig ) {
-	// Adding functions as filters.
-	$twig->addFilter(
-		new Twig_SimpleFilter(
-			'object_to_array',
-			function ( $std_class_object ) {
-				$response = [];
-				foreach ( $std_class_object as $key => $value ) {
-					$response[ $key ] = $value;
-				}
-				return $response;
-			}
-		)
-	);
-
-	return $twig;
-}
-
 /*
 ==========================
 	L O A D  P L U G I N
