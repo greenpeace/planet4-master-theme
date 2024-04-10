@@ -143,15 +143,15 @@ final class Loader
      */
     private function load_block_services(): void
     {
-        if (!is_admin() || ! Planet4Blocks::is_active()) {
+        if (!Planet4Blocks::is_active()) {
             return;
         }
 
-        if (! defined('P4_MASTER_THEME_EN_SLUG_NAME')) {
+        if (!defined('P4_MASTER_THEME_EN_SLUG_NAME')) {
             define('P4_MASTER_THEME_EN_SLUG_NAME', 'engagingnetworks');
         }
 
-        if (! defined('P4_MASTER_THEME_LANGUAGES')) {
+        if (!defined('P4_MASTER_THEME_LANGUAGES')) {
             define(
                 'P4_MASTER_THEME_LANGUAGES',
                 [
@@ -162,9 +162,11 @@ final class Loader
         }
 
         $services = [];
-        $services[] = Controllers\Api\RestController::class;
         $services[] = Controllers\Menu\EnformPostController::class;
-        $services[] = Controllers\Menu\EnSettingsController::class;
+        if (is_admin()) {
+            $services[] = Controllers\Menu\EnSettingsController::class;
+            $services[] = Controllers\Api\RestController::class;
+        }
 
         $view = new View();
         foreach ($services as $service) {
