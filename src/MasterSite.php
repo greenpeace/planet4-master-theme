@@ -427,7 +427,10 @@ class MasterSite extends TimberSite
             && $data['post_status'] === 'publish'
             && in_array($data['post_type'], array_keys($types))
         ) {
-            wp_die(__('Title is a required field.', 'planet4-master-theme-backend'));
+            $err_message = __('Title is a required field.', 'planet4-master-theme-backend');
+            defined('WP_CLI') && WP_CLI
+                ? throw new \Exception($err_message)
+                : wp_die($err_message);
         }
 
         return $data;
