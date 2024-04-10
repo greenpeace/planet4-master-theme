@@ -2,8 +2,8 @@
 
 {% block content %}
     {% set disabled  = posts ? '' : 'disabled' %}
-    {% set collapsed = posts ? '' : 'collapsed' %}
-    {% set show      = posts ? 'show' : '' %}
+    {% set collapsed = posts or (not has_aggregation) ? '' : 'collapsed' %}
+    {% set show      = posts or (not has_aggregation)? 'show' : '' %}
     {% set expanded  = posts ? true : false %}
     {% set search_label = __( 'Search', 'planet4-master-theme' ) %}
 
@@ -89,7 +89,7 @@
                                                             <div id="item-modal-issue" class="collapse show" role="tabpanel">
                                                                 <ul class="list-unstyled">
                                                                     {% for category in categories %}
-                                                                        {% if ( category.results > 0 ) %}
+                                                                        {% if (category.results > 0) or (not has_aggregation) %}
                                                                             <li>
                                                                                 <label class="custom-control">
                                                                                     <input
@@ -100,8 +100,8 @@
                                                                                         data-ga-category="Search Page"
                                                                                         data-ga-action="Category Filter"
                                                                                         data-ga-label="{{ category.name|e('wp_kses_post')|raw }}"
-                                                                                        {{ category.checked }} {{ category.results > 0 ? '' : 'disabled' }} />
-                                                                                    <span class="custom-control-description">{{ category.name|e('wp_kses_post')|raw }} ({{ category.results }})</span>
+                                                                                        {{ category.checked }} />
+                                                                                    <span class="custom-control-description">{{ category.name|e('wp_kses_post')|raw }} {{ category.results > 0 ? '('~category.results~')' : '' }}</span>
                                                                                 </label>
                                                                             </li>
                                                                         {% endif %}
@@ -118,7 +118,7 @@
                                                             <div id="item-modal-category" class="collapse show" role="tabpanel">
                                                                 <ul class="list-unstyled">
                                                                     {% for post_type in post_types %}
-                                                                        {% if ( post_type.results > 0 ) %}
+                                                                        {% if (post_type.results > 0) or (not has_aggregation) %}
                                                                             <li>
                                                                                 <label class="custom-control">
                                                                                     <input
@@ -129,8 +129,8 @@
                                                                                         data-ga-category="Search Page"
                                                                                         data-ga-action="Post Type Filter"
                                                                                         data-ga-label="{{ post_type.name|e('wp_kses_post')|raw }}"
-                                                                                        {{ post_type.checked }} {{ post_type.results > 0 ? '' : 'disabled' }} />
-                                                                                    <span class="custom-control-description">{{ post_type.name }} ({{ post_type.results }})</span>
+                                                                                        {{ post_type.checked }} />
+                                                                                    <span class="custom-control-description">{{ post_type.name }} {{ post_type.results > 0 ? '('~post_type.results~')' : '' }}</span>
                                                                                 </label>
                                                                             </li>
                                                                         {% endif %}
@@ -147,19 +147,19 @@
                                                             <div id="item-modal-action" class="collapse show" role="tabpanel">
                                                                 <ul class="list-unstyled">
                                                                     {% for id, action_type in action_types %}
-                                                                        {% if ( action_type.results > 0 ) %}
+                                                                        {% if (action_type.results > 0) or (not has_aggregation) %}
                                                                             <li>
                                                                                 <label class="custom-control">
                                                                                     <input
                                                                                         type="checkbox"
-                                                                                        name="f[ptype][{{ action_type.name }}]"
+                                                                                        name="f[atype][{{ action_type.name }}]"
                                                                                         value="{{ id }}"
                                                                                         class="p4-custom-control-input modal-checkbox"
                                                                                         data-ga-category="Search Page"
                                                                                         data-ga-action="Content Filter"
                                                                                         data-ga-label="{{ action_type.name|e('wp_kses_post')|raw }}"
-                                                                                        {{ action_type.checked }} {{ action_type.results > 0 ? '' : 'disabled' }} />
-                                                                                    <span class="custom-control-description">{{ action_type.name }} ({{ action_type.results }})</span>
+                                                                                        {{ action_type.checked }} />
+                                                                                    <span class="custom-control-description">{{ action_type.name }} {{ action_type.results > 0 ? '('~action_type.results~')' : '' }}</span>
                                                                                 </label>
                                                                             </li>
                                                                         {% endif %}
@@ -176,7 +176,7 @@
                                                             <div id="item-modal-content" class="collapse show" role="tabpanel">
                                                                 <ul class="list-unstyled">
                                                                     {% for id, content_type in content_types %}
-                                                                        {% if ( content_type.results > 0 ) %}
+                                                                        {% if (content_type.results > 0) or (not has_aggregation) %}
                                                                             <li>
                                                                                 <label class="custom-control">
                                                                                     <input
@@ -187,8 +187,8 @@
                                                                                         data-ga-category="Search Page"
                                                                                         data-ga-action="Content Filter"
                                                                                         data-ga-label="{{ content_type.name|e('wp_kses_post')|raw }}"
-                                                                                        {{ content_type.checked }} {{ content_type.results > 0 ? '' : 'disabled' }} />
-                                                                                    <span class="custom-control-description">{{ content_type.name }} ({{ content_type.results }})</span>
+                                                                                        {{ content_type.checked }} />
+                                                                                    <span class="custom-control-description">{{ content_type.name }} {{ content_type.results > 0 ? '('~content_type.results~')' : '' }}</span>
                                                                                 </label>
                                                                             </li>
                                                                         {% endif %}
@@ -233,7 +233,7 @@
                                     <div id="item-issue" class="collapse show" role="tabpanel">
                                         <ul class="list-unstyled">
                                             {% for category in categories %}
-                                                {% if ( category.results > 0 ) %}
+                                                {% if (category.results > 0) or (not has_aggregation) %}
                                                 <li>
                                                     <label class="custom-control">
                                                         <input
@@ -244,8 +244,8 @@
                                                                 data-ga-category="Search Page"
                                                                 data-ga-action="Category Filter"
                                                                 data-ga-label="{{ category.name|e('wp_kses_post')|raw }}"
-                                                                {{ category.checked }} {{ category.results > 0 ? '' : 'disabled' }} />
-                                                        <span class="custom-control-description">{{ category.name|e('wp_kses_post')|raw }} ({{ category.results }})</span>
+                                                                {{ category.checked }} />
+                                                        <span class="custom-control-description">{{ category.name|e('wp_kses_post')|raw }} {{ category.results > 0 ? '('~category.results~')' : '' }}</span>
                                                     </label>
                                                 </li>
                                                 {% endif %}
@@ -262,7 +262,7 @@
                                     <div id="item-category" class="collapse {{ show }}" role="tabpanel">
                                         <ul class="list-unstyled">
                                             {% for post_type in post_types %}
-                                                {% if ( post_type.results > 0 ) %}
+                                                {% if (post_type.results > 0) or (not has_aggregation) %}
                                                 <li>
                                                     <label class="custom-control">
                                                         <input
@@ -273,8 +273,8 @@
                                                             data-ga-category="Search Page"
                                                             data-ga-action="Post Type Filter"
                                                             data-ga-label="{{ post_type.name|e('wp_kses_post')|raw }}"
-                                                            {{ post_type.checked }} {{ post_type.results > 0 ? '' : 'disabled' }} />
-                                                        <span class="custom-control-description">{{ post_type.name|e('wp_kses_post')|raw }} ({{ post_type.results }})</span>
+                                                            {{ post_type.checked }} />
+                                                        <span class="custom-control-description">{{ post_type.name|e('wp_kses_post')|raw }} {{ post_type.results > 0 ? '('~post_type.results~')' : '' }}</span>
                                                     </label>
                                                 </li>
                                                 {% endif %}
@@ -291,7 +291,7 @@
                                     <div id="item-action" class="collapse {{ show }}" role="tabpanel">
                                         <ul class="list-unstyled">
                                             {% for id, action_type in action_types %}
-                                                {% if ( action_type.results > 0 ) %}
+                                                {% if (action_type.results > 0) or (not has_aggregation) %}
                                                 <li>
                                                     <label class="custom-control">
                                                         <input
@@ -302,8 +302,8 @@
                                                             data-ga-category="Search Page"
                                                             data-ga-action="Content Filter"
                                                             data-ga-label="{{ action_type.name|e('wp_kses_post')|raw }}"
-                                                            {{ action_type.checked }} {{ action_type.results > 0 ? '' : 'disabled' }} />
-                                                        <span class="custom-control-description">{{ action_type.name }} ({{ action_type.results }})</span>
+                                                            {{ action_type.checked }} />
+                                                        <span class="custom-control-description">{{ action_type.name }} {{ action_type.results > 0 ? '('~action_type.results~')' : '' }}</span>
                                                     </label>
                                                 </li>
                                                 {% endif %}
@@ -320,7 +320,7 @@
                                     <div id="item-content" class="collapse {{ show }}" role="tabpanel">
                                         <ul class="list-unstyled">
                                             {% for id, content_type in content_types %}
-                                                {% if ( content_type.results > 0 ) %}
+                                                {% if (content_type.results > 0) or (not has_aggregation) %}
                                                 <li>
                                                     <label class="custom-control">
                                                         <input
@@ -331,8 +331,8 @@
                                                             data-ga-category="Search Page"
                                                             data-ga-action="Content Filter"
                                                             data-ga-label="{{ content_type.name|e('wp_kses_post')|raw }}"
-                                                            {{ content_type.checked }} {{ content_type.results > 0 ? '' : 'disabled' }} />
-                                                        <span class="custom-control-description">{{ content_type.name }} ({{ content_type.results }})</span>
+                                                            {{ content_type.checked }} />
+                                                        <span class="custom-control-description">{{ content_type.name }} {{ content_type.results > 0 ? '('~content_type.results~')' : '' }}</span>
                                                     </label>
                                                 </li>
                                                 {% endif %}

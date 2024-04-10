@@ -9,10 +9,10 @@ const showHiddenRow = row => {
 };
 
 const getSelectedFilters = isModal => {
-    const filters_div_id = isModal ? 'filtermodal' : 'filter-sidebar-options';
-    return [...document.querySelectorAll(
-      `#${filters_div_id} input[name^="f["]:checked`
-    )];
+  const filters_div_id = isModal ? 'filtermodal' : 'filter-sidebar-options';
+  return [...document.querySelectorAll(
+    `#${filters_div_id} input[name^="f["]:checked`
+  )];
 };
 
 const addSelectedFiltersToForm = (isModal, idToRemove) => {

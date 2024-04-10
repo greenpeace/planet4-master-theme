@@ -6,6 +6,7 @@ namespace P4\MasterTheme\Search\Filters;
 
 use P4\MasterTheme\Search\Search;
 use P4\MasterTheme\ActionPage;
+use P4\MasterTheme\PostArchive;
 use WP_Query;
 
 /**
@@ -18,12 +19,12 @@ class ContentTypes
     public const QUERY_ID = 'ctype';
     public const CONTEXT_ID = 'content_types';
 
-    public const POST = 'post';
-    public const PAGE = 'page';
-    public const ACTION = 'p4_action';
-    public const CAMPAIGN = 'campaign';
+    public const ACTION = ActionPage::POST_TYPE;
+    public const ARCHIVE = PostArchive::POST_TYPE;
     public const ATTACHMENT = 'attachment';
-    public const ARCHIVE = 'archive';
+    public const CAMPAIGN = 'campaign';
+    public const PAGE = 'page';
+    public const POST = 'post';
 
     /**
      * Get all content types.

@@ -15,15 +15,25 @@ class ElasticSearch
         }
 
         // Enables facets for results aggregation
-        add_action('ep_setup_features', function (): void {
+        add_action('ep_setup_features', static function (): void {
+            if (self::facets_is_active()) {
+                return;
+            }
+
             \ElasticPress\Features::factory()->update_feature('facets', [
                 'active' => true,
                 'match_type' => 'all',
             ]);
         });
 
+        // Push aggregation results to SearchPage
+        add_action('ep_valid_response', static function ($response): void {
+            SearchPage::$aggregations = $response['aggregations'] ?? [];
+            SearchPage::$query_time = $response['took'] ?? null;
+        }, 1, 10);
+
         // Return more post fields
-        add_filter('ep_search_post_return_args', function ($properties): array {
+        add_filter('ep_search_post_return_args', static function ($properties): array {
             $properties[] = 'guid';
             return $properties;
         });
@@ -37,5 +47,13 @@ class ElasticSearch
                 && \is_plugin_active('elasticpress/elasticpress.php');
         }
         return self::$is_active;
+    }
+
+    public static function facets_is_active(): bool
+    {
+        if (!self::is_active()) {
+            return false;
+        }
+        return \ElasticPress\Features::factory()->get_registered_feature('facets')->is_active();
     }
 }

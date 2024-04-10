@@ -5,15 +5,11 @@ declare(strict_types=1);
 namespace P4\MasterTheme\Search;
 
 use WP_Query;
-use P4\MasterTheme\PostArchive;
-use P4\MasterTheme\ActionPage;
 
 class Search
 {
     public const POSTS_PER_LOAD = 5;
-    public const DOCUMENT_TYPES = [
-        'application/pdf',
-    ];
+    public const DOCUMENT_TYPES = ['application/pdf',];
 
     public const DEFAULT_SORT = '_score';
     public const DEFAULT_MIN_WEIGHT = 1;
@@ -25,8 +21,13 @@ class Search
     {
         add_filter('query_vars', [self::class, 'add_query_vars'], 10, 1);
         add_filter('pre_get_posts', [self::class, 'set_search_params'], 10, 1);
-        SearchPage::hooks();
+        add_filter('posts_where', [self::class, 'filter_mime_type'], 10, 2);
         ElasticSearch::hooks();
+    }
+
+    private static function is_public_search(WP_Query $query): bool
+    {
+        return $query->is_search() && !\is_admin();
     }
 
     public static function add_query_vars(array $qvars): array
@@ -37,13 +38,13 @@ class Search
 
     public static function set_search_params(WP_Query $query): WP_Query
     {
-        if (!$query->is_search()) {
+        if (!self::is_public_search($query)) {
             return $query;
         }
 
         self::set_default_args($query);
-        self::validate_order($query);
         self::validate_filters($query);
+        self::validate_order($query);
         self::exclude_page_for_posts($query);
         self::exclude_unwanted_attachments($query);
 
@@ -57,6 +58,37 @@ class Search
         $query->set('post_type', self::get_post_types());
         $query->set('post_status', ['publish', 'inherit']);
         $query->set('has_password', false);
+    }
+
+    public static function validate_filters(WP_Query $query): void
+    {
+        if (empty($query->query_vars['f']) || !is_array($query->query_vars['f'])) {
+            return;
+        }
+
+        foreach ($query->query_vars['f'] as $type => $val) {
+            switch ($type) {
+                case Filters\Categories::QUERY_ID:
+                    Filters\Categories::apply_to_query(array_values($val), $query);
+                    break;
+                case Filters\Tags::QUERY_ID:
+                    Filters\Tags::apply_to_query(array_values($val), $query);
+                    break;
+                case Filters\PostTypes::QUERY_ID:
+                    Filters\PostTypes::apply_to_query(array_values($val), $query);
+                    break;
+                case Filters\ActionTypes::QUERY_ID:
+                    Filters\ActionTypes::apply_to_query(array_values($val), $query);
+                    break;
+                case Filters\ContentTypes::QUERY_ID:
+                    $ids = array_values($val);
+                    $ctype_id = (int) array_pop($ids);
+                    Filters\ContentTypes::apply_to_query($ctype_id, $query);
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 
     public static function validate_order(WP_Query $query): void
@@ -91,37 +123,6 @@ class Search
         }
     }
 
-    public static function validate_filters(WP_Query $query): void
-    {
-        if (empty($query->query_vars['f']) || !is_array($query->query_vars['f'])) {
-            return;
-        }
-
-        foreach ($query->query_vars['f'] as $type => $val) {
-            switch ($type) {
-                case Filters\Categories::QUERY_ID:
-                    Filters\Categories::apply_to_query(array_values($val), $query);
-                    break;
-                case Filters\Tags::QUERY_ID:
-                    Filters\Tags::apply_to_query(array_values($val), $query);
-                    break;
-                case Filters\PostTypes::QUERY_ID:
-                    Filters\PostTypes::apply_to_query(array_values($val), $query);
-                    break;
-                case Filters\ActionTypes::QUERY_ID:
-                    Filters\ActionTypes::apply_to_query(array_values($val), $query);
-                    break;
-                case Filters\ContentTypes::QUERY_ID:
-                    $ids = array_values($val);
-                    $ctype_id = (int) array_pop($ids);
-                    Filters\ContentTypes::apply_to_query($ctype_id, $query);
-                    break;
-                default:
-                    break;
-            }
-        }
-    }
-
     public static function exclude_page_for_posts(WP_Query $query): void
     {
         $page_for_posts = get_option('page_for_posts');
@@ -137,6 +138,27 @@ class Search
         $query->set('post_mime_type', array_merge(self::DOCUMENT_TYPES, ['']));
     }
 
+    /**
+     * This is only necessary if ElasticPress is not activated.
+     * ElasticPress understands the filter set by `self::exclude_unwanted_attachments()`
+     * but WordPress discards it during its function `wp_post_mime_type_where()`.
+     */
+    public static function filter_mime_type(string $where, WP_Query $query): string
+    {
+        if (!self::is_public_search($query)) {
+            return $where;
+        }
+
+        global $wpdb;
+        $types = (array) $query->get('post_mime_type');
+        $escaped = array_map(fn($t) => '"' . $wpdb->esc_like($t) . '"', $types);
+        $where .= ' AND post_mime_type IN(' . implode(',', $escaped) . ') ';
+        return $where;
+    }
+
+    /**
+     * Cf. WP admin: Planet 4 > Search content
+     */
     public static function should_include_archive(): bool
     {
         $setting = planet4_get_option('include_archive_content_for');
@@ -149,18 +171,18 @@ class Search
     private static function get_post_types(): array
     {
         $types = [
-            'page',
-            'campaign',
-            'post',
-            'attachment',
+            Filters\ContentTypes::ATTACHMENT,
+            Filters\ContentTypes::CAMPAIGN,
+            Filters\ContentTypes::PAGE,
+            Filters\ContentTypes::POST,
         ];
 
         if (self::should_include_archive()) {
-            $types[] = PostArchive::POST_TYPE;
+            $types[] = Filters\ContentTypes::ARCHIVE;
         }
 
         if (!empty(planet4_get_option('new_ia'))) {
-            $types[] = ActionPage::POST_TYPE;
+            $types[] = Filters\ContentTypes::ACTION;
         }
 
         return $types;

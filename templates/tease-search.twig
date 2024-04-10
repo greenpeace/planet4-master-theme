@@ -15,7 +15,7 @@
 
 {% if ( current_page == 1 and loop.index0 == 0 ) %}
     <div class="search-results-load">
-{% elseif ( first_of_the_page and loop.index0 is divisible by(5) ) %}
+{% elseif ( first_of_the_page and loop.index0 is divisible by(load_more.posts_per_load) ) %}
     <div class="search-results-load row-hidden" style="display: none;">
 {% endif %}
         <li id="result-row-{{ post.ID }}" class="d-flex search-result-list-item">
@@ -157,6 +157,6 @@
             {% endif %}
         </div>
     </li>
-{% if ( ( loop.index0 % 5 == 4 ) or loop.last ) %}
+{% if ( ( loop.index0 % load_more.posts_per_load == 4 ) or loop.last ) %}
     </div>
 {% endif %}

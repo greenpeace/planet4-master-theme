@@ -26,8 +26,9 @@ class Search
                     'permission_callback' => static fn() => true,
                     'methods' => WP_REST_Server::READABLE,
                     'callback' => static function (WP_REST_Request $request): void {
-                        $query = new WP_Query($request->get_params());
+                        $query = new WP_Query();
                         $query->set('ep_integrate', true);
+                        $query->query($request->get_params());
 
                         $page = new SearchPage($query);
                         $page->render_partial();

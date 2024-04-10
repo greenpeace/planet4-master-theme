@@ -14,7 +14,7 @@ class Aggregations
     public const ACTION_TYPE = 'action-type';
 
     /**
-     * Match aggregation name and filter name to distribute count
+     * Match aggregation name and filter name to distribute doc count
      */
     public static function get_matching_filter(string $agg): ?string
     {

@@ -11,10 +11,10 @@ use WP_Query;
 
 class SearchPage
 {
+    public const POSTS_PER_LOAD = Search::POSTS_PER_LOAD;
+    public const SHOW_SCROLL_TIMES = 2;
     public const DEFAULT_SORT = Search::DEFAULT_SORT;
     public const DEFAULT_CACHE_TTL = 600;
-    public const POSTS_PER_LOAD = 5;
-    public const SHOW_SCROLL_TIMES = 2;
 
     public const PAGE_TEMPLATES = ['search.twig', 'archive.twig', 'index.twig'];
     public const RESULT_TEMPLATES = ['tease-search.twig'];
@@ -28,28 +28,12 @@ class SearchPage
     public static array $aggregations = [];
     public static ?int $query_time;
 
-    public static function hooks(): void
-    {
-        if (!ElasticSearch::is_active()) {
-            return;
-        }
-
-        add_action(
-            'ep_valid_response',
-            function ($response): void {
-                static::$aggregations = $response['aggregations'] ?? [];
-                static::$query_time = $response['took'] ?? null;
-            },
-            1,
-            10
-        );
-    }
-
     public function __construct(WP_Query $query)
     {
         $this->query = $query;
-        $this->context = Timber::get_context();
         $this->posts = $query->posts;
+        $this->context = Timber::get_context();
+
         $this->populate_context($query);
     }
 
@@ -93,6 +77,7 @@ class SearchPage
             // Translators: %s = number of results per page.
             'button_text' => sprintf(__('Show %s more results', 'planet4-master-theme'), self::POSTS_PER_LOAD),
         ];
+        $this->context['has_aggregation'] = ElasticSearch::is_active() && ElasticSearch::facets_is_active();
     }
 
     /**
@@ -110,7 +95,6 @@ class SearchPage
                     $this->populate_archive_post($post);
                     break;
                 case ActionPage::POST_TYPE:
-                    $this->populate_post($post);
                     $this->populate_action_post($post);
                     break;
                 default:
@@ -145,6 +129,8 @@ class SearchPage
 
     private function populate_action_post(WP_Post &$post): void
     {
+        $this->populate_post($post);
+
         $post_meta = get_post_meta($post->ID);
         if (isset($post_meta['action_button_text']) && $post_meta['action_button_text'][0]) {
             $post->button_text = $post_meta['action_button_text'][0];
@@ -161,23 +147,29 @@ class SearchPage
     protected function set_context_filters(): void
     {
         $new_ia = (bool) planet4_get_option('new_ia');
-        $this->context[Filters\Categories::CONTEXT_ID] = Filters\Categories::get_filters();
-        $this->context[Filters\PostTypes::CONTEXT_ID] = Filters\PostTypes::get_filters();
         $this->context[Filters\ActionTypes::CONTEXT_ID] = Filters\ActionTypes::get_filters($new_ia);
+        $this->context[Filters\Categories::CONTEXT_ID] = Filters\Categories::get_filters();
         $this->context[Filters\ContentTypes::CONTEXT_ID] = Filters\ContentTypes::get_filters(
             Search::should_include_archive(),
             $new_ia
         );
-        $this->context[Filters\Tags::CONTEXT_ID] = Filters\Tags::get_filters(); // Tag <-> Campaign.
+        $this->context[Filters\PostTypes::CONTEXT_ID] = Filters\PostTypes::get_filters();
+        $this->context[Filters\Tags::CONTEXT_ID] = Filters\Tags::get_filters();
 
-        uasort($this->context[Filters\Categories::CONTEXT_ID], fn ($a, $b) => strcmp($a['name'], $b['name']));
-        uasort($this->context[Filters\Tags::CONTEXT_ID], fn ($a, $b) => strcmp($a['name'], $b['name']));
+        uasort(
+            $this->context[Filters\Categories::CONTEXT_ID],
+            fn($a, $b) => strcmp($a['name'], $b['name'])
+        );
+        uasort(
+            $this->context[Filters\Tags::CONTEXT_ID],
+            fn($a, $b) => strcmp($a['name'], $b['name'])
+        );
 
         if (empty($this->query->query_vars['f'])) {
             return;
         }
 
-        // Keep track of which filters are already checked.
+        // Keep track of which filters are already checked
         foreach ($this->query->query_vars['f'] as $type => $values) {
             $context_name = match ($type) {
                 Filters\Categories::QUERY_ID => Filters\Categories::CONTEXT_ID,
@@ -193,6 +185,7 @@ class SearchPage
             }
         }
 
+        // Active filters
         $this->context['filters'] = array_merge(...array_map(function ($type, $values) {
             $entries = [];
             foreach ($values as $name => $id) {
@@ -200,6 +193,11 @@ class SearchPage
             }
             return [$type => $entries];
         }, array_keys($this->query->query_vars['f']), array_values($this->query->query_vars['f'])));
+
+
+        do_action('qm/debug', [Filters\Categories::CONTEXT_ID, $this->context[Filters\Categories::CONTEXT_ID]]);
+        do_action('qm/debug', [Filters\PostTypes::CONTEXT_ID, $this->context[Filters\PostTypes::CONTEXT_ID]]);
+        do_action('qm/debug', ['is_active', (string) ElasticSearch::is_active()]);
     }
 
     /**
@@ -207,12 +205,12 @@ class SearchPage
      */
     protected function set_context_aggregation(): void
     {
-        if (empty(static::$aggregations)) {
+        if (!ElasticSearch::is_active() || empty(static::$aggregations)) {
             return;
         }
 
-        $ct_to_id = Filters\ContentTypes::get_ids_map();
         $aggs = static::$aggregations['terms'] ?? [];
+        $ct_to_id = Filters\ContentTypes::get_ids_map();
         foreach ($aggs as $key => $def) {
             if ($key === 'meta' || $key === 'doc_count') {
                 continue;
@@ -259,7 +257,7 @@ class SearchPage
     {
         if (empty($this->query->query_vars['s'])) {
             $this->context['page_title'] = sprintf(
-                // translators: %d = Number of results.
+                // translators: %d: Number of results.
                 _n('%d result', '%d results', $this->context['found_posts'], 'planet4-master-theme'),
                 $this->context['found_posts']
             );
@@ -267,7 +265,7 @@ class SearchPage
         }
 
         $this->context['page_title'] = sprintf(
-            // translators: %1$d = Number of results.
+            // translators: %1$d: Number of results. %2$s: Search terms.
             _n(
                 '%1$d result for \'%2$s\'',
                 '%1$d results for \'%2$s\'',
