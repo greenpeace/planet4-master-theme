@@ -14,10 +14,12 @@ class ElasticSearch
             return;
         }
 
-        // Disable facets until we control it
-        // It modifies the output of aggregation when activated
+        // Enables facets for results aggregation
         add_action('ep_setup_features', function (): void {
-            \ElasticPress\Features::factory()->deactivate_feature('facets');
+            \ElasticPress\Features::factory()->update_feature('facets', [
+                'active' => true,
+                'match_type' => 'all',
+            ]);
         });
 
         // Return more post fields

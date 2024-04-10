@@ -644,7 +644,7 @@ class MasterSite extends TimberSite
         $context['sort_options'] = $this->sort_options;
         $context['default_sort'] = Search\SearchPage::DEFAULT_SORT;
 
-        $ops = get_option('planet4_options');
+        $options = get_option('planet4_options');
 
         // Do not embed google tag manager js if 'greenpeace' cookie is not set
         // or enforce_cookies_policy setting is not enabled.

@@ -46,7 +46,6 @@ class Search
         self::validate_filters($query);
         self::exclude_page_for_posts($query);
         self::exclude_unwanted_attachments($query);
-        self::set_aggregations($query);
 
         return $query;
     }
@@ -136,11 +135,6 @@ class Search
     public static function exclude_unwanted_attachments(WP_Query $query): void
     {
         $query->set('post_mime_type', array_merge(self::DOCUMENT_TYPES, ['']));
-    }
-
-    public static function set_aggregations(WP_Query $query): void
-    {
-        $query->set('aggs', Aggregations::get_with_filter());
     }
 
     public static function should_include_archive(): bool

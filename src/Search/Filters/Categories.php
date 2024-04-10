@@ -37,8 +37,8 @@ class Categories
             }
 
             $filters[ $category->term_id ] = [
-                'term_id' => $category->term_id,
-                'term_slug' => $category->slug,
+                'id' => $category->term_id,
+                'slug' => $category->slug,
                 'name' => $category->name,
                 'results' => 0,
             ];
@@ -49,11 +49,18 @@ class Categories
 
     public static function apply_to_query(array $values, WP_Query $query): void
     {
-        $query->set('tax_query', [[
+        $tax_query = $query->get('tax_query');
+        if (empty($tax_query)) {
+            $tax_query = ['operator' => 'AND'];
+        }
+
+        $tax_query[] = [
             'taxonomy' => self::TAXONOMY_ID,
             'field' => 'term_id',
             'terms' => array_map('intval', $values),
             'operator' => 'AND',
-        ]]);
+        ];
+
+        $query->set('tax_query', $tax_query);
     }
 }

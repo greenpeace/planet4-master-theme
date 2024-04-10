@@ -44,7 +44,8 @@ class Tags
 
         foreach ($tags as $tag) {
             $filters[ $tag->term_id ] = [
-                'term_id' => $tag->term_id,
+                'id' => $tag->term_id,
+                'slug' => $tag->slug,
                 'name' => $tag->name,
                 'results' => 0,
             ];
@@ -55,10 +56,17 @@ class Tags
 
     public static function apply_to_query(array $values, WP_Query $query): void
     {
-        $query->set('tax_query', [[
+        $tax_query = $query->get('tax_query');
+        if (empty($tax_query)) {
+            $tax_query = ['operator' => 'AND'];
+        }
+
+        $tax_query[] = [
             'taxonomy' => self::TAXONOMY_ID,
             'field' => 'term_id',
             'terms' => array_map('intval', $values),
-        ]]);
+        ];
+
+        $query->set('tax_query', $tax_query);
     }
 }

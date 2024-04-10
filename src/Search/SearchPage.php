@@ -211,25 +211,37 @@ class SearchPage
             return;
         }
 
-        $ct_map = Filters\ContentTypes::get_ids_map();
-        foreach (Aggregations::get_all() as $def) {
-            $buckets = static::$aggregations[Aggregations::WITH_POST_FILTER][$def['name']]['buckets'] ?? [];
-            $filter = Aggregations::get_matching_filter($def['name']);
-            switch ($def['name']) {
+        $ct_to_id = Filters\ContentTypes::get_ids_map();
+        $aggs = static::$aggregations['terms'] ?? [];
+        foreach ($aggs as $key => $def) {
+            if ($key === 'meta' || $key === 'doc_count') {
+                continue;
+            }
+
+            $filter = Aggregations::get_matching_filter($key);
+            if (!$filter) {
+                continue;
+            }
+
+            $slugs_to_id = array_column($this->context[$filter] ?? [], 'id', 'slug');
+            $buckets = $def['buckets'] ?? [];
+
+            switch ($key) {
                 case Aggregations::CATEGORIES:
                 case Aggregations::TAGS:
                 case Aggregations::P4_PAGE_TYPE:
                 case Aggregations::ACTION_TYPE:
                     foreach ($buckets as $agg) {
-                        if (!isset($this->context[$filter][$agg['key']])) {
+                        $term_id = $slugs_to_id[$agg['key']] ?? -1;
+                        if (!isset($this->context[$filter][$term_id])) {
                             continue;
                         }
-                        $this->context[$filter][$agg['key']]['results'] = $agg['doc_count'];
+                        $this->context[$filter][$term_id]['results'] = $agg['doc_count'];
                     }
                     break;
                 case Aggregations::POST_TYPE:
                     foreach ($buckets as $agg) {
-                        $type_id = $ct_map[$agg['key']] ?? 0;
+                        $type_id = $ct_to_id[$agg['key']] ?? 0;
                         $this->context[$filter][$type_id]['results'] = $agg['doc_count'];
                     }
                     break;

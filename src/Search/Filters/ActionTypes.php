@@ -45,7 +45,8 @@ class ActionTypes
 
         foreach ($types as $type) {
             $filters[ $type->term_id ] = [
-                'term_id' => $type->term_id,
+                'id' => $type->term_id,
+                'slug' => $type->slug,
                 'name' => $type->name,
                 'results' => 0,
             ];
@@ -57,10 +58,18 @@ class ActionTypes
     public static function apply_to_query(array $values, WP_Query $query): void
     {
         $query->set('post_type', ActionPage::POST_TYPE);
-        $query->set('tax_query', [[
+
+        $tax_query = $query->get('tax_query');
+        if (empty($tax_query)) {
+            $tax_query = ['operator' => 'AND'];
+        }
+
+        $tax_query[] = [
             'taxonomy' => self::TAXONOMY_ID,
             'field' => 'term_id',
             'terms' => array_map('intval', $values),
-        ]]);
+        ];
+
+        $query->set('tax_query', $tax_query);
     }
 }

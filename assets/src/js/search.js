@@ -8,11 +8,16 @@ const showHiddenRow = row => {
   row.style.display = 'block';
 };
 
+const getSelectedFilters = isModal => {
+    const filters_div_id = isModal ? 'filtermodal' : 'filter-sidebar-options';
+    return [...document.querySelectorAll(
+      `#${filters_div_id} input[name^="f["]:checked`
+    )];
+};
+
 const addSelectedFiltersToForm = (isModal, idToRemove) => {
   const searchForm = document.getElementById('search_form');
-  let selectedFilters = [...document.querySelectorAll(
-    `input[name^="f["]${isModal ? '.modal-checkbox' : ':not(.modal-checkbox)'}:checked`
-  )];
+  let selectedFilters = getSelectedFilters(isModal);
 
   if (idToRemove) {
     selectedFilters = selectedFilters.filter(selectedFilter => selectedFilter.value !== idToRemove);
@@ -93,10 +98,14 @@ export const setupSearch = () => {
       const nextPage = parseInt(current_page) + 1;
       loadMoreButton.dataset.current_page = nextPage;
 
+      const isModal = document.getElementById('filtermodal').style.display !== 'none';
       const url = new URL(document.documentElement.dataset.base + '/wp-json/planet4/v1/search/');
       url.searchParams.append('s', navSearchInput.value.trim());
       url.searchParams.append('paged', nextPage);
       url.searchParams.append('orderby', orderInput.value);
+      getSelectedFilters(isModal).forEach(f => {
+        url.searchParams.append(f.name, f.value);
+      });
 
       fetch(url)
         .then(response => response.text())

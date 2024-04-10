@@ -51,7 +51,8 @@ class PostTypes
 
         foreach ($post_types as $post_type) {
             $filters[ $post_type->term_id ] = [
-                'term_id' => $post_type->term_id,
+                'id' => $post_type->term_id,
+                'slug' => $post_type->slug,
                 'name' => $post_type->name,
                 'results' => 0,
             ];
@@ -63,10 +64,18 @@ class PostTypes
     public static function apply_to_query(array $values, WP_Query $query): void
     {
         $query->set('post_type', 'post');
-        $query->set('tax_query', [[
+
+        $tax_query = $query->get('tax_query');
+        if (empty($tax_query)) {
+            $tax_query = ['operator' => 'AND'];
+        }
+
+        $tax_query[] = [
             'taxonomy' => self::TAXONOMY_ID,
             'field' => 'term_id',
             'terms' => array_map('intval', $values),
-        ]]);
+        ];
+
+        $query->set('tax_query', $tax_query);
     }
 }

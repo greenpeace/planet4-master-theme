@@ -78,6 +78,7 @@ class ContentTypes
 
             $filters[ $type_data['id'] ] = [
                 'id' => $type_data['id'],
+                'slug' => $type_data['slug'],
                 'name' => $type_data['label'],
                 'results' => 0,
             ];
@@ -97,26 +98,32 @@ class ContentTypes
             self::ATTACHMENT => [
                 'id' => 1,
                 'label' => __('Document', 'planet4-master-theme'),
+                'slug' => self::ATTACHMENT,
             ],
             self::PAGE => [
                 'id' => 2,
                 'label' => __('Page', 'planet4-master-theme'),
+                'slug' => self::PAGE,
             ],
             self::POST => [
                 'id' => 3,
                 'label' => __('Post', 'planet4-master-theme'),
+                'slug' => self::POST,
             ],
             self::CAMPAIGN => [
                 'id' => 4,
                 'label' => __('Campaign', 'planet4-master-theme'),
+                'slug' => self::CAMPAIGN,
             ],
             self::ARCHIVE => [
                 'id' => 5,
                 'label' => __('Archive', 'planet4-master-theme'),
+                'slug' => self::ARCHIVE,
             ],
             self::ACTION => [
                 'id' => 6,
                 'label' => __('Action', 'planet4-master-theme'),
+                'slug' => self::ACTION,
             ],
         ];
     }
