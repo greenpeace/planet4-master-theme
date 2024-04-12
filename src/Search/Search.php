@@ -17,6 +17,8 @@ class Search
     public const DEFAULT_ACTION_WEIGHT = 2000;
     public const DEFAULT_MAX_WEIGHT = 3000;
 
+    public const EXCLUDE_FROM_SEARCH = 'p4_do_not_index';
+
     public static function hooks(): void
     {
         add_filter('query_vars', [self::class, 'add_query_vars'], 10, 1);
@@ -46,6 +48,7 @@ class Search
         self::validate_filters($query);
         self::validate_order($query);
         self::exclude_page_for_posts($query);
+        self::exclude_do_not_index($query);
         self::exclude_unwanted_attachments($query);
 
         return $query;
@@ -131,6 +134,21 @@ class Search
         }
 
         $query->set('post__not_in', [$page_for_posts]);
+    }
+
+    public static function exclude_do_not_index(WP_Query $query): void
+    {
+        $meta_query = $query->get('meta_query');
+        if (empty($meta_query)) {
+            $meta_query = ['relation' => 'AND'];
+        }
+
+        $meta_query[] = [
+            'key' => self::EXCLUDE_FROM_SEARCH,
+            'compare' => 'NOT EXISTS',
+        ];
+
+        $query->set('meta_query', $meta_query);
     }
 
     public static function exclude_unwanted_attachments(WP_Query $query): void

@@ -590,7 +590,6 @@ class GravityFormsExtensions
      * @param int $form_id The ID of the form to look for
      * @param array $post_types Post types that are searched
      *
-     * @return array
      */
     private function get_posts_by_gf_id(int $form_id, array $post_types = [ 'post', 'page' ]): array
     {
@@ -628,7 +627,6 @@ class GravityFormsExtensions
      * @param string $block_name Block name to find
      * @param array $blocks Blocks to search for nested blocks
      *
-     * @return array
      */
     private function find_nested_blocks(string $block_name, array $blocks): array
     {

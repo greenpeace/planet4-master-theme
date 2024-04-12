@@ -193,11 +193,6 @@ class SearchPage
             }
             return [$type => $entries];
         }, array_keys($this->query->query_vars['f']), array_values($this->query->query_vars['f'])));
-
-
-        do_action('qm/debug', [Filters\Categories::CONTEXT_ID, $this->context[Filters\Categories::CONTEXT_ID]]);
-        do_action('qm/debug', [Filters\PostTypes::CONTEXT_ID, $this->context[Filters\PostTypes::CONTEXT_ID]]);
-        do_action('qm/debug', ['is_active', (string) ElasticSearch::is_active()]);
     }
 
     /**
@@ -328,6 +323,10 @@ class SearchPage
         $this->set_context_filters();
         $this->set_context_aggregation();
         $this->set_context_title();
+
+        if ($this->context['found_posts'] <= 0) {
+            add_filter('wp_robots', 'wp_robots_no_robots');
+        }
 
         Timber::render(
             self::PAGE_TEMPLATES,

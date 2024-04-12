@@ -216,9 +216,6 @@ class MasterSite extends TimberSite
         // Disable WordPress(WP5.5) Block Directory.
         $this->disable_block_directory();
 
-        // Pin the ElasticPress to v3.4 search algorithm.
-        simple_value_filter('ep_search_algorithm_version', '3.4');
-
         // Update P4 author override value in RSS feed.
         add_filter(
             'the_author',

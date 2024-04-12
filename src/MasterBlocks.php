@@ -161,7 +161,6 @@ class MasterBlocks
     /**
      * Get Planet 4 options
      *
-     * @return array
      */
     private function get_p4_options(): array
     {
@@ -189,7 +188,6 @@ class MasterBlocks
     /**
      * Get Planet 4 features
      *
-     * @return array
      */
     private function get_p4_features(): array
     {
