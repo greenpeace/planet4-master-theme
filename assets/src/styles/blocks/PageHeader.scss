@@ -28,16 +28,32 @@ $text-column-padding-in: 24px;
   .wp-block-media-text__content {
     grid-column: 1;
     grid-row: 2;
-
     width: fit-content;
     margin: -$sp-5x $sp-3 $sp-3;
     padding-inline-start: 0;
-    padding-inline-end: 0;
     z-index: 1;
 
-    .wp-block-button,
-    .wp-block-button a {
+    @include medium-and-less {
+      padding-inline-end: 0;
+
+      html[dir="rtl"] & {
+        direction: rtl;
+        padding-inline-end: $sp-1;
+      }
+    }
+
+    .wp-block-button {
       width: auto;
+
+      a {
+        width: auto;
+      }
+
+      @include medium-and-less {
+        html[dir="rtl"] & {
+          margin-left: auto;
+        }
+      }
     }
   }
 
@@ -49,7 +65,11 @@ $text-column-padding-in: 24px;
     font-size: $font-size-xxl;
     font-weight: 700;
     line-height: initial;
-    margin-inline-start: -$sp-1;
+
+    @include medium-and-less {
+      padding: 0 $sp-1;
+      margin: 0 (-$sp-1);
+    }
   }
 
   .wp-block-heading.has-background {
@@ -79,8 +99,10 @@ $text-column-padding-in: 24px;
 
     .wp-block-media-text__content {
       margin: -$sp-5x $sp-5x 0;
-      padding-inline-start: 0;
-      padding-inline-end: 0;
+
+      html[dir="rtl"] & {
+        margin-left: auto;
+      }
     }
 
     .wp-block-group:first-child {
@@ -156,12 +178,6 @@ $text-column-padding-in: 24px;
         text-align: left;
       }
     }
-
-    .wp-block-group:first-child {
-      html[dir="rtl"] & {
-        left: calc(#{$title-width-l} - #{$text-column-width-l} + #{$text-column-padding-in});
-      }
-    }
   }
 
   @include x-large-and-up {
@@ -169,19 +185,13 @@ $text-column-padding-in: 24px;
 
     .wp-block-group:first-child {
       html[dir="rtl"] & {
-        left: calc(#{$title-width-l} - #{$text-column-width-xl} + #{$text-column-padding-in});
+        left: 0;
       }
     }
   }
 
   @include xx-large-and-up {
     grid-template-columns: $text-column-width-xxl auto;
-
-    .wp-block-group:first-child {
-      html[dir="rtl"] & {
-        left: calc(#{$title-width-l} - #{$text-column-width-xxl} + #{$text-column-padding-in});
-      }
-    }
   }
 }
 
@@ -196,10 +206,6 @@ $text-column-padding-in: 24px;
     .wp-block-group:first-child {
       left: calc(-1 * (#{$title-width-l} - #{$text-column-width-l} + #{$text-column-padding-in}));
       text-align: right;
-
-      html[dir="rtl"] & {
-        left: 0;
-      }
     }
 
     .wp-block-media-text__media {
