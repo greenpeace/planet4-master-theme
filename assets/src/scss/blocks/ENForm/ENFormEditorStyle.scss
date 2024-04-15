@@ -32,7 +32,7 @@
 
   .enform-full-width {
     /* Default enform text color is white, editor background color too */
-    background: grey;
+    background: var(--p4-dark-green-800);
 
     div.submit div.btn {
       width: 32%;
