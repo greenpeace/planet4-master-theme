@@ -8,14 +8,15 @@ test('check search works', async ({page, requestUtils}) => {
   const tagPageTitle = `#Tag ${testId}`;
   const postTitle = `Test Post ${testId}`;
 
-  const tagPage = await requestUtils.createPage({
-    title: tagPageTitle,
-    content: `
-      <!-- wp:paragraph -->
-        <p>The redirect page for the tag</p>
-      <!-- /wp:paragraph -->
-    `,
-    status: 'publish',
+  const tagPage = await requestUtils.rest({
+    path: '/wp/v2/pages',
+    method: 'POST',
+    data: {
+      title: tagPageTitle,
+      content: '<!-- wp:paragraph --><p>The redirect page for the new tag</p><!-- /wp:paragraph -->',
+      status: 'publish',
+      featured_media: 357,
+    },
   });
 
   const tag = await requestUtils.rest({
@@ -31,22 +32,23 @@ test('check search works', async ({page, requestUtils}) => {
     },
   });
 
-  await requestUtils.createPost({
-    title: postTitle,
-    content: `
-      <!-- wp:paragraph -->
-        <p>This is a search test post</p>
-      <!-- /wp:paragraph -->
-    `,
-    status: 'publish',
-    tags: [tag.id],
+  await requestUtils.rest({
+    path: '/wp/v2/posts',
+    method: 'POST',
+    data: {
+      title: postTitle,
+      content: '<!-- wp:paragraph --><p>This is a search test post</p><!-- /wp:paragraph -->',
+      status: 'publish',
+      featured_media: 357,
+      tags: [tag.id],
+    },
   });
 
   await page.goto('./');
 
   const searchBox = page.getByPlaceholder('Search');
   await searchBox.click();
-  await searchBox.type(testId);
+  await searchBox.fill(testId);
   await page.keyboard.press('Enter');
 
   const searchResult = await page.innerHTML('.result-statement');

@@ -29,11 +29,6 @@ class CategoryPageTest extends P4TestCase
 
         $post_data = $this->get_posts()['post_with_category_tag_custom_term'];
         $post = $this->factory->post->create_and_get($post_data);
-        $attachment_id = $this->factory->attachment->create_upload_object(
-            dirname(__DIR__) . '/tests/data/images/pressmedia.jpg',
-            0
-        );
-        set_post_thumbnail($post, $attachment_id);
 
         // Wrap WP_Post around Post.
         $post = new Post($post->ID);
@@ -142,7 +137,6 @@ class CategoryPageTest extends P4TestCase
      */
     public function get_posts(): array
     {
-
         return [
 
             'post_with_category_tag_custom_term' => [
@@ -159,6 +153,9 @@ class CategoryPageTest extends P4TestCase
                 'tax_input' => [
                     'p4-page-type' => [ 'story' ],
                 ],
+                'meta_input' => [
+                    '_thumbnail_id' => $this->attachment_id,
+                ],
             ],
             'post_with_category_tag' => [
                 'post_type' => 'post',
@@ -171,6 +168,9 @@ class CategoryPageTest extends P4TestCase
                 'tags_input' => [
                     'arcticsunrise',
                 ],
+                'meta_input' => [
+                    '_thumbnail_id' => $this->attachment_id,
+                ],
             ],
             'post_with_category' => [
                 'post_type' => 'post',
@@ -179,6 +179,9 @@ class CategoryPageTest extends P4TestCase
                 'post_content' => 'test content',
                 'post_category' => [
                     get_category_by_slug('nature')->term_id,
+                ],
+                'meta_input' => [
+                    '_thumbnail_id' => $this->attachment_id,
                 ],
             ],
         ];

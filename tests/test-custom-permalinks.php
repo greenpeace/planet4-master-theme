@@ -45,6 +45,9 @@ class CustomPermalinksTest extends P4TestCase
                 'post_name' => 'nature-page',
                 'post_content' => 'test content',
                 'post_parent' => $page->ID,
+                'meta_input' => [
+                    '_thumbnail_id' => $this->attachment_id,
+                ],
             ]
         );
 
@@ -55,6 +58,9 @@ class CustomPermalinksTest extends P4TestCase
                 'post_title' => 'The name of the place is Babylon 10.',
                 'post_name' => 'test-taxonomy-url',
                 'post_content' => 'test content',
+                'meta_input' => [
+                    '_thumbnail_id' => $this->attachment_id,
+                ],
             ]
         );
         wp_set_object_terms($post_id, 'story', 'p4-page-type');
@@ -114,6 +120,9 @@ class CustomPermalinksTest extends P4TestCase
                 'post_title' => 'Test p4 page type taxonomy terms in permalinks',
                 'post_name' => 'test-taxonomy-url',
                 'post_content' => 'test content',
+                'meta_input' => [
+                    '_thumbnail_id' => $this->attachment_id,
+                ],
             ]
         );
         wp_set_object_terms($post->ID, 'story', 'p4-page-type');
@@ -149,6 +158,9 @@ class CustomPermalinksTest extends P4TestCase
                 'post_title' => 'Test /%p4_page_type%/%postname%/ permastruct',
                 'post_name' => 'test-taxonomy-url',
                 'post_content' => 'test content',
+                'meta_input' => [
+                    '_thumbnail_id' => $this->attachment_id,
+                ],
             ]
         );
         wp_set_object_terms($post_id, 'story', 'p4-page-type');

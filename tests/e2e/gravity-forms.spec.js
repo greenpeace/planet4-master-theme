@@ -34,7 +34,7 @@ test.describe('Gravity Forms tests', () => {
     await toggleRestAPI({page}, false);
   });
 
-  test('check the confirmation message, text type', async ({requestUtils, page}) => {
+  test('check the confirmation message, text type', async ({page, requestUtils}) => {
     // Update the form's default confirmation text.
     await page.goto(`./wp-admin/admin.php?page=gf_edit_forms&view=settings&subview=confirmation&id=${createdForm.id}`);
     await page.locator('#the-list > tr:first-child').hover();
@@ -44,15 +44,20 @@ test.describe('Gravity Forms tests', () => {
     await expect(page.locator('.gforms_note_success')).toBeVisible();
 
     // Create a new post with the new form.
-    const newPost = await requestUtils.createPost({
-      title: `Gravity Forms test post - ${testId}`,
-      content: `<!-- wp:gravityforms/form {"formId":"${createdForm.id}"} /-->`,
-      status: 'publish',
+    const newPost = await requestUtils.rest({
+      path: '/wp/v2/posts',
+      method: 'POST',
+      data: {
+        title: `Gravity Forms test post - ${testId}`,
+        content: `<!-- wp:gravityforms/form {"formId":"${createdForm.id}"} /-->`,
+        status: 'publish',
+        featured_media: 357,
+      },
     });
     await page.goto(newPost.link);
 
     // Fill and submit the form and check the confirmation message text.
-    const form = page.locator('form[id^="gform"]');
+    const form = page.locator(`#gform_${createdForm.id}`);
     await form.getByLabel('First name').fill(TEST_FIRST_NAME);
     await form.getByLabel('Last name').fill(TEST_LAST_NAME);
     await form.getByLabel('Email').fill(TEST_EMAIL);

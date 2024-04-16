@@ -28,6 +28,9 @@ class M025CreateDefaultPostsPage extends MigrationScript
             'post_title' => 'News & Stories',
             'post_excerpt' => 'Read the latest updates.',
             'post_status' => 'publish',
+            'meta_input' => [
+                '_thumbnail_id' => 7581,
+            ],
         );
 
         $new_posts_page_id = wp_insert_post($new_posts_page);
