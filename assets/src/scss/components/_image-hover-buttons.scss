@@ -1,0 +1,51 @@
+.buttons-overlay {
+  position: absolute;
+  z-index: 2;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  display: flex;
+
+  button {
+    display: none;
+  }
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.3);
+
+    button {
+      display: inline-flex;
+    }
+  }
+
+  .block-style-icons & {
+    justify-content: flex-start;
+
+    .edit-image {
+      margin-inline-start: $sp-1;
+
+      .dashicon {
+        margin: 0;
+      }
+    }
+  }
+
+  .block-style-tasks & {
+    height: calc(100% - 32px);
+  }
+
+  .remove-image {
+    margin-inline-start: $sp-1;
+    background: var(grey-900);
+    color: var(--white);
+
+    .dashicon {
+      margin: 0;
+    }
+
+    &:hover {
+      background: var(--grey-800);
+    }
+  }
+}
