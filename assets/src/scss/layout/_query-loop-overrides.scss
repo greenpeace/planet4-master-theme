@@ -16,10 +16,6 @@
       width: 100%;
     }
 
-    .carousel-inner {
-      display: flex;
-    }
-
     .wp-block-post {
       margin-bottom: 0;
     }
@@ -31,6 +27,7 @@
       }
 
       .carousel-inner {
+        display: flex;
         overflow-x: scroll;
         scrollbar-width: none;
         scroll-behavior: smooth;
@@ -68,7 +65,7 @@
         display: flex;
         position: absolute;
         height: 48px;
-        width: calc(100% + calc($sp-3*2));
+        width: calc(100% + calc($sp-3 * 2));
         top: 0;
         bottom: 0;
         margin: auto;

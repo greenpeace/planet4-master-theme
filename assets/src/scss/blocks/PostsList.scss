@@ -150,7 +150,7 @@
       content: ".";
       font-size: calc(var(--font-size-m--font-family-primary) + 5px);
       margin-top: -6px;
-      margin-left: $sp-x;
+      margin-inline-start: $sp-x;
     }
   }
 
