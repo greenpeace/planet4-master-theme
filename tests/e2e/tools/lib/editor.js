@@ -7,32 +7,14 @@
  */
 
 /**
- * Open side panel settings for edited post/page/etc.
- *
- * @param {{Editor, Page}} editor
- * @return {Locator} Playwright Locator
- */
-async function openPostSettingsPanel({editor, page}) {
-  const topBar = await page.getByRole('region', {name: 'Editor top bar'});
-  const settingsButton = await topBar.getByRole('button', {name: 'Settings', exact: true});
-  const settingsExpanded = await settingsButton.getAttribute('aria-expanded');
-  if (settingsExpanded === 'false') {
-    await settingsButton.click();
-  }
-
-  const editorSettings = await editor.canvas.getByRole('region', {name: 'Editor settings'});
-  await editorSettings.locator('.components-panel__header').getByRole('button', {name: /Post|Page/}).click();
-
-  return editorSettings;
-}
-
-/**
  * @param {{Editor}} editor
  * @param {string}   panelTitle - Panel title
  * @return {Locator} Playwright Locator
  */
 async function openComponentPanel({editor}, panelTitle) {
+  await editor.openDocumentSettingsSidebar();
   const editorSettings = await editor.canvas.getByRole('region', {name: 'Editor settings'});
+  await editorSettings.locator('.edit-post-sidebar__panel-tab').first().click();
   const panelButton = await editorSettings.getByRole('button', {name: panelTitle, exact: true});
   const panelExpanded = await panelButton.getAttribute('aria-expanded');
   if (panelExpanded === 'false') {
@@ -90,31 +72,10 @@ async function removeAllPostTypes({editor}) {
   }
 }
 
-/**
- * Add a Featured image to a Post
- *
- * @param {{Editor}} editor
- * @param {number}   imageId - The image ID from the Image Library
- */
-async function addFeaturedImage({editor}, imageId) {
-  const editorSettings = await openComponentPanel({editor}, 'Featured image');
-
-  await editorSettings.getByRole('button', {name: 'Set featured image'}).click();
-  const imageModal = await editor.canvas.getByRole('dialog', {name: 'Featured image'});
-  const mediaLibTab = await imageModal.getByRole('tab', {name: 'Media Library'});
-  await mediaLibTab.click();
-  await imageModal.getByRole('tabpanel', {name: 'Media Library'});
-
-  await imageModal.locator(`[data-id="${imageId}"]`).click();
-  await imageModal.getByRole('button', {name: 'Set featured image'}).click();
-}
-
 export {
-  openPostSettingsPanel,
   openComponentPanel,
   addCategory,
   addTag,
   addPostType,
   removeAllPostTypes,
-  addFeaturedImage,
 };

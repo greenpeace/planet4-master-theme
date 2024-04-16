@@ -1,5 +1,5 @@
 import {test, expect} from './tools/lib/test-utils.js';
-import {publishPost} from './tools/lib/post.js';
+import {publishPost, createPostWithFeaturedImage} from './tools/lib/post.js';
 
 import fieldsData from './fixtures/enform/ensapi_sample_fields_response.json';
 import questionsData from './fixtures/enform/ensapi_sample_questions_response.json';
@@ -192,7 +192,10 @@ test.describe('create, use and submit EN Form', () => {
 });
 
 async function createPageWithENForm(page, admin, editor, style) {
-  await admin.createNewPost({postType: 'page', title: 'Test page with enform (style)', legacyCanvas: true});
+  await createPostWithFeaturedImage({admin, editor}, {
+    title: 'Test page with enform (style)',
+    postType: 'page',
+  });
 
   await editor.canvas.getByRole('button', {name: 'Add default block'}).click();
   await page.keyboard.type('/enform');

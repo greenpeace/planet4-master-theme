@@ -1,15 +1,14 @@
 import {test, expect} from './tools/lib/test-utils.js';
-import {publishPost, updatePost} from './tools/lib/post.js';
+import {publishPost, updatePost, createPostWithFeaturedImage} from './tools/lib/post.js';
 import {
-  openPostSettingsPanel,
   addCategory, addTag, addPostType,
-  removeAllPostTypes, addFeaturedImage,
+  removeAllPostTypes,
 } from './tools/lib/editor.js';
 
 test.useAdminLoggedIn();
 
 test('Test Related Articles block', async ({page, admin, editor}) => {
-  await admin.createNewPost({postType: 'post', title: 'Test post for Related articles', legacyCanvas: true});
+  await createPostWithFeaturedImage({admin, editor}, {title: 'Test post for Related articles'});
 
   await editor.canvas.getByRole('button', {name: 'Add default block'}).click();
   await page.keyboard.type('Test paragraph.');
@@ -17,12 +16,11 @@ test('Test Related Articles block', async ({page, admin, editor}) => {
   //
   // Add post category, type and tag
   //
-  await openPostSettingsPanel({editor, page});
+  await editor.openDocumentSettingsSidebar();
   await addCategory({editor}, 'Energy');
   await removeAllPostTypes({editor});
   await addPostType({editor}, 'Press Release');
   await addTag({editor}, 'Renewables');
-  await addFeaturedImage({editor}, 328);
 
   //
   // Related articles enabled

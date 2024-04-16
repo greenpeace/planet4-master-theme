@@ -11,12 +11,19 @@ let canPublish = true;
 export const blockEditorValidation = () => {
   subscribe(() => {
     const title = select('core/editor').getEditedPostAttribute('title');
+    const featuredImage = select('core/editor').getEditedPostAttribute('featured_media');
+    const postContent = select('core/editor').getEditedPostContent();
     const blocks = select('core/block-editor').getBlocks();
     const currentMessages = [];
 
     const invalidTitle = !title || title.trim().length <= 0;
     if (invalidTitle) {
       currentMessages.push('Title is required.');
+    }
+
+    const hasImageInContent = /<img.+wp-image-(\d+).*>/i.test(postContent);
+    if (!featuredImage && !hasImageInContent) {
+      currentMessages.push('Featured image is required.');
     }
 
     const invalidBlocks = blocks.reduce((invalidBlocksArray, block) => {
@@ -45,7 +52,7 @@ export const blockEditorValidation = () => {
     }, []);
     invalidBlocks.forEach(block => currentMessages.push(...block.messages));
 
-    const currentlyValid = (0 === invalidBlocks.length) && !invalidTitle;
+    const currentlyValid = (0 === invalidBlocks.length) && !invalidTitle && (featuredImage || hasImageInContent);
     messages = currentMessages;
 
     if (canPublish === currentlyValid) {

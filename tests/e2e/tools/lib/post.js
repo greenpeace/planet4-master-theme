@@ -1,3 +1,5 @@
+import {openComponentPanel} from './editor.js';
+
 async function publishPost({page, editor}) {
   await editor.publishPost();
 
@@ -22,4 +24,16 @@ async function updatePost({page}) {
   return page.waitForSelector('.components-snackbar');
 }
 
-export {publishPost, publishPostAndVisit, updatePost};
+async function createPostWithFeaturedImage({admin, editor}, params) {
+  await admin.createNewPost({...params, legacyCanvas: true});
+  const editorSettings = await openComponentPanel({editor}, 'Featured image');
+  await editorSettings.getByRole('button', {name: 'Set featured image'}).click();
+  const imageModal = await editor.canvas.getByRole('dialog', {name: 'Featured image'});
+  const mediaLibTab = await imageModal.getByRole('tab', {name: 'Media Library'});
+  await mediaLibTab.click();
+  await imageModal.getByRole('tabpanel', {name: 'Media Library'});
+  await imageModal.getByRole('checkbox', {name: 'OCEANS-GP0STOM6C'}).click();
+  await imageModal.getByRole('button', {name: 'Set featured image'}).click();
+}
+
+export {publishPost, publishPostAndVisit, updatePost, createPostWithFeaturedImage};

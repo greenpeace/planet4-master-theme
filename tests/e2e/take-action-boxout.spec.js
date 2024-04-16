@@ -1,11 +1,11 @@
 import {test, expect} from './tools/lib/test-utils.js';
-import {publishPostAndVisit} from './tools/lib/post.js';
+import {publishPostAndVisit, createPostWithFeaturedImage} from './tools/lib/post.js';
 
 test.useAdminLoggedIn();
 
 test.describe('Test Take Action Boxout block', () => {
   test.beforeEach(async ({page, admin, editor}) => {
-    await admin.createNewPost({postType: 'post', title: 'Test Take action boxout', legacyCanvas: true});
+    await createPostWithFeaturedImage({admin, editor}, {title: 'Test Take action boxout'});
 
     // Add Take Action Boxout block.
     const actionRequest = page.waitForRequest(/.*\/wp-json\/wp\/v2\/p4_action.*/);//NOSONAR
