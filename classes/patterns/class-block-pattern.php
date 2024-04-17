@@ -41,7 +41,6 @@ abstract class Block_Pattern {
 	public static function get_list(): array {
 		return [
 			BlankPage::class,
-			DeepDive::class,
 			DeepDiveTopic::class,
 			GetInformed::class,
 			Homepage::class,
