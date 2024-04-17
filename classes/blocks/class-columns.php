@@ -8,6 +8,8 @@
 
 namespace P4GBKS\Blocks;
 
+use WP_Block_Type_Registry;
+
 /**
  * Class Columns_Controller
  *
@@ -35,6 +37,10 @@ class Columns extends Base_Block {
 	 * Columns constructor.
 	 */
 	public function __construct() {
+		if ( WP_Block_Type_Registry::get_instance()->is_registered( self::get_full_block_name() ) ) {
+			return;
+		}
+
 		register_block_type(
 			self::get_full_block_name(),
 			[
