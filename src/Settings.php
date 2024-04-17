@@ -624,7 +624,6 @@ class Settings
      * @param array  $fields expects the fields (if they exist) of this subpage.
      * @param string $option_id Key of option to store serialized array in.
      *
-     * @return array
      */
     public function option_metabox(array $fields, string $option_id): array
     {

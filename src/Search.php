@@ -67,14 +67,12 @@ abstract class Search
     /**
      * Templates
      *
-     * @var array $templates
      */
     public array $templates;
 
     /**
      * Context
      *
-     * @var array $context
      */
     public array $context = [];
 
@@ -444,7 +442,6 @@ abstract class Search
      *
      * @param int $paged The number of the page of the results to be shown when using pagination.
      *
-     * @return array
      */
     protected function get_general_args(int $paged): array
     {
