@@ -16,12 +16,24 @@
  */
 
 // Exit if accessed directly.
+defined( 'ABSPATH' ) || die( 'Direct access is forbidden !' );
+
+// This plugin vendor dir.
+if ( file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
+	require_once __DIR__ . '/vendor/autoload.php';
+}
+// Local env base vendor dir.
+if ( file_exists( WP_CONTENT_DIR . '/vendor/autoload.php' ) ) {
+	require_once WP_CONTENT_DIR . '/vendor/autoload.php';
+}
+// Prod env base vendor dir.
+if ( file_exists( dirname( ABSPATH ) . '/vendor/autoload.php' ) ) {
+	require_once dirname( ABSPATH ) . '/vendor/autoload.php';
+}
+
 use P4\MasterTheme\Features;
 use P4\MasterTheme\MigrationLog;
 use P4\MasterTheme\Migrations\M001EnableEnFormFeature;
-
-defined( 'ABSPATH' ) || die( 'Direct access is forbidden !' );
-
 
 /*
 ========================
@@ -29,18 +41,7 @@ defined( 'ABSPATH' ) || die( 'Direct access is forbidden !' );
 ========================
 */
 if ( ! defined( 'P4GBKS_REQUIRED_PHP' ) ) {
-	define( 'P4GBKS_REQUIRED_PHP', '7.0' );
-}
-if ( ! defined( 'P4GBKS_REQUIRED_PLUGINS' ) ) {
-	define(
-		'P4GBKS_REQUIRED_PLUGINS',
-		[
-			'timber' => [
-				'min_version' => '1.9.0',
-				'rel_path'    => 'timber-library/timber.php',
-			],
-		]
-	);
+	define( 'P4GBKS_REQUIRED_PHP', '8.1' );
 }
 if ( ! defined( 'P4GBKS_PLUGIN_BASENAME' ) ) {
 	define( 'P4GBKS_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );

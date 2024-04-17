@@ -248,7 +248,6 @@ final class Loader {
 		// If we are on the admin panel.
 		// Run the version check. If it is successful, continue with hooking under 'init' the initialization of this plugin.
 		$this->check_required_php();
-		$this->check_required_plugins();
 		$this->hook_plugin();
 	}
 
@@ -282,72 +281,6 @@ final class Loader {
 			]
 		);
 		// phpcs:enable Generic.Strings.UnnecessaryStringConcat
-	}
-
-	/**
-	 * Check if the version of a plugin is less than the required version.
-	 */
-	private function check_required_plugins(): void {
-		$plugins = [
-			'not_found'   => [],
-			'not_updated' => [],
-		];
-
-		if ( ! is_array( P4GBKS_REQUIRED_PLUGINS ) ) {
-			return;
-		}
-
-		foreach ( P4GBKS_REQUIRED_PLUGINS as $required_plugin ) {
-			$plugin_data = get_plugin_data( WP_PLUGIN_DIR . '/' . $required_plugin['rel_path'] );
-
-			if ( ! is_plugin_active( $required_plugin['rel_path'] ) ) {
-				$plugins['not_found'][] = array_merge( $plugin_data, $required_plugin );
-			} elseif ( ! version_compare( $plugin_data['Version'], $required_plugin['min_version'], '>=' ) ) {
-				$plugins['not_updated'][] = array_merge( $plugin_data, $required_plugin );
-			}
-		}
-		if ( ! ( $plugins['not_found'] ) && ! ( $plugins['not_updated'] ) ) {
-			return;
-		}
-
-		deactivate_plugins( P4GBKS_PLUGIN_BASENAME );
-		$count = 0;
-		// phpcs:ignore Generic.Strings.UnnecessaryStringConcat
-		$message = '<div class="error fade">' . '<u>' . esc_html( P4GBKS_PLUGIN_NAME ) . ' > ' . esc_html__(
-			'Requirements Error(s)',
-			'planet4-blocks-backend'
-		) . '</u><br /><br />';
-
-		foreach ( $plugins['not_found'] as $plugin ) {
-			$message .= '<br/><strong>' . ( ++ $count ) . '. ' . esc_html( $plugin['Name'] ) . '</strong> ' . esc_html__(
-				'plugin needs to be installed and activated.',
-				'planet4-blocks-backend'
-			) . '<br />';
-		}
-		foreach ( $plugins['not_updated'] as $plugin ) {
-			// phpcs:disable Generic.Strings.UnnecessaryStringConcat
-			$message .= '<br/><strong>' . ( ++ $count ) . '. ' . esc_html( $plugin['Name'] ) . '</strong><br />' . esc_html__(
-				'Minimum version ',
-				'planet4-blocks-backend'
-			) . '<strong>' . esc_html( $plugin['min_version'] ) . '</strong>' . '<br/>' . esc_html__(
-				'Current version ',
-				'planet4-blocks-backend'
-			) . '<strong>' . esc_html( $plugin['Version'] ) . '</strong><br />';
-			// phpcs:enable Generic.Strings.UnnecessaryStringConcat
-		}
-
-		$message .= '</div><br />';
-		// phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped
-		wp_die(
-			$message,
-			'Plugin Requirements Error',
-			[
-				'response'  => \WP_Http::OK,
-				// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-				'back_link' => true,
-			]
-		);
-		// phpcs:enable WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
 
 	/**
