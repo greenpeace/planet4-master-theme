@@ -4,6 +4,51 @@
     display: none;
   }
 
+  .see-all-link {
+    list-style: none;
+
+    a {
+      @include shared-link-styles;
+      display: inline-block;
+      font-family: var(--font-family-heading);
+      font-size: 16px;
+
+      &::after {
+        content: "";
+        display: inline-block;
+        background-color: currentColor;
+        pointer-events: none;
+        margin-inline-start: .2rem;
+        height: .7rem;
+        width: .7rem;
+        background-repeat: no-repeat;
+        mask-image: url("../../images/chevron.svg");
+        mask-size: contain;
+        mask-repeat: no-repeat;
+        mask-position: center;
+
+        html[dir="rtl"] & {
+          rotate: 180deg;
+        }
+      }
+    }
+
+    @include large-and-up {
+      display: none;
+      visibility: hidden;
+    }
+  }
+
+  .wp-block-heading + .see-all-link {
+    display: none;
+    visibility: hidden;
+
+    @include large-and-up {
+      display: block;
+      visibility: visible;
+    }
+  }
+
   .taxonomy-post_tag a {
     display: inline-block;
 

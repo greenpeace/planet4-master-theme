@@ -9,6 +9,14 @@ export const registerPostsListBlock = () => {
   const {registerBlockVariation} = wp.blocks;
   const {__} = wp.i18n;
 
+  const newsPageLink = window.p4_vars.news_page_link;
+
+  const seeAllLink = ['core/navigation-link', {...!newsPageLink ? {className: 'd-none'} : {
+    url: newsPageLink,
+    label: __('See all stories', 'planet4-blocks-backend'),
+    className: 'see-all-link',
+  }}];
+
   return registerBlockVariation('core/query', {
     name: POSTS_LIST_BLOCK_NAME,
     title: 'Posts List',
@@ -42,7 +50,10 @@ export const registerPostsListBlock = () => {
       },
     },
     innerBlocks: [
-      ['core/heading', {lock: {move: true}, content: __('Related Posts', 'planet4-blocks-backend')}],
+      ['core/group', {layout: {type: 'flex', justifyContent: 'space-between'}}, [
+        ['core/heading', {lock: {move: true}, content: __('Related Posts', 'planet4-blocks-backend')}],
+        seeAllLink,
+      ]],
       ['core/paragraph', {
         lock: {move: true},
         placeholder: __('Enter description', 'planet4-blocks-backend'),
@@ -86,6 +97,7 @@ export const registerPostsListBlock = () => {
         ['core/button', {className: 'carousel-control-prev', text: __('Prev', 'planet4-blocks-backend')}],
         ['core/button', {className: 'carousel-control-next', text: __('Next', 'planet4-blocks-backend')}],
       ]],
+      seeAllLink,
     ],
   });
 };

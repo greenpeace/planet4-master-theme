@@ -208,7 +208,10 @@ class MasterBlocks
      */
     public function reflect_js_variables(): array
     {
+        $news_page = (int) get_option('page_for_posts');
+
         return [
+            'news_page_link' => $news_page ? get_permalink($news_page) : null,
             'options' => $this->get_p4_options(),
             'features' => $this->get_p4_features(),
             'pages' => $this->get_en_pages(),
