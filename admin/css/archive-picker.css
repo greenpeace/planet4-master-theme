@@ -449,7 +449,7 @@
   box-sizing: border-box;
   display: grid;
   grid-gap: 8px;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   margin: 0;
   padding: 8px;
   width: 100%;
@@ -541,7 +541,7 @@
   }
 
   .multiple-search-list {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
   }
 
   .nav-bulk-select.bulk-enabled {
