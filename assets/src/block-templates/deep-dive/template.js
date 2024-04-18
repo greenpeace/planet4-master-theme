@@ -8,6 +8,8 @@ const topic = ['core/column', {}, [
       align: 'center',
       className: 'force-no-lightbox force-no-caption is-style-rounded-180',
       url: `${mainThemeUrl}/images/placeholders/placeholder-180x180.jpg`,
+      height: '180px',
+      width: '180px',
     }],
     ['core/heading', {
       level: 5,

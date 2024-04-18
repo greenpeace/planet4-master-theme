@@ -1,4 +1,5 @@
 @import "./base/tokens";
+@import "./core-overrides/image";
 
 // Moved from another repo, for history please see https://github.com/greenpeace/planet4-plugin-gutenberg-blocks/blame/f5c532ed5704738136224cde305e9a0ffe614ceb/assets/src/styles/editorOverrides.scss
 .editor-post-title__block textarea.editor-post-title__input {
@@ -29,20 +30,6 @@
   }
 
   @include table;
-}
-
-.wp-block-image {
-  display: table;
-
-  // Mimics the behavior of WP's native '.is-resized' CSS class
-  .editor-rich-text.block-editor-rich-text {
-    display: table-caption;
-    caption-side: bottom;
-
-    figcaption {
-      display: block;
-    }
-  }
 }
 
 .components-panel__body label {
