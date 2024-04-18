@@ -655,6 +655,8 @@ class MasterSite extends TimberSite
         // or enforce_cookies_policy setting is not enabled.
         $context['enforce_cookies_policy'] = isset($options['enforce_cookies_policy']) ? true : false;
         $context['google_tag_value'] = $options['google_tag_manager_identifier'] ?? '';
+        $context['google_tag_domain'] = !empty($options['google_tag_manager_domain']) ?
+            $options['google_tag_manager_domain'] : 'www.googletagmanager.com';
         $context['ab_hide_selector'] = $options['ab_hide_selector'] ?? null;
         $context['facebook_page_id'] = $options['facebook_page_id'] ?? '';
         $context['preconnect_domains'] = [];
