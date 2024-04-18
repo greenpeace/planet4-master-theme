@@ -1,6 +1,7 @@
 {% if google_tag_value %}
   <script>
     var google_tag_value = '{{ google_tag_value }}';
+    var google_tag_domain = '{{ google_tag_domain }}';
     window.dataLayer = window.dataLayer || [];
 
     function gtag() { dataLayer.push(arguments); };
@@ -91,7 +92,7 @@
         var f = d.getElementsByTagName(s)[0],
             j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
         j.async = true;
-        j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+        j.src = 'https://' + google_tag_domain + '/gtm.js?id=' + i + dl;
         f.parentNode.insertBefore(j, f);
       })(window, document, 'script', 'dataLayer', google_tag_value);
     }

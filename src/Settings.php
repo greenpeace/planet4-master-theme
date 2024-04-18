@@ -394,6 +394,15 @@ class Settings
                         'type' => 'text',
                     ],
                     [
+                        'name' => __('Google Tag Manager Custom Domain', 'planet4-master-theme-backend'),
+                        'desc' => __(
+                            'Use a custom domain from which Tag Manager scripts are loaded. A Google Tag Manager Web Container must be set up in server-side Tag Manager on the same domain. Leave empty for the default.',
+                            'planet4-master-theme-backend'
+                        ),
+                        'id' => 'google_tag_manager_domain',
+                        'type' => 'text',
+                    ],
+                    [
                         'name' => __('AB Hide Selector', 'planet4-master-theme-backend'),
                         'desc' => __(
                             'When running an AB test it is possible that the original is shown for a short while (called flicker). If this happens you can enter a CSS selector here and matching elements will be hidden until the test is fully loaded.',
