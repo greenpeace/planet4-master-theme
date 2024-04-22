@@ -57,10 +57,10 @@
 				{% endif %}
 				{% if 'GEN' == field.en_type %}
 					{% set i = 0 %}
-					{% for locale, question_options in field.question_options|object_to_array %}
+					{% for locale, question_options in field.question_options|object_to_array_theme %}
 						{% if ( locale == field.selected_locale ) %}
 							{% for question_option in question_options %}
-								{% set question_option = question_option|object_to_array %}
+								{% set question_option = question_option|object_to_array_theme %}
 								<div class="en__field en__field--check en__field--{{ field.id }}">
 									<div class="en__field__element en__field__element--check form-group form-check-label-block custom-control p4-custom-control-input">
 										<label class="custom-control">
@@ -114,10 +114,10 @@
 					{{ field.label|e('wp_kses_post')|raw }}
 				</span><br />
 				{% set i = 0 %}
-				{% for locale, radio_options in field.radio_options|object_to_array %}
+				{% for locale, radio_options in field.radio_options|object_to_array_theme %}
 					{% if ( locale == field.selected_locale ) %}
 						{% for radio_option in radio_options %}
-							{% set radio_option = radio_option|object_to_array %}
+							{% set radio_option = radio_option|object_to_array_theme %}
 							<div class="en__field en__field--check en__field--{{ field.id }}">
 								<div class="en__field__element en__field__element--check form-group form-check-label-block custom-control p4-custom-control-input">
 									<label class="custom-control">
