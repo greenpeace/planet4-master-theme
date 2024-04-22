@@ -1501,25 +1501,19 @@ class MasterSite extends TimberSite
             $image_credit = ' ©' . $image_credit;
         }
 
-        $caption_open = '<figcaption>';
-        $caption_close = '</figcaption>';
-        $caption = explode($caption_open, $content, 2)[1] ?? '';
+        $caption = wp_get_attachment_caption($image_id) ?? '';
 
-        if (empty($credit) || strpos($caption, $image_credit) !== false) {
+        if (empty($credit) || (!empty($caption) && strpos($caption, $image_credit) !== false)) {
             return $content;
         }
 
-        if (strpos($content, $caption_open) !== false) {
-            $content = str_replace($caption_close, esc_attr($image_credit) . $caption_close, $content);
-        } else {
-            $content = str_replace(
-                '</figure>',
-                $caption_open . esc_attr($image_credit) . $caption_close . '</figure>',
-                $content
-            );
-        }
-
-        return $content;
+        return str_replace(
+            empty($caption) ? '</figure>' : $caption,
+            empty($caption) ?
+                '<figcaption>' . esc_attr($image_credit) . '</figcaption></figure>' :
+                $caption . esc_attr($image_credit),
+            $content
+        );
     }
 
     /**
