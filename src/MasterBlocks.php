@@ -42,7 +42,7 @@ class MasterBlocks
             // Adding functions as filters.
             $twig->addFilter(
                 new Twig_SimpleFilter(
-                    'object_to_array',
+                    'object_to_array_theme',
                     function ($std_class_object) {
                         $response = [];
                         foreach ($std_class_object as $key => $value) {
