@@ -164,10 +164,6 @@ export const setupCookies = () => {
         });
       }
 
-      dataLayer.push({
-        event: 'updateConsent',
-      });
-
       hideCookiesBox();
     };
   }
@@ -186,10 +182,6 @@ export const setupCookies = () => {
         ...ENABLE_ANALYTICAL_COOKIES && {analytics_storage: 'denied'},
       });
     }
-
-    dataLayer.push({
-      event: 'updateConsent',
-    });
 
     hideCookiesBox();
   };
