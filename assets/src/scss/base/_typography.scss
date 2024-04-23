@@ -136,3 +136,7 @@ a --link-- {
 a:focus:not(:focus-visible) {
   outline: 0;
 }
+
+mark {
+  padding: 0;
+}
