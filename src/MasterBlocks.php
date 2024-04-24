@@ -25,13 +25,19 @@ class MasterBlocks
      */
     private function hooks(): void
     {
-        // Register "planet4-blocks" block category.
+        // Register p4 block categories.
         add_filter('block_categories_all', function ($categories) {
 
-            // Adding a new category.
+            // Adding the "planet4-blocks" category.
             array_unshift($categories, [
                 'slug' => 'planet4-blocks',
                 'title' => 'Planet 4 Blocks',
+            ]);
+
+            // Adding the "planet4-block-templates" category.
+            array_unshift($categories, [
+                'slug' => 'planet4-block-templates',
+                'title' => 'Planet 4 Block Templates',
             ]);
 
             return $categories;
