@@ -489,3 +489,25 @@ if (class_exists('\\Sentry\\Options')) {
         return $options;
     });
 }
+
+// This action checks the current page being edited and enables the Hide Page Title Option
+// If the Page uses a Pattern layout
+
+add_action(
+    'publish_post',
+    function ($post_id, $post) {
+        if ($post->post_type !== 'page') {
+            return;
+        }
+
+        $pattern = '/^planet4-block-templates\/.*/';
+        $blocks = parse_blocks($post->post_content);
+
+        if (isset($blocks[0]) && preg_match($pattern, $blocks[0]['blockName'])) {
+            // Update meta value with string 'on'
+            update_post_meta($post_id, 'p4_hide_page_title_checkbox', 'on');
+        }
+    },
+    10,
+    2
+);
