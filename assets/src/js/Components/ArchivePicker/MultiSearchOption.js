@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import {ACTIONS, useArchivePickerContext} from './ArchivePicker';
 
 const {__} = wp.i18n;
-const MAX_SEARCHES = 6;
+const MAX_SEARCHES = 8;
 
 export default function MultiSearchOption() {
   const [localSearchText, setLocalSearchText] = useState([]);
