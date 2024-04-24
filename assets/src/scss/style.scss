@@ -85,6 +85,9 @@ Text Domain: planet4-master-theme
 
 @import "layout/query-loop-overrides";
 
+// Variations
+@import "variations/stretched-link";
+
 // Hide WPML footer language switcher.
 .wpml-ls-statics-footer {
   display: none;

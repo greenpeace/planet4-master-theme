@@ -1,0 +1,35 @@
+.group-stretched-link {
+  position: relative;
+
+  [class*="is-style-rounded-"].force-no-caption {
+    overflow: hidden;
+    border-radius: 50%;
+    transform: translateZ(0); // This is needed for Safari, otherwise the animation looks off.
+
+    img {
+      transition: transform .2s ease-in-out;
+    }
+  }
+
+  &:hover {
+    [class*="is-style-rounded-"] img {
+      transform: scale(1.3);
+    }
+  }
+
+  // Ensure it's only applying to the first link.
+  a:first-of-type {
+    &:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+    }
+
+    &:after {
+      display: none;
+    }
+  }
+}
