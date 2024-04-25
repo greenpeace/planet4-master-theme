@@ -10,6 +10,7 @@ import {registerMediaBlock} from './blocks/Media/MediaBlock';
 import {registerBlockTemplates} from './block-templates/register';
 import {registerTimelineBlock} from './blocks/Timeline/TimelineBlock';
 import {registerColumnsBlock} from './blocks/Columns/ColumnsBlock';
+import {registerBlockVariations} from './block-variations';
 
 wp.domReady(() => {
   // Make sure to unregister the posts-list native variation before registering planet4-blocks/posts-list
@@ -30,6 +31,9 @@ wp.domReady(() => {
   // Beta blocks
   registerActionsListBlock();
   registerPostsListBlock();
+
+  // Block variations
+  registerBlockVariations();
 });
 
 setupCustomSidebar();
