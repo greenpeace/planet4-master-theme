@@ -9,7 +9,7 @@ export const getHeadingsFromDom = selectedLevels => {
   }
 
   // Get all heading tags that we need to query
-  const headingsSelector = selectedLevels.map(level => `:not(.submenu-block) h${level.heading}`);
+  const headingsSelector = selectedLevels.map(level => `:not(.submenu-block) > h${level.heading}`);
 
   const usedAnchors = [];
 
