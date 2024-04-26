@@ -19,6 +19,10 @@ const mediaQueryAliases = {
 module.exports = {
   ...defaultConfig,
   entry: {
+    defer_script: './assets/src/js/defer-script.js',
+    defer_element: './assets/src/js/defer-element.js',
+    async_script: './assets/src/js/async-script.js',
+    async_element: './assets/src/js/async-element.js',
     index: './assets/src/js/app.js',
     style: './assets/src/scss/style.scss',
     post: './assets/src/scss/post.scss',

@@ -489,3 +489,56 @@ if (class_exists('\\Sentry\\Options')) {
         return $options;
     });
 }
+
+wp_register_script(
+    'async-script',
+    get_template_directory_uri() . '/assets/build/async_script.js',
+    array(),
+    '1.0.0',
+    array(
+        'in_footer' => false,
+        'strategy' => 'async'
+    )
+);
+
+
+wp_register_script(
+    'async-element',
+    get_template_directory_uri() . '/assets/build/async_element.js',
+    array(),
+    '1.0.0',
+    // true,
+    array(
+        'in_footer' => false,
+        'strategy' => 'async'
+    )
+);
+
+wp_register_script(
+    'defer-script',
+    get_template_directory_uri() . '/assets/build/defer_script.js',
+    array(),
+    '1.0.0',
+    array(
+        'in_footer' => false,
+        'strategy' => 'defer'
+    )
+);
+
+
+wp_register_script(
+    'defer-element',
+    get_template_directory_uri() . '/assets/build/defer_element.js',
+    array(),
+    '1.0.0',
+    // true,
+    array(
+        'in_footer' => false,
+        'strategy' => 'defer'
+    )
+);
+
+wp_enqueue_script('async-element');
+wp_enqueue_script('async-script');
+wp_enqueue_script('defer-element');
+wp_enqueue_script('defer-script');
