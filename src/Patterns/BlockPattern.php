@@ -43,6 +43,7 @@ abstract class BlockPattern
         return [
             SideImageWithTextAndCta::class,
             Issues::class,
+            RealityCheck::class,
         ];
     }
 
