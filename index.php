@@ -9,7 +9,7 @@ global $post;
  * It is used to display a page when nothing more specific matches a query.
  * E.g., it puts together the home page when no home.php file exists
  *
- * Methods for TimberHelper can be found in the /lib sub-directory
+ * Methods for \Timber\Helper can be found in the /lib sub-directory
  *
  * @package  WordPress
  * @subpackage  Timber
@@ -17,15 +17,14 @@ global $post;
  */
 
 use P4\MasterTheme\Context;
-use P4\MasterTheme\Post;
 use P4\MasterTheme\ListingPage;
 use Timber\Timber;
 
-$context = Timber::get_context();
+$context = Timber::context();
 $templates = [ 'index.twig' ];
 
 if (is_home()) {
-    $timber_post = new Post($post->ID);
+    $timber_post = Timber::get_post($post->ID);
     $timber_post->set_data_layer();
     $data_layer = $timber_post->get_data_layer();
 
