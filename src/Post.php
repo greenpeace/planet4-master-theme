@@ -2,7 +2,7 @@
 
 namespace P4\MasterTheme;
 
-use Timber\Post as TimberPost;
+use Timber\Timber;
 use Timber\Menu as TimberMenu;
 use P4\MasterTheme\Features\OldPostsArchiveNotice;
 use WP_Block;
@@ -11,51 +11,47 @@ use WP_Error;
 /**
  * Add planet4 specific functionality.
  */
-class Post extends TimberPost
+class Post extends \Timber\Post
 {
     /**
      * Issues navigation
      *
      * @var array|null $issues_nav_data
      */
-    protected ?array $issues_nav_data = null;
+    public ?array $issues_nav_data = null;
 
     /**
      * Content type
      *
      */
-    protected string $content_type;
+    public string $content_type;
 
     /**
      * Page types
      *
-     * @var TimberTerm[] $page_types
+     * @var \Timber\Term[] $page_types
      */
-    protected array $page_types = [];
+    public array $page_types = [];
 
     /**
      * Author
      *
      */
-    protected User $author;
+    public ?User $author;
 
     /**
      * Associative array with the values to be passed to GTM Data Layer.
      *
      */
-    protected array $data_layer;
+    public array $data_layer;
 
-    /**
-     * Post constructor.
-     *
-     * @param mixed $pid The post id.
-     * If left null it will try to figure out the current post id based on being inside The_Loop.
-     */
-    public function __construct($pid = null)
+    public static function build(\WP_Post $wp_post): self
     {
-        parent::__construct($pid);
-        $this->set_page_types();
-        $this->set_author();
+        $post = parent::build($wp_post);
+        $post->set_page_types();
+        $post->set_author();
+
+        return $post;
     }
 
     /**
@@ -207,7 +203,7 @@ class Post extends TimberPost
      */
     public function set_page_types(): void
     {
-        $taxonomies = $this->get_terms(CustomTaxonomy::TAXONOMY);
+        $taxonomies = $this->terms(CustomTaxonomy::TAXONOMY);
 
         if (!$taxonomies || is_wp_error($taxonomies)) {
             return;
@@ -367,9 +363,9 @@ class Post extends TimberPost
     {
         $author_override = get_post_meta($this->id, 'p4_author_override', true);
         if ('' !== $author_override) {
-            $this->author = new User(false, $author_override); // Create fake User.
+            $this->author = Timber::get_user(false, $author_override); // Create fake User.
         } else {
-            $this->author = new User((int) $this->post_author);
+            $this->author = Timber::get_user((int) $this->post_author);
         }
     }
 
@@ -460,6 +456,10 @@ class Post extends TimberPost
      */
     public function reading_time(): int
     {
+        if (empty($this->id)) {
+            //return 0;
+        }
+
         $cache_key = $this->id . '~' . $this->post_modified;
         $from_cache = wp_cache_get($cache_key);
         if ($from_cache) {
@@ -511,7 +511,7 @@ class Post extends TimberPost
         string $content,
         WP_Block $block
     ): string {
-        $time = (new self($block->context['postId'] ?? null))->reading_time_for_display();
+        $time = (Timber::get_post($block->context['postId'] ?? false))->reading_time_for_display();
         return $time ?
             '<span class="article-list-item-readtime">'
             // translators: reading time in min.
