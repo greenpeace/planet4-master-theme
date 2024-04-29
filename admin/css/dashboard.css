@@ -23,3 +23,7 @@
 .cp-error {
   color: #be2d26;
 }
+
+#gf_dashboard_message {
+  display: none;
+}
