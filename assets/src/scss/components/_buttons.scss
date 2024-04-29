@@ -111,6 +111,13 @@
   }
 }
 
+// This class overrides the default assigned to primary buttons, with a transparent background on hover.
+.wp-block-button.is-style-cta.is-hover-transparent a:hover {
+  --button-primary--hover--background: transparent;
+  --button-primary--hover--color: var(--white);
+  border-color: var(--white);
+}
+
 .btn-secondary,
 .wp-block-button.is-style-secondary a,
 [class="wp-block-button"] a,
