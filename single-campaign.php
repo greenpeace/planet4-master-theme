@@ -9,12 +9,11 @@ global $post;
  */
 
 use P4\MasterTheme\Context;
-use P4\MasterTheme\Post;
 use Timber\Timber;
 
 // Initializing variables.
-$context = Timber::get_context();
-$timber_post = new Post($post->ID);
+$context = Timber::context();
+$timber_post = Timber::get_post($post->ID);
 $context['post'] = $timber_post;
 
 // Get the cmb2 custom fields data.
