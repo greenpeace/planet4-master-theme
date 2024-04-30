@@ -1,8 +1,8 @@
 import {registerPlugin} from '@wordpress/plugins';
 import {OpenGraphSidebar} from './Sidebar/OpenGraphSidebar';
 import {PageHeaderSidebar} from './Sidebar/PageHeaderSidebar';
-import {CampaignThemeSidebar} from './Sidebar/CampaignThemeSidebar';
 import {ActionSidebar} from './Sidebar/ActionSidebar';
+import {CampaignSidebar} from './Sidebar/CampaignSidebar';
 import {SearchEngineOptimizationsSidebar} from './Sidebar/SearchEngineOptimizationsSidebar';
 import {AnalyticsTrackingSidebar} from './Sidebar/AnalyticsTrackingSidebar';
 
@@ -11,11 +11,6 @@ const sidebarsForPostType = postType => {
   case 'campaign':
     return [
       PageHeaderSidebar,
-      {
-        getId: CampaignThemeSidebar.getId,
-        getIcon: CampaignThemeSidebar.getIcon,
-        render: CampaignThemeSidebar,
-      },
       OpenGraphSidebar,
       SearchEngineOptimizationsSidebar,
       AnalyticsTrackingSidebar,
