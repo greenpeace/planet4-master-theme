@@ -107,7 +107,7 @@ class GravityFormsExtensions
         add_action('gform_after_save_form', [ $this, 'p4_gf_clear_page_caches' ], 10, 2);
         // Suppress the redirect in forms to use custom redirect handling.
         add_filter('gform_suppress_confirmation_redirect', '__return_true');
-        add_filter('gform_confirmation', [ $this, 'p4_gf_custom_confirmation_redirect' ], 11, 2);
+        add_filter('gform_confirmation', [ $this, 'p4_gf_custom_confirmation_redirect' ], 11, 3);
         add_filter('gform_pre_render', [ $this, 'p4_client_side_gravityforms_prefill' ], 10, 1);
         add_filter('gform_form_post_get_meta', [$this, 'p4_gf_enable_default_meta_settings'], 10, 1);
         add_filter('gform_hubspot_form_object_pre_save_feed', [$this, 'p4_gf_hb_form_object_pre_save_feed'], 10, 1);
@@ -333,6 +333,15 @@ class GravityFormsExtensions
 
         $current_confirmation = $form['confirmation'];
 
+        $userEmail = '';
+        // Search user email field from $entry object.
+        foreach ($entry as $key => $value) {
+            if (is_numeric($key) && filter_var($value, FILTER_VALIDATE_EMAIL)) {
+                $userEmail = $value;
+                break;
+            }
+        }
+
         $script = '<script type="text/javascript">
                         window.dataLayer = window.dataLayer || [];
                         window.dataLayer.push({
@@ -340,7 +349,8 @@ class GravityFormsExtensions
                             "formID": "' . $form['id'] . '",
                             "formPlugin": "Gravity Form",
                             "gGoal":  "' . ($form['p4_gf_type'] ?? self::DEFAULT_GF_TYPE) . '",
-                            "formTitle": "' . $form['title'] . '"
+                            "formTitle": "' . $form['title'] . '",
+                            "userEmail": "' . $userEmail . '"
                         });
                         // Disable GFTrackEvent (GFTrackEvent belongs to Gravity Forms Google Analytics Add-On)
                         window.parent.gfgaTagManagerEventSent = true;
@@ -649,10 +659,11 @@ class GravityFormsExtensions
      *
      * @param string|array $confirmation The default confirmation message.
      * @param mixed        $form         The form properties.
+     * @param mixed        $entry        The current entry.
      *
      * @return string|array The custom confirmation message.
      */
-    public function p4_gf_custom_confirmation_redirect($confirmation, $form)
+    public function p4_gf_custom_confirmation_redirect($confirmation, $form, $entry)
     {
         GFCommon::log_debug(__METHOD__ . '(): running.');
         if (isset($confirmation['redirect'])) {
@@ -668,13 +679,22 @@ class GravityFormsExtensions
                 $url,
             );
 
+            $userEmail = '';
+            // Search user email field from $entry object.
+            foreach ($entry as $key => $value) {
+                if (is_numeric($key) && filter_var($value, FILTER_VALIDATE_EMAIL)) {
+                    $userEmail = $value;
+                    break;
+                }
+            }
+
             // Get the tag manager data layer ID from master theme settings
             $options = get_option('planet4_options');
             $gtm_id = $options['google_tag_manager_identifier'];
 
             $script = '<script type="text/javascript">
 
-                if (window["google_tag_manager"]) {
+                if (window["google_tag_value"]) {
                     window.dataLayer = window.dataLayer || [];
                     dataLayer.push({
                         "event": "formSubmission",
@@ -682,6 +702,7 @@ class GravityFormsExtensions
                         "formPlugin": "Gravity Form",
                         "gGoal":  "' . ($form['p4_gf_type'] ?? self::DEFAULT_GF_TYPE) . '",
                         "formTitle": "' . $form['title'] . '",
+                        "userEmail": "' . $userEmail . '",
                         "eventCallback" : function(id) {
                             // There might be multiple gtm containers, make sure we only redirect for our main container
                             if ( id == "' . $gtm_id . '") {
