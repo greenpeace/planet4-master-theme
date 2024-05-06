@@ -36,6 +36,10 @@ const attributes = {
       return {isValid, messages};
     },
   },
+  currentImageIndex: {
+    type: 'integer',
+    default: 0,
+  },
 };
 
 export const registerCarouselHeaderBlock = () =>

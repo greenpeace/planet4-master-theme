@@ -86,6 +86,10 @@ class CarouselHeader extends BaseBlock
                             ],
                         ],
                     ],
+                    'currentImageIndex' => [
+                        'type' => 'integer',
+                        'default' => 0,
+                    ],
                 ],
             ]
         );

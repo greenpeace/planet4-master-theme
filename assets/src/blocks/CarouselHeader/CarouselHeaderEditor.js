@@ -27,6 +27,10 @@ export const CarouselHeaderEditor = ({setAttributes, attributes}) => {
     setAttributes({slides: newSlides});
   };
 
+  const updateCurrentImageIndex = index => {
+    setAttributes({currentImageIndex: index});
+  };
+
   const changeSlideImage = (index, imageId, imageUrl, imageAlt, srcSet) => {
     const newSlides = [...slides];
     newSlides[index].image = imageId;
@@ -112,6 +116,7 @@ export const CarouselHeaderEditor = ({setAttributes, attributes}) => {
                 image_id={slide.image}
                 index={index}
                 changeSlideImage={changeSlideImage}
+                updateCurrentImageIndex={updateCurrentImageIndex}
                 addSlide={addSlide}
                 removeSlide={removeSlide}
                 slides={slides}

@@ -12,6 +12,7 @@ export const EditableBackground = ({
   index,
   focalPoints,
   changeSlideImage,
+  updateCurrentImageIndex,
   addSlide,
   removeSlide,
   slides,
@@ -57,6 +58,7 @@ export const EditableBackground = ({
                   onClick={() => {
                     mediaUploadInstance.open();
                     onToggle();
+                    updateCurrentImageIndex(index);
                   }}
                 >
                   {image_url ?

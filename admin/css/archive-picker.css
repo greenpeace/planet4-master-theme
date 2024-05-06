@@ -332,6 +332,7 @@
   position: absolute;
   top: 0;
   right: 0;
+  background-color: transparent;
 }
 
 #archive-picker-root .picker-sidebar-header .close-sidebar {
@@ -340,7 +341,7 @@
 
 .media-modal-content .picker-sidebar-header .close-sidebar {
   right: 35px;
-  background: url("../../images/arrow-right.svg");
+  background-image: url("../../images/arrow-right.svg");
 }
 
 .multiple-search-item .delete-icon {
