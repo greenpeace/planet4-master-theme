@@ -69,10 +69,6 @@ export const CookiesFrontend = props => {
   useEffect(updateNoTrackCookie, [userRevokedAnalyticalCookies, userRevokedMarketingCookies]);
 
   const updateConsent = (key, granted) => {
-    dataLayer.push({
-      event: 'updateConsent',
-    });
-
     if (!ENABLE_GOOGLE_CONSENT_MODE) {
       return;
     }
@@ -80,10 +76,22 @@ export const CookiesFrontend = props => {
     gtag('consent', 'update', {
       [key]: granted ? 'granted' : 'denied',
     });
+
+    // eslint-disable-next-line no-undef
+    const updatedCapabilities = {...capabilities, [key]: granted ? 'granted' : 'denied'};
     dataLayer.push({
       event: 'updateConsent',
-      [key]: granted ? 'granted' : 'denied',
+      ...updatedCapabilities,
     });
+
+    let ad_storage = true;
+    if (key === 'ad_storage' && granted) {
+      ad_storage = false;
+    } else if (key !== 'ad_storage') {
+      // eslint-disable-next-line no-undef
+      ad_storage = capabilities.ad_storage === 'denied';
+    }
+    gtag('set', 'ads_data_redaction', ad_storage);
   };
 
   const toggleHubSpotConsent = () => {
