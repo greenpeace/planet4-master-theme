@@ -44,6 +44,7 @@ abstract class BlockPattern
             SideImageWithTextAndCta::class,
             Issues::class,
             RealityCheck::class,
+            QuickLinks::class,
         ];
     }
 
