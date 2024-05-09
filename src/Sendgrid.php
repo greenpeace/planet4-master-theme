@@ -30,7 +30,8 @@ class Sendgrid
         $phpmailer->Host = self::HOST;
         $phpmailer->Username = self::USERNAME;
         $phpmailer->Password = SENDGRID_API_KEY;
-        $phpmailer->From = self::SENDER;
+        // Filter hook to change the sendgrid From address.
+        $phpmailer->From = apply_filters('planet4_sendgrid_sender', self::SENDER);
 
         $phpmailer->IsSMTP();
         $phpmailer->Port = self::PORT_TLS;
