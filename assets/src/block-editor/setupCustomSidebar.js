@@ -11,6 +11,7 @@ const sidebarsForPostType = postType => {
   case 'campaign':
     return [
       PageHeaderSidebar,
+      CampaignSidebar,
       OpenGraphSidebar,
       SearchEngineOptimizationsSidebar,
       AnalyticsTrackingSidebar,
