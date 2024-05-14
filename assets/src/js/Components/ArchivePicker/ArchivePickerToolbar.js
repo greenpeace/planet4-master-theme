@@ -23,7 +23,9 @@ export default function ArchivePickerToolbar() {
       {!bulkSelect && <h3 className="archive-picker-title">{__('Greenpeace Media', 'planet4-master-theme-backend')}</h3>}
       <nav className={classNames('nav-bulk-select', {'bulk-enabled': bulkSelect})}>
         {(bulkSelect && processingIds.length) ? (
-          <span className="info">{sprintf(__('Processing %d images', 'planet4-master-theme-backend'), processingIds.length)}</span>
+          <span className="info">{
+            sprintf(__('Processing %d images', 'planet4-master-theme-backend'), processingIds.length)
+          }</span>
         ) : null}
         {bulkSelect && (
           <button
@@ -49,9 +51,7 @@ export default function ArchivePickerToolbar() {
           >{__('Bulk Upload', 'planet4-master-theme-backend')}</button> :
           <button
             disabled={!images.length}
-            onClick={() => {
-              dispatch({type: ACTIONS.BULK_SELECT_ENABLE});
-            }}
+            onClick={() => dispatch({type: ACTIONS.BULK_SELECT_ENABLE})}
             type="button"
             className="button"
           >{__('Bulk Select', 'planet4-master-theme-backend')}</button>
