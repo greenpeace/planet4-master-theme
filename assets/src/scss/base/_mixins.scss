@@ -278,3 +278,28 @@ $nested-comment-left-margin: 50px;
     --link--focus--border-radius: 0;
   }
 }
+
+@mixin rounded-image-size($size) {
+  figure,
+  img {
+    border-radius: 50%;
+    max-height: $size;
+  }
+
+  img {
+    object-fit: cover;
+    aspect-ratio: 1;
+  }
+}
+
+@mixin square-image-size($size) {
+  figure,
+  img {
+    height: $size;
+    width: $size;
+  }
+
+  img {
+    object-fit: cover;
+  }
+}

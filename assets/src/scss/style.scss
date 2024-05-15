@@ -83,6 +83,9 @@ Text Domain: planet4-master-theme
 // Blocks
 @import "blocks";
 
+// Overrides
+@import "core-overrides/image";
+@import "core-overrides/heading";
 @import "layout/query-loop-overrides";
 
 // Variations
