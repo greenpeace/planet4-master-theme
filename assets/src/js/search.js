@@ -8,11 +8,21 @@ const showHiddenRow = row => {
   row.style.display = 'block';
 };
 
+const isModalSearch = () => {
+  return document.getElementById('filtermodal') &&
+    document.getElementById('filtermodal').style.display !== 'none';
+};
+
+const getSelectedFilters = isModal => {
+  const filters_div_id = isModal ? 'filtermodal' : 'filter-sidebar-options';
+  return [...document.querySelectorAll(
+    `#${filters_div_id} input[name^="f["]:checked`
+  )];
+};
+
 const addSelectedFiltersToForm = (isModal, idToRemove) => {
   const searchForm = document.getElementById('search_form');
-  let selectedFilters = [...document.querySelectorAll(
-    `input[name^="f["]${isModal ? '.modal-checkbox' : ':not(.modal-checkbox)'}:checked`
-  )];
+  let selectedFilters = getSelectedFilters(isModal);
 
   if (idToRemove) {
     selectedFilters = selectedFilters.filter(selectedFilter => selectedFilter.value !== idToRemove);
@@ -41,6 +51,7 @@ export const setupSearch = () => {
   if (orderSelect) {
     orderSelect.onchange = () => {
       orderInput.value = orderSelect.value;
+      addSelectedFiltersToForm(isModalSearch());
       searchForm.submit();
     };
   }
@@ -93,12 +104,13 @@ export const setupSearch = () => {
       const nextPage = parseInt(current_page) + 1;
       loadMoreButton.dataset.current_page = nextPage;
 
-      const url = new URL(localizations.ajaxurl);
-      url.searchParams.append('action', 'get_paged_posts');
-      url.searchParams.append('search_query', navSearchInput.value.trim());
+      const url = new URL(document.documentElement.dataset.base + '/wp-json/planet4/v1/search/');
+      url.searchParams.append('s', navSearchInput.value.trim());
       url.searchParams.append('paged', nextPage);
       url.searchParams.append('orderby', orderInput.value);
-      url.searchParams.append('query-string', decodeURIComponent(location.search).substring(1)); // Ignore the ? in the search url (first char)
+      getSelectedFilters(isModalSearch()).forEach(f => {
+        url.searchParams.append(f.name, f.value);
+      });
 
       fetch(url)
         .then(response => response.text())

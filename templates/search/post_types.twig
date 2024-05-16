@@ -1,0 +1,32 @@
+{% set container_id = is_modal ? 'item-modal-post-types' : 'item-post-types' %}
+{% set input_class = is_modal ? 'modal-checkbox' : '' %}
+
+{% if ( post_types|length > 0 ) %}
+<div class="filteritem">
+    <a data-bs-toggle="collapse" href="#{{ container_id }}" class="{{ collapsed }}" aria-expanded="{{ expanded }}">
+        {{ __( 'Post Type', 'planet4-master-theme' ) }} <span></span>
+    </a>
+    <div id="{{ container_id }}" class="collapse {{ show }}" role="tabpanel">
+    <ul class="list-unstyled">
+    {% for post_type in post_types %}
+        {% if (post_type.results > 0) or (not has_aggregation) %}
+        <li>
+            <label class="custom-control">
+                <input
+                    type="checkbox"
+                    name="f[ptype][{{ post_type.name }}]"
+                    value="{{ post_type.id }}"
+                    class="p4-custom-control-input {{ input_class }}"
+                    data-ga-category="Search Page"
+                    data-ga-action="Post Type Filter"
+                    data-ga-label="{{ post_type.name|e('wp_kses_post')|raw }}"
+                    {{ post_type.checked }} />
+                <span class="custom-control-description">{{ post_type.name|e('wp_kses_post')|raw }} {{ post_type.results > 0 ? '('~post_type.results~')' : '' }}</span>
+            </label>
+        </li>
+        {% endif %}
+    {% endfor %}
+    </ul>
+    </div>
+</div>
+{% endif %}

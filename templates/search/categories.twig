@@ -1,0 +1,32 @@
+{% set container_id = is_modal ? 'item-modal-issue' : 'item-issue' %}
+{% set input_class = is_modal ? 'modal-checkbox' : '' %}
+
+{% if ( categories|length > 0 ) %}
+<div class="filteritem">
+    <a data-bs-toggle="collapse" href="#{{ container_id }}" aria-expanded="true">
+        {{ __( 'Category', 'planet4-master-theme' ) }} <span></span>
+    </a>
+    <div id="{{ container_id }}" class="collapse show" role="tabpanel">
+    <ul class="list-unstyled">
+    {% for category in categories %}
+        {% if (category.results > 0) or (not has_aggregation) %}
+        <li>
+        <label class="custom-control">
+            <input
+                type="checkbox"
+                name="f[cat][{{ category.name }}]"
+                value="{{ category.id }}"
+                class="p4-custom-control-input {{ input_class }}"
+                data-ga-category="Search Page"
+                data-ga-action="Category Filter"
+                data-ga-label="{{ category.name|e('wp_kses_post')|raw }}"
+                {{ category.checked }} />
+            <span class="custom-control-description">{{ category.name|e('wp_kses_post')|raw }} {{ category.results > 0 ? '('~category.results~')' : '' }}</span>
+        </label>
+        </li>
+        {% endif %}
+    {% endfor %}
+    </ul>
+    </div>
+</div>
+{% endif %}

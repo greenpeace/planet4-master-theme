@@ -2,6 +2,8 @@
 
 namespace P4\MasterTheme;
 
+use P4\MasterTheme\Search\SearchPage;
+
 /**
  * Wrapper class for the enqueue function because we can't autoload functions.
  */
@@ -20,7 +22,7 @@ final class PublicAssets
             // The ajaxurl variable is a global js variable defined by WP itself but only for the WP admin
             // For the frontend we need to define it ourselves and pass it to js.
             'ajaxurl' => admin_url('admin-ajax.php'),
-            'show_scroll_times' => Search::SHOW_SCROLL_TIMES,
+            'show_scroll_times' => SearchPage::SHOW_SCROLL_TIMES,
         ];
 
         wp_register_script(

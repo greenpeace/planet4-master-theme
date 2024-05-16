@@ -4,6 +4,11 @@ declare(strict_types=1);
 
 namespace P4\MasterTheme\Search\Filters;
 
+use P4\MasterTheme\Search\Search;
+use P4\MasterTheme\ActionPage;
+use P4\MasterTheme\PostArchive;
+use WP_Query;
+
 /**
  * Content type used for search.
  * Native types (post, page, attachment, etc.).
@@ -11,12 +16,15 @@ namespace P4\MasterTheme\Search\Filters;
  */
 class ContentTypes
 {
-    public const POST = 'post';
-    public const PAGE = 'page';
-    public const ACTION = 'p4_action';
-    public const CAMPAIGN = 'campaign';
+    public const QUERY_ID = 'ctype';
+    public const CONTEXT_ID = 'content_types';
+
+    public const ACTION = ActionPage::POST_TYPE;
+    public const ARCHIVE = PostArchive::POST_TYPE;
     public const ATTACHMENT = 'attachment';
-    public const ARCHIVE = 'archive';
+    public const CAMPAIGN = 'campaign';
+    public const PAGE = 'page';
+    public const POST = 'post';
 
     /**
      * Get all content types.
@@ -71,6 +79,7 @@ class ContentTypes
 
             $filters[ $type_data['id'] ] = [
                 'id' => $type_data['id'],
+                'slug' => $type_data['slug'],
                 'name' => $type_data['label'],
                 'results' => 0,
             ];
@@ -90,27 +99,74 @@ class ContentTypes
             self::ATTACHMENT => [
                 'id' => 1,
                 'label' => __('Document', 'planet4-master-theme'),
+                'slug' => self::ATTACHMENT,
             ],
             self::PAGE => [
                 'id' => 2,
                 'label' => __('Page', 'planet4-master-theme'),
+                'slug' => self::PAGE,
             ],
             self::POST => [
                 'id' => 3,
                 'label' => __('Post', 'planet4-master-theme'),
+                'slug' => self::POST,
             ],
             self::CAMPAIGN => [
                 'id' => 4,
                 'label' => __('Campaign', 'planet4-master-theme'),
+                'slug' => self::CAMPAIGN,
             ],
             self::ARCHIVE => [
                 'id' => 5,
                 'label' => __('Archive', 'planet4-master-theme'),
+                'slug' => self::ARCHIVE,
             ],
             self::ACTION => [
                 'id' => 6,
                 'label' => __('Action', 'planet4-master-theme'),
+                'slug' => self::ACTION,
             ],
         ];
+    }
+
+    /**
+     * @return array{string: id}
+     */
+    public static function get_ids_map(): array
+    {
+        $conf = self::get_config();
+        return array_merge(...array_map(fn($v, $k) => [$k => $v['id']], $conf, array_keys($conf)));
+    }
+
+    public static function apply_to_query(int $value, WP_Query $query): void
+    {
+        switch ($value) {
+            case 1:
+                $query->set('post_type', 'attachment');
+                $query->set('post_status', 'inherit');
+                $query->set('post_mime_type', Search::DOCUMENT_TYPES);
+                break;
+            case 2:
+                $query->set('post_type', 'page');
+                $query->set('post_status', 'publish');
+                break;
+            case 3:
+                $query->set('post_type', 'post');
+                $query->set('post_status', 'publish');
+                break;
+            case 4:
+                $query->set('post_type', 'campaign');
+                $query->set('post_status', 'publish');
+                break;
+            case 5:
+                $query->set('post_type', 'archive');
+                break;
+            case 6:
+                $query->set('post_type', ActionPage::POST_TYPE);
+                $query->set('post_status', 'publish');
+                break;
+            default:
+                break;
+        }
     }
 }
