@@ -3,6 +3,7 @@ import * as issues from './issues';
 import * as realityCheck from './reality-check';
 import * as quickLinks from './quick-links';
 import * as deepDive from './deep-dive';
+import * as highlightedCta from './highlighted-cta';
 
 export default [
   sideImgTextCta,
@@ -10,4 +11,5 @@ export default [
   realityCheck,
   quickLinks,
   deepDive,
+  highlightedCta,
 ];

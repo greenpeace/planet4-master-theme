@@ -46,6 +46,7 @@ abstract class BlockPattern
             RealityCheck::class,
             QuickLinks::class,
             DeepDive::class,
+            HighlightedCta::class,
         ];
     }
 
