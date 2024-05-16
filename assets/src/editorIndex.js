@@ -10,6 +10,7 @@ import {registerMediaBlock} from './blocks/Media/MediaBlock';
 import {registerBlockTemplates} from './block-templates/register';
 import {registerTimelineBlock} from './blocks/Timeline/TimelineBlock';
 import {registerColumnsBlock} from './blocks/Columns/ColumnsBlock';
+import {registerBlockStyles} from './block-styles';
 import {registerBlockVariations} from './block-variations';
 
 wp.domReady(() => {
@@ -31,6 +32,9 @@ wp.domReady(() => {
   // Beta blocks
   registerActionsListBlock();
   registerPostsListBlock();
+
+  // Custom block styles
+  registerBlockStyles();
 
   // Block variations
   registerBlockVariations();

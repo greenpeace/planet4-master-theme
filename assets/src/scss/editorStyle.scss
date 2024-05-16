@@ -24,7 +24,10 @@
 @import "layout/gravity-forms";
 @import "layout/query-loop-overrides";
 
+// Overrides
 @import "editorOverrides";
+@import "core-overrides/image";
+@import "core-overrides/heading";
 
 // CSS variables
 @import "base/css-variables";
