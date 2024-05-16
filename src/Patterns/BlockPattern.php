@@ -45,6 +45,7 @@ abstract class BlockPattern
             Issues::class,
             RealityCheck::class,
             QuickLinks::class,
+            DeepDive::class,
         ];
     }
 

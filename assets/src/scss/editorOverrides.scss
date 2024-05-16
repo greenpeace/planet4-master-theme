@@ -31,20 +31,6 @@
   @include table;
 }
 
-.wp-block-image {
-  display: table;
-
-  // Mimics the behavior of WP's native '.is-resized' CSS class
-  .editor-rich-text.block-editor-rich-text {
-    display: table-caption;
-    caption-side: bottom;
-
-    figcaption {
-      display: block;
-    }
-  }
-}
-
 .components-panel__body label {
   font-size: 13px;
 }
