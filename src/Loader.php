@@ -199,7 +199,6 @@ final class Loader
         new Blocks\Counter();//NOSONAR
         new Blocks\ENForm();//NOSONAR
         new Blocks\Gallery();//NOSONAR
-        new Blocks\GuestBook();//NOSONAR
         new Blocks\Happypoint();//NOSONAR
         new Blocks\Media();//NOSONAR
         new Blocks\SocialMedia();//NOSONAR
@@ -207,6 +206,7 @@ final class Loader
         new Blocks\Submenu();//NOSONAR
         new Blocks\TakeActionBoxout();//NOSONAR
         new Blocks\Timeline();//NOSONAR
+        Blocks\Register::registerFromAssets('guestbook');
 
         // Load block patterns.
         BlockPattern::register_all();
