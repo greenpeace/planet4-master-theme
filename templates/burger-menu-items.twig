@@ -12,6 +12,7 @@
             <a
                 class="nav-link"
                 href="{{ item.get_link }}"
+                target="{{ item.target }}"
                 data-ga-category="Menu Navigation"
                 data-ga-action="{{ link_ga_action }}"
                 data-ga-label="{{ page_category }}">
@@ -48,6 +49,7 @@
                     <a
                         class="nav-link"
                         href="{{ item.get_link }}"
+                        target="{{ item.target }}"
                         data-ga-category="Submenu Navigation"
                         data-ga-action="{{ link_ga_action }}"
                         data-ga-label="{{ page_category }}">

@@ -10,7 +10,10 @@
                 {% if key == 0 %}
                     <li class="nav-item {{ item.class }}">
                 {% endif %}
-                    <a class="nav-link" href="{{ item.get_link }}">{{ item.title|striptags|trim|slice(0, 2) }}</a>
+                    <a class="nav-link"
+                        href="{{ item.get_link }}"
+                        target="{{ item.target }}"
+                    >{{ item.title|striptags|trim|slice(0, 2) }}</a>
                 {% if key == (languages - 1) %}
                     </li>
                 {% endif %}

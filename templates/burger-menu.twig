@@ -28,6 +28,7 @@
                     <a
                         class="nav-link"
                         href="{{ site.url }}"
+                        target="{{ item.target }}"
                         data-ga-category="Menu Navigation"
                         data-ga-action="Home"
                         data-ga-label="{{ page_category }}">
@@ -50,6 +51,7 @@
         <a
             class="btn btn-donate"
             href="{{ donate_menu_items[0].link }}"
+            target="{{ item.target }}"
             data-ga-category="Menu Navigation"
             data-ga-action="Donate"
             data-ga-label="{{ page_category }}">
