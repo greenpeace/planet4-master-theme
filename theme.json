@@ -13,6 +13,7 @@
       "heading": {
         "typography": {
           "fontFamily": "var(--font-family-heading)",
+          "fontSize": "var(--font-size-heading)",
           "fontWeight": "inherit"
         }
       },
