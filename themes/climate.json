@@ -37,6 +37,7 @@
   "--counter-block--font-family": "Jost",
   "--form-description--p--first-child--font-family": "var(--font-family-heading, Jost)",
   "--font-family-heading": "\"Jost\",sans-serif",
+  "--font-size-heading": "3rem",
   "--form-description--p--first-child--font-size": "1.2rem",
   "--block-articles--article--meta--font-style": "normal",
   "--block-articles--article--meta--font-weight": "400",
