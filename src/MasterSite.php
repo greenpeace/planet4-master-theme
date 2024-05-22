@@ -966,10 +966,10 @@ class MasterSite extends TimberSite
      * that is used for applying weight to the current Post/Page in search results.
      *
      * @param string  $post_type Post type.
-     * @param WP_Post $post      Post object.
+     * @param WP_Post|WP_Comment $post      Post object.
      * phpcs:disable SlevomatCodingStandard.Functions.UnusedParameter -- add_meta_boxes callback
      */
-    public function add_meta_box_search(string $post_type, WP_Post $post): void
+    public function add_meta_box_search(string $post_type, $post): void
     {
         add_meta_box(
             'meta-box-search',
