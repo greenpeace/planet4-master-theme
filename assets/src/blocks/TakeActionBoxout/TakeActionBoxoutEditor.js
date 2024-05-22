@@ -23,7 +23,7 @@ import {ImagePlaceholder} from './ImagePlaceholder';
 const {__} = wp.i18n;
 
 // Planet 4 settings (Planet 4 >> Defaults content >> Take Action Covers default button text).
-const DEFAULT_BUTTON_TEXT = window.p4_vars.take_action_covers_button_text || __('Take action', 'planet4-blocks');
+const DEFAULT_BUTTON_TEXT = window.p4_vars.options.take_action_covers_button_text || __('Take action', 'planet4-blocks');
 
 export const TakeActionBoxoutEditor = ({
   attributes,

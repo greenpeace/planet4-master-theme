@@ -69,10 +69,7 @@ export const registerActionsListBlock = () => {
           ['core/post-excerpt'],
         ]],
         ['core/group', {className: 'read-more-nav'}, [
-          ['core/read-more', {
-            className: 'btn btn-small btn-primary',
-            content: __('Take Action', 'planet4-blocks-backend'),
-          }],
+          ['planet4-blocks/action-button-text'],
         ]],
       ]],
       ['core/buttons', {

@@ -67,7 +67,7 @@
     &:focus {
       box-shadow: 0 4px 14px rgba(0, 0, 0, .2);
 
-      .wp-block-read-more {
+      .btn-primary {
         background: var(--button-primary--hover--background);
         color: var(--button-primary--hover--color, var(--color-text-button--cta));
         border: var(--button-primary--hover--border, 1px solid transparent);
@@ -131,11 +131,6 @@
     font-size: 14px;
     font-weight: bold;
     font-family: var(--font-family-tertiary);
-  }
-
-  .wp-block-group .btn-primary {
-    margin-bottom: $sp-3;
-    margin-inline-end: $sp-3;
   }
 
   &.is-custom-layout-grid {

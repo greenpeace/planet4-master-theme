@@ -2,7 +2,7 @@ export const setupClickabelActionsListCards = () => {
   const liElements = document.querySelectorAll('.actions-list ul li:not(.carousel-li)');
 
   liElements.forEach(li => {
-    const linkElement = li.querySelector('.wp-block-read-more');
+    const linkElement = li.querySelector('.wp-block-post-title > a');
     if (linkElement) {
       const url = linkElement.getAttribute('href');
       li.tabIndex = 0;
