@@ -30,6 +30,8 @@ use P4\MasterTheme\Migrations\M025CreateDefaultPostsPage;
 use P4\MasterTheme\Migrations\M026ReplaceDeprecatedColorsFromContent;
 use P4\MasterTheme\Migrations\M027RemoveListingPageGridViewOption;
 use P4\MasterTheme\Migrations\M028MovePageHeaderSideBarOptions;
+use P4\MasterTheme\Migrations\M029RemoveTemplateEditorOption;
+use P4\MasterTheme\Migrations\M030RemovePurgeOnFeatureChangeOption;
 
 /**
  * Run any new migration scripts and record results in the log.
@@ -77,6 +79,8 @@ class Migrator
             M026ReplaceDeprecatedColorsFromContent::class,
             M027RemoveListingPageGridViewOption::class,
             M028MovePageHeaderSideBarOptions::class,
+            M029RemoveTemplateEditorOption::class,
+            M030RemovePurgeOnFeatureChangeOption::class,
         ];
 
         // Loop migrations and run those that haven't run yet.
