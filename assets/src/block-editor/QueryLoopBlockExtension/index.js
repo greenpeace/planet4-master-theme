@@ -31,6 +31,7 @@ export const setupQueryLoopBlockExtension = () => {
 
         const {className, query} = attributes;
         const layoutTypes = isActionsList ? ACTIONS_LIST_LAYOUT_TYPES : POSTS_LISTS_LAYOUT_TYPES;
+        const currentPostId = wp.data.select('core/editor').getCurrentPostId();
 
         const updateLayoutType = useCallback(type => {
           const layoutType = layoutTypes.find(t => t.value === type);
@@ -88,6 +89,16 @@ export const setupQueryLoopBlockExtension = () => {
             }
           }
         }, [selectedBlock]);
+
+        // Make sure to exclude the current Post/Action from the list.
+        useEffect(() => {
+          setAttributes({
+            query: {
+              ...query,
+              exclude: [currentPostId],
+            },
+          });
+        }, []);
 
         useEffect(() => {
           // Reset every time a new block is selected
