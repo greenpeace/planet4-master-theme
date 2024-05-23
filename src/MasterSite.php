@@ -3,7 +3,6 @@
 namespace P4\MasterTheme;
 
 use P4\MasterTheme\Features\Dev\CoreBlockPatterns;
-use P4\MasterTheme\Features\Dev\WPTemplateEditor;
 use P4\MasterTheme\Features\LazyYoutubePlayer;
 use Timber\Timber;
 use Timber\Site as TimberSite;
@@ -105,10 +104,6 @@ class MasterSite extends TimberSite
     {
         add_theme_support('post-thumbnails');
         add_theme_support('menus');
-        if (!WPTemplateEditor::is_active()) {
-            // Enable Full Site Editing.
-            remove_theme_support('block-templates');
-        }
         if (!CoreBlockPatterns::is_active()) {
             // Disable WP Block Patterns.
             remove_theme_support('core-block-patterns');

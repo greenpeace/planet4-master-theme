@@ -2,16 +2,13 @@
 
 namespace P4\MasterTheme\Settings;
 
-use P4\MasterTheme\CloudflarePurger;
 use P4\MasterTheme\Features\CloudflareDeployPurge;
 use P4\MasterTheme\Features\Dev\AllowAllBlocks;
 use P4\MasterTheme\Features\Dev\BetaBlocks;
 use P4\MasterTheme\Features\Dev\CoreBlockPatterns;
 use P4\MasterTheme\Features\Dev\DisableDataSync;
-use P4\MasterTheme\Features\Dev\WPTemplateEditor;
 use P4\MasterTheme\Features\EngagingNetworks;
 use P4\MasterTheme\Features\LazyYoutubePlayer;
-use P4\MasterTheme\Features\PurgeOnFeatureChanges;
 use P4\MasterTheme\Features\RedirectRedirectPages;
 use P4\MasterTheme\Features\Planet4Blocks;
 use P4\MasterTheme\Loader;
@@ -24,11 +21,6 @@ use CMB2;
 class Features
 {
     public const OPTIONS_KEY = 'planet4_features';
-
-    /**
-     * @var bool Purge Cloudflare cache on save
-     */
-    public static bool $purge_cloudflare = false;
 
     /**
      * Register current options status before processing, to detect any change later.
@@ -104,7 +96,6 @@ class Features
         return [
             EngagingNetworks::class,
             CloudflareDeployPurge::class,
-            PurgeOnFeatureChanges::class,
             LazyYoutubePlayer::class,
             RedirectRedirectPages::class,
             Planet4Blocks::class,
@@ -112,7 +103,6 @@ class Features
             // Dev only.
             DisableDataSync::class,
             BetaBlocks::class,
-            WPTemplateEditor::class,
             CoreBlockPatterns::class,
             AllowAllBlocks::class,
         ];
@@ -153,26 +143,11 @@ class Features
      */
     public static function hooks(): void
     {
-        // On field save.
         add_action(
             'cmb2_options-page_process_fields_' . Settings::METABOX_ID,
             [ self::class, 'on_pre_process' ],
             10,
             2
-        );
-
-        add_action(
-            'cmb2_save_field',
-            [ self::class, 'on_field_save' ],
-            10,
-            4
-        );
-        // After all fields are saved.
-        add_action(
-            'cmb2_save_options-page_fields_' . Settings::METABOX_ID,
-            [ self::class, 'on_features_saved' ],
-            10,
-            4
         );
     }
 
@@ -205,30 +180,5 @@ class Features
                 self::get_fields()
             )
         );
-    }
-
-    /**
-     * Hook running after field is saved
-     */
-    public static function on_field_save(): void
-    {
-        // This requires a toggle because we may be hitting a sort of rate limit from the deploy purge alone.
-        // For now it's better to leave this off on test instances, to avoid purges failing on production because we hit
-        // the rate limit.
-        if (! PurgeOnFeatureChanges::is_active()) {
-            return;
-        }
-    }
-
-    /**
-     * Hook running after all features are saved
-     */
-    public static function on_features_saved(): void
-    {
-        if (!self::$purge_cloudflare) {
-            return;
-        }
-
-        is_plugin_active('cloudflare/cloudflare.php') && ( new CloudflarePurger() )->purge_all();
     }
 }
