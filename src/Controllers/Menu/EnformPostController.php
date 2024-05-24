@@ -227,10 +227,10 @@ class EnformPostController extends Controller
      * Creates a Meta box for the Selected Components of the current EN Form.
      *
      * @param string   $post_type The current post type (unused).
-     * @param \WP_Post $post The currently Added/Edited EN Form.
+     * @param WP_Post|WP_Comment $post The currently Added/Edited EN Form.
      * phpcs:disable SlevomatCodingStandard.Functions.UnusedParameter
      */
-    public function add_form_meta_box(string $post_type, \WP_Post $post): void
+    public function add_form_meta_box(string $post_type, $post): void
     {
         add_meta_box(
             'meta-box-form',
@@ -258,10 +258,10 @@ class EnformPostController extends Controller
      * Creates a Meta box for the Selected Components of the current EN Form.
      *
      * @param string   $post_type The current post type (unused).
-     * @param \WP_Post $post The currently Added/Edited EN Form.
+     * @param WP_Post|WP_Comment $post The currently Added/Edited EN Form.
      * phpcs:disable SlevomatCodingStandard.Functions.UnusedParameter
      */
-    public function add_selected_meta_box(string $post_type, \WP_Post $post): void
+    public function add_selected_meta_box(string $post_type, $post): void
     {
         add_meta_box(
             'meta-box-selected',
@@ -294,10 +294,10 @@ class EnformPostController extends Controller
      * Adds available fields custom meta box to p4en_form edit post page.
      *
      * @param string   $post_type The current post type (unused).
-     * @param \WP_Post $post The currently Added/Edited EN Form.
+     * @param WP_Post|WP_Comment $post The currently Added/Edited EN Form.
      * phpcs:disable SlevomatCodingStandard.Functions.UnusedParameter
      */
-    public function add_fields_meta_box(string $post_type, \WP_Post $post): void
+    public function add_fields_meta_box(string $post_type, $post): void
     {
         add_meta_box(
             'fields_list_box',
