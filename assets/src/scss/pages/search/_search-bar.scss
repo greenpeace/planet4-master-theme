@@ -56,6 +56,11 @@
     @include large-and-up {
       top: $sp-2;
     }
+
+    html[dir="rtl"] & {
+      right: auto;
+      left: $sp-3;
+    }
   }
 
   .search-btn {
