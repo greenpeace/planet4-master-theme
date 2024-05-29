@@ -342,19 +342,28 @@ class GravityFormsExtensions
             }
         }
 
+        $event_parameters = [
+            "event" => "formSubmission",
+            "formID" => $form['id'],
+            "formPlugin" => "Gravity Form",
+            "gGoal" => ($form['p4_gf_type'] ?? self::DEFAULT_GF_TYPE),
+            "formTitle" => $form['title'],
+            "userEmail" => $userEmail,
+            "eventTimeout" => 2000,
+        ];
+
+        // Filter hook to change the event parameters
+        $event_parameters = apply_filters('planet4_datalayer_form_submission', $event_parameters, $form, $entry);
+
         $script = '<script type="text/javascript">
                         window.dataLayer = window.dataLayer || [];
-                        window.dataLayer.push({
-                            "event": "formSubmission",
-                            "formID": "' . $form['id'] . '",
-                            "formPlugin": "Gravity Form",
-                            "gGoal":  "' . ($form['p4_gf_type'] ?? self::DEFAULT_GF_TYPE) . '",
-                            "formTitle": "' . $form['title'] . '",
-                            "userEmail": "' . $userEmail . '"
-                        });
+
+                        const push_data = ' . json_encode($event_parameters) . '
+
+                        window.dataLayer.push(push_data);
+
                         // Disable GFTrackEvent (GFTrackEvent belongs to Gravity Forms Google Analytics Add-On)
                         window.parent.gfgaTagManagerEventSent = true;
-                        // Entry: ' . json_encode($entry) . '
                    </script>';
         // Append a datalayer event script to $confirmation html.
         $confirmation .= $script;
@@ -692,25 +701,37 @@ class GravityFormsExtensions
             $options = get_option('planet4_options');
             $gtm_id = $options['google_tag_manager_identifier'];
 
-            $script = '<script type="text/javascript">
+            $event_parameters = [
+                "event" => "formSubmission",
+                "formID" => $form['id'],
+                "formPlugin" => "Gravity Form",
+                "gGoal" => ($form['p4_gf_type'] ?? self::DEFAULT_GF_TYPE),
+                "formTitle" => $form['title'],
+                "userEmail" => $userEmail,
+                "eventTimeout" => 2000,
+            ];
 
+            // Filter hook to change the event parameters
+            $event_parameters = apply_filters('planet4_datalayer_form_submission', $event_parameters, $form, $entry);
+
+            $script = '<script type="text/javascript">
                 if (window["google_tag_value"]) {
                     window.dataLayer = window.dataLayer || [];
-                    dataLayer.push({
-                        "event": "formSubmission",
-                        "formID": "' . $form['id'] . '",
-                        "formPlugin": "Gravity Form",
-                        "gGoal":  "' . ($form['p4_gf_type'] ?? self::DEFAULT_GF_TYPE) . '",
-                        "formTitle": "' . $form['title'] . '",
-                        "userEmail": "' . $userEmail . '",
+
+                    let push_data = {
                         "eventCallback" : function(id) {
                             // There might be multiple gtm containers, make sure we only redirect for our main container
                             if ( id == "' . $gtm_id . '") {
                                 window.top.location.href = "' . $url . '";
                             }
-                        },
-                        "eventTimeout" : 2000
-                    });
+                        }
+                    };
+
+                    const event_parameters = ' . json_encode($event_parameters) . '
+
+                    push_data = Object.assign(push_data, event_parameters);
+
+                    window.dataLayer.push(push_data);
                 } else {
                     // Redirect latest after two seconds.
                     // This is a failsafe in case the request to tag manager is blocked.
