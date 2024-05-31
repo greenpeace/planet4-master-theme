@@ -68,7 +68,7 @@ test.describe('Gravity Forms tests', () => {
     await expect(confirmationMessage).toContainText(CONFIRMATION_MESSAGE);
 
     // Check that the entry has been registered as expected.
-    await page.goto('./wp-admin/admin.php?page=gf_entries');
+    await page.goto(`./wp-admin/admin.php?page=gf_entries&id=${createdForm.id}`);
     const latestEntry = page.locator('#the-list > tr.entry_row').first();
     await expect(latestEntry).toBeVisible();
     await expect(latestEntry.locator('td[data-colname="First name"]')).toContainText(TEST_FIRST_NAME);
