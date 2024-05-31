@@ -6,11 +6,10 @@ const DEFAULT_TEXT = window.p4_vars.options.take_action_covers_button_text || __
 
 export default function Edit({context: {postId}}) {
   const [metaFields] = useEntityProp('postType', 'p4_action', 'meta', postId);
-  const [link] = useEntityProp('postType', 'p4_action', 'link', postId);
 
   return (
-    <a href={link} className="btn btn-primary btn-small">
+    <button className="btn btn-primary btn-small">
       {metaFields?.action_button_text || DEFAULT_TEXT}
-    </a>
+    </button>
   );
 }
