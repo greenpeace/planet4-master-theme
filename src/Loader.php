@@ -215,6 +215,8 @@ final class Loader
             return;
         }
 
+        new Blocks\ActionButtonText();//NOSONAR
+
         Blocks\QueryLoopExtension::registerHooks();
         add_filter(
             'allowed_block_types_all',

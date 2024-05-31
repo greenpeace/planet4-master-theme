@@ -12,6 +12,7 @@ import {registerTimelineBlock} from './blocks/Timeline/TimelineBlock';
 import {registerColumnsBlock} from './blocks/Columns/ColumnsBlock';
 import {registerBlockStyles} from './block-styles';
 import {registerBlockVariations} from './block-variations';
+import {registerActionButtonTextBlock} from './blocks/ActionCustomButtonText';
 
 wp.domReady(() => {
   // Make sure to unregister the posts-list native variation before registering planet4-blocks/posts-list
@@ -30,6 +31,7 @@ wp.domReady(() => {
   registerBlockTemplates();
 
   // Beta blocks
+  registerActionButtonTextBlock();
   registerActionsListBlock();
   registerPostsListBlock();
 
