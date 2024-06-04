@@ -7,7 +7,7 @@ namespace P4\MasterTheme\Migrations;
 use P4\MasterTheme\MigrationRecord;
 use P4\MasterTheme\MigrationScript;
 use P4\MasterTheme\Settings;
-use P4GBKS\Search\BlockSearch;
+use P4\MasterTheme\BlockReportSearch\BlockSearch;
 use WP_Block_Parser;
 
 /**
@@ -23,7 +23,7 @@ class M009PopulateCookiesFields extends MigrationScript
      */
     public static function execute(MigrationRecord $record): void
     {
-        if (! class_exists('P4GBKS\Search\BlockSearch')) {
+        if (! class_exists('P4\MasterTheme\BlockReportSearch\BlockSearch')) {
             echo 'P4 Gutenberg plugin is not available.';
             return;
         }
