@@ -1,0 +1,56 @@
+{% block duplicate_postmeta_report %}
+
+	<div id="duplicate_postmeta_div" class="wrap">
+		<h2>{{ __( 'Duplicate Postmeta', 'planet4-blocks-backend' ) }}</h2>
+		</div>
+		<p>{{ __( 'Whitelisted meta_key\'s for delete operation', 'planet4-blocks-backend' ) }} - </p>
+		{% for postmeta_key in postmeta_keys %}
+			<p> - {{ postmeta_key }}</p>
+		{% endfor %}
+
+		<form id="p4bks_duplicate_postmeta_form" name="p4bks_duplicate_postmeta_form" method="post">
+		<p class="submit">
+			<input type="hidden" name="delete_duplicate_postmeta" value="1">
+			<input type="submit" name="remove_duplicate_postmenta" id="p4bks_remove_duplicate_button" class="button button-primary" value="{{ __( 'Remove Duplicate Postmeta', 'planet4-blocks-backend' ) }}">
+			<BR><BR>
+			<span class="convert-blocks-response cp-success">{{ message }}</span>
+			</p>
+		</form>
+		<div class="clear"></div>
+
+		<hr>
+		<h2>{{ __( 'Duplicate postmeta report', 'planet4-blocks-backend' ) }}</h2>
+		<table>
+		<tr>
+			<th style="padding: 0px 50px 0px 0px;">{{ __( 'No.', 'planet4-blocks-backend' ) }}</th>
+			<th>{{ __( 'meta_key', 'planet4-blocks-backend' ) }}</th>
+			<th>{{ __( 'Duplicate count', 'planet4-blocks-backend' ) }}</th>
+		</tr>
+		{% set total_count = 0 %}
+		{% for result in duplicate_postmeta %}
+			{% set duplicate_count = result.all_count - result.unique_count %}
+			{% set total_count = total_count + duplicate_count %}
+			<tr>
+				<td>{{ loop.index }}</td>
+				<td>{{ result.meta_key }} {% if result.meta_key in postmeta_keys %} * {% endif %} </td>
+				<td>{{ duplicate_count }}</td>
+			</tr>
+		{% endfor %}
+		{% if not duplicate_postmeta %}
+			<tr><td colspan="3"></td></tr>
+			<tr>
+				<td colspan="3">{{ __( 'No duplicate postmeta records found.', 'planet4-blocks-backend' ) }}</td>
+			</tr>
+		{% else %}
+			<tr>
+				<td></td>
+				<td><strong>{{ __( 'Total', 'planet4-blocks-backend' ) }}</strong></td>
+				<td><strong>{{ total_count }}</strong></td>
+			</tr>
+			<tr>
+				<td colspan="3">{{ __( 'The * indicates whitelisted metakey\'s for delete operation.', 'planet4-blocks-backend' ) }}</td>
+			</tr>
+		{% endif %}
+		</table>
+
+{% endblock %}
