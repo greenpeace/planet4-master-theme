@@ -490,3 +490,28 @@ if (class_exists('\\Sentry\\Options')) {
         return $options;
     });
 }
+
+// Enable Hide Page title by default when Pattern Layout is used
+add_action(
+    'transition_post_status',
+    function ($new_status, $old_status, $post): void {
+        // Check if the new status is 'publish' and the old status is not 'publish'
+        // And it is a Page
+        if ($new_status !== 'publish' || $old_status === 'publish' || $post->post_type === 'post') {
+            return;
+        }
+
+        // Parse the blocks in the post content
+        $blocks = parse_blocks($post->post_content);
+
+        // Check if the first block matches the regex
+        if (empty($blocks) || !preg_match('/^planet4-block-templates\/.*/', $blocks[0]['blockName'])) {
+            return;
+        }
+
+        // Update the 'hide_page_title' metadata
+        update_post_meta($post->ID, 'p4_hide_page_title_checkbox', 'on');
+    },
+    10,
+    3
+);
