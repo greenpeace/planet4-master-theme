@@ -89,7 +89,7 @@ export const ShareButtons = ({social_params, social_accounts}) => {
 };
 
 const twitterUrl = (link, title, description, account) => {
-  return `https://twitter.com/share?url=${encodeURIComponent(link)}` +
+  return `https://x.com/share?url=${encodeURIComponent(link)}` +
     `&text=${encodeURIComponent(title)}` +
     (description ? ` - ${encodeURIComponent(description)}` : '') +
     (account ? ` via @${encodeURIComponent(account)}&related=${encodeURIComponent(account)}` : '');

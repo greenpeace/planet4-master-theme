@@ -55,7 +55,7 @@
     {% endif %}
     <!-- Twitter -->
     {% if all_platforms or share_platforms.twitter %}
-        <a href="https://twitter.com/intent/post?related={{ social_accounts.twitter }}&text={{ social.title|url_encode }}{% if share_text or social.description %} - {{ (share_text ?? social.description)|striptags|url_encode }}{% endif %}, via @{{ social_accounts.twitter }}&url={{ (socialLink ~ '&utm_source=twitter')|url_encode }}"
+        <a href="https://x.com/intent/post?related={{ social_accounts.twitter }}&text={{ social.title|url_encode }}{% if share_text or social.description %} - {{ (share_text ?? social.description)|striptags|url_encode }}{% endif %}, via @{{ social_accounts.twitter }}&url={{ (socialLink ~ '&utm_source=twitter')|url_encode }}"
             onclick="dataLayerPush('Twitter');"
             target="_blank" class="share-btn twitter">
             {{ 'twitter'|svgicon }}
