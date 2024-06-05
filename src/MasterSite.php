@@ -201,9 +201,6 @@ class MasterSite extends TimberSite
         add_action('init', [$this, 'login_redirect'], 1);
         add_filter('attachment_fields_to_edit', [$this, 'add_image_attachment_fields_to_edit'], 10, 2);
         add_filter('attachment_fields_to_save', [$this, 'add_image_attachment_fields_to_save'], 10, 2);
-        version_compare(get_bloginfo('version'), '5.5', '<')
-            ? add_action('init', [$this, 'p4_register_core_image_block'])
-            : add_filter('register_block_type_args', [$this, 'register_core_blocks_callback']);
         add_action('admin_notices', [$this, 'show_dashboard_notice']);
         add_action('wp_ajax_dismiss_dashboard_notice', [$this, 'dismiss_dashboard_notice']);
 
@@ -1455,78 +1452,6 @@ class MasterSite extends TimberSite
         }
 
         return $post;
-    }
-
-    /**
-     * Override the Gutenberg core/image block render method output,
-     * to add credit field in it's caption text & image alt text as title.
-     *
-     * @param array  $attributes    Attributes of the Gutenberg core/image block.
-     * @param string $content The image element HTML.
-     *
-     * @return string HTML content of image element with credit field in caption and alt text in image title.
-     */
-    public function p4_core_image_block_render(array $attributes, string $content): string
-    {
-        $image_id = isset($attributes['id']) ? trim(str_replace('attachment_', '', $attributes['id'])) : '';
-        $img_post_meta = $image_id ? get_post_meta($image_id) : [];
-        if (!$img_post_meta) {
-            return $content;
-        }
-
-        $credit = $img_post_meta[self::CREDIT_META_FIELD][0] ?? '';
-        $alt_text = $img_post_meta['_wp_attachment_image_alt'][0] ?? '';
-
-        if ($alt_text) {
-            $content = str_replace(' alt=', ' title="' . esc_attr($alt_text) . '" alt=', $content);
-        }
-
-        $image_credit = ' ' . $credit;
-        if (false === strpos($credit, '©')) {
-            $image_credit = ' ©' . $image_credit;
-        }
-
-        $caption = wp_get_attachment_caption($image_id) ?? '';
-
-        if (empty($credit) || (!empty($caption) && strpos($caption, $image_credit) !== false)) {
-            return $content;
-        }
-
-        return str_replace(
-            empty($caption) ? '</figure>' : $caption,
-            empty($caption) ?
-                '<figcaption>' . esc_attr($image_credit) . '</figcaption></figure>' :
-                $caption . esc_attr($image_credit),
-            $content
-        );
-    }
-
-    /**
-     * Add callback function to Gutenberg core/image block.
-     */
-    public function p4_register_core_image_block(): void
-    {
-        unregister_block_type('core/image');
-        register_block_type(
-            'core/image',
-            ['render_callback' => [$this, 'p4_core_image_block_render']]
-        );
-    }
-
-    /**
-     * Add callback function to Gutenberg core/image block.
-     *
-     * @param array $args Parameters given during block register.
-     *
-     * @return array Parameters of the block.
-     */
-    public function register_core_blocks_callback(array $args): array
-    {
-        if ('core/image' === $args['name']) {
-            $args['render_callback'] = [$this, 'p4_core_image_block_render'];
-        }
-
-        return $args;
     }
 
     /**

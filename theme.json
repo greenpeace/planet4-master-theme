@@ -1,6 +1,6 @@
 {
   "$schema": "https://schemas.wp.org/trunk/theme.json",
-  "version": 2,
+  "version": 3,
   "styles": {
     "color": {
       "background": "var(--body--background-color)",
@@ -48,6 +48,10 @@
     }
   },
   "settings": {
+    "lightbox": {
+      "allowEditing": true,
+      "enabled": true
+    },
     "color": {
       "custom": false,
       "duotone": [],
