@@ -49,6 +49,8 @@ abstract class BlockPattern
             RealityCheck::class,
             SideImageWithTextAndCta::class,
             TakeAction::class,
+            PageHeader::class,
+            PageHeaderImgLeft::class,
         ];
     }
 

@@ -5,6 +5,7 @@ import * as quickLinks from './quick-links';
 import * as deepDive from './deep-dive';
 import * as highlightedCta from './highlighted-cta';
 import * as takeAction from './take-action';
+import * as pageHeader from './page-header';
 
 export default [
   sideImgTextCta,
@@ -14,4 +15,5 @@ export default [
   deepDive,
   highlightedCta,
   takeAction,
+  pageHeader,
 ];
