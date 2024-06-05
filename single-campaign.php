@@ -7,7 +7,6 @@
  */
 
 use P4\MasterTheme\Context;
-use P4\MasterTheme\PostCampaign;
 use P4\MasterTheme\Post;
 use Timber\Timber;
 
@@ -85,7 +84,6 @@ Context::set_custom_styles($context, $campaign_meta, 'campaign');
 $context['post'] = $post;
 $context['social_accounts'] = $post->get_social_accounts($context['footer_social_menu'] ?: []);
 $context['page_category'] = $data_layer['page_category'];
-$context['css_vars'] = PostCampaign::css_vars($campaign_meta);
 
 $context['custom_font_families'] = [
     'Montserrat:300,400,500,600,700,800',
