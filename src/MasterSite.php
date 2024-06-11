@@ -1486,7 +1486,12 @@ class MasterSite extends TimberSite
             $image_credit = ' ©' . $image_credit;
         }
 
-        $caption = wp_get_attachment_caption($image_id) ?? '';
+        $caption = '';
+
+        $pattern = '/<figcaption[^>]*>(.*?)<\/figcaption>/';
+        if (preg_match($pattern, $content, $matches)) {
+            $caption = $matches[1];
+        }
 
         if (empty($credit) || (!empty($caption) && strpos($caption, $image_credit) !== false)) {
             return $content;
