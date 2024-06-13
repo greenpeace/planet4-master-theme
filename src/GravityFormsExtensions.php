@@ -312,6 +312,50 @@ class GravityFormsExtensions
     }
 
     /**
+     * Find an email address in a form entry and return a SHA-256 hash of it. The returned hash is base64 encoded
+     * and any '/' characters are removed.
+     *
+     * @param array $form The form setting.
+     * @param array $entry A form entry.
+     *
+     * @return string The hashed email address or empty string if no email address is found.
+     */
+    public function p4_gf_get_email_hash(array $form, array $entry): string
+    {
+        $email_address = '';
+
+        // Find the first email field in the form and extract the email address
+        foreach ($form["fields"] as $i => $field) {
+            if (get_class($field) === "GF_Field_Email") {
+                $email_address = $entry[$field["id"]];
+                break;
+            }
+        }
+
+        if (empty($email_address)) {
+            // Find any email address as a value in the form entry, in any type of form field
+            foreach ($entry as $key => $value) {
+                if (is_numeric($key) && filter_var(trim($value), FILTER_VALIDATE_EMAIL)) {
+                    $email_address = trim($value);
+                    break;
+                }
+            }
+        }
+
+        if (!empty($email_address)) {
+            // Hash and base64 encode the email using SHA-256
+            $hashed_email = base64_encode(hash('sha256', $email_address, true));
+
+            // Remove '/' characters if present in Base64 encoding
+            $hashed_email = str_replace('/', '', $hashed_email);
+
+            return $hashed_email;
+        }
+
+        return '';
+    }
+
+    /**
      *
      * Return custom confirmation message for Gravity Forms.
      *
@@ -342,12 +386,15 @@ class GravityFormsExtensions
             }
         }
 
+        $email_hash = $this->p4_gf_get_email_hash($form, $entry);
+
         $event_parameters = [
             "event" => "formSubmission",
             "formID" => $form['id'],
             "formPlugin" => "Gravity Form",
             "gGoal" => ($form['p4_gf_type'] ?? self::DEFAULT_GF_TYPE),
             "formTitle" => $form['title'],
+            "gpUserId" => $email_hash,
             "userEmail" => $userEmail,
             "eventTimeout" => 2000,
         ];
@@ -361,6 +408,10 @@ class GravityFormsExtensions
                         const push_data = ' . json_encode($event_parameters) . '
 
                         window.dataLayer.push(push_data);
+
+                        const gp_user_id_event = new CustomEvent("gp_user_id_set", {"detail":
+                            {"gp_user_id": "' . $email_hash . '" }});
+                        document.dispatchEvent(gp_user_id_event);
 
                         // Disable GFTrackEvent (GFTrackEvent belongs to Gravity Forms Google Analytics Add-On)
                         window.parent.gfgaTagManagerEventSent = true;
@@ -701,12 +752,15 @@ class GravityFormsExtensions
             $options = get_option('planet4_options');
             $gtm_id = $options['google_tag_manager_identifier'];
 
+            $email_hash = $this->p4_gf_get_email_hash($form, $entry);
+
             $event_parameters = [
                 "event" => "formSubmission",
                 "formID" => $form['id'],
                 "formPlugin" => "Gravity Form",
                 "gGoal" => ($form['p4_gf_type'] ?? self::DEFAULT_GF_TYPE),
                 "formTitle" => $form['title'],
+                "gpUserId" => $email_hash,
                 "userEmail" => $userEmail,
                 "eventTimeout" => 2000,
             ];
@@ -732,6 +786,10 @@ class GravityFormsExtensions
                     push_data = Object.assign(push_data, event_parameters);
 
                     window.dataLayer.push(push_data);
+                    
+                    const gp_user_id_event = new CustomEvent("gp_user_id_set", {"detail":
+                            {"gp_user_id": "' . $email_hash . '" }});
+                    document.dispatchEvent(gp_user_id_event);
                 } else {
                     // Redirect latest after two seconds.
                     // This is a failsafe in case the request to tag manager is blocked.

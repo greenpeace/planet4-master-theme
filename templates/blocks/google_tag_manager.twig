@@ -2,6 +2,10 @@
   <script>
     var google_tag_value = '{{ google_tag_value }}';
     var google_tag_domain = '{{ google_tag_domain }}';
+    var consent_default_analytics_storage = '{{ consent_default_analytics_storage }}';
+    var consent_default_ad_storage = '{{ consent_default_ad_storage }}';
+    var consent_default_ad_user_data = '{{ consent_default_ad_user_data }}';
+    var consent_default_ad_personalization = '{{ consent_default_ad_personalization }}';
     window.dataLayer = window.dataLayer || [];
 
     function gtag() { dataLayer.push(arguments); };
@@ -29,18 +33,14 @@
         ad_storage: marketing_consent ? 'granted' : 'denied',
         ad_user_data: marketing_consent ? 'granted' : 'denied',
         ad_personalization: marketing_consent ? 'granted' : 'denied',
-        {% if cookies.enable_analytical_cookies %}
-        ...{'analytics_storage': analytical_consent ? 'granted' : 'denied'}
-        {% endif %}
+        analytics_storage: analytical_consent ? 'granted' : 'denied'
       };
     } else {
       var capabilities = {
-        ad_storage: 'denied',
-        ad_user_data: 'denied',
-        ad_personalization: 'denied',
-        {% if cookies.enable_analytical_cookies %}
-        ...{'analytics_storage': 'denied'}
-        {% endif %}
+        ad_storage: consent_default_ad_storage,
+        ad_user_data: consent_default_ad_user_data,
+        ad_personalization: consent_default_ad_personalization,
+        analytics_storage: consent_default_analytics_storage
       };
     }
     gtag('consent', 'default', capabilities);

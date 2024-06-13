@@ -661,6 +661,14 @@ class MasterSite extends TimberSite
         $context['google_tag_value'] = $options['google_tag_manager_identifier'] ?? '';
         $context['google_tag_domain'] = !empty($options['google_tag_manager_domain']) ?
             $options['google_tag_manager_domain'] : 'www.googletagmanager.com';
+        $context['consent_default_analytics_storage'] =
+            planet4_get_option('consent_default_analytics_storage') ?? 'denied';
+        $context['consent_default_ad_storage'] =
+            planet4_get_option('consent_default_ad_storage') ?? 'denied';
+        $context['consent_default_ad_user_data'] =
+            planet4_get_option('consent_default_ad_user_data') ?? 'denied';
+        $context['consent_default_ad_personalization'] =
+            planet4_get_option('consent_default_ad_personalization') ?? 'denied';
         $context['ab_hide_selector'] = $options['ab_hide_selector'] ?? null;
         $context['facebook_page_id'] = $options['facebook_page_id'] ?? '';
         $context['preconnect_domains'] = [];
