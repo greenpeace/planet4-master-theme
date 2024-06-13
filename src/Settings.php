@@ -310,6 +310,68 @@ class Settings
                         'id' => 'enable_reject_all_cookies',
                         'type' => 'checkbox',
                     ],
+                    [
+                        'name' => __('Enable Google Consent Mode', 'planet4-master-theme-backend'),
+                        'desc' => __("Enabling the Consent Mode will affect your setup in Google Tag Manager. The Consent Mode will prevent tags with built-in consent checks (eg. Google Analytics) from running before the user's consent is granted.", 'planet4-master-theme-backend'),
+                        'id' => 'enable_google_consent_mode',
+                        'type' => 'checkbox',
+                    ],
+                    [
+                        'name' => __('Consent default: analytics_storage', 'planet4-master-theme-backend'),
+                        'desc' => __(
+                            'The default value for analytics_storage consent before visitors make their choice in the cookies box (Google Consent Mode V2).',
+                            'planet4-master-theme-backend'
+                        ),
+                        'id' => 'consent_default_analytics_storage',
+                        'type' => 'select',
+                        'default' => 'denied',
+                        'options' => [
+                            'denied' => __('Denied', 'planet4-master-theme-backend'),
+                            'granted' => __('Granted', 'planet4-master-theme-backend'),
+                        ],
+                    ],
+                    [
+                        'name' => __('Consent default: ad_storage', 'planet4-master-theme-backend'),
+                        'desc' => __(
+                            'The default value for ad_storage consent before visitors make their choice in the cookies box (Google Consent Mode V2).',
+                            'planet4-master-theme-backend'
+                        ),
+                        'id' => 'consent_default_ad_storage',
+                        'type' => 'select',
+                        'default' => 'denied',
+                        'options' => [
+                            'denied' => __('Denied', 'planet4-master-theme-backend'),
+                            'granted' => __('Granted', 'planet4-master-theme-backend'),
+                        ],
+                    ],
+                    [
+                        'name' => __('Consent default: ad_user_data', 'planet4-master-theme-backend'),
+                        'desc' => __(
+                            'The default value for ad_user_data consent before visitors make their choice in the cookies box (Google Consent Mode V2).',
+                            'planet4-master-theme-backend'
+                        ),
+                        'id' => 'consent_default_ad_user_data',
+                        'type' => 'select',
+                        'default' => 'denied',
+                        'options' => [
+                            'denied' => __('Denied', 'planet4-master-theme-backend'),
+                            'granted' => __('Granted', 'planet4-master-theme-backend'),
+                        ],
+                    ],
+                    [
+                        'name' => __('Consent default: ad_personalization', 'planet4-master-theme-backend'),
+                        'desc' => __(
+                            'The default value for ad_personalization consent before visitors make their choice in the cookies box (Google Consent Mode V2).',
+                            'planet4-master-theme-backend'
+                        ),
+                        'id' => 'consent_default_ad_personalization',
+                        'type' => 'select',
+                        'default' => 'denied',
+                        'options' => [
+                            'denied' => __('Denied', 'planet4-master-theme-backend'),
+                            'granted' => __('Granted', 'planet4-master-theme-backend'),
+                        ],
+                    ],
                 ],
             ],
             'planet4_settings_social' => [
@@ -419,12 +481,6 @@ class Settings
                         ),
                         'id' => 'analytics_local_google_sheet_id',
                         'type' => 'text',
-                    ],
-                    [
-                        'name' => __('Enable Google Consent Mode', 'planet4-master-theme-backend'),
-                        'desc' => __("Enabling the Consent Mode will affect your setup in Google Tag Manager. The Consent Mode will prevent tags with built-in consent checks (eg. Google Analytics) from running before the user's consent is granted.", 'planet4-master-theme-backend'),
-                        'id' => 'enable_google_consent_mode',
-                        'type' => 'checkbox',
                     ],
                     // New IA special pages.
                     [
