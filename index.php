@@ -44,7 +44,6 @@ if (is_home()) {
     array_unshift($templates, 'all-posts.twig');
 
     $page = new ListingPage($templates, $context);
-    $page->view();
 } else {
     Timber::render($templates, $context);
 }
