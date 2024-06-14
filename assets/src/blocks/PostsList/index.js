@@ -66,6 +66,9 @@ export const registerPostsListBlock = () => {
           },
         },
       }],
+      ['core/query-no-results', {}, [
+        ['core/paragraph', {content: __('No posts found. (This default text can be edited)', 'planet4-blocks-backend')}],
+      ]],
       ['core/post-template', {lock: {move: true, remove: true}}, [
         ['core/columns', {}, [
           ['core/post-featured-image', {isLink: true}],
