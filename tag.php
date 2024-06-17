@@ -50,4 +50,4 @@ $context['tag_description'] = wpautop($tag->description);
 rewind_posts();
 
 $templates = ['tag.twig', 'archive.twig', 'index.twig'];
-new ListingPage($templates, $context);
+$page = new ListingPage($templates, $context);

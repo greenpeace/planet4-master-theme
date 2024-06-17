@@ -19,4 +19,4 @@ $context['taxonomy'] = $taxonomy;
 $context['wp_title'] = $taxonomy->name;
 $context['og_description'] = $taxonomy->description;
 
-new ListingPage($templates, $context);
+$page = new ListingPage($templates, $context);

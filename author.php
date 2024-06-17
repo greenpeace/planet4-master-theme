@@ -37,4 +37,4 @@ if (isset($wp_query->query_vars['author'])) {
 }
 
 $templates = ['author.twig', 'archive.twig'];
-new ListingPage($templates, $context);
+$page = new ListingPage($templates, $context);
