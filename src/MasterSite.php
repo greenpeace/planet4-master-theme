@@ -299,6 +299,27 @@ class MasterSite extends TimberSite
             }
         );
 
+        // Add noindex meta tag on pages that are excluded from search
+        add_action(
+            'wp_head',
+            function (): void {
+                if (!is_singular()) {
+                    return;
+                }
+
+                global $post;
+
+                $exclude_from_search = get_post_meta($post->ID, 'ep_exclude_from_search', true);
+
+                if (!$exclude_from_search) {
+                    return;
+                }
+
+                echo '<meta name="robots" content="noindex">' . PHP_EOL;
+            },
+            10
+        );
+
         AuthorPage::hooks();
         Search\Search::hooks();
         Sendgrid::hooks();
