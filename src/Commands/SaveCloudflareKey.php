@@ -49,9 +49,11 @@ class SaveCloudflareKey extends Command
             WP_CLI::error('CLOUDFLARE_API_KEY constant is not set.');
         }
 
+        // Keep last two parts of the hostname, or three in special cases like .org.au.
         $domain_parts = explode('.', $hostname);
+        $slice = count($domain_parts) - 1;
+        $root_domain = implode('.', array_slice($domain_parts, - $slice));
 
-        $root_domain = implode('.', array_slice($domain_parts, - 2));
         update_option('cloudflare_api_key', CLOUDFLARE_API_KEY);
         update_option('automatic_platform_optimization', [ 'value' => 1 ]);
         update_option('cloudflare_cached_domain_name', $root_domain);
