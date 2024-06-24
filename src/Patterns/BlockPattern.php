@@ -47,6 +47,7 @@ abstract class BlockPattern
             QuickLinks::class,
             DeepDive::class,
             HighlightedCta::class,
+            TakeAction::class,
         ];
     }
 
