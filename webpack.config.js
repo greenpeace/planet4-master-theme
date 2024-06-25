@@ -15,10 +15,11 @@ const mediaQueryAliases = {
 };
 
 module.exports = (env, argv) => {
-  const isProduction = argv.mode.development === 'production';
+  const isProduction = argv.mode === 'production';
 
   return {
     //stats: 'verbose',
+    mode: argv.mode || 'development',
     devtool: isProduction ? false : 'source-map',
     entry: {
       index: './assets/src/js/app.js',
