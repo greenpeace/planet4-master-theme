@@ -373,9 +373,7 @@
 }
 
 .multiple-search-form {
-  display: flex;
   height: auto;
-  align-items: flex-start;
   width: 100%;
 }
 
@@ -461,6 +459,11 @@
 }
 
 @media (max-width: 767px) {
+  .multiple-search-form .components-spinner {
+    display: block;
+    margin: auto;
+  }
+
   .picker-list {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -488,6 +491,12 @@
 
   .multiple-search-form {
     margin: 0 8px;
+    display: flex;
+    align-items: flex-start;
+  }
+
+  .multiple-search-form .components-spinner {
+    margin-top: 12px;
   }
 
   .archive-picker.is-open .nav-bulk-select {

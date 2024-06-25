@@ -1,4 +1,5 @@
 import {useRef, useState, useEffect, useCallback, useMemo} from '@wordpress/element';
+import {Spinner} from '@wordpress/components';
 import classNames from 'classnames';
 import {ACTIONS, useArchivePickerContext} from './ArchivePicker';
 
@@ -115,6 +116,7 @@ export default function MultiSearchOption() {
           className="button"
         >{__('Search', 'planet4-master-theme-backend')}</button>
       </nav>
+      {!!searchText.length && loading && <Spinner />}
     </form>
   ), [
     loading,
