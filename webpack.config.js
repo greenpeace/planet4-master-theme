@@ -19,6 +19,7 @@ module.exports = (env, argv) => {
 
   return {
     //stats: 'verbose',
+    mode: argv.mode || 'development',
     devtool: isProduction ? false : 'source-map',
     entry: {
       index: './assets/src/js/app.js',
