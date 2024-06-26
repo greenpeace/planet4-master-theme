@@ -55,6 +55,7 @@ final class Loader
     {
         $this->load_services($services);
         $this->load_block_services();
+        $this->load_menu();
         $this->add_filters();
         Commands::load();
 
@@ -175,6 +176,10 @@ final class Loader
         foreach ($services as $service) {
             (new $service($view))->load();
         }
+    }
+
+    private function load_menu():void {
+        // $menu = Controllers\Menu\ReusableBlocksController::class->load();
     }
 
     /**
