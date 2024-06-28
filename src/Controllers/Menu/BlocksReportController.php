@@ -20,7 +20,11 @@ class BlocksReportController extends Controller
     {
         $current_user = wp_get_current_user();
 
-        if (( !in_array('administrator', $current_user->roles, true) && !in_array('editor', $current_user->roles, true) ) || !current_user_can('edit_posts')) {
+        if (
+            ( !in_array('administrator', $current_user->roles, true) &&
+            !in_array('editor', $current_user->roles, true) ) ||
+            !current_user_can('edit_posts')
+        ) {
             return;
         }
 

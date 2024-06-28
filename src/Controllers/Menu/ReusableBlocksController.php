@@ -16,7 +16,7 @@ class ReusableBlocksController extends Controller
     /**
      * Post type name.
      */
-    const POST_TYPE = 'wp_block';
+    private const POST_TYPE = 'wp_block';
 
     /**
      * Create menu/submenu entry.
@@ -26,7 +26,11 @@ class ReusableBlocksController extends Controller
 
         $current_user = wp_get_current_user();
 
-        if (( !in_array('administrator', $current_user->roles, true) && !in_array('editor', $current_user->roles, true) ) || !current_user_can('edit_posts')) {
+        if (
+            ( !in_array('administrator', $current_user->roles, true) &&
+            !in_array('editor', $current_user->roles, true) ) ||
+            !current_user_can('edit_posts')
+        ) {
             return;
         }
 

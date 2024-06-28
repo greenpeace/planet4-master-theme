@@ -52,7 +52,7 @@ class DuplicatedPostmeta
      * Detect duplicate postmeta records
      *
      */
-    public static function detect()
+    public static function detect(): ?array
     {
 
         global $wpdb;

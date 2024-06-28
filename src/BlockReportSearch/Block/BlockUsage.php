@@ -17,30 +17,17 @@ use P4\MasterTheme\BlockReportSearch\Block\Query\Parameters;
  */
 class BlockUsage
 {
-    /**
-     * @var BlockSearch
-     */
-    private $search;
+    private BlockSearch $search;
 
-    /**
-     * @var WP_Block_Parser
-     */
-    private $parser;
+    private WP_Block_Parser $parser;
 
-    /**
-     * @var int[]
-     */
+    // phpcs:ignore SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingAnyTypeHint
     private $posts_ids;
 
-    /**
-     * @var WP_Post[]
-     */
+    // phpcs:ignore SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingAnyTypeHint
     private $posts;
 
-    /**
-     * @var array
-     */
-    private $blocks;
+    private array $blocks;
 
     /**
      * @param BlockSearch     $search Search class.
@@ -56,7 +43,6 @@ class BlockUsage
 
     /**
      * @param Parameters $params Query parameters.
-     * @return array
      */
     public function get_blocks(Parameters $params): array
     {
@@ -79,9 +65,8 @@ class BlockUsage
     /**
      * @param int[]      $posts_ids Posts IDs.
      * @param Parameters $params Query parameters.
-     * @return array
      */
-    private function get_filtered_blocks($posts_ids, Parameters $params)
+    private function get_filtered_blocks(array $posts_ids, Parameters $params): array
     {
         $this->fetch_blocks($posts_ids, $params);
         $this->filter_blocks($params);
@@ -173,7 +158,7 @@ class BlockUsage
     /**
      * Sort parsed blocks
      *
-     * @param null|array $sort  Sort dimensions.
+     * @param array|null $sort  Sort dimensions.
      * @return array
      */
     private function sort_blocks(?array $sort = []): void
@@ -201,7 +186,7 @@ class BlockUsage
      * @param object $post WP_Post.
      * @return array[]
      */
-    private function parse_post($post): array
+    private function parse_post(\WP_Post $post): array
     {
         $output = $this->parser->parse($post->post_content);
 
@@ -234,7 +219,7 @@ class BlockUsage
      * @param object $post  WP_Post.
      * @return array[]
      */
-    private function format_block_data(array $block, $post): array
+    private function format_block_data(array $block, \WP_Post $post): array
     {
         $type = $block['blockName'];
         $attrs = $block['attrs'] ?? [];
@@ -272,8 +257,6 @@ class BlockUsage
 
     /**
      * Block count in search result.
-     *
-     * @return int
      */
     public function block_count(): int
     {
@@ -282,8 +265,6 @@ class BlockUsage
 
     /**
      * Post count in search result.
-     *
-     * @return int
      */
     public function post_count(): int
     {

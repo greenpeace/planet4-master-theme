@@ -19,19 +19,11 @@ class PatternUsageApi
 {
     public const DEFAULT_POST_STATUS = [ 'publish' ];
 
-    /**
-     * @var PatternUsage
-     */
-    private $usage;
+    private PatternUsage $usage;
 
-    /**
-     * @var Parameters
-     */
-    private $params;
+    private Parameters $params;
 
-    /**
-     * @var array[] Blocks.
-     */
+    // phpcs:ignore SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingAnyTypeHint
     private $items;
 
     /**
