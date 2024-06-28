@@ -13,45 +13,28 @@ namespace P4\MasterTheme\BlockReportSearch\Block\Query;
  */
 class Parameters
 {
-    /**
-     * @var string
-     */
+    // phpcs:ignore SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingAnyTypeHint
     private $namespace;
 
-    /**
-     * @var string
-     */
+    // phpcs:ignore SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingAnyTypeHint
     private $name;
 
-    /**
-     * @var array
-     */
+    // phpcs:ignore SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingAnyTypeHint
     private $attributes;
 
-    /**
-     * @var string
-     */
+    // phpcs:ignore SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingAnyTypeHint
     private $content;
 
-    /**
-     * @var string[]
-     */
+    // phpcs:ignore SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingAnyTypeHint
     private $post_status;
 
-    /**
-     * @var string[]
-     */
+    // phpcs:ignore SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingAnyTypeHint
     private $post_type;
 
-    /**
-     * @var string[]
-     */
+    // phpcs:ignore SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingAnyTypeHint
     private $order;
 
-    /**
-     * @var string[]
-     */
-    const DEFAULT_POST_STATUS = [ 'publish', 'private' ];
+    private const DEFAULT_POST_STATUS = [ 'publish', 'private' ];
 
     /**
      * Generate a query param object from an array.

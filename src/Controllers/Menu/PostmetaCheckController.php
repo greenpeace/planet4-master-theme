@@ -54,8 +54,10 @@ class PostmetaCheckController extends Controller
         }
 
         if ($deleted_rows) {
+            // phpcs:disable Generic.Files.LineLength.MaxExceeded
             // translators: %d = The duplicate postmeta count.
             $data['message'] = sprintf(__('Remove %d duplicate postmeta records successfully.', 'planet4-blocks-backend'), $deleted_rows);
+            // phpcs:enable Generic.Files.LineLength.MaxExceeded
         } else {
             $data['message'] = __('No whitelisted duplicate postmeta records found.', 'planet4-blocks-backend');
         }

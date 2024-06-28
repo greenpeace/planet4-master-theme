@@ -15,9 +15,11 @@ use P4\MasterTheme\Patterns\BlankPage;
 use P4\MasterTheme\BlockReportSearch\RowActions;
 use P4\MasterTheme\BlockReportSearch\Pattern\Query\Parameters;
 
+// phpcs:disable PSR1.Files.SideEffects.FoundWithSymbols
 if (! class_exists('WP_List_Table')) {
     require_once ABSPATH . '/wp-admin/includes/class-wp-list-table.php';
 }
+// phpcs:enable PSR1.Files.SideEffects.FoundWithSymbols
 
 /**
  * Show pattern usage, using native WordPress table
@@ -32,45 +34,36 @@ class PatternUsageTable extends WP_List_Table
 
     public const PLURAL = 'patterns';
 
-    /**
-     * @var PatternUsage
-     */
-    private $pattern_usage;
+    private PatternUsage $pattern_usage;
 
-    /**
-     * @var array
-     */
-    private $pattern_registry;
+    private WP_Block_Patterns_Registry $pattern_registry;
 
-    /**
-     * @var Parameters Search filters requested.
-     */
-    private $search_params;
+    private Parameters $search_params;
 
     /**
      * @var string Group column.
      */
-    private $group_by = self::DEFAULT_GROUP_BY;
+    private string $group_by = self::DEFAULT_GROUP_BY;
 
     /**
      * @var string[]
      */
-    private $allowed_groups = [ 'pattern_name', 'post_id', 'post_title' ];
+    private array $allowed_groups = [ 'pattern_name', 'post_id', 'post_title' ];
 
     /**
      * @var string[]|null Columns name => title.
      */
-    private $columns = null;
+    private ?array $columns = null;
 
     /**
      * @var string|null Latest row content displayed.
      */
-    private $latest_row = null;
+    private ?string $latest_row = null;
 
     /**
      * @var string[]|null Pattern names.
      */
-    private $pattern_names = null;
+    private ?array $pattern_names = null;
 
 
     /**
@@ -78,7 +71,7 @@ class PatternUsageTable extends WP_List_Table
      * @throws InvalidArgumentException Throws on missing parameter.
      * @see WP_List_Table::__construct()
      */
-    public function __construct($args = [])
+    public function __construct(array $args = [])
     {
         $args['plural'] = self::PLURAL;
         parent::__construct($args);
@@ -107,8 +100,8 @@ class PatternUsageTable extends WP_List_Table
     }
 
     /**
-     * @param null|Parameters $search_params Search parameters.
-     * @param null|string     $group_by      Group.
+     * @param Parameters|null $search_params Search parameters.
+     * @param string|null     $group_by      Group.
      */
     public function prepare_items(
         ?Parameters $search_params = null,
@@ -170,7 +163,7 @@ class PatternUsageTable extends WP_List_Table
     /**
      * Pattern select
      */
-    private function patternname_dropdown()
+    private function patternname_dropdown(): void
     {
         sort($this->pattern_names);
         $filter = $this->search_params->name() ?? [];
@@ -194,8 +187,9 @@ class PatternUsageTable extends WP_List_Table
      * Add filters to table.
      *
      * @param string $which Tablenav identifier.
+     * @phpcs:disable SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter, SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
      */
-    protected function extra_tablenav($which)
+    protected function extra_tablenav($which): void
     {
         echo '<div class="actions">';
         $this->patternname_dropdown();
@@ -213,18 +207,21 @@ class PatternUsageTable extends WP_List_Table
      * Add pagination information to table.
      *
      * @param string $which Tablenav identifier.
+     * @phpcs:disable SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter, SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
      */
-    protected function pagination($which)
+    protected function pagination($which): void
     {
         parent::pagination('top');
     }
+    // @phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter
 
     /**
      * Show only top tablenav (duplicate form post bug)
      *
      * @param string $which Tablenav identifier.
+     * @phpcs:disable SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
      */
-    protected function display_tablenav($which)
+    protected function display_tablenav($which): void
     {
         if ('bottom' === $which) {
             echo '<div class="tablenav bottom">';
@@ -242,7 +239,7 @@ class PatternUsageTable extends WP_List_Table
      * @param string $column_name Current column name.
      * @param string $primary     Primary column name.
      *
-	 * phpcs:disable WordPress.WP.I18n.TextDomainMismatch
+	 * phpcs:disable WordPress.WP.I18n.TextDomainMismatch, SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint, SlevomatCodingStandard.TypeHints.ReturnTypeHint.MissingAnyTypeHint
      */
     protected function handle_row_actions($item, $column_name, $primary)
     {
@@ -250,11 +247,12 @@ class PatternUsageTable extends WP_List_Table
             ( new RowActions() )->get_post_actions($item, $column_name, $primary)
         );
     }
+    // phpcs:enable SlevomatCodingStandard.TypeHints.ReturnTypeHint.MissingAnyTypeHint, SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
 
     /**
      * Columns list for table.
      */
-    public function get_columns()
+    public function get_columns(): ?array
     {
         if (null !== $this->columns) {
             return $this->columns;
@@ -282,7 +280,7 @@ class PatternUsageTable extends WP_List_Table
     /**
      * Available grouping as views.
      */
-    protected function get_views()
+    protected function get_views(): array
     {
         $link_tpl = '<a href="%s">%s</a>';
         $active_link_tpl = '<a class="current" href="%s">%s</a>';
@@ -308,7 +306,7 @@ class PatternUsageTable extends WP_List_Table
     /**
      * All, hidden and sortable columns.
      */
-    private function get_column_headers()
+    private function get_column_headers(): array
     {
         return [
             $this->get_columns(),
@@ -321,7 +319,7 @@ class PatternUsageTable extends WP_List_Table
      * Post title display.
      *
      * @param array $item Item.
-     * @return string
+     * @phpcs:disable SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
      */
     public function column_post_title($item): string
     {
@@ -346,8 +344,9 @@ class PatternUsageTable extends WP_List_Table
      * Full row display, edited for grouping functionality.
      *
      * @param array $item Item.
+     * @phpcs:disable SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
      */
-    public function single_row($item)
+    public function single_row($item): void
     {
         $cols = $this->get_columns();
         $colspan = count($cols);
@@ -375,11 +374,13 @@ class PatternUsageTable extends WP_List_Table
      * @param string $column_name Column name.
      *
      * @return mixed
+     * @phpcs:disable SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
      */
     public function column_default($item, $column_name)
     {
         return $item[ $column_name ] ?? '';
     }
+    // phpcs:enable SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
 
     /**
      * Table URL
@@ -396,7 +397,7 @@ class PatternUsageTable extends WP_List_Table
     {
         add_action(
             'admin_action_' . self::ACTION_NAME,
-            function () {
+            function (): void {
                 $nonce = $_GET['_wpnonce'] ?? null;
                 if (! \wp_verify_nonce($nonce, 'bulk-' . self::PLURAL)) {
                     \wp_safe_redirect(self::url());

@@ -21,9 +21,7 @@ class BlockUsageApi
 
     private Parameters $params;
 
-    /**
-     * @var array[] Blocks.
-     */
+    // phpcs:ignore SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingAnyTypeHint
     private $items;
 
     /**

@@ -18,9 +18,7 @@ namespace P4\MasterTheme\BlockReportSearch\Pattern\Query;
  */
 class Parameters
 {
-    /**
-     * @var string[]
-     */
+    // phpcs:ignore SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingAnyTypeHint
     private $name;
 
     /**
@@ -33,9 +31,7 @@ class Parameters
      */
     private array $post_type;
 
-    /**
-     * @var string[]
-     */
+    // phpcs:ignore SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingAnyTypeHint
     private $order;
 
     private const DEFAULT_POST_STATUS = [ 'publish', 'private' ];

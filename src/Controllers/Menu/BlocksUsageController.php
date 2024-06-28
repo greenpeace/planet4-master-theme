@@ -67,7 +67,7 @@ class BlocksUsageController extends Controller
     /**
      * Generates blocks/pages report.
      */
-    public function plugin_blocks_report_rest_api()
+    public function plugin_blocks_report_rest_api(): ?array
     {
         global $wpdb;
 
@@ -125,7 +125,11 @@ class BlocksUsageController extends Controller
     {
         $current_user = wp_get_current_user();
 
-        if (( !in_array('administrator', $current_user->roles, true) && !in_array('editor', $current_user->roles, true) ) || !current_user_can('edit_posts')) {
+        if (
+            ( !in_array('administrator', $current_user->roles, true) &&
+            !in_array('editor', $current_user->roles, true) ) ||
+            !current_user_can('edit_posts')
+        ) {
             return;
         }
 

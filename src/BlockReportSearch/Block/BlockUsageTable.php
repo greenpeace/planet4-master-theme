@@ -14,9 +14,11 @@ use WP_Block_Type_Registry;
 use P4\MasterTheme\BlockReportSearch\RowActions;
 use P4\MasterTheme\BlockReportSearch\Block\Query\Parameters;
 
+// phpcs:disable PSR1.Files.SideEffects.FoundWithSymbols
 if (! class_exists('WP_List_Table')) {
     require_once ABSPATH . '/wp-admin/includes/class-wp-list-table.php';
 }
+// phpcs:enable PSR1.Files.SideEffects.FoundWithSymbols
 
 /**
  * Show block usage, using native WordPress table
@@ -31,77 +33,60 @@ class BlockUsageTable extends WP_List_Table
 
     public const PLURAL = 'blocks';
 
-    /**
-     * @var BlockUsage
-     */
-    private $block_usage;
+    private BlockUsage $block_usage;
 
-    /**
-     * @var WP_Block_Type_Registry
-     */
-    private $block_registry;
+    private WP_Block_Type_Registry $block_registry;
 
-    /**
-     * @var string[] Search filters requested.
-     */
+    // phpcs:ignore SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingAnyTypeHint
     private $search_params = [];
 
-    /**
-     * @var string Group column.
-     */
-    private $group_by = self::DEFAULT_GROUP_BY;
+    private string $group_by = self::DEFAULT_GROUP_BY;
 
-    /**
-     * @var string[]|null Sort order.
-     */
-    private $sort_by = [ 'post_title', 'post_id' ];
+    private ?array $sort_by = [ 'post_title', 'post_id' ];
 
-    /**
-     * @var string[]
-     */
-    private $allowed_groups = [ 'block_type', 'post_id', 'post_title' ];
+    private array $allowed_groups = [ 'block_type', 'post_id', 'post_title' ];
 
     /**
      * @var string[]|null Columns name => title.
      */
-    private $columns = null;
+    private ?array $columns = null;
 
     /**
      * @var string|null Latest row content displayed.
      */
-    private $latest_row = null;
+    private ?string $latest_row = null;
 
     /**
      * @var string[]|null Blocks namespaces.
      */
-    private $blocks_ns = null;
+    private ?array $blocks_ns = null;
 
     /**
      * @var string[]|null Blocks types.
      */
-    private $blocks_types = null;
+    private ?array $blocks_types = null;
 
     /**
      * @var string[]|null Blocks registered.
      */
-    private $blocks_registered = null;
+    private ?array $blocks_registered = null;
 
     /**
      * @var string[]|null Blocks allowed.
      */
-    private $blocks_allowed = null;
+    private ?array $blocks_allowed = null;
 
     /**
      * @var ?string Special filter.
      */
-    private $special = null;
+    private ?string $special = null;
 
     /**
      * @param array $args Args.
      * @throws InvalidArgumentException Throws on missing parameter.
      * @see WP_List_Table::__construct()
      */
-    public function __construct($args = [])
+    public function __construct(array $args = [])
     {
         $args['plural'] = self::PLURAL;
         parent::__construct($args);
@@ -233,7 +218,7 @@ class BlockUsageTable extends WP_List_Table
     /**
      * Set the registered blocks list.
      */
-    private function set_registered_blocks()
+    private function set_registered_blocks(): void
     {
         $names = array_keys(
             $this->block_registry->get_all_registered()
@@ -245,7 +230,7 @@ class BlockUsageTable extends WP_List_Table
     /**
      * Set the allowed blocks list.
      */
-    private function set_allowed_blocks()
+    private function set_allowed_blocks(): void
     {
         $post_types = array_filter(
             get_post_types([ 'show_in_rest' => true ]),
@@ -272,7 +257,7 @@ class BlockUsageTable extends WP_List_Table
     /**
      * Columns list for table.
      */
-    public function get_columns()
+    public function get_columns(): ?array
     {
         if (null !== $this->columns) {
             return $this->columns;
@@ -300,7 +285,7 @@ class BlockUsageTable extends WP_List_Table
     /**
      * All, hidden and sortable columns.
      */
-    private function get_column_headers()
+    private function get_column_headers(): array
     {
         return [
             $this->get_columns(),
@@ -312,7 +297,7 @@ class BlockUsageTable extends WP_List_Table
     /**
      * Available grouping as views.
      */
-    protected function get_views()
+    protected function get_views(): array
     {
         $link_tpl = '<a href="%s">%s</a>';
         $active_link_tpl = '<a class="current" href="%s">%s</a>';
@@ -338,7 +323,7 @@ class BlockUsageTable extends WP_List_Table
     /**
      * Displays the list of views available on this table.
      */
-    public function views()
+    public function views(): void
     {
         parent::views();
 
@@ -374,7 +359,7 @@ class BlockUsageTable extends WP_List_Table
     /**
      * Select blocks namespaces.
      */
-    private function blockns_dropdown()
+    private function blockns_dropdown(): void
     {
         sort($this->blocks_ns);
         $filter = $this->search_params->namespace() ?? null;
@@ -395,7 +380,7 @@ class BlockUsageTable extends WP_List_Table
     /**
      * Select blocks types.
      */
-    private function blocktype_dropdown()
+    private function blocktype_dropdown(): void
     {
         sort($this->blocks_types);
         $filter = $this->search_params->name() ?? null;
@@ -434,8 +419,9 @@ class BlockUsageTable extends WP_List_Table
      * Add filters to table.
      *
      * @param string $which Tablenav identifier.
+     * @phpcs:disable SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter, SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
      */
-    protected function extra_tablenav($which)
+    protected function extra_tablenav($which): void
     {
         echo '<div class="actions">';
         $this->blockns_dropdown();
@@ -454,18 +440,20 @@ class BlockUsageTable extends WP_List_Table
      * Add pagination information to table.
      *
      * @param string $which Tablenav identifier.
+     * @phpcs:disable SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter, SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
      */
-    protected function pagination($which)
+    protected function pagination($which): void
     {
         echo esc_html(parent::pagination('top'));
     }
+    // @phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter, SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
 
     /**
      * Default column value representation.
      *
      * @param array  $item Item.
      * @param string $column_name Column name.
-     *
+     * @phpcs:disable SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
      * @return mixed
      */
     public function column_default($item, $column_name)
@@ -477,7 +465,7 @@ class BlockUsageTable extends WP_List_Table
      * Block option display.
      *
      * @param array $item Item.
-     * @return string
+     * @phpcs:disable SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
      */
     public function column_block_attrs($item): string
     {
@@ -486,7 +474,7 @@ class BlockUsageTable extends WP_List_Table
             return '';
         }
 
-		//phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
+		//phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r , Squiz.PHP.DiscouragedFunctions.Discouraged
         $content = print_r($content, true);
         $content = trim(substr($content, 5, strlen($content)));
 
@@ -505,7 +493,7 @@ class BlockUsageTable extends WP_List_Table
      * Block styles display.
      *
      * @param array $item Item.
-     * @return string
+     * @phpcs:disable SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
      */
     public function column_block_styles($item): string
     {
@@ -519,7 +507,7 @@ class BlockUsageTable extends WP_List_Table
      * Post title display.
      *
      * @param array $item Item.
-     * @return string
+     * @phpcs:disable SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
      */
     public function column_post_title($item): string
     {
@@ -544,7 +532,7 @@ class BlockUsageTable extends WP_List_Table
      * Post ID display.
      *
      * @param array $item Item.
-     * @return string
+     * @phpcs:disable SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
      */
     public function column_post_id($item): string
     {
@@ -559,8 +547,9 @@ class BlockUsageTable extends WP_List_Table
      * Full row display, edited for grouping functionality.
      *
      * @param array $item Item.
+     * @phpcs:disable SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
      */
-    public function single_row($item)
+    public function single_row($item): void
     {
         $cols = $this->get_columns();
         $colspan = count($cols);
@@ -588,7 +577,7 @@ class BlockUsageTable extends WP_List_Table
      * @param string $column_name Current column name.
      * @param string $primary     Primary column name.
      *
-	 * phpcs:disable WordPress.WP.I18n.TextDomainMismatch
+	 * phpcs:disable WordPress.WP.I18n.TextDomainMismatch, SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint, SlevomatCodingStandard.TypeHints.ReturnTypeHint.MissingAnyTypeHint
      */
     protected function handle_row_actions($item, $column_name, $primary)
     {
@@ -596,13 +585,15 @@ class BlockUsageTable extends WP_List_Table
             ( new RowActions() )->get_post_actions($item, $column_name, $primary)
         );
     }
+    // phpcs:enable SlevomatCodingStandard.TypeHints.ReturnTypeHint.MissingAnyTypeHint
 
     /**
      * Show only top tablenav (duplicate form post bug)
      *
      * @param string $which Tablenav identifier.
+     * phpcs:disable SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
      */
-    protected function display_tablenav($which)
+    protected function display_tablenav($which): void
     {
         if ('bottom' === $which) {
             echo '<div class="tablenav bottom">';
@@ -612,6 +603,7 @@ class BlockUsageTable extends WP_List_Table
         }
         parent::display_tablenav($which);
     }
+    // phpcs:enable SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
 
     /**
      * Search parameters
@@ -637,7 +629,7 @@ class BlockUsageTable extends WP_List_Table
         // Add redirection for filter action.
         add_action(
             'admin_action_' . self::ACTION_NAME,
-            function () {
+            function (): void {
                 $nonce = $_GET['_wpnonce'] ?? null;
                 if (! wp_verify_nonce($nonce, 'bulk-' . self::PLURAL)) {
                     wp_safe_redirect(self::url());
