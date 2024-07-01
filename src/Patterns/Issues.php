@@ -17,7 +17,7 @@ namespace P4\MasterTheme\Patterns;
 class Issues extends BlockPattern
 {
     /**
-     * Returns the pattern name.
+     * @inheritDoc
      */
     public static function get_name(): string
     {
@@ -25,9 +25,7 @@ class Issues extends BlockPattern
     }
 
     /**
-     * Returns the pattern config.
-     *
-     * @param array $params Optional array of parameters for the config.
+     * @inheritDoc
      */
     public static function get_config(array $params = []): array
     {
