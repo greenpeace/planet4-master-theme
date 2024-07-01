@@ -2,8 +2,6 @@
 
 /**
  * Reusable Blocks class
- *
- * @package P4GBKS\Controllers\Menu;
  */
 
 namespace P4\MasterTheme\Controllers\Menu;

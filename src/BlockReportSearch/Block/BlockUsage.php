@@ -2,8 +2,6 @@
 
 /**
  * Table displaying blocks usage
- *
- * @package P4BKS\Controllers
  */
 
 namespace P4\MasterTheme\BlockReportSearch\Block;

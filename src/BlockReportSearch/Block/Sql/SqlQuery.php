@@ -2,8 +2,6 @@
 
 /**
  * Block search SQL query
- *
- * @package P4BKS\Search\Block
  */
 
 namespace P4\MasterTheme\BlockReportSearch\Block\Sql;

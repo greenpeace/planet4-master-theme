@@ -2,8 +2,6 @@
 
 /**
  * Pattern search
- *
- * @package P4BKS\Search
  */
 
 namespace P4\MasterTheme\BlockReportSearch;
