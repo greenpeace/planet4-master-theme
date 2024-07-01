@@ -41,12 +41,13 @@ abstract class BlockPattern
     public static function get_list(): array
     {
         return [
-            SideImageWithTextAndCta::class,
-            Issues::class,
-            RealityCheck::class,
-            QuickLinks::class,
+            BlankPage::class,
             DeepDive::class,
             HighlightedCta::class,
+            Issues::class,
+            QuickLinks::class,
+            RealityCheck::class,
+            SideImageWithTextAndCta::class,
             TakeAction::class,
         ];
     }
