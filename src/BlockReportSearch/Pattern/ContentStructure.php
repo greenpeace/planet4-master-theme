@@ -2,8 +2,6 @@
 
 /**
  * Table displaying patterns usage
- *
- * @package P4BKS\Search
  */
 
 namespace P4\MasterTheme\BlockReportSearch\Pattern;

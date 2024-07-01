@@ -1,9 +1,7 @@
 <?php
 
 /**
- * Block search
- *
- * @package P4BKS\Search
+ * Block Report Search
  */
 
 namespace P4\MasterTheme\BlockReportSearch;

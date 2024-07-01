@@ -2,9 +2,6 @@
 
 /**
  * Blocks Usage class
- *
- * @package P4BKS\Controllers\Menu
- * @since 1.40.0
  */
 
 namespace P4\MasterTheme\Controllers\Menu;
