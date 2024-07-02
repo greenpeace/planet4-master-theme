@@ -10,7 +10,7 @@ export const setupCookies = () => {
   const NECESSARY_ANALYTICAL = '3';
   const NECESSARY_ANALYTICAL_MARKETING = '4';
 
-  const ALL_COOKIES = ENABLE_ANALYTICAL_COOKIES ? NECESSARY_ANALYTICAL_MARKETING : NECESSARY_MARKETING;
+  const ALL_COOKIES = NECESSARY_ANALYTICAL_MARKETING;
 
   function gtag() {
     dataLayer.push(arguments);
@@ -95,7 +95,7 @@ export const setupCookies = () => {
         ad_storage: 'granted',
         ad_user_data: 'granted',
         ad_personalization: 'granted',
-        ...ENABLE_ANALYTICAL_COOKIES && {analytics_storage: 'granted'},
+        analytics_storage: 'granted',
       });
     }
 
@@ -156,12 +156,20 @@ export const setupCookies = () => {
 
       // Update ad storage and analytics storage if Google Consent Mode is enabled
       if (ENABLE_GOOGLE_CONSENT_MODE) {
-        updateGoogleConsent({
-          ad_storage: marketingCookiesChecked ? 'granted' : 'denied',
-          ad_user_data: marketingCookiesChecked ? 'granted' : 'denied',
-          ad_personalization: marketingCookiesChecked ? 'granted' : 'denied',
-          ...ENABLE_ANALYTICAL_COOKIES && {analytics_storage: analyticalCookiesChecked ? 'granted' : 'denied'},
-        });
+        if (ENABLE_ANALYTICAL_COOKIES) {
+          updateGoogleConsent({
+            ad_storage: marketingCookiesChecked ? 'granted' : 'denied',
+            ad_user_data: marketingCookiesChecked ? 'granted' : 'denied',
+            ad_personalization: marketingCookiesChecked ? 'granted' : 'denied',
+            analytics_storage: analyticalCookiesChecked ? 'granted' : 'denied',
+          });
+        } else {
+          updateGoogleConsent({
+            ad_storage: marketingCookiesChecked ? 'granted' : 'denied',
+            ad_user_data: marketingCookiesChecked ? 'granted' : 'denied',
+            ad_personalization: marketingCookiesChecked ? 'granted' : 'denied',
+          });
+        }
       }
 
       hideCookiesBox();
@@ -188,4 +196,48 @@ export const setupCookies = () => {
 
   const rejectAllCookiesButtons = [...document.querySelectorAll('.reject-all-cookies')];
   rejectAllCookiesButtons.forEach(rejectAllCookiesButton => rejectAllCookiesButton.onclick = rejectAllCookies);
+
+  const getConsentModeValues = () => {
+    const consentValues = {
+      analytics_storage: null,
+      ad_user_data: null,
+      ad_storage: null,
+      ad_personalization: null,
+    };
+
+    if (Array.isArray(window.dataLayer)) {
+      // Iterate through the events history in dataLayer and find most recent consent values.
+      for (let i = 0; i < window.dataLayer.length; i++) {
+        const event = window.dataLayer[i];
+
+        if (event.event === 'defaultConsent' || event.event === 'updateConsent') {
+          if (event.analytics_storage !== undefined) {
+            consentValues.analytics_storage = event.analytics_storage;
+          }
+          if (event.ad_user_data !== undefined) {
+            consentValues.ad_user_data = event.ad_user_data;
+          }
+          if (event.ad_storage !== undefined) {
+            consentValues.ad_storage = event.ad_storage;
+          }
+          if (event.ad_personalization !== undefined) {
+            consentValues.ad_personalization = event.ad_personalization;
+          }
+        }
+      }
+    }
+
+    return consentValues;
+  };
+
+  // Set the gp_user_id cookie when the event is triggered, but check for consent first.
+  document.addEventListener('gp_user_id_set', event => {
+    if (event.detail.hasOwnProperty('gp_user_id') && event.detail.gp_user_id !== '') {
+      const consentModeValues = getConsentModeValues();
+
+      if (consentModeValues.analytics_storage === 'granted') {
+        createCookie('gp_user_id', event.detail.gp_user_id, 365);
+      }
+    }
+  });
 };
