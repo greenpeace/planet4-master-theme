@@ -208,6 +208,11 @@ final class Loader
         new Blocks\TakeActionBoxout();//NOSONAR
         new Blocks\Timeline();//NOSONAR
 
+        register_block_pattern_category(
+            'page-headers',
+            [ 'label' => 'Page Headers' ],
+        );
+
         // Load block patterns.
         BlockPattern::register_all();
 

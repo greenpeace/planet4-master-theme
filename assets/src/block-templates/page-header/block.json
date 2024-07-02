@@ -1,0 +1,13 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 2,
+  "name": "planet4-block-templates/page-header",
+  "title": "Page Header",
+  "category": "planet4-block-templates",
+  "textdomain": "planet4-blocks-backend",
+  "attributes": {
+    "imageFill": { "type": "boolean" },
+    "mediaPosition": { "type": "string" },
+    "titlePlaceholder": { "type": "string" }
+  }
+}
