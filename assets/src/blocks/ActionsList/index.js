@@ -61,6 +61,9 @@ export const registerActionsListBlock = () => {
           },
         },
       }],
+      ['core/query-no-results', {}, [
+        ['core/paragraph', {content: __('No posts found. (This default text can be edited)', 'planet4-blocks-backend')}],
+      ]],
       ['core/post-template', {lock: {move: true, remove: true}}, [
         ['core/post-featured-image', {isLink: true}],
         ['core/group', {}, [

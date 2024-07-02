@@ -9,6 +9,7 @@ import {setupExternalLinks} from './external_links';
 import {setupListingPages} from './listing_pages';
 import {setupQueryLoopCarousel} from './query_loop_carousel';
 import {setupClickabelActionsListCards} from './actions_list_clickable_cards';
+import {removeNoPostText} from './query-no-posts';
 
 function requireAll(r) {
   r.keys().forEach(r);
@@ -24,4 +25,5 @@ setupSearch();
 setupExternalLinks();
 setupListingPages();
 setupQueryLoopCarousel();
+removeNoPostText();
 setupClickabelActionsListCards();
