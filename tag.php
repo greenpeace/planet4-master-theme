@@ -51,4 +51,3 @@ rewind_posts();
 
 $templates = ['tag.twig', 'archive.twig', 'index.twig'];
 $page = new ListingPage($templates, $context);
-$page->view();

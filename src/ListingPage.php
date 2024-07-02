@@ -33,6 +33,7 @@ class ListingPage
         $this->context = $context;
 
         $this->update_context();
+        $this->view();
     }
 
     /**

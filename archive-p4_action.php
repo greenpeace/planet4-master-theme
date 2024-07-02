@@ -20,4 +20,3 @@ $context['custom_body_classes'] = 'tax-p4-page-type';
 $context['header_title'] = post_type_archive_title('', false);
 
 $page = new ListingPage($templates, $context);
-$page->view();

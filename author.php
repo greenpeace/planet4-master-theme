@@ -34,14 +34,7 @@ if (isset($wp_query->query_vars['author'])) {
         'width' => '300',
         'height' => '300',
     ];
-
-    $author_share_buttons = new stdClass();
-    $author_share_buttons->title = $author->name;
-    $author_share_buttons->description = get_the_author_meta('description', $author->ID);
-    $author_share_buttons->link = $author->link;
-    $context['author_share_buttons'] = $author_share_buttons;
 }
 
 $templates = ['author.twig', 'archive.twig'];
 $page = new ListingPage($templates, $context);
-$page->view();
