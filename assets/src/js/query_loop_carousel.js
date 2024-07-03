@@ -80,9 +80,9 @@ export const setupQueryLoopCarousel = () => {
     } else if (layout.className.includes('grid') || layout.className.includes('list')) {
       // Only apply to Grid and List views
       // Ensure to not only to hide controls nav but also remove it
-      const controlsNav = list.parentNode.querySelector('.wp-block-buttons.carousel-controls');
+      const controlsNav = list?.parentNode.querySelector('.wp-block-buttons.carousel-controls');
 
-      if (list.parentNode.contains(controlsNav)) {
+      if (list?.parentNode.contains(controlsNav)) {
         list.parentNode.removeChild(controlsNav);
       }
     }
