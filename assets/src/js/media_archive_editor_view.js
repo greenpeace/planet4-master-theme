@@ -1,7 +1,7 @@
+import {createRoot} from 'react-dom/client';
 import ArchivePicker, {EDITOR_VIEW} from '../js/Components/ArchivePicker/ArchivePicker';
 
 const {__} = wp.i18n;
-const {createRoot} = wp.element;
 const frame = wp.media.view.MediaFrame.Select;
 
 (function() {
