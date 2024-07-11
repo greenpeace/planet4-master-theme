@@ -253,6 +253,7 @@ export default function ArchivePicker({view = ADMIN_VIEW}) {
   }, dispatch] = useReducer(reducer, initialState);
   const [abortController, setAbortController] = useState(null);
   const [selectedImagesIds, setSelectedImagesIds] = useState([]);
+  const [isUserSelectingFeaturedImage, setIsUserSelectingFeaturedImage] = useState(false);
 
   const fetch = useCallback(async () => {
     dispatch({type: ACTIONS.FETCH_IMAGES});
@@ -324,13 +325,13 @@ export default function ArchivePicker({view = ADMIN_VIEW}) {
       dispatch({type: ACTIONS.ADDED_IMAGE_TO_POST});
       await timeout(1000);
       dispatch({type: ACTIONS.CLOSE_SIDEBAR});
-      document.querySelector('.media-modal-close').click();
+      document.querySelector('.media-modal-close .media-modal-icon').click();
     } catch (err) {
       dispatch({type: ACTIONS.ADD_IMAGE_TO_POST_ERROR, payload: err});
     }
   };
 
-  const includeInWp = async (ids = [], viewProp) => {
+  const includeInWp = async (ids = [], viewProp, isFeaturedImage = false) => {
     dispatch({type: ACTIONS.PROCESS_IMAGES, payload: {selection: ids}});
 
     Promise.all(ids.map(id => {
@@ -344,9 +345,16 @@ export default function ArchivePicker({view = ADMIN_VIEW}) {
       });
     })).then(result => {
       const payload = result.flat();
+      const imgId = payload[0].wordpress_id;
+
       if (viewProp === EDITOR_VIEW) {
-        processImageToAddToEditor(payload[0].wordpress_id);
+        if (!isFeaturedImage) {
+          processImageToAddToEditor(imgId);
+        } else {
+          setCustomFeaturedImage(imgId);
+        }
       }
+
       dispatch({type: ACTIONS.PROCESSED_IMAGES, payload: {images: payload}});
     }).catch(err => {
       dispatch({type: 'SET_ERROR', payload: {
@@ -355,6 +363,23 @@ export default function ArchivePicker({view = ADMIN_VIEW}) {
       }});
     });
   };
+
+  const setCustomFeaturedImage = async imgId => {
+    await wp.data.dispatch('core/editor').editPost({featured_media: imgId});
+    dispatch({type: ACTIONS.CLOSE_SIDEBAR});
+    document.querySelector('.media-modal-close .media-modal-icon').click();
+  };
+
+  // Prevent multiple instances of the Media Upload Modal.
+  const mediaModalPopup = document.querySelectorAll('.media-modal');
+
+  useEffect(() => {
+    if (mediaModalPopup.length > 1) {
+      const modals = Array.from(mediaModalPopup);
+      const modalToRemove = modals[0];
+      modalToRemove.parentNode.removeChild(modalToRemove);
+    }
+  }, [mediaModalPopup]);
 
   useEffect(() => {
     if (loaded) {
@@ -400,6 +425,51 @@ export default function ArchivePicker({view = ADMIN_VIEW}) {
     }
   }, [currentBlock]);
 
+  // Check whether the archive picker modal was opened from the Featured Image button.
+  // Only execute this code in the Editor.
+  useEffect(() => {
+    if (view !== EDITOR_VIEW) {
+      return;
+    }
+
+    const mediaModal = wp.media.frame || wp.media.featuredImage.frame();
+    // Sets the isUserSelectingFeaturedImage to either true or false
+    setIsUserSelectingFeaturedImage(mediaModal?.options?.state === 'featured-image');
+  }, [view]);
+
+  // Hide the modal toolbar when the Greenpeace Media tab is active.
+  // The toolbar is not used on this tab, since the options are
+  // in the tab sidebar.
+  useEffect(() => {
+    const targetElement = document.querySelector('#menu-item-mediaArchive');
+    const toolBar = document.querySelector('.media-toolbar');
+
+    if (!targetElement || !toolBar) {
+      return;
+    }
+
+    if (targetElement.className === 'media-menu-item active') {
+      toolBar.style.display = 'none';
+    }
+
+    const classChangeCallback = mutationsList => {
+      mutationsList.forEach(mutation => {
+        if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+          if (targetElement.className === 'media-menu-item active') {
+            toolBar.style.display = 'none';
+          } else {
+            toolBar.style.display = 'block';
+          }
+        }
+      });
+    };
+
+    const observer = new MutationObserver(classChangeCallback);
+    observer.observe(targetElement, {attributes: true});
+
+    return () => observer.disconnect();
+  }, []);
+
   return useMemo(() => (
     <Context.Provider
       value={{
@@ -422,6 +492,8 @@ export default function ArchivePicker({view = ADMIN_VIEW}) {
         processedIds,
         dispatch,
         imageAdded,
+        setCustomFeaturedImage,
+        isUserSelectingFeaturedImage,
         currentBlockImageId,
         view,
       }}
@@ -469,7 +541,7 @@ export default function ArchivePicker({view = ADMIN_VIEW}) {
 
       {view === EDITOR_VIEW && (
         <>
-          {(acceptedBlockTypes.includes(currentBlock.name)) ? (
+          {(isUserSelectingFeaturedImage || acceptedBlockTypes.includes(currentBlock?.name)) ? (
             <section className="archive-picker">
               <div className={classNames('archive-picker-main', {'is-open': selectedImages.length > 0 && !bulkSelect})}>
                 <ArchivePickerToolbar />
