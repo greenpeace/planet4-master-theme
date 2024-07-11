@@ -18,8 +18,8 @@ export const CounterEditor = ({setAttributes, attributes, isSelected}) => {
         <PanelBody title={__('Settings', 'planet4-blocks-backend')}>
           <div>
             <TextControl
-              label={__('Completed', 'planet4-blocks-backend')}
-              placeholder={__('e.g. number of signatures', 'planet4-blocks-backend')}
+              label={__('Number of Items Collected', 'planet4-blocks-backend')}
+              placeholder={__('e.g. Signatures at this moment', 'planet4-blocks-backend')}
               type="number"
               value={attributes.completed}
               onChange={value => toAttribute('completed')(Number(value))}
@@ -29,8 +29,8 @@ export const CounterEditor = ({setAttributes, attributes, isSelected}) => {
 
           <div>
             <URLInput
-              label={__('Completed API URL', 'planet4-blocks-backend')}
-              placeholder={__('API URL of completed number. If filled in will override the \'Completed\' field', 'planet4-blocks-backend')}
+              label={__('API URL for Goal Reached', 'planet4-blocks-backend')}
+              placeholder={__('API URL for the total amount e.g. of signatures', 'planet4-blocks-backend')}
               value={attributes.completed_api}
               onChange={toAttribute('completed_api')}
             />
@@ -38,8 +38,8 @@ export const CounterEditor = ({setAttributes, attributes, isSelected}) => {
 
           <div>
             <TextControl
-              label={__('Target', 'planet4-blocks-backend')}
-              placeholder={__('e.g. target no. of signatures', 'planet4-blocks-backend')}
+              label={__('Goal', 'planet4-blocks-backend')}
+              placeholder={__('e.g. Total amount of signatures', 'planet4-blocks-backend')}
               type="number"
               value={attributes.target}
               onChange={value => toAttribute('target')(Number(value))}
@@ -55,8 +55,9 @@ export const CounterEditor = ({setAttributes, attributes, isSelected}) => {
               onChange={toAttribute('text')}
             />
           </div>
-          <div className="sidebar-blocks-help">
-            {__('These placeholders can be used:', 'planet4-blocks-backend')}{' '}<code>%completed%</code>, <code>%target%</code>, <code>%remaining%</code>
+          <div className="components-base-control__help">
+            {__('Use the following placeholders within the text to showcase the real numbers when using an API URL: ', 'planet4-blocks-backend')}{' '}
+            <code>%completed%</code>, <code>%target%</code>, <code>%remaining%</code>
           </div>
         </PanelBody>
       </InspectorControls>
