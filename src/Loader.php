@@ -179,7 +179,9 @@ final class Loader
     }
 
     private function load_menu():void {
-        // $menu = Controllers\Menu\ReusableBlocksController::class->load();
+        // Load reusable blocks controller
+        $controller = Controllers\Menu\ReusableBlocksController::class;
+        (new $controller(new View()))->load();
     }
 
     /**
