@@ -74,16 +74,6 @@ $medium-image-height: 600px;
   position: relative;
   width: 100vw;
 
-  &.is-style-fit-height-to-content {
-    &.block {
-      display: block;
-    }
-
-    &.block-header {
-      margin-bottom: 0;
-    }
-  }
-
   .carousel-inner {
     position: relative;
     overflow: visible;
