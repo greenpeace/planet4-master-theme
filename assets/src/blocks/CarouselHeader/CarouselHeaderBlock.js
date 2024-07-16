@@ -4,7 +4,6 @@ import {CarouselHeaderFrontend} from './CarouselHeaderFrontend';
 import {renderToString} from 'react-dom/server';
 
 const {registerBlockType} = wp.blocks;
-const {__} = wp.i18n;
 const {RawHTML} = wp.element;
 
 const BLOCK_NAME = 'planet4-blocks/carousel-header';
@@ -52,13 +51,6 @@ export const registerCarouselHeaderBlock = () =>
       html: false, // Disable "Edit as HTMl" block option.
     },
     attributes,
-    styles: [
-      {
-        name: 'fit-height-to-content',
-        label: __('Fit height to content', 'planet4-blocks-backend'),
-        isDefault: false,
-      },
-    ],
     edit: CarouselHeaderEditor,
     save: ({attributes: saveAttributes}) => {
       const markup = renderToString(<div
