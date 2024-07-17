@@ -36,8 +36,9 @@ class Homepage extends BlockPattern
             'blockTypes' => [ 'core/post-content' ],
             'categories' => [ 'layouts' ],
             'content' => '
-				<!-- wp:planet4-block-templates/homepage ' . wp_json_encode($params, \JSON_FORCE_OBJECT) . ' /-->
-			',
+                <!-- wp:planet4-block-templates/homepage ' .
+                esc_html(wp_json_encode($params, \JSON_FORCE_OBJECT)) . ' /-->
+            ',
         ];
     }
 }
