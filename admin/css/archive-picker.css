@@ -388,6 +388,7 @@
   font-size: 12px;
   align-items: center;
   white-space: nowrap;
+  line-height: 1.4em;
 }
 
 .multiple-search-item > span {
