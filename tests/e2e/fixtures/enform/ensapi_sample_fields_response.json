@@ -1,0 +1,676 @@
+{
+  "supporter": [
+    {
+      "id": 28115,
+      "name": "Title",
+      "tag": "Title",
+      "property": "title"
+    },
+    {
+      "id": 28116,
+      "name": "First name",
+      "tag": "First Name",
+      "property": "firstName"
+    },
+    {
+      "id": 28117,
+      "name": "Last name",
+      "tag": "Last Name",
+      "property": "lastName"
+    },
+    {
+      "id": 28118,
+      "name": "Address 1",
+      "tag": "Address 1",
+      "property": "address1"
+    },
+    {
+      "id": 53481,
+      "name": "Address 2",
+      "tag": "Address 2",
+      "property": "address2"
+    },
+    {
+      "id": 28119,
+      "name": "City",
+      "tag": "City",
+      "property": "city"
+    },
+    {
+      "id": 28122,
+      "name": "Country",
+      "tag": "Country",
+      "property": "country"
+    },
+    {
+      "id": 28120,
+      "name": "Postcode",
+      "tag": "Postcode",
+      "property": "postcode"
+    },
+    {
+      "id": 42648,
+      "name": "County",
+      "tag": "Region",
+      "property": "region"
+    },
+    {
+      "id": 53483,
+      "name": "Phone Number",
+      "tag": "Phone Number",
+      "property": "phoneNumber"
+    },
+    {
+      "id": 53455,
+      "name": "Credit Card Holder Name",
+      "tag": "Credit Card Holder Name",
+      "property": "creditCardHolderName"
+    },
+    {
+      "id": 53463,
+      "name": "Password",
+      "tag": "Password",
+      "property": "password"
+    },
+    {
+      "id": 75473,
+      "name": "Company",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_5"
+    },
+    {
+      "id": 75474,
+      "name": "email_type",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_6"
+    },
+    {
+      "id": 63628,
+      "name": "ChallengeDate",
+      "tag": "P2P Fundraiser Type",
+      "property": "p2pFundraiserType"
+    },
+    {
+      "id": 75475,
+      "name": "title",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_7"
+    },
+    {
+      "id": 75476,
+      "name": "middle_name",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_8"
+    },
+    {
+      "id": 67127,
+      "name": "AwakenMe",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_1"
+    },
+    {
+      "id": 75477,
+      "name": "full_name",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_9"
+    },
+    {
+      "id": 74010,
+      "name": "MP constituency",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_2"
+    },
+    {
+      "id": 75478,
+      "name": "date_of_birth",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_10"
+    },
+    {
+      "id": 74011,
+      "name": "MP party",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_3"
+    },
+    {
+      "id": 75479,
+      "name": "gender",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_11"
+    },
+    {
+      "id": 75470,
+      "name": "Country Of Ownership",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_4"
+    },
+    {
+      "id": 75481,
+      "name": "phone_type",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_13"
+    },
+    {
+      "id": 75482,
+      "name": "address_1",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_14"
+    },
+    {
+      "id": 75483,
+      "name": "address_2",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_15"
+    },
+    {
+      "id": 75484,
+      "name": "address_3",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_16"
+    },
+    {
+      "id": 75485,
+      "name": "region",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_17"
+    },
+    {
+      "id": 75486,
+      "name": "language_pref",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_18"
+    },
+    {
+      "id": 75487,
+      "name": "source",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_19"
+    },
+    {
+      "id": 75488,
+      "name": "channel",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_20"
+    },
+    {
+      "id": 75489,
+      "name": "contact_codes",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_21"
+    },
+    {
+      "id": 75490,
+      "name": "communication_codes",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_22"
+    },
+    {
+      "id": 75491,
+      "name": "gp_interests",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_23"
+    },
+    {
+      "id": 75492,
+      "name": "legacy_optin_details",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_24"
+    },
+    {
+      "id": 75493,
+      "name": "legacy_optin_date",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_25"
+    },
+    {
+      "id": 75494,
+      "name": "fr_rg_amount",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_26"
+    },
+    {
+      "id": 75495,
+      "name": "fr_rg_frequency",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_27"
+    },
+    {
+      "id": 75496,
+      "name": "fr_rg_last_gift_date",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_28"
+    },
+    {
+      "id": 75497,
+      "name": "fr_donor_id",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_29"
+    },
+    {
+      "id": 75498,
+      "name": "fr_first_name",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_30"
+    },
+    {
+      "id": 75499,
+      "name": "fr_last_name",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_31"
+    },
+    {
+      "id": 75500,
+      "name": "fr_tax_name",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_32"
+    },
+    {
+      "id": 75501,
+      "name": "fr_amount",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_33"
+    },
+    {
+      "id": 75502,
+      "name": "fr_frequency",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_34"
+    },
+    {
+      "id": 75503,
+      "name": "fr_debit_date",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_35"
+    },
+    {
+      "id": 75504,
+      "name": "fr_account_number",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_36"
+    },
+    {
+      "id": 75505,
+      "name": "fr_email",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_37"
+    },
+    {
+      "id": 75506,
+      "name": "fr_email_category",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_38"
+    },
+    {
+      "id": 75507,
+      "name": "fr_receipt_no",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_39"
+    },
+    {
+      "id": 75508,
+      "name": "fr_apr",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_40"
+    },
+    {
+      "id": 75509,
+      "name": "fr_may",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_41"
+    },
+    {
+      "id": 75510,
+      "name": "fr_jun",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_42"
+    },
+    {
+      "id": 75511,
+      "name": "fr_jul",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_43"
+    },
+    {
+      "id": 75512,
+      "name": "fr_aug",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_44"
+    },
+    {
+      "id": 75513,
+      "name": "fr_sep",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_45"
+    },
+    {
+      "id": 75514,
+      "name": "fr_oct",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_46"
+    },
+    {
+      "id": 75515,
+      "name": "fr_nov",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_47"
+    },
+    {
+      "id": 75516,
+      "name": "fr_dec",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_48"
+    },
+    {
+      "id": 75517,
+      "name": "fr_jan",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_49"
+    },
+    {
+      "id": 75518,
+      "name": "fr_feb",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_50"
+    },
+    {
+      "id": 75519,
+      "name": "fr_mar",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_51"
+    },
+    {
+      "id": 75520,
+      "name": "is_standard_chartered_customer",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_52"
+    },
+    {
+      "id": 75521,
+      "name": "email_ok",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_53"
+    },
+    {
+      "id": 75682,
+      "name": "Groupcode",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_54"
+    },
+    {
+      "id": 75683,
+      "name": "isDonor",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_55"
+    },
+    {
+      "id": 75684,
+      "name": "isFDSuc",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_56"
+    },
+    {
+      "id": 75685,
+      "name": "isFRDonor",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_57"
+    },
+    {
+      "id": 75686,
+      "name": "isFRNLSubscriber",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_58"
+    },
+    {
+      "id": 75687,
+      "name": "isReDonor",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_59"
+    },
+    {
+      "id": 75689,
+      "name": "isSubscriber",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_60"
+    },
+    {
+      "id": 75690,
+      "name": "isVolunteer",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_61"
+    },
+    {
+      "id": 75691,
+      "name": "Join date",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_62"
+    },
+    {
+      "id": 75692,
+      "name": "Supporter birthday",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_63"
+    },
+    {
+      "id": 75693,
+      "name": "volunteer_apply_reason_shiptour",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_64"
+    },
+    {
+      "id": 75694,
+      "name": "volunteer_type",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_65"
+    },
+    {
+      "id": 75695,
+      "name": "volunteer_type_shiptour",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_66"
+    },
+    {
+      "id": 75696,
+      "name": "city_shiptour",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_67"
+    },
+    {
+      "id": 75697,
+      "name": "city_shiptour_openboat",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_68"
+    },
+    {
+      "id": 77983,
+      "name": "testPK",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_69"
+    },
+    {
+      "id": 77990,
+      "name": "birthdayMonth",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_70"
+    },
+    {
+      "id": 79741,
+      "name": "Email address",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_71"
+    },
+    {
+      "id": 80867,
+      "name": "DonorUserRef",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_72"
+    },
+    {
+      "id": 81551,
+      "name": "DDBatchNo",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_73"
+    },
+    {
+      "id": 81606,
+      "name": "PaymentRejectReason",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_74"
+    },
+    {
+      "id": 82578,
+      "name": "Label Text",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_75"
+    },
+    {
+      "id": 88153,
+      "name": "Card_Declined_Imported_SF",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_76"
+    },
+    {
+      "id": 98272,
+      "name": "SFDC Contact ID",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_77"
+    },
+    {
+      "id": 98273,
+      "name": "SFDC Lead ID",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_78"
+    },
+    {
+      "id": 101574,
+      "name": "email_ok_supporter",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_79"
+    },
+    {
+      "id": 101604,
+      "name": "supporter ID Friends",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_80"
+    },
+    {
+      "id": 101605,
+      "name": "date added to friends",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_81"
+    },
+    {
+      "id": 101931,
+      "name": "Date Added to Friends",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_82"
+    },
+    {
+      "id": 102123,
+      "name": "demo",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_83"
+    },
+    {
+      "id": 102168,
+      "name": "owned_PH",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_84"
+    },
+    {
+      "id": 104611,
+      "name": "lead_id",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_85"
+    },
+    {
+      "id": 104612,
+      "name": "Contact_id",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_86"
+    },
+    {
+      "id": 104758,
+      "name": "civi_id",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_90"
+    },
+    {
+      "id": 104759,
+      "name": "supporter_id",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_91"
+    },
+    {
+      "id": 28121,
+      "name": "Email",
+      "tag": "Email Address",
+      "property": "emailAddress"
+    },
+    {
+      "id": 104754,
+      "name": "first_name",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_87"
+    },
+    {
+      "id": 104755,
+      "name": "last_name",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_88"
+    },
+    {
+      "id": 75480,
+      "name": "phone_number",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_12"
+    },
+    {
+      "id": 104756,
+      "name": "supporter_birthday",
+      "tag": "Supporter Birthday",
+      "property": "dateOfBirth"
+    },
+    {
+      "id": 104757,
+      "name": "owned_hungary",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_89"
+    },
+    {
+      "id": 104762,
+      "name": "hu_active_donor",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_92"
+    },
+    {
+      "id": 104763,
+      "name": "hu_recurring_donor",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_93"
+    },
+    {
+      "id": 104764,
+      "name": "card_expiry",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_94"
+    },
+    {
+      "id": 104765,
+      "name": "donor_first_donation_date",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_95"
+    },
+    {
+      "id": 105316,
+      "name": "txn6",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_96"
+    },
+    {
+      "id": 105317,
+      "name": "txn7",
+      "tag": "Not Tagged",
+      "property": "NOT_TAGGED_97"
+    }
+  ]
+}

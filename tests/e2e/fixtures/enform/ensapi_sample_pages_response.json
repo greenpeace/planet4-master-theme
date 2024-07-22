@@ -1,0 +1,60 @@
+{
+  "pages": [
+		{
+			"id": 20000,
+			"campaignId": 9000,
+			"name": "Testing",
+			"title": null,
+			"type": "dc",
+			"subType": "PET",
+			"clientId": 1000,
+			"createdOn": 1519825631000,
+			"modifiedOn": 1519826239000,
+			"campaignBaseUrl": "https://act.greenpeace.org",
+			"campaignStatus": "live",
+			"defaultLocale": "en-US"
+		},
+		{
+			"id": 20001,
+			"campaignId": 1800,
+			"name": "BFFJ",
+			"title": "Break Free From Jez",
+			"type": "dc",
+			"subType": "PET",
+			"clientId": 1000,
+			"createdOn": 1532417882000,
+			"modifiedOn": null,
+			"campaignBaseUrl": "https://act.greenpeace.org",
+			"campaignStatus": "new",
+			"defaultLocale": "en-US"
+		},
+		{
+			"id": 20002,
+			"campaignId": 9001,
+			"name": "Blank template",
+			"title": null,
+			"type": "dc",
+			"subType": "PET",
+			"clientId": 1000,
+			"createdOn": 1473149968000,
+			"modifiedOn": 1537350723000,
+			"campaignBaseUrl": "https://act.greenpeace.org",
+			"campaignStatus": "close",
+			"defaultLocale": "en-US"
+		},
+		{
+			"id": 20003,
+			"campaignId": 9003,
+			"name": "Demo page",
+			"title": "Stop using plastic",
+			"type": "dc",
+			"subType": "PET",
+			"clientId": 1000,
+			"createdOn": 1542747921000,
+			"modifiedOn": null,
+			"campaignBaseUrl": "https://act.greenpeace.org",
+			"campaignStatus": "new",
+			"defaultLocale": "en-GB"
+		}
+	]
+}
