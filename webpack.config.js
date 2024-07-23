@@ -60,7 +60,6 @@ module.exports = {
     TimelineEditorStyle: './assets/src/scss/blocks/Timeline/TimelineEditorStyle.scss',
   },
   output: {
-    filename: '[name].js',
     path: __dirname + '/assets/build'
   },
   module: {
