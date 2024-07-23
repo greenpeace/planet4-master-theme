@@ -66,19 +66,19 @@ export const formFieldsAttributes = {
     required: false,
     type: 'Text',
   },
-  'Email': {
+  Email: {
     default_value: '',
     label: 'Email',
     required: true,
     type: 'Email',
   },
-  'Country': {
+  Country: {
     default_value: '',
     label: 'Country',
     required: false,
     type: 'Country',
   },
-  'AwakenMe': {
+  AwakenMe: {
     default_value: 'hidden field ασφ (0287#$%^ 日本語',
     label: '',
     required: false,
@@ -90,7 +90,7 @@ export const formFieldsAttributes = {
     required: false,
     type: 'Text',
   },
-  'nro_data_ok': {
+  nro_data_ok: {
     default_value: '',
     label: 'I am happy for my data to be shared with my local Greenpeace office.',
     required: false,
@@ -101,7 +101,7 @@ export const formFieldsAttributes = {
     label: 'Opt in',
     required: false,
     type: 'Checkbox',
-    'dependency': 'nro_data_ok',
+    dependency: 'nro_data_ok',
   },
 };
 

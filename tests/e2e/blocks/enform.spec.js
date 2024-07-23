@@ -16,7 +16,6 @@ let featureIsActiveOnInstance;
 test.useAdminLoggedIn();
 
 test.describe('create, use and submit EN Form', () => {
-
   test('activate EN Form block', async ({page, admin}) => {
     // Enable EN Form block
     await admin.visitAdminPage('admin.php', 'page=planet4_settings_features');
@@ -58,13 +57,13 @@ test.describe('create, use and submit EN Form', () => {
   test('create simple EN Form', async ({page, admin, requestUtils}) => {
     // Insert relevant data in transient cache
     const postData = {
-      'ens_auth_public_token': 'public-token',
-      'ens_auth_token': 'private-token',
-      'ens_supporter_fields_response': fieldsData.supporter,
-      'ens_supporter_questions_response': questionsData.questions,
-      'ens_supporter_question_by_id_response_236734': questionData['question.236734'],
-      'ens_supporter_question_by_id_response_3887': optinData['question.3887'],
-      'ens_supporter_question_by_id_response_220954': depOptinData['question.220954'],
+      ens_auth_public_token: 'public-token',
+      ens_auth_token: 'private-token',
+      ens_supporter_fields_response: fieldsData.supporter,
+      ens_supporter_questions_response: questionsData.questions,
+      ens_supporter_question_by_id_response_236734: questionData['question.236734'],
+      ens_supporter_question_by_id_response_3887: optinData['question.3887'],
+      ens_supporter_question_by_id_response_220954: depOptinData['question.220954'],
     };
     const items = [];
     for (const key in postData) {
@@ -255,7 +254,7 @@ async function fillENFormAndSubmit(page) {
         emailAddress: 'test@example.com',
         firstName: 'Lorem ipsum',
         lastName: 'Lorem ipsum',
-        'NOT_TAGGED_1': 'hidden field ασφ (0287#$%^ 日本語',
+        NOT_TAGGED_1: 'hidden field ασφ (0287#$%^ 日本語',
       },
     });
 

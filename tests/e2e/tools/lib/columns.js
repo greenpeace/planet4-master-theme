@@ -25,8 +25,8 @@ async function addColumnsBlock(page, editor, style) {
     await column.locator(style === 'Tasks' ? 'h5' : 'h3').fill(`Column ${index + 1}`);
     await column.locator('p').fill(`Description ${index + 1}`);
     await column.locator(
-      `div[aria-label="Enter column ${['Images','Icons'].includes(style) ? 'link' : 'button'} text"]`
-    ).fill(`${['Images','Icons'].includes(style) ? 'Link' : 'Button'} ${index + 1}`);
+      `div[aria-label="Enter column ${['Images', 'Icons'].includes(style) ? 'link' : 'button'} text"]`
+    ).fill(`${['Images', 'Icons'].includes(style) ? 'Link' : 'Button'} ${index + 1}`);
 
     if (style === 'Images' || style === 'Icons') {
       await column.locator('.columns-image-placeholder').hover({noWaitAfter: true});
@@ -38,7 +38,7 @@ async function addColumnsBlock(page, editor, style) {
       await imageModal.getByRole('button', {name: 'Select', exact: true}).click();
     }
   }
-};
+}
 
 async function checkColumnsBlock(page, style) {
   await expect(page.locator('.columns-block')).toBeVisible();
