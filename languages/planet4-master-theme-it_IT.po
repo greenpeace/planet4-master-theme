@@ -103,7 +103,7 @@ msgstr "Consenti tutti"
 
 #: templates/cookies/cookies_settings.twig:16
 msgid "Always enabled"
-msgstr ""
+msgstr "Sempre abilitato"
 
 #: templates/search.twig:205
 msgid "Apply filters"
@@ -299,7 +299,7 @@ msgstr "Pagina"
 
 #: templates/cookies/cookies_settings.twig:12
 msgid "Please select which cookies you are willing to store."
-msgstr ""
+msgstr "Seleziona i cookie che desideri memorizzare."
 
 #: src/Post.php:367
 msgid "POST"
