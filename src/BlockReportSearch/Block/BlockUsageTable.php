@@ -50,9 +50,9 @@ class BlockUsageTable extends WP_List_Table
     private ?array $columns = null;
 
     /**
-     * @var string|null Latest row content displayed.
+     * @var string|int|null Latest row content displayed.
      */
-    private ?string $latest_row = null;
+    private $latest_row = null;
 
     /**
      * @var string[]|null Blocks namespaces.
