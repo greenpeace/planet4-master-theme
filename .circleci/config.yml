@@ -89,7 +89,7 @@ jobs:
 
   frontend-tests:
     docker:
-      - image: greenpeaceinternational/p4-unit-tests:node16.20.2-update-eslint
+      - image: greenpeaceinternational/p4-unit-tests:node16.20.2
         auth:
           <<: *docker_auth
     steps:
