@@ -20,5 +20,37 @@
 // Patterns
 @import "blocks/PageHeader";
 
+// Native Blocks
+@import "blocks/core-overrides/Image";
+@import "blocks/core-overrides/BlockSpacing";
+@import "blocks/core-overrides/Separator";
+@import "blocks/core-overrides/Table";
+@import "blocks/core-overrides/media-text";
+@import "blocks/core-overrides/columns";
+@import "blocks/core-overrides/Heading";
+
 // Other
 @import "blocks/WideBlocks";
+
+.is-style-space-evenly {
+  gap: 24px !important;
+
+  & > * {
+    flex-grow: 1;
+    flex-basis: 100%;
+    align-self: stretch;
+
+    @include medium-and-up {
+      flex-grow: 0;
+      flex-basis: calc(50% - 12px);
+    }
+
+    @include large-and-up {
+      flex-basis: calc(25% - 18px);
+    }
+  }
+}
+
+.is-style-reset-margin {
+  margin: 0 !important;
+}

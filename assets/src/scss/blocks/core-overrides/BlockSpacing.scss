@@ -1,0 +1,54 @@
+.wp-block-quote,
+.wp-block-file,
+.wp-block-button,
+.page-content > .wp-block-group,
+.page-content > .wp-block-media-text,
+.page-content > h2,
+.page-content > ul > li:last-of-type,
+.page-content > ol > li:last-of-type,
+.page-content > p,
+.post-details > .wp-block-group,
+.post-details > .wp-block-media-text,
+.post-details > h2,
+.post-details > ul > li:last-of-type,
+.post-details > ol > li:last-of-type,
+.post-details > p,
+.post-details > p:first-of-type {
+  margin-top: $sp-1;
+  margin-bottom: $sp-2;
+
+  @include large-and-up {
+    margin-top: $sp-2;
+    margin-bottom: $sp-4;
+  }
+}
+
+.page-content > ul > li,
+.post-details > ul > li,
+.page-content > ol > li,
+.post-details > ol > li {
+  margin-top: $sp-1;
+  margin-bottom: $sp-1;
+
+  @include large-and-up {
+    margin-top: $sp-2;
+    margin-bottom: $sp-2;
+  }
+}
+
+.wp-block-quote,
+.wp-block-file,
+.wp-block-button,
+.page-content > h2,
+.post-details > h2 {
+  display: inline-block;
+}
+
+.page-content > ul,
+.post-details > ul {
+  width: 100%;
+}
+
+.post-details > h2 {
+  padding-top: 0;
+}

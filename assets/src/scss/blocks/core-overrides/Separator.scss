@@ -1,0 +1,27 @@
+
+.wp-block-separator {
+  border: none;
+  border-bottom: 2px solid var(--color-border-separator);
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: $sp-1;
+  margin-bottom: $sp-2;
+
+  @include large-and-up {
+    margin-top: $sp-2;
+    margin-bottom: $sp-4;
+  }
+
+  &:not(.is-style-wide):not(.is-style-dots) {
+    max-width: 100px;
+  }
+
+  &.has-background:not(.is-style-dots) {
+    border-bottom: none;
+    height: 1px;
+  }
+
+  &.has-background:not(.is-style-wide):not(.is-style-dots) {
+    height: 2px;
+  }
+}
