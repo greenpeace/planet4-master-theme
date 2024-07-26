@@ -21,13 +21,8 @@
 async function openComponentPanel({editor}, panelTitle) {
   await editor.openDocumentSettingsSidebar();
   const editorSettings = await editor.canvas.getByRole('region', {name: 'Editor settings'});
-  await editorSettings.locator('.edit-post-sidebar__panel-tabs button').first().click();
-  const panelButton = await editorSettings.getByRole('button', {name: panelTitle, exact: true});
-  const panelExpanded = await panelButton.getAttribute('aria-expanded');
-  if (panelExpanded === 'false') {
-    await panelButton.click();
-  }
-
+  await editorSettings.locator('.editor-sidebar__panel-tabs button').first().click();
+  await editorSettings.getByLabel('button', {name: panelTitle, exact: true});
   return editorSettings;
 }
 
