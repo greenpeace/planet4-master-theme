@@ -182,12 +182,21 @@ export const HappypointEditor = ({attributes, setAttributes, isSelected}) => {
               }
               {id && 0 < id &&
                 <div className="wp-block-master-theme-happypoint__FocalPointPicker">
+                  <strong className="components-base-control__help">
+                    {__('Select image focal point', 'planet4-blocks-backend')}
+                  </strong>
+                  <p className="components-base-control__help">
+                    {__('Drag the mouse to the focal area or input the position with numbers for more precision.', 'planet4-blocks-backend')}
+                  </p>
                   <FocalPointPicker
                     url={imageUrl}
                     dimensions={dimensions}
                     value={focal_point_params}
                     onChange={onFocalPointChange}
-                    label={__('Select focus point for background image', 'planet4-blocks-backend')}
+                    help={__(
+                      'Drag "left" to move across the horizontal axis and slide "top" upwards to move through the vertical axis.',
+                      'planet4-blocks-backend'
+                    )}
                   />
                 </div>
               }
