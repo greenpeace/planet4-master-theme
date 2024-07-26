@@ -52,6 +52,7 @@ abstract class BlockPattern
             TakeAction::class,
             PageHeader::class,
             PageHeaderImgLeft::class,
+            Homepage::class,
         ];
     }
 

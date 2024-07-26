@@ -1,0 +1,114 @@
+@mixin rounded-image-size($size) {
+  figure,
+  img {
+    border-radius: 50%;
+    max-height: $size;
+  }
+
+  img {
+    object-fit: cover;
+    aspect-ratio: 1;
+  }
+}
+
+@mixin square-image-size($size) {
+  figure,
+  img {
+    height: $size;
+    width: $size;
+  }
+
+  img {
+    object-fit: cover;
+  }
+}
+
+.wp-block-image {
+  position: relative;
+  width: auto;
+  max-width: 100%;
+  margin-top: $sp-1;
+  margin-bottom: $sp-2;
+
+  &.is-style-rounded-180 {
+    @include rounded-image-size(180px);
+  }
+
+  &.is-style-rounded-90 {
+    @include rounded-image-size(90px);
+  }
+
+  &:not(.force-no-lightbox) img {
+    cursor: pointer;
+  }
+
+  &.force-no-caption figcaption {
+    display: none !important;
+  }
+
+  &.square-40 {
+    @include square-image-size(40px);
+  }
+
+  &.square-80 {
+    @include square-image-size(80px);
+  }
+
+  @include large-and-up {
+    margin-top: $sp-2;
+    margin-bottom: $sp-4;
+  }
+
+  figure {
+    position: relative;
+  }
+
+  &.alignleft {
+    float: left;
+    margin-inline-end: $sp-1;
+  }
+
+  &.alignright {
+    float: right;
+    margin-inline-start: $sp-1;
+  }
+
+  &.aligncenter {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  @include medium-and-up {
+    .image-credit {
+      position: absolute;
+      text-align: right;
+      right: 10px;
+      width: 100%;
+      color: var(--white);
+      z-index: 2;
+    }
+  }
+
+  img {
+    height: auto;
+  }
+
+  figcaption {
+    --image-figcaption-- {
+      font-family: var(--font-family-paragraph-secondary);
+      font-size: var(--font-size-s--font-family-tertiary);
+      line-height: var(--line-height-s--font-family-tertiary);
+    }
+    margin-bottom: 0;
+    color: var(--color-text-image_caption);
+    text-align: center;
+  }
+
+  &.caption-alignment-left figcaption {
+    text-align: left;
+  }
+
+  &.caption-alignment-right figcaption {
+    text-align: right;
+  }
+}

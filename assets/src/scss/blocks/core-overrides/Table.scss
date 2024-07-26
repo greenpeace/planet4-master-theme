@@ -1,0 +1,79 @@
+
+// Table background colors (header, footer, odd/even rows)
+.wp-block-table {
+  table {
+    // Grey background (defaut)
+    th {
+      background-color: var(--grey-800);
+    }
+
+    tr {
+      background-color: var(--grey-100);
+    }
+
+    tfoot td {
+      background-color: var(--grey-300);
+      font-weight: bold;
+    }
+
+    // Green background
+    &.has-green-background-color {
+      th {
+        background-color: var(--p4-dark-green-800);
+      }
+
+      tr {
+        background-color: var(--beige-100);
+      }
+
+      tfoot td {
+        background-color: var(--beige-300);
+      }
+    }
+
+    // Blue background
+    &.has-blue-background-color {
+      th {
+        background-color: var(--blue-green-800);
+      }
+
+      tr {
+        background-color: var(--beige-100);
+      }
+
+      tfoot td {
+        background-color: var(--beige-300);
+      }
+    }
+  }
+
+  // Table caption
+  figcaption {
+    text-align: center;
+    font-size: var(--font-size-s--font-family-tertiary);
+    font-family: var(--font-family-tertiary);
+    color: var(--color-text-image_caption);
+    line-height: var(--line-height-s--font-family-tertiary);
+  }
+
+  &.is-style-stripes table {
+    // Grey background (defaut)
+    tr:nth-child(odd) {
+      background-color: var(--grey-200);
+    }
+
+    // Green background
+    &.has-green-background-color tr:nth-child(odd) {
+      background-color: var(--beige-200);
+    }
+
+    // Blue background
+    &.has-blue-background-color tr:nth-child(odd) {
+      background-color: var(--beige-200);
+    }
+  }
+
+  &:not(.is-style-stripes) table tbody tr:not(:last-child) {
+    border-bottom: 1px solid var(--white);
+  }
+}

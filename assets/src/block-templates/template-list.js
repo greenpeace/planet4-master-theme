@@ -7,6 +7,7 @@ import * as highlightedCta from './highlighted-cta';
 import * as takeAction from './take-action';
 import * as pageHeader from './page-header';
 import * as highLevelTopic from './high-level-topic';
+import * as homepage from './homepage';
 
 export default [
   sideImgTextCta,
@@ -18,4 +19,5 @@ export default [
   takeAction,
   pageHeader,
   highLevelTopic,
+  homepage,
 ];

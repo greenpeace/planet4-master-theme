@@ -1,0 +1,20 @@
+.wp-block-columns.is-not-stacked-on-mobile.is-style-mobile-carousel {
+  @include large-and-less {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    .wp-block-column {
+      flex-basis: auto;
+      flex-shrink: 0;
+    }
+  }
+
+  @include small-and-less {
+    gap: $sp-2;
+  }
+}
