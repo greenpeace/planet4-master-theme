@@ -50,6 +50,9 @@ const renderEdit = (attributes, setAttributes) => {
   return (
     <InspectorControls>
       <PanelBody title={__('Settings', 'planet4-blocks-backend')}>
+        <p className="components-base-control__help">
+          {__('Choose the headings to be displayed in the table of contents.', 'planet4-blocks-backend')}
+        </p>
         {attributes.levels.map((level, i) => (
           <SubmenuLevel
             {...level}
@@ -111,7 +114,7 @@ const renderView = (attributes, setAttributes, className) => {
       {menuItems.length > 0 ?
         <SubmenuItems menuItems={menuItems} /> :
         <div className="EmptyMessage">
-          {__('The submenu block produces no output on the editor.', 'planet4-blocks-backend')}
+          {__('There are not any pre-established headings that this block can display in the form of a table of content. Please add headings to your page or choose another heading size.', 'planet4-blocks-backend')}
         </div>
       }
     </section>
