@@ -6,6 +6,7 @@ import * as deepDive from './deep-dive';
 import * as highlightedCta from './highlighted-cta';
 import * as takeAction from './take-action';
 import * as pageHeader from './page-header';
+import * as highLevelTopic from './high-level-topic';
 
 export default [
   sideImgTextCta,
@@ -16,4 +17,5 @@ export default [
   highlightedCta,
   takeAction,
   pageHeader,
+  highLevelTopic,
 ];
