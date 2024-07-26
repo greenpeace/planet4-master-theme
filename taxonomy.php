@@ -20,4 +20,3 @@ $context['wp_title'] = $taxonomy->name;
 $context['og_description'] = $taxonomy->description;
 
 $page = new ListingPage($templates, $context);
-$page->view();
