@@ -1,3 +1,5 @@
+import 'regenerator-runtime/runtime';
+
 import {createRoot} from 'react-dom/client';
 import {SubmenuFrontend} from './blocks/Submenu/SubmenuFrontend';
 import {HappypointFrontend} from './blocks/Happypoint/HappypointFrontend';
