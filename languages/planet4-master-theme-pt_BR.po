@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2024-01-11 13:03+0000\n"
+"PO-Revision-Date: 2024-07-30 14:14+0000\n"
 "Last-Translator: Rickson Figueira\n"
 "Language-Team: Portuguese (Brazil)\n"
 "MIME-Version: 1.0\n"
@@ -19,7 +19,7 @@ msgstr ""
 "_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "Language: pt_BR\n"
 "Report-Msgid-Bugs-To: \n"
-"X-Loco-Version: 2.6.6; wp-6.2.2\n"
+"X-Loco-Version: 2.6.11; wp-6.5.5\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
@@ -301,7 +301,7 @@ msgstr "Página"
 
 #: templates/cookies/cookies_settings.twig:12
 msgid "Please select which cookies you are willing to store."
-msgstr ""
+msgstr "Por favor, selecione os cookies que você deseja armazenar."
 
 #: src/Post.php:367
 msgid "POST"
