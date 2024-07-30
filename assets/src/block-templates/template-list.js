@@ -8,6 +8,7 @@ import * as takeAction from './take-action';
 import * as pageHeader from './page-header';
 import * as highLevelTopic from './high-level-topic';
 import * as homepage from './homepage';
+import * as getInformed from './get-informed';
 
 export default [
   sideImgTextCta,
@@ -20,4 +21,5 @@ export default [
   pageHeader,
   highLevelTopic,
   homepage,
+  getInformed,
 ];

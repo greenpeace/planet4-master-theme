@@ -43,16 +43,17 @@ abstract class BlockPattern
         return [
             BlankPage::class,
             DeepDive::class,
+            GetInformed::class,
             HighLevelTopic::class,
             HighlightedCta::class,
+            Homepage::class,
             Issues::class,
+            PageHeader::class,
+            PageHeaderImgLeft::class,
             QuickLinks::class,
             RealityCheck::class,
             SideImageWithTextAndCta::class,
             TakeAction::class,
-            PageHeader::class,
-            PageHeaderImgLeft::class,
-            Homepage::class,
         ];
     }
 
