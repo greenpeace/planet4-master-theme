@@ -1,4 +1,4 @@
-import {PluginDocumentSettingPanel} from '@wordpress/edit-post';
+import {PluginDocumentSettingPanel} from '@wordpress/editor';
 import {useDispatch, useSelect} from '@wordpress/data';
 import {URLInput} from '../URLInput/URLInput';
 

@@ -1,5 +1,5 @@
 import {useEffect} from '@wordpress/element';
-import {PluginDocumentSettingPanel} from '@wordpress/edit-post';
+import {PluginDocumentSettingPanel} from '@wordpress/editor';
 import {dispatch, useSelect} from '@wordpress/data';
 import {SelectSidebarField} from '../SidebarFields/SelectSidebarField';
 import {TextSidebarField} from '../SidebarFields/TextSidebarField';

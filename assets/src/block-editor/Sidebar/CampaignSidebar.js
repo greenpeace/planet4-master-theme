@@ -1,4 +1,4 @@
-import {PluginDocumentSettingPanel} from '@wordpress/edit-post';
+import {PluginDocumentSettingPanel} from '@wordpress/editor';
 import {NavigationType} from '../NavigationType/NavigationType';
 import {getSidebarFunctions} from './getSidebarFunctions';
 
