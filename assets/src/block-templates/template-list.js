@@ -11,6 +11,7 @@ import * as homepage from './homepage';
 import * as getInformed from './get-informed';
 import * as deepDiveTopic from './deep-dive-topic';
 import * as campaign from './campaign';
+import * as action from './action';
 
 export default [
   sideImgTextCta,
@@ -26,4 +27,5 @@ export default [
   getInformed,
   deepDiveTopic,
   campaign,
+  action,
 ];
