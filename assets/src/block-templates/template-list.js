@@ -9,6 +9,7 @@ import * as pageHeader from './page-header';
 import * as highLevelTopic from './high-level-topic';
 import * as homepage from './homepage';
 import * as getInformed from './get-informed';
+import * as deepDiveTopic from './deep-dive-topic';
 
 export default [
   sideImgTextCta,
@@ -22,4 +23,5 @@ export default [
   highLevelTopic,
   homepage,
   getInformed,
+  deepDiveTopic,
 ];

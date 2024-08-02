@@ -43,6 +43,7 @@ abstract class BlockPattern
         return [
             BlankPage::class,
             DeepDive::class,
+            DeepDiveTopic::class,
             GetInformed::class,
             HighLevelTopic::class,
             HighlightedCta::class,
