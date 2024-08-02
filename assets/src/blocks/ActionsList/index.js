@@ -16,6 +16,7 @@ export const registerActionsListBlock = () => {
   const queryPostType = IS_NEW_IA ? 'p4_action' : 'page';
 
   registerBlockVariation('core/query', {
+    name: ACTIONS_LIST_BLOCK_NAME,
     title: 'Actions List',
     description: __('A list of possible actions', 'planet4-blocks-backend'),
     icon: 'list-view',
