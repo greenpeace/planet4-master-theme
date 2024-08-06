@@ -1,4 +1,4 @@
-import {PluginDocumentSettingPanel} from '@wordpress/edit-post';
+import {PluginDocumentSettingPanel} from '@wordpress/editor';
 import {CheckboxSidebarField} from '../SidebarFields/CheckboxSidebarField';
 import {getSidebarFunctions} from './getSidebarFunctions';
 

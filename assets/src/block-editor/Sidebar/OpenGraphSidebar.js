@@ -1,4 +1,4 @@
-import {PluginDocumentSettingPanel} from '@wordpress/edit-post';
+import {PluginDocumentSettingPanel} from '@wordpress/editor';
 import {TextareaSidebarField} from '../SidebarFields/TextareaSidebarField';
 import {ImageSidebarField} from '../SidebarFields/ImageSidebarField';
 import {TextSidebarField} from '../SidebarFields/TextSidebarField';
