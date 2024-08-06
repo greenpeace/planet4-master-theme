@@ -34,9 +34,9 @@ do {
 if ($top_level_campaign_id === $post->ID) {
     $campaign_meta = $meta;
 } else {
-    $parent_meta = get_post_meta( $top_level_campaign_id );
-    // Get rid of all metas being in an array.                                      
-    $campaign_meta = array_map( 'reset', $parent_meta );
+    $parent_meta = get_post_meta($top_level_campaign_id);
+    // Get rid of all metas being in an array.
+    $campaign_meta = array_map('reset', $parent_meta);
 }
 
 // This is just an example of how to get children pages, this will probably be done in some kind of menu block.
@@ -56,7 +56,6 @@ $context['$sub_pages'] = array_map(
     },
     $sub_pages
 );
-
 
 $theme_name = $campaign_meta['theme'] ?? $campaign_meta['_campaign_page_template'] ?? null;
 
@@ -93,17 +92,17 @@ $context['social_overrides'] = [];
 foreach (range(1, 5) as $i) {
     $footer_item_key = 'campaign_footer_item' . $i;
 
-    if (!isset($campaign_meta[ $footer_item_key ])) {
+    if (!isset($campaign_meta[$footer_item_key])) {
         continue;
     }
 
-    $campaign_footer_item = maybe_unserialize($campaign_meta[ $footer_item_key ]);
+    $campaign_footer_item = maybe_unserialize($campaign_meta[$footer_item_key]);
     if (!$campaign_footer_item['url'] || !$campaign_footer_item['icon']) {
         continue;
     }
 
-    $context['social_overrides'][ $i ]['url'] = $campaign_footer_item['url'];
-    $context['social_overrides'][ $i ]['icon'] = $campaign_footer_item['icon'];
+    $context['social_overrides'][$i]['url'] = $campaign_footer_item['url'];
+    $context['social_overrides'][$i]['icon'] = $campaign_footer_item['icon'];
 }
 
 Context::set_p4_blocks_datalayer($context, $post);
@@ -120,7 +119,7 @@ if (post_password_required($post->ID)) {
     Timber::render('single-password.twig', $context);
 } else {
     Timber::render(
-        ['single-' . $post->ID . '.twig', 'single-' . $post->post_type . '.twig', 'single.twig' ],
+        ['single-' . $post->ID . '.twig', 'single-' . $post->post_type . '.twig', 'single.twig'],
         $context
     );
 }
