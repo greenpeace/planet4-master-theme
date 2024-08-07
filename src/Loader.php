@@ -8,6 +8,7 @@ use P4\MasterTheme\Features\Dev\BetaBlocks;
 use P4\MasterTheme\Patterns\BlockPattern;
 use P4\MasterTheme\View\View;
 use RuntimeException;
+use WP_Post;
 
 /**
  * Class Loader.
@@ -264,17 +265,20 @@ final class Loader
      *
      * @see https://core.trac.wordpress.org/ticket/49532
      *
-     * @param null $delete Whether to go forward with the delete
+     * @param bool|null $delete Whether to go forward with the delete
      *                     (sic, see original filter where it is null initally, not used here).
-     * @param null $post Post object.
-     * @param null $force_delete Is true when post is not trashed but deleted permanently
+     * @param WP_Post|null $post Post object.
+     * @param bool|null $force_delete Is true when post is not trashed but deleted permanently
      *                           (always false for revisions but they are deleted anyway).
      *
      * @return bool|null If the filter returns anything else than null the post is not deleted.
      * phpcs:disable WordPress.Security.NonceVerification.Recommended
      */
-    public function do_not_delete_autosave($delete = null, $post = null, $force_delete = null): ?bool
-    {
+    public function do_not_delete_autosave(
+        bool|null $delete = null,
+        WP_Post|null $post = null,
+        bool|null $force_delete = null
+    ): ?bool {
         if (
             $force_delete
             || (isset($_GET['action']) && 'delete' === $_GET['action'])
@@ -322,12 +326,14 @@ final class Loader
      * Enqueue a style with a version based on the file change time.
      *
      * @param string $relative_path An existing css file.
-     * @param null   $handle The handle to enqueue with. Generated from path if empty.
+     * @param string|null   $handle The handle to enqueue with. Generated from path if empty.
      * @param array  $deps Dependencies of this style.
      */
-    public static function enqueue_versioned_style(string $relative_path, $handle = null, array $deps = []): void
-    {
-
+    public static function enqueue_versioned_style(
+        string $relative_path,
+        ?string $handle = null,
+        array $deps = []
+    ): void {
         $relative_path = '/' . ltrim($relative_path, '/');
 
         $version = self::get_timestamp(get_template_directory() . $relative_path);
