@@ -1,6 +1,6 @@
-// useScript implementation from: https://usehooks.com/useScript/
-import {useEffect, useState} from '@wordpress/element';
 import {addLinkTag} from './addLinkTag';
+
+const {useEffect, useState} = wp.element;
 
 export const useStyleSheet = href => {
   // Keeping track of script loaded and error state

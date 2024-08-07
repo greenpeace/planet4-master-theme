@@ -1,4 +1,3 @@
-import {useEffect} from '@wordpress/element';
 import {InspectorControls, RichText} from '@wordpress/block-editor';
 import {
   RadioControl,
@@ -20,6 +19,7 @@ import {
 const {__} = wp.i18n;
 const {apiFetch} = wp;
 const {addQueryArgs} = wp.url;
+const {useEffect} = wp.element;
 
 const loadScriptAsync = uri => {
   // eslint-disable-next-line no-unused-vars

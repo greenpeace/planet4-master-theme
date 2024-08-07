@@ -1,9 +1,9 @@
-import {useState, useEffect} from '@wordpress/element';
 import {fetchJson} from '../../functions/fetchJson';
 import {addQueryArgs} from '../../functions/addQueryArgs';
 import {getAbortController} from '../../functions/getAbortController';
 
 const {apiFetch} = wp;
+const {useState, useEffect} = wp.element;
 
 const GALLERY_IMAGE_SIZES = {
   slider: 'retina-large',

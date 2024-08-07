@@ -1,4 +1,3 @@
-import {useState} from '@wordpress/element';
 import {InspectorControls, RichText} from '@wordpress/block-editor';
 import {URLInput} from '../../block-editor/URLInput/URLInput';
 import {
@@ -8,6 +7,7 @@ import {
 } from '@wordpress/components';
 import {debounce} from '@wordpress/compose';
 
+const {useState} = wp.element;
 const {__} = wp.i18n;
 
 // Renders the editor view

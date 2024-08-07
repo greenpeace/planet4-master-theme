@@ -1,4 +1,4 @@
-import {useRef, useEffect} from '@wordpress/element';
+const {useRef, useEffect} = wp.element;
 
 export const Timeline = props => {
   const {

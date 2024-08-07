@@ -1,10 +1,9 @@
 import {ShareButtons} from './ShareButtons';
 import {FormGenerator} from './FormGenerator';
-import {useState} from '@wordpress/element';
 import {unescape} from '../../functions/unescape';
-
 import {inputId} from './inputId';
 
+const {useState} = wp.element;
 const {__} = wp.i18n;
 
 export const ENFormFrontend = ({attributes}) => {

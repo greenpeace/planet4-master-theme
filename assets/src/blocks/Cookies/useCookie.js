@@ -1,4 +1,4 @@
-import {useState, useEffect} from '@wordpress/element';
+const {useState, useEffect} = wp.element;
 
 export const readCookie = name => {
   const declarations = document.cookie.split(';');

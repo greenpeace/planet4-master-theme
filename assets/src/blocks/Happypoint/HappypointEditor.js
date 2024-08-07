@@ -4,13 +4,13 @@ import {
   MediaUpload,
   MediaUploadCheck,
 } from '@wordpress/block-editor';
-import {useState} from '@wordpress/element';
 import {useSelect} from '@wordpress/data';
 import {debounce} from '@wordpress/compose';
 import {HappypointFrontend} from './HappypointFrontend';
 import {USE_EMBED_CODE, USE_IFRAME_URL, USE_NONE} from './HappypointConstants';
 import {OverrideFormHelp} from './OverrideFormHelp';
 
+const {useState} = wp.element;
 const {__} = wp.i18n;
 
 import {

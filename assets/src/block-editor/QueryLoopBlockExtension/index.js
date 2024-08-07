@@ -1,10 +1,10 @@
 import {RadioControl, PanelBody} from '@wordpress/components';
 import {InspectorControls} from '@wordpress/block-editor';
-import {useCallback, useEffect, useMemo, useState} from '@wordpress/element';
 import {POSTS_LIST_BLOCK_NAME, POSTS_LISTS_LAYOUT_TYPES} from '../../blocks/PostsList';
 import {ACTIONS_LIST_BLOCK_NAME, ACTIONS_LIST_LAYOUT_TYPES} from '../../blocks/ActionsList';
 import {PostSelector} from '../../block-editor/PostSelector/PostSelector';
 
+const {useCallback, useEffect, useMemo, useState} = wp.element;
 const {addFilter} = wp.hooks;
 const {__} = wp.i18n;
 

@@ -1,9 +1,10 @@
-import {useRef, useState, useEffect, useCallback, useMemo} from '@wordpress/element';
 import {Spinner} from '@wordpress/components';
 import classNames from 'classnames';
 import {ACTIONS, useArchivePickerContext} from './ArchivePicker';
 
 const {__} = wp.i18n;
+const {useRef, useState, useEffect, useCallback, useMemo} = wp.element;
+
 const MAX_SEARCHES = 8;
 
 export default function MultiSearchOption() {

@@ -5,7 +5,8 @@ import {
   CheckboxControl,
 } from '@wordpress/components';
 import {URLInput} from '../../block-editor/URLInput/URLInput';
-import {useState} from '@wordpress/element';
+
+const {useState} = wp.element;
 const {__} = wp.i18n;
 
 export const SidebarSlide = ({

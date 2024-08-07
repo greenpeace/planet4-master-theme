@@ -1,7 +1,7 @@
-import {useEffect, useRef, useState} from '@wordpress/element';
-
 import PhotoSwipe from '../../../../../node_modules/photoswipe/dist/photoswipe.js';
 import PhotoSwipeUI_Default from '../../../../../node_modules/photoswipe/dist/photoswipe-ui-default.js';
+
+const {useEffect, useRef, useState} = wp.element;
 
 // `items` should be an array of object with this shape:
 // [{ src, w, h, title }, ...]

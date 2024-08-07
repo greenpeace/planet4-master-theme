@@ -4,15 +4,14 @@ import {
   RangeControl,
 } from '@wordpress/components';
 import {useSelect} from '@wordpress/data';
-import {useEffect} from '@wordpress/element';
 import {InspectorControls, RichText} from '@wordpress/block-editor';
-
 import {URLInput} from '../../block-editor/URLInput/URLInput';
 import {EditableColumns} from './EditableColumns';
 import {Columns} from './Columns';
 import {MAX_COLUMNS_AMOUNT, MIN_COLUMNS_AMOUNT} from './ColumnConstants';
 import {getStyleFromClassName} from '../../functions/getStyleFromClassName';
 
+const {useEffect} = wp.element;
 const {__} = wp.i18n;
 
 const renderEdit = (attributes, toAttribute, setAttributes, isSelected) => {

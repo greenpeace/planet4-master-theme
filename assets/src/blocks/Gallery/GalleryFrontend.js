@@ -1,4 +1,3 @@
-import {useEffect, useState} from '@wordpress/element';
 import {GalleryCarousel} from './GalleryCarousel';
 import {GalleryThreeColumns} from './GalleryThreeColumns';
 import {GalleryGrid} from './GalleryGrid';
@@ -6,6 +5,8 @@ import {getGalleryLayout, GALLERY_BLOCK_CLASSES} from './getGalleryLayout';
 import {getCaptionWithCredits} from './getCaptionWithCredits.js';
 import {Lightbox} from '../components/Lightbox/Lightbox';
 import {useLightbox} from '../components/Lightbox/useLightbox';
+
+const {useEffect, useState} = wp.element;
 
 const imagesToItems = images => images.map(
   image => ({

@@ -1,4 +1,3 @@
-import {useState, useRef, useEffect} from '@wordpress/element';
 import {
   CheckboxControl,
   PanelBody,
@@ -6,6 +5,7 @@ import {
 import {InspectorControls} from '@wordpress/block-editor';
 import {SidebarSlide} from './SidebarSlide';
 
+const {useState, useRef, useEffect} = wp.element;
 const {__} = wp.i18n;
 
 const getNode = index => (

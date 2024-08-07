@@ -1,5 +1,3 @@
-import {useRef} from '@wordpress/element';
-
 // Carousel Header
 import {Slide} from './Slide';
 import {Caption} from './Caption';
@@ -10,6 +8,8 @@ import {CarouselControls} from './CarouselControls';
 import {Sidebar} from './Sidebar';
 import {EditableBackground} from './EditableBackground';
 import {useSelect} from '@wordpress/data';
+
+const {useRef} = wp.element;
 
 export const toSrcSet = sizes => {
   return sizes.map(size => `${size.url || size.source_url} ${size.width}w`).join();

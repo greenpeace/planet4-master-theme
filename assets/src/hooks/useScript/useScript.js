@@ -1,6 +1,7 @@
 // useScript implementation from: https://usehooks.com/useScript/
-import {useEffect, useState} from '@wordpress/element';
 import {addScriptTag} from './addScriptTag';
+
+const {useEffect, useState} = wp.element;
 
 export const useScript = (src, onScriptLoaded, deps = []) => {
   // Keeping track of script loaded and error state

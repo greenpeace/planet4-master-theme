@@ -1,4 +1,3 @@
-import {useState} from '@wordpress/element';
 import {InspectorControls} from '@wordpress/block-editor';
 import ColorPaletteControl from '../../block-editor/ColorPaletteControl/ColorPaletteControl';
 import {SpreadsheetFrontend} from './SpreadsheetFrontend';
@@ -6,6 +5,7 @@ import {debounce} from '@wordpress/compose';
 import {TextControl, PanelBody} from '@wordpress/components';
 
 const {__} = wp.i18n;
+const {useState} = wp.element;
 
 const colors = [
   {name: 'blue', color: '#167f82'},

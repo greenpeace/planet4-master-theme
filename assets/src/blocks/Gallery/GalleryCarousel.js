@@ -1,8 +1,8 @@
-import {useState, useEffect, useRef} from '@wordpress/element';
 import {IMAGE_SIZES} from './imageSizes';
 import {getCaptionWithCredits} from './getCaptionWithCredits.js';
 
 const {__} = wp.i18n;
+const {useState, useEffect, useRef} = wp.element;
 
 const isRTL = document.querySelector('html').dir === 'rtl';
 
