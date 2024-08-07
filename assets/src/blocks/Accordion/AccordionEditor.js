@@ -5,8 +5,8 @@ import {
   CheckboxControl,
   Button,
 } from '@wordpress/components';
-import {debounce} from '@wordpress/compose';
 
+const {debounce} = wp.compose;
 const {useState} = wp.element;
 const {__} = wp.i18n;
 

@@ -1,12 +1,12 @@
 import {PanelBody, TextControl} from '@wordpress/components';
 import {MediaPlaceholder, InspectorControls, RichText} from '@wordpress/block-editor';
-import {debounce} from '@wordpress/compose';
 import {MediaElementVideo} from './MediaElementVideo';
 import {useSelect} from '@wordpress/data';
 import {lacksAttributes} from './MediaBlock';
 
 const {__} = wp.i18n;
 const {apiFetch} = wp;
+const {debounce} = wp.compose;
 const {url: {addQueryArgs}} = wp.url;
 const {element: {Fragment, useCallback}} = wp.element;
 

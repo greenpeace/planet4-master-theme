@@ -11,9 +11,9 @@ import {useStyleSheet} from '../../hooks/useStylesheet/useStylesheet';
 import {Timeline} from './Timeline';
 import {languages} from './TimelineLanguages';
 import {URLDescriptionHelp} from './URLDescriptionHelp';
-import {debounce} from '@wordpress/compose';
 import {isLodash} from '../../functions/isLodash';
 
+const {debounce} = wp.compose;
 const {useCallback, useState} = wp.element;
 const {__} = wp.i18n;
 

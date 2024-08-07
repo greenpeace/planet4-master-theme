@@ -1,10 +1,10 @@
 import {InspectorControls} from '@wordpress/block-editor';
 import ColorPaletteControl from '../../block-editor/ColorPaletteControl/ColorPaletteControl';
 import {SpreadsheetFrontend} from './SpreadsheetFrontend';
-import {debounce} from '@wordpress/compose';
 import {TextControl, PanelBody} from '@wordpress/components';
 
 const {__} = wp.i18n;
+const {debounce} = wp.compose;
 const {useState} = wp.element;
 
 const colors = [
