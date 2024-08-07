@@ -1,7 +1,7 @@
 import {MediaUpload, MediaUploadCheck} from '@wordpress/block-editor';
-import {Button} from '@wordpress/components';
 import {ImageHoverControls} from '../ImageHoverControls';
 
+const {Button} = wp.components;
 const {__} = wp.i18n;
 
 export const ImageSidebarField = ({value, setValue, label}) => (

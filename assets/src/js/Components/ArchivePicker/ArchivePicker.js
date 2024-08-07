@@ -1,4 +1,3 @@
-import {Spinner} from '@wordpress/components';
 import classNames from 'classnames';
 import ArchivePickerList from './ArchivePickerList';
 import SingleSidebar from './SingleSidebar';
@@ -11,6 +10,7 @@ import {
   updateCarouselBlockAttributes,
 } from './blockUpdateFunctions';
 
+const {Spinner} = wp.components;
 const {createContext, useContext, useEffect, useState, useCallback, useReducer, useMemo} = wp.element;
 const {apiFetch, url, i18n} = wp;
 const {addQueryArgs} = url;

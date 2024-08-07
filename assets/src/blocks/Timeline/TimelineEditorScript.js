@@ -1,9 +1,3 @@
-import {
-  PanelBody,
-  SelectControl,
-  CheckboxControl,
-  Tooltip,
-} from '@wordpress/components';
 import {InspectorControls, RichText} from '@wordpress/block-editor';
 import {URLInput} from '../../block-editor/URLInput/URLInput';
 import {useScript} from '../../hooks/useScript/useScript';
@@ -13,6 +7,7 @@ import {languages} from './TimelineLanguages';
 import {URLDescriptionHelp} from './URLDescriptionHelp';
 import {isLodash} from '../../functions/isLodash';
 
+const {PanelBody, SelectControl, CheckboxControl, Tooltip} = wp.components;
 const {debounce} = wp.compose;
 const {useCallback, useState} = wp.element;
 const {__} = wp.i18n;

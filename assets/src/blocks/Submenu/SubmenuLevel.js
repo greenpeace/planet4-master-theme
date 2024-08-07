@@ -1,8 +1,4 @@
-import {
-  CheckboxControl,
-  SelectControl,
-} from '@wordpress/components';
-
+const {CheckboxControl, SelectControl} = wp.components;
 const {__} = wp.i18n;
 
 const getHeadingOptions = minLevel => {

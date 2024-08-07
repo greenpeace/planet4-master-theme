@@ -1,8 +1,8 @@
-import {BaseControl, FocalPointPicker, PanelBody, SelectControl, ToggleControl} from '@wordpress/components';
 import {InspectorControls} from '@wordpress/block-editor';
 import {URLInput} from '../../block-editor/URLInput/URLInput';
 import {ImageOrButton} from '../../block-editor/ImageOrButton/ImageOrButton';
 
+const {BaseControl, FocalPointPicker, PanelBody, SelectControl, ToggleControl} = wp.components;
 const {getCurrentPostType} = wp.data.select('core/editor');
 const {__} = wp.i18n;
 

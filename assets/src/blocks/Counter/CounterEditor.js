@@ -1,12 +1,8 @@
 import {InspectorControls, RichText} from '@wordpress/block-editor';
-import {
-  TextControl,
-  TextareaControl,
-  PanelBody,
-} from '@wordpress/components';
 import {URLInput} from '../../block-editor/URLInput/URLInput';
 import {CounterFrontend} from './CounterFrontend';
 
+const {TextControl, TextareaControl, PanelBody} = wp.components;
 const {__} = wp.i18n;
 
 export const CounterEditor = ({setAttributes, attributes, isSelected}) => {

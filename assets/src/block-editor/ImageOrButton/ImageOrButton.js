@@ -1,5 +1,6 @@
-import {Button} from '@wordpress/components';
 import {MediaUpload, MediaUploadCheck} from '@wordpress/block-editor';
+
+const {Button} = wp.components;
 
 export const ImageOrButton = props => {
   const {

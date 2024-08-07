@@ -1,9 +1,4 @@
 import {InspectorControls, RichText} from '@wordpress/block-editor';
-import {
-  RadioControl,
-  SelectControl,
-  PanelBody,
-} from '@wordpress/components';
 import {SocialMediaEmbed} from './SocialMediaEmbed';
 import {URLInput} from '../../block-editor/URLInput/URLInput';
 import {HTMLSidebarHelp} from '../../block-editor/HTMLSidebarHelp/HTMLSidebarHelp';
@@ -16,6 +11,7 @@ import {
   ALLOWED_OEMBED_PROVIDERS,
 } from './SocialMediaConstants.js';
 
+const {RadioControl, SelectControl, PanelBody} = wp.components;
 const {__} = wp.i18n;
 const {apiFetch} = wp;
 const {addQueryArgs} = wp.url;

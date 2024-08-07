@@ -1,11 +1,7 @@
 import {InspectorControls, RichText} from '@wordpress/block-editor';
 import {URLInput} from '../../block-editor/URLInput/URLInput';
-import {
-  PanelBody,
-  CheckboxControl,
-  Button,
-} from '@wordpress/components';
 
+const {PanelBody, CheckboxControl, Button} = wp.components;
 const {debounce} = wp.compose;
 const {useState} = wp.element;
 const {__} = wp.i18n;

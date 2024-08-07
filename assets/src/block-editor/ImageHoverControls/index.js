@@ -1,4 +1,4 @@
-import {Button} from '@wordpress/components';
+const {Button} = wp.components;
 const {__} = wp.i18n;
 
 export const ImageHoverControls = props => {

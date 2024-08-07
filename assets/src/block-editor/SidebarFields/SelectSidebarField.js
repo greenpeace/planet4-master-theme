@@ -1,4 +1,4 @@
-import {SelectControl} from '@wordpress/components';
+const {SelectControl} = wp.components;
 
 export const SelectSidebarField = ({options, value, setValue, label}) => (
   <SelectControl

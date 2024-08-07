@@ -1,4 +1,3 @@
-import {FocalPointPicker, PanelBody} from '@wordpress/components';
 import {getGalleryLayout, GALLERY_BLOCK_CLASSES} from './getGalleryLayout';
 import {useSelect} from '@wordpress/data';
 import {GalleryCarousel} from './GalleryCarousel';
@@ -7,6 +6,7 @@ import {GalleryGrid} from './GalleryGrid';
 import {useGalleryImages} from './useGalleryImages';
 import {InspectorControls, MediaPlaceholder, MediaUploadCheck, RichText} from '@wordpress/block-editor';
 
+const {FocalPointPicker, PanelBody} = wp.components;
 const {__} = wp.i18n;
 
 const renderEdit = (attributes, setAttributes, isSelected) => {

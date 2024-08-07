@@ -1,6 +1,6 @@
 import classnames from 'classnames';
-import {BaseControl, ColorPalette} from '@wordpress/components';
 
+const {BaseControl, ColorPalette} = wp.components;
 const {withInstanceId} = wp.compose;
 
 function ColorPaletteControl({label, className, value, help, instanceId, onChange, options = [], ...passThroughProps}) {

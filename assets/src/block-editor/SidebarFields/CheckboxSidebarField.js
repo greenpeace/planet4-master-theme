@@ -1,4 +1,4 @@
-import {CheckboxControl} from '@wordpress/components';
+const {CheckboxControl} = wp.components;
 
 export const CheckboxSidebarField = ({value, setValue, label}) => (
   <CheckboxControl

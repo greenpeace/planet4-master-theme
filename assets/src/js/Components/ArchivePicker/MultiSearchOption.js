@@ -1,8 +1,8 @@
-import {Spinner} from '@wordpress/components';
 import classNames from 'classnames';
 import {ACTIONS, useArchivePickerContext} from './ArchivePicker';
 
 const {__} = wp.i18n;
+const {Spinner} = wp.components;
 const {useRef, useState, useEffect, useCallback, useMemo} = wp.element;
 
 const MAX_SEARCHES = 8;

@@ -1,11 +1,6 @@
-import {
-  PanelRow,
-  PanelBody,
-  FocalPointPicker,
-  CheckboxControl,
-} from '@wordpress/components';
 import {URLInput} from '../../block-editor/URLInput/URLInput';
 
+const {PanelRow, PanelBody, FocalPointPicker, CheckboxControl} = wp.components;
 const {useState} = wp.element;
 const {__} = wp.i18n;
 

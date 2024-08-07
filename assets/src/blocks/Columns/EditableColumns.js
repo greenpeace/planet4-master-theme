@@ -1,9 +1,9 @@
 import {LAYOUT_NO_IMAGE, LAYOUT_ICONS, LAYOUT_TASKS, LAYOUT_IMAGES} from './ColumnConstants';
 import {MediaUpload, MediaUploadCheck, RichText} from '@wordpress/block-editor';
-import {Button} from '@wordpress/components';
 import {ColumnsImagePlaceholder} from './ColumnsImagePlaceholder';
 import {ImageHoverControls} from '../../block-editor/ImageHoverControls';
 
+const {Button} = wp.components;
 const {__} = wp.i18n;
 
 export const EditableColumns = ({

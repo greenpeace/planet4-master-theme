@@ -11,9 +11,7 @@ import {OverrideFormHelp} from './OverrideFormHelp';
 
 const {debounce} = wp.compose;
 const {useState} = wp.element;
-const {__} = wp.i18n;
-
-import {
+const {
   TextControl,
   TextareaControl,
   FocalPointPicker,
@@ -24,7 +22,8 @@ import {
   Button,
   ToolbarGroup,
   ToolbarButton,
-} from '@wordpress/components';
+} = wp.components;
+const {__} = wp.i18n;
 
 export const HappypointEditor = ({attributes, setAttributes, isSelected}) => {
   const {

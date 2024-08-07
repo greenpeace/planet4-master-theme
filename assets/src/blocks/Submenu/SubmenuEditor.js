@@ -1,4 +1,3 @@
-import {Button, PanelBody} from '@wordpress/components';
 import {SubmenuLevel} from './SubmenuLevel';
 import {SubmenuItems} from './SubmenuItems';
 import {InspectorControls, RichText} from '@wordpress/block-editor';
@@ -8,6 +7,7 @@ import {getHeadingsFromBlocks} from './getHeadingsFromBlocks';
 import {useSelect} from '@wordpress/data';
 import {deepClone} from '../../functions/deepClone';
 
+const {Button, PanelBody} = wp.components;
 const {__} = wp.i18n;
 
 const renderEdit = (attributes, setAttributes) => {
