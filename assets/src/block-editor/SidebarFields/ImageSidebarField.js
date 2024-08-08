@@ -1,6 +1,6 @@
-import {MediaUpload, MediaUploadCheck} from '@wordpress/block-editor';
 import {ImageHoverControls} from '../ImageHoverControls';
 
+const {MediaUpload, MediaUploadCheck} = wp.blockEditor;
 const {Button} = wp.components;
 const {__} = wp.i18n;
 

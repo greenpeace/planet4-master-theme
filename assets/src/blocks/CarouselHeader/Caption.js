@@ -1,4 +1,4 @@
-import {RichText} from '@wordpress/block-editor';
+const {RichText} = wp.blockEditor;
 const {__} = wp.i18n;
 
 export const Caption = ({slide, index, changeSlideAttribute}) => (

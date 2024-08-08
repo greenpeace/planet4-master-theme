@@ -1,8 +1,8 @@
-import {MediaPlaceholder, InspectorControls, RichText} from '@wordpress/block-editor';
 import {MediaElementVideo} from './MediaElementVideo';
 import {useSelect} from '@wordpress/data';
 import {lacksAttributes} from './MediaBlock';
 
+const {MediaPlaceholder, InspectorControls, RichText} = wp.blockEditor;
 const {__} = wp.i18n;
 const {apiFetch} = wp;
 const {debounce} = wp.compose;

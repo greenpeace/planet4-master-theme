@@ -1,4 +1,3 @@
-import {InspectorControls, RichText} from '@wordpress/block-editor';
 import {SocialMediaEmbed} from './SocialMediaEmbed';
 import {URLInput} from '../../block-editor/URLInput/URLInput';
 import {HTMLSidebarHelp} from '../../block-editor/HTMLSidebarHelp/HTMLSidebarHelp';
@@ -11,6 +10,7 @@ import {
   ALLOWED_OEMBED_PROVIDERS,
 } from './SocialMediaConstants.js';
 
+const {InspectorControls, RichText} = wp.blockEditor;
 const {RadioControl, SelectControl, PanelBody} = wp.components;
 const {__} = wp.i18n;
 const {apiFetch} = wp;

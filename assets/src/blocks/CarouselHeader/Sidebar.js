@@ -1,6 +1,6 @@
-import {InspectorControls} from '@wordpress/block-editor';
 import {SidebarSlide} from './SidebarSlide';
 
+const {InspectorControls} = wp.blockEditor;
 const {CheckboxControl, PanelBody} = wp.components;
 const {useState, useRef, useEffect} = wp.element;
 const {__} = wp.i18n;

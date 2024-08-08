@@ -1,7 +1,7 @@
-import {InspectorControls} from '@wordpress/block-editor';
 import ColorPaletteControl from '../../block-editor/ColorPaletteControl/ColorPaletteControl';
 import {SpreadsheetFrontend} from './SpreadsheetFrontend';
 
+const {InspectorControls} = wp.blockEditor;
 const {TextControl, PanelBody} = wp.components;
 const {__} = wp.i18n;
 const {debounce} = wp.compose;

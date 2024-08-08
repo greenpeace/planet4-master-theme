@@ -4,8 +4,8 @@ import {GalleryCarousel} from './GalleryCarousel';
 import {GalleryThreeColumns} from './GalleryThreeColumns';
 import {GalleryGrid} from './GalleryGrid';
 import {useGalleryImages} from './useGalleryImages';
-import {InspectorControls, MediaPlaceholder, MediaUploadCheck, RichText} from '@wordpress/block-editor';
 
+const {InspectorControls, MediaPlaceholder, MediaUploadCheck, RichText} = wp.blockEditor;
 const {FocalPointPicker, PanelBody} = wp.components;
 const {__} = wp.i18n;
 

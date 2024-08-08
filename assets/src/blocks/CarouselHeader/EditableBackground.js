@@ -1,7 +1,7 @@
-import {MediaUpload, MediaUploadCheck} from '@wordpress/block-editor';
 import {ImagePlaceholder} from './ImagePlaceholder';
 import {toSrcSet} from './CarouselHeaderEditor';
 
+const {MediaUpload, MediaUploadCheck} = wp.blockEditor;
 const {Button, Dropdown} = wp.components;
 const {__} = wp.i18n;
 

@@ -1,14 +1,9 @@
-import {
-  InspectorControls,
-  BlockControls,
-  MediaUpload,
-  MediaUploadCheck,
-} from '@wordpress/block-editor';
 import {useSelect} from '@wordpress/data';
 import {HappypointFrontend} from './HappypointFrontend';
 import {USE_EMBED_CODE, USE_IFRAME_URL, USE_NONE} from './HappypointConstants';
 import {OverrideFormHelp} from './OverrideFormHelp';
 
+const {InspectorControls, BlockControls, MediaUpload, MediaUploadCheck} = wp.blockEditor;
 const {debounce} = wp.compose;
 const {useState} = wp.element;
 const {

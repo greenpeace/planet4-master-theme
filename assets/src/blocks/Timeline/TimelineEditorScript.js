@@ -1,4 +1,3 @@
-import {InspectorControls, RichText} from '@wordpress/block-editor';
 import {URLInput} from '../../block-editor/URLInput/URLInput';
 import {useScript} from '../../hooks/useScript/useScript';
 import {useStyleSheet} from '../../hooks/useStylesheet/useStylesheet';
@@ -7,6 +6,7 @@ import {languages} from './TimelineLanguages';
 import {URLDescriptionHelp} from './URLDescriptionHelp';
 import {isLodash} from '../../functions/isLodash';
 
+const {InspectorControls, RichText} = wp.blockEditor;
 const {PanelBody, SelectControl, CheckboxControl, Tooltip} = wp.components;
 const {debounce} = wp.compose;
 const {useCallback, useState} = wp.element;

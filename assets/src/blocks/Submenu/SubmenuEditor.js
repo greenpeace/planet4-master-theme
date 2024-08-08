@@ -1,12 +1,12 @@
 import {SubmenuLevel} from './SubmenuLevel';
 import {SubmenuItems} from './SubmenuItems';
-import {InspectorControls, RichText} from '@wordpress/block-editor';
 import {getSubmenuStyle} from './getSubmenuStyle';
 import {makeHierarchical} from './makeHierarchical';
 import {getHeadingsFromBlocks} from './getHeadingsFromBlocks';
 import {useSelect} from '@wordpress/data';
 import {deepClone} from '../../functions/deepClone';
 
+const {InspectorControls, RichText} = wp.blockEditor;
 const {Button, PanelBody} = wp.components;
 const {__} = wp.i18n;
 
