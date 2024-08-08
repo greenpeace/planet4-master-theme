@@ -8,7 +8,6 @@ use P4\MasterTheme\Features\Dev\BetaBlocks;
 use P4\MasterTheme\Patterns\BlockPattern;
 use P4\MasterTheme\View\View;
 use RuntimeException;
-use WP_Post;
 
 /**
  * Class Loader.
