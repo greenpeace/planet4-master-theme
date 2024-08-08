@@ -21,15 +21,8 @@ $context = Timber::get_context();
 $post = Timber::query_post(false, Post::class); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 $context['post'] = $post;
 
-$meta = get_post_meta($post->ID);
-// No need to check the user here as that already happens in wp_get_post_autosave.
-if (isset($_GET['preview'])) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-    $post_preview = wp_get_post_autosave($post->ID);
-    if ($post_preview) {
-        $meta = array_merge($meta, get_post_meta($post_preview->ID));
-    }
-}
-$meta = array_map(fn ($v) => reset($v), $meta);
+// Get the cmb2 custom fields data.
+$meta = $post->custom;
 
 $current_level_campaign_id = $post->ID;
 
@@ -41,8 +34,9 @@ do {
 if ($top_level_campaign_id === $post->ID) {
     $campaign_meta = $meta;
 } else {
-    $campaign_meta = get_post_meta($top_level_campaign_id);
-    $campaign_meta = array_map(fn ($v) => reset($v), $campaign_meta);
+    $parent_meta = get_post_meta($top_level_campaign_id);
+    // Get rid of all metas being in an array.
+    $campaign_meta = array_map('reset', $parent_meta);
 }
 
 // This is just an example of how to get children pages, this will probably be done in some kind of menu block.
@@ -62,7 +56,6 @@ $context['$sub_pages'] = array_map(
     },
     $sub_pages
 );
-
 
 $theme_name = $campaign_meta['theme'] ?? $campaign_meta['_campaign_page_template'] ?? null;
 
@@ -99,17 +92,17 @@ $context['social_overrides'] = [];
 foreach (range(1, 5) as $i) {
     $footer_item_key = 'campaign_footer_item' . $i;
 
-    if (!isset($campaign_meta[ $footer_item_key ])) {
+    if (!isset($campaign_meta[$footer_item_key])) {
         continue;
     }
 
-    $campaign_footer_item = maybe_unserialize($campaign_meta[ $footer_item_key ]);
+    $campaign_footer_item = maybe_unserialize($campaign_meta[$footer_item_key]);
     if (!$campaign_footer_item['url'] || !$campaign_footer_item['icon']) {
         continue;
     }
 
-    $context['social_overrides'][ $i ]['url'] = $campaign_footer_item['url'];
-    $context['social_overrides'][ $i ]['icon'] = $campaign_footer_item['icon'];
+    $context['social_overrides'][$i]['url'] = $campaign_footer_item['url'];
+    $context['social_overrides'][$i]['icon'] = $campaign_footer_item['icon'];
 }
 
 Context::set_p4_blocks_datalayer($context, $post);
@@ -126,7 +119,7 @@ if (post_password_required($post->ID)) {
     Timber::render('single-password.twig', $context);
 } else {
     Timber::render(
-        ['single-' . $post->ID . '.twig', 'single-' . $post->post_type . '.twig', 'single.twig' ],
+        ['single-' . $post->ID . '.twig', 'single-' . $post->post_type . '.twig', 'single.twig'],
         $context
     );
 }
