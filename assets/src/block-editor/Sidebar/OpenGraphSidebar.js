@@ -1,16 +1,16 @@
-import {PluginDocumentSettingPanel} from '@wordpress/editor';
 import {TextareaSidebarField} from '../SidebarFields/TextareaSidebarField';
 import {ImageSidebarField} from '../SidebarFields/ImageSidebarField';
 import {TextSidebarField} from '../SidebarFields/TextSidebarField';
 import {getSidebarFunctions} from './getSidebarFunctions';
+
+const {__} = wp.i18n;
+const {PluginDocumentSettingPanel} = wp.editor;
 
 // The various meta fields
 const OG_TITLE = 'p4_og_title';
 const OG_DESCRIPTION = 'p4_og_description';
 const OG_IMAGE_ID = 'p4_og_image_id';
 const OG_IMAGE_URL = 'p4_og_image';
-
-const {__} = wp.i18n;
 
 /**
  * Open Graph settings for the sidebar

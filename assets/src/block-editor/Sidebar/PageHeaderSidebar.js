@@ -1,11 +1,11 @@
-import {PluginDocumentSettingPanel} from '@wordpress/editor';
 import {CheckboxSidebarField} from '../SidebarFields/CheckboxSidebarField';
 import {getSidebarFunctions} from './getSidebarFunctions';
 
+const {__} = wp.i18n;
+const {PluginDocumentSettingPanel} = wp.editor;
+
 // The various meta fields
 const HIDE_PAGE_TITLE = 'p4_hide_page_title_checkbox';
-
-const {__} = wp.i18n;
 
 /**
  * Page header settings for the sidebar

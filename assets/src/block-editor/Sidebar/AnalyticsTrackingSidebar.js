@@ -1,8 +1,8 @@
-import {PluginDocumentSettingPanel} from '@wordpress/editor';
 import {SelectSidebarField} from '../SidebarFields/SelectSidebarField';
 import {TextSidebarField} from '../SidebarFields/TextSidebarField';
 import {getSidebarFunctions} from './getSidebarFunctions';
 
+const {PluginDocumentSettingPanel} = wp.editor;
 const {dispatch, useSelect} = wp.data;
 const {useEffect} = wp.element;
 const {__} = wp.i18n;

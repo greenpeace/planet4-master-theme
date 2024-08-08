@@ -1,6 +1,6 @@
-import {PluginDocumentSettingPanel} from '@wordpress/editor';
 import {URLInput} from '../URLInput/URLInput';
 
+const {PluginDocumentSettingPanel} = wp.editor;
 const {useDispatch, useSelect} = wp.data;
 const {__} = wp.i18n;
 

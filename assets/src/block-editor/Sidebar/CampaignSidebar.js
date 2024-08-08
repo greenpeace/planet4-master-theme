@@ -1,10 +1,10 @@
-import {PluginDocumentSettingPanel} from '@wordpress/editor';
 import {NavigationType} from '../NavigationType/NavigationType';
 import {getSidebarFunctions} from './getSidebarFunctions';
 
-const FIELD_NAVTYPE = 'campaign_nav_type';
-
 const {__} = wp.i18n;
+const {PluginDocumentSettingPanel} = wp.editor;
+
+const FIELD_NAVTYPE = 'campaign_nav_type';
 
 /**
  * Add settings to Campaign pages
