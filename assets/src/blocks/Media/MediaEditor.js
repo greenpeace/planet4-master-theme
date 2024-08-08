@@ -1,7 +1,7 @@
 import {MediaElementVideo} from './MediaElementVideo';
-import {useSelect} from '@wordpress/data';
 import {lacksAttributes} from './MediaBlock';
 
+const {useSelect} = wp.data;
 const {MediaPlaceholder, InspectorControls, RichText} = wp.blockEditor;
 const {__} = wp.i18n;
 const {apiFetch} = wp;

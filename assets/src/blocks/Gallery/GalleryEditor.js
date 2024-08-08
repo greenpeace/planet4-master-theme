@@ -1,10 +1,10 @@
 import {getGalleryLayout, GALLERY_BLOCK_CLASSES} from './getGalleryLayout';
-import {useSelect} from '@wordpress/data';
 import {GalleryCarousel} from './GalleryCarousel';
 import {GalleryThreeColumns} from './GalleryThreeColumns';
 import {GalleryGrid} from './GalleryGrid';
 import {useGalleryImages} from './useGalleryImages';
 
+const {useSelect} = wp.data;
 const {InspectorControls, MediaPlaceholder, MediaUploadCheck, RichText} = wp.blockEditor;
 const {FocalPointPicker, PanelBody} = wp.components;
 const {__} = wp.i18n;

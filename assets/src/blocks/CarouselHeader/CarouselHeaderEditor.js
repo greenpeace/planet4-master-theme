@@ -7,8 +7,8 @@ import {CarouselControls} from './CarouselControls';
 // Carousel Header Editor
 import {Sidebar} from './Sidebar';
 import {EditableBackground} from './EditableBackground';
-import {useSelect} from '@wordpress/data';
 
+const {useSelect} = wp.data;
 const {useRef} = wp.element;
 
 export const toSrcSet = sizes => {

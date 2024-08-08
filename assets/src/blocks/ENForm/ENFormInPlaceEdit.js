@@ -1,7 +1,7 @@
 import {FormGenerator} from './FormGenerator';
 import {ShareButtons} from './ShareButtons';
-import {useSelect} from '@wordpress/data';
 
+const {useSelect} = wp.data;
 const {RichText, BlockControls} = wp.blockEditor;
 const {ToolbarGroup} = wp.components;
 const {useState} = wp.element;

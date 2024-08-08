@@ -3,9 +3,9 @@ import {SubmenuItems} from './SubmenuItems';
 import {getSubmenuStyle} from './getSubmenuStyle';
 import {makeHierarchical} from './makeHierarchical';
 import {getHeadingsFromBlocks} from './getHeadingsFromBlocks';
-import {useSelect} from '@wordpress/data';
 import {deepClone} from '../../functions/deepClone';
 
+const {useSelect} = wp.data;
 const {InspectorControls, RichText} = wp.blockEditor;
 const {Button, PanelBody} = wp.components;
 const {__} = wp.i18n;

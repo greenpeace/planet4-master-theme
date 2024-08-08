@@ -1,9 +1,9 @@
-import {useSelect} from '@wordpress/data';
 import {URLInput} from '../../block-editor/URLInput/URLInput';
 import {ImageHoverControls} from '../../block-editor/ImageHoverControls';
 import {TakeActionBoxoutFrontend} from './TakeActionBoxoutFrontend';
 import {ImagePlaceholder} from './ImagePlaceholder';
 
+const {useSelect} = wp.data;
 const {RichText, BlockControls, MediaUpload, MediaUploadCheck, InspectorControls} = wp.blockEditor;
 const {
   SelectControl,

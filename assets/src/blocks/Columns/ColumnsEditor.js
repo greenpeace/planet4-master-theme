@@ -1,10 +1,10 @@
-import {useSelect} from '@wordpress/data';
 import {URLInput} from '../../block-editor/URLInput/URLInput';
 import {EditableColumns} from './EditableColumns';
 import {Columns} from './Columns';
 import {MAX_COLUMNS_AMOUNT, MIN_COLUMNS_AMOUNT} from './ColumnConstants';
 import {getStyleFromClassName} from '../../functions/getStyleFromClassName';
 
+const {useSelect} = wp.data;
 const {InspectorControls, RichText} = wp.blockEditor;
 const {CheckboxControl, PanelBody, RangeControl} = wp.components;
 const {useEffect} = wp.element;

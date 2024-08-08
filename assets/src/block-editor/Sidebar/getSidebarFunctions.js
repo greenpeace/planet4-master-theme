@@ -1,4 +1,4 @@
-import {useDispatch, useSelect} from '@wordpress/data';
+const {useDispatch, useSelect} = wp.data;
 
 export const getSidebarFunctions = () => {
   const meta = useSelect(select => select('core/editor').getEditedPostAttribute('meta'), []);

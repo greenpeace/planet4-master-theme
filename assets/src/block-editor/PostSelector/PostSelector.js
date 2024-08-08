@@ -1,5 +1,4 @@
-import {dispatch, useSelect} from '@wordpress/data';
-
+const {dispatch, useSelect} = wp.data;
 const {FormTokenField} = wp.components;
 const {__} = wp.i18n;
 
