@@ -1,5 +1,3 @@
-import {openComponentPanel} from './editor.js';
-
 /**
  * Publishes a post using the provided editor and returns the URL of the published post.
  *
@@ -35,15 +33,15 @@ async function publishPostAndVisit({page, editor}) {
 /**
  * Creates a new post with a featured image set.
  *
- * @param {Object} params - Parameters for creating the post and setting the featured image.
- * @param {Object} params.admin - The admin object used to create a new post.
- * @param {Object} params.editor - The editor object used to interact with the editor.
- * @param {Object} params.params - Additional parameters for creating the post.
+ * @param {Object} p - Parameters for creating the post and setting the featured image.
+ * @param {Object} p.admin - The admin object used to create a new post.
+ * @param {Object} p.editor - The editor object used to interact with the editor.
+ * @param {Object} params - Additional parameters for creating the post.
  * @return {Promise<Object>} The newly created post.
  */
 async function createPostWithFeaturedImage({admin, editor}, params) {
   const newPost = await admin.createNewPost({...params, legacyCanvas: true});
-  const editorSettings = await openComponentPanel({editor}, 'Featured image');
+  const editorSettings = await editor.canvas.getByRole('region', {name: 'Editor settings'});
   await editorSettings.getByRole('button', {name: 'Set featured image'}).click();
   const imageModal = await editor.canvas.getByRole('dialog', {name: 'Featured image'});
   const mediaLibraryTab = await imageModal.locator('#menu-item-browse');
