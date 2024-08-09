@@ -3,8 +3,8 @@ import {expect} from './test-utils';
 /**
  * Publishes a post using the provided editor and returns the URL of the published post.
  *
- * @param {Object} params - Parameters for publishing the post.
- * @param {Object} params.page - The page object for interacting with the browser.
+ * @param {Object} params        - Parameters for publishing the post.
+ * @param {Object} params.page   - The page object for interacting with the browser.
  * @param {Object} params.editor - The editor object used to publish the post.
  * @return {Promise<string>} The URL of the published post.
  */
@@ -36,8 +36,8 @@ async function updatePost({page}) {
 /**
  * Publishes a post and then navigates to the published post's URL.
  *
- * @param {Object} params - Parameters for publishing the post and visiting the URL.
- * @param {Object} params.page - The page object for interacting with the browser.
+ * @param {Object} params        - Parameters for publishing the post and visiting the URL.
+ * @param {Object} params.page   - The page object for interacting with the browser.
  * @param {Object} params.editor - The editor object used to publish the post.
  */
 async function publishPostAndVisit({page, editor}) {
@@ -53,7 +53,7 @@ async function publishPostAndVisit({page, editor}) {
  * @param {Object} p.page - The page object used to interact with the editor.
  * @param {Object} p.admin - The admin object used to create a new post.
  * @param {Object} p.editor - The editor object used to interact with the editor.
- * @param {Object} params - Additional parameters for creating the post.
+ * @param {Object} params   - Additional parameters for creating the post.
  * @return {Promise<Object>} The newly created post.
  */
 async function createPostWithFeaturedImage({page, admin, editor}, params) {
