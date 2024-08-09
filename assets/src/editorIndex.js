@@ -31,9 +31,11 @@ wp.domReady(() => {
   registerBlockTemplates();
 
   // Beta blocks
-  registerActionButtonTextBlock();
-  registerActionsListBlock();
-  registerPostsListBlock();
+  if (window.p4_vars.features.beta_blocks === 'on') {
+    registerActionButtonTextBlock();
+    registerActionsListBlock();
+    registerPostsListBlock();
+  }
 
   // Custom block styles
   registerBlockStyles();
