@@ -1,6 +1,5 @@
 const {__} = wp.i18n;
-
-import {Tooltip} from '@wordpress/components';
+const {Tooltip} = wp.components;
 
 const COOKIES_DEFAULT_COPY = window.p4_vars.options.cookies_default_copy || {};
 

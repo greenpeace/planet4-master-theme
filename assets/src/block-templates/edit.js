@@ -1,4 +1,4 @@
-import {useBlockProps, InnerBlocks} from '@wordpress/block-editor';
+const {useBlockProps, InnerBlocks} = wp.blockEditor;
 
 export default function(template, templateLock = false) {
   return props => {

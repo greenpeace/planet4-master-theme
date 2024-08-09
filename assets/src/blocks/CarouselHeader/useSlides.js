@@ -1,4 +1,4 @@
-import {useEffect, useState} from '@wordpress/element';
+const {useEffect, useState} = wp.element;
 
 const activeClass = 'active';
 

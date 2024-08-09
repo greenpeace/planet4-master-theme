@@ -1,10 +1,10 @@
-import {useState, useEffect} from '@wordpress/element';
 import {ArrowIcon} from './ArrowIcon';
 import {HighlightMatches} from './HighlightMatches';
 import {fetchJson} from '../../functions/fetchJson';
 import {addQueryArgs} from '../../functions/addQueryArgs';
 
 const {apiFetch} = wp;
+const {useState, useEffect} = wp.element;
 const {__} = wp.i18n;
 
 const placeholderData = {

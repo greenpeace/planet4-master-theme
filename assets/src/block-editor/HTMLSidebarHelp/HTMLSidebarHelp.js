@@ -1,4 +1,4 @@
-import {RawHTML} from '@wordpress/element';
+const {RawHTML} = wp.element;
 
 export const HTMLSidebarHelp = props => (
   <div className="HTMLSidebarHelp">

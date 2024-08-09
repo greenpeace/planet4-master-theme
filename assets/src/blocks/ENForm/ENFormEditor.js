@@ -2,7 +2,7 @@ import {ENFormInPlaceEdit} from './ENFormInPlaceEdit';
 import {ENFormSettings} from './ENFormSettings';
 import {getStyleFromClassName} from '../../functions/getStyleFromClassName';
 
-import {useSelect} from '@wordpress/data';
+const {useSelect} = wp.data;
 
 export const ENFormEditor = ({attributes, setAttributes}) => {
   return (

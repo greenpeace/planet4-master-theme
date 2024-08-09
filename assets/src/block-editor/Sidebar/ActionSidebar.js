@@ -1,4 +1,3 @@
-import {PluginDocumentSettingPanel} from '@wordpress/editor';
 import {NavigationType} from '../NavigationType/NavigationType';
 import {CheckboxSidebarField} from '../SidebarFields/CheckboxSidebarField';
 import {TextSidebarField} from '../SidebarFields/TextSidebarField';
@@ -9,6 +8,7 @@ const HIDE_PAGE_TITLE = 'p4_hide_page_title_checkbox';
 const BUTTON_TEXT = 'action_button_text';
 
 const {__} = wp.i18n;
+const {PluginDocumentSettingPanel} = wp.editor;
 
 /**
  * Add settings to Action pages

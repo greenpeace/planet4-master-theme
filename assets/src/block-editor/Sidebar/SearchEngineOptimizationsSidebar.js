@@ -1,10 +1,10 @@
-import {PluginDocumentSettingPanel} from '@wordpress/editor';
-import {useDispatch, useSelect} from '@wordpress/data';
 import {URLInput} from '../URLInput/URLInput';
 
-const CANONICAL_URL = 'p4_seo_canonical_url';
-
+const {PluginDocumentSettingPanel} = wp.editor;
+const {useDispatch, useSelect} = wp.data;
 const {__} = wp.i18n;
+
+const CANONICAL_URL = 'p4_seo_canonical_url';
 
 export const SearchEngineOptimizationsSidebar = {
   getId: () => 'planet4-seo-sidebar',

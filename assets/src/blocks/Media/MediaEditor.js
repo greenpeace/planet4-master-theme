@@ -1,15 +1,14 @@
-import {Fragment, useCallback} from '@wordpress/element';
-import {PanelBody, TextControl} from '@wordpress/components';
-import {MediaPlaceholder, InspectorControls, RichText} from '@wordpress/block-editor';
-import {debounce} from '@wordpress/compose';
-
 import {MediaElementVideo} from './MediaElementVideo';
-import {useSelect} from '@wordpress/data';
 import {lacksAttributes} from './MediaBlock';
 
+const {useSelect} = wp.data;
+const {MediaPlaceholder, InspectorControls, RichText} = wp.blockEditor;
 const {__} = wp.i18n;
 const {apiFetch} = wp;
+const {debounce} = wp.compose;
+const {PanelBody, TextControl} = wp.components;
 const {addQueryArgs} = wp.url;
+const {Fragment, useCallback} = wp.element;
 
 const MediaInspectorOptions = ({attributes, setAttributes}) => {
   const {media_url} = attributes;

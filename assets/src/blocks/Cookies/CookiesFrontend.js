@@ -1,9 +1,9 @@
 import {FrontendRichText} from '../components/FrontendRichText/FrontendRichText';
 import {removeCookie, useCookie, writeCookie} from './useCookie';
-import {useState, useEffect} from '@wordpress/element';
 import {CookiesFieldResetButton} from './CookiesFieldResetButton';
 
 const {__} = wp.i18n;
+const {useState, useEffect} = wp.element;
 
 const dataLayer = window.dataLayer || [];
 

@@ -1,9 +1,9 @@
-import {useCallback, useEffect, useMemo, useState} from '@wordpress/element';
 import classNames from 'classnames';
 import {ACTIONS, useArchivePickerContext} from './ArchivePicker';
 import {toSrcSet} from './sizeFunctions';
 
 const {__} = wp.i18n;
+const {useCallback, useEffect, useMemo, useState} = wp.element;
 
 const sort = indexes => indexes.sort(
   (a, b) => (a > b) ? a : null

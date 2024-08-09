@@ -1,5 +1,4 @@
-import {RadioControl} from '@wordpress/components';
-
+const {RadioControl} = wp.components;
 const {__} = wp.i18n;
 
 const NAVIGATION_TYPE_PLANET4 = 'planet4';

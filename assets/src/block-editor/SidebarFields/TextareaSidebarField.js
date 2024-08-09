@@ -1,4 +1,4 @@
-import {TextareaControl} from '@wordpress/components';
+const {TextareaControl} = wp.components;
 
 export const TextareaSidebarField = ({value, setValue, label}) => (
   <TextareaControl

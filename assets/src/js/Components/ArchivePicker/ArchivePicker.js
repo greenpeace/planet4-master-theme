@@ -1,5 +1,3 @@
-import {createContext, useContext, useEffect, useState, useCallback, useReducer, useMemo} from '@wordpress/element';
-import {Spinner} from '@wordpress/components';
 import classNames from 'classnames';
 import ArchivePickerList from './ArchivePickerList';
 import SingleSidebar from './SingleSidebar';
@@ -12,12 +10,16 @@ import {
   updateCarouselBlockAttributes,
 } from './blockUpdateFunctions';
 
+const {Spinner} = wp.components;
+const {createContext, useContext, useEffect, useState, useCallback, useReducer, useMemo} = wp.element;
 const {apiFetch, url, i18n} = wp;
 const {addQueryArgs} = url;
 const {__} = i18n;
+
 const timeout = delay => {
   return new Promise(resolve => setTimeout(resolve, delay));
 };
+
 const acceptedBlockTypes = ['core/image', 'planet4-blocks/happypoint', 'core/media-text', 'planet4-blocks/carousel-header'];
 
 export const EDITOR_VIEW = 'editor';

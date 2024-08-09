@@ -1,6 +1,7 @@
-import {useEffect} from '@wordpress/element';
 import {LAYOUT_TASKS} from './ColumnConstants';
 import {Columns} from './Columns';
+
+const {useEffect} = wp.element;
 
 export const ColumnsFrontend = ({columns_block_style, columns_title, columns_description, columns, className}) => {
   const postType = document.body.getAttribute('data-post-type');

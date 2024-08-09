@@ -1,10 +1,10 @@
-import {useEffect} from '@wordpress/element';
-import {PluginDocumentSettingPanel} from '@wordpress/editor';
-import {dispatch, useSelect} from '@wordpress/data';
 import {SelectSidebarField} from '../SidebarFields/SelectSidebarField';
 import {TextSidebarField} from '../SidebarFields/TextSidebarField';
 import {getSidebarFunctions} from './getSidebarFunctions';
 
+const {PluginDocumentSettingPanel} = wp.editor;
+const {dispatch, useSelect} = wp.data;
+const {useEffect} = wp.element;
 const {__} = wp.i18n;
 
 export const AnalyticsTrackingSidebar = {

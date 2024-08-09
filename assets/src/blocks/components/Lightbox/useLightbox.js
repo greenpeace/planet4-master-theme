@@ -1,4 +1,4 @@
-import {useState} from '@wordpress/element';
+const {useState} = wp.element;
 
 export const useLightbox = () => {
   const [isOpen, setIsOpen] = useState(false);

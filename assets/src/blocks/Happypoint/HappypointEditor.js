@@ -1,19 +1,12 @@
-import {
-  InspectorControls,
-  BlockControls,
-  MediaUpload,
-  MediaUploadCheck,
-} from '@wordpress/block-editor';
-import {useState} from '@wordpress/element';
-import {useSelect} from '@wordpress/data';
-import {debounce} from '@wordpress/compose';
 import {HappypointFrontend} from './HappypointFrontend';
 import {USE_EMBED_CODE, USE_IFRAME_URL, USE_NONE} from './HappypointConstants';
 import {OverrideFormHelp} from './OverrideFormHelp';
 
-const {__} = wp.i18n;
-
-import {
+const {useSelect} = wp.data;
+const {InspectorControls, BlockControls, MediaUpload, MediaUploadCheck} = wp.blockEditor;
+const {debounce} = wp.compose;
+const {useState} = wp.element;
+const {
   TextControl,
   TextareaControl,
   FocalPointPicker,
@@ -24,7 +17,8 @@ import {
   Button,
   ToolbarGroup,
   ToolbarButton,
-} from '@wordpress/components';
+} = wp.components;
+const {__} = wp.i18n;
 
 export const HappypointEditor = ({attributes, setAttributes, isSelected}) => {
   const {

@@ -1,5 +1,5 @@
-import {FormTokenField} from '@wordpress/components';
-import {dispatch, useSelect} from '@wordpress/data';
+const {dispatch, useSelect} = wp.data;
+const {FormTokenField} = wp.components;
 const {__} = wp.i18n;
 
 // Allows to query a custom endpoint with select('core') tools

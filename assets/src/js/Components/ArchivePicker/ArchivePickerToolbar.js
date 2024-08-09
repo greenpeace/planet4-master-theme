@@ -1,4 +1,4 @@
-import {useMemo} from '@wordpress/element';
+const {useMemo} = wp.element;
 import classNames from 'classnames';
 import {ACTIONS, useArchivePickerContext} from './ArchivePicker';
 import MultiSearchOption from './MultiSearchOption';

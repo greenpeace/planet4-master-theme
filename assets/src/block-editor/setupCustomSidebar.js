@@ -1,10 +1,11 @@
-import {registerPlugin} from '@wordpress/plugins';
 import {OpenGraphSidebar} from './Sidebar/OpenGraphSidebar';
 import {PageHeaderSidebar} from './Sidebar/PageHeaderSidebar';
 import {ActionSidebar} from './Sidebar/ActionSidebar';
 import {CampaignSidebar} from './Sidebar/CampaignSidebar';
 import {SearchEngineOptimizationsSidebar} from './Sidebar/SearchEngineOptimizationsSidebar';
 import {AnalyticsTrackingSidebar} from './Sidebar/AnalyticsTrackingSidebar';
+
+const {registerPlugin} = wp.plugins;
 
 const sidebarsForPostType = postType => {
   switch (postType) {

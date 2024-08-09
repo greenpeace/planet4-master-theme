@@ -1,22 +1,17 @@
-import {useCallback, useState} from '@wordpress/element';
-import {
-  PanelBody,
-  SelectControl,
-  CheckboxControl,
-  Tooltip,
-} from '@wordpress/components';
-import {InspectorControls, RichText} from '@wordpress/block-editor';
-
 import {URLInput} from '../../block-editor/URLInput/URLInput';
 import {useScript} from '../../hooks/useScript/useScript';
 import {useStyleSheet} from '../../hooks/useStylesheet/useStylesheet';
 import {Timeline} from './Timeline';
 import {languages} from './TimelineLanguages';
 import {URLDescriptionHelp} from './URLDescriptionHelp';
-import {debounce} from '@wordpress/compose';
 import {isLodash} from '../../functions/isLodash';
 
+const {InspectorControls, RichText} = wp.blockEditor;
+const {PanelBody, SelectControl, CheckboxControl, Tooltip} = wp.components;
+const {debounce} = wp.compose;
+const {useCallback, useState} = wp.element;
 const {__} = wp.i18n;
+
 const TIMELINE_JS_VERSION = '3.8.12';
 
 const positions = [

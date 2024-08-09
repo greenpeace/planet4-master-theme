@@ -1,5 +1,6 @@
-import {Component} from '@wordpress/element';
 import {getStyleFromClassName} from '../../functions/getStyleFromClassName';
+
+const {Component} = wp.element;
 
 export class CounterFrontend extends Component {
   constructor(props) {

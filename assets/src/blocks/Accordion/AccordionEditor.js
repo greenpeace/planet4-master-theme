@@ -1,13 +1,9 @@
-import {useState} from '@wordpress/element';
-import {InspectorControls, RichText} from '@wordpress/block-editor';
 import {URLInput} from '../../block-editor/URLInput/URLInput';
-import {
-  PanelBody,
-  CheckboxControl,
-  Button,
-} from '@wordpress/components';
-import {debounce} from '@wordpress/compose';
 
+const {InspectorControls, RichText} = wp.blockEditor;
+const {PanelBody, CheckboxControl, Button} = wp.components;
+const {debounce} = wp.compose;
+const {useState} = wp.element;
 const {__} = wp.i18n;
 
 // Renders the editor view

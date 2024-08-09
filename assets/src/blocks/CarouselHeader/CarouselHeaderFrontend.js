@@ -1,10 +1,10 @@
-import {useRef, useEffect, useState} from '@wordpress/element';
 import {useSlides} from './useSlides';
 import {Slide} from './Slide';
 import {CarouselControls} from './CarouselControls';
 import {SlideBackground} from './SlideBackground';
 import {StaticCaption} from './StaticCaption';
 
+const {useRef, useEffect, useState} = wp.element;
 const isRTL = document.querySelector('html').dir === 'rtl';
 
 const usePageLoaded = () => {

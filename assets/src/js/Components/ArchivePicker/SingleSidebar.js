@@ -1,8 +1,8 @@
-import {useMemo, useEffect, useState} from '@wordpress/element';
 import {toSrcSet} from './sizeFunctions';
 import {ACTIONS, ADMIN_VIEW, EDITOR_VIEW, useArchivePickerContext} from './ArchivePicker';
 
 const {__, sprintf} = wp.i18n;
+const {useMemo, useEffect, useState} = wp.element;
 
 const renderDefinition = (key, value) => (
   <div>
