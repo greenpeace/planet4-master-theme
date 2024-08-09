@@ -377,15 +377,6 @@ class GravityFormsExtensions
 
         $current_confirmation = $form['confirmation'];
 
-        $userEmail = '';
-        // Search user email field from $entry object.
-        foreach ($entry as $key => $value) {
-            if (is_numeric($key) && filter_var($value, FILTER_VALIDATE_EMAIL)) {
-                $userEmail = $value;
-                break;
-            }
-        }
-
         $email_hash = $this->p4_gf_get_email_hash($form, $entry);
 
         $event_parameters = [
@@ -395,7 +386,6 @@ class GravityFormsExtensions
             "gGoal" => ($form['p4_gf_type'] ?? self::DEFAULT_GF_TYPE),
             "formTitle" => $form['title'],
             "gpUserId" => $email_hash,
-            "userEmail" => $userEmail,
             "eventTimeout" => 2000,
         ];
 
@@ -739,15 +729,6 @@ class GravityFormsExtensions
                 $url,
             );
 
-            $userEmail = '';
-            // Search user email field from $entry object.
-            foreach ($entry as $key => $value) {
-                if (is_numeric($key) && filter_var($value, FILTER_VALIDATE_EMAIL)) {
-                    $userEmail = $value;
-                    break;
-                }
-            }
-
             // Get the tag manager data layer ID from master theme settings
             $options = get_option('planet4_options');
             $gtm_id = $options['google_tag_manager_identifier'];
@@ -761,7 +742,6 @@ class GravityFormsExtensions
                 "gGoal" => ($form['p4_gf_type'] ?? self::DEFAULT_GF_TYPE),
                 "formTitle" => $form['title'],
                 "gpUserId" => $email_hash,
-                "userEmail" => $userEmail,
                 "eventTimeout" => 2000,
             ];
 
