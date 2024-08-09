@@ -84,6 +84,8 @@ class GravityFormsExtensions
 
     public array $current_entry = [];
 
+    public string $is_payment_successful = '';
+
     /**
      * The constructor.
      */
@@ -111,8 +113,10 @@ class GravityFormsExtensions
         add_filter('gform_pre_render', [ $this, 'p4_client_side_gravityforms_prefill' ], 10, 1);
         add_filter('gform_form_post_get_meta', [$this, 'p4_gf_enable_default_meta_settings'], 10, 1);
         add_filter('gform_hubspot_form_object_pre_save_feed', [$this, 'p4_gf_hb_form_object_pre_save_feed'], 10, 1);
+        add_filter('gform_stripe_success_url', [ $this, 'add_stripe_success_string' ], 10, 3);
 
         add_action('gform_stripe_fulfillment', [ $this, 'record_fulfillment_entry' ], 10, 2);
+        add_action('gform_post_payment_completed', [ $this, 'check_stripe_payment_status' ], 10, 2);
     }
 
     /**
@@ -125,6 +129,37 @@ class GravityFormsExtensions
     public function record_fulfillment_entry($session, array $entry): void
     {
         $this->current_entry = $entry;
+    }
+    // phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter
+
+     /**
+     * Save result of Stripe payment status.
+     *
+     * @param mixed $action
+     * @param array $entry
+     * phpcs:disable SlevomatCodingStandard.Functions.UnusedParameter -- add_action callback
+     */
+    public function check_stripe_payment_status($action, array $entry): void
+    {
+        $this->is_payment_successful = rgar($action, 'payment_status');
+    }
+    // phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter
+
+     /**
+     * Update the url param with a success string if not already present.
+     *
+     * @param string $url
+     * @param int $form_id
+     * @param string $query
+     * phpcs:disable SlevomatCodingStandard.Functions.UnusedParameter -- add_action callback
+     */
+    public function add_stripe_success_string($url, $form_id, $query): string
+    {
+        if (strpos($url, 'gf_stripe_success') === false) {
+            $url .= "?gf_stripe_success=1";
+        }
+
+        return $url;
     }
     // phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter
 
@@ -420,7 +455,11 @@ class GravityFormsExtensions
         $confirmation .= $script;
 
         if (rgget('gf_stripe_success')) {
-            $confirmation .= $this->p4_gf_stripe_custom_success_event($entry);
+            $purchase_event = $this->p4_gf_stripe_custom_success_event($entry, $form);
+            $confirmation .= "<script>// Ecommerce GA4
+                window.dataLayer = window.dataLayer || []
+                dataLayer.push(" . wp_json_encode($purchase_event) . ");
+            </script>";
         }
 
         $confirmation_fields = [
@@ -458,10 +497,11 @@ class GravityFormsExtensions
      * Add event for GA4 on successful stripe event
      *
      * @param mixed $entry The successful entry.
+     * @param mixed $form The form details.
      *
-     * @return string Event script
+     * @return array Event array
      */
-    public function p4_gf_stripe_custom_success_event($entry): string
+    public function p4_gf_stripe_custom_success_event($entry, $form): array
     {
         $allowed = ['Paid', 'Active', 'Approved', 'Processing', 'Pending'];
 
@@ -487,25 +527,34 @@ class GravityFormsExtensions
             '2' => 'recurring_donation',
         ];
 
+        $tCategory = [
+            '1' => 'Single',
+            '2' => 'Recurring',
+        ];
+
         $event = [
             'event' => 'purchase',
             'ecommerce' => [
-                'currency' => $entry['currency'],
-                'value' => $entry['payment_amount'],
                 'transaction_id' => $entry['transaction_id'],
+                'affiliation' => 'Greenpeace',
+                'value' => $entry['payment_amount'],
+                'currency' => $entry['currency'],
+                'payment_type' => '',
                 'items' => [
                     [
                         'item_id' => $entry['transaction_type'] ?? null,
-                        'item_name' => $tType[$entry['transaction_type']] ?? null,
+                        'item_name' => $form['title'] ?? null,
+                        'item_brand' => 'Greenpeace',
+                        'item_category' => $tCategory[$entry['transaction_type']],
+                        'item_variant' => '',
+                        'price' => $entry['payment_amount'],
+                        'quantity' => 1,
                     ],
                 ],
             ],
         ];
 
-        return "<script>// Ecommerce GA4
-            window.dataLayer = window.dataLayer || []
-            dataLayer.push(" . wp_json_encode($event) . ");
-        </script>";
+        return $event;
     }
 
     /**
@@ -751,22 +800,28 @@ class GravityFormsExtensions
             // Get the tag manager data layer ID from master theme settings
             $options = get_option('planet4_options');
             $gtm_id = $options['google_tag_manager_identifier'];
+            $purchase_event = $this->p4_gf_stripe_custom_success_event($entry, $form);
+            $stripe_success_test = $this->is_payment_successful;
+            $test_payment_intent = rgget('gf_stripe_success');
 
             $email_hash = $this->p4_gf_get_email_hash($form, $entry);
 
             $event_parameters = [
                 "event" => "formSubmission",
                 "formID" => $form['id'],
-                "formPlugin" => "Gravity Form",
+                "formPlugin" => "Gravity Form Test 11",
                 "gGoal" => ($form['p4_gf_type'] ?? self::DEFAULT_GF_TYPE),
                 "formTitle" => $form['title'],
                 "gpUserId" => $email_hash,
                 "userEmail" => $userEmail,
+                "test_stripe_success" => $stripe_success_test,
+                "test_payment_intent" => $test_payment_intent,
                 "eventTimeout" => 2000,
             ];
 
             // Filter hook to change the event parameters
             $event_parameters = apply_filters('planet4_datalayer_form_submission', $event_parameters, $form, $entry);
+
 
             $script = '<script type="text/javascript">
                 if (window["google_tag_value"]) {
@@ -782,11 +837,14 @@ class GravityFormsExtensions
                     };
 
                     const event_parameters = ' . json_encode($event_parameters) . '
+                    const purchase_event = ' . json_encode($purchase_event) . '
 
                     push_data = Object.assign(push_data, event_parameters);
 
                     window.dataLayer.push(push_data);
-                    
+                    if ("' . $this->is_payment_successful . '" == "Paid") {
+                        window.dataLayer.push(purchase_event);
+                    }
                     const gp_user_id_event = new CustomEvent("gp_user_id_set", {"detail":
                             {"gp_user_id": "' . $email_hash . '" }});
                     document.dispatchEvent(gp_user_id_event);
