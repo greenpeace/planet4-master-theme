@@ -253,6 +253,7 @@ export default function ArchivePicker({view = ADMIN_VIEW}) {
   }, dispatch] = useReducer(reducer, initialState);
   const [abortController, setAbortController] = useState(null);
   const [selectedImagesIds, setSelectedImagesIds] = useState([]);
+  const [isFeaturedImage, setIsFeaturedImage] = useState(false);
 
   const fetch = useCallback(async () => {
     dispatch({type: ACTIONS.FETCH_IMAGES});
@@ -400,6 +401,30 @@ export default function ArchivePicker({view = ADMIN_VIEW}) {
     }
   }, [currentBlock]);
 
+  useEffect(() => {
+    const sideBarElements = document.getElementsByClassName('components-panel__body');
+
+    for (let i = 0; i < sideBarElements.length; i++) {
+      const featuredImageDiv = sideBarElements[i].querySelector('.editor-post-featured-image');
+      if (featuredImageDiv) {
+        const featuredImageDivCtn = featuredImageDiv.querySelector('.editor-post-featured-image__container');
+
+        if (featuredImageDivCtn) {
+          const setImageBtn = featuredImageDivCtn.querySelector('.editor-post-featured-image__toggle');
+
+          // Idea is to intercept click event for featured Image button and run the implementation via
+          // Greenpeace Media tab, as of now, the event has a delay when clicked and also the isFeaturedImage
+          // variable is not update, need to figure out why.
+          if (setImageBtn) {
+            setImageBtn.addEventListener('click', () => {
+              setIsFeaturedImage(true);
+            });
+          }
+        }
+      }
+    }
+  }, []);
+
   return useMemo(() => (
     <Context.Provider
       value={{
@@ -469,7 +494,7 @@ export default function ArchivePicker({view = ADMIN_VIEW}) {
 
       {view === EDITOR_VIEW && (
         <>
-          {(acceptedBlockTypes.includes(currentBlock.name)) ? (
+          {(acceptedBlockTypes.includes(currentBlock?.name) || isFeaturedImage) ? (
             <section className="archive-picker">
               <div className={classNames('archive-picker-main', {'is-open': selectedImages.length > 0 && !bulkSelect})}>
                 <ArchivePickerToolbar />
