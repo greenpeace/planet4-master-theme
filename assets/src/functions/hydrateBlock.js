@@ -1,5 +1,3 @@
-import {hydrateRoot} from 'react-dom/client';
-
 /**
  * This function hydrate a SSR Component
  * More info: https://reactjs.org/docs/react-dom.html#hydrate
@@ -14,7 +12,7 @@ export const hydrateBlock = (blockName, Component, csrAttributes = {}) => { // e
     blockNode => {
       if (blockNode) {
         const attributes = JSON.parse(blockNode.dataset.attributes);
-        hydrateRoot(blockNode, <Component {...attributes} {...csrAttributes} />);
+        wp.element.hydrateRoot(blockNode, <Component {...attributes} {...csrAttributes} />);
       }
     }
   );

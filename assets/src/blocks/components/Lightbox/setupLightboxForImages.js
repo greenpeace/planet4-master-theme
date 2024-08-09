@@ -1,5 +1,4 @@
 import {Lightbox} from './Lightbox';
-import {createRoot} from 'react-dom/client';
 
 const setupImageAndCaption = (lightBoxNode, imageSelector = 'img', captionSelector = null) => {
   // Returns the callback for `forEach`
@@ -20,7 +19,7 @@ const setupImageAndCaption = (lightBoxNode, imageSelector = 'img', captionSelect
     if (caption) {
       item.title = caption.innerHTML;
     }
-    const rootElement = createRoot(lightBoxNode);
+    const rootElement = wp.element.createRoot(lightBoxNode);
 
     imageBlock.querySelector('img').addEventListener('click', () => rootElement.render(<Lightbox isOpen={true} index={index} items={[item]} />));
   };

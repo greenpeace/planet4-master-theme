@@ -1,4 +1,3 @@
-import {createRoot} from 'react-dom/client';
 import {TimelineFrontend} from './TimelineFrontend';
 import {hydrateBlock} from '../../functions/hydrateBlock';
 
@@ -8,7 +7,7 @@ hydrateBlock('planet4-blocks/timeline', TimelineFrontend);
 document.querySelectorAll('[data-render="planet4-blocks/timeline"]').forEach(
   blockNode => {
     const attributes = JSON.parse(blockNode.dataset.attributes);
-    const rootElement = createRoot(blockNode);
+    const rootElement = wp.element.createRoot(blockNode);
     rootElement.render(<TimelineFrontend {...attributes} />);
   }
 );

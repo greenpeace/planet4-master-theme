@@ -194,6 +194,7 @@ export const CookiesFrontend = props => {
         {(ENABLE_ANALYTICAL_COOKIES && (isEditing || (isFieldValid('analytical_cookies_name') && isFieldValid('analytical_cookies_description')))) &&
           <>
             <div className="d-flex align-items-center">
+              {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
               <label className="custom-control" style={isSelected ? {pointerEvents: 'none'} : null} htmlFor="analytical-cookies__control">
                 <input
                   id="analytical-cookies__control"
@@ -261,6 +262,7 @@ export const CookiesFrontend = props => {
         {(isEditing || (isFieldValid('all_cookies_name') && isFieldValid('all_cookies_description'))) &&
           <>
             <div className="d-flex align-items-center">
+              {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
               <label className="custom-control" style={isSelected ? {pointerEvents: 'none'} : null} htmlFor="all-cookies__control">
                 <input
                   id="all-cookies__control"

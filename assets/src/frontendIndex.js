@@ -1,6 +1,8 @@
+// This ESLint error is disabled since 'regenerator-runtime/runtime' has already been added by another package.
+// There is no need to explicitly include it in the list of dependencies in the package.json file.
+// eslint-disable-next-line import/no-extraneous-dependencies
 import 'regenerator-runtime/runtime';
 
-import {createRoot} from 'react-dom/client';
 import {SubmenuFrontend} from './blocks/Submenu/SubmenuFrontend';
 import {HappypointFrontend} from './blocks/Happypoint/HappypointFrontend';
 import {MediaFrontend} from './blocks/Media/MediaFrontend';
@@ -28,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
       const attributes = JSON.parse(blockNode.dataset.attributes);
-      const rootElement = createRoot(blockNode);
+      const rootElement = wp.element.createRoot(blockNode);
       rootElement.render(<BlockFrontend {...attributes.attributes} />);
     }
   );
