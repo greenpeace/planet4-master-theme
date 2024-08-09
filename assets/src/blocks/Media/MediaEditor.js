@@ -7,8 +7,8 @@ const {__} = wp.i18n;
 const {apiFetch} = wp;
 const {debounce} = wp.compose;
 const {PanelBody, TextControl} = wp.components;
-const {url: {addQueryArgs}} = wp.url;
-const {element: {Fragment, useCallback}} = wp.element;
+const {addQueryArgs} = wp.url;
+const {Fragment, useCallback} = wp.element;
 
 const MediaInspectorOptions = ({attributes, setAttributes}) => {
   const {media_url} = attributes;
