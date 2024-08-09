@@ -1,0 +1,23 @@
+{
+	"question.3887": [
+		{
+			"id": 3887,
+			"questionId": 3665,
+			"name": "Opt-in",
+			"type": "OPT",
+			"locale": "en-US",
+			"htmlFieldType": "checkbox",
+			"content": {
+				"data": [
+					{
+						"forId": "",
+						"imageUrl": "",
+						"selected": false,
+						"value": "Y",
+						"label": "Yes, I would like to receive updates via email. This is a link example <a href=\"https://www.google.com\" target=\"_blank\">https://www.google.com</a>"
+					}
+				]
+			}
+		}
+	]
+}
