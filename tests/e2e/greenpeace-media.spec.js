@@ -7,6 +7,7 @@ import {
 
 const IMAGE_1 = 'GP0STXWME';
 const IMAGE_2 = 'GP0STXWZH';
+const MEDIA_LIBRARY_PAGE = './wp-admin/admin.php?page=media-picker';
 
 test.useAdminLoggedIn();
 
@@ -16,7 +17,7 @@ test.describe('Greenpeace Media tests', () => {
     page.on('dialog', dialog => dialog.accept());
 
     // Go to the Media Library and wait for the page to load.
-    await page.goto('./wp-admin/admin.php?page=media-picker');
+    await page.goto(MEDIA_LIBRARY_PAGE);
     await waitForLibraryLoad(page);
 
     // Search for an image to import.
@@ -43,7 +44,7 @@ test.describe('Greenpeace Media tests', () => {
     page.on('dialog', dialog => dialog.accept());
 
     // Go to the Media Library and wait for the page to load.
-    await page.goto('./wp-admin/admin.php?page=media-picker');
+    await page.goto(MEDIA_LIBRARY_PAGE);
     await waitForLibraryLoad(page);
 
     // Search for 2 specific images.
@@ -56,8 +57,7 @@ test.describe('Greenpeace Media tests', () => {
 
     // Select the 2 images.
     for (let index = 0; index < 2; index++) {
-      const toSelect = images.nth(index);
-      await toSelect.click();
+      await images.nth(index).click();
     }
 
     // Bulk upload them.
