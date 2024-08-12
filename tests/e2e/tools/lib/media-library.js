@@ -16,9 +16,10 @@ async function searchImages(page, searchTerm) {
 
 /**
  * Deletes an image from the Library.
+ * The image id is optional, it's not needed if the image is already selected.
  *
- * @param {Object} page    - The page object for interacting with the browser.
- * @param {string} imageId - The image to be deleted.
+ * @param {Object} page      - The page object for interacting with the browser.
+ * @param {string} [imageId] - The image to be deleted (optional).
  */
 async function deleteImageFromLibrary(page, imageId) {
   const sidebar = page.locator('.archive-picker-sidebar');
@@ -27,11 +28,12 @@ async function deleteImageFromLibrary(page, imageId) {
     await searchImages(page, imageId);
     const image = page.locator('.picker-list > li');
 
-    // Select the image and open its link via the sidebar.
+    // Select the image.
     await image.click();
-    await expect(sidebar).toBeVisible();
   }
 
+  // Open image link via the sidebar.
+  await expect(sidebar).toBeVisible();
   await sidebar.locator('.sidebar-action').click();
 
   // Delete the image and wait for confirmation.
