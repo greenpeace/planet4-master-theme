@@ -56,14 +56,15 @@ test.describe('Greenpeace Media tests', () => {
     // Select the 2 images.
     await page.getByRole('button', {name: 'Bulk Select'}).click();
     for (let index = 0; index < 2; index++) {
-      await images.nth(index).click();
+      const image = images.nth(index);
+      await image.click();
+      await expect(image).toHaveClass('is-selected');
     }
 
     // Bulk upload them.
     await page.getByRole('button', {name: 'Bulk Upload'}).click();
-    const loadingMessage = page.getByText('Processing 2 images');
-    await expect(loadingMessage).toBeVisible();
-    await expect(loadingMessage).toBeHidden();
+    await expect(page.getByText('Processing 2 images')).toBeVisible();
+    await expect(page.getByPlaceholder('Search')).toBeVisible();
 
     // Delete the images from the library.
     await page.reload();
