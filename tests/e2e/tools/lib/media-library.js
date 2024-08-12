@@ -41,10 +41,6 @@ async function deleteImageFromLibrary(page, imageId) {
   await expect(deleteLink).toBeVisible();
   await deleteLink.click();
   await expect(page.getByText('Media file permanently deleted.')).toBeVisible();
-
-  // Go back to the Media Library.
-  await page.goto('./wp-admin/admin.php?page=media-picker');
-  await waitForLibraryLoad(page);
 }
 
 /**
