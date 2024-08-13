@@ -1,7 +1,6 @@
 import {SpreadsheetEditor} from './SpreadsheetEditor';
 import {frontendRendered} from '../../functions/frontendRendered';
 import {SpreadsheetFrontend} from './SpreadsheetFrontend';
-import {renderToString} from 'react-dom/server';
 
 const BLOCK_NAME = 'planet4-blocks/spreadsheet';
 
@@ -23,7 +22,7 @@ const CSS_VARIABLES_ATTRIBUTE = {
 
 export const registerSpreadsheetBlock = () => {
   const {registerBlockType} = wp.blocks;
-  const {RawHTML} = wp.element;
+  const {RawHTML, renderToString} = wp.element;
 
   registerBlockType(BLOCK_NAME, {
     title: 'Spreadsheet',

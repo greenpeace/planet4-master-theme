@@ -1,10 +1,9 @@
 import {CarouselHeaderEditor} from './CarouselHeaderEditor.js';
 import {carouselHeaderV1} from './deprecated/carouselHeaderV1.js';
 import {CarouselHeaderFrontend} from './CarouselHeaderFrontend';
-import {renderToString} from 'react-dom/server';
 
 const {registerBlockType} = wp.blocks;
-const {RawHTML} = wp.element;
+const {RawHTML, renderToString} = wp.element;
 
 const BLOCK_NAME = 'planet4-blocks/carousel-header';
 

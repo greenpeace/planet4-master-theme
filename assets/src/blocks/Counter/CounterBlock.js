@@ -1,7 +1,6 @@
 import {CounterEditor} from './CounterEditor';
 import {frontendRendered} from '../../functions/frontendRendered';
 import {CounterFrontend} from './CounterFrontend';
-import {renderToString} from 'react-dom/server';
 
 export const BLOCK_NAME = 'planet4-blocks/counter';
 
@@ -38,7 +37,7 @@ const attributes = {
 
 export const registerCounterBlock = () => {
   const {registerBlockType, unregisterBlockStyle, registerBlockStyle} = wp.blocks;
-  const {RawHTML} = wp.element;
+  const {RawHTML, renderToString} = wp.element;
 
   registerBlockType(BLOCK_NAME, {
     title: 'Counter',

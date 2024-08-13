@@ -1,4 +1,3 @@
-import {renderToString} from 'react-dom/server';
 import {GalleryEditor} from './GalleryEditor';
 import {frontendRendered} from '../../functions/frontendRendered';
 import {getStyleLabel} from '../../functions/getStyleLabel';
@@ -6,7 +5,7 @@ import {GalleryFrontend} from './GalleryFrontend';
 
 const {__} = wp.i18n;
 const {registerBlockType} = wp.blocks;
-const {RawHTML} = wp.element;
+const {RawHTML, renderToString} = wp.element;
 
 const BLOCK_NAME = 'planet4-blocks/gallery';
 

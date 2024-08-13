@@ -1,4 +1,3 @@
-import {renderToString} from 'react-dom/server';
 import {frontendRendered} from '../../functions/frontendRendered';
 import {TimelineEditor} from './TimelineEditorScript';
 import {TimelineFrontend} from './TimelineFrontend';
@@ -34,7 +33,7 @@ const attributes = {
 
 export const registerTimelineBlock = () => {
   const {registerBlockType, getBlockTypes} = wp.blocks;
-  const {RawHTML} = wp.element;
+  const {RawHTML, renderToString} = wp.element;
 
   const blockAlreadyExists = getBlockTypes().find(block => block.name === BLOCK_NAME);
 
