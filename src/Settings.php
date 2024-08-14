@@ -182,7 +182,7 @@ class Settings
                         'desc' => __(
                             '<b>Important:</b> On change of Include archive content setting, Please kindly',
                             'planet4-master-theme-backend'
-                        ) . ' <a href="admin.php?page=elasticpress&do_sync" target="_blank">Sync Elasticsearch</a>.',
+                        ) . ' <a href="admin.php?page=elasticpress-sync" target="_blank">Sync Elasticsearch</a>.',
                         'id' => 'include_archive_content_for',
                         'type' => 'select',
                         'default' => 'nobody',
