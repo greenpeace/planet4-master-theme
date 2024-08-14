@@ -4,6 +4,7 @@ namespace P4\MasterTheme;
 
 use P4\MasterTheme\Controllers\EnsapiController;
 use P4\MasterTheme\Blocks\ENForm;
+use P4\MasterTheme\Features\Dev\BetaBlocks;
 use Twig_SimpleFilter;
 
 /**
@@ -27,6 +28,13 @@ class MasterBlocks
     {
         // Register p4 block categories.
         add_filter('block_categories_all', function ($categories) {
+            if (BetaBlocks::is_active()) {
+                // Adding the "planet4-blocks-beta" category.
+                array_unshift($categories, [
+                    'slug' => 'planet4-blocks-beta',
+                    'title' => 'Planet 4 Blocks - BETA',
+                ]);
+            }
 
             // Adding the "planet4-blocks" category.
             array_unshift($categories, [

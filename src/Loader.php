@@ -4,7 +4,6 @@ namespace P4\MasterTheme;
 
 use P4\MasterTheme\Settings\Features;
 use P4\MasterTheme\Features\Planet4Blocks;
-use P4\MasterTheme\Features\Dev\BetaBlocks;
 use P4\MasterTheme\Patterns\BlockPattern;
 use P4\MasterTheme\View\View;
 use RuntimeException;
@@ -219,10 +218,6 @@ final class Loader
 
         // Load block patterns.
         BlockPattern::register_all();
-
-        if (!BetaBlocks::is_active()) {
-            return;
-        }
 
         new Blocks\ActionButtonText();//NOSONAR
 
