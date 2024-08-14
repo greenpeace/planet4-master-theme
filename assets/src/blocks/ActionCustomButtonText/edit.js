@@ -1,4 +1,4 @@
-const {useEntityProp} = wp.data;
+const {useEntityProp} = wp.coreData;
 const {__} = wp.i18n;
 
 const DEFAULT_TEXT = window.p4_vars.options.take_action_covers_button_text || __('Take action', 'planet4-blocks');
