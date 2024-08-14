@@ -84,7 +84,7 @@ class Migrator
             M029RemoveTemplateEditorOption::class,
             M030RemovePurgeOnFeatureChangeOption::class,
             M031MigrateMediaBlockToAudioVideoBlock::class,
-            M032MigrateSplit2ColumnBlock::class
+            M032MigrateSplit2ColumnBlock::class,
         ];
 
         // Loop migrations and run those that haven't run yet.
