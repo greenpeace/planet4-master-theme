@@ -3,7 +3,6 @@ const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const TerserJSPlugin = require('terser-webpack-plugin');
 const SpriteLoaderPlugin = require('svg-sprite-loader/plugin');
 const dashDash = require('@greenpeace/dashdash');
-const webpack = require('webpack');
 
 const mediaQueryAliases = {
   '(max-width: 576px)': 'mobile-only',
@@ -144,11 +143,6 @@ module.exports = (env, argv) => {
       }),
       new SpriteLoaderPlugin({
         plainSprite: true,
-      }),
-      // we should be able to remove this once we upgrade to WP 6.6,
-      // because the new Gutenberg version will no longer use 'process'.
-      new webpack.ProvidePlugin({
-        process: 'process/browser.js',
       }),
     ],
     optimization: {
