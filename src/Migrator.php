@@ -33,6 +33,7 @@ use P4\MasterTheme\Migrations\M028MovePageHeaderSideBarOptions;
 use P4\MasterTheme\Migrations\M029RemoveTemplateEditorOption;
 use P4\MasterTheme\Migrations\M030RemovePurgeOnFeatureChangeOption;
 use P4\MasterTheme\Migrations\M031MigrateMediaBlockToAudioVideoBlock;
+use P4\MasterTheme\Migrations\M032MigrateCampaignCoversToP4ColumnsBlock;
 
 /**
  * Run any new migration scripts and record results in the log.
@@ -83,6 +84,7 @@ class Migrator
             M029RemoveTemplateEditorOption::class,
             M030RemovePurgeOnFeatureChangeOption::class,
             M031MigrateMediaBlockToAudioVideoBlock::class,
+            M032MigrateCampaignCoversToP4ColumnsBlock::class,
         ];
 
         // Loop migrations and run those that haven't run yet.
