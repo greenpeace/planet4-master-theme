@@ -20,7 +20,7 @@ class ElasticSearch
                 return;
             }
 
-            \ElasticPress\Features::factory()->update_feature('facets', [
+            \ElasticPress\Features::factory()->update_feature('filters', [
                 'active' => true,
                 'match_type' => 'all',
             ]);
@@ -64,6 +64,6 @@ class ElasticSearch
         if (!self::is_active()) {
             return false;
         }
-        return \ElasticPress\Features::factory()->get_registered_feature('facets')->is_active();
+        return \ElasticPress\Features::factory()->get_registered_feature('filters')->is_active();
     }
 }
