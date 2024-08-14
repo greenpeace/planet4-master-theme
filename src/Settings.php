@@ -462,7 +462,6 @@ class Settings
         // This option should be visible only if the ElasticPress plugin is activated.
         $is_elasticpress = function_exists('is_plugin_active') && is_plugin_active('elasticpress/elasticpress.php');
         if ($is_elasticpress) {
-
             $search_content = array(
                 'planet4_settings_search_content' => [
                     'title' => 'Search content',
@@ -509,10 +508,8 @@ class Settings
                     ],
                 ],
             );
-
             $this->subpages = array_merge($this->subpages, $search_content);
         }
-        
         // This option should be visible only if the GF Hubspot add-on is activated.
         $is_gf_hubspot_addon = function_exists('is_plugin_active') && is_plugin_active('gravityformshubspot/hubspot.php');
         if ($is_gf_hubspot_addon) {
