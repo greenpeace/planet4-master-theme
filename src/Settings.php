@@ -174,50 +174,6 @@ class Settings
                     ],
                 ],
             ],
-            'planet4_settings_search_content' => [
-                'title' => 'Search content',
-                'fields' => [
-                    [
-                        'name' => __('Include archived content in search for', 'planet4-master-theme-backend'),
-                        'desc' => __(
-                            '<b>Important:</b> On change of Include archive content setting, Please kindly',
-                            'planet4-master-theme-backend'
-                        ) . ' <a href="admin.php?page=elasticpress-sync" target="_blank">Sync Elasticsearch</a>.',
-                        'id' => 'include_archive_content_for',
-                        'type' => 'select',
-                        'default' => 'nobody',
-                        'options' => [
-                            'nobody' => __('Nobody', 'planet4-master-theme-backend'),
-                            'logged_in' => __('Logged in users', 'planet4-master-theme-backend'),
-                            'all' => __('All users', 'planet4-master-theme-backend'),
-                        ],
-                    ],
-                    [
-                        'name' => __('Search content decay', 'planet4-master-theme-backend'),
-                        'desc' => __('Amount of lowering of the relevancy score for older results. Between 0 and 1. The lower this number is, the lower older content will be ranked. See image. <br>We use the exponential function (exp, green curve).<br/> <img style="max-width:350px" alt="ElasticSearch decay function graph" src="https://www.elastic.co/guide/en/elasticsearch/reference/current/images/decay_2d.png">', 'planet4-master-theme-backend'),
-                        'id' => 'epwr_decay',
-                        'type' => 'text',
-                    ],
-                    [
-                        'name' => __('Search content decay scale', 'planet4-master-theme-backend'),
-                        'desc' => __(
-                            'Timescale for lowering the relevance of older results. See image above.',
-                            'planet4-master-theme-backend'
-                        ),
-                        'id' => 'epwr_scale',
-                        'type' => 'text',
-                    ],
-                    [
-                        'name' => __('Search content decay offset', 'planet4-master-theme-backend'),
-                        'desc' => __(
-                            'How old should a post be before relevance is lowered. See image above.',
-                            'planet4-master-theme-backend'
-                        ),
-                        'id' => 'epwr_offset',
-                        'type' => 'text',
-                    ],
-                ],
-            ],
             'planet4_settings_cookies_text' => [
                 'title' => 'Cookies',
                 'fields' => [
@@ -503,6 +459,60 @@ class Settings
             'planet4_settings_features' => Features::get_options_page(),
         ];
 
+        // This option should be visible only if the ElasticPress plugin is activated.
+        $is_elasticpress = function_exists('is_plugin_active') && is_plugin_active('elasticpress/elasticpress.php');
+        if ($is_elasticpress) {
+
+            $search_content = array(
+                'planet4_settings_search_content' => [
+                    'title' => 'Search content',
+                    'fields' => [
+                        [
+                            'name' => __('Include archived content in search for', 'planet4-master-theme-backend'),
+                            'desc' => __(
+                                '<b>Important:</b> On change of Include archive content setting, Please kindly',
+                                'planet4-master-theme-backend'
+                            ) . ' <a href="admin.php?page=elasticpress-sync" target="_blank">Sync Elasticsearch</a>.',
+                            'id' => 'include_archive_content_for',
+                            'type' => 'select',
+                            'default' => 'nobody',
+                            'options' => [
+                                'nobody' => __('Nobody', 'planet4-master-theme-backend'),
+                                'logged_in' => __('Logged in users', 'planet4-master-theme-backend'),
+                                'all' => __('All users', 'planet4-master-theme-backend'),
+                            ],
+                        ],
+                        [
+                            'name' => __('Search content decay', 'planet4-master-theme-backend'),
+                            'desc' => __('Amount of lowering of the relevancy score for older results. Between 0 and 1. The lower this number is, the lower older content will be ranked. See image. <br>We use the exponential function (exp, green curve).<br/> <img style="max-width:350px" alt="ElasticSearch decay function graph" src="https://www.elastic.co/guide/en/elasticsearch/reference/current/images/decay_2d.png">', 'planet4-master-theme-backend'),
+                            'id' => 'epwr_decay',
+                            'type' => 'text',
+                        ],
+                        [
+                            'name' => __('Search content decay scale', 'planet4-master-theme-backend'),
+                            'desc' => __(
+                                'Timescale for lowering the relevance of older results. See image above.',
+                                'planet4-master-theme-backend'
+                            ),
+                            'id' => 'epwr_scale',
+                            'type' => 'text',
+                        ],
+                        [
+                            'name' => __('Search content decay offset', 'planet4-master-theme-backend'),
+                            'desc' => __(
+                                'How old should a post be before relevance is lowered. See image above.',
+                                'planet4-master-theme-backend'
+                            ),
+                            'id' => 'epwr_offset',
+                            'type' => 'text',
+                        ],
+                    ],
+                ],
+            );
+
+            $this->subpages = array_merge($this->subpages, $search_content);
+        }
+        
         // This option should be visible only if the GF Hubspot add-on is activated.
         $is_gf_hubspot_addon = function_exists('is_plugin_active') && is_plugin_active('gravityformshubspot/hubspot.php');
         if ($is_gf_hubspot_addon) {
