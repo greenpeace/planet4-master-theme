@@ -168,6 +168,7 @@ final class Loader
         $services[] = Controllers\Menu\ClassicBlocksUsage::class;
         $services[] = Controllers\Menu\ReusableBlocksController::class;
         $services[] = Controllers\Menu\PostmetaCheckController::class;
+        $services[] = Admin\Rest::class;
 
         $view = new View();
         foreach ($services as $service) {
