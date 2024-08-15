@@ -3,6 +3,7 @@ const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const TerserJSPlugin = require('terser-webpack-plugin');
 const SpriteLoaderPlugin = require('svg-sprite-loader/plugin');
 const dashDash = require('@greenpeace/dashdash');
+const defaultConfig = require('@wordpress/scripts/config/webpack.config');
 
 const mediaQueryAliases = {
   '(max-width: 576px)': 'mobile-only',
@@ -18,6 +19,7 @@ module.exports = (env, argv) => {
 
   return {
     //stats: 'verbose',
+    ...defaultConfig,
     mode: argv.mode || 'development',
     devtool: isProduction ? false : 'source-map',
     entry: {
@@ -134,6 +136,7 @@ module.exports = (env, argv) => {
       ],
     },
     plugins: [
+      ...defaultConfig.plugins,
       // extract css into dedicated file
       new MiniCssExtractPlugin({
         chunkFilename: '[id].css',
@@ -154,9 +157,6 @@ module.exports = (env, argv) => {
         }),
         new CssMinimizerPlugin(),
       ],
-    },
-    stats: {
-      children: false,
     },
   };
 };
