@@ -28,7 +28,8 @@ export const ShareButtons = ({social_params, social_accounts}) => {
 
   const share = (action, label) => {
     window.dataLayer.push({
-      event: 'uaevent',
+      event: 'page_shared',
+      channel: action,
       eventCategory: 'Social Share',
       eventAction: action,
       eventLabel: label,

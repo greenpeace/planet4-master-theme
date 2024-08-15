@@ -6,7 +6,8 @@
             }
 
             const dataLayerPush = platform => dataLayer.push({
-                event: 'uaevent',
+                event: 'page_shared',
+                channel: platform,
                 eventCategory: 'Social Share',
                 eventAction: platform,
                 eventLabel: '{{ social.link }}',
