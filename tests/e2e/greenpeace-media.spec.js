@@ -65,10 +65,9 @@ test.describe('Greenpeace Media tests', () => {
     await page.getByRole('button', {name: 'Bulk Upload'}).click();
     await expect(page.getByText('Processing 2 images')).toBeVisible();
     await expect(page.getByPlaceholder('Search')).toBeVisible();
+    await waitForLibraryLoad(page);
 
     // Delete the images from the library.
-    await page.reload();
-    await waitForLibraryLoad(page);
     await deleteImageFromLibrary(page, TEST_IMAGES[0]);
     await page.goto(MEDIA_LIBRARY_PAGE);
     await waitForLibraryLoad(page);
