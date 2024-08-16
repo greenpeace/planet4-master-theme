@@ -27,7 +27,6 @@ class AuthorPage
 
         $query->set('posts_per_page', 10);
         $query->set('post_type', 'post');
-        $query->set('paged', 1);
         $query->set('meta_key', 'p4_author_override');
         $query->set('meta_compare', 'NOT EXISTS');
         $query->set('has_password', false);
