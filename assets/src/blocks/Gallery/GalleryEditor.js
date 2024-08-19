@@ -76,8 +76,13 @@ const renderEdit = (attributes, setAttributes, isSelected) => {
         <InspectorControls>
           <PanelBody title={__('Settings', 'planet4-blocks-backend')}>
             <div className="wp-block-master-theme-gallery__FocalPointPicker">
-              <p>{__('Select gallery image focal point', 'planet4-blocks-backend')}</p>
-              <ul>
+              <strong className="components-base-control__help">
+                {__('Select gallery image focal point', 'planet4-blocks-backend')}
+              </strong>
+              <p className="components-base-control__help">
+                {__('Adjust the “Left” and “Top” fields to position the focal point of the image in percentage, where 0% is the top/left edge and 100% is the bottom/right edge.', 'planet4-blocks-backend')}
+              </p>
+              <ul className="p-0">
                 {focalPointImages.map((item, index) => (
                   <li key={index}>
                     <FocalPointPicker
