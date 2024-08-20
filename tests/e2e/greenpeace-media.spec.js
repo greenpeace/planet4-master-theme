@@ -31,7 +31,7 @@ test.describe('Greenpeace Media tests', () => {
 
     // Import the image.
     await sidebar.getByRole('button', {name: 'Import to Library'}).click();
-    await expect(sidebar.getByText('Processing...')).toBeVisible();
+    await expect(sidebar.getByText('Processing…')).toBeVisible();
     await expect(sidebar.locator('.sidebar-action')).toBeVisible();
 
     // Delete the image from the library.
