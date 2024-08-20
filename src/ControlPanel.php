@@ -110,7 +110,7 @@ class ControlPanel
                         'title' => __('Sync Elasticsearch', 'planet4-master-theme-backend'),
                         // If we give 'url' key instead of 'action'
                         // then we will do usual request instead of ajax request.
-                        'url' => 'admin.php?page=elasticpress&do_sync',
+                        'url' => 'admin.php?page=elasticpress-sync',
                         // 'action' => 'ep_index', // Could use this EP action to perform sync asynchronously.
                     ],
                     [
