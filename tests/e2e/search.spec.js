@@ -3,14 +3,12 @@ import {test, expect} from './tools/lib/test-utils.js';
 test.useAdminLoggedIn();
 
 test.describe('Greenpeace Search tests', () => {
-
   test('re sync elasticpress', async ({page}) => {
-
     await page.goto('./wp-admin/admin.php?page=elasticpress-sync');
 
     const checkBox = await page.getByRole('checkbox', {name: 'Delete all data and start fresh sync'});
     const startButton = await page.getByRole('button', {name: 'Start sync'});
-    
+
     await checkBox.check();
     await startButton.click();
 
@@ -18,11 +16,11 @@ test.describe('Greenpeace Search tests', () => {
   });
 
   test('check search works', async ({page, requestUtils}) => {
-    const testId = `testsearch-${Math.floor(Math.random() * 10000)}`;//NOSONAR
+    const testId = `testsearch-${Math.floor(Math.random() * 10000)}`; //NOSONAR
     const tagName = `Tag ${testId}`;
     const tagPageTitle = `#Tag ${testId}`;
     const postTitle = `Test Post ${testId}`;
-  
+
     const tagPage = await requestUtils.rest({
       path: '/wp/v2/pages',
       method: 'POST',
@@ -33,7 +31,7 @@ test.describe('Greenpeace Search tests', () => {
         featured_media: 357,
       },
     });
-  
+
     const tag = await requestUtils.rest({
       path: '/wp/v2/tags',
       method: 'POST',
@@ -46,7 +44,7 @@ test.describe('Greenpeace Search tests', () => {
         },
       },
     });
-  
+
     await requestUtils.rest({
       path: '/wp/v2/posts',
       method: 'POST',
@@ -58,18 +56,18 @@ test.describe('Greenpeace Search tests', () => {
         tags: [tag.id],
       },
     });
-  
+
     await page.goto('./');
-  
+
     const searchBox = page.getByPlaceholder('Search');
     await searchBox.click();
     await searchBox.fill(testId);
     await page.keyboard.press('Enter');
-  
+
     const searchResult = await page.innerHTML('.result-statement');
     const searchPage = await page.locator('.search-result-item-headline').allInnerTexts();
     const searchTags = await page.locator('.search-result-item-tag').allInnerTexts();
-  
+
     expect(searchResult).toContain(testId);
     expect(searchPage).toContain(tagPageTitle);
     expect(searchPage).toContain(postTitle);
