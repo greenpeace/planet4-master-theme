@@ -91,6 +91,7 @@ class Migrator
             M033MigrateSocialMediaTwitterBlockToEmbedBlock::class,
             M034PrePopulateOldPostsArchiveNotice::class,
             M035MigrateCampaignCoversToP4ColumnsBlock::class,
+            M032MigrateSplit2ColumnBlock::class
         ];
 
         // Loop migrations and run those that haven't run yet.
