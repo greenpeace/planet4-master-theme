@@ -47,6 +47,8 @@ async function deleteImageFromLibrary(page, imageId) {
 async function waitForLibraryLoad(page) {
   const spinner = page.locator('.archive-picker-loading');
   await expect(spinner).toBeVisible();
+  const list = await page.locator('.picker-list');
+  await expect(list).toBeVisible();
   await expect(spinner).toBeHidden();
 }
 
