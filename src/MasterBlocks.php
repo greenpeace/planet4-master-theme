@@ -190,6 +190,8 @@ class MasterBlocks
             'take_action_covers_button_text' => $option_values['take_action_covers_button_text'] ?? '',
             'take_action_page' => $option_values['take_action_page'] ?? '',
             'new_ia' => $option_values['new_ia'] ?? '',
+            'page_text_404' => $option_values['404_page_text'] ?? '',
+            'page_bg_image_404' => $option_values['404_page_bg_image'] ?? '',
         ];
     }
 
