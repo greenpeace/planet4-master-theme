@@ -42,6 +42,7 @@ abstract class BlockPattern
     {
         return [
             BlankPage::class,
+            Action::class,
             Campaign::class,
             DeepDive::class,
             DeepDiveTopic::class,
