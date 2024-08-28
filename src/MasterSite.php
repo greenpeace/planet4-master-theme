@@ -140,6 +140,10 @@ class MasterSite extends TimberSite
         add_action('after_setup_theme', [$this, 'add_image_sizes']);
         add_action('save_post', [$this, 'p4_auto_generate_excerpt'], 10, 2);
 
+        // Disable smilies filter
+        // https://github.com/10up/ElasticPress/issues/3280
+        remove_filter('the_content', 'convert_smilies', 20);
+
         add_action('admin_head', [$this, 'add_help_sidebar']);
 
         remove_action('wp_head', 'print_emoji_detection_script', 7);
