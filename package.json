@@ -31,7 +31,7 @@
     "sass-loader": "^8.0.0",
     "svg-sprite-loader": "^6.0.11",
     "terser-webpack-plugin": "^2.2.1",
-    "webpack": "^4.40.2",
+    "webpack": "^5.94.0",
     "webpack-fix-style-only-entries": "^0.4.0"
   },
   "browserslist": [
