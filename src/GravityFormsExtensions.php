@@ -500,7 +500,7 @@ class GravityFormsExtensions
             !isset($entry['payment_status'])
             || !in_array($entry['payment_status'], $allowed)
         ) {
-            return '';
+            return [];
         }
 
         $tType = [
