@@ -8,9 +8,6 @@ import {
 const TEST_IMAGES = ['GP0STXWME', 'GP0STXWZH'];
 const MEDIA_LIBRARY_PAGE = './wp-admin/admin.php?page=media-picker';
 
-// Temporary fix.
-test.skip();
-
 test.useAdminLoggedIn();
 
 test.describe('Greenpeace Media tests', () => {
