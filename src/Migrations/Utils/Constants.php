@@ -14,6 +14,7 @@ class Constants
     public const BLOCK_SPLIT_TWO_COLUMNS = self::PREFIX_P4_BLOCKS . '/split-two-columns';
     public const BLOCK_SOCIAL_MEDIA = self::PREFIX_P4_BLOCKS . '/social-media';
     public const BLOCK_P4_COLUMNS = self::PREFIX_P4_BLOCKS . '/columns';
+    public const BLOCK_POSTS_LIST = self::PREFIX_P4_BLOCKS . '/posts-list';
 
     public const BLOCK_EMBED = self::PREFIX_CORE_BLOCKS . '/embed';
     public const BLOCK_AUDIO = self::PREFIX_CORE_BLOCKS . '/audio';
