@@ -16,6 +16,7 @@ class Constants
     public const BLOCK_P4_COLUMNS = self::PREFIX_P4_BLOCKS . '/columns';
     public const BLOCK_COLUMNS = self::PREFIX_P4_BLOCKS . '/columns';
     public const BLOCK_COVERS = self::PREFIX_P4_BLOCKS . '/covers';
+    public const BLOCK_POSTS_LIST = self::PREFIX_P4_BLOCKS . '/posts-list';
 
     public const BLOCK_EMBED = self::PREFIX_CORE_BLOCKS . '/embed';
     public const BLOCK_AUDIO = self::PREFIX_CORE_BLOCKS . '/audio';
@@ -25,9 +26,20 @@ class Constants
     public const BLOCK_PARAGRAPH = self::PREFIX_CORE_BLOCKS . '/paragraph';
     public const BLOCK_SINGLE_COLUMN = self::PREFIX_CORE_BLOCKS . '/column';
     public const BLOCK_CORE_COLUMNS = self::PREFIX_CORE_BLOCKS . '/columns';
-    public const BLOCK_SINGLE_BUTTON = self::PREFIX_CORE_BLOCKS . '/button';
-    public const BLOCK_BUTTONS = self::PREFIX_CORE_BLOCKS . '/buttons';
     public const BLOCK_MEDIA_TEXT = self::PREFIX_CORE_BLOCKS . '/media-text';
+    public const BLOCK_TITLE = self::PREFIX_CORE_BLOCKS . '/post-title';
+    public const BLOCK_EXCERPT = self::PREFIX_CORE_BLOCKS . '/post-excerpt';
+    public const BLOCK_AUTHOR = self::PREFIX_CORE_BLOCKS . '/post-author-name';
+    public const BLOCK_DATE = self::PREFIX_CORE_BLOCKS . '/post-date';
+    public const BLOCK_TERMS = self::PREFIX_CORE_BLOCKS . '/post-terms';
+    public const BLOCK_COLUMNS = self::PREFIX_CORE_BLOCKS . '/columns';
+    public const BLOCK_FEAT_IMAGE = self::PREFIX_CORE_BLOCKS . '/post-featured-image';
+    public const BLOCK_QUERY_NO_RESULTS = self::PREFIX_CORE_BLOCKS . '/query-no-results';
+    public const BLOCK_NAV_LINK = self::PREFIX_CORE_BLOCKS . '/navigation-link';
+    public const BLOCK_POST_TEMPLATE = self::PREFIX_CORE_BLOCKS . '/post-template';
+    public const BLOCK_BUTTONS = self::PREFIX_CORE_BLOCKS . '/buttons';
+    public const BLOCK_SINGLE_BUTTON = self::PREFIX_CORE_BLOCKS . '/button';
+    public const BLOCK_QUERY = self::PREFIX_CORE_BLOCKS . '/query';
 
     public const POST_TYPES_PAGE = 'page';
     public const POST_TYPES_POST = 'post';
@@ -72,4 +84,8 @@ class Constants
         self::X => '/^(https?\:\/\/)?(www\.)?x\.com\/.+$/i',
     ];
     // phpcs:enable Generic.Files.LineLength.MaxExceeded
+
+    public const COVER_BLOCK_TAKE_ACTION = 'take-action';
+    public const COVER_BLOCK_CAMPAIGN = 'campaign';
+    public const COVER_BLOCK_CONTENT = 'content';
 }
