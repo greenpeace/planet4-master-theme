@@ -3,6 +3,7 @@ namespace P4\MasterTheme\Migrations;
 
 use P4\MasterTheme\MigrationRecord;
 use P4\MasterTheme\MigrationScript;
+use P4\MasterTheme\Migrations\M034Helper;
 use P4\MasterTheme\BlockReportSearch\BlockSearch;
 use WP_Block_Parser;
 
@@ -188,8 +189,8 @@ class M034MigrateCoversContentBlockToPostsListBlock extends MigrationScript
         $block['blockName'] = 'core/query';
         $block['attrs'] = self::get_query_attrs();
         $block['innerBlocks'] = $inner_blocks;
-        $block['innerHTML'] = self::get_inner_html_for_blocks('query_block');
-        $block['innerContent'] = self::get_inner_content_for_blocks('query_block');
+        $block['innerHTML'] = M034Helper::QUERY_BLOCK['html'];
+        $block['innerContent'] = M034Helper::QUERY_BLOCK['content'];
         return $block;
     }
 
@@ -240,8 +241,8 @@ class M034MigrateCoversContentBlockToPostsListBlock extends MigrationScript
         $block['attrs']['layout']['flexWrap'] = 'nowrap';
         $block['innerBlocks'][0] = self::get_button_block('carousel-control-prev', 'Prev');
         $block['innerBlocks'][1] = self::get_button_block('carousel-control-next', 'Next');
-        $block['innerHTML'] = self::get_inner_content_for_blocks('buttons_block');
-        $block['innerContent'] = self::get_inner_content_for_blocks('buttons_block');
+        $block['innerHTML'] = M034Helper::BUTTONS_BLOCK['html'];
+        $block['innerContent'] = M034Helper::BUTTONS_BLOCK['content'];
 
         return $block;
     }
@@ -253,8 +254,8 @@ class M034MigrateCoversContentBlockToPostsListBlock extends MigrationScript
         $block['attrs']['lock']['move'] = true;
         $block['attrs']['lock']['remove'] = true;
         $block['innerBlocks'][0] = self::get_post_data_column_block();
-        $block['innerHTML'] = self::get_inner_html_for_blocks('post_template');
-        $block['innerContent'] = self::get_inner_content_for_blocks('post_template');
+        $block['innerHTML'] = M034Helper::POST_TEMPLATE['html'];
+        $block['innerContent'] = M034Helper::POST_TEMPLATE['content'];
 
         return $block;
     }
@@ -278,8 +279,8 @@ class M034MigrateCoversContentBlockToPostsListBlock extends MigrationScript
         $block['blockName'] = 'core/query-no-results';
         $block['attrs'] = [];
         $block['innerBlocks'][0] = self::get_query_no_results_paragraph_block();
-        $block['innerHTML'] = self::get_inner_html_for_blocks('query-no-results');
-        $block['innerContent'] = self::get_inner_content_for_blocks('query-no-results');
+        $block['innerHTML'] = M034Helper::QUERY_NO_RESULTS_BLOCK['html'];
+        $block['innerContent'] = M034Helper::QUERY_NO_RESULTS_BLOCK['content'];
 
         return $block;
     }
@@ -312,8 +313,8 @@ class M034MigrateCoversContentBlockToPostsListBlock extends MigrationScript
         $block['blockName'] = 'core/paragraph';
         $block['attrs'] = [];
         $block['innerBlocks'] = [];
-        $block['innerHTML'] = self::get_inner_html_for_blocks('query_no_results_paragraph_block');
-        $block['innerContent'] = self::get_inner_content_for_blocks('query_no_results_paragraph_block');
+        $block['innerHTML'] = M034Helper::QUERY_NO_RESULTS_PARAGRAPH_BLOCK['html'];
+        $block['innerContent'] = M034Helper::QUERY_NO_RESULTS_PARAGRAPH_BLOCK['content'];
 
         return $block;
     }
@@ -327,8 +328,8 @@ class M034MigrateCoversContentBlockToPostsListBlock extends MigrationScript
         $block['attrs'] = [];
         $block['innerBlocks'][0] = self::set_new_block('core/post-featured-image', $feat_img_attrs['isLink'] = true);
         $block['innerBlocks'][1] = self::get_post_data_group_block();
-        $block['innerHTML'] = self::get_inner_html_for_blocks('post_data_column_block');
-        $block['innerContent'] = self::get_inner_content_for_blocks('post_data_column_block');
+        $block['innerHTML'] = M034Helper::COLUMN_BLOCK['html'];
+        $block['innerContent'] = M034Helper::COLUMN_BLOCK['content'];
 
         return $block;
     }
@@ -341,8 +342,8 @@ class M034MigrateCoversContentBlockToPostsListBlock extends MigrationScript
         $block['attrs']['layout']['justifyContent'] = 'space-between';
         $block['innerBlocks'][0] = self::get_heading_block($title);
         $block['innerBlocks'][1] = self::get_nav_links_block();
-        $block['innerHTML'] = self::get_inner_html_for_blocks('head_group_block');
-        $block['innerContent'] = self::get_inner_content_for_blocks('head_group_block');
+        $block['innerHTML'] = M034Helper::HEAD_GROUP_BLOCK['html'];
+        $block['innerContent'] = M034Helper::HEAD_GROUP_BLOCK['content'];
         
         return $block;
     }
@@ -362,8 +363,8 @@ class M034MigrateCoversContentBlockToPostsListBlock extends MigrationScript
         $block['attrs']['layout']['type'] = 'flex';
         $block['innerBlocks'][0] = self::set_new_block('core/post-terms', $post_tags_attrs);
         $block['innerBlocks'][1] = self::set_new_block('core/post-terms', $post_cats_attrs);
-        $block['innerHTML'] = self::get_inner_html_for_blocks('post_terms_group_block');
-        $block['innerContent'] = self::get_inner_content_for_blocks('post_terms_group_block');
+        $block['innerHTML'] = M034Helper::POST_TERMS_GROUP_BLOCK['html'];
+        $block['innerContent'] = M034Helper::POST_TERMS_GROUP_BLOCK['content'];
         return $block;
     }
 
@@ -376,8 +377,8 @@ class M034MigrateCoversContentBlockToPostsListBlock extends MigrationScript
         $block['attrs']['className'] = 'posts-list-meta';
         $block['innerBlocks'][0] = self::set_new_block('core/post-author-name', $author_attrs['isLink'] = true);
         $block['innerBlocks'][1] = self::set_new_block('core/post-date', []);
-        $block['innerHTML'] = self::get_inner_html_for_blocks('posts_list_meta_group_block');
-        $block['innerContent'] = self::get_inner_content_for_blocks('posts_list_meta_group_block');
+        $block['innerHTML'] = M034Helper::POSTS_LIST_META_GROUP_BLOCK['html'];
+        $block['innerContent'] = M034Helper::POSTS_LIST_META_GROUP_BLOCK['content'];
         return $block;
     }
 
@@ -392,233 +393,9 @@ class M034MigrateCoversContentBlockToPostsListBlock extends MigrationScript
         $block['innerBlocks'][1] = self::set_new_block('core/post-title', $post_title_attrs['isLink'] = true);
         $block['innerBlocks'][2] = self::set_new_block('core/post-excerpt', []);
         $block['innerBlocks'][3] = self::get_posts_list_meta_group_block();
-        $block['innerHTML'] = self::get_inner_html_for_blocks('post_data_group_block');
-        $block['innerContent'] = self::get_inner_content_for_blocks('post_data_group_block');
+        $block['innerHTML'] = M034Helper::POST_DATA_GROUP_BLOCK['html'];
+        $block['innerContent'] = M034Helper::POST_DATA_GROUP_BLOCK['content'];
 
         return $block;
-    }
-
-    private static function get_inner_html_for_blocks($block)
-    {
-        if ($block === 'post_data_column_block') {
-            return '
-  <div class="wp-block-columns">
-  
-  </div>
-  ';
-        }
-        if ($block === 'post_terms_group_block') {
-            return '
-<div class="wp-block-group">
-
-</div>
-';
-        }
-        if ($block === 'posts_list_meta_group_block') {
-            return '
-<div class="wp-block-group posts-list-meta">
-
-</div>
-';
-        }
-        if ($block === 'post_data_group_block') {
-            return '
-<div class="wp-block-group">
-
-
-
-
-
-</div>
-';
-        }
-        if ($block === 'query_no_results_block') {
-            return '
-    
-    ';
-        }
-        if ($block === 'query_no_results_paragraph_block') {
-            return '
-<p>No posts found. (This default text can be edited)</p>
-';
-        }
-        if ($block === 'query_block') {
-            return '
-      <div class="wp-block-query posts-list p4-query-loop is-custom-layout-list">
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      </div>
-      ';
-        }
-        if ($block === 'post_template') {
-            return '
-  
-  ';
-        }
-        if ($block === 'head_group_block') {
-            return '
-  <div class="wp-block-group">
-  
-  </div>
-  ';
-        }
-        if ($block === 'buttons_block') {
-            return '
-  <div class="wp-block-buttons carousel-controls">
-  
-  </div>
-  ';
-        }
-    }
-
-    private static function get_inner_content_for_blocks($block)
-    {
-        if ($block === 'post_data_column_block') {
-            return array (
-                0 => '
-    <div class="wp-block-columns">',
-                1 => NULL,
-                2 => '
-    
-    ',
-                3 => NULL,
-                4 => '</div>
-    ',
-              );
-        }
-        if ($block === 'post_terms_group_block') {
-            return array (
-                0 => '
-  <div class="wp-block-group">',
-                1 => NULL,
-                2 => '
-  
-  ',
-                3 => NULL,
-                4 => '</div>
-  ',
-              );
-        }
-        if ($block === 'posts_list_meta_group_block') {
-            return array (
-                0 => '
-  <div class="wp-block-group posts-list-meta">',
-                1 => NULL,
-                2 => '
-  
-  ',
-                3 => NULL,
-                4 => '</div>
-  ',
-              );
-        }
-        if ($block === 'post_data_group_block') {
-            return array (
-                0 => '
-  <div class="wp-block-group">',
-                1 => NULL,
-                2 => '
-  
-  ',
-                3 => NULL,
-                4 => '
-  
-  ',
-                5 => NULL,
-                6 => '
-  
-  ',
-                7 => NULL,
-                8 => '</div>
-  ',
-              );
-        }
-        if ($block === 'query_no_results_block') {
-            return array (
-                0 => '
-        ',
-                1 => NULL,
-                2 => '
-        ',
-                );
-        }
-        if ($block === 'query_no_results_paragraph_block') {
-            return array (
-                0 => '
-    <p>No posts found. (This default text can be edited)</p>
-    ',
-                );
-        }
-        if ($block === 'query_block') {
-            return array (
-                0 => '
-            <div class="wp-block-query posts-list p4-query-loop is-custom-layout-list">',
-                1 => NULL,
-                2 => '
-            
-            ',
-                3 => NULL,
-                4 => '
-            
-            ',
-                5 => NULL,
-                6 => '
-            
-            ',
-                7 => NULL,
-                8 => '
-            
-            ',
-                9 => NULL,
-                10 => '
-            
-            ',
-                11 => NULL,
-                12 => '</div>
-            ',
-            );
-        }
-        if ($block === 'post_template') {
-            return array (
-                0 => '
-        ',
-                1 => NULL,
-                2 => '
-        ',
-              );
-        }
-        if ($block === 'head_group_block') {
-            return array (
-                0 => '
-        <div class="wp-block-group">',
-                1 => NULL,
-                2 => '
-        
-        ',
-                3 => NULL,
-                4 => '</div>
-        ',
-              );
-        }
-        if ($block === 'buttons_block') {
-            return array (
-                0 => '
-        <div class="wp-block-buttons carousel-controls">',
-                1 => NULL,
-                2 => '
-        
-        ',
-                3 => NULL,
-                4 => '</div>
-        ',
-              );
-        }
     }
 }
