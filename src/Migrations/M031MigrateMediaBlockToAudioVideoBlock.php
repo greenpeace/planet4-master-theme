@@ -6,17 +6,13 @@ namespace P4\MasterTheme\Migrations;
 
 use P4\MasterTheme\MigrationRecord;
 use P4\MasterTheme\MigrationScript;
-use P4\MasterTheme\BlockReportSearch\BlockSearch;
 use WP_Block_Parser;
 
 /**
  * Migrate Media block to Audio or Video blocks.
  */
-class M033MigrateMediaBlockToAudioVideoBlock extends MigrationScript
+class M031MigrateMediaBlockToAudioVideoBlock extends MigrationScript
 {
-    private const BLOCK_NAME = 'planet4-blocks/media-video';
-    private const POST_TYPES = [ 'page', 'post', 'action', 'campaign' ];
-
     private const SOURCE_YOUTUBE = 'youtube';
     private const SOURCE_VIMEO = 'vimeo';
     private const SOURCE_SOUNDCLOUD = 'soundcloud';
@@ -41,7 +37,7 @@ class M033MigrateMediaBlockToAudioVideoBlock extends MigrationScript
     {
         try {
             // Get the list of posts using Media blocks.
-            $posts = self::get_posts_using_media_blocks();
+            $posts = Utils\Functions::get_posts_using_specific_block(Utils\Constants::BLOCK_MEDIA_VIDEO, Utils\Constants::ALL_POST_TYPES);
 
             // If there are no posts, abort.
             if (!$posts) {
@@ -55,7 +51,7 @@ class M033MigrateMediaBlockToAudioVideoBlock extends MigrationScript
 
                 foreach ($blocks as &$block) {
                     // Check if the block is a Media block.
-                    if ($block['blockName'] !== self::BLOCK_NAME) {
+                    if ($block['blockName'] !== Utils\Constants::BLOCK_MEDIA_VIDEO) {
                         continue;
                     }
 
@@ -103,35 +99,6 @@ class M033MigrateMediaBlockToAudioVideoBlock extends MigrationScript
     // phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter
 
     /**
-     * Get all the posts using Media blocks.
-     *
-     * @return mixed - The posts using Media blocks or null if no posts are found.
-     */
-    private static function get_posts_using_media_blocks(): mixed
-    {
-        $search = new BlockSearch();
-
-        $post_ids = $search->get_posts_with_block(self::BLOCK_NAME);
-
-        if (empty($post_ids)) {
-            return null;
-        }
-
-        $args = [
-            'include' => $post_ids,
-            'post_type' => self::POST_TYPES,
-        ];
-
-        $posts = get_posts($args) ?? [];
-
-        if (empty($posts)) {
-            return null;
-        }
-
-        return $posts;
-    }
-
-    /**
      * Get the media URL from a Media block.
      * If the value is not a URL then it is a Youtube ID.
      * In that case, the ID is turned into a full Youtube URL.
@@ -142,6 +109,9 @@ class M033MigrateMediaBlockToAudioVideoBlock extends MigrationScript
     private static function get_media_url(array $block): mixed
     {
         $media_url = $block['attrs']['youtube_id'] ?? $block['attrs']['media_url'] ?? null;
+
+        // Replace special characters in the url.
+        $media_url = strtr($media_url, '&', 'u0026');
 
         if ($media_url && !filter_var($media_url, FILTER_VALIDATE_URL)) {
             $media_url = 'https://www.youtube.com/watch?v=' . $media_url;
@@ -196,7 +166,7 @@ class M033MigrateMediaBlockToAudioVideoBlock extends MigrationScript
      */
     private static function transform_block_to_empty_embed(array $block): array
     {
-        $block['blockName'] = 'core/embed';
+        $block['blockName'] = Utils\Constants::BLOCK_EMBED;
         $block = self::set_shared_attrs($block, "", "");
         return $block;
     }
@@ -219,7 +189,7 @@ class M033MigrateMediaBlockToAudioVideoBlock extends MigrationScript
         ' . $media_url . '
         </div>' . ($caption ? '<figcaption class="wp-element-caption">' . $caption . '</figcaption>' : '') . '</figure>';
 
-        $block['blockName'] = 'core/embed';
+        $block['blockName'] = Utils\Constants::BLOCK_EMBED;
         $block['attrs']['type'] = $type;
         $block['attrs']['providerNameSlug'] = $provider;
 
@@ -241,7 +211,7 @@ class M033MigrateMediaBlockToAudioVideoBlock extends MigrationScript
         // IMPORTANT: DO NOT MODIFY THIS FORMAT!
         $html_content = '<figure class="wp-block-audio"><audio controls src="' . $media_url . '"></audio>' . ($caption ? '<figcaption class="wp-element-caption">' . $caption . '</figcaption>' : '') . '</figure>';
 
-        $block['blockName'] = 'core/audio';
+        $block['blockName'] = Utils\Constants::BLOCK_AUDIO;
 
         $block = self::set_shared_attrs($block, $media_url, $html_content);
         return $block;
@@ -262,7 +232,7 @@ class M033MigrateMediaBlockToAudioVideoBlock extends MigrationScript
         // IMPORTANT: DO NOT MODIFY THIS FORMAT!
         $html_content = '<figure class="wp-block-video"><video controls poster="' . $poster . '" src="' . $media_url . '"></video>' . ($caption ? '<figcaption class="wp-element-caption">' . $caption . '</figcaption>' : '') . '</figure>';
 
-        $block['blockName'] = 'core/video';
+        $block['blockName'] = Utils\Constants::BLOCK_VIDEO;
         $block['attrs']['poster'] = $block['attrs']['poster_url'] ?? "";
 
         $block = self::set_shared_attrs($block, $media_url, $html_content);
