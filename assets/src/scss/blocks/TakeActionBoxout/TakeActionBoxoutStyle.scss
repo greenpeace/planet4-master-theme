@@ -61,12 +61,9 @@
     }
     margin-bottom: 0;
     display: -webkit-box;
+    line-clamp: 2;
     -webkit-line-clamp: 2;
-    /* stylelint-disable property-no-vendor-prefix */
-    /*! autoprefixer: off */
     -webkit-box-orient: vertical;
-    /*! autoprefixer: on */
-    /* stylelint-enable property-no-vendor-prefix */
     overflow: hidden;
     word-break: break-word;
   }
@@ -105,12 +102,9 @@
       }
       color: var(--color-text-body);
       display: -webkit-box;
+      line-clamp: 1;
       -webkit-line-clamp: 1;
-      /* stylelint-disable property-no-vendor-prefix */
-      /*! autoprefixer: off */
       -webkit-box-orient: vertical;
-      /*! autoprefixer: on */
-      /* stylelint-enable property-no-vendor-prefix */
       overflow: hidden;
       margin: 0;
     }
@@ -146,6 +140,7 @@
     }
 
     .boxout-excerpt {
+      line-clamp: 3;
       -webkit-line-clamp: 3;
     }
 

@@ -11,6 +11,7 @@
 
   // Prevent line clamp on editable stuff, because it's very buggy.
   [contenteditable] {
+    line-clamp: unset !important;
     -webkit-line-clamp: unset !important;
   }
 }

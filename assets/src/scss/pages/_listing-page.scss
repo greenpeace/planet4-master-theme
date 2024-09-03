@@ -111,6 +111,7 @@
   font-size: $font-size-sm;
   margin-bottom: $sp-1;
   line-height: var(--line-height-m--font-family-secondary);
+  line-clamp: 4;
   -webkit-line-clamp: 4;
 }
 
@@ -118,6 +119,7 @@
   font-size: $font-size-lg !important;
 
   a {
+    line-clamp: 2;
     -webkit-line-clamp: 2;
   }
 }
@@ -184,10 +186,12 @@
 
     .query-list-item-content p {
       @include medium-and-up {
+        line-clamp: 2;
         -webkit-line-clamp: 2;
       }
 
       @include large-and-up {
+        line-clamp: 3;
         -webkit-line-clamp: 3;
       }
     }
@@ -218,6 +222,7 @@
 
     .query-list-item-headline a {
       @include large-and-up {
+        line-clamp: 3;
         -webkit-line-clamp: 3;
       }
     }

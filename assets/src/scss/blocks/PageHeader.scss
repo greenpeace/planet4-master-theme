@@ -60,6 +60,7 @@ $text-column-padding-in: 24px;
   .wp-block-group:first-child {
     display: -webkit-box;
     -webkit-box-orient: vertical;
+    line-clamp: 3;
     -webkit-line-clamp: 3;
     overflow: hidden;
     font-size: $font-size-xxl;
@@ -86,6 +87,7 @@ $text-column-padding-in: 24px;
   p {
     display: -webkit-box;
     -webkit-box-orient: vertical;
+    line-clamp: 8;
     -webkit-line-clamp: 8;
     overflow: hidden;
     margin-bottom: $sp-4;

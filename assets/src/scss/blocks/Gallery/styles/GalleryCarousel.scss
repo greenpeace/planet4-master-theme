@@ -113,12 +113,9 @@
       line-height: 1.4;
       margin-bottom: 0;
       display: -webkit-box;
+      line-clamp: 3;
       -webkit-line-clamp: 3;
-      /* stylelint-disable property-no-vendor-prefix */
-      /*! autoprefixer: off */
       -webkit-box-orient: vertical;
-      /*! autoprefixer: on */
-      /* stylelint-enable property-no-vendor-prefix */
       overflow: hidden;
     }
   }

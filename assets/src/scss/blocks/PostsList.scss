@@ -94,6 +94,7 @@
     font-size: 18px;
 
     a {
+      line-clamp: 2;
       -webkit-line-clamp: 2;
     }
 
@@ -166,6 +167,7 @@
       width: 100%;
       margin-bottom: $sp-1;
       font-size: var(--font-size-m--font-family-secondary);
+      line-clamp: 3;
       -webkit-line-clamp: 3;
 
       @include large-and-up {

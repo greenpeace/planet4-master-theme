@@ -216,22 +216,22 @@
       font-family: var(--font-family-heading);
       padding-top: 0;
       padding-bottom: 0;
+      line-clamp: 2;
       -webkit-line-clamp: 2;
     }
 
     .article-list-item-content {
       width: 100%;
+      line-clamp: 3;
       -webkit-line-clamp: 3;
 
       @include medium-and-up {
+        line-clamp: 2;
         -webkit-line-clamp: 2;
       }
 
       @include large-and-up {
-        -webkit-line-clamp: 3;
-      }
-
-      @include x-large-and-up {
+        line-clamp: 3;
         -webkit-line-clamp: 3;
       }
     }
