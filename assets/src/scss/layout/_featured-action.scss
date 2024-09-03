@@ -48,6 +48,7 @@
   display: -webkit-box;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  line-clamp: 2;
   -webkit-line-clamp: 2;
 }
 

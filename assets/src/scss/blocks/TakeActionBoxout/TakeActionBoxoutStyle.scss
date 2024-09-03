@@ -61,6 +61,7 @@
     }
     margin-bottom: 0;
     display: -webkit-box;
+    line-clamp: 2;
     -webkit-line-clamp: 2;
     /* stylelint-disable property-no-vendor-prefix */
     /*! autoprefixer: off */
@@ -105,6 +106,7 @@
       }
       color: var(--color-text-body);
       display: -webkit-box;
+      line-clamp: 1;
       -webkit-line-clamp: 1;
       /* stylelint-disable property-no-vendor-prefix */
       /*! autoprefixer: off */
@@ -146,6 +148,7 @@
     }
 
     .boxout-excerpt {
+      line-clamp: 3;
       -webkit-line-clamp: 3;
     }
 
