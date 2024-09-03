@@ -234,11 +234,6 @@
         line-clamp: 3;
         -webkit-line-clamp: 3;
       }
-
-      @include x-large-and-up {
-        line-clamp: 3;
-        -webkit-line-clamp: 3;
-      }
     }
 
     .article-list-item-headline,

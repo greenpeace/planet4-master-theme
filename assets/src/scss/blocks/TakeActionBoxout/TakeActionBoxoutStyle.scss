@@ -63,11 +63,7 @@
     display: -webkit-box;
     line-clamp: 2;
     -webkit-line-clamp: 2;
-    /* stylelint-disable property-no-vendor-prefix */
-    /*! autoprefixer: off */
     -webkit-box-orient: vertical;
-    /*! autoprefixer: on */
-    /* stylelint-enable property-no-vendor-prefix */
     overflow: hidden;
     word-break: break-word;
   }
@@ -108,11 +104,7 @@
       display: -webkit-box;
       line-clamp: 1;
       -webkit-line-clamp: 1;
-      /* stylelint-disable property-no-vendor-prefix */
-      /*! autoprefixer: off */
       -webkit-box-orient: vertical;
-      /*! autoprefixer: on */
-      /* stylelint-enable property-no-vendor-prefix */
       overflow: hidden;
       margin: 0;
     }
