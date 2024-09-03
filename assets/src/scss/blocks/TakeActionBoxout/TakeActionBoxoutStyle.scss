@@ -1,13 +1,45 @@
+@mixin boxout-half-and-half {
+  .boxout-content {
+    width: 50%;
+    padding: $sp-3;
+  }
+
+  .btn {
+    margin-top: $sp-3;
+    width: 100%;
+  }
+
+  .boxout-excerpt {
+    line-clamp: 3;
+    -webkit-line-clamp: 3;
+  }
+
+  img {
+    width: 50%;
+    border-top-left-radius: $sp-x;
+    border-bottom-left-radius: $sp-x;
+
+    html[dir="rtl"] & {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+      border-top-right-radius: $sp-x;
+      border-bottom-right-radius: $sp-x;
+    }
+  }
+}
+
 .boxout {
   background: var(--white);
-  padding: $sp-2;
   width: 100%;
-  height: 128px;
   display: flex;
   box-shadow: 0 1px 8px rgba(0, 0, 0, 0.16);
   transition: box-shadow 0.2s;
   border-radius: 4px;
   position: relative;
+
+  .not-now {
+    display: none;
+  }
 
   .cover-card-overlay {
     position: absolute;
@@ -23,27 +55,12 @@
     .boxout-heading {
       text-decoration: underline;
     }
-
-    .btn {
-      background-color: var(--button-primary--hover--background);
-    }
-  }
-
-  .not-now {
-    display: none;
   }
 
   img {
-    width: 96px;
-    min-width: 96px;
     height: 100%;
     pointer-events: none;
     object-fit: cover;
-  }
-
-  .boxout-content {
-    padding: $sp-1;
-    flex: auto;
   }
 
   &::before,
@@ -56,10 +73,9 @@
       font-family: var(--font-family-heading);
       font-size: var(--font-size-m--font-family-primary);
       font-weight: var(--font-weight-regular);
-      line-height: var(--line-height-l--font-family-primary);
       color: var(--color-text-body);
     }
-    margin-bottom: 0;
+
     display: -webkit-box;
     line-clamp: 2;
     -webkit-line-clamp: 2;
@@ -73,134 +89,113 @@
       font-size: 12px;
       line-height: 2.5;
     }
-    white-space: nowrap;
-    position: absolute;
-    bottom: $sp-2;
-    right: $sp-2;
 
-    html[dir="rtl"] & {
-      right: auto;
-      left: $sp-2;
-    }
+    white-space: nowrap;
   }
 
   .boxout-excerpt {
-    display: none;
-  }
-
-  @include medium-and-up {
-    .boxout-heading {
-      margin-bottom: $sp-1;
-      font-size: var(--font-size-m--font-family-primary);
+    _-- {
+      font-family: var(--font-family-paragraph-secondary);
+      font-size: var(--font-size-s--font-family-tertiary);
+      line-height: var(--line-height-m--font-family-tertiary);
     }
 
-    .boxout-excerpt {
-      _-- {
-        font-family: var(--font-family-paragraph-secondary);
-        font-size: var(--font-size-xs--font-family-tertiary);
-        line-height: var(--line-height-m--font-family-tertiary);
-      }
-      color: var(--color-text-body);
-      display: -webkit-box;
-      line-clamp: 1;
-      -webkit-line-clamp: 1;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-      margin: 0;
-    }
-
-    .btn {
-      _-- {
-        font-size: 15px;
-      }
-      align-self: flex-end;
-      position: unset;
-    }
+    color: var(--color-text-body);
+    display: -webkit-box;
+    line-clamp: 1;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin: 0;
   }
 
   @include large-and-up {
-    height: 210px;
-    padding: 0;
-
-    img {
-      min-width: 336px;
-      border-top-left-radius: $sp-x;
-      border-bottom-left-radius: $sp-x;
-
-      html[dir="rtl"] & {
-        border-top-left-radius: 0;
-        border-bottom-left-radius: 0;
-        border-top-right-radius: $sp-x;
-        border-bottom-right-radius: $sp-x;
-      }
-    }
-
-    .boxout-content {
-      padding: $sp-3;
-    }
-
-    .boxout-excerpt {
-      line-clamp: 3;
-      -webkit-line-clamp: 3;
-    }
-
-    .btn {
-      position: absolute;
-      right: $sp-3;
-      bottom: $sp-3;
-
-      html[dir="rtl"] & {
-        right: auto;
-        left: $sp-3;
-      }
-    }
+    @include boxout-half-and-half;
   }
-}
 
-@media screen and (max-width: $large-width) {
-  .sticky-bottom-mobile {
-    z-index: 9999;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 128px;
-    border-radius: 0;
-    transition: all 0.5s;
-
-    .boxout-heading {
-      margin-inline-end: $sp-3;
+  &:not(.sticky-bottom-mobile) {
+    .boxout-content {
+      padding: $sp-4;
     }
 
-    .cover-card-overlay,
-    .boxout-excerpt {
-      display: none;
-    }
+    @include mobile-only {
+      margin-bottom: $sp-3;
+      flex-direction: column-reverse;
 
-    .not-now {
-      display: block;
-      background: url("../../public/images/close-boxout.svg");
-      background-position: bottom right;
-      background-size: cover;
-      position: absolute;
-      width: 16px;
-      height: 16px;
-      top: $sp-2;
-      right: $sp-2;
-
-      html[dir="rtl"] & {
-        right: auto;
-        left: $sp-2;
+      img {
+        border-bottom-right-radius: $sp-x;
+        border-bottom-left-radius: $sp-x;
       }
     }
 
     @include medium-and-up {
-      .boxout-content {
-        padding-top: $sp-2;
+      @include boxout-half-and-half;
+    }
+  }
+
+  &.sticky-bottom-mobile {
+    @media screen and (max-width: $large-width) {
+      z-index: 9999;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 128px;
+      border-radius: 0;
+      transition: all 0.5s;
+      padding: $sp-2;
+
+      img {
+        width: 96px;
+        height: 96px;
       }
 
-      .boxout-heading {
-        margin-inline-end: 0;
+      .boxout-content {
+        padding-inline-start: $sp-2;
+      }
+
+      .cover-card-overlay,
+      .boxout-excerpt {
+        display: none;
+      }
+
+      .btn {
+        position: absolute;
+        right: $sp-2;
+        bottom: $sp-2;
+
+        html[dir="rtl"] & {
+          right: auto;
+          left: $sp-2;
+        }
+      }
+
+      .not-now {
+        display: block;
+        background: url("../../images/close-boxout.svg");
+        background-position: bottom right;
+        background-size: cover;
+        position: absolute;
+        width: 16px;
+        height: 16px;
+        top: $sp-2;
+        right: $sp-2;
+
+        html[dir="rtl"] & {
+          right: auto;
+          left: $sp-2;
+        }
+      }
+
+      @include mobile-only {
+        .boxout-content {
+          padding: 0 $sp-1;
+        }
+
+        .boxout-heading {
+          margin-inline-end: $sp-3;
+          font-size: var(--font-size-xxs--font-family-primary);
+        }
       }
     }
   }
