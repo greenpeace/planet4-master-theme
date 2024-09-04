@@ -1,7 +1,10 @@
 @mixin boxout-half-and-half {
+  height: 222px;
+
   .boxout-content {
     width: 50%;
     padding: $sp-3;
+    text-align: center;
   }
 
   .btn {
@@ -109,20 +112,22 @@
     margin: 0;
   }
 
-  @include large-and-up {
-    @include boxout-half-and-half;
-  }
-
   &:not(.sticky-bottom-mobile) {
-    .boxout-content {
-      padding: $sp-4;
-    }
-
-    @include mobile-only {
+    @include small-and-less {
       margin-bottom: $sp-3;
       flex-direction: column-reverse;
 
+      .boxout-content {
+        padding: $sp-4;
+      }
+
+      .btn {
+        margin-top: $sp-3;
+        width: 100%;
+      }
+
       img {
+        height: 198px;
         border-bottom-right-radius: $sp-x;
         border-bottom-left-radius: $sp-x;
       }
@@ -134,7 +139,7 @@
   }
 
   &.sticky-bottom-mobile {
-    @media screen and (max-width: $large-width) {
+    @include medium-and-less {
       z-index: 9999;
       position: fixed;
       bottom: 0;
@@ -197,6 +202,10 @@
           font-size: var(--font-size-xxs--font-family-primary);
         }
       }
+    }
+
+    @include large-and-up {
+      @include boxout-half-and-half;
     }
   }
 }
