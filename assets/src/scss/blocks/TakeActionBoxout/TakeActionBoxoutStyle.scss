@@ -17,7 +17,8 @@
     -webkit-line-clamp: 3;
   }
 
-  img {
+  img,
+  .boxout-placeholder {
     width: 50%;
     border-top-left-radius: $sp-x;
     border-bottom-left-radius: $sp-x;
@@ -44,6 +45,10 @@
     display: none;
   }
 
+  .boxout-placeholder {
+    background-color: var(--grey-100);
+  }
+
   .cover-card-overlay {
     position: absolute;
     left: 0;
@@ -60,7 +65,8 @@
     }
   }
 
-  img {
+  img,
+  .boxout-placeholder {
     height: 100%;
     pointer-events: none;
     object-fit: cover;
@@ -126,7 +132,8 @@
         width: 100%;
       }
 
-      img {
+      img,
+      .boxout-placeholder {
         height: 198px;
         border-bottom-right-radius: $sp-x;
         border-bottom-left-radius: $sp-x;
@@ -150,7 +157,8 @@
       transition: all 0.5s;
       padding: $sp-2;
 
-      img {
+      img,
+      .boxout-placeholder {
         width: 96px;
         height: 96px;
       }

@@ -18,6 +18,8 @@
 						sizes="(min-width: 1000px) 358px, (min-width: 780px) 313px, 88px"
 						alt="{{ boxout.image_alt }}" title="{{ boxout.image_alt }}"
 				/>
+            {% else %}
+                <div class="boxout-placeholder"></div>
 			{% endif %}
 			<div class="boxout-content">
 				{% if ( boxout.title ) %}

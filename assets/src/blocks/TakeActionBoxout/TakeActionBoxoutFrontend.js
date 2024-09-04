@@ -22,7 +22,7 @@ export const TakeActionBoxoutFrontend = ({
       href={link}
       {...newTab && {rel: 'noreferrer', target: '_blank'}}
     />
-    <img src={imageUrl} alt={imageAlt} />
+    {imageUrl ? <img src={imageUrl} alt={imageAlt} /> : <div className="boxout-placeholder" />}
     <div className="boxout-content">
       {title &&
         <a
