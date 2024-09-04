@@ -82,6 +82,8 @@ final class Loader
             PageMeta::class,
             PostMeta::class,
             GravityFormsExtensions::class,
+            OpenAiGateway::class,
+            JedisCopilot::class,
         ];
 
         if (is_admin()) {
