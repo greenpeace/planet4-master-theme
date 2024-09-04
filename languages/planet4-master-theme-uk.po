@@ -4,7 +4,7 @@ msgstr ""
 "n%10<=4 &&(n%100<10||n%100 >= 20)? 1 : 2);\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-06-08 09:06+0000\n"
-"PO-Revision-Date: 2024-09-04 13:23+0000\n"
+"PO-Revision-Date: 2024-09-04 13:25+0000\n"
 "Language-Team: Ukrainian\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -269,7 +269,7 @@ msgstr "Керувати"
 
 #: templates/cookies/cookies_settings.twig:11
 msgid "Manage your cookies preferences"
-msgstr ""
+msgstr "Керування налаштуваннями файлів cookie"
 
 #. Description of the theme
 msgid "Master theme for the Planet 4 Wordpress project"
@@ -331,11 +331,11 @@ msgstr "Уточнити пошук"
 
 #: templates/cookies/cookies_settings.twig:47
 msgid "Reject all"
-msgstr ""
+msgstr "Відхилити всі"
 
 #: templates/cookies.twig:35
 msgid "Reject all cookies"
-msgstr ""
+msgstr "Відхилити всі файли cookie"
 
 #: templates/all-posts.twig:11 templates/all-actions.twig:11
 #: templates/taxonomy.twig:35
