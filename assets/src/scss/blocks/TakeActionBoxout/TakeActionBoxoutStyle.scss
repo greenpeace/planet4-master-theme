@@ -80,6 +80,7 @@
       color: var(--color-text-body);
     }
 
+    margin-bottom: $sp-1;
     display: -webkit-box;
     line-clamp: 2;
     -webkit-line-clamp: 2;
@@ -90,7 +91,7 @@
 
   .btn {
     _-- {
-      font-size: 12px;
+      font-size: 15px;
       line-height: 2.5;
     }
 
