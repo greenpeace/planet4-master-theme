@@ -160,6 +160,7 @@
 
       .boxout-content {
         padding-inline-start: $sp-2;
+        padding-top: $sp-1;
       }
 
       .cover-card-overlay,
@@ -196,10 +197,6 @@
       }
 
       @include mobile-only {
-        .boxout-content {
-          padding: 0 $sp-1;
-        }
-
         .boxout-heading {
           margin-inline-end: $sp-3;
           font-size: var(--font-size-xxs--font-family-primary);
