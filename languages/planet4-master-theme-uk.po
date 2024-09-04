@@ -4,7 +4,7 @@ msgstr ""
 "n%10<=4 &&(n%100<10||n%100 >= 20)? 1 : 2);\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-06-08 09:06+0000\n"
-"PO-Revision-Date: 2024-09-04 09:23+0000\n"
+"PO-Revision-Date: 2024-09-04 12:18+0000\n"
 "Language-Team: Ukrainian\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -28,7 +28,7 @@ msgstr ""
 "X-Loco-Template-Mode: POT,JSON"
 
 #. %1$d = Number of results.
-#: src/Search.php:716
+#: src/Search.php:770
 #, php-format
 msgid "%1$d result for '%2$s'"
 msgid_plural "%1$d results for '%2$s'"
@@ -36,86 +36,112 @@ msgstr[0] "%1$d результат для «%2$s»"
 msgstr[1] "%1$d результати для «%2$s»"
 msgstr[2] "%1$d результатів для «%2$s»"
 
+#. reading time in min.
+#. %d = Number of minutes for reading time.
+#: src/Post.php:613 src/Post/ReadingTimeCalculator.php:135
+#: templates/tease-taxonomy-action.twig:53
+#: templates/tease-taxonomy-post.twig:63 templates/tease-author.twig:54
+#: templates/single.twig:69
+msgid "%d min read"
+msgstr ""
+
 #. %d = Number of results.
-#: src/Search.php:722
-#, php-format
+#: src/Search.php:782
 msgid "%d result"
 msgid_plural "%d results"
 msgstr[0] "%d результат"
 msgstr[1] "%d результати"
 msgstr[2] "%d результатів"
 
-#: assets/src/js/country_select.js:47
-msgid "."
-msgstr ""
-
-#: 404.php:18
+#: 404.php:21
 msgid "404 Page"
 msgstr "сторінка 404"
 
-#: page-templates/sitemap.php:25
+#: page-templates/sitemap.php:43
 msgid "About Greenpeace"
 msgstr "Про Greenpeace"
 
-#: templates/blocks/author_profile.twig:5
-msgid "about the author"
+#: templates/blocks/author_profile.twig:14
+#, fuzzy
+#| msgid "about the author"
+msgid "About the author"
 msgstr "про автора"
 
-#: page-templates/sitemap.php:23
+#: templates/cookies.twig:26
+msgid "Accept all cookies"
+msgstr ""
+
+#: page-templates/sitemap.php:41
 msgid "Act"
 msgstr "Діяти"
 
-#: src/Search.php:954 src/Post.php:264
+#: src/Post.php:358
 msgid "ACTION"
 msgstr "ДІЯ"
 
-#: src/Search.php:792
+#: src/Search/Filters/ContentTypes.php:112
 msgid "Action"
 msgstr "Дія"
 
-#: templates/search.twig:210
+#: templates/search.twig:145 templates/search.twig:289
+msgid "Action Type"
+msgstr ""
+
+#: templates/search.twig:215
 msgid "ACTIVE FILTERS"
 msgstr "АКТИВНІ ФІЛЬТРИ"
 
-#: templates/search.twig:200
+#: templates/all-actions.twig:9 templates/taxonomy.twig:32
+msgid "All actions"
+msgstr ""
+
+#: templates/listing-page.twig:4 templates/taxonomy.twig:32
+msgid "All articles"
+msgstr ""
+
+#: templates/author.twig:22 templates/author.twig:25
+msgid "All articles by "
+msgstr ""
+
+#: templates/cookies/cookies_settings.twig:55
+msgid "Allow all"
+msgstr ""
+
+#: templates/cookies/cookies_settings.twig:16
+msgid "Always enabled"
+msgstr ""
+
+#: templates/search.twig:205
 msgid "Apply filters"
 msgstr "Застосувати фільтри"
 
-#: src/Search.php:813 src/Search.php:974 templates/tease-search.twig:38
-#: templates/tease-search.twig:120
+#: src/Search/Filters/ContentTypes.php:108 templates/tease-search.twig:43
+#: templates/tease-search.twig:123
 msgid "Archive"
 msgstr "Архів"
 
-#: src/PostArchive.php:77
+#: src/PostArchive.php:80
 msgid "Archive URL"
 msgstr "URL архіву"
 
-#: page-templates/sitemap.php:26
+#: page-templates/sitemap.php:44
 msgid "Articles"
 msgstr "Статті"
 
-#: src/Search.php:962 templates/search.twig:172
-msgid "CAMPAIGN"
-msgstr "КАМПАНІЯ"
-
-#: src/Search.php:796 templates/search.twig:253 templates/tease-search.twig:36
-#: templates/tease-search.twig:118
+#: src/Search/Filters/ContentTypes.php:104 templates/tease-search.twig:41
+#: templates/tease-search.twig:121
 msgid "Campaign"
 msgstr "Кампанія"
 
-#: templates/search.twig:199
+#: templates/search.twig:204
 msgid "Cancel"
 msgstr "Скасувати"
 
-#: templates/search.twig:111
-msgid "CATEGORY"
-msgstr "КАТЕГОРІЯ"
-
-#: templates/search.twig:279
+#: templates/search.twig:87 templates/search.twig:231
 msgid "Category"
 msgstr "Категорія"
 
-#: templates/navigation-bar.twig:45
+#: templates/footer_country_selector.twig:11
 msgid "Change Country"
 msgstr "Змінити країну"
 
@@ -123,55 +149,53 @@ msgstr "Змінити країну"
 msgid "Check for typos, and try your search again"
 msgstr "Перевірте наявність помилок і спробуйте пошук ще раз"
 
-#: templates/search.twig:219
+#: templates/search.twig:224
 msgid "Clear all"
 msgstr "Очистити все"
 
-#: templates/navigation-bar.twig:32
-msgid "Close Menu"
-msgstr "Закрити меню"
+#: templates/search-form.twig:32 templates/search.twig:39
+msgid "Clear search"
+msgstr ""
 
-#: templates/comment_form/comment_field.twig:2
+#: templates/burger-menu.twig:10
+msgid "Close navigation mobile menu"
+msgstr ""
+
+#: templates/comment_form/comment_field.twig:4
 msgid "Comment"
 msgstr "Коментар"
 
-#: templates/single.twig:75 templates/comments_section.twig:2
+#: templates/single.twig:76 templates/comments_section.twig:2
 msgid "Comments"
 msgstr "Коментарі"
 
-#: templates/search.twig:306
-msgid "Content type"
+#: templates/search.twig:174 templates/search.twig:318
+#, fuzzy
+#| msgid "Content type"
+msgid "Content Type"
 msgstr "Тип контенту"
 
-#: templates/search.twig:140
-msgid "CONTENT TYPES"
-msgstr "ТИПИ КОНТЕНТУ"
-
-#: templates/comments_section.twig:8
+#: templates/comments_section.twig:9
 msgid "Discussion"
 msgstr "Обговорення"
 
-#: src/Search.php:966 src/Post.php:270
+#: src/Post.php:364
 msgid "DOCUMENT"
 msgstr "ДОКУМЕНТ"
 
-#: src/Search.php:800
+#: src/Search/Filters/ContentTypes.php:92
 msgid "Document"
 msgstr "Документ"
 
-#: src/MasterSite.php:482
-msgid "Donate"
-msgstr "Пожертвувати"
-
-#: templates/tease-search.twig:113
+#: templates/tease-search.twig:116
 msgid "Download"
 msgstr "Завантажити"
 
-#: templates/comment_form/email_field.twig:2
+#: templates/comment_form/email_field.twig:13
 msgid "Email"
 msgstr "Електронна пошта"
 
-#: 404.php:17
+#: 404.php:20
 msgid "Enter your search term below"
 msgstr "Введіть ваш пошуковий запит нижче"
 
@@ -179,17 +203,17 @@ msgstr "Введіть ваш пошуковий запит нижче"
 msgid "Evergreen Page"
 msgstr "Вічнозелена сторінка"
 
-#: page-templates/sitemap.php:24
+#: page-templates/sitemap.php:42
 msgid "Explore"
 msgstr "Дослідити"
 
-#: templates/search.twig:59
+#: templates/search.twig:64
 msgid "Filters"
 msgstr "Фільтри"
 
-#: templates/cookies.twig:6
-msgid "Got it!"
-msgstr "Знайшов!"
+#: templates/footer_social_media.twig:2
+msgid "Follow us"
+msgstr ""
 
 #. Author of the theme
 msgid "Greenpeace International"
@@ -197,6 +221,15 @@ msgstr ""
 
 #. Name of the theme
 msgid "Greenpeace Planet 4 Master Theme"
+msgstr ""
+
+#. phpcs:ignore Generic.Files.LineLength.MaxExceeded
+#: functions.php:454
+msgid "here"
+msgstr ""
+
+#: templates/burger-menu.twig:34
+msgid "Home"
 msgstr ""
 
 #. Author URI of the theme
@@ -207,186 +240,220 @@ msgstr ""
 msgid "https://github.com/greenpeace/planet4-master-theme"
 msgstr ""
 
-#: src/MasterSite.php:483
+#: single.php:108
+msgid ""
+"I agree on providing my name, email and content so that my comment can be "
+"stored and displayed in the website."
+msgstr ""
+
+#: src/MasterSite.php:668
 msgid "International (English)"
 msgstr "Міжнародна (англійська)"
 
-#: templates/search.twig:82
-msgid "ISSUE"
-msgstr "ВИПУСК"
+#: templates/single-password.twig:18 templates/single-page.twig:15
+msgid "Invalid password, please try again"
+msgstr ""
 
-#: templates/search.twig:226
-msgid "Issue"
-msgstr "Випуск"
-
-#: single.php:110
+#: single.php:115
 msgid "Leave your reply"
 msgstr "Залиште свою відповідь"
 
-#: templates/taxonomy.twig:42 templates/author.twig:56
+#: templates/all-posts.twig:35 templates/author.twig:48
+#: templates/all-actions.twig:35 templates/taxonomy.twig:59
 msgid "Load More"
 msgstr "Завантажити більше"
 
-#: templates/tease-search.twig:148
+#: templates/tease-search.twig:156
 msgid "Manage"
 msgstr "Керувати"
+
+#: templates/cookies/cookies_settings.twig:11
+msgid "Manage your cookies preferences"
+msgstr ""
 
 #. Description of the theme
 msgid "Master theme for the Planet 4 Wordpress project"
 msgstr ""
 
-#: templates/navigation-bar.twig:18
+#: templates/navigation-bar.twig:19
 msgid "Menu"
 msgstr "Керувати"
 
-#: src/MasterSite.php:82 src/Search.php:700
+#: src/Search.php:754 src/MasterSite.php:89
 msgid "Most relevant"
 msgstr "Найбільш релевантні"
 
-#: templates/comment_form/author_field.twig:2
+#: templates/comment_form/author_field.twig:13
 msgid "Name"
 msgstr "Назва"
 
-#: src/MasterSite.php:86 src/Search.php:704
+#: src/Search.php:758 src/MasterSite.php:93
 msgid "Newest"
 msgstr "Найновіші"
 
-#: src/MasterSite.php:90 src/Search.php:708
+#: src/Search.php:762 src/MasterSite.php:97
 msgid "Oldest"
 msgstr "Найстаріші"
 
-#: src/Search.php:957 src/Post.php:266
+#: src/Post.php:360
 msgid "PAGE"
 msgstr "СТОРІНКА"
 
-#: src/Search.php:804
+#: src/Search/Filters/ContentTypes.php:96
 msgid "Page"
 msgstr "Сторінка"
 
-#: src/Search.php:970 src/Post.php:273
+#: templates/cookies/cookies_settings.twig:12
+msgid "Please select which cookies you are willing to store."
+msgstr ""
+
+#: src/Post.php:367
 msgid "POST"
 msgstr "ПОСТ"
 
-#: src/Search.php:808
+#: src/Search/Filters/ContentTypes.php:100
 msgid "Post"
 msgstr "Пост"
 
-#: templates/comment_form/submit_button.twig:1
+#: templates/comment_form/submit_button.twig:23
 msgid "Post comment"
 msgstr ""
 "\"Залишити коментар\n"
 "\""
 
-#: templates/author.twig:32
-msgid "Posts by "
-msgstr "Дописи від"
+#: templates/search.twig:116 templates/search.twig:260
+msgid "Post Type"
+msgstr ""
 
-#: tag.php:91
-msgid "Publications"
-msgstr "Публікації"
-
-#: templates/blocks/author_profile.twig:11
-msgid "Read More"
-msgstr "Читати далі"
-
-#: templates/search.twig:68 templates/search.twig:207
+#: templates/search.twig:73 templates/search.twig:212
 msgid "Refine your search"
 msgstr "Уточнити пошук"
 
-#: tag.php:118
-msgid "Related Campaigns"
-msgstr "Схожі кампанії"
+#: templates/cookies/cookies_settings.twig:47
+msgid "Reject all"
+msgstr ""
 
-#: templates/taxonomy.twig:18
+#: templates/cookies.twig:35
+msgid "Reject all cookies"
+msgstr ""
+
+#: templates/all-posts.twig:11 templates/all-actions.twig:11
+#: templates/taxonomy.twig:35
 msgid "Results"
 msgstr "Результати"
 
-#: templates/navigation-bar.twig:7 templates/search.twig:8
-#: templates/search.twig:45 templates/404.twig:17
+#: templates/cookies/cookies_settings.twig:63
+msgid "Save preferences"
+msgstr ""
+
+#: templates/search-form.twig:2 templates/404.twig:17 templates/search.twig:8
+#: templates/search.twig:50
 msgid "Search"
 msgstr "Пошук"
 
-#: templates/navigation-bar.twig:44
+#: templates/footer_country_selector.twig:11
 msgid "Selected"
 msgstr "Вибране"
 
-#: templates/blocks/share_buttons.twig:7 templates/blocks/share_buttons.twig:14
-#: templates/blocks/share_buttons.twig:21
+#: templates/cookies.twig:18
+msgid "Settings"
+msgstr ""
+
+#: templates/blocks/share_buttons.twig:44
+#: templates/blocks/share_buttons.twig:53
+#: templates/blocks/share_buttons.twig:62
 msgid "Share on"
 msgstr "Поділіться на"
 
-#: templates/blocks/share_buttons.twig:28
+#: templates/blocks/share_buttons.twig:71
+#: templates/blocks/share_buttons.twig:81
 msgid "Share via"
 msgstr "Поділитися через"
 
 #. %s = number of results per page.
-#: src/Search.php:1079
+#: src/Search.php:1014
 #, php-format
 msgid "Show %s more results"
 msgstr "Показати іще %s результати"
+
+#: templates/blocks/author_profile.twig:45
+msgid "Show less"
+msgstr ""
+
+#: templates/blocks/author_profile.twig:44
+msgid "Show more"
+msgstr ""
 
 #. Name of the template
 msgid "Sitemap Page"
 msgstr "Головна сторінка"
 
-#: templates/base.twig:11
+#: templates/base.twig:18
 msgid "Skip to Content"
 msgstr "Перейти до змісту"
 
-#: templates/base.twig:12
+#: templates/base.twig:19
 msgid "Skip to Footer"
 msgstr "Перейти до футера"
 
-#: templates/base.twig:10
+#: templates/base.twig:17
 msgid "Skip to Navigation"
 msgstr "Перейти до навігації"
 
-#: 404.php:16
+#: 404.php:19
 msgid "Sorry, we can't find that page!"
 msgstr "Вибачте, ми не можемо знайти цю сторінку!"
 
-#: templates/search.twig:337
+#: templates/search.twig:351
 msgid "Sort by"
 msgstr "Сортувати за"
 
-#: templates/single-page.twig:15 templates/single-password.twig:20
+#: templates/single-password.twig:22 templates/single-page.twig:19
 msgid "Submit"
 msgstr "Надіслати"
 
-#: templates/search.twig:385
-msgid "Suggested search terms"
-msgstr "Запропоновані пошукові запити"
+#: templates/featured-action.twig:12
+msgid "Take Action"
+msgstr ""
 
-#: templates/tease-search.twig:142
+#: src/Search.php:424 src/ActionPage.php:209
 msgid "Take action"
 msgstr "Вжити заходів"
 
-#: tag.php:73 src/Campaigns.php:252
-msgid "Things you can do"
-msgstr "Що ви можете зробити"
+#. %s = Redirection url variable.
+#: src/GravityFormsExtensions.php:668
+#, php-format
+msgid ""
+"Thank you! Please <a href=\"%s\">click here</a> if you are not redirected "
+"within a few seconds."
+msgstr ""
 
-#: tag.php:119
-msgid "This Campaign is not assigned to an Issue"
-msgstr "Ця кампанія не прив'язана до Випуску"
+#. phpcs:ignore Generic.Files.LineLength.MaxExceeded
+#: functions.php:453
+msgid ""
+"The content on this page is hidden because this page is being used as your "
+"\\\"All Posts\\\" listing page. You can disable this by un-setting the "
+"\\\"Posts page\\\""
+msgstr ""
 
-#: templates/single-page.twig:12 templates/single-password.twig:17
+#: assets/src/js/pdf_icon.js:20
+msgid "This link will open a PDF file"
+msgstr ""
+
+#: templates/single-password.twig:15 templates/single-page.twig:12
 msgid "To see the content of this page, please enter your password  below"
 msgstr ""
 "Щоб переглянути вміст цієї сторінки, будь ласка, введіть свій пароль нижче"
 
-#: templates/navigation-bar.twig:6
-msgid "Toggle navigation menu"
-msgstr "Перейти до навігаційного меню"
-
-#: src/MasterSite.php:436
+#: src/MasterSite.php:599
 msgid "Toggle search box"
 msgstr "Переключити поле пошуку"
 
-#: templates/navigation-bar.twig:97
+#: templates/desktop-menu.twig:57 templates/navigation-bar.twig:38
 msgid "Toggle search form"
 msgstr "Переключити форму пошуку"
 
-#: src/MasterSite.php:435
+#: src/MasterSite.php:598
 msgid "Toggle worldwide site selection menu"
 msgstr "Перейти до меню вибору сайту по всьому світу"
 
@@ -394,31 +461,19 @@ msgstr "Перейти до меню вибору сайту по всьому �
 msgid "Try searching for somthing else"
 msgstr "Спробуйте пошукати щось інше"
 
-#: templates/search.twig:26
-msgid "We also included results for "
-msgstr "Ми також включили результати для"
-
-#: tag.php:74 src/Campaigns.php:253
-msgid "We want you to take action because together we're strong."
-msgstr "Ми хочемо, щоб ви діяли, бо разом ми сильні."
-
 #: templates/search.twig:19
 msgid "We're sorry we couldn't find any matches for your search term."
 msgstr "На жаль, за вашим запитом нічого не знайдено."
 
-#: assets/src/js/country_select.js:30
-msgid "Worldwide site list"
-msgstr "Список сайтів у інших країнах"
-
-#: templates/comment_form/comment_field.twig:3
+#: templates/comment_form/comment_field.twig:2
 msgid "Your Comment"
 msgstr ""
 "Ваш коментар\n"
 
-#: templates/comment_form/email_field.twig:3
+#: templates/comment_form/email_field.twig:2
 msgid "Your Email"
 msgstr "Ваш email"
 
-#: templates/comment_form/author_field.twig:3
+#: templates/comment_form/author_field.twig:2
 msgid "Your Name"
 msgstr "Ваше ім'я"
