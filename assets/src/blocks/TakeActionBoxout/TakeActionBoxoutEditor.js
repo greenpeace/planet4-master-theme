@@ -167,17 +167,17 @@ export const TakeActionBoxoutEditor = ({
           withoutInteractiveFormatting
           allowedFormats={['core/bold', 'core/italic']}
         />
+        <RichText
+          tagName="div"
+          className="btn btn-action cover-card-btn"
+          placeholder={__('Button text', 'planet4-blocks-backend')}
+          value={linkText}
+          onChange={toAttribute('linkText')}
+          disabled={takeActionPageSelected}
+          withoutInteractiveFormatting
+          allowedFormats={[]}
+        />
       </div>
-      <RichText
-        tagName="div"
-        className="btn btn-action cover-card-btn"
-        placeholder={__('Button text', 'planet4-blocks-backend')}
-        value={linkText}
-        onChange={toAttribute('linkText')}
-        disabled={takeActionPageSelected}
-        withoutInteractiveFormatting
-        allowedFormats={[]}
-      />
     </section>
   );
 
