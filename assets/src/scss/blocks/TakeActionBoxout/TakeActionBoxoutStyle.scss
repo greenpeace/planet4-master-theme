@@ -12,11 +12,6 @@
     width: 100%;
   }
 
-  .boxout-excerpt {
-    line-clamp: 3;
-    -webkit-line-clamp: 3;
-  }
-
   img,
   .boxout-placeholder {
     width: 50%;
@@ -111,8 +106,8 @@
 
     color: var(--color-text-body);
     display: -webkit-box;
-    line-clamp: 1;
-    -webkit-line-clamp: 1;
+    line-clamp: 2;
+    -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
     margin: 0;
