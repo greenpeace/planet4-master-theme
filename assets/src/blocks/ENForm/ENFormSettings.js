@@ -158,6 +158,14 @@ export const ENFormSettings = ({attributes, setAttributes}) => {
           help={__('Title, Subtitle, Social media message / icons and DONATE will not be shown', 'planet4-engagingnetworks-backend')}
         />
       </PanelBody>
+      <PanelBody title={__('Learn more about this block ', 'planet4-blocks-backend')} initialOpen={false}>
+        <p className="components-base-control__help">
+          <a target="_blank" href="https://planet4.greenpeace.org/content/blocks/form-engaging-networks/" rel="noreferrer">
+            P4 Handbook EN Form
+          </a>
+          {' '} &#9997;&#65039;
+        </p>
+      </PanelBody>
     </InspectorControls>
   );
 };
