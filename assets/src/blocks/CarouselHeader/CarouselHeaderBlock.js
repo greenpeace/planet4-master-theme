@@ -44,6 +44,7 @@ const attributes = {
 export const registerCarouselHeaderBlock = () =>
   registerBlockType(BLOCK_NAME, {
     title: 'Carousel Header',
+    description: 'A gallery block that features a scrolling collection of images and media content, typically found at the top of the Homepage.',
     icon: 'welcome-widgets-menus',
     category: 'planet4-blocks',
     supports: {
