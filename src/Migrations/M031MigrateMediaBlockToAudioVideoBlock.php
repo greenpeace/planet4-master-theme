@@ -138,7 +138,10 @@ class M031MigrateMediaBlockToAudioVideoBlock extends MigrationScript
     }
 
     /**
-     * Transform a Media block into another block (embed, video or audio).
+     * Transform a Media block into a group of blocks.
+     * This group contains a header for the media block title,
+     * a paragraph for the media block description,
+     * and a final block (embed, video or audio) for the media source.
      *
      * @param array $block - A parsed Media block.
      * @param string $source - The source of the Media block.
@@ -146,6 +149,59 @@ class M031MigrateMediaBlockToAudioVideoBlock extends MigrationScript
      * @return array - The transformed block.
      */
     private static function transform_blocks(array $block, string $source, string $media_url): array
+    {
+        $block_title = array_key_exists("video_title", $block['attrs']) ? $block['attrs']['video_title'] : null;
+        $block_description = array_key_exists("description", $block['attrs']) ? $block['attrs']['description'] : null;
+
+        $block = [];
+        $block['blockName'] = Utils\Constants::BLOCK_GROUP;
+        $block['attrs']['metadata']['name'] = 'Media Group';
+
+        $block['innerBlocks'] = [];
+        $block['innerBlocks'][0] = $block_title ? self::get_heading_block($block_title) : null;
+        $block['innerBlocks'][1] = $block_description ? self::get_paragraph_block($block_description) : null;
+        $block['innerBlocks'][3] = self::get_media_block($source, $block, $media_url);
+
+        // IMPORTANT: DO NOT MODIFY THIS FORMAT!
+        $block['innerHTML'] =
+        '<div class="wp-block-group">
+
+
+
+
+
+        </div>';
+
+        // IMPORTANT: DO NOT MODIFY THIS FORMAT!
+        $block['innerContent'] = array (
+            0 => '
+        <div class="wp-block-group">',
+            1 => null,
+            2 => '
+        ',
+            3 => null,
+            4 => '
+        ',
+            5 => null,
+            6 => '
+        ',
+            7 => null,
+            8 => '</div>
+        ',
+        );
+
+        return $block;
+    }
+
+    /**
+     * Transform a Media block into an embed, video or audio block based on its source.
+     *
+     * @param string $source - The source of the Media block.
+     * @param array $block - A parsed Media block.
+     * @param string $media_url - The Media URL.
+     * @return array - The transformed block.
+     */
+    private static function get_media_block(string $source, array $block, string $media_url): array
     {
         if ($source === self::SOURCE_VIDEO) {
             return self::transform_block_to_video($block, $media_url);
@@ -167,6 +223,7 @@ class M031MigrateMediaBlockToAudioVideoBlock extends MigrationScript
     private static function transform_block_to_empty_embed(array $block): array
     {
         $block['blockName'] = Utils\Constants::BLOCK_EMBED;
+        $block['attrs']['metadata']['name'] = 'Embed';
         $block = self::set_shared_attrs($block, "", "");
         return $block;
     }
@@ -182,16 +239,16 @@ class M031MigrateMediaBlockToAudioVideoBlock extends MigrationScript
     private static function transform_block_to_embed(array $block, string $media_url, string $provider): array
     {
         $type = $provider === self::SOURCE_YOUTUBE or $provider === self::SOURCE_VIMEO ? 'video' : 'rich';
-        $caption = self::set_block_caption($block);
 
         // IMPORTANT: DO NOT MODIFY THIS FORMAT!
         $html_content = '<figure class="wp-block-embed is-type-' . $type . ' is-provider-' . $provider . ' wp-block-embed-' . $provider . ' wp-embed-aspect-16-9 wp-has-aspect-ratio"><div class="wp-block-embed__wrapper">
         ' . $media_url . '
-        </div>' . ($caption ? '<figcaption class="wp-element-caption">' . $caption . '</figcaption>' : '') . '</figure>';
+        </div></figure>';
 
         $block['blockName'] = Utils\Constants::BLOCK_EMBED;
         $block['attrs']['type'] = $type;
         $block['attrs']['providerNameSlug'] = $provider;
+        $block['attrs']['metadata']['name'] = $provider;
 
         $block = self::set_shared_attrs($block, $media_url, $html_content);
         return $block;
@@ -206,12 +263,11 @@ class M031MigrateMediaBlockToAudioVideoBlock extends MigrationScript
      */
     private static function transform_block_to_audio(array $block, string $media_url): array
     {
-        $caption = self::set_block_caption($block);
-
         // IMPORTANT: DO NOT MODIFY THIS FORMAT!
-        $html_content = '<figure class="wp-block-audio"><audio controls src="' . $media_url . '"></audio>' . ($caption ? '<figcaption class="wp-element-caption">' . $caption . '</figcaption>' : '') . '</figure>';
+        $html_content = '<figure class="wp-block-audio"><audio controls src="' . $media_url . '"></audio></figure>';
 
         $block['blockName'] = Utils\Constants::BLOCK_AUDIO;
+        $block['attrs']['metadata']['name'] = 'Audio';
 
         $block = self::set_shared_attrs($block, $media_url, $html_content);
         return $block;
@@ -227,12 +283,12 @@ class M031MigrateMediaBlockToAudioVideoBlock extends MigrationScript
     private static function transform_block_to_video(array $block, string $media_url): array
     {
         $poster = $block['attrs']['poster_url'] ?? "";
-        $caption = self::set_block_caption($block);
 
         // IMPORTANT: DO NOT MODIFY THIS FORMAT!
-        $html_content = '<figure class="wp-block-video"><video controls poster="' . $poster . '" src="' . $media_url . '"></video>' . ($caption ? '<figcaption class="wp-element-caption">' . $caption . '</figcaption>' : '') . '</figure>';
+        $html_content = '<figure class="wp-block-video"><video controls poster="' . $poster . '" src="' . $media_url . '"></video></figure>';
 
         $block['blockName'] = Utils\Constants::BLOCK_VIDEO;
+        $block['attrs']['metadata']['name'] = 'Video';
         $block['attrs']['poster'] = $block['attrs']['poster_url'] ?? "";
 
         $block = self::set_shared_attrs($block, $media_url, $html_content);
@@ -262,26 +318,48 @@ class M031MigrateMediaBlockToAudioVideoBlock extends MigrationScript
     }
 
     /**
-     * Get the title and description of a Media block
-     * and turn into a string to be used as the caption of another block.
+     * Get a heading block.
      *
-     * @param array $block - A parsed Media block.
-     * @return mixed - The caption or null.
+     * @param string $text - The text for the heading.
+     * @return array - The block.
      */
-    private static function set_block_caption(array $block): mixed
+    private static function get_heading_block(string $text): array
     {
-        $block_title = array_key_exists("video_title", $block['attrs']) ? $block['attrs']['video_title'] : null;
-        $block_description = array_key_exists("description", $block['attrs']) ? $block['attrs']['description'] : null;
+        // IMPORTANT: DO NOT MODIFY THIS FORMAT!
+        $html = '
+  <h2 class="wp-block-heading">' . $text . '</h2>
+  ';
 
-        if ($block_title && $block_description) {
-            return $block_title . " - " . $block_description;
-        }
-        if ($block_title && !$block_description) {
-            return $block_title;
-        }
-        if (!$block_title && $block_description) {
-            return $block_description;
-        }
-        return null;
+        $heading = [];
+        $heading['blockName'] = Utils\Constants::BLOCK_HEADING;
+        $heading['attrs'] = [];
+        $heading['innerBlocks'] = [];
+        $heading['innerHTML'] = $html;
+        $heading['innerContent'][0] = $html;
+
+        return $heading;
+    }
+
+    /**
+     * Get a paragraph block.
+     *
+     * @param string $text - The text for the paragraph.
+     * @return array - The block.
+     */
+    private static function get_paragraph_block(string $text): array
+    {
+        // IMPORTANT: DO NOT MODIFY THIS FORMAT!
+        $html = '
+    <p>' . $text . '</p>
+    ';
+
+        $paragraph = [];
+        $paragraph['blockName'] = Utils\Constants::BLOCK_PARAGRAPH;
+        $paragraph['attrs'] = [];
+        $paragraph['innerBlocks'] = [];
+        $paragraph['innerHTML'] = $html;
+        $paragraph['innerContent'][0] = $html;
+
+        return $paragraph;
     }
 }
