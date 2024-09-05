@@ -5,7 +5,6 @@ import {TableOfContentsFrontend} from './blocks/TableOfContents/TableOfContentsF
 import {HappyPointFrontend} from './blocks/HappyPoint/HappyPointFrontend';
 import {MediaFrontend} from './blocks/Media/MediaFrontend';
 import {ColumnsFrontend} from './blocks/Columns/ColumnsFrontend';
-import {setupMediaElementJS} from './blocks/Media/setupMediaElementJS';
 
 // Render React components
 const COMPONENTS = {
@@ -32,6 +31,4 @@ document.addEventListener('DOMContentLoaded', () => {
       rootElement.render(<BlockFrontend {...attributes.attributes} />);
     }
   );
-
-  setupMediaElementJS();
 });
