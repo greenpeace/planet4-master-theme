@@ -63,11 +63,6 @@ class Importer
                     $filter_data[] = isset($block['attrs']['id']) ? 'id":' . $block['attrs']['id'] : '';
                     break;
 
-                case 'planet4-blocks/media-video':
-                    $filter_data[] = isset($block['attrs']['video_poster_img'])
-                        ? 'video_poster_img":' . $block['attrs']['video_poster_img'] : '';
-                    break;
-
                 case 'planet4-blocks/gallery':
                     $filter_data[] = isset($block['attrs']['multiple_image'])
                         ? 'multiple_image":"' . $block['attrs']['multiple_image'] : '';
