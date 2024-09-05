@@ -1,6 +1,4 @@
-import {FrontendRichText} from '../components/FrontendRichText/FrontendRichText';
 import {removeCookie, useCookie, writeCookie} from './useCookie';
-import {CookiesFieldResetButton} from './CookiesFieldResetButton';
 
 const {__} = wp.i18n;
 const {useState, useEffect} = wp.element;
@@ -36,20 +34,7 @@ const hideCookiesBox = () => {
 };
 
 export const CookiesFrontend = props => {
-  const {
-    isSelected,
-    title,
-    description,
-    necessary_cookies_name,
-    necessary_cookies_description,
-    analytical_cookies_name,
-    analytical_cookies_description,
-    all_cookies_name,
-    all_cookies_description,
-    isEditing,
-    className,
-    toAttribute = () => {},
-  } = props;
+  const {title, description, className} = props;
 
   // Whether consent was revoked by the user since current page load.
   const [userRevokedMarketingCookies, setUserRevokedMarketingCookies] = useState(false);
@@ -122,84 +107,40 @@ export const CookiesFrontend = props => {
   return (
     <>
       <section className={`block cookies-block ${className ?? ''}`}>
-        {(isEditing || title) &&
-        <header>
-          <FrontendRichText
-            tagName="h2"
-            className="page-section-header cookies-title"
-            placeholder={__('Enter title', 'planet4-blocks-backend')}
-            value={title}
-            onChange={toAttribute('title')}
-            withoutInteractiveFormatting
-            editable={isEditing}
-            allowedFormats={[]}
+        {title &&
+          <header>
+            <h2 className="page-section-header cookies-title">{title}</h2>
+          </header>
+        }
+        {description &&
+          <p
+            className="page-section-description cookies-description"
+            dangerouslySetInnerHTML={{__html: description}}
           />
-        </header>
         }
-        {(isEditing || description) &&
-        <FrontendRichText
-          tagName="p"
-          className="page-section-description cookies-description"
-          placeholder={__('Enter description', 'planet4-blocks-backend')}
-          value={description}
-          onChange={toAttribute('description')}
-          withoutInteractiveFormatting
-          editable={isEditing}
-          allowedFormats={['core/bold', 'core/italic']}
-        />
-        }
-        {(isEditing || (isFieldValid('necessary_cookies_name') && isFieldValid('necessary_cookies_description'))) &&
+        {isFieldValid('necessary_cookies_name') && isFieldValid('necessary_cookies_description') &&
           <>
             <div className="d-flex align-items-center">
-              <FrontendRichText
-                tagName="span"
-                className="custom-control-description cookies-header-text"
-                placeholder={__('Enter necessary cookies name', 'planet4-blocks-backend')}
-                value={getFieldValue('necessary_cookies_name')}
-                onChange={toAttribute('necessary_cookies_name')}
-                withoutInteractiveFormatting
-                editable={isEditing}
-                allowedFormats={[]}
-              />
+              <span className="custom-control-description cookies-header-text">
+                {getFieldValue('necessary_cookies_name')}
+              </span>
               <span className="always-enabled">{__('Always enabled', 'planet4-blocks')}</span>
-              {isEditing &&
-                <CookiesFieldResetButton
-                  fieldName="necessary_cookies_name"
-                  currentValue={necessary_cookies_name}
-                  toAttribute={toAttribute}
-                />
-              }
             </div>
-            <div className="d-flex align-items-center">
-              <FrontendRichText
-                tagName="p"
-                className="cookies-checkbox-description"
-                placeholder={__('Enter necessary cookies description', 'planet4-blocks-backend')}
-                value={getFieldValue('necessary_cookies_description')}
-                onChange={toAttribute('necessary_cookies_description')}
-                withoutInteractiveFormatting
-                editable={isEditing}
-                allowedFormats={['core/bold', 'core/italic']}
-              />
-              {isEditing &&
-                <CookiesFieldResetButton
-                  fieldName="necessary_cookies_description"
-                  currentValue={necessary_cookies_description}
-                  toAttribute={toAttribute}
-                />
-              }
-            </div>
+            <p className="cookies-checkbox-description">
+              {getFieldValue('necessary_cookies_description')}
+            </p>
           </>
         }
-        {(ENABLE_ANALYTICAL_COOKIES && (isEditing || (isFieldValid('analytical_cookies_name') && isFieldValid('analytical_cookies_description')))) &&
+        {ENABLE_ANALYTICAL_COOKIES && isFieldValid('analytical_cookies_name') && isFieldValid('analytical_cookies_description') &&
           <>
             <div className="d-flex align-items-center">
-              <label className="custom-control" style={isSelected ? {pointerEvents: 'none'} : null} htmlFor="analytical-cookies__control">
+              <label className="custom-control" htmlFor="analytical-cookies__control">
                 <input
                   id="analytical-cookies__control"
                   type="checkbox"
-                  tabIndex={isSelected ? '-1' : null}
                   name="analytical_cookies"
+                  checked={analyticalCookiesChecked}
+                  className="p4-custom-control-input"
                   onChange={() => {
                     updateConsent('analytics_storage', !analyticalCookiesChecked);
                     if (analyticalCookiesChecked) {
@@ -215,57 +156,27 @@ export const CookiesFrontend = props => {
                       setConsentCookie(NECESSARY_ANALYTICAL);
                     }
                   }}
-                  checked={analyticalCookiesChecked}
-                  className="p4-custom-control-input"
                 />
-                <FrontendRichText
-                  tagName="span"
-                  className="custom-control-description cookies-header-text"
-                  placeholder={__('Enter analytical cookies name', 'planet4-blocks-backend')}
-                  value={getFieldValue('analytical_cookies_name')}
-                  onChange={toAttribute('analytical_cookies_name')}
-                  withoutInteractiveFormatting
-                  editable={isEditing}
-                  allowedFormats={[]}
-                />
+                <span className="custom-control-description cookies-header-text">
+                  {getFieldValue('analytical_cookies_name')}
+                </span>
               </label>
-              {isEditing &&
-                <CookiesFieldResetButton
-                  fieldName="analytical_cookies_name"
-                  currentValue={analytical_cookies_name}
-                  toAttribute={toAttribute}
-                />
-              }
             </div>
-            <div className="d-flex align-items-center">
-              <FrontendRichText
-                tagName="p"
-                className="cookies-checkbox-description"
-                placeholder={__('Enter analytical cookies description', 'planet4-blocks-backend')}
-                value={getFieldValue('analytical_cookies_description')}
-                onChange={toAttribute('analytical_cookies_description')}
-                withoutInteractiveFormatting
-                editable={isEditing}
-                allowedFormats={['core/bold', 'core/italic']}
-              />
-              {isEditing &&
-                <CookiesFieldResetButton
-                  fieldName="analytical_cookies_description"
-                  currentValue={analytical_cookies_description}
-                  toAttribute={toAttribute}
-                />
-              }
-            </div>
+            <p className="cookies-checkbox-description">
+              {getFieldValue('analytical_cookies_description')}
+            </p>
           </>
         }
-        {(isEditing || (isFieldValid('all_cookies_name') && isFieldValid('all_cookies_description'))) &&
+        {isFieldValid('all_cookies_name') && isFieldValid('all_cookies_description') &&
           <>
             <div className="d-flex align-items-center">
-              <label className="custom-control" style={isSelected ? {pointerEvents: 'none'} : null} htmlFor="all-cookies__control">
+              <label className="custom-control" htmlFor="all-cookies__control">
                 <input
                   id="all-cookies__control"
                   type="checkbox"
-                  tabIndex={isSelected ? '-1' : null}
+                  name="all_cookies"
+                  checked={marketingCookiesChecked}
+                  className="p4-custom-control-input"
                   onChange={() => {
                     updateConsent('ad_storage', !marketingCookiesChecked);
                     if (marketingCookiesChecked) {
@@ -281,48 +192,15 @@ export const CookiesFrontend = props => {
                       setConsentCookie(NECESSARY_MARKETING);
                     }
                   }}
-                  name="all_cookies"
-                  checked={marketingCookiesChecked}
-                  className="p4-custom-control-input"
                 />
-                <FrontendRichText
-                  tagName="span"
-                  className="custom-control-description cookies-header-text"
-                  placeholder={__('Enter all cookies name', 'planet4-blocks-backend')}
-                  value={getFieldValue('all_cookies_name')}
-                  onChange={toAttribute('all_cookies_name')}
-                  withoutInteractiveFormatting
-                  editable={isEditing}
-                  allowedFormats={[]}
-                />
+                <span className="custom-control-description cookies-header-text">
+                  {getFieldValue('all_cookies_name')}
+                </span>
               </label>
-              {isEditing &&
-                <CookiesFieldResetButton
-                  fieldName="all_cookies_name"
-                  currentValue={all_cookies_name}
-                  toAttribute={toAttribute}
-                />
-              }
             </div>
-            <div className="d-flex align-items-center">
-              <FrontendRichText
-                tagName="p"
-                className="cookies-checkbox-description"
-                placeholder={__('Enter all cookies description', 'planet4-blocks-backend')}
-                value={getFieldValue('all_cookies_description')}
-                onChange={toAttribute('all_cookies_description')}
-                withoutInteractiveFormatting
-                editable={isEditing}
-                allowedFormats={['core/bold', 'core/italic']}
-              />
-              {isEditing &&
-                <CookiesFieldResetButton
-                  fieldName="all_cookies_description"
-                  currentValue={all_cookies_description}
-                  toAttribute={toAttribute}
-                />
-              }
-            </div>
+            <p className="cookies-checkbox-description">
+              {getFieldValue('all_cookies_description')}
+            </p>
           </>
         }
       </section>
