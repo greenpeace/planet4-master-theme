@@ -6,7 +6,6 @@ import {registerHappyPointBlock} from './blocks/HappyPoint/HappyPointBlock';
 import {setupCustomSidebar} from './block-editor/setupCustomSidebar';
 import {setupQueryLoopBlockExtension} from './block-editor/QueryLoopBlockExtension';
 import {registerSocialMediaBlock} from './blocks/SocialMedia/SocialMediaBlock';
-import {registerMediaBlock} from './blocks/Media/MediaBlock';
 import {registerBlockTemplates} from './block-templates/register';
 import {registerTimelineBlock} from './blocks/Timeline/TimelineBlock';
 import {registerColumnsBlock} from './blocks/Columns/ColumnsBlock';
@@ -24,7 +23,6 @@ wp.domReady(() => {
   registerTakeActionBoxoutBlock();
   registerHappyPointBlock();
   registerSocialMediaBlock();
-  registerMediaBlock();
   registerTimelineBlock();
 
   // Block Templates
