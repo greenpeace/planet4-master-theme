@@ -3,15 +3,12 @@ import 'regenerator-runtime/runtime';
 import {createRoot} from 'react-dom/client';
 import {SubmenuFrontend} from './blocks/Submenu/SubmenuFrontend';
 import {HappypointFrontend} from './blocks/Happypoint/HappypointFrontend';
-import {MediaFrontend} from './blocks/Media/MediaFrontend';
 import {ColumnsFrontend} from './blocks/Columns/ColumnsFrontend';
-import {setupMediaElementJS} from './blocks/Media/setupMediaElementJS';
 
 // Render React components
 const COMPONENTS = {
   'planet4-blocks/submenu': SubmenuFrontend,
   'planet4-blocks/happypoint': HappypointFrontend,
-  'planet4-blocks/media-video': MediaFrontend,
   'planet4-blocks/columns': ColumnsFrontend,
 };
 
@@ -32,6 +29,4 @@ document.addEventListener('DOMContentLoaded', () => {
       rootElement.render(<BlockFrontend {...attributes.attributes} />);
     }
   );
-
-  setupMediaElementJS();
 });
