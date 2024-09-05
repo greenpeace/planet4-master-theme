@@ -74,6 +74,14 @@ export const SpreadsheetEditor = ({
             </ul>
           </div>
         </PanelBody>
+        <PanelBody title={__('Learn more about this block ', 'planet4-blocks-backend')} initialOpen={false}>
+          <p className="components-base-control__help">
+            <a target="_blank" href="https://planet4.greenpeace.org/content/blocks/spreadsheet-table/" rel="noreferrer">
+            P4 Handbook Spreadsheet
+            </a>
+            {' '} &#128202;
+          </p>
+        </PanelBody>
       </InspectorControls>
     </>
   );

@@ -27,6 +27,7 @@ export const registerSpreadsheetBlock = () => {
 
   registerBlockType(BLOCK_NAME, {
     title: 'Spreadsheet',
+    description: 'Embed a Google Spreadsheet directly into your website by copying the spreadsheet URL and customize the table appearance by choosing from a selection of four predefined colors.',
     icon: 'editor-table',
     category: 'planet4-blocks',
     attributes,
