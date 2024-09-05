@@ -21,7 +21,7 @@ export const registerPostsListBlock = () => {
     name: POSTS_LIST_BLOCK_NAME,
     title: 'Posts List',
     icon: 'list-view',
-    description: __('Posts List is the place in Planet 4 that the latest articles, press releases and publications can be found.', 'planet4-blocks-backend'),
+    description: __('Insert a list or grid of the latest articles, press releases, and/or publications, organized by publication date. ', 'planet4-blocks-backend'),
     category: 'planet4-blocks-beta',
     scope: ['inserter'],
     allowedControls: ['taxQuery'],

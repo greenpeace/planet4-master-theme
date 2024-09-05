@@ -139,6 +139,16 @@ export const setupQueryLoopBlockExtension = () => {
                   />
                 </PanelBody>
               }
+              {
+                <PanelBody title={__('Learn more about this block ', 'planet4-blocks-backend')} initialOpen={false}>
+                  <p className="components-base-control__help">
+                    <a target="_blank" href="https://planet4.greenpeace.org/content/blocks/articles/" rel="noreferrer">
+                    P4 Handbook Posts List
+                    </a>
+                    {' '} &#128478;&#65039;
+                  </p>
+                </PanelBody>
+              }
             </InspectorControls>
             <BlockEdit {...props} />
           </>
