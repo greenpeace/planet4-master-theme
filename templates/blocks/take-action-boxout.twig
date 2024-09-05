@@ -18,6 +18,8 @@
 						sizes="(min-width: 1000px) 358px, (min-width: 780px) 313px, 88px"
 						alt="{{ boxout.image_alt }}" title="{{ boxout.image_alt }}"
 				/>
+            {% else %}
+                <div class="boxout-placeholder"></div>
 			{% endif %}
 			<div class="boxout-content">
 				{% if ( boxout.title ) %}
@@ -35,19 +37,19 @@
 				{% if ( boxout.excerpt ) %}
 					<p class="boxout-excerpt">{{ boxout.excerpt|e('wp_kses_post')|raw }}</p>
 				{% endif %}
+                {% if ( boxout.link and boxout.link_text ) %}
+                    <a
+                        class="btn btn-primary"
+                        data-ga-category="Take Action Boxout"
+                        data-ga-action="Call to Action"
+                        data-ga-label="n/a"
+                        href="{{ boxout.link|default('#') }}"
+                        {{ boxout.new_tab and boxout.link ? 'target="_blank"' }}
+                    >
+                        {{ boxout.link_text }}
+                    </a>
+                {% endif %}
 			</div>
-			{% if ( boxout.link and boxout.link_text ) %}
-				<a
-					class="btn btn-primary"
-					data-ga-category="Take Action Boxout"
-					data-ga-action="Call to Action"
-					data-ga-label="n/a"
-					href="{{ boxout.link|default('#') }}"
-					{{ boxout.new_tab and boxout.link ? 'target="_blank"' }}
-				>
-					{{ boxout.link_text }}
-				</a>
-			{% endif %}
 			{% if boxout.stickyMobile %}
 				<a
 					class="not-now"
