@@ -15,6 +15,9 @@ class Constants
     public const BLOCK_EMBED = self::PREFIX_CORE_BLOCKS . '/embed';
     public const BLOCK_AUDIO = self::PREFIX_CORE_BLOCKS . '/audio';
     public const BLOCK_VIDEO = self::PREFIX_CORE_BLOCKS . '/video';
+    public const BLOCK_GROUP = self::PREFIX_CORE_BLOCKS . '/group';
+    public const BLOCK_HEADING = self::PREFIX_CORE_BLOCKS . '/heading';
+    public const BLOCK_PARAGRAPH = self::PREFIX_CORE_BLOCKS . '/paragraph';
 
     public const POST_TYPES_PAGE = 'page';
     public const POST_TYPES_POST = 'post';
