@@ -73,16 +73,56 @@ if ('yes' === $post->include_articles) {
     }
 
     $block_attributes = [
-        'exclude_post_id' => $post->ID,
-        'tags' => $tag_id_array,
-        'categories' => $category_id_array,
-        'article_heading' => __('Related Articles', 'planet4-blocks'),
-        'read_more_text' => __('Load more', 'planet4-blocks'),
+        'query' => [
+            'perPage' => 3,
+            'post_type' => 'post',
+            'taxQuery' => [
+                'post_tag' => $tag_id_array,
+                'category' => $category_id_array,
+            ],
+            'exclude' => [$post->ID],
+        ],
+        'className' => 'posts-list p4-query-loop is-custom-layout-list',
+        'hasPassword' => false,
+        'layout' => [
+            'type' => 'default',
+            'columnCount' => 3,
+        ],
+        'namespace' => 'planet4-blocks/posts-list',
     ];
-
-    $post->articles = '<!-- wp:planet4-blocks/articles '
-        . wp_json_encode($block_attributes, JSON_UNESCAPED_SLASHES)
-        . ' /-->';
+    // phpcs:disable Generic.Files.LineLength.MaxExceeded
+    $post->articles = '<!-- wp:query ' . wp_json_encode($block_attributes, JSON_UNESCAPED_SLASHES) . ' -->
+        <div class="wp-block-query posts-list p4-query-loop is-custom-layout-list"><!-- wp:group {"layout":{"type":"flex","justifyContent":"space-between"}} -->
+        <div class="wp-block-group"><!-- wp:heading {"lock":{"move":true}} -->
+        <h2 class="wp-block-heading">Related Posts</h2>
+        <!-- /wp:heading -->
+        <!-- wp:navigation-link {"label":"See all stories","url":"http://www.planet4.test/news-stories/","className":"see-all-link"} /--></div>
+        <!-- /wp:group -->
+        <!-- wp:query-no-results -->
+        <!-- wp:paragraph -->
+        <p>No posts found. (This default text can be edited)</p>
+        <!-- /wp:paragraph -->
+        <!-- /wp:query-no-results -->
+        <!-- wp:post-template {"lock":{"move":true,"remove":true}} -->
+            <!-- wp:columns -->
+            <div class="wp-block-columns"><!-- wp:post-featured-image {"isLink":true} /-->
+            <!-- wp:group -->
+            <div class="wp-block-group"><!-- wp:group {"layout":{"type":"flex"}} -->
+            <div class="wp-block-group"><!-- wp:post-terms {"term":"category","separator":" | "} /-->
+            <!-- wp:post-terms {"term":"post_tag","separator":" "} /--></div>
+            <!-- /wp:group -->
+            <!-- wp:post-title {"isLink":true} /-->
+            <!-- wp:post-excerpt /-->
+            <!-- wp:group {"className":"posts-list-meta"} -->
+            <div class="wp-block-group posts-list-meta"><!-- wp:post-author-name {"isLink":true} /-->
+            <!-- wp:post-date /--></div>
+            <!-- /wp:group --></div>
+            <!-- /wp:group --></div>
+            <!-- /wp:columns -->
+        <!-- /wp:post-template -->
+        <!-- wp:navigation-link {"label":"See all stories","url":"http://www.planet4.test/news-stories/","className":"see-all-link"} /--></div>
+    <!-- /wp:query -->';
+    // phpcs:enable Generic.Files.LineLength.MaxExceeded
 }
 
 if (! empty($take_action_page) && ! has_block('planet4-blocks/take-action-boxout')) {
