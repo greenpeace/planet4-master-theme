@@ -63,7 +63,7 @@ $context['filter_url'] = add_query_arg(
     get_home_url()
 );
 
-// Build the shortcode for articles block.
+// Build the shortcode for related-posts block.
 if ('yes' === $post->include_articles) {
     $tag_id_array = [];
     foreach ($post->tags() as $post_tag) {
@@ -75,16 +75,25 @@ if ('yes' === $post->include_articles) {
     }
 
     $block_attributes = [
-        'exclude_post_id' => $post->ID,
-        'tags' => $tag_id_array,
-        'categories' => $category_id_array,
-        'article_heading' => __('Related Articles', 'planet4-blocks'),
-        'read_more_text' => __('Load more', 'planet4-blocks'),
+        'query' => [
+            'perPage' => 3,
+            'post_type' => 'post',
+            'taxQuery' => [
+                'post_tag' => $tag_id_array,
+                'category' => $category_id_array,
+            ],
+            'exclude' => [$post->ID],
+        ],
+        'className' => 'posts-list p4-query-loop is-custom-layout-list',
+        'hasPassword' => false,
+        'layout' => [
+            'type' => 'default',
+            'columnCount' => 3,
+        ],
+        'namespace' => 'planet4-blocks/posts-list',
     ];
 
-    $post->articles = '<!-- wp:planet4-blocks/articles '
-        . wp_json_encode($block_attributes, JSON_UNESCAPED_SLASHES)
-        . ' /-->';
+    $post->articles = '<!-- wp:p4/related-posts {"query_attributes" : ' . wp_json_encode($block_attributes) . '} /-->';
 }
 
 if (! empty($take_action_page) && ! has_block('planet4-blocks/take-action-boxout')) {

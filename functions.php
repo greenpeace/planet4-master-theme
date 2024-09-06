@@ -249,6 +249,7 @@ function register_more_blocks(): void
         ]
     );
     // Like the core block but with an appropriate sizes attribute.
+     // phpcs:disable Generic.Files.LineLength.MaxExceeded
     register_block_type(
         'p4/post-featured-image',
         [
@@ -264,7 +265,7 @@ function register_more_blocks(): void
                     // For example, it could already access displayLayout from Query block to know how many columns are
                     // being rendered. If it then also knows the flex gap and container width, it should have all needed
                     // info to support a large amount of cases.
-                    [ 'sizes' => '(min-width: 1600px) 389px, (min-width: 1200px) 335px, (min-width: 1000px) 281px, (min-width: 780px) 209px, (min-width: 580px) 516px, calc(100vw - 24px)' ] // phpcs:ignore Generic.Files.LineLength.MaxExceeded
+                    [ 'sizes' => '(min-width: 1600px) 389px, (min-width: 1200px) 335px, (min-width: 1000px) 281px, (min-width: 780px) 209px, (min-width: 580px) 516px, calc(100vw - 24px)' ]
                 );
 
                 return "<a href='$post_link'>$featured_image</a>";
@@ -272,9 +273,66 @@ function register_more_blocks(): void
             'uses_context' => [ 'postId' ],
         ]
     );
+    // Block displays related posts using the Query Loop block
+    register_block_type(
+        'p4/related-posts',
+        [
+            'attributes' => [
+                'query_attributes' => [
+                    'type' => 'object',
+                    'default' => [],
+                ],
+            ],
+            'render_callback' => 'render_related_posts_block',
+        ]
+    );
 }
 
 add_action('init', 'register_more_blocks');
+
+/**
+ * Custom block render function for Related posts
+ *
+ * @param array  $attributes Array of dynamic attributes to render section.
+ *
+ * @return string HTML markup for front end.
+ */
+function render_related_posts_block(array $attributes): string
+{
+    // Encode the query attributes to JSON for the block template
+    $query_json = wp_json_encode($attributes['query_attributes'], JSON_UNESCAPED_SLASHES);
+
+    // Define the HTML output for the block
+    $output = '<!-- wp:query ' . $query_json . ' -->
+            <div class="wp-block-query posts-list p4-query-loop is-custom-layout-list"><!-- wp:group {"layout":{"type":"flex","justifyContent":"space-between"}} -->
+            <div class="wp-block-group related-posts-block"><!-- wp:heading {"lock":{"move":true}} -->
+            <h2 class="wp-block-heading">' . __('Related Posts', 'planet4-blocks') . '</h2>
+            <!-- /wp:heading -->
+            <!-- wp:navigation-link {"label":"' . __('See all posts', 'planet4-blocks') . '","url":"http://www.planet4.test/news-stories/","className":"see-all-link"} /-->
+            </div>
+            <!-- /wp:group -->
+            <!-- wp:post-template {"lock":{"move":true,"remove":true}} -->
+                <!-- wp:columns -->
+                <div class="wp-block-columns"><!-- wp:post-featured-image {"isLink":true} /-->
+                <!-- wp:group -->
+                <div class="wp-block-group"><!-- wp:group {"layout":{"type":"flex"}} -->
+                <div class="wp-block-group"><!-- wp:post-terms {"term":"category","separator":" | "} /-->
+                <!-- wp:post-terms {"term":"post_tag","separator":" "} /--></div>
+                <!-- /wp:group -->
+                <!-- wp:post-title {"isLink":true} /-->
+                <!-- wp:post-excerpt /-->
+                <!-- wp:group {"className":"posts-list-meta"} -->
+                <div class="wp-block-group posts-list-meta"><!-- wp:post-author-name {"isLink":true} /-->
+                <!-- wp:post-date /--></div>
+                <!-- /wp:group --></div>
+                <!-- /wp:group --></div>
+                <!-- /wp:columns -->
+            <!-- /wp:post-template -->
+            <!-- wp:navigation-link {"label":"' . __('See all posts', 'planet4-blocks') . '","url":"http://www.planet4.test/news-stories/","className":"see-all-link"} /--></div>
+        <!-- /wp:query -->';
+
+    return do_blocks($output);
+}
 
 add_filter(
     'cloudflare_purge_by_url',
@@ -437,8 +495,8 @@ add_action(
         wp_add_inline_script(
             'wp-notices',
             sprintf(
-                'wp.data.dispatch( "core/notices" ).createNotice("warning", "%s" , { isDismissible: false, actions: [ { label: "%s", url: "/wp-admin/options-reading.php"} ] } )', // phpcs:ignore Generic.Files.LineLength.MaxExceeded
-                __('The content on this page is hidden because this page is being used as your \"All Posts\" listing page. You can disable this by un-setting the \"Posts page\"', 'planet4-master-theme'), // phpcs:ignore Generic.Files.LineLength.MaxExceeded
+                'wp.data.dispatch( "core/notices" ).createNotice("warning", "%s" , { isDismissible: false, actions: [ { label: "%s", url: "/wp-admin/options-reading.php"} ] } )',
+                __('The content on this page is hidden because this page is being used as your \"All Posts\" listing page. You can disable this by un-setting the \"Posts page\"', 'planet4-master-theme'),
                 __('here', 'planet4-master-theme')
             )
         );
@@ -517,3 +575,4 @@ add_action(
     10,
     3
 );
+// phpcs:enable Generic.Files.LineLength.MaxExceeded
