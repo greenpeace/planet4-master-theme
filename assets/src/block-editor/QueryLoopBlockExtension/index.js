@@ -142,7 +142,7 @@ export const setupQueryLoopBlockExtension = () => {
               {
                 <PanelBody title={__('Learn more about this block ', 'planet4-blocks-backend')} initialOpen={false}>
                   <p className="components-base-control__help">
-                    { isActionsList && (
+                    {isActionsList && (
                       <>
                         <a target="_blank" href="https://planet4.greenpeace.org/content/blocks/covers/" rel="noreferrer">
                         P4 Handbook Actions Lists
@@ -150,7 +150,7 @@ export const setupQueryLoopBlockExtension = () => {
                         {' '} &#127745;
                       </>
                     )}
-                    { isPostsList && (
+                    {isPostsList && (
                       <>
                         <a target="_blank" href="https://planet4.greenpeace.org/content/blocks/articles/" rel="noreferrer">
                       P4 Handbook Posts List
