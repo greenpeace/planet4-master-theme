@@ -224,6 +224,14 @@ export const SocialMediaEditor = ({
           onChange={toAttribute('alignment_class')}
         />
       </PanelBody>
+      <PanelBody title={__('Learn more about this block', 'planet4-blocks-backend')} initialOpen={false}>
+        <p className="components-base-control__help">
+          <a target="_blank" href="https://planet4.greenpeace.org/content/blocks/socials/" rel="noreferrer">
+          P4 Handbook Meta Block
+          </a>
+          {' '} &#129331;
+        </p>
+      </PanelBody>
     </InspectorControls>
   );
 

@@ -195,6 +195,14 @@ export const HappypointEditor = ({attributes, setAttributes, isSelected}) => {
                 </div>
               }
             </PanelBody>
+            <PanelBody title={__('Learn more about this block ', 'planet4-blocks-backend')} initialOpen={false}>
+              <p className="components-base-control__help">
+                <a target="_blank" href="https://planet4.greenpeace.org/content/blocks/happy-point/" rel="noreferrer">
+            P4 Handbook Happy Point
+                </a>
+                {' '} &#128588;
+              </p>
+            </PanelBody>
           </InspectorControls>
           <BlockControls>
             {id && 0 < id && (

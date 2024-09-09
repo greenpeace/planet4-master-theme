@@ -7,6 +7,7 @@ export const registerHappypointBlock = () => {
   if (!getBlockType('planet4-blocks/happypoint')) {
     registerBlockType('planet4-blocks/happypoint', {
       title: 'Happypoint',
+      description: 'The happy point block embeds (via iFrame) a “Subscribe” or engagement form on top of a full-width background image.',
       icon: 'format-image',
       category: 'planet4-blocks',
       supports: {

@@ -44,6 +44,7 @@ export const registerTimelineBlock = () => {
 
   registerBlockType(BLOCK_NAME, {
     title: 'Timeline',
+    description: 'A type of graphic that arranges a chain of events, activities, and milestones in chronological order.',
     icon: 'clock',
     category: 'planet4-blocks',
     supports: {
