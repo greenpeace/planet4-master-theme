@@ -13,6 +13,7 @@ class Constants
     public const BLOCK_MEDIA_VIDEO = self::PREFIX_P4_BLOCKS . '/media-video';
     public const BLOCK_SPLIT_TWO_COLUMNS = self::PREFIX_P4_BLOCKS . '/split-two-columns';
 
+
     public const BLOCK_EMBED = self::PREFIX_CORE_BLOCKS . '/embed';
     public const BLOCK_AUDIO = self::PREFIX_CORE_BLOCKS . '/audio';
     public const BLOCK_VIDEO = self::PREFIX_CORE_BLOCKS . '/video';
@@ -30,13 +31,5 @@ class Constants
         self::POST_TYPES_POST,
         self::POST_TYPES_ACTION,
         self::POST_TYPES_CAMPAIGN,
-    ];
-
-    public const POST_STATUS_LIST = [
-        'publish',
-        'pending',
-        'draft',
-        'future',
-        'private',
     ];
 }
