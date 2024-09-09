@@ -72,28 +72,30 @@ class M032MigrateCampaignCoversToP4ColumnsBlock extends MigrationScript
             // Serialize the blocks content.
             $new_content = serialize_blocks($blocks);
 
-            if ($post->post_content !== $new_content) {
-                echo 'Migrating post ', $post->ID, "\n"; // phpcs:ignore
-                $result = false;
-
-                $post_update = array(
-                    'ID' => $post->ID,
-                    'post_content' => $new_content,
-                );
-
-                try {
-                    // Update the post with the replaced blocks.
-                    wp_update_post($post_update);
-                    $result = true;
-                } catch (\Throwable $e) {
-                    echo 'Error on post ', $post->ID, "\n";
-                    echo $e->getMessage(), "\n";
-                }
-
-                echo $result
-                    ? "Migration successful\n"
-                    : "Migration wasn't executed\n"; // phpcs:ignore
+            if ($post->post_content === $new_content) {
+                continue;
             }
+
+            echo 'Migrating post ', $post->ID, "\n"; // phpcs:ignore
+            $result = false;
+
+            $post_update = array(
+                'ID' => $post->ID,
+                'post_content' => $new_content,
+            );
+
+            try {
+                // Update the post with the replaced blocks.
+                wp_update_post($post_update);
+                $result = true;
+            } catch (\Throwable $e) {
+                echo 'Error on post ', $post->ID, "\n";
+                echo $e->getMessage(), "\n";
+            }
+
+            echo $result
+                ? "Migration successful\n"
+                : "Migration wasn't executed\n"; // phpcs:ignore
         }
     }
     // phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter
