@@ -5,6 +5,7 @@ export const registerCookiesBlock = () => {
 
   registerBlockType('planet4-blocks/cookies', {
     title: 'Cookies',
+    description: 'Displays the cookies settings and control panel within P4 for editors to control their level of compliance regarding data collection.',
     icon: 'welcome-view-site',
     category: 'planet4-blocks',
     supports: {
