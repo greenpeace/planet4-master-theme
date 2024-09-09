@@ -34,6 +34,8 @@ class M032MigrateCampaignCoversToP4ColumnsBlock extends MigrationScript
 
         $parser = new WP_Block_Parser();
 
+        echo "Campaign Covers block migration in progress...\n"; // phpcs:ignore
+
         foreach ($posts as $post) {
             if (empty($post->post_content)) {
                 continue;
