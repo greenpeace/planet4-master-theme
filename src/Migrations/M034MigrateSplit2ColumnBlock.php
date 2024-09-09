@@ -6,7 +6,6 @@ namespace P4\MasterTheme\Migrations;
 
 use P4\MasterTheme\MigrationRecord;
 use P4\MasterTheme\MigrationScript;
-use P4\MasterTheme\BlockReportSearch\BlockSearch;
 use WP_Block_Parser;
 
 /**
@@ -14,9 +13,6 @@ use WP_Block_Parser;
  */
 class M034MigrateSplit2ColumnBlock extends MigrationScript
 {
-    private const BLOCK_NAME = 'planet4-blocks/split-two-columns';
-    private const POST_TYPES = [ 'page', 'post', 'action', 'campaign' ];
-
     /**
      * Extract split-two-columns block from page/posts and transform it into columns block.
      *
@@ -25,15 +21,18 @@ class M034MigrateSplit2ColumnBlock extends MigrationScript
      */
     public static function execute(MigrationRecord $record): void
     {
-        $parser = new WP_Block_Parser();
-
         // Get the list of posts using split-two-columns block.
-        $posts = self::get_posts_using_block(self::BLOCK_NAME);
+        $posts = Utils\Functions::get_posts_using_specific_block(
+            Utils\Constants::BLOCK_SPLIT_TWO_COLUMNS,
+            Utils\Constants::ALL_POST_TYPES
+        );
 
         // If there are no posts, abort.
         if (!$posts) {
             return;
         }
+
+        $parser = new WP_Block_Parser();
 
         foreach ($posts as $post) {
             if (empty($post->post_content)) {
@@ -48,19 +47,11 @@ class M034MigrateSplit2ColumnBlock extends MigrationScript
 
             foreach ($blocks as &$block) {
                 // Skip other blocks.
-                if (! isset($block['blockName']) || $block['blockName'] !== self::BLOCK_NAME) {
+                if (! isset($block['blockName']) || $block['blockName'] !== Utils\Constants::BLOCK_SPLIT_TWO_COLUMNS) {
                     continue;
                 }
 
-                // Gathering the data we want from this block.
-                $block_attrs = self::get_split_2_columns_block_attrs($block['attrs']);
-
-                // No data, skip this block.
-                if (empty($block_attrs)) {
-                    continue;
-                }
-
-                $block = self::get_transform_block($block_attrs);
+                $block = self::get_transform_block($block);
             }
 
             // Unset the reference to prevent potential issues.
@@ -93,105 +84,17 @@ class M034MigrateSplit2ColumnBlock extends MigrationScript
     // phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter
 
     /**
-     * Get all the posts using block name.
-     *
-     * @param string $block_name - A block name.
-     * @return mixed - The posts using block or null if no posts are found.
-     */
-    private static function get_posts_using_block(string $block_name): mixed
-    {
-        $search = new BlockSearch();
-
-        $post_ids = $search->get_posts_with_block($block_name);
-
-        if (empty($post_ids)) {
-            return null;
-        }
-
-        $args = [
-            'include' => $post_ids,
-            'post_type' => self::POST_TYPES,
-        ];
-
-        $posts = get_posts($args) ?? [];
-
-        if (empty($posts)) {
-            return null;
-        }
-
-        return $posts;
-    }
-
-    /**
-     * Get the split-two-columns block attrs.
-     *
-     * @param array $block - A parsed split-two-columns block.
-     * @return array - A block attrs array.
-     * phpcs:disable Generic.Files.LineLength.MaxExceeded
-     */
-    private static function get_split_2_columns_block_attrs(array $block): array
-    {
-        $block_attrs = [];
-
-        // For old split 2 column versions.
-        $issue_id = (int) ( $block['select_issue'] ?? null );
-        $tag_id = (int) ( $block['select_tag'] ?? null );
-        $issue_image_id = (int) ( $block['issue_image'] ?? $block['issue_image_id'] ?? get_post_thumbnail_id($issue_id) ?? 0 );
-        $tag_image_id = (int) ( $block['tag_image'] ?? $block['tag_image_id'] ?? get_term_meta($tag_id, 'tag_attachment_id', true) ?? 0 );
-
-        if ($issue_id) {
-            $issue_meta_data = get_post_meta($issue_id);
-            $block['title'] = isset($block['title']) && !empty($block['title']) ? $block['title'] : $issue_meta_data['p4_title'][0] ?? get_the_title($issue_id);
-            $block['issue_description'] = $block['issue_description'] ?? $issue_meta_data['p4_description'][0] ?? '';
-            $block['issue_link_path'] = $block['issue_link_path'] ?? get_permalink($issue_id);
-            $block['issue_link_text'] = $block['issue_link_text'] ?? __('Learn more about this issue', 'planet4-blocks');
-
-            $block['issue_image_id'] = $block['issue_image_id'] ?? $issue_image_id;
-            $block['issue_image_src'] = $block['issue_image_src'] ?? ($issue_image_id ? wp_get_attachment_url($issue_image_id) : '');
-        }
-
-        if ($tag_id) {
-            $tag = get_term($tag_id);
-            if ($tag instanceof \WP_Term) {
-                $block['tag_name'] = $block['tag_name'] ?? $tag->name ?? '';
-                $block['tag_link'] = get_tag_link($tag);
-                $block['tag_description'] = $block['tag_description'] ?? $tag->description ?? '';
-
-                $block['tag_image_id'] = $block['tag_image_id'] ?? $tag_image_id;
-                $block['tag_image_src'] = $block['tag_image_src'] ?? ($tag_image_id ? wp_get_attachment_url($tag_image_id) : '');
-
-                $block['button_text'] = $block['button_text'] ?? __('Get involved', 'planet4-blocks');
-                $block['button_link'] = $block['button_link'] ?? $block['tag_link'] ?? '';
-            }
-        }
-
-        $block_attrs['column1']['title'] = $block['title'] ?? '';
-        $block_attrs['column1']['description'] = wp_trim_words($block['issue_description'] ?? '', 12);
-        $block_attrs['column1']['link_text'] = $block['issue_link_text'] ?? '';
-        $block_attrs['column1']['link_path'] = $block['issue_link_path'] ?? '';
-        $block_attrs['column1']['image_id'] = $block['issue_image_id'] ?? '';
-        $block_attrs['column1']['image_src'] = $block['issue_image_src'] ?? '';
-
-        $block_attrs['column2']['title'] = $block['tag_name'] ?? '';
-        $block_attrs['column2']['description'] = wp_trim_words($block['tag_description'] ?? '', 12);
-        $block_attrs['column2']['button_text'] = $block['button_text'] ?? '';
-        $block_attrs['column2']['button_link'] = $block['button_link'] ?? '';
-        $block_attrs['column2']['link_path'] = $block['tag_link'] ?? '';
-        $block_attrs['column2']['image_id'] = $block['tag_image_id'] ?? '';
-        $block_attrs['column2']['image_src'] = $block['tag_image_src'] ?? '';
-
-        return $block_attrs;
-    }
-
-    /**
      * Transform a block attrs into columns block.
      *
-     * @param array $block_attrs - A block attrs array.
+     * @param array $block - A block data array.
      * @return array - The transformed block.
      * phpcs:disable Generic.Files.LineLength.MaxExceeded
      */
-    private static function get_transform_block(array $block_attrs): array
+    private static function get_transform_block(array $block): array
     {
+        // Gathering the data we want from split 2 columns block.
+        $block_attrs = self::get_split_2_columns_block_attrs($block['attrs']);
+
         $template = '<!-- wp:columns -->
 <div class="wp-block-columns"><!-- wp:column {"verticalAlignment":"center"} -->
 <div class="wp-block-column is-vertically-aligned-center"><!-- wp:media-text {"mediaId":' . $block_attrs['column1']['image_id'] . ',"mediaLink":"' . get_page_link($block_attrs['column1']['image_id']) . '","mediaType":"image"} -->
@@ -232,6 +135,67 @@ class M034MigrateSplit2ColumnBlock extends MigrationScript
         $blocks = $parser_new->parse($template);
 
         return $blocks[0];
+    }
+
+    /**
+     * Get the split-two-columns block attrs.
+     *
+     * @param array $block - A parsed split-two-columns block.
+     * @return array - A block attrs array.
+     * phpcs:disable Generic.Files.LineLength.MaxExceeded
+     */
+    private static function get_split_2_columns_block_attrs(array $block): array
+    {
+        $block_attrs = [];
+
+        // For old split 2 column versions.
+        $issue_id = (int) ( $block['select_issue'] ?? null );
+        $tag_id = (int) ( $block['select_tag'] ?? null );
+        $issue_image_id = (int) ( $block['issue_image'] ?? $block['issue_image_id'] ?? get_post_thumbnail_id($issue_id) ?? 0 );
+        $tag_image_id = (int) ( $block['tag_image'] ?? $block['tag_image_id'] ?? get_term_meta($tag_id, 'tag_attachment_id', true) ?? 0 );
+
+        if ($issue_id) {
+            $issue_meta_data = get_post_meta($issue_id);
+            $block['title'] = !empty($block['title']) ? $block['title'] : $issue_meta_data['p4_title'][0] ?? get_the_title($issue_id);
+            $block['issue_description'] = $block['issue_description'] ?? $issue_meta_data['p4_description'][0] ?? '';
+            $block['issue_link_path'] = $block['issue_link_path'] ?? get_permalink($issue_id);
+            $block['issue_link_text'] = $block['issue_link_text'] ?? __('Learn more about this issue', 'planet4-blocks');
+
+            $block['issue_image_id'] = $block['issue_image_id'] ?? $issue_image_id;
+            $block['issue_image_src'] = $block['issue_image_src'] ?? ($issue_image_id ? wp_get_attachment_url($issue_image_id) : '');
+        }
+
+        if ($tag_id) {
+            $tag = get_term($tag_id);
+            if ($tag instanceof \WP_Term) {
+                $block['tag_name'] = $block['tag_name'] ?? $tag->name ?? '';
+                $block['tag_link'] = get_tag_link($tag);
+                $block['tag_description'] = $block['tag_description'] ?? $tag->description ?? '';
+
+                $block['tag_image_id'] = $block['tag_image_id'] ?? $tag_image_id;
+                $block['tag_image_src'] = $block['tag_image_src'] ?? ($tag_image_id ? wp_get_attachment_url($tag_image_id) : '');
+
+                $block['button_text'] = $block['button_text'] ?? __('Get involved', 'planet4-blocks');
+                $block['button_link'] = $block['button_link'] ?? $block['tag_link'] ?? '';
+            }
+        }
+
+        $block_attrs['column1']['title'] = $block['title'] ?? '';
+        $block_attrs['column1']['description'] = wp_trim_words($block['issue_description'] ?? '', 12);
+        $block_attrs['column1']['link_text'] = $block['issue_link_text'] ?? '';
+        $block_attrs['column1']['link_path'] = $block['issue_link_path'] ?? '';
+        $block_attrs['column1']['image_id'] = $block['issue_image_id'] ?? '';
+        $block_attrs['column1']['image_src'] = $block['issue_image_src'] ?? '';
+
+        $block_attrs['column2']['title'] = $block['tag_name'] ?? '';
+        $block_attrs['column2']['description'] = wp_trim_words($block['tag_description'] ?? '', 12);
+        $block_attrs['column2']['button_text'] = $block['button_text'] ?? '';
+        $block_attrs['column2']['button_link'] = $block['button_link'] ?? '';
+        $block_attrs['column2']['link_path'] = $block['tag_link'] ?? '';
+        $block_attrs['column2']['image_id'] = $block['tag_image_id'] ?? '';
+        $block_attrs['column2']['image_src'] = $block['tag_image_src'] ?? '';
+
+        return $block_attrs;
     }
     // phpcs:enable Generic.Files.LineLength.MaxExceeded
 }
