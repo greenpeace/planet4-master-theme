@@ -6,7 +6,7 @@ export const registerCookiesBlock = () => {
 
   registerBlockType('planet4-blocks/cookies', {
     title: 'Cookies',
-    description: __('Display real time signatures being collected worldwide on petitions.', 'planet4-blocks-backend'),
+    description: __('Displays the cookies settings and control panel within P4 for editors to control their level of compliance regarding data collection.', 'planet4-blocks-backend'),
     icon: 'welcome-view-site',
     category: 'planet4-blocks',
     supports: {
