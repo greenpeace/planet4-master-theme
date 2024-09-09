@@ -14,6 +14,7 @@ export const registerTakeActionBoxoutBlock = () => {
 
   registerBlockType(BLOCK_NAME, {
     title: 'Take Action Boxout',
+    description: 'A versatile horizontal card featuring an image, description, and Call to Action, designed to link to Take Action pages or any custom link such as external petitions or donation pages.',
     icon: 'welcome-widgets-menus',
     category: 'planet4-blocks',
     supports: {

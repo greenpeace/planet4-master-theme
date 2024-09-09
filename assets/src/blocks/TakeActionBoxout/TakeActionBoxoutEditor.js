@@ -244,6 +244,14 @@ export const TakeActionBoxoutEditor = ({
             </MediaUploadCheck>
           }
         </PanelBody>
+        <PanelBody title={__('Learn more about this block', 'planet4-blocks-backend')} initialOpen={false}>
+          <p className="components-base-control__help">
+            <a target="_blank" href="https://planet4.greenpeace.org/content/blocks/take-action-boxout/" rel="noreferrer">
+            P4 Handbook Take Action Boxout
+            </a>
+            {' '} &#128499;&#65039;;
+          </p>
+        </PanelBody>
       </InspectorControls>
       {!takeActionPageSelected && imageId &&
         <BlockControls>
