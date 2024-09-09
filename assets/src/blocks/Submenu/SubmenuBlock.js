@@ -17,7 +17,7 @@ export const registerSubmenuBlock = () => {
 
   registerBlockType(BLOCK_NAME, {
     title: 'Submenu',
-    description: 'Insert text, media, and other content in an ordered list of clickable headings corresponding to the content sections on the page.',
+    description: __('Insert text, media, and other content in an ordered list of clickable headings corresponding to the content sections on the page.', 'planet4-blocks-backend'),
     icon: 'welcome-widgets-menus',
     category: 'planet4-blocks',
     attributes: {

@@ -2,6 +2,7 @@ import {TakeActionBoxoutEditor} from './TakeActionBoxoutEditor.js';
 import {takeActionBoxoutV1} from './deprecated/takeActionBoxoutV1';
 
 const {registerBlockType, getBlockTypes} = wp.blocks;
+const {__} = wp.i18n;
 
 const BLOCK_NAME = 'planet4-blocks/take-action-boxout';
 
@@ -14,7 +15,7 @@ export const registerTakeActionBoxoutBlock = () => {
 
   registerBlockType(BLOCK_NAME, {
     title: 'Take Action Boxout',
-    description: 'A versatile horizontal card featuring an image, description, and Call to Action, designed to link to Take Action pages or any custom link such as external petitions or donation pages.',
+    description: __('A versatile horizontal card featuring an image, description, and Call to Action, designed to link to Take Action pages or any custom link such as external petitions or donation pages.', 'planet4-blocks-backend'),
     icon: 'welcome-widgets-menus',
     category: 'planet4-blocks',
     supports: {

@@ -24,10 +24,11 @@ const CSS_VARIABLES_ATTRIBUTE = {
 export const registerSpreadsheetBlock = () => {
   const {registerBlockType} = wp.blocks;
   const {RawHTML} = wp.element;
+  const {__} = wp.i18n;
 
   registerBlockType(BLOCK_NAME, {
     title: 'Spreadsheet',
-    description: 'Embed a Google Spreadsheet directly into your website by copying the spreadsheet URL and customize the table appearance by choosing from a selection of four predefined colors.',
+    description: __('Embed a Google Spreadsheet directly into your website by copying the spreadsheet URL and customize the table appearance by choosing from a selection of four predefined colors.', 'planet4-blocks-backend'),
     icon: 'editor-table',
     category: 'planet4-blocks',
     attributes,

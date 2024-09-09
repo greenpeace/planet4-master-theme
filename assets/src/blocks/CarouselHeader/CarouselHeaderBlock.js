@@ -5,6 +5,7 @@ import {renderToString} from 'react-dom/server';
 
 const {registerBlockType} = wp.blocks;
 const {RawHTML} = wp.element;
+const {__} = wp.i18n;
 
 const BLOCK_NAME = 'planet4-blocks/carousel-header';
 
@@ -44,7 +45,7 @@ const attributes = {
 export const registerCarouselHeaderBlock = () =>
   registerBlockType(BLOCK_NAME, {
     title: 'Carousel Header',
-    description: 'A gallery block that features a scrolling collection of images and media content, typically found at the top of the Homepage.',
+    description: __('A gallery block that features a scrolling collection of images and media content, typically found at the top of the Homepage.', 'planet4-blocks-backend'),
     icon: 'welcome-widgets-menus',
     category: 'planet4-blocks',
     supports: {

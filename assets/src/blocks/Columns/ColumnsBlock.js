@@ -17,7 +17,7 @@ export const registerColumnsBlock = () => {
 
   registerBlockType(BLOCK_NAME, {
     title: 'Planet 4 Columns',
-    description: 'The columns block comes in four styles and groups static content in an aligned, responsive and styled column.',
+    description: __('The columns block comes in four styles and groups static content in an aligned, responsive and styled column.', 'planet4-blocks-backend'),
     icon: 'grid-view',
     category: 'planet4-blocks',
     attributes: {

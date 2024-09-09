@@ -2,10 +2,11 @@ import {CookiesEditor} from './CookiesEditor.js';
 
 export const registerCookiesBlock = () => {
   const {registerBlockType} = wp.blocks;
+  const {__} = wp.i18n;
 
   registerBlockType('planet4-blocks/cookies', {
     title: 'Cookies',
-    description: 'Displays the cookies settings and control panel within P4 for editors to control their level of compliance regarding data collection.',
+    description: __('Display real time signatures being collected worldwide on petitions.', 'planet4-blocks-backend'),
     icon: 'welcome-view-site',
     category: 'planet4-blocks',
     supports: {

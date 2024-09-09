@@ -34,6 +34,7 @@ const attributes = {
 
 export const registerTimelineBlock = () => {
   const {registerBlockType, getBlockTypes} = wp.blocks;
+  const {__} = wp.i18n;
   const {RawHTML} = wp.element;
 
   const blockAlreadyExists = getBlockTypes().find(block => block.name === BLOCK_NAME);
@@ -44,7 +45,7 @@ export const registerTimelineBlock = () => {
 
   registerBlockType(BLOCK_NAME, {
     title: 'Timeline',
-    description: 'A type of graphic that arranges a chain of events, activities, and milestones in chronological order.',
+    description: __('A type of graphic that arranges a chain of events, activities, and milestones in chronological order.', 'planet4-blocks-backend'),
     icon: 'clock',
     category: 'planet4-blocks',
     supports: {
