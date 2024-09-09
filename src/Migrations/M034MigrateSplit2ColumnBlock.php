@@ -34,6 +34,8 @@ class M034MigrateSplit2ColumnBlock extends MigrationScript
 
         $parser = new WP_Block_Parser();
 
+        echo "Split 2 Columns block migration in progress...\n"; // phpcs:ignore
+
         foreach ($posts as $post) {
             if (empty($post->post_content)) {
                 continue;
