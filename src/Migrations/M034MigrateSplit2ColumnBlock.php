@@ -12,7 +12,7 @@ use WP_Block_Parser;
 /**
  * Migrate split-two-columns block to columns block.
  */
-class M031MigrateSplit2ColumnBlock extends MigrationScript
+class M034MigrateSplit2ColumnBlock extends MigrationScript
 {
     private const BLOCK_NAME = 'planet4-blocks/split-two-columns';
     private const POST_TYPES = [ 'page', 'post', 'action', 'campaign' ];
