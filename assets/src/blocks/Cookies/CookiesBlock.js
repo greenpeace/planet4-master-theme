@@ -1,11 +1,9 @@
 import {CookiesEditor} from './CookiesEditor.js';
 
-export const BLOCK_NAME = 'planet4-blocks/cookies';
-
 export const registerCookiesBlock = () => {
   const {registerBlockType} = wp.blocks;
 
-  registerBlockType(BLOCK_NAME, {
+  registerBlockType('planet4-blocks/cookies', {
     title: 'Cookies',
     icon: 'welcome-view-site',
     category: 'planet4-blocks',
@@ -41,7 +39,7 @@ export const registerCookiesBlock = () => {
       },
     },
     edit: CookiesEditor,
-    save() {
+    save: () => {
       return null;
     },
   });
