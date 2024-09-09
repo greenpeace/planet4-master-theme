@@ -6,7 +6,6 @@ namespace P4\MasterTheme\Migrations;
 
 use P4\MasterTheme\MigrationRecord;
 use P4\MasterTheme\MigrationScript;
-use P4\MasterTheme\BlockReportSearch\BlockSearch;
 use WP_Block_Parser;
 
 /**
@@ -14,15 +13,6 @@ use WP_Block_Parser;
  */
 class M032MigrateCampaignCoversToP4ColumnsBlock extends MigrationScript
 {
-    private const BLOCK_NAME = 'planet4-blocks/covers';
-    private const POST_TYPES = [ 'page', 'post', 'action', 'campaign' ];
-    private const COVER_TYPE = 'campaign';
-    private const OLD_COVER_TYPES = [
-        '1' => 'take-action',
-        '2' => self::COVER_TYPE,
-        '3' => 'content',
-    ];
-
     /**
      * Extract campaign covers block from page/posts and transform it into Planet4 columns block.
      *
@@ -32,7 +22,10 @@ class M032MigrateCampaignCoversToP4ColumnsBlock extends MigrationScript
     public static function execute(MigrationRecord $record): void
     {
         // Get the list of posts using Covers block.
-        $posts = self::get_posts_using_block(self::BLOCK_NAME);
+        $posts = Utils\Functions::get_posts_using_specific_block(
+            Utils\Constants::BLOCK_COVERS,
+            Utils\Constants::ALL_POST_TYPES
+        );
 
         // If there are no posts, abort.
         if (!$posts) {
@@ -46,15 +39,12 @@ class M032MigrateCampaignCoversToP4ColumnsBlock extends MigrationScript
                 continue;
             }
 
-            echo 'Parsing post ', $post->ID, "\n"; // phpcs:ignore
-            $result = false;
-
             // Go through the post blocks to find the planet4-blocks/covers one.
             $blocks = $parser->parse($post->post_content);
 
             foreach ($blocks as &$block) {
                 // Skip non cover block.
-                if (!isset($block['blockName']) || $block['blockName'] !== self::BLOCK_NAME) {
+                if (!isset($block['blockName']) || $block['blockName'] !== Utils\Constants::BLOCK_COVERS) {
                     continue;
                 }
 
@@ -65,23 +55,15 @@ class M032MigrateCampaignCoversToP4ColumnsBlock extends MigrationScript
 
                 // For old cover type(earlier it was numeric).
                 if (is_numeric($block['attrs']['cover_type'])) {
-                    $block['attrs']['cover_type'] = self::OLD_COVER_TYPES[ $block['attrs']['cover_type'] ];
+                    $block['attrs']['cover_type'] = Utils\Constants::OLD_COVER_TYPES[ $block['attrs']['cover_type'] ];
                 }
 
                 // Skip non campaign cover style blocks.
-                if ($block['attrs']['cover_type'] !== self::COVER_TYPE) {
+                if ($block['attrs']['cover_type'] !== Utils\Constants::COVER_TYPE_CAMPAIGN) {
                     continue;
                 }
 
-                // Gathering the data we want from this block.
-                $block_attrs = self::get_columns_block_attrs($block['attrs']);
-
-                // No data, skip this block.
-                if (empty($block_attrs)) {
-                    continue;
-                }
-
-                $block = self::transform_block($block_attrs);
+                $block = self::transform_block($block);
             }
 
             // Unset the reference to prevent potential issues.
@@ -91,6 +73,9 @@ class M032MigrateCampaignCoversToP4ColumnsBlock extends MigrationScript
             $new_content = serialize_blocks($blocks);
 
             if ($post->post_content !== $new_content) {
+                echo 'Migrating post ', $post->ID, "\n"; // phpcs:ignore
+                $result = false;
+
                 $post_update = array(
                     'ID' => $post->ID,
                     'post_content' => $new_content,
@@ -104,44 +89,14 @@ class M032MigrateCampaignCoversToP4ColumnsBlock extends MigrationScript
                     echo 'Error on post ', $post->ID, "\n";
                     echo $e->getMessage(), "\n";
                 }
-            }
 
-            echo $result
-                ? "Migration successful\n"
-                : "Migration wasn't executed\n"; // phpcs:ignore
+                echo $result
+                    ? "Migration successful\n"
+                    : "Migration wasn't executed\n"; // phpcs:ignore
+            }
         }
     }
     // phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter
-
-    /**
-     * Get all the posts using block name.
-     *
-     * @param string $block_name - A block name.
-     * @return mixed - The posts using block or null if no posts are found.
-     */
-    private static function get_posts_using_block(string $block_name): mixed
-    {
-        $search = new BlockSearch();
-
-        $post_ids = $search->get_posts_with_block($block_name);
-
-        if (empty($post_ids)) {
-            return null;
-        }
-
-        $args = [
-            'include' => $post_ids,
-            'post_type' => self::POST_TYPES,
-        ];
-
-        $posts = get_posts($args) ?? [];
-
-        if (empty($posts)) {
-            return null;
-        }
-
-        return $posts;
-    }
 
     /**
      * Transform a block attrs into columns block.
@@ -149,9 +104,12 @@ class M032MigrateCampaignCoversToP4ColumnsBlock extends MigrationScript
      * @param array $block_attrs - A block attrs array.
      * @return array - The transformed block.
      */
-    private static function transform_block(array $block_attrs): array
+    private static function transform_block(array $block): array
     {
-        $p4_columns_block['blockName'] = 'planet4-blocks/columns';
+        // Gathering the data we want from this block.
+        $block_attrs = self::get_columns_block_attrs($block['attrs']);
+
+        $p4_columns_block['blockName'] = Utils\Constants::BLOCK_COLUMNS;
         $p4_columns_block['attrs'] = $block_attrs;
         $p4_columns_block['innerBlocks'] = [];
         $p4_columns_block['innerHTML'] = '';
