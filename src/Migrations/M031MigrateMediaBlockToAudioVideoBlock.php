@@ -44,9 +44,23 @@ class M031MigrateMediaBlockToAudioVideoBlock extends MigrationScript
                 return;
             }
 
+            echo "Media block migration in progress...\n"; // phpcs:ignore
+
+            $parser = new WP_Block_Parser();
+
+            // Variable to store the current post ID
+            $current_post_id = null;
+
+            // Get all the blocks of each post.
             foreach ($posts as $post) {
-                // Get all the blocks of each post.
-                $parser = new WP_Block_Parser();
+                if (empty($post->post_content)) {
+                    continue;
+                }
+
+                $current_post_id = $post->ID; // Store the current post ID
+
+                echo 'Parsing post ', $post->ID, "\n"; // phpcs:ignore
+
                 $blocks = $parser->parse($post->post_content);
 
                 foreach ($blocks as &$block) {
@@ -89,13 +103,21 @@ class M031MigrateMediaBlockToAudioVideoBlock extends MigrationScript
                 );
 
                 // Update the post with the replaced blocks.
-                wp_update_post($post_update);
+                $result = wp_update_post($post_update);
+
+                if ($result === 0) {
+                    throw new \Exception("There was an error trying to update the post #" . $post->ID);
+                }   
+
+                echo "Migration successful\n";
             }
-        } catch (\ErrorException $e) {
-            echo 'Error on post ', $post->ID, "\n";
+        } catch (\Exception $e) {
+            // Catch any exceptions and display the post ID if available
+            echo "Migration wasn't executed for post ID: ", $current_post_id ?? 'unknown', "\n";
             echo $e->getMessage(), "\n";
         }
     }
+
     // phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter
 
     /**
