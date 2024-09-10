@@ -618,6 +618,17 @@
       ]
     },
     {
+      "name": "Ukraine",
+      "codes": ["UA"],
+      "lang": [
+        {
+          "name": "Українська",
+          "url": "https://www.greenpeace.org/ukraine/",
+          "locale": ["uk"]
+        }
+      ]
+    },
+    {
       "name": "USA",
       "codes": ["US"],
       "lang": [
