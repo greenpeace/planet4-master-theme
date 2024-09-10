@@ -107,7 +107,7 @@ class M031MigrateMediaBlockToAudioVideoBlock extends MigrationScript
 
                 if ($result === 0) {
                     throw new \Exception("There was an error trying to update the post #" . $post->ID);
-                }   
+                }
 
                 echo "Migration successful\n";
             }
