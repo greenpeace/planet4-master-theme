@@ -1,0 +1,15 @@
+.actions-list {
+  .wp-block-post-excerpt__more-link {
+    display: none;
+  }
+
+  .carousel-controls {
+    display: none !important;
+  }
+
+  @include large-and-up {
+    .wp-block-post {
+      flex-basis: calc((100% / 3) - $sp-2);
+    }
+  }
+}
