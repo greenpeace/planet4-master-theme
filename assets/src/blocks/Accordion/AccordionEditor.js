@@ -155,6 +155,14 @@ const renderEdit = ({tabs}, setAttributes, updateTabAttribute) => {
           {__('Remove item', 'planet4-blocks-backend')}
         </Button>
       </PanelBody>
+      <PanelBody title={__('Learn more about this block ', 'planet4-blocks-backend')} initialOpen={false}>
+        <p className="components-base-control__help">
+          <a target="_blank" href="https://planet4.greenpeace.org/content/blocks/accordion/" rel="noreferrer">
+            P4 Handbook Accordion
+          </a>
+          {' '} &#11015;&#65039;
+        </p>
+      </PanelBody>
     </InspectorControls>
   );
 };

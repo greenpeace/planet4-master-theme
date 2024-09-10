@@ -1,5 +1,7 @@
 import {FrontendRichText} from '../components/FrontendRichText/FrontendRichText';
 import {CookiesFieldResetButton} from './CookiesFieldResetButton';
+const {InspectorControls} = wp.blockEditor;
+const {PanelBody} = wp.components;
 
 const {__} = wp.i18n;
 
@@ -8,7 +10,7 @@ const COOKIES_DEFAULT_COPY = window.p4_vars.options.cookies_default_copy || {};
 // Planet4 settings(Planet 4 > Cookies > Enable Analytical Cookies).
 const ENABLE_ANALYTICAL_COOKIES = window.p4_vars.options.enable_analytical_cookies;
 
-export const CookiesEditor = ({setAttributes, attributes}) => {
+export const CookiesEditor = ({setAttributes, attributes, isSelected}) => {
   const {
     title,
     description,
@@ -32,7 +34,7 @@ export const CookiesEditor = ({setAttributes, attributes}) => {
     [attributeName]: value,
   });
 
-  return (
+  const renderView = () => (
     <section className={`block cookies-block ${className ?? ''}`}>
       <header>
         <FrontendRichText
@@ -183,5 +185,27 @@ export const CookiesEditor = ({setAttributes, attributes}) => {
         </div>
       </>
     </section>
+  );
+
+  const renderEdit = () => (
+    <>
+      <InspectorControls>
+        <PanelBody title={__('Learn more about this block ', 'planet4-blocks-backend')} initialOpen={false}>
+          <p className="components-base-control__help">
+            <a target="_blank" href="https://planet4.greenpeace.org/content/blocks/cookies/" rel="noreferrer">
+            P4 Handbook Cookies
+            </a>
+            {' '} &#127850;
+          </p>
+        </PanelBody>
+      </InspectorControls>
+    </>
+  );
+
+  return (
+    <>
+      {isSelected ? renderEdit() : null}
+      {renderView()}
+    </>
   );
 };

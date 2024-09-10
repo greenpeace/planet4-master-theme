@@ -56,6 +56,14 @@ export const CounterEditor = ({setAttributes, attributes, isSelected}) => {
             <code>%completed%</code>, <code>%target%</code>, <code>%remaining%</code>
           </div>
         </PanelBody>
+        <PanelBody title={__('Learn more about this block ', 'planet4-blocks-backend')} initialOpen={false}>
+          <p className="components-base-control__help">
+            <a target="_blank" href="https://planet4.greenpeace.org/content/blocks/counter/" rel="noreferrer">
+            P4 Handbook Counter
+            </a>
+            {' '} &#129518;
+          </p>
+        </PanelBody>
       </InspectorControls>
     </>
   );

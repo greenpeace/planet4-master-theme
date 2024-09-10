@@ -45,6 +45,7 @@ export const registerENForm = () => {
 
   registerBlockType(BLOCK_NAME, {
     title: 'EN Form',
+    description: __('Allows for adding in-page call to actions with data collected and sent to the relevant engaging network account.', 'planet4-blocks-backend'),
     icon: 'feedback',
     category: 'planet4-blocks',
     supports: {

@@ -39,9 +39,11 @@ const attributes = {
 export const registerCounterBlock = () => {
   const {registerBlockType, unregisterBlockStyle, registerBlockStyle} = wp.blocks;
   const {RawHTML} = wp.element;
+  const {__} = wp.i18n;
 
   registerBlockType(BLOCK_NAME, {
     title: 'Counter',
+    description: __('Display real time signatures being collected worldwide on petitions.', 'planet4-blocks-backend'),
     icon: 'dashboard',
     category: 'planet4-blocks',
     attributes,

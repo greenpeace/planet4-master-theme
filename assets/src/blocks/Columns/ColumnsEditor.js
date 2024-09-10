@@ -71,6 +71,14 @@ const renderEdit = (attributes, toAttribute, setAttributes, isSelected) => {
             );
           })}
         </PanelBody>
+        <PanelBody title={__('Learn more about this block ', 'planet4-blocks-backend')} initialOpen={false}>
+          <p className="components-base-control__help">
+            <a target="_blank" href="https://planet4.greenpeace.org/content/blocks/columns/" rel="noreferrer">
+              P4 Handbook Columns
+            </a>
+            {' '} &#127963;&#65039;
+          </p>
+        </PanelBody>
       </InspectorControls>
     </>
   );

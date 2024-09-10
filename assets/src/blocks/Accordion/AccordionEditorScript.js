@@ -1,6 +1,7 @@
 import {AccordionEditor} from './AccordionEditor';
 import {AccordionFrontend} from './AccordionFrontend';
 const {registerBlockType, registerBlockStyle} = wp.blocks;
+const {__} = wp.i18n;
 
 const BLOCK_NAME = 'planet4-blocks/accordion';
 
@@ -37,6 +38,7 @@ const styles = [
 
 registerBlockType(BLOCK_NAME, {
   title: 'Accordion',
+  description: __('Offers collapsible sections with a title, a description, a link or a call to action button.', 'planet4-blocks-backend'),
   icon: 'menu',
   category: 'planet4-blocks',
   keywords: [

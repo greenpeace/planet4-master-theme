@@ -86,6 +86,14 @@ const renderEdit = (
         />
 
       </PanelBody>
+      <PanelBody title={__('Learn more about this block', 'planet4-blocks-backend')} initialOpen={false}>
+        <p className="components-base-control__help">
+          <a target="_blank" href="https://planet4.greenpeace.org/content/blocks/timeline/" rel="noreferrer">
+            P4 Handbook Timeline
+          </a>
+          {' '} &#8987;
+        </p>
+      </PanelBody>
     </InspectorControls>
   );
 };
