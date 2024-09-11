@@ -13,6 +13,7 @@ import {registerColumnsBlock} from './blocks/Columns/ColumnsBlock';
 import {registerBlockStyles} from './block-styles';
 import {registerBlockVariations} from './block-variations';
 import {registerActionButtonTextBlock} from './blocks/ActionCustomButtonText';
+import {registerPostsListTest} from './blocks/PostsListTest';
 
 wp.domReady(() => {
   // Make sure to unregister the posts-list native variation before registering planet4-blocks/posts-list
@@ -26,6 +27,7 @@ wp.domReady(() => {
   registerSocialMediaBlock();
   registerMediaBlock();
   registerTimelineBlock();
+  registerPostsListTest();
 
   // Block Templates
   registerBlockTemplates();
