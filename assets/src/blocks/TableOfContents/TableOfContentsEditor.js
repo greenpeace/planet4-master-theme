@@ -1,6 +1,6 @@
-import {SubmenuLevel} from './SubmenuLevel';
-import {SubmenuItems} from './SubmenuItems';
-import {getSubmenuStyle} from './getSubmenuStyle';
+import {TableOfContentsLevel} from './TableOfContentsLevel';
+import {TableOfContentsItems} from './TableOfContentsItems';
+import {getTableOfContentsStyle} from './getTableOfContentsStyle';
 import {makeHierarchical} from './makeHierarchical';
 import {getHeadingsFromBlocks} from './getHeadingsFromBlocks';
 import {deepClone} from '../../functions/deepClone';
@@ -54,7 +54,7 @@ const renderEdit = (attributes, setAttributes) => {
           {__('Choose the headings to be displayed in the table of contents.', 'planet4-blocks-backend')}
         </p>
         {attributes.levels.map((level, i) => (
-          <SubmenuLevel
+          <TableOfContentsLevel
             {...level}
             onHeadingChange={onHeadingChange}
             onLinkChange={onLinkChange}
@@ -96,7 +96,7 @@ const renderView = (attributes, setAttributes, className) => {
   const {
     title,
     levels,
-    submenu_style,
+    table_of_contents_style,
     isExample,
     exampleMenuItems,
   } = attributes;
@@ -107,10 +107,10 @@ const renderView = (attributes, setAttributes, className) => {
 
   const menuItems = isExample ? exampleMenuItems : makeHierarchical(flatHeadings);
 
-  const style = getSubmenuStyle(className, submenu_style);
+  const style = getTableOfContentsStyle(className, table_of_contents_style);
 
   return (
-    <section className={`block submenu-block submenu-${style} ${className ?? ''}`}>
+    <section className={`block table-of-contents-block table-of-contents-${style} ${className ?? ''}`}>
       <RichText
         tagName="h2"
         placeholder={__('Enter title', 'planet4-blocks-backend')}
@@ -120,7 +120,7 @@ const renderView = (attributes, setAttributes, className) => {
         allowedFormats={[]}
       />
       {menuItems.length > 0 ?
-        <SubmenuItems menuItems={menuItems} /> :
+        <TableOfContentsItems menuItems={menuItems} /> :
         <div className="EmptyMessage">
           {__('There are not any pre-established headings that this block can display in the form of a table of content. Please add headings to your page or choose another heading size.', 'planet4-blocks-backend')}
         </div>
@@ -129,7 +129,7 @@ const renderView = (attributes, setAttributes, className) => {
   );
 };
 
-export const SubmenuEditor = ({attributes, setAttributes, isSelected, className}) => (
+export const TableOfContentsEditor = ({attributes, setAttributes, isSelected, className}) => (
   <>
     {isSelected && renderEdit(attributes, setAttributes)}
     {renderView(attributes, setAttributes, className)}

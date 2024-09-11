@@ -1,9 +1,9 @@
 // On outer element as otherwise it will not be clickable when floating on the right.
-div[data-render="planet4-blocks/submenu"] {
+div[data-render="planet4-blocks/table-of-contents"] {
   z-index: 4;
 }
 
-.submenu-block {
+.table-of-contents-block {
   _-- {
     border-radius: 4px;
     box-shadow: 0 3px 8px 0 rgba(28, 28, 28, 0.2);
@@ -13,18 +13,18 @@ div[data-render="planet4-blocks/submenu"] {
 
   h1,
   h2 {
-    --submenu-block-heading-- {
+    --table-of-contents-block-heading-- {
       font-family: var(--font-family-primary);
       color: var(--grey-900);
       padding-inline-start: 0;
     }
   }
 
-  .submenu-menu {
+  .table-of-contents-menu {
     display: flex;
     flex-wrap: wrap;
 
-    ul.submenu-item {
+    ul.table-of-contents-item {
       flex-basis: 100%;
 
       @include large-and-up {
@@ -37,7 +37,7 @@ div[data-render="planet4-blocks/submenu"] {
     }
 
     ul {
-      --submenu-block-menu-- {
+      --table-of-contents-block-menu-- {
         font-family: var(--font-family-tertiary);
         color: var(--color-text-body);
         margin: 0;
@@ -48,7 +48,7 @@ div[data-render="planet4-blocks/submenu"] {
 
     li {
       &.list-style-bullet {
-        --submenu-block-bullet-item-- {
+        --table-of-contents-block-bullet-item-- {
           margin-inline-end: 0;
           margin-inline-start: $sp-4;
         }
@@ -56,7 +56,7 @@ div[data-render="planet4-blocks/submenu"] {
       }
 
       &.list-style-number {
-        --submenu-block-number-item-- {
+        --table-of-contents-block-number-item-- {
           margin-inline-start: $sp-4;
         }
         list-style: decimal;
@@ -64,10 +64,10 @@ div[data-render="planet4-blocks/submenu"] {
     }
   }
 
-  &.submenu-short {
-    .submenu-menu {
+  &.table-of-contents-short {
+    .table-of-contents-menu {
       @include medium-and-up {
-        ul.submenu-item {
+        ul.table-of-contents-item {
           flex-basis: 100%;
           column-count: 3;
 
@@ -79,9 +79,9 @@ div[data-render="planet4-blocks/submenu"] {
     }
   }
 
-  &.submenu-long {
-    .submenu-menu {
-      ul.submenu-item {
+  &.table-of-contents-long {
+    .table-of-contents-menu {
+      ul.table-of-contents-item {
         flex-basis: 100%;
         column-count: 1;
 
@@ -92,7 +92,7 @@ div[data-render="planet4-blocks/submenu"] {
     }
   }
 
-  &.submenu-sidebar {
+  &.table-of-contents-sidebar {
     z-index: 4;
 
     @include medium-and-up {
@@ -106,8 +106,8 @@ div[data-render="planet4-blocks/submenu"] {
       }
     }
 
-    .submenu-menu {
-      ul.submenu-item {
+    .table-of-contents-menu {
+      ul.table-of-contents-item {
         flex-basis: 100%;
 
         @include large-and-up {

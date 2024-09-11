@@ -1,20 +1,20 @@
-.submenu-level-link label {
+.table-of-contents-level-link label {
   margin-bottom: 0;
 }
 
-[data-type="planet4-blocks/submenu"] {
+[data-type="planet4-blocks/table-of-contents"] {
   clear: both;
 }
 
 .editor-styles-wrapper {
-  .submenu-block h2 {
+  .table-of-contents-block h2 {
     padding-left: 16px;
     color: var(--grey-800);
     font-family: var(--font-family-heading);
   }
 
   // Needed to make it easily selectable in the editor
-  .submenu-sidebar {
+  .table-of-contents-sidebar {
     float: none;
     margin-right: 0;
     margin-left: auto;

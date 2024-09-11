@@ -208,7 +208,7 @@ final class Loader
         new Blocks\Media();//NOSONAR
         new Blocks\SocialMedia();//NOSONAR
         new Blocks\Spreadsheet();//NOSONAR
-        new Blocks\Submenu();//NOSONAR
+        new Blocks\TableOfContents();//NOSONAR
         new Blocks\TakeActionBoxout();//NOSONAR
         new Blocks\Timeline();//NOSONAR
 

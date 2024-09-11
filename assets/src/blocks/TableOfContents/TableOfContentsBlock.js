@@ -1,31 +1,30 @@
-import {SubmenuEditor} from './SubmenuEditor.js';
-import {example} from './example';
-import {getStyleLabel} from '../../functions/getStyleLabel';
+import {TableOfContentsEditor} from './TableOfContentsEditor.js';
+import {example} from './example.js';
+import {getStyleLabel} from '../../functions/getStyleLabel.js';
+import {BLOCK_NAME, P4_BLOCK_PREFIX} from '../Constants/Constants.js';
 
 const {__} = wp.i18n;
 
-const BLOCK_NAME = 'planet4-blocks/submenu';
-
-export const registerSubmenuBlock = () => {
+export const registerTableOfContentsBlock = () => {
   const {registerBlockType, getBlockTypes} = wp.blocks;
 
-  const blockAlreadyExists = getBlockTypes().find(block => block.name === BLOCK_NAME);
+  const blockAlreadyExists = getBlockTypes().find(block => block.name === BLOCK_NAME.tableOfContents.name);
 
   if (blockAlreadyExists) {
     return;
   }
 
-  registerBlockType(BLOCK_NAME, {
-    title: 'Submenu',
+  registerBlockType(BLOCK_NAME.tableOfContents.name, {
+    title: BLOCK_NAME.tableOfContents.title,
     description: __('Insert text, media, and other content in an ordered list of clickable headings corresponding to the content sections on the page.', 'planet4-blocks-backend'),
     icon: 'welcome-widgets-menus',
-    category: 'planet4-blocks',
+    category: P4_BLOCK_PREFIX,
     attributes: {
       title: {
         type: 'string',
         default: '',
       },
-      submenu_style: { // Needed for old blocks conversion
+      table_of_contents_style: { // Needed for old blocks conversion
         type: 'integer',
         default: 0,
       },
@@ -69,7 +68,7 @@ export const registerSubmenuBlock = () => {
         ),
       },
     ],
-    edit: SubmenuEditor,
+    edit: TableOfContentsEditor,
     save() {
       return null;
     },
