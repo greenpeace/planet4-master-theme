@@ -6,11 +6,10 @@ import {HappypointFrontend} from './blocks/Happypoint/HappypointFrontend';
 import {MediaFrontend} from './blocks/Media/MediaFrontend';
 import {ColumnsFrontend} from './blocks/Columns/ColumnsFrontend';
 import {setupMediaElementJS} from './blocks/Media/setupMediaElementJS';
-import {BLOCK_NAME} from './blocks/Constants/Constants';
 
 // Render React components
 const COMPONENTS = {
-  [BLOCK_NAME.tableOfContents.name]: TableOfContentsFrontend,
+  'planet4-blocks/submenu': TableOfContentsFrontend,
   'planet4-blocks/happypoint': HappypointFrontend,
   'planet4-blocks/media-video': MediaFrontend,
   'planet4-blocks/columns': ColumnsFrontend,

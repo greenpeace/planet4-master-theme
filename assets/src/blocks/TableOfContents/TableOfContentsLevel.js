@@ -1,5 +1,3 @@
-import {BLOCK_NAME} from '../Constants/Constants';
-
 const {CheckboxControl, SelectControl} = wp.components;
 const {__} = wp.i18n;
 
@@ -29,7 +27,7 @@ export const TableOfContentsLevel = props => {
     <div>
       <p>{`${__('Level', 'planet4-blocks-backend')} ${Number(index + 1)}`}</p>
       <SelectControl
-        label={__(BLOCK_NAME.tableOfContents.title + ' item', 'planet4-blocks-backend')}
+        label={__('Table of Contents item', 'planet4-blocks-backend')}
         value={heading}
         options={getHeadingOptions(minLevel)}
         onChange={e => onHeadingChange(index, e)}

@@ -1,18 +1,19 @@
 import {TableOfContentsEditor} from './TableOfContentsEditor.js';
 import {example} from './example.js';
 import {getStyleLabel} from '../../functions/getStyleLabel.js';
-import {BLOCK_NAME, P4_BLOCK_PREFIX} from '../Constants/Constants.js';
 
 const {__} = wp.i18n;
+
+const BLOCK_NAME = 'planet4-blocks/submenu';
 
 export const registerTableOfContentsBlock = () => {
   const {registerBlockType} = wp.blocks;
 
-  registerBlockType(BLOCK_NAME.tableOfContents.name, {
-    title: BLOCK_NAME.tableOfContents.title,
+  registerBlockType(BLOCK_NAME, {
+    title: 'Table of Contents',
     description: __('Insert text, media, and other content in an ordered list of clickable headings corresponding to the content sections on the page.', 'planet4-blocks-backend'),
     icon: 'welcome-widgets-menus',
-    category: P4_BLOCK_PREFIX,
+    category: 'planet4-blocks',
     attributes: {
       title: {
         type: 'string',
