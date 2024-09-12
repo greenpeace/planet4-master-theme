@@ -126,7 +126,7 @@ class Settings
                         'desc' => __('Add default button text which appears on <b>Take Action</b> card of <b>Take Action Covers</b> block. <br>Also it would be used for Take Action Cards inside Posts and Take Action Cards in search results', 'planet4-master-theme-backend'),
                     ],
 
-                    // HappyPoint settings.
+                    // Happy Point settings.
                     [
                         'name' => __('Default Happy Point Background Image', 'planet4-master-theme-backend'),
                         'id' => 'happy_point_bg_image',
@@ -158,7 +158,7 @@ class Settings
                     ],
 
                     [
-                        'name' => __('Happy point Subscribe Form URL', 'planet4-master-theme-backend'),
+                        'name' => __('Happy Point Subscribe Form URL', 'planet4-master-theme-backend'),
                         'id' => 'engaging_network_form_id',
                         'type' => 'text',
                     ],

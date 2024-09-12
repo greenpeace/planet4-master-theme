@@ -54,7 +54,7 @@ export const HappypointFrontend = ({
   return (
     <section className={`block block-footer alignfull happy-point-block-wrap ${className ?? ''}`}>
       <picture>
-        <img {...imgProps} loading="lazy" alt="Happypoint" />
+        <img {...imgProps} loading="lazy" alt="Happy Point" />
       </picture>
       <div className="container">
         <div className="row justify-content-md-center">

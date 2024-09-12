@@ -113,7 +113,7 @@ class Happypoint extends BaseBlock
     }
 
     /**
-     * Endpoint to retrieve the data for the Happypoint block
+     * Endpoint to retrieve the data for the Happy Point block
      */
     public static function register_endpoints(): void
     {
