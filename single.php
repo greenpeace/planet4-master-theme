@@ -63,26 +63,7 @@ $context['filter_url'] = add_query_arg(
 
 // Build the shortcode for articles block.
 if ('yes' === $post->include_articles) {
-    $tag_id_array = [];
-    foreach ($post->tags() as $post_tag) {
-        $tag_id_array[] = $post_tag->id;
-    }
-    $category_id_array = [];
-    foreach ($post->terms('category') as $category) {
-        $category_id_array[] = $category->id;
-    }
-
-    $block_attributes = [
-        'exclude_post_id' => $post->ID,
-        'tags' => $tag_id_array,
-        'categories' => $category_id_array,
-        'article_heading' => __('Related Articles', 'planet4-blocks'),
-        'read_more_text' => __('Load more', 'planet4-blocks'),
-    ];
-
-    $post->articles = '<!-- wp:planet4-blocks/articles '
-        . wp_json_encode($block_attributes, JSON_UNESCAPED_SLASHES)
-        . ' /-->';
+    $post->articles = '<!-- wp:planet4-blocks/posts-list-test /-->';
 }
 
 if (! empty($take_action_page) && ! has_block('planet4-blocks/take-action-boxout')) {
