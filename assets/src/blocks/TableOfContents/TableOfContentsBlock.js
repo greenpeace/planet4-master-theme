@@ -6,13 +6,7 @@ import {BLOCK_NAME, P4_BLOCK_PREFIX} from '../Constants/Constants.js';
 const {__} = wp.i18n;
 
 export const registerTableOfContentsBlock = () => {
-  const {registerBlockType, getBlockTypes} = wp.blocks;
-
-  const blockAlreadyExists = getBlockTypes().find(block => block.name === BLOCK_NAME.tableOfContents.name);
-
-  if (blockAlreadyExists) {
-    return;
-  }
+  const {registerBlockType} = wp.blocks;
 
   registerBlockType(BLOCK_NAME.tableOfContents.name, {
     title: BLOCK_NAME.tableOfContents.title,
