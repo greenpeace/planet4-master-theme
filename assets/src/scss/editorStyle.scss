@@ -45,8 +45,10 @@
 @import "blocks/Submenu/SubmenuEditorStyle";
 @import "blocks/TakeActionBoxout/TakeActionBoxoutEditorStyle";
 @import "blocks/Timeline/TimelineEditorStyle";
-@import "blocks/PostsList/PostsListEditor";
-@import "blocks/ActionsList/ActionsListEditor";
+
+// Beta blocks editor styles
+@import "blocks/PostsList/PostsListEditorStyle";
+@import "blocks/ActionsList/ActionsListEditorStyle";
 
 // Variations
 @import "variations/stretched-link/edit";
