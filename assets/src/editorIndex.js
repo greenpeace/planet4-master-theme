@@ -1,6 +1,6 @@
 import {registerActionsListBlock} from './blocks/ActionsList';
 import {registerPostsListBlock} from './blocks/PostsList';
-import {registerSubmenuBlock} from './blocks/Submenu/SubmenuBlock';
+import {registerTableOfContentsBlock} from './blocks/TableOfContents/TableOfContentsBlock';
 import {registerTakeActionBoxoutBlock} from './blocks/TakeActionBoxout/TakeActionBoxoutBlock';
 import {registerHappypointBlock} from './blocks/Happypoint/HappypointBlock';
 import {setupCustomSidebar} from './block-editor/setupCustomSidebar';
@@ -19,7 +19,7 @@ wp.domReady(() => {
   wp.blocks.unregisterBlockVariation('core/query', 'posts-list');
 
   // Blocks
-  registerSubmenuBlock();
+  registerTableOfContentsBlock();
   registerColumnsBlock();
   registerTakeActionBoxoutBlock();
   registerHappypointBlock();

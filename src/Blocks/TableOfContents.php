@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Submenu block class.
+ * TableOfContents block class.
  *
  * @package P4\MasterTheme
  * @since 0.1
@@ -10,11 +10,11 @@
  namespace P4\MasterTheme\Blocks;
 
 /**
- * Class Submenu
+ * Class TableOfContents
  *
  * @package P4\MasterTheme\Blocks
  */
-class Submenu extends BaseBlock
+class TableOfContents extends BaseBlock
 {
     /**
      * Block name.
@@ -22,20 +22,21 @@ class Submenu extends BaseBlock
      * @const string BLOCK_NAME.
      */
     public const BLOCK_NAME = 'submenu';
+    //TO DO: Change the name of this block to 'table-of-contents' when migrating it.
 
     /**
-     * Submenu constructor.
+     * TableOfContents constructor.
      */
     public function __construct()
     {
 
-        $this->register_submenu_block();
+        $this->register_table_of_contents_block();
     }
 
     /**
-     * Register Submenu block.
+     * Register TableOfContents block.
      */
-    public function register_submenu_block(): void
+    public function register_table_of_contents_block(): void
     {
         register_block_type(
             self::get_full_block_name(),

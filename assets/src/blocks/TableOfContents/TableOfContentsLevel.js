@@ -11,7 +11,7 @@ const getHeadingOptions = minLevel => {
   ].map(option => ({...option, disabled: option.value <= minLevel}));
 };
 
-export const SubmenuLevel = props => {
+export const TableOfContentsLevel = props => {
   const {
     index,
     heading,
@@ -27,7 +27,7 @@ export const SubmenuLevel = props => {
     <div>
       <p>{`${__('Level', 'planet4-blocks-backend')} ${Number(index + 1)}`}</p>
       <SelectControl
-        label={__('Submenu item', 'planet4-blocks-backend')}
+        label={__('Table of Contents item', 'planet4-blocks-backend')}
         value={heading}
         options={getHeadingOptions(minLevel)}
         onChange={e => onHeadingChange(index, e)}
@@ -38,7 +38,7 @@ export const SubmenuLevel = props => {
         value={link}
         checked={link}
         onChange={e => onLinkChange(index, e)}
-        className="submenu-level-link"
+        className="table-of-contents-level-link"
       />
 
       <SelectControl

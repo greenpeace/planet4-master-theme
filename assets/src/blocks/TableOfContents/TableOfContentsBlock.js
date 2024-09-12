@@ -1,4 +1,4 @@
-import {SubmenuEditor} from './SubmenuEditor.js';
+import {TableOfContentsEditor} from './TableOfContentsEditor';
 import {example} from './example';
 import {getStyleLabel} from '../../functions/getStyleLabel';
 
@@ -6,17 +6,11 @@ const {__} = wp.i18n;
 
 const BLOCK_NAME = 'planet4-blocks/submenu';
 
-export const registerSubmenuBlock = () => {
-  const {registerBlockType, getBlockTypes} = wp.blocks;
-
-  const blockAlreadyExists = getBlockTypes().find(block => block.name === BLOCK_NAME);
-
-  if (blockAlreadyExists) {
-    return;
-  }
+export const registerTableOfContentsBlock = () => {
+  const {registerBlockType} = wp.blocks;
 
   registerBlockType(BLOCK_NAME, {
-    title: 'Submenu',
+    title: 'Table of Contents',
     description: __('Insert text, media, and other content in an ordered list of clickable headings corresponding to the content sections on the page.', 'planet4-blocks-backend'),
     icon: 'welcome-widgets-menus',
     category: 'planet4-blocks',
@@ -69,7 +63,7 @@ export const registerSubmenuBlock = () => {
         ),
       },
     ],
-    edit: SubmenuEditor,
+    edit: TableOfContentsEditor,
     save() {
       return null;
     },
