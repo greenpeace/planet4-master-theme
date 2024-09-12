@@ -63,7 +63,21 @@ class M031MigrateMediaBlockToAudioVideoBlock extends MigrationScript
 
                 $blocks = $parser->parse($post->post_content);
 
+                if (!is_array($blocks)) {
+                    throw new \Exception("Invalid block structure for post #" . $post->ID);
+                }
+
                 foreach ($blocks as &$block) {
+                    // Check if the block is valid.
+                    if (!is_array($block)) {
+                        continue;
+                    }
+
+                    // Check if the block has a 'blockName' key.
+                    if (!isset($block['blockName'])) {
+                        continue;
+                    }
+
                     // Check if the block is a Media block.
                     if ($block['blockName'] !== Utils\Constants::BLOCK_MEDIA_VIDEO) {
                         continue;
