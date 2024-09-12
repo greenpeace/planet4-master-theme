@@ -260,11 +260,14 @@ $nested-comment-left-margin: 50px;
 // Apply background effect to link
 @mixin shared-link-styles {
   border-bottom: 2px solid var(--gp-green-500);
-  transition: background-color 0.1s linear;
-  background: white;
+  background-repeat: no-repeat;
+  background-image: linear-gradient(90deg, var(--color-background-link--hover), var(--color-background-link--hover));
+  background-size: 100% 0;
+  background-position: bottom;
+  transition: background-size .15s ease;
 
   &:hover {
-    background: var(--color-background-link--hover);
+    background-size: 100% 100%;
   }
 
   &:hover,
