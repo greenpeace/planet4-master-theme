@@ -3,10 +3,10 @@ import {TableOfContentsItems} from './TableOfContentsItems';
 import {makeHierarchical} from './makeHierarchical';
 import {getHeadingsFromDom} from './getHeadingsFromDom';
 
-export const TableOfContentsFrontend = ({title, className, levels, table_of_contents_style}) => {
+export const TableOfContentsFrontend = ({title, className, levels, submenu_style}) => {
   const headings = getHeadingsFromDom(levels);
   const menuItems = makeHierarchical(headings);
-  const style = getTableOfContentsStyle(className, table_of_contents_style);
+  const style = getTableOfContentsStyle(className, submenu_style);
 
   return (
     <section className={`block table-of-contents-block table-of-contents-${style} ${className ?? ''}`}>

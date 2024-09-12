@@ -96,7 +96,7 @@ const renderView = (attributes, setAttributes, className) => {
   const {
     title,
     levels,
-    table_of_contents_style,
+    submenu_style,
     isExample,
     exampleMenuItems,
   } = attributes;
@@ -107,7 +107,7 @@ const renderView = (attributes, setAttributes, className) => {
 
   const menuItems = isExample ? exampleMenuItems : makeHierarchical(flatHeadings);
 
-  const style = getTableOfContentsStyle(className, table_of_contents_style);
+  const style = getTableOfContentsStyle(className, submenu_style);
 
   return (
     <section className={`block table-of-contents-block table-of-contents-${style} ${className ?? ''}`}>

@@ -48,7 +48,7 @@ class TableOfContents extends BaseBlock
                         'type' => 'string',
                         'default' => '',
                     ],
-                    'table_of_contents_style' => [ // Needed for old blocks conversion.
+                    'submenu_style' => [ // Needed for old blocks conversion.
                         'type' => 'integer',
                         'default' => 0,
                     ],
