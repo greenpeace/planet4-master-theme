@@ -111,20 +111,27 @@
   }
 }
 
-.editor-styles-wrapper p {
-  // Matches https://github.com/greenpeace/planet4-master-theme/blob/ab3ee3a5fd7975fcdb71f633d9ce8704003306e8/assets/src/scss/base/_typography.scss#L11-L19.
-  // We need to redeclare with a different selector here, because a core script sets a higher specificity.
-  --text-- {
-    font-size: $font-size-sm;
-    line-height: 1.6rem;
+.editor-styles-wrapper {
+  p {
+    // Matches https://github.com/greenpeace/planet4-master-theme/blob/ab3ee3a5fd7975fcdb71f633d9ce8704003306e8/assets/src/scss/base/_typography.scss#L11-L19.
+    // We need to redeclare with a different selector here, because a core script sets a higher specificity.
+    --text-- {
+      font-size: $font-size-sm;
+      line-height: 1.6rem;
 
-    @include x-large-and-up {
-      font-size: $font-size-md;
-      line-height: 1.75rem;
+      @include x-large-and-up {
+        font-size: $font-size-md;
+        line-height: 1.75rem;
+      }
+    }
+
+    > a {
+      @include shared-link-styles;
     }
   }
 
-  & > a {
+  ul li a,
+  ol li a {
     @include shared-link-styles;
   }
 }

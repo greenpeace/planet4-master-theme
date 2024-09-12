@@ -1,6 +1,10 @@
 
 // Table background colors (header, footer, odd/even rows)
 .wp-block-table {
+  a {
+    @include shared-link-styles;
+  }
+
   table {
     // Grey background (defaut)
     th {
@@ -49,6 +53,7 @@
 
   // Table caption
   figcaption {
+    min-height: 24px; // This is needed in case there's a link in the caption, for our styles
     text-align: center;
     font-size: var(--font-size-s--font-family-tertiary);
     font-family: var(--font-family-tertiary);
