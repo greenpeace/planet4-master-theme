@@ -10,9 +10,7 @@ export const TableOfContentsFrontend = ({title, className, levels, submenu_style
 
   return (
     <section className={`block table-of-contents-block table-of-contents-${style} ${className ?? ''}`}>
-      {!!title && (
-        <h2>{ title }</h2>
-      )}
+      {!!title && <h2>{title}</h2>}
       <TableOfContentsItems menuItems={menuItems} />
     </section>
   );

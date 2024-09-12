@@ -1,6 +1,6 @@
-import {TableOfContentsEditor} from './TableOfContentsEditor.js';
-import {example} from './example.js';
-import {getStyleLabel} from '../../functions/getStyleLabel.js';
+import {TableOfContentsEditor} from './TableOfContentsEditor';
+import {example} from './example';
+import {getStyleLabel} from '../../functions/getStyleLabel';
 
 const {__} = wp.i18n;
 
