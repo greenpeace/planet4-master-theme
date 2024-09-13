@@ -19,10 +19,6 @@
   }
 }
 
-.editor-styles-wrapper {
-  padding: 0 1rem !important;
-}
-
 .edit-post-visual-editor {
   li {
     font-size: unset;
@@ -112,6 +108,8 @@
 }
 
 .editor-styles-wrapper {
+  padding: 0 1rem !important;
+
   p {
     // Matches https://github.com/greenpeace/planet4-master-theme/blob/ab3ee3a5fd7975fcdb71f633d9ce8704003306e8/assets/src/scss/base/_typography.scss#L11-L19.
     // We need to redeclare with a different selector here, because a core script sets a higher specificity.
@@ -189,7 +187,8 @@
 }
 
 .edit-post-visual-editor .editor-block-list__block-edit,
-.edit-post-visual-editor, .editor-styles-wrapper {
+.edit-post-visual-editor,
+.editor-styles-wrapper {
   --body-- {
     font-family: "Noto Serif", serif;
   }
