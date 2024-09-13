@@ -176,6 +176,17 @@ class GravityFormsExtensions
             'choices' => self::P4_GF_TYPES,
         ];
 
+        $fields['p4_options']['fields'][] = [
+            'type' => 'text',
+            'name' => 'p4_gf_counter',
+            'label' => __('Global Counter ID', 'planet4-master-theme-backend'),
+            'tooltip' => __(
+                'Add the Counter Name from counter.greenpeace.org',
+                'planet4-master-theme-backend'
+            ),
+            'required' => false,
+        ];
+
         return $fields;
     }
 
