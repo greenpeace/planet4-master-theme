@@ -113,9 +113,62 @@ class GravityFormsExtensions
         add_filter('gform_pre_render', [ $this, 'p4_client_side_gravityforms_prefill' ], 10, 1);
         add_filter('gform_form_post_get_meta', [$this, 'p4_gf_enable_default_meta_settings'], 10, 1);
         add_filter('gform_hubspot_form_object_pre_save_feed', [$this, 'p4_gf_hb_form_object_pre_save_feed'], 10, 1);
+        add_action('gform_after_submission', [$this, 'p4_send_gp_pixel_counter'], 10, 2);
+        add_action('gform_after_submission', [$this, 'p4_send_gp_pixel_counter_iframe'], 10, 2);
 
         add_action('gform_stripe_fulfillment', [ $this, 'record_fulfillment_entry' ], 10, 2);
         add_action('gform_post_payment_action', [ $this, 'check_stripe_payment_status' ], 10, 2);
+    }
+
+    /**
+     * Make an API call to the Greenpeace Pixel Counter.
+     * Increase in one unit the total number of submissions for a counter.
+     *
+     * @param array $form The form setting.
+     * @param array $entry A form entry.
+     *
+     */
+    public function p4_send_gp_pixel_counter(array $entry, array $form): void
+    {
+        if (!$form['p4_gf_counter']) {
+            return;
+        }
+
+        $endpoint_url = 'https://counter.greenpeace.org/count';
+        $endpoint_url .= '?id=' . $form['p4_gf_counter'];
+        $endpoint_url .= '&email_hash=' . $this->p4_gf_get_email_hash($form, $entry);
+
+        $response = wp_remote_get($endpoint_url);
+        GFCommon::log_debug('gform_after_submission: response => ' . $response);
+
+        $endpoint_url_2 = 'https://counter.greenpeace.org/count_pixel';
+        $endpoint_url_2 .= '?id=' . $form['p4_gf_counter'];
+        $endpoint_url_2 .= '&email_hash=' . $this->p4_gf_get_email_hash($form, $entry);
+
+        $response_2 = wp_remote_get($endpoint_url_2);
+        GFCommon::log_debug('gform_after_submission: response => ' . $response_2);
+    }
+
+        /**
+     * Increase in one unit the total number of submissions for a counter.
+     * @link https://counter.greenpeace.org/documentation
+     *
+     * @param array $form The form setting.
+     * @param array $entry A form entry.
+     *
+     */
+    public function p4_send_gp_pixel_counter_iframe(array $entry, array $form): void
+    {
+        if (!$form['p4_gf_counter']) {
+            return;
+        }
+
+        $iframe_url = 'https://counter.greenpeace.org/count';
+        $iframe_url .= '?id=' . $form['p4_gf_counter'];
+        $iframe_url .= '&email_hash=' . $this->p4_gf_get_email_hash($form, $entry);
+
+        $iframe = '<iframe src="' . $iframe_url . '" width="1" height="1" frameborder=0 style="overflow:hidden;" scrolling="no"></iframe>'; // phpcs:ignore Generic.Files.LineLength.MaxExceeded
+        echo $iframe;
     }
 
     /**
