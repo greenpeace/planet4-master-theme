@@ -1,0 +1,30 @@
+.posts-list {
+  .carousel-controls {
+    display: none !important;
+  }
+
+  &.is-custom-layout-list {
+    .wp-block-post-template.is-layout-flow li {
+      height: 240px;
+      margin-bottom: 12px;
+    }
+
+    .wp-block-post-featured-image {
+      flex-basis: 30%;
+    }
+
+    .wp-block-group.is-layout-flow {
+      flex-basis: 65%;
+    }
+
+    .wp-block-post-excerpt__more-text {
+      display: none;
+    }
+  }
+
+  @include large-and-up {
+    .wp-block-post {
+      flex-basis: calc(25% - $sp-2);
+    }
+  }
+}

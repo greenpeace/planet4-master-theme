@@ -46,5 +46,24 @@
 @import "blocks/TakeActionBoxout/TakeActionBoxoutEditorStyle";
 @import "blocks/Timeline/TimelineEditorStyle";
 
+// Beta blocks editor styles
+@import "blocks/PostsList/PostsListEditorStyle";
+@import "blocks/ActionsList/ActionsListEditorStyle";
+
 // Variations
 @import "variations/stretched-link/edit";
+
+.block-editor-block-list__layout.is-root-container > * {
+  margin-top: $sp-1;
+  margin-bottom: $sp-2;
+
+  @include large-and-up {
+    margin-top: $sp-2;
+    margin-bottom: $sp-4;
+  }
+}
+
+.block-edit-mode-warning {
+  padding: $sp-2;
+  margin: 0;
+}

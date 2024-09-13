@@ -399,57 +399,6 @@ input.describe[type=text][data-setting=caption] {
   }
 }
 
-.posts-list,
-.actions-list {
-  .carousel-controls,
-  .wp-block-query-pagination {
-    display: none !important;
-  }
-}
-
-// Posts List Block Override for the List layout
-.posts-list.is-custom-layout-list {
-  .wp-block-post-template.is-layout-flow li {
-    height: 240px;
-    margin-bottom: 12px;
-  }
-
-  .wp-block-post-featured-image {
-    flex-basis: 30%;
-  }
-
-  .wp-block-group.is-layout-flow {
-    flex-basis: 65%;
-  }
-
-  .wp-block-post-title {
-    margin-top: -25px !important;
-  }
-
-  .wp-block-post-excerpt {
-    margin-top: -24px;
-
-    &__more-text {
-      display: none;
-    }
-  }
-
-  .is-layout-flow > .is-layout-flow {
-    margin-top: -36px;
-  }
-
-  @media (max-width: 991px) {
-    .wp-block-post-title,
-    .wp-block-post-excerpt {
-      margin-top: -12px;
-    }
-
-    .is-layout-flow > .is-layout-flow {
-      margin-top: -16px;
-    }
-  }
-}
-
 // Override Query Loop within editor
 .is-custom-layout-carousel {
   flex-direction: column;
@@ -480,14 +429,6 @@ input.describe[type=text][data-setting=caption] {
   }
 
   @include large-and-up {
-    &.actions-list .wp-block-post {
-      flex-basis: calc((100% / 3) - $sp-2);
-    }
-
-    &.posts-list .wp-block-post {
-      flex-basis: calc(25% - $sp-2);
-    }
-
     .wp-block-post:not(:last-child) {
       margin-inline-end: $sp-3;
     }
