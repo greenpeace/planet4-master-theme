@@ -274,10 +274,6 @@ $nested-comment-left-margin: 50px;
   &:active {
     text-decoration: none !important;
   }
-
-  &:focus {
-    --link--focus--border-radius: 0;
-  }
 }
 
 @mixin rounded-image-size($size) {
