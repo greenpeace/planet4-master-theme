@@ -16,9 +16,10 @@
   // eslint-disable-next-line no-undef
   p4GfClientSideConfig.populate.forEach(field => {
     const value = urlParams.get(field.parameter);
+    const element = document.getElementById(field.fieldId);
 
-    if (value !== null) {
-      document.getElementById(field.fieldId).value = value;
+    if (element && value !== null) {
+      element.value = value;
     }
   });
 })();
