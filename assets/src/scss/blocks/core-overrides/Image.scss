@@ -102,10 +102,6 @@
     margin-bottom: 0;
     color: var(--color-text-image_caption);
     text-align: center;
-
-    a {
-      @include shared-link-styles;
-    }
   }
 
   &.caption-alignment-left figcaption {

@@ -140,3 +140,7 @@ a:focus:not(:focus-visible) {
 mark {
   padding: 0;
 }
+
+figcaption a {
+  @include shared-link-styles;
+}
