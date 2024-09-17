@@ -17,4 +17,8 @@
       transform: rotate(180deg);
     }
   }
+
+  > a {
+    @include shared-link-styles;
+  }
 }

@@ -19,10 +19,6 @@
   }
 }
 
-.editor-styles-wrapper {
-  padding: 0 1rem !important;
-}
-
 .edit-post-visual-editor {
   li {
     font-size: unset;
@@ -111,20 +107,31 @@
   }
 }
 
-.editor-styles-wrapper p {
-  // Matches https://github.com/greenpeace/planet4-master-theme/blob/ab3ee3a5fd7975fcdb71f633d9ce8704003306e8/assets/src/scss/base/_typography.scss#L11-L19.
-  // We need to redeclare with a different selector here, because a core script sets a higher specificity.
-  --text-- {
-    font-size: $font-size-sm;
-    line-height: 1.6rem;
+.editor-styles-wrapper {
+  padding: 0 1rem !important;
+}
 
-    @include x-large-and-up {
-      font-size: $font-size-md;
-      line-height: 1.75rem;
+.block-editor-block-list__layout.is-root-container {
+  p {
+    // Matches https://github.com/greenpeace/planet4-master-theme/blob/ab3ee3a5fd7975fcdb71f633d9ce8704003306e8/assets/src/scss/base/_typography.scss#L11-L19.
+    // We need to redeclare with a different selector here, because a core script sets a higher specificity.
+    --text-- {
+      font-size: $font-size-sm;
+      line-height: 1.6rem;
+
+      @include x-large-and-up {
+        font-size: $font-size-md;
+        line-height: 1.75rem;
+      }
+    }
+
+    > a {
+      @include shared-link-styles;
     }
   }
 
-  & > a {
+  > ul li a,
+  > ol li a {
     @include shared-link-styles;
   }
 }
@@ -182,7 +189,8 @@
 }
 
 .edit-post-visual-editor .editor-block-list__block-edit,
-.edit-post-visual-editor, .editor-styles-wrapper {
+.edit-post-visual-editor,
+.editor-styles-wrapper {
   --body-- {
     font-family: "Noto Serif", serif;
   }

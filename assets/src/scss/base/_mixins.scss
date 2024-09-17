@@ -259,23 +259,20 @@ $nested-comment-left-margin: 50px;
 
 // Apply background effect to link
 @mixin shared-link-styles {
-  --link--height: 26px;
-  --transition--duration: 0.3s;
-
   border-bottom: 2px solid var(--gp-green-500);
-  transition: var(--transition--duration) cubic-bezier(0.5, 0, 0, 1);
+  background-repeat: no-repeat;
+  background-image: linear-gradient(90deg, var(--color-background-link--hover), var(--color-background-link--hover));
+  background-size: 100% 0;
+  background-position: bottom;
+  transition: background-size .15s ease;
 
   &:hover {
-    box-shadow: inset 0 calc(var(--link--height) * -1) var(--color-background-link--hover);
+    background-size: 100% 100%;
   }
 
   &:hover,
   &:active {
     text-decoration: none !important;
-  }
-
-  &:focus {
-    --link--focus--border-radius: 0;
   }
 }
 
