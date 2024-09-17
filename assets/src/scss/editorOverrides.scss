@@ -107,9 +107,11 @@
   }
 }
 
-.block-editor-block-list__layout.is-root-container {
+.editor-styles-wrapper {
   padding: 0 1rem !important;
+}
 
+.block-editor-block-list__layout.is-root-container {
   p {
     // Matches https://github.com/greenpeace/planet4-master-theme/blob/ab3ee3a5fd7975fcdb71f633d9ce8704003306e8/assets/src/scss/base/_typography.scss#L11-L19.
     // We need to redeclare with a different selector here, because a core script sets a higher specificity.
