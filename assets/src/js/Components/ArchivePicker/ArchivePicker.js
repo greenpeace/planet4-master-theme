@@ -253,6 +253,7 @@ export default function ArchivePicker({view = ADMIN_VIEW}) {
   }, dispatch] = useReducer(reducer, initialState);
   const [abortController, setAbortController] = useState(null);
   const [selectedImagesIds, setSelectedImagesIds] = useState([]);
+  const [isUserSelectingFeaturedImage, setIsUserSelectingFeaturedImage] = useState(false);
 
   const fetch = useCallback(async () => {
     dispatch({type: ACTIONS.FETCH_IMAGES});
@@ -330,7 +331,7 @@ export default function ArchivePicker({view = ADMIN_VIEW}) {
     }
   };
 
-  const includeInWp = async (ids = [], viewProp) => {
+  const includeInWp = async (ids = [], viewProp, isFeaturedImage = false) => {
     dispatch({type: ACTIONS.PROCESS_IMAGES, payload: {selection: ids}});
 
     Promise.all(ids.map(id => {
@@ -344,9 +345,16 @@ export default function ArchivePicker({view = ADMIN_VIEW}) {
       });
     })).then(result => {
       const payload = result.flat();
+      const imgId = payload[0].wordpress_id;
+
       if (viewProp === EDITOR_VIEW) {
-        processImageToAddToEditor(payload[0].wordpress_id);
+        if (!isFeaturedImage) {
+          processImageToAddToEditor(imgId);
+        } else {
+          setCustomFeaturedImage(imgId);
+        }
       }
+
       dispatch({type: ACTIONS.PROCESSED_IMAGES, payload: {images: payload}});
     }).catch(err => {
       dispatch({type: 'SET_ERROR', payload: {
@@ -354,6 +362,12 @@ export default function ArchivePicker({view = ADMIN_VIEW}) {
         error: err.message,
       }});
     });
+  };
+
+  const setCustomFeaturedImage = async imgId => {
+    await wp.data.dispatch('core/editor').editPost({featured_media: imgId});
+    dispatch({type: ACTIONS.CLOSE_SIDEBAR});
+    document.querySelector('.media-modal-close').click();
   };
 
   useEffect(() => {
@@ -400,6 +414,17 @@ export default function ArchivePicker({view = ADMIN_VIEW}) {
     }
   }, [currentBlock]);
 
+  // Check whether the archive picker modal was opened from the Featured Image button.
+  useEffect(() => {
+    const mediaModal = wp.media.frame || wp.media.featuredImage.frame();
+
+    if (mediaModal?.options?.state === 'featured-image') {
+      setIsUserSelectingFeaturedImage(true);
+    } else {
+      setIsUserSelectingFeaturedImage(false);
+    }
+  });
+
   return useMemo(() => (
     <Context.Provider
       value={{
@@ -422,6 +447,8 @@ export default function ArchivePicker({view = ADMIN_VIEW}) {
         processedIds,
         dispatch,
         imageAdded,
+        setCustomFeaturedImage,
+        isUserSelectingFeaturedImage,
         currentBlockImageId,
         view,
       }}
@@ -469,7 +496,7 @@ export default function ArchivePicker({view = ADMIN_VIEW}) {
 
       {view === EDITOR_VIEW && (
         <>
-          {(acceptedBlockTypes.includes(currentBlock.name)) ? (
+          {(isUserSelectingFeaturedImage || acceptedBlockTypes.includes(currentBlock?.name)) ? (
             <section className="archive-picker">
               <div className={classNames('archive-picker-main', {'is-open': selectedImages.length > 0 && !bulkSelect})}>
                 <ArchivePickerToolbar />
