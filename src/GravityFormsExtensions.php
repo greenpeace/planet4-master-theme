@@ -646,7 +646,7 @@ class GravityFormsExtensions
     {
         $supported_field_types = ['GF_Field_Hidden'];
 
-        $gf_fronted_populate = [];
+        $gf_frontend_populate = [];
 
         foreach ($form['fields'] as $field) {
             if (!$field->allowsPrepopulate || !in_array(get_class($field), $supported_field_types)) {
@@ -662,14 +662,22 @@ class GravityFormsExtensions
 
             $field_id = $dom_field[0]->getAttribute('id');
 
-            $gf_fronted_populate[] = [
+            $gf_frontend_populate[] = [
                 'parameter' => $field->inputName,
                 'fieldId' => $field_id,
                 'fieldType' => get_class($field),
             ];
         }
 
-        $gf_fronted_config['populate'] = $gf_fronted_populate;
+        $gf_frontend_config = [
+            "populate" => $gf_frontend_populate,
+            "formData" => [
+                "formID" => $form['id'],
+                "gGoal" => ($form['p4_gf_type'] ?? self::DEFAULT_GF_TYPE),
+                "formTitle" => $form['title'],
+                "formPlugin" => "Gravity Form",
+            ],
+        ];
 
         $theme_dir = get_template_directory_uri();
         $gf_client_side_file = $theme_dir . '/assets/build/gravityforms-client-side.js';
@@ -682,7 +690,7 @@ class GravityFormsExtensions
             true
         );
 
-        wp_localize_script('p4-gf-client-side', 'p4GfClientSideConfig', $gf_fronted_config);
+        wp_localize_script('p4-gf-client-side', 'p4GfClientSideConfig', $gf_frontend_config);
 
         return $form;
     }
