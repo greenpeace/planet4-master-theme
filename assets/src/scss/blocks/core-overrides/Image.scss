@@ -93,17 +93,6 @@
     height: auto;
   }
 
-  figcaption {
-    --image-figcaption-- {
-      font-family: var(--font-family-paragraph-secondary);
-      font-size: var(--font-size-s--font-family-tertiary);
-      line-height: var(--line-height-s--font-family-tertiary);
-    }
-    margin-bottom: 0;
-    color: var(--color-text-image_caption);
-    text-align: center;
-  }
-
   &.caption-alignment-left figcaption {
     text-align: left;
   }
