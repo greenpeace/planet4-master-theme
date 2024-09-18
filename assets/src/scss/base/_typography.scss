@@ -141,6 +141,18 @@ mark {
   padding: 0;
 }
 
-figcaption a {
-  @include shared-link-styles;
+figcaption {
+  --block-figcaption-- {
+    font-family: var(--font-family-tertiary);
+    font-size: var(--font-size-s--font-family-tertiary);
+    line-height: var(--line-height-s--font-family-tertiary);
+  }
+  margin-bottom: 0;
+  color: var(--color-text-image_caption);
+  text-align: center;
+  min-height: 24px; // This is needed in case there's a link in the caption, for our styles
+
+  a {
+    @include shared-link-styles;
+  }
 }

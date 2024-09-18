@@ -51,16 +51,6 @@
     }
   }
 
-  // Table caption
-  figcaption {
-    min-height: 24px; // This is needed in case there's a link in the caption, for our styles
-    text-align: center;
-    font-size: var(--font-size-s--font-family-tertiary);
-    font-family: var(--font-family-tertiary);
-    color: var(--color-text-image_caption);
-    line-height: var(--line-height-s--font-family-tertiary);
-  }
-
   &.is-style-stripes table {
     // Grey background (defaut)
     tr:nth-child(odd) {
