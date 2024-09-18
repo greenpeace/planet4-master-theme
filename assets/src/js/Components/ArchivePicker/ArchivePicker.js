@@ -425,6 +425,52 @@ export default function ArchivePicker({view = ADMIN_VIEW}) {
     }
   });
 
+  // Hide the modal toolbar when the Greenpeace Media tab is active.
+  // The toolbar is not used on this tab, since the options are
+  // in the tab sidebar.
+  useEffect(() => {
+    const targetElement = document.querySelector('#menu-item-mediaArchive');
+
+    if (!targetElement) {
+      return;
+    }
+
+    const toolBars = document.querySelectorAll('.media-frame-toolbar');
+
+    if (!toolBars) {
+      return;
+    }
+
+    if (targetElement.className === 'media-menu-item active') {
+      toolBars.forEach(element => {
+        element.style.display = 'none';
+      });
+    }
+
+    const classChangeCallback = mutationsList => {
+      mutationsList.forEach(mutation => {
+        if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+          if (targetElement.className === 'media-menu-item active') {
+            toolBars.forEach(element => {
+              element.style.display = 'none';
+            });
+          } else {
+            toolBars.forEach(element => {
+              element.style.display = 'block';
+            });
+          }
+        }
+      });
+    };
+
+    const observer = new MutationObserver(classChangeCallback);
+    observer.observe(targetElement, {attributes: true});
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
   return useMemo(() => (
     <Context.Provider
       value={{
