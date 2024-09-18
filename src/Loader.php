@@ -82,6 +82,7 @@ final class Loader
             PageMeta::class,
             PostMeta::class,
             GravityFormsExtensions::class,
+            BlockSettings::class,
         ];
 
         if (is_admin()) {
