@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2024-07-30 14:14+0000\n"
+"PO-Revision-Date: 2024-09-18 21:14+0000\n"
 "Last-Translator: Rickson Figueira\n"
 "Language-Team: Portuguese (Brazil)\n"
 "MIME-Version: 1.0\n"
@@ -440,7 +440,7 @@ msgstr "Esse link irá abrir um arquivo PDF"
 #: templates/single-password.twig:15 templates/single-page.twig:12
 msgid "To see the content of this page, please enter your password  below"
 msgstr ""
-"Essa pátina está restrita. Para ver o conteúdo, digite a senha no campo "
+"Essa página está restrita. Para ver o conteúdo, digite a senha no campo "
 "abaixo"
 
 #: src/MasterSite.php:599
