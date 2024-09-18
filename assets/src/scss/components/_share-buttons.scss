@@ -58,11 +58,6 @@
   }
 
   .native {
-    background: var(--p4-action-yellow-500);
     display: none;
-
-    &:active {
-      background: var(--p4-action-yellow-600);
-    }
   }
 }
