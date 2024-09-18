@@ -1,5 +1,5 @@
 import {HappyPointEditor} from './HappyPointEditor.js';
-import {HappyPointBlock as HappyPointBlocklV1} from './deprecated/HappyPointBlocklV1.js';
+import {HappyPointBlock as HappyPointBlockV1} from './deprecated/HappyPointBlockV1.js';
 
 const {registerBlockType, getBlockType} = wp.blocks;
 const {__} = wp.i18n;
@@ -55,7 +55,7 @@ export const registerHappyPointBlock = () => {
         return null;
       },
       deprecated: [
-        HappyPointBlocklV1,
+        HappyPointBlockV1,
       ],
     });
   }
