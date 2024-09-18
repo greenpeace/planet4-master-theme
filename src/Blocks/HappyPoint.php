@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Happypoint block class
+ * HappyPoint block class
  *
  * @package P4\MasterTheme
  * @since 0.1
@@ -12,11 +12,11 @@
  use WP_REST_Server;
 
 /**
- * Class Happypoint
+ * Class HappyPoint
  *
  * @package P4\MasterTheme\Blocks
  */
-class Happypoint extends BaseBlock
+class HappyPoint extends BaseBlock
 {
     /**
      * Block name.
@@ -26,7 +26,7 @@ class Happypoint extends BaseBlock
     public const BLOCK_NAME = 'happypoint';
 
     /**
-     * Happypoint constructor.
+     * HappyPoint constructor.
      */
     public function __construct()
     {

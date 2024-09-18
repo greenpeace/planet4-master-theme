@@ -1,10 +1,10 @@
-import {HappypointEditor} from './HappypointEditor';
-import {HappypointBlock as HappypointBlockV1} from './deprecated/HappypointBlocklV1.js';
+import {HappyPointEditor} from './HappyPointEditor.js';
+import {HappyPointBlock as HappyPointBlocklV1} from './deprecated/HappyPointBlocklV1.js';
 
 const {registerBlockType, getBlockType} = wp.blocks;
 const {__} = wp.i18n;
 
-export const registerHappypointBlock = () => {
+export const registerHappyPointBlock = () => {
   if (!getBlockType('planet4-blocks/happypoint')) {
     registerBlockType('planet4-blocks/happypoint', {
       title: 'Happy Point',
@@ -50,12 +50,12 @@ export const registerHappypointBlock = () => {
           default: 'none',
         },
       },
-      edit: HappypointEditor,
+      edit: HappyPointEditor,
       save() {
         return null;
       },
       deprecated: [
-        HappypointBlockV1,
+        HappyPointBlocklV1,
       ],
     });
   }

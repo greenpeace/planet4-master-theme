@@ -4,7 +4,7 @@ import {addQueryArgs} from '../../functions/addQueryArgs';
 const {apiFetch} = wp;
 const {useState, useEffect} = wp.element;
 
-export const useHappypointImageData = imageId => {
+export const useHappyPointImageData = imageId => {
   const [imageData, setImageData] = useState({});
 
   useEffect(() => {

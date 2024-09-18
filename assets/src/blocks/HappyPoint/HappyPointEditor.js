@@ -1,5 +1,5 @@
-import {HappypointFrontend} from './HappypointFrontend';
-import {USE_EMBED_CODE, USE_IFRAME_URL, USE_NONE} from './HappypointConstants';
+import {HappyPointFrontend} from './HappyPointFrontend';
+import {USE_EMBED_CODE, USE_IFRAME_URL, USE_NONE} from './HappyPointConstants';
 import {OverrideFormHelp} from './OverrideFormHelp';
 
 const {useSelect} = wp.data;
@@ -20,7 +20,7 @@ const {
 } = wp.components;
 const {__} = wp.i18n;
 
-export const HappypointEditor = ({attributes, setAttributes, isSelected}) => {
+export const HappyPointEditor = ({attributes, setAttributes, isSelected}) => {
   const {
     focus_image,
     opacity,
@@ -56,7 +56,7 @@ export const HappypointEditor = ({attributes, setAttributes, isSelected}) => {
 
   const getImageOrButton = openEvent => {
     if (id && 0 < id) {
-      return <HappypointFrontend {...attributes} />;
+      return <HappyPointFrontend {...attributes} />;
     } else if (isSelected) {
       return (
         <div style={{marginBottom: 10}}>
@@ -244,7 +244,7 @@ export const HappypointEditor = ({attributes, setAttributes, isSelected}) => {
           render={({open}) => getImageOrButton(open)}
         />
       </MediaUploadCheck>
-      {(!id || id < 0) && <HappypointFrontend {...attributes} />}
+      {(!id || id < 0) && <HappyPointFrontend {...attributes} />}
     </>
   );
 };
