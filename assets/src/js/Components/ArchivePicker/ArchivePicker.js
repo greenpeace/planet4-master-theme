@@ -316,7 +316,7 @@ export default function ArchivePicker({view = ADMIN_VIEW}) {
       } else if (currentBlock.name === 'core/media-text') {
         await processImageForBlock(id, updateMediaAndTextAttributes);
       } else {
-        // Happypoint Block
+        // Happy Point Block
         const updatedAttributes = updateHappyPointAttributes(id);
         await wp.data.dispatch('core/block-editor').updateBlock(currentBlock.clientId, updatedAttributes);
       }

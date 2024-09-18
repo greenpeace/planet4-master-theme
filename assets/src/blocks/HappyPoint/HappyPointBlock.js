@@ -1,14 +1,14 @@
-import {HappypointEditor} from './HappypointEditor';
-import {HappypointBlock as HappypointBlockV1} from './deprecated/HappypointBlocklV1.js';
+import {HappyPointEditor} from './HappyPointEditor.js';
+import {HappyPointBlock as HappyPointBlockV1} from './deprecated/HappyPointBlockV1.js';
 
 const {registerBlockType, getBlockType} = wp.blocks;
 const {__} = wp.i18n;
 
-export const registerHappypointBlock = () => {
+export const registerHappyPointBlock = () => {
   if (!getBlockType('planet4-blocks/happypoint')) {
     registerBlockType('planet4-blocks/happypoint', {
-      title: 'Happypoint',
-      description: __('The happy point block embeds (via iFrame) a “Subscribe” or engagement form on top of a full-width background image.', 'planet4-blocks-backend'),
+      title: 'Happy Point',
+      description: __('The Happy Point block embeds (via iFrame) a “Subscribe” or engagement form on top of a full-width background image.', 'planet4-blocks-backend'),
       icon: 'format-image',
       category: 'planet4-blocks',
       supports: {
@@ -50,12 +50,12 @@ export const registerHappypointBlock = () => {
           default: 'none',
         },
       },
-      edit: HappypointEditor,
+      edit: HappyPointEditor,
       save() {
         return null;
       },
       deprecated: [
-        HappypointBlockV1,
+        HappyPointBlockV1,
       ],
     });
   }

@@ -1,8 +1,8 @@
-import {useHappypointImageData} from './useHappypointImageData';
+import {useHappyPointImageData} from './useHappyPointImageData';
 import {HubspotEmbed} from '../../hooks/useHubspotEmbedCode';
-import {USE_EMBED_CODE, USE_IFRAME_URL, USE_NONE} from './HappypointConstants';
+import {USE_EMBED_CODE, USE_IFRAME_URL, USE_NONE} from './HappyPointConstants';
 
-export const HappypointFrontend = ({
+export const HappyPointFrontend = ({
   focus_image,
   opacity,
   mailing_list_iframe,
@@ -13,7 +13,7 @@ export const HappypointFrontend = ({
   local_content_provider,
   className,
 }) => {
-  const {imageData: happypointData} = useHappypointImageData(id);
+  const {imageData: happyPointData} = useHappyPointImageData(id);
   const {
     background_src,
     background_srcset,
@@ -24,7 +24,7 @@ export const HappypointFrontend = ({
     default_content_provider,
     engaging_network_id, // default iframe url
     default_embed_code, // default embed code
-  } = happypointData;
+  } = happyPointData;
 
   const imgProps = {
     src: background_src || default_image,
@@ -54,7 +54,7 @@ export const HappypointFrontend = ({
   return (
     <section className={`block block-footer alignfull happy-point-block-wrap ${className ?? ''}`}>
       <picture>
-        <img {...imgProps} loading="lazy" alt="Happypoint" />
+        <img {...imgProps} loading="lazy" alt="Happy Point" />
       </picture>
       <div className="container">
         <div className="row justify-content-md-center">

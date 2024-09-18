@@ -1,5 +1,5 @@
-import {HappypointFrontend} from './HappypointFrontend';
-import {USE_EMBED_CODE, USE_IFRAME_URL, USE_NONE} from './HappypointConstants';
+import {HappyPointFrontend} from './HappyPointFrontend';
+import {USE_EMBED_CODE, USE_IFRAME_URL, USE_NONE} from './HappyPointConstants';
 import {OverrideFormHelp} from './OverrideFormHelp';
 
 const {useSelect} = wp.data;
@@ -20,7 +20,7 @@ const {
 } = wp.components;
 const {__} = wp.i18n;
 
-export const HappypointEditor = ({attributes, setAttributes, isSelected}) => {
+export const HappyPointEditor = ({attributes, setAttributes, isSelected}) => {
   const {
     focus_image,
     opacity,
@@ -56,7 +56,7 @@ export const HappypointEditor = ({attributes, setAttributes, isSelected}) => {
 
   const getImageOrButton = openEvent => {
     if (id && 0 < id) {
-      return <HappypointFrontend {...attributes} />;
+      return <HappyPointFrontend {...attributes} />;
     } else if (isSelected) {
       return (
         <div style={{marginBottom: 10}}>
@@ -148,7 +148,7 @@ export const HappypointEditor = ({attributes, setAttributes, isSelected}) => {
                           debounceIframeUrl(url);
                         }}
                         help={__(
-                          'By default this block uses the "Happy point Subscribe Form URL" in Planet 4 Settings - Default content. ' +
+                          'By default this block uses the "Happy Point Subscribe Form URL" in Planet 4 Settings - Default content. ' +
                           'If a URL is set here, it will override this setting.',
                           'planet4-blocks-backend'
                         )}
@@ -198,7 +198,7 @@ export const HappypointEditor = ({attributes, setAttributes, isSelected}) => {
             <PanelBody title={__('Learn more about this block ', 'planet4-blocks-backend')} initialOpen={false}>
               <p className="components-base-control__help">
                 <a target="_blank" href="https://planet4.greenpeace.org/content/blocks/happy-point/" rel="noreferrer">
-            P4 Handbook Happy Point
+                  P4 Handbook Happy Point
                 </a>
                 {' '} &#128588;
               </p>
@@ -244,7 +244,7 @@ export const HappypointEditor = ({attributes, setAttributes, isSelected}) => {
           render={({open}) => getImageOrButton(open)}
         />
       </MediaUploadCheck>
-      {(!id || id < 0) && <HappypointFrontend {...attributes} />}
+      {(!id || id < 0) && <HappyPointFrontend {...attributes} />}
     </>
   );
 };
