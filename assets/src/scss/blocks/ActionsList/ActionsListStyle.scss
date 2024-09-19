@@ -80,8 +80,14 @@
 
     .read-more-nav {
       display: flex;
-      justify-content: flex-end;
-      margin-top: 25%;
+      position: absolute;
+      bottom: 0;
+      right: 0;
+
+      html[dir="rtl"] & {
+        right: inherit;
+        left: 0;
+      }
 
       a {
         margin-bottom: 0;
@@ -96,12 +102,15 @@
 
   .wp-block-post-title {
     font-size: 20px;
-    margin-bottom: 0;
-    display: -webkit-box;
-    line-clamp: 2;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+    margin-bottom: $sp-1;
+
+    a {
+      display: -webkit-box;
+      line-clamp: 2;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
   }
 
   .wp-block-post-excerpt p {
