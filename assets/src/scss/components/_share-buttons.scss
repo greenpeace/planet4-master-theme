@@ -11,6 +11,7 @@
     height: 3rem;
     border-radius: 50%;
     margin-bottom: 0;
+    cursor: pointer;
     background: var(--color-background-button_share--secondary-passive);
 
     &:not(:last-child) {
