@@ -44,6 +44,7 @@ abstract class BlockPattern
             BlankPage::class,
             Action::class,
             Campaign::class,
+            Chart::class,
             DeepDive::class,
             DeepDiveTopic::class,
             GetInformed::class,

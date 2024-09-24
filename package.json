@@ -41,6 +41,7 @@
   ],
   "dependencies": {
     "classnames": "^2.2.6",
+    "d3": "^7.9.0",
     "eslint": "7.15.0",
     "lite-youtube-embed": "^0.3.0",
     "photoswipe": "^4.1.3",

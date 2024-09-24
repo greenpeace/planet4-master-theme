@@ -211,6 +211,7 @@ final class Loader
         new Blocks\TableOfContents();//NOSONAR
         new Blocks\TakeActionBoxout();//NOSONAR
         new Blocks\Timeline();//NOSONAR
+        new Blocks\Chart();//NOSONAR
 
         register_block_pattern_category(
             'page-headers',

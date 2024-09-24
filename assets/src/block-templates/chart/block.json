@@ -1,0 +1,21 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 2,
+  "name": "planet4-block-templates/chart",
+  "title": "Chart",
+  "category": "planet4-block-templates",
+  "icon": "editor-table",
+  "textdomain": "planet4-blocks-backend",
+  "attributes": {
+    "title": {"type": "string"},
+    "description": {"type": "string"},
+    "chartType": {
+      "type": "string", "enum": [ "bar", "line", "pie", "donut" ]
+    },
+    "dataType": {"type": "string", "enum": [ "csv", "json" ]},
+    "dataUrl": {"type": "string"},
+    "width": {"type": "number"},
+    "height": {"type": "number"},
+    "axis": {"type": "object"}
+  }
+}

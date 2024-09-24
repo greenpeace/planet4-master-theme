@@ -58,6 +58,9 @@ module.exports = {
     TimelineEditorScript: './assets/src/blocks/Timeline/TimelineEditorScript.js',
     TimelineStyle: './assets/src/scss/blocks/Timeline/TimelineStyle.scss',
     TimelineEditorStyle: './assets/src/scss/blocks/Timeline/TimelineEditorStyle.scss',
+    ChartScript: './assets/src/blocks/Chart/ChartScript.js',
+    ChartEditorScript: './assets/src/blocks/Chart/ChartEditorScript.js',
+    LineChart: './assets/src/blocks/Chart/charts/LineChart.js',
   },
   output: {
     filename: '[name].js',
