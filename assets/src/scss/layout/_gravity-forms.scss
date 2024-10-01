@@ -152,3 +152,16 @@
 .gform_description {
   font-family: var(--font-family-paragraph-secondary);
 }
+
+.gform_delete_file {
+  margin-inline-start: $sp-2;
+
+  .dashicons-trash {
+    vertical-align: text-top;
+  }
+}
+
+.gfield_fileupload_cancel {
+  margin-inline-start: $sp-2;
+  text-decoration: underline;
+}
