@@ -6,8 +6,8 @@ import {getHeadingsFromBlocks} from './getHeadingsFromBlocks';
 import {deepClone} from '../../functions/deepClone';
 
 const {useSelect} = wp.data;
-const {InspectorControls, RichText} = wp.blockEditor;
-const {Button, PanelBody} = wp.components;
+const {InspectorControls, RichText, BlockControls} = wp.blockEditor;
+const {Button, PanelBody, ToolbarItem} = wp.components;
 const {__} = wp.i18n;
 
 const renderEdit = (attributes, setAttributes) => {
@@ -110,22 +110,32 @@ const renderView = (attributes, setAttributes, className) => {
   const style = getTableOfContentsStyle(className, submenu_style);
 
   return (
-    <section className={`block table-of-contents-block table-of-contents-${style} ${className ?? ''}`}>
-      <RichText
-        tagName="h2"
-        placeholder={__('Enter title', 'planet4-blocks-backend')}
-        value={title}
-        onChange={titl => setAttributes({title: titl})}
-        withoutInteractiveFormatting
-        allowedFormats={[]}
-      />
-      {menuItems.length > 0 ?
-        <TableOfContentsItems menuItems={menuItems} /> :
-        <div className="EmptyMessage">
-          {__('There are not any pre-established headings that this block can display in the form of a table of content. Please add headings to your page or choose another heading size.', 'planet4-blocks-backend')}
-        </div>
-      }
-    </section>
+    <>
+      <BlockControls>
+        <ToolbarItem
+          as={Button}
+          onClick={() => alert('Converting...')}
+        >
+            Convert to static list
+        </ToolbarItem>
+      </BlockControls>
+      <section className={`block table-of-contents-block table-of-contents-${style} ${className ?? ''}`}>
+        <RichText
+          tagName="h2"
+          placeholder={__('Enter title', 'planet4-blocks-backend')}
+          value={title}
+          onChange={titl => setAttributes({title: titl})}
+          withoutInteractiveFormatting
+          allowedFormats={[]}
+        />
+        {menuItems.length > 0 ?
+          <TableOfContentsItems menuItems={menuItems} /> :
+          <div className="EmptyMessage">
+            {__('There are not any pre-established headings that this block can display in the form of a table of content. Please add headings to your page or choose another heading size.', 'planet4-blocks-backend')}
+          </div>
+        }
+      </section>
+    </>
   );
 };
 
