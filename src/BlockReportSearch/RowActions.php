@@ -14,25 +14,30 @@ class RowActions
     /**
      * Add action links to a row
      *
-     * @param array  $item        Item.
-     * @param string $column_name Current column name.
-     * @param string $primary     Primary column name.
+     * @param array  $item              Item.
+     * @param string $column_name       Current column name.
+     * @param string $primary           Primary column name.
+     * @param string $potential_post_id Post id if the rows are grouped by id.
      *
 	 * phpcs:disable WordPress.WP.I18n.TextDomainMismatch
      */
-    public function get_post_actions(array $item, string $column_name, string $primary): array
-    {
+    public function get_post_actions(
+        array $item,
+        string $column_name,
+        string $primary,
+        string $potential_post_id
+    ): array {
         if ($column_name !== $primary) {
             return [];
         }
 
-        $id = (int) $item['post_id'];
+        $id = empty($item['post_id']) ? (int) $potential_post_id : (int) $item['post_id'];
         $title = $item['post_title'];
         $actions = [];
 
         $actions['edit'] = sprintf(
             '<a href="%s" aria-label="%s">%s</a>',
-            get_edit_post_link($item['post_id']),
+            get_edit_post_link($id),
             /* translators: %s: Post title. */
             esc_attr(sprintf(__('Edit &#8220;%s&#8221;', 'default'), $title)),
             __('Edit', 'default')
@@ -50,7 +55,7 @@ class RowActions
         } elseif ('trash' !== $item['post_status']) {
             $actions['view'] = sprintf(
                 '<a href="%s" rel="bookmark" aria-label="%s">%s</a>',
-                get_permalink($item['post_id']),
+                get_permalink($id),
                 /* translators: %s: Post title. */
                 esc_attr(sprintf(__('View &#8220;%s&#8221;', 'default'), $title)),
                 __('View', 'default')

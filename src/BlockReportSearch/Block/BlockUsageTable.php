@@ -516,7 +516,10 @@ class BlockUsageTable extends WP_List_Table
 
         $title_tpl = '%2$s';
         $link_tpl = '<a href="%s" title="%s">%s</a>';
-        $page_uri = get_page_uri($item['post_id']);
+        // The post id may be empty if we removed it when creating the rows (see single_row function).
+        $post_id = empty($item['post_id']) ? $this->latest_row : $item['post_id'];
+        // If the post is still a draft we don't want to show a link in the title column.
+        $page_uri = $item['post_status'] === 'draft' ? '' : get_permalink($post_id);
 
         return sprintf(
             empty($page_uri) ? $title_tpl : $link_tpl,
@@ -580,7 +583,7 @@ class BlockUsageTable extends WP_List_Table
     protected function handle_row_actions($item, $column_name, $primary)
     {
         return $this->row_actions(
-            ( new RowActions() )->get_post_actions($item, $column_name, $primary)
+            ( new RowActions() )->get_post_actions($item, $column_name, $primary, $this->latest_row)
         );
     }
     // phpcs:enable SlevomatCodingStandard.TypeHints.ReturnTypeHint.MissingAnyTypeHint
