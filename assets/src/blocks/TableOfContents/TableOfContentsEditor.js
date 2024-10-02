@@ -10,6 +10,10 @@ const {InspectorControls, RichText, BlockControls} = wp.blockEditor;
 const {Button, PanelBody, ToolbarItem} = wp.components;
 const {__} = wp.i18n;
 
+import {useBlockProps} from '@wordpress/block-editor';
+import {select, dispatch} from '@wordpress/data';
+import {createBlock} from '@wordpress/blocks';
+
 const renderEdit = (attributes, setAttributes) => {
   function addLevel() {
     const [previousLastLevel] = attributes.levels.slice(-1);
@@ -92,6 +96,25 @@ const renderEdit = (attributes, setAttributes) => {
   );
 };
 
+const convertIntoListBlock = menuItems => {
+  const blockList = select('core/block-editor').getBlocks(); // Get the current blocks
+  const blockIndex = blockList.findIndex(block => block.name === 'planet4-blocks/submenu'); // Find the index of the block to transform
+
+  if (blockIndex !== -1) {
+    const oldBlock = blockList[blockIndex];
+    const newBlockAttributes = {...oldBlock.attributes}; // Preserve existing attributes
+
+    // Create a new block with the new type and attributes
+    const newBlock = createBlock('core/list', newBlockAttributes);
+
+    // Replace the old block with the new block
+    dispatch('core/block-editor').insertBlock(newBlock, blockIndex); // Insert the new block at the old block's position
+    dispatch('core/block-editor').removeBlock(oldBlock.clientId); // Remove the old block
+
+    // console.log(menuItems);
+  }
+};
+
 const renderView = (attributes, setAttributes, className) => {
   const {
     title,
@@ -114,7 +137,7 @@ const renderView = (attributes, setAttributes, className) => {
       <BlockControls>
         <ToolbarItem
           as={Button}
-          onClick={() => alert('Converting...')}
+          onClick={() => convertIntoListBlock(menuItems)}
         >
             Convert to static list
         </ToolbarItem>
