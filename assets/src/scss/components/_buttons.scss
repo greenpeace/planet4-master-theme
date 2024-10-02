@@ -32,12 +32,14 @@
     transition-timing-function: inherit;
   }
 
-  display: inline-block;
-  position: relative;
-  text-decoration: none;
-  border: 1px solid transparent;
-  cursor: pointer;
-  appearance: none;
+  * {
+    display: inline-block;
+    position: relative;
+    text-decoration: none;
+    border: 1px solid transparent;
+    cursor: pointer;
+    appearance: none;
+  }
 
   &:hover,
   &:active,
@@ -179,8 +181,11 @@
       font-size: $font-size-md;
     }
   }
-  margin: 0;
-  text-transform: none;
+
+  * {
+    margin: 0;
+    text-transform: none;
+  }
 }
 
 .no-btn {

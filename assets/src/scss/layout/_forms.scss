@@ -156,11 +156,14 @@
     font-family: var(--font-family-tertiary);
     font-size: var(--font-size-m--font-family-tertiary);
   }
-  border-radius: 4px;
-  background-color: var(--white);
-  border: 1px solid var(--grey-500);
-  color: var(--color-text-body);
-  padding: 0 16px;
+
+  * {
+    border-radius: 4px;
+    background-color: var(--white);
+    border: 1px solid var(--grey-500);
+    color: var(--color-text-body);
+    padding: 0 16px;
+  }
 
   &::placeholder,
   &::-webkit-input-placeholder,
