@@ -67,7 +67,10 @@
     @include medium-and-up {
       display: flex;
     }
-    width: 100%;
+
+    * {
+      width: 100%;
+    }
 
     > div:first-child {
       width: 100%;
