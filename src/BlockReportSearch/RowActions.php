@@ -17,7 +17,7 @@ class RowActions
      * @param array  $item              Item.
      * @param string $column_name       Current column name.
      * @param string $primary           Primary column name.
-     * @param string $potential_post_id Primary column name.
+     * @param string $potential_post_id Post id if the rows are grouped by id.
      *
 	 * phpcs:disable WordPress.WP.I18n.TextDomainMismatch
      */

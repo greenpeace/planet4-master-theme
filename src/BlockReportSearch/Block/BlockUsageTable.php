@@ -518,7 +518,8 @@ class BlockUsageTable extends WP_List_Table
         $link_tpl = '<a href="%s" title="%s">%s</a>';
         // The post id may be empty if we removed it when creating the rows (see single_row function).
         $post_id = empty($item['post_id']) ? $this->latest_row : $item['post_id'];
-        $page_uri = get_page_uri($post_id);
+        // If the post is still a draft we don't want to show a link in the title column.
+        $page_uri = $item['post_status'] === 'draft' ? '' : get_permalink($post_id);
 
         return sprintf(
             empty($page_uri) ? $title_tpl : $link_tpl,
