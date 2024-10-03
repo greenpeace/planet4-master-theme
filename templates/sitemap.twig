@@ -52,11 +52,11 @@
                     {% if posts[cat.term_id] is not empty %}
                     <div class="col-md-5 order-md-2 order-lg-3 col-lg-3">
                             <h5 class="mb-3 mt-5 mt-lg-0">
-                                <a href="{{ function('get_category_link', cat.term_id) }}">{{ cat.name }}</a>
+                                <a href="{{ function('get_category_link', cat.term_id) }}">{{ cat.name|e('wp_kses_post')|raw }}</a>
                             </h5>
                             <ul>
                                 {% for post in posts[cat.term_id] %}
-                                <li><a href="{{ function('get_permalink', post.ID) }}">{{ post.post_title }}</a></li>
+                                <li><a href="{{ function('get_permalink', post.ID) }}">{{ post.post_title|e('wp_kses_post')|raw }}</a></li>
                                 {% endfor %}
                             </ul>
                     </div>
