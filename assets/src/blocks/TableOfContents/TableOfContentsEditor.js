@@ -147,7 +147,7 @@ const renderView = (attributes, setAttributes, className) => {
     exampleMenuItems,
   } = attributes;
 
-  const blocks = useSelect(select => select('core/block-editor').getBlocks(), null);
+  const blocks = useSelect(wpSelect => wpSelect('core/block-editor').getBlocks(), null);
   const flatHeadings = getHeadingsFromBlocks(blocks, levels);
   const menuItems = isExample ? exampleMenuItems : makeHierarchical(flatHeadings);
   const style = getTableOfContentsStyle(className, submenu_style);
