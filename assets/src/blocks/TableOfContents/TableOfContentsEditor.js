@@ -5,14 +5,11 @@ import {makeHierarchical} from './makeHierarchical';
 import {getHeadingsFromBlocks} from './getHeadingsFromBlocks';
 import {deepClone} from '../../functions/deepClone';
 
-const {useSelect} = wp.data;
+const {useSelect, select, dispatch} = wp.data;
 const {InspectorControls, RichText, BlockControls} = wp.blockEditor;
 const {Button, PanelBody, ToolbarItem} = wp.components;
+const {createBlock} = wp.blocks;
 const {__} = wp.i18n;
-
-import {useBlockProps} from '@wordpress/block-editor';
-import {select, dispatch} from '@wordpress/data';
-import {createBlock} from '@wordpress/blocks';
 
 const renderEdit = (attributes, setAttributes) => {
   function addLevel() {
@@ -96,23 +93,51 @@ const renderEdit = (attributes, setAttributes) => {
   );
 };
 
+const createListBlocks = items => {
+  const innerBlocks = [];
+
+  items.forEach(item => {
+    let content = item.text;
+
+    if (item.shouldLink) {
+      content = `<a href="#${item.anchor}">${content}</a>`;
+    }
+
+    const newInnerBlock = createBlock('core/list-item', {content});
+
+    if (item.children && item.children.length > 0) {
+      const childListBlock = createListBlocks(item.children);
+      newInnerBlock.innerBlocks = [childListBlock];
+    }
+
+    innerBlocks.push(newInnerBlock);
+  });
+
+  return createBlock('core/list', {}, innerBlocks);
+};
+
 const convertIntoListBlock = menuItems => {
-  const blockList = select('core/block-editor').getBlocks(); // Get the current blocks
-  const blockIndex = blockList.findIndex(block => block.name === 'planet4-blocks/submenu'); // Find the index of the block to transform
-
-  if (blockIndex !== -1) {
-    const oldBlock = blockList[blockIndex];
-    const newBlockAttributes = {...oldBlock.attributes}; // Preserve existing attributes
-
-    // Create a new block with the new type and attributes
-    const newBlock = createBlock('core/list', newBlockAttributes);
-
-    // Replace the old block with the new block
-    dispatch('core/block-editor').insertBlock(newBlock, blockIndex); // Insert the new block at the old block's position
-    dispatch('core/block-editor').removeBlock(oldBlock.clientId); // Remove the old block
-
-    // console.log(menuItems);
+  // If no menu items, abort
+  if (!menuItems) {
+    return;
   }
+
+  // Get the current blocks
+  const blockList = select('core/block-editor').getBlocks();
+
+  // Find the index of the block to transform
+  const blockIndex = blockList.findIndex(block => block.name === 'planet4-blocks/submenu');
+
+  // If no table of content block was found, abort
+  if (blockIndex === -1) {
+    return;
+  }
+
+  // Insert the new blocks at the old block's position
+  dispatch('core/block-editor').insertBlock(createListBlocks(menuItems), blockIndex);
+
+  // Remove the old block
+  dispatch('core/block-editor').removeBlock(blockList[blockIndex].clientId);
 };
 
 const renderView = (attributes, setAttributes, className) => {
