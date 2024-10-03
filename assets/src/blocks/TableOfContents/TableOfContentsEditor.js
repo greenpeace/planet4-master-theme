@@ -11,40 +11,77 @@ const {Button, PanelBody, ToolbarItem} = wp.components;
 const {createBlock} = wp.blocks;
 const {__} = wp.i18n;
 
+/**
+ * Renders the edit view of the Table of Contents block with controls for managing levels.
+ *
+ * @param {Object} attributes - The block attributes.
+ * @param {Function} setAttributes - Function to update block attributes.
+ * @return {JSX.Element} The rendered edit view.
+ */
 const renderEdit = (attributes, setAttributes) => {
+  /**
+   * Adds a new level to the Table of Contents.
+   */
   function addLevel() {
     const [previousLastLevel] = attributes.levels.slice(-1);
     const newLevel = previousLastLevel.heading + 1;
     setAttributes({levels: attributes.levels.concat({heading: newLevel, link: false, style: 'none'})});
   }
 
+  /**
+   * Updates the heading level for a specific item.
+   *
+   * @param {number} index - Index of the level to update.
+   * @param {string} value - New heading value.
+   */
   function onHeadingChange(index, value) {
     const levels = deepClone(attributes.levels);
     levels[index].heading = Number(value);
     setAttributes({levels});
   }
 
+  /**
+   * Updates the link attribute for a specific item.
+   *
+   * @param {number} index - Index of the level to update.
+   * @param {string} value - New link value.
+   */
   function onLinkChange(index, value) {
     const levels = deepClone(attributes.levels);
     levels[index].link = value;
     setAttributes({levels});
   }
 
+  /**
+   * Updates the style attribute for a specific item.
+   *
+   * @param {number} index - Index of the level to update.
+   * @param {string} value - New style value, can be "none", "bullet", or "number".
+   */
   function onStyleChange(index, value) {
     const levels = deepClone(attributes.levels);
-    levels[index].style = value; // Possible values: "none", "bullet", "number"
+    levels[index].style = value;
     setAttributes({levels});
   }
 
+  /**
+   * Removes the last level from the Table of Contents.
+   */
   function removeLevel() {
     setAttributes({levels: attributes.levels.slice(0, -1)});
   }
 
+  /**
+   * Gets the minimum heading level for a specific index.
+   *
+   * @param {Object} attr - Block attributes.
+   * @param {number} index - Index of the level.
+   * @return {number|null} Minimum heading value or null for the first index.
+   */
   function getMinLevel(attr, index) {
     if (index === 0) {
       return null;
     }
-
     return attr.levels[index - 1].heading;
   }
 
@@ -93,6 +130,65 @@ const renderEdit = (attributes, setAttributes) => {
   );
 };
 
+/**
+ * Renders the view of the Table of Contents block.
+ *
+ * @param {Object} attributes - The block attributes.
+ * @param {Function} setAttributes - Function to update block attributes.
+ * @param {string} className - The CSS class for the block.
+ * @return {JSX.Element} The rendered view.
+ */
+const renderView = (attributes, setAttributes, className) => {
+  const {
+    title,
+    levels,
+    submenu_style,
+    isExample,
+    exampleMenuItems,
+  } = attributes;
+
+  const blocks = useSelect(select => select('core/block-editor').getBlocks(), null);
+  const flatHeadings = getHeadingsFromBlocks(blocks, levels);
+  const menuItems = isExample ? exampleMenuItems : makeHierarchical(flatHeadings);
+  const style = getTableOfContentsStyle(className, submenu_style);
+
+  return (
+    <>
+      <BlockControls>
+        <ToolbarItem
+          as={Button}
+          onClick={() => convertIntoListBlock(menuItems)}
+        >
+          Convert to static list
+        </ToolbarItem>
+      </BlockControls>
+      <section className={`block table-of-contents-block table-of-contents-${style} ${className ?? ''}`}>
+        <RichText
+          tagName="h2"
+          placeholder={__('Enter title', 'planet4-blocks-backend')}
+          value={title}
+          onChange={titl => setAttributes({title: titl})}
+          withoutInteractiveFormatting
+          allowedFormats={[]}
+        />
+        {menuItems.length > 0 ? (
+          <TableOfContentsItems menuItems={menuItems} />
+        ) : (
+          <div className="EmptyMessage">
+            {__('There are not any pre-established headings that this block can display in the form of a table of content. Please add headings to your page or choose another heading size.', 'planet4-blocks-backend')}
+          </div>
+        )}
+      </section>
+    </>
+  );
+};
+
+/**
+ * Creates a list block with list item blocks based on the given items.
+ *
+ * @param {Array} items - The items to create list blocks from. Each item should have `text`, `shouldLink`, and `children`.
+ * @return {Object} The core/list block with the nested structure.
+ */
 const createListBlocks = items => {
   const innerBlocks = [];
 
@@ -116,77 +212,37 @@ const createListBlocks = items => {
   return createBlock('core/list', {}, innerBlocks);
 };
 
+/**
+ * Converts the given menu items into a static list block and replaces the current block.
+ *
+ * @param {Array} menuItems - The menu items to convert into a list block.
+ */
 const convertIntoListBlock = menuItems => {
-  // If no menu items, abort
   if (!menuItems) {
     return;
   }
 
-  // Get the current blocks
   const blockList = select('core/block-editor').getBlocks();
-
-  // Find the index of the block to transform
   const blockIndex = blockList.findIndex(block => block.name === 'planet4-blocks/submenu');
 
-  // If no table of content block was found, abort
   if (blockIndex === -1) {
     return;
   }
 
-  // Insert the new blocks at the old block's position
   dispatch('core/block-editor').insertBlock(createListBlocks(menuItems), blockIndex);
-
-  // Remove the old block
   dispatch('core/block-editor').removeBlock(blockList[blockIndex].clientId);
 };
 
-const renderView = (attributes, setAttributes, className) => {
-  const {
-    title,
-    levels,
-    submenu_style,
-    isExample,
-    exampleMenuItems,
-  } = attributes;
-
-  const blocks = useSelect(select => select('core/block-editor').getBlocks(), null);
-
-  const flatHeadings = getHeadingsFromBlocks(blocks, levels);
-
-  const menuItems = isExample ? exampleMenuItems : makeHierarchical(flatHeadings);
-
-  const style = getTableOfContentsStyle(className, submenu_style);
-
-  return (
-    <>
-      <BlockControls>
-        <ToolbarItem
-          as={Button}
-          onClick={() => convertIntoListBlock(menuItems)}
-        >
-            Convert to static list
-        </ToolbarItem>
-      </BlockControls>
-      <section className={`block table-of-contents-block table-of-contents-${style} ${className ?? ''}`}>
-        <RichText
-          tagName="h2"
-          placeholder={__('Enter title', 'planet4-blocks-backend')}
-          value={title}
-          onChange={titl => setAttributes({title: titl})}
-          withoutInteractiveFormatting
-          allowedFormats={[]}
-        />
-        {menuItems.length > 0 ?
-          <TableOfContentsItems menuItems={menuItems} /> :
-          <div className="EmptyMessage">
-            {__('There are not any pre-established headings that this block can display in the form of a table of content. Please add headings to your page or choose another heading size.', 'planet4-blocks-backend')}
-          </div>
-        }
-      </section>
-    </>
-  );
-};
-
+/**
+ * Renders the Table of Contents block editor.
+ *
+ * @param {Object} props - The component props.
+ * @param {Object} props.attributes - The block attributes.
+ * @param {Function} props.setAttributes - Function to update block attributes.
+ * @param {boolean} props.isSelected - Indicates if the block is selected.
+ * @param {string} props.className - The CSS class for the block.
+ * @return {JSX.Element} The Table of Contents editor component.
+ */
 export const TableOfContentsEditor = ({attributes, setAttributes, isSelected, className}) => (
   <>
     {isSelected && renderEdit(attributes, setAttributes)}
