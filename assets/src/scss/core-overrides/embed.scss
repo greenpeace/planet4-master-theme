@@ -1,0 +1,131 @@
+// This combination of height: 0, and padding-bottom: 56.25%
+// is to force the aspect ratio of the video to 16:9, based
+// on the width. See: https://css-tricks.com/fluid-width-video/
+@mixin embed-wrapper {
+    position: relative;
+    overflow: hidden;
+    max-width: 100%;
+    max-height: 100%;
+    padding-bottom: 56.25%;
+    height: 0;
+}
+
+@mixin absolute-position {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+@mixin media-group-one {
+    margin-top: $sp-1;
+    margin-bottom: $sp-2;
+
+    @include large-and-up {
+        margin-top: $sp-2;
+        margin-bottom: $sp-4;
+    }
+    iframe {
+        @include absolute-position;
+    }
+    .wp-block-embed__wrapper {
+        @include embed-wrapper;
+    }
+}
+
+@mixin media-group-two {
+    margin-top: $sp-1;
+    margin-bottom: $sp-2;
+
+    @include medium-and-up {
+        width: 510px;
+    }
+
+    @include large-and-up {
+        margin-top: $sp-2;
+        margin-bottom: $sp-4;
+        width: 610px;
+    }
+
+    @include x-large-and-up {
+        width: 630px;
+    }
+
+    iframe {
+        width: 100% !important;
+    }
+}
+
+.edit-post-visual-editor .wp-block {
+    
+    .video-embed {
+        max-height: 100%;
+    }
+
+    .wp-block-embed {
+        &-youtube,
+        &-vimeo,
+        &-dailymotion,
+        &-kickstarter {
+            max-height: 100%;
+        }
+    }
+}
+
+lite-youtube,
+.video-embed-container,
+.instagram-media {
+    width: 100% !important;
+    max-width: 100% !important;
+}
+
+.embed-container {
+    @include embed-wrapper;
+
+    iframe {
+        @include absolute-position;
+    }
+}
+
+.wp-block-embed {
+    .wp-block-embed__wrapper {
+        @include embed-wrapper;
+    }
+
+    &-youtube,
+    &-vimeo,
+    &-dailymotion,
+    &-kickstarter {
+        @include media-group-one;   
+    }
+
+    &-instagram,
+    &-soundcloud {
+        @include media-group-two;
+    }
+
+    &-flickr {
+        @include media-group-two;
+
+        img {
+            width: 100%;
+        }
+    }
+
+    &-twitter, 
+    &-reddit {
+        @include media-group-two;
+
+        .wp-block-embed__wrapper {
+            padding-bottom: unset;
+        }
+    }
+
+    &-reddit {
+        .embedly-card-hug {
+            max-width: 100% !important;
+            margin: unset !important;
+        }
+    }
+}
