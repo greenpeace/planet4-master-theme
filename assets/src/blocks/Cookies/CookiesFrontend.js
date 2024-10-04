@@ -62,8 +62,12 @@ export const CookiesFrontend = props => {
       [key]: granted ? 'granted' : 'denied',
     });
 
-    // eslint-disable-next-line no-undef
-    const updatedCapabilities = {...capabilities, [key]: granted ? 'granted' : 'denied'};
+    let updatedCapabilities = {[key]: granted ? 'granted' : 'denied'};
+    if (typeof capabilities !== 'undefined') {
+      // eslint-disable-next-line no-undef
+      updatedCapabilities = {...capabilities, [key]: granted ? 'granted' : 'denied'};
+    }
+
     dataLayer.push({
       event: 'updateConsent',
       ...updatedCapabilities,
@@ -72,7 +76,7 @@ export const CookiesFrontend = props => {
     let ad_storage = true;
     if (key === 'ad_storage' && granted) {
       ad_storage = false;
-    } else if (key !== 'ad_storage') {
+    } else if (key !== 'ad_storage' && typeof capabilities !== 'undefined') {
       // eslint-disable-next-line no-undef
       ad_storage = capabilities.ad_storage === 'denied';
     }
