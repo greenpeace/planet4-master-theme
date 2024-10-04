@@ -131,7 +131,7 @@ class GravityFormsExtensions
      */
     public function p4_send_gp_pixel_counter(array $entry, array $form): void
     {
-        if (!$form['p4_gf_counter']) {
+        if (!isset($form['p4_gf_counter'])) {
             return;
         }
 
