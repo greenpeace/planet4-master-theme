@@ -36,10 +36,6 @@ function get_attachments_used_in_content(string $content): array
                 $attachment_ids[] = $block['attrs']['id'] ?? '';
                 break;
 
-            case 'planet4-blocks/media-video':
-                $attachment_ids[] = $block['attrs']['video_poster_img'] ?? '';
-                break;
-
             case 'planet4-blocks/gallery':
                 if (isset($block['attrs']['multiple_image'])) {
                     $multiple_images = explode(',', $block['attrs']['multiple_image']);

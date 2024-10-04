@@ -51,7 +51,6 @@ class BlockSettings
         self::P4_BLOCKS_PREFIX . '/covers',
         self::P4_BLOCKS_PREFIX . '/gallery',
         self::P4_BLOCKS_PREFIX . '/happypoint',
-        self::P4_BLOCKS_PREFIX . '/media-video',
         self::P4_BLOCKS_PREFIX . '/social-media',
         self::P4_BLOCKS_PREFIX . '/spreadsheet',
         self::P4_BLOCKS_PREFIX . '/submenu',
@@ -77,7 +76,6 @@ class BlockSettings
         self::P4_BLOCKS_PREFIX . '/covers',
         self::P4_BLOCKS_PREFIX . '/gallery',
         self::P4_BLOCKS_PREFIX . '/happypoint',
-        self::P4_BLOCKS_PREFIX . '/media-video',
         self::P4_BLOCKS_PREFIX . '/social-media',
         self::P4_BLOCKS_PREFIX . '/spreadsheet',
         self::P4_BLOCKS_PREFIX . '/sub-pages',
@@ -103,7 +101,6 @@ class BlockSettings
         self::P4_BLOCKS_PREFIX . '/covers',
         self::P4_BLOCKS_PREFIX . '/gallery',
         self::P4_BLOCKS_PREFIX . '/happypoint',
-        self::P4_BLOCKS_PREFIX . '/media-video',
         self::P4_BLOCKS_PREFIX . '/social-media',
         self::P4_BLOCKS_PREFIX . '/spreadsheet',
         self::P4_BLOCKS_PREFIX . '/submenu',
@@ -142,6 +139,8 @@ class BlockSettings
 
     // https://github.com/WordPress/gutenberg/blob/trunk/lib/blocks.php.
     private const WORDPRESS_BLOCKS = [
+        self::CORE_BLOCKS_PREFIX . '/audio',
+        self::CORE_BLOCKS_PREFIX . '/video',
         self::CORE_BLOCKS_PREFIX . '/block',
         self::CORE_BLOCKS_PREFIX . '/paragraph',
         self::CORE_BLOCKS_PREFIX . '/heading',
