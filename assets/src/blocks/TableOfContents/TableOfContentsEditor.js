@@ -254,7 +254,7 @@ const convertIntoListBlock = menuItems => {
   const groupBlock = createBlock(BLOCK_NAME.GROUP, {className: `${BLOCK_TITLE} ${blockAttrs.className}`}, [headingBlock, listBlocks]);
 
   dispatch(BLOCK_NAME.EDITOR).insertBlock(groupBlock, blockIndex);
-  // dispatch(BLOCK_NAME.EDITOR).removeBlock(blockList[blockIndex].clientId);
+  dispatch(BLOCK_NAME.EDITOR).removeBlock(blockList[blockIndex].clientId);
 };
 
 /**
