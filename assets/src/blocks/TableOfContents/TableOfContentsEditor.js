@@ -199,7 +199,7 @@ const createListBlocks = items => {
       content = `<a href="#${item.anchor}">${content}</a>`;
     }
 
-    const newInnerBlock = createBlock('core/list-item', {content});
+    const newInnerBlock = createBlock('core/list-item', {className: `list-style list-style-${item.style}`, content});
 
     if (item.children && item.children.length > 0) {
       const childListBlock = createListBlocks(item.children);
@@ -229,8 +229,16 @@ const convertIntoListBlock = menuItems => {
     return;
   }
 
-  dispatch('core/block-editor').insertBlock(createListBlocks(menuItems), blockIndex);
-  dispatch('core/block-editor').removeBlock(blockList[blockIndex].clientId);
+  let blockClassName = blockList[blockIndex].attributes.className;
+  blockClassName = blockClassName.replace(/^is-style-/, '');
+
+  const headingBlock = createBlock('core/heading', {content: blockList[blockIndex].attributes.title});
+  const listBlocks = createListBlocks(menuItems);
+
+  const groupBlock = createBlock('core/group', {className: `table-of-contents is-style-${blockClassName}`}, [headingBlock, listBlocks]);
+
+  dispatch('core/block-editor').insertBlock(groupBlock, blockIndex);
+  // dispatch('core/block-editor').removeBlock(blockList[blockIndex].clientId);
 };
 
 /**
