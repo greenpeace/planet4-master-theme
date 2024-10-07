@@ -158,4 +158,11 @@ div[data-render="planet4-blocks/submenu"] {
       }
     }
   }
+
+  &.is-style-sidebar {
+    float: right;
+    max-width: 350px;
+    margin-bottom: 16px;
+    margin-inline-start: 16px;
+  }
 }

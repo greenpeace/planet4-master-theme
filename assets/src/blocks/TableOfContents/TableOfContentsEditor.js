@@ -1,3 +1,21 @@
+const TRANSLATION_ID = 'planet4-blocks-backend';
+
+const BLOCK_TITLE = 'table-of-contents';
+
+const BLOCK_NAME = {
+  TABLE_OF_CONTENTS: 'planet4-blocks/submenu',
+  EDITOR: 'core/block-editor',
+  LIST: 'core/list',
+  LIST_ITEM: 'core/list-item',
+  HEADING: 'core/heading',
+  GROUP: 'core/group',
+};
+
+const CLASS_NAME = {
+  HELP: 'components-base-control__help',
+  LIST: 'list-style',
+};
+
 import {TableOfContentsLevel} from './TableOfContentsLevel';
 import {TableOfContentsItems} from './TableOfContentsItems';
 import {getTableOfContentsStyle} from './getTableOfContentsStyle';
@@ -87,9 +105,9 @@ const renderEdit = (attributes, setAttributes) => {
 
   return (
     <InspectorControls>
-      <PanelBody title={__('Settings', 'planet4-blocks-backend')}>
-        <p className="components-base-control__help">
-          {__('Choose the headings to be displayed in the table of contents.', 'planet4-blocks-backend')}
+      <PanelBody title={__('Settings', TRANSLATION_ID)}>
+        <p className={CLASS_NAME.HELP}>
+          {__('Choose the headings to be displayed in the table of contents.', TRANSLATION_ID)}
         </p>
         {attributes.levels.map((level, i) => (
           <TableOfContentsLevel
@@ -108,19 +126,19 @@ const renderEdit = (attributes, setAttributes) => {
           disabled={attributes.levels.length >= 3 || attributes.levels.slice(-1)[0].heading === 0}
           style={{marginRight: 5}}
         >
-          {__('Add level', 'planet4-blocks-backend')}
+          {__('Add level', TRANSLATION_ID)}
         </Button>
         <Button
           variant="secondary"
           onClick={removeLevel}
           disabled={attributes.levels.length <= 1}
         >
-          {__('Remove level', 'planet4-blocks-backend')}
+          {__('Remove level', TRANSLATION_ID)}
         </Button>
       </PanelBody>
-      <PanelBody title={__('Learn more about this block', 'planet4-blocks-backend')} initialOpen={false}>
-        <p className="components-base-control__help">
-          <a target="_blank" href="https://planet4.greenpeace.org/content/blocks/table-of-contents/" rel="noreferrer">
+      <PanelBody title={__('Learn more about this block', TRANSLATION_ID)} initialOpen={false}>
+        <p className={CLASS_NAME.HELP}>
+          <a target="_blank" href={`https://planet4.greenpeace.org/content/blocks/${BLOCK_TITLE}/`} rel="noreferrer">
             P4 Handbook P4 Table of Contents
           </a>
           {' '} &#128203;
@@ -147,7 +165,7 @@ const renderView = (attributes, setAttributes, className) => {
     exampleMenuItems,
   } = attributes;
 
-  const blocks = useSelect(wpSelect => wpSelect('core/block-editor').getBlocks(), null);
+  const blocks = useSelect(wpSelect => wpSelect(BLOCK_NAME.EDITOR).getBlocks(), null);
   const flatHeadings = getHeadingsFromBlocks(blocks, levels);
   const menuItems = isExample ? exampleMenuItems : makeHierarchical(flatHeadings);
   const style = getTableOfContentsStyle(className, submenu_style);
@@ -162,10 +180,10 @@ const renderView = (attributes, setAttributes, className) => {
           Convert to static list
         </ToolbarItem>
       </BlockControls>
-      <section className={`block table-of-contents-block table-of-contents-${style} ${className ?? ''}`}>
+      <section className={`block ${BLOCK_TITLE}-block ${BLOCK_TITLE}-${style} ${className ?? ''}`}>
         <RichText
           tagName="h2"
-          placeholder={__('Enter title', 'planet4-blocks-backend')}
+          placeholder={__('Enter title', TRANSLATION_ID)}
           value={title}
           onChange={titl => setAttributes({title: titl})}
           withoutInteractiveFormatting
@@ -175,7 +193,7 @@ const renderView = (attributes, setAttributes, className) => {
           <TableOfContentsItems menuItems={menuItems} />
         ) : (
           <div className="EmptyMessage">
-            {__('There are not any pre-established headings that this block can display in the form of a table of content. Please add headings to your page or choose another heading size.', 'planet4-blocks-backend')}
+            {__('There are not any pre-established headings that this block can display in the form of a table of content. Please add headings to your page or choose another heading size.', TRANSLATION_ID)}
           </div>
         )}
       </section>
@@ -199,7 +217,7 @@ const createListBlocks = items => {
       content = `<a href="#${item.anchor}">${content}</a>`;
     }
 
-    const newInnerBlock = createBlock('core/list-item', {className: `list-style list-style-${item.style}`, content});
+    const newInnerBlock = createBlock(BLOCK_NAME.LIST_ITEM, {className: `${CLASS_NAME.LIST} ${CLASS_NAME.LIST}-${item.style}`, content});
 
     if (item.children && item.children.length > 0) {
       const childListBlock = createListBlocks(item.children);
@@ -209,7 +227,7 @@ const createListBlocks = items => {
     innerBlocks.push(newInnerBlock);
   });
 
-  return createBlock('core/list', {}, innerBlocks);
+  return createBlock(BLOCK_NAME.LIST, {}, innerBlocks);
 };
 
 /**
@@ -222,23 +240,21 @@ const convertIntoListBlock = menuItems => {
     return;
   }
 
-  const blockList = select('core/block-editor').getBlocks();
-  const blockIndex = blockList.findIndex(block => block.name === 'planet4-blocks/submenu');
+  const blockList = select(BLOCK_NAME.EDITOR).getBlocks();
+  const blockIndex = blockList.findIndex(block => block.name === BLOCK_NAME.TABLE_OF_CONTENTS);
 
   if (blockIndex === -1) {
     return;
   }
 
-  let blockClassName = blockList[blockIndex].attributes.className;
-  blockClassName = blockClassName.replace(/^is-style-/, '');
+  const blockAttrs = blockList[blockIndex].attributes;
 
-  const headingBlock = createBlock('core/heading', {content: blockList[blockIndex].attributes.title});
+  const headingBlock = createBlock(BLOCK_NAME.HEADING, {content: blockAttrs.title});
   const listBlocks = createListBlocks(menuItems);
+  const groupBlock = createBlock(BLOCK_NAME.GROUP, {className: `${BLOCK_TITLE} ${blockAttrs.className}`}, [headingBlock, listBlocks]);
 
-  const groupBlock = createBlock('core/group', {className: `table-of-contents is-style-${blockClassName}`}, [headingBlock, listBlocks]);
-
-  dispatch('core/block-editor').insertBlock(groupBlock, blockIndex);
-  // dispatch('core/block-editor').removeBlock(blockList[blockIndex].clientId);
+  dispatch(BLOCK_NAME.EDITOR).insertBlock(groupBlock, blockIndex);
+  // dispatch(BLOCK_NAME.EDITOR).removeBlock(blockList[blockIndex].clientId);
 };
 
 /**
