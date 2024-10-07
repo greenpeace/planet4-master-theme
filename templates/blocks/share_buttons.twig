@@ -1,14 +1,9 @@
 {% block javascripts %}
     <script>
-            window.addEventListener('DOMContentLoaded', () => {
-                // If the native share functionality is available on the device, we show the corresponding share buttons.
-                if (!navigator.share) {
-                    return;
-                }
-
-                const nativeShareButtons = document.querySelectorAll('.share-buttons .share-btn.native');
-                nativeShareButtons.forEach(nativeShareButton => nativeShareButton.style.display = 'block');
-            });
+        window.addEventListener('DOMContentLoaded', () => {
+            if (typeof dataLayer === 'undefined') {
+                return;
+            }
 
             const dataLayerPush = platform => dataLayer.push({
                 event: 'uaevent',
@@ -16,8 +11,18 @@
                 eventAction: platform,
                 eventLabel: '{{ social.link }}',
             });
+            window.dataLayerPush = dataLayerPush;
 
-            const nativeShare = async () => {
+            // If the native share functionality is not available on the device,
+            // we don't show the corresponding share button.
+            if (!navigator.share) {
+                return;
+            }
+
+            const nativeShareButtons = document.querySelectorAll('.share-buttons .share-btn.native');
+            nativeShareButtons.forEach(nativeShareButton => nativeShareButton.style.display = 'block');
+
+            window.nativeShare = async () => {
                 try {
                     await navigator.share({
                         title: '{{ social.title }}',
@@ -29,7 +34,8 @@
                     console.log(err);
                 }
             };
-        </script>
+        });
+    </script>
 {% endblock %}
 
 {% set socialLink = (share_url ?? social.link) ~ '?utm_medium=' ~ utm_medium ~ utm_content_param ~ utm_campaign_param %}
@@ -38,7 +44,7 @@
     <!-- Whatsapp -->
     {% if all_platforms or share_platforms.whatsapp %}
         <a href="https://wa.me/?text={% if share_text or social.description %}{{ (share_text ?? social.description)|striptags|url_encode }} {% endif %}{{ (socialLink ~ '&utm_source=whatsapp')|url_encode }}"
-            onclick="dataLayerPush('Whatsapp');"
+            onclick="window.dataLayerPush('Whatsapp');"
             target="_blank" class="share-btn whatsapp">
             {{ 'whatsapp'|svgicon }}
             <span class="visually-hidden">{{ __( 'Share on', 'planet4-master-theme' ) }} Whatsapp</span>
@@ -47,7 +53,7 @@
     <!-- Facebook -->
     {% if all_platforms or share_platforms.facebook %}
         <a href="https://www.facebook.com/sharer/sharer.php?u={{ (socialLink ~ '&utm_source=facebook')|url_encode }}"
-            onclick="dataLayerPush('Facebook');"
+            onclick="window.dataLayerPush('Facebook');"
             target="_blank" class="share-btn facebook">
             {{ 'facebook-f'|svgicon }}
             <span class="visually-hidden">{{ __( 'Share on', 'planet4-master-theme' ) }} Facebook</span>
@@ -56,7 +62,7 @@
     <!-- Twitter -->
     {% if all_platforms or share_platforms.twitter %}
         <a href="https://x.com/intent/post?related={{ social_accounts.twitter }}&text={{ social.title|url_encode }}{% if share_text or social.description %} - {{ (share_text ?? social.description)|striptags|url_encode }}{% endif %}, via @{{ social_accounts.twitter }}&url={{ (socialLink ~ '&utm_source=twitter')|url_encode }}"
-            onclick="dataLayerPush('Twitter');"
+            onclick="window.dataLayerPush('Twitter');"
             target="_blank" class="share-btn twitter">
             {{ 'twitter'|svgicon }}
             <span class="visually-hidden">{{ __( 'Share on', 'planet4-master-theme' ) }} Twitter</span>
@@ -65,7 +71,7 @@
     <!-- Email -->
     {% if all_platforms or share_platforms.email %}
         <a href="mailto:?subject={{ social.title|url_encode }}&body={% if share_text or social.description %}{{ (share_text ?? social.description)|striptags|url_encode }} {% endif %}{{ (socialLink ~ '&utm_source=email')|url_encode }}"
-            onclick="dataLayerPush('Email');"
+            onclick="window.dataLayerPush('Email');"
             target="_blank" class="share-btn email">
             {{ 'envelope'|svgicon }}
             <span class="visually-hidden">{{ __( 'Share via', 'planet4-master-theme' ) }} Email</span>
@@ -74,7 +80,7 @@
     <!-- Native (Gravity Forms only, for devices that support it) -->
     {% if not all_platforms and share_platforms.native %}
         <a
-            onclick="nativeShare();"
+            onclick="window.nativeShare();"
             target="_blank"
             class="share-btn native">
             {{ 'native-share'|svgicon }}
