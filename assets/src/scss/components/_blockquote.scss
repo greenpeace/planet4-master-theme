@@ -23,11 +23,9 @@ blockquote > p {
 
 blockquote {
   & > h5, & > h6 {
-    @include blockquote;
+    font-family: var(--body--font-family);
 
-    & {
-      font-family: var(--body--font-family);
-    }
+    @include blockquote;
   }
 }
 
