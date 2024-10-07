@@ -5,13 +5,24 @@
                 return;
             }
 
-            const dataLayerPush = platform => dataLayer.push({
-                event: 'page_shared',
-                channel: platform,
-                eventCategory: 'Social Share',
-                eventAction: platform,
-                eventLabel: '{{ social.link }}',
-            });
+            const dataLayerPush = platform => {
+                const shared = {
+                    eventCategory: 'Social Share',
+                    eventAction: platform,
+                    eventLabel: '{{ social.link }}',
+                };
+
+                dataLayer.push({
+                    event: 'uaevent',
+                    ...shared,
+                });
+
+                dataLayer.push({
+                    event: 'page_shared',
+                    channel: platform,
+                    ...shared,
+                });
+            };
             window.dataLayerPush = dataLayerPush;
 
             // If the native share functionality is not available on the device,
