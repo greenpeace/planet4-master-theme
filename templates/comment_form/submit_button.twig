@@ -3,21 +3,16 @@
     <input id="gdpr-comments-checkbox" type="checkbox" name="gdpr_comments_checkbox" value="1" required="required">
     <label id="gdpr-comments-label" for="gdpr-comments-checkbox">{{ gdpr_label }}</label>
 </div>
-<script>
-function toggleCommentSubmit() {
-    const checkbox = document.getElementById('gdpr-comments-checkbox');
-    const submit = document.querySelector('#commentform button[type="submit"]');
-    checkbox.checked
-        ? submit.removeAttribute('disabled')
-        : submit.setAttribute('disabled', '');
-}
 
-document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('gdpr-comments-checkbox')
-        .addEventListener('change', () => toggleCommentSubmit());
-    toggleCommentSubmit();
-});
-</script>
+{{ function(
+    'wp_enqueue_script',
+    'toggle-comment-submit-script',
+    function('get_template_directory_uri') ~ '/assets/build/toggleCommentSubmit.js',
+    [],
+    files_version['toggle_comment_submit_version'],
+    true) 
+}}
+
 {% endif %}
 
 <button type="submit" class="btn btn-small btn-primary">{{ __( 'Post comment', 'planet4-master-theme' ) }}</button>
