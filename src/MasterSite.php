@@ -735,7 +735,20 @@ class MasterSite extends TimberSite
         // IA: Tabs menu on mobile.
         $context['mobile_tabs_menu'] = (bool) planet4_get_option('new_ia');
 
+        $context['files_version'] = $this->get_enqueued_files_version();
+
         return $context;
+    }
+
+    public function get_enqueued_files_version()
+    {
+        $files_version = [];
+        
+        $script_path_share_buttons = get_template_directory() . '/assets/build/shareButtons.js';
+
+        $files_version['share_buttons_version'] = file_exists($script_path_share_buttons) ? filemtime($script_path_share_buttons) : '1.0.0';
+
+        return $files_version;
     }
 
     /**

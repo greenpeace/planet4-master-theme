@@ -20,6 +20,7 @@ module.exports = {
   ...defaultConfig,
   entry: {
     index: './assets/src/js/app.js',
+    shareButtons: './assets/src/js/share_buttons.js',
     style: './assets/src/scss/style.scss',
     post: './assets/src/scss/post.scss',
     editorStyle: './assets/src/scss/editorStyle.scss',
