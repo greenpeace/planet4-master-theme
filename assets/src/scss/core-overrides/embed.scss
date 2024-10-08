@@ -10,14 +10,6 @@
   height: 0;
 }
 
-@mixin absolute-position {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-
 @mixin media-group-one {
   margin-top: $sp-1;
   margin-bottom: $sp-2;
