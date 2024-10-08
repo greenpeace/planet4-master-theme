@@ -21,6 +21,8 @@ module.exports = {
   entry: {
     index: './assets/src/js/app.js',
     shareButtons: './assets/src/js/share_buttons.js',
+    hubspotCookies: './assets/src/js/hubspot_cookies.js',
+    toggleCommentSubmit: './assets/src/js/toggle_comment_submit.js',
     style: './assets/src/scss/style.scss',
     post: './assets/src/scss/post.scss',
     editorStyle: './assets/src/scss/editorStyle.scss',
