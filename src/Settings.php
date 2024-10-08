@@ -203,6 +203,17 @@ class Settings
                             ],
                         ],
                     ],
+
+                    [
+                        'name' => __('Enable Analytical Cookies', 'planet4-master-theme-backend'),
+                        'desc' => __(
+                            'Enable the Analytical cookies option in Cookies block and box',
+                            'planet4-master-theme-backend'
+                        ),
+                        'id' => 'enable_analytical_cookies',
+                        'type' => 'checkbox',
+                    ],
+
                     [
                         'name' => __('Analytical Cookies label', 'planet4-master-theme-backend'),
                         'id' => 'analytical_cookies_name',
@@ -247,16 +258,6 @@ class Settings
                             'planet4-master-theme-backend'
                         ),
                         'id' => 'enforce_cookies_policy',
-                        'type' => 'checkbox',
-                    ],
-
-                    [
-                        'name' => __('Enable Analytical Cookies', 'planet4-master-theme-backend'),
-                        'desc' => __(
-                            'Enable the Analytical cookies option in Cookies block and box',
-                            'planet4-master-theme-backend'
-                        ),
-                        'id' => 'enable_analytical_cookies',
                         'type' => 'checkbox',
                     ],
 
