@@ -23,6 +23,7 @@ module.exports = {
     shareButtons: './assets/src/js/share_buttons.js',
     hubspotCookies: './assets/src/js/hubspot_cookies.js',
     toggleCommentSubmit: './assets/src/js/toggle_comment_submit.js',
+    antiFlicker: './assets/src/js/anti_flicker.js',
     style: './assets/src/scss/style.scss',
     post: './assets/src/scss/post.scss',
     editorStyle: './assets/src/scss/editorStyle.scss',
