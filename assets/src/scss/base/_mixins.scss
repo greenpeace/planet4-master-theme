@@ -99,6 +99,15 @@
   left: 0;
 }
 
+// Move an element at the top-left corner of its nearest ancestor and set its width and height to 100%.
+@mixin absolute-position {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
 // Build a linear gradient with a direction and any number of color stops.
 @mixin linear-gradient($direction, $color-stops...) {
   background: nth(nth($color-stops, 1), 1); /* Old browsers */
