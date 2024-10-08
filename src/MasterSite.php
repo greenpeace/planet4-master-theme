@@ -747,10 +747,12 @@ class MasterSite extends TimberSite
         $script_path_share_buttons = get_template_directory() . '/assets/build/shareButtons.js';
         $script_path_hubspot_cookies = get_template_directory() . '/assets/build/hubspotCookies.js';
         $script_path_toggle_comment_submit = get_template_directory() . '/assets/build/toggleCommentSubmit.js';
+        $script_path_anti_flicker = get_template_directory() . '/assets/build/antiFlicker.js';
 
         $files_version['share_buttons_version'] = file_exists($script_path_share_buttons) ? filemtime($script_path_share_buttons) : '1.0.0';
         $files_version['hubspot_cookies_version'] = file_exists($script_path_hubspot_cookies) ? filemtime($script_path_hubspot_cookies) : '1.0.0';
         $files_version['toggle_comment_submit_version'] = file_exists($script_path_toggle_comment_submit) ? filemtime($script_path_toggle_comment_submit) : '1.0.0';
+        $files_version['anti_flicker_version'] = file_exists($script_path_anti_flicker) ? filemtime($script_path_anti_flicker) : '1.0.0';
 
         return $files_version;
     }
