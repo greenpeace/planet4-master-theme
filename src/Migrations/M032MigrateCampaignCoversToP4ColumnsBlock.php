@@ -21,83 +21,89 @@ class M032MigrateCampaignCoversToP4ColumnsBlock extends MigrationScript
      */
     public static function execute(MigrationRecord $record): void
     {
-        // Get the list of posts using Covers block.
-        $posts = Utils\Functions::get_posts_using_specific_block(
-            Utils\Constants::BLOCK_COVERS,
-            Utils\Constants::ALL_POST_TYPES
-        );
-
-        // If there are no posts, abort.
-        if (!$posts) {
-            return;
-        }
-
-        $parser = new WP_Block_Parser();
-
-        echo "Campaign Covers block migration in progress...\n"; // phpcs:ignore
-
-        foreach ($posts as $post) {
-            if (empty($post->post_content)) {
-                continue;
-            }
-
-            // Go through the post blocks to find the planet4-blocks/covers one.
-            $blocks = $parser->parse($post->post_content);
-
-            foreach ($blocks as &$block) {
-                // Skip non cover block.
-                if (!isset($block['blockName']) || $block['blockName'] !== Utils\Constants::BLOCK_COVERS) {
-                    continue;
-                }
-
-                // For older cover blocks, the cover type is empty, so use the default content cover type,hence skip it.
-                if (!isset($block['attrs']['cover_type'])) {
-                    continue;
-                }
-
-                // For old cover type(earlier it was numeric).
-                if (is_numeric($block['attrs']['cover_type'])) {
-                    $block['attrs']['cover_type'] = Utils\Constants::OLD_COVER_TYPES[ $block['attrs']['cover_type'] ];
-                }
-
-                // Skip non campaign cover style blocks.
-                if ($block['attrs']['cover_type'] !== Utils\Constants::COVER_TYPE_CAMPAIGN) {
-                    continue;
-                }
-
-                $block = self::transform_block($block);
-            }
-
-            // Unset the reference to prevent potential issues.
-            unset($block);
-
-            // Serialize the blocks content.
-            $new_content = serialize_blocks($blocks);
-
-            if ($post->post_content === $new_content) {
-                continue;
-            }
-
-            echo 'Migrating post ', $post->ID, "\n"; // phpcs:ignore
-            $result = false;
-
-            $post_update = array(
-                'ID' => $post->ID,
-                'post_content' => $new_content,
+        try {
+            // Get the list of posts using Covers block.
+            $posts = Utils\Functions::get_posts_using_specific_block(
+                Utils\Constants::BLOCK_COVERS,
+                Utils\Constants::ALL_POST_TYPES
             );
 
-            try {
-                // Update the post with the replaced blocks.
-                wp_update_post($post_update);
-                $result = true;
-            } catch (\Throwable $e) {
-                echo 'Error on post ', $post->ID, "\n";
-                echo $e->getMessage(), "\n";
+            // If there are no posts, abort.
+            if (!$posts) {
+                return;
             }
 
-            echo $result
-                ? "Migration successful\n"
-                : "Migration wasn't executed\n"; // phpcs:ignore
+            $parser = new WP_Block_Parser();
+
+            echo "Campaign Covers block migration in progress...\n"; // phpcs:ignore
+
+            foreach ($posts as $post) {
+                if (empty($post->post_content)) {
+                    continue;
+                }
+
+                $current_post_id = $post->ID; // Store the current post ID
+
+                // Go through the post blocks to find the planet4-blocks/covers one.
+                $blocks = $parser->parse($post->post_content);
+
+                foreach ($blocks as &$block) {
+                    // Skip non cover block.
+                    if (!isset($block['blockName']) || $block['blockName'] !== Utils\Constants::BLOCK_COVERS) {
+                        continue;
+                    }
+
+                    // For older cover blocks, the cover type is empty, so use the default content cover type,hence skip it.
+                    if (!isset($block['attrs']['cover_type'])) {
+                        continue;
+                    }
+
+                    // For old cover type(earlier it was numeric).
+                    if (is_numeric($block['attrs']['cover_type'])) {
+                        $block['attrs']['cover_type'] = Utils\Constants::OLD_COVER_TYPES[ $block['attrs']['cover_type'] ];
+                    }
+
+                    // Skip non campaign cover style blocks.
+                    if ($block['attrs']['cover_type'] !== Utils\Constants::COVER_TYPE_CAMPAIGN) {
+                        continue;
+                    }
+
+                    $block = self::transform_block($block);
+                }
+
+                // Unset the reference to prevent potential issues.
+                unset($block);
+
+                // Serialize the blocks content.
+                $new_content = serialize_blocks($blocks);
+
+                if ($post->post_content === $new_content) {
+                    continue;
+                }
+
+                echo 'Migrating post ', $post->ID, "\n"; // phpcs:ignore
+
+                $post_update = array(
+                    'ID' => $post->ID,
+                    'post_content' => $new_content,
+                );
+
+                // Update the post with the replaced blocks.
+                $result = wp_update_post($post_update);
+
+                if ($result === 0) {
+                    throw new \Exception("There was an error trying to update the post #" . $post->ID);
+                }
+
+                echo $result
+                    ? "Migration successful\n"
+                    : "Migration wasn't executed\n"; // phpcs:ignore
+            }
+
+        } catch (\Throwable $e) {
+            // Catch any exceptions and display the post ID if available
+            echo "Migration wasn't executed for post ID: ", $current_post_id ?? 'unknown', "\n";
+            echo $e->getMessage(), "\n";
         }
     }
     // phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter
