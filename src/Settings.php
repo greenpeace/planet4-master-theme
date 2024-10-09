@@ -60,6 +60,7 @@ class Settings
         // Each subpage has a title and a path and the fields.
         // phpcs:disable Generic.Files.LineLength.MaxExceeded
         $is_new_ia = !empty(planet4_get_option('new_ia'));
+        $anaylical_cookies_enabled = !empty(planet4_get_option('enable_analytical_cookies'));
         $this->subpages = [
             'planet4_settings_navigation' => [
                 'title' => 'Navigation',
@@ -203,23 +204,7 @@ class Settings
                             ],
                         ],
                     ],
-                    [
-                        'name' => __('Analytical Cookies label', 'planet4-master-theme-backend'),
-                        'id' => 'analytical_cookies_name',
-                        'type' => 'text',
-                    ],
-                    [
-                        'name' => __('Analytical Cookies description', 'planet4-master-theme-backend'),
-                        'id' => 'analytical_cookies_description',
-                        'type' => 'wysiwyg',
-                        'options' => [
-                            'textarea_rows' => 2,
-                            'media_buttons' => false,
-                            'quicktags' => [
-                                'buttons' => 'strong,em',
-                            ],
-                        ],
-                    ],
+
                     [
                         'name' => __('Marketing Cookies label', 'planet4-master-theme-backend'),
                         'id' => 'all_cookies_name',
@@ -239,6 +224,36 @@ class Settings
                     ],
 
                     [
+                        'name' => __('Enable Analytical Cookies', 'planet4-master-theme-backend'),
+                        'desc' => __(
+                            'Enable the Analytical cookies option in Cookies block and box',
+                            'planet4-master-theme-backend'
+                        ),
+                        'id' => 'enable_analytical_cookies',
+                        'type' => 'checkbox',
+                    ],
+
+                    [
+                        'name' => __('Analytical Cookies label', 'planet4-master-theme-backend'),
+                        'id' => 'analytical_cookies_name',
+                        'type' => 'text',
+                        'classes' => $anaylical_cookies_enabled ? '' : 'hidden',
+                    ],
+                    [
+                        'name' => __('Analytical Cookies description', 'planet4-master-theme-backend'),
+                        'id' => 'analytical_cookies_description',
+                        'type' => 'wysiwyg',
+                        'options' => [
+                            'textarea_rows' => 2,
+                            'media_buttons' => false,
+                            'quicktags' => [
+                                'buttons' => 'strong,em',
+                            ],
+                        ],
+                        'classes' => $anaylical_cookies_enabled ? '' : 'hidden',
+                    ],
+
+                    [
                         'name' => __('Enforce Cookies Policy', 'planet4-master-theme-backend'),
                         'desc' => __(
                             'GDPR related setting. By enabling this option specific content will be blocked and will require user consent to be shown.<br>
@@ -247,16 +262,6 @@ class Settings
                             'planet4-master-theme-backend'
                         ),
                         'id' => 'enforce_cookies_policy',
-                        'type' => 'checkbox',
-                    ],
-
-                    [
-                        'name' => __('Enable Analytical Cookies', 'planet4-master-theme-backend'),
-                        'desc' => __(
-                            'Enable the Analytical cookies option in Cookies block and box',
-                            'planet4-master-theme-backend'
-                        ),
-                        'id' => 'enable_analytical_cookies',
                         'type' => 'checkbox',
                     ],
 
