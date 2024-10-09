@@ -21,66 +21,74 @@ class M034MigrateSplit2ColumnBlock extends MigrationScript
      */
     public static function execute(MigrationRecord $record): void
     {
-        // Get the list of posts using split-two-columns block.
-        $posts = Utils\Functions::get_posts_using_specific_block(
-            Utils\Constants::BLOCK_SPLIT_TWO_COLUMNS,
-            Utils\Constants::ALL_POST_TYPES
-        );
+        try {
+            // Get the list of posts using split-two-columns block.
+            $posts = Utils\Functions::get_posts_using_specific_block(
+                Utils\Constants::BLOCK_SPLIT_TWO_COLUMNS,
+                Utils\Constants::ALL_POST_TYPES
+            );
 
-        // If there are no posts, abort.
-        if (!$posts) {
-            return;
-        }
-
-        $parser = new WP_Block_Parser();
-
-        echo "Split 2 Columns block migration in progress...\n"; // phpcs:ignore
-
-        foreach ($posts as $post) {
-            if (empty($post->post_content)) {
-                continue;
+            // If there are no posts, abort.
+            if (!$posts) {
+                return;
             }
 
-            echo 'Parsing post ', $post->ID, "\n"; // phpcs:ignore
-            $result = false;
+            $parser = new WP_Block_Parser();
 
-            // Go through the post blocks to find the planet4-blocks/split-two-columns one.
-            $blocks = $parser->parse($post->post_content);
+            echo "Split 2 Columns block migration in progress...\n"; // phpcs:ignore
 
-            foreach ($blocks as &$block) {
-                // Skip other blocks.
-                if (! isset($block['blockName']) || $block['blockName'] !== Utils\Constants::BLOCK_SPLIT_TWO_COLUMNS) {
+            foreach ($posts as $post) {
+                if (empty($post->post_content)) {
                     continue;
                 }
 
-                $block = self::get_transform_block($block);
-            }
+                $current_post_id = $post->ID; // Store the current post ID
 
-            // Unset the reference to prevent potential issues.
-            unset($block);
+                echo 'Parsing post ', $post->ID, "\n"; // phpcs:ignore
+                //$result = false;
 
-            // Serialize the blocks content.
-            $new_content = serialize_blocks($blocks);
+                // Go through the post blocks to find the planet4-blocks/split-two-columns one.
+                $blocks = $parser->parse($post->post_content);
 
-            if ($post->post_content !== $new_content) {
-                $post_update = array(
-                    'ID' => $post->ID,
-                    'post_content' => $new_content,
-                );
+                foreach ($blocks as &$block) {
+                    // Skip other blocks.
+                    if (
+                        ! isset($block['blockName']) ||
+                        $block['blockName'] !== Utils\Constants::BLOCK_SPLIT_TWO_COLUMNS
+                    ) {
+                        continue;
+                    }
 
-                try {
-                    // Update the post with the replaced blocks.
-                    wp_update_post($post_update);
-                    $result = true;
-                } catch (\Throwable $e) {
-                    echo 'Error on post ', $post->ID, "\n";
-                    echo $e->getMessage(), "\n";
+                    $block = self::get_transform_block($block);
                 }
-            }
 
-            echo $result
-                ? "Migration successful\n"
-                : "Migration wasn't executed\n"; // phpcs:ignore
+                // Unset the reference to prevent potential issues.
+                unset($block);
+
+                // Serialize the blocks content.
+                $new_content = serialize_blocks($blocks);
+
+                if ($post->post_content !== $new_content) {
+                    $post_update = array(
+                        'ID' => $post->ID,
+                        'post_content' => $new_content,
+                    );
+
+                    // Update the post with the replaced blocks.
+                    $result = wp_update_post($post_update);
+                    if ($result === 0) {
+                        throw new \Exception("There was an error trying to update the post #" . $post->ID);
+                    }
+                }
+
+                echo $result
+                    ? "Migration successful\n"
+                    : "Migration wasn't executed\n"; // phpcs:ignore
+            }
+        } catch (\Throwable $e) {
+            // Catch any exceptions and display the post ID if available
+            echo "Migration wasn't executed for post ID: ", $current_post_id ?? 'unknown', "\n";
+            echo $e->getMessage(), "\n";
         }
     }
     // phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter
@@ -97,6 +105,7 @@ class M034MigrateSplit2ColumnBlock extends MigrationScript
         // Gathering the data we want from split 2 columns block.
         $block_attrs = self::get_split_2_columns_block_attrs($block['attrs']);
 
+        // The template code is copied from the block editor.
         $template = '<!-- wp:columns -->
 <div class="wp-block-columns"><!-- wp:column {"verticalAlignment":"center"} -->
 <div class="wp-block-column is-vertically-aligned-center"><!-- wp:media-text {"mediaId":' . $block_attrs['column1']['image_id'] . ',"mediaLink":"' . get_page_link($block_attrs['column1']['image_id']) . '","mediaType":"image"} -->
