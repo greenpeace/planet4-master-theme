@@ -53,13 +53,15 @@ class M032MigrateCampaignCoversToP4ColumnsBlock extends MigrationScript
                         continue;
                     }
 
-                    // For older cover blocks, the cover type is empty, so use the default content cover type,hence skip it.
+                    // For older cover blocks where the cover type is empty,
+                    // the default content cover type is applied to those blocks.
                     if (!isset($block['attrs']['cover_type'])) {
                         continue;
                     }
 
                     // For old cover type(earlier it was numeric).
                     if (is_numeric($block['attrs']['cover_type'])) {
+                        // phpcs:ignore Generic.Files.LineLength.MaxExceeded
                         $block['attrs']['cover_type'] = Utils\Constants::OLD_COVER_TYPES[ $block['attrs']['cover_type'] ];
                     }
 
@@ -89,7 +91,7 @@ class M032MigrateCampaignCoversToP4ColumnsBlock extends MigrationScript
                 );
 
                 // Update the post with the replaced blocks.
-                $result = wp_update_post($post_update);
+                $result = wp_update_post(wp_slash($post_update));
 
                 if ($result === 0) {
                     throw new \Exception("There was an error trying to update the post #" . $post->ID);
@@ -99,7 +101,6 @@ class M032MigrateCampaignCoversToP4ColumnsBlock extends MigrationScript
                     ? "Migration successful\n"
                     : "Migration wasn't executed\n"; // phpcs:ignore
             }
-
         } catch (\Throwable $e) {
             // Catch any exceptions and display the post ID if available
             echo "Migration wasn't executed for post ID: ", $current_post_id ?? 'unknown', "\n";
@@ -138,9 +139,7 @@ class M032MigrateCampaignCoversToP4ColumnsBlock extends MigrationScript
     {
         $block_attrs['columns_block_style'] = 'image';
         $block_attrs['columns_title'] = $block['title'] ?? '';
-        // Filter & replace \n with \u003cbr\u003e .
-        $block_attrs['columns_description'] = isset($block['description']) ?
-            str_replace("\n", "\u003cbr\u003e", $block['description']) : '';
+        $block_attrs['columns_description'] = $block['description'] ?? '';
 
         if (isset($block['tags'])) {
             // To keep the same order of columns, reverse the array.
