@@ -11,8 +11,8 @@
     }
   }
 
-  &:hover {
-    [class*="is-style-rounded-"] img {
+  &:hover > {
+    figure[class*="is-style-rounded-"] img {
       transform: scale(1.3);
     }
   }
