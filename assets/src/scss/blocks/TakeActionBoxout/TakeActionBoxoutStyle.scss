@@ -34,6 +34,7 @@
   box-shadow: 0 1px 8px rgba(0, 0, 0, 0.16);
   transition: box-shadow 0.2s;
   border-radius: 4px;
+  margin-bottom: $sp-3;
   position: relative;
 
   .not-now {
@@ -116,7 +117,6 @@
 
   &:not(.sticky-bottom-mobile) {
     @include small-and-less {
-      margin-bottom: $sp-3;
       flex-direction: column-reverse;
 
       .boxout-content {
