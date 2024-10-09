@@ -51,11 +51,6 @@ function get_attachments_used_in_content(string $content): array
                 }
                 break;
 
-            case 'planet4-blocks/split-two-columns':
-                $attachment_ids[] = $block['attrs']['issue_image'] ?? '';
-                $attachment_ids[] = $block['attrs']['tag_image'] ?? '';
-                break;
-
             case 'planet4-blocks/columns':
                 if (isset($block['attrs']['columns'])) {
                     foreach ($block['attrs']['columns'] as $column) {

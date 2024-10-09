@@ -219,7 +219,6 @@ class BlockSettings
             self::PAGE_BLOCK_TYPES,
             ! Features::is_active(self::BETA_BLOCKS_FEATURE) ? [] : self::BETA_PAGE_BLOCK_TYPES,
             ! $enform_active ? [] : [ self::P4_BLOCKS_PREFIX . '/enform' ],
-            (bool) planet4_get_option('new_ia') ? [] : [ self::P4_BLOCKS_PREFIX . '/split-two-columns' ],
             self::BLOCK_TEMPLATES,
         );
 
