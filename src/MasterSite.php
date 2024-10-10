@@ -139,7 +139,7 @@ class MasterSite extends TimberSite
         add_filter('http_request_timeout', fn () => 10);
         add_action('after_setup_theme', [$this, 'add_image_sizes']);
         add_action('save_post', [$this, 'p4_auto_generate_excerpt'], 10, 2);
-
+        add_action('wp_enqueue_scripts', [$this, 'pass_google_tag_manager_data'], 10, 2);
         add_action('admin_head', [$this, 'add_help_sidebar']);
 
         remove_action('wp_head', 'print_emoji_detection_script', 7);
@@ -748,13 +748,30 @@ class MasterSite extends TimberSite
         $script_path_hubspot_cookies = get_template_directory() . '/assets/build/hubspotCookies.js';
         $script_path_toggle_comment_submit = get_template_directory() . '/assets/build/toggleCommentSubmit.js';
         $script_path_anti_flicker = get_template_directory() . '/assets/build/antiFlicker.js';
+        $script_path_google_tag_manager = get_template_directory() . '/assets/build/googleTagManager.js';
 
         $files_version['share_buttons_version'] = file_exists($script_path_share_buttons) ? filemtime($script_path_share_buttons) : '1.0.0';
         $files_version['hubspot_cookies_version'] = file_exists($script_path_hubspot_cookies) ? filemtime($script_path_hubspot_cookies) : '1.0.0';
         $files_version['toggle_comment_submit_version'] = file_exists($script_path_toggle_comment_submit) ? filemtime($script_path_toggle_comment_submit) : '1.0.0';
         $files_version['anti_flicker_version'] = file_exists($script_path_anti_flicker) ? filemtime($script_path_anti_flicker) : '1.0.0';
+        $files_version['google_tag_manager_version'] = file_exists($script_path_google_tag_manager) ? filemtime($script_path_google_tag_manager) : '1.0.0';
 
         return $files_version;
+    }
+
+    public function pass_google_tag_manager_data() {
+        if (wp_script_is('google-tag-manager-script', 'enqueued')) {
+            $script_data = array(
+                'google_tag_value' => planet4_get_option('google_tag_manager_identifier') ?? '',
+                'google_tag_domain' => !empty(planet4_get_option('google_tag_manager_domain')) ? planet4_get_option('google_tag_manager_domain') : 'www.googletagmanager.com',
+                'consent_default_analytics_storage' => planet4_get_option('consent_default_analytics_storage') ?? 'denied',
+                'consent_default_ad_storage' => planet4_get_option('consent_default_ad_storage') ?? 'denied',
+                'consent_default_ad_user_data' => planet4_get_option('consent_default_ad_user_data') ?? 'denied',
+                'consent_default_ad_personalization' => planet4_get_option('consent_default_ad_personalization') ?? 'denied',
+                'enable_google_consent_mode' => planet4_get_option('enable_google_consent_mode') ?? false,
+            );
+            wp_localize_script('google-tag-manager-script', 'googleTagManagerData', $script_data);
+        }
     }
 
     /**
