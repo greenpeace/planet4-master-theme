@@ -48,6 +48,10 @@
     }
   },
   "settings": {
+    "lightbox": {
+      "allowEditing": true,
+      "enabled": true
+    },
     "color": {
       "custom": false,
       "duotone": [],
