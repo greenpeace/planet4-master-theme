@@ -21,7 +21,7 @@ export const StaticCaption = ({slide}) => (
             data-ga-category="Carousel Header"
             data-ga-action="Call to Action"
             data-ga-label={slide.index}
-            {...slide.link_url_new_tab && {rel: 'noreferrer', target: '_blank'}}
+            {...slide.link_url_new_tab && {rel: 'noreferrer noopener', target: '_blank'}}
           >
             <span>
               {slide.link_text}
