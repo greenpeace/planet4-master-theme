@@ -43,7 +43,10 @@
       padding-top: 144px;
     }
   }
-  position: relative;
+
+  * {
+    position: relative;
+  }
 
   &.page-header-hidden {
     padding: 0 !important;
@@ -129,7 +132,10 @@
         height: 100%;
       }
     }
-    width: 100%;
+
+    * {
+      width: 100%;
+    }
   }
 }
 
