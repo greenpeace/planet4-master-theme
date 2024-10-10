@@ -24,6 +24,8 @@ export default function SingleSidebar({image}) {
     images,
     imageAdded,
     processImageToAddToEditor,
+    setCustomFeaturedImage,
+    isUserSelectingFeaturedImage,
     currentBlockImageId,
     view,
   } = useArchivePickerContext();
@@ -111,7 +113,25 @@ export default function SingleSidebar({image}) {
           )}
           {view === EDITOR_VIEW && (
             <>
-              {!image.wordpress_id ? (
+              {isUserSelectingFeaturedImage && image.wordpress_id && (
+                <button
+                  disabled={!!processing}
+                  className="button sidebar-action"
+                  onClick={async () => await setCustomFeaturedImage(image.wordpress_id)}
+                >
+                  {__('Set Featured Image', 'planet4-master-theme-backend')}
+                </button>
+              )}
+              {isUserSelectingFeaturedImage && !image.wordpress_id && (
+                <button
+                  disabled={!!processing}
+                  className="button sidebar-action"
+                  onClick={async () => await includeInWp([image.id], view, true)}
+                >
+                  {__('Import to Library & Set Featured Image', 'planet4-master-theme-backend')}
+                </button>
+              )}
+              {!isUserSelectingFeaturedImage && !image.wordpress_id && (
                 <button
                   disabled={!!processing}
                   className="button sidebar-action"
@@ -119,7 +139,8 @@ export default function SingleSidebar({image}) {
                 >
                   {__('Import to Library & Post', 'planet4-master-theme-backend')}
                 </button>
-              ) : (
+              )}
+              {!isUserSelectingFeaturedImage && image.wordpress_id && (
                 <button
                   disabled={!!processing}
                   className="button sidebar-action"
