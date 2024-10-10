@@ -1,7 +1,7 @@
 import {ImagePlaceholderIcon} from '../../block-editor/ImagePlaceholderIcon';
 
-export const ImagePlaceholder = ({children}) =>
-  <div className="boxout-image-placeholder">
+export const CoversImagePlaceholder = ({height}) => (
+  <div className="covers-image-placeholder" style={{height}}>
     <ImagePlaceholderIcon width={20} height={20} fill="#fff" />
-    {children}
-  </div>;
+  </div>
+);

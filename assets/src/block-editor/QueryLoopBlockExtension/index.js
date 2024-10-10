@@ -1,6 +1,6 @@
 import {POSTS_LIST_BLOCK_NAME, POSTS_LISTS_LAYOUT_TYPES} from '../../blocks/PostsList';
 import {ACTIONS_LIST_BLOCK_NAME, ACTIONS_LIST_LAYOUT_TYPES} from '../../blocks/ActionsList';
-import {PostSelector} from '../../block-editor/PostSelector/PostSelector';
+import {PostSelector} from '../PostSelector';
 
 const {InspectorControls} = wp.blockEditor;
 const {RadioControl, PanelBody} = wp.components;
