@@ -11,6 +11,8 @@ class Constants
     private const PREFIX_CORE_BLOCKS = 'core';
 
     public const BLOCK_MEDIA_VIDEO = self::PREFIX_P4_BLOCKS . '/media-video';
+    public const BLOCK_COVERS = self::PREFIX_P4_BLOCKS . '/covers';
+    public const BLOCK_COLUMNS = self::PREFIX_P4_BLOCKS . '/columns';
 
     public const BLOCK_EMBED = self::PREFIX_CORE_BLOCKS . '/embed';
     public const BLOCK_AUDIO = self::PREFIX_CORE_BLOCKS . '/audio';
@@ -29,5 +31,14 @@ class Constants
         self::POST_TYPES_POST,
         self::POST_TYPES_ACTION,
         self::POST_TYPES_CAMPAIGN,
+    ];
+
+    public const COVER_TYPE_TAKE_ACTION = 'take-action';
+    public const COVER_TYPE_CAMPAIGN = 'campaign';
+    public const COVER_TYPE_CONTENT = 'content';
+    public const OLD_COVER_TYPES = [
+        '1' => self::COVER_TYPE_TAKE_ACTION,
+        '2' => self::COVER_TYPE_CAMPAIGN,
+        '3' => self::COVER_TYPE_CONTENT,
     ];
 }
