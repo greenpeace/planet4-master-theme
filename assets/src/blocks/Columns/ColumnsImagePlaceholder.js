@@ -1,4 +1,4 @@
-import {ImagePlaceholderIcon} from '../../block-editor/ImagePlaceholderIcon/ImagePlaceholderIcon';
+import {ImagePlaceholderIcon} from '../../block-editor/ImagePlaceholderIcon';
 
 export const ColumnsImagePlaceholder = ({width, height}) => (
   <div className="columns-image-placeholder" style={{height, width}}>

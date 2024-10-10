@@ -1,0 +1,141 @@
+// Carousel layout
+.covers-block.carousel-layout {
+  &.take-action-covers-block .covers {
+    padding: 0 $sp-1 $sp-1 $sp-1;
+  }
+
+  @include medium-and-less {
+    .covers {
+      display: flex;
+      overflow-x: scroll;
+      flex-wrap: nowrap;
+      scrollbar-width: none;
+      scroll-behavior: smooth;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+
+      .cover:not(:last-child) {
+        margin-inline-end: $sp-2;
+      }
+
+      @include small-and-less {
+        .cover {
+          min-width: 70%;
+          width: 70%;
+        }
+      }
+
+      @include medium-and-up {
+        .cover {
+          min-width: 45%;
+          width: 45%;
+        }
+      }
+    }
+
+    .carousel-control-next,
+    .carousel-control-prev,
+    .carousel-indicators {
+      display: none;
+    }
+  }
+
+  @include large-and-up {
+    .covers {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      column-gap: $sp-3;
+    }
+
+    &.content-covers-block .covers {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .carousel-indicators {
+      top: calc(100% + #{$sp-2});
+
+      li {
+        width: 24px;
+        height: 4px;
+        background: black;
+        margin: 0 $sp-x;
+        border: none;
+      }
+    }
+
+    .carousel-control-prev,
+    .carousel-control-next {
+      background: white;
+      width: 48px;
+      height: 48px;
+      box-shadow: 0 1px 8px rgba(0, 0, 0, 0.2);
+      border-radius: 50%;
+      opacity: 1;
+      z-index: 2;
+      top: calc(50% - 24px);
+
+      &:disabled {
+        cursor: default;
+
+        .carousel-control-prev-icon,
+        .carousel-control-next-icon {
+          opacity: 0.15;
+        }
+      }
+
+      &:not(:disabled):hover {
+        background: var(--grey-200);
+        padding-inline-start: 0;
+      }
+    }
+
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+      background-image: url("../../images/chevron.svg");
+      background-size: 11px 19px;
+      width: 48px;
+      height: 48px;
+    }
+
+    .carousel-control-next {
+      right: -$sp-3;
+      margin-inline-start: 2px;
+
+      html[dir="rtl"] & {
+        right: auto;
+        left: -$sp-3;
+        transform: rotate(180deg);
+      }
+
+      @include x-large-and-up {
+        right: -$sp-8;
+
+        html[dir="rtl"] & {
+          left: -$sp-8;
+        }
+      }
+    }
+
+    .carousel-control-prev {
+      transform: rotate(180deg);
+      left: -$sp-3;
+      margin-inline-end: 2px;
+
+      html[dir="rtl"] & {
+        right: -$sp-3;
+        left: auto;
+        transform: none;
+      }
+
+      @include x-large-and-up {
+        left: -$sp-8;
+
+        html[dir="rtl"] & {
+          right: -$sp-8;
+        }
+      }
+    }
+  }
+}
