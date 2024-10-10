@@ -18,6 +18,20 @@ async function publishPost({page, editor}) {
 }
 
 /**
+ * Updates a post and waits for the confirmation snackbar.
+ *
+ * @param {Object} params - Parameters for updating the post.
+ * @param {Object} params.page - The page object representing the browser page.
+ * @return {Promise<void>} - A promise that resolves when the snackbar confirming the update is visible.
+ */
+async function updatePost({page}) {
+  const updateButton = await page.locator('.editor-header__settings').getByRole('button', {name: 'Save'});
+  await updateButton.click();
+
+  return page.waitForSelector('.components-snackbar');
+}
+
+/**
  * Publishes a post and then navigates to the published post's URL.
  *
  * @param {Object} params - Parameters for publishing the post and visiting the URL.
@@ -55,4 +69,4 @@ async function createPostWithFeaturedImage({admin, editor}, params) {
   return newPost;
 }
 
-export {publishPost, publishPostAndVisit, createPostWithFeaturedImage};
+export {publishPost, publishPostAndVisit, createPostWithFeaturedImage, updatePost};
