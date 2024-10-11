@@ -46,6 +46,8 @@ module.exports = {
     CookiesScript: './assets/src/blocks/Cookies/CookiesScript.js',
     CookiesEditorScript: './assets/src/blocks/Cookies/CookiesEditorScript.js',
     CounterScript: './assets/src/blocks/Counter/CounterScript.js',
+    CoversEditorScript: './assets/src/blocks/Covers/CoversEditorScript.js',
+    CoversScript: './assets/src/blocks/Covers/CoversScript.js',
     CounterEditorScript: './assets/src/blocks/Counter/CounterEditorScript.js',
     SpreadsheetScript: './assets/src/blocks/Spreadsheet/SpreadsheetScript.js',
     SpreadsheetEditorScript: './assets/src/blocks/Spreadsheet/SpreadsheetEditorScript.js',

@@ -1,0 +1,142 @@
+.take-action-covers-block {
+  &.grid-layout .covers {
+    @supports (display: grid) {
+      grid-template-columns: 1fr;
+
+      @include medium-and-up {
+        grid-column-gap: $sp-3;
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      @include large-and-up {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+  }
+
+  .cover {
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.16);
+    transition: box-shadow 0.2s;
+    min-height: 440px;
+    border-radius: 4px;
+    background: var(--color-background-take_action_cover_block);
+    cursor: pointer;
+    position: relative;
+
+    &:hover {
+      box-shadow: 0 1px 14px rgba(0, 0, 0, 0.3);
+
+      .cover-card-heading {
+        text-decoration: underline;
+      }
+
+      .btn {
+        background: var(--button-primary--hover--background);
+      }
+    }
+
+    img {
+      height: 196px;
+      max-height: 196px;
+      min-height: 196px;
+      width: 100%;
+      object-fit: cover;
+      margin-inline-end: 0;
+      border-top-left-radius: 4px;
+      border-top-right-radius: 4px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cover-card-overlay {
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      right: 0;
+    }
+
+    .cover-card-content {
+      padding: $sp-3;
+
+      .cover-card-tag {
+        font-family: var(--font-family-primary);
+        font-size: var(--font-size-xxxs--font-family-primary);
+        color: var(--grey-600);
+        font-weight: var(--font-weight-bold);
+      }
+
+      .cover-card-heading {
+        --cover-card-heading-- {
+          font-family: var(--font-family-primary);
+          font-size: var(--font-size-m--font-family-primary);
+          font-weight: var(--font-weight-regular);
+          line-height: var(--line-height-l--font-family-primary);
+        }
+        position: relative;
+        z-index: 1;
+        margin: $sp-1 0;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        /* stylelint-disable property-no-vendor-prefix */
+        /*! autoprefixer: off */
+        -webkit-box-orient: vertical;
+        /*! autoprefixer: on */
+        /* stylelint-enable property-no-vendor-prefix */
+        overflow: hidden;
+      }
+
+      .cover-card-excerpt {
+        --cover-card-excerpt-- {
+          font-family: var(--font-family-paragraph-secondary);
+          font-size: var(--font-size-s--font-family-tertiary);
+          line-height: var(--line-height-s--font-family-tertiary);
+        }
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        margin: 0;
+        /* stylelint-disable property-no-vendor-prefix */
+        /*! autoprefixer: off */
+        -webkit-box-orient: vertical;
+        /*! autoprefixer: on */
+        /* stylelint-enable property-no-vendor-prefix */
+        overflow: hidden;
+      }
+    }
+
+    .cover-card-btn {
+      font-size: var(--font-size-xxxs--font-family-primary);
+      line-height: var(--line-height-s--font-family-primary);
+      padding: 10px 20px;
+      right: $sp-3;
+      bottom: $sp-3;
+      left: auto;
+      position: absolute;
+      margin: 0;
+      border: none;
+
+      html[dir="rtl"] & {
+        left: $sp-3;
+        right: auto;
+      }
+    }
+
+    @include medium-and-up {
+      min-height: 490px;
+
+      img {
+        height: 220px;
+        max-height: 220px;
+        min-height: 220px;
+      }
+
+      .cover-card-content {
+        padding-top: 32px;
+
+        .cover-card-heading {
+          font-size: 20px;
+        }
+      }
+    }
+  }
+}

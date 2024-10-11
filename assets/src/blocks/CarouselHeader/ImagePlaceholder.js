@@ -1,4 +1,4 @@
-import {ImagePlaceholderIcon} from '../../block-editor/ImagePlaceholderIcon/ImagePlaceholderIcon';
+import {ImagePlaceholderIcon} from '../../block-editor/ImagePlaceholderIcon';
 
 const {__} = wp.i18n;
 

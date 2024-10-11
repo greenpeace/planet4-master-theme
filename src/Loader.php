@@ -202,6 +202,7 @@ final class Loader
         new Blocks\Columns();//NOSONAR
         new Blocks\Cookies();//NOSONAR
         new Blocks\Counter();//NOSONAR
+        new Blocks\Covers();//NOSONAR
         new Blocks\ENForm();//NOSONAR
         new Blocks\Gallery();//NOSONAR
         new Blocks\GuestBook();//NOSONAR
