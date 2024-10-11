@@ -202,6 +202,7 @@ final class Loader
         new Blocks\Columns();//NOSONAR
         new Blocks\Cookies();//NOSONAR
         new Blocks\Counter();//NOSONAR
+        new Blocks\Covers();//NOSONAR
         new Blocks\ENForm();//NOSONAR
         new Blocks\Gallery();//NOSONAR
         new Blocks\GuestBook();//NOSONAR
@@ -211,7 +212,6 @@ final class Loader
         new Blocks\TableOfContents();//NOSONAR
         new Blocks\TakeActionBoxout();//NOSONAR
         new Blocks\Timeline();//NOSONAR
-        new Blocks\Covers();//NOSONAR
 
         register_block_pattern_category(
             'page-headers',
