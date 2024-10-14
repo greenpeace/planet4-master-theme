@@ -83,10 +83,10 @@ class M032MigrateCampaignCoversToP4ColumnsBlock extends MigrationScript
                     continue;
                 }
 
-                echo 'Migrating post ', $post->ID, "\n"; // phpcs:ignore
+                echo 'Migrating post ', $current_post_id, "\n"; // phpcs:ignore
 
                 $post_update = array(
-                    'ID' => $post->ID,
+                    'ID' => $current_post_id,
                     'post_content' => $new_content,
                 );
 
@@ -94,7 +94,7 @@ class M032MigrateCampaignCoversToP4ColumnsBlock extends MigrationScript
                 $result = wp_update_post(wp_slash($post_update));
 
                 if ($result === 0) {
-                    throw new \Exception("There was an error trying to update the post #" . $post->ID);
+                    throw new \Exception("There was an error trying to update the post #" . $current_post_id);
                 }
 
                 echo $result
