@@ -107,13 +107,6 @@ export const registerCoversBlock = () => {
           __('Take action covers pull the featured image, tags, have a 25 character excerpt and have a call to action button', 'planet4-blocks-backend')
         ),
       },
-      {
-        name: COVERS_TYPES.campaign,
-        label: getStyleLabel(
-          __('Campaign covers', 'planet4-blocks-backend'),
-          __('Campaign covers pull the associated image and hashtag from the system tag definitions', 'planet4-blocks-backend')
-        ),
-      },
     ],
     deprecated: [
       coversV3,
