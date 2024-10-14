@@ -30,7 +30,7 @@ class MasterSite extends TimberSite
      * Version of notice
      *
      */
-    private const DASHBOARD_MESSAGE_VERSION = '0.3';
+    private const DASHBOARD_MESSAGE_VERSION = '0.4';
 
     /**
      * Credit meta field key
@@ -1613,8 +1613,17 @@ class MasterSite extends TimberSite
      */
     private function p4_message(): string
     {
-        return '<h2><a href="https://forms.gle/c9qaH2g5t8Q7VhAw6" target="_blank">Please take this survey on the new Media Archive</a></h2>
-            <p>We want to hear from you on your experience with the Media Archive (now called Greenpeace Media) - it should just take a few minutes!</p>';
+        return '<h2>Welcome to the new P4 message board!</h2>
+            <p>New to the Planet 4 platform? Here are some self - paced courses that can help you get up to speed. 👇
+                <ul>
+                    <li><span style="margin-right: 3px;">
+                        <a href="https://greenpeace.studytube.nl/courses/22122">Planet 4 Fundamentals</a> 🌏</span>
+                        learn the very basic of Planet 4.</li>
+                    <li><span style="margin-right: 3px;">
+                        <a href="https://greenpeace.studytube.nl/courses/23208/planet-4">Planet 4 Power User</a> 🚀</span>
+                        a more in-depth course to understand how to manage a P4 website and how to make best use of its engagement features.</li>
+                </ul>
+            </p>';
     }
     // phpcs:enable Generic.Files.LineLength.MaxExceeded
 
