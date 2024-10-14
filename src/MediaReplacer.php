@@ -14,11 +14,25 @@ class MediaReplacer
      */
     public function __construct()
     {
-        add_action('admin_footer', [$this, 'enqueue_media_modal_script']);
+        add_action('admin_enqueue_scripts', [$this, 'enqueue_media_modal_script']);
         add_filter('attachment_fields_to_edit', [$this, 'add_replace_media_button'], 10, 2);
         add_action('wp_ajax_replace_media', [$this, 'ajax_replace_media']); // AJAX action for replacing media
     }
 
+    function enqueue_media_modal_script() {
+        if (!wp_script_is('jquery', 'enqueued')) {
+            wp_enqueue_script('jquery');
+        }
+    
+        wp_enqueue_script(
+            'custom-media-replacer',
+            get_template_directory_uri() . '/admin/js/media_replacer.js',
+            ['jquery'],
+            Loader::theme_file_ver("admin/js/media_replacer.js"),
+            true
+        );
+    }
+    
     public function ajax_replace_media() {
         // Check if the attachment ID and file are set
         if (isset($_POST['attachment_id']) && !empty($_FILES['file'])) {
@@ -41,55 +55,7 @@ class MediaReplacer
         } else {
             wp_send_json_error('Attachment ID or file is missing.'); // Error response
         }
-    }    
-
-    function enqueue_media_modal_script() {
-        ?>
-        <script type="text/javascript">
-            jQuery(document).ready(function($) {
-                $(document).on('click', '.custom-button', function(e) {
-                    e.preventDefault();
-                    var attachmentId = $(this).data('attachment-id');
-                    var fileInput = $(this).siblings('.replace-media-file');
-    
-                    // Show the file input
-                    fileInput.trigger('click');
-    
-                    // When a file is selected
-                    fileInput.on('change', function() {
-                        var file = fileInput[0].files[0]; // Get the selected file
-    
-                        if (file) {
-                            var formData = new FormData();
-                            formData.append('action', 'replace_media');
-                            formData.append('attachment_id', attachmentId);
-                            formData.append('file', file); // Append the file to FormData
-    
-                            // Send AJAX request to replace the media
-                            $.ajax({
-                                url: ajaxurl, // WordPress AJAX URL
-                                type: 'POST',
-                                data: formData,
-                                contentType: false, // Prevent jQuery from overriding content type
-                                processData: false, // Prevent jQuery from processing the data
-                                success: function(response) {
-                                    if (response.success) {
-                                        location.reload(true); // Reload the current page
-                                    } else {
-                                        alert('Error: ' + response.data); // Show the error message
-                                    }
-                                },
-                                error: function(xhr, status, error) {
-                                    alert('Error: ' + error); // Error message
-                                }
-                            });
-                        }
-                    });
-                });
-            });
-        </script>
-        <?php
-    }    
+    }   
     
     function add_replace_media_button($form_fields, $post) {
         // Check if the post type is 'attachment'
