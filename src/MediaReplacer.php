@@ -46,8 +46,8 @@ class MediaReplacer
             $movefile = wp_handle_upload($file, $upload_overrides);
     
             if ($movefile && !isset($movefile['error'])) {
-                // Replace the media image
-                $this->replace_media_image($attachment_id, $movefile['file']); // Pass the new file path
+                // Replace the media file (image or video)
+                $this->replace_media_file($attachment_id, $movefile['file']); // Pass the new file path
                 wp_send_json_success(); // Send a success response
             } else {
                 wp_send_json_error($movefile['error']); // Error response
@@ -64,41 +64,45 @@ class MediaReplacer
                 'input' => 'html',
                 'html' => '
                     <button type="button" class="button custom-button" data-attachment-id="' . esc_attr($post->ID) . '">Replace Media</button>
-                    <input type="file" class="replace-media-file" style="display: none;" accept="image/*" />
+                    <input type="file" class="replace-media-file" style="display: none;" accept="image/*,video/*" />
                 ',
             );
         }
         return $form_fields;
     }    
 
-    function replace_media_image($old_image_id, $new_file_path) {
-        // Get the old image path
-        $old_image_path = get_attached_file($old_image_id);
+    function replace_media_file($old_file_id, $new_file_path) {
+        // Get the old file path
+        $old_file_path = get_attached_file($old_file_id);
     
-        // Check if the old image exists
-        if (file_exists($old_image_path)) {
-            unlink($old_image_path); // Delete the old image
+        // Check if the old file exists
+        if (file_exists($old_file_path)) {
+            unlink($old_file_path); // Delete the old file
         }
     
-        // Move the new file to the old image's location
-        rename($new_file_path, $old_image_path);
+        // Move the new file to the old file's location
+        rename($new_file_path, $old_file_path);
     
         // Update the attachment metadata with new information
-        $filetype = wp_check_filetype($old_image_path);
+        $filetype = wp_check_filetype($old_file_path);
         $attachment_data = array(
-            'ID' => $old_image_id,
+            'ID' => $old_file_id,
             'post_mime_type' => $filetype['type'],
-            'post_title' => preg_replace('/\.[^.]+$/', '', basename($old_image_path)),
+            'post_title' => preg_replace('/\.[^.]+$/', '', basename($old_file_path)),
             'post_content' => '',
             'post_status' => 'inherit'
         );
     
-        // Update the database record for the image
+        // Update the database record for the file
         wp_update_post($attachment_data);
     
-        // Update image metadata
-        require_once(ABSPATH . 'wp-admin/includes/image.php');
-        $attach_data = wp_generate_attachment_metadata($old_image_id, $old_image_path);
-        wp_update_attachment_metadata($old_image_id, $attach_data);
+        // Update file metadata
+        if (strpos($filetype['type'], 'image/') === 0) {
+            require_once(ABSPATH . 'wp-admin/includes/image.php');
+            $attach_data = wp_generate_attachment_metadata($old_file_id, $old_file_path);
+            wp_update_attachment_metadata($old_file_id, $attach_data);
+        } elseif (strpos($filetype['type'], 'video/') === 0) {
+            wp_update_attachment_metadata($old_file_id, $attach_data); // Uncomment and customize if required
+        }
     }    
 }
