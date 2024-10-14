@@ -2,6 +2,8 @@
 
 namespace P4\MasterTheme;
 
+use P4\MasterTheme\CloudflarePurger;
+
 /**
  * Class MediaReplacer.
  *
@@ -9,11 +11,15 @@ namespace P4\MasterTheme;
  */
 class MediaReplacer
 {
+    protected CloudflarePurger $cloud_flare_purger;
+
     /**
      * Activator constructor.
      */
     public function __construct()
     {
+        $this->cloud_flare_purger = new CloudflarePurger();
+
         add_action('admin_enqueue_scripts', [$this, 'enqueue_media_modal_script']);
         add_filter('attachment_fields_to_edit', [$this, 'add_replace_media_button'], 10, 2);
         add_action('wp_ajax_replace_media', [$this, 'ajax_replace_media']); // AJAX action for replacing media
@@ -48,6 +54,13 @@ class MediaReplacer
             if ($movefile && !isset($movefile['error'])) {
                 // Replace the media file (image or video)
                 $this->replace_media_file($attachment_id, $movefile['file']); // Pass the new file path
+                
+                // Get the URL of the attachment
+                $attachment_url = [wp_get_attachment_url($attachment_id)];
+                
+                // Purge Cloudflare with the attachment URL
+                $this->cloud_flare_purger->purge($attachment_url);
+    
                 wp_send_json_success(); // Send a success response
             } else {
                 wp_send_json_error($movefile['error']); // Error response
@@ -55,7 +68,7 @@ class MediaReplacer
         } else {
             wp_send_json_error('Attachment ID or file is missing.'); // Error response
         }
-    }   
+    }
     
     function add_replace_media_button($form_fields, $post) {
         // Check if the post type is 'attachment'
