@@ -21,8 +21,8 @@ Text Domain: planet4-master-theme
 @import "vendors/bootstrap";
 @import "~bootstrap/scss/functions";
 @import "~bootstrap/scss/variables";
-// The maps's file is required from bootstrap 5.2 and higher
-// @import "~bootstrap/scss/maps";
+@import "~bootstrap/scss/variables-dark";
+@import "~bootstrap/scss/maps";
 @import "~bootstrap/scss/mixins";
 @import "~bootstrap/scss/utilities";
 
