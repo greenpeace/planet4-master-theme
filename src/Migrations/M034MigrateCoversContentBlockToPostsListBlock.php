@@ -30,14 +30,47 @@ class M034MigrateCoversContentBlockToPostsListBlock extends MigrationScript
                 return;
             }
 
+            echo "Covers content block migration in progress...\n"; // phpcs:ignore
+
+            $parser = new WP_Block_Parser();
+
+            // Variable to store the current post ID
+            $current_post_id = null;
+
             foreach ($posts as $post) {
+                if (empty($post->post_content)) {
+                    continue;
+                }
+
+                $current_post_id = $post->ID; // Store the current post ID
+
+                echo 'Parsing post ', $current_post_id, "\n"; // phpcs:ignore
+
                 // Get all the blocks of each post.
-                $parser = new WP_Block_Parser();
                 $blocks = $parser->parse($post->post_content);
 
+                if (!is_array($blocks)) {
+                    throw new \Exception("Invalid block structure for post #" . $current_post_id);
+                }
+
                 foreach ($blocks as &$block) {
+                    // Check if the block is valid.
+                    if (!is_array($block)) {
+                        continue;
+                    }
+
+                    // Check if the block has a 'blockName' key.
+                    if (!isset($block['blockName'])) {
+                        continue;
+                    }
+                    
                     // Check if the block is a Cover block. If not, abort.
                     if ($block['blockName'] !== Utils\Constants::BLOCK_COVERS) {
+                        continue;
+                    }
+
+                    // Check if the block has a 'cover_type' key.
+                    if (!isset($block['cover_type'])) {
                         continue;
                     }
 
@@ -60,15 +93,22 @@ class M034MigrateCoversContentBlockToPostsListBlock extends MigrationScript
                 $new_content = serialize_blocks($blocks);
 
                 $post_update = array(
-                    'ID' => $post->ID,
+                    'ID' => $current_post_id,
                     'post_content' => $new_content,
                 );
 
                 // Update the post with the replaced blocks.
-                wp_update_post($post_update);
+                $result = wp_update_post($post_update);
+
+                if ($result === 0) {
+                    throw new \Exception("There was an error trying to update the post #" . $current_post_id);
+                }
+
+                echo "Migration successful\n";
             }
         } catch (\ErrorException $e) {
-            echo 'Error on post ', $post->ID, "\n";
+            // Catch any exceptions and display the post ID if available
+            echo "Migration wasn't executed for post ID: ", $current_post_id ?? 'unknown', "\n";
             echo $e->getMessage(), "\n";
         }
     }
