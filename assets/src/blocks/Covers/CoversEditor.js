@@ -47,12 +47,15 @@ const renderEdit = (attributes, toAttribute, setAttributes) => {
       </PanelBody>
       <PanelBody title={__('Settings', 'planet4-blocks-backend')}>
         {layout !== COVERS_LAYOUTS.carousel &&
-          <SelectControl
-            label="Rows to display"
-            value={initialRowsLimit}
-            options={rowLimitOptions}
-            onChange={value => toAttribute('initialRowsLimit')(Number(value))}
-          />
+          <>
+            <label htmlFor="row-amount-select">{__('Rows to display', 'planet4-blocks-backend')}</label>
+            <SelectControl
+              id="row-amount-select"
+              value={initialRowsLimit}
+              options={rowLimitOptions}
+              onChange={value => toAttribute('initialRowsLimit')(Number(value))}
+            />
+          </>
         }
 
         {!posts.length &&

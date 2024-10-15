@@ -29,6 +29,10 @@
 
 .components-panel__body label {
   font-size: 13px;
+  text-transform: none;
+  font-weight: 500;
+  line-height: 1.4;
+  margin-bottom: $sp-1;
 }
 
 .components-radio-control__option {

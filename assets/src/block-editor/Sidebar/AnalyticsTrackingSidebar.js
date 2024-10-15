@@ -33,14 +33,17 @@ export const AnalyticsTrackingSidebar = {
       >
         <SelectSidebarField
           label={__('Global Project', 'planet4-master-theme-backend')}
+          id="global-project-select"
           options={options.global_projects || []}
           {...getParams('p4_campaign_name')} />
         <SelectSidebarField
           label={__('Local Projects', 'planet4-master-theme-backend')}
+          id="local-projects-select"
           options={options.local_projects || []}
           {...getParams('p4_local_project')} />
         <SelectSidebarField
           label={__('Basket Name', 'planet4-master-theme-backend')}
+          id="basket-name-select"
           options={options.baskets || []}
           {...getParams('p4_basket_name')} />
         <TextSidebarField
