@@ -63,7 +63,7 @@ class M034MigrateCoversContentBlockToPostsListBlock extends MigrationScript
                     if (!isset($block['blockName'])) {
                         continue;
                     }
-                    
+
                     // Check if the block is a Cover block. If not, abort.
                     if ($block['blockName'] !== Utils\Constants::BLOCK_COVERS) {
                         continue;
