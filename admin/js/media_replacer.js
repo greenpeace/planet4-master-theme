@@ -30,11 +30,13 @@ jQuery(document).ready($ => {
             if (response.success) {
               location.reload(true); // Reload the current page
             } else {
-              alert('Error: ' + response.data); // Show the error message
+              // eslint-disable-next-line no-console
+              console.log('Error: ' + response.data);
             }
           },
           error(xhr, status, error) {
-            alert('Error: ' + error); // Error message
+            // eslint-disable-next-line no-console
+            console.log('Error: ' + error);
           },
         });
       }
