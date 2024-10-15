@@ -33,6 +33,8 @@ module.exports = {
     menu_editor: './assets/src/js/menu_editor.js',
     frontendIndex: './assets/src/frontendIndex.js',
     editorIndex: './assets/src/editorIndex.js',
+    ArticlesScript: './assets/src/blocks/Articles/ArticlesScript.js',
+    ArticlesEditorScript: './assets/src/blocks/Articles/ArticlesEditorScript.js',
     GalleryScript: './assets/src/blocks/Gallery/GalleryScript.js',
     GalleryEditorScript: './assets/src/blocks/Gallery/GalleryEditorScript.js',
     GalleryStyle: './assets/src/scss/blocks/Gallery/GalleryStyle.scss',

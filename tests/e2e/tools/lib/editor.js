@@ -1,19 +1,4 @@
 /**
- * @typedef {Object} Editor
- * @property {Object}   canvas     - Canvas
- * @typedef {Object} Locator
- * @property {Function} getByRole  - Get by role
- * @property {Function} getByLabel - Get by label
- */
-
-/**
- * Open side panel settings for edited post/page/etc.
- *
- * @param {{Editor, Page}} editor
- * @return {Locator} Playwright Locator
- */
-
-/**
  * @param {{Editor}} editor
  * @param {string}   panelTitle - Panel title
  * @return {Locator} Playwright Locator
@@ -31,4 +16,58 @@ async function openComponentPanel({editor}, panelTitle) {
   return editorSettings;
 }
 
-export {openComponentPanel};
+/**
+ * Add a Category to a Post
+ *
+ * @param {{Editor}} editor
+ * @param {string}   category - The category
+ */
+async function addCategory({editor}, category) {
+  const editorSettings = await openComponentPanel({editor}, 'Categories');
+  await editorSettings.getByRole('group', {name: 'Categories'}).getByRole('checkbox', {name: category}).click();
+}
+
+/**
+ * Add a Tag to a Post
+ *
+ * @param {{Editor}} editor
+ * @param {string}   tag    - The tag
+ */
+async function addTag({editor}, tag) {
+  const editorSettings = await openComponentPanel({editor}, 'Tags');
+  await editorSettings.getByRole('group', {name: 'Tags'}).getByRole('checkbox', {name: tag}).click();
+}
+
+/**
+ * Add a Post Type to a Post
+ *
+ * @param {{Editor}} editor
+ * @param {string}   postType - The post type (Story, Press Release, etc.)
+ */
+async function addPostType({editor}, postType) {
+  const editorSettings = await openComponentPanel({editor}, 'Post Types');
+
+  await editorSettings.getByLabel('Add new Post Type').type(postType);
+  await editorSettings.getByRole('option', {name: postType}).click();
+}
+
+/**
+ * Remove all Post Types from a Post
+ *
+ * @param {{Editor}} editor
+ */
+async function removeAllPostTypes({editor}) {
+  const editorSettings = await openComponentPanel({editor}, 'Post Types');
+  const buttons = await editorSettings.getByRole('button', {name: 'Remove Post Type'}).all();
+  for (const button of buttons) {
+    await button.click();
+  }
+}
+
+export {
+  openComponentPanel,
+  addCategory,
+  addTag,
+  addPostType,
+  removeAllPostTypes,
+};

@@ -103,6 +103,7 @@ add_action(
         Api\Settings::register_endpoint();
         Api\ENForm::register_endpoint();
         Api\Covers::register_endpoint();
+        Api\Articles::register_endpoint();
     }
 );
 
