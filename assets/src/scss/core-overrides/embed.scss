@@ -115,6 +115,12 @@ lite-youtube,
     }
   }
 
+  &-twitter {
+    .wp-block-embed__wrapper {
+      height: auto;
+    }
+  }
+
   &-reddit {
     .embedly-card-hug {
       max-width: 100% !important;
