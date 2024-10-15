@@ -7,7 +7,7 @@ use P4\MasterTheme\CloudflarePurger;
 /**
  * Class MediaReplacer.
  *
- * This class is used to handle blocks configuration.
+ * This class is used to handle media replacements.
  */
 class MediaReplacer
 {
@@ -18,7 +18,7 @@ class MediaReplacer
      */
     public function __construct()
     {
-        $this->cloud_flare_purger = new CloudflarePurger();
+        // $this->cloud_flare_purger = new CloudflarePurger();
 
         add_action('admin_enqueue_scripts', [$this, 'enqueue_media_modal_script']);
         add_filter('attachment_fields_to_edit', [$this, 'add_replace_media_button'], 10, 2);
@@ -56,10 +56,10 @@ class MediaReplacer
                 $this->replace_media_file($attachment_id, $movefile['file']); // Pass the new file path
                 
                 // Get the URL of the attachment
-                $attachment_url = [wp_get_attachment_url($attachment_id)];
+                // $attachment_url = [wp_get_attachment_url($attachment_id)];
                 
                 // Purge Cloudflare with the attachment URL
-                $this->cloud_flare_purger->purge($attachment_url);
+                // $this->cloud_flare_purger->purge($attachment_url);
     
                 wp_send_json_success(); // Send a success response
             } else {
@@ -90,32 +90,74 @@ class MediaReplacer
     
         // Check if the old file exists
         if (file_exists($old_file_path)) {
-            unlink($old_file_path); // Delete the old file
+            $old_dir = pathinfo($old_file_path, PATHINFO_DIRNAME);
+            $old_file_base = pathinfo($old_file_path, PATHINFO_FILENAME); // Get base file name without extension
+    
+            // Move the new file to the old original file location
+            rename($new_file_path, $old_file_path);
+    
+            // Find all files matching the pattern (e.g., c8b8bd7e-gp0stpsh7_flipped-404-*)
+            $pattern = $old_dir . '/' . $old_file_base . '*';
+            $matching_files = glob($pattern);
+    
+            // Loop through all the matching files and replace them
+            foreach ($matching_files as $old_size_path) {
+                // Check if the file is different from the original image
+                if ($old_size_path !== $old_file_path) {
+                    // Get the dimensions of the old size image
+                    list($width, $height) = getimagesize($old_size_path);
+    
+                    // Use wp_get_image_editor to resize the new image
+                    $image_editor = wp_get_image_editor($old_file_path);
+    
+                    if (!is_wp_error($image_editor)) {
+                        // Resize the image to the old size's dimensions
+                        $image_editor->resize($width, $height, false); // false to keep aspect ratio
+                        $resized_image_path = $image_editor->save();
+    
+                        if (!is_wp_error($resized_image_path)) {
+                            // Delete the old size file
+                            unlink($old_size_path);
+                            
+                            // Move the resized image to the old size file path
+                            rename($resized_image_path['path'], $old_size_path);
+                        } else {
+                            error_log('Error saving resized image: ' . $resized_image_path->get_error_message());
+                        }
+                    } else {
+                        error_log('Error initializing image editor: ' . $image_editor->get_error_message());
+                    }
+                }
+            }
+    
+            // Update file metadata with new dimensions but keep the same file names
+            $filetype = wp_check_filetype($old_file_path);
+            $attachment_data = array(
+                'ID' => $old_file_id,
+                'post_mime_type' => $filetype['type'],
+                'post_title' => preg_replace('/\.[^.]+$/', '', basename($old_file_path)),
+                'post_content' => '',
+                'post_status' => 'inherit'
+            );
+    
+            // Update the database record for the file
+            wp_update_post($attachment_data);
+    
+            // Update the metadata (if applicable) with new dimensions for all sizes
+            $meta = wp_get_attachment_metadata($old_file_id);
+            if (!empty($meta['sizes'])) {
+                foreach ($meta['sizes'] as $size => &$size_info) {
+                    $old_size_file = $old_dir . '/' . $size_info['file'];
+                    if (file_exists($old_size_file)) {
+                        list($width, $height) = getimagesize($old_size_file);
+                        $size_info['width'] = $width;
+                        $size_info['height'] = $height;
+                    }
+                }
+            }
+    
+            // Update the metadata in the database
+            wp_update_attachment_metadata($old_file_id, $meta);
         }
-    
-        // Move the new file to the old file's location
-        rename($new_file_path, $old_file_path);
-    
-        // Update the attachment metadata with new information
-        $filetype = wp_check_filetype($old_file_path);
-        $attachment_data = array(
-            'ID' => $old_file_id,
-            'post_mime_type' => $filetype['type'],
-            'post_title' => preg_replace('/\.[^.]+$/', '', basename($old_file_path)),
-            'post_content' => '',
-            'post_status' => 'inherit'
-        );
-    
-        // Update the database record for the file
-        wp_update_post($attachment_data);
-    
-        // Update file metadata
-        if (strpos($filetype['type'], 'image/') === 0) {
-            require_once(ABSPATH . 'wp-admin/includes/image.php');
-            $attach_data = wp_generate_attachment_metadata($old_file_id, $old_file_path);
-            wp_update_attachment_metadata($old_file_id, $attach_data);
-        } elseif (strpos($filetype['type'], 'video/') === 0) {
-            wp_update_attachment_metadata($old_file_id, $attach_data); // Uncomment and customize if required
-        }
-    }    
+    }          
 }
