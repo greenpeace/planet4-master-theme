@@ -19,6 +19,10 @@ class MediaReplacer
         add_action('wp_ajax_replace_media', [$this, 'ajax_replace_media']);
     }
 
+    /**
+     * Enqueue the custom script for the media replacer in the WordPress admin area.
+     * Ensures that jQuery is also enqueued.
+     */
     function enqueue_media_modal_script() {
         if (!wp_script_is('jquery', 'enqueued')) {
             wp_enqueue_script('jquery');
@@ -33,6 +37,10 @@ class MediaReplacer
         );
     }
     
+    /**
+     * Handle the AJAX request for replacing media.
+     * Validates the input, uploads the new file, and triggers the media replacement process.
+     */
     public function ajax_replace_media() {
         // Check if the attachment ID and file are set
         if (!isset($_POST['attachment_id'])) {
@@ -64,6 +72,13 @@ class MediaReplacer
         wp_send_json_success();
     }
     
+    /**
+     * Adds a custom "Replace Media" button in the media library for attachments.
+     *
+     * @param array $form_fields Existing form fields for the attachment.
+     * @param object $post The post object representing the attachment.
+     * @return array Modified form fields with the "Replace Media" button added.
+     */
     function add_replace_media_button($form_fields, $post) {
         if ($post->post_type !== 'attachment') {
             return;
@@ -80,6 +95,13 @@ class MediaReplacer
         return $form_fields;
     }    
 
+    /**
+     * Replace the media file for a given attachment.
+     * Handles moving the new file to the old file's location, replacing all size variants.
+     *
+     * @param int $old_file_id The ID of the old attachment.
+     * @param string $new_file_path The path of the new file to replace the old one.
+     */
     function replace_media_file($old_file_id, $new_file_path) {
         // Get the old file path
         $old_file_path = get_attached_file($old_file_id);
@@ -90,7 +112,7 @@ class MediaReplacer
         }
 
         $old_dir = pathinfo($old_file_path, PATHINFO_DIRNAME);
-        $old_file_base = pathinfo($old_file_path, PATHINFO_FILENAME); // Get base file name without extension
+        $old_file_base = pathinfo($old_file_path, PATHINFO_FILENAME);
 
         // Move the new file to the old original file location
         rename($new_file_path, $old_file_path);
@@ -104,7 +126,12 @@ class MediaReplacer
         $this->update_all_sizes_files_meta($old_file_id, $old_dir);
     }
 
-    // Loop through all the matching files and replace them
+    /**
+     * Loop through all the matching files and replace them with the resized version of the new image.
+     *
+     * @param array $matching_files Array of file paths that match the original file name pattern.
+     * @param string $old_file_path The path of the original file.
+     */
     function replace_matching_files($matching_files, $old_file_path)
     {
         foreach ($matching_files as $old_size_path) {
@@ -125,7 +152,7 @@ class MediaReplacer
             list($width, $height) = getimagesize($old_size_path);
 
             // Resize the image to the old size's dimensions
-            $image_editor->resize($width, $height, false); // false to keep aspect ratio
+            $image_editor->resize($width, $height, false);
             $resized_image_path = $image_editor->save();
 
             if (is_wp_error($resized_image_path)) {
@@ -141,7 +168,12 @@ class MediaReplacer
         }
     }
     
-    // Update file metadata with new dimensions but keep the same file names
+    /**
+     * Update the main file's metadata after replacing the media.
+     *
+     * @param string $old_file_path The path of the old file.
+     * @param int $old_file_id The ID of the old attachment.
+     */
     function update_main_file_meta($old_file_path, $old_file_id)
     {
         $attachment_data = array(
@@ -154,7 +186,13 @@ class MediaReplacer
         wp_update_post($attachment_data);
     }
 
-    // Update the metadata (if applicable) with new dimensions for all sizes
+    /**
+     * Update the metadata for all size variants of the attachment.
+     * Ensures that the new dimensions are reflected for each size variant.
+     *
+     * @param int $old_file_id The ID of the old attachment.
+     * @param string $old_dir The directory where the old size files are stored.
+     */
     function update_all_sizes_files_meta($old_file_id, $old_dir)
     {
         $meta = wp_get_attachment_metadata($old_file_id);
