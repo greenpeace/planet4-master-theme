@@ -70,6 +70,11 @@ class M034MigrateCoversContentBlockToPostsListBlock extends MigrationScript
                         continue;
                     }
 
+                    // Check if the block has a 'cover_type' key.
+                    if (!isset($block['cover_type'])) {
+                        continue;
+                    }
+
                     // Check if the Cover block type is Content. If not, abort.
                     // Cover blocks of type content have as value of $block['attrs']['cover_type']
                     // the following possibilities: "content", "1", NULL
