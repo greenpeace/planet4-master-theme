@@ -282,6 +282,7 @@ class GravityFormsExtensions
             "gaeventlabel_thickbox" => "{form_title} ID: {form_id}",
             "gaeventgoalid" => "",
             "gaeventgoal" => "Submission: " . $form['title'],
+            "channel" => "",
             "gaeventcategory" => "",
             "gaeventaction" => "",
             "gaeventlabel" => "{form_title} ID: {form_id}",
