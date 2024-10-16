@@ -1,5 +1,9 @@
 import {expect} from '@playwright/test';
 
+const TEST_FIRST_NAME = 'Jon';
+const TEST_LAST_NAME = 'Snow';
+const TEST_EMAIL = 'jon.snow@gmail.com';
+
 const toggleRestAPI = async ({page}, enabled) => {
   await page.goto('./wp-admin/admin.php?page=gf_settings&subview=gravityformswebapi');
   await page.getByRole('checkbox', {label: 'Enabled'}).setChecked(enabled);
@@ -45,4 +49,29 @@ const createForm = async ({page}, {title}) => {
   return createdForm;
 };
 
-export {toggleRestAPI, createForm};
+const fillAndSubmitForm = async ({page}, formId) => {
+  const form = page.locator(`#gform_${formId}`);
+  await form.getByLabel('First name').fill(TEST_FIRST_NAME);
+  await form.getByLabel('Last name').fill(TEST_LAST_NAME);
+  await form.getByLabel('Email').fill(TEST_EMAIL);
+  const submitButton = form.getByRole('button', {name: 'Submit'});
+  await submitButton.click();
+};
+
+const checkEntry = async ({page}, formId) => {
+  await page.goto(`./wp-admin/admin.php?page=gf_entries&id=${formId}`);
+  const latestEntry = page.locator('#the-list > tr.entry_row').first();
+  await expect(latestEntry).toBeVisible();
+  await expect(latestEntry.locator('td[data-colname="First name"]')).toContainText(TEST_FIRST_NAME);
+  await expect(latestEntry.locator('td[data-colname="Last name"]')).toContainText(TEST_LAST_NAME);
+  await expect(latestEntry.locator('td[data-colname="Email"]')).toContainText(TEST_EMAIL);
+};
+
+const changeConfirmationType = async ({page}, formId, label) => {
+  await page.goto(`./wp-admin/admin.php?page=gf_edit_forms&view=settings&subview=confirmation&id=${formId}`);
+  await page.locator('#the-list > tr:first-child').hover();
+  await page.getByRole('link', {name: 'Edit', exact: true}).click();
+  await page.getByLabel(label, {exact: true}).check();
+};
+
+export {toggleRestAPI, createForm, fillAndSubmitForm, checkEntry, changeConfirmationType};
