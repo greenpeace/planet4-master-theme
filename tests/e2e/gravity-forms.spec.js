@@ -92,7 +92,7 @@ test.describe('Gravity Forms tests', () => {
     await fillAndSubmitForm({page}, createdForm.id);
 
     // Make sure the page is redirected as expected.
-    await page.waitForURL(TEST_REDIRECT, {waitUntil: 'domcontentloaded'});
+    await expect(page).toHaveURL(TEST_REDIRECT);
 
     // Check that the entry has been registered as expected.
     await checkEntry({page}, createdForm.id);
