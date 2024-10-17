@@ -98,6 +98,37 @@ test.describe('Gravity Forms tests', () => {
     await checkEntry({page}, createdForm.id);
   });
 
+  test('check the confirmation message, page type', async ({page}) => {
+    // Make sure the form uses the Page confirmation type.
+    await changeConfirmationType({page}, createdForm.id, 'Page');
+
+    // Set up the page redirect.
+    const confirmationSettings = page.locator('#gform_setting_page');
+    const pagesList = confirmationSettings.locator('.gform-dropdown__list');
+    const spinner = confirmationSettings.locator('.gform-dropdown__spinner');
+    await confirmationSettings.getByRole('button', {name: 'Select a Page'}).click();
+    await expect(pagesList).toBeVisible();
+    await confirmationSettings.getByPlaceholder('Search all Pages').type('Home');
+    await expect(spinner).toBeVisible();
+    await expect(spinner).toBeHidden();
+    await pagesList.getByRole('button', {name: 'Home'}).click();
+    await expect(pagesList).toBeHidden();
+    await page.getByRole('button', {name: 'Save Confirmation'}).click();
+    await expect(page.locator('.gforms_note_success')).toBeVisible();
+
+    // Go to the post which has the form.
+    await page.goto(newPost.link);
+
+    // Fill and submit the form.
+    await fillAndSubmitForm({page}, createdForm.id);
+
+    // Make sure the page is redirected as expected.
+    await expect(page).toHaveURL('./');
+
+    // Check that the entry has been registered as expected.
+    await checkEntry({page}, createdForm.id);
+  });
+
   test('check the Hubspot feeds', async ({page}) => {
     // Add a Hubspot feed.
     await page.goto(`./wp-admin/admin.php?page=gf_edit_forms&view=settings&subview=gravityformshubspot&id=${createdForm.id}`);
