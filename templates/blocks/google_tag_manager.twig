@@ -59,6 +59,7 @@
       'p4_blocks': '{{ p4_blocks }}',
       'post_categories': '{{ post_categories }}',
       {{ reading_time ? "'reading_time': #{reading_time},"|raw : '' }}
+      {{ page_date ? "'page_date': '#{page_date}',"|raw : '' }}
     });
 
     {% if not post.password_required %}

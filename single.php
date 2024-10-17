@@ -46,6 +46,7 @@ $context['social_accounts'] = $post->get_social_accounts($context['footer_social
 $context['page_category'] = 'Post Page';
 $context['post_tags'] = implode(', ', $post->tags());
 $context['post_categories'] = implode(', ', $post->categories());
+$context['page_date'] = get_the_date('c', $post->ID);
 
 Context::set_og_meta_fields($context, $post);
 Context::set_campaign_datalayer($context, $page_meta_data);
