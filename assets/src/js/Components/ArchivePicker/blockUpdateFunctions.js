@@ -58,6 +58,7 @@ export const updateMediaAndTextAttributes = (image, currentBlock) => {
       mediaAlt: image.alt_text,
       mediaId: image.id,
       mediaType: 'image',
+      useFeaturedImage: false,
     },
     originalContent: div.innerHTML,
   };
