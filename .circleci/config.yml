@@ -210,7 +210,8 @@ jobs:
             export WP_BASE_URL="https://www-dev.greenpeace.org/test-$(cat /tmp/workspace/test-instance)/"
             export WP_TEST_USERNAME="p4_test_user"
             export WP_TEST_PASSWORD="${WP_TEST_USER}"
-            npx playwright test
+            TEST=$(circleci tests glob "tests/e2e/**.spec.js")
+            echo "$TEST" | circleci tests run --command="npx playwright test" --split-by=timings
       - run:
           name: Delete test user
           when: always
