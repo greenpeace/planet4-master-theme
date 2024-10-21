@@ -23,6 +23,7 @@ class MediaReplacer
         add_action('admin_enqueue_scripts', [$this, 'enqueue_media_modal_script']);
         add_filter('attachment_fields_to_edit', [$this, 'add_replace_media_button'], 10, 2);
         add_action('wp_ajax_replace_media', [$this, 'ajax_replace_media']);
+        add_action('admin_notices', [$this, 'display_admin_notices']);
     }
 
     /**
@@ -78,30 +79,47 @@ class MediaReplacer
         // Check if the attachment ID and file are set
         if (isset($_POST['attachment_id']) && !empty($_FILES['file'])) {
             $attachment_id = intval($_POST['attachment_id']);
-
+    
             // Handle the uploaded file
             $file = $_FILES['file'];
             $upload_overrides = array('test_form' => false);
-
+    
             // Upload the file
             $movefile = wp_handle_upload($file, $upload_overrides);
-
+    
             if ($movefile && !isset($movefile['error'])) {
                 // Replace the media file
                 $this->replace_media_file($attachment_id, $movefile['file']);
-
-                // Get the URL of the attachment
-                $attachment_url = [wp_get_attachment_url($attachment_id)];
-
-                // Purge Cloudflare with the attachment URL
-                // $this->cloud_flare_purger->purge($attachment_url);
-
+    
+                // Set a success message
+                set_transient('media_replacement_message', 'Media replaced successfully!', 5);
                 wp_send_json_success();
             } else {
+                // Set an error message
+                set_transient('media_replacement_error', $movefile['error'], 5);
                 wp_send_json_error($movefile['error']);
             }
         } else {
+            // Set an error message
+            set_transient('media_replacement_error', 'Attachment ID or file is missing.', 5);
             wp_send_json_error('Attachment ID or file is missing.');
+        }
+    }
+
+    /**
+     * Displays admin notices for media replacement messages.
+     */
+    public function display_admin_notices() {
+        // Check for success message
+        if ($message = get_transient('media_replacement_message')) {
+            echo '<div class="notice notice-success is-dismissible"><p>' . esc_html($message) . '</p></div>';
+            delete_transient('media_replacement_message');
+        }
+
+        // Check for error message
+        if ($error = get_transient('media_replacement_error')) {
+            echo '<div class="notice notice-error is-dismissible"><p>' . esc_html($error) . '</p></div>';
+            delete_transient('media_replacement_error');
         }
     }
 
