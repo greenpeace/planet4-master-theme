@@ -34,9 +34,6 @@ class M034MigrateCoversContentBlockToPostsListBlock extends MigrationScript
 
             $parser = new WP_Block_Parser();
 
-            // Variable to store the current post ID
-            $current_post_id = null;
-
             foreach ($posts as $post) {
                 if (empty($post->post_content)) {
                     continue;
@@ -69,21 +66,23 @@ class M034MigrateCoversContentBlockToPostsListBlock extends MigrationScript
                         continue;
                     }
 
-                    // Check if the block has a 'cover_type' key.
-                    if (!isset($block['cover_type'])) {
-                        continue;
-                    }
-
                     // Check if the Cover block type is Content. If not, abort.
-                    if (in_array($block['attrs']['cover_type'], [Utils\Constants::COVER_BLOCK_CAMPAIGN, Utils\Constants::COVER_BLOCK_TAKE_ACTION])) {
-                        continue;
+                    // Cover blocks of type content have as value of $block['attrs']['cover_type']
+                    // the following possibilities: "content", "1", NULL
+                    // https://github.com/greenpeace/planet4-plugin-gutenberg-blocks/blob/26b480a0954667a0813ca8c3a90377f2a1fbea1c/classes/blocks/class-covers.php#L35
+                    // https://github.com/greenpeace/planet4-plugin-gutenberg-blocks/blob/26b480a0954667a0813ca8c3a90377f2a1fbea1c/classes/blocks/class-covers.php#L191
+                    $type = $block['attrs']['cover_type'];
+                    $const = Utils\Constants::COVER_BLOCK_TYPES['content'];
+
+                    // phpcs:disable Use early exit to reduce code nesting
+                    if (!isset($type) || $type === $const['name'] || $type === $const['number']) {
+                        // Get the block attributes.
+                        $attrs = self::get_posts_list_block_attrs($block);
+
+                        // Transform the cover block into a posts list block.
+                        $block = self::create_query_block($attrs);
                     }
-
-                    // Get the block attributes.
-                    $attrs = self::get_posts_list_block_attrs($block);
-
-                    // Transform the cover block into a posts list block.
-                    $block = self::create_query_block($attrs);
+                    // phpcs:enable Use early exit to reduce code nesting
                 }
 
                 // Unset the reference to prevent potential issues.
