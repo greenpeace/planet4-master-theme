@@ -1,7 +1,7 @@
 /* global ajaxurl */
 
 jQuery(document).ready($ => {
-  $(document).on('click', '.custom-button', function(e) {
+  $(document).on('click', '.media-replacer-button', function(e) {
     e.preventDefault();
     const attachmentId = $(this).data('attachment-id');
     const fileInput = $(this).siblings('.replace-media-file');
