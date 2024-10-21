@@ -22,7 +22,7 @@ async function publishPost({page, editor}) {
 /**
  * Updates a post and waits for the confirmation snackbar.
  *
- * @param {Object} params - Parameters for updating the post.
+ * @param {Object} params      - Parameters for updating the post.
  * @param {Object} params.page - The page object representing the browser page.
  * @return {Promise<void>} - A promise that resolves when the snackbar confirming the update is visible.
  */
@@ -61,20 +61,20 @@ async function createPostWithFeaturedImage({page, admin, editor}, params) {
 
   await editor.openDocumentSettingsSidebar();
 
-  await page.getByRole('button', { name: 'Set featured image' }).click();
+  await page.getByRole('button', {name: 'Set featured image'}).click();
 
   await editor.canvas.getByRole('dialog', {name: 'Featured image'});
   await page.locator('button#menu-item-browse[aria-selected="true"]').click();
 
   const mediaSearchInput = await page.locator('#media-search-input');
-  expect(mediaSearchInput).toBeVisible();
   await mediaSearchInput.click();
   await mediaSearchInput.fill('OCEANS-GP0STOM6C');
   await mediaSearchInput.press('Enter');
 
-  const thumbnail = await page.locator('li[aria-label="OCEANS-GP0STOM6C"]');
+  const thumbnail = await page.locator('li[aria-label="OCEANS-GP0STOM6C"]').nth(0);
+  await page.waitForSelector('li[aria-label="OCEANS-GP0STOM6C"]');
   expect(thumbnail).toBeVisible();
-  thumbnail.click();
+  await thumbnail.click();
 
   await page.getByRole('button', {name: 'Set featured image'}).click();
 

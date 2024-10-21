@@ -1,3 +1,4 @@
+import {searchAndInsertBlock} from './editor.js';
 import {expect} from './test-utils.js';
 
 const TAG_NAMES = ['Climate', 'Oceans', 'renewables', 'Consumption'];
@@ -6,9 +7,7 @@ const POST_TYPES = ['Publication', 'Press Release'];
 
 async function addCoversBlock(page, editor, style = '') {
   // Add Covers block.
-  await editor.canvas.getByRole('button', {name: 'Add default block'}).click();
-  await page.keyboard.type('/planet-4-covers');
-  await page.getByRole('option', {name: 'Covers'}).click();
+  await searchAndInsertBlock(page, {blockName: 'Covers'});
 
   // Select the style if needed.
   if (style) {
@@ -18,7 +17,7 @@ async function addCoversBlock(page, editor, style = '') {
     await stylePicker.getByRole('button', {name: label}).click();
   }
 
-  const settings = await editor.canvas.getByRole('region', {name: 'Editor settings'});
+  const settings = await page.getByRole('region', {name: 'Editor settings'});
   const suggestions = settings
     .getByRole('listbox')
     .and(settings.locator('[id*="suggestions"]'));
