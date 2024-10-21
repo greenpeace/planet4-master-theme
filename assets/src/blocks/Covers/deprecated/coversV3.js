@@ -1,5 +1,5 @@
 import {frontendRendered} from '../../../functions/frontendRendered';
-import {attributes} from '../CoversBlock';
+import {attributes} from '../CoversAttributes';
 import {BLOCK_NAME} from '../CoversConstants';
 
 export const coversV3 = {
