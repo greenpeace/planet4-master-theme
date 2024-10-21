@@ -25,8 +25,6 @@ class Constants
     public const BLOCK_SINGLE_COLUMN = self::PREFIX_CORE_BLOCKS . '/column';
     public const BLOCK_CORE_COLUMNS = self::PREFIX_CORE_BLOCKS . '/columns';
     public const BLOCK_MEDIA_TEXT = self::PREFIX_CORE_BLOCKS . '/media-text';
-    public const BLOCK_COVERS = self::PREFIX_P4_BLOCKS . '/covers';
-    public const BLOCK_POSTS_LIST = self::PREFIX_P4_BLOCKS . '/posts-list';
     public const BLOCK_TITLE = self::PREFIX_CORE_BLOCKS . '/post-title';
     public const BLOCK_EXCERPT = self::PREFIX_CORE_BLOCKS . '/post-excerpt';
     public const BLOCK_AUTHOR = self::PREFIX_CORE_BLOCKS . '/post-author-name';
