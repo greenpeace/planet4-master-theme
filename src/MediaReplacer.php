@@ -11,14 +11,16 @@ use P4\MasterTheme\CloudflarePurger;
  */
 class MediaReplacer
 {
-    protected CloudflarePurger $cloud_flare_purger;
+    protected $cloud_flare_purger;
 
     /**
      * MediaReplacer constructor.
      */
     public function __construct()
     {
-        $this->cloud_flare_purger = new CloudflarePurger();
+        if (class_exists('P4\MasterTheme\CloudflarePurger')) {
+            $this->cloud_flare_purger = new CloudflarePurger();
+        }
 
         add_action('admin_enqueue_scripts', [$this, 'enqueue_media_modal_script']);
         add_filter('attachment_fields_to_edit', [$this, 'add_replace_media_button'], 10, 2);
@@ -128,6 +130,13 @@ class MediaReplacer
         
         // Replace the media file
         $this->replace_media_file($attachment_id, $movefile['file']);
+
+        // Purge Cloudflare with the attachment URL
+        if ($this->cloud_flare_purger && method_exists($this->cloud_flare_purger, 'purge')) {
+            $attachment_url = [wp_get_attachment_url($attachment_id)];
+            $this->cloud_flare_purger->purge($attachment_url);
+        }
+
         set_transient('media_replacement_message', 'Media replaced successfully!', 5);
         wp_send_json_success();
     }
