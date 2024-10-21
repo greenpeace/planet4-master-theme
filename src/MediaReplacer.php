@@ -62,10 +62,10 @@ class MediaReplacer
             $form_fields['replace_media_button'] = array(
                 'input' => 'html',
                 'html' => '
-                    <button type="button" class="button media-replacer-button" data-attachment-id="' . esc_attr($post->ID) . '">Replace Media</button>
-                    <input type="file" class="replace-media-file" style="display: none;" accept="*/*" />
+                    <button type="button" class="button media-replacer-button" data-attachment-id="' . esc_attr($post->ID) . '" data-mime-type="' . esc_attr($post->post_mime_type) . '">Replace Media</button>
+                    <input type="file" class="replace-media-file" style="display: none;" accept="' . esc_attr($post->post_mime_type) . '" />
                 ',
-            );
+            );            
         }
         return $form_fields;
     }
