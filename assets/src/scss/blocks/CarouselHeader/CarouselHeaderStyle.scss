@@ -359,6 +359,7 @@ $medium-image-height: 600px;
       width: 50%;
       position: absolute;
       opacity: 0;
+      pointer-events: none;
 
       html[dir="rtl"] & {
         background-position: bottom left;
