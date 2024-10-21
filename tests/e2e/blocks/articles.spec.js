@@ -1,5 +1,6 @@
 import {test, expect} from '../tools/lib/test-utils.js';
 import {publishPostAndVisit, createPostWithFeaturedImage} from '../tools/lib/post.js';
+import {searchAndInsertBlock} from '../tools/lib/editor';
 
 const TEST_TITLE = 'All Articles';
 const TEST_DESCRIPTION = 'All articles in date order';
@@ -8,12 +9,10 @@ const TEST_BUTTON_TEXT = 'Load';
 test.useAdminLoggedIn();
 
 test('Test Articles block', async ({page, admin, editor}) => {
-  await createPostWithFeaturedImage({admin, editor}, {title: 'Test Articles', postType: 'page'});
+  await createPostWithFeaturedImage({page, admin, editor}, {title: 'Test Articles', postType: 'page'});
 
   // Add Articles block.
-  await editor.canvas.getByRole('button', {name: 'Add default block'}).click();
-  await page.keyboard.type('/articles');
-  await page.getByRole('option', {name: 'Articles'}).click();
+  await searchAndInsertBlock(page, {blockName: 'Articles'});
 
   // Check that the default texts for the title and button are applied.
   const editorTitle = page.getByRole('textbox', {name: 'Enter title'});

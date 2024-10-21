@@ -20,7 +20,7 @@ async function publishPost({page, editor}) {
 /**
  * Updates a post and waits for the confirmation snackbar.
  *
- * @param {Object} params - Parameters for updating the post.
+ * @param {Object} params      - Parameters for updating the post.
  * @param {Object} params.page - The page object representing the browser page.
  * @return {Promise<void>} - A promise that resolves when the snackbar confirming the update is visible.
  */
@@ -55,16 +55,25 @@ async function publishPostAndVisit({page, editor}) {
  */
 async function createPostWithFeaturedImage({admin, editor}, params) {
   const newPost = await admin.createNewPost({...params, legacyCanvas: true});
-  const editorSettings = await editor.canvas.getByRole('region', {name: 'Editor settings'});
-  await editorSettings.getByRole('button', {name: 'Set featured image'}).click();
-  const imageModal = await editor.canvas.getByRole('dialog', {name: 'Featured image'});
-  const mediaLibraryTab = await imageModal.locator('#menu-item-browse');
-  const mediaLibraryTabOpen = await mediaLibraryTab.getAttribute('aria-selected');
-  if (mediaLibraryTabOpen === 'false') {
-    await mediaLibraryTab.click();
-  }
-  await imageModal.getByRole('checkbox', {name: 'OCEANS-GP0STOM6C'}).click();
-  await imageModal.getByRole('button', {name: 'Set featured image'}).click();
+
+  await editor.openDocumentSettingsSidebar();
+
+  await page.getByRole('button', {name: 'Set featured image'}).click();
+
+  await page.getByRole('dialog', {name: 'Featured image'});
+  await page.locator('button#menu-item-browse[aria-selected="true"]').click();
+
+  const mediaSearchInput = await page.locator('#media-search-input');
+  await mediaSearchInput.click();
+  await mediaSearchInput.fill('OCEANS-GP0STOM6C');
+  await mediaSearchInput.press('Enter');
+
+  const thumbnail = await page.locator('li[aria-label="OCEANS-GP0STOM6C"]').nth(0);
+  await page.waitForSelector('li[aria-label="OCEANS-GP0STOM6C"]');
+  expect(thumbnail).toBeVisible();
+  await thumbnail.click();
+
+  await page.getByRole('button', {name: 'Set featured image'}).click();
 
   return newPost;
 }

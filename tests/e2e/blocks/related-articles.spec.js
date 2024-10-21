@@ -1,26 +1,23 @@
 import {test, expect} from '../tools/lib/test-utils.js';
 import {publishPost, updatePost, createPostWithFeaturedImage} from '../tools/lib/post.js';
-import {
-  addCategory, addTag, addPostType,
-  removeAllPostTypes,
-} from '../tools/lib/editor.js';
+import {addCategory, addTag, addPostType, removeAllPostTypes, searchAndInsertBlock} from '../tools/lib/editor.js';
 
 test.useAdminLoggedIn();
 
-test('Test Related Posts block', async ({page, admin, editor}) => {
-  await createPostWithFeaturedImage({admin, editor}, {title: 'Test post for Related posts'});
+test('Test Related Articles block', async ({page, admin, editor}) => {
+  await createPostWithFeaturedImage({page, admin, editor}, {title: 'Test post for Related articles'});
 
-  await editor.canvas.getByRole('button', {name: 'Add default block'}).click();
-  await page.keyboard.type('Test paragraph.');
+  await searchAndInsertBlock(page, {blockName: 'paragraph'});
+  await (await page.waitForSelector('p[data-type="core/paragraph"]')).click();
+  await page.keyboard.type('Test content used as a post excerpt.');
 
   //
   // Add post category, type and tag
   //
-  await editor.openDocumentSettingsSidebar();
-  await addCategory({editor}, 'Energy');
-  await removeAllPostTypes({editor});
-  await addPostType({editor}, 'Press Release');
-  await addTag({editor}, 'Renewables');
+  await addCategory({page, editor}, 'Energy');
+  await removeAllPostTypes({page, editor});
+  await addPostType({page, editor}, 'Press Release');
+  await addTag({page, editor}, 'Renewables');
 
   //
   // Related articles enabled
@@ -28,14 +25,14 @@ test('Test Related Posts block', async ({page, admin, editor}) => {
   await page.locator('.edit-post-layout__metaboxes').getByRole('combobox', {name: 'Include Articles in Post'}).selectOption('Yes');
 
   const postUrl = await publishPost({page, editor});
-  const editUrl = await page.url();
+  const editUrl = page.url();
   await page.waitForTimeout(1000); // letting metabox post query finish
 
   await page.goto(postUrl);
-  const relatedSection = await page.locator('.p4-query-loop');
+  const relatedSection = page.locator('[data-render="planet4-blocks/articles"]');
   await relatedSection.scrollIntoViewIfNeeded();
-  await relatedSection.locator('.wp-block-post-template');
-  await expect(relatedSection.locator('.wp-block-post-template')).not.toHaveCount(0);
+  relatedSection.locator('.article-list-item');
+  await expect(relatedSection.locator('.article-list-item')).not.toHaveCount(0);
 
   //
   // Related articles disabled
