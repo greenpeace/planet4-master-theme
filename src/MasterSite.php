@@ -135,6 +135,7 @@ class MasterSite extends TimberSite
         add_action('pre_insert_term', [$this, 'disallow_insert_term'], 1, 2);
         add_filter('wp_dropdown_users_args', [$this, 'filter_authors'], 10, 1);
         add_filter('wp_image_editors', [$this, 'allowedEditors']);
+        add_filter('wp_handle_upload_prefilter', [$this, 'image_type_validation']);
         add_filter('jpeg_quality', fn () => 60);
         add_filter('http_request_timeout', fn () => 10);
         add_action('after_setup_theme', [$this, 'add_image_sizes']);
@@ -566,6 +567,27 @@ class MasterSite extends TimberSite
     public function allowedEditors(): array
     {
         return [ImageCompression::class];
+    }
+
+    /**
+     * Validate immage type before WP processes it.
+     * * @param array $file Associative array containing Image details
+     */
+    public function image_type_validation(array $file): array
+    {
+        // Only apply validation to images.
+        $file_type = wp_check_filetype_and_ext($file['tmp_name'], $file['name']);
+        if (strpos($file_type['type'], 'image') !== 0) {
+            return $file;
+        }
+
+        $allowed_wp_img_ext = array('jpg', 'jpeg', 'png', 'gif', 'ico');
+
+        if (!in_array(strtolower($file_type['ext']), $allowed_wp_img_ext)) {
+            $file['error'] = 'Only JPG, PNG, ICO, and GIF images are allowed for upload.';
+        }
+
+        return $file;
     }
 
     /**
