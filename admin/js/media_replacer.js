@@ -1,43 +1,48 @@
 /* global ajaxurl */
 
-jQuery(document).ready($ => {
-  $(document).on('click', '.media-replacer-button', function(e) {
-    e.preventDefault();
-    const attachmentId = $(this).data('attachment-id');
-    const fileInput = $(this).siblings('.replace-media-file');
+/**
+ * JavaScript implementation for replacing media files in the WordPress admin.
+ */
+document.addEventListener('DOMContentLoaded', () => {
+  document.addEventListener('click', e => {
+    if (e.target.classList.contains('media-replacer-button')) {
+      e.preventDefault();
+      const attachmentId = e.target.dataset.attachmentId;
+      const fileInput = e.target.nextElementSibling;
 
-    // Show the file input
-    fileInput.trigger('click');
+      // Show the file input
+      fileInput.click();
 
-    // When a file is selected
-    fileInput.on('change', () => {
-      const file = fileInput[0].files[0]; // Get the selected file
+      // When a file is selected
+      fileInput.addEventListener('change', () => {
+        const file = fileInput.files[0];
 
-      if (file) {
-        const formData = new FormData();
-        formData.append('action', 'replace_media');
-        formData.append('attachment_id', attachmentId);
-        formData.append('file', file); // Append the file to FormData
+        if (file) {
+          const formData = new FormData();
+          formData.append('action', 'replace_media');
+          formData.append('attachment_id', attachmentId);
+          formData.append('file', file);
 
-        // Send AJAX request to replace the media
-        $.ajax({
-          url: ajaxurl, // WordPress AJAX URL
-          type: 'POST',
-          data: formData,
-          contentType: false, // Prevent jQuery from overriding content type
-          processData: false, // Prevent jQuery from processing the data
-          success(response) {
-            if (response.success) {
-              location.reload(true); // Reload the current page
-            } else {
-              alert('Error: ' + response.data); // Show the error message
-            }
-          },
-          error(xhr, status, error) {
-            alert('Error: ' + error); // Error message
-          },
-        });
-      }
-    });
+          // Send AJAX request to replace the media
+          fetch(ajaxurl, {
+            method: 'POST',
+            body: formData,
+          })
+            .then(response => response.json())
+            .then(response => {
+              if (response.success) {
+                location.reload(true);
+              } else {
+                // eslint-disable-next-line no-alert
+                alert('Error: ' + response.data);
+              }
+            })
+            .catch(error => {
+              // eslint-disable-next-line no-alert
+              alert('Error: ' + error);
+            });
+        }
+      }, {once: true}); // Use the 'once' option to ensure the event is only handled once
+    }
   });
 });

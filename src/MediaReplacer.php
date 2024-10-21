@@ -29,14 +29,10 @@ class MediaReplacer
      * Enqueues the JavaScript required for the media replacement modal.
      */
     public function enqueue_media_modal_script() {
-        if (!wp_script_is('jquery', 'enqueued')) {
-            wp_enqueue_script('jquery');
-        }
-
         wp_enqueue_script(
             'custom-media-replacer',
             get_template_directory_uri() . '/admin/js/media_replacer.js',
-            ['jquery'],
+            [],
             Loader::theme_file_ver("admin/js/media_replacer.js"),
             true
         );
