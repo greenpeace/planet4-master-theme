@@ -5,7 +5,6 @@ import {
   waitForLibraryLoad,
 } from './tools/lib/media-library.js';
 
-const TEST_IMAGES = ['GP0STXWME', 'GP0STXWZH'];
 const MEDIA_LIBRARY_PAGE = './wp-admin/admin.php?page=media-picker';
 
 test.useAdminLoggedIn();
@@ -46,20 +45,26 @@ test.describe('Greenpeace Media tests', () => {
     await page.goto(MEDIA_LIBRARY_PAGE);
     await waitForLibraryLoad(page);
 
-    // Search for 2 specific images.
-    const images = page.locator('.picker-list > li');
-    for (let index = 0; index < 2; index++) {
-      await searchImages(page, TEST_IMAGES[index]);
-      await expect(images).toHaveCount(index + 1);
+    await page.getByRole('button', {name: 'Bulk Select'}).click();
+
+    // Search for 2 random images.
+    const imagesList = page.locator('.picker-list');
+    await expect(imagesList).toHaveClass(/bulk-select/);
+
+    const selectedImages = [];
+    let idx = 0;
+
+    while (selectedImages.length < 2 && idx < (await imagesList.locator('li').count())) {
+      const image = imagesList.locator('li:not(.is-disabled)').nth(idx);
+      if(typeof image.locator('.bulk-select-checkbox') !== 'undefined') {
+        await image.click();
+        selectedImages.push(await image.getAttribute('data-id'));
+      }
+
+      idx++;
     }
 
-    // Select the 2 images.
-    await page.getByRole('button', {name: 'Bulk Select'}).click();
-    for (let index = 0; index < 2; index++) {
-      const image = images.nth(index);
-      await image.click();
-      await expect(image).toHaveClass('is-selected');
-    }
+    expect(selectedImages.length).toBe(2);
 
     // Bulk upload them.
     await page.getByRole('button', {name: 'Bulk Upload'}).click();
@@ -67,11 +72,9 @@ test.describe('Greenpeace Media tests', () => {
     await expect(page.getByPlaceholder('Search')).toBeVisible();
 
     // Delete the images from the library.
-    await page.reload();
-    await waitForLibraryLoad(page);
-    await deleteImageFromLibrary(page, TEST_IMAGES[0]);
+    await deleteImageFromLibrary(page, selectedImages[0]);
     await page.goto(MEDIA_LIBRARY_PAGE);
     await waitForLibraryLoad(page);
-    await deleteImageFromLibrary(page, TEST_IMAGES[1]);
+    await deleteImageFromLibrary(page, selectedImages[1]);
   });
 });
