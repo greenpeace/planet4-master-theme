@@ -23,6 +23,13 @@ document.addEventListener('DOMContentLoaded', () => {
           formData.append('attachment_id', attachmentId);
           formData.append('file', file);
 
+          const replaceMediaButton = document.querySelector('.media-replacer-button');
+
+          if (replaceMediaButton) {
+            replaceMediaButton.disabled = true;
+            replaceMediaButton.innerText = 'Replacing media, please wait...';
+          }
+
           // Send AJAX request to replace the media
           fetch(ajaxurl, {
             method: 'POST',
@@ -38,6 +45,11 @@ document.addEventListener('DOMContentLoaded', () => {
               }
             })
             .catch(error => {
+              if (replaceMediaButton) {
+                replaceMediaButton.disabled = false;
+                replaceMediaButton.innerText = 'Replace Media';
+              }
+
               // eslint-disable-next-line no-alert
               alert('Error: ' + error);
             });
