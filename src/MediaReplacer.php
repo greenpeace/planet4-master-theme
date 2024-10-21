@@ -48,6 +48,10 @@ class MediaReplacer
      */
     public function add_replace_media_button($form_fields, $post) {
         // Check if the post type is 'attachment' and exclude image mime types
+        if ($post->post_type !== 'attachment') {
+            return $form_fields;
+        }
+
         $image_mime_types = [
             'image/jpeg',
             'image/png',
@@ -58,15 +62,31 @@ class MediaReplacer
             'image/svg+xml'
         ];
 
-        if ($post->post_type === 'attachment' && !in_array($post->post_mime_type, $image_mime_types)) {
-            $form_fields['replace_media_button'] = array(
-                'input' => 'html',
-                'html' => '
-                    <button type="button" class="button media-replacer-button" data-attachment-id="' . esc_attr($post->ID) . '" data-mime-type="' . esc_attr($post->post_mime_type) . '">Replace Media</button>
-                    <input type="file" class="replace-media-file" style="display: none;" accept="' . esc_attr($post->post_mime_type) . '" />
-                ',
-            );            
+        // Check if the post excludes image mime types
+        if (in_array($post->post_mime_type, $image_mime_types)) {
+            return $form_fields;
         }
+
+        $form_fields['replace_media_button'] = array(
+            'input' => 'html',
+            'html' => '
+                <button 
+                    type="button" 
+                    class="button media-replacer-button" 
+                    data-attachment-id="' . esc_attr($post->ID) . '"
+                    data-mime-type="' . esc_attr($post->post_mime_type) . '"
+                >
+                    Replace Media
+                </button>
+                <input 
+                    type="file" 
+                    class="replace-media-file" 
+                    style="display: none;" 
+                    accept="' . esc_attr($post->post_mime_type) . '" 
+                />
+            ',
+        );
+        
         return $form_fields;
     }
 
@@ -76,34 +96,40 @@ class MediaReplacer
      * and replaces the old media file with the new one.
      */
     public function ajax_replace_media() {
-        // Check if the attachment ID and file are set
-        if (isset($_POST['attachment_id']) && !empty($_FILES['file'])) {
-            $attachment_id = intval($_POST['attachment_id']);
-    
-            // Handle the uploaded file
-            $file = $_FILES['file'];
-            $upload_overrides = array('test_form' => false);
-    
-            // Upload the file
-            $movefile = wp_handle_upload($file, $upload_overrides);
-    
-            if ($movefile && !isset($movefile['error'])) {
-                // Replace the media file
-                $this->replace_media_file($attachment_id, $movefile['file']);
-    
-                // Set a success message
-                set_transient('media_replacement_message', 'Media replaced successfully!', 5);
-                wp_send_json_success();
-            } else {
-                // Set an error message
-                set_transient('media_replacement_error', $movefile['error'], 5);
-                wp_send_json_error($movefile['error']);
-            }
-        } else {
-            // Set an error message
-            set_transient('media_replacement_error', 'Attachment ID or file is missing.', 5);
-            wp_send_json_error('Attachment ID or file is missing.');
+        // Check if the attachment ID is set
+        if (!isset($_POST['attachment_id'])) {
+            set_transient('media_replacement_error', 'Attachment ID is missing.', 5);
+            wp_send_json_error('Attachment ID is missing.');
+            return;
         }
+
+        // Check if the file is set
+        if (empty($_FILES['file'])) {
+            set_transient('media_replacement_error', 'File is missing.', 5);
+            wp_send_json_error('File is missing.');
+            return;
+        }
+
+        $attachment_id = intval($_POST['attachment_id']);
+    
+        // Handle the uploaded file
+        $file = $_FILES['file'];
+        $upload_overrides = array('test_form' => false);
+
+        // Upload the file
+        $movefile = wp_handle_upload($file, $upload_overrides);
+
+        if (!$movefile) {
+            $error_message = isset($movefile['error']) ? $movefile['error'] : 'Media could not be uploaded.';
+            set_transient('media_replacement_error', $error_message, 5);
+            wp_send_json_error($error_message);
+            return;
+        }
+        
+        // Replace the media file
+        $this->replace_media_file($attachment_id, $movefile['file']);
+        set_transient('media_replacement_message', 'Media replaced successfully!', 5);
+        wp_send_json_success();
     }
 
     /**
