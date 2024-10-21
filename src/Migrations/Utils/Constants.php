@@ -88,4 +88,18 @@ class Constants
     public const COVER_BLOCK_TAKE_ACTION = 'take-action';
     public const COVER_BLOCK_CAMPAIGN = 'campaign';
     public const COVER_BLOCK_CONTENT = 'content';
+    public const COVER_BLOCK_TYPES = [
+        'take-action' => [
+            'number' => '1',
+            'name' => 'take-action',
+        ],
+        'campaign' => [
+            'number' => '2',
+            'name' => 'campaign',
+        ],
+        'content' => [
+            'number' => '3',
+            'name' => 'content',
+        ],
+    ];
 }
