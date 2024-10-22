@@ -76,13 +76,6 @@ class Importer
                     }
                     break;
 
-                case 'planet4-blocks/split-two-columns':
-                    $filter_data[] = isset($block['attrs']['issue_image'])
-                        ? 'issue_image":' . $block['attrs']['issue_image'] : '';
-                    $filter_data[] = isset($block['attrs']['tag_image'])
-                        ? 'tag_image":' . $block['attrs']['tag_image'] : '';
-                    break;
-
                 case 'planet4-blocks/columns':
                     if (isset($block['attrs']['columns'])) {
                         foreach ($block['attrs']['columns'] as $column) {
