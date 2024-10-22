@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 import {expect, Locator, Page} from '@playwright/test'; // eslint-disable-line no-unused-vars
-=======
-import {expect, Locator} from '@playwright/test';
->>>>>>> bdd95a3a (Fix e2e specs)
 
 /**
  * @param {{Page, Editor}} options    - Page and Editor object

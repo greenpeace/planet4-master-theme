@@ -56,7 +56,7 @@ test.describe('Greenpeace Media tests', () => {
 
     while (selectedImages.length < 2 && idx < (await imagesList.locator('li').count())) {
       const image = imagesList.locator('li:not(.is-disabled)').nth(idx);
-      if(typeof image.locator('.bulk-select-checkbox') !== 'undefined') {
+      if (typeof image.locator('.bulk-select-checkbox') !== 'undefined') {
         await image.click();
         selectedImages.push(await image.getAttribute('data-id'));
       }
