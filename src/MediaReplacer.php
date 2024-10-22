@@ -2,6 +2,7 @@
 
 namespace P4\MasterTheme;
 
+use P4\MasterTheme\CloudflarePurger;
 use WP_Post;
 
 /**
@@ -125,9 +126,12 @@ class MediaReplacer
             return;
         }
 
-        // Replace the media file
         $this->replace_media_file($attachment_id, $movefile['file']);
+        
+        $this->purge_cloudflare(wp_get_attachment_url($attachment_id));
+
         set_transient('media_replacement_message', 'Media replaced successfully!', 5);
+
         wp_send_json_success();
     }
 
@@ -136,19 +140,11 @@ class MediaReplacer
      */
     public function display_admin_notices(): void
     {
-        // Check for success message
-        if ($message = get_transient('media_replacement_message')) {
-            echo '<div class="notice notice-success is-dismissible"><p>' . esc_html($message) . '</p></div>';
-            delete_transient('media_replacement_message');
-        }
-
-        // Check for error message
-        if (!$error = get_transient('media_replacement_error')) {
-            return;
-        }
-
-        echo '<div class="notice notice-error is-dismissible"><p>' . esc_html($error) . '</p></div>';
-        delete_transient('media_replacement_error');
+        // Helper function to display notices
+        $this->render_notice('media_replacement_message', 'success');
+        $this->render_notice('media_replacement_error', 'error');
+        $this->render_notice('cloudflare_purge_message', 'success');
+        $this->render_notice('cloudflare_purge_error', 'error');
     }
 
     /**
@@ -190,5 +186,45 @@ class MediaReplacer
         // https://github.com/udx/wp-stateless/blob/0871da645453240007178f4a5f243ceab6a188ea/lib/classes/class-bootstrap.php#L376
         $attach_data = wp_generate_attachment_metadata($old_file_id, $old_file_path);
         wp_update_attachment_metadata($old_file_id, $attach_data);
+    }
+
+    /**
+     * Purge the Cloudflare cache for a specific URL.
+     * 
+     * @param string $url The URL to be purged.
+     */
+    private function purge_cloudflare(string $url): void
+    {
+        $cf = new CloudflarePurger();
+        $generator = $cf->purge([$url]);
+        $api_responses = [];
+
+        foreach ($generator as $purge_result) {
+            list($api_response) = $purge_result;
+            $api_responses[] = $api_response;
+        }
+
+        if ($api_responses[0]) {
+            $message = 'Cloudflare successfully purged URL: ' . $url;
+            set_transient('cloudflare_purge_message', $message, 5);
+        } else {
+            $error_message = 'Cloudflare could not purge URL: ' . $url;
+            set_transient('cloudflare_purge_error', $error_message, 5);
+        }
+    }
+
+    /**
+     * Renders admin notices.
+     * 
+     * @param string $transient_key The Transient key.
+     * @param string $type The type of message.
+     */
+    private function render_notice(string $transient_key, string $type): void
+    {
+        if ($message = get_transient($transient_key)) {
+            $notice_class = $type === 'success' ? 'notice-success' : 'notice-error';
+            echo '<div class="notice ' . esc_attr($notice_class) . ' is-dismissible"><p>' . esc_html($message) . '</p></div>';
+            delete_transient($transient_key);
+        }
     }
 }
