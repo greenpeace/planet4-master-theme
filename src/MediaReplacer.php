@@ -96,51 +96,149 @@ class MediaReplacer
      */
     public function ajax_replace_media(): void
     {
-        // Check if the attachment ID is set
-        if (!isset($_POST['attachment_id'])) {
-            set_transient('media_replacement_error', 'Attachment ID is missing.', 5);
-            wp_send_json_error('Attachment ID is missing.');
+        try {
+            // Check if the attachment ID is set
+            if (!isset($_POST['attachment_id'])) {
+                set_transient('media_replacement_error', 'Attachment ID is missing.', 5);
+                wp_send_json_error('Attachment ID is missing.');
+                return;
+            }
+
+            // Check if the file is set
+            if (empty($_FILES['file'])) {
+                set_transient('media_replacement_error', 'File is missing.', 5);
+                wp_send_json_error('File is missing.');
+                return;
+            }
+
+            $attachment_id = intval($_POST['attachment_id']);
+
+            // Handle the uploaded file
+            $file = $_FILES['file'];
+            $upload_overrides = array('test_form' => false);
+
+            // Upload the file
+            $movefile = wp_handle_upload($file, $upload_overrides);
+
+            // If the file was not uploaded, abort
+            if (!$movefile) {
+                $error_message = isset($movefile['error']) ? $movefile['error'] : 'Media could not be uploaded.';
+                set_transient('media_replacement_error', $error_message, 5);
+                wp_send_json_error($error_message);
+                return;
+            }
+
+            // If the file was not moved, abort
+            $file_replaced = $this->replace_media_file($attachment_id, $movefile['file']);
+
+            // If the file was not replaced, abort
+            if (!$file_replaced) {
+                $error_message = 'Media file could not be replaced.';
+                set_transient('media_replacement_error', $error_message, 5);
+                wp_send_json_error($error_message);
+                return;
+            }
+            
+            set_transient('media_replacement_message', 'Media replaced successfully!', 5);
+            $this->purge_cloudflare(wp_get_attachment_url($attachment_id));
+            wp_send_json_success();
+        } catch (\Exception $e) {
+            set_transient('media_replacement_error', $e->getMessage(), 5);
             return;
         }
+    }
 
-        // Check if the file is set
-        if (empty($_FILES['file'])) {
-            set_transient('media_replacement_error', 'File is missing.', 5);
-            wp_send_json_error('File is missing.');
+    /**
+     * Replaces the media file associated with the old attachment ID
+     * with the new file located at the specified path.
+     *
+     * @param int $old_file_id The ID of the old attachment.
+     * @param string $new_file_path The path to the new file.
+     */
+    private function replace_media_file(int $old_file_id, string $new_file_path): bool
+    {
+        try {
+            // Get the old file path
+            $old_file_path = get_attached_file($old_file_id);
+
+            // Check if the old file exists
+            if (file_exists($old_file_path)) {
+                unlink($old_file_path);
+            }
+
+            // Move the new file to the old file's location
+            $file_renamed = rename($new_file_path, $old_file_path);
+
+            // If the file was not renamed, abort
+            if (!$file_renamed) {
+                return false;
+            }
+
+            // Update the attachment metadata with new information
+            $filetype = wp_check_filetype($old_file_path);
+            $attachment_data = array(
+                'ID' => $old_file_id,
+                'post_mime_type' => $filetype['type'],
+                'post_title' => preg_replace('/\.[^.]+$/', '', basename($old_file_path)),
+                'post_content' => '',
+                'post_status' => 'inherit',
+            );
+
+            // Update the database record for the file
+            $post_updated = wp_update_post($attachment_data);
+
+            // If the post was not updated, abort
+            if (is_wp_error($post_updated) || $post_updated === 0) {
+                return false;
+            }
+
+            // Update file metadata
+            // By calling the "wp_update_attachment_metadata" function,
+            // the WP Stateless plugin syncs the file with Google Storage.
+            // https://github.com/udx/wp-stateless/blob/0871da645453240007178f4a5f243ceab6a188ea/lib/classes/class-bootstrap.php#L376
+            $attach_data = wp_generate_attachment_metadata($old_file_id, $old_file_path);
+            $post_meta_updated = wp_update_attachment_metadata($old_file_id, $attach_data);
+
+            // If the post meta was not updated, abort
+            if ($post_meta_updated === false) {
+                return false;
+            }
+
+            return true;
+        } catch (\Exception $e) {
+            set_transient('media_replacement_error', $e->getMessage(), 5);
+            return false;
+        }
+    }
+
+    /**
+     * Purge the Cloudflare cache for a specific URL.
+     * 
+     * @param string $url The URL to be purged.
+     */
+    private function purge_cloudflare(string $url): void
+    {
+        try {
+            $cf = new CloudflarePurger();
+            $generator = $cf->purge([$url]);
+            $api_responses = [];
+
+            foreach ($generator as $purge_result) {
+                list($api_response) = $purge_result;
+                $api_responses[] = $api_response;
+            }
+
+            if ($api_responses[0]) {
+                $message = 'Cloudflare successfully purged URL: ' . $url;
+                set_transient('cloudflare_purge_message', $message, 5);
+            } else {
+                $error_message = 'Cloudflare could not purge URL: ' . $url;
+                set_transient('cloudflare_purge_error', $error_message, 5);
+            }
+        } catch (\Exception $e) {
+            set_transient('cloudflare_purge_error', $e->getMessage(), 5);
             return;
         }
-
-        $attachment_id = intval($_POST['attachment_id']);
-
-        // Handle the uploaded file
-        $file = $_FILES['file'];
-        $upload_overrides = array('test_form' => false);
-
-        // Upload the file
-        $movefile = wp_handle_upload($file, $upload_overrides);
-
-        // If the file was not uploaded, abort
-        if (!$movefile) {
-            $error_message = isset($movefile['error']) ? $movefile['error'] : 'Media could not be uploaded.';
-            set_transient('media_replacement_error', $error_message, 5);
-            wp_send_json_error($error_message);
-            return;
-        }
-
-        // If the file was not moved, abort
-        $file_replaced = $this->replace_media_file($attachment_id, $movefile['file']);
-
-        // If the file was not replaced, abort
-        if (!$file_replaced) {
-            $error_message = 'Media file could not be replaced.';
-            set_transient('media_replacement_error', $error_message, 5);
-            wp_send_json_error($error_message);
-            return;
-        }
-        
-        set_transient('media_replacement_message', 'Media replaced successfully!', 5);
-        $this->purge_cloudflare(wp_get_attachment_url($attachment_id));
-        wp_send_json_success();
     }
 
     /**
@@ -153,89 +251,6 @@ class MediaReplacer
         $this->render_notice('media_replacement_error', 'error');
         $this->render_notice('cloudflare_purge_message', 'success');
         $this->render_notice('cloudflare_purge_error', 'error');
-    }
-
-    /**
-     * Replaces the media file associated with the old attachment ID
-     * with the new file located at the specified path.
-     *
-     * @param int $old_file_id The ID of the old attachment.
-     * @param string $new_file_path The path to the new file.
-     */
-    private function replace_media_file(int $old_file_id, string $new_file_path): bool
-    {
-        // Get the old file path
-        $old_file_path = get_attached_file($old_file_id);
-
-        // Check if the old file exists
-        if (file_exists($old_file_path)) {
-            unlink($old_file_path);
-        }
-
-        // Move the new file to the old file's location
-        $file_renamed = rename($new_file_path, $old_file_path);
-
-        // If the file was not renamed, abort
-        if (!$file_renamed) {
-            return false;
-        }
-
-        // Update the attachment metadata with new information
-        $filetype = wp_check_filetype($old_file_path);
-        $attachment_data = array(
-            'ID' => $old_file_id,
-            'post_mime_type' => $filetype['type'],
-            'post_title' => preg_replace('/\.[^.]+$/', '', basename($old_file_path)),
-            'post_content' => '',
-            'post_status' => 'inherit',
-        );
-
-        // Update the database record for the file
-        $post_updated = wp_update_post($attachment_data);
-
-        // If the post was not updated, abort
-        if (is_wp_error($post_updated) || $post_updated === 0) {
-            return false;
-        }
-
-        // Update file metadata
-        // By calling the "wp_update_attachment_metadata" function,
-        // the WP Stateless plugin syncs the file with Google Storage.
-        // https://github.com/udx/wp-stateless/blob/0871da645453240007178f4a5f243ceab6a188ea/lib/classes/class-bootstrap.php#L376
-        $attach_data = wp_generate_attachment_metadata($old_file_id, $old_file_path);
-        $post_meta_updated = wp_update_attachment_metadata($old_file_id, $attach_data);
-
-        // If the post meta was not updated, abort
-        if ($post_meta_updated === false) {
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
-     * Purge the Cloudflare cache for a specific URL.
-     * 
-     * @param string $url The URL to be purged.
-     */
-    private function purge_cloudflare(string $url): void
-    {
-        $cf = new CloudflarePurger();
-        $generator = $cf->purge([$url]);
-        $api_responses = [];
-
-        foreach ($generator as $purge_result) {
-            list($api_response) = $purge_result;
-            $api_responses[] = $api_response;
-        }
-
-        if ($api_responses[0]) {
-            $message = 'Cloudflare successfully purged URL: ' . $url;
-            set_transient('cloudflare_purge_message', $message, 5);
-        } else {
-            $error_message = 'Cloudflare could not purge URL: ' . $url;
-            set_transient('cloudflare_purge_error', $error_message, 5);
-        }
     }
 
     /**
