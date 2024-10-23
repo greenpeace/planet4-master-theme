@@ -119,6 +119,7 @@ class MediaReplacer
         // Upload the file
         $movefile = wp_handle_upload($file, $upload_overrides);
 
+        // If the file was not uploaded, abort
         if (!$movefile) {
             $error_message = isset($movefile['error']) ? $movefile['error'] : 'Media could not be uploaded.';
             set_transient('media_replacement_error', $error_message, 5);
@@ -126,12 +127,19 @@ class MediaReplacer
             return;
         }
 
-        $this->replace_media_file($attachment_id, $movefile['file']);
+        // If the file was not moved, abort
+        $file_replaced = $this->replace_media_file($attachment_id, $movefile['file']);
+
+        // If the file was not replaced, abort
+        if (!$file_replaced) {
+            $error_message = 'Media file could not be replaced.';
+            set_transient('media_replacement_error', $error_message, 5);
+            wp_send_json_error($error_message);
+            return;
+        }
         
-        $this->purge_cloudflare(wp_get_attachment_url($attachment_id));
-
         set_transient('media_replacement_message', 'Media replaced successfully!', 5);
-
+        $this->purge_cloudflare(wp_get_attachment_url($attachment_id));
         wp_send_json_success();
     }
 
@@ -154,7 +162,7 @@ class MediaReplacer
      * @param int $old_file_id The ID of the old attachment.
      * @param string $new_file_path The path to the new file.
      */
-    private function replace_media_file(int $old_file_id, string $new_file_path): void
+    private function replace_media_file(int $old_file_id, string $new_file_path): bool
     {
         // Get the old file path
         $old_file_path = get_attached_file($old_file_id);
@@ -165,7 +173,12 @@ class MediaReplacer
         }
 
         // Move the new file to the old file's location
-        rename($new_file_path, $old_file_path);
+        $file_renamed = rename($new_file_path, $old_file_path);
+
+        // If the file was not renamed, abort
+        if (!$file_renamed) {
+            return false;
+        }
 
         // Update the attachment metadata with new information
         $filetype = wp_check_filetype($old_file_path);
@@ -178,14 +191,26 @@ class MediaReplacer
         );
 
         // Update the database record for the file
-        wp_update_post($attachment_data);
+        $post_updated = wp_update_post($attachment_data);
+
+        // If the post was not updated, abort
+        if (is_wp_error($post_updated) || $post_updated === 0) {
+            return false;
+        }
 
         // Update file metadata
         // By calling the "wp_update_attachment_metadata" function,
         // the WP Stateless plugin syncs the file with Google Storage.
         // https://github.com/udx/wp-stateless/blob/0871da645453240007178f4a5f243ceab6a188ea/lib/classes/class-bootstrap.php#L376
         $attach_data = wp_generate_attachment_metadata($old_file_id, $old_file_path);
-        wp_update_attachment_metadata($old_file_id, $attach_data);
+        $post_meta_updated = wp_update_attachment_metadata($old_file_id, $attach_data);
+
+        // If the post meta was not updated, abort
+        if ($post_meta_updated === false) {
+            return false;
+        }
+
+        return true;
     }
 
     /**
