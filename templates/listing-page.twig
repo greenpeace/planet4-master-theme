@@ -1,7 +1,31 @@
+{% block javascript %}
+    <script>
+        const updateFilter = () => {
+            let urlParams = new URLSearchParams(window.location.search);
+            urlParams.set('category', document.getElementById('categories').value);
+            window.location.search = urlParams;
+        }
+    </script>
+{% endblock %}
+
 <div class="page-content container" id="content">
     <div class="wp-block-separator is-style-wide listing-page-separator"></div>
     <div class="d-flex align-items-center justify-content-between listing-page-title">
-        <h2>{{ listing_page_title ?? __( 'All articles', 'planet4-master-theme' ) }}</h2>
+        {% if page_category == 'News' %}
+            <label for="categories" class="visually-hidden">
+                {{ __('Filter by category', 'planet4-master-theme' ) }}
+            </label>
+            <select onchange="updateFilter()" class="form-select listing-page-select" id="categories">
+                <option selected disabled value="">{{__( 'Select topic', 'planet4-master-theme' ) }}</option>
+                {% for key,category in fn('get_categories') %}
+                    <option value="{{category.term_id}}">
+                        {{ category.name|raw }}
+                    </option>
+                {% endfor %}
+            </select>
+        {% else %}
+            <h2>{{ listing_page_title ?? __( 'All articles', 'planet4-master-theme' ) }}</h2>
+        {% endif %}
         <span class="grid-view-toggle" title="{{__( 'Grid layout', 'planet4-master-theme' ) }}">
             {{ 'grid-view'|svgicon }}
         </span>
