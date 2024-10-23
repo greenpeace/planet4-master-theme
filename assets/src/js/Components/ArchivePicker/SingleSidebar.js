@@ -4,8 +4,8 @@ import {ACTIONS, ADMIN_VIEW, EDITOR_VIEW, useArchivePickerContext} from './Archi
 const {__, sprintf} = wp.i18n;
 const {useMemo, useEffect, useState} = wp.element;
 
-const renderDefinition = (key, value) => (
-  <div>
+const renderDefinition = (key, value, className) => (
+  <div className={className}>
     <dt>{key}</dt>
     <dd>{value}</dd>
   </div>
@@ -186,14 +186,19 @@ export default function SingleSidebar({image}) {
               __('Credit', 'planet4-master-theme-backend'),
               image.credit
             )}
-            {renderDefinition(
+            {image.original_language_title && (renderDefinition(
               __('Original language title', 'planet4-master-theme-backend'),
               image.original_language_title
-            )}
-            {renderDefinition(
+            ))}
+            {image.original_language_description && (renderDefinition(
               __('Original language description', 'planet4-master-theme-backend'),
               image.original_language_description
-            )}
+            ))}
+            {image.restrictions && (renderDefinition(
+              __('Restrictions', 'planet4-master-theme-backend'),
+              image.restrictions,
+              'restrictions-warning'
+            ))}
           </dl>
           {image.wordpress_id && (
             <a
