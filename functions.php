@@ -407,6 +407,19 @@ add_filter(
     2
 );
 
+// Add filters to the News & Stories listing page.
+// Right now only "category" is available.
+add_action(
+    'pre_get_posts',
+    function ($query): void {
+        if (!$query->is_main_query() || is_admin() || !is_home()) {
+            return;
+        }
+        $category_filter = isset($_GET['category']) ? [$_GET['category']] : [];
+        $query->set('category__in', $category_filter);
+    }
+);
+
 // Calls attachment metadata update on importer job.
 // This triggers the wp-stateless hook (if it exists),
 // which sets the sm_cloud metadata for the uploaded file.

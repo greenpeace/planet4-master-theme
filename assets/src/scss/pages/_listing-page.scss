@@ -364,3 +364,15 @@
     }
   }
 }
+
+.listing-page-filters {
+  width: 100%;
+
+  .listing-page-select {
+    width: 220px;
+
+    @include mobile-only {
+      width: 100%;
+    }
+  }
+}

@@ -1,7 +1,11 @@
 <div class="page-content container" id="content">
     <div class="wp-block-separator is-style-wide listing-page-separator"></div>
     <div class="d-flex align-items-center justify-content-between listing-page-title">
-        <h2>{{ listing_page_title ?? __( 'All articles', 'planet4-master-theme' ) }}</h2>
+        {% if fn('is_home') %}
+            {% include 'listing-page-filters.twig' %}
+        {% else %}
+            <h2>{{ listing_page_title ?? __( 'All articles', 'planet4-master-theme' ) }}</h2>
+        {% endif %}
         <span class="grid-view-toggle" title="{{__( 'Grid layout', 'planet4-master-theme' ) }}">
             {{ 'grid-view'|svgicon }}
         </span>

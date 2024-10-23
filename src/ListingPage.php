@@ -47,6 +47,9 @@ class ListingPage
         $this->context['page_category'] = is_home() ? 'News' : 'Listing Page';
         $this->context['og_type'] = isset($this->context['author']) ? 'profile' : 'website';
 
+        // Filters (News & Stories page only)
+        $this->set_filters();
+
         $this->add_listing_page_content();
         $this->set_featured_action();
         $this->set_news_page_link();
@@ -102,6 +105,19 @@ class ListingPage
 
         $news_page_link = get_permalink($news_page);
         $this->context['news_page_link'] = $news_page_link;
+    }
+
+    /**
+     * Set the 'News & stories' page filters.
+     * For now only the "category" one is available.
+     */
+    private function set_filters(): void
+    {
+        if (!is_home()) {
+            return;
+        }
+
+        $this->context['current_category'] = $_GET['category'] ?? '';
     }
 
     /**
