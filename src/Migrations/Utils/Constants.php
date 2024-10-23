@@ -33,6 +33,14 @@ class Constants
         self::POST_TYPES_CAMPAIGN,
     ];
 
+    public const POST_STATUS_LIST = [
+        'publish',
+        'pending',
+        'draft',
+        'future',
+        'private',
+    ];
+
     public const COVER_TYPE_TAKE_ACTION = 'take-action';
     public const COVER_TYPE_CAMPAIGN = 'campaign';
     public const COVER_TYPE_CONTENT = 'content';
