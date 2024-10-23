@@ -2,7 +2,6 @@
 
 namespace P4\MasterTheme;
 
-use P4\MasterTheme\CloudflarePurger;
 use WP_Post;
 
 /**
@@ -138,7 +137,7 @@ class MediaReplacer
                 wp_send_json_error($error_message);
                 return;
             }
-            
+
             set_transient('media_replacement_message', 'Media replaced successfully!', 5);
             $this->purge_cloudflare(wp_get_attachment_url($attachment_id));
             wp_send_json_success();
@@ -200,11 +199,7 @@ class MediaReplacer
             $post_meta_updated = wp_update_attachment_metadata($old_file_id, $attach_data);
 
             // If the post meta was not updated, abort
-            if ($post_meta_updated === false) {
-                return false;
-            }
-
-            return true;
+            return $post_meta_updated !== false;
         } catch (\Exception $e) {
             set_transient('media_replacement_error', $e->getMessage(), 5);
             return false;
@@ -213,7 +208,7 @@ class MediaReplacer
 
     /**
      * Purge the Cloudflare cache for a specific URL.
-     * 
+     *
      * @param string $url The URL to be purged.
      */
     private function purge_cloudflare(string $url): void
@@ -224,7 +219,7 @@ class MediaReplacer
             $api_responses = [];
 
             foreach ($generator as $purge_result) {
-                list($api_response) = $purge_result;
+                [$api_response] = $purge_result;
                 $api_responses[] = $api_response;
             }
 
@@ -255,16 +250,21 @@ class MediaReplacer
 
     /**
      * Renders admin notices.
-     * 
+     *
      * @param string $transient_key The Transient key.
      * @param string $type The type of message.
      */
     private function render_notice(string $transient_key, string $type): void
     {
-        if ($message = get_transient($transient_key)) {
-            $notice_class = $type === 'success' ? 'notice-success' : 'notice-error';
-            echo '<div class="notice ' . esc_attr($notice_class) . ' is-dismissible"><p>' . esc_html($message) . '</p></div>';
-            delete_transient($transient_key);
+        if (!$message = get_transient($transient_key)) {
+            return;
         }
+
+        $notice_class = $type === 'success' ? 'notice-success' : 'notice-error';
+        echo '
+            <div class="notice ' . esc_attr($notice_class) . ' is-dismissible">
+            <p>' . esc_html($message) . '</p>
+            </div>';
+        delete_transient($transient_key);
     }
 }
