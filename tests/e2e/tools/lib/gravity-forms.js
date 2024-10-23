@@ -8,10 +8,11 @@ const TEST_EMAIL = 'jon.snow@gmail.com';
  * Toggle the Gravity Forms rest API to use it for tests.
  * It is disabled by default.
  *
- * @param {Object} page     - The page object for interacting with the browser.
- * @param {boolean} enabled - Whether it should be enabled or disabled.
+ * @param {Object}  page           - The page object for interacting with the browser.
+ * @param {Object}  params         - Additional block's parameters.
+ * @param {boolean} params.enabled - Whether it should be enabled or disabled.
  */
-const toggleRestAPI = async ({page}, enabled) => {
+const toggleRestAPI = async (page, {enabled}) => {
   await page.goto('./wp-admin/admin.php?page=gf_settings&subview=gravityformswebapi');
   await page.getByRole('checkbox', {label: 'Enabled'}).setChecked(enabled);
   const authSettings = page.locator('#gform-settings-section-gform_section_authentication_v2');
@@ -27,10 +28,11 @@ const toggleRestAPI = async ({page}, enabled) => {
 /**
  * Create a new Gravity Forms form.
  *
- * @param {Object} page  - The page object for interacting with the browser.
- * @param {Object} title - The form title.
+ * @param {Object} page         - The page object for interacting with the browser.
+ * @param {Object} params       - Additional block's parameters.
+ * @param {Object} params.title - The form title.
  */
-const createForm = async ({page}, {title}) => {
+const createForm = async (page, {title}) => {
   const response = await page.request.post('./wp-json/gf/v2/forms', {
     data: {
       title,
@@ -65,10 +67,11 @@ const createForm = async ({page}, {title}) => {
 /**
  * Fill and submit a Gravity Forms form.
  *
- * @param {Object} page   - The page object for interacting with the browser.
- * @param {number} formId - The form id.
+ * @param {Object} page          - The page object for interacting with the browser.
+ * @param {Object} params        - Additional block's parameters.
+ * @param {number} params.formId - The form id.
  */
-const fillAndSubmitForm = async ({page}, formId) => {
+const fillAndSubmitForm = async (page, {formId}) => {
   const form = page.locator(`#gform_${formId}`);
   await form.getByLabel('First name').fill(TEST_FIRST_NAME);
   await form.getByLabel('Last name').fill(TEST_LAST_NAME);
@@ -80,10 +83,11 @@ const fillAndSubmitForm = async ({page}, formId) => {
 /**
  * Check the latest entry for a Gravity Forms form.
  *
- * @param {Object} page   - The page object for interacting with the browser.
- * @param {number} formId - The form id.
+ * @param {Object} page          - The page object for interacting with the browser.
+ * @param {Object} params        - Additional block's parameters.
+ * @param {number} params.formId - The form id.
  */
-const checkEntry = async ({page}, formId) => {
+const checkEntry = async (page, {formId}) => {
   await page.goto(`./wp-admin/admin.php?page=gf_entries&id=${formId}`);
   const latestEntry = page.locator('#the-list > tr.entry_row').first();
   await expect(latestEntry).toBeVisible();
@@ -95,11 +99,12 @@ const checkEntry = async ({page}, formId) => {
 /**
  * Change the confirmation type for a Gravity Forms form.
  *
- * @param {Object} page   - The page object for interacting with the browser.
- * @param {number} formId - The form id.
- * @param {string} label  - The confirmation type label.
+ * @param {Object} page          - The page object for interacting with the browser.
+ * @param {Object} params        - Additional block's parameters.
+ * @param {number} params.formId - The form id.
+ * @param {string} params.label  - The confirmation type label.
  */
-const changeConfirmationType = async ({page}, formId, label) => {
+const changeConfirmationType = async (page, {formId, label}) => {
   await page.goto(`./wp-admin/admin.php?page=gf_edit_forms&view=settings&subview=confirmation&id=${formId}`);
   await page.locator('#the-list > tr:first-child').hover();
   await page.getByRole('link', {name: 'Edit', exact: true}).click();
