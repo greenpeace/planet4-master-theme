@@ -12,12 +12,27 @@ use WP_Post;
 class MediaReplacer
 {
     /**
+     * List of image MIME types.
+     * We need this list as for now we will only replace non-image files.
+     */
+    private const IMAGE_MIME_TYPES = [
+        'image/jpeg',
+        'image/png',
+        'image/gif',
+        'image/bmp',
+        'image/webp',
+        'image/tiff',
+        'image/svg+xml',
+    ];
+
+    /**
      * MediaReplacer constructor.
      */
     public function __construct()
     {
         add_action('admin_enqueue_scripts', [$this, 'enqueue_media_modal_script']);
         add_filter('attachment_fields_to_edit', [$this, 'add_replace_media_button'], 10, 2);
+        add_action('add_meta_boxes', [$this, 'add_replace_media_metabox']);
         add_action('wp_ajax_replace_media', [$this, 'ajax_replace_media']);
         add_action('admin_notices', [$this, 'display_admin_notices']);
     }
@@ -37,7 +52,39 @@ class MediaReplacer
     }
 
     /**
-     * Adds a button to replace media files in the attachment edit form.
+     * Adds a metabox to the attachments editor.
+     */
+    public function add_replace_media_metabox(): void
+    {
+        add_meta_box(
+            'replace_media_metabox',
+            'Replace Media',
+            [$this, 'render_replace_media_metabox'],
+            'attachment',
+            'side',
+            'low'
+        );
+    }
+
+    /**
+     * Adds a button to replace media files in the attachments editor.
+     *
+     * @param WP_Post $post The current attachment post object.
+     */
+    public function render_replace_media_metabox(WP_Post $post): void
+    {
+        // Check if the post excludes image mime types
+        if (in_array($post->post_mime_type, self::IMAGE_MIME_TYPES)) {
+            echo "<p>Images cannot be replaced yet.</p>";
+            return;
+        }
+
+        echo "<p>Use this to replace the current file without changing the file URL.</p>";
+        echo $this->get_replace_button_html($post);
+    }
+
+    /**
+     * Adds a button to replace media files to the Attachment details modal.
      *
      * @param array $form_fields The existing form fields for the attachment.
      * @param WP_Post $post The current attachment post object.
@@ -45,47 +92,54 @@ class MediaReplacer
      */
     public function add_replace_media_button(array $form_fields, WP_Post $post): array
     {
-        // Check if the post type is 'attachment' and exclude image mime types
+        // Check if the post type is 'attachment'
         if ($post->post_type !== 'attachment') {
             return $form_fields;
         }
 
-        $image_mime_types = [
-            'image/jpeg',
-            'image/png',
-            'image/gif',
-            'image/bmp',
-            'image/webp',
-            'image/tiff',
-            'image/svg+xml',
-        ];
+        // Check if the current page is an editing page
+        // If so, return as a metabox is added to the page
+        if (isset($_GET['action']) && $_GET['action'] === 'edit') {
+            return $form_fields;
+        }
 
         // Check if the post excludes image mime types
-        if (in_array($post->post_mime_type, $image_mime_types)) {
+        if (in_array($post->post_mime_type, self::IMAGE_MIME_TYPES)) {
             return $form_fields;
         }
 
         $form_fields['replace_media_button'] = array(
             'input' => 'html',
-            'html' => '
-                <button 
-                    type="button" 
-                    class="button media-replacer-button" 
-                    data-attachment-id="' . esc_attr($post->ID) . '"
-                    data-mime-type="' . esc_attr($post->post_mime_type) . '"
-                >
-                    Replace Media
-                </button>
-                <input 
-                    type="file" 
-                    class="replace-media-file" 
-                    style="display: none;" 
-                    accept="' . esc_attr($post->post_mime_type) . '" 
-                />
-            ',
+            'html' => $this->get_replace_button_html($post),
         );
 
         return $form_fields;
+    }
+
+    /**
+     * Renders the HTML of the Replace Media button.
+     *
+     * @param WP_Post $post The current attachment post object.
+     * @return string The button html.
+     */
+    private function get_replace_button_html(WP_Post $post): string
+    {
+        return
+        '<button 
+            type="button" 
+            class="button media-replacer-button" 
+            data-attachment-id="' . esc_attr($post->ID) . '"
+            data-mime-type="' . esc_attr($post->post_mime_type) . '"
+        >
+            Replace Media
+        </button>
+        <input 
+            type="file" 
+            class="replace-media-file" 
+            style="display: none;" 
+            accept="' . esc_attr($post->post_mime_type) . '" 
+        />
+        ';
     }
 
     /**
@@ -199,7 +253,7 @@ class MediaReplacer
             $post_meta_updated = wp_update_attachment_metadata($old_file_id, $attach_data);
 
             // If the post meta was not updated, abort
-            return $post_meta_updated !== false;
+            return $post_meta_updated;
         } catch (\Exception $e) {
             set_transient('media_replacement_error', $e->getMessage(), 5);
             return false;
