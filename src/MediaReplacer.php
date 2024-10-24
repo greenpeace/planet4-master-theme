@@ -75,11 +75,14 @@ class MediaReplacer
     {
         // Check if the post excludes image mime types
         if (in_array($post->post_mime_type, self::IMAGE_MIME_TYPES)) {
-            echo "<p>Images cannot be replaced yet.</p>";
+            $message = __('Images cannot be replaced yet.', 'planet4-master-theme-backend');
+            echo "<p>" . $message . "</p>";
             return;
         }
 
-        echo "<p>Use this to replace the current file without changing the file URL.</p>";
+        // phpcs:ignore Generic.Files.LineLength.MaxExceeded
+        $message = __('Use this to replace the current file without changing the file URL.', 'planet4-master-theme-backend');
+        echo "<p>" . $message . "</p>";
         echo $this->get_replace_button_html($post);
     }
 
@@ -152,15 +155,17 @@ class MediaReplacer
         try {
             // Check if the attachment ID is set
             if (!isset($_POST['attachment_id'])) {
-                set_transient('media_replacement_error', 'Attachment ID is missing.', 5);
-                wp_send_json_error('Attachment ID is missing.');
+                $message = __('Attachment ID is missing.', 'planet4-master-theme-backend');
+                set_transient('media_replacement_error', $message, 5);
+                wp_send_json_error($message);
                 return;
             }
 
             // Check if the file is set
             if (empty($_FILES['file'])) {
-                set_transient('media_replacement_error', 'File is missing.', 5);
-                wp_send_json_error('File is missing.');
+                $message = __('File is missing.', 'planet4-master-theme-backend');
+                set_transient('media_replacement_error', $message, 5);
+                wp_send_json_error($message);
                 return;
             }
 
@@ -175,7 +180,8 @@ class MediaReplacer
 
             // If the file was not uploaded, abort
             if (!$movefile) {
-                $error_message = isset($movefile['error']) ? $movefile['error'] : 'Media could not be uploaded.';
+                $message = __('Media could not be uploaded.', 'planet4-master-theme-backend');
+                $error_message = isset($movefile['error']) ? $movefile['error'] : $message;
                 set_transient('media_replacement_error', $error_message, 5);
                 wp_send_json_error($error_message);
                 return;
@@ -186,13 +192,14 @@ class MediaReplacer
 
             // If the file was not replaced, abort
             if (!$file_replaced) {
-                $error_message = 'Media file could not be replaced.';
+                $error_message = __('Media file could not be replaced.', 'planet4-master-theme-backend');
                 set_transient('media_replacement_error', $error_message, 5);
                 wp_send_json_error($error_message);
                 return;
             }
 
-            set_transient('media_replacement_message', 'Media replaced successfully!', 5);
+            $message = __('Media replaced successfully!', 'planet4-master-theme-backend');
+            set_transient('media_replacement_message', $message, 5);
             $this->purge_cloudflare(wp_get_attachment_url($attachment_id));
             wp_send_json_success();
         } catch (\Exception $e) {
@@ -278,10 +285,11 @@ class MediaReplacer
             }
 
             if ($api_responses[0]) {
-                $message = 'Cloudflare successfully purged URL: ' . $url;
+                $message = __('URL was successfully purged from cache: ', 'planet4-master-theme-backend') . $url;
                 set_transient('cloudflare_purge_message', $message, 5);
             } else {
-                $error_message = 'Cloudflare could not purge URL: ' . $url;
+                // phpcs:ignore Generic.Files.LineLength.MaxExceeded
+                $error_message = __('There was an error purging the URL from cache: ', 'planet4-master-theme-backend') . $url;
                 set_transient('cloudflare_purge_error', $error_message, 5);
             }
         } catch (\Exception $e) {
