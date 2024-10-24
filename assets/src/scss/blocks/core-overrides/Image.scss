@@ -100,4 +100,18 @@
   &.caption-alignment-right figcaption {
     text-align: right;
   }
+
+  // Mimics the behavior of WP's native '.is-resized' CSS class
+  .editor-rich-text.block-editor-rich-text {
+    display: table-caption;
+    caption-side: bottom;
+
+    .wp-block-image & {
+      display: table;
+    }
+
+    figcaption {
+      display: block;
+    }
+  }
 }
