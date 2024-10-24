@@ -83,6 +83,7 @@ final class Loader
             PostMeta::class,
             GravityFormsExtensions::class,
             BlockSettings::class,
+            MediaReplacer::class,
         ];
 
         if (is_admin()) {
