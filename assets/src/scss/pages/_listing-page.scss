@@ -364,3 +364,9 @@
     }
   }
 }
+
+@include large-and-up {
+  .listing-page-select {
+    width: 220px;
+  }
+}
