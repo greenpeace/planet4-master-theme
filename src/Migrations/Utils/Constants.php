@@ -11,13 +11,27 @@ class Constants
     private const PREFIX_CORE_BLOCKS = 'core';
 
     public const BLOCK_MEDIA_VIDEO = self::PREFIX_P4_BLOCKS . '/media-video';
-
     public const BLOCK_EMBED = self::PREFIX_CORE_BLOCKS . '/embed';
     public const BLOCK_AUDIO = self::PREFIX_CORE_BLOCKS . '/audio';
     public const BLOCK_VIDEO = self::PREFIX_CORE_BLOCKS . '/video';
     public const BLOCK_GROUP = self::PREFIX_CORE_BLOCKS . '/group';
     public const BLOCK_HEADING = self::PREFIX_CORE_BLOCKS . '/heading';
     public const BLOCK_PARAGRAPH = self::PREFIX_CORE_BLOCKS . '/paragraph';
+    public const BLOCK_COVERS = self::PREFIX_P4_BLOCKS . '/covers';
+    public const BLOCK_POSTS_LIST = self::PREFIX_P4_BLOCKS . '/posts-list';
+    public const BLOCK_TITLE = self::PREFIX_CORE_BLOCKS . '/post-title';
+    public const BLOCK_EXCERPT = self::PREFIX_CORE_BLOCKS . '/post-excerpt';
+    public const BLOCK_AUTHOR = self::PREFIX_CORE_BLOCKS . '/post-author-name';
+    public const BLOCK_DATE = self::PREFIX_CORE_BLOCKS . '/post-date';
+    public const BLOCK_TERMS = self::PREFIX_CORE_BLOCKS . '/post-terms';
+    public const BLOCK_COLUMNS = self::PREFIX_CORE_BLOCKS . '/columns';
+    public const BLOCK_FEAT_IMAGE = self::PREFIX_CORE_BLOCKS . '/post-featured-image';
+    public const BLOCK_QUERY_NO_RESULTS = self::PREFIX_CORE_BLOCKS . '/query-no-results';
+    public const BLOCK_NAV_LINK = self::PREFIX_CORE_BLOCKS . '/navigation-link';
+    public const BLOCK_POST_TEMPLATE = self::PREFIX_CORE_BLOCKS . '/post-template';
+    public const BLOCK_BUTTONS = self::PREFIX_CORE_BLOCKS . '/buttons';
+    public const BLOCK_SINGLE_BUTTON = self::PREFIX_CORE_BLOCKS . '/button';
+    public const BLOCK_QUERY = self::PREFIX_CORE_BLOCKS . '/query';
 
     public const POST_TYPES_PAGE = 'page';
     public const POST_TYPES_POST = 'post';
@@ -29,5 +43,20 @@ class Constants
         self::POST_TYPES_POST,
         self::POST_TYPES_ACTION,
         self::POST_TYPES_CAMPAIGN,
+    ];
+
+    public const COVER_BLOCK_TYPES = [
+        'take-action' => [
+            'number' => '1',
+            'name' => 'take-action',
+        ],
+        'campaign' => [
+            'number' => '2',
+            'name' => 'campaign',
+        ],
+        'content' => [
+            'number' => '3',
+            'name' => 'content',
+        ],
     ];
 }

@@ -45,13 +45,19 @@ class Functions
      *
      * @param string $name - The block name.
      * @param array $attrs - The block attributes.
+     * @param mixed $inner_attrs - The optional inner attributes (innerHTML, innerBlocks, and innerContent).
      * @return array - The new block.
      */
-    public static function set_new_block(string $name, array $attrs): array
+    public static function set_new_block(string $name, array $attrs, mixed $inner_attrs = false): array
     {
         $block = [];
         $block['blockName'] = $name;
         $block['attrs'] = $attrs;
+
+        if (!$inner_attrs) {
+            $block = self::set_empty_inner_attrs($block);
+        }
+
         return $block;
     }
 
