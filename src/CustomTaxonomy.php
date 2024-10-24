@@ -91,6 +91,11 @@ class CustomTaxonomy
         if (-1 === $current_type) {
             // Assign default p4-pagetype for new POST.
             $planet4_default_post_type = $this->get_planet4_default_post_type();
+
+            if (!$planet4_default_post_type) {
+                return;
+            }
+
             $current_type = $planet4_default_post_type->slug;
         }
 
