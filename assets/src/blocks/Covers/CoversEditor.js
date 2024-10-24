@@ -1,13 +1,3 @@
-import {
-  SelectControl,
-  PanelBody,
-  RadioControl,
-  TextControl,
-  Tooltip,
-} from '@wordpress/components';
-import {useEffect} from '@wordpress/element';
-
-import {InspectorControls, RichText} from '@wordpress/block-editor';
 import TagSelector from '../../block-editor/TagSelector';
 import {PostSelector} from '../../block-editor/PostSelector';
 import PostTypeSelector from '../../block-editor/PostTypeSelector';
@@ -17,6 +7,15 @@ import {useCovers} from './useCovers';
 import {getStyleFromClassName} from '../../functions/getStyleFromClassName';
 import {CoversCarouselLayout} from './CoversCarouselLayout';
 
+const {
+  SelectControl,
+  PanelBody,
+  RadioControl,
+  TextControl,
+  Tooltip,
+} = wp.components;
+const {useEffect} = wp.element;
+const {InspectorControls, RichText} = wp.blockEditor;
 const {__} = wp.i18n;
 
 const renderEdit = (attributes, toAttribute, setAttributes) => {

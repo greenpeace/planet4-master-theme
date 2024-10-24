@@ -21,10 +21,10 @@ test.describe('Gravity Forms tests', () => {
   test.beforeAll(async ({browser, requestUtils}) => {
     const page = await browser.newPage();
     // Enable Gravity Forms rest API.
-    await toggleRestAPI({page}, true);
+    await toggleRestAPI(page, {enabled: true});
 
     // Create a new form.
-    createdForm = await createForm({page}, {
+    createdForm = await createForm(page, {
       title: `Gravity Forms test form - ${testId}`,
     });
 
@@ -49,12 +49,12 @@ test.describe('Gravity Forms tests', () => {
     await page.request.delete(`./wp-json/gf/v2/forms/${createdForm.id}?force=1`);
 
     // Disable Gravity Forms rest API.
-    await toggleRestAPI({page}, false);
+    await toggleRestAPI(page, {enabled: false});
   });
 
   test('check the confirmation message, text type', async ({page}) => {
     // Make sure the form uses the Text confirmation type.
-    await changeConfirmationType({page}, createdForm.id, 'Text');
+    await changeConfirmationType(page, {formId: createdForm.id, label: 'Text'});
 
     // Update the form's default confirmation text.
     await page.frameLocator('#_gform_setting_message_ifr').locator('#tinymce').fill(CONFIRMATION_MESSAGE);
@@ -65,7 +65,7 @@ test.describe('Gravity Forms tests', () => {
     await page.goto(newPost.link);
 
     // Fill and submit the form.
-    await fillAndSubmitForm({page}, createdForm.id);
+    await fillAndSubmitForm(page, {formId: createdForm.id});
 
     // Check the confirmation message text.
     const confirmationMessage = page.locator('.gform_confirmation_message');
@@ -73,12 +73,12 @@ test.describe('Gravity Forms tests', () => {
     await expect(confirmationMessage).toContainText(CONFIRMATION_MESSAGE);
 
     // Check that the entry has been registered as expected.
-    await checkEntry({page}, createdForm.id);
+    await checkEntry(page, {formId: createdForm.id});
   });
 
   test('check the confirmation message, redirect type', async ({page}) => {
     // Make sure the form uses the Redirect confirmation type.
-    await changeConfirmationType({page}, createdForm.id, 'Redirect');
+    await changeConfirmationType(page, {formId: createdForm.id, label: 'Redirect'});
 
     // Set up the redirection.
     await page.getByLabel('Redirect URL(Required)').fill(TEST_REDIRECT);
@@ -89,18 +89,18 @@ test.describe('Gravity Forms tests', () => {
     await page.goto(newPost.link);
 
     // Fill and submit the form.
-    await fillAndSubmitForm({page}, createdForm.id);
+    await fillAndSubmitForm(page, {formId: createdForm.id});
 
     // Make sure the page is redirected as expected.
     await expect(page).toHaveURL(TEST_REDIRECT);
 
     // Check that the entry has been registered as expected.
-    await checkEntry({page}, createdForm.id);
+    await checkEntry(page, {formId: createdForm.id});
   });
 
   test('check the confirmation message, page type', async ({page}) => {
     // Make sure the form uses the Page confirmation type.
-    await changeConfirmationType({page}, createdForm.id, 'Page');
+    await changeConfirmationType(page, {formId: createdForm.id, label: 'Page'});
 
     // Set up the page redirect.
     const confirmationSettings = page.locator('#gform_setting_page');
@@ -120,13 +120,13 @@ test.describe('Gravity Forms tests', () => {
     await page.goto(newPost.link);
 
     // Fill and submit the form.
-    await fillAndSubmitForm({page}, createdForm.id);
+    await fillAndSubmitForm(page, {formId: createdForm.id});
 
     // Make sure the page is redirected as expected.
     await expect(page).toHaveURL('./');
 
     // Check that the entry has been registered as expected.
-    await checkEntry({page}, createdForm.id);
+    await checkEntry(page, {formId: createdForm.id});
   });
 
   test('check the Hubspot feeds', async ({page}) => {

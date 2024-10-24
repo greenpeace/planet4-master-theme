@@ -22,7 +22,6 @@ async function searchImages(page, searchTerm) {
  * @param {string} [imageId] - The image to be deleted (optional).
  */
 async function deleteImageFromLibrary(page, imageId) {
-  const sidebar = page.locator('.archive-picker-sidebar');
   if (imageId) {
     // Search for the image.
     await searchImages(page, imageId);
@@ -33,13 +32,10 @@ async function deleteImageFromLibrary(page, imageId) {
   }
 
   // Open image link via the sidebar.
-  await expect(sidebar).toBeVisible();
-  await sidebar.locator('.sidebar-action').click();
+  await page.locator('.archive-picker-sidebar .sidebar-action').click();
 
   // Delete the image and wait for confirmation.
-  const deleteLink = page.getByText('Delete permanently');
-  await expect(deleteLink).toBeVisible();
-  await deleteLink.click();
+  await page.getByText('Delete permanently').click();
   await expect(page.getByText('Media file permanently deleted.')).toBeVisible();
 }
 
@@ -51,6 +47,8 @@ async function deleteImageFromLibrary(page, imageId) {
 async function waitForLibraryLoad(page) {
   const spinner = page.locator('.archive-picker-loading');
   await expect(spinner).toBeVisible();
+  const list = await page.locator('.picker-list');
+  await expect(list).toBeVisible();
   await expect(spinner).toBeHidden();
 }
 

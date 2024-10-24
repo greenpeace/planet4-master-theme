@@ -1,12 +1,14 @@
+import {searchAndInsertBlock} from './editor.js';
 import {expect} from './test-utils.js';
 
 const TEST_LINKS = ['/act', '/explore', '/'];
 
 async function addColumnsBlock(page, editor, style) {
   // Add Columns block.
-  await editor.canvas.getByRole('button', {name: 'Add default block'}).click();
-  await page.keyboard.type('/planet-4-columns');
-  await page.getByRole('option', {name: 'Planet 4 Columns'}).click();
+  await searchAndInsertBlock(page, {
+    blockName: 'Planet 4 Columns',
+    namespace: 'planet4-blocks-columns',
+  });
 
   // Select the style if needed.
   if (style) {
@@ -29,10 +31,11 @@ async function addColumnsBlock(page, editor, style) {
     ).fill(`${['Images', 'Icons'].includes(style) ? 'Link' : 'Button'} ${index + 1}`);
 
     if (style === 'Images' || style === 'Icons') {
-      await column.locator('.columns-image-placeholder').hover({noWaitAfter: true});
+      await column.locator('.image-placeholder-container').hover({noWaitAfter: true});
       await column.locator('.dashicons-plus-alt2').click();
+
       // Select image from media library modal.
-      const imageModal = await editor.canvas.getByLabel(/Select or Upload Media/);
+      const imageModal = await page.getByLabel(/Select or Upload Media/);
       await imageModal.getByRole('tab', {name: 'Media Library'}).click();
       await imageModal.getByRole('tabpanel', {name: 'Media Library'}).locator(`[data-id="${style === 'Images' ? 357 : 318}"]`).click();
       await imageModal.getByRole('button', {name: 'Select', exact: true}).click();

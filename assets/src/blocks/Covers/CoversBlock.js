@@ -1,66 +1,14 @@
+import {renderToString} from 'react-dom/server';
 import {CoversEditor} from './CoversEditor.js';
+import {attributes, BLOCK_NAME, COVERS_TYPES} from './CoversConstants';
 import {coversV1} from './deprecated/coversV1';
 import {coversV2} from './deprecated/coversV2';
 import {coversV3} from './deprecated/coversV3';
-import {BLOCK_NAME, COVERS_TYPES, COVERS_LAYOUTS} from './CoversConstants';
 import {example} from './example.js';
 import {getStyleLabel} from '../../functions/getStyleLabel';
 import {CoversFrontend} from './CoversFrontend.js';
-import {renderToString} from 'react-dom/server';
 
 const {__} = wp.i18n;
-
-export const VERSION = 2;
-
-export const attributes = {
-  cover_type: {
-    type: 'string',
-    default: 'content',
-  },
-  initialRowsLimit: {
-    type: 'integer',
-    default: 1,
-  },
-  title: {
-    type: 'string',
-    default: '',
-  },
-  description: {
-    type: 'string',
-    default: '',
-  },
-  tags: {
-    type: 'array',
-    default: [],
-  },
-  post_types: {
-    type: 'array',
-    default: [],
-  },
-  posts: {
-    type: 'array',
-    default: [],
-  },
-  version: {
-    type: 'integer',
-    default: VERSION,
-  },
-  layout: {
-    type: 'string',
-    default: COVERS_LAYOUTS.grid,
-  },
-  isExample: {
-    type: 'boolean',
-    default: false,
-  },
-  exampleCovers: { // Used for the block's preview, which can't extract items from anything.
-    type: 'object',
-  },
-  readMoreText: {
-    type: 'string',
-    default: __('Load more', 'planet4-blocks'),
-  },
-};
 
 export const registerCoversBlock = () => {
   const {RawHTML} = wp.element;
