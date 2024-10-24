@@ -39,6 +39,12 @@ class MasterSite extends TimberSite
     public const CREDIT_META_FIELD = '_credit_text';
 
     /**
+     * Restrictions meta field key
+     *
+     */
+    public const RESTRICTIONS_META_FIELD = '_media_restriction';
+
+    /**
      * Theme directory
      *
      */
@@ -1479,13 +1485,19 @@ class MasterSite extends TimberSite
      */
     public function add_image_attachment_fields_to_edit(array $form_fields, \WP_Post $post): array
     {
-
         // Add a Credit field.
         $form_fields['credit_text'] = [
             'label' => __('Credit', 'planet4-master-theme-backend'),
             'input' => 'text', // this is default if "input" is omitted.
             'value' => get_post_meta($post->ID, self::CREDIT_META_FIELD, true),
             'helps' => __('The owner of the image.', 'planet4-master-theme-backend'),
+        ];
+
+        // Add a Restrictions field.
+        $form_fields['restrictions_text'] = [
+            'label' => __('Restrictions', 'planet4-master-theme-backend'),
+            'input' => 'html',
+            'html' => get_post_meta($post->ID, self::RESTRICTIONS_META_FIELD, true),
         ];
 
         return $form_fields;

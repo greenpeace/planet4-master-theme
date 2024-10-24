@@ -667,3 +667,9 @@
     grid-template-columns: repeat(6, 1fr);
   }
 }
+
+.compat-field-restrictions_text .field,
+.restrictions-warning dd {
+  color: #D43B57; /* var(--red-500); */
+  font-weight: bold;
+}
