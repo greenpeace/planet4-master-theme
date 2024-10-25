@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2023-01-11T19:56:21+00:00\n"
-"PO-Revision-Date: 2024-10-25 08:10+0000\n"
+"PO-Revision-Date: 2024-10-25 08:12+0000\n"
 "X-Generator: Loco https://localise.biz/\n"
 "X-Domain: gravityforms\n"
 "Language: hr\n"
@@ -11947,7 +11947,7 @@ msgstr ""
 
 #: tooltips.php:72
 msgid "Required Field"
-msgstr ""
+msgstr "Obavezno polje"
 
 #: tooltips.php:72
 msgid ""
