@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2023-01-11T19:56:21+00:00\n"
-"PO-Revision-Date: 2024-10-24 15:03+0000\n"
+"PO-Revision-Date: 2024-10-25 08:10+0000\n"
 "X-Generator: Loco https://localise.biz/\n"
 "X-Domain: gravityforms\n"
 "Language: hr\n"
@@ -3964,11 +3964,11 @@ msgstr ""
 
 #: form_display.php:4475
 msgid "There was a problem with your submission."
-msgstr ""
+msgstr "Pojavio se problem s unosom podataka."
 
 #: form_display.php:4475
 msgid "Please review the fields below."
-msgstr ""
+msgstr "Molimo provjeri polja ispod."
 
 #: form_list.php:54 form_settings.php:154 tooltips.php:25
 #: assets/js/src/legacy/admin/blocks/blocks/form/edit.js:214
@@ -5095,7 +5095,7 @@ msgstr ""
 #: includes/fields/class-gf-field.php:746
 #: includes/settings/fields/class-base.php:637
 msgid "This field is required."
-msgstr ""
+msgstr "Ovo polje je obavezno."
 
 #: includes/addon/class-gf-addon.php:3589
 msgid "Validation Error"
