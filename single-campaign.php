@@ -36,7 +36,7 @@ if ($top_level_campaign_id === $post->ID) {
 } else {
     $parent_meta = get_post_meta($top_level_campaign_id);
     // Ensure each meta value is an array before applying reset().
-    $campaign_meta = array_map(function($meta_value) {
+    $campaign_meta = array_map(function ($meta_value) {
         return is_array($meta_value) ? reset($meta_value) : $meta_value;
     }, $parent_meta);
 }

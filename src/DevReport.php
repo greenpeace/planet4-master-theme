@@ -77,7 +77,7 @@ class DevReport
             if ($url && '.git' === substr($url, -4)) {
                 $new_url = substr($url, 0, -4);
             }
-            
+
             if ($pack1 && 'dev-' === substr($pack1, 0, 4)) {
                 $branch = substr($pack1, 4);
             } else {
@@ -90,9 +90,9 @@ class DevReport
             if ($pack0) {
                 echo '<h3>' . esc_html($pack0) . "</h3>\n";
             }
-            
+
             if ($branch && $branch_history_url) {
-            echo "<p>Version (tag/branch): <a href='" . esc_url($branch_history_url) . "'>"
+                echo "<p>Version (tag/branch): <a href='" . esc_url($branch_history_url) . "'>"
                 . esc_html($branch) . "</a></p>\n";
             }
 
@@ -101,10 +101,12 @@ class DevReport
                 . esc_html($url) . "</a></p>\n";
             }
 
-            if ($commit_url && $reference) {
-                echo "<p>Source hash: <a href='" . esc_url($commit_url) . "'>"
-                . esc_html($reference) . "</a></p>\n";
+            if (!$commit_url || !$reference) {
+                continue;
             }
+
+            echo "<p>Source hash: <a href='" . esc_url($commit_url) . "'>"
+            . esc_html($reference) . "</a></p>\n";
         }
     }
 }
