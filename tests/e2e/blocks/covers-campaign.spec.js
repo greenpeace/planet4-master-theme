@@ -5,7 +5,7 @@ import {publishPostAndVisit, createPostWithFeaturedImage} from '../tools/lib/pos
 test.useAdminLoggedIn();
 
 test('Test Covers block with Campaign covers style', async ({page, admin, editor}) => {
-  await createPostWithFeaturedImage({admin, editor}, {title: 'Test Covers block', postType: 'page'});
+  await createPostWithFeaturedImage({page, admin, editor}, {title: 'Test Covers block', postType: 'page'});
 
   // Add Covers block.
   await addCoversBlock(page, editor, 'Campaign');

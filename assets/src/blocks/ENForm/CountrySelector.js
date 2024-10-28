@@ -1,15 +1,13 @@
-export const CountrySelector = attributes => {
-  const {
-    name = 'country-selector',
-    id = null,
-    default_text = '',
-    class_name = '',
-    error_message = '',
-    required = false,
-    onInputChange = null,
-    onBlur = null,
-  } = attributes;
-
+export const CountrySelector = ({
+  name = 'country-selector',
+  id = null,
+  default_text = '',
+  class_name = '',
+  error_message = '',
+  required = false,
+  onInputChange = null,
+  onBlur = null,
+}) => {
   const options = [
     <option key="default" value="" disabled={true}>{ default_text }</option>,
     ...countries.map(c => {

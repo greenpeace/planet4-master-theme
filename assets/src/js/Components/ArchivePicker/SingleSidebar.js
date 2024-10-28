@@ -64,13 +64,13 @@ export default function SingleSidebar({image}) {
         <div className="info">
           {(image && view === ADMIN_VIEW) && (
             <>
-              {processingIds.includes(image.id) && !image.wordpress_id && __('Processing...', 'planet4-master-theme-backend')}
+              {processingIds.includes(image.id) && !image.wordpress_id && __('Processing…', 'planet4-master-theme-backend')}
               {showAddedMessage && image.wordpress_id && __('Added to Library', 'planet4-master-theme-backend')}
             </>
           )}
           {(image && view === EDITOR_VIEW) && (
             <>
-              {processing && __('Processing...', 'planet4-master-theme-backend')}
+              {processing && __('Processing…', 'planet4-master-theme-backend')}
               {imageAdded && __('Added!', 'planet4-master-theme-backend')}
               {error && __('Error Adding Image to Post!!!', 'planet4-master-theme-backend')}
             </>
@@ -98,7 +98,10 @@ export default function SingleSidebar({image}) {
                   className="sidebar-action"
                   href={wpImageLink}
                 >
-                  {sprintf(__('Wordpress image #%s', 'planet4-master-theme-backend'), image.wordpress_id)}
+                  {
+                    // translators: 1: image ID
+                    sprintf(__('Wordpress image #%s', 'planet4-master-theme-backend'), image.wordpress_id)
+                  }
                 </a>
               ) : (
                 <button
@@ -162,7 +165,10 @@ export default function SingleSidebar({image}) {
               className="sidebar-action"
               href={wpImageLink}
             >
-              {sprintf(__('Wordpress image #%s', 'planet4-master-theme-backend'), image.wordpress_id)}
+              {
+                // translators: 1: image ID
+                sprintf(__('Wordpress image #%s', 'planet4-master-theme-backend'), image.wordpress_id)
+              }
             </a>
           )}
           <dl className={'picker-sidebar-fields'}>

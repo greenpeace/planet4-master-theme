@@ -1,8 +1,8 @@
-import {useState, useEffect} from '@wordpress/element';
 import {addQueryArgs} from '../../functions/addQueryArgs';
 import {getAbortController} from '../../functions/getAbortController';
 import {COVERS_TYPES, COVERS_LAYOUTS} from './CoversConstants';
 
+const {useState, useEffect} = wp.element;
 const {apiFetch} = wp;
 
 const isMobile = () => window.innerWidth < 768;
