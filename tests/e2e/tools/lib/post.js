@@ -1,4 +1,4 @@
-import {expect} from "@playwright/test";
+import {expect} from '@playwright/test';
 
 /**
  * Publishes a post using the provided editor and returns the URL of the published post.
