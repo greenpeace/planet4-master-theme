@@ -16,7 +16,7 @@ $context = Timber::get_context();
 $taxonomy = get_queried_object();
 
 $context['taxonomy'] = $taxonomy;
-$context['wp_title'] = $taxonomy->name;
-$context['og_description'] = $taxonomy->description;
+$context['wp_title'] = $taxonomy ? $taxonomy->name : '';
+$context['og_description'] = $taxonomy ? $taxonomy->description : '';
 
 $page = new ListingPage($templates, $context);
