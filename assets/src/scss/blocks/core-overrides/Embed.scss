@@ -93,9 +93,22 @@ lite-youtube,
     @include media-group-one;
   }
 
-  &-instagram,
-  &-soundcloud {
+  &-instagram {
     @include media-group-two;
+  }
+
+  &-soundcloud {
+    margin-top: $sp-1;
+    margin-bottom: $sp-2;
+
+    .wp-block-embed__wrapper {
+      height: 100%;
+      padding: inherit;
+    }
+
+    iframe {
+      width: 100% !important;
+    }
   }
 
   &-flickr {
