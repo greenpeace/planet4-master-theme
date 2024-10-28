@@ -1,4 +1,4 @@
-import {COVERS_LAYOUTS} from '../CoversConstants';
+import {COMMON_ATTRIBUTES, COVERS_LAYOUTS} from '../CoversConstants';
 
 const OLD_COVER_TYPES = {
   1: 'take-action',
@@ -8,23 +8,12 @@ const OLD_COVER_TYPES = {
 
 export const coversV1 = {
   attributes: {
+    ...COMMON_ATTRIBUTES,
     title: {
       type: 'string',
     },
     description: {
       type: 'string',
-    },
-    tags: {
-      type: 'array',
-      default: [],
-    },
-    posts: {
-      type: 'array',
-      default: [],
-    },
-    post_types: {
-      type: 'array',
-      default: [],
     },
     covers_view: {
       type: 'string',

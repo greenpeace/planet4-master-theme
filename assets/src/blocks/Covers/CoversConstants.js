@@ -1,5 +1,3 @@
-const {__} = wp.i18n;
-
 export const COVERS_TYPES = {
   takeAction: 'take-action',
   campaign: 'campaign',
@@ -15,7 +13,23 @@ export const CAROUSEL_LAYOUT_COVERS_LIMIT = 12;
 
 export const BLOCK_NAME = 'planet4-blocks/covers';
 
-export const attributes = {
+export const COMMON_ATTRIBUTES = {
+  tags: {
+    type: 'array',
+    default: [],
+  },
+  post_types: {
+    type: 'array',
+    default: [],
+  },
+  posts: {
+    type: 'array',
+    default: [],
+  },
+};
+
+export const ATTRIBUTES = {
+  ...COMMON_ATTRIBUTES,
   cover_type: {
     type: 'string',
     default: 'content',
@@ -32,18 +46,6 @@ export const attributes = {
     type: 'string',
     default: '',
   },
-  tags: {
-    type: 'array',
-    default: [],
-  },
-  post_types: {
-    type: 'array',
-    default: [],
-  },
-  posts: {
-    type: 'array',
-    default: [],
-  },
   version: {
     type: 'integer',
     default: 2,
@@ -58,9 +60,5 @@ export const attributes = {
   },
   exampleCovers: { // Used for the block's preview, which can't extract items from anything.
     type: 'object',
-  },
-  readMoreText: {
-    type: 'string',
-    default: __('Load more', 'planet4-blocks'),
   },
 };
