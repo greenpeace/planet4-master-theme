@@ -106,7 +106,7 @@ async function checkCoversBlock(page, style) {
   // Check Load more button
   const loadMoreBtn = await page.$('button.load-more-btn');
   if (loadMoreBtn) {
-    await expect(page.locator('button.load-more-btn')).toHaveText('Load more');
+    await expect(page.locator('button.load-more-btn')).toHaveText('Read more');
   }
 }
 

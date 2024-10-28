@@ -13,23 +13,7 @@ export const CAROUSEL_LAYOUT_COVERS_LIMIT = 12;
 
 export const BLOCK_NAME = 'planet4-blocks/covers';
 
-export const COMMON_ATTRIBUTES = {
-  tags: {
-    type: 'array',
-    default: [],
-  },
-  post_types: {
-    type: 'array',
-    default: [],
-  },
-  posts: {
-    type: 'array',
-    default: [],
-  },
-};
-
-export const ATTRIBUTES = {
-  ...COMMON_ATTRIBUTES,
+export const attributes = {
   cover_type: {
     type: 'string',
     default: 'content',
@@ -49,6 +33,18 @@ export const ATTRIBUTES = {
   version: {
     type: 'integer',
     default: 2,
+  },
+  tags: {
+    type: 'array',
+    default: [],
+  },
+  post_types: {
+    type: 'array',
+    default: [],
+  },
+  posts: {
+    type: 'array',
+    default: [],
   },
   layout: {
     type: 'string',

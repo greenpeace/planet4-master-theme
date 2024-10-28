@@ -1,4 +1,4 @@
-import {ATTRIBUTES, BLOCK_NAME, COVERS_TYPES} from './CoversConstants';
+import {attributes, BLOCK_NAME, COVERS_TYPES} from './CoversConstants';
 import {renderToString} from 'react-dom/server';
 import {CoversEditor} from './CoversEditor.js';
 import {coversV1} from './deprecated/coversV1';
@@ -22,7 +22,7 @@ export const registerCoversBlock = () => {
       html: false, // Disable "Edit as HTMl" block option.
     },
     attributes: {
-      ...ATTRIBUTES,
+      ...attributes,
       covers: {
         type: 'array',
         default: [],
