@@ -1,3 +1,5 @@
+import {expect, Locator} from '@playwright/test'; // eslint-disable-line no-unused-vars
+
 /**
  * @param {{Editor}} editor
  * @param {string}   panelTitle - Panel title
@@ -64,10 +66,36 @@ async function removeAllPostTypes({editor}) {
   }
 }
 
+/**
+ * Insert new block into page using the block inserter
+ *
+ * @param {Object} page             - The page object used to interact with the page.
+ * @param {Object} params           - Additional block's parameters.
+ * @param {Object} params.blockName - The name of the block.
+ * @param {Object} params.namespace - The namespace to search if it is needed.
+ * @return {Promise<void>}          - Playwright Locator
+ */
+const searchAndInsertBlock = async (page, {blockName, namespace = ''}) => {
+  // Can be also used the aria-label="Toggle block inserter"
+  const addBlockButton = await page.locator('button[aria-label="Add block"]');
+  expect(addBlockButton).toBeVisible();
+  await addBlockButton.click();
+
+  await page.getByPlaceholder('Search').click();
+  await page.keyboard.type(namespace !== '' ? namespace : blockName);
+
+  if (namespace !== '') {
+    return await page.locator(`button.editor-block-list-item-${namespace.toLowerCase()}[role="option"]`).click();
+  }
+
+  return await page.getByRole('option', {name: blockName}).click();
+};
+
 export {
   openComponentPanel,
   addCategory,
   addTag,
   addPostType,
   removeAllPostTypes,
+  searchAndInsertBlock,
 };
