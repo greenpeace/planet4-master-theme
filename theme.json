@@ -179,7 +179,13 @@
             }
           ]
         }
-      }
+      },
+      "core/image": {
+				"lightbox": {
+          "enabled": true,
+					"allowEditing": true
+				}
+			}
     },
     "layout": {
       "contentSize": "736px"
