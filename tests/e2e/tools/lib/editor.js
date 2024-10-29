@@ -1,4 +1,4 @@
-import {expect, Locator} from '@playwright/test'; // eslint-disable-line no-unused-vars
+import {expect, Locator, Page} from '@playwright/test'; // eslint-disable-line no-unused-vars
 
 /**
  * @param {{Editor}} editor
@@ -69,13 +69,13 @@ async function removeAllPostTypes({editor}) {
 /**
  * Insert new block into page using the block inserter
  *
- * @param {Object} page             - The page object used to interact with the page.
+ * @param {{Page}} page
  * @param {Object} params           - Additional block's parameters.
  * @param {Object} params.blockName - The name of the block.
  * @param {Object} params.namespace - The namespace to search if it is needed.
  * @return {Promise<void>}          - Playwright Locator
  */
-const searchAndInsertBlock = async (page, {blockName, namespace = ''}) => {
+const searchAndInsertBlock = async ({page}, {blockName, namespace = ''}) => {
   const labelText = 'Toggle block inserter'; // Can we also use aria-label="Add block"
   const addBlockButton = await page.locator(`button[aria-label="${labelText}"]`);
   expect(addBlockButton).toBeVisible();
