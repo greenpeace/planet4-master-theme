@@ -76,8 +76,8 @@ async function removeAllPostTypes({editor}) {
  * @return {Promise<void>}          - Playwright Locator
  */
 const searchAndInsertBlock = async (page, {blockName, namespace = ''}) => {
-  // Can be also used the aria-label="Toggle block inserter"
-  const addBlockButton = await page.locator('button[aria-label="Add block"]');
+  const labelText = 'Toggle block inserter'; // Can we also use aria-label="Add block"
+  const addBlockButton = await page.locator(`button[aria-label="${labelText}"]`);
   expect(addBlockButton).toBeVisible();
   await addBlockButton.click();
 
