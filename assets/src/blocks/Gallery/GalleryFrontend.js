@@ -38,7 +38,7 @@ export const GalleryFrontend = ({
       {images.length ? (
         <>
           {layout === 'slider' && <GalleryCarousel images={images} expand={expand} />}
-          {layout === 'three-columns' && <GalleryThreeColumns images={images} postType={postType} />}
+          {layout === 'three-columns' && <GalleryThreeColumns images={images} postType={postType} expand={expand} />}
           {layout === 'grid' && <GalleryGrid images={images} expand={expand} />}
         </>
       ) : null}
