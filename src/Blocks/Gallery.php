@@ -34,6 +34,8 @@ class Gallery extends BaseBlock
         }
 
         $this->register_gallery_block();
+
+        add_action('wp_footer', [$this, 'add_lightbox_scripts'], 99);
     }
 
     /**
@@ -201,5 +203,63 @@ class Gallery extends BaseBlock
         }
 
         return $images;
+    }
+
+    /**
+     * Add all the necessary code and scripts to make the native lightbox feature work.
+     *
+     */
+    public function add_lightbox_scripts() {
+        if ( has_block('planet4-blocks/' . self::BLOCK_NAME) ) {
+            $inter_js_path = includes_url('js/dist/') . 'interactivity.js';
+            $img_view_path = includes_url('blocks/image/view.js');
+            ?>
+            <script type="importmap" id="wp-importmap">
+                {"imports":{"@wordpress/interactivity":"<?php echo $inter_js_path; ?>"}}
+            </script>
+            <script type="module" src="<?php echo $img_view_path; ?>" id="@wordpress/block-library/image-js-module"></script>
+            <link rel="modulepreload" href="<?php echo $inter_js_path; ?>" id="@wordpress/interactivity-js-modulepreload">
+    
+            <div class="wp-lightbox-overlay zoom"
+                 data-wp-interactive="core/image"
+                 data-wp-context='{}'
+                 data-wp-bind--role="state.roleAttribute"
+                 data-wp-bind--aria-label="state.currentImage.ariaLabel"
+                 data-wp-bind--aria-modal="state.ariaModal"
+                 data-wp-class--active="state.overlayEnabled"
+                 data-wp-class--show-closing-animation="state.showClosingAnimation"
+                 data-wp-watch="callbacks.setOverlayFocus"
+                 data-wp-on--keydown="actions.handleKeydown"
+                 data-wp-on-async--touchstart="actions.handleTouchStart"
+                 data-wp-on--touchmove="actions.handleTouchMove"
+                 data-wp-on-async--touchend="actions.handleTouchEnd"
+                 data-wp-on-async--click="actions.hideLightbox"
+                 data-wp-on-async-window--resize="callbacks.setOverlayStyles"
+                 data-wp-on-async-window--scroll="actions.handleScroll"
+                 tabindex="-1">
+                 
+                <button type="button" aria-label="Close" style="fill: var(--body--color)" class="close-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false">
+                        <path d="M13 11.8l6.1-6.3-1-1-6.1 6.2-6.1-6.2-1 1 6.1 6.3-6.5 6.7 1 1 6.5-6.6 6.5 6.6 1-1z"></path>
+                    </svg>
+                </button>
+                
+                <div class="lightbox-image-container">
+                    <figure data-wp-bind--class="state.currentImage.figureClassNames" data-wp-bind--style="state.currentImage.figureStyles">
+                        <img data-wp-bind--alt="state.currentImage.alt" data-wp-bind--class="state.currentImage.imgClassNames" data-wp-bind--style="state.imgStyles" data-wp-bind--src="state.currentImage.currentSrc">
+                    </figure>
+                </div>
+                
+                <div class="lightbox-image-container">
+                    <figure data-wp-bind--class="state.currentImage.figureClassNames" data-wp-bind--style="state.currentImage.figureStyles">
+                        <img data-wp-bind--alt="state.currentImage.alt" data-wp-bind--class="state.currentImage.imgClassNames" data-wp-bind--style="state.imgStyles" data-wp-bind--src="state.enlargedSrc">
+                    </figure>
+                </div>
+                
+                <div class="scrim" style="background-color: var(--body--background-color)" aria-hidden="true"></div>
+                <style data-wp-text="state.overlayStyles"></style>
+            </div>
+            <?php
+        }
     }
 }
