@@ -1,3 +1,5 @@
+const {__} = wp.i18n;
+
 export const COVERS_TYPES = {
   takeAction: 'take-action',
   campaign: 'campaign',
@@ -56,5 +58,9 @@ export const attributes = {
   },
   exampleCovers: { // Used for the block's preview, which can't extract items from anything.
     type: 'object',
+  },
+  readMoreText: {
+    type: 'string',
+    default: __('Load more', 'planet4-blocks'),
   },
 };
