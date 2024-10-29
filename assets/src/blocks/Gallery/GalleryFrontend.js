@@ -2,31 +2,17 @@ import {GalleryCarousel} from './GalleryCarousel';
 import {GalleryThreeColumns} from './GalleryThreeColumns';
 import {GalleryGrid} from './GalleryGrid';
 import {getGalleryLayout, GALLERY_BLOCK_CLASSES} from './getGalleryLayout';
-import {getCaptionWithCredits} from './getCaptionWithCredits.js';
 
 const {useEffect, useState} = wp.element;
-
-const imagesToItems = images => images.map(
-  image => ({
-    src: image.image_src,
-    w: 0,
-    h: 0,
-    title: getCaptionWithCredits(image),
-  })
-);
 
 export const GalleryFrontend = ({
   attributes = {},
 }) => {
   const [images, setImages] = useState([]);
-  const [items, setItems] = useState([]);
   const className = attributes.className ?? '';
+  const expand = attributes.expand_on_click;
   const layout = getGalleryLayout(className, attributes.gallery_block_style ?? '');
   const postType = document.body.getAttribute('data-post-type');
-
-  useEffect(() => {
-    setItems(imagesToItems(images));
-  }, [images]);
 
   useEffect(() => {
     if (attributes.image_data.length && attributes.images.length) {
@@ -53,7 +39,7 @@ export const GalleryFrontend = ({
         <>
           {layout === 'slider' && <GalleryCarousel images={images} />}
           {layout === 'three-columns' && <GalleryThreeColumns images={images} postType={postType} />}
-          {layout === 'grid' && <GalleryGrid images={images} />}
+          {layout === 'grid' && <GalleryGrid images={images} expand={expand} />}
         </>
       ) : null}
     </section>
