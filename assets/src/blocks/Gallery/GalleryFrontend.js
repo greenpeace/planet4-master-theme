@@ -37,7 +37,7 @@ export const GalleryFrontend = ({
 
       {images.length ? (
         <>
-          {layout === 'slider' && <GalleryCarousel images={images} />}
+          {layout === 'slider' && <GalleryCarousel images={images} expand={expand} />}
           {layout === 'three-columns' && <GalleryThreeColumns images={images} postType={postType} />}
           {layout === 'grid' && <GalleryGrid images={images} expand={expand} />}
         </>

@@ -1,5 +1,6 @@
 import {IMAGE_SIZES} from './imageSizes';
 import {getCaptionWithCredits} from './getCaptionWithCredits.js';
+import {GalleryLightbox} from './GalleryLightbox';
 
 const {__} = wp.i18n;
 const {useState, useEffect, useRef} = wp.element;
@@ -10,7 +11,7 @@ const isRTL = document.querySelector('html').dir === 'rtl';
 // You can find a list of examples here: https://gist.github.com/paulirish/5d52fb081b3570c81e3a
 const reflow = element => element.offsetHeight;
 
-export const GalleryCarousel = ({images, onImageClick, isEditing}) => {
+export const GalleryCarousel = ({images, isEditing, expand}) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [sliding, setSliding] = useState(false);
   const lastSlide = images.length - 1;
@@ -118,19 +119,28 @@ export const GalleryCarousel = ({images, onImageClick, isEditing}) => {
             className={`carousel-item ${index === currentSlide ? 'active' : ''}`}
             ref={element => slidesRef.current[index] = element}
           >
-            <img
-              loading="lazy"
-              src={image.image_src}
-              srcSet={image.image_srcset}
-              sizes={IMAGE_SIZES.carousel}
-              style={{objectPosition: image.focus_image}}
-              alt={image.alt_text}
-              title={image.alt_text}
-              data-index={index}
-              onClick={onImageClick}
-              role="presentation"
-            />
-
+            {
+              expand ?
+                <GalleryLightbox
+                  key={index}
+                  image={image}
+                  index={index}
+                  imgSizes={IMAGE_SIZES}
+                /> :
+                <div key={image.image_src} className="grid-item">
+                  <img
+                    loading="lazy"
+                    src={image.image_src}
+                    srcSet={image.image_srcset}
+                    sizes={IMAGE_SIZES.carousel}
+                    style={{objectPosition: image.focus_image}}
+                    alt={image.alt_text}
+                    title={image.alt_text}
+                    data-index={index}
+                    role="presentation"
+                  />
+                </div>
+            }
             {(image.caption || image.credits) && (
               <div className="carousel-caption">
                 <p>
