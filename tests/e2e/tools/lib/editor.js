@@ -70,12 +70,11 @@ async function removeAllPostTypes({editor}) {
  * Insert new block into page using the block inserter
  *
  * @param {{Page}} page
- * @param {Object} params           - Additional block's parameters.
- * @param {Object} params.blockName - The name of the block.
- * @param {Object} params.namespace - The namespace to search if it is needed.
- * @return {Promise<void>}          - Playwright Locator
+ * @param {string} blockName - The name of the block.
+ * @param {string} namespace - The namespace to search if it is needed.
+ * @return {Promise<void>}   - Playwright Locator
  */
-const searchAndInsertBlock = async ({page}, {blockName, namespace = ''}) => {
+const searchAndInsertBlock = async ({page}, blockName, namespace = '') => {
   const labelText = 'Toggle block inserter'; // Can we also use aria-label="Add block"
   const addBlockButton = await page.locator(`button[aria-label="${labelText}"]`);
   expect(addBlockButton).toBeVisible();
