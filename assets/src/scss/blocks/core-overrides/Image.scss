@@ -97,3 +97,29 @@
     text-align: right;
   }
 }
+
+.wp-lightbox-overlay {
+  .gallery-caption {
+    max-height: 20%;
+    color: var(--color-text-image_caption);
+    font-size: 0.875rem;
+    font-family: var(--font-family-paragraph-secondary);
+    line-height: 1.4;
+    margin-bottom: 0;
+    line-clamp: 3;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    text-align: center;
+    overflow: hidden;
+  }
+  figure.wp-block-image{
+    max-height: 80vh;
+
+    img {
+      height: inherit;
+      min-height: inherit;
+      min-width: auto;
+      width: auto;
+    }
+  }
+}

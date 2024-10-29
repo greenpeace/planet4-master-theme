@@ -254,6 +254,7 @@ class Gallery extends BaseBlock
                     <figure data-wp-bind--class="state.currentImage.figureClassNames" data-wp-bind--style="state.currentImage.figureStyles">
                         <img data-wp-bind--alt="state.currentImage.alt" data-wp-bind--class="state.currentImage.imgClassNames" data-wp-bind--style="state.imgStyles" data-wp-bind--src="state.enlargedSrc">
                     </figure>
+                    <div class="gallery-caption"></div>
                 </div>
                 
                 <div class="scrim" style="background-color: var(--body--background-color)" aria-hidden="true"></div>
