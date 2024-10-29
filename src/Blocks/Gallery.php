@@ -94,6 +94,10 @@ class Gallery extends BaseBlock
                         'type' => 'array',
                         'default' => [],
                     ],
+                    'expand_on_click' => [
+                        'type' => 'boolean',
+                        'default' => false,
+                    ],
                 ],
             ]
         );

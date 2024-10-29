@@ -6,11 +6,11 @@ import {useGalleryImages} from './useGalleryImages';
 
 const {useSelect} = wp.data;
 const {InspectorControls, MediaPlaceholder, MediaUploadCheck, RichText} = wp.blockEditor;
-const {FocalPointPicker, PanelBody} = wp.components;
+const {FocalPointPicker, PanelBody, ToggleControl} = wp.components;
 const {__} = wp.i18n;
 
 const renderEdit = (attributes, setAttributes, isSelected) => {
-  const {image_data, className, gallery_block_style} = attributes;
+  const {image_data, className, gallery_block_style, expand_on_click} = attributes;
 
   const layout = getGalleryLayout(className, gallery_block_style);
 
@@ -75,6 +75,23 @@ const renderEdit = (attributes, setAttributes, isSelected) => {
       {hasImages && (
         <InspectorControls>
           <PanelBody title={__('Settings', 'planet4-blocks-backend')}>
+
+            <div className="wp-block-master-theme-gallery__LightBox">
+              <strong className="components-base-control__help">
+                {__('Expand on click', 'planet4-blocks-backend')}
+              </strong>
+              <p className="components-base-control__help">
+                {__('Scales the gallery images with a lightbox effect.', 'planet4-blocks-backend')}
+              </p>
+              <ToggleControl
+                label={__('Expand', 'planet4-blocks-backend')}
+                value={expand_on_click}
+                checked={expand_on_click}
+                help={expand_on_click ? __('Expand is enabled.', 'planet4-blocks-backend') : __('Expand is disabled.', 'planet4-blocks-backend')}
+                onChange={value => setAttributes({expand_on_click: value})}
+              />
+            </div>
+
             <div className="wp-block-master-theme-gallery__FocalPointPicker">
               <strong className="components-base-control__help">
                 {__('Select gallery image focal point', 'planet4-blocks-backend')}
@@ -111,6 +128,7 @@ const renderView = (attributes, setAttributes) => {
     className,
     multiple_image,
     gallery_block_focus_points,
+    isLightBox,
   } = attributes;
 
   const layout = getGalleryLayout(className, gallery_block_style);
@@ -147,7 +165,7 @@ const renderView = (attributes, setAttributes) => {
       />
       {layout === 'slider' && <GalleryCarousel images={images || []} isEditing />}
       {layout === 'three-columns' && <GalleryThreeColumns images={images || []} postType={postType} />}
-      {layout === 'grid' && <GalleryGrid images={images || []} />}
+      {layout === 'grid' && <GalleryGrid images={images || []} isLightBox={isLightBox} />}
     </section>
   );
 };

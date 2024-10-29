@@ -35,6 +35,10 @@ const attributes = {
     type: 'array',
     default: [],
   },
+  expand_on_click: {
+    type: 'boolean',
+    default: false,
+  },
 };
 
 export const registerGalleryBlock = () => {
