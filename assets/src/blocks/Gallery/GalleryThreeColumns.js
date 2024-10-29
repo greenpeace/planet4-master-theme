@@ -1,5 +1,6 @@
 import {IMAGE_SIZES} from './imageSizes';
 import {GalleryLightbox} from './GalleryLightbox';
+import {GalleryImage} from './GalleryImage';
 
 const ordinals = ['first', 'second', 'third'];
 
@@ -16,17 +17,11 @@ export const GalleryThreeColumns = ({images, postType, expand}) => (
                 index={index}
                 imgSizes={IMAGE_SIZES}
               /> :
-              <img
-                loading="lazy"
-                src={image.image_src}
-                srcSet={image.image_srcset}
-                sizes={IMAGE_SIZES[`threeColumns${index}`]}
-                style={{objectPosition: image.focus_image}}
-                alt={image.alt_text}
-                title={image.alt_text}
+              <GalleryImage
+                image={image}
+                index={index}
+                imgSizes={IMAGE_SIZES[`threeColumns${index}`]}
                 className={`img_${postType}`}
-                data-index={index}
-                role="presentation"
               />
           }
         </div>

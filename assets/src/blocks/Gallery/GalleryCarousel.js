@@ -1,6 +1,7 @@
 import {IMAGE_SIZES} from './imageSizes';
 import {getCaptionWithCredits} from './getCaptionWithCredits.js';
 import {GalleryLightbox} from './GalleryLightbox';
+import {GalleryImage} from './GalleryImage';
 
 const {__} = wp.i18n;
 const {useState, useEffect, useRef} = wp.element;
@@ -127,16 +128,10 @@ export const GalleryCarousel = ({images, isEditing, expand}) => {
                   index={index}
                   imgSizes={IMAGE_SIZES}
                 /> :
-                <img
-                  loading="lazy"
-                  src={image.image_src}
-                  srcSet={image.image_srcset}
-                  sizes={IMAGE_SIZES.carousel}
-                  style={{objectPosition: image.focus_image}}
-                  alt={image.alt_text}
-                  title={image.alt_text}
-                  data-index={index}
-                  role="presentation"
+                <GalleryImage
+                  image={image}
+                  index={index}
+                  imgSizes={IMAGE_SIZES}
                 />
             }
             {(image.caption || image.credits) && (
