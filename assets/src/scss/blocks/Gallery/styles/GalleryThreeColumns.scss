@@ -21,6 +21,10 @@
     position: relative;
   }
 
+  &.force-no-lightbox .split-image img {
+    cursor: auto;
+  }
+
   .split-image {
     position: absolute;
 

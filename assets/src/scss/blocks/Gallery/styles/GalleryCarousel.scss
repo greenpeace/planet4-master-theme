@@ -1,6 +1,12 @@
 .carousel-wrap {
   overflow: hidden;
 
+  &.force-no-lightbox {
+    .carousel-item img {
+      cursor: auto;
+    }
+  }
+
   h1 {
     font-size: $font-size-lg;
     margin-bottom: 22px;

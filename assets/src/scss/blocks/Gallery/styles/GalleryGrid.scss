@@ -5,6 +5,10 @@
 }
 
 .gallery-grid {
+  &.force-no-lightbox .grid-row .grid-item {
+    cursor: auto;
+  }
+
   .grid-row {
     text-align: center;
 
