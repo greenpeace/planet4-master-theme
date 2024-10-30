@@ -23,7 +23,11 @@ class M034MigrateCoversContentBlockToPostsListBlock extends MigrationScript
     {
         try {
             // Get the list of posts using Covers blocks.
-            $posts = Utils\Functions::get_posts_using_specific_block(Utils\Constants::BLOCK_COVERS, Utils\Constants::ALL_POST_TYPES);
+            $posts = Utils\Functions::get_posts_using_specific_block(
+                Utils\Constants::BLOCK_COVERS,
+                Utils\Constants::ALL_POST_TYPES,
+                Utils\Constants::POST_STATUS_LIST,
+            );
 
             // If there are no posts, abort.
             if (!$posts) {
