@@ -87,7 +87,7 @@ const searchAndInsertBlock = async ({page}, blockName, namespace = '') => {
     return await page.locator(`button.editor-block-list-item-${namespace.toLowerCase()}[role="option"]`).click();
   }
 
-  return await page.getByRole('option', {name: blockName}).click();
+  return await page.getByRole('option', {name: blockName, exact: true}).click();
 };
 
 export {
