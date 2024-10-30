@@ -1,5 +1,6 @@
 import {test, expect} from '../tools/lib/test-utils.js';
 import {publishPostAndVisit, createPostWithFeaturedImage} from '../tools/lib/post.js';
+import {searchAndInsertBlock} from '../tools/lib/editor.js';
 
 const YOUTUBE_TEST = 'https://www.youtube.com/watch?v=-CwkccAgKrs';
 const VIMEO_TEST = 'https://vimeo.com/100195272';
@@ -16,9 +17,7 @@ const MP3_TEST = 'https://www.greenpeace.ch/static/planet4-switzerland-stateless
  * @param {string} mediaType - The type of media added (Audio or Video).
  */
 const addVideoOrAudioBlock = async ({page}, mediaLink, mediaType) => {
-  await page.getByRole('button', {name: 'Toggle block inserter'}).click();
-  await page.getByLabel('Search for blocks and patterns').fill(mediaType);
-  await page.getByRole('option', {name: mediaType, exact: true}).click();
+  await searchAndInsertBlock({page}, mediaType);
   await page.getByRole('button', {name: 'Insert from URL'}).click();
   await page.getByPlaceholder('Paste or type URL').fill(mediaLink);
   await page.keyboard.press('Enter');
