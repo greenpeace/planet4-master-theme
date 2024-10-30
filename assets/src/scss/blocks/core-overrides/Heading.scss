@@ -1,18 +1,24 @@
-.is-style-chevron::after {
-  content: "";
-  pointer-events: none;
-  margin-inline-start: $sp-1;
-  height: 12px;
-  width: 12px;
-  display: inline-block;
-  mask-image: url("../../public/images/icons/chevron.svg");
-  mask-repeat: no-repeat;
-  mask-size: contain;
-  background-repeat: no-repeat;
-  background-color: currentColor;
-  vertical-align: middle;
+.wp-block-heading {
+  &.is-style-chevron::after {
+    content: "";
+    pointer-events: none;
+    margin-inline-start: $sp-1;
+    height: 12px;
+    width: 12px;
+    display: inline-block;
+    mask-image: url("../../images/chevron.svg");
+    mask-repeat: no-repeat;
+    mask-size: contain;
+    background-repeat: no-repeat;
+    background-color: currentColor;
+    vertical-align: middle;
 
-  html[dir="rtl"] & {
-    transform: rotate(180deg);
+    html[dir="rtl"] & {
+      transform: rotate(180deg);
+    }
+  }
+
+  > a {
+    @include shared-link-styles;
   }
 }
