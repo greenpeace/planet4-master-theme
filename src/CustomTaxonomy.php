@@ -91,7 +91,10 @@ class CustomTaxonomy
         if (-1 === $current_type) {
             // Assign default p4-pagetype for new POST.
             $planet4_default_post_type = $this->get_planet4_default_post_type();
-            $current_type = $planet4_default_post_type->slug;
+
+            $current_type = (isset($planet4_default_post_type) && isset($planet4_default_post_type->slug))
+                ? $planet4_default_post_type->slug
+                : '';
         }
 
         wp_nonce_field('p4-save-page-type', 'p4-page-type-nonce');

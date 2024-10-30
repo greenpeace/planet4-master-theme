@@ -35,8 +35,10 @@ if ($top_level_campaign_id === $post->ID) {
     $campaign_meta = $meta;
 } else {
     $parent_meta = get_post_meta($top_level_campaign_id);
-    // Get rid of all metas being in an array.
-    $campaign_meta = array_map('reset', $parent_meta);
+    // Ensure each meta value is an array before applying reset().
+    $campaign_meta = array_map(function ($meta_value) {
+        return is_array($meta_value) ? reset($meta_value) : $meta_value;
+    }, $parent_meta);
 }
 
 // This is just an example of how to get children pages, this will probably be done in some kind of menu block.

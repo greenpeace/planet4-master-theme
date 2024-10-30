@@ -69,25 +69,44 @@ class DevReport
         }
 
         foreach ($gp_packages as $gp_package) {
-            $url = $gp_package[2]['url'];
-            if ('.git' === substr($url, -4)) {
-                $url = substr($url, 0, -4);
-            }
-            if ('dev-' === substr($gp_package[1], 0, 4)) {
-                $branch = substr($gp_package[1], 4);
-            } else {
-                $branch = $gp_package[1];
-            }
-            $branch_history_url = $url . '/commits/' . $branch;
-            $commit_url = $url . '/commit/' . $gp_package[2]['reference'];
+            $pack0 = isset($gp_package[0]) ? $gp_package[0] : null;
+            $pack1 = isset($gp_package[1]) ? $gp_package[1] : null;
+            $url = isset($gp_package[2]['url']) ? $gp_package[2]['url'] : null;
+            $reference = isset($gp_package[2]['reference']) ? $gp_package[2]['reference'] : null;
 
-            echo '<h3>' . esc_html($gp_package[0]) . "</h3>\n";
-            echo "<p>Version (tag/branch): <a href='" . esc_url($branch_history_url) . "'>"
+            if ($url && '.git' === substr($url, -4)) {
+                $new_url = substr($url, 0, -4);
+            }
+
+            if ($pack1 && 'dev-' === substr($pack1, 0, 4)) {
+                $branch = substr($pack1, 4);
+            } else {
+                $branch = $pack1;
+            }
+
+            $branch_history_url = $new_url && $branch ? $new_url . '/commits/' . $branch : null;
+            $commit_url = $new_url && $reference ? $new_url . '/commit/' . $reference : null;
+
+            if ($pack0) {
+                echo '<h3>' . esc_html($pack0) . "</h3>\n";
+            }
+
+            if ($branch && $branch_history_url) {
+                echo "<p>Version (tag/branch): <a href='" . esc_url($branch_history_url) . "'>"
                 . esc_html($branch) . "</a></p>\n";
-            echo "<p>Source repo: <a href='" . esc_url($gp_package[2]['url']) . "'>"
-                . esc_html($gp_package[2]['url']) . "</a></p>\n";
+            }
+
+            if ($url) {
+                echo "<p>Source repo: <a href='" . esc_url($url) . "'>"
+                . esc_html($url) . "</a></p>\n";
+            }
+
+            if (!$commit_url || !$reference) {
+                continue;
+            }
+
             echo "<p>Source hash: <a href='" . esc_url($commit_url) . "'>"
-                . esc_html($gp_package[2]['reference']) . "</a></p>\n";
+            . esc_html($reference) . "</a></p>\n";
         }
     }
 }
