@@ -5,10 +5,7 @@ const TEST_LINKS = ['/act', '/explore', '/'];
 
 async function addColumnsBlock(page, editor, style) {
   // Add Columns block.
-  await searchAndInsertBlock(page, {
-    blockName: 'Planet 4 Columns',
-    namespace: 'planet4-blocks-columns',
-  });
+  await searchAndInsertBlock({page}, 'Planet 4 Columns', 'planet4-blocks-columns');
 
   // Select the style if needed.
   if (style) {

@@ -8,7 +8,7 @@ test('Create and check carousel header block', async ({page, admin, editor}) => 
   await createPostWithFeaturedImage({page, admin, editor}, {title: 'Test Carousel', postType: 'page'});
 
   // Add block
-  await searchAndInsertBlock(page, {blockName: 'Carousel Header'});
+  await searchAndInsertBlock({page}, 'Carousel Header');
 
   // Filling Carousel details
   let title = page.getByRole('textbox', {name: 'Enter title'});
