@@ -7,7 +7,7 @@ test.useAdminLoggedIn();
 test('Test Related Articles block', async ({page, admin, editor}) => {
   await createPostWithFeaturedImage({page, admin, editor}, {title: 'Test post for Related articles'});
 
-  await searchAndInsertBlock(page, {blockName: 'paragraph'});
+  await searchAndInsertBlock({page}, 'paragraph');
   await (await page.waitForSelector('p[data-type="core/paragraph"]')).click();
   await page.keyboard.type('Test content used as a post excerpt.');
 

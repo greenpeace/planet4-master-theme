@@ -11,7 +11,7 @@ test('Test Gallery basic functionalities', async ({page, admin, editor}) => {
   });
 
   // Search block
-  await searchAndInsertBlock(page, {blockName: 'Planet 4 Gallery', namespace: 'planet4-blocks-gallery'});
+  await searchAndInsertBlock({page}, 'Planet 4 Gallery', 'planet4-blocks-gallery');
 
   await page.route('./wp-json/planet4/v1/gallery/images/*', async route => {
     const request = route.request();

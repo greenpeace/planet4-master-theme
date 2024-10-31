@@ -11,7 +11,7 @@ test('Test Spreadsheet block', async ({page, admin, editor}) => {
   await createPostWithFeaturedImage({page, admin, editor}, {title: 'Test Spreadsheet', postType: 'page'});
 
   // Add Spreadsheet block.
-  await searchAndInsertBlock(page, {blockName: 'Spreadsheet'});
+  await searchAndInsertBlock({page}, 'Spreadsheet');
 
   // Check that the "empty URL" warning is displayed.
   const warning = page.locator('.block-edit-mode-warning');

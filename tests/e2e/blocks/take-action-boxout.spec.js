@@ -10,7 +10,7 @@ test.describe('Test Take Action Boxout block', () => {
 
     // Add Take Action Boxout block.
     const actionRequest = page.waitForRequest(/.*\/wp-json\/wp\/v2\/p4_action.*/);//NOSONAR
-    await searchAndInsertBlock(page, {blockName: 'Take Action Boxout'});
+    await searchAndInsertBlock({page}, 'Take Action Boxout');
     await actionRequest;
 
     await page

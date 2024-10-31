@@ -7,7 +7,7 @@ const POST_TYPES = ['Publication', 'Press Release'];
 
 async function addCoversBlock(page, editor, style = '') {
   // Add Covers block.
-  await searchAndInsertBlock(page, {blockName: 'Covers'});
+  await searchAndInsertBlock({page}, 'Covers');
 
   // Select the style if needed.
   if (style) {

@@ -12,7 +12,7 @@ test('Test Articles block', async ({page, admin, editor}) => {
   await createPostWithFeaturedImage({page, admin, editor}, {title: 'Test Articles', postType: 'page'});
 
   // Add Articles block.
-  await searchAndInsertBlock(page, {blockName: 'Articles'});
+  await searchAndInsertBlock({page}, 'Articles');
 
   // Check that the default texts for the title and button are applied.
   const editorTitle = page.getByRole('textbox', {name: 'Enter title'});
