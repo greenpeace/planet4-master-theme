@@ -1,4 +1,4 @@
-import {expect, Locator, Page} from '@playwright/test'; // eslint-disable-line no-unused-vars
+import {Locator, Page} from '@playwright/test'; // eslint-disable-line no-unused-vars
 
 /**
  * @param {{Editor}} editor
