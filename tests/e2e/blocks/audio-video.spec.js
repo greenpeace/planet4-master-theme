@@ -13,11 +13,11 @@ const MP3_TEST = 'https://www.greenpeace.org/static/planet4-assets/tests/wochens
  * Add a Video or Audio block to a page with a specific link.
  *
  * @param {Object} page - The page object for interacting with the browser.
- * @param {string} mediaLink - The video file link (can be YouTube, Vimeo, mp4).
  * @param {string} mediaType - The type of media added (Audio or Video).
+ * @param {string} mediaLink - The media file link (can be YouTube, Vimeo, mp4, mp3, SoundCloud).
  */
-const addVideoOrAudioBlock = async ({page}, mediaLink, mediaType) => {
-  await searchAndInsertBlock({page}, mediaType);
+const addVideoOrAudioBlock = async ({page}, mediaType, mediaLink) => {
+  await searchAndInsertBlock({page}, mediaType, mediaType);
   await page.getByRole('button', {name: 'Insert from URL'}).click();
   await page.getByPlaceholder('Paste or type URL').fill(mediaLink);
   await page.keyboard.press('Enter');
@@ -39,13 +39,13 @@ test('check the Audio and Video blocks', async ({page, admin, editor}) => {
   await createPostWithFeaturedImage({admin, editor}, {title: 'Test Audio and Video blocks'});
 
   // Add Video blocks with the various examples.
-  await addVideoOrAudioBlock({page}, YOUTUBE_TEST, 'Video');
-  await addVideoOrAudioBlock({page}, VIMEO_TEST, 'Video');
-  await addVideoOrAudioBlock({page}, MP4_TEST, 'Video');
+  await addVideoOrAudioBlock({page}, 'video', YOUTUBE_TEST);
+  await addVideoOrAudioBlock({page}, 'video', VIMEO_TEST);
+  await addVideoOrAudioBlock({page}, 'video', MP4_TEST);
 
   // Add Audio blocks with the various examples.
-  await addVideoOrAudioBlock({page}, MP3_TEST, 'Audio');
-  await addVideoOrAudioBlock({page}, SOUNDCLOUD_TEST, 'Audio');
+  await addVideoOrAudioBlock({page}, 'audio', MP3_TEST);
+  await addVideoOrAudioBlock({page}, 'audio', SOUNDCLOUD_TEST);
 
   // Publish page.
   await publishPostAndVisit({page, editor});
