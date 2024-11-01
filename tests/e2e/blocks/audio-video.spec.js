@@ -36,7 +36,7 @@ test('check the Audio and Video blocks', async ({page, admin, editor}) => {
   }
 
   // Create a post for the test.
-  await createPostWithFeaturedImage({admin, editor}, {title: 'Test Audio and Video blocks'});
+  await createPostWithFeaturedImage({page, admin, editor}, {title: 'Test Audio and Video blocks'});
 
   // Add Video blocks with the various examples.
   await addVideoOrAudioBlock({page}, 'video', YOUTUBE_TEST);
