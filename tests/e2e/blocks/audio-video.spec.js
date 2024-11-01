@@ -4,10 +4,10 @@ import {searchAndInsertBlock} from '../tools/lib/editor.js';
 
 const YOUTUBE_TEST = 'https://www.youtube.com/watch?v=-CwkccAgKrs';
 const VIMEO_TEST = 'https://vimeo.com/100195272';
-const MP4_TEST = 'https://media.greenpeace.org/AssetLink/60348bthya3s4dg118j4nh42oskv6wdb.mp4';
+const MP4_TEST = 'https://www.greenpeace.org/static/planet4-assets/tests/edge_of_the_wrold.mp4';
 
 const SOUNDCLOUD_TEST = 'https://soundcloud.com/greenpeaceuk-1/04-and-we-will-defend-requiem';
-const MP3_TEST = 'https://www.greenpeace.ch/static/planet4-switzerland-stateless/2023/11/b15df1dd-radio_1_wochenserie_greenpeace_231106.mp3';
+const MP3_TEST = 'https://www.greenpeace.org/static/planet4-assets/tests/wochenserie_greenpeace.mp3';
 
 /**
  * Add a Video or Audio block to a page with a specific link.
