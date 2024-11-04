@@ -100,8 +100,8 @@
   }
 
   p:not(.article-list-item-meta) a,
-  > ul li a,
-  > ol li a {
+  > article > ul li a,
+  > article > ol li a {
     @include shared-link-styles;
   }
 
