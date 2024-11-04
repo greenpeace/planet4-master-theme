@@ -416,12 +416,8 @@ add_action(
             return;
         }
         $category_slug = isset($_GET['category']) ? $_GET['category'] : '';
-        if (!empty($category_slug)) {
-            $category = get_category_by_slug($category_slug);
-            $category_id = $category->term_id;
-        }
-        $category_filter = empty($category_slug) ? [] : [$category_id];
-        $query->set('category__in', $category_filter);
+        $category = get_category_by_slug($category_slug);
+        $query->set('category__in', !$category ? [] : [$category->term_id]);
     }
 );
 
