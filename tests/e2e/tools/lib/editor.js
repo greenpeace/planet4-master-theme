@@ -80,9 +80,8 @@ const searchAndInsertBlock = async ({page}, blockName, namespace = '') => {
   const addBlockButton = await page.locator(`button[aria-label="${labelText}"]`);
   expect(addBlockButton).toBeVisible();
   await addBlockButton.click();
-
   await page.getByPlaceholder('Search').click();
-  await page.keyboard.type(namespace !== '' ? namespace : blockName);
+  await page.keyboard.type(blockName);
 
   if (namespace !== '') {
     return await page.locator(`button.editor-block-list-item-${namespace.toLowerCase()}[role="option"]`).click();
