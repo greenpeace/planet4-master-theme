@@ -11,7 +11,7 @@ use WP_Block_Parser;
 /**
  * Migrate split-two-columns block to columns block.
  */
-class M034MigrateSplit2ColumnBlock extends MigrationScript
+class M032MigrateSplit2ColumnBlock extends MigrationScript
 {
     /**
      * Extract split-two-columns block from page/posts and transform it into columns block.
