@@ -33,9 +33,9 @@ class M034MigrateSplit2ColumnBlock extends MigrationScript
                 return;
             }
 
-            $parser = new WP_Block_Parser();
-
             echo "Split 2 Columns block migration in progress...\n"; // phpcs:ignore
+
+            $parser = new WP_Block_Parser();
 
             foreach ($posts as $post) {
                 if (empty($post->post_content)) {
@@ -44,18 +44,28 @@ class M034MigrateSplit2ColumnBlock extends MigrationScript
 
                 $current_post_id = $post->ID; // Store the current post ID
 
-                echo 'Parsing post ', $post->ID, "\n"; // phpcs:ignore
-                //$result = false;
+                echo 'Parsing post ', $current_post_id, "\n"; // phpcs:ignore
 
-                // Go through the post blocks to find the planet4-blocks/split-two-columns one.
+                // Get all the blocks of each post.
                 $blocks = $parser->parse($post->post_content);
 
+                if (!is_array($blocks)) {
+                    throw new \Exception("Invalid block structure for post #" . $current_post_id);
+                }
+
                 foreach ($blocks as &$block) {
-                    // Skip other blocks.
-                    if (
-                        ! isset($block['blockName']) ||
-                        $block['blockName'] !== Utils\Constants::BLOCK_SPLIT_TWO_COLUMNS
-                    ) {
+                    // Check if the block is valid.
+                    if (!is_array($block)) {
+                        continue;
+                    }
+
+                    // Check if the block has a 'blockName' key.
+                    if (!isset($block['blockName'])) {
+                        continue;
+                    }
+
+                    // Check if the block is a split-two-columns block. If not, abort.
+                    if ($block['blockName'] !== Utils\Constants::BLOCK_SPLIT_TWO_COLUMNS) {
                         continue;
                     }
 
@@ -68,24 +78,21 @@ class M034MigrateSplit2ColumnBlock extends MigrationScript
                 // Serialize the blocks content.
                 $new_content = serialize_blocks($blocks);
 
-                if ($post->post_content !== $new_content) {
-                    $post_update = array(
-                        'ID' => $post->ID,
-                        'post_content' => $new_content,
-                    );
+                $post_update = array(
+                    'ID' => $current_post_id,
+                    'post_content' => $new_content,
+                );
 
-                    // Update the post with the replaced blocks.
-                    $result = wp_update_post($post_update);
-                    if ($result === 0) {
-                        throw new \Exception("There was an error trying to update the post #" . $post->ID);
-                    }
+                // Update the post with the replaced blocks.
+                $result = wp_update_post($post_update);
+
+                if ($result === 0) {
+                    throw new \Exception("There was an error trying to update the post #" . $current_post_id);
                 }
 
-                echo $result
-                    ? "Migration successful\n"
-                    : "Migration wasn't executed\n"; // phpcs:ignore
+                echo "Migration successful\n";
             }
-        } catch (\Throwable $e) {
+        } catch (\ErrorException $e) {
             // Catch any exceptions and display the post ID if available
             echo "Migration wasn't executed for post ID: ", $current_post_id ?? 'unknown', "\n";
             echo $e->getMessage(), "\n";
@@ -153,7 +160,6 @@ class M034MigrateSplit2ColumnBlock extends MigrationScript
      *
      * @param array $block - A parsed split-two-columns block.
      * @return array - A block attrs array.
-     * phpcs:disable Generic.Files.LineLength.MaxExceeded
      */
     private static function get_split_2_columns_block_attrs(array $block): array
     {
