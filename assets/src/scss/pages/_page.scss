@@ -121,3 +121,81 @@
     outline: 0 none;
   }
 }
+
+.bottom-navigation {
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  font-weight: var(--font-weight-bold);
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-xxs--font-family-primary);
+
+  a {
+    display: flex;
+    align-items: center;
+  }
+
+  a:hover {
+    text-decoration: none;
+  }
+
+  &-next {
+    margin-inline-start: auto;
+
+    &::after {
+      background-image: url("../../images/arrow_forward.svg");
+      margin-inline-start: $sp-x;
+    }
+  }
+
+  &-prev {
+    &::before {
+      background-image: url("../../images/arrow_back.svg");
+      margin-inline-end: $sp-x;
+    }
+  }
+
+  @include small-and-less {
+    a {
+      width: 50%;
+    }
+
+    .bottom-navigation-link-text {
+      width: 80%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+
+  @include large-and-up {
+    height: 116px;
+    font-size: var(--font-size-s--font-family-primary);
+  }
+}
+
+.bottom-navigation-prev::before,
+.bottom-navigation-next::after {
+  content: "";
+  display: inline-block;
+  height: 10px;
+  width: 20px;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin-bottom: 2px;
+}
+
+html[dir="rtl"] {
+  .bottom-navigation-prev::before,
+  .bottom-navigation-next::after {
+    display: inline-block;
+    transform: rotateY(190deg);
+  }
+}
+
+// Remove bottom margin from last element in page-content
+.page-content > .wp-block-group:last-child {
+  margin-bottom: 0;
+}
