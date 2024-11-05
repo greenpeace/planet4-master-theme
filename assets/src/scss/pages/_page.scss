@@ -70,9 +70,15 @@
   }
 }
 
-.with-mobile-tabs ~ :not(.page-header) + .page-content {
+.with-mobile-tabs {
   @include medium-and-less {
-    padding-top: calc(var(--navbar-menu-height--small) + 50px);
+    & ~ :not(.page-header) + .page-content {
+      padding-top: calc(var(--navbar-menu-height--small) + 50px);
+    }
+
+    & ~ .featured-posts + .page-content{
+      padding: 0;
+    }
   }
 }
 
