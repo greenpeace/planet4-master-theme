@@ -12,7 +12,6 @@ class Constants
 
     public const BLOCK_MEDIA_VIDEO = self::PREFIX_P4_BLOCKS . '/media-video';
     public const BLOCK_SPLIT_TWO_COLUMNS = self::PREFIX_P4_BLOCKS . '/split-two-columns';
-    public const BLOCK_SOCIAL_MEDIA = self::PREFIX_P4_BLOCKS . '/social-media';
 
     public const BLOCK_EMBED = self::PREFIX_CORE_BLOCKS . '/embed';
     public const BLOCK_AUDIO = self::PREFIX_CORE_BLOCKS . '/audio';
@@ -45,18 +44,4 @@ class Constants
         'future',
         'private',
     ];
-
-    public const INSTAGRAM = 'instagram';
-    public const FACEBOOK = 'facebook';
-    public const TWITTER = 'twitter';
-    public const X = 'x';
-
-    // phpcs:disable Generic.Files.LineLength.MaxExceeded
-    public const SOCIAL_MEDIA_PATTERNS = [
-        self::INSTAGRAM => '/^(?:(?:http|https):\/\/)?(?:www.)?(?:instagram.com|instagr.am|instagr.com)\/.+$/i',
-        self::FACEBOOK => '/^(?:(?:http|https)?:\/\/)?(?:www\.)?(mbasic.facebook|m\.facebook|facebook|fb)\.(com|me)\/.+$/i',
-        self::TWITTER => '/^(https?\:\/\/)?(www\.)?(twitter\.com)\/.+$/i',
-        self::X => '/^(https?\:\/\/)?(www\.)?x\.com\/.+$/i',
-    ];
-    // phpcs:enable Generic.Files.LineLength.MaxExceeded
 }
