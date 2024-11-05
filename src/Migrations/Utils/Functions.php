@@ -3,6 +3,7 @@
 namespace P4\MasterTheme\Migrations\Utils;
 
 use P4\MasterTheme\BlockReportSearch\BlockSearch;
+use P4\MasterTheme\BlockReportSearch\Block\Query\Parameters;
 
 /**
  * Utility functions for the migration scripts.
@@ -14,13 +15,21 @@ class Functions
      *
      * @param string $block_name - The name of the block to be searched.
      * @param array $post_types - The list of post types to look for.
+     * @param array $post_status - The list of post status to look for.
+     *
      * @return mixed - The posts using a type of block or null if no posts are found.
      */
-    public static function get_posts_using_specific_block(string $block_name, array $post_types): mixed
+    //phpcs:ignore Generic.Files.LineLength.MaxExceeded
+    public static function get_posts_using_specific_block(string $block_name, array $post_types, ?array $post_status = null): mixed
     {
         $search = new BlockSearch();
+        $params = ( new Parameters() )->with_name($block_name);
 
-        $post_ids = $search->get_posts_with_block($block_name);
+        if ($post_status) {
+            $params = $params->with_post_status($post_status);
+        }
+
+        $post_ids = $search->get_posts($params);
 
         if (empty($post_ids)) {
             return null;
@@ -30,6 +39,10 @@ class Functions
             'include' => $post_ids,
             'post_type' => $post_types,
         ];
+
+        if ($post_status) {
+            $args['post_status'] = 'any';
+        }
 
         $posts = get_posts($args) ?? [];
 

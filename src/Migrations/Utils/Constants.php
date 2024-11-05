@@ -31,4 +31,12 @@ class Constants
         self::POST_TYPES_ACTION,
         self::POST_TYPES_CAMPAIGN,
     ];
+
+    public const POST_STATUS_LIST = [
+        'publish',
+        'pending',
+        'draft',
+        'future',
+        'private',
+    ];
 }
