@@ -34,7 +34,6 @@ use P4\MasterTheme\Migrations\M029RemoveTemplateEditorOption;
 use P4\MasterTheme\Migrations\M030RemovePurgeOnFeatureChangeOption;
 use P4\MasterTheme\Migrations\M031MigrateMediaBlockToAudioVideoBlock;
 use P4\MasterTheme\Migrations\M032MigrateSplit2ColumnBlock;
-use P4\MasterTheme\Migrations\M033MigrateMediaBlockToAudioVideoBlock;
 use P4\MasterTheme\Migrations\M034MigrateCampaignCoversToP4ColumnsBlock;
 
 /**
@@ -87,7 +86,6 @@ class Migrator
             M030RemovePurgeOnFeatureChangeOption::class,
             M031MigrateMediaBlockToAudioVideoBlock::class,
             M032MigrateSplit2ColumnBlock::class,
-            M033MigrateMediaBlockToAudioVideoBlock::class,
             M034MigrateCampaignCoversToP4ColumnsBlock::class,
         ];
 
