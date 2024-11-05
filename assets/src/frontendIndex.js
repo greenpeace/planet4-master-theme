@@ -4,6 +4,7 @@ import {createRoot} from 'react-dom/client';
 import {TableOfContentsFrontend} from './blocks/TableOfContents/TableOfContentsFrontend';
 import {HappyPointFrontend} from './blocks/HappyPoint/HappyPointFrontend';
 import {ColumnsFrontend} from './blocks/Columns/ColumnsFrontend';
+import {setupLightboxForImages} from './blocks/components/Lightbox/setupLightboxForImages';
 
 // Render React components
 const COMPONENTS = {
@@ -29,4 +30,6 @@ document.addEventListener('DOMContentLoaded', () => {
       rootElement.render(<BlockFrontend {...attributes.attributes} />);
     }
   );
+
+  setupLightboxForImages();
 });

@@ -42,6 +42,10 @@ export const GalleryFrontend = ({
     }
   }, [attributes]);
 
+  // If the gallery contains the 'force-no-lightbox' class,
+  // then do not expand the images on click.
+  const expandOnClick = className.includes('force-no-lightbox') ? null : openLightbox;
+
   return (
     <section className={`block ${GALLERY_BLOCK_CLASSES[layout]} ${className}`}>
       {attributes.gallery_block_title &&
@@ -55,9 +59,9 @@ export const GalleryFrontend = ({
 
       {images.length ? (
         <>
-          {layout === 'slider' && <GalleryCarousel onImageClick={openLightbox} images={images} />}
-          {layout === 'three-columns' && <GalleryThreeColumns onImageClick={openLightbox} images={images} postType={postType} />}
-          {layout === 'grid' && <GalleryGrid onImageClick={openLightbox} images={images} />}
+          {layout === 'slider' && <GalleryCarousel onImageClick={expandOnClick} images={images} />}
+          {layout === 'three-columns' && <GalleryThreeColumns onImageClick={expandOnClick} images={images} postType={postType} />}
+          {layout === 'grid' && <GalleryGrid onImageClick={expandOnClick} images={images} />}
         </>
       ) : null}
 

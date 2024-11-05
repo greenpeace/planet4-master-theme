@@ -7,6 +7,11 @@
   img {
     max-width: 100%;
     height: auto;
+    cursor: pointer;
+  }
+
+  .force-no-lightbox img {
+    cursor: auto;
   }
 
   p:not(.article-list-item-meta) a,

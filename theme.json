@@ -179,6 +179,12 @@
             }
           ]
         }
+      },
+      "core/image": {
+        "lightbox": {
+          "enabled": false,
+          "allowEditing": false
+        }
       }
     },
     "layout": {

@@ -46,7 +46,9 @@ export const setupLightboxForImages = function() {
   const imagesWithCaptions = document.querySelectorAll('.post-content .wp-caption, .page-content .wp-caption');
   imagesWithCaptions.forEach(setupImageAndCaption(lightBoxNode, 'img', '.wp-caption-text'));
 
-  const imagesInParagraphs = document.querySelectorAll('.post-content p:not(.wp-caption), .page-content p:not(.wp-caption)');
+  const imagesInParagraphs = document.querySelectorAll(
+    '.post-content p:not(.wp-caption):not(.force-no-lightbox), .page-content p:not(.wp-caption):not(.force-no-lightbox)'
+  );
   imagesInParagraphs.forEach(setupImageAndCaption(lightBoxNode, 'img'));
 
   const mediaAndTextImages = document.querySelectorAll('.wp-block-media-text:not(.force-no-lightbox)');
