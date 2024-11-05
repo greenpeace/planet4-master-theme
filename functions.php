@@ -5,6 +5,7 @@ use P4\MasterTheme\Loader;
 use P4\MasterTheme\MediaArchive\Rest;
 use P4\MasterTheme\Post;
 use Timber\Timber;
+use Timber\Menu as TimberMenu;
 
 // This theme vendor dir
 if (file_exists(__DIR__ . '/vendor/autoload.php')) {
@@ -287,6 +288,13 @@ function register_more_blocks(): void
             'render_callback' => 'render_related_posts_block',
         ]
     );
+
+    register_block_type(
+        'p4/bottom-page-navigation-block',
+        [
+            'render_callback' => 'render_navigation_block',
+        ]
+    );
 }
 
 add_action('init', 'register_more_blocks');
@@ -356,6 +364,88 @@ function render_related_posts_block(array $attributes): string
     <!-- /wp:query -->';
 
     return do_blocks($output);
+}
+
+/**
+ * Custom block render function for Bottom page navigation
+ *
+ * @param array  $attributes Array of dynamic attributes to render section.
+ *
+ * @return string HTML markup for front end.
+ */
+// phpcs:ignore SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter
+function render_navigation_block(array $attributes): string
+{
+    global $post;
+
+    $menu = new TimberMenu('navigation-bar-menu');
+    $menu_items = $menu->get_items();
+
+    // Check if the current page is in the menu
+    $nav_menu_item = null;
+    foreach ($menu_items as $item) {
+        if ((int) $item->object_id === (int) $post->ID) {
+            $nav_menu_item = $item;
+            break;
+        }
+    }
+
+
+    // Check if the current page is a submenu item
+    $submenu_page = null;
+    foreach ($menu_items as $item) {
+        if (empty($item->children)) {
+            continue;
+        }
+
+        foreach ($item->children as $child) {
+            if ((int) $child->object_id === (int) $post->ID) {
+                $submenu_page = $child;
+                break 2;
+            }
+        }
+    }
+
+
+    // Omit the block if the page is not in the menu or submenu
+    if (!$nav_menu_item && !$submenu_page) {
+        return '';
+    }
+
+    // For parent pages, get the previous and next siblings in the menu order
+    $output = '';
+    $siblings = array_filter($menu_items, function ($item) use ($nav_menu_item) {
+        return $item->menu_item_parent === $nav_menu_item->menu_item_parent;
+    });
+
+    $siblings = array_values($siblings);
+
+    $current_index = array_search($nav_menu_item, $siblings);
+
+    if ($current_index !== false) {
+        $prev_item = $siblings[$current_index - 1] ?? null;
+        $next_item = $siblings[$current_index + 1] ?? null;
+        if ($prev_item) {
+            $output .= '<a href="' . esc_url($prev_item->url) . '" class="bottom-navigation-prev"><span class="bottom-navigation-link-text">' . esc_html($prev_item->title) . '</span></a>';
+        }
+        if ($next_item) {
+            $output .= '<a href="' . esc_url($next_item->url) . '" class="bottom-navigation-next"><span class="bottom-navigation-link-text">' . esc_html($next_item->title) . '</span></a>';
+        }
+    }
+
+    // For child pages, only show link to the parent
+    if ($submenu_page->menu_item_parent !== 0) {
+        $parent_item = array_filter($menu_items, function ($item) use ($submenu_page) {
+            return (int) $item->ID === (int) $submenu_page->menu_item_parent;
+        });
+
+        $parent_item = reset($parent_item);
+        if ($parent_item) {
+            $output = '<a href="' . esc_url($parent_item->url) . '" class="bottom-navigation-prev sub-nav-item"><span class="bottom-navigation-link-text">' . esc_html($parent_item->title) . '</span></a>';
+        }
+    }
+
+    return '<div class="container bottom-navigation">' . $output . '</div>';
 }
 
 add_filter(
