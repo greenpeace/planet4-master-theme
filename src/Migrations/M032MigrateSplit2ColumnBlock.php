@@ -25,8 +25,7 @@ class M032MigrateSplit2ColumnBlock extends MigrationScript
             // Get the list of posts using split-two-columns block.
             $posts = Utils\Functions::get_posts_using_specific_block(
                 Utils\Constants::BLOCK_SPLIT_TWO_COLUMNS,
-                Utils\Constants::ALL_POST_TYPES,
-                Utils\Constants::POST_STATUS_LIST
+                Utils\Constants::ALL_POST_TYPES
             );
 
             // If there are no posts, abort.
@@ -99,6 +98,7 @@ class M032MigrateSplit2ColumnBlock extends MigrationScript
             echo $e->getMessage(), "\n";
         }
     }
+    // phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter
 
     /**
      * Transform a block attrs into columns block.
