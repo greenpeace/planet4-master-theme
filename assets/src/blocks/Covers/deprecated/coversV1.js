@@ -2,7 +2,6 @@ import {COVERS_LAYOUTS} from '../CoversConstants';
 
 const OLD_COVER_TYPES = {
   1: 'take-action',
-  3: 'content',
 };
 
 export const coversV1 = {

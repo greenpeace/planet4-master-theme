@@ -33,14 +33,12 @@ class Covers extends BaseBlock
      */
     private const OLD_COVER_TYPES = [
         '1' => 'take-action',
-        '3' => 'content',
     ];
 
     /**
      * New cover types, used for version 2.
      */
     private const TAKE_ACTION_COVER_TYPE = 'take-action';
-    private const CONTENT_COVER_TYPE = 'content';
 
     /**
      * Layout options.
@@ -90,7 +88,7 @@ class Covers extends BaseBlock
                 'attributes' => [
                     'cover_type' => [
                         'type' => 'string',
-                        'default' => self::CONTENT_COVER_TYPE,
+                        'default' => self::TAKE_ACTION_COVER_TYPE,
                     ],
                     'initialRowsLimit' => [
                         'type' => 'integer',
@@ -180,13 +178,11 @@ class Covers extends BaseBlock
      */
     public static function get_covers(array $fields): array
     {
-        $cover_type = $fields['cover_type'] ?? self::CONTENT_COVER_TYPE;
+        $cover_type = $fields['cover_type'];
         $covers = [];
 
         if (self::TAKE_ACTION_COVER_TYPE === $cover_type) {
             $covers = self::populate_posts_for_act_pages($fields);
-        } elseif (self::CONTENT_COVER_TYPE === $cover_type) {
-            $covers = self::populate_posts_for_cfc($fields);
         }
 
         return $covers;
