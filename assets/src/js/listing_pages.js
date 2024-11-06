@@ -32,13 +32,14 @@ export const setupListingPages = () => {
 
   const updateFilter = event => {
     const {target: {id, value}} = event;
-    const urlParams = new URLSearchParams(window.location.search);
+    const newUrl = new URL(window.location.href.split('/page/')[0]);
+
     if (value) {
-      urlParams.set(id, value);
+      newUrl.searchParams.set(id, value);
     } else {
-      urlParams.delete(id);
+      newUrl.searchParams.delete(id);
     }
-    window.location.search = urlParams;
+    window.location.href = newUrl.href;
   };
 
   // Category filter.
