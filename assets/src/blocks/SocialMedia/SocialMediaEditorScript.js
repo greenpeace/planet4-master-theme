@@ -31,14 +31,6 @@ const loadScriptAsync = uri => {
   });
 };
 
-const initializeTwitterEmbeds = () => {
-  setTimeout(() => {
-    if ('undefined' !== window.twttr) {
-      window.twttr.widgets.load();
-    }
-  }, 2000);
-};
-
 const initializeInstagramEmbeds = () => {
   setTimeout(() => {
     if ('undefined' !== window.instgrm) {
@@ -56,10 +48,6 @@ const initializeFacebookEmbeds = () => {
 };
 
 const PROVIDER_SCRIPT_DATA = {
-  twitter: {
-    script: 'https://platform.twitter.com/widgets.js',
-    initFunction: initializeTwitterEmbeds,
-  },
   facebook: {
     script: 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v9.0',
     initFunction: initializeFacebookEmbeds,
@@ -92,7 +80,7 @@ export const SocialMediaEditor = ({
 
   /**
    * Check if social media corresponding embeds script is loaded and initiliaze it.
-   * Can be used for Facebook, Twitter and Instagram depending on the parameter.
+   * Can be used for Facebook and Instagram depending on the parameter.
    *
    * @param {Object} provider
    */
@@ -149,7 +137,7 @@ export const SocialMediaEditor = ({
     })();
   }, [social_media_url]);
 
-  const embed_type_help = __('Select oEmbed for the following types of social media<br>- Twitter: tweet, profile, list, collection, likes, moment<br>- Facebook: post, activity, photo, video, media, question, note<br>- Instagram: image', 'planet4-blocks-backend');
+  const embed_type_help = __('Select oEmbed for the following types of social media<br>- Facebook: post, activity, photo, video, media, question, note<br>- Instagram: image', 'planet4-blocks-backend');
 
   const renderEditInPlace = () => (
     <>
