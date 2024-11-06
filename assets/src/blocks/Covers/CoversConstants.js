@@ -2,7 +2,6 @@ const {__} = wp.i18n;
 
 export const COVERS_TYPES = {
   takeAction: 'take-action',
-  campaign: 'campaign',
   content: 'content',
 };
 

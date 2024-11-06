@@ -33,7 +33,6 @@ class Covers extends BaseBlock
      */
     private const OLD_COVER_TYPES = [
         '1' => 'take-action',
-        '2' => 'campaign',
         '3' => 'content',
     ];
 
@@ -41,7 +40,6 @@ class Covers extends BaseBlock
      * New cover types, used for version 2.
      */
     private const TAKE_ACTION_COVER_TYPE = 'take-action';
-    private const CAMPAIGN_COVER_TYPE = 'campaign';
     private const CONTENT_COVER_TYPE = 'content';
 
     /**
@@ -187,8 +185,6 @@ class Covers extends BaseBlock
 
         if (self::TAKE_ACTION_COVER_TYPE === $cover_type) {
             $covers = self::populate_posts_for_act_pages($fields);
-        } elseif (self::CAMPAIGN_COVER_TYPE === $cover_type) {
-            $covers = self::populate_posts_for_campaigns($fields);
         } elseif (self::CONTENT_COVER_TYPE === $cover_type) {
             $covers = self::populate_posts_for_cfc($fields);
         }
@@ -364,53 +360,6 @@ class Covers extends BaseBlock
         }
 
         return [];
-    }
-
-    /**
-     * Populate posts for campaign thumbnail template.
-     *
-     * @param array $fields This is the array of fields of this block.
-     */
-    private static function populate_posts_for_campaigns(array &$fields): array
-    {
-        // Get user defined tags from backend.
-        $tag_ids = $fields['tags'] ?? [];
-        $layout = $fields['layout'] ?? self::GRID_LAYOUT;
-
-        if (empty($tag_ids)) {
-            return [];
-        }
-
-        if (self::CAROUSEL_LAYOUT === $layout && count($tag_ids) > self::POSTS_LIMIT_CAROUSEL_LAYOUT) {
-            $tag_ids = array_slice($tag_ids, 0, self::POSTS_LIMIT_CAROUSEL_LAYOUT);
-        }
-
-        $tags = get_tags(['include' => $tag_ids]);
-
-        if (!is_array($tags)) {
-            return [];
-        }
-
-        $covers = [];
-
-        foreach ($tags as $tag) {
-            $tag_remapped = [
-                'title' => html_entity_decode($tag->name),
-                'slug' => $tag->slug,
-                'href' => get_tag_link($tag),
-            ];
-            $attachment_id = get_term_meta($tag->term_id, 'tag_attachment_id', true);
-
-            if (!empty($attachment_id)) {
-                $tag_remapped['image'] = wp_get_attachment_image_src($attachment_id, 'medium_large');
-                $tag_remapped['srcset'] = wp_get_attachment_image_srcset($attachment_id, 'medium_large') ?? 'false';
-                $tag_remapped['alt_text'] = get_post_meta($attachment_id, '_wp_attachment_image_alt', true);
-            }
-
-            $covers[] = $tag_remapped;
-        }
-
-        return $covers;
     }
 
     /**
