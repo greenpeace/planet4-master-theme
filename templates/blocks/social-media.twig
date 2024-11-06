@@ -13,17 +13,23 @@
 			{% if ( embed_code ) %}
 				{{ embed_code|raw }}
 			{% elseif ( facebook_page_url ) %}
-				<iframe class="social-media-embed-facebook social-media-embed-facebook--small" src="https://www.facebook.com/plugins/page.php?href={{ facebook_page_url|url_encode }}&tabs={{ facebook_page_tab }}&width=240&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true"
+				<iframe
+                    class="social-media-embed-facebook social-media-embed-facebook--small"
+                    src="https://www.facebook.com/plugins/page.php?href={{ facebook_page_url|url_encode }}&tabs={{ facebook_page_tab }}&width=240&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true"
 					scrolling="no"
 					frameborder="0"
 					allowTransparency="true"
 					allow="encrypted-media"
+                    title="Small Facebook embed"
 				></iframe>
-				<iframe class="social-media-embed-facebook social-media-embed-facebook--large" src="https://www.facebook.com/plugins/page.php?href={{ facebook_page_url|url_encode }}&tabs={{ facebook_page_tab }}&width=500&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true"
+				<iframe
+                    class="social-media-embed-facebook social-media-embed-facebook--large"
+                    src="https://www.facebook.com/plugins/page.php?href={{ facebook_page_url|url_encode }}&tabs={{ facebook_page_tab }}&width=500&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true"
 					scrolling="no"
 					frameborder="0"
 					allowTransparency="true"
 					allow="encrypted-media"
+                    title="Large Facebook embed"
 				></iframe>
 			{% endif %}
 		</div>

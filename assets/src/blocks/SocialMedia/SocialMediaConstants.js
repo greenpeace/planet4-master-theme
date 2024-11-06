@@ -6,7 +6,6 @@ export const FACEBOOK_PAGE_TAB_EVENTS = 'events';
 export const FACEBOOK_PAGE_TAB_MESSAGES = 'messages';
 
 export const ALLOWED_OEMBED_PROVIDERS = [
-  'twitter',
   'facebook',
   'instagram',
 ];

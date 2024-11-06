@@ -23,7 +23,6 @@ class SocialMedia extends BaseBlock
     public const BLOCK_NAME = 'social-media';
 
     private const ALLOWED_OEMBED_PROVIDERS = [
-        'twitter',
         'facebook',
         'instagram',
     ];
@@ -126,17 +125,8 @@ class SocialMedia extends BaseBlock
             if ('oembed' === $embed_type) {
                 // need to remove . so instagr.am becomes instagram.
                 $provider = preg_replace('#(^www\.)|(\.com$)|(\.)#', '', strtolower(wp_parse_url($url, PHP_URL_HOST)));
-
-                // Fix for backend preview, do not include embed script in response.
-                if ($this->is_rest_request() && 'twitter' === $provider) {
-                    $url = add_query_arg([ 'omit_script' => true ], $url);
-                }
                 if (in_array($provider, self::ALLOWED_OEMBED_PROVIDERS, true)) {
-                    if ('twitter' === $provider) {
-                        $data['embed_code'] = wp_oembed_get($url);
-                    } else {
-                        $data['embed_code'] = $this->get_fb_oembed_html(rawurlencode($url), $provider);
-                    }
+                    $data['embed_code'] = $this->get_fb_oembed_html(rawurlencode($url), $provider);
                 }
             } elseif ('facebook_page' === $embed_type) {
                 $data['facebook_page_url'] = $url;
