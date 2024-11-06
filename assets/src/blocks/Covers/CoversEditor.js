@@ -10,7 +10,6 @@ import {useEffect} from '@wordpress/element';
 import {InspectorControls, RichText} from '@wordpress/block-editor';
 import TagSelector from '../../block-editor/TagSelector';
 import {PostSelector} from '../../block-editor/PostSelector';
-import PostTypeSelector from '../../block-editor/PostTypeSelector';
 import {Covers} from './Covers';
 import {COVERS_TYPES, COVERS_LAYOUTS, CAROUSEL_LAYOUT_COVERS_LIMIT} from './CoversConstants';
 import {useCovers} from './useCovers';
@@ -67,13 +66,6 @@ const renderEdit = (attributes, toAttribute, setAttributes) => {
             </p>
           </div>
         }
-
-        {cover_type === COVERS_TYPES.content && !posts.length &&
-          <PostTypeSelector
-            value={post_types}
-            onChange={toAttribute('post_types')}
-          />
-        }
         {!tags.length && !post_types.length &&
           <div>
             <label htmlFor="post-selector__control">{__('Manual override', 'planet4-blocks-backend')}</label>
@@ -82,7 +74,7 @@ const renderEdit = (attributes, toAttribute, setAttributes) => {
               label={__('Select pages', 'planet4-blocks-backend')}
               selected={posts || []}
               onChange={toAttribute('posts')}
-              postType={cover_type === COVERS_TYPES.content ? 'post,page' : 'act_page'}
+              postType={'act_page'}
               placeholder={__('Select pages', 'planet4-blocks-backend')}
               maxLength={layout === COVERS_LAYOUTS.carousel ? CAROUSEL_LAYOUT_COVERS_LIMIT : null}
             />
