@@ -124,7 +124,6 @@ class Functions
         $args = [
             'include' => $post_ids,
             'post_type' => $post_types,
-            'post_status' => 'any',
         ];
 
         if ($post_status) {
