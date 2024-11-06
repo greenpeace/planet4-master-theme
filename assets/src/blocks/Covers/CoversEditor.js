@@ -60,9 +60,7 @@ const renderEdit = (attributes, toAttribute, setAttributes) => {
             <TagSelector
               value={tags}
               onChange={toAttribute('tags')}
-              maxLength={layout === COVERS_LAYOUTS.carousel && cover_type === COVERS_TYPES.campaign ?
-                CAROUSEL_LAYOUT_COVERS_LIMIT :
-                null}
+              maxLength={null}
             />
             <p className="FieldHelp">
               {__('Associate this block with Actions that have specific Tags', 'planet4-blocks-backend')}
@@ -77,7 +75,7 @@ const renderEdit = (attributes, toAttribute, setAttributes) => {
           />
         }
 
-        {cover_type !== COVERS_TYPES.campaign && !tags.length && !post_types.length &&
+        {!tags.length && !post_types.length &&
           <div>
             <label htmlFor="post-selector__control">{__('Manual override', 'planet4-blocks-backend')}</label>
             <PostSelector

@@ -19,7 +19,7 @@ export const useCovers = ({post_types, tags, cover_type, initialRowsLimit, posts
 
   const updateRowCoversAmount = () => {
     setIsSmallWindow(window.innerWidth < 992);
-    if (cover_type === COVERS_TYPES.campaign || cover_type === COVERS_TYPES.takeAction) {
+    if (cover_type === COVERS_TYPES.takeAction) {
       if (layout === COVERS_LAYOUTS.carousel) {
         setAmountOfCoversPerRow(3);
       } else {

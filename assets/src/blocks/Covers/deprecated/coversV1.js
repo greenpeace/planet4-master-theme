@@ -2,7 +2,6 @@ import {COVERS_LAYOUTS} from '../CoversConstants';
 
 const OLD_COVER_TYPES = {
   1: 'take-action',
-  2: 'campaign',
   3: 'content',
 };
 
