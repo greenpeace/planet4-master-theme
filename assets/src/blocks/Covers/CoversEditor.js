@@ -74,6 +74,7 @@ const renderEdit = (attributes, toAttribute, setAttributes) => {
             onChange={toAttribute('post_types')}
           />
         }
+
         {!tags.length && !post_types.length &&
           <div>
             <label htmlFor="post-selector__control">{__('Manual override', 'planet4-blocks-backend')}</label>
