@@ -1,3 +1,5 @@
+const {__} = wp.i18n;
+
 export const setupListingPages = () => {
   // Setup behaviour for list/grid toggle.
   const listViewToggle = document.querySelector('.list-view-toggle');
@@ -41,4 +43,12 @@ export const setupListingPages = () => {
 
   // Category filter.
   document.getElementById(CATEGORY_FILTER).onchange = updateFilter;
+
+  // Add 'No posts found' text when needed.
+  if (!listingPageContent.querySelector('.wp-block-post-template')) {
+    const noPostsFound = document.createElement('p');
+    noPostsFound.classList.add('listing-page-no-posts-found');
+    noPostsFound.innerHTML = __('No posts found!', 'planet4-master-theme');
+    listingPageContent.appendChild(noPostsFound);
+  }
 };
