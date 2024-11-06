@@ -3,7 +3,7 @@ import {publishPostAndVisit, createPostWithFeaturedImage} from '../tools/lib/pos
 import {searchAndInsertBlock} from '../tools/lib/editor.js';
 
 const YOUTUBE_TEST = 'https://www.youtube.com/watch?v=-CwkccAgKrs';
-const VIMEO_TEST = 'https://vimeo.com/100195272';
+const VIMEO_TEST = 'https://vimeo.com/120680405';
 const MP4_TEST = 'https://www.greenpeace.org/static/planet4-assets/tests/edge_of_the_wrold.mp4';
 
 const SOUNDCLOUD_TEST = 'https://soundcloud.com/greenpeaceuk-1/04-and-we-will-defend-requiem';
