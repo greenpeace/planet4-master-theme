@@ -107,10 +107,14 @@ class M033MigrateSocialMediaTwitterBlockToEmbedBlock extends MigrationScript
                         continue;
                     }
 
-                    // If the source is Twitter, we want to change it to X.
-                    // This avoids an extra redirection.
-                    if ($source === self::SOURCE_TWITTER) {
-                        $social_media_url = str_replace(self::SOURCE_TWITTER, self::SOURCE_X, $social_media_url);
+                    // If the source is X, we want to change it to Twitter.
+                    // Links from x.com don't work in the Embed block at the moment.
+                    if ($source === self::SOURCE_X) {
+                        $social_media_url = str_replace(
+                            self::SOURCE_X . '.com',
+                            self::SOURCE_TWITTER . '.com',
+                            $social_media_url,
+                        );
                     }
 
                     // Transform the Social Media block into an Embed block.
