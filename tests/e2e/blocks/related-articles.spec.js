@@ -7,8 +7,8 @@ import {
 
 test.useAdminLoggedIn();
 
-test('Test Related Articles block', async ({page, admin, editor}) => {
-  await createPostWithFeaturedImage({admin, editor}, {title: 'Test post for Related articles'});
+test('Test Related Posts block', async ({page, admin, editor}) => {
+  await createPostWithFeaturedImage({admin, editor}, {title: 'Test post for Related posts'});
 
   await editor.canvas.getByRole('button', {name: 'Add default block'}).click();
   await page.keyboard.type('Test paragraph.');
@@ -32,10 +32,10 @@ test('Test Related Articles block', async ({page, admin, editor}) => {
   await page.waitForTimeout(1000); // letting metabox post query finish
 
   await page.goto(postUrl);
-  const relatedSection = await page.locator('[data-render="planet4-blocks/articles"]');
+  const relatedSection = await page.locator('.p4-query-loop');
   await relatedSection.scrollIntoViewIfNeeded();
-  await relatedSection.locator('.article-list-item');
-  await expect(relatedSection.locator('.article-list-item')).not.toHaveCount(0);
+  await relatedSection.locator('.wp-block-post-template');
+  await expect(relatedSection.locator('.wp-block-post-template')).not.toHaveCount(0);
 
   //
   // Related articles disabled
@@ -46,5 +46,5 @@ test('Test Related Articles block', async ({page, admin, editor}) => {
   await page.waitForTimeout(1000); // letting metabox post query finish
 
   await page.goto(postUrl);
-  await expect(page.locator('[data-render="planet4-blocks/articles"]')).toHaveCount(0);
+  await expect(page.locator('.p4-query-loop')).toHaveCount(0);
 });

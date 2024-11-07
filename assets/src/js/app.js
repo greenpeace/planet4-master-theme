@@ -10,6 +10,7 @@ import {setupListingPages} from './listing_pages';
 import {setupQueryLoopCarousel} from './query_loop_carousel';
 import {setupClickabelActionsListCards} from './actions_list_clickable_cards';
 import {removeNoPostText} from './query-no-posts';
+import {removeRelatedPostsSection} from './remove_related_section_no_posts';
 
 function requireAll(r) {
   r.keys().forEach(r);
@@ -26,4 +27,5 @@ setupExternalLinks();
 setupListingPages();
 setupQueryLoopCarousel();
 removeNoPostText();
+removeRelatedPostsSection();
 setupClickabelActionsListCards();
