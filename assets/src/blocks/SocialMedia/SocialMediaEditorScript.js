@@ -101,10 +101,7 @@ export const SocialMediaEditor = ({
 
     let embedCode;
     try {
-      if (provider === 'twitter') {
-        const twitterEmbedData = await apiFetch({path: addQueryArgs('/oembed/1.0/proxy', {url})});
-        embedCode = twitterEmbedData ? twitterEmbedData.html : '';
-      } else if (provider === 'instagram') {
+      if (provider === 'instagram') {
         const instagramEmbedData = await apiFetch({path: addQueryArgs('planet4/v1/get-instagram-embed', {url})});
 
         if (instagramEmbedData) {
