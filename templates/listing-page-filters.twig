@@ -4,7 +4,7 @@
     </label>
     <select class="form-select listing-page-select" id="category">
         <option value="">{{__( 'All topics', 'planet4-master-theme' ) }}</option>
-        {% for key,category in fn('get_categories') %}
+        {% for key,category in categories %}
             {% set isSelected = current_category == category.slug %}
             <option
                 value="{{category.slug}}"
