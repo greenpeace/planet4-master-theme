@@ -72,7 +72,6 @@ class M033MigrateCampaignCoversToP4ColumnsBlock extends MigrationScript
         // Skip non campaign cover style blocks.
         return $block['attrs']['cover_type'] === Utils\Constants::COVER_TYPE_CAMPAIGN;
     }
-    // phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter
 
     /**
      * Transform a block attrs into columns block.
