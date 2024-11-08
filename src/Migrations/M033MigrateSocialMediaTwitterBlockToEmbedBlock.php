@@ -34,7 +34,7 @@ class M033MigrateSocialMediaTwitterBlockToEmbedBlock extends MigrationScript
     protected static function execute(MigrationRecord $record): void
     {
         try {
-            // Get the list of posts using Media blocks.
+            // Get the list of posts using Social Media blocks.
             $posts = Utils\Functions::get_posts_using_specific_block(
                 Utils\Constants::BLOCK_SOCIAL_MEDIA,
                 Utils\Constants::ALL_POST_TYPES
@@ -60,12 +60,12 @@ class M033MigrateSocialMediaTwitterBlockToEmbedBlock extends MigrationScript
 
                 $current_post_id = $post->ID; // Store the current post ID
 
-                echo 'Parsing post ', $post->ID, "\n"; // phpcs:ignore
+                echo 'Parsing post ', $current_post_id, "\n"; // phpcs:ignore
 
                 $blocks = $parser->parse($post->post_content);
 
                 if (!is_array($blocks)) {
-                    throw new \Exception("Invalid block structure for post #" . $post->ID);
+                    throw new \Exception("Invalid block structure for post #" . $current_post_id);
                 }
 
                 foreach ($blocks as &$block) {
@@ -90,7 +90,7 @@ class M033MigrateSocialMediaTwitterBlockToEmbedBlock extends MigrationScript
                     }
 
                     // If not, we get the social media URL.
-                    $social_media_url = self::get_social_media_url($block);
+                    $social_media_url = $block['attrs']['social_media_url'] ?? null;
 
                     // If there's no social media url, we do nothing.
                     if (!$social_media_url) {
@@ -132,7 +132,7 @@ class M033MigrateSocialMediaTwitterBlockToEmbedBlock extends MigrationScript
                 }
 
                 $post_update = array(
-                    'ID' => $post->ID,
+                    'ID' => $current_post_id,
                     'post_content' => $new_content,
                 );
 
@@ -140,7 +140,7 @@ class M033MigrateSocialMediaTwitterBlockToEmbedBlock extends MigrationScript
                 $result = wp_update_post($post_update);
 
                 if ($result === 0) {
-                    throw new \Exception("There was an error trying to update the post #" . $post->ID);
+                    throw new \Exception("There was an error trying to update the post #" . $current_post_id);
                 }
 
                 echo "Migration successful\n";
@@ -151,21 +151,7 @@ class M033MigrateSocialMediaTwitterBlockToEmbedBlock extends MigrationScript
             echo $e->getMessage(), "\n";
         }
     }
-
     // phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter
-
-    /**
-     * Get the social media URL from a Social Media block.
-     *
-     * @param array $block - A parsed Media block.
-     * @return string - The social media URL.
-     */
-    private static function get_social_media_url(array $block): mixed
-    {
-        $social_media_url = $block['attrs']['social_media_url'] ?? null;
-
-        return $social_media_url;
-    }
 
     /**
      * Get the source of a Social Media block.
@@ -202,7 +188,7 @@ class M033MigrateSocialMediaTwitterBlockToEmbedBlock extends MigrationScript
 
         $block = [];
         $block['blockName'] = Utils\Constants::BLOCK_GROUP;
-        $block['attrs']['metadata']['name'] = 'Social Media Group';
+        $block['attrs']['metadata']['name'] = 'Twitter/X Group';
 
         $block['innerBlocks'] = [];
         $block['innerBlocks'][0] = $block_title ? self::get_heading_block($block_title) : null;
@@ -241,7 +227,7 @@ class M033MigrateSocialMediaTwitterBlockToEmbedBlock extends MigrationScript
     }
 
     /**
-     * Transform a Media block into an embed block.
+     * Transform a Social Media block into an embed block.
      *
      * @param array $block - A parsed Social Media block.
      * @param string $social_media_url - The Social Media URL.
