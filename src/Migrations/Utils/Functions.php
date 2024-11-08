@@ -98,8 +98,13 @@ class Functions
      * @param array $inner_content - The internal content.
      * @return array - The new block.
      */
-    public static function create_new_block(string $name, array $attrs, array $inner_blocks, string $inner_html, array $inner_content): array
-    {
+    public static function create_new_block(
+        string $name,
+        array $attrs,
+        array $inner_blocks,
+        string $inner_html,
+        array $inner_content
+    ): array {
         $block = [];
         $block['blockName'] = $name;
         $block['attrs'] = $attrs;
@@ -136,10 +141,10 @@ class Functions
      * Create a new paragraph block.
      *
      * @param array $attrs - The attributes of the block.
-     * @param string $text - The paragraph text.
+     * @param string $content - The paragraph text.
      * @return array - The new paragraph block.
      */
-    public static function create_block_paragraph(array $attrs, $content): array
+    public static function create_block_paragraph(array $attrs, string $content): array
     {
         $html = '<p>' . $content . '</p>';
 
@@ -161,7 +166,10 @@ class Functions
      */
     public static function create_block_single_column(array $attrs, array $inner_blocks): array
     {
-        $classname = isset($attrs['verticalAlignment']) ? 'wp-block-column is-vertically-aligned-center' : 'wp-block-column';
+        $classname =
+            isset($attrs['verticalAlignment']) ?
+            'wp-block-column is-vertically-aligned-center' :
+            'wp-block-column';
 
         $html_content = self::generate_html_content($classname);
 
@@ -206,9 +214,11 @@ class Functions
     {
         $classname = isset($attrs['className']) ? $attrs['className'] : '';
 
+        // phpcs:disable Generic.Files.LineLength.MaxExceeded
         $html = '
             <div class="wp-block-button ' . $classname . '"><a target="_self" href="' . $link . '" class="wp-block-button__link wp-element-button">' . $text . '</a></div>
         ';
+        // phpcs:enable Generic.Files.LineLength.MaxExceeded
 
         return self::create_new_block(
             Constants::BLOCK_SINGLE_BUTTON,
@@ -228,7 +238,10 @@ class Functions
      */
     public static function create_block_buttons(array $attrs, array $inner_blocks): array
     {
-        $classname = isset($attrs['className']) ? 'wp-block-buttons ' . $attrs['className'] : 'wp-block-buttons';
+        $classname =
+            isset($attrs['className']) ?
+            'wp-block-buttons ' . $attrs['className'] :
+            'wp-block-buttons';
 
         $html_content = self::generate_html_content($classname);
 
@@ -251,8 +264,14 @@ class Functions
      * @return array - The new media & text block.
      */
 
-    public static function create_media_text_paragraph(array $attrs, array $inner_blocks, string $img_url, string $img_id): array
-    {
+    public static function create_media_text_paragraph(
+        array $attrs,
+        array $inner_blocks,
+        string $img_url,
+        int $img_id
+    ): array {
+
+        // phpcs:disable Generic.Files.LineLength.MaxExceeded
         $html = array (
            0 => '
         <div class="wp-block-media-text is-stacked-on-mobile"><figure class="wp-block-media-text__media"><img src="' . $img_url . '" alt="" class="wp-image-' . $img_id . ' size-full"/></figure><div class="wp-block-media-text__content">',
@@ -268,6 +287,7 @@ class Functions
            6 => '</div></div>
         ',
         );
+        // phpcs:enable Generic.Files.LineLength.MaxExceeded
 
         return self::create_new_block(
             Constants::BLOCK_MEDIA_TEXT,
