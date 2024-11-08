@@ -19,8 +19,8 @@ class M033MigrateSocialMediaTwitterBlockToEmbedBlock extends MigrationScript
     private const SOURCE_X = 'x';
 
     private const SOURCE_PATTERNS = [
-        self::SOURCE_INSTAGRAM => '/^(https?\:\/\/)?(www\.)?instagram\.com\/.+$/i',
-        self::SOURCE_FACEBOOK => '/^(https?\:\/\/)?(www\.)?facebook\.com\/.+$/i',
+        self::SOURCE_INSTAGRAM => '/^(?:(?:http|https):\/\/)?(?:www.)?(?:instagram.com|instagr.am|instagr.com)\/.+$/i',
+        self::SOURCE_FACEBOOK => '/^(?:(?:http|https)?:\/\/)?(?:www\.)?(mbasic.facebook|m\.facebook|facebook|fb)\.(com|me)\/.+$/i',
         self::SOURCE_TWITTER => '/^(https?\:\/\/)?(www\.)?(twitter\.com)\/.+$/i',
         self::SOURCE_X => '/^(https?\:\/\/)?(www\.)?x\.com\/.+$/i',
     ];
