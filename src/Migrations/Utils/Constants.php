@@ -44,4 +44,12 @@ class Constants
         'future',
         'private',
     ];
+
+    public const POST_STATUS_LIST = [
+        'publish',
+        'pending',
+        'draft',
+        'future',
+        'private',
+    ];
 }

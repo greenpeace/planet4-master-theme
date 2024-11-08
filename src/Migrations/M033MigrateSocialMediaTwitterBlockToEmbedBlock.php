@@ -37,7 +37,8 @@ class M033MigrateSocialMediaTwitterBlockToEmbedBlock extends MigrationScript
             // Get the list of posts using Social Media blocks.
             $posts = Utils\Functions::get_posts_using_specific_block(
                 Utils\Constants::BLOCK_SOCIAL_MEDIA,
-                Utils\Constants::ALL_POST_TYPES
+                Utils\Constants::ALL_POST_TYPES,
+                Utils\Constants::POST_STATUS_LIST,
             );
 
             // If there are no posts, abort.
