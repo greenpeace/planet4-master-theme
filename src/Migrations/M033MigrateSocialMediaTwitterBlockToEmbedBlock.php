@@ -92,18 +92,17 @@ class M033MigrateSocialMediaTwitterBlockToEmbedBlock extends MigrationScript
                     // If not, we get the social media URL.
                     $social_media_url = self::get_social_media_url($block);
 
-                    // Identify the source of the media (Facebook, Instagram, Twitter, X)
-                    $source = self::identify_source($social_media_url);
-
-                    // If there is no source or social media url, the block is transformed into an empty Embed block.
-                    if (!$source || !$social_media_url) {
-                        $block = self::transform_block_to_empty_embed($block);
+                    // If there's no social media url, we do nothing.
+                    if (!$social_media_url) {
                         continue;
                     }
 
-                    // If the source is Facebook or Instagram we do nothing.
+                    // Identify the source of the media (Facebook, Instagram, Twitter, X)
+                    $source = self::identify_source($social_media_url);
+
+                    // If there's no source, or if it's Facebook or Instagram, we do nothing.
                     // We only want to migrate Twitter/X embeds.
-                    if ($source === self::SOURCE_FACEBOOK || $source === self::SOURCE_INSTAGRAM) {
+                    if (!$source || $source === self::SOURCE_FACEBOOK || $source === self::SOURCE_INSTAGRAM) {
                         continue;
                     }
 
@@ -126,6 +125,11 @@ class M033MigrateSocialMediaTwitterBlockToEmbedBlock extends MigrationScript
 
                 // Serialize the blocks content.
                 $new_content = serialize_blocks($blocks);
+
+                // We don't update the block if the new content is the same as before.
+                if ($post->post_content === $new_content) {
+                    continue;
+                }
 
                 $post_update = array(
                     'ID' => $post->ID,
@@ -203,7 +207,7 @@ class M033MigrateSocialMediaTwitterBlockToEmbedBlock extends MigrationScript
         $block['innerBlocks'] = [];
         $block['innerBlocks'][0] = $block_title ? self::get_heading_block($block_title) : null;
         $block['innerBlocks'][1] = $block_description ? self::get_paragraph_block($block_description) : null;
-        $block['innerBlocks'][3] = self::get_social_media_block($block, $social_media_url);
+        $block['innerBlocks'][3] = self::transform_block_to_embed($block, $social_media_url);
 
         // IMPORTANT: DO NOT MODIFY THIS FORMAT!
         $block['innerHTML'] =
@@ -233,35 +237,6 @@ class M033MigrateSocialMediaTwitterBlockToEmbedBlock extends MigrationScript
         ',
         );
 
-        return $block;
-    }
-
-    /**
-     * Transform a Social Media block into an Embed,
-     * if the URL is from Twitter or X.
-     *
-     * @param array $block - A parsed Social Media block.
-     * @param string $social_media_url - The Social Media URL.
-     * @return array - The transformed block.
-     */
-    private static function get_social_media_block(array $block, string $social_media_url): array
-    {
-        return self::transform_block_to_embed($block, $social_media_url);
-    }
-
-    /**
-     * Transform a Media block into an empty embed block.
-     * This is useful when the Media block has no media URL
-     * or its source cannot be identified.
-     *
-     * @param array $block - A parsed Media block.
-     * @return array - The transformed block.
-     */
-    private static function transform_block_to_empty_embed(array $block): array
-    {
-        $block['blockName'] = Utils\Constants::BLOCK_EMBED;
-        $block['attrs']['metadata']['name'] = 'Embed';
-        $block = self::set_shared_attrs($block, "", "");
         return $block;
     }
 
