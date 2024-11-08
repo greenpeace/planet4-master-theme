@@ -70,7 +70,7 @@ class M032MigrateSplit2ColumnBlock extends MigrationScript
                         continue;
                     }
 
-                    $block = self::get_transform_block($block);
+                    $block = self::transform_block($block);
                 }
 
                 // Unset the reference to prevent potential issues.
@@ -78,6 +78,10 @@ class M032MigrateSplit2ColumnBlock extends MigrationScript
 
                 // Serialize the blocks content.
                 $new_content = serialize_blocks($blocks);
+
+                if ($post->post_content === $new_content) {
+                    continue;
+                }
 
                 $post_update = array(
                     'ID' => $current_post_id,
@@ -102,58 +106,120 @@ class M032MigrateSplit2ColumnBlock extends MigrationScript
     // phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter
 
     /**
-     * Transform a block attrs into columns block.
+     * Transform the Split 2 columns block into a Columns block.
      *
      * @param array $block - A block data array.
      * @return array - The transformed block.
-     * phpcs:disable Generic.Files.LineLength.MaxExceeded
      */
-    private static function get_transform_block(array $block): array
+    private static function transform_block(array $block): array
     {
-        // Gathering the data we want from split 2 columns block.
         $block_attrs = self::get_split_2_columns_block_attrs($block['attrs']);
 
-        // The template code is copied from the block editor.
-        $template = '<!-- wp:columns -->
-<div class="wp-block-columns"><!-- wp:column {"verticalAlignment":"center"} -->
-<div class="wp-block-column is-vertically-aligned-center"><!-- wp:media-text {"mediaId":' . $block_attrs['column1']['image_id'] . ',"mediaLink":"' . get_page_link($block_attrs['column1']['image_id']) . '","mediaType":"image"} -->
-<div class="wp-block-media-text is-stacked-on-mobile"><figure class="wp-block-media-text__media"><img src="' . $block_attrs['column1']['image_src'] . '" alt="" class="wp-image-' . $block_attrs['column1']['image_id'] . ' size-full"/></figure><div class="wp-block-media-text__content"><!-- wp:heading {"level":3} -->
-<h3 class="wp-block-heading">' . $block_attrs['column1']['title'] . '</h3>
-<!-- /wp:heading -->
+        return Utils\Functions::create_block_columns(
+            [],
+            [
+                self::create_left_column($block_attrs),
+                self::create_right_column($block_attrs),
+            ]
+        );
+    }
 
-<!-- wp:paragraph -->
-<p>' . $block_attrs['column1']['description'] . '</p>
-<!-- /wp:paragraph -->
+    /**
+     * Create the left column of the new blocks.
+     *
+     * @param array $block_attrs - The original block attributes.
+     * @return array - The left column blocks.
+     */
+    private static function create_left_column(array $block_attrs): array
+    {
+        $heading_block = Utils\Functions::create_block_heading(
+            ['level' => 3],
+            $block_attrs['column1']['title']
+        );
 
-<!-- wp:paragraph -->
-<p><a href="' . $block_attrs['column1']['link_path'] . '">' . $block_attrs['column1']['link_text'] . '</a></p>
-<!-- /wp:paragraph --></div></div>
-<!-- /wp:media-text --></div>
-<!-- /wp:column -->
+        $paragraph_block_1 = Utils\Functions::create_block_paragraph(
+            [],
+            $block_attrs['column1']['description']
+        );
 
-<!-- wp:column -->
-<div class="wp-block-column"><!-- wp:media-text {"mediaId":' . $block_attrs['column2']['image_id'] . ',"mediaLink":"' . get_page_link($block_attrs['column2']['image_id']) . '","mediaType":"image"} -->
-<div class="wp-block-media-text is-stacked-on-mobile"><figure class="wp-block-media-text__media"><img src="' . $block_attrs['column2']['image_src'] . '" alt="" class="wp-image-' . $block_attrs['column2']['image_id'] . ' size-full"/></figure><div class="wp-block-media-text__content"><!-- wp:heading {"level":3} -->
-<h3 class="wp-block-heading">#' . $block_attrs['column2']['title'] . '</h3>
-<!-- /wp:heading -->
+        $paragraph_block_2 = Utils\Functions::create_block_paragraph(
+            [],
+            '<a href="' . $block_attrs['column1']['link_path'] . '">' . $block_attrs['column1']['link_text'] . '</a>'
+        );
 
-<!-- wp:paragraph -->
-<p>' . $block_attrs['column2']['description'] . '</p>
-<!-- /wp:paragraph -->
+        $media_text_block = Utils\Functions::create_media_text_paragraph(
+            [
+                'mediaId' => $block_attrs['column1']['image_id'],
+                'mediaLink' => $block_attrs['column1']['image_src'],
+                'mediaType' => 'image',
+            ],
+            [
+                $heading_block,
+                $paragraph_block_1,
+                $paragraph_block_2,
+            ],
+            $block_attrs['column1']['image_src'],
+            $block_attrs['column1']['image_id']
+        );
 
-<!-- wp:buttons -->
-<div class="wp-block-buttons"><!-- wp:button {"className":"is-style-cta"} -->
-<div class="wp-block-button is-style-cta"><a class="wp-block-button__link wp-element-button" href="' . $block_attrs['column2']['button_link'] . '">' . $block_attrs['column2']['button_text'] . '</a></div>
-<!-- /wp:button --></div>
-<!-- /wp:buttons --></div></div>
-<!-- /wp:media-text --></div>
-<!-- /wp:column --></div>
-<!-- /wp:columns -->';
+        $blocks = Utils\Functions::create_block_single_column(
+            ['verticalAlignment' => 'center'],
+            [$media_text_block],
+        );
 
-        $parser_new = new WP_Block_Parser();
-        $blocks = $parser_new->parse($template);
+        return $blocks;
+    }
 
-        return $blocks[0];
+    /**
+     * Create the right column of the new blocks.
+     *
+     * @param array $block_attrs - The original block attributes.
+     * @return array - The right column blocks.
+     */
+    private static function create_right_column(array $block_attrs): array
+    {
+        $heading_block = Utils\Functions::create_block_heading(
+            ['level' => 3],
+            '#' . $block_attrs['column2']['title']
+        );
+
+        $paragraph_block = Utils\Functions::create_block_paragraph(
+            [],
+            $block_attrs['column2']['description']
+        );
+
+        $single_button_block = Utils\Functions::create_block_single_button(
+            ['className' => 'is-style-cta'],
+            $block_attrs['column2']['button_text'],
+            $block_attrs['column2']['button_link'],
+        );
+
+        $buttons_block = Utils\Functions::create_block_buttons(
+            ['className' => 'carousel-controls'],
+            [$single_button_block],
+        );
+
+        $media_text_block = Utils\Functions::create_media_text_paragraph(
+            [
+                'mediaId' => $block_attrs['column2']['image_id'],
+                'mediaLink' => $block_attrs['column2']['image_src'],
+                'mediaType' => 'image',
+            ],
+            [
+                $heading_block,
+                $paragraph_block,
+                $buttons_block,
+            ],
+            $block_attrs['column2']['image_src'],
+            $block_attrs['column2']['image_id']
+        );
+
+        $blocks = Utils\Functions::create_block_single_column(
+            ['verticalAlignment' => 'center'],
+            [$media_text_block],
+        );
+
+        return $blocks;
     }
 
     /**
@@ -161,6 +227,7 @@ class M032MigrateSplit2ColumnBlock extends MigrationScript
      *
      * @param array $block - A parsed split-two-columns block.
      * @return array - A block attrs array.
+     * phpcs:disable Generic.Files.LineLength.MaxExceeded
      */
     private static function get_split_2_columns_block_attrs(array $block): array
     {

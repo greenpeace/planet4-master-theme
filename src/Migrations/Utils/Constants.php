@@ -19,6 +19,11 @@ class Constants
     public const BLOCK_GROUP = self::PREFIX_CORE_BLOCKS . '/group';
     public const BLOCK_HEADING = self::PREFIX_CORE_BLOCKS . '/heading';
     public const BLOCK_PARAGRAPH = self::PREFIX_CORE_BLOCKS . '/paragraph';
+    public const BLOCK_SINGLE_COLUMN = self::PREFIX_CORE_BLOCKS . '/column';
+    public const BLOCK_COLUMNS = self::PREFIX_CORE_BLOCKS . '/columns';
+    public const BLOCK_SINGLE_BUTTON = self::PREFIX_CORE_BLOCKS . '/button';
+    public const BLOCK_BUTTONS = self::PREFIX_CORE_BLOCKS . '/buttons';
+    public const BLOCK_MEDIA_TEXT = self::PREFIX_CORE_BLOCKS . '/media-text';
 
     public const POST_TYPES_PAGE = 'page';
     public const POST_TYPES_POST = 'post';
