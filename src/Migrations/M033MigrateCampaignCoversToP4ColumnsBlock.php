@@ -34,7 +34,6 @@ class M033MigrateCampaignCoversToP4ColumnsBlock extends MigrationScript
             $transform_block,
         );
     }
-    // phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter
 
     /**
      * Check whether a block is a Campaign Covers block.
