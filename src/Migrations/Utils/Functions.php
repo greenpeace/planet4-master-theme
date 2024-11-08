@@ -19,9 +19,11 @@ class Functions
      *
      * @return mixed - The posts using a type of block or null if no posts are found.
      */
-    //phpcs:ignore Generic.Files.LineLength.MaxExceeded
-    public static function get_posts_using_specific_block(string $block_name, array $post_types, ?array $post_status = null): mixed
-    {
+    public static function get_posts_using_specific_block(
+        string $block_name,
+        array $post_types,
+        ?array $post_status = null
+    ): mixed {
         $search = new BlockSearch();
         $params = ( new Parameters() )->with_name($block_name);
 

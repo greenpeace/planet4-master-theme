@@ -99,7 +99,6 @@ class M032MigrateSplit2ColumnBlock extends MigrationScript
             echo $e->getMessage(), "\n";
         }
     }
-    // phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter
 
     /**
      * Transform a block attrs into columns block.
