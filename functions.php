@@ -417,7 +417,11 @@ add_action(
         }
         $category_slug = isset($_GET['category']) ? $_GET['category'] : '';
         $category = get_category_by_slug($category_slug);
-        $query->set('category__in', !$category ? [] : [$category->term_id]);
+        if (!$category || !get_posts(['post_type' => 'post', 'category' => $category->term_id])) {
+            $query->set('category__in', []);
+        } else {
+            $query->set('category__in', [$category->term_id]);
+        }
     }
 );
 
