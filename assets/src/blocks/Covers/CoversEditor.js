@@ -11,7 +11,7 @@ import {InspectorControls, RichText} from '@wordpress/block-editor';
 import TagSelector from '../../block-editor/TagSelector';
 import PostTypeSelector from '../../block-editor/PostTypeSelector';
 import {Covers} from './Covers';
-import {COVERS_TYPES, COVERS_LAYOUTS, CAROUSEL_LAYOUT_COVERS_LIMIT} from './CoversConstants';
+import {COVERS_TYPES, COVERS_LAYOUTS} from './CoversConstants';
 import {useCovers} from './useCovers';
 import {getStyleFromClassName} from '../../functions/getStyleFromClassName';
 import {CoversCarouselLayout} from './CoversCarouselLayout';
