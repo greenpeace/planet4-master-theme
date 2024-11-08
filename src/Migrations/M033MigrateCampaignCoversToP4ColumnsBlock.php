@@ -119,7 +119,6 @@ class M033MigrateCampaignCoversToP4ColumnsBlock extends MigrationScript
             echo $e->getMessage(), "\n";
         }
     }
-    // phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter
 
     /**
      * Transform a block attrs into columns block.
