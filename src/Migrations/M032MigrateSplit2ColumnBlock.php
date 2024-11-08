@@ -34,7 +34,6 @@ class M032MigrateSplit2ColumnBlock extends MigrationScript
             $transform_block,
         );
     }
-    // phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter
 
     /**
      * Check whether a block is a Split 2 columns block.
