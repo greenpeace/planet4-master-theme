@@ -281,7 +281,7 @@ class Functions
         $html_content = self::generate_html_content("wp-block-columns");
 
         return self::create_new_block(
-            Constants::BLOCK_COLUMNS,
+            Constants::BLOCK_CORE_COLUMNS,
             $attrs,
             $inner_blocks,
             $html_content['html'],
