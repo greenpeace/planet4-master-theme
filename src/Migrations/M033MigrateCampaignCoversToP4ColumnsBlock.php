@@ -6,7 +6,6 @@ namespace P4\MasterTheme\Migrations;
 
 use P4\MasterTheme\MigrationRecord;
 use P4\MasterTheme\MigrationScript;
-use WP_Block_Parser;
 
 /**
  * Migrate Campaign covers block to Planet4 columns block.
@@ -21,103 +20,58 @@ class M033MigrateCampaignCoversToP4ColumnsBlock extends MigrationScript
      */
     public static function execute(MigrationRecord $record): void
     {
-        try {
-            // Get the list of posts using Covers block.
-            $posts = Utils\Functions::get_posts_using_specific_block(
-                Utils\Constants::BLOCK_COVERS,
-                Utils\Constants::ALL_POST_TYPES,
-                Utils\Constants::POST_STATUS_LIST,
-            );
+        $check_is_valid_block = function ($block) {
+            return self::check_is_valid_block($block);
+        };
 
-            // If there are no posts, abort.
-            if (!$posts) {
-                return;
-            }
+        $transform_block = function ($block) {
+            return self::transform_block($block);
+        };
 
-            echo "Campaign Covers block migration in progress...\n"; // phpcs:ignore
+        Utils\Functions::execute_block_migration(
+            Utils\Constants::BLOCK_COVERS,
+            $check_is_valid_block,
+            $transform_block,
+        );
+    }
+    // phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter
 
-            $parser = new WP_Block_Parser();
-
-            foreach ($posts as $post) {
-                if (empty($post->post_content)) {
-                    continue;
-                }
-
-                $current_post_id = $post->ID;
-
-                echo 'Parsing post ', $current_post_id, "\n"; // phpcs:ignore
-
-                $blocks = $parser->parse($post->post_content);
-
-                if (!is_array($blocks)) {
-                    throw new \Exception("Invalid block structure for post #" . $current_post_id);
-                }
-
-                foreach ($blocks as &$block) {
-                    // Check if the block is valid.
-                    if (!is_array($block)) {
-                        continue;
-                    }
-
-                    // Check if the block has a 'blockName' key.
-                    if (!isset($block['blockName'])) {
-                        continue;
-                    }
-
-                    // Check if the block is a Cover block. If not, abort.
-                    if ($block['blockName'] !== Utils\Constants::BLOCK_COVERS) {
-                        continue;
-                    }
-
-                    // For older cover blocks where the cover type is empty,
-                    // the default content cover type is applied to those blocks.
-                    if (!isset($block['attrs']['cover_type'])) {
-                        continue;
-                    }
-
-                    // For old cover type(earlier it was numeric).
-                    if (is_numeric($block['attrs']['cover_type'])) {
-                        // phpcs:ignore Generic.Files.LineLength.MaxExceeded
-                        $block['attrs']['cover_type'] = Utils\Constants::OLD_COVER_TYPES[ $block['attrs']['cover_type'] ];
-                    }
-
-                    // Skip non campaign cover style blocks.
-                    if ($block['attrs']['cover_type'] !== Utils\Constants::COVER_TYPE_CAMPAIGN) {
-                        continue;
-                    }
-
-                    $block = self::transform_block($block);
-                }
-
-                // Unset the reference to prevent potential issues.
-                unset($block);
-
-                // Serialize the blocks content.
-                $new_content = serialize_blocks($blocks);
-
-                if ($post->post_content === $new_content) {
-                    continue;
-                }
-
-                $post_update = array(
-                    'ID' => $current_post_id,
-                    'post_content' => $new_content,
-                );
-
-                // Update the post with the replaced blocks.
-                $result = wp_update_post(wp_slash($post_update));
-
-                if ($result === 0) {
-                    throw new \Exception("There was an error trying to update the post #" . $current_post_id);
-                }
-
-                echo "Migration successful\n";
-            }
-        } catch (\ErrorException $e) {
-            // Catch any exceptions and display the post ID if available
-            echo "Migration wasn't executed for post ID: ", $current_post_id ?? 'unknown', "\n";
-            echo $e->getMessage(), "\n";
+    /**
+     * Check whether a block is a Campaign Covers block.
+     *
+     * @param array $block - A block data array.
+     */
+    private static function check_is_valid_block(array $block): bool
+    {
+        // Check if the block is valid.
+        if (!is_array($block)) {
+            return false;
         }
+
+        // Check if the block has a 'blockName' key.
+        if (!isset($block['blockName'])) {
+            return false;
+        }
+
+        // Check if the block is a Cover block. If not, abort.
+        if ($block['blockName'] !== Utils\Constants::BLOCK_COVERS) {
+            return false;
+        }
+
+        // For older cover blocks where the cover type is empty,
+        // the default content cover type is applied to those blocks.
+        if (!isset($block['attrs']['cover_type'])) {
+            return false;
+        }
+
+        // For old cover type(earlier it was numeric).
+        if (is_numeric($block['attrs']['cover_type'])) {
+            // phpcs:ignore Generic.Files.LineLength.MaxExceeded
+            $block['attrs']['cover_type'] = Utils\Constants::OLD_COVER_TYPES[ $block['attrs']['cover_type'] ];
+        }
+
+        // Skip non campaign cover style blocks.
+        return $block['attrs']['cover_type'] === Utils\Constants::COVER_TYPE_CAMPAIGN;
     }
 
     /**
