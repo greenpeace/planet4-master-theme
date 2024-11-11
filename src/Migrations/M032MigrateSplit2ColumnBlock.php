@@ -40,9 +40,8 @@ class M032MigrateSplit2ColumnBlock extends MigrationScript
      * Check whether a block is a Split 2 columns block.
      *
      * @param array $block - A block data array.
-     * @return boolean
      */
-    private static function check_is_valid_block($block)
+    private static function check_is_valid_block(array $block): bool
     {
         // Check if the block is valid.
         if (!is_array($block)) {
@@ -55,11 +54,7 @@ class M032MigrateSplit2ColumnBlock extends MigrationScript
         }
 
         // Check if the block is a split-two-columns block. If not, abort.
-        if ($block['blockName'] !== Utils\Constants::BLOCK_SPLIT_TWO_COLUMNS) {
-            return false;
-        }
-
-        return true;
+        return $block['blockName'] === Utils\Constants::BLOCK_SPLIT_TWO_COLUMNS;
     }
 
     /**

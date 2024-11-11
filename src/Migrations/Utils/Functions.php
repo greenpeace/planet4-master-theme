@@ -3,7 +3,6 @@
 namespace P4\MasterTheme\Migrations\Utils;
 
 use WP_Block_Parser;
-use P4\MasterTheme\MigrationRecord;
 use P4\MasterTheme\BlockReportSearch\BlockSearch;
 use P4\MasterTheme\BlockReportSearch\Block\Query\Parameters;
 
@@ -58,7 +57,9 @@ class Functions
                 }
 
                 foreach ($blocks as &$block) {
-                    if (!$block_check_callback($block)) continue;
+                    if (!$block_check_callback($block)) {
+                        continue;
+                    }
                     $block = $block_transformation_callback($block);
                 }
 
