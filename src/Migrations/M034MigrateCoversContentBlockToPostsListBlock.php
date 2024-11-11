@@ -6,7 +6,6 @@ namespace P4\MasterTheme\Migrations;
 
 use P4\MasterTheme\MigrationRecord;
 use P4\MasterTheme\MigrationScript;
-use WP_Block_Parser;
 
 /**
  * Migrate Covers block of type Content to Posts List blocks.
@@ -19,103 +18,60 @@ class M034MigrateCoversContentBlockToPostsListBlock extends MigrationScript
      * @param MigrationRecord $record Information on the execution, can be used to add logs.
      * phpcs:disable SlevomatCodingStandard.Functions.UnusedParameter -- interface implementation
      */
-    protected static function execute(MigrationRecord $record): void
+    public static function execute(MigrationRecord $record): void
     {
-        try {
-            // Get the list of posts using Covers blocks.
-            $posts = Utils\Functions::get_posts_using_specific_block(
-                Utils\Constants::BLOCK_COVERS,
-                Utils\Constants::ALL_POST_TYPES,
-                Utils\Constants::POST_STATUS_LIST,
-            );
+        $check_is_valid_block = function ($block) {
+            return self::check_is_valid_block($block);
+        };
 
-            // If there are no posts, abort.
-            if (!$posts) {
-                return;
-            }
+        $transform_block = function ($block) {
+            return self::transform_block($block);
+        };
 
-            echo "Covers content block migration in progress...\n"; // phpcs:ignore
-
-            $parser = new WP_Block_Parser();
-
-            foreach ($posts as $post) {
-                if (empty($post->post_content)) {
-                    continue;
-                }
-
-                $current_post_id = $post->ID; // Store the current post ID
-
-                echo 'Parsing post ', $current_post_id, "\n"; // phpcs:ignore
-
-                // Get all the blocks of each post.
-                $blocks = $parser->parse($post->post_content);
-
-                if (!is_array($blocks)) {
-                    throw new \Exception("Invalid block structure for post #" . $current_post_id);
-                }
-
-                foreach ($blocks as &$block) {
-                    // Check if the block is valid.
-                    if (!is_array($block)) {
-                        continue;
-                    }
-
-                    // Check if the block has a 'blockName' key.
-                    if (!isset($block['blockName'])) {
-                        continue;
-                    }
-
-                    // Check if the block is a Cover block. If not, abort.
-                    if ($block['blockName'] !== Utils\Constants::BLOCK_COVERS) {
-                        continue;
-                    }
-
-                    // Check if the Cover block type is Content. If not, abort.
-                    // Cover blocks of type content have as value of $block['attrs']['cover_type']
-                    // the following possibilities: "content", "1", NULL
-                    // https://github.com/greenpeace/planet4-plugin-gutenberg-blocks/blob/26b480a0954667a0813ca8c3a90377f2a1fbea1c/classes/blocks/class-covers.php#L35
-                    // https://github.com/greenpeace/planet4-plugin-gutenberg-blocks/blob/26b480a0954667a0813ca8c3a90377f2a1fbea1c/classes/blocks/class-covers.php#L191
-                    $type = $block['attrs']['cover_type'];
-                    $const = Utils\Constants::COVER_BLOCK_TYPES['content'];
-
-                    // phpcs:disable Use early exit to reduce code nesting
-                    if (!isset($type) || $type === $const['name'] || $type === $const['number']) {
-                        // Get the block attributes.
-                        $attrs = self::get_posts_list_block_attrs($block);
-
-                        // Transform the cover block into a posts list block.
-                        $block = self::create_query_block($attrs);
-                    }
-                    // phpcs:enable Use early exit to reduce code nesting
-                }
-
-                // Unset the reference to prevent potential issues.
-                unset($block);
-
-                // Serialize the blocks content.
-                $new_content = serialize_blocks($blocks);
-
-                $post_update = array(
-                    'ID' => $current_post_id,
-                    'post_content' => $new_content,
-                );
-
-                // Update the post with the replaced blocks.
-                $result = wp_update_post($post_update);
-
-                if ($result === 0) {
-                    throw new \Exception("There was an error trying to update the post #" . $current_post_id);
-                }
-
-                echo "Migration successful\n";
-            }
-        } catch (\ErrorException $e) {
-            // Catch any exceptions and display the post ID if available
-            echo "Migration wasn't executed for post ID: ", $current_post_id ?? 'unknown', "\n";
-            echo $e->getMessage(), "\n";
-        }
+        Utils\Functions::execute_block_migration(
+            Utils\Constants::BLOCK_COVERS,
+            $check_is_valid_block,
+            $transform_block,
+        );
     }
     // phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter
+
+    /**
+     * Check whether a block is a Content Covers block.
+     *
+     * @param array $block - A block data array.
+     */
+    private static function check_is_valid_block(array $block): bool
+    {
+        // Check if the block is valid.
+        if (!is_array($block)) {
+            return false;
+        }
+
+        // Check if the block has a 'blockName' key.
+        if (!isset($block['blockName'])) {
+            return false;
+        }
+
+        // Check if the block is a Cover block. If not, abort.
+        if ($block['blockName'] !== Utils\Constants::BLOCK_COVERS) {
+            return false;
+        }
+
+        // Check if the Cover block type is Content. If not, abort.
+        // Cover blocks of type content have as value of $block['attrs']['cover_type']
+        // the following possibilities: "content", "1", NULL
+        // https://github.com/greenpeace/planet4-plugin-gutenberg-blocks/blob/26b480a0954667a0813ca8c3a90377f2a1fbea1c/classes/blocks/class-covers.php#L35
+        // https://github.com/greenpeace/planet4-plugin-gutenberg-blocks/blob/26b480a0954667a0813ca8c3a90377f2a1fbea1c/classes/blocks/class-covers.php#L191
+        $type = $block['attrs']['cover_type'];
+        $const = Utils\Constants::COVER_BLOCK_TYPES['content'];
+
+        if (!isset($type) || $type === $const['name'] || $type === $const['number']) {
+            return true;
+        }
+
+        return false;
+    }
 
     /**
      * Get the attributes of a Covers block.
@@ -184,11 +140,13 @@ class M034MigrateCoversContentBlockToPostsListBlock extends MigrationScript
     /**
      * Create a new Query block based on attributes of a Covers block.
      *
-     * @param array $existing_block_attrs - The attributes of the Covers block.
+     * @param array $block - The current Covers block.
      * @return array - The new block.
      */
-    private static function create_query_block(array $existing_block_attrs): array
+    private static function transform_block(array $block): array
     {
+        $existing_block_attrs = self::get_posts_list_block_attrs($block);
+
         $tags = $existing_block_attrs['tags'];
         $posts_override = $existing_block_attrs['posts'];
         $post_types = $existing_block_attrs['post_types'];
