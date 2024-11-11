@@ -335,7 +335,7 @@ class Functions
      * @param string $link - The button link.
      * @return array - The new button block.
      */
-    public static function create_block_single_button(array $attrs, string $text, ?string $link = null): array
+    public static function create_block_single_button(array $attrs, string $text, string $link = null): array
     {
         $classname = isset($attrs['className']) ? $attrs['className'] : '';
 
