@@ -36,6 +36,7 @@ use P4\MasterTheme\Migrations\M031MigrateMediaBlockToAudioVideoBlock;
 use P4\MasterTheme\Migrations\M032MigrateSplit2ColumnBlock;
 use P4\MasterTheme\Migrations\M033MigrateSocialMediaTwitterBlockToEmbedBlock;
 use P4\MasterTheme\Migrations\M034MigrateCampaignCoversToP4ColumnsBlock;
+use P4\MasterTheme\Migrations\M035MigrateCampaignCoversToP4ColumnsBlock;
 
 /**
  * Run any new migration scripts and record results in the log.
@@ -89,6 +90,7 @@ class Migrator
             M032MigrateSplit2ColumnBlock::class,
             M033MigrateSocialMediaTwitterBlockToEmbedBlock::class,
             M034MigrateCampaignCoversToP4ColumnsBlock::class,
+            M035MigrateCampaignCoversToP4ColumnsBlock::class,
         ];
 
         // Loop migrations and run those that haven't run yet.
