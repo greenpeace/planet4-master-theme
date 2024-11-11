@@ -147,7 +147,7 @@ class M032MigrateSplit2ColumnBlock extends MigrationScript
             '<a href="' . $block_attrs['column1']['link_path'] . '">' . $block_attrs['column1']['link_text'] . '</a>'
         );
 
-        $media_text_block = Utils\Functions::create_media_text_paragraph(
+        $media_text_block = Utils\Functions::create_media_text_block(
             [
                 'mediaId' => $block_attrs['column1']['image_id'],
                 'mediaLink' => $block_attrs['column1']['image_src'],
@@ -159,7 +159,7 @@ class M032MigrateSplit2ColumnBlock extends MigrationScript
                 $paragraph_block_2,
             ],
             $block_attrs['column1']['image_src'],
-            $block_attrs['column1']['image_id']
+            (int)$block_attrs['column1']['image_id']
         );
 
         $blocks = Utils\Functions::create_block_single_column(
@@ -180,7 +180,7 @@ class M032MigrateSplit2ColumnBlock extends MigrationScript
     {
         $heading_block = Utils\Functions::create_block_heading(
             ['level' => 3],
-            '#' . $block_attrs['column2']['title']
+            $block_attrs['column2']['title'] ? '#' . $block_attrs['column2']['title'] : ''
         );
 
         $paragraph_block = Utils\Functions::create_block_paragraph(
@@ -188,18 +188,20 @@ class M032MigrateSplit2ColumnBlock extends MigrationScript
             $block_attrs['column2']['description']
         );
 
-        $single_button_block = Utils\Functions::create_block_single_button(
-            ['className' => 'is-style-cta'],
-            $block_attrs['column2']['button_text'],
-            $block_attrs['column2']['button_link'],
-        );
+        if ($block_attrs['column2']['button_link']) {
+            $single_button_block = Utils\Functions::create_block_single_button(
+                ['className' => 'is-style-cta'],
+                $block_attrs['column2']['button_text'],
+                $block_attrs['column2']['button_link'],
+            );
+        }
 
         $buttons_block = Utils\Functions::create_block_buttons(
             ['className' => 'carousel-controls'],
             [$single_button_block],
         );
 
-        $media_text_block = Utils\Functions::create_media_text_paragraph(
+        $media_text_block = Utils\Functions::create_media_text_block(
             [
                 'mediaId' => $block_attrs['column2']['image_id'],
                 'mediaLink' => $block_attrs['column2']['image_src'],
@@ -211,7 +213,7 @@ class M032MigrateSplit2ColumnBlock extends MigrationScript
                 $buttons_block,
             ],
             $block_attrs['column2']['image_src'],
-            $block_attrs['column2']['image_id']
+            (int)$block_attrs['column2']['image_id']
         );
 
         $blocks = Utils\Functions::create_block_single_column(

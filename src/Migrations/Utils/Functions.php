@@ -264,7 +264,7 @@ class Functions
      * @return array - The new media & text block.
      */
 
-    public static function create_media_text_paragraph(
+    public static function create_media_text_block(
         array $attrs,
         array $inner_blocks,
         string $img_url,
