@@ -11,7 +11,7 @@ import {InspectorControls, RichText} from '@wordpress/block-editor';
 import TagSelector from '../../block-editor/TagSelector';
 import {PostSelector} from '../../block-editor/PostSelector';
 import {Covers} from './Covers';
-import {COVERS_TYPES, COVERS_LAYOUTS, CAROUSEL_LAYOUT_COVERS_LIMIT} from './CoversConstants';
+import {COVERS_LAYOUTS, CAROUSEL_LAYOUT_COVERS_LIMIT} from './CoversConstants';
 import {useCovers} from './useCovers';
 import {getStyleFromClassName} from '../../functions/getStyleFromClassName';
 import {CoversCarouselLayout} from './CoversCarouselLayout';
@@ -19,7 +19,7 @@ import {CoversCarouselLayout} from './CoversCarouselLayout';
 const {__} = wp.i18n;
 
 const renderEdit = (attributes, toAttribute, setAttributes) => {
-  const {initialRowsLimit, posts, tags, cover_type, post_types, layout, readMoreText} = attributes;
+  const {initialRowsLimit, posts, tags, post_types, layout, readMoreText} = attributes;
 
   const rowLimitOptions = [
     {label: __('1 Row', 'planet4-blocks-backend'), value: 1},
