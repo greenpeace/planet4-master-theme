@@ -281,11 +281,28 @@ class Functions
         $html_content = self::generate_html_content("wp-block-columns");
 
         return self::create_new_block(
-            Constants::BLOCK_COLUMNS,
+            Constants::BLOCK_CORE_COLUMNS,
             $attrs,
             $inner_blocks,
             $html_content['html'],
             $html_content['content']
+        );
+    }
+
+    /**
+     * Create a new columns block.
+     *
+     * @param array $attrs - The attributes of the block.
+     * @return array - The new columns block.
+     */
+    public static function create_block_p4_columns(array $attrs): array
+    {
+        return self::create_new_block(
+            Constants::BLOCK_P4_COLUMNS,
+            $attrs,
+            [],
+            '',
+            []
         );
     }
 

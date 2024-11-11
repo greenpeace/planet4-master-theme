@@ -128,34 +128,15 @@ class M033MigrateCampaignCoversToP4ColumnsBlock extends MigrationScript
      */
     private static function transform_block(array $block): array
     {
-        // Gathering the data we want from this block.
-        $block_attrs = self::get_columns_block_attrs($block['attrs']);
-
-        $p4_columns_block['blockName'] = Utils\Constants::BLOCK_COLUMNS;
-        $p4_columns_block['attrs'] = $block_attrs;
-        $p4_columns_block['innerBlocks'] = [];
-        $p4_columns_block['innerHTML'] = '';
-        $p4_columns_block['innerContent'] = [];
-
-        return $p4_columns_block;
-    }
-
-    /**
-     * Get the p4 columns block attrs.
-     *
-     * @param array $block - A parsed cover block.
-     * @return array - A P4 columns block attrs.
-     */
-    private static function get_columns_block_attrs(array $block): array
-    {
         $block_attrs['columns_block_style'] = 'image';
-        $block_attrs['columns_title'] = $block['title'] ?? '';
-        $block_attrs['columns_description'] = $block['description'] ?? '';
+        $block_attrs['columns_title'] = $block['attrs']['title'] ?? '';
+        $block_attrs['columns_description'] = $block['attrs']['description'] ?? '';
+        $block_attrs['className'] = 'is-style-image';
 
-        if (isset($block['tags'])) {
+        if (isset($block['attrs']['tags'])) {
             // To keep the same order of columns, reverse the array.
-            $block['tags'] = array_reverse($block['tags']);
-            foreach ($block['tags'] as $tag_id) {
+            $block['attrs']['tags'] = array_reverse($block['attrs']['tags']);
+            foreach ($block['attrs']['tags'] as $tag_id) {
                 $tag = get_tag($tag_id);
                 if (!$tag) {
                     continue;
@@ -169,8 +150,6 @@ class M033MigrateCampaignCoversToP4ColumnsBlock extends MigrationScript
                 ];
             }
         }
-        $block_attrs['className'] = 'is-style-image';
-
-        return $block_attrs;
+        return Utils\Functions::create_block_p4_columns($block_attrs);
     }
 }
