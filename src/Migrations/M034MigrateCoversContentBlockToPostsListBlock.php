@@ -172,59 +172,32 @@ class M034MigrateCoversContentBlockToPostsListBlock extends MigrationScript
     }
 
     /**
-     * Create and get a new heading block.
-     *
-     * @param string $title - The block title.
-     * @return array - The new block.
-     */
-    private static function get_heading_block(string $title): array
-    {
-        $block = [];
-        $block['blockName'] = Utils\Constants::BLOCK_HEADING;
-        $block['attrs']['lock']['move'] = true;
-        $block['innerBlocks'] = [];
-        $block['innerHTML'] = Utils\M034Helper::get_heading_block_content($title);
-        $block['innerContent'][0] = Utils\M034Helper::get_heading_block_content($title);
-        return $block;
-    }
-
-    /**
-     * Create and get a new button block.
-     *
-     * @param string $classname - The button class.
-     * @param string $text - The button label.
-     * @return array - The new block.
-     */
-    private static function get_button_block(string $classname, string $text): array
-    {
-        $block = [];
-        $block['blockName'] = Utils\Constants::BLOCK_SINGLE_BUTTON;
-        $block['attrs']['className'] = $classname;
-        $block['innerBlocks'] = [];
-        $block['innerHTML'] = Utils\M034Helper::get_button_block_content($classname, $text);
-        $block['innerContent'][0] = Utils\M034Helper::get_button_block_content($classname, $text);
-        return $block;
-    }
-
-    /**
      * Create and get a new buttons container block.
      *
      * @return array - The new block.
      */
     private static function get_buttons_block(): array
     {
-        $block = [];
-        $block['blockName'] = Utils\Constants::BLOCK_BUTTONS;
-        $block['className'] = 'carousel-controls';
-        $block['attrs']['lock']['move'] = true;
-        $block['attrs']['layout']['type'] = 'flex';
-        $block['attrs']['layout']['justifyContent'] = 'space-between';
-        $block['attrs']['layout']['orientation'] = 'horizontal';
-        $block['attrs']['layout']['flexWrap'] = 'nowrap';
-        $block['innerBlocks'][0] = self::get_button_block('carousel-control-prev', 'Prev');
-        $block['innerBlocks'][1] = self::get_button_block('carousel-control-next', 'Next');
-        $block['innerHTML'] = Utils\M034Helper::BUTTONS_BLOCK['html'];
-        $block['innerContent'] = Utils\M034Helper::BUTTONS_BLOCK['content'];
+        $attrs = [];
+        $attrs['lock']['move'] = true;
+        $attrs['layout']['type'] = 'flex';
+        $attrs['layout']['justifyContent'] = 'space-between';
+        $attrs['layout']['orientation'] = 'horizontal';
+        $attrs['layout']['flexWrap'] = 'nowrap';
+
+        $block = Utils\Functions::create_block_buttons(
+            $attrs,
+            [
+                Utils\Functions::create_block_single_button(
+                    ['className' => 'carousel-control-prev'],
+                    'Prev',
+                ),
+                Utils\Functions::create_block_single_button(
+                    ['className' => 'carousel-control-next'],
+                    'Next',
+                ),
+            ]
+        );
         return $block;
     }
 
@@ -287,15 +260,16 @@ class M034MigrateCoversContentBlockToPostsListBlock extends MigrationScript
      */
     private static function get_paragraph_block(string $description): array
     {
-        $block = [];
-        $block['blockName'] = Utils\Constants::BLOCK_PARAGRAPH;
-        $block['attrs']['placeholder'] = 'Enter description';
-        $block['attrs']['lock']['move'] = true;
-        $block['attrs']['style']['spacing']['margin']['top'] = '24px';
-        $block['attrs']['style']['spacing']['margin']['bottom'] = '36px';
-        $block['innerBlocks'] = [];
-        $block['innerHTML'] = Utils\M034Helper::get_paragraph_block_content($description);
-        $block['innerContent'][0] = Utils\M034Helper::get_paragraph_block_content($description);
+        $attrs = [];
+        $attrs['lock']['move'] = true;
+        $attrs['placeholder'] = 'Enter description';
+        $attrs['style']['spacing']['margin']['top'] = '24px';
+        $attrs['style']['spacing']['margin']['bottom'] = '36px';
+
+        $block = Utils\Functions::create_block_paragraph(
+            $attrs,
+            $description
+        );
         return $block;
     }
 
@@ -306,12 +280,10 @@ class M034MigrateCoversContentBlockToPostsListBlock extends MigrationScript
      */
     private static function get_query_no_results_paragraph_block(): array
     {
-        $block = [];
-        $block['blockName'] = Utils\Constants::BLOCK_PARAGRAPH;
-        $block['attrs'] = [];
-        $block['innerBlocks'] = [];
-        $block['innerHTML'] = Utils\M034Helper::QUERY_NO_RESULTS_PARAGRAPH_BLOCK['html'];
-        $block['innerContent'] = Utils\M034Helper::QUERY_NO_RESULTS_PARAGRAPH_BLOCK['content'];
+        $block = Utils\Functions::create_block_paragraph(
+            [],
+            'No posts found. (This default text can be edited)'
+        );
         return $block;
     }
 
@@ -322,16 +294,17 @@ class M034MigrateCoversContentBlockToPostsListBlock extends MigrationScript
      */
     private static function get_post_data_column_block(): array
     {
-        $block = [];
         $feat_img_attrs = [];
         $feat_img_attrs['isLink'] = true;
 
-        $block['blockName'] = Utils\Constants::BLOCK_COLUMNS;
-        $block['attrs'] = [];
-        $block['innerBlocks'][0] = Utils\Functions::set_new_block(Utils\Constants::BLOCK_FEAT_IMAGE, $feat_img_attrs);
-        $block['innerBlocks'][1] = self::get_post_data_group_block();
-        $block['innerHTML'] = Utils\M034Helper::COLUMN_BLOCK['html'];
-        $block['innerContent'] = Utils\M034Helper::COLUMN_BLOCK['content'];
+        $block = Utils\Functions::create_block_columns(
+            [],
+            [
+                Utils\Functions::set_new_block(Utils\Constants::BLOCK_FEAT_IMAGE, $feat_img_attrs),
+                self::get_post_data_group_block()
+            ]
+        );
+
         return $block;
     }
 
@@ -343,11 +316,16 @@ class M034MigrateCoversContentBlockToPostsListBlock extends MigrationScript
      */
     private static function get_head_group_block(string $title): array
     {
+        $heading_block = Utils\Functions::create_block_heading(
+            ['lock' => ['move' => true]],
+            $title
+        );
+
         $block = [];
         $block['blockName'] = Utils\Constants::BLOCK_GROUP;
         $block['attrs']['layout']['type'] = 'flex';
         $block['attrs']['layout']['justifyContent'] = 'space-between';
-        $block['innerBlocks'][0] = self::get_heading_block($title);
+        $block['innerBlocks'][0] = $heading_block;
         $block['innerBlocks'][1] = self::get_nav_links_block();
         $block['innerHTML'] = Utils\M034Helper::HEAD_GROUP_BLOCK['html'];
         $block['innerContent'] = Utils\M034Helper::HEAD_GROUP_BLOCK['content'];
