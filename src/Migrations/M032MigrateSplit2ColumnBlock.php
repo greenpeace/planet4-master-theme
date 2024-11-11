@@ -6,7 +6,6 @@ namespace P4\MasterTheme\Migrations;
 
 use P4\MasterTheme\MigrationRecord;
 use P4\MasterTheme\MigrationScript;
-use WP_Block_Parser;
 
 /**
  * Migrate split-two-columns block to columns block.
@@ -21,89 +20,47 @@ class M032MigrateSplit2ColumnBlock extends MigrationScript
      */
     public static function execute(MigrationRecord $record): void
     {
-        try {
-            // Get the list of posts using split-two-columns block.
-            $posts = Utils\Functions::get_posts_using_specific_block(
-                Utils\Constants::BLOCK_SPLIT_TWO_COLUMNS,
-                Utils\Constants::ALL_POST_TYPES,
-                Utils\Constants::POST_STATUS_LIST
-            );
+        $check_is_valid_block = function ($block) {
+            return self::check_is_valid_block($block);
+        };
 
-            // If there are no posts, abort.
-            if (!$posts) {
-                return;
-            }
+        $transform_block = function ($block) {
+            return self::transform_block($block);
+        };
 
-            echo "Split 2 Columns block migration in progress...\n"; // phpcs:ignore
-
-            $parser = new WP_Block_Parser();
-
-            foreach ($posts as $post) {
-                if (empty($post->post_content)) {
-                    continue;
-                }
-
-                $current_post_id = $post->ID; // Store the current post ID
-
-                echo 'Parsing post ', $current_post_id, "\n"; // phpcs:ignore
-
-                // Get all the blocks of each post.
-                $blocks = $parser->parse($post->post_content);
-
-                if (!is_array($blocks)) {
-                    throw new \Exception("Invalid block structure for post #" . $current_post_id);
-                }
-
-                foreach ($blocks as &$block) {
-                    // Check if the block is valid.
-                    if (!is_array($block)) {
-                        continue;
-                    }
-
-                    // Check if the block has a 'blockName' key.
-                    if (!isset($block['blockName'])) {
-                        continue;
-                    }
-
-                    // Check if the block is a split-two-columns block. If not, abort.
-                    if ($block['blockName'] !== Utils\Constants::BLOCK_SPLIT_TWO_COLUMNS) {
-                        continue;
-                    }
-
-                    $block = self::transform_block($block);
-                }
-
-                // Unset the reference to prevent potential issues.
-                unset($block);
-
-                // Serialize the blocks content.
-                $new_content = serialize_blocks($blocks);
-
-                if ($post->post_content === $new_content) {
-                    continue;
-                }
-
-                $post_update = array(
-                    'ID' => $current_post_id,
-                    'post_content' => $new_content,
-                );
-
-                // Update the post with the replaced blocks.
-                $result = wp_update_post($post_update);
-
-                if ($result === 0) {
-                    throw new \Exception("There was an error trying to update the post #" . $current_post_id);
-                }
-
-                echo "Migration successful\n";
-            }
-        } catch (\ErrorException $e) {
-            // Catch any exceptions and display the post ID if available
-            echo "Migration wasn't executed for post ID: ", $current_post_id ?? 'unknown', "\n";
-            echo $e->getMessage(), "\n";
-        }
+        Utils\Functions::execute_block_migration(
+            Utils\Constants::BLOCK_SPLIT_TWO_COLUMNS,
+            $check_is_valid_block,
+            $transform_block,
+        );
     }
     // phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter
+
+    /**
+     * Check whether a block is a Split 2 columns block.
+     *
+     * @param array $block - A block data array.
+     * @return boolean
+     */
+    private static function check_is_valid_block($block)
+    {
+        // Check if the block is valid.
+        if (!is_array($block)) {
+            return false;
+        }
+
+        // Check if the block has a 'blockName' key.
+        if (!isset($block['blockName'])) {
+            return false;
+        }
+
+        // Check if the block is a split-two-columns block. If not, abort.
+        if ($block['blockName'] !== Utils\Constants::BLOCK_SPLIT_TWO_COLUMNS) {
+            return false;
+        }
+
+        return true;
+    }
 
     /**
      * Transform the Split 2 columns block into a Columns block.
