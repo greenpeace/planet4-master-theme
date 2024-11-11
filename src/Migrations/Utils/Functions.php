@@ -108,7 +108,6 @@ class Functions
         array $post_types,
         ?array $post_status = null
     ): mixed {
-    {
         $search = new BlockSearch();
         $params = ( new Parameters() )->with_name($block_name);
 
