@@ -66,11 +66,7 @@ class M034MigrateCoversContentBlockToPostsListBlock extends MigrationScript
         $type = $block['attrs']['cover_type'];
         $const = Utils\Constants::COVER_BLOCK_TYPES['content'];
 
-        if (!isset($type) || $type === $const['name'] || $type === $const['number']) {
-            return true;
-        }
-
-        return false;
+        return !isset($type) || $type === $const['name'] || $type === $const['number'];
     }
 
     /**
@@ -301,7 +297,7 @@ class M034MigrateCoversContentBlockToPostsListBlock extends MigrationScript
             [],
             [
                 Utils\Functions::set_new_block(Utils\Constants::BLOCK_FEAT_IMAGE, $feat_img_attrs),
-                self::get_post_data_group_block()
+                self::get_post_data_group_block(),
             ]
         );
 
