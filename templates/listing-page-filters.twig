@@ -1,0 +1,17 @@
+<div class="listing-page-filters">
+    <label for="category" class="visually-hidden">
+        {{ __('Filter by category', 'planet4-master-theme' ) }}
+    </label>
+    <select class="form-select listing-page-select" id="category">
+        <option value="">{{__( 'All topics', 'planet4-master-theme' ) }}</option>
+        {% for key,category in categories %}
+            {% set isSelected = current_category == category.slug %}
+            <option
+                value="{{category.slug}}"
+                {{isSelected ? 'selected' : ''}}
+            >
+                {{ category.name|raw }}
+            </option>
+        {% endfor %}
+    </select>
+</div>

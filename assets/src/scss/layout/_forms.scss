@@ -25,7 +25,7 @@
       position: relative;
       cursor: pointer;
       display: inline-block;
-      padding-inline-start: 36px;
+      padding-inline-start: $sp-4x;
 
       a {
         color: inherit;
@@ -41,7 +41,7 @@
         border-radius: 2px;
         left: 0;
         position: absolute;
-        top: calc((100% - 20px) / 2);
+        top: calc((100% - $sp-4x) / 2);
 
         html[dir="rtl"] & {
           right: 0;
@@ -62,14 +62,14 @@
         transform: rotate(-45deg) scale(-1, 1);
         border-bottom: 2px solid var(--grey-900);
         border-right: 2px solid var(--grey-900);
-        top: calc(((100% - 20px) / 2) + 5px);
-        left: 4px;
+        top: calc(((100% - $sp-2x) / 2) + 5px);
+        left: $sp-x;
         height: 8px;
         width: 12px;
 
         html[dir="rtl"] & {
           left: auto;
-          right: 4px;
+          right: $sp-x;
         }
       }
     }
@@ -109,7 +109,7 @@
       font-family: var(--font-family-paragraph-secondary);
       position: relative;
       cursor: pointer;
-      padding-inline-start: 36px;
+      padding-inline-start: $sp-4x;
 
       a {
         color: inherit;
@@ -125,7 +125,7 @@
         border-radius: 50%;
         left: 0;
         position: absolute;
-        top: calc((100% - 20px) / 2);
+        top: calc((100% - $sp-2x) / 2);
 
         html[dir="rtl"] & {
           right: 0;
@@ -160,7 +160,7 @@
   background-color: var(--white);
   border: 1px solid var(--grey-500);
   color: var(--color-text-body);
-  padding: 0 16px;
+  padding: 0 $sp-2;
 
   &::placeholder,
   &::-webkit-input-placeholder,
@@ -187,11 +187,12 @@
 input[type="text"].form-control,
 input[type="email"].form-control {
   height: auto;
-  padding: 11px 16px;
+  padding: 11px $sp-2;
 }
 
 .form-select {
-  height: 48px;
+  height: $sp-6;
+  padding-inline-end: $sp-5;
 
   html[dir="rtl"] & {
     background-position: left 0.75rem center;
@@ -207,7 +208,7 @@ input[type="email"].form-control {
 }
 
 textarea.form-control {
-  padding: 12px 16px;
+  padding: $sp-1x $sp-2;
   resize: none;
 }
 
@@ -224,16 +225,16 @@ textarea.form-control {
       pointer-events: none;
       position: absolute;
       left: 0;
-      top: 16px;
+      top: $sp-2;
       color: var(--grey-600);
-      padding-inline-start: 16px;
+      padding-inline-start: $sp-2;
       opacity: 0;
       transition: all .3s ease;
       margin-bottom: 0;
     }
 
     .form-control:not(:placeholder-shown) {
-      padding: 18px 16px 4px 16px;
+      padding: 18px $sp-2 $sp-x $sp-2;
 
       & ~ label {
         transform: translateY(-10px);
@@ -268,7 +269,7 @@ select {
     background: var(--p4-action-yellow-600);
     color: white;
     border-radius: 4px;
-    padding: 6px 12px;
+    padding: 6px $sp-1x;
     width: fit-content;
     position: relative;
     pointer-events: none;
@@ -284,11 +285,11 @@ select {
       border-bottom-color: var(--p4-action-yellow-600);
       border-width: 5px;
       right: auto;
-      left: 16px;
+      left: $sp-2;
 
       html[dir="rtl"] & {
         left: auto;
-        right: 16px;
+        right: $sp-2;
       }
     }
   }
