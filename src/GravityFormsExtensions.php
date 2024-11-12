@@ -831,7 +831,11 @@ class GravityFormsExtensions
             // Get the tag manager data layer ID from master theme settings
             $options = get_option('planet4_options');
             $gtm_id = $options['google_tag_manager_identifier'];
-            $purchase_event = $this->p4_gf_stripe_custom_success_event($entry, $form);
+            $is_stripe_feed = false;
+            if (function_exists('gf_stripe')) {
+                $is_stripe_feed = gf_stripe()->has_feed($form['id']);
+            }
+            $purchase_event = $is_stripe_feed ? $this->p4_gf_stripe_custom_success_event($entry, $form) : [];
 
             $email_hash = $this->p4_gf_get_email_hash($form, $entry);
 
@@ -869,11 +873,13 @@ class GravityFormsExtensions
 
                     window.dataLayer.push(push_data);
                     // One time payment returns Paid status, recurring payments returns Active status
-                    if (
+                    if ("' . $is_stripe_feed . '" == true) {
+                        if (
                         "' . $this->is_payment_successful . '" == "Paid" ||
-                        "' . $this->is_payment_successful . '" == "Active"
-                    ) {
-                        window.dataLayer.push(purchase_event);
+                            "' . $this->is_payment_successful . '" == "Active"
+                        ) {
+                            window.dataLayer.push(purchase_event);
+                        }
                     }
                     const gp_user_id_event = new CustomEvent("gp_user_id_set", {"detail":
                             {"gp_user_id": "' . $email_hash . '" }});
