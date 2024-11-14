@@ -34,8 +34,8 @@
 
       &:before {
         content: "";
-        width: 20px;
-        height: 20px;
+        width: $checkbox-size;
+        height: $checkbox-size;
         background: var(--white);
         border: 1px solid var(--grey-500);
         border-radius: 2px;
@@ -62,8 +62,8 @@
         transform: rotate(-45deg) scale(-1, 1);
         border-bottom: 2px solid var(--grey-900);
         border-right: 2px solid var(--grey-900);
-        top: calc(((100% - $sp-2x) / 2) + 5px);
-        left: $sp-x;
+        top: calc($checkbox-size / 2);
+        left: calc($checkbox-size / 2 - $sp-1x / 2);
         height: 8px;
         width: 12px;
 
