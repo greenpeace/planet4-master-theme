@@ -302,13 +302,25 @@ function render_related_posts_block(array $attributes): string
     // Encode the query attributes to JSON for the block template
     $query_json = wp_json_encode($attributes['query_attributes'], JSON_UNESCAPED_SLASHES);
 
+    // Dynamically render link to News & Stories page
+    $news_stories_url = '';
+    $news_stories_page = (int) get_option('page_for_posts');
+
+    if ($news_stories_page) {
+        $news_stories_url = get_permalink($news_stories_page);
+    }
+
+    $see_all_link_group = !empty($news_stories_url) ?
+        '<!-- wp:navigation-link {"label":"' . __('See all posts', 'planet4-blocks') . '","url":"' . $news_stories_url . '","className":"see-all-link"} /-->'
+    : '';
+
     // Define the HTML output for the block
     $output = '<!-- wp:query ' . $query_json . ' -->
             <div class="wp-block-query posts-list p4-query-loop is-custom-layout-list"><!-- wp:group {"layout":{"type":"flex","justifyContent":"space-between"}} -->
             <div class="wp-block-group related-posts-block"><!-- wp:heading {"lock":{"move":true}} -->
             <h2 class="wp-block-heading">' . __('Related Posts', 'planet4-blocks') . '</h2>
             <!-- /wp:heading -->
-            <!-- wp:navigation-link {"label":"' . __('See all posts', 'planet4-blocks') . '","url":"http://www.planet4.test/news-stories/","className":"see-all-link"} /-->
+            ' . $see_all_link_group . '
             </div>
             <!-- /wp:group -->
             <!-- wp:post-template {"lock":{"move":true,"remove":true}} -->
@@ -328,7 +340,8 @@ function render_related_posts_block(array $attributes): string
                 <!-- /wp:group --></div>
                 <!-- /wp:columns -->
             <!-- /wp:post-template -->
-            <!-- wp:navigation-link {"label":"' . __('See all posts', 'planet4-blocks') . '","url":"http://www.planet4.test/news-stories/","className":"see-all-link"} /--></div>
+            ' . $see_all_link_group . '
+            </div>
         <!-- /wp:query -->';
 
     return do_blocks($output);
