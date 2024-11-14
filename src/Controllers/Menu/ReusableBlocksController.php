@@ -17,6 +17,21 @@ class ReusableBlocksController extends Controller
     private const POST_TYPE = 'wp_block';
 
     /**
+     * Admin page markup.
+     *
+     */
+    public function admin_page_display(): void
+    {
+        echo '
+            <h1>Reusable Blocks</h1>
+            <p>
+                Managing Reusable Blocks (now called "Synced" Patterns) has been moved in a new place under
+                <a href="site-editor.php?path=/patterns">Appearance &gt; Patterns</a>.
+            </p>
+        ';
+    }
+
+    /**
      * Create menu/submenu entry.
      */
     public function create_admin_menu(): void
@@ -37,7 +52,8 @@ class ReusableBlocksController extends Controller
             __('All Reusable blocks', 'planet4-blocks-backend'),
             __('All Reusable blocks', 'planet4-blocks-backend'),
             'edit_posts',
-            'edit.php?post_type=' . self::POST_TYPE
+            'edit.php?post_type=' . self::POST_TYPE,
+            [ $this, 'admin_page_display' ]
         );
     }
 }

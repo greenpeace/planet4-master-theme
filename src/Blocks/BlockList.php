@@ -27,11 +27,11 @@ class BlockList
      * Return name of blocks used in post.
      *
      * @param int|null $post_id  Post ID, defaults to current post.
-     * @param array    $reusable Reusable blocks already parsed.
+     * @param array    $synced_patterns Synced Patterns already parsed.
      *
      * @return string[] List of unique block names.
      */
-    public static function get_block_list(?int $post_id = null, array &$reusable = []): array
+    public static function get_block_list(?int $post_id = null, array &$synced_patterns = []): array
     {
         if (! $post_id) {
             $post = get_post(null);
@@ -48,7 +48,7 @@ class BlockList
         if (! $found || ! is_array($block_list)) {
             $post = $post ?? get_post($post_id);
             $content = $post->post_content ?? '';
-            $block_list = self::parse_block_list($content, $reusable, $post_id);
+            $block_list = self::parse_block_list($content, $synced_patterns, $post_id);
             self::cache_set($post_id, $block_list);
         }
 
@@ -59,7 +59,7 @@ class BlockList
      * List blocks included in post.
      *
      * @param string $content Post content.
-     * @param array  $seen    Reusable blocks already parsed.
+     * @param array  $seen    Synced Patterns already parsed.
      * @param int    $post_id Post ID parsed.
      *
      * @return string[] List of unique block names.
@@ -80,7 +80,7 @@ class BlockList
         while (! empty($parsed)) {
             $block = array_shift($parsed);
 
-            // Add reusable-block blocks to list.
+            // Add synced patterns to list.
             if ('core/block' === $block['blockName'] && isset($block['attrs']['ref'])) {
                 $ref_id = (int) $block['attrs']['ref'];
                 if (! $ref_id) {
@@ -93,7 +93,7 @@ class BlockList
                 }
 
                 // Block loop detection.
-                // If the reusable block is the same as the post currently parsed,
+                // If the synced pattern is the same as the post currently parsed,
                 // or if it has been parsed previously in this process,
                 // this means it eventually loops back to itself.
                 $seen[ $post_id ][] = $ref_id;
@@ -101,7 +101,7 @@ class BlockList
                     $ref_id === $post_id
                     || isset($seen[ $ref_id ])
                 ) {
-                    self::report_reusable_loop($ref_id, $post_id, $seen);
+                    self::report_synced_pattern_loop($ref_id, $post_id, $seen);
                     continue;
                 }
 
@@ -126,9 +126,9 @@ class BlockList
     /**
      * @param int   $ref_id  Block ID.
      * @param int   $post_id Current post ID.
-     * @param array $seen    Reusable blocks already parsed.
+     * @param array $seen    Synced Patterns already parsed.
      */
-    private static function report_reusable_loop(int $ref_id, int $post_id, array $seen): void
+    private static function report_synced_pattern_loop(int $ref_id, int $post_id, array $seen): void
     {
         if (! function_exists('\\Sentry\\withScope')) {
             return;
@@ -144,7 +144,7 @@ class BlockList
                         'seen' => $seen,
                     ]
                 );
-                \Sentry\captureMessage('Reusable block loop');
+                \Sentry\captureMessage('Synced Pattern loop');
             }
         );
     }

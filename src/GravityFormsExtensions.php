@@ -644,11 +644,11 @@ class GravityFormsExtensions
         // Get IDs of posts that contain the forms
         $posts_to_clear = $this->get_posts_by_gf_id($form['id'], $post_types);
 
-        // Get IDs of reusable blocks that contain the forms
-        $reusable_blocks = $this->get_posts_by_gf_id($form['id'], [ 'wp_block' ]);
+        // Get IDs of synced patterns that contain the forms
+        $synced_patterns = $this->get_posts_by_gf_id($form['id'], [ 'wp_block' ]);
 
-        foreach ($reusable_blocks as $block_id) {
-            // Find posts that contain the reusable blocks
+        foreach ($synced_patterns as $block_id) {
+            // Find posts that contain the synced patterns
             $args = [
                 's' => '<!-- wp:block {"ref":' . $block_id . '}',
                 "numberposts" => - 1,
