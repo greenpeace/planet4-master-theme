@@ -51,21 +51,18 @@ export const TakeActionBoxoutEditor = ({
       per_page: -1,
       sort_order: 'asc',
       sort_column: 'post_title',
-      parent: window.p4_vars.take_action_page,
-      post_status: 'publish',
-    };
-
-    const actionsArgs = {
-      per_page: -1,
-      sort_order: 'asc',
-      sort_column: 'post_title',
       post_status: 'publish',
     };
 
     // eslint-disable-next-line no-shadow
     const actPageList = [].concat(
-      select('core').getEntityRecords('postType', 'page', args) || [],
-      select('core').getEntityRecords('postType', 'p4_action', actionsArgs) || []
+      select('core').getEntityRecords('postType', 'page', {
+        ...args, parent: window.p4_vars.options.take_action_page,
+      }) || [],
+      ...(window.p4_vars.options.new_ia === 'on' ?
+        (select('core').getEntityRecords('postType', 'p4_action', args) || []) :
+        []
+      )
     ).sort((a, b) => {
       if (a.title.raw === b.title.raw) {
         return 0;
