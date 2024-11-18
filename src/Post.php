@@ -518,4 +518,22 @@ class Post extends TimberPost
 
         return $post_locale ?? $site_locale;
     }
+
+    /**
+     * Get the content for the old posts archive notice.
+     *
+     * @return array
+     */
+    public function get_old_posts_archive_notice()
+    {
+        $options = get_option('planet4_options');
+        $prefix = 'old_posts_archive_notice_';
+
+        return array(
+            "cutoff" => $options[$prefix . 'cutoff'],
+            "title" => $options[$prefix . 'title'],
+            "description" => $options[$prefix . 'description'],
+            "button" => $options[$prefix . 'button']
+        );
+    }
 }

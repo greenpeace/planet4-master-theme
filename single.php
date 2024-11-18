@@ -48,6 +48,7 @@ $context['post_tags'] = implode(', ', $post->tags());
 $context['post_categories'] = implode(', ', $post->categories());
 // We need the explode because we want to remove "+00:00" at the end of the string.
 $context['page_date'] = explode('+', get_the_date('c', $post->ID))[0];
+$context['old_posts_archive_notice'] = $post->get_old_posts_archive_notice();
 
 Context::set_og_meta_fields($context, $post);
 Context::set_campaign_datalayer($context, $page_meta_data);

@@ -79,6 +79,15 @@
                     </div>
                 </div>
                 {% include "blocks/share_buttons.twig" with {social:post.share_meta, utm_medium: 'share'} %}
+
+                <div>
+                    <h4>{{ old_posts_archive_notice.title }}</h4>
+                    <p>{{ old_posts_archive_notice.description }}</p>
+                    <a>{{ old_posts_archive_notice.button }}</a>
+                </div>
+
+
+
             </header>
         </div>
 
