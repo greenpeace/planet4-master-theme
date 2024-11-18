@@ -21,6 +21,7 @@ const addVideoOrAudioBlock = async ({page}, mediaType, mediaLink) => {
   await page.getByRole('button', {name: 'Insert from URL'}).click();
   await page.getByPlaceholder('Paste or type URL').fill(mediaLink);
   await page.keyboard.press('Enter');
+  await page.waitForTimeout(1000); // Let the media load for a bit.
 };
 
 test.useAdminLoggedIn();

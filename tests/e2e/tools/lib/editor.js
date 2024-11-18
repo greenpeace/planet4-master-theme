@@ -76,9 +76,8 @@ async function removeAllPostTypes({editor}) {
  */
 const searchAndInsertBlock = async ({page}, blockName, namespace = '') => {
   const labelText = 'Toggle block inserter'; // Can we also use aria-label="Add block"
-  await page.locator(`button[aria-label="${labelText}"]`).click();
-
-  await page.getByPlaceholder('Search').click();
+  await page.getByRole('button', {name: labelText}).click();
+  await page.getByLabel('Search for blocks and patterns').click();
   await page.keyboard.type(namespace !== '' ? namespace : blockName);
 
   if (namespace !== '') {

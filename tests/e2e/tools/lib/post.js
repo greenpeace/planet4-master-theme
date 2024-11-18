@@ -51,10 +51,9 @@ async function publishPostAndVisit({page, editor}) {
  * @param {Object} p.admin - The admin object used to create a new post.
  * @param {Object} p.editor - The editor object used to interact with the editor.
  * @param {Object} params - Additional parameters for creating the post.
- * @return {Promise<Object>} The newly created post.
  */
 async function createPostWithFeaturedImage({admin, editor}, params) {
-  const newPost = await admin.createNewPost({...params, legacyCanvas: true});
+  await admin.createNewPost({...params, legacyCanvas: true});
   const editorSettings = await editor.canvas.getByRole('region', {name: 'Editor settings'});
   await editorSettings.getByRole('button', {name: 'Set featured image'}).click();
   const imageModal = await editor.canvas.getByRole('dialog', {name: 'Featured image'});
@@ -65,8 +64,7 @@ async function createPostWithFeaturedImage({admin, editor}, params) {
   }
   await imageModal.getByRole('checkbox', {name: 'OCEANS-GP0STOM6C'}).click();
   await imageModal.getByRole('button', {name: 'Set featured image'}).click();
-
-  return newPost;
+  await editor.canvas.waitForSelector('.editor-post-featured-image__preview-image');
 }
 
 export {publishPost, publishPostAndVisit, createPostWithFeaturedImage, updatePost};
