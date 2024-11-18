@@ -30,9 +30,17 @@ class OldPostsArchiveNotice extends Feature
      */
     protected static function description(): string
     {
+        $description = 'Displays a notice on top of old Posts.';
+        $description .= '<br>';
+        $description .= 'Adjust its behavior and text through';
+        $description .= ' ';
+        $description .= '<a href="/wp-admin/admin.php?page=planet4_settings_defaults_content" href="_self">';
+        $description .= 'Defaults content settings.';
+        $description .= '</a>';
+
         return __(
             // phpcs:ignore Generic.Files.LineLength.MaxExceeded
-            'Displays a notice on top of old Posts.<br>Adjust its behavior and text through <a href="/wp-admin/admin.php?page=planet4_settings_defaults_content" href="_self">Defaults content settings.</a>',
+            $description,
             'planet4-master-theme-backend'
         );
     }
