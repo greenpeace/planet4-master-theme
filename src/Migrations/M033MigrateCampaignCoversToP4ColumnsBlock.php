@@ -85,9 +85,10 @@ class M033MigrateCampaignCoversToP4ColumnsBlock extends MigrationScript
         $block_attrs['columns_title'] = $block['attrs']['title'] ?? '';
         $block_attrs['className'] = 'is-style-image';
 
-        $block_attrs['columns_description'] = $block['attrs']['description'] ?
-            str_replace("u003cbru003e", " - ", $block['attrs']['description']) : // Replace line breaks.
-            '';
+        // Replace line breaks.
+        $block_attrs['columns_description'] = $block['attrs']['description']
+            ? str_replace(["u003cbru003e", "<br>", "<br/>", "<br />"], " - ", $block['attrs']['description'])
+            : '';
 
         if (isset($block['attrs']['tags'])) {
             // To keep the same order of columns, reverse the array.
