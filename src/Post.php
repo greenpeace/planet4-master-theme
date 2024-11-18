@@ -523,9 +523,8 @@ class Post extends TimberPost
     /**
      * Get the content for the old posts archive notice.
      *
-     * @return array
      */
-    public function get_old_posts_archive_notice()
+    public function get_old_posts_archive_notice(): array
     {
         $prefix = 'old_posts_archive_notice_';
         $post_date = get_post_field('post_date', $this->id);
@@ -541,7 +540,7 @@ class Post extends TimberPost
                 "show_notice" => ($current_year - $post_publish_year) >= (int) $notice_cutoff,
                 "title" => $options[$prefix . 'title'] ?? '',
                 "description" => $options[$prefix . 'description'] ?? '',
-                "button" => $options[$prefix . 'button'] ?? ''
+                "button" => $options[$prefix . 'button'] ?? '',
             );
         }
 
@@ -549,7 +548,7 @@ class Post extends TimberPost
             "show_notice" => false,
             "title" => '',
             "description" => '',
-            "button" => ''
+            "button" => '',
         );
     }
 }
