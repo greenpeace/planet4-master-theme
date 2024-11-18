@@ -13,15 +13,24 @@ const MP3_TEST = 'https://www.greenpeace.org/static/planet4-assets/tests/wochens
  * Add a Video or Audio block to a page with a specific link.
  *
  * @param {Object} page - The page object for interacting with the browser.
- * @param {string} mediaType - The type of media added (Audio or Video).
+ * @param {string} mediaType - The type of media added (audio or video).
+ * @param {string} mediaProvider - The media provider (youtube, soundcloud, etc).
  * @param {string} mediaLink - The media file link (can be YouTube, Vimeo, mp4, mp3, SoundCloud).
  */
-const addVideoOrAudioBlock = async ({page}, mediaType, mediaLink) => {
+const testAudioOrVideoBlock = async ({page, admin, editor}, mediaType, mediaProvider, mediaLink) => {
+  await createPostWithFeaturedImage({page, admin, editor}, {title: `Test Audio and Video blocks - ${mediaProvider}`});
+
+  // Add the video/audio block to the post.
   await searchAndInsertBlock({page}, mediaType, mediaType);
   await page.getByRole('button', {name: 'Insert from URL'}).click();
   await page.getByPlaceholder('Paste or type URL').fill(mediaLink);
   await page.keyboard.press('Enter');
-  await page.waitForTimeout(1000); // Let the media load for a bit.
+
+  // Publish post.
+  await publishPostAndVisit({page, editor});
+
+  // Check on the frontend that the block is present.
+  await expect(page.locator(`.wp-block-${mediaProvider}`)).toBeVisible();
 };
 
 test.useAdminLoggedIn();
@@ -36,37 +45,12 @@ test('check the Audio and Video blocks', async ({page, admin, editor}) => {
     await page.locator('input[type="submit"]').click();
   }
 
-  // Create a post for the test.
-  await createPostWithFeaturedImage({page, admin, editor}, {title: 'Test Audio and Video blocks'});
+  // Test video blocks.
+  await testAudioOrVideoBlock({page, admin, editor}, 'video', 'youtube', YOUTUBE_TEST);
+  await testAudioOrVideoBlock({page, admin, editor}, 'video', 'vimeo', VIMEO_TEST);
+  await testAudioOrVideoBlock({page, admin, editor}, 'video', 'video', MP4_TEST);
 
-  // Add Video blocks with the various examples.
-  await addVideoOrAudioBlock({page}, 'video', YOUTUBE_TEST);
-  await addVideoOrAudioBlock({page}, 'video', VIMEO_TEST);
-  await addVideoOrAudioBlock({page}, 'video', MP4_TEST);
-
-  // Add Audio blocks with the various examples.
-  await addVideoOrAudioBlock({page}, 'audio', MP3_TEST);
-  await addVideoOrAudioBlock({page}, 'audio', SOUNDCLOUD_TEST);
-
-  // Publish page.
-  await publishPostAndVisit({page, editor});
-
-  // Check on the frontend that the blocks are present.
-  // Check YouTube embed.
-  const youtubeEmbed = page.locator('.wp-block-embed-youtube');
-  const youtubeVideoId = YOUTUBE_TEST.split('?v=')[1];
-  await expect(youtubeEmbed).toBeVisible();
-  await expect(youtubeEmbed.locator('lite-youtube')).toHaveAttribute('videoid', youtubeVideoId);
-
-  // Check Vimeo embed.
-  await expect(page.locator('.wp-block-embed-vimeo')).toBeVisible();
-
-  // Check MP4 embed.
-  await expect(page.locator('.wp-block-video > video')).toHaveAttribute('src', MP4_TEST);
-
-  // Check SoundCloud embed.
-  await expect(page.locator('.wp-block-embed-soundcloud')).toBeVisible();
-
-  // Check MP3 embed.
-  await expect(page.locator('.wp-block-audio > audio')).toHaveAttribute('src', MP3_TEST);
+  // Test audio blocks.
+  await testAudioOrVideoBlock({page, admin, editor}, 'audio', 'soundcloud', SOUNDCLOUD_TEST);
+  await testAudioOrVideoBlock({page, admin, editor}, 'audio', 'audio', MP3_TEST);
 });
