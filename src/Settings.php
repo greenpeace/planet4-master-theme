@@ -173,6 +173,35 @@ class Settings
                             'media_buttons' => false,
                         ],
                     ],
+
+                    [
+                        'name' => __('Old Posts Archive notice cutoff years', 'planet4-master-theme-backend'),
+                        'id' => 'old_posts_archive_notice_cutoff',
+                        'type' => 'text',
+                        'default' => '10',
+                        'desc' => __('Condition to determine when to show the notice, in years.<br>Any Post older than that will have the notice displayed on the top.', 'planet4-master-theme-backend'),
+                    ],
+
+                    [
+                        'name' => __('Old Posts Archive notice title', 'planet4-master-theme-backend'),
+                        'id' => 'old_posts_archive_notice_title',
+                        'default' => 'Oldies But Goodies Alert!',
+                        'type' => 'text',
+                    ],
+
+                    [
+                        'name' => __('Old Posts Archive notice description', 'planet4-master-theme-backend'),
+                        'id' => 'old_posts_archive_notice_description',
+                        'default' => "Hey there! Just a quick note: the stuff you're browsing through is mostly for nostalgia and archival kicks. So, before you go basing any big decisions on what you find here, maybe double-check with some fresher content.",
+                        'type' => 'textarea',
+                    ],
+
+                    [
+                        'name' => __('Old Posts Archive button text', 'planet4-master-theme-backend'),
+                        'id' => 'old_posts_archive_notice_button',
+                        'default' => 'Read the latest from ' . get_bloginfo('name'),
+                        'type' => 'text',
+                    ],
                 ],
             ],
             'planet4_settings_cookies_text' => [
