@@ -529,8 +529,12 @@ class Post extends TimberPost
         $options = get_option('planet4_options');
         $prefix = 'old_posts_archive_notice_';
 
+        $post_publish_date = (int) get_the_date('Y', $this->id);
+        $notice_cutoff = (int) $options[$prefix . 'cutoff'] ?? 0;
+        $current_year = (int) date('Y');
+
         return array(
-            "cutoff" => $options[$prefix . 'cutoff'] ?? '',
+            "show_notice" => ($current_year - $post_publish_date) <= $notice_cutoff,
             "title" => $options[$prefix . 'title'] ?? '',
             "description" => $options[$prefix . 'description'] ?? '',
             "button" => $options[$prefix . 'button'] ?? ''
