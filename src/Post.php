@@ -530,10 +530,10 @@ class Post extends TimberPost
         $prefix = 'old_posts_archive_notice_';
 
         return array(
-            "cutoff" => $options[$prefix . 'cutoff'],
-            "title" => $options[$prefix . 'title'],
-            "description" => $options[$prefix . 'description'],
-            "button" => $options[$prefix . 'button']
+            "cutoff" => $options[$prefix . 'cutoff'] ?? '',
+            "title" => $options[$prefix . 'title'] ?? '',
+            "description" => $options[$prefix . 'description'] ?? '',
+            "button" => $options[$prefix . 'button'] ?? ''
         );
     }
 }
