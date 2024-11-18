@@ -3,6 +3,7 @@
 namespace P4\MasterTheme;
 
 use Timber\Post as TimberPost;
+use P4\MasterTheme\Features\OldPostsArchiveNotice;
 use WP_Block;
 use WP_Error;
 
@@ -526,29 +527,29 @@ class Post extends TimberPost
      */
     public function get_old_posts_archive_notice()
     {
-        $options = get_option('planet4_options');
+        $prefix = 'old_posts_archive_notice_';
         $post_date = get_post_field('post_date', $this->id);
+        $options = get_option('planet4_options');
+        $notice_cutoff = $options[$prefix . 'cutoff'];
+        $activate = OldPostsArchiveNotice::is_active();
 
-        if (!$options || !$post_date) {
+        if ($options && $post_date && $notice_cutoff && $activate) {
+            $post_publish_year = (int) date('Y', strtotime($post_date));
+            $current_year = (int) date('Y');
+
             return array(
-                "show_notice" => false,
-                "title" => '',
-                "description" => '',
-                "button" => ''
+                "show_notice" => ($current_year - $post_publish_year) >= (int) $notice_cutoff,
+                "title" => $options[$prefix . 'title'] ?? '',
+                "description" => $options[$prefix . 'description'] ?? '',
+                "button" => $options[$prefix . 'button'] ?? ''
             );
         }
 
-        $prefix = 'old_posts_archive_notice_';
-
-        $post_publish_year = (int) date('Y', strtotime($post_date));
-        $notice_cutoff = (int) ($options[$prefix . 'cutoff'] ?? 0);
-        $current_year = (int) date('Y');
-
         return array(
-            "show_notice" => ($current_year - $post_publish_year) >= $notice_cutoff,
-            "title" => $options[$prefix . 'title'] ?? '',
-            "description" => $options[$prefix . 'description'] ?? '',
-            "button" => $options[$prefix . 'button'] ?? ''
+            "show_notice" => false,
+            "title" => '',
+            "description" => '',
+            "button" => ''
         );
     }
 }
