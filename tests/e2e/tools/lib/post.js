@@ -65,6 +65,7 @@ async function createPostWithFeaturedImage({admin, editor}, params) {
   }
   await imageModal.getByRole('checkbox', {name: 'OCEANS-GP0STOM6C'}).click();
   await imageModal.getByRole('button', {name: 'Set featured image'}).click();
+  await editor.canvas.waitForSelector('.editor-post-featured-image__preview-image');
 
   return newPost;
 }
