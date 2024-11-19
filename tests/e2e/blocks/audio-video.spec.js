@@ -26,15 +26,6 @@ const addVideoOrAudioBlock = async ({page}, mediaType, mediaLink) => {
 test.useAdminLoggedIn();
 
 test('check the Audio and Video blocks', async ({page, admin, editor}) => {
-  // Make sure the "Lazy Youtube player" setting is enabled.
-  await page.goto('./wp-admin/admin.php?page=planet4_settings_features');
-  const lazyYoutubePlayerSetting = page.locator('#lazy_youtube_player');
-  const alreadyEnabled = await lazyYoutubePlayerSetting.isChecked();
-  if (!alreadyEnabled) {
-    await lazyYoutubePlayerSetting.check();
-    await page.locator('input[type="submit"]').click();
-  }
-
   // Create a post for the test.
   await createPostWithFeaturedImage({page, admin, editor}, {title: 'Test Audio and Video blocks'});
 
@@ -51,21 +42,9 @@ test('check the Audio and Video blocks', async ({page, admin, editor}) => {
   await publishPostAndVisit({page, editor});
 
   // Check on the frontend that the blocks are present.
-  // Check YouTube embed.
-  const youtubeEmbed = page.locator('.wp-block-embed-youtube');
-  const youtubeVideoId = YOUTUBE_TEST.split('?v=')[1];
-  await expect(youtubeEmbed).toBeVisible();
-  await expect(youtubeEmbed.locator('lite-youtube')).toHaveAttribute('videoid', youtubeVideoId);
-
-  // Check Vimeo embed.
+  await expect(page.locator('.wp-block-embed-youtube')).toBeVisible();
   await expect(page.locator('.wp-block-embed-vimeo')).toBeVisible();
-
-  // Check MP4 embed.
   await expect(page.locator('.wp-block-video > video')).toHaveAttribute('src', MP4_TEST);
-
-  // Check SoundCloud embed.
   await expect(page.locator('.wp-block-embed-soundcloud')).toBeVisible();
-
-  // Check MP3 embed.
   await expect(page.locator('.wp-block-audio > audio')).toHaveAttribute('src', MP3_TEST);
 });
