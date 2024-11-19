@@ -18,6 +18,11 @@ const MP3_TEST = 'https://www.greenpeace.org/static/planet4-assets/tests/wochens
  */
 const addVideoOrAudioBlock = async ({page}, mediaType, mediaLink) => {
   await searchAndInsertBlock({page}, mediaType, mediaType);
+  // We should close the sidebar before editing the block.
+  const toggleSidebar = await page.getByRole('button', {name: 'Toggle block inserter'});
+  if (await toggleSidebar.getAttribute('aria-expanded') === 'true') {
+    await toggleSidebar.click();
+  }
   await page.getByRole('button', {name: 'Insert from URL'}).click();
   await page.getByPlaceholder('Paste or type URL').fill(mediaLink);
   await page.keyboard.press('Enter');
@@ -35,8 +40,8 @@ test('check the Audio and Video blocks', async ({page, admin, editor}) => {
   await addVideoOrAudioBlock({page}, 'video', MP4_TEST);
 
   // Add Audio blocks with the various examples.
-  await addVideoOrAudioBlock({page}, 'audio', MP3_TEST);
   await addVideoOrAudioBlock({page}, 'audio', SOUNDCLOUD_TEST);
+  await addVideoOrAudioBlock({page}, 'audio', MP3_TEST);
 
   // Publish page.
   await publishPostAndVisit({page, editor});
