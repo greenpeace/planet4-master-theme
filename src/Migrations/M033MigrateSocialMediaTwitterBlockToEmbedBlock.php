@@ -141,7 +141,7 @@ class M033MigrateSocialMediaTwitterBlockToEmbedBlock extends MigrationScript
         $block['innerBlocks'] = [];
         $block['innerBlocks'][0] = $title;
         $block['innerBlocks'][1] = $description;
-        $block['innerBlocks'][3] = self::transform_block_to_embed(
+        $block['innerBlocks'][3] = Utils\Functions::create_embed_block(
             $social_media_url,
             'rich',
             Utils\Constants::TWITTER,
@@ -174,35 +174,6 @@ class M033MigrateSocialMediaTwitterBlockToEmbedBlock extends MigrationScript
             8 => '</div>
         ',
         );
-
-        return $block;
-    }
-
-    /**
-     * Create an Embed block based on a social media url.
-     *
-     * @param string $social_media_url - The Social Media URL.
-     * @param string $type - The embed type.
-     * @param $provider - The embed provider.
-     *
-     * @return array - The new Embed block.
-     */
-    private static function transform_block_to_embed(string $social_media_url, string $type, string $provider): array
-    {
-        // IMPORTANT: DO NOT MODIFY THIS FORMAT!
-        $html_content = '<figure class="wp-block-embed is-type-' . $type . ' is-provider-' . $provider . ' wp-block-embed-' . $provider . '"><div class="wp-block-embed__wrapper">
-        ' . $social_media_url . '
-        </div></figure>';
-
-        $block = [];
-        $block['blockName'] = Utils\Constants::BLOCK_EMBED;
-        $block['attrs']['type'] = $type;
-        $block['attrs']['providerNameSlug'] = $provider;
-        $block['attrs']['metadata']['name'] = $provider;
-        $block['attrs']['url'] = $social_media_url;
-        $block['innerHTML'] = $html_content;
-        $block['innerContent'][0] = $html_content;
-        $block['innerBlocks'] = [];
 
         return $block;
     }

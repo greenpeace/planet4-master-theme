@@ -355,7 +355,6 @@ class Functions
         string $img_url,
         int $img_id
     ): array {
-
         // phpcs:disable Generic.Files.LineLength.MaxExceeded
         $html = array (
            0 => '
@@ -380,6 +379,44 @@ class Functions
             $inner_blocks,
             $html[0] . $html[6],
             $html
+        );
+    }
+
+    /**
+     * Create a new Embed block.
+     *
+     * @param string $social_media_url - The Social Media URL.
+     * @param string $type - The embed type.
+     * @param $provider - The embed provider.
+     *
+     * @return array - The new Embed block.
+     */
+
+    public static function create_embed_block(
+        string $social_media_url,
+        string $type,
+        string $provider,
+    ): array {
+        // phpcs:disable Generic.Files.LineLength.MaxExceeded
+        $html_content = '<figure class="wp-block-embed is-type-' . $type . ' is-provider-' . $provider . ' wp-block-embed-' . $provider . '"><div class="wp-block-embed__wrapper">
+        ' . $social_media_url . '
+        </div></figure>';
+        // phpcs:enable Generic.Files.LineLength.MaxExceeded
+
+        $attrs = [];
+        $attrs['type'] = $type;
+        $attrs['providerNameSlug'] = $provider;
+        $attrs['metadata']['name'] = $provider;
+        $attrs['url'] = $social_media_url;
+        $block['innerHTML'] = $html_content;
+        $block['innerContent'][0] = $html_content;
+
+        return self::create_new_block(
+            Constants::BLOCK_EMBED,
+            $attrs,
+            [],
+            $html_content,
+            [$html_content],
         );
     }
 }
