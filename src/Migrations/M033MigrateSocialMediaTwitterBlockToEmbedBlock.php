@@ -25,7 +25,7 @@ class M033MigrateSocialMediaTwitterBlockToEmbedBlock extends MigrationScript
         };
 
         $transform_block = function ($block) {
-            return self::transform_block($block);
+            return self::transform_block($block['attrs']);
         };
 
         Utils\Functions::execute_block_migration(
@@ -104,17 +104,17 @@ class M033MigrateSocialMediaTwitterBlockToEmbedBlock extends MigrationScript
      * a paragraph for the Social Media block description,
      * and a final block (Embed) for the Twitter/X embed.
      *
-     * @param array $block - A parsed Social Media block.
+     * @param array $block_attrs - The initial Social Media block attributes.
      * @return array - The transformed block.
      */
-    private static function transform_block(array $block): array
+    private static function transform_block(array $block_attrs): array
     {
-        $block_title = array_key_exists("title", $block['attrs']) ? $block['attrs']['title'] : null;
-        $block_description = array_key_exists("description", $block['attrs']) ? $block['attrs']['description'] : null;
+        $block_title = array_key_exists("title", $block_attrs) ? $block_attrs['title'] : null;
+        $block_description = array_key_exists("description", $block_attrs) ? $block_attrs['description'] : null;
 
         // If the source is X, we want to change it to Twitter.
         // Links from x.com don't work in the Embed block at the moment.
-        $social_media_url = $block['attrs']['social_media_url'];
+        $social_media_url = $block_attrs['social_media_url'];
         $source = self::identify_source($social_media_url);
         if ($source === Utils\Constants::X) {
             $social_media_url = str_replace(
@@ -124,14 +124,28 @@ class M033MigrateSocialMediaTwitterBlockToEmbedBlock extends MigrationScript
             );
         }
 
+        $title = $block_title ? Utils\Functions::create_block_heading(
+            ['level' => '2'],
+            $block_title,
+        ) : null;
+
+        $description = $block_description ? Utils\Functions::create_block_paragraph(
+            [],
+            $block_description,
+        ) : null;
+
         $block = [];
         $block['blockName'] = Utils\Constants::BLOCK_GROUP;
         $block['attrs']['metadata']['name'] = 'Twitter/X Group';
 
         $block['innerBlocks'] = [];
-        $block['innerBlocks'][0] = $block_title ? self::get_heading_block($block_title) : null;
-        $block['innerBlocks'][1] = $block_description ? self::get_paragraph_block($block_description) : null;
-        $block['innerBlocks'][3] = self::transform_block_to_embed($block, $social_media_url);
+        $block['innerBlocks'][0] = $title;
+        $block['innerBlocks'][1] = $description;
+        $block['innerBlocks'][3] = self::transform_block_to_embed(
+            $social_media_url,
+            'rich',
+            Utils\Constants::TWITTER,
+        );
 
         // IMPORTANT: DO NOT MODIFY THIS FORMAT!
         $block['innerHTML'] =
@@ -165,22 +179,22 @@ class M033MigrateSocialMediaTwitterBlockToEmbedBlock extends MigrationScript
     }
 
     /**
-     * Transform a Social Media block into an embed block.
+     * Create an Embed block based on a social media url.
      *
-     * @param array $block - A parsed Social Media block.
      * @param string $social_media_url - The Social Media URL.
-     * @return array - The transformed block.
+     * @param string $type - The embed type.
+     * @param $provider - The embed provider.
+     *
+     * @return array - The new Embed block.
      */
-    private static function transform_block_to_embed(array $block, string $social_media_url): array
+    private static function transform_block_to_embed(string $social_media_url, string $type, string $provider): array
     {
-        $type = 'rich';
-        $provider = Utils\Constants::TWITTER;
-
         // IMPORTANT: DO NOT MODIFY THIS FORMAT!
-        $html_content = '<figure class="wp-block-embed is-type-' . $type . ' is-provider-' . $provider . ' wp-block-embed-' . $provider . ' wp-embed-aspect-16-9 wp-has-aspect-ratio"><div class="wp-block-embed__wrapper">
+        $html_content = '<figure class="wp-block-embed is-type-' . $type . ' is-provider-' . $provider . ' wp-block-embed-' . $provider . '"><div class="wp-block-embed__wrapper">
         ' . $social_media_url . '
         </div></figure>';
 
+        $block = [];
         $block['blockName'] = Utils\Constants::BLOCK_EMBED;
         $block['attrs']['type'] = $type;
         $block['attrs']['providerNameSlug'] = $provider;
@@ -190,55 +204,6 @@ class M033MigrateSocialMediaTwitterBlockToEmbedBlock extends MigrationScript
         $block['innerContent'][0] = $html_content;
         $block['innerBlocks'] = [];
 
-        unset($block['attrs']['title']);
-        unset($block['attrs']['description']);
-
         return $block;
-    }
-
-    /**
-     * Get a heading block.
-     *
-     * @param string $text - The text for the heading.
-     * @return array - The block.
-     */
-    private static function get_heading_block(string $text): array
-    {
-        // IMPORTANT: DO NOT MODIFY THIS FORMAT!
-        $html = '
-  <h2 class="wp-block-heading">' . $text . '</h2>
-  ';
-
-        $heading = [];
-        $heading['blockName'] = Utils\Constants::BLOCK_HEADING;
-        $heading['attrs'] = [];
-        $heading['innerBlocks'] = [];
-        $heading['innerHTML'] = $html;
-        $heading['innerContent'][0] = $html;
-
-        return $heading;
-    }
-
-    /**
-     * Get a paragraph block.
-     *
-     * @param string $text - The text for the paragraph.
-     * @return array - The block.
-     */
-    private static function get_paragraph_block(string $text): array
-    {
-        // IMPORTANT: DO NOT MODIFY THIS FORMAT!
-        $html = '
-    <p>' . $text . '</p>
-    ';
-
-        $paragraph = [];
-        $paragraph['blockName'] = Utils\Constants::BLOCK_PARAGRAPH;
-        $paragraph['attrs'] = [];
-        $paragraph['innerBlocks'] = [];
-        $paragraph['innerHTML'] = $html;
-        $paragraph['innerContent'][0] = $html;
-
-        return $paragraph;
     }
 }
