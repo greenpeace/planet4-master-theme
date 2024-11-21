@@ -36,6 +36,9 @@ export const TakeActionBoxoutEditor = ({
     stickyOnMobile,
   } = attributes;
 
+  const urlParams = new URLSearchParams(window.location.search);
+  const postId = urlParams.get('post');
+
   const {
     loading,
     actPageList,
@@ -63,7 +66,7 @@ export const TakeActionBoxoutEditor = ({
         (select('core').getEntityRecords('postType', 'p4_action', args) || []) :
         []
       )
-    ).sort((a, b) => {
+    ).filter(a => `${a.id}` !== postId).sort((a, b) => {
       if (a.title.raw === b.title.raw) {
         return 0;
       }
