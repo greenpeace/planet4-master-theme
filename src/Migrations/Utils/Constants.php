@@ -44,4 +44,18 @@ class Constants
         'future',
         'private',
     ];
+
+    public const INSTAGRAM = 'instagram';
+    public const FACEBOOK = 'facebook';
+    public const TWITTER = 'twitter';
+    public const X = 'x';
+
+    // phpcs:disable Generic.Files.LineLength.MaxExceeded
+    public const SOCIAL_MEDIA_PATTERNS = [
+        self::INSTAGRAM => '/^(?:(?:http|https):\/\/)?(?:www.)?(?:instagram.com|instagr.am|instagr.com)\/.+$/i',
+        self::FACEBOOK => '/^(?:(?:http|https)?:\/\/)?(?:www\.)?(mbasic.facebook|m\.facebook|facebook|fb)\.(com|me)\/.+$/i',
+        self::TWITTER => '/^(https?\:\/\/)?(www\.)?(twitter\.com)\/.+$/i',
+        self::X => '/^(https?\:\/\/)?(www\.)?x\.com\/.+$/i',
+    ];
+    // phpcs:enable Generic.Files.LineLength.MaxExceeded
 }
