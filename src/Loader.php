@@ -167,7 +167,6 @@ final class Loader
         }
         $services[] = Controllers\Menu\BlocksReportController::class;
         $services[] = Controllers\Menu\BlocksUsageController::class;
-        $services[] = Controllers\Menu\ClassicBlocksUsage::class;
         $services[] = Controllers\Menu\ReusableBlocksController::class;
         $services[] = Controllers\Menu\PostmetaCheckController::class;
         $services[] = Admin\Rest::class;
