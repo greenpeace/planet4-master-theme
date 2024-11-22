@@ -59,6 +59,7 @@ class M033MigrateSocialMediaTwitterBlockToEmbedBlock extends MigrationScript
      * we want to migrate.
      *
      * @param array $block - A parsed Social Media block.
+     *
      * @return bool - Whether or not the block should be migrated.
      */
     private static function check_is_valid_block(array $block): bool
@@ -105,6 +106,7 @@ class M033MigrateSocialMediaTwitterBlockToEmbedBlock extends MigrationScript
      * and a final block (Embed) for the Twitter/X embed.
      *
      * @param array $block_attrs - The initial Social Media block attributes.
+     *
      * @return array - The transformed block.
      */
     private static function transform_block(array $block_attrs): array
@@ -134,47 +136,18 @@ class M033MigrateSocialMediaTwitterBlockToEmbedBlock extends MigrationScript
             $block_description,
         ) : null;
 
-        $block = [];
-        $block['blockName'] = Utils\Constants::BLOCK_GROUP;
-        $block['attrs']['metadata']['name'] = 'Twitter/X Group';
+        $attrs = [];
+        $attrs['metadata']['name'] = 'Twitter/X Group';
 
-        $block['innerBlocks'] = [];
-        $block['innerBlocks'][0] = $title;
-        $block['innerBlocks'][1] = $description;
-        $block['innerBlocks'][3] = Utils\Functions::create_embed_block(
+        $inner_blocks = [];
+        $inner_blocks[0] = $title;
+        $inner_blocks[1] = $description;
+        $inner_blocks[3] = Utils\Functions::create_embed_block(
             $social_media_url,
             'rich',
             Utils\Constants::TWITTER,
         );
 
-        // IMPORTANT: DO NOT MODIFY THIS FORMAT!
-        $block['innerHTML'] =
-        '<div class="wp-block-group">
-
-
-
-
-
-        </div>';
-
-        // IMPORTANT: DO NOT MODIFY THIS FORMAT!
-        $block['innerContent'] = array (
-            0 => '
-        <div class="wp-block-group">',
-            1 => null,
-            2 => '
-        ',
-            3 => null,
-            4 => '
-        ',
-            5 => null,
-            6 => '
-        ',
-            7 => null,
-            8 => '</div>
-        ',
-        );
-
-        return $block;
+        return Utils\Functions::create_group_block($inner_blocks, $attrs);
     }
 }

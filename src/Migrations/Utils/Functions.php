@@ -419,4 +419,52 @@ class Functions
             [$html_content],
         );
     }
+
+    /**
+     * Create a new Group block.
+     *
+     * @param array $inner_blocks - The block's inner blocks.
+     * @param array $attrs - The block's attributes.
+     *
+     * @return array - The new Group block.
+     */
+
+    public static function create_group_block(array $inner_blocks, array $attrs): array
+    {
+        // IMPORTANT: DO NOT MODIFY THIS FORMAT!
+        $inner_html =
+        '<div class="wp-block-group">
+
+
+
+
+
+        </div>';
+
+        // IMPORTANT: DO NOT MODIFY THIS FORMAT!
+        $inner_content = array (
+            0 => '
+        <div class="wp-block-group">',
+            1 => null,
+            2 => '
+        ',
+            3 => null,
+            4 => '
+        ',
+            5 => null,
+            6 => '
+        ',
+            7 => null,
+            8 => '</div>
+        ',
+        );
+
+        return self::create_new_block(
+            Constants::BLOCK_GROUP,
+            $attrs,
+            $inner_blocks,
+            $inner_html,
+            $inner_content,
+        );
+    }
 }
