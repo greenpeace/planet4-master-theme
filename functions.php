@@ -316,33 +316,43 @@ function render_related_posts_block(array $attributes): string
 
     // Define the HTML output for the block
     $output = '<!-- wp:query ' . $query_json . ' -->
-            <div class="wp-block-query posts-list p4-query-loop is-custom-layout-list"><!-- wp:group {"layout":{"type":"flex","justifyContent":"space-between"}} -->
-            <div class="wp-block-group related-posts-block"><!-- wp:heading {"lock":{"move":true}} -->
-            <h2 class="wp-block-heading">' . __('Related Posts', 'planet4-blocks') . '</h2>
-            <!-- /wp:heading -->
-            ' . $see_all_link_group . '
-            </div>
+        <div class="wp-block-query posts-list p4-query-loop is-custom-layout-list">
+            <!-- wp:group {"layout":{"type":"flex","justifyContent":"space-between"}} -->
+                <div class="wp-block-group related-posts-block">
+                    <!-- wp:heading {"lock":{"move":true}} -->
+                        <h2 class="wp-block-heading">' . __('Related Posts', 'planet4-blocks') . '</h2>
+                    <!-- /wp:heading -->
+                    ' . $see_all_link_group . '
+                </div>
             <!-- /wp:group -->
             <!-- wp:post-template {"lock":{"move":true,"remove":true}} -->
                 <!-- wp:columns -->
-                <div class="wp-block-columns"><!-- wp:post-featured-image {"isLink":true} /-->
-                <!-- wp:group -->
-                <div class="wp-block-group"><!-- wp:group {"layout":{"type":"flex"}} -->
-                <div class="wp-block-group"><!-- wp:post-terms {"term":"category","separator":" | "} /-->
-                <!-- wp:post-terms {"term":"post_tag","separator":" "} /--></div>
-                <!-- /wp:group -->
-                <!-- wp:post-title {"isLink":true} /-->
-                <!-- wp:post-excerpt /-->
-                <!-- wp:group {"className":"posts-list-meta"} -->
-                <div class="wp-block-group posts-list-meta"><!-- wp:post-author-name {"isLink":true} /-->
-                <!-- wp:post-date /--></div>
-                <!-- /wp:group --></div>
-                <!-- /wp:group --></div>
+                    <div class="wp-block-columns">
+                        <!-- wp:post-featured-image {"isLink":true} /-->
+                        <!-- wp:group -->
+                            <div class="wp-block-group">
+                                <!-- wp:group {"layout":{"type":"flex"}} -->
+                                    <div class="wp-block-group">
+                                        <!-- wp:post-terms {"term":"category","separator":" | "} /-->
+                                        <!-- wp:post-terms {"term":"post_tag","separator":" "} /-->
+                                    </div>
+                                <!-- /wp:group -->
+                                <!-- wp:post-title {"isLink":true} /-->
+                                <!-- wp:post-excerpt /-->
+                                <!-- wp:group {"className":"posts-list-meta"} -->
+                                    <div class="wp-block-group posts-list-meta">
+                                        <!-- wp:p4/post-author-name /-->
+                                        <!-- wp:post-date /-->
+                                    </div>
+                                <!-- /wp:group -->
+                            </div>
+                        <!-- /wp:group -->
+                    </div>
                 <!-- /wp:columns -->
             <!-- /wp:post-template -->
             ' . $see_all_link_group . '
-            </div>
-        <!-- /wp:query -->';
+        </div>
+    <!-- /wp:query -->';
 
     return do_blocks($output);
 }
