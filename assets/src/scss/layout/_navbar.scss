@@ -208,6 +208,14 @@ a.nav-link {
   width: 100%;
   text-decoration: none !important;
 
+  span {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    line-clamp: 2;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+  }
+
   &:hover {
     color: var(--color-text-nav_link);
   }
