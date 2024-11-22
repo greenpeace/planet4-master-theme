@@ -319,13 +319,13 @@ function render_related_posts_block(array $attributes): string
         <div class="wp-block-query posts-list p4-query-loop is-custom-layout-list">
             <!-- wp:group {"layout":{"type":"flex","justifyContent":"space-between"}} -->
                 <div class="wp-block-group related-posts-block">
-                    <!-- wp:heading {"lock":{"move":true}} -->
+                    <!-- wp:heading -->
                         <h2 class="wp-block-heading">' . __('Related Posts', 'planet4-blocks') . '</h2>
                     <!-- /wp:heading -->
                     ' . $see_all_link_group . '
                 </div>
             <!-- /wp:group -->
-            <!-- wp:post-template {"lock":{"move":true,"remove":true}} -->
+            <!-- wp:post-template -->
                 <!-- wp:columns -->
                     <div class="wp-block-columns">
                         <!-- wp:post-featured-image {"isLink":true} /-->
