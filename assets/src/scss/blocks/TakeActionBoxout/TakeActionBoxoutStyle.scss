@@ -82,12 +82,8 @@
     }
 
     margin-bottom: $sp-1;
-    display: -webkit-box;
-    line-clamp: 2;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
     word-break: break-word;
+    @include clamp-text(2);
   }
 
   .btn {
@@ -107,12 +103,8 @@
     }
 
     color: var(--color-text-body);
-    display: -webkit-box;
-    line-clamp: 2;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
     margin: 0;
+    @include clamp-text(2);
   }
 
   &:not(.sticky-bottom-mobile) {

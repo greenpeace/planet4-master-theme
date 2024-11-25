@@ -76,14 +76,7 @@
         position: relative;
         z-index: 1;
         margin: $sp-1 0;
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        /* stylelint-disable property-no-vendor-prefix */
-        /*! autoprefixer: off */
-        -webkit-box-orient: vertical;
-        /*! autoprefixer: on */
-        /* stylelint-enable property-no-vendor-prefix */
-        overflow: hidden;
+        @include clamp-text(2);
       }
 
       .cover-card-excerpt {
@@ -92,15 +85,7 @@
           font-size: var(--font-size-s--font-family-tertiary);
           line-height: var(--line-height-s--font-family-tertiary);
         }
-        display: -webkit-box;
-        -webkit-line-clamp: 3;
-        margin: 0;
-        /* stylelint-disable property-no-vendor-prefix */
-        /*! autoprefixer: off */
-        -webkit-box-orient: vertical;
-        /*! autoprefixer: on */
-        /* stylelint-enable property-no-vendor-prefix */
-        overflow: hidden;
+        @include clamp-text(3);
       }
     }
 

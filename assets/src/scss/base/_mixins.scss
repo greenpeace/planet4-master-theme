@@ -309,3 +309,11 @@ $nested-comment-left-margin: 50px;
     object-fit: cover;
   }
 }
+
+@mixin clamp-text($lines) {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  line-clamp: $lines;
+  -webkit-line-clamp: $lines;
+  overflow: hidden;
+}

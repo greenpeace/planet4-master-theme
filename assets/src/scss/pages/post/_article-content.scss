@@ -217,32 +217,25 @@
       font-family: var(--font-family-heading);
       padding-top: 0;
       padding-bottom: 0;
-      line-clamp: 2;
-      -webkit-line-clamp: 2;
+      @include clamp-text(2);
     }
 
     .article-list-item-content {
       width: 100%;
-      line-clamp: 3;
-      -webkit-line-clamp: 3;
+      @include clamp-text(3);
 
       @include medium-and-up {
-        line-clamp: 2;
-        -webkit-line-clamp: 2;
+        @include clamp-text(2);
       }
 
       @include large-and-up {
-        line-clamp: 3;
-        -webkit-line-clamp: 3;
+        @include clamp-text(3);
       }
     }
 
     .article-list-item-headline,
     .article-list-item-content {
       margin-bottom: $sp-1;
-      display: -webkit-box;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
     }
 
     .article-list-item-image img {

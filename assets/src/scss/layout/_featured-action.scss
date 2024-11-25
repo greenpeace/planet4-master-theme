@@ -45,11 +45,7 @@
 
 .featured-action-section__content h5,
 .featured-action-section__content p {
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  line-clamp: 2;
-  -webkit-line-clamp: 2;
+  @include clamp-text(2);
 }
 
 .featured-action-section__content p {
