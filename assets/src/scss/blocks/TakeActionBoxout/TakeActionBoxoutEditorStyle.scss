@@ -9,25 +9,25 @@
     min-width: auto !important;
   }
 
+  // I had to put these styles on the container to get the image controls to work, and remove some from the image itself.
+  .boxout-image-container {
+    position: relative;
+    background: var(--grey-500);
+    width: 50%;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    img {
+      width: 100%;
+    }
+  }
+
   // Prevent line clamp on editable stuff, because it's very buggy.
   [contenteditable] {
     line-clamp: unset !important;
     -webkit-line-clamp: unset !important;
-  }
-}
-
-// I had to put these styles on the container to get the image controls to work, and remove some from the image itself.
-.boxout-image-container {
-  position: relative;
-  background: var(--grey-500);
-  width: 50%;
-  padding: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  img {
-    width: 100%;
   }
 }
 
