@@ -35,6 +35,7 @@ use P4\MasterTheme\Migrations\M030RemovePurgeOnFeatureChangeOption;
 use P4\MasterTheme\Migrations\M031MigrateMediaBlockToAudioVideoBlock;
 use P4\MasterTheme\Migrations\M032MigrateSplit2ColumnBlock;
 use P4\MasterTheme\Migrations\M033MigrateSocialMediaTwitterBlockToEmbedBlock;
+use P4\MasterTheme\Migrations\M034PrePopulateOldPostsArchiveNotice;
 
 /**
  * Run any new migration scripts and record results in the log.
@@ -87,6 +88,7 @@ class Migrator
             M031MigrateMediaBlockToAudioVideoBlock::class,
             M032MigrateSplit2ColumnBlock::class,
             M033MigrateSocialMediaTwitterBlockToEmbedBlock::class,
+            M034PrePopulateOldPostsArchiveNotice::class,
         ];
 
         // Loop migrations and run those that haven't run yet.
