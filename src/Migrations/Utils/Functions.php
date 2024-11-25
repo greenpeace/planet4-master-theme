@@ -204,27 +204,6 @@ class Functions
     /**
      * Create a new heading block.
      *
-     *  * @param string $name - The block name.
-     * @param array $attrs - The block attributes.
-     * @param mixed $inner_attrs - The optional inner attributes (innerHTML, innerBlocks, and innerContent).
-     * @return array - The new block.
-     */
-    public static function set_new_block(string $name, array $attrs, mixed $inner_attrs = false): array
-    {
-        $block = [];
-        $block['blockName'] = $name;
-        $block['attrs'] = $attrs;
-
-        if (!$inner_attrs) {
-            // $block = self::set_empty_inner_attrs($block);
-        }
-
-        return $block;
-    }
-
-    /**
-     * Create a new heading block.
-     *
      * @param array $attrs - The attributes of the block.
      * @param string $text - The heading text.
      * @return array - The new heading block.
@@ -335,7 +314,7 @@ class Functions
      * @param string $link - The button link.
      * @return array - The new button block.
      */
-    public static function create_block_single_button(array $attrs, string $text, ?string $link = null): array
+    public static function create_block_single_button(array $attrs, string $text, string $link = null): array
     {
         $classname = isset($attrs['className']) ? $attrs['className'] : '';
 
@@ -466,6 +445,29 @@ class Functions
         );
     }
 
+    public static function create_post_template(array $inner_blocks, array $attrs): array
+    {
+        $html = '
+
+      ';
+
+        $content = array (
+                    0 => '
+            ',
+                    1 => null,
+                    2 => '
+            ',
+        );
+
+        return self::create_new_block(
+            Constants::BLOCK_POST_TEMPLATE,
+            $attrs,
+            $inner_blocks,
+            $html,
+            $content,
+        );
+    }
+
     /**
      * Create a new Group block.
      *
@@ -477,9 +479,14 @@ class Functions
 
     public static function create_group_block(array $inner_blocks, array $attrs): array
     {
+        $classname =
+            isset($attrs['className']) ?
+            'wp-block-group ' . $attrs['className'] :
+            'wp-block-group';
+
         // IMPORTANT: DO NOT MODIFY THIS FORMAT!
         $inner_html =
-        '<div class="wp-block-group">
+        '<div class="' . $classname .'">
 
 
 
@@ -490,7 +497,7 @@ class Functions
         // IMPORTANT: DO NOT MODIFY THIS FORMAT!
         $inner_content = array (
             0 => '
-        <div class="wp-block-group">',
+        <div class="' . $classname .'">',
             1 => null,
             2 => '
         ',
