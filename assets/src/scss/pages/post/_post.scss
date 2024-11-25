@@ -108,4 +108,19 @@
   background-color: var(--beige-100);
   padding: $sp-3;
   margin-top: $sp-3;
+
+  a {
+    margin: 0 auto;
+    display: block;
+    width: fit-content;
+  }
+
+  h4 {
+    text-align: center;
+  }
+
+  p {
+    font-size: var(--font-size-m--font-family-secondary);
+    line-height: var(--line-height-m--font-family-secondary);
+  }
 }
