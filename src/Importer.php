@@ -20,7 +20,6 @@ class Importer
     {
         add_action('wp_import_insert_post', [ $this, 'update_attachements' ], 10, 4);
         add_filter('wp_import_post_terms', [ $this, 'filter_wp_import_post_terms' ], 10, 3);
-        add_filter('wp_import_post_meta', [ $this, 'process_campaign_metas' ]);
         add_filter('wp_import_post_data_processed', [ $this, 'set_imported_posts_as_drafts' ], 10, 1);
         add_action('import_end', [ $this, 'action_import_end' ], 10, 0);
         add_filter('wp_import_post_meta', [ $this, 'skip_duplicate_postmeta_import' ], 10, 2);
@@ -254,54 +253,6 @@ class Importer
         $postdata['post_status'] = 'draft';
 
         return $postdata;
-    }
-
-    /**
-     * 1. Exclude campaign style meta fields if the NRO has this setting enabled.
-     *
-     * 2. Populate the "theme" meta field with the contents of its previous name if the new field doesn't exist yet.
-     *
-     * @param array $post_meta The to be imported post meta fields.
-     *
-     * @return array The normalized post meta fields.
-     */
-    public function process_campaign_metas(array $post_meta): array
-    {
-        $p4_options = get_option('planet4_options');
-        // 1. Exclude style fields the option for that is set or if it's passed in the form data.
-        if (
-            ! empty($p4_options['campaigns_import_exclude_style'])
-            // phpcs:ignore WordPress.Security.NonceVerification.Missing
-            || ! empty($_POST['campaigns_import_exclude_style'])
-        ) {
-            // Also exclude the old attribute as the code still falls back to it.
-            $excluded_keys = array_merge(PostCampaign::META_FIELDS, [ '_campaign_page_template' ]);
-            foreach ($post_meta as $index => $meta) {
-                if (!in_array($meta['key'], $excluded_keys, true)) {
-                    continue;
-                }
-
-                unset($post_meta[ $index ]);
-            }
-        } else {
-            // 2. Populate the new `theme` field and unset the old `_campaign_page_template if the new doesn't exist.
-            foreach ($post_meta as $index => $meta) {
-                if ('_campaign_page_template' === $meta['key']) {
-                    $old_theme = $meta['value'];
-                    unset($post_meta[ $index ]);
-                } elseif ('theme' === $meta['key']) {
-                    $new_theme = $meta['value'];
-                }
-            }
-            if (isset($old_theme) && ! isset($new_theme)) {
-                $post_meta[] = [
-                    'key' => 'theme',
-                    'value' => $old_theme,
-                ];
-            }
-        }
-
-        return $post_meta;
     }
 
     /**
