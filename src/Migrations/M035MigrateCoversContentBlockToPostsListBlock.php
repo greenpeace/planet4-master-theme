@@ -63,7 +63,7 @@ class M035MigrateCoversContentBlockToPostsListBlock extends MigrationScript
         // the following possibilities: "content", "1", NULL
         // https://github.com/greenpeace/planet4-plugin-gutenberg-blocks/blob/26b480a0954667a0813ca8c3a90377f2a1fbea1c/classes/blocks/class-covers.php#L35
         // https://github.com/greenpeace/planet4-plugin-gutenberg-blocks/blob/26b480a0954667a0813ca8c3a90377f2a1fbea1c/classes/blocks/class-covers.php#L191
-        $type = $block['attrs']['cover_type'];
+        $type = isset($block['attrs']['cover_type']) ? $block['attrs']['cover_type'] : null;
         $const = Utils\Constants::COVER_BLOCK_TYPES['content'];
 
         return !isset($type) || $type === $const['name'] || $type === $const['number'];
@@ -77,15 +77,17 @@ class M035MigrateCoversContentBlockToPostsListBlock extends MigrationScript
      */
     private static function get_posts_list_block_attrs(array $existing_block): array
     {
-        $attrs = [];
-        $attrs['title'] = $existing_block['attrs']['title'] ?? '';
-        $attrs['description'] = $existing_block['attrs']['description'] ?? '';
-        $attrs['cover_type'] = $existing_block['attrs']['cover_type'] ?? 'content';
-        $attrs['layout'] = $existing_block['attrs']['layout'] ?? 'grid';
-        $attrs['tags'] = $existing_block['attrs']['tags'] ?? [];
-        $attrs['posts'] = $existing_block['attrs']['posts'] ?? [];
-        $attrs['post_types'] = $existing_block['attrs']['post_types'] ?? [];
-        return $attrs;
+        $attrs = $existing_block['attrs'];
+
+        return [
+            'title' =>          $attrs['title'] ?? '',
+            'description' =>    $attrs['description'] ?? '',
+            'cover_type' =>     $attrs['cover_type'] ?? 'content',
+            'layout' =>         $attrs['layout'] ?? 'grid',
+            'tags' =>           $attrs['tags'] ?? [],
+            'posts' =>          $attrs['posts'] ?? [],
+            'post_types' =>     $attrs['post_types'] ?? [],
+        ];
     }
 
     /**
@@ -97,8 +99,12 @@ class M035MigrateCoversContentBlockToPostsListBlock extends MigrationScript
      * @param string $layout_type - The layout type (grid or carousel).
      * @return array - The attributes.
      */
-    private static function set_query_block_attrs(array $tags, array $posts_override, array $post_types, string $layout_type): array
-    {
+    private static function set_query_block_attrs(
+        array $tags,
+        array $posts_override,
+        array $post_types,
+        string $layout_type
+    ): array {
         $query = [];
         $query['perPage'] = 4;
         $query['pages'] = 0;
@@ -143,28 +149,28 @@ class M035MigrateCoversContentBlockToPostsListBlock extends MigrationScript
     {
         $existing_block_attrs = self::get_posts_list_block_attrs($block);
 
-        $tags = $existing_block_attrs['tags'];
-        $posts_override = $existing_block_attrs['posts'];
-        $post_types = $existing_block_attrs['post_types'];
-        $layout_type = $existing_block_attrs['layout'] === 'carousel' ? 'flex' : 'grid';
-        $classname = $existing_block_attrs['layout'] === 'carousel' ? 'carousel' : 'grid';
+        $tags =             $existing_block_attrs['tags'];
+        $posts_override =   $existing_block_attrs['posts'];
+        $post_types =       $existing_block_attrs['post_types'];
+        $layout_type =      $existing_block_attrs['layout'] === 'carousel' ? 'flex' : 'grid';
+        $classname =        $existing_block_attrs['layout'] === 'carousel' ? 'carousel' : 'grid';
 
-        $inner_blocks = array (
-            0 => self::get_head_group_block($existing_block_attrs['title']),
-            1 => self::get_paragraph_block($existing_block_attrs['description']),
-            2 => self::get_query_no_results_block(),
-            3 => self::get_post_template(),
-            4 => self::get_buttons_block(),
-            5 => self::get_nav_links_block(),
-        );
+        $inner_blocks = [
+            self::get_head_group_block($existing_block_attrs['title']),
+            self::get_paragraph_block($existing_block_attrs['description']),
+            self::get_query_no_results_block(),
+            self::get_post_template(),
+            self::get_buttons_block(),
+            self::get_nav_links_block(),
+        ];
 
-        $block = [];
-        $block['blockName'] = Utils\Constants::BLOCK_QUERY;
-        $block['attrs'] = self::set_query_block_attrs($tags, $posts_override, $post_types, $layout_type);
-        $block['innerBlocks'] = $inner_blocks;
-        $block['innerHTML'] = Utils\M034Helper::get_query_block_html_content($classname);
-        $block['innerContent'] = Utils\M034Helper::get_query_block_inner_content($classname);
-        return $block;
+        return [
+            'blockName' =>      Utils\Constants::BLOCK_QUERY,
+            'attrs' =>          self::set_query_block_attrs($tags, $posts_override, $post_types, $layout_type),
+            'innerBlocks' =>    $inner_blocks,
+            'innerHTML' =>      Utils\M034Helper::get_query_block_html_content($classname),
+            'innerContent' =>   Utils\M034Helper::get_query_block_inner_content($classname),
+        ];
     }
 
     /**
@@ -174,15 +180,18 @@ class M035MigrateCoversContentBlockToPostsListBlock extends MigrationScript
      */
     private static function get_buttons_block(): array
     {
-        $attrs = [];
-        $attrs['lock']['move'] = true;
-        $attrs['layout']['type'] = 'flex';
-        $attrs['layout']['justifyContent'] = 'space-between';
-        $attrs['layout']['orientation'] = 'horizontal';
-        $attrs['layout']['flexWrap'] = 'nowrap';
-
-        $block = Utils\Functions::create_block_buttons(
-            $attrs,
+        return Utils\Functions::create_block_buttons(
+            [
+                'lock' => [
+                    'move' => true,
+                ],
+                'layout' => [
+                    'type' => 'flex',
+                    'justifyContent' => 'space-between',
+                    'orientation' => 'horizontal',
+                    'flexWrap' => 'nowrap',
+                ],
+            ],
             [
                 Utils\Functions::create_block_single_button(
                     ['className' => 'carousel-control-prev'],
@@ -194,7 +203,6 @@ class M035MigrateCoversContentBlockToPostsListBlock extends MigrationScript
                 ),
             ]
         );
-        return $block;
     }
 
     /**
@@ -204,14 +212,102 @@ class M035MigrateCoversContentBlockToPostsListBlock extends MigrationScript
      */
     private static function get_post_template(): array
     {
-        $block = [];
-        $block['blockName'] = Utils\Constants::BLOCK_POST_TEMPLATE;
-        $block['attrs']['lock']['move'] = true;
-        $block['attrs']['lock']['remove'] = true;
-        $block['innerBlocks'][0] = self::get_post_data_column_block();
-        $block['innerHTML'] = Utils\M034Helper::POST_TEMPLATE['html'];
-        $block['innerContent'] = Utils\M034Helper::POST_TEMPLATE['content'];
-        return $block;
+        $post_tags_attrs = [];
+        $post_tags_attrs['term'] = 'post_tag';
+        $post_tags_attrs['separator'] = ' ';
+
+        $post_cats_attrs = [];
+        $post_cats_attrs['term'] = 'category';
+        $post_cats_attrs['separator'] = ' | ';
+
+        $author_attrs = [];
+        $author_attrs['isLink'] = true;
+
+        $group_one_attrs = [];
+        $group_one_attrs['className'] = 'posts-list-meta';
+
+        $group_two_attrs = [];
+        $group_two_attrs['layout']['type'] = 'flex';
+
+        return Utils\Functions::create_post_template(
+            [
+                Utils\Functions::create_block_columns(
+                    [],
+                    [
+                        Utils\Functions::create_new_block(
+                            Utils\Constants::BLOCK_FEAT_IMAGE,
+                            ['isLink' => true],
+                            [],
+                            '',
+                            []
+                        ),
+                        Utils\Functions::create_group_block(
+                            [
+                                Utils\Functions::create_group_block(
+                                    [
+                                        Utils\Functions::create_new_block(
+                                            Utils\Constants::BLOCK_TERMS,
+                                            $post_tags_attrs,
+                                            [],
+                                            '',
+                                            []
+                                        ),
+                                        Utils\Functions::create_new_block(
+                                            Utils\Constants::BLOCK_TERMS,
+                                            $post_cats_attrs,
+                                            [],
+                                            '',
+                                            []
+                                        ),
+                                    ],
+                                    $group_one_attrs
+                                ),
+                                Utils\Functions::create_new_block(
+                                    Utils\Constants::BLOCK_TITLE,
+                                    [],
+                                    [],
+                                    '',
+                                    []
+                                ),
+                                Utils\Functions::create_new_block(
+                                    Utils\Constants::BLOCK_EXCERPT,
+                                    [],
+                                    [],
+                                    '',
+                                    []
+                                ),
+                                Utils\Functions::create_group_block(
+                                    [
+                                        Utils\Functions::create_new_block(
+                                            Utils\Constants::BLOCK_AUTHOR,
+                                            $author_attrs,
+                                            [],
+                                            '',
+                                            []
+                                        ),
+                                        Utils\Functions::create_new_block(
+                                            Utils\Constants::BLOCK_DATE,
+                                            [],
+                                            [],
+                                            '',
+                                            []
+                                        ),
+                                    ],
+                                    $group_two_attrs
+                                ),
+                            ],
+                            []
+                        ),
+                    ]
+                )
+            ],
+            [
+                'lock' => [
+                    'move' => true,
+                    'remove' => true,
+                ],
+            ]
+        );
     }
 
     /**
@@ -242,7 +338,12 @@ class M035MigrateCoversContentBlockToPostsListBlock extends MigrationScript
         $block = [];
         $block['blockName'] = Utils\Constants::BLOCK_QUERY_NO_RESULTS;
         $block['attrs'] = [];
-        $block['innerBlocks'][0] = self::get_query_no_results_paragraph_block();
+        $block['innerBlocks'] = [
+            Utils\Functions::create_block_paragraph(
+                [],
+                'No posts found. (This default text can be edited)'
+            )
+        ];
         $block['innerHTML'] = Utils\M034Helper::QUERY_NO_RESULTS_BLOCK['html'];
         $block['innerContent'] = Utils\M034Helper::QUERY_NO_RESULTS_BLOCK['content'];
         return $block;
@@ -256,52 +357,23 @@ class M035MigrateCoversContentBlockToPostsListBlock extends MigrationScript
      */
     private static function get_paragraph_block(string $description): array
     {
-        $attrs = [];
-        $attrs['lock']['move'] = true;
-        $attrs['placeholder'] = 'Enter description';
-        $attrs['style']['spacing']['margin']['top'] = '24px';
-        $attrs['style']['spacing']['margin']['bottom'] = '36px';
-
-        $block = Utils\Functions::create_block_paragraph(
-            $attrs,
+        return Utils\Functions::create_block_paragraph(
+            [
+                'lock' => [
+                    'move' => true,
+                ],
+                'placeholder' => 'Enter description',
+                'style' => [
+                    'spacing' => [
+                        'margin' => [
+                            'top' => '24px',
+                            'bottom' => '36px',
+                        ],
+                    ],
+                ],
+            ],
             $description
         );
-        return $block;
-    }
-
-    /**
-     * Create and get a new paragraph block for the query-no-results block.
-     *
-     * @return array - The new block.
-     */
-    private static function get_query_no_results_paragraph_block(): array
-    {
-        $block = Utils\Functions::create_block_paragraph(
-            [],
-            'No posts found. (This default text can be edited)'
-        );
-        return $block;
-    }
-
-    /**
-     * Create and get a new columns block.
-     *
-     * @return array - The new block.
-     */
-    private static function get_post_data_column_block(): array
-    {
-        $feat_img_attrs = [];
-        $feat_img_attrs['isLink'] = true;
-
-        $block = Utils\Functions::create_block_columns(
-            [],
-            [
-                Utils\Functions::set_new_block(Utils\Constants::BLOCK_FEAT_IMAGE, $feat_img_attrs),
-                self::get_post_data_group_block(),
-            ]
-        );
-
-        return $block;
     }
 
     /**
@@ -312,86 +384,20 @@ class M035MigrateCoversContentBlockToPostsListBlock extends MigrationScript
      */
     private static function get_head_group_block(string $title): array
     {
-        $heading_block = Utils\Functions::create_block_heading(
-            ['lock' => ['move' => true]],
-            $title
+        return Utils\Functions::create_group_block(
+            [
+                Utils\Functions::create_block_heading(
+                    ['lock' => ['move' => true]],
+                    $title
+                ),
+                self::get_nav_links_block(),
+            ],
+            [
+                'layout' => [
+                    'type' => 'flex',
+                    'justifyContent' => 'space-between',
+                ],
+            ]
         );
-
-        $block = [];
-        $block['blockName'] = Utils\Constants::BLOCK_GROUP;
-        $block['attrs']['layout']['type'] = 'flex';
-        $block['attrs']['layout']['justifyContent'] = 'space-between';
-        $block['innerBlocks'][0] = $heading_block;
-        $block['innerBlocks'][1] = self::get_nav_links_block();
-        $block['innerHTML'] = Utils\M034Helper::HEAD_GROUP_BLOCK['html'];
-        $block['innerContent'] = Utils\M034Helper::HEAD_GROUP_BLOCK['content'];
-        return $block;
-    }
-
-    /**
-     * Create and get a new group block for the post taxonomy section.
-     *
-     * @return array - The new block.
-     */
-    private static function get_post_terms_group_block(): array
-    {
-        $post_tags_attrs = [];
-        $post_tags_attrs['term'] = 'post_tag';
-        $post_tags_attrs['separator'] = ' ';
-
-        $post_cats_attrs = [];
-        $post_cats_attrs['term'] = 'category';
-        $post_cats_attrs['separator'] = ' | ';
-
-        $block = [];
-        $block['blockName'] = Utils\Constants::BLOCK_GROUP;
-        $block['attrs']['layout']['type'] = 'flex';
-        $block['innerBlocks'][0] = Utils\Functions::set_new_block(Utils\Constants::BLOCK_TERMS, $post_tags_attrs);
-        $block['innerBlocks'][1] = Utils\Functions::set_new_block(Utils\Constants::BLOCK_TERMS, $post_cats_attrs);
-        $block['innerHTML'] = Utils\M034Helper::POST_TERMS_GROUP_BLOCK['html'];
-        $block['innerContent'] = Utils\M034Helper::POST_TERMS_GROUP_BLOCK['content'];
-        return $block;
-    }
-
-    /**
-     * Create and get a new group block for the post metadata section.
-     *
-     * @return array - The new block.
-     */
-    private static function get_posts_list_meta_group_block(): array
-    {
-        $block = [];
-        $author_attrs = [];
-        $author_attrs['isLink'] = true;
-
-        $block['blockName'] = Utils\Constants::BLOCK_GROUP;
-        $block['attrs']['className'] = 'posts-list-meta';
-        $block['innerBlocks'][0] = Utils\Functions::set_new_block(Utils\Constants::BLOCK_AUTHOR, $author_attrs);
-        $block['innerBlocks'][1] = Utils\Functions::set_new_block(Utils\Constants::BLOCK_DATE, []);
-        $block['innerHTML'] = Utils\M034Helper::POSTS_LIST_META_GROUP_BLOCK['html'];
-        $block['innerContent'] = Utils\M034Helper::POSTS_LIST_META_GROUP_BLOCK['content'];
-        return $block;
-    }
-
-    /**
-     * Create and get a new group block for the post data section.
-     *
-     * @return array - The new block.
-     */
-    private static function get_post_data_group_block(): array
-    {
-        $block = [];
-        $post_title_attrs = [];
-        $post_cats_attrs['isLink'] = true;
-
-        $block['blockName'] = Utils\Constants::BLOCK_GROUP;
-        $block['attrs'] = [];
-        $block['innerBlocks'][0] = self::get_post_terms_group_block();
-        $block['innerBlocks'][1] = Utils\Functions::set_new_block(Utils\Constants::BLOCK_TITLE, $post_title_attrs);
-        $block['innerBlocks'][2] = Utils\Functions::set_new_block(Utils\Constants::BLOCK_EXCERPT, []);
-        $block['innerBlocks'][3] = self::get_posts_list_meta_group_block();
-        $block['innerHTML'] = Utils\M034Helper::POST_DATA_GROUP_BLOCK['html'];
-        $block['innerContent'] = Utils\M034Helper::POST_DATA_GROUP_BLOCK['content'];
-        return $block;
     }
 }

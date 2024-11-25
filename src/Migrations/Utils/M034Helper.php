@@ -65,15 +65,15 @@ class M034Helper
     {
         return '
       <div class="wp-block-query posts-list p4-query-loop is-custom-layout-' . $classname . '">
-      
-      
-      
-      
-      
-      
-      
-      
-      
+
+
+
+
+
+
+
+
+
       </div>
       ';
     }
@@ -91,23 +91,23 @@ class M034Helper
         <div class="wp-block-query posts-list p4-query-loop is-custom-layout-' . $classname . '">',
             1 => null,
             2 => '
-        
+
         ',
             3 => null,
             4 => '
-        
+
         ',
             5 => null,
             6 => '
-        
+
         ',
             7 => null,
             8 => '
-        
+
         ',
             9 => null,
             10 => '
-        
+
         ',
             11 => null,
             12 => '</div>
@@ -118,7 +118,7 @@ class M034Helper
     public const COLUMN_BLOCK = [
         'html' => '
   <div class="wp-block-columns">
-  
+
   </div>
   ',
         'content' => array (
@@ -205,7 +205,7 @@ class M034Helper
 
     public const QUERY_NO_RESULTS_BLOCK = [
         'html' => '
-    
+
     ',
         'content' => array (
             0 => '
@@ -227,23 +227,10 @@ class M034Helper
         ),
     ];
 
-    public const POST_TEMPLATE = [
-        'html' => '
-  
-  ',
-        'content' => array (
-            0 => '
-    ',
-            1 => null,
-            2 => '
-    ',
-        ),
-    ];
-
     public const HEAD_GROUP_BLOCK = [
         'html' => '
   <div class="wp-block-group">
-  
+
   </div>
   ',
         'content' => array (
@@ -251,7 +238,7 @@ class M034Helper
     <div class="wp-block-group">',
             1 => null,
             2 => '
-    
+
     ',
             3 => null,
             4 => '</div>
@@ -262,7 +249,7 @@ class M034Helper
     public const BUTTONS_BLOCK = [
         'html' => '
   <div class="wp-block-buttons carousel-controls">
-  
+
   </div>
   ',
         'content' => array (
@@ -270,7 +257,7 @@ class M034Helper
     <div class="wp-block-buttons carousel-controls">',
             1 => null,
             2 => '
-    
+
     ',
             3 => null,
             4 => '</div>
