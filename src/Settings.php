@@ -394,20 +394,6 @@ class Settings
                     ],
                 ],
             ],
-            'planet4_settings_campaigns' => [
-                'title' => 'Campaigns',
-                'fields' => [
-                    [
-                        'name' => __('Exclude campaign styles when importing', 'planet4-master-theme-backend'),
-                        'desc' => __(
-                            'Whether to exclude campaign theme and style settings when importing a campaign.',
-                            'planet4-master-theme-backend'
-                        ),
-                        'id' => 'campaigns_import_exclude_style',
-                        'type' => 'checkbox',
-                    ],
-                ],
-            ],
             'planet4_settings_analytics' => [
                 'title' => 'Analytics',
                 'fields' => [
