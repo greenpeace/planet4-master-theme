@@ -79,27 +79,23 @@
   }
 }
 
-.articles-block,
 .post-articles-block {
-  border-top: 1px solid rgba($grey-500, 0.5);
-  padding-top: 16px;
+  margin-top: $sp-4;
 
-  @include medium-and-up {
-    padding-top: 24px;
+  .posts-list {
+    padding-top: $sp-2;
+    border-top: 1px solid rgba($grey-500, 0.5);
+
+    .wp-block-post-template {
+      margin-top: $sp-3;
+    }
+
+    @include medium-and-up {
+      padding-top: $sp-3;
+    }
   }
-}
-
-.post-articles-block {
-  margin-top: 30px;
-  padding-left: 0;
-  padding-right: 0;
-  padding-bottom: 0;
 }
 
 .post-tags {
   margin-bottom: $sp-2;
-}
-
-.related-posts-block {
-  margin-bottom: 20px;
 }

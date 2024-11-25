@@ -318,7 +318,7 @@ function render_related_posts_block(array $attributes): string
     $output = '<!-- wp:query ' . $query_json . ' -->
         <div class="wp-block-query posts-list p4-query-loop is-custom-layout-list">
             <!-- wp:group {"layout":{"type":"flex","justifyContent":"space-between"}} -->
-                <div class="wp-block-group related-posts-block">
+                <div class="wp-block-group">
                     <!-- wp:heading -->
                         <h2 class="wp-block-heading">' . __('Related Posts', 'planet4-blocks') . '</h2>
                     <!-- /wp:heading -->
