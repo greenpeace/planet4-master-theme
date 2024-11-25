@@ -63,44 +63,10 @@ class M035MigrateCoversContentBlockToPostsListBlock extends MigrationScript
         // the following possibilities: "content", "1", NULL
         // https://github.com/greenpeace/planet4-plugin-gutenberg-blocks/blob/26b480a0954667a0813ca8c3a90377f2a1fbea1c/classes/blocks/class-covers.php#L35
         // https://github.com/greenpeace/planet4-plugin-gutenberg-blocks/blob/26b480a0954667a0813ca8c3a90377f2a1fbea1c/classes/blocks/class-covers.php#L191
-        $type = isset($block['attrs']['cover_type']) ? $block['attrs']['cover_type'] : null;
+        $type = $block['attrs']['cover_type'];
         $const = Utils\Constants::COVER_BLOCK_TYPES['content'];
 
         return !isset($type) || $type === $const['name'] || $type === $const['number'];
-    }
-
-    /**
-     * Create a new Query block based on attributes of a Covers block.
-     *
-     * @param array $block - The current Covers block.
-     * @return array - The new block.
-     */
-    private static function transform_block(array $block): array
-    {
-        $existing_block_attrs = self::get_posts_list_block_attrs($block);
-
-        $tags = $existing_block_attrs['tags'];
-        $posts_override = $existing_block_attrs['posts'];
-        $post_types = $existing_block_attrs['post_types'];
-        $layout_type = $existing_block_attrs['layout'] === 'carousel' ? 'flex' : 'grid';
-        $classname = $existing_block_attrs['layout'] === 'carousel' ? 'carousel' : 'grid';
-
-        $attrs = self::set_query_block_attrs($tags, $posts_override, $post_types, $layout_type);
-
-        $inner_blocks = [
-            self::get_head_group_block($existing_block_attrs['title']),
-            self::get_paragraph_block($existing_block_attrs['description']),
-            self::get_query_no_results_block(),
-            self::get_post_template(),
-            self::get_buttons_block(),
-            self::get_nav_links_block(),
-        ];
-
-        return Utils\Functions::create_block_query(
-            $inner_blocks,
-            $attrs,
-            $classname
-        );
     }
 
     /**
@@ -114,13 +80,13 @@ class M035MigrateCoversContentBlockToPostsListBlock extends MigrationScript
         $attrs = $existing_block['attrs'];
 
         return [
-            'title' => $attrs['title'] ?? '',
-            'description' => $attrs['description'] ?? '',
-            'cover_type' => $attrs['cover_type'] ?? 'content',
-            'layout' => $attrs['layout'] ?? 'grid',
-            'tags' => $attrs['tags'] ?? [],
-            'posts' => $attrs['posts'] ?? [],
-            'post_types' => $attrs['post_types'] ?? [],
+            'title' =>          $attrs['title'] ?? '',
+            'description' =>    $attrs['description'] ?? '',
+            'cover_type' =>     $attrs['cover_type'] ?? 'content',
+            'layout' =>         $attrs['layout'] ?? 'grid',
+            'tags' =>           $attrs['tags'] ?? [],
+            'posts' =>          $attrs['posts'] ?? [],
+            'post_types' =>     $attrs['post_types'] ?? [],
         ];
     }
 
@@ -174,6 +140,40 @@ class M035MigrateCoversContentBlockToPostsListBlock extends MigrationScript
     }
 
     /**
+     * Create a new Query block based on attributes of a Covers block.
+     *
+     * @param array $block - The current Covers block.
+     * @return array - The new block.
+     */
+    private static function transform_block(array $block): array
+    {
+        $existing_block_attrs = self::get_posts_list_block_attrs($block);
+
+        $tags =             $existing_block_attrs['tags'];
+        $posts_override =   $existing_block_attrs['posts'];
+        $post_types =       $existing_block_attrs['post_types'];
+        $layout_type =      $existing_block_attrs['layout'] === 'carousel' ? 'flex' : 'grid';
+        $classname =        $existing_block_attrs['layout'] === 'carousel' ? 'carousel' : 'grid';
+
+        $inner_blocks = [
+            self::get_head_group_block($existing_block_attrs['title']),
+            self::get_paragraph_block($existing_block_attrs['description']),
+            self::get_query_no_results_block(),
+            self::get_post_template(),
+            self::get_buttons_block(),
+            self::get_nav_links_block(),
+        ];
+
+        return [
+            'blockName' =>      Utils\Constants::BLOCK_QUERY,
+            'attrs' =>          self::set_query_block_attrs($tags, $posts_override, $post_types, $layout_type),
+            'innerBlocks' =>    $inner_blocks,
+            'innerHTML' =>      Utils\M034Helper::get_query_block_html_content($classname),
+            'innerContent' =>   Utils\M034Helper::get_query_block_inner_content($classname),
+        ];
+    }
+
+    /**
      * Create and get a new buttons container block.
      *
      * @return array - The new block.
@@ -212,6 +212,23 @@ class M035MigrateCoversContentBlockToPostsListBlock extends MigrationScript
      */
     private static function get_post_template(): array
     {
+        $post_tags_attrs = [];
+        $post_tags_attrs['term'] = 'post_tag';
+        $post_tags_attrs['separator'] = ' ';
+
+        $post_cats_attrs = [];
+        $post_cats_attrs['term'] = 'category';
+        $post_cats_attrs['separator'] = ' | ';
+
+        $author_attrs = [];
+        $author_attrs['isLink'] = true;
+
+        $group_one_attrs = [];
+        $group_one_attrs['className'] = 'posts-list-meta';
+
+        $group_two_attrs = [];
+        $group_two_attrs['layout']['type'] = 'flex';
+
         return Utils\Functions::create_post_template(
             [
                 Utils\Functions::create_block_columns(
@@ -230,26 +247,20 @@ class M035MigrateCoversContentBlockToPostsListBlock extends MigrationScript
                                     [
                                         Utils\Functions::create_new_block(
                                             Utils\Constants::BLOCK_TERMS,
-                                            [
-                                                'term' => 'post_tag',
-                                                'separator' => ' ',
-                                            ],
+                                            $post_tags_attrs,
                                             [],
                                             '',
                                             []
                                         ),
                                         Utils\Functions::create_new_block(
                                             Utils\Constants::BLOCK_TERMS,
-                                            [
-                                                'term' => 'category',
-                                                'separator' => ' | ',
-                                            ],
+                                            $post_cats_attrs,
                                             [],
                                             '',
                                             []
                                         ),
                                     ],
-                                    ['className' => 'posts-list-meta']
+                                    $group_one_attrs
                                 ),
                                 Utils\Functions::create_new_block(
                                     Utils\Constants::BLOCK_TITLE,
@@ -269,7 +280,7 @@ class M035MigrateCoversContentBlockToPostsListBlock extends MigrationScript
                                     [
                                         Utils\Functions::create_new_block(
                                             Utils\Constants::BLOCK_AUTHOR,
-                                            ['isLink' => true],
+                                            $author_attrs,
                                             [],
                                             '',
                                             []
@@ -282,17 +293,13 @@ class M035MigrateCoversContentBlockToPostsListBlock extends MigrationScript
                                             []
                                         ),
                                     ],
-                                    [
-                                        'layout' => [
-                                            'type' => 'flex',
-                                        ],
-                                    ]
+                                    $group_two_attrs
                                 ),
                             ],
                             []
                         ),
                     ]
-                ),
+                )
             ],
             [
                 'lock' => [
@@ -310,17 +317,15 @@ class M035MigrateCoversContentBlockToPostsListBlock extends MigrationScript
      */
     private static function get_nav_links_block(): array
     {
-        return Utils\Functions::create_new_block(
-            Utils\Constants::BLOCK_NAV_LINK,
-            [
-                'label' => 'See all stories',
-                'url' => '/news-stories/',
-                'className' => 'see-all-link',
-            ],
-            [],
-            '',
-            []
-        );
+        $block = [];
+        $block['blockName'] = Utils\Constants::BLOCK_NAV_LINK;
+        $block['attrs']['label'] = 'See all stories';
+        $block['attrs']['url'] = '/news-stories/';
+        $block['attrs']['className'] = 'see-all-link';
+        $block['innerBlocks'] = [];
+        $block['innerHTML'] = '';
+        $block['innerContent'][0] = '';
+        return $block;
     }
 
     /**
@@ -330,15 +335,18 @@ class M035MigrateCoversContentBlockToPostsListBlock extends MigrationScript
      */
     private static function get_query_no_results_block(): array
     {
-        return Utils\Functions::create_block_query_no_results(
-            [
-                Utils\Functions::create_block_paragraph(
-                    [],
-                    'No posts found. (This default text can be edited)'
-                ),
-            ],
-            [],
-        );
+        $block = [];
+        $block['blockName'] = Utils\Constants::BLOCK_QUERY_NO_RESULTS;
+        $block['attrs'] = [];
+        $block['innerBlocks'] = [
+            Utils\Functions::create_block_paragraph(
+                [],
+                'No posts found. (This default text can be edited)'
+            )
+        ];
+        $block['innerHTML'] = Utils\M034Helper::QUERY_NO_RESULTS_BLOCK['html'];
+        $block['innerContent'] = Utils\M034Helper::QUERY_NO_RESULTS_BLOCK['content'];
+        return $block;
     }
 
     /**

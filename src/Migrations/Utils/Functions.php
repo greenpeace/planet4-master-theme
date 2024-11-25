@@ -314,7 +314,7 @@ class Functions
      * @param string $link - The button link.
      * @return array - The new button block.
      */
-    public static function create_block_single_button(array $attrs, string $text, ?string $link = null): array
+    public static function create_block_single_button(array $attrs, string $text, string $link = null): array
     {
         $classname = isset($attrs['className']) ? $attrs['className'] : '';
 
@@ -552,7 +552,7 @@ class Functions
 
         // IMPORTANT: DO NOT MODIFY THIS FORMAT!
         $inner_html =
-        '<div class="' . $classname . '">
+        '<div class="' . $classname .'">
 
 
 
@@ -563,7 +563,7 @@ class Functions
         // IMPORTANT: DO NOT MODIFY THIS FORMAT!
         $inner_content = array (
             0 => '
-        <div class="' . $classname . '">',
+        <div class="' . $classname .'">',
             1 => null,
             2 => '
         ',
