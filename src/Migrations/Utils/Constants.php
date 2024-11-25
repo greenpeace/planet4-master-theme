@@ -11,10 +11,10 @@ class Constants
     private const PREFIX_CORE_BLOCKS = 'core';
 
     public const BLOCK_MEDIA_VIDEO = self::PREFIX_P4_BLOCKS . '/media-video';
-    public const BLOCK_SPLIT_TWO_COLUMNS = self::PREFIX_P4_BLOCKS . '/split-two-columns';
     public const BLOCK_COVERS = self::PREFIX_P4_BLOCKS . '/covers';
+    public const BLOCK_SPLIT_TWO_COLUMNS = self::PREFIX_P4_BLOCKS . '/split-two-columns';
+    public const BLOCK_SOCIAL_MEDIA = self::PREFIX_P4_BLOCKS . '/social-media';
     public const BLOCK_P4_COLUMNS = self::PREFIX_P4_BLOCKS . '/columns';
-    public const BLOCK_COLUMNS = self::PREFIX_P4_BLOCKS . '/columns';
 
     public const BLOCK_EMBED = self::PREFIX_CORE_BLOCKS . '/embed';
     public const BLOCK_AUDIO = self::PREFIX_CORE_BLOCKS . '/audio';
@@ -23,7 +23,7 @@ class Constants
     public const BLOCK_HEADING = self::PREFIX_CORE_BLOCKS . '/heading';
     public const BLOCK_PARAGRAPH = self::PREFIX_CORE_BLOCKS . '/paragraph';
     public const BLOCK_SINGLE_COLUMN = self::PREFIX_CORE_BLOCKS . '/column';
-    public const BLOCK_CORE_COLUMNS = self::PREFIX_CORE_BLOCKS . '/columns';
+    public const BLOCK_COLUMNS = self::PREFIX_CORE_BLOCKS . '/columns';
     public const BLOCK_SINGLE_BUTTON = self::PREFIX_CORE_BLOCKS . '/button';
     public const BLOCK_BUTTONS = self::PREFIX_CORE_BLOCKS . '/buttons';
     public const BLOCK_MEDIA_TEXT = self::PREFIX_CORE_BLOCKS . '/media-text';
@@ -57,4 +57,18 @@ class Constants
         '2' => self::COVER_TYPE_CAMPAIGN,
         '3' => self::COVER_TYPE_CONTENT,
     ];
+
+    public const INSTAGRAM = 'instagram';
+    public const FACEBOOK = 'facebook';
+    public const TWITTER = 'twitter';
+    public const X = 'x';
+
+    // phpcs:disable Generic.Files.LineLength.MaxExceeded
+    public const SOCIAL_MEDIA_PATTERNS = [
+        self::INSTAGRAM => '/^(?:(?:http|https):\/\/)?(?:www.)?(?:instagram.com|instagr.am|instagr.com)\/.+$/i',
+        self::FACEBOOK => '/^(?:(?:http|https)?:\/\/)?(?:www\.)?(mbasic.facebook|m\.facebook|facebook|fb)\.(com|me)\/.+$/i',
+        self::TWITTER => '/^(https?\:\/\/)?(www\.)?(twitter\.com)\/.+$/i',
+        self::X => '/^(https?\:\/\/)?(www\.)?x\.com\/.+$/i',
+    ];
+    // phpcs:enable Generic.Files.LineLength.MaxExceeded
 }
