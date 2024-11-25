@@ -22,7 +22,7 @@ class M034PrePopulateOldPostsArchiveNotice extends MigrationScript
     {
         $cutoff = '10';
         $title = 'Oldies But Goodies Alert!';
-        $description = "Hey there! Just a quick note: the stuff you're browsing through is mostly for nostalgia and archival kicks. So, before you go basing any big decisions on what you find here, maybe double-check with some fresher content.";
+        $description = "Hey there! Just a quick note: the stuff you're browsing through is mostly for nostalgia and archival kicks. So, before you go basing any big decisions on what you find here, maybe double-check with some fresher content."; // phpcs:ignore Generic.Files.LineLength.MaxExceeded
         $button = 'Read the latest from ' . get_bloginfo('name');
         $prefix = 'old_posts_archive_notice_';
 
