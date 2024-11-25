@@ -35,6 +35,7 @@ class Constants
         self::POST_TYPES_PAGE,
         self::POST_TYPES_POST,
         self::POST_TYPES_ACTION,
+        self::POST_TYPES_CAMPAIGN,
     ];
 
     public const POST_STATUS_LIST = [
