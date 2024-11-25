@@ -86,7 +86,7 @@ class M034MigrateCampaignCoversToP4ColumnsBlock extends MigrationScript
         $block_attrs['className'] = 'is-style-image';
 
         // Replace line breaks.
-        $block_attrs['columns_description'] = $block['attrs']['description']
+        $block_attrs['columns_description'] = array_key_exists('description', $block['attrs'])
             ? str_replace(["u003cbru003e", "<br>", "<br/>", "<br />"], " - ", $block['attrs']['description'])
             : '';
 
