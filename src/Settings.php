@@ -412,15 +412,6 @@ class Settings
                         'type' => 'text',
                     ],
                     [
-                        'name' => __('AB Hide Selector', 'planet4-master-theme-backend'),
-                        'desc' => __(
-                            'When running an AB test it is possible that the original is shown for a short while (called flicker). If this happens you can enter a CSS selector here and matching elements will be hidden until the test is fully loaded.',
-                            'planet4-master-theme-backend'
-                        ),
-                        'id' => 'ab_hide_selector',
-                        'type' => 'text',
-                    ],
-                    [
                         'name' => __('Local Projects Google Sheet ID', 'planet4-master-theme-backend'),
                         'desc' => __(
                             'The Google Sheet that is used to get analytics values from local(NRO) spreadsheet.',
