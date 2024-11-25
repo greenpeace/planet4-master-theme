@@ -6,6 +6,6 @@ const TagSelector = props => <TaxonomySelector label="Select Tags" {...props} />
 
 export default compose(
   withSelect(select => ({
-    suggestions: select('core').getEntityRecords('taxonomy', 'post_tag', {hide_empty: false, per_page: -1}) || [],
+    suggestions: select('core').getEntityRecords('taxonomy', 'post_tag', {hide_empty: false}) || [],
   }))
 )(TagSelector);
