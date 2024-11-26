@@ -314,7 +314,7 @@ class Functions
      * @param string $link - The button link.
      * @return array - The new button block.
      */
-    public static function create_block_single_button(array $attrs, string $text, string $link = null): array
+    public static function create_block_single_button(array $attrs, string $text, ?string $link = null): array
     {
         $classname = isset($attrs['className']) ? $attrs['className'] : '';
 
@@ -373,7 +373,6 @@ class Functions
      * @param string $img_id - The image ID.
      * @return array - The new media & text block.
      */
-
     public static function create_media_text_block(
         array $attrs,
         array $inner_blocks,
@@ -416,7 +415,6 @@ class Functions
      *
      * @return array - The new Embed block.
      */
-
     public static function create_embed_block(
         string $social_media_url,
         string $type,
@@ -445,6 +443,15 @@ class Functions
         );
     }
 
+    /**
+     * Create a new Post Query block.
+     *
+     * @param array $inner_blocks - The inner blocks.
+     * @param array $attrs - The block attributes.
+     * @param string $classname - The block CSS class name.
+     *
+     * @return array - The new Post Query block.
+     */
     public static function create_block_query(array $inner_blocks, array $attrs, string $classname): array
     {
         $html = '
@@ -461,7 +468,7 @@ class Functions
       </div>
       ';
 
-      $content = array (
+        $content = array (
         0 => '
     <div class="wp-block-query posts-list p4-query-loop is-custom-layout-' . $classname . '">',
         1 => null,
@@ -487,7 +494,7 @@ class Functions
         11 => null,
         12 => '</div>
     ',
-    );
+        );
 
         return self::create_new_block(
             Constants::BLOCK_QUERY,
@@ -498,6 +505,14 @@ class Functions
         );
     }
 
+    /**
+     * Create a new Query No Results block.
+     *
+     * @param array $inner_blocks - The inner blocks.
+     * @param array $attrs - The block attributes.
+     *
+     * @return array - The new Query No Results block.
+     */
     public static function create_block_query_no_results(array $inner_blocks, array $attrs): array
     {
         $html = '
@@ -528,7 +543,6 @@ class Functions
      *
      * @return array - The new Group block.
      */
-
     public static function create_group_block(array $inner_blocks, array $attrs): array
     {
         $classname =
@@ -538,7 +552,7 @@ class Functions
 
         // IMPORTANT: DO NOT MODIFY THIS FORMAT!
         $inner_html =
-        '<div class="' . $classname .'">
+        '<div class="' . $classname . '">
 
 
 
@@ -549,7 +563,7 @@ class Functions
         // IMPORTANT: DO NOT MODIFY THIS FORMAT!
         $inner_content = array (
             0 => '
-        <div class="' . $classname .'">',
+        <div class="' . $classname . '">',
             1 => null,
             2 => '
         ',
@@ -573,6 +587,14 @@ class Functions
         );
     }
 
+    /**
+     * Create a new Post template.
+     *
+     * @param array $inner_blocks - The template inner blocks.
+     * @param array $attrs - The template attributes.
+     *
+     * @return array - The new Post template.
+     */
     public static function create_post_template(array $inner_blocks, array $attrs): array
     {
         $html = '
