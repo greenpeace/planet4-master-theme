@@ -311,10 +311,10 @@ class Functions
      *
      * @param array $attrs - The attributes of the block.
      * @param string $text - The button label.
-     * @param string $link - The button link.
+     * @param string|null $link - The button link (optional).
      * @return array - The new button block.
      */
-    public static function create_block_single_button(array $attrs, string $text, string $link = null): array
+    public static function create_block_single_button(array $attrs, string $text, ?string $link = null): array
     {
         $classname = isset($attrs['className']) ? $attrs['className'] : '';
 
