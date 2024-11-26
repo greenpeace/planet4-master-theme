@@ -79,11 +79,11 @@ class M035MigrateCoversContentBlockToPostsListBlock extends MigrationScript
     {
         $existing_block_attrs = self::get_posts_list_block_attrs($block);
 
-        $tags =             $existing_block_attrs['tags'];
-        $posts_override =   $existing_block_attrs['posts'];
-        $post_types =       $existing_block_attrs['post_types'];
-        $layout_type =      $existing_block_attrs['layout'] === 'carousel' ? 'flex' : 'grid';
-        $classname =        $existing_block_attrs['layout'] === 'carousel' ? 'carousel' : 'grid';
+        $tags = $existing_block_attrs['tags'];
+        $posts_override = $existing_block_attrs['posts'];
+        $post_types = $existing_block_attrs['post_types'];
+        $layout_type = $existing_block_attrs['layout'] === 'carousel' ? 'flex' : 'grid';
+        $classname = $existing_block_attrs['layout'] === 'carousel' ? 'carousel' : 'grid';
 
         $attrs = self::set_query_block_attrs($tags, $posts_override, $post_types, $layout_type);
 
@@ -114,13 +114,13 @@ class M035MigrateCoversContentBlockToPostsListBlock extends MigrationScript
         $attrs = $existing_block['attrs'];
 
         return [
-            'title' =>          $attrs['title'] ?? '',
-            'description' =>    $attrs['description'] ?? '',
-            'cover_type' =>     $attrs['cover_type'] ?? 'content',
-            'layout' =>         $attrs['layout'] ?? 'grid',
-            'tags' =>           $attrs['tags'] ?? [],
-            'posts' =>          $attrs['posts'] ?? [],
-            'post_types' =>     $attrs['post_types'] ?? [],
+            'title' => $attrs['title'] ?? '',
+            'description' => $attrs['description'] ?? '',
+            'cover_type' => $attrs['cover_type'] ?? 'content',
+            'layout' => $attrs['layout'] ?? 'grid',
+            'tags' => $attrs['tags'] ?? [],
+            'posts' => $attrs['posts'] ?? [],
+            'post_types' => $attrs['post_types'] ?? [],
         ];
     }
 
@@ -284,15 +284,15 @@ class M035MigrateCoversContentBlockToPostsListBlock extends MigrationScript
                                     ],
                                     [
                                         'layout' => [
-                                            'type' => 'flex'
-                                        ]
+                                            'type' => 'flex',
+                                        ],
                                     ]
                                 ),
                             ],
                             []
                         ),
                     ]
-                )
+                ),
             ],
             [
                 'lock' => [
@@ -335,7 +335,7 @@ class M035MigrateCoversContentBlockToPostsListBlock extends MigrationScript
                 Utils\Functions::create_block_paragraph(
                     [],
                     'No posts found. (This default text can be edited)'
-                )
+                ),
             ],
             [],
         );
