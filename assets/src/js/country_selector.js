@@ -15,7 +15,7 @@ export const setupCountrySelector = () => {
 
   const largeAndUpScreens = '(min-width: 992px)';
   const countriesListTransitionDuration = (
-    parseFloat(getComputedStyle(document.querySelector('.countries-list')).transitionDuration) * 1000
+    parseFloat(getComputedStyle(countriesList).transitionDuration) * 1000
   ) || 500;
 
   /**
@@ -25,9 +25,9 @@ export const setupCountrySelector = () => {
   const switchOrders = (evt = null) => {
     const event = evt ? evt : window.matchMedia(largeAndUpScreens);
     if (event.matches) {
-      footerMenu.parentNode.insertBefore(footerMenu, footerMenu.parentNode.firstChild);
+      footerMenu.parentNode.prepend(footerMenu);
     } else {
-      footerSocialMedia.parentNode.insertBefore(footerSocialMedia, footerSocialMedia.parentNode.firstChild);
+      footerSocialMedia.parentNode.prepend(footerSocialMedia);
     }
   };
 
