@@ -529,7 +529,7 @@ class Post extends TimberPost
         $prefix = 'old_posts_archive_notice_';
         $post_date = get_post_field('post_date', $this->id);
         $options = get_option('planet4_options');
-        $notice_cutoff = $options[$prefix . 'cutoff'];
+        $notice_cutoff = isset($options[$prefix . 'cutoff']) ? $options[$prefix . 'cutoff'] : null;
         $activate = OldPostsArchiveNotice::is_active();
 
         if ($options && $post_date && $notice_cutoff && $activate) {
