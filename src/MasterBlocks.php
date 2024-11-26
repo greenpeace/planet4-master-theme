@@ -173,6 +173,7 @@ class MasterBlocks
     private function get_p4_options(): array
     {
         $option_values = get_option('planet4_options');
+        $is_new_ia = $option_values['new_ia'] === 'on' ;
 
         $cookies_default_copy = [
             'necessary_cookies_name' => $option_values['necessary_cookies_name'] ?? '',
@@ -188,8 +189,8 @@ class MasterBlocks
             'enable_google_consent_mode' => $option_values['enable_google_consent_mode'] ?? '',
             'cookies_default_copy' => $cookies_default_copy,
             'take_action_covers_button_text' => $option_values['take_action_covers_button_text'] ?? '',
-            'take_action_page' => $option_values['take_action_page'] ?? '',
-            'new_ia' => $option_values['new_ia'] ?? '',
+            'take_action_page' => $is_new_ia ? $option_values['take_action_page'] : $option_values['act_page'],
+            'new_ia' => $is_new_ia,
         ];
     }
 

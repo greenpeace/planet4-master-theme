@@ -32,7 +32,7 @@ export const PostSelector = attributes => {
   /**
    * Fetch relevant posts for autosuggestions
    */
-  const act_parent = window?.p4ge_vars?.planet4_options.act_page || null;
+  const act_parent = window.p4_vars.options.take_action_page || null;
   const args = {per_page: -1, orderby: 'title', post_status: 'publish'};
   const posts = useSelect(select => {
     if ('post' === postType || 'p4_action' === postType || 'page' === postType) {
