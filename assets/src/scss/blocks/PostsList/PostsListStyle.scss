@@ -184,7 +184,8 @@
     font-family: var(--font-family-paragraph-secondary);
   }
 
-  .wp-block-post-author-name {
+  .wp-block-post-author-name,
+  .article-list-item-author {
     font-size: calc(var(--font-size-xxs--font-family-primary) - 2px);
     font-weight: var(--font-weight-semibold);
     display: flex;
