@@ -118,11 +118,7 @@
       font-family: var(--font-family-paragraph-secondary);
       line-height: 1.4;
       margin-bottom: 0;
-      display: -webkit-box;
-      line-clamp: 3;
-      -webkit-line-clamp: 3;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
+      @include clamp-text(3);
     }
   }
 
