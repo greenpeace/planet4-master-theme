@@ -445,22 +445,74 @@ class Functions
         );
     }
 
-    public static function create_post_template(array $inner_blocks, array $attrs): array
+    public static function create_block_query(array $inner_blocks, array $attrs, string $classname): array
+    {
+        $html = '
+      <div class="wp-block-query posts-list p4-query-loop is-custom-layout-' . $classname . '">
+
+
+
+
+
+
+
+
+
+      </div>
+      ';
+
+      $content = array (
+        0 => '
+    <div class="wp-block-query posts-list p4-query-loop is-custom-layout-' . $classname . '">',
+        1 => null,
+        2 => '
+
+    ',
+        3 => null,
+        4 => '
+
+    ',
+        5 => null,
+        6 => '
+
+    ',
+        7 => null,
+        8 => '
+
+    ',
+        9 => null,
+        10 => '
+
+    ',
+        11 => null,
+        12 => '</div>
+    ',
+    );
+
+        return self::create_new_block(
+            Constants::BLOCK_QUERY,
+            $attrs,
+            $inner_blocks,
+            $html,
+            $content,
+        );
+    }
+
+    public static function create_block_query_no_results(array $inner_blocks, array $attrs): array
     {
         $html = '
 
-      ';
-
+        ';
         $content = array (
-                    0 => '
-            ',
-                    1 => null,
-                    2 => '
-            ',
+                0 => '
+        ',
+                1 => null,
+                2 => '
+        ',
         );
 
         return self::create_new_block(
-            Constants::BLOCK_POST_TEMPLATE,
+            Constants::BLOCK_QUERY_NO_RESULTS,
             $attrs,
             $inner_blocks,
             $html,
@@ -518,6 +570,29 @@ class Functions
             $inner_blocks,
             $inner_html,
             $inner_content,
+        );
+    }
+
+    public static function create_post_template(array $inner_blocks, array $attrs): array
+    {
+        $html = '
+
+      ';
+
+        $content = array (
+                    0 => '
+            ',
+                    1 => null,
+                    2 => '
+            ',
+        );
+
+        return self::create_new_block(
+            Constants::BLOCK_POST_TEMPLATE,
+            $attrs,
+            $inner_blocks,
+            $html,
+            $content,
         );
     }
 }
