@@ -104,6 +104,7 @@ add_action(
         Api\ENForm::register_endpoint();
         Api\Covers::register_endpoint();
         Api\Articles::register_endpoint();
+        Api\SocialMedia::register_endpoint();
     }
 );
 
