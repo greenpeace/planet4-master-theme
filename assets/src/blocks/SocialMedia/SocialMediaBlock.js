@@ -49,6 +49,10 @@ export const registerSocialMediaBlock = () => {
         type: 'string',
         default: '',
       },
+      animation: {
+        type: 'string',
+        default: '',
+      },
     },
     edit: SocialMediaEditor,
     save: ({attributes}) => <SocialMediaFrontend {...attributes} />,

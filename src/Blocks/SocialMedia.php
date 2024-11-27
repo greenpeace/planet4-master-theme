@@ -92,6 +92,10 @@ class SocialMedia extends BaseBlock
                         'type' => 'string',
                         'default' => '',
                     ],
+                    'animation' => [
+                        'type' => 'string',
+                        'default' => '',
+                    ],
                 ],
             ]
         );
