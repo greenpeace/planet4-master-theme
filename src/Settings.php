@@ -367,16 +367,30 @@ class Settings
                         'name' => __('Facebook Page ID', 'planet4-master-theme-backend'),
                         'id' => 'facebook_page_id',
                         'type' => 'text',
+                        'desc' => __(
+                            'This is used by Facebook Insights to provide analytics for traffic to your site from Facebook.<br>
+                            Find the app ID in your <a href="https://business.facebook.com/business/loginpage/" target="_blank">App Dashboard</a>.',
+                            'planet4-master-theme-backend'
+                        ),
                     ],
                     [
                         'name' => __('Facebook App Access Token', 'planet4-master-theme-backend'),
                         'id' => 'fb_app_access_token',
                         'type' => 'text',
-                        'desc' => __('FB App Access Token is used to fetch FB & IG oembed in Social Media block.', 'planet4-master-theme-backend') . '<a href="">' . __('Read more', 'planet4-master-theme-backend') . '</a><Br>' . __('Alternatively you could also add FB App ID and App Secret in place of App Access Token.', 'planet4-master-theme-backend') . '<BR>eg. {your-app_id}|{your-app_secret}',
+                        'desc' => __(
+                            'This is used by the Meta block to fetch Facebook & Instagram embed information.<br>
+                            Alternatively you can use your own, if you have created a Business Facebook App
+                            (<a href="https://developers.facebook.com/docs/facebook-login/guides/access-tokens/#apptokens" target="_blank">Read more</a>).<br>
+                            You could add App ID and App Secret separated by a | character, instead of a Token (eg. {your-app_id}|{your-app_secret}).',
+                            'planet4-master-theme-backend'
+                        ),
                     ],
                     [
                         'name' => __('Preconnect Domains', 'planet4-master-theme-backend'),
-                        'desc' => __('Add a list of third-party URLs to "preconnect" (e.g.: https://in.hotjar.com). Look for "preconnect" in the P4 Handbook for details.', 'planet4-master-theme-backend'),
+                        'desc' => __(
+                            'Add a list of frequently used third-party services to "preconnect" (e.g.: https://in.hotjar.com).',
+                            'planet4-master-theme-backend'
+                        ),
                         'id' => 'preconnect_domains',
                         'type' => 'textarea',
                         'attributes' => [
