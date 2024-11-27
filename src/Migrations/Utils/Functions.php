@@ -552,7 +552,7 @@ class Functions
 
         // IMPORTANT: DO NOT MODIFY THIS FORMAT!
         $inner_html =
-        '<div class="' . $classname .'">
+        '<div class="' . $classname . '">
 
 
 
@@ -563,7 +563,7 @@ class Functions
         // IMPORTANT: DO NOT MODIFY THIS FORMAT!
         $inner_content = array (
             0 => '
-        <div class="' . $classname .'">',
+        <div class="' . $classname . '">',
             1 => null,
             2 => '
         ',
