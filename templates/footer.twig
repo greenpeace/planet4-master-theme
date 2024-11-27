@@ -6,7 +6,7 @@
         {% include 'footer_country_selector.twig' %}
     </div>
     {% endif %}
-    <div class="container d-flex flex-column flex-lg-row-reverse">
+    <div class="container d-flex flex-column flex-lg-row">
         {% if (social_overrides is defined and social_overrides|length) or footer_social_menu|length %}
             {% include 'footer_social_media.twig' %}
         {% endif %}

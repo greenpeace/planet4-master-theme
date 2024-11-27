@@ -29,7 +29,7 @@
             <ul aria-label="{{ __('Sites starting with the letter .' ~ initial ~ '.', 'planet4-master-theme') }}" role="list">
                 {% for country in countries %}
                 {% set main_lang, lang_count = country.lang|first, country.lang|length %}
-                <li>
+                <li role="listitem">
                     <a href="{{ main_lang.url }}"
                         hreflang="{{ main_lang.locale[0] }}"
                         data-ga-category="Country Selector"
@@ -39,7 +39,7 @@
                     {% if lang_count > 1  %}
                     <ul class="lang-list" role="list">
                         {% for k, lang in country.lang %}
-                        <li>
+                        <li role="listitem">
                             <a href="{{ lang.url }}"
                                 hreflang="{{ lang.locale[0] }}"
                                 data-ga-category="Country Selector"

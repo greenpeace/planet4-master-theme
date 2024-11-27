@@ -28,7 +28,6 @@
 
   &.open {
     .country-selector-toggle-container {
-      border-bottom: 1px solid rgba($white, 1);
       transition-delay: 0s;
     }
 
@@ -94,6 +93,8 @@
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.5s cubic-bezier(0, 1.04, .38, .37) 0s;
+  // Set to hidden because of focus behaviour and a18y
+  visibility: hidden;
 }
 
 .countries-list .container {
