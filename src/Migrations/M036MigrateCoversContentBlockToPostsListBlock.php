@@ -10,7 +10,7 @@ use P4\MasterTheme\MigrationScript;
 /**
  * Migrate Covers block of type Content to Posts List blocks.
  */
-class M035MigrateCoversContentBlockToPostsListBlock extends MigrationScript
+class M036MigrateCoversContentBlockToPostsListBlock extends MigrationScript
 {
     /**
      * Perform the actual migration.
