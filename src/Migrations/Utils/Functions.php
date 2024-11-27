@@ -101,12 +101,13 @@ class Functions
      * @param string $block_name - The name of the block to be searched.
      * @param array $post_types - The list of post types to look for.
      * @param array $post_status - The list of post status to look for.
-     *
      * @return mixed - The posts using a type of block or null if no posts are found.
      */
-    //phpcs:ignore Generic.Files.LineLength.MaxExceeded
-    public static function get_posts_using_specific_block(string $block_name, array $post_types, ?array $post_status = null): mixed
-    {
+    public static function get_posts_using_specific_block(
+        string $block_name,
+        array $post_types,
+        ?array $post_status = null
+    ): mixed {
         $search = new BlockSearch();
         $params = ( new Parameters() )->with_name($block_name);
 
@@ -279,11 +280,28 @@ class Functions
         $html_content = self::generate_html_content("wp-block-columns");
 
         return self::create_new_block(
-            Constants::BLOCK_COLUMNS,
+            Constants::BLOCK_CORE_COLUMNS,
             $attrs,
             $inner_blocks,
             $html_content['html'],
             $html_content['content']
+        );
+    }
+
+    /**
+     * Create a new columns block.
+     *
+     * @param array $attrs - The attributes of the block.
+     * @return array - The new columns block.
+     */
+    public static function create_block_p4_columns(array $attrs): array
+    {
+        return self::create_new_block(
+            Constants::BLOCK_P4_COLUMNS,
+            $attrs,
+            [],
+            '',
+            []
         );
     }
 

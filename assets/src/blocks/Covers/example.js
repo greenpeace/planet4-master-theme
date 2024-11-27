@@ -34,26 +34,6 @@ export const example = {
           post_excerpt: 'Suspendisse in iaculis mauris. Duis sagittis arcu vel sodales bibendum. Ut sed sagittis lectus.',
         },
       ],
-      campaign: [
-        {
-          link: 'Tag1',
-          title: 'Tag1',
-          href: 'Tag1',
-          name: 'Tag1',
-        },
-        {
-          link: 'Tag2',
-          title: 'Tag2',
-          href: 'Tag2',
-          name: 'Tag2',
-        },
-        {
-          link: 'Tag3',
-          title: 'Tag3',
-          href: 'Tag3',
-          name: 'Tag3',
-        },
-      ],
       'take-action': [
         {
           link: 'Page1',
