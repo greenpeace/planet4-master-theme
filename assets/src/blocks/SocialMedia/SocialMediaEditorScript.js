@@ -9,6 +9,7 @@ import {
   FACEBOOK_PAGE_TAB_MESSAGES,
   ALLOWED_OEMBED_PROVIDERS,
 } from './SocialMediaConstants.js';
+import AnimationSelectControl from '../components/AnimationSelectControl/AnimationSelectControl.js';
 
 const {InspectorControls, RichText} = wp.blockEditor;
 const {RadioControl, SelectControl, PanelBody} = wp.components;
@@ -211,16 +212,8 @@ export const SocialMediaEditor = ({
         />
       </PanelBody>
       <PanelBody title={__('Animations ', 'planet4-blocks-backend')} initialOpen={true}>
-        <SelectControl
-          label={__('Animations', 'planet4-blocks-backend')}
-          value={animation}
-          options={[
-            {label: __('None', 'planet4-blocks-backend'), value: ''},
-            {label: __('Slide In Up', 'planet4-blocks-backend'), value: 'animate__slideInUp'},
-            {label: __('Slide In Down', 'planet4-blocks-backend'), value: 'animate__slideInDown'},
-            {label: __('Slide In Left', 'planet4-blocks-backend'), value: 'animate__slideInLeft'},
-            {label: __('Slide In Right', 'planet4-blocks-backend'), value: 'animate__slideInRight'},
-          ]}
+        <AnimationSelectControl
+          animation={animation}
           onChange={toAttribute('animation')}
         />
       </PanelBody>
