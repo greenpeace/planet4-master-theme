@@ -1,6 +1,6 @@
 /**
- * The script basically add/remove the tabindex attribute within the country selector
- * It helps to improve SEO
+ * The script is in charge of re-ordering programatically footer elements to
+ * follow the right tab focusing order.
  * @return {void}
  */
 export const setupCountrySelector = () => {
