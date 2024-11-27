@@ -99,3 +99,30 @@
 .post-tags {
   margin-bottom: $sp-2;
 }
+
+.single-post-old-posts-archive-notice {
+  background-color: var(--beige-100);
+  padding: $sp-3;
+  margin-top: $sp-3;
+
+  @include medium-and-up {
+    padding: $sp-3 $sp-8;
+  }
+
+  a {
+    margin: 0 auto;
+    display: block;
+    width: fit-content;
+  }
+
+  h4 {
+    text-align: center;
+    margin: 0;
+  }
+
+  p {
+    font-size: var(--font-size-m--font-family-secondary);
+    line-height: var(--line-height-m--font-family-secondary);
+    margin: $sp-3 0;
+  }
+}

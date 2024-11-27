@@ -173,6 +173,31 @@ class Settings
                             'media_buttons' => false,
                         ],
                     ],
+
+                    [
+                        'name' => __('Old Posts Archive notice cutoff years', 'planet4-master-theme-backend'),
+                        'id' => 'old_posts_archive_notice_cutoff',
+                        'type' => 'text',
+                        'desc' => __('Condition to determine when to show the notice, in years.<br>Any Post older than that will have the notice displayed on the top.', 'planet4-master-theme-backend'),
+                    ],
+
+                    [
+                        'name' => __('Old Posts Archive notice title', 'planet4-master-theme-backend'),
+                        'id' => 'old_posts_archive_notice_title',
+                        'type' => 'text',
+                    ],
+
+                    [
+                        'name' => __('Old Posts Archive notice description', 'planet4-master-theme-backend'),
+                        'id' => 'old_posts_archive_notice_description',
+                        'type' => 'textarea',
+                    ],
+
+                    [
+                        'name' => __('Old Posts Archive button text', 'planet4-master-theme-backend'),
+                        'id' => 'old_posts_archive_notice_button',
+                        'type' => 'text',
+                    ],
                 ],
             ],
             'planet4_settings_cookies_text' => [

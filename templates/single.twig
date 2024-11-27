@@ -79,6 +79,22 @@
                     </div>
                 </div>
                 {% include "blocks/share_buttons.twig" with {social:post.share_meta, utm_medium: 'share'} %}
+
+                {% if old_posts_archive_notice.show_notice %}
+                    <div class="single-post-old-posts-archive-notice">
+                        {% if ( old_posts_archive_notice.title ) %}
+                            <h4>{{ old_posts_archive_notice.title|e('wp_kses_post')|raw }}</h4>
+                        {% endif %}
+                        {% if ( old_posts_archive_notice.description ) %}
+                            <p>{{ old_posts_archive_notice.description|e('wp_kses_post')|raw }}</p>
+                        {% endif %}
+                        {% if ( old_posts_archive_notice.button ) %}
+                            <a class="btn btn-secondary" href="{{ fn('get_term_link', page_term_id) }}">
+                            {{ old_posts_archive_notice.button|e('wp_kses_post')|raw }}
+                            </a>
+                        {% endif %}
+                    </div>
+                {% endif %}
             </header>
         </div>
 
