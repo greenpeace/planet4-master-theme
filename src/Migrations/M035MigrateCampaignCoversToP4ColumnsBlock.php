@@ -10,7 +10,7 @@ use P4\MasterTheme\MigrationScript;
 /**
  * Migrate Campaign covers block to Planet4 columns block.
  */
-class M034MigrateCampaignCoversToP4ColumnsBlock extends MigrationScript
+class M035MigrateCampaignCoversToP4ColumnsBlock extends MigrationScript
 {
     /**
      * Extract campaign covers block from page/posts and transform it into Planet4 columns block.
