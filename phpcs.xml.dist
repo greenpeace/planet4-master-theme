@@ -109,6 +109,7 @@
   <!-- exclude vendor dirs -->
   <exclude-pattern>*/node_modules/*</exclude-pattern>
   <exclude-pattern>*/vendor/*</exclude-pattern>
+  <exclude-pattern>languages/*.php</exclude-pattern>
 
   <!-- @todo: Temporary exclude those rules for php8 job until php8.1 migration -->
   <rule ref="SlevomatCodingStandard.TypeHints.ParameterTypeHint">
