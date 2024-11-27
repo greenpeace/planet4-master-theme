@@ -39,7 +39,7 @@
 
     {% if preconnect_domains %}
         {% for domain in preconnect_domains %}
-            <link rel="preconnect" href="{{ domain }}">
+            <link rel="dns-prefetch" href="{{ domain }}">
         {% endfor %}
     {% endif %}
 
