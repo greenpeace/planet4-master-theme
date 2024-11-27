@@ -48,6 +48,10 @@ class Accordion extends BaseBlock
                         'type' => 'string',
                         'default' => '',
                     ],
+                    'animation' => [
+                        'type' => 'string',
+                        'default' => '',
+                    ],
                     'tabs' => [
                         'type' => 'array',
                         'default' => [],

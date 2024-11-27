@@ -1,4 +1,5 @@
 import {URLInput} from '../../block-editor/URLInput/URLInput';
+import AnimationSelectControl from '../components/AnimationSelectControl/AnimationSelectControl';
 
 const {InspectorControls, RichText} = wp.blockEditor;
 const {PanelBody, CheckboxControl, Button} = wp.components;
@@ -100,7 +101,7 @@ const renderView = ({title, description, tabs, className}, setAttributes, isSele
 };
 
 // Renders the sidebar settings
-const renderEdit = ({tabs}, setAttributes, updateTabAttribute) => {
+const renderEdit = ({tabs}, animation, setAttributes, updateTabAttribute) => {
   const [buttonUrl, setButtonUrl] = useState({});
 
   const addTab = () => setAttributes({tabs: [...tabs, {}]});
@@ -110,6 +111,10 @@ const renderEdit = ({tabs}, setAttributes, updateTabAttribute) => {
   const debounceButtonUrl = debounce((index, url) => {
     updateTabAttribute('button_url', index)(url);
   }, 300);
+
+  const toAttribute = attributeName => value => setAttributes({
+    [attributeName]: value,
+  });
 
   return (
     <InspectorControls>
@@ -155,6 +160,12 @@ const renderEdit = ({tabs}, setAttributes, updateTabAttribute) => {
           {__('Remove item', 'planet4-blocks-backend')}
         </Button>
       </PanelBody>
+      <PanelBody title={__('Animations ', 'planet4-blocks-backend')} initialOpen={true}>
+        <AnimationSelectControl
+          animation={animation}
+          onChange={toAttribute('animation')}
+        />
+      </PanelBody>
       <PanelBody title={__('Learn more about this block ', 'planet4-blocks-backend')} initialOpen={false}>
         <p className="components-base-control__help">
           <a target="_blank" href="https://planet4.greenpeace.org/content/blocks/accordion/" rel="noreferrer">
@@ -168,7 +179,7 @@ const renderEdit = ({tabs}, setAttributes, updateTabAttribute) => {
 };
 
 export const AccordionEditor = ({attributes, isSelected, setAttributes, className}) => {
-  const {title, description} = attributes;
+  const {title, description, animation} = attributes;
 
   // If there are no tabs yet, we add an empty one as placeholder
   const tabs = attributes.tabs.length > 0 ? attributes.tabs : [{}];
@@ -187,8 +198,8 @@ export const AccordionEditor = ({attributes, isSelected, setAttributes, classNam
 
   return (
     <>
-      {isSelected && renderEdit({tabs}, setAttributes, updateTabAttribute)}
-      {renderView({tabs, title, description, className}, setAttributes, isSelected, updateTabAttribute)}
+      {isSelected && renderEdit({tabs}, animation, setAttributes, updateTabAttribute)}
+      {renderView({tabs, title, description, animation, className}, setAttributes, isSelected, updateTabAttribute)}
     </>
   );
 };

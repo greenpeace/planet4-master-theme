@@ -18,6 +18,10 @@ const attributes = {
     type: 'array',
     default: [],
   },
+  animation: {
+    type: 'string',
+    default: [],
+  },
 };
 
 const styles = [
