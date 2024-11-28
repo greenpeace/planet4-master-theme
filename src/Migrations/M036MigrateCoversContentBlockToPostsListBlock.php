@@ -81,8 +81,9 @@ class M037MigrateCoversContentBlockToPostsListBlock extends MigrationScript
         $post_types = $existing_block_attrs['post_types'];
         $layout_type = $existing_block_attrs['layout'] === 'carousel' ? 'flex' : 'grid';
         $classname = $existing_block_attrs['layout'] === 'carousel' ? 'carousel' : 'grid';
+        $rows = $existing_block_attrs['rows'];
 
-        $attrs = self::set_query_block_attrs($tags, $posts_override, $post_types, $layout_type);
+        $attrs = self::set_query_block_attrs($tags, $posts_override, $post_types, $layout_type, $rows);
 
         $inner_blocks = [
             self::get_head_group_block($existing_block_attrs['title']),
@@ -111,13 +112,14 @@ class M037MigrateCoversContentBlockToPostsListBlock extends MigrationScript
         $attrs = $existing_block['attrs'];
 
         return [
-            'title' => $attrs['title'] ?? '',
-            'description' => $attrs['description'] ?? '',
-            'cover_type' => $attrs['cover_type'] ?? 'content',
-            'layout' => $attrs['layout'] ?? 'grid',
-            'tags' => $attrs['tags'] ?? [],
-            'posts' => $attrs['posts'] ?? [],
-            'post_types' => $attrs['post_types'] ?? [],
+            'title' => isset($attrs['title']) ? $attrs['title'] : '',
+            'description' => isset($attrs['description']) ? $attrs['description'] : '',
+            'cover_type' => isset($attrs['cover_type']) ? $attrs['cover_type'] : 'content',
+            'layout' => isset($attrs['layout']) ? $attrs['layout'] : 'grid',
+            'tags' => isset($attrs['tags']) ? $attrs['tags'] : [],
+            'posts' => isset($attrs['posts']) ? $attrs['posts'] : [],
+            'post_types' => isset($attrs['post_types']) ? $attrs['post_types'] : [],
+            'rows' => isset($attrs['initialRowsLimit']) ? $attrs['initialRowsLimit'] : 0,
         ];
     }
 
@@ -127,17 +129,19 @@ class M037MigrateCoversContentBlockToPostsListBlock extends MigrationScript
      * @param array $tags - The list of post tags.
      * @param array $posts_override - The list of posts to include in the query.
      * @param array $post_types - The list of terms of the "p4-page-type" taxonomy.
-     * @param string $layout_type - The layout type (grid or carousel).
+     * @param string $layout_type - The layout type (grid or flex).
+     * @param int $per_page - The number of elements per page.
      * @return array - The attributes.
      */
     private static function set_query_block_attrs(
         array $tags,
         array $posts_override,
         array $post_types,
-        string $layout_type
+        string $layout_type,
+        int $per_page,
     ): array {
         $query = [];
-        $query['perPage'] = 8;
+        $query['perPage'] = ($per_page >= 2 || $layout_type === 'flex') ? 8 : 4;
         $query['pages'] = 0;
         $query['offset'] = 0;
         $query['postType'] = Utils\Constants::POST_TYPES_POST;
