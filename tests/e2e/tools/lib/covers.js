@@ -3,7 +3,6 @@ import {expect} from './test-utils.js';
 
 const TAG_NAMES = ['Climate', 'Oceans', 'renewables', 'Consumption'];
 const PAGE_NAMES = ['Vestibulum leo libero', 'Consectetur adipiscing elit', 'Vestibulum placerat'];
-const POST_TYPES = ['Publication', 'Press Release'];
 
 async function addCoversBlock(page, editor, style = '') {
   // Add Covers block.
@@ -12,8 +11,8 @@ async function addCoversBlock(page, editor, style = '') {
   // Select the style if needed.
   if (style) {
     const stylePicker = await page.locator('.block-editor-block-styles__variants');
-    // CSS selector needs single word,hence remove word after space(eg Take Action=>Take).
-    const label = style === 'Content' ? /Content|Default/ : style.split(' ')[0];
+    //CSS selector needs single word,hence remove word after space(eg Take Action=>Take).
+    const label = style.split(' ')[0];
     await stylePicker.getByRole('button', {name: label}).click();
   }
 
@@ -52,34 +51,11 @@ async function addCoversBlock(page, editor, style = '') {
     await tagsInput.type(TAG_NAMES[3]);
     await suggestions.getByRole('option').first().click();
   }
-
-  // Default style, i.e 'Content cover'.
-  if (style === 'Content') {
-    // Fill in the Post types.
-    const postTypesInput = await page.getByLabel('Select Post Types');
-    await postTypesInput.scrollIntoViewIfNeeded();
-
-    await postTypesInput.type(POST_TYPES[0]);
-    await suggestions.getByRole('option').first().click();
-
-    await postTypesInput.type(POST_TYPES[1]);
-    await suggestions.getByRole('option').first().click();
-  }
   await page.getByLabel('Button Text').fill('Read more');
 }
 
 async function checkCoversBlock(page, style) {
-  // Default style, i.e 'Content cover'.
-  if (style === 'Content') {
-    await expect(page.locator('.content-covers-block')).toBeVisible();
-    const frontendCovers = await page.locator('.post-column.cover').all();
-    for (const [, cover] of frontendCovers.entries()) {
-      await expect(cover.locator('.content-covers-block-image > a > img')).toBeVisible();
-      await expect(cover.locator('.content-covers-block-information > h5 > a')).toBeVisible();
-      await expect(cover.locator('.content-covers-block-information > .publication-date')).toBeVisible();
-      await expect(cover.locator('.content-covers-block-information > .post-excerpt')).toBeVisible();
-    }
-  } else if (style === 'Campaign') {
+  if (style === 'Campaign') {
     await expect(page.locator('.campaign-covers-block')).toBeVisible();
     const frontendCovers = await page.locator('.campaign-card-column').all();
     for (const [, cover] of frontendCovers.entries()) {
