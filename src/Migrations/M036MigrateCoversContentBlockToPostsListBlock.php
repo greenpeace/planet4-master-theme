@@ -137,7 +137,7 @@ class M036MigrateCoversContentBlockToPostsListBlock extends MigrationScript
         string $layout_type
     ): array {
         $query = [];
-        $query['perPage'] = 4;
+        $query['perPage'] = 8;
         $query['pages'] = 0;
         $query['offset'] = 0;
         $query['postType'] = Utils\Constants::POST_TYPES_POST;
