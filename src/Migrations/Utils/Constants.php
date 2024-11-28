@@ -83,19 +83,4 @@ class Constants
         self::X => '/^(https?\:\/\/)?(www\.)?x\.com\/.+$/i',
     ];
     // phpcs:enable Generic.Files.LineLength.MaxExceeded
-
-    public const COVER_BLOCK_TYPES = [
-        'take-action' => [
-            'number' => '1',
-            'name' => 'take-action',
-        ],
-        'campaign' => [
-            'number' => '2',
-            'name' => 'campaign',
-        ],
-        'content' => [
-            'number' => '3',
-            'name' => 'content',
-        ],
-    ];
 }

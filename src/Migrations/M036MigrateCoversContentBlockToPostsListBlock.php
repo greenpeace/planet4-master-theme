@@ -63,10 +63,7 @@ class M036MigrateCoversContentBlockToPostsListBlock extends MigrationScript
         // the following possibilities: "content", "1", NULL
         // https://github.com/greenpeace/planet4-plugin-gutenberg-blocks/blob/26b480a0954667a0813ca8c3a90377f2a1fbea1c/classes/blocks/class-covers.php#L35
         // https://github.com/greenpeace/planet4-plugin-gutenberg-blocks/blob/26b480a0954667a0813ca8c3a90377f2a1fbea1c/classes/blocks/class-covers.php#L191
-        $type = isset($block['attrs']['cover_type']) ? $block['attrs']['cover_type'] : null;
-        $const = Utils\Constants::COVER_BLOCK_TYPES['content'];
-
-        return !isset($type) || $type === $const['name'] || $type === $const['number'];
+        return !isset($type) || $type === Utils\Constants::COVER_TYPE_CONTENT || $type === Utils\Constants::OLD_COVER_TYPES['3'];
     }
 
     /**
