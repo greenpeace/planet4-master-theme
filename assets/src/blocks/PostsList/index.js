@@ -22,7 +22,6 @@ export const registerPostsListBlock = () => {
     title: 'Posts List',
     icon: 'list-view',
     description: __('Insert a list or grid of the latest articles, press releases, and/or publications, organized by publication date. ', 'planet4-blocks-backend'),
-    category: 'planet4-blocks-beta',
     scope: ['inserter'],
     allowedControls: ['taxQuery'],
     isActive: ({namespace, query}) => namespace === POSTS_LIST_BLOCK_NAME && query.postType === 'post',
