@@ -178,27 +178,26 @@ class Functions
      * Create a new block.
      *
      * @param string $name - The name of the block.
-     * @param array $attrs - The attributes of the block.
-     * @param array $inner_blocks - The internal blocks.
-     * @param string $inner_html - The internal HTML.
-     * @param array $inner_content - The internal content.
+     * @param array $attrs - The attributes of the block (optional).
+     * @param array $inner_blocks - The internal blocks (optional).
+     * @param string $inner_html - The internal HTML (optional).
+     * @param array $inner_content - The internal content (optional).
      * @return array - The new block.
      */
     public static function create_new_block(
         string $name,
-        array $attrs,
-        array $inner_blocks,
-        string $inner_html,
-        array $inner_content
+        ?array $attrs = [],
+        ?array $inner_blocks = [],
+        ?string $inner_html = '',
+        ?array $inner_content = []
     ): array {
-        $block = [];
-        $block['blockName'] = $name;
-        $block['attrs'] = $attrs;
-        $block['innerBlocks'] = $inner_blocks;
-        $block['innerHTML'] = $inner_html;
-        $block['innerContent'] = $inner_content;
-
-        return $block;
+        return [
+            'blockName' => $name,
+            'attrs' => $attrs,
+            'innerBlocks' => $inner_blocks,
+            'innerHTML' => $inner_html,
+            'innerContent' => $inner_content,
+        ];
     }
 
     /**

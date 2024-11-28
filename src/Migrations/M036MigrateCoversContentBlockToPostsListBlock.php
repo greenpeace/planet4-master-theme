@@ -217,10 +217,7 @@ class M036MigrateCoversContentBlockToPostsListBlock extends MigrationScript
                     [
                         Utils\Functions::create_new_block(
                             Utils\Constants::BLOCK_FEAT_IMAGE,
-                            ['isLink' => true],
-                            [],
-                            '',
-                            []
+                            ['isLink' => true]
                         ),
                         Utils\Functions::create_group_block(
                             [
@@ -228,56 +225,29 @@ class M036MigrateCoversContentBlockToPostsListBlock extends MigrationScript
                                     [
                                         Utils\Functions::create_new_block(
                                             Utils\Constants::BLOCK_TERMS,
-                                            [
-                                                'term' => 'post_tag',
-                                                'separator' => ' ',
-                                            ],
-                                            [],
-                                            '',
-                                            []
+                                            ['term' => 'post_tag', 'separator' => ' ']
                                         ),
                                         Utils\Functions::create_new_block(
                                             Utils\Constants::BLOCK_TERMS,
-                                            [
-                                                'term' => 'category',
-                                                'separator' => ' | ',
-                                            ],
-                                            [],
-                                            '',
-                                            []
+                                            ['term' => 'category', 'separator' => ' | ']
                                         ),
                                     ],
                                     ['className' => 'posts-list-meta']
                                 ),
                                 Utils\Functions::create_new_block(
-                                    Utils\Constants::BLOCK_TITLE,
-                                    [],
-                                    [],
-                                    '',
-                                    []
+                                    Utils\Constants::BLOCK_TITLE
                                 ),
                                 Utils\Functions::create_new_block(
-                                    Utils\Constants::BLOCK_EXCERPT,
-                                    [],
-                                    [],
-                                    '',
-                                    []
+                                    Utils\Constants::BLOCK_EXCERPT
                                 ),
                                 Utils\Functions::create_group_block(
                                     [
                                         Utils\Functions::create_new_block(
                                             Utils\Constants::BLOCK_AUTHOR,
-                                            ['isLink' => true],
-                                            [],
-                                            '',
-                                            []
+                                            ['isLink' => true]
                                         ),
                                         Utils\Functions::create_new_block(
-                                            Utils\Constants::BLOCK_DATE,
-                                            [],
-                                            [],
-                                            '',
-                                            []
+                                            Utils\Constants::BLOCK_DATE
                                         ),
                                     ],
                                     ['className' => 'posts-list-meta',]
@@ -310,10 +280,7 @@ class M036MigrateCoversContentBlockToPostsListBlock extends MigrationScript
                 'label' => 'See all stories',
                 'url' => '/news-stories/',
                 'className' => 'see-all-link',
-            ],
-            [],
-            '',
-            []
+            ]
         );
     }
 
