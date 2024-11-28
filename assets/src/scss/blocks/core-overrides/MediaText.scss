@@ -15,48 +15,22 @@
     overflow: hidden;
   }
 
-  // 601px is when the block is no longer stacked
-  @media (max-width: 600px) {
-    &.alignfull .wp-block-media-text__content {
-      max-width: 540px;
-      width: 100%;
-      margin: auto;
-    }
-
-    .wp-block-media-text__content {
-      padding: $sp-2;
-    }
-
-    .wp-block-button,
-    .wp-block-button a {
-      width: 100%;
-    }
+  &.alignfull .wp-block-media-text__content {
+    max-width: 540px;
+    width: 100%;
+    margin: auto;
   }
 
-  @media (min-width: 601px) {
-    &.alignfull.has-media-on-the-right .wp-block-media-text__content {
-      @include adapt-padding-inline-start(540px);
-    }
+  .wp-block-media-text__content {
+    padding: $sp-2;
+  }
 
-    &.alignfull:not(.has-media-on-the-right) .wp-block-media-text__content {
-      @include adapt-padding-inline-end(540px);
-    }
-
-    &.has-media-on-the-right .wp-block-media-text__content {
-      padding-inline-end: $sp-3;
-    }
-
-    &:not(.has-media-on-the-right) .wp-block-media-text__content {
-      padding-inline-start: $sp-3;
-    }
+  .wp-block-button,
+  .wp-block-button a {
+    width: 100%;
   }
 
   &.alignfull.has-media-on-the-right .wp-block-media-text__content {
-    @include medium-and-up {
-      max-width: none;
-      @include adapt-padding-inline-start(720px);
-    }
-
     @include large-and-up {
       @include adapt-padding-inline-start(960px);
     }
@@ -71,11 +45,6 @@
   }
 
   &.alignfull:not(.has-media-on-the-right) .wp-block-media-text__content {
-    @include medium-and-up {
-      max-width: none;
-      @include adapt-padding-inline-end(720px);
-    }
-
     @include large-and-up {
       @include adapt-padding-inline-end(960px);
     }
