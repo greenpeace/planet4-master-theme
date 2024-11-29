@@ -2,7 +2,7 @@ import {URLInput} from '../../block-editor/URLInput/URLInput';
 import {CounterFrontend} from './CounterFrontend';
 
 const {InspectorControls, RichText} = wp.blockEditor;
-const {TextControl, TextareaControl, PanelBody} = wp.components;
+const {TextControl, TextareaControl, PanelBody, SelectControl} = wp.components;
 const {__} = wp.i18n;
 
 export const CounterEditor = ({setAttributes, attributes, isSelected}) => {
@@ -55,6 +55,20 @@ export const CounterEditor = ({setAttributes, attributes, isSelected}) => {
             {__('Use the following placeholders within the text to showcase the real numbers when using an API URL: ', 'planet4-blocks-backend')}{' '}
             <code>%completed%</code>, <code>%target%</code>, <code>%remaining%</code>
           </div>
+        </PanelBody>
+        <PanelBody title={__('Animations ', 'planet4-blocks-backend')} initialOpen={true}>
+          <SelectControl
+            label={__('Select Animation', 'planet4-blocks-backend')}
+            value={attributes.animation}
+            options={[
+              {label: __('None', 'planet4-blocks-backend'), value: ''},
+              {label: __('Slide In Up', 'planet4-blocks-backend'), value: 'animate__slideInUp'},
+              {label: __('Slide In Down', 'planet4-blocks-backend'), value: 'animate__slideInDown'},
+              {label: __('Slide In Left', 'planet4-blocks-backend'), value: 'animate__slideInLeft'},
+              {label: __('Slide In Right', 'planet4-blocks-backend'), value: 'animate__slideInRight'},
+            ]}
+            onChange={toAttribute('animation')}
+          />
         </PanelBody>
         <PanelBody title={__('Learn more about this block ', 'planet4-blocks-backend')} initialOpen={false}>
           <p className="components-base-control__help">

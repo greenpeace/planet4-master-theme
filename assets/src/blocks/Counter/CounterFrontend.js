@@ -87,6 +87,7 @@ export class CounterFrontend extends Component {
       text,
       target,
       isEditing,
+      animation,
     } = this.props;
 
     const {completed} = this.state;
@@ -106,7 +107,7 @@ export class CounterFrontend extends Component {
     }
 
     return (
-      <section className={counterClassName}>
+      <section className={counterClassName} data-animation={animation}>
         {title && !isEditing &&
           <header>
             <h2 className="page-section-header">{title}</h2>

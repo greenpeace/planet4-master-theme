@@ -30,6 +30,10 @@ const attributes = {
     type: 'string',
     default: '',
   },
+  animation: {
+    type: 'string',
+    default: '',
+  },
   style: { // Needed to convert existing blocks
     type: 'string',
     default: '',
