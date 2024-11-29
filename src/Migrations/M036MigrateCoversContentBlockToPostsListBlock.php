@@ -282,7 +282,7 @@ class M036MigrateCoversContentBlockToPostsListBlock extends MigrationScript
             Utils\Constants::BLOCK_NAV_LINK,
             [
                 'label' => 'See all stories',
-                'url' => '/news-stories/',
+                'url' => get_permalink(get_option( 'page_for_posts' )),
                 'className' => 'see-all-link',
             ]
         );
