@@ -1,8 +1,7 @@
 import {URLInput} from '../../block-editor/URLInput/URLInput';
-import AnimationSelectControl from '../components/AnimationSelectControl/AnimationSelectControl';
 
 const {InspectorControls, RichText} = wp.blockEditor;
-const {PanelBody, CheckboxControl, Button} = wp.components;
+const {PanelBody, CheckboxControl, Button, SelectControl} = wp.components;
 const {debounce} = wp.compose;
 const {useState} = wp.element;
 const {__} = wp.i18n;
@@ -161,8 +160,16 @@ const renderEdit = ({tabs}, animation, setAttributes, updateTabAttribute) => {
         </Button>
       </PanelBody>
       <PanelBody title={__('Animations ', 'planet4-blocks-backend')} initialOpen={true}>
-        <AnimationSelectControl
-          animation={animation}
+        <SelectControl
+          label={__('Select Animation', 'planet4-blocks-backend')}
+          value={animation}
+          options={[
+            {label: __('None', 'planet4-blocks-backend'), value: ''},
+            {label: __('Slide In Up', 'planet4-blocks-backend'), value: 'animate__slideInUp'},
+            {label: __('Slide In Down', 'planet4-blocks-backend'), value: 'animate__slideInDown'},
+            {label: __('Slide In Left', 'planet4-blocks-backend'), value: 'animate__slideInLeft'},
+            {label: __('Slide In Right', 'planet4-blocks-backend'), value: 'animate__slideInRight'},
+          ]}
           onChange={toAttribute('animation')}
         />
       </PanelBody>
