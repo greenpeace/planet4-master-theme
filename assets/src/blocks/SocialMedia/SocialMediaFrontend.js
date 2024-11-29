@@ -11,10 +11,11 @@ export const SocialMediaFrontend = ({
   embed_type,
   animation,
 }) => {
-  const cssClasses = `block social-media-block ${className ?? ''} ${animation ? `animate__animated ${animation}` : ''}`;
-
   return (
-    <section className={cssClasses}>
+    <section
+      className={`block social-media-block ${className ?? ''}`}
+      data-animation={animation ?? ''}
+    >
       {!!title &&
       <header>
         <h2 className="page-section-header">{title}</h2>

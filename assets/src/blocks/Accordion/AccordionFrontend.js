@@ -1,7 +1,10 @@
 window.dataLayer = window.dataLayer || [];
 
 export const AccordionFrontend = ({title, description, tabs, animation, className}) => (
-  <section className={`block accordion-block ${className ?? ''} ${animation ? `animate__animated ${animation}` : ''}`}>
+  <section
+    className={`block accordion-block ${className ?? ''} ${animation ? 'animate__animated' : ''}`}
+    data-animation={animation ?? ''}
+  >
     {title &&
       <header>
         <h2 className="page-section-header">{title}</h2>
