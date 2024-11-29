@@ -16,7 +16,7 @@ export const BLOCK_NAME = 'planet4-blocks/covers';
 export const attributes = {
   cover_type: {
     type: 'string',
-    default: 'take-action',
+    default: COVERS_TYPES.takeAction,
   },
   initialRowsLimit: {
     type: 'integer',
