@@ -12,9 +12,7 @@ async function addCoversBlock(page, editor, style = '') {
   // Select the style if needed.
   if (style) {
     const stylePicker = await page.locator('.block-editor-block-styles__variants');
-    //CSS selector needs single word,hence remove word after space(eg Take Action=>Take).
-    const label = style === 'Content' ? /Content|Default/ : style.split(' ')[0];
-    await stylePicker.getByRole('button', {name: label}).click();
+    await stylePicker.getByRole('button', {name: /^Content|Default/}).click();
   }
 
   const settings = await page.getByRole('region', {name: 'Editor settings'});
