@@ -63,18 +63,19 @@
   }
 }
 
-.author-block-info {
-  font-size: $font-size-sm;
-  line-height: 1.5;
-  margin: 0;
+.author-bio {
+  p {
+    font-size: $font-size-sm;
+    line-height: 1.5;
+    margin: 0;
 
-  .collapsing {
-    display: none;
-    transition: none;
+    .collapsing {
+      display: none;
+      transition: none;
+    }
   }
 
-  & > div a,
-  .author-details a {
+  a {
     @include shared-link-styles;
   }
 }

@@ -49,6 +49,10 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+
+  a {
+    @include shared-link-styles;
+  }
 }
 
 .author-image {
