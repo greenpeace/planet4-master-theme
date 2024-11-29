@@ -27,10 +27,10 @@
 
                 {% set author_bio_char_limit = 180 %}
 
-                <div itemprop="description">
+                <div itemprop="description" class="author-bio" aria-label="{{ __( 'Author bio', 'planet4-master-theme' ) }}">
                     {# If needed, we first show a truncated version of the description, with an ellipsis and a "Show more" button #}
                     {% if ( post.author.description|length <= author_bio_char_limit ) %}
-                        {{ post.author.description|raw }}
+                        {{ fn('wpautop', post.author.description)|e('wp_kses_post')|raw }}
                     {% else %}
                         {% set post_author_description_teaser = post.author.description|slice(0, author_bio_char_limit) ~ '<span class="collapse show multi-collapse">&hellip;</span>' %}
                         {% set post_author_description_remainder = post.author.description|slice(author_bio_char_limit) %}
