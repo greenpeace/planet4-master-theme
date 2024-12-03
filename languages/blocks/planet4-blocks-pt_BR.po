@@ -1,0 +1,266 @@
+msgid ""
+msgstr ""
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"Project-Id-Version: Planet4 - Blocks\n"
+"POT-Creation-Date: 2020-09-09 11:52+0000\n"
+"PO-Revision-Date: 2024-09-24 13:16+0000\n"
+"Last-Translator: Rickson Figueira\n"
+"Language-Team: Portuguese (Brazil)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: planet4-blocks.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"Language: pt_BR\n"
+"Report-Msgid-Bugs-To: \n"
+"X-Loco-Version: 2.6.11; wp-6.5.5\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: assets/src/blocks/Articles/ArticlePreview.js:184
+#, javascript-format
+msgid "%d min read"
+msgstr "Leitura de %d minutos"
+
+#: assets/src/blocks/Cookies/CookiesFrontend.js:158
+msgid "Always enabled"
+msgstr ""
+
+#: classes/blocks/class-happypoint.php:99
+msgid "Background image"
+msgstr ""
+
+#: classes/patterns/class-highleveltopic.php:58
+msgid "Better understand the issues [deep dive topics]"
+msgstr ""
+
+#. Description of the plugin
+msgid "Contains the Gutenberg blocks that are used by Planet4 project."
+msgstr ""
+
+#: assets/src/blocks/Covers/ContentCovers.js:47
+msgid "Cover image, link to "
+msgstr ""
+
+#: classes/patterns/class-takeaction.php:47
+msgid "Daily actions"
+msgstr ""
+
+#: classes/patterns/class-takeaction.php:71
+msgid "Donate"
+msgstr ""
+
+#: classes/blocks/class-base-block.php:67
+msgid "Error"
+msgstr ""
+
+#: classes/patterns/class-getinformed.php:41
+msgid "Explore by topic"
+msgstr ""
+
+#: classes/patterns/class-action.php:64
+#: classes/patterns/class-highleveltopic.php:87
+msgid "Explore by topics"
+msgstr ""
+
+#: classes/patterns/class-deepdivetopic.php:69
+msgid "Explore other topics"
+msgstr ""
+
+#: classes/patterns/class-highleveltopic.php:70
+msgid "Featured action title"
+msgstr ""
+
+#: classes/blocks/class-splittwocolumns.php:156
+#: assets/src/blocks/Splittwocolumns/SplittwocolumnsSettings.js:80
+msgid "Get involved"
+msgstr "Faça parte"
+
+#. Author of the plugin
+msgid "Greenpeace International"
+msgstr "Greenpeace Internacional"
+
+#: classes/patterns/class-highleveltopic.php:74
+#: classes/patterns/class-deepdivetopic.php:60
+#: classes/patterns/class-campaign.php:60
+msgid "How you can help"
+msgstr ""
+
+#. URI of the plugin
+msgid "http://github.com/greenpeace/planet4-plugin-gutenberg-blocks"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "http://www.greenpeace.org/"
+msgstr "http://www.greenpeace.org/"
+
+#: classes/patterns/class-getinformed.php:50
+msgid "Issues we work on"
+msgstr ""
+
+#: classes/patterns/class-deepdivetopic.php:65
+msgid "Keep learning about"
+msgstr ""
+
+#: classes/patterns/class-highleveltopic.php:81
+msgid "Latest investigations"
+msgstr ""
+
+#: classes/patterns/class-highleveltopic.php:77
+#: classes/patterns/class-deepdivetopic.php:63
+#: classes/patterns/class-getinformed.php:56
+msgid "Latest news & stories"
+msgstr "Últimas notícias e histórias"
+
+#: classes/blocks/class-splittwocolumns.php:144
+#: assets/src/blocks/Splittwocolumns/SplittwocolumnsSettings.js:63
+msgid "Learn more about this issue"
+msgstr "Saiba mais sobre essa categoria"
+
+#: classes/blocks/class-covers.php:95 classes/blocks/class-covers.php:160
+#: classes/blocks/class-articles.php:47 classes/blocks/class-articles.php:92
+#: assets/src/blocks/Covers/CoversEditorScript.js:70
+#: assets/src/blocks/Articles/ArticlesBlock.js:45
+#: assets/src/blocks/Articles/ArticlesBlock.js:91
+#: assets/src/blocks/Covers/deprecated/coversV2.js:57
+msgid "Load more"
+msgstr "Mostrar mais"
+
+#: assets/src/blocks/Spreadsheet/SpreadsheetFrontend.js:207
+msgid "Loading spreadsheet data..."
+msgstr ""
+
+#: planet4-gutenberg-blocks.php:467
+#: assets/src/blocks/Covers/CoversCarouselLayout.js:48
+#: assets/src/blocks/Gallery/GalleryCarousel.js:145
+#: assets/src/blocks/CarouselHeader/CarouselControls.js:18
+msgid "Next"
+msgstr "Seguinte"
+
+#: assets/src/blocks/Spreadsheet/SpreadsheetFrontend.js:140
+msgid "No data matching your search."
+msgstr ""
+
+#: classes/patterns/class-getinformed.php:54
+msgid "Our latest actions around the world"
+msgstr ""
+
+#: classes/patterns/class-getinformed.php:51
+msgid "Our recent victories"
+msgstr ""
+
+#: classes/patterns/class-highleveltopic.php:44
+#: classes/patterns/class-takeaction.php:42
+#: classes/patterns/class-deepdivetopic.php:42
+#: classes/patterns/class-campaign.php:43
+msgid "Page header title"
+msgstr ""
+
+#. Name of the plugin
+msgid "Planet4 - Gutenberg Blocks"
+msgstr ""
+
+#: planet4-gutenberg-blocks.php:446
+#: assets/src/blocks/Covers/CoversCarouselLayout.js:44
+msgid "Prev"
+msgstr "Anterior"
+
+#: assets/src/blocks/Gallery/GalleryCarousel.js:111
+#: assets/src/blocks/CarouselHeader/CarouselControls.js:14
+msgid "Previous"
+msgstr "Anterior"
+
+#: classes/patterns/class-takeaction.php:66
+msgid "Raise awareness in your community"
+msgstr ""
+
+#: classes/patterns/class-homepage.php:52
+msgid "Read our Stories"
+msgstr "Leia nossas histórias"
+
+#: classes/blocks/class-articles.php:51 classes/blocks/class-articles.php:59
+#: assets/src/blocks/Articles/ArticlesBlock.js:21
+#: assets/src/blocks/Articles/ArticlesBlock.js:67
+msgid "Related Articles"
+msgstr "Artigos Relacionados"
+
+#: assets/src/blocks/Spreadsheet/SpreadsheetFrontend.js:173
+msgid "Search data"
+msgstr ""
+
+#: assets/src/components/ShareButtons/ShareButtons.js:32
+#: assets/src/components/ShareButtons/ShareButtons.js:41
+#: assets/src/components/ShareButtons/ShareButtons.js:50
+msgid "Share on"
+msgstr ""
+
+#: assets/src/blocks/ShareButtons/ShareButtonsBlock.js:42
+msgid "Share on Facebook"
+msgstr ""
+
+#: assets/src/blocks/ShareButtons/ShareButtonsBlock.js:47
+msgid "Share on Twitter"
+msgstr ""
+
+#: assets/src/blocks/ShareButtons/ShareButtonsBlock.js:55
+msgid "Share on Whatsapp"
+msgstr ""
+
+#: assets/src/components/ShareButtons/ShareButtons.js:59
+msgid "Share via"
+msgstr ""
+
+#: assets/src/blocks/ShareButtons/ShareButtonsBlock.js:60
+msgid "Share via Email"
+msgstr ""
+
+#: classes/patterns/class-takeaction.php:52
+msgid "Support a cause"
+msgstr ""
+
+#: classes/blocks/class-takeactionboxout.php:150
+#: classes/blocks/class-covers.php:463
+#: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:96
+msgid "Take action"
+msgstr "Participe"
+
+#: classes/patterns/class-takeaction.php:61
+msgid "Take action with us"
+msgstr ""
+
+#: classes/patterns/class-action.php:50
+#: classes/patterns/class-highleveltopic.php:51
+#: classes/patterns/class-deepdivetopic.php:49
+#: classes/patterns/class-campaign.php:47
+msgid "The problem"
+msgstr ""
+
+#: classes/patterns/class-campaign.php:53
+msgid "The solution"
+msgstr ""
+
+#: classes/patterns/class-getinformed.php:42
+msgid "Topic 1"
+msgstr ""
+
+#: classes/patterns/class-getinformed.php:46
+msgid "Topic 2"
+msgstr ""
+
+#: classes/patterns/class-getinformed.php:49
+msgid "Topic 3"
+msgstr ""
+
+#: classes/patterns/class-deepdivetopic.php:54
+msgid "What can be done"
+msgstr ""
+
+#: classes/patterns/class-highleveltopic.php:65
+msgid "What we do"
+msgstr ""

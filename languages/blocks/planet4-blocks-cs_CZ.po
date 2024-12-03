@@ -1,0 +1,189 @@
+# Planet4 Plugin Blocks English base file.
+# Copyright (C) 2017 Greenpeace International
+# License:     GPLv3
+msgid ""
+msgstr ""
+"Project-Id-Version: Planet4 blocks plugin frontend\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-09-09 11:52+0000\n"
+"PO-Revision-Date: 2020-12-02 12:15+0000\n"
+"Last-Translator: Nikos Roussos\n"
+"Language-Team: Czech\n"
+"Language: cs_CZ\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=( n == 1 ) ? 0 : ( n >= 2 && n <= 4 ) ? 1 : "
+"2;\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.4.3; wp-5.4.2\n"
+
+#: classes/blocks/class-happypoint.php:92
+msgid "Background image"
+msgstr "Obrázek na pozadí"
+
+#: assets/src/blocks/Submenu/SubmenuLevel.js:53
+msgid "Bullet"
+msgstr ""
+
+#. Description of the plugin
+msgid "Contains the Gutenberg blocks that are used by Planet4 project."
+msgstr ""
+
+#: classes/blocks/class-base-block.php:65
+msgid "Error"
+msgstr ""
+
+#: classes/blocks/class-splittwocolumns.php:163
+#: assets/src/blocks/Splittwocolumns/SplittwocolumnsSettings.js:82
+msgid "Get involved"
+msgstr "Zapoj se"
+
+#. Author of the plugin
+msgid "Greenpeace International"
+msgstr "Greenpeace International"
+
+#: assets/src/blocks/Submenu/SubmenuLevel.js:10
+msgid "Heading 2"
+msgstr ""
+
+#: assets/src/blocks/Submenu/SubmenuLevel.js:11
+msgid "Heading 3"
+msgstr ""
+
+#: assets/src/blocks/Submenu/SubmenuLevel.js:12
+msgid "Heading 4"
+msgstr ""
+
+#: assets/src/blocks/Submenu/SubmenuLevel.js:13
+msgid "Heading 5"
+msgstr ""
+
+#: assets/src/blocks/Submenu/SubmenuLevel.js:14
+msgid "Heading 6"
+msgstr ""
+
+#. URI of the plugin
+msgid "http://github.com/greenpeace/planet4-plugin-gutenberg-blocks"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "http://www.greenpeace.org/"
+msgstr "http://www.greenpeace.org/"
+
+#: classes/blocks/class-splittwocolumns.php:151
+#: assets/src/blocks/Splittwocolumns/SplittwocolumnsSettings.js:64
+msgid "Learn more about this issue"
+msgstr "Zjisti více o tomto tématu "
+
+#: assets/src/blocks/Submenu/SubmenuLevel.js:32
+msgid "Level"
+msgstr ""
+
+#: assets/src/blocks/Submenu/SubmenuLevel.js:41
+msgid "Link"
+msgstr ""
+
+#: assets/src/blocks/Submenu/SubmenuLevel.js:49
+msgid "List style"
+msgstr ""
+
+#: classes/blocks/class-covers.php:368 classes/blocks/class-articles.php:46
+#: templates/blocks/campaign_covers.twig:54
+#: templates/blocks/content_covers.twig:71
+#: templates/blocks/content_covers.twig:79
+#: assets/src/blocks/Articles/ArticlesBlock.js:44
+msgid "Load more"
+msgstr "Další"
+
+#: assets/src/blocks/Spreadsheet/SpreadsheetFrontend.js:204
+msgid "Loading spreadsheet data..."
+msgstr ""
+
+#: assets/src/blocks/Gallery/GalleryCarousel.js:114
+msgid "Next"
+msgstr ""
+
+#: assets/src/blocks/Spreadsheet/SpreadsheetFrontend.js:140
+msgid "No data matching your search."
+msgstr ""
+
+#: assets/src/blocks/Spreadsheet/SpreadsheetEditor.js:129
+msgid ""
+"No URL has been specified. Please edit the block and provide a Spreadsheet "
+"URL using the sidebar."
+msgstr ""
+
+#: assets/src/blocks/Submenu/SubmenuLevel.js:52
+msgid "None"
+msgstr ""
+
+#: assets/src/blocks/Submenu/SubmenuLevel.js:54
+msgid "Number"
+msgstr ""
+
+#: classes/class-loader.php:485
+msgid "Planet 4 Blocks"
+msgstr ""
+
+#: classes/class-loader.php:490
+msgid "Planet 4 Blocks - BETA"
+msgstr ""
+
+#. Name of the plugin
+msgid "Planet4 - Gutenberg Blocks"
+msgstr ""
+
+#: assets/src/blocks/Timeline/TimelineEditor.js:104
+msgid "Please include a Sheet URL."
+msgstr ""
+
+#: assets/src/blocks/Gallery/GalleryCarousel.js:85
+msgid "Previous"
+msgstr ""
+
+#: assets/src/blocks/Counter/CounterBlock.js:78
+msgid "Progress Bar"
+msgstr ""
+
+#: assets/src/blocks/Counter/CounterBlock.js:90
+msgid "Progress Bar inside EN Form"
+msgstr ""
+
+#: assets/src/blocks/Counter/CounterBlock.js:82
+msgid "Progress Dial"
+msgstr ""
+
+#: classes/blocks/class-articles.php:50
+#: assets/src/blocks/Articles/ArticlesBlock.js:21
+msgid "Related Articles"
+msgstr "Související články"
+
+#: assets/src/blocks/Spreadsheet/SpreadsheetFrontend.js:174
+msgid "Search data"
+msgstr ""
+
+#: assets/src/blocks/Spreadsheet/SpreadsheetFrontend.js:191
+msgid "Sort by"
+msgstr ""
+
+#: assets/src/blocks/Submenu/SubmenuLevel.js:34
+msgid "Submenu item"
+msgstr ""
+
+#: classes/blocks/class-covers.php:345
+#: classes/blocks/class-takeactionboxout.php:185
+msgid "Take action"
+msgstr "JDU DO TOHO"
+
+#: assets/src/blocks/Counter/CounterBlock.js:73
+msgid "Text Only"
+msgstr ""
+
+#: assets/src/blocks/Spreadsheet/SpreadsheetEditor.js:137
+msgid "The Spreadsheet URL appears to be invalid."
+msgstr ""
+
+#: templates/blocks/take_action_boxout.twig:18
+msgid "Want to do more?"
+msgstr "Chcete udělat víc?"

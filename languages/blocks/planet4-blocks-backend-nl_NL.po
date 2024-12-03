@@ -1,0 +1,876 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Planet4 blocks plugin backend\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-06-07 10:10+0000\n"
+"PO-Revision-Date: 2021-01-18 11:51+0000\n"
+"Last-Translator: Oscar Keur\n"
+"Language-Team: Dutch\n"
+"Language: nl_NL\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.4.3; wp-5.4.2\n"
+
+#: classes/class-loader.php:113
+msgid " requires a newer version of PHP."
+msgstr "Vereist een hoger versienummer van PHP"
+
+#: classes/controller/blocks/class-splittwocolumns-controller.php:110
+#: classes/controller/blocks/class-splittwocolumns-controller.php:119
+#: classes/controller/blocks/class-splittwocolumns-controller.php:128
+#: classes/controller/blocks/class-splittwocolumns-controller.php:136
+#: classes/controller/blocks/class-splittwocolumns-controller.php:153
+#: classes/controller/blocks/class-splittwocolumns-controller.php:162
+#: classes/controller/blocks/class-splittwocolumns-controller.php:171
+#: classes/controller/blocks/class-splittwocolumns-controller.php:180
+msgid "(Optional)"
+msgstr "(optioneel)"
+
+#: classes/controller/blocks/class-splittwocolumns-controller.php:101
+msgid "(Optional) Fill this only if you need to override issue description."
+msgstr ""
+"(optioneel) Vul dit alleen in als je de thema omschrijving wilt overschrijven"
+
+#: classes/controller/blocks/class-splittwocolumns-controller.php:92
+msgid "(Optional) Fill this only if you need to override issue title."
+msgstr "(optioneel) Vul dit alleen in als je de thema titel wilt overschrijven"
+
+#: classes/controller/blocks/class-splittwocolumns-controller.php:24
+#: classes/controller/blocks/class-carouselheader-controller.php:48
+#: classes/controller/blocks/class-happypoint-controller.php:38
+msgid "1 - Top Left"
+msgstr "1- Linksboven"
+
+#: classes/controller/blocks/class-splittwocolumns-controller.php:25
+#: classes/controller/blocks/class-carouselheader-controller.php:49
+#: classes/controller/blocks/class-happypoint-controller.php:42
+msgid "2 - Top Center"
+msgstr "2 - Midden boven"
+
+#: classes/controller/blocks/class-splittwocolumns-controller.php:26
+#: classes/controller/blocks/class-carouselheader-controller.php:50
+#: classes/controller/blocks/class-happypoint-controller.php:46
+msgid "3 - Top Right"
+msgstr "3- Rechtsboven"
+
+#: classes/controller/blocks/class-splittwocolumns-controller.php:27
+#: classes/controller/blocks/class-carouselheader-controller.php:51
+#: classes/controller/blocks/class-happypoint-controller.php:50
+msgid "4 - Middle Left"
+msgstr "4 - Links midden"
+
+#: classes/controller/blocks/class-splittwocolumns-controller.php:28
+#: classes/controller/blocks/class-carouselheader-controller.php:52
+#: classes/controller/blocks/class-happypoint-controller.php:54
+msgid "5 - Middle Center"
+msgstr "5 - Midden midden"
+
+#: classes/controller/blocks/class-splittwocolumns-controller.php:29
+#: classes/controller/blocks/class-carouselheader-controller.php:53
+#: classes/controller/blocks/class-happypoint-controller.php:58
+msgid "6 - Middle Right"
+msgstr "6 - Midden rechts"
+
+#: classes/controller/blocks/class-splittwocolumns-controller.php:30
+#: classes/controller/blocks/class-carouselheader-controller.php:54
+#: classes/controller/blocks/class-happypoint-controller.php:62
+msgid "7 - Bottom Left"
+msgstr "7 - Linksonder"
+
+#: classes/controller/blocks/class-splittwocolumns-controller.php:31
+#: classes/controller/blocks/class-carouselheader-controller.php:55
+#: classes/controller/blocks/class-happypoint-controller.php:66
+msgid "8 - Bottom Center"
+msgstr "8 - Midden onder"
+
+#: classes/controller/blocks/class-splittwocolumns-controller.php:32
+#: classes/controller/blocks/class-carouselheader-controller.php:56
+#: classes/controller/blocks/class-happypoint-controller.php:70
+msgid "9 - Bottom Right"
+msgstr "9 - Rechtsonder"
+
+#: classes/controller/blocks/class-submenu-controller.php:127
+msgid "<h3>Submenu title</h3>"
+msgstr "Submenu titel"
+
+#: classes/controller/blocks/class-happypoint-controller.php:75
+msgid ""
+"<i>We use an overlay to fade the image back. Use a number between 1 and 100,"
+"<br /> the higher the number, the more faded the image will look. If you "
+"leave this <br/> empty, the default of 30 will be used.</i>"
+msgstr ""
+"<i>Gebruik een nummer tussen 1 en 100 om de afbeelding doorzichtiger te "
+"maken,<br /> hoe hoger het nummer hoe doorzichtiger de afbeelding. Als je "
+"dit leeg laat wordt '30' ingesteld.</i>"
+
+#: classes/controller/blocks/class-articles-controller.php:86
+msgid "Add read more button link"
+msgstr "Voeg 'lees meer knop' link toe"
+
+#: classes/controller/blocks/class-articles-controller.php:78
+msgid "Add read more button text"
+msgstr "Voeg 'lees meer' knop tekst toe"
+
+#: classes/controller/blocks/class-cookies-controller.php:62
+msgid "All Cookies Description"
+msgstr "Alle cookies omschrijving"
+
+#: classes/controller/blocks/class-cookies-controller.php:56
+msgid "All Cookies Name"
+msgstr "Alle cookies naam"
+
+#: classes/controller/blocks/class-submenu-controller.php:99
+msgid ""
+"An in-page table of contents to help users have a sense of what's on\n"
+"\t\t\t\t\t\t\t\t\t\t\t\tthe page and let them jump to a topic they are "
+"interested in."
+msgstr ""
+"An inhoudsopgave om bezoekers een overzicht te geven en de mogelijkheid om "
+"naar een onderdeel toe te klikken."
+
+#: classes/controller/blocks/class-submenu-controller.php:98
+msgid "Anchor Link Submenu"
+msgstr "Anker link submenu"
+
+#: classes/controller/blocks/class-articles-controller.php:66
+msgid "Article Count"
+msgstr "Aantal artikelen"
+
+#: classes/controller/blocks/class-articles-controller.php:58
+msgid "Article Heading"
+msgstr "Artikel kop"
+
+#: classes/controller/blocks/class-articles-controller.php:97
+msgid "Articles"
+msgstr "Artikelen"
+
+#: classes/controller/blocks/class-splittwocolumns-controller.php:141
+msgid "Associate the selected Issue with a Tag"
+msgstr "Koppel het geselecteerde thema aan een tag"
+
+#: classes/controller/blocks/class-splittwocolumns-controller.php:80
+msgid "Associate this block to the Issue that it will talk about"
+msgstr "Koppel dit blok aan een thema"
+
+#: classes/controller/blocks/class-takeactionboxout-controller.php:58
+msgid "Associate this block with a Take action page"
+msgstr "Koppel dit blok aan een actiepagina"
+
+#: classes/controller/blocks/class-covers-controllers.php:45
+msgid "Associate this block with Actions that have specific Tags"
+msgstr "Koppel dit blok aan actiepagina's met een specifieke tag"
+
+#: classes/controller/blocks/class-contentfourcolumn-controller.php:64
+#: classes/controller/blocks/class-submenu-controller.php:103
+msgid "Associate this block with Posts that have a specific Tag"
+msgstr "Koppel dit blok aan berichten met een specifieke tag"
+
+#: classes/controller/blocks/class-happypoint-controller.php:24
+msgid "Background"
+msgstr "Achtergrond"
+
+#: classes/controller/menu/class-settings-controller.php:21
+#: classes/controller/menu/class-settings-controller.php:22
+msgid "Blocks"
+msgstr "Blokken"
+
+#: classes/controller/blocks/class-twocolumn-controller.php:70
+#: classes/controller/blocks/class-twocolumn-controller.php:105
+msgid "Button link"
+msgstr "Knop link"
+
+#: classes/controller/blocks/class-twocolumn-controller.php:62
+#: classes/controller/blocks/class-twocolumn-controller.php:97
+msgid "Button text"
+msgstr "Knop tekst"
+
+#: classes/controller/blocks/class-splittwocolumns-controller.php:165
+msgid "Campaign button link"
+msgstr "Campagne knop link"
+
+#: classes/controller/blocks/class-splittwocolumns-controller.php:156
+msgid "Campaign button text"
+msgstr "Campagne knop tekst"
+
+#: classes/controller/blocks/class-splittwocolumns-controller.php:147
+msgid "Campaign Description"
+msgstr "Campagne omschrijving"
+
+#: classes/controller/blocks/class-splittwocolumns-controller.php:72
+msgid "Campaign fields (Column 2 - Right side)"
+msgstr "Campagne velden (Kolom 2 - Rechts)"
+
+#: classes/controller/blocks/class-splittwocolumns-controller.php:174
+msgid "Campaign Image"
+msgstr "Campagne afbeelding"
+
+#: classes/controller/blocks/class-campaignthumbnail-controller.php:36
+msgid "Campaign Thumbnail"
+msgstr "Campagne thumbnail"
+
+#: classes/controller/blocks/class-carousel-controller.php:91
+msgid "Carousel"
+msgstr "Afbeeldingscaroussel"
+
+#. A block that contains 4 different columns each one with title and description.
+#: classes/controller/blocks/class-carouselheader-controller.php:117
+msgid "Carousel Header"
+msgstr "Afbeeldingscaroussel Kop"
+
+#. A block that contains a carousel with split images.
+#: classes/controller/blocks/class-carouselsplit-controller.php:41
+msgid "Carousel Split"
+msgstr "Afbeeldingscaroussel split"
+
+#: classes/class-loader.php:200
+msgid "Class P4BKS_Loader already exists."
+msgstr "Class P4BKS_Loader already exists."
+
+#: classes/class-loader.php:200
+msgid "Conflict Error"
+msgstr "Conflict foutmelding"
+
+#: classes/controller/blocks/class-contentfourcolumn-controller.php:102
+msgid "Content Four Column"
+msgstr "Content vierkoloms"
+
+#: classes/controller/blocks/class-cookies-controller.php:71
+msgid "Cookies"
+msgstr "Cookies"
+
+#: classes/controller/blocks/class-cookies-controller.php:38
+msgid "Cookies general description"
+msgstr "Cookies omschrijving"
+
+#: classes/controller/blocks/class-cookies-controller.php:32
+msgid "Cookies title"
+msgstr "Cookies titel"
+
+#: classes/class-loader.php:98
+msgid "Current version "
+msgstr "Huidige versie"
+
+#: classes/controller/blocks/class-contentthreecolumn-controller.php:35
+#: classes/controller/blocks/class-covers-controllers.php:34
+#: classes/controller/blocks/class-staticfourcolumn-controller.php:61
+#: classes/controller/blocks/class-carouselheader-controller.php:81
+#: classes/controller/blocks/class-subheader-controller.php:29
+#: classes/controller/blocks/class-twocolumn-controller.php:53
+#: classes/controller/blocks/class-twocolumn-controller.php:89
+msgid "Description"
+msgstr "Omschrijving"
+
+#: classes/controller/blocks/class-cookies-controller.php:63
+msgid "Description for the 'all cookies' paragraph"
+msgstr "Alle cookies paragraaf"
+
+#: classes/controller/blocks/class-cookies-controller.php:51
+msgid "Description for the 'necessary cookies' paragraph"
+msgstr "Noodzakelijke cookies paragraaf"
+
+#. placeholder needs to represent the ordinal of the column, eg. 1st, 2nd etc.
+#: classes/controller/blocks/class-staticfourcolumn-controller.php:76
+#, php-format
+msgid "Enter %s link text"
+msgstr "Voor %s link tekst in"
+
+#. placeholder needs to represent the ordinal of the column, eg. 1st, 2nd etc.
+#: classes/controller/blocks/class-staticfourcolumn-controller.php:86
+#, php-format
+msgid "Enter %s link url"
+msgstr "Voer %s link in"
+
+#: classes/controller/blocks/class-articles-controller.php:62
+msgid "Enter article heading"
+msgstr "Voer artikel kop in"
+
+#: classes/controller/blocks/class-articles-controller.php:70
+msgid "Enter articles count"
+msgstr "Voer aantal artikelen in"
+
+#: classes/controller/blocks/class-splittwocolumns-controller.php:169
+msgid "Enter button link"
+msgstr "Voer knop link in"
+
+#. placeholder needs to represent the ordinal of the task/column, eg. 1st, 2nd etc.
+#: classes/controller/blocks/class-tasks-controller.php:111
+#, php-format
+msgid "Enter button link of %s task/column"
+msgstr "Voer knop link in van %s taak/kolom"
+
+#: classes/controller/blocks/class-twocolumn-controller.php:74
+msgid "Enter button link of first column"
+msgstr "Voer knop link in van eerste kolom"
+
+#: classes/controller/blocks/class-twocolumn-controller.php:109
+msgid "Enter button link of second column"
+msgstr "Voor knop tekst in van tweede kolom"
+
+#: classes/controller/blocks/class-splittwocolumns-controller.php:160
+msgid "Enter button text"
+msgstr "Voer knop tekst in"
+
+#. placeholder needs to represent the ordinal of the task/column, eg. 1st, 2nd etc.
+#: classes/controller/blocks/class-tasks-controller.php:98
+#, php-format
+msgid "Enter button text of %s task/column"
+msgstr "Voer knop tekst in van %s taak/kolom"
+
+#: classes/controller/blocks/class-contentthreecolumn-controller.php:39
+#: classes/controller/blocks/class-covers-controllers.php:38
+#: classes/controller/blocks/class-splittwocolumns-controller.php:99
+#: classes/controller/blocks/class-splittwocolumns-controller.php:151
+msgid "Enter description"
+msgstr "Voer omschrijving in"
+
+#. placeholder needs to represent the ordinal of the column, eg. 1st, 2nd etc.
+#: classes/controller/blocks/class-staticfourcolumn-controller.php:66
+#, php-format
+msgid "Enter description of %s column"
+msgstr "Voer omschrijving in van %s kolom"
+
+#. placeholder needs to represent the ordinal of the image, eg. 1st, 2nd etc.
+#: classes/controller/blocks/class-carouselheader-controller.php:86
+#, php-format
+msgid "Enter description of %s image"
+msgstr "Voer omschrijving in van %s afbeelding"
+
+#. placeholder needs to represent the ordinal of the task/column, eg. 1st, 2nd etc.
+#: classes/controller/blocks/class-tasks-controller.php:74
+#, php-format
+msgid "Enter description of %s task/column"
+msgstr "Voer omschrijving van %s taak/kolom"
+
+#: classes/controller/blocks/class-twocolumn-controller.php:57
+msgid "Enter description of first column"
+msgstr "Voer omschrijving in van eerste kolom"
+
+#: classes/controller/blocks/class-twocolumn-controller.php:93
+msgid "Enter description of second column"
+msgstr "Voer omschrijving in van tweede kolom"
+
+#. placeholder needs to represent the ordinal of the image, eg. 1st, 2nd etc.
+#: classes/controller/blocks/class-carouselheader-controller.php:65
+#, php-format
+msgid "Enter header of %s image"
+msgstr "Voer kop in van %s afbeelding"
+
+#: classes/controller/blocks/class-happypoint-controller.php:93
+msgid "Enter iframe url"
+msgstr "Voeg iframe link in"
+
+#: classes/controller/blocks/class-splittwocolumns-controller.php:117
+msgid "Enter link path"
+msgstr "Voeg link in"
+
+#: classes/controller/blocks/class-splittwocolumns-controller.php:108
+msgid "Enter link text"
+msgstr "Voeg link tekst in"
+
+#. placeholder needs to represent the ordinal of the image, eg. 1st, 2nd etc.
+#: classes/controller/blocks/class-carouselheader-controller.php:96
+#, php-format
+msgid "Enter link text for %s image"
+msgstr "Voeg link tekst in voor %s afbeelding"
+
+#. placeholder needs to represent the ordinal of the image, eg. 1st, 2nd etc.
+#: classes/controller/blocks/class-carouselheader-controller.php:106
+#, php-format
+msgid "Enter link url for %s image"
+msgstr "Voeg link in voor %s afbeelding"
+
+#. placeholder needs to represent the ordinal of the image, eg. 1st, 2nd etc.
+#: classes/controller/blocks/class-carouselheader-controller.php:76
+#, php-format
+msgid "Enter subheader of %s image"
+msgstr "Voeg subkop in van %s afbeelding"
+
+#: classes/controller/blocks/class-tasks-controller.php:43
+msgid "Enter tasks description"
+msgstr "Voeg taak omschrijving toe "
+
+#: classes/controller/blocks/class-tasks-controller.php:34
+msgid "Enter tasks title"
+msgstr "Voeg taak titel toe"
+
+#: classes/controller/blocks/class-contentthreecolumn-controller.php:31
+#: classes/controller/blocks/class-covers-controllers.php:29
+#: classes/controller/blocks/class-campaignthumbnail-controller.php:29
+#: classes/controller/blocks/class-splittwocolumns-controller.php:89
+#: classes/controller/blocks/class-carousel-controller.php:75
+msgid "Enter title"
+msgstr "Voeg titel toe"
+
+#. placeholder needs to represent the ordinal of the column, eg. 1st, 2nd etc.
+#: classes/controller/blocks/class-contentfourcolumn-controller.php:57
+#: classes/controller/blocks/class-submenu-controller.php:132
+msgid "Enter title for this block"
+msgstr "Voeg titel toe voor dit blok"
+
+#. placeholder needs to represent the ordinal of the column, eg. 1st, 2nd etc.
+#: classes/controller/blocks/class-staticfourcolumn-controller.php:56
+#, php-format
+msgid "Enter title of %s column"
+msgstr "Voeg titel toe voor %s kolom"
+
+#. placeholder needs to represent the ordinal of the task/column, eg. 1st, 2nd etc.
+#: classes/controller/blocks/class-tasks-controller.php:61
+#, php-format
+msgid "Enter title of %s task/column"
+msgstr "Voeg titel toe voor %s taak/kolom"
+
+#: classes/controller/blocks/class-twocolumn-controller.php:48
+msgid "Enter title of first column"
+msgstr "Voeg titel toe voor eerste kolom"
+
+#: classes/controller/blocks/class-twocolumn-controller.php:85
+msgid "Enter title of second column"
+msgstr "Voeg titel toe voor tweede kolom"
+
+#: classes/controller/blocks/class-mediavideo-controller.php:31
+msgid "Enter video title"
+msgstr "Voeg video titel toe"
+
+#: classes/controller/blocks/class-mediavideo-controller.php:39
+msgid "Enter youtube video id"
+msgstr "Voer Youtube video id in"
+
+#: classes/controller/blocks/class-happypoint-controller.php:100
+msgid "Happy Point"
+msgstr "Nieuwsbrief inschrijving (niet in gebruik)"
+
+#: classes/controller/blocks/class-carouselheader-controller.php:60
+msgid "Header"
+msgstr "Koptekst"
+
+#: classes/controller/blocks/class-submenu-controller.php:92
+msgid "Heading"
+msgstr "Kop"
+
+#: classes/controller/blocks/class-happypoint-controller.php:86
+msgid "Iframe url"
+msgstr "Iframe link"
+
+#: classes/controller/blocks/class-contentthreecolumn-controller.php:43
+msgid "Image 1"
+msgstr "Afbeelding 1"
+
+#: classes/controller/blocks/class-contentthreecolumn-controller.php:51
+msgid "Image 2"
+msgstr "Afbeelding 2"
+
+#: classes/controller/blocks/class-contentthreecolumn-controller.php:59
+msgid "Image 3"
+msgstr "Afbeelding 3"
+
+#: classes/controller/blocks/class-carouselsplit-controller.php:28
+msgid "Images"
+msgstr "Afbeeldingen"
+
+#: classes/controller/blocks/class-splittwocolumns-controller.php:95
+msgid "Issue Description"
+msgstr "Thema omschrijving"
+
+#: classes/controller/blocks/class-splittwocolumns-controller.php:68
+msgid "Issue fields (Column 1 - Left side)"
+msgstr "Thema velden (Kolom 1 - Links)"
+
+#: classes/controller/blocks/class-splittwocolumns-controller.php:122
+msgid "Issue Image"
+msgstr "Thema afbeelding"
+
+#: classes/controller/blocks/class-splittwocolumns-controller.php:113
+msgid "Issue link path"
+msgstr "Thema link"
+
+#: classes/controller/blocks/class-splittwocolumns-controller.php:104
+msgid "Issue link text"
+msgstr "Thema linktekst"
+
+#: classes/controller/blocks/class-splittwocolumns-controller.php:85
+msgid "Issue Title"
+msgstr "Thema titel"
+
+#: classes/controller/blocks/class-cookies-controller.php:57
+msgid "Label for the 'all cookies' checkbox"
+msgstr "Omschrijving naast 'alle cookies' vinkje"
+
+#: classes/controller/blocks/class-cookies-controller.php:45
+msgid "Label for the 'necessary cookies' checkbox"
+msgstr "Omschrijving naast 'noodzakelijke cookies' vinkje"
+
+#: classes/controller/blocks/class-submenu-controller.php:108
+msgid "Long full-width"
+msgstr "Lang volledige breedte"
+
+#: classes/controller/blocks/class-cookies-controller.php:39
+msgid "Main description for cookies block"
+msgstr "Cookies omschrijving"
+
+#: classes/controller/blocks/class-cookies-controller.php:33
+msgid "Main title for cookies block"
+msgstr "Cookies titel"
+
+#. A block that displays an image that supports transparency and blends with the background.
+#: classes/controller/blocks/class-mediablock-controller.php:42
+msgid "Media block"
+msgstr "Media blok"
+
+#: classes/class-loader.php:114
+msgid "Minimum required version of PHP: "
+msgstr "Minimum vereiste PHP versie:"
+
+#: classes/class-loader.php:97
+msgid "Minimum version "
+msgstr "Minimum versie"
+
+#: classes/controller/blocks/class-cookies-controller.php:50
+msgid "Necessary Cookies Description"
+msgstr "Noodzakelijke cookies omschrijving"
+
+#: classes/controller/blocks/class-cookies-controller.php:44
+msgid "Necessary Cookies Name"
+msgstr "Noodzakelijke cookies naam"
+
+#: classes/controller/blocks/class-submenu-controller.php:86
+msgid "None"
+msgstr "Geen"
+
+#: classes/controller/blocks/class-covers-controllers.php:51
+msgid "Number of covers displayed"
+msgstr "Aantal kaarten weergegeven"
+
+#: classes/controller/blocks/class-contentfourcolumn-controller.php:76
+msgid "Number of Posts displayed"
+msgstr "Aantal berichten weergegeven"
+
+#: classes/class-loader.php:113
+msgid "PHP Requirements Error"
+msgstr "PHP vereisten foutmelding"
+
+#: classes/class-loader.php:93
+msgid "plugin needs to be installed and activated."
+msgstr "plugin moet worden geinstalleerd en geactiveerd"
+
+#: classes/controller/blocks/class-articles-controller.php:82
+msgid "Read More Link"
+msgstr "Lees meer link"
+
+#: classes/controller/blocks/class-articles-controller.php:74
+msgid "Read More Text"
+msgstr "Lees meer tekst"
+
+#: classes/class-loader.php:90
+msgid "Requirements Error(s)"
+msgstr "Vereisten foutmeldingen:"
+
+#: classes/class-loader.php:115
+msgid "Running version of PHP: "
+msgstr "Huidige PHP versie:"
+
+#: classes/controller/blocks/class-contentfourcolumn-controller.php:63
+msgid "Select a Tag"
+msgstr "Selecteer een tag"
+
+#: classes/controller/blocks/class-splittwocolumns-controller.php:73
+msgid "Select a tag"
+msgstr "Selecteer een tag"
+
+#: classes/controller/blocks/class-takeactionboxout-controller.php:57
+msgid "Select a Take action Page"
+msgstr "Selecteer een actiepagina"
+
+#: classes/controller/blocks/class-splittwocolumns-controller.php:69
+msgid "Select an issue"
+msgstr "Selecteer een thema"
+
+#: classes/controller/blocks/class-happypoint-controller.php:28
+#: classes/controller/blocks/class-happypoint-controller.php:29
+msgid "Select Background Image"
+msgstr "Selecteer een achtergrond afbeelding"
+
+#: classes/controller/blocks/class-carousel-controller.php:79
+msgid "Select Carousel Images"
+msgstr "Selecter afbeeldingscaroussel afbeeldingen"
+
+#. placeholder needs to represent the ordinal of the image, eg. 1st, 2nd etc.
+#: classes/controller/blocks/class-carouselheader-controller.php:35
+#, php-format
+msgid "Select file for %s image"
+msgstr "Selecteer bestand voor %s afbeelding"
+
+#: classes/controller/blocks/class-contentthreecolumn-controller.php:47
+#: classes/controller/blocks/class-contentthreecolumn-controller.php:48
+msgid "Select First Image"
+msgstr "Selecteer eerste afbeelding"
+
+#: classes/controller/blocks/class-happypoint-controller.php:32
+msgid "Select focus point for background image"
+msgstr "Selecteer focuspunt voor achtergrondafbeelding"
+
+#: classes/controller/blocks/class-splittwocolumns-controller.php:183
+msgid "Select focus point for campaign image"
+msgstr "Selecteer focuspunt voor campagne afbeelding"
+
+#. placeholder needs to represent the ordinal of the image, eg. 1st, 2nd etc.
+#: classes/controller/blocks/class-carouselheader-controller.php:44
+#, php-format
+msgid "Select focus point for image %s"
+msgstr "Selecteer focuspunt voor %s afbeelding"
+
+#: classes/controller/blocks/class-splittwocolumns-controller.php:131
+msgid "Select focus point for issue image"
+msgstr "Selecteer focuspunt voor thema afbeelding"
+
+#: classes/controller/blocks/class-mediablock-controller.php:34
+#: classes/controller/blocks/class-mediablock-controller.php:35
+#: classes/controller/blocks/class-tasks-controller.php:86
+#: classes/controller/blocks/class-tasks-controller.php:87
+#: classes/controller/blocks/class-staticfourcolumn-controller.php:47
+#: classes/controller/blocks/class-staticfourcolumn-controller.php:48
+#: classes/controller/blocks/class-carouselheader-controller.php:39
+#: classes/controller/blocks/class-carouselheader-controller.php:40
+msgid "Select Image"
+msgstr "Selecteer afbeelding"
+
+#. placeholder needs to represent the ordinal of the column, eg. 1st, 2nd etc.
+#: classes/controller/blocks/class-staticfourcolumn-controller.php:43
+#, php-format
+msgid "Select Image for %s column"
+msgstr "Selecteer afbeelding voor %s kolom"
+
+#. placeholder needs to represent the ordinal of the task/column, eg. 1st, 2nd etc.
+#: classes/controller/blocks/class-tasks-controller.php:82
+#, php-format
+msgid "Select Image for %s task/column"
+msgstr "Selecteer afbeelding voor %s taak/kolom"
+
+#: classes/controller/blocks/class-splittwocolumns-controller.php:178
+#: classes/controller/blocks/class-splittwocolumns-controller.php:179
+msgid "Select Image for Campaign"
+msgstr "Selecteer afbeelding voor Campagne"
+
+#: classes/controller/blocks/class-splittwocolumns-controller.php:126
+#: classes/controller/blocks/class-splittwocolumns-controller.php:127
+msgid "Select Image for Issue"
+msgstr "Selecteer afbeelding voor thema"
+
+#: classes/controller/blocks/class-mediablock-controller.php:30
+msgid "Select Image for the media block"
+msgstr "Selecteer afbeelding voor het media blok"
+
+#: classes/controller/blocks/class-carouselsplit-controller.php:33
+#: classes/controller/blocks/class-carouselsplit-controller.php:34
+msgid "Select Images for Carousel"
+msgstr "Selecteer afbeeldingen voor afbeeldingencaroussel"
+
+#: includes/settings.twig:20
+msgid "Select Language"
+msgstr "Selecteer taal"
+
+#: classes/controller/blocks/class-contentthreecolumn-controller.php:55
+#: classes/controller/blocks/class-contentthreecolumn-controller.php:56
+msgid "Select Second Image"
+msgstr "Selecteer tweede afbeelding"
+
+#: classes/controller/blocks/class-covers-controllers.php:44
+msgid "Select Tags"
+msgstr "Selecteer tags"
+
+#: classes/controller/blocks/class-contentthreecolumn-controller.php:63
+#: classes/controller/blocks/class-contentthreecolumn-controller.php:64
+msgid "Select Third Image"
+msgstr "Selecteer derde afbeelding"
+
+#: includes/settings.twig:4
+msgid "Settings"
+msgstr "Instellingen"
+
+#: classes/controller/blocks/class-submenu-controller.php:114
+msgid "Short full-width"
+msgstr "Kort volledige breedte"
+
+#: classes/controller/blocks/class-submenu-controller.php:120
+msgid "Short sidebar"
+msgstr "Korte zijbalk"
+
+#: classes/controller/blocks/class-controller.php:74
+msgid "Shortcode UI plugin must be active for Planet4 - Blocks plugin to work."
+msgstr ""
+"Shortcode UI plugin must be active for Planet4 - Blocks plugin to work."
+
+#. placeholder is a number.
+#: classes/controller/blocks/class-covers-controllers.php:63
+#: classes/controller/blocks/class-contentfourcolumn-controller.php:87
+msgid "Show 1 Row"
+msgstr "Toon 1 rij"
+
+#: classes/controller/blocks/class-covers-controllers.php:52
+msgid ""
+"Show 1 Row: Displays 3 Covers on desktop and 2 Covers on mobile.<br> \n"
+"\t\t\t\t\t\t\t\t\t\tShow 2 Rows: Displays 6 Covers on desktop and 4 covers "
+"on mobile.<br>\n"
+"\t\t\t\t\t\t\t\t\t\t(Another Row will be revealed each time the Load more "
+"button is clicked)<br>\n"
+"\t\t\t\t\t\t\t\t\t\tShow All Covers: Displays all available Covers on "
+"desktop and 4 Covers on mobile."
+msgstr ""
+"Toon 1 rij: Toon 3 kaarten op desktop en 2 kaarten op mobiel.<br> \n"
+"Toon 2 rijen: Toon 6 kaarten op desktop en 4 kaarten op mobiel.<br>\n"
+"(Een nieuwe rij kaarten wordt geladen nadat er op de 'Lees meer' knop is "
+"geklikt<br>\n"
+"Toon alle kaarten: Toon op alle kaarten op desktop en 4 kaarten op mobiel"
+
+#: classes/controller/blocks/class-contentfourcolumn-controller.php:77
+msgid ""
+"Show 1 Row: Displays 4 Posts on desktop and 3 Posts on mobile.<br> \n"
+"\t\t\t\t\t\t\t\t\tShow 2 Rows: Displays 8 Posts on desktop and 6 Posts on "
+"mobile.<br>\n"
+"\t\t\t\t\t\t\t\t\t(Another Row will be revealed each time the Load more "
+"button is clicked)<br>\n"
+"\t\t\t\t\t\t\t\t\tShow All Rows: Displays all available Posts on desktop and "
+"4 Posts on mobile."
+msgstr ""
+"Toon 1 rij: Toon 4 kaarten op desktop en 3 kaarten op mobiel.<br> \n"
+"Toon 2 rijen: Toon 8 kaarten op desktop en 6 kaarten op mobiel.<br>\n"
+"(Een nieuwe rij kaarten wordt geladen nadat er op de 'Lees meer' knop is "
+"geklikt<br>\n"
+"Toon alle kaarten: Toon op alle kaarten op desktop en 6 kaarten op mobiel"
+
+#. placeholder is a number.
+#: classes/controller/blocks/class-covers-controllers.php:68
+#: classes/controller/blocks/class-contentfourcolumn-controller.php:91
+msgid "Show 2 Rows"
+msgstr "Toon 2 rijen"
+
+#: classes/controller/blocks/class-covers-controllers.php:72
+msgid "Show All Covers"
+msgstr "Toon alle kaarten"
+
+#: classes/controller/blocks/class-contentfourcolumn-controller.php:95
+msgid "Show All Posts"
+msgstr "Toon alle berichten"
+
+#: classes/controller/blocks/class-splittwocolumns-controller.php:200
+msgid "Split Two Columns"
+msgstr "Twee kolommen"
+
+#. A block that contains 4 different columns each one with title and description.
+#: classes/controller/blocks/class-staticfourcolumn-controller.php:97
+msgid "Static Four Column"
+msgstr "Statisch 4 kolommen"
+
+#: classes/controller/blocks/class-carouselheader-controller.php:71
+#: classes/controller/blocks/class-subheader-controller.php:37
+msgid "Subheader"
+msgstr "Subkop"
+
+#: classes/controller/blocks/class-submenu-controller.php:164
+msgid "Submenu"
+msgstr "Submenu"
+
+#: classes/controller/blocks/class-takeactionboxout-controller.php:66
+msgid "Take action Boxout"
+msgstr "Onderneem actie blok"
+
+#: classes/controller/blocks/class-covers-controllers.php:85
+msgid "Take action Covers"
+msgstr "Actiepagina kaarten"
+
+#. A block that contains different columns each one with title and description and an image.
+#: classes/controller/blocks/class-tasks-controller.php:120
+msgid "Take action tasks"
+msgstr "Taken"
+
+#. placeholder needs to represent the ordinal of the task/column, eg. 1st, 2nd etc.
+#: classes/controller/blocks/class-tasks-controller.php:106
+#, php-format
+msgid "Task %s: Button Link"
+msgstr "Taak %s: Knop link"
+
+#. placeholder needs to represent the ordinal of the task/column, eg. 1st, 2nd etc.
+#: classes/controller/blocks/class-tasks-controller.php:93
+#, php-format
+msgid "Task %s: Button Text"
+msgstr "Taak %s: Knop tekst"
+
+#. placeholder needs to represent the ordinal of the task/column, eg. 1st, 2nd etc.
+#: classes/controller/blocks/class-tasks-controller.php:69
+#, php-format
+msgid "Task %s: Description"
+msgstr "Taak %s: Omschrijving"
+
+#. placeholder needs to represent the ordinal of the task/column, eg. 1st, 2nd etc.
+#: classes/controller/blocks/class-tasks-controller.php:55
+#, php-format
+msgid ""
+"Task %s: Title <br> \n"
+"\t\t\t\t\t\t\t\t\t<i>Title is mandatory. In order for the task to be "
+"appeared title has to be filled.</i>"
+msgstr "<i>Titel is verplicht, anders verschijnt de taak niet</i>"
+
+#: classes/controller/blocks/class-tasks-controller.php:39
+msgid "Tasks Description"
+msgstr "Taken omschrijving"
+
+#: classes/controller/blocks/class-tasks-controller.php:30
+msgid "Tasks Title"
+msgstr "Taken titel"
+
+#: classes/controller/blocks/class-staticfourcolumn-controller.php:71
+#: classes/controller/blocks/class-carouselheader-controller.php:91
+msgid "Text for link"
+msgstr "Linktekst"
+
+#: classes/controller/blocks/class-contentthreecolumn-controller.php:70
+msgid "Three Columns"
+msgstr "Driekoloms"
+
+#: classes/controller/blocks/class-contentthreecolumn-controller.php:27
+#: classes/controller/blocks/class-covers-controllers.php:25
+#: classes/controller/blocks/class-campaignthumbnail-controller.php:25
+#: classes/controller/blocks/class-carousel-controller.php:71
+#: classes/controller/blocks/class-staticfourcolumn-controller.php:32
+#: classes/controller/blocks/class-staticfourcolumn-controller.php:51
+#: classes/controller/blocks/class-subheader-controller.php:24
+#: classes/controller/blocks/class-twocolumn-controller.php:44
+#: classes/controller/blocks/class-twocolumn-controller.php:81
+msgid "Title"
+msgstr "titel"
+
+#: classes/controller/blocks/class-contentfourcolumn-controller.php:52
+msgid ""
+"Title. <i>If it is not defined, title will default to 'Publications'</i>"
+msgstr "Titel. Als niet ingevuld is dit standaard 'Publicaties'"
+
+#: classes/controller/blocks/class-twocolumn-controller.php:123
+msgid "Two Columns"
+msgstr "Tweekoloms"
+
+#: classes/controller/blocks/class-staticfourcolumn-controller.php:81
+#: classes/controller/blocks/class-carouselheader-controller.php:101
+msgid "Url for link"
+msgstr "Link"
+
+#: classes/controller/blocks/class-happypoint-controller.php:81
+msgid "Use mailing list iframe"
+msgstr "Gebruik iframe voor nieuwsbrief"
+
+#: classes/controller/blocks/class-mediavideo-controller.php:27
+msgid "Video Title"
+msgstr "Video titel"
+
+#: classes/controller/blocks/class-submenu-controller.php:102
+msgid "What style of menu do you need?"
+msgstr "Welke stijl menu wil je?"
+
+#: classes/controller/blocks/class-mediavideo-controller.php:35
+msgid "Youtube ID"
+msgstr "Youtube ID"
+
+#: classes/controller/blocks/class-mediavideo-controller.php:46
+msgid "Youtube Video"
+msgstr "Youtube Video"
