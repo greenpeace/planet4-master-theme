@@ -9,8 +9,7 @@ export const registerActionsListBlock = () => {
   const {registerBlockVariation} = wp.blocks;
   const {__} = wp.i18n;
 
-  const IS_NEW_IA = window.p4_vars.options.new_ia === 'on' ||
-    window.p4_vars.options.new_ia === true;
+  const IS_NEW_IA = window.p4_vars.options.new_ia;
   const ACT_PAGE = window.p4_vars.options.take_action_page || -1;
 
   const queryPostType = IS_NEW_IA ? 'p4_action' : 'page';
