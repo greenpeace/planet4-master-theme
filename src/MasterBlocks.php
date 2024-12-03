@@ -173,7 +173,7 @@ class MasterBlocks
     private function get_p4_options(): array
     {
         $option_values = get_option('planet4_options');
-        $is_new_ia = $option_values['new_ia'] === 'on' ;
+        $is_new_ia = !empty(planet4_get_option('new_ia'));
 
         $cookies_default_copy = [
             'necessary_cookies_name' => $option_values['necessary_cookies_name'] ?? '',
