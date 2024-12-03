@@ -1,4 +1,4 @@
-import {Locator, Page} from '@playwright/test'; // eslint-disable-line no-unused-vars
+import {expect, Locator, Page} from '@playwright/test'; // eslint-disable-line no-unused-vars
 
 /**
  * @param {{Editor}} editor
@@ -75,10 +75,12 @@ async function removeAllPostTypes({editor}) {
  * @return {Promise<void>}   - Playwright Locator
  */
 const searchAndInsertBlock = async ({page}, blockName, namespace = '') => {
-  // We could also use the label "Add block",
-  // but this one works better when adding several blocks in a row.
-  await page.getByRole('button', {name: 'Toggle block inserter'}).click();
-  await page.getByLabel('Search for blocks and patterns').click();
+  const labelText = 'Toggle block inserter'; // Can we also use aria-label="Add block"
+  const addBlockButton = await page.locator(`button[aria-label="${labelText}"]`);
+  expect(addBlockButton).toBeVisible();
+  await addBlockButton.click();
+
+  await page.getByPlaceholder('Search').click();
   await page.keyboard.type(namespace !== '' ? namespace : blockName);
 
   if (namespace !== '') {
