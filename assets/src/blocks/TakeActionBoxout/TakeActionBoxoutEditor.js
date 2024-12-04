@@ -37,7 +37,7 @@ export const TakeActionBoxoutEditor = ({
   } = attributes;
 
   const {options: p4_options} = window.p4_vars;
-  const isNewIA = p4_options.new_ia === 'on';
+  const isNewIA = p4_options.new_ia;
 
   const {
     loading,
