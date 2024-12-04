@@ -1,8 +1,15 @@
-<!-- Ref: Please add a url to the ticket this change is addressing.
+### Summary
+
+<!-- Please provide a brief summary of the change introduced in this Pull Request. -->
 
 ---
 
-Please provide a brief summary of the change introduced to make review process easier.
+<!-- Please add a reference link to the ticket, if one exists. -->
+Ref: 
 
-Ideally this should also be part of the commit summary.
--->
+### Testing
+
+<!-- Please add the steps required to test the changes in this Pull Request. -->
+1. 
+2. 
+3. 
