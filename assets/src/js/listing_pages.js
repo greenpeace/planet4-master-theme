@@ -25,21 +25,22 @@ export const setupListingPages = () => {
     return;
   }
 
-  // Functions and constants.
-  const CATEGORY_FILTER = 'category';
+  const AVAILABLE_FILTERS = ['category', 'post-type'];
 
-  const updateFilter = event => {
-    const {target: {id, value}} = event;
+  const updateFilters = () => {
     const newUrl = new URL(window.location.href.split('/page/')[0]);
 
-    if (value) {
-      newUrl.searchParams.set(id, value);
-    } else {
-      newUrl.searchParams.delete(id);
-    }
+    AVAILABLE_FILTERS.forEach(filter => {
+      const {value} = document.getElementById(filter);
+      if (value) {
+        newUrl.searchParams.set(filter, value);
+      } else {
+        newUrl.searchParams.delete(filter);
+      }
+    });
+
     window.location.href = newUrl.href;
   };
 
-  // Category filter.
-  document.getElementById(CATEGORY_FILTER).onchange = updateFilter;
+  document.getElementById('apply-filters').onclick = updateFilters;
 };

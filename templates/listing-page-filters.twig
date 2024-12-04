@@ -14,4 +14,17 @@
             </option>
         {% endfor %}
     </select>
+    <select class="form-select listing-page-select" id="post-type">
+        <option value="">{{__( 'All posts', 'planet4-master-theme' ) }}</option>
+        {% for key,post_type in post_types %}
+            {% set isSelected = current_post_type == post_type.slug %}
+            <option
+                value="{{post_type.slug}}"
+                {{isSelected ? 'selected' : ''}}
+            >
+                {{ post_type.name|raw }}
+            </option>
+        {% endfor %}
+    </select>
+    <button id="apply-filters" class="btn btn-primary">{{__('Apply', 'planet4-master-theme')}}</button>
 </div>
