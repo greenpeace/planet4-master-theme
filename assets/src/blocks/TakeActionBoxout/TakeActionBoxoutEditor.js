@@ -36,6 +36,9 @@ export const TakeActionBoxoutEditor = ({
     stickyOnMobile,
   } = attributes;
 
+  const {options: p4_options} = window.p4_vars;
+  const isNewIA = p4_options.new_ia;
+
   const {
     loading,
     actPageList,
@@ -47,15 +50,8 @@ export const TakeActionBoxoutEditor = ({
     imageUrl,
     imageAlt,
   } = useSelect(select => {
+    const postId = select('core/editor').getCurrentPostId();
     const args = {
-      per_page: -1,
-      sort_order: 'asc',
-      sort_column: 'post_title',
-      parent: window.p4_vars.take_action_page,
-      post_status: 'publish',
-    };
-
-    const actionsArgs = {
       per_page: -1,
       sort_order: 'asc',
       sort_column: 'post_title',
@@ -64,9 +60,12 @@ export const TakeActionBoxoutEditor = ({
 
     // eslint-disable-next-line no-shadow
     const actPageList = [].concat(
-      select('core').getEntityRecords('postType', 'page', args) || [],
-      select('core').getEntityRecords('postType', 'p4_action', actionsArgs) || []
-    ).sort((a, b) => {
+      select('core').getEntityRecords('postType', 'page', {
+        ...args,
+        parent: isNewIA ? p4_options.take_action_page : p4_options.act_page,
+      }) || [],
+      ...(isNewIA ? (select('core').getEntityRecords('postType', 'p4_action', args) || []) : [])
+    ).filter(a => parseInt(a.id) !== postId).sort((a, b) => {
       if (a.title.raw === b.title.raw) {
         return 0;
       }
