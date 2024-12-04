@@ -443,7 +443,7 @@ class Functions
     }
 
     /**
-     * Create a new Post Query block.
+     * Create a new Query Loop block.
      *
      * @param array $inner_blocks - The inner blocks.
      * @param array $attrs - The block attributes.

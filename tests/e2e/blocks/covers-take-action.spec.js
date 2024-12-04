@@ -14,5 +14,5 @@ test('Test Covers block with Take Action covers style', async ({page, admin, edi
   await publishPostAndVisit({page, editor});
 
   // Make sure block shows as expected in the frontend.
-  await checkCoversBlock(page, 'Take Action');
+  await checkCoversBlock(page);
 });

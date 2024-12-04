@@ -54,28 +54,16 @@ async function addCoversBlock(page, editor, style = '') {
   await page.getByLabel('Button Text').fill('Read more');
 }
 
-async function checkCoversBlock(page, style) {
-  if (style === 'Campaign') {
-    await expect(page.locator('.campaign-covers-block')).toBeVisible();
-    const frontendCovers = await page.locator('.campaign-card-column').all();
-    for (const [, cover] of frontendCovers.entries()) {
-      await expect(cover.locator('a > div.thumbnail-large >img')).toBeVisible();
-      await expect(cover.locator('.yellow-cta')).toBeVisible();
-      let tagName = await cover.locator('.yellow-cta').innerText();
-      tagName = tagName.replace(/#/g, '');
-      expect(TAG_NAMES.includes(tagName)).toBeTruthy();
-    }
-  } else if (style === 'Take Action') {
-    await expect(page.locator('.take-action-covers-block')).toBeVisible();
-    const frontendCovers = await page.locator('.cover-card').all();
-    for (const [, cover] of frontendCovers.entries()) {
-      await expect(cover.locator('a > img')).toBeVisible();
-      const coverName = await cover.locator('a.cover-card-heading').innerText();
-      expect(PAGE_NAMES.includes(coverName)).toBe(true);
-      await expect(cover.locator('.cover-card-tag')).toBeVisible();
-      await expect(cover.locator('.cover-card-excerpt')).toBeVisible();
-      await expect(cover.locator('a.cover-card-btn')).toHaveText('Get Involved');
-    }
+async function checkCoversBlock(page) {
+  await expect(page.locator('.take-action-covers-block')).toBeVisible();
+  const frontendCovers = await page.locator('.cover-card').all();
+  for (const [, cover] of frontendCovers.entries()) {
+    await expect(cover.locator('a > img')).toBeVisible();
+    const coverName = await cover.locator('a.cover-card-heading').innerText();
+    expect(PAGE_NAMES.includes(coverName)).toBe(true);
+    await expect(cover.locator('.cover-card-tag')).toBeVisible();
+    await expect(cover.locator('.cover-card-excerpt')).toBeVisible();
+    await expect(cover.locator('a.cover-card-btn')).toHaveText('Get Involved');
   }
 
   // Check Load more button
