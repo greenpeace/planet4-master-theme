@@ -58,12 +58,16 @@ class M036MigrateCoversContentBlockToPostsListBlock extends MigrationScript
             return false;
         }
 
+        $type = $block['attrs']['cover_type'];
+
+        $numeric_type = array_search(Utils\Constants::COVER_TYPE_CONTENT, Utils\Constants::OLD_COVER_TYPES);
+
         // Check if the Cover block type is Content. If not, abort.
         // Cover blocks of type content have as value of $block['attrs']['cover_type']
-        // the following possibilities: "content", "1", NULL
+        // the following possibilities: "content", "3", NULL
         // https://github.com/greenpeace/planet4-plugin-gutenberg-blocks/blob/26b480a0954667a0813ca8c3a90377f2a1fbea1c/classes/blocks/class-covers.php#L35
         // https://github.com/greenpeace/planet4-plugin-gutenberg-blocks/blob/26b480a0954667a0813ca8c3a90377f2a1fbea1c/classes/blocks/class-covers.php#L191
-        return !isset($type) || $type === Utils\Constants::COVER_TYPE_CONTENT || $type === Utils\Constants::OLD_COVER_TYPES['3'];
+        return !isset($type) || $type === Utils\Constants::COVER_TYPE_CONTENT || $type === (string) $numeric_type;
     }
 
     /**
