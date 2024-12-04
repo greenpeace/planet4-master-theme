@@ -197,11 +197,11 @@ class M037MigrateCoversContentBlockToPostsListBlock extends MigrationScript
             [
                 Utils\Functions::create_block_single_button(
                     ['className' => 'carousel-control-prev'],
-                    'Prev',
+                    __('Prev', 'planet4-blocks'),
                 ),
                 Utils\Functions::create_block_single_button(
                     ['className' => 'carousel-control-next'],
-                    'Next',
+                    __('Next', 'planet4-blocks'),
                 ),
             ]
         );
@@ -274,14 +274,18 @@ class M037MigrateCoversContentBlockToPostsListBlock extends MigrationScript
     /**
      * Create and get a new navigation link block.
      *
-     * @return array - The new block.
+     * @return mixed - The navigation link block if the All Stories page is set.
      */
     private static function get_nav_links_block(): array
     {
+        if (!get_option('page_for_posts')) {
+            return [];
+        }
+
         return Utils\Functions::create_new_block(
             Utils\Constants::BLOCK_NAV_LINK,
             [
-                'label' => 'See all stories',
+                'label' => __('See all stories', 'planet4-blocks'),
                 'url' => get_permalink(get_option('page_for_posts')),
                 'className' => 'see-all-link',
             ]
@@ -298,8 +302,8 @@ class M037MigrateCoversContentBlockToPostsListBlock extends MigrationScript
         return Utils\Functions::create_block_query_no_results(
             [
                 Utils\Functions::create_block_paragraph(
-                    [],
-                    'No posts found. (This default text can be edited)'
+                    ['placeholder' => __('No posts found. (This default text can be edited)', 'planet4-blocks')],
+                    ''
                 ),
             ],
             [],
@@ -319,7 +323,7 @@ class M037MigrateCoversContentBlockToPostsListBlock extends MigrationScript
                 'lock' => [
                     'move' => true,
                 ],
-                'placeholder' => 'Enter description',
+                'placeholder' => __('Enter description', 'planet4-blocks'),
                 'style' => [
                     'spacing' => [
                         'margin' => [
