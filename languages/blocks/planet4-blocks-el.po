@@ -3,135 +3,401 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Planet4 - Blocks\n"
 "POT-Creation-Date: 2020-09-09 11:52+0000\n"
-"PO-Revision-Date: 2020-11-11 15:27+0200\n"
+"PO-Revision-Date: 2024-12-04 13:57+0000\n"
 "Last-Translator: Nikos Roussos\n"
 "Language-Team: Greek\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.4.1\n"
+"X-Generator: Loco https://localise.biz/\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-Flags-xgettext: --add-comments=translators:\n"
 "X-Poedit-WPHeader: planet4-blocks.php\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
-"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;"
-"_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "Language: el\n"
 "Report-Msgid-Bugs-To: \n"
 "X-Loco-Version: 2.4.3; wp-5.4.2\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
-#: classes/class-loader.php:463
-msgid "Planet 4 Blocks"
+#: assets/src/blocks/Articles/ArticlePreview.js:178
+msgid "%d min read"
 msgstr ""
 
-#: classes/class-loader.php:468
-msgid "Planet 4 Blocks - BETA"
+#: assets/src/blocks/Cookies/CookiesFrontend.js:131
+#: assets/src/blocks/Cookies/CookiesEditor.js:73
+msgid "Always enabled"
 msgstr ""
 
-#: classes/blocks/class-takeactionboxout.php:185
-msgid "take action"
-msgstr "πάτα εδώ"
-
-#: classes/blocks/class-happypoint.php:129
+#: src/Blocks/HappyPoint.php:109
 msgid "Background image"
 msgstr ""
 
-#: classes/blocks/class-splittwocolumns.php:151
-#: assets/src/blocks/Splittwocolumns/SplittwocolumnsSettings.js:64
-msgid "Learn more about this issue"
-msgstr "Μάθε περισσότερα"
+#: assets/src/block-templates/high-level-topic/template.js:18
+msgid "Better understand the issues [deep dive topics]"
+msgstr ""
 
-#: classes/blocks/class-splittwocolumns.php:163
-#: assets/src/blocks/Splittwocolumns/SplittwocolumnsSettings.js:82
-msgid "Get involved"
-msgstr "Πάρε μέρος"
+#: assets/src/block-templates/action/block.json:1
+msgctxt "block title"
+msgid "Action"
+msgstr ""
 
-#: classes/blocks/class-articles.php:46 classes/blocks/class-covers.php:369
-#: templates/blocks/campaign_covers.twig:53
-#: templates/blocks/content_covers.twig:70
-#: templates/blocks/content_covers.twig:78
-#: assets/src/blocks/Articles/ArticlesBlock.js:41
-msgid "Load more"
-msgstr "Περισσότερα"
+#: assets/src/block-templates/campaign/block.json:1
+msgctxt "block title"
+msgid "Campaign"
+msgstr ""
 
-#: classes/blocks/class-articles.php:50
-#: assets/src/blocks/Articles/ArticlesBlock.js:18
-msgid "Related Articles"
-msgstr "Σχετικά άρθρα"
+#: assets/src/block-templates/deep-dive/block.json:1
+msgctxt "block title"
+msgid "Deep Dive"
+msgstr ""
 
-#: classes/blocks/class-base-block.php:65
+#: assets/src/block-templates/deep-dive-topic/block.json:1
+msgctxt "block title"
+msgid "Deep Dive Topic"
+msgstr ""
+
+#: assets/src/block-templates/get-informed/block.json:1
+msgctxt "block title"
+msgid "Get Informed"
+msgstr ""
+
+#: assets/src/block-templates/high-level-topic/block.json:1
+msgctxt "block title"
+msgid "High-Level Topic"
+msgstr ""
+
+#: assets/src/block-templates/highlighted-cta/block.json:1
+msgctxt "block title"
+msgid "Highlighted CTA"
+msgstr ""
+
+#: assets/src/block-templates/homepage/block.json:1
+msgctxt "block title"
+msgid "Homepage"
+msgstr ""
+
+#: assets/src/block-templates/issues/block.json:1
+msgctxt "block title"
+msgid "Issues"
+msgstr ""
+
+#: assets/src/block-templates/page-header/block.json:1
+msgctxt "block title"
+msgid "Page Header"
+msgstr ""
+
+#: assets/src/block-templates/quick-links/block.json:1
+msgctxt "block title"
+msgid "Quick Links"
+msgstr ""
+
+#: assets/src/block-templates/reality-check/block.json:1
+msgctxt "block title"
+msgid "Reality Check"
+msgstr ""
+
+#: assets/src/block-templates/side-image-with-text-and-cta/block.json:1
+msgctxt "block title"
+msgid "Side image with text and CTA"
+msgstr ""
+
+#: assets/src/block-templates/take-action/block.json:1
+msgctxt "block title"
+msgid "Take Action"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Action Yellow"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Beige 100"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Blue 800"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Blue Green 800"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Dark Green 800"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "GP Green 800"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Green 400"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Green 500"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Green 800"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Grey 100"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Grey 200"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Grey 600"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Grey 800"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Grey 900"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Red 500"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "White"
+msgstr ""
+
+#: assets/src/blocks/Covers/ContentCovers.js:47
+msgid "Cover image, link to "
+msgstr ""
+
+#: assets/src/block-templates/take-action/template.js:13
+msgid "Daily actions"
+msgstr ""
+
+#: assets/src/block-templates/take-action/template.js:42
+msgid "Donate"
+msgstr ""
+
+#: src/Blocks/BaseBlock.php:67
 msgid "Error"
 msgstr ""
 
-#: classes/blocks/class-covers.php:346
-msgid "Take action"
-msgstr "Πάτα εδώ"
-
-#: assets/src/blocks/Articles/ArticlePreview.js:43
-msgid "by"
-msgstr "από"
-
-#: assets/src/blocks/Counter/CounterBlock.js:73
-msgid "Text Only"
+#. Name of the template
+#: page-templates/evergreen.php:3
+msgid "Evergreen Page"
 msgstr ""
 
-#: assets/src/blocks/Counter/CounterBlock.js:78
-msgid "Progress Bar"
+#: assets/src/block-templates/get-informed/template.js:8
+#: assets/src/block-templates/high-level-topic/template.js:41
+#: assets/src/block-templates/action/template.js:32
+msgid "Explore by topics"
 msgstr ""
 
-#: assets/src/blocks/Counter/CounterBlock.js:82
-msgid "Progress Dial"
+#: assets/src/block-templates/deep-dive-topic/template.js:28
+msgid "Explore other topics"
 msgstr ""
 
-#: assets/src/blocks/Counter/CounterBlock.js:86
-msgid "Progress Bar inside EN Form"
+#: assets/src/block-templates/high-level-topic/template.js:27
+msgid "Featured action title"
 msgstr ""
 
-#: assets/src/blocks/Spreadsheet/SpreadsheetEditor.js:129
-msgid ""
-"No URL has been specified. Please edit the block and provide a Spreadsheet "
-"URL using the sidebar."
+#: src/Migrations/M032MigrateSplit2ColumnBlock.php:217
+msgid "Get involved"
+msgstr "Πάρε μέρος"
+
+#: assets/src/block-templates/homepage/template.js:18
+msgid "Get to know us"
 msgstr ""
 
-#: assets/src/blocks/Spreadsheet/SpreadsheetEditor.js:137
-msgid "The Spreadsheet URL appears to be invalid."
+#: assets/src/block-templates/campaign/template.js:21
+#: assets/src/block-templates/deep-dive-topic/template.js:18
+#: assets/src/block-templates/high-level-topic/template.js:31
+msgid "How you can help"
 msgstr ""
 
-#: assets/src/blocks/Spreadsheet/SpreadsheetFrontend.js:141
+#: assets/src/block-templates/deep-dive-topic/template.js:25
+msgid "Keep learning about"
+msgstr ""
+
+#: assets/src/block-templates/high-level-topic/template.js:37
+msgid "Latest investigations"
+msgstr ""
+
+#: assets/src/block-templates/get-informed/template.js:31
+#: assets/src/block-templates/deep-dive-topic/template.js:22
+#: assets/src/block-templates/high-level-topic/template.js:34
+msgid "Latest news & stories"
+msgstr ""
+
+#: src/Migrations/M032MigrateSplit2ColumnBlock.php:201
+msgid "Learn more about this issue"
+msgstr "Μάθε περισσότερα"
+
+#: src/Blocks/Covers.php:83 src/Blocks/Covers.php:145
+#: src/Blocks/Articles.php:46 src/Blocks/Articles.php:91
+#: assets/src/blocks/Articles/ArticlesBlock.js:37
+#: assets/src/blocks/Covers/CoversConstants.js:63
+#: assets/src/blocks/Covers/deprecated/coversV2.js:57
+msgid "Load more"
+msgstr "Περισσότερα"
+
+#: assets/src/blocks/Spreadsheet/SpreadsheetFrontend.js:185
+msgid "Loading spreadsheet data…"
+msgstr ""
+
+#: assets/src/blocks/Gallery/GalleryCarousel.js:146
+#: assets/src/blocks/CarouselHeader/CarouselControls.js:18
+#: assets/src/blocks/Covers/CoversCarouselLayout.js:48
+msgid "Next"
+msgstr ""
+
+#: assets/src/blocks/Spreadsheet/SpreadsheetFrontend.js:123
 msgid "No data matching your search."
 msgstr ""
 
-#: assets/src/blocks/Spreadsheet/SpreadsheetFrontend.js:175
+#: assets/src/block-templates/get-informed/template.js:28
+msgid "Our latest actions around the world"
+msgstr ""
+
+#: assets/src/block-templates/get-informed/template.js:24
+msgid "Our recent victories"
+msgstr ""
+
+#: assets/src/block-templates/deep-dive-topic/template.js:6
+#: assets/src/block-templates/take-action/template.js:8
+msgid "Page header title"
+msgstr ""
+
+#: assets/src/blocks/Covers/CoversCarouselLayout.js:44
+msgid "Prev"
+msgstr ""
+
+#: assets/src/blocks/Gallery/GalleryCarousel.js:112
+#: assets/src/blocks/CarouselHeader/CarouselControls.js:14
+msgid "Previous"
+msgstr ""
+
+#: assets/src/block-templates/take-action/template.js:38
+msgid "Raise awareness in your community"
+msgstr ""
+
+#: assets/src/block-templates/homepage/template.js:14
+msgid "Read our Stories"
+msgstr ""
+
+#: src/Blocks/Articles.php:50 src/Blocks/Articles.php:58
+#: assets/src/blocks/Articles/ArticlesBlock.js:13
+msgid "Related Articles"
+msgstr "Σχετικά άρθρα"
+
+#: functions.php:324
+msgid "Related Posts"
+msgstr "Σχετικά άρθρα"
+
+#: assets/src/blocks/Spreadsheet/SpreadsheetFrontend.js:153
 msgid "Search data"
 msgstr ""
 
-#: assets/src/blocks/Spreadsheet/SpreadsheetFrontend.js:192
-msgid "Sort by"
-msgstr "Ταξινόμηση κατά"
-
-#: assets/src/blocks/Spreadsheet/SpreadsheetFrontend.js:205
-msgid "Loading spreadsheet data..."
+#: functions.php:315
+msgid "See all posts"
 msgstr ""
 
-#. Name of the plugin
-msgid "Planet4 - Gutenberg Blocks"
+#: assets/src/blocks/ENForm/ShareButtons.js:59
+#: assets/src/blocks/ENForm/ShareButtons.js:71
+#: assets/src/blocks/ENForm/ShareButtons.js:83
+msgid "Share on"
 msgstr ""
 
-#. Description of the plugin
-msgid "Contains the Gutenberg blocks that are used by Planet4 project."
+#: assets/src/blocks/ENForm/ShareButtons.js:95
+msgid "Share via"
 msgstr ""
 
-#. URI of the plugin
-msgid "http://github.com/greenpeace/planet4-plugin-gutenberg-blocks"
+#. Name of the template
+#: page-templates/sitemap.php:3
+msgid "Sitemap Page"
 msgstr ""
 
-#. Author of the plugin
-msgid "Greenpeace International"
-msgstr "Greenpeace International"
+#: assets/src/block-templates/take-action/template.js:17
+msgid "Support a cause"
+msgstr ""
 
-#. Author URI of the plugin
-msgid "http://www.greenpeace.org/"
-msgstr "http://www.greenpeace.org/"
+#: src/Blocks/Covers.php:418 src/Blocks/TakeActionBoxout.php:153
+#: src/Blocks/ActionButtonText.php:76
+#: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:20
+#: assets/src/blocks/ActionCustomButtonText/edit.js:4
+msgid "Take action"
+msgstr "Πάτα εδώ"
+
+#: assets/src/blocks/Covers/TakeActionCovers.js:45
+#: assets/src/blocks/Covers/TakeActionCovers.js:52
+#, javascript-format
+msgid "Take action cover, link to %s"
+msgstr ""
+
+#: assets/src/block-templates/take-action/template.js:34
+msgid "Take action with us"
+msgstr ""
+
+#: assets/src/block-templates/get-informed/template.js:21
+#: assets/src/block-templates/homepage/template.js:10
+msgid "The issues we work on"
+msgstr ""
+
+#: assets/src/block-templates/campaign/template.js:12
+#: assets/src/block-templates/deep-dive-topic/template.js:11
+#: assets/src/block-templates/high-level-topic/template.js:14
+#: assets/src/block-templates/action/template.js:22
+msgid "The problem"
+msgstr ""
+
+#: assets/src/block-templates/campaign/template.js:16
+msgid "The solution"
+msgstr ""
+
+#: assets/src/block-templates/get-informed/template.js:11
+msgid "Topic 1"
+msgstr ""
+
+#: assets/src/block-templates/get-informed/template.js:14
+msgid "Topic 2"
+msgstr ""
+
+#: assets/src/block-templates/get-informed/template.js:18
+msgid "Topic 3"
+msgstr ""
+
+#: assets/src/block-templates/homepage/template.js:22
+msgid "We win campaigns"
+msgstr ""
+
+#: assets/src/block-templates/deep-dive-topic/template.js:14
+msgid "What can be done"
+msgstr ""
+
+#: assets/src/block-templates/high-level-topic/template.js:22
+msgid "What we do"
+msgstr ""
