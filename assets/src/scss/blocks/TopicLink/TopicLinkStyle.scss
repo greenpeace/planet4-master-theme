@@ -1,0 +1,58 @@
+.cookies-block {
+  .custom-control-description,
+  .custom-control input[type="checkbox"] ~ .custom-control-description {
+    _-- {
+      font-size: var(--font-size-xl--font-family-primary);
+      font-family: var(--font-family-primary);
+    }
+
+    @include x-large-and-up {
+      _-- {
+        font-size: var(--font-size-2xl--font-family-primary);
+      }
+    }
+  }
+
+  .always-enabled {
+    _-- {
+      font-size: var(--font-size-xxs--font-family-tertiary);
+      font-weight: var(--font-weight-bold);
+    }
+
+    font-family: var(--font-family-tertiary);
+    background: var(--grey-900);
+    color: white;
+    border-radius: $sp-x;
+    padding: $sp-x;
+    margin-inline-start: $sp-1;
+  }
+
+  .cookies-title,
+  .cookies-header-text,
+  .cookies-checkbox-description {
+    font-family: var(--font-family-tertiary) !important;
+  }
+
+  .cookies-title,
+  .cookies-header-text {
+    font-weight: var(--font-weight-bold) !important;
+  }
+
+  .cookies-title {
+    font-size: var(--font-size-xs--font-family-primary);
+  }
+
+  .cookies-description {
+    font-family: var(--font-family-tertiary);
+    font-size: var(--font-size-xxxs--font-family-primary);
+  }
+
+  .cookies-header-text {
+    font-size: var(--font-size-xxxs--font-family-primary)  !important;
+    line-height: var(--line-height-xs--font-family-primary) !important;
+  }
+
+  .cookies-checkbox-description {
+    font-size: var(--font-size-xxs--font-family-tertiary);
+  }
+}
