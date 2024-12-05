@@ -1,3 +1,5 @@
+/* eslint-disable no-shadow */
+
 const {useSelect} = wp.data;
 const {
   RichText,
@@ -22,14 +24,11 @@ export const TopicLinkEditor = ({
   setAttributes,
 }) => {
   const {
-    take_action_page,
+    category_id,
     focal_points,
     title: customTitle,
     imageId: customImageId,
   } = attributes;
-
-  const {options: p4_options} = window.p4_vars;
-  const isNewIA = p4_options.new_ia;
 
   const {
     loading,
@@ -39,40 +38,25 @@ export const TopicLinkEditor = ({
     imageUrl,
     imageAlt,
   } = useSelect(select => {
-    const postId = select('core/editor').getCurrentPostId();
-    const args = {
-      per_page: -1,
-      sort_order: 'asc',
-      sort_column: 'post_title',
-      post_status: 'publish',
-    };
-
-    // eslint-disable-next-line no-shadow
     const actPageList = [].concat(
-      select('core').getEntityRecords('postType', 'page', {
-        ...args,
-        parent: isNewIA ? p4_options.take_action_page : p4_options.act_page,
-      }) || [],
-      ...(isNewIA ? (select('core').getEntityRecords('postType', 'p4_action', args) || []) : [])
-    ).filter(a => parseInt(a.id) !== postId).sort((a, b) => {
-      if (a.title.raw === b.title.raw) {
-        return 0;
-      }
-      return a.title.raw > b.title.raw ? 1 : -1;
-    });
+      select('core').getEntityRecords('taxonomy', 'category', {
+        hide_empty: true,
+        per_page: -1,
+      }) || []
+    );
 
-    const actPage = actPageList.find(actPageFound => take_action_page === actPageFound.id);
+    const actPage = actPageList.find(actPageFound => category_id === actPageFound.id);
 
-    if (take_action_page && !actPage) {
+    if (category_id && !actPage) {
       return {loading: true};
     }
     const customImage = customImageId && select('core').getMedia(customImageId);
     const customImageFromId = customImage?.source_url;
 
-    const title = customTitle; // eslint-disable-line no-shadow
-    const imageId = customImageId; // eslint-disable-line no-shadow
-    const imageUrl = customImageFromId; // eslint-disable-line no-shadow
-    const imageAlt = customImage?.alt_text; // eslint-disable-line no-shadow
+    const title = customTitle;
+    const imageId = customImageId;
+    const imageUrl = customImageFromId;
+    const imageAlt = customImage?.alt_text;
 
     return {
       actPageList,
@@ -81,7 +65,7 @@ export const TopicLinkEditor = ({
       imageUrl,
       imageAlt,
     };
-  }, [take_action_page, customTitle, customImageId]);
+  }, [category_id, customTitle, customImageId]);
 
   if (loading || !actPageList.length) {
     return __('Populating block\'s fields…', 'planet4-blocks-backend');
@@ -96,7 +80,7 @@ export const TopicLinkEditor = ({
     return `${floatX * 100}% ${floatY * 100}%`;
   };
 
-  const actPageOptions = actPageList.map(actPage => ({label: actPage.title.raw, value: actPage.id}));
+  const actPageOptions = actPageList.map(actPage => ({label: actPage.name, value: actPage.id}));
 
   const renderEditInPlace = () => (
     <section className="topic-link-block">
@@ -127,12 +111,12 @@ export const TopicLinkEditor = ({
       <PanelBody title={__('Settings', 'planet4-blocks-backend')}>
         <SelectControl
           label={__('Select Category:', 'planet4-blocks-backend')}
-          value={take_action_page}
+          value={category_id}
           options={[
             {label: __('None (custom)', 'planet4-blocks-backend'), value: 0},
             ...actPageOptions,
           ]}
-          onChange={page => setAttributes({take_action_page: parseInt(page)})}
+          onChange={id => setAttributes({category_id: parseInt(id)})}
         />
         <MediaUploadCheck>
           <MediaUpload
