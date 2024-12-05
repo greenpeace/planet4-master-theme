@@ -5,6 +5,7 @@
   justify-content: space-between;
   position: relative;
   overflow: hidden;
+  background-color: var(--grey-900);
 
   .topic-link-content {
     color: white;
@@ -12,6 +13,8 @@
     font-size: var(--font-size-m--font-family-primary);
     font-weight: var(--font-weight-bold);
     line-height: $sp-3;
+    position: relative;
+    z-index: 1;
   }
 
   .background-image {
@@ -20,6 +23,7 @@
     height: auto;
     top: 0;
     left: 0;
+    z-index: 0;
 
     &::before {
       content: "";
