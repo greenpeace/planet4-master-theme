@@ -22,7 +22,7 @@ export const registerTopicLinkBlock = () => {
     },
     // This attributes definition mimics the one in the PHP side.
     attributes: {
-      take_action_page: {
+      category_id: {
         type: 'number',
       },
       title: {
