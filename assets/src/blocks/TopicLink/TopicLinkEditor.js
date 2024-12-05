@@ -1,23 +1,20 @@
-import {URLInput} from '../../block-editor/URLInput/URLInput';
-import {ImageHoverControls} from '../../block-editor/ImageHoverControls';
-import {TopicLinkFrontend} from './TopicLinkFrontend';
-// import {ImagePlaceholder} from './ImagePlaceholder';
-
 const {useSelect} = wp.data;
-const {RichText, BlockControls, MediaUpload, MediaUploadCheck, InspectorControls} = wp.blockEditor;
+const {
+  RichText,
+  BlockControls,
+  MediaUpload,
+  MediaUploadCheck,
+  InspectorControls,
+} = wp.blockEditor;
 const {
   SelectControl,
   PanelBody,
-  CheckboxControl,
   ToolbarGroup,
   ToolbarButton,
+  FocalPointPicker,
   Button,
-  ToggleControl,
 } = wp.components;
 const {__} = wp.i18n;
-
-// Planet 4 settings (Planet 4 >> Defaults content >> Take Action Covers default button text).
-const DEFAULT_BUTTON_TEXT = window.p4_vars.options.take_action_covers_button_text || __('Take action', 'planet4-blocks');
 
 export const TopicLinkEditor = ({
   attributes,
@@ -26,14 +23,9 @@ export const TopicLinkEditor = ({
 }) => {
   const {
     take_action_page,
+    focal_points,
     title: customTitle,
-    excerpt: customExcerpt,
-    link: customLink,
-    linkText: customLinkText,
-    newTab,
     imageId: customImageId,
-    className,
-    stickyOnMobile,
   } = attributes;
 
   const {options: p4_options} = window.p4_vars;
@@ -43,9 +35,6 @@ export const TopicLinkEditor = ({
     loading,
     actPageList,
     title,
-    excerpt,
-    link,
-    linkText,
     imageId,
     imageUrl,
     imageAlt,
@@ -71,6 +60,27 @@ export const TopicLinkEditor = ({
       }
       return a.title.raw > b.title.raw ? 1 : -1;
     });
+
+    // eslint-disable-next-line no-shadow
+    // const actPageList = [].concat(
+    //   // Fetch the terms for the main taxonomy (e.g., 'category')
+    //   select('core').getEntityRecords('taxonomy', 'category', {
+    //     hide_empty: false, // Include terms with no posts
+    //     per_page: -1, // Fetch all terms
+    //   }) || [],
+    //   // Conditionally fetch terms from another taxonomy if needed
+    //   ...(isNewIA ?
+    //     (select('core').getEntityRecords('taxonomy', 'custom_taxonomy', {per_page: -1}) || []) :
+    //     [])
+    // )
+    //   .sort((a, b) => {
+    //   // Alphabetical sort by term name
+    //     if (a.name === b.name) {
+    //       return 0;
+    //     }
+    //     return a.name > b.name ? 1 : -1;
+    //   });
+
     const actPage = actPageList.find(actPageFound => take_action_page === actPageFound.id);
 
     // Because `useSelect` does an API call to fetch data, the actPageList will be empty the first time it's called.
@@ -84,11 +94,6 @@ export const TopicLinkEditor = ({
     const customImageFromId = customImage?.source_url;
 
     const title = !take_action_page ? customTitle : actPage.title.raw; // eslint-disable-line no-shadow
-    const excerpt = !take_action_page ? customExcerpt : actPage.excerpt.raw; // eslint-disable-line no-shadow
-    const link = !take_action_page ? customLink : actPage.link; // eslint-disable-line no-shadow
-
-    const linkText = !take_action_page ? customLinkText : actPage?.meta?.action_button_text || DEFAULT_BUTTON_TEXT; // eslint-disable-line no-shadow
-
     const imageId = !take_action_page ? customImageId : actPageImageId; // eslint-disable-line no-shadow
     const imageUrl = !take_action_page ? customImageFromId : select('core').getMedia(actPageImageId)?.source_url; // eslint-disable-line no-shadow
     const imageAlt = !take_action_page ? customImage?.alt_text : ''; // eslint-disable-line no-shadow
@@ -96,16 +101,11 @@ export const TopicLinkEditor = ({
     return {
       actPageList,
       title,
-      excerpt,
-      link,
-      linkText,
       imageId,
       imageUrl,
       imageAlt,
     };
-  }, [take_action_page, customTitle, customExcerpt, customLink, customLinkText, customImageId]);
-
-  const takeActionPageSelected = take_action_page && parseInt(take_action_page) > 0;
+  }, [take_action_page, customTitle, customImageId]);
 
   if (loading || !actPageList.length) {
     return __('Populating block\'s fields…', 'planet4-blocks-backend');
@@ -115,17 +115,17 @@ export const TopicLinkEditor = ({
     [attributeName]: value,
   });
 
+  const onFocalChange = (focal_name, {x, y}) => {
+    setAttributes({[focal_name]: `${parseInt(x * 100)}% ${parseInt(y * 100)}%`});
+  };
+
   const removeImage = () => setAttributes({imageId: null});
 
   const selectImage = ({id}) => setAttributes({imageId: id});
 
   const actPageOptions = actPageList.map(actPage => ({label: actPage.title.raw, value: actPage.id}));
 
-  const postHasStickyBoxoutAlready = document.querySelector('#action-card');
-
-  const renderEditInPlace = () => (takeActionPageSelected ?
-    <TopicLinkFrontend {...attributes} {...{title, excerpt, link, linkText, imageUrl, imageAlt}} /> :
-
+  const renderEditInPlace = () => (
     <section className="topic-link-block">
       <div className="background-image">
         {imageUrl && <img src={imageUrl} alt={imageAlt} />}
@@ -133,7 +133,6 @@ export const TopicLinkEditor = ({
       <div className="topic-link-content">
         <RichText
           tagName="div"
-          className="boxout-heading"
           placeholder={__('Learn more about', 'planet4-blocks-backend')}
           value={title}
           onChange={toAttribute('title')}
@@ -145,95 +144,95 @@ export const TopicLinkEditor = ({
     </section>
   );
 
-  const renderSidebar = () => (
-    <>
-      <InspectorControls>
-        <PanelBody title={__('Styles', 'planet4-blocks-backend')}>
-          <div className="sticky-boxout-checkbox">
-            <ToggleControl
-              label={__('Make block stick to the bottom of the page on mobile', 'planet4-blocks-backend')}
-              value={stickyOnMobile}
-              checked={stickyOnMobile}
-              onChange={toAttribute('stickyOnMobile')}
-              disabled={!stickyOnMobile && postHasStickyBoxoutAlready}
-              help={!stickyOnMobile && postHasStickyBoxoutAlready ? __('You can only have one sticky boxout per post', 'planet4-blocks-backend') : ''}
+  const addInspectorControls = () => (
+    <InspectorControls>
+      <PanelBody title={__('Settings', 'planet4-blocks-backend')}>
+        <SelectControl
+          label={__('Select Category:', 'planet4-blocks-backend')}
+          value={take_action_page}
+          options={[
+            {label: __('None (custom)', 'planet4-blocks-backend'), value: 0},
+            ...actPageOptions,
+          ]}
+          onChange={page => setAttributes({take_action_page: parseInt(page)})}
+        />
+        <MediaUploadCheck>
+          <MediaUpload
+            title={__('Select Background Image', 'planet4-blocks-backend')}
+            type="image"
+            onSelect={selectImage}
+            value={imageId}
+            allowedTypes={['image']}
+            render={({open}) => (
+              <Button onClick={open} className="button">
+                { imageId ? __('Change Background Image', 'planet4-blocks-backend') : __('Select Background Image', 'planet4-blocks-backend') }
+              </Button>
+            )}
+          />
+        </MediaUploadCheck>
+        {imageUrl && (
+          <div className="wp-block-master-theme-gallery__FocalPointPicker">
+            <strong className="components-base-control__help">
+              {__('Select gallery image focal point', 'planet4-blocks-backend')}
+            </strong>
+            <p className="components-base-control__help">
+              {__('Adjust the “Left” and “Top” fields to position the focal point of the image in percentage, where 0% is the top/left edge and 100% is the bottom/right edge.', 'planet4-blocks-backend')}
+            </p>
+            <FocalPointPicker
+              url={imageUrl}
+              dimensions={{width: 400, height: 100}}
+              value={focal_points?.x && focal_points?.y ? focal_points : {x: .5, y: .5}}
+              onChange={focus => onFocalChange('background_image_focus', focus)}
             />
           </div>
-        </PanelBody>
-        <PanelBody title={__('Settings', 'planet4-blocks-backend')}>
-          <SelectControl
-            label={__('Select Category:', 'planet4-blocks-backend')}
-            value={take_action_page}
-            options={[
-              {label: __('None (custom)', 'planet4-blocks-backend'), value: 0},
-              ...actPageOptions,
-            ]}
-            onChange={page => setAttributes({take_action_page: parseInt(page)})}
-          />
-          {!takeActionPageSelected &&
-            <MediaUploadCheck>
-              <MediaUpload
-                title={__('Select Background Image', 'planet4-blocks-backend')}
-                type="image"
-                onSelect={selectImage}
-                value={imageId}
-                allowedTypes={['image']}
-                render={({open}) => (
-                  <Button
-                    onClick={open}
-                    className="button"
-                    disabled={takeActionPageSelected}
-                  >
-                    + { imageId ? __('Change Background Image', 'planet4-blocks-backend') : __('Select Background Image', 'planet4-blocks-backend') }
-                  </Button>
-                )}
-              />
-            </MediaUploadCheck>
-          }
-        </PanelBody>
-        <PanelBody title={__('Learn more about this block', 'planet4-blocks-backend')} initialOpen={false}>
-          <p className="components-base-control__help">
-            <a target="_blank" href="https://planet4.greenpeace.org/content/blocks/" rel="noreferrer">
+        )}
+      </PanelBody>
+      <PanelBody title={__('Learn more about this block', 'planet4-blocks-backend')} initialOpen={false}>
+        <p className="components-base-control__help">
+          <a target="_blank" href="https://planet4.greenpeace.org/content/blocks/" rel="noreferrer">
             P4 Handbook Topic Link
-            </a>
-            {' '} &#128499;&#65039;;
-          </p>
-        </PanelBody>
-      </InspectorControls>
-      {!takeActionPageSelected && imageId &&
-        <BlockControls>
-          <ToolbarGroup>
-            <MediaUploadCheck>
-              <MediaUpload
-                onSelect={selectImage}
-                allowedTypes={['image']}
-                value={imageId}
-                type="image"
-                render={({open}) => (
-                  <ToolbarButton
-                    className="components-icon-button components-toolbar__control"
-                    label={__('Edit Image', 'planet4-blocks-backend')}
-                    onClick={open}
-                    icon="edit"
-                  />
-                )}
-              />
-            </MediaUploadCheck>
-            <ToolbarButton
-              className="components-icon-button components-toolbar__control"
-              label={__('Remove Image', 'planet4-blocks-backend')}
-              onClick={removeImage}
-              icon="trash"
-            />
-          </ToolbarGroup>
-        </BlockControls>
-      }
-    </>
+          </a>
+          {' '} &#128499;&#65039;;
+        </p>
+      </PanelBody>
+    </InspectorControls>
   );
+
+  const addBlockControls = () => {
+    return (
+      <BlockControls>
+        <ToolbarGroup>
+          <MediaUploadCheck>
+            <MediaUpload
+              onSelect={selectImage}
+              allowedTypes={['image']}
+              value={imageId}
+              type="image"
+              render={({open}) => (
+                <ToolbarButton
+                  className="components-icon-button components-toolbar__control"
+                  label={imageId ? __('Change Background Image', 'planet4-blocks-backend') : __('Select Background Image', 'planet4-blocks-backend')}
+                  onClick={open}
+                  icon={imageId ? 'edit' : 'upload'}
+                />
+              )}
+            />
+          </MediaUploadCheck>
+          <ToolbarButton
+            className="components-icon-button components-toolbar__control"
+            label={__('Remove Image', 'planet4-blocks-backend')}
+            onClick={removeImage}
+            icon="trash"
+          />
+        </ToolbarGroup>
+      </BlockControls>
+    );
+  };
 
   return (
     <>
-      {isSelected && renderSidebar()}
+      {isSelected && addInspectorControls()}
+      {isSelected && addBlockControls()}
       {renderEditInPlace()}
     </>
   );
