@@ -129,19 +129,6 @@ export const TopicLinkEditor = ({
     <section className="topic-link-block">
       <div className="background-image">
         {imageUrl && <img src={imageUrl} alt={imageAlt} />}
-        <MediaUploadCheck>
-          <MediaUpload
-            type="image"
-            onSelect={selectImage}
-            value={imageId}
-            allowedTypes={['image']}
-            render={({open}) => <ImageHoverControls
-              onEdit={open}
-              onRemove={removeImage}
-              isAdd={!imageUrl}
-            />}
-          />
-        </MediaUploadCheck>
       </div>
       <div className="topic-link-content">
         <RichText
