@@ -378,6 +378,12 @@
       width: auto;
     }
   }
+
+  @include large-and-up {
+    .listing-page-select {
+      width: 300px;
+    }
+  }
 }
 
 .listing-page-no-posts-found {
