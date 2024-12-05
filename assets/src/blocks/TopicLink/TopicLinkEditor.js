@@ -1,7 +1,6 @@
-/* eslint-disable no-shadow */
-
 const {useSelect} = wp.data;
 const {
+  RichText,
   BlockControls,
   MediaUpload,
   MediaUploadCheck,
@@ -23,38 +22,77 @@ export const TopicLinkEditor = ({
   setAttributes,
 }) => {
   const {
-    categoryId,
+    take_action_page,
     focal_points,
     title: customTitle,
     imageId: customImageId,
   } = attributes;
 
+  const {options: p4_options} = window.p4_vars;
+  const isNewIA = p4_options.new_ia;
+
   const {
     loading,
     actPageList,
+    title,
     imageId,
     imageUrl,
     imageAlt,
   } = useSelect(select => {
+    const postId = select('core/editor').getCurrentPostId();
+    const args = {
+      per_page: -1,
+      sort_order: 'asc',
+      sort_column: 'post_title',
+      post_status: 'publish',
+    };
+
+    // eslint-disable-next-line no-shadow
     const actPageList = [].concat(
-      select('core').getEntityRecords('taxonomy', 'category', {
-        hide_empty: true,
-        per_page: -1,
-      }) || []
-    );
+      select('core').getEntityRecords('postType', 'page', {
+        ...args,
+        parent: isNewIA ? p4_options.take_action_page : p4_options.act_page,
+      }) || [],
+      ...(isNewIA ? (select('core').getEntityRecords('postType', 'p4_action', args) || []) : [])
+    ).filter(a => parseInt(a.id) !== postId).sort((a, b) => {
+      if (a.title.raw === b.title.raw) {
+        return 0;
+      }
+      return a.title.raw > b.title.raw ? 1 : -1;
+    });
 
-    const actPage = actPageList.find(actPageFound => categoryId === actPageFound.id);
+    // eslint-disable-next-line no-shadow
+    // const actPageList = [].concat(
+    //   // Fetch the terms for the main taxonomy (e.g., 'category')
+    //   select('core').getEntityRecords('taxonomy', 'category', {
+    //     hide_empty: false, // Include terms with no posts
+    //     per_page: -1, // Fetch all terms
+    //   }) || [],
+    //   // Conditionally fetch terms from another taxonomy if needed
+    //   ...(isNewIA ?
+    //     (select('core').getEntityRecords('taxonomy', 'custom_taxonomy', {per_page: -1}) || []) :
+    //     [])
+    // )
+    //   .sort((a, b) => {
+    //   // Alphabetical sort by term name
+    //     if (a.name === b.name) {
+    //       return 0;
+    //     }
+    //     return a.name > b.name ? 1 : -1;
+    //   });
 
-    if (categoryId && !actPage) {
+    const actPage = actPageList.find(actPageFound => take_action_page === actPageFound.id);
+
+    if (take_action_page && !actPage) {
       return {loading: true};
     }
     const customImage = customImageId && select('core').getMedia(customImageId);
     const customImageFromId = customImage?.source_url;
 
-    const title = customTitle;
-    const imageId = customImageId;
-    const imageUrl = customImageFromId;
-    const imageAlt = customImage?.alt_text;
+    const title = customTitle; // eslint-disable-line no-shadow
+    const imageId = customImageId; // eslint-disable-line no-shadow
+    const imageUrl = customImageFromId; // eslint-disable-line no-shadow
+    const imageAlt = customImage?.alt_text; // eslint-disable-line no-shadow
 
     return {
       actPageList,
@@ -63,84 +101,71 @@ export const TopicLinkEditor = ({
       imageUrl,
       imageAlt,
     };
-  }, [categoryId, customTitle, customImageId]);
+  }, [take_action_page, customTitle, customImageId]);
 
   if (loading || !actPageList.length) {
     return __('Populating block\'s fields…', 'planet4-blocks-backend');
   }
 
   const setObjectPosition = () => {
-    if (focal_points === undefined) {
-      return '50% 50%';
-    }
     const floatX = parseFloat(focal_points.x).toFixed(2);
     const floatY = parseFloat(focal_points.y).toFixed(2);
     return `${floatX * 100}% ${floatY * 100}%`;
   };
 
-  const actPageOptions = actPageList.map(actPage => ({label: actPage.name, value: actPage.id}));
+  const actPageOptions = actPageList.map(actPage => ({label: actPage.title.raw, value: actPage.id}));
 
-  const selectedCategory = actPageList.find(actPage => actPage.id === categoryId);
-
-  const renderEditInPlace = () => {
-    if (!selectedCategory) {
-      return (
-        <section className="topic-link-block">
-          <div className="topic-link-content">
-            <p>Select a category from the sidebar to render this block.</p>
-          </div>
-        </section>
-      );
-    }
-
-    return (
-      <section className="topic-link-block">
-        <div className="background-image">
-          {imageUrl &&
-            <img
-              src={imageUrl}
-              alt={imageAlt}
-              style={{objectPosition: setObjectPosition()}}
-            />}
-        </div>
-        <div className="topic-link-content">
-          <p>
-            Learn more about {selectedCategory.name}
-          </p>
-        </div>
-      </section>
-    );
-  };
+  const renderEditInPlace = () => (
+    <section className="topic-link-block">
+      <div className="background-image">
+        {imageUrl &&
+          <img
+            src={imageUrl}
+            alt={imageAlt}
+            style={{objectPosition: setObjectPosition() || {}}}
+          />}
+      </div>
+      <div className="topic-link-content">
+        <RichText
+          tagName="div"
+          placeholder={__('Learn more about', 'planet4-blocks-backend')}
+          value={title}
+          onChange={() => setAttributes({title})}
+          disabled={true}
+          withoutInteractiveFormatting
+          allowedFormats={[]}
+        />
+      </div>
+    </section>
+  );
 
   const addInspectorControls = () => (
     <InspectorControls>
       <PanelBody title={__('Settings', 'planet4-blocks-backend')}>
         <SelectControl
           label={__('Select Category:', 'planet4-blocks-backend')}
-          value={categoryId}
+          value={take_action_page}
           options={[
-            {label: __('None', 'planet4-blocks-backend'), value: 0},
+            {label: __('None (custom)', 'planet4-blocks-backend'), value: 0},
             ...actPageOptions,
           ]}
-          onChange={id => setAttributes({categoryId: parseInt(id)})}
+          onChange={page => setAttributes({take_action_page: parseInt(page)})}
         />
-        {selectedCategory && (
-          <MediaUploadCheck>
-            <MediaUpload
-              title={__('Select Background Image', 'planet4-blocks-backend')}
-              type="image"
-              onSelect={({id}) => setAttributes({imageId: id})}
-              value={imageId}
-              allowedTypes={['image']}
-              render={({open}) => (
-                <Button onClick={open} className="button">
-                  { imageId ? __('Change Background Image', 'planet4-blocks-backend') : __('Select Background Image', 'planet4-blocks-backend') }
-                </Button>
-              )}
-            />
-          </MediaUploadCheck>
-        )}
-        {selectedCategory && imageUrl && (
+        <MediaUploadCheck>
+          <MediaUpload
+            title={__('Select Background Image', 'planet4-blocks-backend')}
+            type="image"
+            onSelect={({id}) => setAttributes({imageId: id})}
+            value={imageId}
+            allowedTypes={['image']}
+            render={({open}) => (
+              <Button onClick={open} className="button">
+                { imageId ? __('Change Background Image', 'planet4-blocks-backend') : __('Select Background Image', 'planet4-blocks-backend') }
+              </Button>
+            )}
+          />
+        </MediaUploadCheck>
+        {imageUrl && (
           <div className="wp-block-master-theme-gallery__FocalPointPicker">
             <strong className="components-base-control__help">
               {__('Select image focal point', 'planet4-blocks-backend')}
@@ -169,10 +194,6 @@ export const TopicLinkEditor = ({
   );
 
   const addBlockControls = () => {
-    if (!selectedCategory) {
-      return;
-    }
-
     return (
       <BlockControls>
         <ToolbarGroup>
