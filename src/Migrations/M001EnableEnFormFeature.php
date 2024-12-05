@@ -2,7 +2,6 @@
 
 namespace P4\MasterTheme\Migrations;
 
-use P4\MasterTheme\Features;
 use P4\MasterTheme\MigrationRecord;
 use P4\MasterTheme\MigrationScript;
 
@@ -19,7 +18,9 @@ class M001EnableEnFormFeature extends MigrationScript
      */
     protected static function execute(MigrationRecord $record): void
     {
-        Features\EngagingNetworks::enable();
+        $features = get_option('planet4_features');
+        $features['feature_engaging_networks'] = true;
+        update_option('planet4_features', $features);
     }
     // phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter
 }

@@ -53,11 +53,6 @@ class Importer
         foreach ($blocks as $block) {
             // Fetch the attachement id/s from block fields.
             switch ($block['blockName']) {
-                case 'planet4-blocks/enform':
-                    $filter_data[] = isset($block['attrs']['background'])
-                        ? 'background":' . $block['attrs']['background'] : '';
-                    break;
-
                 case 'planet4-blocks/happypoint':
                     $filter_data[] = isset($block['attrs']['id']) ? 'id":' . $block['attrs']['id'] : '';
                     break;

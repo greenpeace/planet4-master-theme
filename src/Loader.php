@@ -145,10 +145,6 @@ final class Loader
             return;
         }
 
-        if (!defined('P4_MASTER_THEME_EN_SLUG_NAME')) {
-            define('P4_MASTER_THEME_EN_SLUG_NAME', 'engagingnetworks');
-        }
-
         if (!defined('P4_MASTER_THEME_LANGUAGES')) {
             define(
                 'P4_MASTER_THEME_LANGUAGES',
@@ -160,11 +156,6 @@ final class Loader
         }
 
         $services = [];
-        $services[] = Controllers\Menu\EnformPostController::class;
-        if (is_admin()) {
-            $services[] = Controllers\Menu\EnSettingsController::class;
-            $services[] = Controllers\Api\RestController::class;
-        }
         $services[] = Controllers\Menu\BlocksReportController::class;
         $services[] = Controllers\Menu\BlocksUsageController::class;
         $services[] = Controllers\Menu\ReusableBlocksController::class;
@@ -204,7 +195,6 @@ final class Loader
         new Blocks\Cookies();//NOSONAR
         new Blocks\Counter();//NOSONAR
         new Blocks\Covers();//NOSONAR
-        new Blocks\ENForm();//NOSONAR
         new Blocks\Gallery();//NOSONAR
         new Blocks\GuestBook();//NOSONAR
         new Blocks\HappyPoint();//NOSONAR

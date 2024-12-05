@@ -2,7 +2,6 @@
 
 namespace P4\MasterTheme;
 
-use P4\MasterTheme\Migrations\M001EnableEnFormFeature;
 use P4\MasterTheme\Settings\Features;
 
 /**
@@ -56,7 +55,6 @@ class BlockSettings
         self::P4_BLOCKS_PREFIX . '/submenu',
         self::P4_BLOCKS_PREFIX . '/take-action-boxout',
         self::P4_BLOCKS_PREFIX . '/timeline',
-        self::P4_BLOCKS_PREFIX . '/enform',
         self::P4_BLOCKS_PREFIX . '/guestbook',
         self::HUBSPOT_FORMS_BLOCK,
         self::GRAVITY_FORMS_BLOCK,
@@ -80,7 +78,6 @@ class BlockSettings
         self::P4_BLOCKS_PREFIX . '/spreadsheet',
         self::P4_BLOCKS_PREFIX . '/sub-pages',
         self::P4_BLOCKS_PREFIX . '/timeline',
-        self::P4_BLOCKS_PREFIX . '/enform',
         self::P4_BLOCKS_PREFIX . '/guestbook',
         self::HUBSPOT_FORMS_BLOCK,
         self::GRAVITY_FORMS_BLOCK,
@@ -106,7 +103,6 @@ class BlockSettings
         self::P4_BLOCKS_PREFIX . '/submenu',
         self::P4_BLOCKS_PREFIX . '/take-action-boxout',
         self::P4_BLOCKS_PREFIX . '/timeline',
-        self::P4_BLOCKS_PREFIX . '/enform',
         self::P4_BLOCKS_PREFIX . '/guestbook',
         self::P4_BLOCKS_PREFIX . '/sub-pages',
         self::HUBSPOT_FORMS_BLOCK,
@@ -211,28 +207,21 @@ class BlockSettings
         }
         $post_type = $context->post ? $context->post->post_type : null;
 
-        $migration_ran = MigrationLog::from_wp_options()->already_ran(M001EnableEnFormFeature::get_id());
-
-        $enform_active = ! $migration_ran || Features::is_active(self::ALL_BLOCKS_FEATURE);
-
         $page_block_types = array_merge(
             self::PAGE_BLOCK_TYPES,
             ! Features::is_active(self::BETA_BLOCKS_FEATURE) ? [] : self::BETA_PAGE_BLOCK_TYPES,
-            ! $enform_active ? [] : [ self::P4_BLOCKS_PREFIX . '/enform' ],
             self::BLOCK_TEMPLATES,
         );
 
         $campaign_block_types = array_merge(
             self::CAMPAIGN_BLOCK_TYPES,
             ! Features::is_active(self::BETA_BLOCKS_FEATURE) ? [] : self::BETA_CAMPAIGN_BLOCK_TYPES,
-            ! $enform_active ? [] : [ self::P4_BLOCKS_PREFIX . '/enform' ],
             self::BLOCK_TEMPLATES,
         );
 
         $action_block_types = array_merge(
             self::ACTION_BLOCK_TYPES,
             ! Features::is_active(self::BETA_BLOCKS_FEATURE) ? [] : self::BETA_ACTION_BLOCK_TYPES,
-            ! $enform_active ? [] : [ self::P4_BLOCKS_PREFIX . '/enform' ],
             self::BLOCK_TEMPLATES,
         );
 
