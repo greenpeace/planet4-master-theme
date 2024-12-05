@@ -2,7 +2,6 @@
 
 namespace P4\MasterTheme;
 
-use P4GEN\Controllers\Ensapi_Controller as ENS_API;
 use ElasticPress\Elasticsearch as ES;
 use WP_Error;
 
@@ -33,7 +32,6 @@ class ControlPanel
 
         add_action('wp_ajax_flush_cache', [ $this, 'flush_cache' ]);
         add_action('wp_ajax_check_cache', [ $this, 'check_cache' ]);
-        add_action('wp_ajax_check_engaging_networks', [ $this, 'check_engaging_networks' ]);
         add_action('wp_ajax_check_elasticsearch', [ $this, 'check_elasticsearch' ]);
 
         add_action('admin_enqueue_scripts', [ $this, 'enqueue_admin_assets' ]);
@@ -78,20 +76,6 @@ class ControlPanel
                         [
                             'title' => __('Check Object Cache', 'planet4-master-theme-backend'),
                             'action' => 'check_cache',
-                        ],
-                    ],
-                ]
-            );
-        }
-
-        if (is_plugin_active('planet4-plugin-gutenberg-engagingnetworks/planet4-gutenberg-engagingnetworks.php')) {
-            $this->add_item(
-                [
-                    'title' => __('Engaging Networks', 'planet4-master-theme-backend'),
-                    'subitems' => [
-                        [
-                            'title' => __('Check Engaging Networks', 'planet4-master-theme-backend'),
-                            'action' => 'check_engaging_networks',
                         ],
                     ],
                 ]
@@ -212,57 +196,6 @@ class ControlPanel
             } elseif ('connected' === $info['status']) {
                 $response['message'] = __('Planet 4 is connected to Redis.', 'planet4-master-theme-backend');
                 $response['class'] = 'cp-success';
-            }
-
-            if ($response) {
-                echo wp_json_encode($response);
-            }
-        }
-        wp_die();
-    }
-
-    /**
-     * Adds a check cache button to check the ENS API.
-     */
-    public function check_engaging_networks(): void
-    {
-        // If this is an ajax call.
-        if (!wp_doing_ajax()) {
-            return;
-        }
-
-        // Allow this action only to Administrators.
-        if (! current_user_can('manage_options')) {
-            return;
-        }
-        $cp_nonce = sanitize_text_field($_GET['_wpnonce']);
-        $cp_action = sanitize_text_field($_GET['cp-action']);
-
-        // CSRF check and action check.
-        if (wp_verify_nonce($cp_nonce, 'cp-action') && 'check_engaging_networks' === $cp_action) {
-            $response = [];
-            $main_settings = get_option('p4en_main_settings'); // Retrieve stored EN Private API key.
-
-            if (isset($main_settings['p4en_private_api']) && $main_settings['p4en_private_api']) {
-                $ens_private_token = $main_settings['p4en_private_api'];
-                $ens_api = new ENS_API($ens_private_token);
-
-                if ($ens_api->is_authenticated()) {
-                    $response['message'] = __(
-                        'Planet4 is connected to EngagingNetworks',
-                        'planet4-master-theme-backend'
-                    );
-                    $response['class'] = 'cp-success';
-                } else {
-                    $response['message'] = __('Planet4 is not connected to EngagingNetworks. Please, make sure you have registered your IP address for the ENS API key you have supplied in plugin settings page.', 'planet4-master-theme-backend'); // phpcs:ignore Generic.Files.LineLength.MaxExceeded
-                    $response['class'] = 'cp-error';
-                }
-            } else {
-                $response['message'] = __(
-                    'Please check your EngagingNetworks plugin settings',
-                    'planet4-master-theme-backend'
-                );
-                $response['class'] = 'cp-error';
             }
 
             if ($response) {

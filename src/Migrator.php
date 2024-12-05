@@ -37,6 +37,7 @@ use P4\MasterTheme\Migrations\M032MigrateSplit2ColumnBlock;
 use P4\MasterTheme\Migrations\M033MigrateSocialMediaTwitterBlockToEmbedBlock;
 use P4\MasterTheme\Migrations\M034PrePopulateOldPostsArchiveNotice;
 use P4\MasterTheme\Migrations\M035MigrateCampaignCoversToP4ColumnsBlock;
+use P4\MasterTheme\Migrations\M036RemoveEnFormOptions;
 
 /**
  * Run any new migration scripts and record results in the log.
@@ -91,6 +92,7 @@ class Migrator
             M033MigrateSocialMediaTwitterBlockToEmbedBlock::class,
             M034PrePopulateOldPostsArchiveNotice::class,
             M035MigrateCampaignCoversToP4ColumnsBlock::class,
+            M036RemoveEnFormOptions::class,
         ];
 
         // Loop migrations and run those that haven't run yet.

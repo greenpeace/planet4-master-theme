@@ -50,27 +50,6 @@ abstract class BaseBlock
     }
 
     /**
-     * Outputs an error message.
-     *
-     * @param string $message Error message.
-     */
-    public function render_error_message(string $message): void
-    {
-        // Ensure only editors see the error, not visitors to the website.
-        if (! current_user_can('edit_posts')) {
-            return;
-        }
-
-        \Timber::render(
-            'block_templates/block-error-message.twig',
-            [
-                'category' => __('Error', 'planet4-blocks'),
-                'message' => $message,
-            ]
-        );
-    }
-
-    /**
      * Returns if current request is a rest api request.
      */
     public static function is_rest_request(): bool

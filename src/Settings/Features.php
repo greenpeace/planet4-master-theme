@@ -7,7 +7,6 @@ use P4\MasterTheme\Features\Dev\AllowAllBlocks;
 use P4\MasterTheme\Features\Dev\BetaBlocks;
 use P4\MasterTheme\Features\Dev\CoreBlockPatterns;
 use P4\MasterTheme\Features\Dev\DisableDataSync;
-use P4\MasterTheme\Features\EngagingNetworks;
 use P4\MasterTheme\Features\LazyYoutubePlayer;
 use P4\MasterTheme\Features\RedirectRedirectPages;
 use P4\MasterTheme\Features\Planet4Blocks;
@@ -95,7 +94,6 @@ class Features
         // Perhaps an alphabetical order within a group would make most sense?
         // That way controlling whether the feature is live is in one place.
         return [
-            EngagingNetworks::class,
             CloudflareDeployPurge::class,
             LazyYoutubePlayer::class,
             RedirectRedirectPages::class,
