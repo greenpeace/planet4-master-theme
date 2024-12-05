@@ -23,7 +23,6 @@ export class CounterFrontend extends Component {
     if (completed_api && completed_api.startsWith('https://')) {
       window.addEventListener('updateCounter', counter.calculateRemaining, false);
     }
-    this.appendENForm();
   }
 
   componentWillUnmount() {
@@ -39,18 +38,6 @@ export class CounterFrontend extends Component {
     const {target, completed, completed_api} = this.props;
     if (target !== prevTarget || completed !== prevCompleted || completed_api !== prevCompletedApi) {
       this.calculateRemaining();
-    }
-    this.appendENForm();
-  }
-
-  appendENForm() {
-    // Append the counter inside the En-Form
-    const counterBar = document.querySelector('.wp-block-planet4-blocks-counter .counter-style-en-forms-bar')?.cloneNode(true);
-    const enFormHeader = document.querySelector('.enform-extra-header-placeholder');
-
-    if (counterBar && enFormHeader) {
-      enFormHeader.innerHTML = '';
-      enFormHeader.append(counterBar);
     }
   }
 
@@ -129,9 +116,9 @@ export class CounterFrontend extends Component {
           <p className="page-section-description" dangerouslySetInnerHTML={{__html: description}} />
         }
         <div className="content-counter">
-          {(style === 'bar' || style === 'en-forms-bar') &&
+          {(style === 'bar') &&
             <div className="progress-container">
-              <div className={`progress-bar ${style === 'en-forms-bar' ? 'enform-progress-bar' : ''}`} style={{width: `calc(${percent}% + 20px)`}} />
+              <div className="progress-bar" style={{width: `calc(${percent}% + 20px)`}} />
             </div>
           }
           {style === 'arc' &&
