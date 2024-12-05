@@ -11,17 +11,13 @@ test('Test Related Articles block', async ({page, admin, editor}) => {
   await (await page.waitForSelector('p[data-type="core/paragraph"]')).click();
   await page.keyboard.type('Test content used as a post excerpt.');
 
-  //
   // Add post category, type and tag
-  //
   await addCategory({page, editor}, 'Energy');
   await removeAllPostTypes({page, editor});
   await addPostType({page, editor}, 'Press Release');
   await addTag({page, editor}, 'Renewables');
 
-  //
   // Related articles enabled
-  //
   await page.locator('.edit-post-layout__metaboxes').getByRole('combobox', {name: 'Include Articles in Post'}).selectOption('Yes');
 
   const postUrl = await publishPost({page, editor});
@@ -29,14 +25,12 @@ test('Test Related Articles block', async ({page, admin, editor}) => {
   await page.waitForTimeout(1000); // letting metabox post query finish
 
   await page.goto(postUrl);
-  const relatedSection = page.locator('[data-render="planet4-blocks/articles"]');
+  const relatedSection = page.locator('.p4-query-loop');
   await relatedSection.scrollIntoViewIfNeeded();
-  relatedSection.locator('.article-list-item');
-  await expect(relatedSection.locator('.article-list-item')).not.toHaveCount(0);
+  relatedSection.locator('.wp-block-post-template');
+  await expect(relatedSection.locator('.wp-block-post-template')).not.toHaveCount(0);
 
-  //
   // Related articles disabled
-  //
   await page.goto(editUrl);
   await page.locator('.edit-post-layout__metaboxes').getByRole('combobox', {name: 'Include Articles in Post'}).selectOption('No');
   await updatePost({page});
