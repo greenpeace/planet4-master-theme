@@ -6,6 +6,10 @@
   position: relative;
   overflow: hidden;
   background-color: var(--grey-900);
+  width: 100%;
+  max-width: 46rem;
+  height: auto;
+  max-height: 7.5rem;
 
   .topic-link-content {
     color: white;
@@ -24,6 +28,15 @@
     top: 0;
     left: 0;
     z-index: 0;
+    transform: scale(1);
+    transition: transform 0.3s ease-in-out;
+
+    img {
+      width: 100%;
+      height: auto;
+      max-height: 7.5rem;
+      object-fit: cover;
+    }
 
     &::before {
       content: "";
@@ -33,6 +46,10 @@
       display: block;
       background-color: var(--grey-900);
       opacity: 0.5;
+    }
+
+    &:hover {
+      transform: scale(1.1);
     }
   }
 }

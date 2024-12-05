@@ -14,7 +14,7 @@ export const registerTopicLinkBlock = () => {
 
   registerBlockType(BLOCK_NAME, {
     title: 'Topic Link',
-    description: __('A versatile horizontal card featuring an image, description, and Call to Action, designed to link to Take Action pages or any custom link such as external petitions or donation pages.', 'planet4-blocks-backend'),
+    description: __('', 'planet4-blocks-backend'),
     icon: 'welcome-widgets-menus',
     category: 'planet4-blocks',
     supports: {
@@ -28,39 +28,11 @@ export const registerTopicLinkBlock = () => {
       title: {
         type: 'string',
       },
-      excerpt: {
-        type: 'string',
-      },
-      link: {
-        type: 'string',
-      },
-      linkText: {
-        type: 'string',
-      },
-      newTab: {
-        type: 'boolean',
-        default: false,
-      },
-      tag_ids: {
-        type: 'array',
-        default: [],
-      },
       imageId: {
         type: 'number',
         default: '',
       },
-      imageUrl: {
-        type: 'string',
-        default: '',
-      },
-      imageAlt: {
-        type: 'string',
-        default: '',
-      },
-      stickyOnMobile: {
-        type: 'boolean',
-        default: false,
-      },
+      focal_points: {},
     },
     edit: TopicLinkEditor,
     save() {
