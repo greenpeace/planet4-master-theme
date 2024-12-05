@@ -379,3 +379,9 @@
     }
   }
 }
+
+.listing-page-no-posts-found {
+  text-align: center;
+  font-size: var(--font-size-m--font-family-primary);
+  padding-top: $sp-4;
+}
