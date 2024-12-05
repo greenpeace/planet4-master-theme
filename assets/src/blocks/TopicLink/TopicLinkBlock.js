@@ -22,11 +22,8 @@ export const registerTopicLinkBlock = () => {
     },
     // This attributes definition mimics the one in the PHP side.
     attributes: {
-      category_id: {
+      categoryId: {
         type: 'number',
-      },
-      title: {
-        type: 'string',
       },
       imageId: {
         type: 'number',

@@ -2,7 +2,6 @@
 
 const {useSelect} = wp.data;
 const {
-  RichText,
   BlockControls,
   MediaUpload,
   MediaUploadCheck,
@@ -24,7 +23,7 @@ export const TopicLinkEditor = ({
   setAttributes,
 }) => {
   const {
-    category_id,
+    categoryId,
     focal_points,
     title: customTitle,
     imageId: customImageId,
@@ -33,7 +32,6 @@ export const TopicLinkEditor = ({
   const {
     loading,
     actPageList,
-    title,
     imageId,
     imageUrl,
     imageAlt,
@@ -45,9 +43,9 @@ export const TopicLinkEditor = ({
       }) || []
     );
 
-    const actPage = actPageList.find(actPageFound => category_id === actPageFound.id);
+    const actPage = actPageList.find(actPageFound => categoryId === actPageFound.id);
 
-    if (category_id && !actPage) {
+    if (categoryId && !actPage) {
       return {loading: true};
     }
     const customImage = customImageId && select('core').getMedia(customImageId);
@@ -65,7 +63,7 @@ export const TopicLinkEditor = ({
       imageUrl,
       imageAlt,
     };
-  }, [category_id, customTitle, customImageId]);
+  }, [categoryId, customTitle, customImageId]);
 
   if (loading || !actPageList.length) {
     return __('Populating block\'s fields…', 'planet4-blocks-backend');
@@ -82,57 +80,67 @@ export const TopicLinkEditor = ({
 
   const actPageOptions = actPageList.map(actPage => ({label: actPage.name, value: actPage.id}));
 
-  const renderEditInPlace = () => (
-    <section className="topic-link-block">
-      <div className="background-image">
-        {imageUrl &&
-          <img
-            src={imageUrl}
-            alt={imageAlt}
-            style={{objectPosition: setObjectPosition()}}
-          />}
-      </div>
-      <div className="topic-link-content">
-        <RichText
-          tagName="div"
-          placeholder={__('Learn more about', 'planet4-blocks-backend')}
-          value={title}
-          onChange={() => setAttributes({title})}
-          disabled={true}
-          withoutInteractiveFormatting
-          allowedFormats={[]}
-        />
-      </div>
-    </section>
-  );
+  const selectedCategory = actPageList.find(actPage => actPage.id === categoryId);
+
+  const renderEditInPlace = () => {
+    if (!selectedCategory) {
+      return (
+        <section className="topic-link-block">
+          <div className="topic-link-content">
+            <p>Select a category from the sidebar to render this block.</p>
+          </div>
+        </section>
+      );
+    }
+
+    return (
+      <section className="topic-link-block">
+        <div className="background-image">
+          {imageUrl &&
+            <img
+              src={imageUrl}
+              alt={imageAlt}
+              style={{objectPosition: setObjectPosition()}}
+            />}
+        </div>
+        <div className="topic-link-content">
+          <p>
+            Learn more about {selectedCategory.name}
+          </p>
+        </div>
+      </section>
+    );
+  };
 
   const addInspectorControls = () => (
     <InspectorControls>
       <PanelBody title={__('Settings', 'planet4-blocks-backend')}>
         <SelectControl
           label={__('Select Category:', 'planet4-blocks-backend')}
-          value={category_id}
+          value={categoryId}
           options={[
-            {label: __('None (custom)', 'planet4-blocks-backend'), value: 0},
+            {label: __('None', 'planet4-blocks-backend'), value: 0},
             ...actPageOptions,
           ]}
-          onChange={id => setAttributes({category_id: parseInt(id)})}
+          onChange={id => setAttributes({categoryId: parseInt(id)})}
         />
-        <MediaUploadCheck>
-          <MediaUpload
-            title={__('Select Background Image', 'planet4-blocks-backend')}
-            type="image"
-            onSelect={({id}) => setAttributes({imageId: id})}
-            value={imageId}
-            allowedTypes={['image']}
-            render={({open}) => (
-              <Button onClick={open} className="button">
-                { imageId ? __('Change Background Image', 'planet4-blocks-backend') : __('Select Background Image', 'planet4-blocks-backend') }
-              </Button>
-            )}
-          />
-        </MediaUploadCheck>
-        {imageUrl && (
+        {selectedCategory && (
+          <MediaUploadCheck>
+            <MediaUpload
+              title={__('Select Background Image', 'planet4-blocks-backend')}
+              type="image"
+              onSelect={({id}) => setAttributes({imageId: id})}
+              value={imageId}
+              allowedTypes={['image']}
+              render={({open}) => (
+                <Button onClick={open} className="button">
+                  { imageId ? __('Change Background Image', 'planet4-blocks-backend') : __('Select Background Image', 'planet4-blocks-backend') }
+                </Button>
+              )}
+            />
+          </MediaUploadCheck>
+        )}
+        {selectedCategory && imageUrl && (
           <div className="wp-block-master-theme-gallery__FocalPointPicker">
             <strong className="components-base-control__help">
               {__('Select image focal point', 'planet4-blocks-backend')}
@@ -161,6 +169,10 @@ export const TopicLinkEditor = ({
   );
 
   const addBlockControls = () => {
+    if (!selectedCategory) {
+      return;
+    }
+
     return (
       <BlockControls>
         <ToolbarGroup>
