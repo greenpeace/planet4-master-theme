@@ -43,11 +43,14 @@
     font-family: var(--font-family-primary);
   }
   margin-bottom: 8px;
+  position: relative;
 
   #gdpr-comments-checkbox {
     display: inline-block;
     margin-inline-end: 8px;
-    width: inherit;
+    width: $checkbox-size !important;
+    height: $checkbox-size;
+    top: calc($sp-1 - 1px);
   }
 
   #gdpr-comments-label {
