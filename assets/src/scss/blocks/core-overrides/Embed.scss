@@ -120,7 +120,8 @@ lite-youtube,
   }
 
   &-twitter,
-  &-reddit {
+  &-reddit,
+  &-spotify {
     @include media-group-two;
 
     .wp-block-embed__wrapper {
@@ -128,7 +129,8 @@ lite-youtube,
     }
   }
 
-  &-twitter {
+  &-twitter,
+  &-spotify {
     .wp-block-embed__wrapper {
       height: auto;
     }
