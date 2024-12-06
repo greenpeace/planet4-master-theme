@@ -317,3 +317,53 @@ $nested-comment-left-margin: 50px;
   -webkit-line-clamp: $lines;
   overflow: hidden;
 }
+
+@mixin custom-checkbox {
+  & > input[type="checkbox"] {
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0;
+  }
+
+  &:has(> input[type="checkbox"]:checked) {
+    &::before {
+      content: "";
+      border: 0;
+      border-bottom: 2px solid var(--grey-900);
+      border-right: 2px solid var(--grey-900);
+      height: 8px;
+      left: 4px;
+      position: absolute;
+      top: calc(50% - 5px);
+      transform: rotate(-45deg) scaleX(-1);
+      width: 12px;
+    }
+  }
+
+  &:before, &:after {
+    content: "";
+    width: $checkbox-size;
+    height: $checkbox-size;
+    background: var(--white);
+    border: 1px solid var(--grey-500);
+    border-radius: 2px;
+    position: absolute;
+    margin-left: 0;
+    display: block;
+    pointer-events: none;
+    z-index: 1;
+
+
+    top: 50%;
+    transform: translateY(-50%);
+
+    html[dir="rtl"] & {
+      right: 0;
+      left: auto;
+    }
+  }
+
+  &:after {
+    z-index: 0;
+  }
+}
