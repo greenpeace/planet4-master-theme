@@ -77,7 +77,7 @@ async function removeAllPostTypes({page, editor}) {
  */
 const searchAndInsertBlock = async ({page}, blockName, namespace = '') => {
   await page.getByRole('button', {name: 'Toggle block inserter'}).click();
-  await page.getByPlaceholder('Search for blocks and patterns').click();
+  await page.getByLabel('Search for blocks and patterns').click();
   await page.keyboard.type(blockName);
 
   if (namespace !== '') {
