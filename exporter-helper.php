@@ -21,10 +21,6 @@ function get_attachments_used_in_content(string $content): array
     foreach ($blocks as $block) {
         // Fetch the attachement id/s from block fields.
         switch ($block['blockName']) {
-            case 'planet4-blocks/enform':
-                $attachment_ids[] = $block['attrs']['background'] ?? '';
-                break;
-
             case 'core/media-text':
                 $attachment_ids[] = $block['attrs']['mediaId'] ?? '';
                 $attachment_ids[] = $block['attrs']['mediaLink'] ?? '';

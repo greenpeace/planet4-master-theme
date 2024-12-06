@@ -131,16 +131,6 @@ class View
     }
 
     /**
-     * Render EN Form Post.
-     *
-     * @param array $data All the data needed to render the template.
-     */
-    public function enform_post(array $data): void
-    {
-        $this->view_template(__FUNCTION__, $data, '/block_templates/enform/');
-    }
-
-    /**
      * Render the Selected Components meta box for EN Forms.
      *
      * @param array $data All the data needed to render the template.
