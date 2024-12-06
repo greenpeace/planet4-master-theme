@@ -1,4 +1,4 @@
-import {expect, Locator, Page} from '@playwright/test'; // eslint-disable-line no-unused-vars
+import {Locator, Page} from '@playwright/test'; // eslint-disable-line no-unused-vars
 
 /**
  * @param {{Page, Editor}} options    - Page and Editor object
@@ -26,7 +26,7 @@ async function openComponentPanel({page, editor}, panelTitle) {
  * @param {string}         category - The category
  */
 async function addCategory({page, editor}, category) {
-  const editorSettings = await openComponentPanel({page, editor}, 'Categories');
+  const editorSettings = openComponentPanel({page, editor}, 'Categories');
   await editorSettings.getByRole('group', {name: 'Categories'}).getByRole('checkbox', {name: category}).click();
 }
 
@@ -37,7 +37,7 @@ async function addCategory({page, editor}, category) {
  * @param {string}         tag     - The tag
  */
 async function addTag({page, editor}, tag) {
-  const editorSettings = await openComponentPanel({page, editor}, 'Tags');
+  const editorSettings = openComponentPanel({page, editor}, 'Tags');
   await editorSettings.getByRole('group', {name: 'Tags'}).getByRole('checkbox', {name: tag}).click();
 }
 
@@ -48,7 +48,7 @@ async function addTag({page, editor}, tag) {
  * @param {string}         postType - The post type (Story, Press Release, etc.)
  */
 async function addPostType({page, editor}, postType) {
-  const editorSettings = await openComponentPanel({page, editor}, 'Post Types');
+  const editorSettings = openComponentPanel({page, editor}, 'Post Types');
 
   await editorSettings.getByLabel('Add new Post Type').type(postType);
   await editorSettings.getByRole('option', {name: postType}).click();
@@ -60,7 +60,7 @@ async function addPostType({page, editor}, postType) {
  * @param {{Page, Editor}} options - Page and Editor object
  */
 async function removeAllPostTypes({page, editor}) {
-  const editorSettings = await openComponentPanel({page, editor}, 'Post Types');
+  const editorSettings = openComponentPanel({page, editor}, 'Post Types');
   const buttons = await editorSettings.getByRole('button', {name: 'Remove Post Type'}).all();
   for (const button of buttons) {
     await button.click();
@@ -76,11 +76,8 @@ async function removeAllPostTypes({page, editor}) {
  * @return {Promise<void>}   - Playwright Locator
  */
 const searchAndInsertBlock = async ({page}, blockName, namespace = '') => {
-  const labelText = 'Toggle block inserter'; // Can we also use aria-label="Add block"
-  const addBlockButton = await page.locator(`button[aria-label="${labelText}"]`);
-  expect(addBlockButton).toBeVisible();
-  await addBlockButton.click();
-  await page.getByPlaceholder('Search').click();
+  await page.getByRole('button', {name: 'Toggle block inserter'}).click();
+  await page.getByPlaceholder('Search for blocks and patterns').click();
   await page.keyboard.type(blockName);
 
   if (namespace !== '') {
