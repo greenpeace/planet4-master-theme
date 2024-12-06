@@ -64,7 +64,7 @@ async function createPostWithFeaturedImage({page, admin, editor}, params) {
   await page.getByRole('button', {name: 'Set featured image'}).click();
 
   await page.getByRole('dialog', {name: 'Featured image'});
-  await page.locator('button#menu-item-browse[aria-selected="true"]').click();
+  await page.locator('button#menu-item-browse').click();
 
   const mediaSearchInput = await page.locator('#media-search-input');
   await mediaSearchInput.click();
