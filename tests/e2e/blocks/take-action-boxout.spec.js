@@ -1,20 +1,19 @@
 import {test, expect} from '../tools/lib/test-utils.js';
 import {publishPostAndVisit, createPostWithFeaturedImage} from '../tools/lib/post.js';
+import {searchAndInsertBlock} from '../tools/lib/editor.js';
 
 test.useAdminLoggedIn();
 
 test.describe('Test Take Action Boxout block', () => {
   test.beforeEach(async ({page, admin, editor}) => {
-    await createPostWithFeaturedImage({admin, editor}, {title: 'Test Take action boxout'});
+    await createPostWithFeaturedImage({page, admin, editor}, {title: 'Test Take action boxout'});
 
     // Add Take Action Boxout block.
     const actionRequest = page.waitForRequest(/.*\/wp-json\/wp\/v2\/p4_action.*/);//NOSONAR
-    await editor.canvas.getByRole('button', {name: 'Add default block'}).click();
-    await page.keyboard.type('/take-action-boxout');
-    await page.getByRole('option', {name: 'Take Action Boxout'}).click();
+    await searchAndInsertBlock({page}, 'Take Action Boxout');
     await actionRequest;
 
-    await editor.canvas
+    await page
       .getByRole('document', {name: 'Block: Take Action Boxout'})
       .waitFor();
   });
@@ -22,7 +21,7 @@ test.describe('Test Take Action Boxout block', () => {
   test('Take Action Boxout with existing page', async ({page, editor}) => {
     // Select the first page option.
 
-    await editor.canvas.getByRole('region', {name: 'Editor settings'})
+    await page.getByRole('region', {name: 'Editor settings'})
       .getByRole('combobox', {name: 'Select Take Action Page'})
       .selectOption({index: 1});
 
