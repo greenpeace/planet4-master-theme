@@ -128,9 +128,16 @@ lite-youtube,
     }
   }
 
-  &-twitter {
+  &-twitter,
+  &-spotify {
     .wp-block-embed__wrapper {
       height: auto;
+    }
+  }
+
+  &-spotify {
+    .wp-block-embed__wrapper {
+      padding-bottom: unset;
     }
   }
 
