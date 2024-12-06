@@ -26,7 +26,7 @@ async function openComponentPanel({page, editor}, panelTitle) {
  * @param {string}         category - The category
  */
 async function addCategory({page, editor}, category) {
-  const editorSettings = openComponentPanel({page, editor}, 'Categories');
+  const editorSettings = await openComponentPanel({page, editor}, 'Categories');
   await editorSettings.getByRole('group', {name: 'Categories'}).getByRole('checkbox', {name: category}).click();
 }
 
@@ -37,7 +37,7 @@ async function addCategory({page, editor}, category) {
  * @param {string}         tag     - The tag
  */
 async function addTag({page, editor}, tag) {
-  const editorSettings = openComponentPanel({page, editor}, 'Tags');
+  const editorSettings = await openComponentPanel({page, editor}, 'Tags');
   await editorSettings.getByRole('group', {name: 'Tags'}).getByRole('checkbox', {name: tag}).click();
 }
 
@@ -48,8 +48,7 @@ async function addTag({page, editor}, tag) {
  * @param {string}         postType - The post type (Story, Press Release, etc.)
  */
 async function addPostType({page, editor}, postType) {
-  const editorSettings = openComponentPanel({page, editor}, 'Post Types');
-
+  const editorSettings = await openComponentPanel({page, editor}, 'Post Types');
   await editorSettings.getByLabel('Add new Post Type').type(postType);
   await editorSettings.getByRole('option', {name: postType}).click();
 }
@@ -60,7 +59,7 @@ async function addPostType({page, editor}, postType) {
  * @param {{Page, Editor}} options - Page and Editor object
  */
 async function removeAllPostTypes({page, editor}) {
-  const editorSettings = openComponentPanel({page, editor}, 'Post Types');
+  const editorSettings = await openComponentPanel({page, editor}, 'Post Types');
   const buttons = await editorSettings.getByRole('button', {name: 'Remove Post Type'}).all();
   for (const button of buttons) {
     await button.click();
