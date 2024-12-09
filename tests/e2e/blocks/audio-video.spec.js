@@ -18,13 +18,20 @@ const MP3_TEST = 'https://www.greenpeace.org/static/planet4-assets/tests/wochens
  */
 const addVideoOrAudioBlock = async ({page}, mediaType, mediaLink) => {
   await searchAndInsertBlock({page}, mediaType, mediaType);
+
+  // Make sure the block has been added.
+  const insertUrl = await page.getByRole('button', {name: 'Insert from URL'});
+  await expect(insertUrl).toBeVisible();
+
   // We should close the sidebar before editing the block.
   const closeSidebar = await page.getByRole('button', {name: 'Close block inserter'});
   if (await closeSidebar.isVisible()) {
     await closeSidebar.click();
     await expect(closeSidebar).toBeHidden();
   }
-  await page.getByRole('button', {name: 'Insert from URL'}).click();
+
+  // Add the media URL.
+  await insertUrl.click();
   await page.getByPlaceholder('Paste or type URL').fill(mediaLink);
   await page.keyboard.press('Enter');
 };
