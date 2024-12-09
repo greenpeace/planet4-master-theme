@@ -1,5 +1,6 @@
 import {test, expect} from '../tools/lib/test-utils.js';
 import {publishPostAndVisit, createPostWithFeaturedImage} from '../tools/lib/post.js';
+import {searchAndInsertBlock} from '../tools/lib/editor.js';
 
 const SHEET_ID = '2PACX-1vR2LTvb__ifqY0ayZzqWyzkJGPyMUyUvili9YotHs_1YymJqjSeECFImhzlJfN3k9xw0CVBwR4HuTOg';
 const TEST_URL = `https://docs.google.com/spreadsheets/d/e/${SHEET_ID}/pubhtml`;
@@ -7,12 +8,10 @@ const TEST_URL = `https://docs.google.com/spreadsheets/d/e/${SHEET_ID}/pubhtml`;
 test.useAdminLoggedIn();
 
 test('Test Spreadsheet block', async ({page, admin, editor}) => {
-  await createPostWithFeaturedImage({admin, editor}, {title: 'Test Spreadsheet', postType: 'page'});
+  await createPostWithFeaturedImage({page, admin, editor}, {title: 'Test Spreadsheet', postType: 'page'});
 
   // Add Spreadsheet block.
-  await editor.canvas.getByRole('button', {name: 'Add default block'}).click();
-  await page.keyboard.type('/spreadsheet');
-  await page.getByRole('option', {name: 'Spreadsheet'}).click();
+  await searchAndInsertBlock({page}, 'Spreadsheet');
 
   // Check that the "empty URL" warning is displayed.
   const warning = page.locator('.block-edit-mode-warning');

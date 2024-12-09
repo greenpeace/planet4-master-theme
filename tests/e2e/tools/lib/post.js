@@ -1,3 +1,5 @@
+import {expect} from '@playwright/test';
+
 /**
  * Publishes a post using the provided editor and returns the URL of the published post.
  *
@@ -20,7 +22,7 @@ async function publishPost({page, editor}) {
 /**
  * Updates a post and waits for the confirmation snackbar.
  *
- * @param {Object} params - Parameters for updating the post.
+ * @param {Object} params      - Parameters for updating the post.
  * @param {Object} params.page - The page object representing the browser page.
  * @return {Promise<void>} - A promise that resolves when the snackbar confirming the update is visible.
  */
@@ -48,23 +50,33 @@ async function publishPostAndVisit({page, editor}) {
  * Creates a new post with a featured image set.
  *
  * @param {Object} p - Parameters for creating the post and setting the featured image.
+ * @param {Object} p.page - The page object used to interact with the editor.
  * @param {Object} p.admin - The admin object used to create a new post.
  * @param {Object} p.editor - The editor object used to interact with the editor.
  * @param {Object} params - Additional parameters for creating the post.
  * @return {Promise<Object>} The newly created post.
  */
-async function createPostWithFeaturedImage({admin, editor}, params) {
+async function createPostWithFeaturedImage({page, admin, editor}, params) {
   const newPost = await admin.createNewPost({...params, legacyCanvas: true});
-  const editorSettings = await editor.canvas.getByRole('region', {name: 'Editor settings'});
-  await editorSettings.getByRole('button', {name: 'Set featured image'}).click();
-  const imageModal = await editor.canvas.getByRole('dialog', {name: 'Featured image'});
-  const mediaLibraryTab = await imageModal.locator('#menu-item-browse');
-  const mediaLibraryTabOpen = await mediaLibraryTab.getAttribute('aria-selected');
-  if (mediaLibraryTabOpen === 'false') {
-    await mediaLibraryTab.click();
-  }
-  await imageModal.getByRole('checkbox', {name: 'OCEANS-GP0STOM6C'}).click();
-  await imageModal.getByRole('button', {name: 'Set featured image'}).click();
+
+  await editor.openDocumentSettingsSidebar();
+
+  await page.getByRole('button', {name: 'Set featured image'}).click();
+
+  await page.getByRole('dialog', {name: 'Featured image'});
+  await page.locator('button#menu-item-browse').click();
+
+  const mediaSearchInput = await page.locator('#media-search-input');
+  await mediaSearchInput.click();
+  await mediaSearchInput.fill('OCEANS-GP0STOM6C');
+  await mediaSearchInput.press('Enter');
+
+  const thumbnail = await page.locator('li[aria-label="OCEANS-GP0STOM6C"]').nth(0);
+  await page.waitForSelector('li[aria-label="OCEANS-GP0STOM6C"]');
+  expect(thumbnail).toBeVisible();
+  await thumbnail.click();
+
+  await page.getByRole('button', {name: 'Set featured image'}).click();
 
   return newPost;
 }
