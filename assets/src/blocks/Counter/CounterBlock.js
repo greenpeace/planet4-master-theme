@@ -96,12 +96,6 @@ export const registerCounterBlock = () => {
     },
   ];
 
-  if (window.p4_vars.features.feature_engaging_networks) {
-    styles.push({
-      name: 'en-forms-bar',
-      label: 'Progress Bar inside EN Form',
-    });
-  }
   // Add our custom styles
   registerBlockStyle(BLOCK_NAME, styles);
 };

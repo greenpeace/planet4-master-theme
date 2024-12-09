@@ -56,8 +56,6 @@ module.exports = {
     SocialMediaEditorScript: './assets/src/blocks/SocialMedia/SocialMediaEditorScript.js',
     SocialMediaStyle: './assets/src/scss/blocks/SocialMedia/SocialMediaStyle.scss',
     SocialMediaEditorStyle: './assets/src/scss/blocks/SocialMedia/SocialMediaEditorStyle.scss',
-    ENFormScript: './assets/src/blocks/ENForm/ENFormScript.js',
-    ENFormEditorScript: './assets/src/blocks/ENForm/ENFormEditorScript.js',
     TimelineScript: './assets/src/blocks/Timeline/TimelineScript.js',
     TimelineEditorScript: './assets/src/blocks/Timeline/TimelineEditorScript.js',
     TimelineStyle: './assets/src/scss/blocks/Timeline/TimelineStyle.scss',
