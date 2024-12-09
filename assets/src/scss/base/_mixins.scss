@@ -318,52 +318,82 @@ $nested-comment-left-margin: 50px;
   overflow: hidden;
 }
 
+// Apply custom layout to checkboxes
 @mixin custom-checkbox {
   & > input[type="checkbox"] {
-    top: 50%;
+    position: absolute;
+    pointer-events: none;
+    width: $checkbox-size;
+    height: $checkbox-size;
+    top: 50% !important;
     transform: translateY(-50%);
     opacity: 0;
-  }
 
-  &:has(> input[type="checkbox"]:checked) {
-    &::before {
-      content: "";
-      border: 0;
-      border-bottom: 2px solid var(--grey-900);
-      border-right: 2px solid var(--grey-900);
-      height: 8px;
-      left: 4px;
-      position: absolute;
-      top: calc(50% - 5px);
-      transform: rotate(-45deg) scaleX(-1);
-      width: 12px;
+    & ~ label,
+    & ~ .custom-control-description {
+      padding-inline-start: $sp-4x;
+      font-family: var(--font-family-tertiary);
+      cursor: pointer;
+
+      a {
+        color: inherit;
+        font-weight: bold;
+      }
     }
   }
 
   &:before, &:after {
     content: "";
+    display: block;
+    position: absolute;
     width: $checkbox-size;
     height: $checkbox-size;
     background: var(--white);
     border: 1px solid var(--grey-500);
     border-radius: 2px;
-    position: absolute;
-    margin-left: 0;
-    display: block;
     pointer-events: none;
-    z-index: 1;
-
-
     top: 50%;
     transform: translateY(-50%);
-
-    html[dir="rtl"] & {
-      right: 0;
-      left: auto;
-    }
   }
 
   &:after {
-    z-index: 0;
+    z-index: 1;
+  }
+
+  &:focus,
+  &:focus-visible {
+    outline: 2px solid orange !important;
+    outline-offset: 1px;
+  }
+
+  &:has(> input[type="checkbox"]:checked) {
+    &::after {
+      content: "";
+      position: absolute;
+      border: 0;
+      border-bottom: 2px solid var(--grey-900);
+      border-right: 2px solid var(--grey-900);
+      height: 8px;
+      margin-inline-start: $sp-x;
+      top: calc(50% - 5px);
+      transform: rotate(-45deg) scaleX(-1);
+      width: 12px;
+    }
+
+    &::before {
+      border-color: var(--grey-900);
+    }
+  }
+
+  &:has(> input[type="checkbox"]:not(:checked)):hover::before {
+    border-color: var(--grey-900);
+    z-index: 2;
+  }
+
+  &:has(> input[type="checkbox"]:focus) {
+    &::before {
+      outline: 2px solid #99c3ff;
+      outline-offset: 1px;
+    }
   }
 }
