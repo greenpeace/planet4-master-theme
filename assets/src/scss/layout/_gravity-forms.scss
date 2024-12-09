@@ -58,6 +58,10 @@
     font-family: var(--font-family-paragraph-secondary);
     margin-bottom: $sp-1;
     position: relative;
+
+    &:has(> input[type="checkbox"]) {
+      @include custom-checkbox;
+    }
   }
 
   .gfield_required .gfield_required_text {

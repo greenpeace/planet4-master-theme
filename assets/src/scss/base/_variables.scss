@@ -6,6 +6,9 @@ $large-width:             992px;
 $extra-large-width:       1200px;
 $extra-extra-large-width: 1600px;
 
+// Override html selectors
+$checkbox-size: 20px;
+
 // Spacing
 @function space($base) {
   @return $base * 8px;
