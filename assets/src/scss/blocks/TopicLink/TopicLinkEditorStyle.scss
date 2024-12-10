@@ -3,13 +3,13 @@
   border-radius: $sp-x;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   position: relative;
   overflow: hidden;
   background-color: var(--grey-900);
   width: 100%;
   max-width: 46rem;
   height: auto;
-  max-height: 7.5rem;
 
   .topic-link-content {
     color: white;
@@ -25,14 +25,18 @@
 
     p {
       margin: 0;
+      width: 90%;
+      @include clamp-text(2);
     }
 
     .chevron-icon:after {
       content: "";
       position: absolute;
-      top: 5px;
+      top: 0;
+      bottom: 0;
       right: -0;
       left: auto;
+      margin: auto;
       pointer-events: none;
       height: 1rem;
       width: 1rem;
@@ -66,7 +70,7 @@
     img {
       width: 100%;
       height: auto;
-      max-height: 7.5rem;
+      max-height: 12rem;
       object-fit: cover;
     }
 
