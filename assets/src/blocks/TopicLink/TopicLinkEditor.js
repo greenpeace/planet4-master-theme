@@ -35,6 +35,7 @@ export const TopicLinkEditor = ({
     imageId,
     imageUrl,
     imageAlt,
+    currentPostCategories,
   } = useSelect(select => {
     const actPageList = [].concat(
       select('core').getEntityRecords('taxonomy', 'category', {
@@ -55,6 +56,7 @@ export const TopicLinkEditor = ({
     const imageId = customImageId;
     const imageUrl = customImageFromId;
     const imageAlt = customImage?.alt_text;
+    const currentPostCategories = select('core/editor').getCurrentPost().categories || [];
 
     return {
       actPageList,
@@ -62,12 +64,34 @@ export const TopicLinkEditor = ({
       imageId,
       imageUrl,
       imageAlt,
+      currentPostCategories,
     };
   }, [categoryId, customTitle, customImageId]);
 
   if (loading || !actPageList.length) {
     return __('Populating block\'s fields…', 'planet4-blocks-backend');
   }
+
+  const actPageOptions = actPageList.map(actPage => ({label: actPage.name, value: actPage.id}));
+
+  let selectedCategory = actPageList.find(actPage => actPage.id === categoryId);
+
+  if (selectedCategory) {
+    if (!categoryId) {
+      setAttributes({categoryId: parseInt(selectedCategory.id)});
+    }
+  } else {
+    const postCategory = actPageList.find(actPage => actPage.id === currentPostCategories[0]);
+    if (postCategory) {
+      selectedCategory = postCategory;
+      setAttributes({categoryId: parseInt(selectedCategory.id)});
+    } else {
+      selectedCategory = actPageList[0];
+      setAttributes({categoryId: parseInt(actPageList[0].id)});
+    }
+  }
+
+  // http://www.planet4.test/wp-admin/post-new.php
 
   const setObjectPosition = () => {
     if (focal_points === undefined) {
@@ -78,21 +102,7 @@ export const TopicLinkEditor = ({
     return `${floatX * 100}% ${floatY * 100}%`;
   };
 
-  const actPageOptions = actPageList.map(actPage => ({label: actPage.name, value: actPage.id}));
-
-  const selectedCategory = actPageList.find(actPage => actPage.id === categoryId);
-
   const renderEditInPlace = () => {
-    if (!selectedCategory) {
-      return (
-        <section className="topic-link-block">
-          <div className="topic-link-content">
-            <p>Select a category from the sidebar to render this block.</p>
-          </div>
-        </section>
-      );
-    }
-
     return (
       <section className="topic-link-block">
         <div className="background-image">
@@ -118,10 +128,7 @@ export const TopicLinkEditor = ({
         <SelectControl
           label={__('Select Category:', 'planet4-blocks-backend')}
           value={categoryId}
-          options={[
-            {label: __('None', 'planet4-blocks-backend'), value: 0},
-            ...actPageOptions,
-          ]}
+          options={[...actPageOptions]}
           onChange={id => setAttributes({categoryId: parseInt(id)})}
         />
         {selectedCategory && (
