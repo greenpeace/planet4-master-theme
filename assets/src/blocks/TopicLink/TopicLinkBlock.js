@@ -24,9 +24,26 @@ export const registerTopicLinkBlock = () => {
     attributes: {
       categoryId: {
         type: 'number',
+        default: '',
+      },
+      categoryLink: {
+        type: 'string',
+        default: '',
+      },
+      selectedCategory: {
+        type: 'string',
+        default: '',
       },
       imageId: {
         type: 'number',
+        default: '',
+      },
+      imageUrl: {
+        type: 'string',
+        default: '',
+      },
+      imageAlt: {
+        type: 'string',
         default: '',
       },
       focal_points: {},
