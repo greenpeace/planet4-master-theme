@@ -14,22 +14,6 @@
     white-space: pre-wrap;
   }
 
-  .enform-extra-header-placeholder & {
-    margin-top: 40px;
-    margin-bottom: 30px;
-
-    .counter-text {
-      text-align: left;
-    }
-
-    .progress-container {
-      _-- {
-        display: block;
-      }
-      height: 20px;
-    }
-  }
-
   &.counter-style-4 {
     display: none;
   }
@@ -71,10 +55,6 @@
     margin-left: -10px;
   }
 
-  .enform-progress-bar _-- {
-    background: var(--gp-green-400);
-  }
-
   .progress-arc {
     _-- {
       max-width: 225px;
@@ -103,9 +83,4 @@
   .counter-text-goal_reached {
     font-weight: bold;
   }
-}
-
-.wp-block-planet4-blocks-counter.is-style-en-forms-bar,
-.wp-block-planet4-blocks-counter .counter-style-en-forms-bar {
-  display: none;
 }
