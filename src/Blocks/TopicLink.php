@@ -30,8 +30,8 @@ class TopicLink extends BaseBlock
     {
         register_block_type(
             self::get_full_block_name(),
-            [ // - Register the block for the editor
-                'editor_script' => 'planet4-blocks', // in the PHP side.
+            [
+                'editor_script' => 'planet4-blocks',
                 'render_callback' => [ self::class, 'hydrate_frontend' ],
                 'attributes' => [
                     'categoryId' => [
