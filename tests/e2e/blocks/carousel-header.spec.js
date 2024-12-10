@@ -23,7 +23,7 @@ test('Create and check carousel header block', async ({page, admin, editor}) => 
   await ctaBtn.click();
   await ctaBtn.fill('Read more 1');
 
-  // // Check if sidebar is not visible
+  // Check if sidebar is not visible
   await editor.openDocumentSettingsSidebar();
 
   await page.locator('[data-type="toggle"]').nth(0).click();
@@ -74,7 +74,6 @@ test('Create and check carousel header block', async ({page, admin, editor}) => 
   expect(paragraphDescription1).toBe('Testing carousel description 1');
   await expect(ctaButton1).toBeVisible();
 
-  await page.waitForSelector('button.carousel-control-next');
   await page.locator('button.carousel-control-next').click();
 
   const h2Title2 = await page.innerHTML('.carousel-captions-wrapper h2>>nth=1');
