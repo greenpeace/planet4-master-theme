@@ -66,26 +66,26 @@ export const TopicLinkEditor = ({
     return __('Populating block\'s fields…', 'planet4-blocks-backend');
   }
 
-  const actPageOptions = actPageList.map(actPage => ({label: actPage.name, value: actPage.id}));
-
-  let selectedCategory = actPageList.find(actPage => actPage.id === categoryId);
-
-  if (selectedCategory) {
-    if (!categoryId) {
-      setAttributes({categoryId: parseInt(selectedCategory.id)});
-    }
-  } else {
+  const setBlockCategory = () => {
     const postCategory = actPageList.find(actPage => actPage.id === currentPostCategories[0]);
-    if (postCategory) {
+
+    const blockCategory = actPageList.find(actPage => actPage.id === categoryId);
+
+    let selectedCategory = null;
+
+    if (blockCategory) {
+      selectedCategory = blockCategory;
+      setAttributes({categoryId: parseInt(blockCategory.id)});
+    } else if (postCategory) {
       selectedCategory = postCategory;
-      setAttributes({categoryId: parseInt(selectedCategory.id)});
+      setAttributes({categoryId: parseInt(postCategory.id)});
     } else {
       selectedCategory = actPageList[0];
       setAttributes({categoryId: parseInt(actPageList[0].id)});
     }
-  }
 
-  // http://www.planet4.test/wp-admin/post-new.php
+    return selectedCategory;
+  };
 
   const setObjectPosition = () => {
     if (focal_points === undefined) {
@@ -95,6 +95,8 @@ export const TopicLinkEditor = ({
     const floatY = parseFloat(focal_points.y).toFixed(2);
     return `${floatX * 100}% ${floatY * 100}%`;
   };
+
+  const selectedCategory = setBlockCategory().name;
 
   const renderEditInPlace = () => {
     return (
@@ -109,7 +111,7 @@ export const TopicLinkEditor = ({
         </div>
         <div className="topic-link-content">
           <p>
-            Learn more about {selectedCategory.name}
+            Learn more about {selectedCategory}
           </p>
         </div>
       </section>
@@ -122,26 +124,24 @@ export const TopicLinkEditor = ({
         <SelectControl
           label={__('Select Category:', 'planet4-blocks-backend')}
           value={categoryId}
-          options={[...actPageOptions]}
+          options={[...actPageList.map(actPage => ({label: actPage.name, value: actPage.id}))]}
           onChange={id => setAttributes({categoryId: parseInt(id)})}
         />
-        {selectedCategory && (
-          <MediaUploadCheck>
-            <MediaUpload
-              title={__('Select Background Image', 'planet4-blocks-backend')}
-              type="image"
-              onSelect={({id}) => setAttributes({imageId: id})}
-              value={imageId}
-              allowedTypes={['image']}
-              render={({open}) => (
-                <Button onClick={open} className="button">
-                  { imageId ? __('Change Background Image', 'planet4-blocks-backend') : __('Select Background Image', 'planet4-blocks-backend') }
-                </Button>
-              )}
-            />
-          </MediaUploadCheck>
-        )}
-        {selectedCategory && imageUrl && (
+        <MediaUploadCheck>
+          <MediaUpload
+            title={__('Select Background Image', 'planet4-blocks-backend')}
+            type="image"
+            onSelect={({id}) => setAttributes({imageId: id})}
+            value={imageId}
+            allowedTypes={['image']}
+            render={({open}) => (
+              <Button onClick={open} className="button">
+                { imageId ? __('Change Background Image', 'planet4-blocks-backend') : __('Select Background Image', 'planet4-blocks-backend') }
+              </Button>
+            )}
+          />
+        </MediaUploadCheck>
+        {imageUrl && (
           <div className="wp-block-master-theme-gallery__FocalPointPicker">
             <strong className="components-base-control__help">
               {__('Select image focal point', 'planet4-blocks-backend')}
@@ -170,10 +170,6 @@ export const TopicLinkEditor = ({
   );
 
   const addBlockControls = () => {
-    if (!selectedCategory) {
-      return;
-    }
-
     return (
       <BlockControls>
         <ToolbarGroup>
