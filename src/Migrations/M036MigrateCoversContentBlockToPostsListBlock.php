@@ -307,7 +307,7 @@ class M036MigrateCoversContentBlockToPostsListBlock extends MigrationScript
             [
                 Utils\Functions::create_block_paragraph(
                     ['placeholder' => __('No posts found. (This default text can be edited)', 'planet4-blocks')],
-                    ''
+                    __('No posts found.', 'planet4-blocks'),
                 ),
             ],
             [],
