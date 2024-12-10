@@ -1,6 +1,5 @@
 .custom-control {
   &:has(> input[type="checkbox"]) {
-    position: relative;
     @include custom-checkbox;
   }
 
