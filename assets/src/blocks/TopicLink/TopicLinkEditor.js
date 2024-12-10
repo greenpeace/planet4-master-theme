@@ -113,6 +113,7 @@ export const TopicLinkEditor = ({
           <p>
             Learn more about {selectedCategory}
           </p>
+          <div className="chevron-icon"></div>
         </div>
       </section>
     );

@@ -19,6 +19,37 @@
     line-height: $sp-3;
     position: relative;
     z-index: 1;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+    p {
+      margin: 0;
+    }
+
+    .chevron-icon:after {
+      content: "";
+      position: absolute;
+      top: 5px;
+      right: 0;
+      left: auto;
+      pointer-events: none;
+      height: 1rem;
+      width: 1rem;
+      display: inline-block;
+      transition: transform 300ms linear;
+      transform: rotate(0deg);
+      mask-image: url("../../images/chevron.svg");
+      mask-repeat: no-repeat;
+      mask-size: contain;
+      background-repeat: no-repeat;
+      background-color: currentColor;
+
+      html[dir="rtl"] & {
+        right: auto;
+        left: 16px;
+      }
+    }
   }
 
   .background-image {
@@ -47,9 +78,14 @@
       background-color: var(--grey-900);
       opacity: 0.5;
     }
+  }
 
-    &:hover {
+  &:hover {
+    .background-image {
       transform: scale(1.1);
+    }
+    .chevron-icon:after {
+      transform: translateX(10px);
     }
   }
 }
