@@ -46,7 +46,10 @@ export const registerTopicLinkBlock = () => {
         type: 'string',
         default: '',
       },
-      focal_points: {},
+      focal_points: {
+        type: 'string',
+        default: '50% 50%',
+      },
     },
     edit: TopicLinkEditor,
     save() {

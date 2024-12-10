@@ -86,13 +86,18 @@ export const TopicLinkEditor = ({
     return selectedCategory;
   };
 
-  const setObjectPosition = () => {
+  const setObjectPosition = focalPoints => {
     if (focal_points === undefined) {
       return '50% 50%';
     }
-    const floatX = parseFloat(focal_points.x).toFixed(2);
-    const floatY = parseFloat(focal_points.y).toFixed(2);
-    return `${floatX * 100}% ${floatY * 100}%`;
+    const floatX = parseFloat(focalPoints.x).toFixed(2);
+    const floatY = parseFloat(focalPoints.y).toFixed(2);
+    setAttributes({focal_points: `${floatX * 100}% ${floatY * 100}%`});
+  };
+
+  const setFocalPoint = focalPoints => {
+    const [x, y] = focalPoints.split(' ').map(value => parseFloat(value) / 100);
+    return {x, y};
   };
 
   const selectedCategory = setBlockCategory();
@@ -110,7 +115,7 @@ export const TopicLinkEditor = ({
           <img
             src={imageUrl}
             alt={imageAlt}
-            style={{objectPosition: setObjectPosition()}}
+            style={{objectPosition: focal_points}}
           />
         )}
       </div>
@@ -155,8 +160,8 @@ export const TopicLinkEditor = ({
             <FocalPointPicker
               url={imageUrl}
               dimensions={{width: 400, height: 100}}
-              value={focal_points}
-              onChange={value => setAttributes({focal_points: value})}
+              value={setFocalPoint(focal_points)}
+              onChange={value => setObjectPosition(value)}
             />
           </div>
         )}
