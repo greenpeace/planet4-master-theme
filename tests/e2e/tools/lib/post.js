@@ -1,3 +1,5 @@
+import {expect} from './test-utils';
+
 /**
  * Publishes a post using the provided editor and returns the URL of the published post.
  *
@@ -73,7 +75,15 @@ async function createPostWithFeaturedImage({page, admin, editor}, params) {
   await page.waitForSelector('li[aria-label="OCEANS-GP0STOM6C"]');
   await thumbnail.click();
 
+  // Get the file url
+  const fileUrl = await page.locator('#attachment-details-copy-link').inputValue();
+  // Remove the file extension
+  const fileName = fileUrl.slice(0, fileUrl.length - 4).split('/');
   await page.getByRole('button', {name: 'Set featured image'}).click();
+
+  // check if the featured image is the correctly assigned
+  expect(await page.locator('.editor-post-featured-image__preview-image').getAttribute('src'))
+    .toContain(fileName[fileName.length - 1]);
 
   return newPost;
 }
