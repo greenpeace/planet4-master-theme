@@ -17,6 +17,15 @@ const {
 } = wp.components;
 const {__} = wp.i18n;
 
+/**
+ * TopicLinkEditor component for managing the Topic Link block in the editor.
+ *
+ * @param {Object} props - Component properties.
+ * @param {Object} props.attributes - Block attributes.
+ * @param {boolean} props.isSelected - Indicates if the block is selected.
+ * @param {Function} props.setAttributes - Function to update block attributes.
+ * @return {JSX.Element} The Topic Link Editor component.
+ */
 export const TopicLinkEditor = ({
   attributes,
   isSelected,
@@ -64,6 +73,10 @@ export const TopicLinkEditor = ({
     return __('Populating block\'s fields…', 'planet4-blocks-backend');
   }
 
+  /**
+   * Sets the block's category based on available categories or current post categories.
+   * @return {Object} The selected category object.
+   */
   const setBlockCategory = () => {
     const postCategory = categoriesList.find(category => category.id === currentPostCategories[0]);
     const blockCategory = categoriesList.find(category => category.id === categoryId);
@@ -86,6 +99,11 @@ export const TopicLinkEditor = ({
     return selectedCategory;
   };
 
+  /**
+   * Sets the object's focal position as a CSS-compatible value.
+   * @param {Object} focalPoints - Object containing x and y focal point values.
+   * @return {string} A default focal point.
+   */
   const setObjectPosition = focalPoints => {
     if (focal_points === undefined) {
       return '50% 50%';
@@ -95,6 +113,11 @@ export const TopicLinkEditor = ({
     setAttributes({focal_points: `${floatX * 100}% ${floatY * 100}%`});
   };
 
+  /**
+   * Converts a focal point string into an object with x and y properties.
+   * @param {string} focalPoints - The focal points string (e.g., "50% 50%").
+   * @return {Object} An object with x and y properties as decimal values.
+   */
   const setFocalPoint = focalPoints => {
     const [x, y] = focalPoints.split(' ').map(value => parseFloat(value) / 100);
     return {x, y};
@@ -108,6 +131,10 @@ export const TopicLinkEditor = ({
     imageAlt: imageAlt || '',
   });
 
+  /**
+   * Renders the block preview in the editor.
+   * @return {JSX.Element} The block preview element.
+   */
   const renderEditInPlace = () => (
     <section className="topic-link-block">
       <div className="background-image">
@@ -126,6 +153,10 @@ export const TopicLinkEditor = ({
     </section>
   );
 
+  /**
+   * Renders the Inspector Controls for the block.
+   * @return {JSX.Element} The Inspector Controls component.
+   */
   const addInspectorControls = () => (
     <InspectorControls>
       <PanelBody title={__('Settings', 'planet4-blocks-backend')}>
@@ -177,6 +208,10 @@ export const TopicLinkEditor = ({
     </InspectorControls>
   );
 
+  /**
+   * Renders the Block Controls toolbar.
+   * @return {JSX.Element} The Block Controls component.
+   */
   const addBlockControls = () => {
     return (
       <BlockControls>
