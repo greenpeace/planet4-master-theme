@@ -30,7 +30,6 @@ export const TopicLinkEditor = ({
   } = attributes;
 
   const {
-    loading,
     actPageList,
     imageId,
     imageUrl,
@@ -44,11 +43,6 @@ export const TopicLinkEditor = ({
       }) || []
     );
 
-    const actPage = actPageList.find(actPageFound => categoryId === actPageFound.id);
-
-    if (categoryId && !actPage) {
-      return {loading: true};
-    }
     const customImage = customImageId && select('core').getMedia(customImageId);
     const customImageFromId = customImage?.source_url;
 
@@ -68,7 +62,7 @@ export const TopicLinkEditor = ({
     };
   }, [categoryId, customTitle, customImageId]);
 
-  if (loading || !actPageList.length) {
+  if (!actPageList.length) {
     return __('Populating block\'s fields…', 'planet4-blocks-backend');
   }
 
