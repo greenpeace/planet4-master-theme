@@ -58,7 +58,10 @@ class TopicLink extends BaseBlock
                         'type' => 'string',
                         'default' => '',
                     ],
-                    'focal_points' => [],
+                    'focal_points' => [
+                        'type' => 'string',
+                        'default' => '',
+                    ],
                 ],
             ]
         );

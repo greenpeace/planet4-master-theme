@@ -5,15 +5,6 @@ export const TopicLinkFrontend = ({
   categoryLink,
   focal_points,
 }) => {
-  const setObjectPosition = () => {
-    if (focal_points === undefined) {
-      return '50% 50%';
-    }
-    const floatX = parseFloat(focal_points.x).toFixed(2);
-    const floatY = parseFloat(focal_points.y).toFixed(2);
-    return `${floatX * 100}% ${floatY * 100}%`;
-  };
-
   return (
     <section className="topic-link-block">
       <a href={categoryLink} target="_self">
@@ -22,7 +13,7 @@ export const TopicLinkFrontend = ({
               <img
                 src={imageUrl}
                 alt={imageAlt}
-                style={{objectPosition: setObjectPosition()}}
+                style={{objectPosition: focal_points}}
               />}
         </div>
         <div className="topic-link-content">
