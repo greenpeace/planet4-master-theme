@@ -30,13 +30,13 @@ export const TopicLinkEditor = ({
   } = attributes;
 
   const {
-    actPageList,
+    categoriesList,
     imageId,
     imageUrl,
     imageAlt,
     currentPostCategories,
   } = useSelect(select => {
-    const actPageList = [].concat(
+    const categoriesList = [].concat(
       select('core').getEntityRecords('taxonomy', 'category', {
         hide_empty: true,
         per_page: -1,
@@ -52,7 +52,7 @@ export const TopicLinkEditor = ({
     const currentPostCategories = select('core/editor').getCurrentPost().categories || [];
 
     return {
-      actPageList,
+      categoriesList,
       imageId,
       imageUrl,
       imageAlt,
@@ -60,13 +60,13 @@ export const TopicLinkEditor = ({
     };
   }, [categoryId, customImageId, customImageFromId]);
 
-  if (!actPageList.length) {
+  if (!categoriesList.length) {
     return __('Populating block\'s fields…', 'planet4-blocks-backend');
   }
 
   const setBlockCategory = () => {
-    const postCategory = actPageList.find(actPage => actPage.id === currentPostCategories[0]);
-    const blockCategory = actPageList.find(actPage => actPage.id === categoryId);
+    const postCategory = categoriesList.find(category => category.id === currentPostCategories[0]);
+    const blockCategory = categoriesList.find(category => category.id === categoryId);
 
     let selectedCategory = null;
 
@@ -77,8 +77,8 @@ export const TopicLinkEditor = ({
       selectedCategory = postCategory;
       setAttributes({categoryId: parseInt(postCategory.id)});
     } else {
-      selectedCategory = actPageList[0];
-      setAttributes({categoryId: parseInt(actPageList[0].id)});
+      selectedCategory = categoriesList[0];
+      setAttributes({categoryId: parseInt(categoriesList[0].id)});
     }
 
     setAttributes({categoryLink: selectedCategory?.link || ''});
@@ -132,7 +132,7 @@ export const TopicLinkEditor = ({
         <SelectControl
           label={__('Select Category:', 'planet4-blocks-backend')}
           value={categoryId}
-          options={[...actPageList.map(actPage => ({label: actPage.name, value: actPage.id}))]}
+          options={[...categoriesList.map(category => ({label: category.name, value: category.id}))]}
           onChange={id => setAttributes({categoryId: parseInt(id)})}
         />
         <MediaUploadCheck>
