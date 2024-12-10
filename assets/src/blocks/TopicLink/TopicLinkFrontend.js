@@ -2,6 +2,7 @@ export const TopicLinkFrontend = ({
   imageUrl,
   imageAlt,
   selectedCategory,
+  categoryLink,
   focal_points,
 }) => {
   const setObjectPosition = () => {
@@ -15,20 +16,22 @@ export const TopicLinkFrontend = ({
 
   return (
     <section className="topic-link-block">
-      <div className="background-image">
-        {imageUrl &&
-            <img
-              src={imageUrl}
-              alt={imageAlt}
-              style={{objectPosition: setObjectPosition()}}
-            />}
-      </div>
-      <div className="topic-link-content">
-        <p>
-            Learn more about {selectedCategory}
-        </p>
-        <div className="chevron-icon"></div>
-      </div>
+      <a href={categoryLink} target="_self">
+        <div className="background-image">
+          {imageUrl &&
+              <img
+                src={imageUrl}
+                alt={imageAlt}
+                style={{objectPosition: setObjectPosition()}}
+              />}
+        </div>
+        <div className="topic-link-content">
+          <p>
+              Learn more about {selectedCategory}
+          </p>
+          <div className="chevron-icon"></div>
+        </div>
+      </a>
     </section>
   );
 };

@@ -25,8 +25,8 @@ export const TopicLinkEditor = ({
   const {
     categoryId,
     focal_points,
-    title: customTitle,
     imageId: customImageId,
+    imageUrl: customImageFromId,
   } = attributes;
 
   const {
@@ -46,7 +46,6 @@ export const TopicLinkEditor = ({
     const customImage = customImageId && select('core').getMedia(customImageId);
     const customImageFromId = customImage?.source_url;
 
-    const title = customTitle;
     const imageId = customImageId;
     const imageUrl = customImageFromId;
     const imageAlt = customImage?.alt_text;
@@ -54,13 +53,12 @@ export const TopicLinkEditor = ({
 
     return {
       actPageList,
-      title,
       imageId,
       imageUrl,
       imageAlt,
       currentPostCategories,
     };
-  }, [categoryId, customTitle, customImageId]);
+  }, [categoryId, customImageId, customImageFromId]);
 
   if (!actPageList.length) {
     return __('Populating block\'s fields…', 'planet4-blocks-backend');
@@ -68,7 +66,6 @@ export const TopicLinkEditor = ({
 
   const setBlockCategory = () => {
     const postCategory = actPageList.find(actPage => actPage.id === currentPostCategories[0]);
-
     const blockCategory = actPageList.find(actPage => actPage.id === categoryId);
 
     let selectedCategory = null;
@@ -84,6 +81,8 @@ export const TopicLinkEditor = ({
       setAttributes({categoryId: parseInt(actPageList[0].id)});
     }
 
+    setAttributes({categoryLink: selectedCategory?.link || ''});
+    setAttributes({selectedCategory: selectedCategory?.name || ''});
     return selectedCategory;
   };
 
@@ -96,28 +95,31 @@ export const TopicLinkEditor = ({
     return `${floatX * 100}% ${floatY * 100}%`;
   };
 
-  const selectedCategory = setBlockCategory().name;
+  const selectedCategory = setBlockCategory();
 
-  const renderEditInPlace = () => {
-    return (
-      <section className="topic-link-block">
-        <div className="background-image">
-          {imageUrl &&
-            <img
-              src={imageUrl}
-              alt={imageAlt}
-              style={{objectPosition: setObjectPosition()}}
-            />}
-        </div>
-        <div className="topic-link-content">
-          <p>
-            Learn more about {selectedCategory}
-          </p>
-          <div className="chevron-icon"></div>
-        </div>
-      </section>
-    );
-  };
+  // Update attributes with image data for frontend
+  setAttributes({
+    imageUrl: imageUrl || '',
+    imageAlt: imageAlt || '',
+  });
+
+  const renderEditInPlace = () => (
+    <section className="topic-link-block">
+      <div className="background-image">
+        {imageUrl && (
+          <img
+            src={imageUrl}
+            alt={imageAlt}
+            style={{objectPosition: setObjectPosition()}}
+          />
+        )}
+      </div>
+      <div className="topic-link-content">
+        <p>Learn more about {selectedCategory?.name || ''}</p>
+        <div className="chevron-icon"></div>
+      </div>
+    </section>
+  );
 
   const addInspectorControls = () => (
     <InspectorControls>
@@ -137,7 +139,7 @@ export const TopicLinkEditor = ({
             allowedTypes={['image']}
             render={({open}) => (
               <Button onClick={open} className="button">
-                { imageId ? __('Change Background Image', 'planet4-blocks-backend') : __('Select Background Image', 'planet4-blocks-backend') }
+                {imageId ? __('Change Background Image', 'planet4-blocks-backend') : __('Select Background Image', 'planet4-blocks-backend')}
               </Button>
             )}
           />
