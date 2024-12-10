@@ -33,33 +33,15 @@ class TopicLink extends BaseBlock
             [ // - Register the block for the editor
                 'editor_script' => 'planet4-blocks', // in the PHP side.
                 'attributes' => [
-                    'title' => [
-                        'type' => 'string',
+                    'categoryId' => [
+                        'type' => 'number',
                         'default' => '',
                     ],
-                    'description' => [
-                        'type' => 'string',
+                    'imageId' => [
+                        'type' => 'number',
                         'default' => '',
                     ],
-                    'completed' => [
-                        'type' => 'integer',
-                        'default' => '',
-                    ],
-                    'completed_api' => [
-                        'type' => 'string',
-                    ],
-                    'target' => [
-                        'type' => 'integer',
-                        'default' => '',
-                    ],
-                    'text' => [
-                        'type' => 'text',
-                        'default' => '',
-                    ],
-                    'style' => [ // Needed to convert existing blocks.
-                        'type' => 'string',
-                        'default' => '',
-                    ],
+                    'focal_points' => [],
                 ],
             ]
         );
