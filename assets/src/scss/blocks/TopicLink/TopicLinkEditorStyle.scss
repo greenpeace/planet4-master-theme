@@ -31,7 +31,7 @@
       content: "";
       position: absolute;
       top: 5px;
-      right: 0;
+      right: -0;
       left: auto;
       pointer-events: none;
       height: 1rem;
@@ -47,7 +47,8 @@
 
       html[dir="rtl"] & {
         right: auto;
-        left: 16px;
+        left: 0;
+        transform: rotate(180deg);
       }
     }
   }
@@ -86,6 +87,10 @@
     }
     .chevron-icon:after {
       transform: translateX(10px);
+
+      html[dir="rtl"] & {
+        transform: translateX(-10px) rotate(180deg);
+      }
     }
   }
 }
