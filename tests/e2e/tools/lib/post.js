@@ -1,5 +1,3 @@
-import {expect} from '@playwright/test';
-
 /**
  * Publishes a post using the provided editor and returns the URL of the published post.
  *
@@ -73,7 +71,6 @@ async function createPostWithFeaturedImage({page, admin, editor}, params) {
 
   const thumbnail = await page.locator('li[aria-label="OCEANS-GP0STOM6C"]').nth(0);
   await page.waitForSelector('li[aria-label="OCEANS-GP0STOM6C"]');
-  expect(thumbnail).toBeVisible();
   await thumbnail.click();
 
   await page.getByRole('button', {name: 'Set featured image'}).click();
