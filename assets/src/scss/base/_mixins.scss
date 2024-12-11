@@ -320,6 +320,8 @@ $nested-comment-left-margin: 50px;
 
 // Apply custom layout to checkboxes
 @mixin custom-checkbox {
+  position: relative;
+
   & > input[type="checkbox"] {
     position: absolute;
     pointer-events: none;
