@@ -1,12 +1,11 @@
+import {searchAndInsertBlock} from './editor.js';
 import {expect} from './test-utils.js';
 
 const TEST_LINKS = ['/act', '/explore', '/'];
 
 async function addColumnsBlock(page, editor, style) {
   // Add Columns block.
-  await editor.canvas.getByRole('button', {name: 'Add default block'}).click();
-  await page.keyboard.type('/planet-4-columns');
-  await page.getByRole('option', {name: 'Planet 4 Columns'}).click();
+  await searchAndInsertBlock({page}, 'Planet 4 Columns', 'planet4-blocks-columns');
 
   // Select the style if needed.
   if (style) {
@@ -15,9 +14,10 @@ async function addColumnsBlock(page, editor, style) {
   }
 
   // Fill in the Columns links.
-  await page.locator('input[placeholder="Enter link for column 1"]').fill(TEST_LINKS[0]);
-  await page.locator('input[placeholder="Enter link for column 2"]').fill(TEST_LINKS[1]);
-  await page.locator('input[placeholder="Enter link for column 3"]').fill(TEST_LINKS[2]);
+  for (const index in TEST_LINKS) {
+    await page.locator(`input[placeholder="Enter link for column ${parseInt(index) + 1}"]`)
+      .fill(TEST_LINKS[index]);
+  }
 
   // Fill in the other fields.
   const backendColumns = await page.locator('.column-wrap').all();
@@ -29,10 +29,11 @@ async function addColumnsBlock(page, editor, style) {
     ).fill(`${['Images', 'Icons'].includes(style) ? 'Link' : 'Button'} ${index + 1}`);
 
     if (style === 'Images' || style === 'Icons') {
-      await column.locator('.columns-image-placeholder').hover({noWaitAfter: true});
+      await column.locator('.image-placeholder-container').hover({noWaitAfter: true});
       await column.locator('.dashicons-plus-alt2').click();
+
       // Select image from media library modal.
-      const imageModal = await editor.canvas.getByLabel(/Select or Upload Media/);
+      const imageModal = await page.getByLabel(/Select or Upload Media/);
       await imageModal.getByRole('tab', {name: 'Media Library'}).click();
       await imageModal.getByRole('tabpanel', {name: 'Media Library'}).locator(`[data-id="${style === 'Images' ? 357 : 318}"]`).click();
       await imageModal.getByRole('button', {name: 'Select', exact: true}).click();

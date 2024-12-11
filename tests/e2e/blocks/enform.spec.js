@@ -191,12 +191,12 @@ test.describe('create, use and submit EN Form', () => {
 });
 
 async function createPageWithENForm(page, admin, editor, style) {
-  await createPostWithFeaturedImage({admin, editor}, {
+  await createPostWithFeaturedImage({page, admin, editor}, {
     title: 'Test page with enform (style)',
     postType: 'page',
   });
 
-  await editor.canvas.getByRole('button', {name: 'Add default block'}).click();
+  await page.locator('button[aria-label="Add block"]').click();
   await page.keyboard.type('/enform');
   await page.getByRole('option', {name: 'EN Form'}).click();
   await page.waitForSelector('.block.enform-wrap');

@@ -5,7 +5,7 @@ import {publishPostAndVisit, createPostWithFeaturedImage} from '../tools/lib/pos
 test.useAdminLoggedIn();
 
 test('Test Columns block with No Image style', async ({page, editor, admin}) => {
-  await createPostWithFeaturedImage({admin, editor}, {title: 'Test Columns block', postType: 'page'});
+  await createPostWithFeaturedImage({page, admin, editor}, {title: 'Test Columns block', postType: 'page'});
 
   // Add Columns block.
   await addColumnsBlock(page, editor);
