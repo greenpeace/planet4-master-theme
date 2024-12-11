@@ -106,9 +106,9 @@ class Post extends TimberPost
      */
     public function is_get_informed_page(): bool
     {
-        $act_page_id = planet4_get_option('get_informed_page');
+        $get_informed_page_id = planet4_get_option('get_informed_page');
 
-        return absint($act_page_id) === $this->id;
+        return absint($get_informed_page_id) === $this->id;
     }
 
     /**
@@ -117,9 +117,9 @@ class Post extends TimberPost
      */
     public function is_take_action_page(): bool
     {
-        $act_page_id = planet4_get_option('take_action_page');
+        $take_action_page_id = planet4_get_option('take_action_page');
 
-        return absint($act_page_id) === $this->id;
+        return absint($take_action_page_id) === $this->id;
     }
 
     /**
@@ -128,9 +128,9 @@ class Post extends TimberPost
      */
     public function is_about_us_page(): bool
     {
-        $act_page_id = planet4_get_option('about_us_page');
+        $about_us_page_id = planet4_get_option('about_us_page');
 
-        return absint($act_page_id) === $this->id;
+        return absint($about_us_page_id) === $this->id;
     }
 
     /**
@@ -163,7 +163,6 @@ class Post extends TimberPost
     public function set_issues_links(): void
     {
         // Retrieve P4 settings in order to check that we add only categories that are children of the Issues category.
-        $options = get_option('planet4_options');
         $categories = get_the_category($this->ID);
 
         $this->issues_nav_data = array_map(

@@ -172,24 +172,25 @@ class MasterBlocks
      */
     private function get_p4_options(): array
     {
-        $option_values = get_option('planet4_options');
         $is_new_ia = !empty(planet4_get_option('new_ia'));
+        $take_action_page = planet4_get_option('take_action_page', '');
+        $act_page = planet4_get_option('act_page', '');
 
         $cookies_default_copy = [
-            'necessary_cookies_name' => $option_values['necessary_cookies_name'] ?? '',
-            'necessary_cookies_description' => $option_values['necessary_cookies_description'] ?? '',
-            'analytical_cookies_name' => $option_values['analytical_cookies_name'] ?? '',
-            'analytical_cookies_description' => $option_values['analytical_cookies_description'] ?? '',
-            'all_cookies_name' => $option_values['all_cookies_name'] ?? '',
-            'all_cookies_description' => $option_values['all_cookies_description'] ?? '',
+            'necessary_cookies_name' => planet4_get_option('necessary_cookies_name', ''),
+            'necessary_cookies_description' => planet4_get_option('necessary_cookies_description', ''),
+            'analytical_cookies_name' => planet4_get_option('analytical_cookies_name', ''),
+            'analytical_cookies_description' => planet4_get_option('analytical_cookies_description', ''),
+            'all_cookies_name' => planet4_get_option('all_cookies_name', ''),
+            'all_cookies_description' => planet4_get_option('all_cookies_description', ''),
         ];
 
         return [
-            'enable_analytical_cookies' => $option_values['enable_analytical_cookies'] ?? '',
-            'enable_google_consent_mode' => $option_values['enable_google_consent_mode'] ?? '',
+            'enable_analytical_cookies' => planet4_get_option('enable_analytical_cookies', ''),
+            'enable_google_consent_mode' => planet4_get_option('enable_google_consent_mode', ''),
             'cookies_default_copy' => $cookies_default_copy,
-            'take_action_covers_button_text' => $option_values['take_action_covers_button_text'] ?? '',
-            'take_action_page' => $is_new_ia ? $option_values['take_action_page'] : $option_values['act_page'],
+            'take_action_covers_button_text' => planet4_get_option('take_action_covers_button_text', ''),
+            'take_action_page' => $is_new_ia ? $take_action_page : $act_page,
             'new_ia' => $is_new_ia,
         ];
     }
