@@ -49,9 +49,9 @@ async function publishPostAndVisit({page, editor}) {
 /**
  * Creates a new post with a featured image set.
  *
- * @param {Object} p - Parameters for creating the post and setting the featured image.
- * @param {Object} p.page - The page object used to interact with the editor.
- * @param {Object} p.admin - The admin object used to create a new post.
+ * @param {Object} p        - Parameters for creating the post and setting the featured image.
+ * @param {Object} p.page   - The page object used to interact with the editor.
+ * @param {Object} p.admin  - The admin object used to create a new post.
  * @param {Object} p.editor - The editor object used to interact with the editor.
  * @param {Object} params   - Additional parameters for creating the post.
  * @return {Promise<Object>} The newly created post.

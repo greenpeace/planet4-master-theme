@@ -8,8 +8,9 @@ const TEST_EMAIL = 'jon.snow@gmail.com';
  * Toggle the Gravity Forms rest API to use it for tests.
  * It is disabled by default.
  *
- * @param {Object} page     - The page object for interacting with the browser.
- * @param {boolean} enabled - Whether it should be enabled or disabled.
+ * @param {Object}  params      - Parameters for publishing the post.
+ * @param {Object}  params.page - The page object for interacting with the browser.
+ * @param {boolean} enabled     - Whether it should be enabled or disabled.
  */
 const toggleRestAPI = async ({page}, enabled) => {
   await page.goto('./wp-admin/admin.php?page=gf_settings&subview=gravityformswebapi');
@@ -27,8 +28,10 @@ const toggleRestAPI = async ({page}, enabled) => {
 /**
  * Create a new Gravity Forms form.
  *
- * @param {Object} page  - The page object for interacting with the browser.
- * @param {Object} title - The form title.
+ * @param {Object} params      - Parameters for publishing the post.
+ * @param {Object} params.page - The page object for interacting with the browser.
+ * @param {Object} form        - Form parameters.
+ * @param {Object} form.title  - The form title.
  */
 const createForm = async ({page}, {title}) => {
   const response = await page.request.post('./wp-json/gf/v2/forms', {
@@ -65,8 +68,9 @@ const createForm = async ({page}, {title}) => {
 /**
  * Fill and submit a Gravity Forms form.
  *
- * @param {Object} page   - The page object for interacting with the browser.
- * @param {number} formId - The form id.
+ * @param {Object} params      - Parameters for publishing the post.
+ * @param {Object} params.page - The page object for interacting with the browser.
+ * @param {number} formId      - The form id.
  */
 const fillAndSubmitForm = async ({page}, formId) => {
   const form = page.locator(`#gform_${formId}`);
@@ -80,8 +84,9 @@ const fillAndSubmitForm = async ({page}, formId) => {
 /**
  * Check the latest entry for a Gravity Forms form.
  *
- * @param {Object} page   - The page object for interacting with the browser.
- * @param {number} formId - The form id.
+ * @param {Object} params      - Parameters for publishing the post.
+ * @param {Object} params.page - The page object for interacting with the browser.
+ * @param {number} formId      - The form id.
  */
 const checkEntry = async ({page}, formId) => {
   await page.goto(`./wp-admin/admin.php?page=gf_entries&id=${formId}`);
@@ -95,9 +100,10 @@ const checkEntry = async ({page}, formId) => {
 /**
  * Change the confirmation type for a Gravity Forms form.
  *
- * @param {Object} page   - The page object for interacting with the browser.
- * @param {number} formId - The form id.
- * @param {string} label  - The confirmation type label.
+ * @param {Object} params      - Parameters for publishing the post.
+ * @param {Object} params.page - The page object for interacting with the browser.
+ * @param {number} formId      - The form id.
+ * @param {string} label       - The confirmation type label.
  */
 const changeConfirmationType = async ({page}, formId, label) => {
   await page.goto(`./wp-admin/admin.php?page=gf_edit_forms&view=settings&subview=confirmation&id=${formId}`);
