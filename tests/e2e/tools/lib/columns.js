@@ -14,9 +14,10 @@ async function addColumnsBlock(page, editor, style) {
   }
 
   // Fill in the Columns links.
-  await page.locator('input[placeholder="Enter link for column 1"]').fill(TEST_LINKS[0]);
-  await page.locator('input[placeholder="Enter link for column 2"]').fill(TEST_LINKS[1]);
-  await page.locator('input[placeholder="Enter link for column 3"]').fill(TEST_LINKS[2]);
+  for (const index in TEST_LINKS) {
+    await page.locator(`input[placeholder="Enter link for column ${parseInt(index) + 1}"]`)
+      .fill(TEST_LINKS[index]);
+  }
 
   // Fill in the other fields.
   const backendColumns = await page.locator('.column-wrap').all();

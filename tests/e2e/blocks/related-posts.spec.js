@@ -4,8 +4,8 @@ import {addCategory, addTag, addPostType, removeAllPostTypes, searchAndInsertBlo
 
 test.useAdminLoggedIn();
 
-test('Test Related Articles block', async ({page, admin, editor}) => {
-  await createPostWithFeaturedImage({page, admin, editor}, {title: 'Test post for Related articles'});
+test('Test Related Posts block', async ({page, admin, editor}) => {
+  await createPostWithFeaturedImage({page, admin, editor}, {title: 'Test post for Related Posts'});
 
   await searchAndInsertBlock({page}, 'paragraph');
   await (await page.waitForSelector('p[data-type="core/paragraph"]')).click();
@@ -17,7 +17,7 @@ test('Test Related Articles block', async ({page, admin, editor}) => {
   await addPostType({page, editor}, 'Press Release');
   await addTag({page, editor}, 'Renewables');
 
-  // Related articles enabled
+  // Related posts enabled
   await page.locator('.edit-post-layout__metaboxes').getByRole('combobox', {name: 'Include Articles in Post'}).selectOption('Yes');
 
   const postUrl = await publishPost({page, editor});
@@ -30,7 +30,7 @@ test('Test Related Articles block', async ({page, admin, editor}) => {
   relatedSection.locator('.wp-block-post-template');
   await expect(relatedSection.locator('.wp-block-post-template')).not.toHaveCount(0);
 
-  // Related articles disabled
+  // Related posts disabled
   await page.goto(editUrl);
   await page.locator('.edit-post-layout__metaboxes').getByRole('combobox', {name: 'Include Articles in Post'}).selectOption('No');
   await updatePost({page});
