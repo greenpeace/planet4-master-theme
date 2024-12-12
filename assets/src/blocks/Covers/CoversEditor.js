@@ -1,10 +1,3 @@
-import {
-  SelectControl,
-  PanelBody,
-  RadioControl,
-  TextControl,
-  Tooltip,
-} from '@wordpress/components';
 import {useEffect} from '@wordpress/element';
 
 import {InspectorControls, RichText} from '@wordpress/block-editor';
@@ -17,6 +10,13 @@ import {useCovers} from './useCovers';
 import {getStyleFromClassName} from '../../functions/getStyleFromClassName';
 import {CoversCarouselLayout} from './CoversCarouselLayout';
 
+const {
+  SelectControl,
+  PanelBody,
+  RadioControl,
+  TextControl,
+  Tooltip,
+} = wp.components;
 const {__} = wp.i18n;
 
 const renderEdit = (attributes, toAttribute, setAttributes) => {
