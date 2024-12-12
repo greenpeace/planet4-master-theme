@@ -1,12 +1,13 @@
 .p4-query-loop {
   & > .wp-block-group {
-    position: relative;
     padding: 0 !important;
+    width: 100%;
   }
 
   &.is-custom-layout-carousel {
     display: flex;
     flex-direction: column;
+    position: relative;
 
     & > p {
       margin: 0 0 48px 0 !important;
