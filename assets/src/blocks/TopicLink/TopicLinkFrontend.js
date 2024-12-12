@@ -6,7 +6,7 @@ const {__} = wp.i18n;
  * @param {Object} props - Component properties.
  * @param {string} props.imageUrl - The URL of the background image.
  * @param {string} props.imageAlt - The alt text for the background image.
- * @param {string} props.selectedCategory - The name of the selected category.
+ * @param {string} props.categoryName - The name of the selected category.
  * @param {string} props.categoryLink - The URL link to the selected category.
  * @param {string} props.focal_points - CSS-compatible object position string (e.g., "50% 50%").
  * @return {JSX.Element} The Topic Link Frontend component.
@@ -14,7 +14,7 @@ const {__} = wp.i18n;
 export const TopicLinkFrontend = ({
   imageUrl,
   imageAlt,
-  selectedCategory,
+  categoryName,
   categoryLink,
   focal_points,
 }) => {
@@ -31,7 +31,7 @@ export const TopicLinkFrontend = ({
           )}
         </div>
         <div className="topic-link-content">
-          <p>{__('Learn more about', 'planet4-blocks-backend')} {selectedCategory}</p>
+          <p>{__('Learn more about', 'planet4-blocks-backend')} {categoryName}</p>
         </div>
       </a>
     </section>

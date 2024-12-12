@@ -80,22 +80,22 @@ export const TopicLinkEditor = ({
     const postCategory = categoriesList.find(category => category.id === currentPostCategories[0]);
     const blockCategory = categoriesList.find(category => category.id === categoryId);
 
-    let selectedCategory = null;
+    let categoryName = null;
 
     if (blockCategory) {
-      selectedCategory = blockCategory;
+      categoryName = blockCategory;
       setAttributes({categoryId: parseInt(blockCategory.id)});
     } else if (postCategory) {
-      selectedCategory = postCategory;
+      categoryName = postCategory;
       setAttributes({categoryId: parseInt(postCategory.id)});
     } else {
-      selectedCategory = categoriesList[0];
+      categoryName = categoriesList[0];
       setAttributes({categoryId: parseInt(categoriesList[0].id)});
     }
 
-    setAttributes({categoryLink: selectedCategory?.link || ''});
-    setAttributes({selectedCategory: selectedCategory?.name || ''});
-    return selectedCategory;
+    setAttributes({categoryLink: categoryName?.link || ''});
+    setAttributes({categoryName: categoryName?.name || ''});
+    return categoryName;
   };
 
   /**
@@ -122,7 +122,7 @@ export const TopicLinkEditor = ({
     return {x, y};
   };
 
-  const selectedCategory = setBlockCategory();
+  const categoryName = setBlockCategory();
 
   // Update attributes with image data for frontend
   setAttributes({
@@ -146,7 +146,7 @@ export const TopicLinkEditor = ({
         )}
       </div>
       <div className="topic-link-content">
-        <p>{__('Learn more about', 'planet4-blocks-backend')} {selectedCategory?.name || ''}</p>
+        <p>{__('Learn more about', 'planet4-blocks-backend')} {categoryName?.name || ''}</p>
       </div>
     </section>
   );
