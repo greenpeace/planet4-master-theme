@@ -3,6 +3,7 @@ import {v4 as uuid} from 'uuid';
 export const setupQueryLoopCarousel = () => {
   for (const layout of document.querySelectorAll('[class*="is-custom-layout-"]')) {
     const list = layout.querySelector('.wp-block-post-template');
+    let indicators = null;
 
     // Only apply to carousel view
     if (layout.className.includes('carousel')) {
@@ -21,12 +22,15 @@ export const setupQueryLoopCarousel = () => {
       list.after(carousel);
       carousel.append(list);
 
-      const indicators = document.createElement('ol');
-      indicators.classList.add('carousel-indicators');
-      carousel.append(indicators);
-
       if (list) {
         const posts = list.querySelectorAll('.wp-block-post');
+
+        // Only add indicators if there are more items to show.
+        if (posts.length > itemsPerSlide) {
+          indicators = document.createElement('ol');
+          indicators.classList.add('carousel-indicators');
+          carousel.append(indicators);
+        }
 
         let carouselItem,
           itemWrapper,
@@ -44,15 +48,19 @@ export const setupQueryLoopCarousel = () => {
 
             carouselItem.append(itemWrapper);
 
-            indicator = document.createElement('li');
-            indicator.classList.add('carousel-li');
-            indicator.dataset.bsTarget = `#${uniqueId}`;
-            indicator.dataset.bsSlideTo = totalCarouselItems;
-            indicators.append(indicator);
+            if (indicators) {
+              indicator = document.createElement('li');
+              indicator.classList.add('carousel-li');
+              indicator.dataset.bsTarget = `#${uniqueId}`;
+              indicator.dataset.bsSlideTo = totalCarouselItems;
+              if (index === 0) {
+                indicator.classList.toggle('active');
+              }
+              indicators.append(indicator);
+            }
 
             if (index === 0) {
               carouselItem.classList.toggle('active');
-              indicator.classList.toggle('active');
             }
 
             totalCarouselItems++;
