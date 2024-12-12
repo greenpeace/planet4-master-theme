@@ -14,7 +14,7 @@ const {
   ToolbarButton,
   FocalPointPicker,
 } = wp.components;
-const {__} = wp.i18n;
+const {sprintf, __} = wp.i18n;
 
 /**
  * TopicLinkEditor component for managing the Topic Link block in the editor.
@@ -32,6 +32,7 @@ export const TopicLinkEditor = ({
 }) => {
   const {
     categoryId,
+    categoryName,
     focal_points,
     imageId: customImageId,
     imageUrl: customImageFromId,
@@ -74,28 +75,26 @@ export const TopicLinkEditor = ({
 
   /**
    * Sets the block's category based on available categories or current post categories.
-   * @return {Object} The selected category object.
    */
   const setBlockCategory = () => {
     const postCategory = categoriesList.find(category => category.id === currentPostCategories[0]);
     const blockCategory = categoriesList.find(category => category.id === categoryId);
 
-    let categoryName = null;
+    let categoryData = null;
 
     if (blockCategory) {
-      categoryName = blockCategory;
+      categoryData = blockCategory;
       setAttributes({categoryId: parseInt(blockCategory.id)});
     } else if (postCategory) {
-      categoryName = postCategory;
+      categoryData = postCategory;
       setAttributes({categoryId: parseInt(postCategory.id)});
     } else {
-      categoryName = categoriesList[0];
+      categoryData = categoriesList[0];
       setAttributes({categoryId: parseInt(categoriesList[0].id)});
     }
 
-    setAttributes({categoryLink: categoryName?.link || ''});
-    setAttributes({categoryName: categoryName?.name || ''});
-    return categoryName;
+    setAttributes({categoryLink: categoryData?.link || ''});
+    setAttributes({categoryName: categoryData?.name || ''});
   };
 
   /**
@@ -122,7 +121,7 @@ export const TopicLinkEditor = ({
     return {x, y};
   };
 
-  const categoryName = setBlockCategory();
+  setBlockCategory();
 
   // Update attributes with image data for frontend
   setAttributes({
@@ -146,7 +145,7 @@ export const TopicLinkEditor = ({
         )}
       </div>
       <div className="topic-link-content">
-        <p>{__('Learn more about', 'planet4-blocks-backend')} {categoryName?.name || ''}</p>
+        <p>{sprintf(__('Learn more about %s', 'planet4-master-theme-backend'), categoryName)}</p>
       </div>
     </section>
   );
