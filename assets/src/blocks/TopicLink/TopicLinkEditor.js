@@ -135,7 +135,7 @@ export const TopicLinkEditor = ({
    * @return {JSX.Element} The block preview element.
    */
   const renderEditInPlace = () => (
-    <section className="topic-link-block">
+    <section className="topic-link-block block">
       <div className="background-image">
         {imageUrl && (
           <img

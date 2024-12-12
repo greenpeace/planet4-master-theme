@@ -19,7 +19,7 @@ export const TopicLinkFrontend = ({
   focal_points,
 }) => {
   return (
-    <section className="topic-link-block">
+    <section className="topic-link-block block">
       <a href={categoryLink} target="_self">
         <div className="background-image">
           {imageUrl && (
