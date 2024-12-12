@@ -13,7 +13,6 @@ const {
   ToolbarGroup,
   ToolbarButton,
   FocalPointPicker,
-  Button,
 } = wp.components;
 const {__} = wp.i18n;
 
@@ -166,20 +165,6 @@ export const TopicLinkEditor = ({
           options={[...categoriesList.map(category => ({label: category.name, value: category.id}))]}
           onChange={id => setAttributes({categoryId: parseInt(id)})}
         />
-        <MediaUploadCheck>
-          <MediaUpload
-            title={__('Select Background Image', 'planet4-blocks-backend')}
-            type="image"
-            onSelect={({id}) => setAttributes({imageId: id})}
-            value={imageId}
-            allowedTypes={['image']}
-            render={({open}) => (
-              <Button onClick={open} className="button">
-                {imageId ? __('Change Background Image', 'planet4-blocks-backend') : __('Select Background Image', 'planet4-blocks-backend')}
-              </Button>
-            )}
-          />
-        </MediaUploadCheck>
         {imageUrl && (
           <div className="wp-block-master-theme-gallery__FocalPointPicker">
             <strong className="components-base-control__help">
