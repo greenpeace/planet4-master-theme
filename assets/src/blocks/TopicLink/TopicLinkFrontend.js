@@ -1,4 +1,4 @@
-const {__} = wp.i18n;
+const {sprintf, __} = wp.i18n;
 
 /**
  * TopicLinkFrontend component for rendering the Topic Link block on the frontend.
@@ -31,7 +31,7 @@ export const TopicLinkFrontend = ({
           )}
         </div>
         <div className="topic-link-content">
-          <p>{__('Learn more about', 'planet4-blocks-backend')} {categoryName}</p>
+          <p>{sprintf(__('Learn more about %s', 'planet4-master-theme-backend'), categoryName)}</p>
         </div>
       </a>
     </section>
