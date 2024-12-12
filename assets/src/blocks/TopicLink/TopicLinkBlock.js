@@ -1,20 +1,12 @@
 import {TopicLinkEditor} from './TopicLinkEditor.js';
 
-const {registerBlockType, getBlockTypes} = wp.blocks;
-const {__} = wp.i18n;
+const {registerBlockType} = wp.blocks;
 
 const BLOCK_NAME = 'planet4-blocks/topic-link';
 
 export const registerTopicLinkBlock = () => {
-  const blockAlreadyExists = getBlockTypes().find(block => block.name === BLOCK_NAME);
-
-  if (blockAlreadyExists) {
-    return;
-  }
-
   registerBlockType(BLOCK_NAME, {
     title: 'Topic Link',
-    description: __('', 'planet4-blocks-backend'),
     icon: 'welcome-widgets-menus',
     category: 'planet4-blocks',
     supports: {

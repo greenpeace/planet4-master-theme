@@ -24,7 +24,7 @@ class TopicLink extends BaseBlock
     public const BLOCK_NAME = 'topic-link';
 
     /**
-     * Counter constructor.
+     * TopicLink constructor.
      */
     public function __construct()
     {
@@ -32,7 +32,7 @@ class TopicLink extends BaseBlock
             self::get_full_block_name(),
             [
                 'editor_script' => 'planet4-blocks',
-                'render_callback' => [ self::class, 'hydrate_frontend' ],
+                'render_callback' => [ self::class, 'render_frontend' ],
                 'attributes' => [
                     'categoryId' => [
                         'type' => 'number',
