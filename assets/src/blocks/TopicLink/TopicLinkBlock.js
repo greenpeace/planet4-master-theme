@@ -22,7 +22,7 @@ export const registerTopicLinkBlock = () => {
         type: 'string',
         default: '',
       },
-      selectedCategory: {
+      categoryName: {
         type: 'string',
         default: '',
       },

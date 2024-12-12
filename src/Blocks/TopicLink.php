@@ -42,7 +42,7 @@ class TopicLink extends BaseBlock
                         'type' => 'string',
                         'default' => '',
                     ],
-                    'selectedCategory' => [
+                    'categoryName' => [
                         'type' => 'string',
                         'default' => '',
                     ],
