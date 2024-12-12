@@ -104,7 +104,7 @@ export const TopicLinkEditor = ({
    * @return {string} A default focal point.
    */
   const setObjectPosition = focalPoints => {
-    if (focal_points === undefined) {
+    if (!focalPoints) {
       return '50% 50%';
     }
     const floatX = parseFloat(focalPoints.x).toFixed(2);
@@ -146,8 +146,7 @@ export const TopicLinkEditor = ({
         )}
       </div>
       <div className="topic-link-content">
-        <p>Learn more about {selectedCategory?.name || ''}</p>
-        <div className="chevron-icon"></div>
+        <p>{__('Learn more about', 'planet4-blocks-backend')} {selectedCategory?.name || ''}</p>
       </div>
     </section>
   );
@@ -177,18 +176,10 @@ export const TopicLinkEditor = ({
               url={imageUrl}
               dimensions={{width: 400, height: 100}}
               value={setFocalPoint(focal_points)}
-              onChange={value => setObjectPosition(value)}
+              onChange={setObjectPosition}
             />
           </div>
         )}
-      </PanelBody>
-      <PanelBody title={__('Learn more about this block', 'planet4-blocks-backend')} initialOpen={false}>
-        <p className="components-base-control__help">
-          <a target="_blank" href="https://planet4.greenpeace.org/content/blocks/" rel="noreferrer">
-            P4 Handbook Topic Link
-          </a>
-          {' '} &#128499;&#65039;;
-        </p>
       </PanelBody>
     </InspectorControls>
   );
@@ -197,38 +188,36 @@ export const TopicLinkEditor = ({
    * Renders the Block Controls toolbar.
    * @return {JSX.Element} The Block Controls component.
    */
-  const addBlockControls = () => {
-    return (
-      <BlockControls>
-        <ToolbarGroup>
-          <MediaUploadCheck>
-            <MediaUpload
-              onSelect={({id}) => setAttributes({imageId: id})}
-              allowedTypes={['image']}
-              value={imageId}
-              type="image"
-              render={({open}) => (
-                <ToolbarButton
-                  className="components-icon-button components-toolbar__control"
-                  label={imageId ? __('Change Background Image', 'planet4-blocks-backend') : __('Select Background Image', 'planet4-blocks-backend')}
-                  onClick={open}
-                  icon={imageId ? 'edit' : 'upload'}
-                />
-              )}
-            />
-          </MediaUploadCheck>
-          {imageId && (
-            <ToolbarButton
-              className="components-icon-button components-toolbar__control"
-              label={__('Remove Image', 'planet4-blocks-backend')}
-              onClick={() => setAttributes({imageId: null})}
-              icon="trash"
-            />
-          )}
-        </ToolbarGroup>
-      </BlockControls>
-    );
-  };
+  const addBlockControls = () => (
+    <BlockControls>
+      <ToolbarGroup>
+        <MediaUploadCheck>
+          <MediaUpload
+            onSelect={({id}) => setAttributes({imageId: id})}
+            allowedTypes={['image']}
+            value={imageId}
+            type="image"
+            render={({open}) => (
+              <ToolbarButton
+                className="components-icon-button components-toolbar__control"
+                label={imageId ? __('Change Background Image', 'planet4-blocks-backend') : __('Select Background Image', 'planet4-blocks-backend')}
+                onClick={open}
+                icon={imageId ? 'edit' : 'upload'}
+              />
+            )}
+          />
+        </MediaUploadCheck>
+        {imageId && (
+          <ToolbarButton
+            className="components-icon-button components-toolbar__control"
+            label={__('Remove Image', 'planet4-blocks-backend')}
+            onClick={() => setAttributes({imageId: null})}
+            icon="trash"
+          />
+        )}
+      </ToolbarGroup>
+    </BlockControls>
+  );
 
   return (
     <>

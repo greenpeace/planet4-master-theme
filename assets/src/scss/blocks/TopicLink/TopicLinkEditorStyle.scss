@@ -27,32 +27,32 @@
       margin: 0;
       width: 90%;
       @include clamp-text(2);
-    }
 
-    .chevron-icon:after {
-      content: "";
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      right: -0;
-      left: auto;
-      margin: auto;
-      pointer-events: none;
-      height: 1rem;
-      width: 1rem;
-      display: inline-block;
-      transition: transform 300ms linear;
-      transform: rotate(0deg);
-      mask-image: url("../../images/chevron.svg");
-      mask-repeat: no-repeat;
-      mask-size: contain;
-      background-repeat: no-repeat;
-      background-color: currentColor;
+      &:after {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: -0;
+        left: auto;
+        margin: auto;
+        pointer-events: none;
+        height: 1rem;
+        width: 1rem;
+        display: inline-block;
+        transition: transform 300ms linear;
+        transform: rotate(0deg);
+        mask-image: url("../../images/chevron.svg");
+        mask-repeat: no-repeat;
+        mask-size: contain;
+        background-repeat: no-repeat;
+        background-color: currentColor;
 
-      html[dir="rtl"] & {
-        right: auto;
-        left: 0;
-        transform: rotate(180deg);
+        html[dir="rtl"] & {
+          right: auto;
+          left: 0;
+          transform: rotate(180deg);
+        }
       }
     }
   }
@@ -90,7 +90,7 @@
       transform: scale(1.1);
     }
 
-    .chevron-icon:after {
+    p:after {
       transform: translateX(10px);
 
       html[dir="rtl"] & {

@@ -1,3 +1,5 @@
+const {__} = wp.i18n;
+
 /**
  * TopicLinkFrontend component for rendering the Topic Link block on the frontend.
  *
@@ -29,10 +31,7 @@ export const TopicLinkFrontend = ({
           )}
         </div>
         <div className="topic-link-content">
-          <p>
-            Learn more about {selectedCategory}
-          </p>
-          <div className="chevron-icon"></div>
+          <p>{__('Learn more about', 'planet4-blocks-backend')} {selectedCategory}</p>
         </div>
       </a>
     </section>
