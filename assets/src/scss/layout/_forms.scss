@@ -103,6 +103,12 @@
   }
 }
 
+.ginput_container {
+  &:has(> input[type="checkbox"]) {
+    @include custom-checkbox;
+  }
+}
+
 input[type="text"].form-control,
 input[type="email"].form-control {
   height: auto;
