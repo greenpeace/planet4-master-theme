@@ -1,5 +1,12 @@
 import {v4 as uuid} from 'uuid';
 
+const ARROW_DIRECTIONS = ['prev', 'next'];
+
+const removeArrows = layout => ARROW_DIRECTIONS.forEach(direction => {
+  const controlBtn = layout.querySelector(`.wp-block-buttons .carousel-control-${direction}`);
+  controlBtn?.parentNode.removeChild(controlBtn);
+});
+
 export const setupQueryLoopCarousel = () => {
   for (const layout of document.querySelectorAll('[class*="is-custom-layout-"]')) {
     const list = layout.querySelector('.wp-block-post-template');
@@ -22,77 +29,76 @@ export const setupQueryLoopCarousel = () => {
       list.after(carousel);
       carousel.append(list);
 
-      if (list) {
-        const posts = list.querySelectorAll('.wp-block-post');
+      if (!list) {
+        return;
+      }
+      const posts = list.querySelectorAll('.wp-block-post');
 
-        // Only add indicators if there are more items to show.
-        if (posts.length > itemsPerSlide) {
-          indicators = document.createElement('ol');
-          indicators.classList.add('carousel-indicators');
-          carousel.append(indicators);
-        }
+      // Only add indicators if there are more items to show
+      if (posts.length > itemsPerSlide) {
+        indicators = document.createElement('ol');
+        indicators.classList.add('carousel-indicators');
+        carousel.append(indicators);
 
-        let carouselItem,
-          itemWrapper,
-          indicator,
-          totalCarouselItems = 0;
+        // Update controls
+        ARROW_DIRECTIONS.forEach(direction => {
+          const controlBtn = layout.querySelector(`.wp-block-buttons .carousel-control-${direction}`);
+          controlBtn.dataset.bsTarget = `#${uniqueId}`;
+          controlBtn.dataset.bsSlide = direction;
 
-        posts.forEach((post, index) => {
-          if (index % itemsPerSlide === 0) {
-            carouselItem = document.createElement('li');
-            carouselItem.classList.add('carousel-item', 'carousel-li');
-            list.append(carouselItem);
+          const link = controlBtn.querySelector('a');
+          if (link) {
+            link.classList.add('visually-hidden');
+          }
+        });
 
-            itemWrapper = document.createElement('div');
-            itemWrapper.classList.add('carousel-item-wrapper');
+        // Align the controls in the middle
+        const controls = layout.querySelector('.wp-block-buttons');
+        controls.style.top = (list.getBoundingClientRect().height / 2) - (controls.getBoundingClientRect().height / 2);
+      } else {
+        // Remove arrows if they are not needed
+        removeArrows(layout);
+      }
 
-            carouselItem.append(itemWrapper);
+      let carouselItem,
+        itemWrapper,
+        indicator,
+        totalCarouselItems = 0;
 
-            if (indicators) {
-              indicator = document.createElement('li');
-              indicator.classList.add('carousel-li');
-              indicator.dataset.bsTarget = `#${uniqueId}`;
-              indicator.dataset.bsSlideTo = totalCarouselItems;
-              if (index === 0) {
-                indicator.classList.toggle('active');
-              }
-              indicators.append(indicator);
-            }
+      posts.forEach((post, index) => {
+        if (index % itemsPerSlide === 0) {
+          carouselItem = document.createElement('li');
+          carouselItem.classList.add('carousel-item', 'carousel-li');
+          list.append(carouselItem);
 
+          itemWrapper = document.createElement('div');
+          itemWrapper.classList.add('carousel-item-wrapper');
+
+          carouselItem.append(itemWrapper);
+
+          if (indicators) {
+            indicator = document.createElement('li');
+            indicator.classList.add('carousel-li');
+            indicator.dataset.bsTarget = `#${uniqueId}`;
+            indicator.dataset.bsSlideTo = totalCarouselItems;
             if (index === 0) {
-              carouselItem.classList.toggle('active');
+              indicator.classList.toggle('active');
             }
-
-            totalCarouselItems++;
+            indicators.append(indicator);
           }
 
-          itemWrapper.append(post);
-        });
-      }
+          if (index === 0) {
+            carouselItem.classList.toggle('active');
+          }
 
-      // Update controls
-      ['prev', 'next'].forEach(direction => {
-        const controlBtn = layout.querySelector(`.wp-block-buttons .carousel-control-${direction}`);
-        controlBtn.dataset.bsTarget = `#${uniqueId}`;
-        controlBtn.dataset.bsSlide = direction;
-
-        const link = controlBtn.querySelector('a');
-        if (link) {
-          link.classList.add('visually-hidden');
+          totalCarouselItems++;
         }
+
+        itemWrapper.append(post);
       });
-
-      // Align the controls in the middle
-      const controls = layout.querySelector('.wp-block-buttons');
-      controls.style.top = (list.getBoundingClientRect().height / 2) - (controls.getBoundingClientRect().height / 2);
     } else if (layout.className.includes('grid') || layout.className.includes('list')) {
-      // Only apply to Grid and List views
-      // Ensure to not only to hide controls nav but also remove it
-      const controlsNav = list?.parentNode.querySelector('.wp-block-buttons.carousel-controls');
-
-      if (list?.parentNode.contains(controlsNav)) {
-        list.parentNode.removeChild(controlsNav);
-      }
+      // Remove arrows for grid and list layouts.
+      removeArrows(layout);
     }
   }
 };
