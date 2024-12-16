@@ -2,7 +2,7 @@ import {Component} from '@wordpress/element';
 import {unescape} from '../../functions/unescape';
 import {IMAGE_SIZES} from './imageSizes';
 
-const {__} = wp.i18n;
+const {__, sprintf} = wp.i18n;
 export class ArticlePreview extends Component {
   getPageTypesTags(pageType, link) {
     const {isCampaign} = this.props;
@@ -177,7 +177,7 @@ export class ArticlePreview extends Component {
               <span className="article-list-item-readtime">
                 {
                   // translators: article reading time
-                  __('%d min read', 'planet4-blocks').replace('%d', reading_time)
+                  sprintf(__('%d min read', 'planet4-blocks'), reading_time)
                 }
               </span>
             }
