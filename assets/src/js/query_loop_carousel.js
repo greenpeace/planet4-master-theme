@@ -35,7 +35,7 @@ const removeArrows = layout => ARROW_DIRECTIONS.forEach(direction => {
  */
 export const setupQueryLoopCarousel = () => {
   for (const layout of document.querySelectorAll('[class*="is-custom-layout-"]')) {
-    const hasValidLayout = layout && LAYOUTS.keys().find(l => layout.className.includes(l));
+    const hasValidLayout = layout && Object.keys(LAYOUTS).find(l => layout.className.includes(l));
     if (!hasValidLayout) {
       return;
     }
