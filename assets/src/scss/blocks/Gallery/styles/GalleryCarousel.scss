@@ -124,6 +124,7 @@
 
   ol.carousel-indicators {
     top: 180px;
+    list-style: none;
 
     @include medium-and-up {
       top: 380px;

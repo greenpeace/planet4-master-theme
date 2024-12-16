@@ -347,7 +347,7 @@ $medium-image-height: 600px;
         width: #{480 + ($text-slide-offset * 2)};
       }
 
-      * {
+      & {
         overflow: hidden;
       }
     }
