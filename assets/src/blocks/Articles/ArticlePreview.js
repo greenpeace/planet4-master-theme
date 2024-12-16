@@ -175,7 +175,10 @@ export class ArticlePreview extends Component {
 
             {reading_time &&
               <span className="article-list-item-readtime">
-                { __('%d min read', 'planet4-blocks').replace('%d', reading_time) }
+                {
+                  // translators: article reading time
+                  __('%d min read', 'planet4-blocks').replace('%d', reading_time)
+                }
               </span>
             }
           </p>
