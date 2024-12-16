@@ -1,5 +1,6 @@
 import {v4 as uuid} from 'uuid';
 
+// Constants
 const ARROW_DIRECTIONS = ['prev', 'next'];
 const LAYOUTS = {
   carousel: 'carousel',
@@ -9,6 +10,14 @@ const LAYOUTS = {
 const BUTTONS_CLASS = '.wp-block-buttons';
 const CONTROLS_CLASS = `.${LAYOUTS.carousel}-control`;
 
+/**
+ * This function removes the arrows, in one of these two cases:
+ * the layout isn't carousel, or it doesn't have enough items to scroll.
+ *
+ * @param {string} layout - The layout of the Query Loop block: can be grid, list, or carousel.
+ *
+ * @return {void}
+ */
 const removeArrows = layout => ARROW_DIRECTIONS.forEach(direction => {
   const controlBtn = layout.querySelector(`${BUTTONS_CLASS} ${CONTROLS_CLASS}-${direction}`);
   if (controlBtn && controlBtn.parentNode) {
@@ -16,6 +25,14 @@ const removeArrows = layout => ARROW_DIRECTIONS.forEach(direction => {
   }
 });
 
+/**
+ * This function is used to setup the various custom layouts that we
+ * created for the Query Loop block for our Actions List and Posts List blocks.
+ *
+ * The available layouts are grid, list, and carousel.
+ *
+ * @return {void}
+ */
 export const setupQueryLoopCarousel = () => {
   for (const layout of document.querySelectorAll('[class*="is-custom-layout-"]')) {
     const hasValidLayout = layout && LAYOUTS.keys().find(l => layout.className.includes(l));
@@ -23,8 +40,9 @@ export const setupQueryLoopCarousel = () => {
       return;
     }
 
-    // Only apply to carousel view
     if (layout.className.includes(LAYOUTS.carousel)) {
+      // This is for the carousel layout, we need to setup the arrows and indicators.
+      // Or hide them if there are not enough items to scroll.
       const list = layout.querySelector('.wp-block-post-template');
       if (!list) {
         return;
@@ -112,7 +130,7 @@ export const setupQueryLoopCarousel = () => {
         itemWrapper.append(post);
       });
     } else {
-      // Remove arrows for grid and list layouts.
+      // This is for the grid or list layouts, we need to remove the arrows.
       removeArrows(layout);
     }
   }
