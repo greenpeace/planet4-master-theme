@@ -171,12 +171,12 @@ const PrePublishCheckList = () => {
       initialOpen="true"
       className={!canPublish ? 'p4-plugin-pre-publish-panel-error' : ''}
       icon="none">
-      { !!canPublish && <p>{ __('All good.', 'planet4-blocks-backend') }</p> }
-      { !canPublish && <ul>
+      {!!canPublish && <p>{ __('All good.', 'planet4-blocks-backend') }</p>}
+      {!canPublish && <ul>
         { messages.map(msg =>
           <li key={msg}><p>{ msg }</p></li>
         ) }
-      </ul> }
+      </ul>}
     </PluginPrePublishPanel>
   );
 };
