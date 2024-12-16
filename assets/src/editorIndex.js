@@ -13,6 +13,7 @@ import {registerTopicLinkBlock} from './blocks/TopicLink/TopicLinkBlock';
 import {registerBlockStyles} from './block-styles';
 import {registerBlockVariations} from './block-variations';
 import {registerActionButtonTextBlock} from './blocks/ActionCustomButtonText';
+import {setupBlockEditorValidation} from './block-editor/setupBlockEditorValidation';
 
 wp.domReady(() => {
   // Make sure to unregister the posts-list native variation before registering planet4-blocks/posts-list
@@ -45,6 +46,7 @@ wp.domReady(() => {
 });
 
 setupCustomSidebar();
+setupBlockEditorValidation();
 
 // Setup new attributes to the core/query.
 // It should be executed after the DOM is ready
