@@ -22,6 +22,13 @@
     }
   }
 
+  display: inline-block;
+  position: relative;
+  text-decoration: none;
+  border: 1px solid transparent;
+  cursor: pointer;
+  appearance: none;
+
   &:focus:not(:focus-visible) {
     outline: 0;
   }
@@ -30,15 +37,6 @@
     transition-property: inherit;
     transition-duration: inherit;
     transition-timing-function: inherit;
-  }
-
-  * {
-    display: inline-block;
-    position: relative;
-    text-decoration: none;
-    border: 1px solid transparent;
-    cursor: pointer;
-    appearance: none;
   }
 
   &:hover,
