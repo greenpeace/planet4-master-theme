@@ -1,48 +1,63 @@
 import {v4 as uuid} from 'uuid';
 
 const ARROW_DIRECTIONS = ['prev', 'next'];
+const LAYOUTS = {
+  carousel: 'carousel',
+  grid: 'grid',
+  list: 'list',
+};
+const BUTTONS_CLASS = '.wp-block-buttons';
+const CONTROLS_CLASS = `.${LAYOUTS.carousel}-control`;
 
 const removeArrows = layout => ARROW_DIRECTIONS.forEach(direction => {
-  const controlBtn = layout.querySelector(`.wp-block-buttons .carousel-control-${direction}`);
-  controlBtn?.parentNode.removeChild(controlBtn);
+  const controlBtn = layout.querySelector(`${BUTTONS_CLASS} ${CONTROLS_CLASS}-${direction}`);
+  if (controlBtn && controlBtn.parentNode) {
+    controlBtn.parentNode.removeChild(controlBtn);
+  }
 });
 
 export const setupQueryLoopCarousel = () => {
   for (const layout of document.querySelectorAll('[class*="is-custom-layout-"]')) {
-    const list = layout.querySelector('.wp-block-post-template');
-    let indicators = null;
+    const hasValidLayout = layout && LAYOUTS.keys().find(l => layout.className.includes(l));
+    if (!hasValidLayout) {
+      return;
+    }
 
     // Only apply to carousel view
-    if (layout.className.includes('carousel')) {
-      const uniqueId = `carousel-${uuid()}`;
+    if (layout.className.includes(LAYOUTS.carousel)) {
+      const list = layout.querySelector('.wp-block-post-template');
+      if (!list) {
+        return;
+      }
+      let indicators = null;
+      const uniqueId = `${LAYOUTS.carousel}-${uuid()}`;
       const isPostsList = layout.className.includes('posts-list');
       const itemsPerSlide = isPostsList ? 4 : 3;
 
       // Adapt it as bootstrap carousel
       const carousel = document.createElement('div');
       carousel.setAttribute('id', uniqueId);
-      carousel.classList.add('carousel', 'slide');
-      carousel.dataset.bsRide = 'carousel';
+      carousel.classList.add(LAYOUTS.carousel, 'slide');
+      carousel.dataset.bsRide = LAYOUTS.carousel;
       carousel.dataset.bsInterval = 'false';
 
-      list.classList.add('carousel-inner');
+      list.classList.add(`${LAYOUTS.carousel}-inner`);
       list.after(carousel);
       carousel.append(list);
-
-      if (!list) {
-        return;
-      }
       const posts = list.querySelectorAll('.wp-block-post');
 
       // Only add indicators if there are more items to show
       if (posts.length > itemsPerSlide) {
         indicators = document.createElement('ol');
-        indicators.classList.add('carousel-indicators');
+        indicators.classList.add(`${LAYOUTS.carousel}-indicators`);
         carousel.append(indicators);
 
         // Update controls
         ARROW_DIRECTIONS.forEach(direction => {
-          const controlBtn = layout.querySelector(`.wp-block-buttons .carousel-control-${direction}`);
+          const controlBtn = layout.querySelector(`${BUTTONS_CLASS} ${CONTROLS_CLASS}-${direction}`);
+          if (!controlBtn) {
+            return;
+          }
           controlBtn.dataset.bsTarget = `#${uniqueId}`;
           controlBtn.dataset.bsSlide = direction;
 
@@ -53,7 +68,7 @@ export const setupQueryLoopCarousel = () => {
         });
 
         // Align the controls in the middle
-        const controls = layout.querySelector('.wp-block-buttons');
+        const controls = layout.querySelector(BUTTONS_CLASS);
         controls.style.top = (list.getBoundingClientRect().height / 2) - (controls.getBoundingClientRect().height / 2);
       } else {
         // Remove arrows if they are not needed
@@ -96,7 +111,7 @@ export const setupQueryLoopCarousel = () => {
 
         itemWrapper.append(post);
       });
-    } else if (layout.className.includes('grid') || layout.className.includes('list')) {
+    } else {
       // Remove arrows for grid and list layouts.
       removeArrows(layout);
     }
