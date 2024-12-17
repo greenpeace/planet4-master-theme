@@ -44,9 +44,7 @@
     }
   }
 
-  * {
-    position: relative;
-  }
+  position: relative;
 
   &.page-header-hidden {
     padding: 0 !important;
@@ -133,9 +131,7 @@
       }
     }
 
-    * {
-      width: 100%;
-    }
+    width: 100%;
   }
 }
 
