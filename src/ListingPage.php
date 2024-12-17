@@ -109,7 +109,7 @@ class ListingPage
 
     /**
      * Set the 'News & stories' page filters.
-     * For now only the "category" one is available.
+     * For now only the "category" and "post types" are available.
      */
     private function set_filters(): void
     {
@@ -127,7 +127,10 @@ class ListingPage
             $categories[] = $cat;
         }
         $this->context['categories'] = $categories;
+        $this->context['post_types'] = get_terms(['taxonomy' => 'p4-page-type']);
+
         $this->context['current_category'] = $_GET['category'] ?? '';
+        $this->context['current_post_type'] = $_GET['post-type'] ?? '';
     }
 
     /**

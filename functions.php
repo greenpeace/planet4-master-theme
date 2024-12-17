@@ -521,20 +521,26 @@ add_filter(
 );
 
 // Add filters to the News & Stories listing page.
-// Right now only "category" is available.
+// Right now only "category" and "post type" are available.
 add_action(
     'pre_get_posts',
     function ($query): void {
         if (!$query->is_main_query() || is_admin() || !is_home()) {
             return;
         }
+        // Category filter
         $category_slug = isset($_GET['category']) ? $_GET['category'] : '';
         $category = get_category_by_slug($category_slug);
-        if (!$category || !get_posts(['post_type' => 'post', 'category' => $category->term_id])) {
-            $query->set('category__in', []);
-        } else {
-            $query->set('category__in', [$category->term_id]);
-        }
+        $query->set('category__in', $category ? [$category->term_id] : []);
+
+        // Post type filter
+        $post_type_slug = isset($_GET['post-type']) ? $_GET['post-type'] : '';
+        $post_type = get_term_by('slug', $post_type_slug, 'p4-page-type');
+        $query->set('tax_query', !$post_type ? [] : [[
+            'taxonomy' => 'p4-page-type',
+            'field' => 'term_id',
+            'terms' => [$post_type->term_id],
+        ]]);
     }
 );
 
