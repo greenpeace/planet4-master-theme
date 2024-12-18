@@ -43,6 +43,13 @@ class HttpHeaders
             'frame-ancestors ' . implode(' ', $allowed_frame_ancestors),
         ];
 
+        // Add VWO exception to CSP list
+        $enable_vwo = planet4_get_option('enable_vwo') === 'on';
+        if ($enable_vwo) {
+            // phpcs:disable Generic.Files.LineLength.MaxExceeded
+            $directives[0] = $directives[0] . ' blob: *.visualwebsiteoptimizer.com *visualwebsiteoptimizer.com app.vwo.com useruploads.vwo.io';
+        }
+
         $csp_header = implode('; ', $directives);
         $csp_header = preg_replace("/\r|\n/", '', $csp_header);
 

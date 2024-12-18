@@ -475,6 +475,15 @@ class Settings
                         'id' => 'about_us_page',
                         'type' => $is_new_ia ? 'about_us_page_dropdown' : 'hidden',
                     ],
+                    [
+                        'name' => __('VWO A/B testing', 'planet4-master-theme-backend'),
+                        'desc' => __(
+                            'Adds a Content Security Policy exception for VWO.',
+                            'planet4-master-theme-backend'
+                        ),
+                        'id' => 'enable_vwo',
+                        'type' => 'checkbox',
+                    ],
                 ],
             ],
             'planet4_settings_features' => Features::get_options_page(),
