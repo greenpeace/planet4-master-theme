@@ -9,6 +9,11 @@ import {expect} from './test-utils';
  * @return {Promise<string>} The URL of the published post.
  */
 async function publishPost({page, editor}) {
+  // We should be able to remove this check once we update Playwright to the latest version.
+  const closeSettingsSidebar = await page.getByRole('button', {name: 'Close Settings'});
+  if (await closeSettingsSidebar.isVisible()) {
+    await closeSettingsSidebar.click();
+  }
   await editor.publishPost();
 
   const urlString = await page

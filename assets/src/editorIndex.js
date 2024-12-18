@@ -14,9 +14,6 @@ import {registerBlockVariations} from './block-variations';
 import {registerActionButtonTextBlock} from './blocks/ActionCustomButtonText';
 
 wp.domReady(() => {
-  // Make sure to unregister the posts-list native variation before registering planet4-blocks/posts-list
-  wp.blocks.unregisterBlockVariation('core/query', 'posts-list');
-
   // Blocks
   registerTableOfContentsBlock();
   registerColumnsBlock();

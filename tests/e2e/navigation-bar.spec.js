@@ -7,7 +7,7 @@ test('Test navigation bar menu', async ({page, admin, requestUtils}) => {
   const testPageTitle = `Navbar test ${testId}`;
 
   // Create a new page with a dummy paragraph
-  await requestUtils.rest({
+  const newPage = await requestUtils.rest({
     path: '/wp/v2/pages',
     method: 'POST',
     data: {
@@ -30,14 +30,12 @@ test('Test navigation bar menu', async ({page, admin, requestUtils}) => {
   const pageOptions = page.locator('#add-post-type-page');
   await pageOptions.getByRole('checkbox', {name: testPageTitle}).first().check();
   await pageOptions.getByRole('button', {name: 'Add to Menu'}).click();
-  const newMenuItem = page.locator('.menu-item-depth-0', {hasText: testPageTitle});
-  await expect(newMenuItem).toBeVisible();
-  const newMenuItemLink = await newMenuItem.locator('.link-to-original a').getAttribute('href');
+  await page.locator('#menu-to-edit .menu-item-title').filter({hasText: testPageTitle}).waitFor();
   await page.getByRole('button', {name: 'Save Menu'}).click();
   await expect(page.locator('.updated.notice')).toBeVisible();
 
   // Check in the frontend that the new menu item is correctly added
   await page.goto('./');
   await expect(page.getByRole('link', {name: testPageTitle})).toBeVisible();
-  await expect(page.getByRole('link', {name: testPageTitle})).toHaveAttribute('href', newMenuItemLink);
+  await expect(page.getByRole('link', {name: testPageTitle})).toHaveAttribute('href', newPage.link);
 });

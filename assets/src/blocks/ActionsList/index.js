@@ -20,7 +20,7 @@ export const registerActionsListBlock = () => {
     description: __('Integrate images and text cards to automatically display tags, take action pages, or Posts in a three or four column layout displayed in a grid or carousel.', 'planet4-blocks-backend'),
     icon: 'list-view',
     scope: ['inserter'],
-    allowedControls: ['taxQuery'],
+    allowedControls: ['taxQuery', 'pages', 'offset'],
     category: 'planet4-blocks-beta',
     isActive: ({namespace, query}) => namespace === ACTIONS_LIST_BLOCK_NAME && query.postType === queryPostType,
     attributes: {
