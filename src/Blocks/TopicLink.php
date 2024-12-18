@@ -35,8 +35,7 @@ class TopicLink extends BaseBlock
                 'render_callback' => [ self::class, 'render_frontend' ],
                 'attributes' => [
                     'categoryId' => [
-                        'type' => 'number',
-                        'default' => '',
+                        'type' => 'integer',
                     ],
                     'categoryLink' => [
                         'type' => 'string',
@@ -47,8 +46,7 @@ class TopicLink extends BaseBlock
                         'default' => '',
                     ],
                     'imageId' => [
-                        'type' => 'number',
-                        'default' => '',
+                        'type' => 'integer',
                     ],
                     'imageUrl' => [
                         'type' => 'string',

@@ -52,7 +52,7 @@ export const setupBlockEditorValidation = () => {
       .filter(block => !block.attributes.imageUrl);
 
     // If there are Topic Link blocks without background image, push an error message
-    if (topicLinkBlocksNeedsImage.length > 0) {
+    if (topicLinkBlocksNeedsImage.length) {
       currentMessages.push('Background image in the Topic Link block is required.');
     }
 
@@ -86,8 +86,8 @@ export const setupBlockEditorValidation = () => {
 
     // Determine if the post is currently valid (no validation errors)
     const currentlyValid =
-      (0 === invalidBlocks.length) &&
-      (0 === topicLinkBlocksNeedsImage.length) &&
+      !invalidBlocks.length &&
+      !topicLinkBlocksNeedsImage.length &&
       !invalidTitle &&
       !needsFeaturedImage;
 
