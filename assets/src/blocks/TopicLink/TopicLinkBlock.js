@@ -7,7 +7,7 @@ const BLOCK_NAME = 'planet4-blocks/topic-link';
 export const registerTopicLinkBlock = () => {
   registerBlockType(BLOCK_NAME, {
     title: 'Topic Link',
-    icon: 'welcome-widgets-menus',
+    icon: 'migrate',
     category: 'planet4-blocks',
     supports: {
       html: false, // Disable "Edit as HTMl" block option.
