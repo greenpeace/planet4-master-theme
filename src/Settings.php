@@ -476,12 +476,12 @@ class Settings
                         'type' => $is_new_ia ? 'about_us_page_dropdown' : 'hidden',
                     ],
                     [
-                        'name' => __('Add VWO exception to CSP list', 'planet4-master-theme-backend'),
+                        'name' => __('VWO A/B testing', 'planet4-master-theme-backend'),
                         'desc' => __(
-                            'Added into the Content Security Policy list, which is used to run A/B testing with VWO.',
+                            'Adds a Content Security Policy exception for VWO.',
                             'planet4-master-theme-backend'
                         ),
-                        'id' => 'add_vwo_to_csp',
+                        'id' => 'enable_vwo',
                         'type' => 'checkbox',
                     ],
                 ],
