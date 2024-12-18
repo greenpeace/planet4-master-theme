@@ -16,7 +16,6 @@ export const registerTopicLinkBlock = () => {
     attributes: {
       categoryId: {
         type: 'number',
-        default: '',
       },
       categoryLink: {
         type: 'string',
@@ -28,7 +27,6 @@ export const registerTopicLinkBlock = () => {
       },
       imageId: {
         type: 'number',
-        default: '',
       },
       imageUrl: {
         type: 'string',

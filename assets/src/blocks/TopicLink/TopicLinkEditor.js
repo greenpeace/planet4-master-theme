@@ -80,19 +80,15 @@ export const TopicLinkEditor = ({
     const postCategory = categoriesList.find(category => category.id === currentPostCategories[0]);
     const blockCategory = categoriesList.find(category => category.id === categoryId);
 
-    let categoryData = null;
+    let categoryData = categoriesList[0];
 
     if (blockCategory) {
       categoryData = blockCategory;
-      setAttributes({categoryId: parseInt(blockCategory.id)});
     } else if (postCategory) {
       categoryData = postCategory;
-      setAttributes({categoryId: parseInt(postCategory.id)});
-    } else {
-      categoryData = categoriesList[0];
-      setAttributes({categoryId: parseInt(categoriesList[0].id)});
     }
 
+    setAttributes({categoryId: parseInt(categoryData.id)});
     setAttributes({categoryLink: categoryData?.link || ''});
     setAttributes({categoryName: categoryData?.name || ''});
   };
@@ -116,7 +112,7 @@ export const TopicLinkEditor = ({
    * @param {string} focalPoints - The focal points string (e.g., "50% 50%").
    * @return {Object} An object with x and y properties as decimal values.
    */
-  const setFocalPoint = focalPoints => {
+  const getFocalPoint = focalPoints => {
     const [x, y] = focalPoints.split(' ').map(value => parseFloat(value) / 100);
     return {x, y};
   };
@@ -174,7 +170,7 @@ export const TopicLinkEditor = ({
             <FocalPointPicker
               url={imageUrl}
               dimensions={{width: 400, height: 100}}
-              value={setFocalPoint(focal_points)}
+              value={getFocalPoint(focal_points)}
               onChange={setObjectPosition}
             />
           </div>
