@@ -190,6 +190,7 @@ class MasterBlocks
             'take_action_covers_button_text' => planet4_get_option('take_action_covers_button_text', ''),
             'take_action_page' => $is_new_ia ? $take_action_page : $act_page,
             'new_ia' => $is_new_ia,
+            'cookies_field' => planet4_get_option('cookies_field', ''),
             'page_text_404' => planet4_get_option('404_page_text', ''),
             'page_bg_image_404' => planet4_get_option('404_page_bg_image', ''),
         ];
