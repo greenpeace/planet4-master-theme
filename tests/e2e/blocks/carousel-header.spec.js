@@ -12,8 +12,8 @@ const slides = [
 /**
  * Add new Carousel slide
  *
- * @param {*} slide slide data
- * @param {*} param slide extra information
+ * @param {*}              slide   slide data
+ * @param {*}              param   slide extra information
  * @param {{Page, Editor}} options - Page and Editor object
  */
 const addSlide = async (slide, {index, addNext}, {page, editor}) => {

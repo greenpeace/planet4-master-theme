@@ -23,9 +23,8 @@ export default function ArchivePickerToolbar() {
       {!bulkSelect && <h3 className="archive-picker-title">{__('Greenpeace Media', 'planet4-master-theme-backend')}</h3>}
       <nav className={classNames('nav-bulk-select', {'bulk-enabled': bulkSelect})}>
         {(bulkSelect && processingIds.length) ? (
-          <span className="info">{
-            sprintf(__('Processing %d images', 'planet4-master-theme-backend'), processingIds.length)
-          }</span>
+          // translators: images count
+          <span className="info">{sprintf(__('Processing %d images', 'planet4-master-theme-backend'), processingIds.length)}</span>
         ) : null}
         {bulkSelect && (
           <button

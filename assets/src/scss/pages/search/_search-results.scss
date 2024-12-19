@@ -64,13 +64,14 @@
 
 .search-result-item-body {
   .search-result-item-flex-title {
-    @include medium-and-up {
-      display: flex;
-    }
     width: 100%;
 
     > div:first-child {
       width: 100%;
+    }
+
+    @include medium-and-up {
+      display: flex;
     }
   }
 

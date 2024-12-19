@@ -42,6 +42,7 @@ export const TakeActionCovers = ({
             data-ga-action="Card"
             data-ga-label="n/a"
             href={buttonLink}
+            // translators: cover title
             aria-label={sprintf(__('Take action cover, link to %s', 'planet4-blocks'), title)}
           />
           <a
@@ -49,6 +50,7 @@ export const TakeActionCovers = ({
             data-ga-action="Image"
             data-ga-label="n/a"
             href={buttonLink}
+            // translators: cover title
             aria-label={sprintf(__('Take action cover, link to %s', 'planet4-blocks'), title)}
           >
             {isExample ?
