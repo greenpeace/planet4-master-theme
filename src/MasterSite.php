@@ -344,8 +344,24 @@ class MasterSite extends TimberSite
             // This caused `switch_lang` to get called. As a result the RTL fix messed up.
             remove_filter('url_to_postid', [$sitepress, 'url_to_postid']);
         };
+
         $remove_rtl_fix();
         add_action('wpml_after_startup', $remove_rtl_fix, 10, 0);
+
+        // Add VWO Anti Flicker script
+        add_action(
+            'wp_head',
+            function (): void {
+                $enable_vwo = planet4_get_option('enable_vwo') === 'on';
+
+                if (!$enable_vwo) {
+                    return;
+                }
+
+                echo '<script>vwo_$("body").vwoCss({"visibility":"visible !important"});</script>' . PHP_EOL;
+            },
+            10
+        );
 
         AuthorPage::hooks();
         BreakpointsImageSizes::hooks();
