@@ -21,6 +21,7 @@ wp.domReady(() => {
   registerHappyPointBlock();
   registerSocialMediaBlock();
   registerTimelineBlock();
+  registerPostsListBlock();
 
   // Block Templates
   registerBlockTemplates();
@@ -29,7 +30,6 @@ wp.domReady(() => {
   if (window.p4_vars.features.beta_blocks === 'on') {
     registerActionButtonTextBlock();
     registerActionsListBlock();
-    registerPostsListBlock();
   }
 
   // Custom block styles
