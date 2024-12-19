@@ -2,7 +2,6 @@ const {__} = wp.i18n;
 
 export const COVERS_TYPES = {
   takeAction: 'take-action',
-  content: 'content',
 };
 
 export const COVERS_LAYOUTS = {
@@ -17,7 +16,7 @@ export const BLOCK_NAME = 'planet4-blocks/covers';
 export const attributes = {
   cover_type: {
     type: 'string',
-    default: 'content',
+    default: 'take-action',
   },
   initialRowsLimit: {
     type: 'integer',
