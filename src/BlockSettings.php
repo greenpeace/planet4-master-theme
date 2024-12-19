@@ -11,8 +11,6 @@ use P4\MasterTheme\Settings\Features;
  */
 class BlockSettings
 {
-    private const BETA_BLOCKS_FEATURE = 'beta_blocks';
-
     private const ALL_BLOCKS_FEATURE = 'allow_all_blocks';
 
     private const CORE_BLOCKS_PREFIX = "core";
@@ -60,10 +58,6 @@ class BlockSettings
         self::GRAVITY_FORMS_BLOCK,
     ];
 
-    private const BETA_PAGE_BLOCK_TYPES = [
-        self::P4_BLOCKS_PREFIX . '/share-buttons',
-    ];
-
     private const CAMPAIGN_BLOCK_TYPES = [
         self::P4_BLOCKS_PREFIX . '/accordion',
         self::P4_BLOCKS_PREFIX . '/articles',
@@ -76,16 +70,10 @@ class BlockSettings
         self::P4_BLOCKS_PREFIX . '/happypoint',
         self::P4_BLOCKS_PREFIX . '/social-media',
         self::P4_BLOCKS_PREFIX . '/spreadsheet',
-        self::P4_BLOCKS_PREFIX . '/sub-pages',
         self::P4_BLOCKS_PREFIX . '/timeline',
         self::P4_BLOCKS_PREFIX . '/guestbook',
         self::HUBSPOT_FORMS_BLOCK,
         self::GRAVITY_FORMS_BLOCK,
-    ];
-
-    private const BETA_CAMPAIGN_BLOCK_TYPES = [
-        self::P4_BLOCKS_PREFIX . '/social-media-cards',
-        self::P4_BLOCKS_PREFIX . '/share-buttons',
     ];
 
     private const ACTION_BLOCK_TYPES = [
@@ -104,14 +92,8 @@ class BlockSettings
         self::P4_BLOCKS_PREFIX . '/take-action-boxout',
         self::P4_BLOCKS_PREFIX . '/timeline',
         self::P4_BLOCKS_PREFIX . '/guestbook',
-        self::P4_BLOCKS_PREFIX . '/sub-pages',
         self::HUBSPOT_FORMS_BLOCK,
         self::GRAVITY_FORMS_BLOCK,
-    ];
-
-    private const BETA_ACTION_BLOCK_TYPES = [
-        self::P4_BLOCKS_PREFIX . '/social-media-cards',
-        self::P4_BLOCKS_PREFIX . '/share-buttons',
     ];
 
     private const BLOCK_TEMPLATES = [
@@ -209,19 +191,16 @@ class BlockSettings
 
         $page_block_types = array_merge(
             self::PAGE_BLOCK_TYPES,
-            ! Features::is_active(self::BETA_BLOCKS_FEATURE) ? [] : self::BETA_PAGE_BLOCK_TYPES,
             self::BLOCK_TEMPLATES,
         );
 
         $campaign_block_types = array_merge(
             self::CAMPAIGN_BLOCK_TYPES,
-            ! Features::is_active(self::BETA_BLOCKS_FEATURE) ? [] : self::BETA_CAMPAIGN_BLOCK_TYPES,
             self::BLOCK_TEMPLATES,
         );
 
         $action_block_types = array_merge(
             self::ACTION_BLOCK_TYPES,
-            ! Features::is_active(self::BETA_BLOCKS_FEATURE) ? [] : self::BETA_ACTION_BLOCK_TYPES,
             self::BLOCK_TEMPLATES,
         );
 
