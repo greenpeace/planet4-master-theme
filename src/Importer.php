@@ -78,14 +78,6 @@ class Importer
                     }
                     break;
 
-                case 'planet4-blocks/social-media-cards':
-                    if (isset($block['attrs']['cards'])) {
-                        foreach ($block['attrs']['cards'] as $card) {
-                            $filter_data[] = 'image_id":' . $card['image_id'];
-                        }
-                    }
-                    break;
-
                 case 'planet4-blocks/take-action-boxout':
                     $filter_data[] = isset($block['attrs']['background_image'])
                         ? 'background_image":' . $block['attrs']['background_image'] : '';

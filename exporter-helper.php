@@ -55,14 +55,6 @@ function get_attachments_used_in_content(string $content): array
                 }
                 break;
 
-            case 'planet4-blocks/social-media-cards':
-                if (isset($block['attrs']['cards'])) {
-                    foreach ($block['attrs']['cards'] as $card) {
-                        $attachment_ids[] = $card['image_id'];
-                    }
-                }
-                break;
-
             case 'planet4-blocks/take-action-boxout':
                 $attachment_ids[] = $block['attrs']['background_image'] ?? '';
                 break;
