@@ -1,13 +1,3 @@
 .topic-link-block {
-  padding: $sp-6 $sp-3;
-  border-radius: $sp-x;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: relative;
-  overflow: hidden;
-  background-color: var(--grey-900);
-  width: 100%;
-  max-width: 46rem;
-  height: auto;
+  @include topic-link-style;
 }

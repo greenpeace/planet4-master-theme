@@ -1,16 +1,20 @@
+@mixin topic-link-style {
+  border-radius: 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  background-color: var(--grey-900);
+  width: 100%;
+  max-width: 46rem;
+  height: auto;
+  padding: $sp-6 $sp-3;
+}
+
 .topic-link-block {
   a {
-    border-radius: $sp-x;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: relative;
-    overflow: hidden;
-    background-color: var(--grey-900);
-    width: 100%;
-    max-width: 46rem;
-    height: auto;
-    padding: $sp-6 $sp-3;
+    @include topic-link-style;
 
     &:hover {
       text-decoration: none;
@@ -21,8 +25,8 @@
     color: white;
     font-family: var(--font-family-primary);
     font-size: var(--font-size-m--font-family-primary);
+    line-height: var(--line-height-m--font-family-primary);
     font-weight: var(--font-weight-bold);
-    line-height: $sp-3;
     position: relative;
     z-index: 1;
     width: 100%;
@@ -39,7 +43,7 @@
         position: absolute;
         top: 0;
         bottom: 0;
-        right: -0;
+        right: 0;
         left: auto;
         margin: auto;
         pointer-events: none;

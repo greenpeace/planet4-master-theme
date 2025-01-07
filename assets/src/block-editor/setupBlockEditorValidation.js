@@ -48,8 +48,7 @@ export const setupBlockEditorValidation = () => {
 
     // Get an array of Topic Link blocks without background image
     const topicLinkBlocksNeedsImage = blocks
-      .filter(block => block.name === 'planet4-blocks/topic-link')
-      .filter(block => !block.attributes.imageUrl);
+      .filter(block => block.name === 'planet4-blocks/topic-link' && !block.attributes.imageUrl);
 
     // If there are Topic Link blocks without background image, push an error message
     if (topicLinkBlocksNeedsImage.length) {
