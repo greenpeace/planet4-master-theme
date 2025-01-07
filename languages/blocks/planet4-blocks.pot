@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Planet4 - Blocks\n"
-"POT-Creation-Date: 2024-12-03 14:24+0000\n"
+"POT-Creation-Date: 2025-01-07 14:58+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -22,7 +22,8 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 "Language: "
 
-#: assets/src/blocks/Articles/ArticlePreview.js:178
+#. article reading time
+#: assets/src/blocks/Articles/ArticlePreview.js:180
 msgid "%d min read"
 msgstr ""
 
@@ -201,10 +202,6 @@ msgstr ""
 msgid "Donate"
 msgstr ""
 
-#: src/Blocks/BaseBlock.php:67
-msgid "Error"
-msgstr ""
-
 #. Name of the template
 #: page-templates/evergreen.php:3
 msgid "Evergreen Page"
@@ -313,7 +310,7 @@ msgstr ""
 msgid "Related Articles"
 msgstr ""
 
-#: functions.php:324
+#: functions.php:331
 msgid "Related Posts"
 msgstr ""
 
@@ -321,18 +318,8 @@ msgstr ""
 msgid "Search data"
 msgstr ""
 
-#: functions.php:315
+#: functions.php:322
 msgid "See all posts"
-msgstr ""
-
-#: assets/src/blocks/ENForm/ShareButtons.js:59
-#: assets/src/blocks/ENForm/ShareButtons.js:71
-#: assets/src/blocks/ENForm/ShareButtons.js:83
-msgid "Share on"
-msgstr ""
-
-#: assets/src/blocks/ENForm/ShareButtons.js:95
-msgid "Share via"
 msgstr ""
 
 #. Name of the template
@@ -351,8 +338,9 @@ msgstr ""
 msgid "Take action"
 msgstr ""
 
-#: assets/src/blocks/Covers/TakeActionCovers.js:45
-#: assets/src/blocks/Covers/TakeActionCovers.js:52
+#. cover title
+#: assets/src/blocks/Covers/TakeActionCovers.js:46
+#: assets/src/blocks/Covers/TakeActionCovers.js:54
 #, javascript-format
 msgid "Take action cover, link to %s"
 msgstr ""
