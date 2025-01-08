@@ -224,6 +224,7 @@ final class Loader
         new Blocks\TakeActionBoxout();//NOSONAR
         new Blocks\Timeline();//NOSONAR
         new Blocks\TopicLink();//NOSONAR
+        new Blocks\SecondaryNavigation();//NOSONAR
 
         $pattern_categories = [
             'page-headers' => 'Page Headers',
