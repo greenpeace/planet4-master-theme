@@ -8,12 +8,14 @@ import {TableOfContentsFrontend} from './blocks/TableOfContents/TableOfContentsF
 import {HappyPointFrontend} from './blocks/HappyPoint/HappyPointFrontend';
 import {ColumnsFrontend} from './blocks/Columns/ColumnsFrontend';
 import {setupLightboxForImages} from './blocks/components/Lightbox/setupLightboxForImages';
+import {SecondaryNavigationFrontend} from './blocks/SecondaryNavigation/SecondaryNavigationFrontend';
 
 // Render React components
 const COMPONENTS = {
   'planet4-blocks/submenu': TableOfContentsFrontend,
   'planet4-blocks/happypoint': HappyPointFrontend,
   'planet4-blocks/columns': ColumnsFrontend,
+  'planet4-blocks/secondary-navigation': SecondaryNavigationFrontend,
 };
 
 document.addEventListener('DOMContentLoaded', () => {
