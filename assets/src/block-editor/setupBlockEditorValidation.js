@@ -131,9 +131,10 @@ document.addEventListener('change', e => {
 
 /**
  * Registers block attribute validations.
- * @param {Object} settings - The block settings object.
+ *
+ * @param {Object} settings  - The block settings object.
  * @param {string} blockName - The name of the block.
- * @return {Object} - The updated block settings with validations.
+ * @return {Object}           - The updated block settings with validations.
  */
 const registerAttributeValidations = (settings, blockName) => {
   const {attributes} = settings;
@@ -156,7 +157,7 @@ const registerAttributeValidations = (settings, blockName) => {
  * Pre-Publish checklist panel component.
  * Displays the current validation messages or a success message.
  *
- * @return {PluginPrePublishPanel} - The sidebar panel.
+ * @return {PluginPrePublishPanel}  The sidebar panel.
  */
 const PrePublishCheckList = () => {
   // This doesn't assign anything from useSelect, which is intended. We want to update the component whenever anything

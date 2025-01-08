@@ -19,11 +19,11 @@ const {sprintf, __} = wp.i18n;
 /**
  * TopicLinkEditor component for managing the Topic Link block in the editor.
  *
- * @param {Object} props - Component properties.
- * @param {Object} props.attributes - Block attributes.
- * @param {boolean} props.isSelected - Indicates if the block is selected.
+ * @param {Object}   props               - Component properties.
+ * @param {Object}   props.attributes    - Block attributes.
+ * @param {boolean}  props.isSelected    - Indicates if the block is selected.
  * @param {Function} props.setAttributes - Function to update block attributes.
- * @return {JSX.Element} The Topic Link Editor component.
+ * @return {JSX.Element}                  - The Topic Link Editor component.
  */
 export const TopicLinkEditor = ({
   attributes,
@@ -95,8 +95,9 @@ export const TopicLinkEditor = ({
 
   /**
    * Sets the object's focal position as a CSS-compatible value.
+   *
    * @param {Object} focalPoints - Object containing x and y focal point values.
-   * @return {string} A default focal point.
+   * @return {void}
    */
   const setObjectPosition = focalPoints => {
     if (!focalPoints) {
@@ -109,8 +110,9 @@ export const TopicLinkEditor = ({
 
   /**
    * Converts a focal point string into an object with x and y properties.
+   *
    * @param {string} focalPoints - The focal points string (e.g., "50% 50%").
-   * @return {Object} An object with x and y properties as decimal values.
+   * @return {Object}            - An object with x and y properties as decimal values.
    */
   const getFocalPoint = focalPoints => {
     const [x, y] = focalPoints.split(' ').map(value => parseFloat(value) / 100);
@@ -141,7 +143,10 @@ export const TopicLinkEditor = ({
         )}
       </div>
       <div className="topic-link-content">
-        <p>{sprintf(__('Learn more about %s', 'planet4-master-theme-backend'), categoryName)}</p>
+        {
+          // translators: %s: Category name
+          <p>{sprintf(__('Learn more about %s', 'planet4-master-theme-backend'), categoryName)}</p>
+        }
       </div>
     </section>
   );
