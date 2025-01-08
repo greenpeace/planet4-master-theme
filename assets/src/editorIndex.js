@@ -20,6 +20,7 @@ import {replaceTaxonomyTermSelectors} from './block-editor/replaceTaxonomyTermSe
 import {setupImageBlockExtension} from './block-editor/setupImageBlockExtension';
 import {setupDetailsBlockExtension} from './block-editor/setupDetailsBlockExtension';
 import {setupTaxonomyBreadcrumbBlock} from './block-editor/setupTaxonomyBreadcrumbBlock';
+import {registerSecondaryNavigationBlock} from './blocks/SecondaryNavigation/SecondaryNavigationBlock';
 
 wp.domReady(() => {
   // Blocks
@@ -33,6 +34,7 @@ wp.domReady(() => {
   registerTopicLinkBlock();
   registerActionButtonTextBlock();
   registerActionsListBlock();
+  registerSecondaryNavigationBlock();
 
   // Block Templates
   registerBlockTemplates();
