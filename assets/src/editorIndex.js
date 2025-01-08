@@ -12,6 +12,7 @@ import {registerColumnsBlock} from './blocks/Columns/ColumnsBlock';
 import {registerBlockStyles} from './block-styles';
 import {registerBlockVariations} from './block-variations';
 import {registerActionButtonTextBlock} from './blocks/ActionCustomButtonText';
+import {registerSecondaryNavigationBlock} from './blocks/SecondaryNavigation/SecondaryNavigationBlock';
 
 wp.domReady(() => {
   // Blocks
@@ -21,6 +22,7 @@ wp.domReady(() => {
   registerHappyPointBlock();
   registerSocialMediaBlock();
   registerTimelineBlock();
+  registerSecondaryNavigationBlock();
 
   // Block Templates
   registerBlockTemplates();
