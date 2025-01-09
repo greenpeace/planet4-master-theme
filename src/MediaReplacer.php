@@ -96,13 +96,6 @@ class MediaReplacer
      */
     public function render_replace_media_metabox(WP_Post $post): void
     {
-        // Check if the post excludes image mime types
-        if (in_array($post->post_mime_type, self::IMAGE_MIME_TYPES)) {
-            $message = __('Images cannot be replaced yet.', 'planet4-master-theme-backend');
-            echo "<p>" . $message . "</p>";
-            return;
-        }
-
         // phpcs:ignore Generic.Files.LineLength.MaxExceeded
         $message = __('Use this to replace the current file without changing the file URL.', 'planet4-master-theme-backend');
         echo "<p>" . $message . "</p>";
@@ -126,11 +119,6 @@ class MediaReplacer
         // Check if the current page is an editing page
         // If so, return as a metabox is added to the page
         if (isset($_GET['action']) && $_GET['action'] === 'edit') {
-            return $form_fields;
-        }
-
-        // Check if the post excludes image mime types
-        if (in_array($post->post_mime_type, self::IMAGE_MIME_TYPES)) {
             return $form_fields;
         }
 
