@@ -242,7 +242,7 @@ class MediaReplacer
             // If not, sync the file with Google Storage by calling the "wp_update_attachment_metadata" function.
             // https://github.com/udx/wp-stateless/blob/0871da645453240007178f4a5f243ceab6a188ea/lib/classes/class-bootstrap.php#L376
             if (in_array($filetype['type'], self::IMAGE_MIME_TYPES)) {
-                $status = $this->replace_image_in_google_storage($old_file_id, $filetype['type']);
+                $status = $this->replace_image_in_google_storage($old_file_id, $old_file_path, $filetype['type']);
             } else {
                 $attach_data = wp_generate_attachment_metadata($old_file_id, $old_file_path);
                 $status = wp_update_attachment_metadata($old_file_id, $attach_data);
@@ -255,32 +255,32 @@ class MediaReplacer
         }
     }
 
-    private function replace_image_in_google_storage($original_image_id, $original_image_type)
+    private function replace_image_in_google_storage($original_image_id, $original_image_path, $original_image_type)
     {
         $image_sm_meta = get_post_meta($original_image_id, 'sm_cloud')[0];
 
         // Replace the original image
-        $this->upload_image_to_google_storage($image_sm_meta['name'], $original_image_type);
+        $this->upload_image_to_google_storage($image_sm_meta['name'], $original_image_path, $original_image_type);
 
         // Replace the image variants
         foreach($image_sm_meta['sizes'] as $image) {
-            $this->upload_image_to_google_storage($image['name'], $original_image_type);
+            $this->upload_image_to_google_storage($image['name'], $original_image_path, $original_image_type);
         }
 
         return true;
     }
 
-    private function upload_image_to_google_storage($img_name, $img_type)
+    private function upload_image_to_google_storage($img_name, $img_path, $img_type)
     {
         $client = ud_get_stateless_media()->get_client();
 
         $client->add_media(apply_filters('sm:item:on_fly:before_add', array_filter(array(
             'name' => $img_name,
-            'absolutePath' => get_template_directory() . '/images/planet4.png',
+            'absolutePath' => $img_path,
             'cacheControl' => apply_filters('sm:item:cacheControl', 'dummy_cache_control', 'dummy_metadata'),
             'contentDisposition' => null,
-            'mimeType' => 'image/png',
-            'metadata' => 'dummy_metadata',
+            'mimeType' => $img_type,
+            'metadata' => '',
             'force' => true,
         ))));
     }
