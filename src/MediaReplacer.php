@@ -13,7 +13,6 @@ class MediaReplacer
 {
     /**
      * List of image MIME types.
-     * We need this list as for now we will only replace non-image files.
      */
     private const IMAGE_MIME_TYPES = [
         'image/jpeg',
@@ -35,29 +34,6 @@ class MediaReplacer
         add_action('add_meta_boxes', [$this, 'add_replace_media_metabox']);
         add_action('wp_ajax_replace_media', [$this, 'ajax_replace_media']);
         add_action('admin_notices', [$this, 'display_admin_notices']);
-        add_action('init', [$this, 'testing']);
-    }
-
-    public function testing() {
-        $client = ud_get_stateless_media()->get_client();
-
-        $get = $client->get_media('2019/02/0a7fa023-vw-protest-2.jpg');
-
-        // var_dump($get);
-
-        // echo '<hr>';
-
-        // $add = $client->add_media(apply_filters('sm:item:on_fly:before_add', array_filter(array(
-        //     'name' => '2025/01/dummy_file_path',
-        //     'absolutePath' => get_template_directory() . '/images/country-icon.png',
-        //     'cacheControl' => apply_filters('sm:item:cacheControl', 'dummy_cache_control', 'dummy_metadata'),
-        //     'contentDisposition' => null,
-        //     'mimeType' => 'image/png',
-        //     'metadata' => 'dummy_metadata',
-        //     'force' => true,
-        // ))));
-
-        // var_dump($add);
     }
 
     /**
@@ -198,7 +174,6 @@ class MediaReplacer
                 return;
             }
 
-            // If the file was not moved, abort
             $file_replaced = $this->replace_media_file($attachment_id, $movefile['file']);
 
             // If the file was not replaced, abort
@@ -263,19 +238,51 @@ class MediaReplacer
                 return false;
             }
 
-            // Update file metadata
-            // By calling the "wp_update_attachment_metadata" function,
-            // the WP Stateless plugin syncs the file with Google Storage.
+            // If the file is an image, replace it by calling specific functions provided by WP Stateless.
+            // If not, sync the file with Google Storage by calling the "wp_update_attachment_metadata" function.
             // https://github.com/udx/wp-stateless/blob/0871da645453240007178f4a5f243ceab6a188ea/lib/classes/class-bootstrap.php#L376
-            $attach_data = wp_generate_attachment_metadata($old_file_id, $old_file_path);
-            $post_meta_updated = wp_update_attachment_metadata($old_file_id, $attach_data);
+            if (in_array($filetype['type'], self::IMAGE_MIME_TYPES)) {
+                $status = $this->replace_image_in_google_storage($old_file_id, $filetype['type']);
+            } else {
+                $attach_data = wp_generate_attachment_metadata($old_file_id, $old_file_path);
+                $status = wp_update_attachment_metadata($old_file_id, $attach_data);
+            }
 
-            // If the post meta was not updated, abort
-            return $post_meta_updated;
+            return $status;
         } catch (\Exception $e) {
             set_transient('media_replacement_error', $e->getMessage(), 5);
             return false;
         }
+    }
+
+    private function replace_image_in_google_storage($original_image_id, $original_image_type)
+    {
+        $image_sm_meta = get_post_meta($original_image_id, 'sm_cloud')[0];
+
+        // Replace the original image
+        $this->upload_image_to_google_storage($image_sm_meta['name'], $original_image_type);
+
+        // Replace the image variants
+        foreach($image_sm_meta['sizes'] as $image) {
+            $this->upload_image_to_google_storage($image['name'], $original_image_type);
+        }
+
+        return true;
+    }
+
+    private function upload_image_to_google_storage($img_name, $img_type)
+    {
+        $client = ud_get_stateless_media()->get_client();
+
+        $client->add_media(apply_filters('sm:item:on_fly:before_add', array_filter(array(
+            'name' => $img_name,
+            'absolutePath' => get_template_directory() . '/images/planet4.png',
+            'cacheControl' => apply_filters('sm:item:cacheControl', 'dummy_cache_control', 'dummy_metadata'),
+            'contentDisposition' => null,
+            'mimeType' => 'image/png',
+            'metadata' => 'dummy_metadata',
+            'force' => true,
+        ))));
     }
 
     /**
