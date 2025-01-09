@@ -35,6 +35,29 @@ class MediaReplacer
         add_action('add_meta_boxes', [$this, 'add_replace_media_metabox']);
         add_action('wp_ajax_replace_media', [$this, 'ajax_replace_media']);
         add_action('admin_notices', [$this, 'display_admin_notices']);
+        add_action('init', [$this, 'testing']);
+    }
+
+    public function testing() {
+        $client = ud_get_stateless_media()->get_client();
+
+        $get = $client->get_media('2019/02/0a7fa023-vw-protest-2.jpg');
+
+        // var_dump($get);
+
+        // echo '<hr>';
+
+        // $add = $client->add_media(apply_filters('sm:item:on_fly:before_add', array_filter(array(
+        //     'name' => '2025/01/dummy_file_path',
+        //     'absolutePath' => get_template_directory() . '/images/country-icon.png',
+        //     'cacheControl' => apply_filters('sm:item:cacheControl', 'dummy_cache_control', 'dummy_metadata'),
+        //     'contentDisposition' => null,
+        //     'mimeType' => 'image/png',
+        //     'metadata' => 'dummy_metadata',
+        //     'force' => true,
+        // ))));
+
+        // var_dump($add);
     }
 
     /**
@@ -128,19 +151,19 @@ class MediaReplacer
     private function get_replace_button_html(WP_Post $post): string
     {
         return
-        '<button 
-            type="button" 
-            class="button media-replacer-button" 
+        '<button
+            type="button"
+            class="button media-replacer-button"
             data-attachment-id="' . esc_attr($post->ID) . '"
             data-mime-type="' . esc_attr($post->post_mime_type) . '"
         >
             Replace Media
         </button>
-        <input 
-            type="file" 
-            class="replace-media-file" 
-            style="display: none;" 
-            accept="' . esc_attr($post->post_mime_type) . '" 
+        <input
+            type="file"
+            class="replace-media-file"
+            style="display: none;"
+            accept="' . esc_attr($post->post_mime_type) . '"
         />
         ';
     }
