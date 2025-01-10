@@ -272,15 +272,21 @@ class MediaReplacer
         $client = ud_get_stateless_media()->get_client();
         $image_sm_meta = get_post_meta($original_image_id, 'sm_cloud')[0];
 
-        foreach($image_sm_meta['sizes'] as $image) {
+        foreach($image_sm_meta['sizes'] as $size => $image) {
             $client->add_media(apply_filters('sm:item:on_fly:before_add', array_filter(array(
                 'name' => $image['name'],
                 // 'absolutePath' => $original_image_path,
                 'absolutePath' => get_template_directory() . '/images/planet4.png',
-                'cacheControl' => apply_filters('sm:item:cacheControl', 'dummy_cache_control', 'dummy_metadata'),
+                'cacheControl' => 'public, max-age=36000, must-revalidate',
                 'contentDisposition' => null,
                 'mimeType' => $original_image_type,
-                'metadata' => '',
+                'metadata' => [
+                    'width' => $image['width'],
+                    'height' => $image['height'],
+                    'file-hash' => md5($image['name']),
+                    'size' => $size,
+                    'child-of' => $original_image_id,
+                ],
                 'force' => true,
             ))));
 
