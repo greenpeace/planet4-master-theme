@@ -187,8 +187,8 @@ class MediaReplacer
             // If the file was not replaced, abort
             if (!$file_replaced) {
                 $error_message = __('Media file could not be replaced.', 'planet4-master-theme-backend');
-                set_transient('media_replacement_error', $file_replaced, 5);
-                wp_send_json_error($file_replaced);
+                set_transient('media_replacement_error', $error_message, 5);
+                wp_send_json_error($error_message);
                 return;
             }
 
@@ -224,8 +224,7 @@ class MediaReplacer
 
             // If the file was not renamed, abort
             if (!$file_renamed) {
-                // return false;
-                return "file_renamed";
+                return false;
             }
 
             // Update the attachment metadata with new information
@@ -243,8 +242,7 @@ class MediaReplacer
 
             // If the post was not updated, abort
             if (is_wp_error($post_updated) || $post_updated === 0) {
-                // return false;
-                return "is_wp_error";
+                return false;
             }
 
             // Sync the file with Google Storage by calling the "wp_update_attachment_metadata" function.
