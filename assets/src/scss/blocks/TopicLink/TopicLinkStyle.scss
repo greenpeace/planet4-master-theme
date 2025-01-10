@@ -1,4 +1,4 @@
-@mixin topic-link-style {
+.topic-link-block {
   border-radius: 4px;
   display: flex;
   justify-content: space-between;
@@ -10,11 +10,9 @@
   max-width: 46rem;
   height: auto;
   padding: $sp-6 $sp-3;
-}
 
-.topic-link-block {
   a {
-    @include topic-link-style;
+    width: 100%;
 
     &:hover {
       text-decoration: none;
