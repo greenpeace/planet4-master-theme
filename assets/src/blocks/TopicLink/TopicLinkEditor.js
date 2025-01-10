@@ -133,20 +133,22 @@ export const TopicLinkEditor = ({
    */
   const renderEditInPlace = () => (
     <section className="topic-link-block block">
-      <div className="background-image">
-        {imageUrl && (
-          <img
-            src={imageUrl}
-            alt={imageAlt}
-            style={{objectPosition: focal_points}}
-          />
-        )}
-      </div>
-      <div className="topic-link-content">
-        {
-          // translators: %s: Category name
-          <p>{sprintf(__('Learn more about %s', 'planet4-master-theme-backend'), categoryName)}</p>
-        }
+      <div className="topic-link-block_editor-container">
+        <div className="background-image">
+          {imageUrl && (
+            <img
+              src={imageUrl}
+              alt={imageAlt}
+              style={{objectPosition: focal_points}}
+            />
+          )}
+        </div>
+        <div className="topic-link-content">
+          {
+            // translators: %s: Category name
+            <p>{sprintf(__('Learn more about %s', 'planet4-master-theme-backend'), categoryName)}</p>
+          }
+        </div>
       </div>
     </section>
   );

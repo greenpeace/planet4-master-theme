@@ -1,18 +1,16 @@
 .topic-link-block {
-  border-radius: 4px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: relative;
-  overflow: hidden;
-  background-color: var(--grey-900);
-  width: 100%;
-  max-width: 46rem;
-  height: auto;
-  padding: $sp-6 $sp-3;
-
-  a {
+  a, .topic-link-block_editor-container {
     width: 100%;
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    background-color: var(--grey-900);
+    max-width: 46rem;
+    height: auto;
+    padding: $sp-6 $sp-3;
 
     &:hover {
       text-decoration: none;
