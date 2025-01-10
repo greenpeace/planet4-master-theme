@@ -24,6 +24,7 @@ wp.domReady(() => {
   registerSocialMediaBlock();
   registerTimelineBlock();
   registerPostsListBlock();
+  registerTopicLinkBlock();
 
   // Block Templates
   registerBlockTemplates();
