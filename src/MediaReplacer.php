@@ -34,13 +34,14 @@ class MediaReplacer
      */
     public function __construct()
     {
-        $this->cf = new CloudflarePurger();
-
-        add_action('admin_enqueue_scripts', [$this, 'enqueue_media_modal_script']);
-        add_filter('attachment_fields_to_edit', [$this, 'add_replace_media_button'], 10, 2);
-        add_action('add_meta_boxes', [$this, 'add_replace_media_metabox']);
-        add_action('wp_ajax_replace_media', [$this, 'ajax_replace_media']);
-        add_action('admin_notices', [$this, 'display_admin_notices']);
+        if (function_exists('is_plugin_active') && is_plugin_active('wp-stateless/wp-stateless-media.php')) {
+            add_action('admin_enqueue_scripts', [$this, 'enqueue_media_modal_script']);
+            add_filter('attachment_fields_to_edit', [$this, 'add_replace_media_button'], 10, 2);
+            add_action('add_meta_boxes', [$this, 'add_replace_media_metabox']);
+            add_action('wp_ajax_replace_media', [$this, 'ajax_replace_media']);
+            add_action('admin_notices', [$this, 'display_admin_notices']);
+            $this->cf = new CloudflarePurger();
+        }
     }
 
     /**
