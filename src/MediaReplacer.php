@@ -40,7 +40,7 @@ class MediaReplacer
             add_action('add_meta_boxes', [$this, 'add_replace_media_metabox']);
             add_action('wp_ajax_replace_media', [$this, 'ajax_replace_media']);
             add_action('admin_notices', [$this, 'display_admin_notices']);
-            $this->cf = new CloudflarePurger();
+            // $this->cf = new CloudflarePurger();
         }
     }
 
@@ -251,11 +251,11 @@ class MediaReplacer
             $status = wp_update_attachment_metadata($old_file_id, $attach_data);
 
             // Purge the Cloudflare cache for the replaced file url.
-            $this->purge_cloudflare(wp_get_attachment_url($old_file_id));
+            // $this->purge_cloudflare(wp_get_attachment_url($old_file_id));
 
             // If the file is an image, replace the image variants in Google Storage.
             if (in_array($filetype['type'], self::IMAGE_MIME_TYPES)) {
-                $status = $this->replace_image_variants($old_file_id, $old_file_path, $filetype['type']);
+                $this->replace_image_variants($old_file_id);
             }
 
             return $status;
@@ -265,32 +265,64 @@ class MediaReplacer
         }
     }
 
-    private function replace_image_variants($original_image_id, $original_image_path, $original_image_type)
+    private function replace_image_variants($original_image_id)
     {
-        $client = ud_get_stateless_media()->get_client();
+        $image_url = 'https://www.greenpeace.org/static/planet4-defaultcontent-stateless-develop/2020/06/e7c50925-gp1styhp.jpg';
+
+        if (!filter_var($image_url, FILTER_VALIDATE_URL)) {
+            error_log('Invalid image URL: ' . $image_url);
+            return false;
+        }
+
+        // Get the uploads directory
+        $upload_dir = wp_upload_dir();
+        if (!is_writable($upload_dir['path'])) {
+            error_log('Uploads directory is not writable: ' . $upload_dir['path']);
+            return false;
+        }
+
+        // Generate a temporary file path in the uploads directory
+        $temp_file = $upload_dir['path'] . '/temp-image-' . time() . '.jpg';
+
+        // Download the image from the external URL
+        $image_data = file_get_contents($image_url);
+        if ($image_data === false) {
+            error_log('Failed to download image from URL: ' . $image_url);
+            return false;
+        }
+
+        // Save the downloaded image to the temporary file
+        $saved = file_put_contents($temp_file, $image_data);
+        if ($saved === false) {
+            error_log('Failed to save image to temporary file: ' . $temp_file);
+            return false;
+        }
+
+        // Log the temporary file path for debugging
+        error_log('Downloaded image saved as temporary file: ' . $temp_file);
+
         $image_sm_meta = get_post_meta($original_image_id, 'sm_cloud')[0];
 
-        foreach($image_sm_meta['sizes'] as $size => $image) {
-            $client->add_media(apply_filters('sm:item:on_fly:before_add', array_filter(array(
-                'name' => $image['name'],
-                // 'absolutePath' => $original_image_path,
-                'absolutePath' => get_template_directory() . '/images/planet4.png',
-                'cacheControl' => 'public, max-age=36000, must-revalidate',
-                'contentDisposition' => null,
-                'mimeType' => $original_image_type,
-                'metadata' => [
-                    'width' => $image['width'],
-                    'height' => $image['height'],
-                    'file-hash' => md5($image['name']),
-                    'size' => $size,
-                    'child-of' => $original_image_id,
-                ],
-                'force' => true,
-            ))));
+        foreach($image_sm_meta['sizes'] as $image) {
+            // Trigger the image_make_intermediate_size filter
+            $width = $image['width'];  // Desired width
+            $height = $image['height']; // Desired height
+            $crop = true;  // Whether to crop the image to exact dimensions
 
-            // Purge the Cloudflare cache for each image variant url.
-            // $this->purge_cloudflare(wp_get_attachment_url($old_file_id));
+            $resized_image = image_make_intermediate_size($temp_file, $width, $height, $crop);
+
+            if (!$resized_image) {
+                error_log('Failed to generate intermediate size for: ' . $temp_file);
+                unlink($temp_file); // Cleanup
+                return false;
+            }
         }
+        // Cleanup: Remove the temporary file after processing
+        if (file_exists($temp_file)) {
+            unlink($temp_file);
+            error_log('Temporary file deleted: ' . $temp_file);
+        }
+
         return true;
     }
 
