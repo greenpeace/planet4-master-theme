@@ -194,7 +194,7 @@ class MediaReplacer
 
             $message = __('Media replaced successfully!', 'planet4-master-theme-backend');
             set_transient('media_replacement_message', $message, 5);
-            $this->purge_cloudflare(wp_get_attachment_url($attachment_id));
+            // $this->purge_cloudflare(wp_get_attachment_url($attachment_id));
             wp_send_json_success();
         } catch (\Exception $e) {
             set_transient('media_replacement_error', $e->getMessage(), 5);
@@ -252,11 +252,18 @@ class MediaReplacer
             $post_meta_updated = wp_update_attachment_metadata($old_file_id, $attach_data);
 
             // Purge the Cloudflare cache for the replaced file url.
-            $this->purge_cloudflare(wp_get_attachment_url($old_file_id));
+            // $this->purge_cloudflare(wp_get_attachment_url($old_file_id));
 
             // If the file is an image, replace the image variants in Google Storage.
             if (in_array($filetype['type'], self::IMAGE_MIME_TYPES)) {
-                $this->replace_image_variants($old_file_id);
+                $temp_file = $this->save_original_image_in_temporal_file($old_file_id);
+
+                $this->replace_variant_images_in_google_storage($old_file_id, $temp_file);
+
+                // Cleanup: Remove the temporary file after processing
+                if (file_exists($temp_file)) {
+                    unlink($temp_file);
+                }
             }
 
             return $post_meta_updated;
@@ -266,46 +273,43 @@ class MediaReplacer
         }
     }
 
-    private function replace_image_variants($original_image_id)
+    private function save_original_image_in_temporal_file()
     {
         $image_url = 'https://www.greenpeace.org/static/planet4-defaultcontent-stateless-develop/2020/06/e7c50925-gp1styhp.jpg';
 
         if (!filter_var($image_url, FILTER_VALIDATE_URL)) {
-            error_log('Invalid image URL: ' . $image_url);
             return false;
         }
 
         // Get the uploads directory
         $upload_dir = wp_upload_dir();
         if (!is_writable($upload_dir['path'])) {
-            error_log('Uploads directory is not writable: ' . $upload_dir['path']);
             return false;
         }
 
         // Generate a temporary file path in the uploads directory
-        $temp_file = $upload_dir['path'] . 'temporary-image.jpg';
+        $temp_file_path = $upload_dir['path'] . 'temporary-image.jpg';
 
         // Download the image from the external URL
         $image_data = file_get_contents($image_url);
         if ($image_data === false) {
-            error_log('Failed to download image from URL: ' . $image_url);
             return false;
         }
 
         // Save the downloaded image to the temporary file
-        $saved = file_put_contents($temp_file, $image_data);
+        $saved = file_put_contents($temp_file_path, $image_data);
         if ($saved === false) {
-            error_log('Failed to save image to temporary file: ' . $temp_file);
             return false;
         }
 
-        // Log the temporary file path for debugging
-        error_log('Downloaded image saved as temporary file: ' . $temp_file);
+        return $temp_file_path;
+    }
 
-        $image_sm_meta = get_post_meta($original_image_id, 'sm_cloud')[0];
+    private function replace_variant_images_in_google_storage($original_image_id, $temp_file)
+    {
+        $image_variants = get_post_meta($original_image_id, 'sm_cloud')[0]['sizes'];
 
-        foreach($image_sm_meta['sizes'] as $image) {
-            // Trigger the image_make_intermediate_size filter
+        foreach($image_variants as $image) {
             $width = $image['width'];
             $height = $image['height'];
 
@@ -313,17 +317,13 @@ class MediaReplacer
             $editor = wp_get_image_editor( $temp_file );
 
             if ( is_wp_error( $editor ) ) {
-                // Handle errors if the editor couldn't be loaded.
-                echo 'Error loading image editor: ' . $editor->get_error_message();
-                return;
+                return false;
             }
 
             // Resize the image to the desired dimensions.
-            $result = $editor->resize( $width, $height, true ); // Width: 800px, Height: 600px, Hard crop: false
+            $result = $editor->resize( $width, $height, true );
 
             if ( is_wp_error( $result ) ) {
-                // Handle error if resizing failed.
-                echo 'Error resizing image: ' . $result->get_error_message();
                 return;
             }
 
@@ -331,44 +331,26 @@ class MediaReplacer
             $resized_file = $editor->save();
 
             if ( is_wp_error( $resized_file ) ) {
-                // Handle error if saving failed.
-                echo 'Error saving image: ' . $resized_file->get_error_message();
                 return;
             }
 
-            // Get the path of the resized image.
-            $resized_image_path = $resized_file['path'];
-
-            $string = get_post($original_image_id)->post_title;
+            $image_title = get_post($original_image_id)->post_title;
 
             // Remove the file extension using pathinfo().
-            $name = pathinfo($string, PATHINFO_DIRNAME) . '/' . pathinfo($string, PATHINFO_FILENAME);
+            $image_name = pathinfo($image_title, PATHINFO_DIRNAME) . '/' . pathinfo($image_title, PATHINFO_FILENAME);
 
             $client = ud_get_stateless_media()->get_client();
 
             $client->add_media(array(
-                'name' => $name . '-' . $width . 'x' . $height . '.jpg', // important!!!!! replace the file extension!!!
+                'name' => $image_name . '-' . $width . 'x' . $height . '.jpg', // important!!!!! replace the file extension!!!
                 'force' => true,
-                'absolutePath' => $resized_image_path,
-                'cacheControl' => '',
+                'absolutePath' => $resized_file['path'],
+                'cacheControl' => '',  // important!!!!! replace the file extension!!!
                 'contentDisposition' => null,
-                'mimeType' => 'image/jpeg',
-                'metadata' => '',
+                'mimeType' => 'image/jpeg',  // important!!!!! replace the file extension!!!
+                'metadata' => '',  // important!!!!! replace the file extension!!!
             ));
-
-            // if (!$resized_image) {
-            //     error_log('Failed to generate intermediate size for: ' . $temp_file);
-            //     unlink($temp_file); // Cleanup
-            //     return false;
-            // }
         }
-        // Cleanup: Remove the temporary file after processing
-        if (file_exists($temp_file)) {
-            unlink($temp_file);
-            error_log('Temporary file deleted: ' . $temp_file);
-        }
-
-        return true;
     }
 
     /**
