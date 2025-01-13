@@ -34,7 +34,7 @@ class MediaReplacer
         }
 
         // echo "<pre>";
-        // print_r( get_post_meta(1382, 'sm_cloud')[0] );
+        // print_r( get_post(1389)->guid );
         // echo "</pre>";
 
         add_action('admin_enqueue_scripts', [$this, 'enqueue_media_modal_script']);
@@ -273,10 +273,9 @@ class MediaReplacer
         }
     }
 
-    private function save_original_image_in_temporal_file()
+    private function save_original_image_in_temporal_file($original_image_id)
     {
-        $image_url = 'https://www.greenpeace.org/static/planet4-defaultcontent-stateless-develop/2020/06/e7c50925-gp1styhp.jpg';
-
+        $image_url = get_post($original_image_id)->guid;
         if (!filter_var($image_url, FILTER_VALIDATE_URL)) {
             return false;
         }
@@ -287,14 +286,14 @@ class MediaReplacer
             return false;
         }
 
-        // Generate a temporary file path in the uploads directory
-        $temp_file_path = $upload_dir['path'] . 'temporary-image.jpg';
-
         // Download the image from the external URL
         $image_data = file_get_contents($image_url);
         if ($image_data === false) {
             return false;
         }
+
+        // Generate a temporary file path in the uploads directory
+        $temp_file_path = $upload_dir['path'] . 'temporary-image.jpg';
 
         // Save the downloaded image to the temporary file
         $saved = file_put_contents($temp_file_path, $image_data);
@@ -310,9 +309,6 @@ class MediaReplacer
         $image_variants = get_post_meta($original_image_id, 'sm_cloud')[0]['sizes'];
 
         foreach($image_variants as $image) {
-            $width = $image['width'];
-            $height = $image['height'];
-
             // Load the image editor for the specified file.
             $editor = wp_get_image_editor( $temp_file );
 
@@ -321,7 +317,7 @@ class MediaReplacer
             }
 
             // Resize the image to the desired dimensions.
-            $result = $editor->resize( $width, $height, true );
+            $result = $editor->resize( $image['width'], $image['height'], true );
 
             if ( is_wp_error( $result ) ) {
                 return;
@@ -339,17 +335,19 @@ class MediaReplacer
             // Remove the file extension using pathinfo().
             $image_name = pathinfo($image_title, PATHINFO_DIRNAME) . '/' . pathinfo($image_title, PATHINFO_FILENAME);
 
-            $client = ud_get_stateless_media()->get_client();
+            $full_image_name = $image_name . '-' . $image['width'] . 'x' . $image['height'] . '.jpg'; // important!!!!! replace the file extension!!!
 
-            $client->add_media(array(
-                'name' => $image_name . '-' . $width . 'x' . $height . '.jpg', // important!!!!! replace the file extension!!!
+            $variant_image_args = array(
+                'name' => $full_image_name,
                 'force' => true,
                 'absolutePath' => $resized_file['path'],
                 'cacheControl' => '',  // important!!!!! replace the file extension!!!
                 'contentDisposition' => null,
                 'mimeType' => 'image/jpeg',  // important!!!!! replace the file extension!!!
                 'metadata' => '',  // important!!!!! replace the file extension!!!
-            ));
+            );
+
+            ud_get_stateless_media()->get_client()->add_media($variant_image_args);
         }
     }
 
