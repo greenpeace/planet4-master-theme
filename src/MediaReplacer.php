@@ -33,6 +33,10 @@ class MediaReplacer
             return;
         }
 
+        // echo "<pre>";
+        // print_r( get_post(1381)->post_title );
+        // echo "</pre>";
+
         add_action('admin_enqueue_scripts', [$this, 'enqueue_media_modal_script']);
         add_filter('attachment_fields_to_edit', [$this, 'add_replace_media_button'], 10, 2);
         add_action('add_meta_boxes', [$this, 'add_replace_media_metabox']);
@@ -302,12 +306,8 @@ class MediaReplacer
 
         foreach($image_sm_meta['sizes'] as $image) {
             // Trigger the image_make_intermediate_size filter
-            $width = $image['width'];  // Desired width
-            $height = $image['height']; // Desired height
-            $crop = true;  // Whether to crop the image to exact dimensions
-
-            // $resized_image = $this->image_make_intermediate_size($temp_file, $width, $height, $crop);
-            // $resized_image = $this->handle_on_fly($resized_image['path']);
+            $width = $image['width'];
+            $height = $image['height'];
 
             // Load the image editor for the specified file.
             $editor = wp_get_image_editor( $temp_file );
@@ -339,10 +339,12 @@ class MediaReplacer
             // Get the path of the resized image.
             $resized_image_path = $resized_file['path'];
 
+            $name = get_post($original_image_id)->post_title;
+
             $client = ud_get_stateless_media()->get_client();
 
             $client->add_media(array(
-                'name' => '2025/01/pedro-test-' . $width . 'x' . $height,
+                'name' => $name . '-' . $width . 'x' . $height . '.jpg',
                 'force' => true,
                 'absolutePath' => $resized_image_path,
                 'cacheControl' => '',
