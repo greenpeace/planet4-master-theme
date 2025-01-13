@@ -1,5 +1,3 @@
-/* eslint-disable no-shadow */
-
 const {useSelect} = wp.data;
 const {
   BlockControls,
@@ -35,7 +33,7 @@ export const TopicLinkEditor = ({
     categoryName,
     focal_points,
     imageId: customImageId,
-    imageUrl: customImageFromId,
+    imageUrl: customImageUrl,
   } = attributes;
 
   const {
@@ -45,29 +43,27 @@ export const TopicLinkEditor = ({
     imageAlt,
     currentPostCategories,
   } = useSelect(select => {
-    const categoriesList = [].concat(
+    const categories = [].concat(
       select('core').getEntityRecords('taxonomy', 'category', {
         hide_empty: true,
         per_page: -1,
       }) || []
     );
 
-    const customImage = customImageId && select('core').getMedia(customImageId);
-    const customImageFromId = customImage?.source_url;
-
-    const imageId = customImageId;
-    const imageUrl = customImageFromId;
-    const imageAlt = customImage?.alt_text;
-    const currentPostCategories = select('core/editor').getCurrentPost().categories || [];
+    const customImage = customImageId ? select('core').getMedia(customImageId) : null;
+    const fetchedImageUrl = customImage?.source_url || '';
+    const fetchedImageId = customImageId || null;
+    const fetchedImageAlt = customImage?.alt_text || '';
+    const currentCategories = select('core/editor').getCurrentPost().categories || [];
 
     return {
-      categoriesList,
-      imageId,
-      imageUrl,
-      imageAlt,
-      currentPostCategories,
+      categoriesList: categories,
+      imageId: fetchedImageId,
+      imageUrl: fetchedImageUrl,
+      imageAlt: fetchedImageAlt,
+      currentPostCategories: currentCategories,
     };
-  }, [categoryId, customImageId, customImageFromId]);
+  }, [customImageId, customImageUrl]);
 
   if (!categoriesList.length) {
     return __('Populating block\'s fields…', 'planet4-blocks-backend');
