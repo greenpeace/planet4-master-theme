@@ -25,23 +25,19 @@ class MediaReplacer
     ];
 
     /**
-     * Instance of the CloudflarePurger class.
-     */
-    public CloudflarePurger $cf;
-
-    /**
      * MediaReplacer constructor.
      */
     public function __construct()
     {
-        if (function_exists('is_plugin_active') && is_plugin_active('wp-stateless/wp-stateless-media.php')) {
-            add_action('admin_enqueue_scripts', [$this, 'enqueue_media_modal_script']);
-            add_filter('attachment_fields_to_edit', [$this, 'add_replace_media_button'], 10, 2);
-            add_action('add_meta_boxes', [$this, 'add_replace_media_metabox']);
-            add_action('wp_ajax_replace_media', [$this, 'ajax_replace_media']);
-            add_action('admin_notices', [$this, 'display_admin_notices']);
-            // $this->cf = new CloudflarePurger();
+        if (function_exists('is_plugin_active') && !is_plugin_active('wp-stateless/wp-stateless-media.php')) {
+            return;
         }
+
+        add_action('admin_enqueue_scripts', [$this, 'enqueue_media_modal_script']);
+        add_filter('attachment_fields_to_edit', [$this, 'add_replace_media_button'], 10, 2);
+        add_action('add_meta_boxes', [$this, 'add_replace_media_metabox']);
+        add_action('wp_ajax_replace_media', [$this, 'ajax_replace_media']);
+        add_action('admin_notices', [$this, 'display_admin_notices']);
     }
 
     /**
@@ -194,6 +190,7 @@ class MediaReplacer
 
             $message = __('Media replaced successfully!', 'planet4-master-theme-backend');
             set_transient('media_replacement_message', $message, 5);
+            $this->purge_cloudflare(wp_get_attachment_url($attachment_id));
             wp_send_json_success();
         } catch (\Exception $e) {
             set_transient('media_replacement_error', $e->getMessage(), 5);
@@ -248,17 +245,17 @@ class MediaReplacer
             // Sync the file with Google Storage by calling the "wp_update_attachment_metadata" function.
             // https://github.com/udx/wp-stateless/blob/0871da645453240007178f4a5f243ceab6a188ea/lib/classes/class-bootstrap.php#L376
             $attach_data = wp_generate_attachment_metadata($old_file_id, $old_file_path);
-            $status = wp_update_attachment_metadata($old_file_id, $attach_data);
+            $post_meta_updated = wp_update_attachment_metadata($old_file_id, $attach_data);
 
             // Purge the Cloudflare cache for the replaced file url.
-            // $this->purge_cloudflare(wp_get_attachment_url($old_file_id));
+            $this->purge_cloudflare(wp_get_attachment_url($old_file_id));
 
             // If the file is an image, replace the image variants in Google Storage.
             if (in_array($filetype['type'], self::IMAGE_MIME_TYPES)) {
                 $this->replace_image_variants($old_file_id);
             }
 
-            return $status;
+            return $post_meta_updated;
         } catch (\Exception $e) {
             set_transient('media_replacement_error', $e->getMessage(), 5);
             return false;
@@ -334,7 +331,8 @@ class MediaReplacer
     private function purge_cloudflare(string $url): void
     {
         try {
-            $generator = $this->cf->purge([$url]);
+            $cf = new CloudflarePurger();
+            $generator = $cf->purge([$url]);
             $api_responses = [];
 
             foreach ($generator as $purge_result) {
