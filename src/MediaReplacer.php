@@ -279,7 +279,7 @@ class MediaReplacer
         }
 
         // Generate a temporary file path in the uploads directory
-        $temp_file = $upload_dir['path'] . '/temp-image-' . time() . '.jpg';
+        $temp_file = $upload_dir['path'] . 'temporary-image.jpg';
 
         // Download the image from the external URL
         $image_data = file_get_contents($image_url);
@@ -306,13 +306,56 @@ class MediaReplacer
             $height = $image['height']; // Desired height
             $crop = true;  // Whether to crop the image to exact dimensions
 
-            $resized_image = image_make_intermediate_size($temp_file, $width, $height, $crop);
+            // $resized_image = $this->image_make_intermediate_size($temp_file, $width, $height, $crop);
+            // $resized_image = $this->handle_on_fly($resized_image['path']);
 
-            if (!$resized_image) {
-                error_log('Failed to generate intermediate size for: ' . $temp_file);
-                unlink($temp_file); // Cleanup
-                return false;
+            // Load the image editor for the specified file.
+            $editor = wp_get_image_editor( $temp_file );
+
+            if ( is_wp_error( $editor ) ) {
+                // Handle errors if the editor couldn't be loaded.
+                echo 'Error loading image editor: ' . $editor->get_error_message();
+                return;
             }
+
+            // Resize the image to the desired dimensions.
+            $result = $editor->resize( $width, $height, true ); // Width: 800px, Height: 600px, Hard crop: false
+
+            if ( is_wp_error( $result ) ) {
+                // Handle error if resizing failed.
+                echo 'Error resizing image: ' . $result->get_error_message();
+                return;
+            }
+
+            // Save the resized image.
+            $resized_file = $editor->save();
+
+            if ( is_wp_error( $resized_file ) ) {
+                // Handle error if saving failed.
+                echo 'Error saving image: ' . $resized_file->get_error_message();
+                return;
+            }
+
+            // Get the path of the resized image.
+            $resized_image_path = $resized_file['path'];
+
+            $client = ud_get_stateless_media()->get_client();
+
+            $client->add_media(array(
+                'name' => '2025/01/pedro-test-' . $width . 'x' . $height,
+                'force' => true,
+                'absolutePath' => $resized_image_path,
+                'cacheControl' => '',
+                'contentDisposition' => null,
+                'mimeType' => 'image/jpeg',
+                'metadata' => '',
+            ));
+
+            // if (!$resized_image) {
+            //     error_log('Failed to generate intermediate size for: ' . $temp_file);
+            //     unlink($temp_file); // Cleanup
+            //     return false;
+            // }
         }
         // Cleanup: Remove the temporary file after processing
         if (file_exists($temp_file)) {
