@@ -473,9 +473,9 @@ class BlockUsageTable extends WP_List_Table
      */
     public function column_block_attrs($item): string
     {
-        $content = $item['block_attrs'] ?? null;
+        $content = $item['block_attrs'] ?? "";
         if (empty($content)) {
-            return '';
+            return $content;
         }
 
 		//phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r , Squiz.PHP.DiscouragedFunctions.Discouraged
