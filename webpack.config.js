@@ -36,6 +36,7 @@ module.exports = (env, argv) => {
       'lite-yt-embed': './node_modules/lite-youtube-embed/src/lite-yt-embed.js',
       menu_editor: './assets/src/js/menu_editor.js',
       shareButtons: './assets/src/js/share_buttons.js',
+      toggleCommentSubmit: './assets/src/js/toggle_comment_submit.js',
       frontendIndex: './assets/src/frontendIndex.js',
       editorIndex: './assets/src/editorIndex.js',
       ArticlesScript: './assets/src/blocks/Articles/ArticlesScript.js',
