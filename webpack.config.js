@@ -35,6 +35,7 @@ module.exports = (env, argv) => {
       media_archive_editor_view: './assets/src/js/media_archive_editor_view.js',
       'lite-yt-embed': './node_modules/lite-youtube-embed/src/lite-yt-embed.js',
       menu_editor: './assets/src/js/menu_editor.js',
+      shareButtons: './assets/src/js/share_buttons.js',
       frontendIndex: './assets/src/frontendIndex.js',
       editorIndex: './assets/src/editorIndex.js',
       ArticlesScript: './assets/src/blocks/Articles/ArticlesScript.js',

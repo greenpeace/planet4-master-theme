@@ -84,6 +84,7 @@ final class Loader
             GravityFormsExtensions::class,
             BlockSettings::class,
             MediaReplacer::class,
+            ScriptsEnqueuer::class,
         ];
 
         if (is_admin()) {
