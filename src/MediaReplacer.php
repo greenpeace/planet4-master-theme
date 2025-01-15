@@ -256,14 +256,7 @@ class MediaReplacer
 
             // If the file is an image, replace the image variants in Google Storage.
             if (in_array($filetype['type'], self::IMAGE_MIME_TYPES)) {
-                $temp_file = $this->save_original_image_in_temporal_file($old_file_id);
-
-                $this->replace_variant_images_in_google_storage($old_file_id, $temp_file);
-
-                // Cleanup: Remove the temporary file after processing
-                if (file_exists($temp_file)) {
-                    unlink($temp_file);
-                }
+                $this->replace_image_variants($old_file_id);
             }
 
             return $post_meta_updated;
@@ -273,6 +266,28 @@ class MediaReplacer
         }
     }
 
+    /**
+     * Replaces the image variants (the set of images with different sizes) in Google Storage.
+     *
+     * @param string $original_image_id The ID of the original image.
+     */
+    private function replace_image_variants($original_image_id)
+    {
+        $temp_file = $this->save_original_image_in_temporal_file($original_image_id);
+
+        $this->resize_and_sync_images($original_image_id, $temp_file);
+
+        // Cleanup: Remove the temporary file after processing
+        if (file_exists($temp_file)) {
+            unlink($temp_file);
+        }
+    }
+
+    /**
+     * Downloads the original image from the URL and saves it to a temporary file.
+     *
+     * @param string $original_image_id The ID of the original image.
+     */
     private function save_original_image_in_temporal_file($original_image_id)
     {
         $image_url = get_post($original_image_id)->guid;
@@ -304,11 +319,23 @@ class MediaReplacer
         return $temp_file_path;
     }
 
-    private function replace_variant_images_in_google_storage($original_image_id, $temp_file)
+    /**
+     * Resizes the original image and syncs the resized images with Google Storage.
+     *
+     * @param string $original_image_id The ID of the original image.
+     * @param string $temp_file The path to the temporary file.
+     */
+    private function resize_and_sync_images($original_image_id, $temp_file)
     {
         $image_variants = get_post_meta($original_image_id, 'sm_cloud')[0]['sizes'];
+        $image_title = get_post($original_image_id)->post_title;
 
-        foreach($image_variants as $image) {
+        // Get the file's MIME type and extension
+        $file_info = wp_check_filetype($temp_file);
+        $mime_type = $file_info['type'];
+        $file_extension = $file_info['ext'];
+
+        foreach($image_variants as $size => $image) {
             // Load the image editor for the specified file.
             $editor = wp_get_image_editor( $temp_file );
 
@@ -330,25 +357,50 @@ class MediaReplacer
                 return;
             }
 
-            $image_title = get_post($original_image_id)->post_title;
-
-            // Remove the file extension using pathinfo().
-            $image_name = pathinfo($image_title, PATHINFO_DIRNAME) . '/' . pathinfo($image_title, PATHINFO_FILENAME);
-
-            $full_image_name = $image_name . '-' . $image['width'] . 'x' . $image['height'] . '.jpg'; // important!!!!! replace the file extension!!!
-
-            $variant_image_args = array(
-                'name' => $full_image_name,
-                'force' => true,
-                'absolutePath' => $resized_file['path'],
-                'cacheControl' => '',  // important!!!!! replace the file extension!!!
-                'contentDisposition' => null,
-                'mimeType' => 'image/jpeg',  // important!!!!! replace the file extension!!!
-                'metadata' => '',  // important!!!!! replace the file extension!!!
+            $this->sync_image_variant(
+                $image_title,
+                $image,
+                $resized_file,
+                $size,
+                $original_image_id,
+                $mime_type,
+                $file_extension
             );
-
-            ud_get_stateless_media()->get_client()->add_media($variant_image_args);
         }
+    }
+
+    /**
+     * Syncs the resized image with Google Storage.
+     *
+     * @param string $image_title The title of the image.
+     * @param array $image The image variant metadata.
+     * @param array $resized_file The resized image file.
+     * @param string $size The size of the image.
+     * @param string $original_image_id The ID of the original image.
+     * @param string $mime_type The MIME type of the image.
+     */
+    private function sync_image_variant($image_title, $image, $resized_file, $size, $original_image_id, $mime_type, $file_extension)
+    {
+        // Remove the file extension using pathinfo().
+        $image_name = pathinfo($image_title, PATHINFO_DIRNAME) . '/' . pathinfo($image_title, PATHINFO_FILENAME);
+
+        $variant_image_args = array(
+            'name' => $image_name . '-' . $image['width'] . 'x' . $image['height'] . '.' . $file_extension,
+            'force' => true,
+            'absolutePath' => $resized_file['path'],
+            'cacheControl' => 'public, max-age=36000, must-revalidate',
+            'contentDisposition' => null,
+            'mimeType' => $mime_type,
+            'metadata' => [
+                'width' => $image['width'],
+                'height' => $image['height'],
+                'file-hash' => md5($image['name']),
+                'size' => $size,
+                'child-of' => $original_image_id,
+            ],
+        );
+
+        ud_get_stateless_media()->get_client()->add_media($variant_image_args);
     }
 
     /**
