@@ -5,7 +5,7 @@ const {__} = wp.i18n;
 export const CoversCarouselLayout = ({covers, amountOfCoversPerRow, ...props}) => {
   const uniqueId = `covers-${uuid()}`;
   return (
-    <div id={uniqueId} className="carousel slide" data-bs-ride="carousel" data-bs-interval="false">
+    <div id={uniqueId} className="carousel slide" data-bs-ride="carousel">
       {covers.length > amountOfCoversPerRow &&
         <ol className="carousel-indicators">
           {covers.map((cover, index) => {
