@@ -84,7 +84,7 @@ final class Loader
             GravityFormsExtensions::class,
             BlockSettings::class,
             MediaReplacer::class,
-            ScriptsEnqueuer::class,
+            TwigScriptsEnqueuer::class,
         ];
 
         if (is_admin()) {
