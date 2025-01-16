@@ -16,28 +16,28 @@ class TwigScriptsEnqueuer
     {
         $scripts = [
             [
-                'handle'   => 'share-buttons-script',
-                'path'     => '/assets/build/shareButtons.js',
-                'deps'     => [],
-                'in_footer' => true
+                'handle' => 'share-buttons-script',
+                'path' => '/assets/build/shareButtons.js',
+                'deps' => [],
+                'in_footer' => true,
             ],
             [
-                'handle'   => 'toggle-comment-submit-script',
-                'path'     => '/assets/build/toggleCommentSubmit.js',
-                'deps'     => [],
-                'in_footer' => true
+                'handle' => 'toggle-comment-submit-script',
+                'path' => '/assets/build/toggleCommentSubmit.js',
+                'deps' => [],
+                'in_footer' => true,
             ],
             [
-                'handle'   => 'hubspot-cookie-script',
-                'path'     => '/assets/build/hubspotCookie.js',
-                'deps'     => [],
-                'in_footer' => true
+                'handle' => 'hubspot-cookie-script',
+                'path' => '/assets/build/hubspotCookie.js',
+                'deps' => [],
+                'in_footer' => true,
             ],
         ];
 
         // Loop through the scripts array and enqueue them
         foreach ($scripts as $script) {
-            add_action('wp_enqueue_scripts', function () use ($script) {
+            add_action('wp_enqueue_scripts', function () use ($script): void {
                 $this->enqueue_script(
                     $script['handle'],
                     $script['path'],
@@ -58,8 +58,13 @@ class TwigScriptsEnqueuer
      * @param string|null $version (Optional) The script version.
      * @param bool $in_footer (Optional) Whether to load the script in the footer.
      */
-    private function enqueue_script($handle, $path, $deps = [], $version = null, $in_footer = true)
-    {
+    private function enqueue_script(
+        string $handle,
+        string $path,
+        array $deps = [],
+        ?string $version = null,
+        bool $in_footer = true
+    ): void {
         wp_enqueue_script(
             $handle,
             get_template_directory_uri() . $path,
@@ -75,7 +80,7 @@ class TwigScriptsEnqueuer
      * @param string $relative_path The file path relative to the theme directory.
      * @return string|null The version string (timestamp) or null if the file does not exist.
      */
-    private function get_file_version($relative_path)
+    private function get_file_version(string $relative_path): ?string
     {
         $absolute_path = get_template_directory() . $relative_path;
 
