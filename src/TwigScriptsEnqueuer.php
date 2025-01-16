@@ -26,7 +26,13 @@ class TwigScriptsEnqueuer
                 'path'     => '/assets/build/toggleCommentSubmit.js',
                 'deps'     => [],
                 'in_footer' => true
-            ]
+            ],
+            [
+                'handle'   => 'hubspot-cookie-script',
+                'path'     => '/assets/build/hubspotCookie.js',
+                'deps'     => [],
+                'in_footer' => true
+            ],
         ];
 
         // Loop through the scripts array and enqueue them

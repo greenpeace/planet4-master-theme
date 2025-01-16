@@ -37,6 +37,7 @@ module.exports = (env, argv) => {
       menu_editor: './assets/src/js/menu_editor.js',
       shareButtons: './assets/src/js/share_buttons.js',
       toggleCommentSubmit: './assets/src/js/toggle_comment_submit.js',
+      hubspotCookie: './assets/src/js/hubspot_cookie.js',
       frontendIndex: './assets/src/frontendIndex.js',
       editorIndex: './assets/src/editorIndex.js',
       ArticlesScript: './assets/src/blocks/Articles/ArticlesScript.js',
