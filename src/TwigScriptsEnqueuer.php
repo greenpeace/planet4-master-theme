@@ -16,34 +16,31 @@ class TwigScriptsEnqueuer
     {
         $scripts = [
             [
+                'action_name' => 'enqueue_share_butttons_script',
                 'handle' => 'share-buttons-script',
                 'path' => '/assets/build/shareButtons.js',
-                'deps' => [],
-                'in_footer' => true,
             ],
             [
+                'action_name' => 'enqueue_toggle_comment_submit_script',
                 'handle' => 'toggle-comment-submit-script',
                 'path' => '/assets/build/toggleCommentSubmit.js',
-                'deps' => [],
-                'in_footer' => true,
             ],
             [
+                'action_name' => 'enqueue_hubspot_cookie_script',
                 'handle' => 'hubspot-cookie-script',
                 'path' => '/assets/build/hubspotCookie.js',
-                'deps' => [],
-                'in_footer' => true,
             ],
         ];
 
         // Loop through the scripts array and enqueue them
         foreach ($scripts as $script) {
-            add_action('wp_enqueue_scripts', function () use ($script): void {
+            add_action($script['action_name'], function () use ($script): void {
                 $this->enqueue_script(
                     $script['handle'],
                     $script['path'],
-                    $script['deps'],
+                    [],
                     $this->get_file_version($script['path']),
-                    $script['in_footer']
+                    true
                 );
             });
         }
