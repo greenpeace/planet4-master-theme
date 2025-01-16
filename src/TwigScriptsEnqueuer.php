@@ -2,6 +2,8 @@
 
 namespace P4\MasterTheme;
 
+use Timber\Timber;
+
 /**
  * Class TwigScriptsEnqueuer.
  *
@@ -33,6 +35,12 @@ class TwigScriptsEnqueuer
                 'deps' => [],
                 'in_footer' => true,
             ],
+            [
+                'handle' => 'google-tag-manager-script',
+                'path' => '/assets/build/googleTagManager.js',
+                'deps' => [],
+                'in_footer' => true,
+            ]
         ];
 
         // Loop through the scripts array and enqueue them
@@ -47,6 +55,8 @@ class TwigScriptsEnqueuer
                 );
             });
         }
+
+        add_action('wp_enqueue_scripts', [$this, 'pass_google_tag_manager_data']);
     }
 
     /**
@@ -89,5 +99,17 @@ class TwigScriptsEnqueuer
         }
 
         return null;
+    }
+
+    public function pass_google_tag_manager_data()
+    {
+        if (!wp_script_is('google-tag-manager-script', 'enqueued')) {
+            return;
+        }
+
+        $context = Timber::context();
+
+        // Pass the data to the script
+        wp_localize_script('google-tag-manager-script', 'googleTagManagerData', $context);
     }
 }
