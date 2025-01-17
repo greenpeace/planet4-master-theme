@@ -40,6 +40,6 @@ if (is_day()) {
 
 $context['posts'] = Timber::get_posts();
 
-do_action('enqueue_google_tag_manager_script', $context);
+do_action('pass_gtm_data', $context);
 
 Timber::render($templates, $context);

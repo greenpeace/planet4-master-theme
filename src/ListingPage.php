@@ -138,7 +138,7 @@ class ListingPage
      */
     public function view(): void
     {
-        do_action('enqueue_google_tag_manager_script', $this->context);
+        do_action('pass_gtm_data', $this->context);
         Timber::render($this->templates, $this->context);
     }
 }
