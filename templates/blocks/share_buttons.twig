@@ -1,4 +1,4 @@
-{{ function('do_action', 'enqueue_share_butttons_script') }}
+{% do action('enqueue_share_butttons_script') %}
 {% set socialLink = (share_url ?? social.link) ~ '?utm_medium=' ~ utm_medium ~ utm_content_param ~ utm_campaign_param %}
 {% set all_platforms = share_platforms is not defined %}
 <div class="share-buttons">

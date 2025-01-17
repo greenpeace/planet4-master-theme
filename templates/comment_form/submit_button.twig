@@ -1,4 +1,4 @@
-{{ function('do_action', 'enqueue_toggle_comment_submit_script') }}
+{% do action('enqueue_toggle_comment_submit_script') %}
 {% if gdpr_checkbox %}
 <div id="gdpr-comments-compliance" class="form-group comments-gdpr">
     <input id="gdpr-comments-checkbox" type="checkbox" name="gdpr_comments_checkbox" value="1" required="required">
