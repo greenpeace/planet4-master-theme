@@ -55,6 +55,7 @@
 
     .carousel-indicators {
       top: calc(100% + #{$sp-2});
+      list-style: none;
 
       li {
         width: 24px;
