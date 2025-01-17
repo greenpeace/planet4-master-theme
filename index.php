@@ -45,5 +45,6 @@ if (is_home()) {
 
     $page = new ListingPage($templates, $context);
 } else {
+    do_action('pass_gtm_data', $context);
     Timber::render($templates, $context);
 }

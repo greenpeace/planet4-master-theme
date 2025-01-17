@@ -2,8 +2,6 @@
 
 namespace P4\MasterTheme;
 
-use Timber\Timber;
-
 /**
  * Class EnqueueController.
  *
@@ -68,7 +66,7 @@ class EnqueueController
             true
         );
 
-        add_action('wp_enqueue_scripts', [$this, 'pass_google_tag_manager_data']);
+        add_action('pass_gtm_data', [$this, 'pass_google_tag_manager_data']);
     }
 
     public function pass_google_tag_manager_data()

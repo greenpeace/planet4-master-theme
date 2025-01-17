@@ -50,4 +50,5 @@ if (!empty(planet4_get_option('new_ia'))) {
     $context['page_types'] = $sitemap->get_page_types();
 }
 
+do_action('pass_gtm_data', $context);
 Timber::render(['sitemap.twig'], $context);
