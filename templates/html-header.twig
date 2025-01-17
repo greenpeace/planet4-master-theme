@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html {{ fn('language_attributes', 'html') }} data-base="{{ data_nav_bar.home_url }}">
 <head>
+    {{ function('do_action', 'enqueue_google_tag_manager_script') }}
+
     <meta charset="{{ site.charset }}">
     {% include 'blocks/title.twig' %}
 
