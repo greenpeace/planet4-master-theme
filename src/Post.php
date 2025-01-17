@@ -688,7 +688,7 @@ class Post extends TimberPost
         }
 
         // For child pages, only show link to the parent
-        if ($submenu_page->menu_item_parent !== 0) {
+        if ($submenu_page !== null && $submenu_page->menu_item_parent) {
             $parent_item = array_filter($menu_items, function ($item) use ($submenu_page) {
                 return (int) $item->ID === (int) $submenu_page->menu_item_parent;
             });
