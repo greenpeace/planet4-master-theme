@@ -93,9 +93,9 @@ class TwigScriptsEnqueuer
     /**
      * Pass data to the GRT script from the Timber context.
      *
-     * @param Object $context The Timber context.
+     * @param array $context The Timber context.
      */
-    public function pass_google_tag_manager_data($context)
+    public function pass_google_tag_manager_data(array $context): void
     {
         $script = [
             'action_name' => 'enqueue_google_tag_manager_script',
