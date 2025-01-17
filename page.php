@@ -113,7 +113,6 @@ if (post_password_required($post->ID)) {
     do_action('pass_gtm_data', $context);
     Timber::render('single-page.twig', $context);
 } else {
-
     do_action('pass_gtm_data', $context);
     Timber::render([ 'page-' . $post->post_name . '.twig', 'page.twig' ], $context);
 }
