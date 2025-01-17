@@ -35,8 +35,6 @@ class TwigScriptsEnqueuer
             [
                 'handle' => 'google-tag-manager-script',
                 'path' => '/assets/build/googleTagManager.js',
-                'deps' => [],
-                'in_footer' => true,
             ]
         ];
 
