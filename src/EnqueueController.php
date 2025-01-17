@@ -2,6 +2,8 @@
 
 namespace P4\MasterTheme;
 
+use Timber\Timber;
+
 /**
  * Class EnqueueController.
  *
@@ -16,6 +18,7 @@ class EnqueueController
     {
         add_action('enqueue_toggle_comment_submit_script', [$this, 'enqueue_toggle_comment_submit']);
         add_action('enqueue_hubspot_cookie_script', [$this, 'enqueue_hubspot_cookie']);
+        add_action('enqueue_google_tag_manager_script', [$this, 'enqueue_google_tag_manager']);
     }
 
     /**
@@ -52,6 +55,31 @@ class EnqueueController
             $this->get_file_version('/assets/build/hubspotCookie.js'),
             true
         );
+    }
+
+    public function enqueue_google_tag_manager(): void
+    {
+        $this->enqueue_script(
+            'google-tag-manager-script',
+            '/assets/build/googleTagManager.js',
+            [],
+            $this->get_file_version('/assets/build/googleTagManager.js'),
+            true
+        );
+
+        add_action('wp_enqueue_scripts', [$this, 'pass_google_tag_manager_data']);
+    }
+
+    public function pass_google_tag_manager_data()
+    {
+        if (!wp_script_is('google-tag-manager-script', 'enqueued')) {
+            return;
+        }
+
+        $context = Timber::context();
+
+        // Pass the data to the script
+        wp_localize_script('google-tag-manager-script', 'googleTagManagerData', $context);
     }
 
     /**
