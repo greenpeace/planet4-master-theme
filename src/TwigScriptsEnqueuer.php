@@ -30,12 +30,6 @@ class TwigScriptsEnqueuer
                 'handle' => 'hubspot-cookie-script',
                 'path' => '/assets/build/hubspotCookie.js',
             ],
-            [
-                'handle' => 'google-tag-manager-script',
-                'path' => '/assets/build/googleTagManager.js',
-                'deps' => [],
-                'in_footer' => true,
-            ]
         ];
 
         // Loop through the scripts array and enqueue them
