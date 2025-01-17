@@ -36,5 +36,6 @@ if (isset($wp_query->query_vars['author'])) {
     ];
 }
 
+do_action('pass_gtm_data', $context);
 $templates = ['author.twig', 'archive.twig'];
 $page = new ListingPage($templates, $context);

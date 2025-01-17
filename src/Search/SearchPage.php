@@ -328,6 +328,8 @@ class SearchPage
             add_filter('wp_robots', 'wp_robots_no_robots');
         }
 
+        do_action('pass_gtm_data', $this->context);
+
         Timber::render(
             self::PAGE_TEMPLATES,
             $this->context,
