@@ -9,6 +9,8 @@
 
 namespace P4\MasterTheme\Blocks;
 
+use WP_REST_Server;
+
 /**
  * Class SocialMedia
  * @package P4\MasterTheme\Blocks
@@ -96,6 +98,7 @@ class SocialMedia extends BaseBlock
 
         add_action('enqueue_block_editor_assets', [ self::class, 'enqueue_editor_assets' ]);
         add_action('wp_enqueue_scripts', [ self::class, 'enqueue_frontend_assets' ]);
+        add_action('rest_api_init', [ self::class, 'register_endpoint' ]);
     }
 
     /**
@@ -233,6 +236,32 @@ class SocialMedia extends BaseBlock
         }
 
         return $url;
+    }
+
+    /**
+     * Endpoint to get the code for Instagram embeds in the Social Media block.
+     *
+     * @example GET /wp-json/planet4/v1/get-instagram-embed
+     */
+    public static function register_endpoint(): void
+    {
+        register_rest_route(
+            self::REST_NAMESPACE,
+            '/get-instagram-embed',
+            [
+                [
+                    'permission_callback' => static function () {
+                        return true;
+                    },
+                    'methods' => WP_REST_Server::READABLE,
+                    'callback' => static function ($fields) {
+                        $url = $fields['url'] ?? '';
+                        $embed_code = self::get_fb_oembed_html($url, 'instagram');
+                        return rest_ensure_response($embed_code);
+                    },
+                ],
+            ]
+        );
     }
 }
 // phpcs:enable Generic.Files.LineLength.MaxExceeded
