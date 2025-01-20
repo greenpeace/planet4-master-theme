@@ -56,6 +56,17 @@ class EnqueueController
         );
     }
 
+    public function enqueue_bulk_export(): void
+    {
+        $this->enqueue_script(
+            'hubspot-bulk-export-script',
+            '/assets/build/bulkExport.js',
+            [],
+            $this->get_file_version('/assets/build/bulkExport.js'),
+            true
+        );
+    }
+
     /**
      * Enqueues the Google Tag Manager script and passes the context data to it.
      *
