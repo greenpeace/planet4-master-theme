@@ -70,7 +70,7 @@ class HappyPoint extends BaseBlock
             ]
         );
 
-        add_action('rest_api_init', [ self::class, 'register_endpoints' ]);
+        add_action('rest_api_init', [ self::class, 'register_endpoint' ]);
     }
 
     /**
@@ -114,8 +114,10 @@ class HappyPoint extends BaseBlock
 
     /**
      * Endpoint to retrieve the data for the Happy Point block
+     *
+     * @example GET /wp-json/planet4/v1/get-happypoint-data
      */
-    public static function register_endpoints(): void
+    public static function register_endpoint(): void
     {
         register_rest_route(
             self::REST_NAMESPACE,
