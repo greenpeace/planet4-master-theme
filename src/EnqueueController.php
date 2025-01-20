@@ -25,7 +25,6 @@ class EnqueueController
      * This method registers and enqueues the JavaScript file responsible for rendering
      * share buttons on the website.
      *
-     * @return void
      */
     public function enqueue_share_butttons(): void
     {
@@ -44,7 +43,6 @@ class EnqueueController
      * This method registers and enqueues the JavaScript file used to manage
      * the functionality of toggling the comment submit button based on user input.
      *
-     * @return void
      */
     public function enqueue_toggle_comment_submit(): void
     {
@@ -63,7 +61,6 @@ class EnqueueController
      * This method registers and enqueues the JavaScript file for handling HubSpot
      * cookie management on the website.
      *
-     * @return void
      */
     public function enqueue_hubspot_cookie(): void
     {
