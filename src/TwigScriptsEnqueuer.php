@@ -16,6 +16,11 @@ class TwigScriptsEnqueuer
     {
         $scripts = [
             [
+                'action_name' => 'pass_gtm_data',
+                'handle' => 'google-tag-manager-script',
+                'path' => '/assets/build/googleTagManager.js',
+            ],
+            [
                 'action_name' => 'enqueue_share_butttons_script',
                 'handle' => 'share-buttons-script',
                 'path' => '/assets/build/shareButtons.js',
@@ -29,7 +34,7 @@ class TwigScriptsEnqueuer
                 'action_name' => 'enqueue_hubspot_cookie_script',
                 'handle' => 'hubspot-cookie-script',
                 'path' => '/assets/build/hubspotCookie.js',
-            ],
+            ]
         ];
 
         // Loop through the scripts array and enqueue them
@@ -97,20 +102,6 @@ class TwigScriptsEnqueuer
      */
     public function pass_google_tag_manager_data(array $context): void
     {
-        $script = [
-            'action_name' => 'enqueue_google_tag_manager_script',
-            'handle' => 'google-tag-manager-script',
-            'path' => '/assets/build/googleTagManager.js',
-        ];
-
-        $this->enqueue_script(
-            $script['handle'],
-            $script['path'],
-            [],
-            $this->get_file_version($script['path']),
-            true
-        );
-
         if (!wp_script_is('google-tag-manager-script', 'enqueued')) {
             return;
         }
