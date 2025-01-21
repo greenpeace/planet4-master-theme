@@ -16,6 +16,7 @@ class EnqueueController
     {
         add_action('enqueue_toggle_comment_submit_script', [$this, 'enqueue_toggle_comment_submit']);
         add_action('enqueue_hubspot_cookie_script', [$this, 'enqueue_hubspot_cookie']);
+        add_action('enqueue_share_buttons_script', [$this, 'enqueue_share_buttons']);
     }
 
     /**
@@ -52,6 +53,44 @@ class EnqueueController
             $this->get_file_version('/assets/build/hubspotCookie.js'),
             true
         );
+    }
+
+    /**
+     * Enqueues the share buttons script.
+     *
+     * This method registers and enqueues the JavaScript file for handling
+     * share buttons on the website.
+     *
+     */
+    public function enqueue_share_buttons(array $social_data): void
+    {
+        $script = [
+            'id' => 'shareButtonsData',
+            'name' => 'share-buttons-script',
+            'path' => '/assets/build/shareButtons.js',
+        ];
+
+        $this->enqueue_script(
+            $script['name'],
+            $script['path'],
+            [],
+            $this->get_file_version($script['path']),
+            true
+        );
+
+        if (!wp_script_is($script['name'], 'enqueued')) {
+            return;
+        }
+
+        $data = [
+            'link' => $social_data['link'] ?? null,
+            'title' => $social_data['title'] ?? null,
+            'description' => $social_data['description'] ?? null,
+            'share_url' => $social_data['p4_gf_share_url_override'] ?? null,
+            'share_text' => $social_data['p4_gf_share_text_override'] ?? null,
+        ];
+
+        wp_localize_script($script['name'], $script['id'], $data);
     }
 
     /**

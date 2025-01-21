@@ -117,6 +117,24 @@ class GravityFormsExtensions
 
         add_action('gform_stripe_fulfillment', [ $this, 'record_fulfillment_entry' ], 10, 2);
         add_action('gform_post_payment_action', [ $this, 'check_stripe_payment_status' ], 10, 2);
+        add_action('gform_pre_render', [$this, 'enqueue_share_buttons'], 10, 2 );
+    }
+
+    /**
+     * Enqueue the share buttons script only if the confirmation type is a message.
+     * Pass the social data to the script.
+     *
+     * @param array $form The form setting.
+     * @return array The form setting.
+     *
+     */
+    public function enqueue_share_buttons(array $form): array
+    {
+        $social = reset($form['confirmations']);
+        if ($social['type'] === 'message') {
+            do_action('enqueue_share_buttons_script', $social);
+        }
+        return $form;
     }
 
     /**
