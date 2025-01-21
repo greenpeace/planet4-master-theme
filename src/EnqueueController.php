@@ -21,6 +21,7 @@ class EnqueueController
         add_action('enqueue_bulk_export_script', [$this, 'enqueue_bulk_export']);
         add_action('enqueue_media_import_button_script', [$this, 'enqueue_media_import_button']);
         add_action('enqueue_filter_block_names_script', [$this, 'enqueue_filter_block_names']);
+        add_action('enqueue_metabox_search_script', [$this, 'enqueue_metabox_search']);
     }
 
     /**
@@ -104,6 +105,29 @@ class EnqueueController
             $this->get_file_version('/assets/build/filterBlockNames.js'),
             true
         );
+    }
+
+    public function enqueue_metabox_search($data): void
+    {
+        $script = [
+            'id' => 'metaboxSearchData',
+            'name' => 'metabox-search-script',
+            'path' => '/assets/build/metaboxSearch.js',
+        ];
+
+        $this->enqueue_script(
+            $script['name'],
+            $script['path'],
+            [],
+            $this->get_file_version($script['path']),
+            true
+        );
+
+        if (!wp_script_is($script['name'], 'enqueued')) {
+            return;
+        }
+
+        wp_localize_script($script['name'], $script['id'], $data);
     }
 
     /**

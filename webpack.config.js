@@ -42,6 +42,7 @@ module.exports = (env, argv) => {
       bulkExport: './assets/src/js/bulk_export.js',
       mediaImportButton: './assets/src/js/media_import_button.js',
       filterBlockNames: './assets/src/js/filter_block_names.js',
+      metaboxSearch: './assets/src/js/metabox_search.js',
       frontendIndex: './assets/src/frontendIndex.js',
       editorIndex: './assets/src/editorIndex.js',
       ArticlesScript: './assets/src/blocks/Articles/ArticlesScript.js',
