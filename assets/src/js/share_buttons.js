@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
           url: shareButtonsData.share_url ?? shareButtonsData.link,
           text: shareButtonsData.share_text ?? shareButtonsData.description,
         });
-        dataLayerPush('Native');
+        window.dataLayerPush('Native');
       } catch (err) {
         // eslint-disable-next-line no-console
         console.log(err);
