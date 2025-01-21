@@ -40,6 +40,7 @@ module.exports = (env, argv) => {
       shareButtons: './assets/src/js/share_buttons.js',
       googleTagManager: './assets/src/js/google_tag_manager.js',
       bulkExport: './assets/src/js/bulk_export.js',
+      mediaImportButton: './assets/src/js/media_import_button.js',
       frontendIndex: './assets/src/frontendIndex.js',
       editorIndex: './assets/src/editorIndex.js',
       ArticlesScript: './assets/src/blocks/Articles/ArticlesScript.js',

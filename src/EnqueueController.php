@@ -18,6 +18,8 @@ class EnqueueController
         add_action('enqueue_hubspot_cookie_script', [$this, 'enqueue_hubspot_cookie']);
         add_action('enqueue_share_buttons_script', [$this, 'enqueue_share_buttons']);
         add_action('enqueue_google_tag_manager_script', [$this, 'enqueue_google_tag_manager']);
+        add_action('enqueue_bulk_export_script', [$this, 'enqueue_bulk_export']);
+        add_action('enqueue_media_import_button_script', [$this, 'enqueue_media_import_button']);
     }
 
     /**
@@ -65,6 +67,31 @@ class EnqueueController
             $this->get_file_version('/assets/build/bulkExport.js'),
             true
         );
+    }
+
+    public function enqueue_media_import_button($label): void
+    {
+        $script = [
+            'id' => 'mediaImportLabel',
+            'name' => 'media-import-button-script',
+            'path' => '/assets/build/mediaImportButton.js',
+        ];
+
+        $this->enqueue_script(
+            $script['name'],
+            $script['path'],
+            [],
+            $this->get_file_version($script['path']),
+            true
+        );
+
+        if (!wp_script_is($script['name'], 'enqueued')) {
+            return;
+        }
+
+        $btn_label = 'var mediaImportBtnLabel = "'. $label . '";';
+
+        wp_add_inline_script($script['name'], $btn_label);
     }
 
     /**

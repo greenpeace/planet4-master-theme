@@ -99,20 +99,10 @@ class Exporter
 
     /**
      * Add Import Button
-     *
-     * phpcs:disable Generic.Files.LineLength.MaxExceeded
      */
     public function add_import_button(): void
     {
-        ?>
-        <script>
-            jQuery(function(){
-                jQuery(".upload-php .wrap .page-title-action")
-                    .after('<a href="upload.php?page=media-picker" class="add-new-h2"><?php esc_html_e('Import Greenpeace Media', 'planet4-master-theme-backend'); ?></a>');
-            });
-
-        </script>
-        <?php
+        $label = __('Import Greenpeace Media', 'planet4-master-theme-backend');
+        do_action('enqueue_media_import_button_script', $label);
     }
-    // phpcs:enable Generic.Files.LineLength.MaxExceeded
 }
