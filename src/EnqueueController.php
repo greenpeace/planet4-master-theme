@@ -14,27 +14,8 @@ class EnqueueController
      */
     public function __construct()
     {
-        add_action('enqueue_share_butttons_script', [$this, 'enqueue_share_butttons']);
         add_action('enqueue_toggle_comment_submit_script', [$this, 'enqueue_toggle_comment_submit']);
         add_action('enqueue_hubspot_cookie_script', [$this, 'enqueue_hubspot_cookie']);
-    }
-
-    /**
-     * Enqueues the share buttons script.
-     *
-     * This method registers and enqueues the JavaScript file responsible for rendering
-     * share buttons on the website.
-     *
-     */
-    public function enqueue_share_butttons(): void
-    {
-        $this->enqueue_script(
-            'share-buttons-script',
-            '/assets/build/shareButtons.js',
-            [],
-            $this->get_file_version('/assets/build/shareButtons.js'),
-            true
-        );
     }
 
     /**
