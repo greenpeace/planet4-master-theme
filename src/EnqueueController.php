@@ -80,7 +80,6 @@ class EnqueueController
             'consent_default_ad_storage' => $context['consent_default_ad_storage'] ?? null,
             'consent_default_ad_user_data' => $context['consent_default_ad_user_data'] ?? null,
             'consent_default_ad_personalization' => $context['consent_default_ad_personalization'] ?? null,
-            'cookies' => $context['cookies'] ?? null,
             'page_category' => $context['page_category'] ?? null,
             'p4_signedin_status' => $context['p4_signedin_status'] ?? null,
             'p4_visitor_type' => $context['p4_visitor_type'] ?? null,
@@ -96,9 +95,8 @@ class EnqueueController
             'cf_scope' => $context['cf_scope'] ?? null,
             'cf_department' => $context['cf_department'] ?? null,
             'enforce_cookies_policy' => $context['enforce_cookies_policy'] ?? null,
-            'post' => [
-                'password_required' => $context['post']->password_required ?? null,
-            ]
+            'cookies_enable_google_consent_mode' => $context['cookies']->enable_google_consent_mode ?? null,
+            'post_password_required' => $context['post']->password_required ?? null,
         ];
 
         wp_localize_script('google-tag-manager-script', 'googleTagManagerData', $gtm_data);

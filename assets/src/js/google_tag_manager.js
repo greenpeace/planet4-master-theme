@@ -27,7 +27,7 @@ if (googleTagManagerData?.google_tag_value) {
   // If Google Consent Mode is enabled, set default ad storage and analytics storage
   // to 'denied' as first action on every page until consent is given.
   // If consent given, update consent on every page.
-  if (googleTagManagerData?.cookies) {
+  if (googleTagManagerData?.cookies_enable_google_consent_mode) {
     let capabilities = {
       ad_storage: consent_default_ad_storage,
       ad_user_data: consent_default_ad_user_data,
@@ -62,7 +62,7 @@ if (googleTagManagerData?.google_tag_value) {
     'page_date': googleTagManagerData.page_date ? `#${googleTagManagerData.page_date}` : '',
   });
 
-  if (!googleTagManagerData?.post?.password_required) {
+  if (!googleTagManagerData?.post_password_required) {
     const cf_campaign_name = googleTagManagerData.cf_campaign_name ?? googleTagManagerData.cf_campaign_name;
     const cf_project_id    = googleTagManagerData.cf_project_id ?? googleTagManagerData.cf_project_id;
     const cf_local_project = googleTagManagerData.cf_local_project ?? googleTagManagerData.cf_local_project;
