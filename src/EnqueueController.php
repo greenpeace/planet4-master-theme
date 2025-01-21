@@ -62,15 +62,21 @@ class EnqueueController
      */
     public function enqueue_google_tag_manager(array $context): void
     {
+        $script = [
+            'id' => 'googleTagManagerData',
+            'name' => 'google-tag-manager-script',
+            'path' => '/assets/build/googleTagManager.js',
+        ];
+
         $this->enqueue_script(
-            'google-tag-manager-script',
-            '/assets/build/googleTagManager.js',
+            $script['name'],
+            $script['path'],
             [],
-            $this->get_file_version('/assets/build/googleTagManager.js'),
+            $this->get_file_version($script['path']),
             true
         );
 
-        if (!wp_script_is('google-tag-manager-script', 'enqueued')) {
+        if (!wp_script_is($script['name'], 'enqueued')) {
             return;
         }
 
@@ -100,7 +106,7 @@ class EnqueueController
             'post_password_required' => $context['post']->password_required ?? null,
         ];
 
-        wp_localize_script('google-tag-manager-script', 'googleTagManagerData', $gtm_data);
+        wp_localize_script($script['name'], $script['id'], $gtm_data);
     }
 
     /**
