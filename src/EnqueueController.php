@@ -20,6 +20,7 @@ class EnqueueController
         add_action('enqueue_google_tag_manager_script', [$this, 'enqueue_google_tag_manager']);
         add_action('enqueue_bulk_export_script', [$this, 'enqueue_bulk_export']);
         add_action('enqueue_media_import_button_script', [$this, 'enqueue_media_import_button']);
+        add_action('enqueue_filter_block_names_script', [$this, 'enqueue_filter_block_names']);
     }
 
     /**
@@ -92,6 +93,17 @@ class EnqueueController
         $btn_label = 'var mediaImportBtnLabel = "'. $label . '";';
 
         wp_add_inline_script($script['name'], $btn_label);
+    }
+
+    public function enqueue_filter_block_names(): void
+    {
+        $this->enqueue_script(
+            'filter-block-names-script',
+            '/assets/build/filterBlockNames.js',
+            [],
+            $this->get_file_version('/assets/build/filterBlockNames.js'),
+            true
+        );
     }
 
     /**
