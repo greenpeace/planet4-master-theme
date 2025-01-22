@@ -44,7 +44,8 @@ class Exporter
         if (!current_user_can('edit_posts')) {
             return;
         }
-        do_action('enqueue_bulk_export_script');
+        $text = __('Export', 'planet4-master-theme-backend');
+        do_action('enqueue_bulk_export_script', $text);
     }
 
     /**

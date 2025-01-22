@@ -1,5 +1,7 @@
-jQuery($ => {
+/* global bulkExportText */
+
+jQuery(() => {
   jQuery('<option>').val('export')
-    .text('Export')
+    .text(bulkExportText)
     .appendTo('select[name=\'action\']');
 });

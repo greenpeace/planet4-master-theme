@@ -65,15 +65,29 @@ class EnqueueController
      * Enqueues the bulk export script.
      *
      */
-    public function enqueue_bulk_export(): void
+    public function enqueue_bulk_export($text): void
     {
+        $script = [
+            'id' => 'bulkExportText',
+            'name' => 'hubspot-bulk-export-script',
+            'path' => '/assets/build/bulkExport.js',
+        ];
+
         $this->enqueue_script(
-            'hubspot-bulk-export-script',
-            '/assets/build/bulkExport.js',
+            $script['name'],
+            $script['path'],
             [],
-            $this->get_file_version('/assets/build/bulkExport.js'),
+            $this->get_file_version($script['path']),
             true
         );
+
+        if (!wp_script_is($script['name'], 'enqueued')) {
+            return;
+        }
+
+        $script = 'var '. $script['id'] .' = "'. $text . '";';
+
+        wp_add_inline_script($script['name'], $script);
     }
 
     /**
@@ -137,7 +151,7 @@ class EnqueueController
             return;
         }
 
-        $btn_label = 'var mediaImportBtnLabel = "'. $label . '";';
+        $btn_label = 'var '. $script['id'] .' = "'. $label . '";';
 
         wp_add_inline_script($script['name'], $btn_label);
     }
