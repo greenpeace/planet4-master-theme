@@ -1623,17 +1623,9 @@ class MasterSite extends TimberSite
             return;
         }
 
-        echo '<div id="p4-notice" class="notice notice-info is-dismissible">'
-            . wp_kses_post($message)
-            . '</div>'
-            . "<script>(function() {
-                jQuery('#p4-notice').on('click', '.notice-dismiss', () => {
-                    jQuery.post(ajaxurl, {'action': 'dismiss_dashboard_notice'}, function(response) {
-                        jQuery('#p4-notice').hide();
-                    });
-                });
-            })();</script>
-            ";
+        do_action('enqueue_dismiss_dashboard_notice_script');
+
+        echo '<div id="p4-notice" class="notice notice-info is-dismissible">'.wp_kses_post($message).'</div>';
     }
 
     /**
