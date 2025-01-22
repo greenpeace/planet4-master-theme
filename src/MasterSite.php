@@ -1625,7 +1625,7 @@ class MasterSite extends TimberSite
 
         do_action('enqueue_dismiss_dashboard_notice_script');
 
-        echo '<div id="p4-notice" class="notice notice-info is-dismissible">'.wp_kses_post($message).'</div>';
+        echo '<div id="p4-notice" class="notice notice-info is-dismissible">' . wp_kses_post($message) . '</div>';
     }
 
     /**

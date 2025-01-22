@@ -64,8 +64,9 @@ class EnqueueController
     /**
      * Enqueues the bulk export script.
      *
+     * @param string $text The text to be passed to the script.
      */
-    public function enqueue_bulk_export($text): void
+    public function enqueue_bulk_export(string $text): void
     {
         $script = [
             'id' => 'bulkExportText',
@@ -85,7 +86,7 @@ class EnqueueController
             return;
         }
 
-        $script = 'var '. $script['id'] .' = "'. $text . '";';
+        $script = 'var ' . $script['id'] . ' = "' . $text . '";';
 
         wp_add_inline_script($script['name'], $script);
     }
@@ -131,7 +132,7 @@ class EnqueueController
      * @param string $label The label for the media import button.
      *
      */
-    public function enqueue_media_import_button($label): void
+    public function enqueue_media_import_button(string $label): void
     {
         $script = [
             'id' => 'mediaImportLabel',
@@ -151,7 +152,7 @@ class EnqueueController
             return;
         }
 
-        $btn_label = 'var '. $script['id'] .' = "'. $label . '";';
+        $btn_label = 'var ' . $script['id'] . ' = "' . $label . '";';
 
         wp_add_inline_script($script['name'], $btn_label);
     }
@@ -164,7 +165,7 @@ class EnqueueController
      *
      * @param array $data The data to be passed to the script.
      */
-    public function enqueue_metabox_search($data): void
+    public function enqueue_metabox_search(array $data): void
     {
         $script = [
             'id' => 'metaboxSearchData',

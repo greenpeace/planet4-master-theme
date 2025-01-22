@@ -395,7 +395,7 @@ class BlockUsageTable extends WP_List_Table
                 esc_html($type)
             );
         }
-        echo '</select>';;
+        echo '</select>';
     }
 
     /**
