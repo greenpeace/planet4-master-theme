@@ -200,7 +200,7 @@ class M037MigrateCoversContentBlockToPostsListBlock extends MigrationScript
      * @param array $tags - The list of post tags.
      * @return int - The number of posts found.
      */
-    private static function get_number_found_posts($types, $tags)
+    private static function get_number_found_posts(array $types, array $tags): int
     {
         $args = [];
         $args['tax_query'] = [];
@@ -227,7 +227,7 @@ class M037MigrateCoversContentBlockToPostsListBlock extends MigrationScript
         }
 
         // Execute the query.
-        $query = new WP_Query( $args );
+        $query = new WP_Query($args);
 
         // Get the number of posts found.
         return $query->found_posts;
