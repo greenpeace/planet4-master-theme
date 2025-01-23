@@ -44,6 +44,21 @@ class EnqueueController
     }
 
     /**
+     * Enqueues the filter block names script.
+     *
+     */
+    public function enqueue_filter_block_names(): void
+    {
+        $this->enqueue_script(
+            'filter-block-names-script',
+            '/assets/build/filterBlockNames.js',
+            [],
+            $this->get_file_version('/assets/build/filterBlockNames.js'),
+            true
+        );
+    }
+
+    /**
      * Enqueues the HubSpot cookie script.
      *
      * This method registers and enqueues the JavaScript file for handling HubSpot
