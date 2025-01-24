@@ -107,7 +107,10 @@ export class CounterFrontend extends Component {
     }
 
     return (
-      <section className={counterClassName} data-animation={animation}>
+      <section
+        className={`${counterClassName ?? ''} ${animation ? 'opacity-0 animate__animated' : ''}`}
+        data-animation={animation}
+      >
         {title && !isEditing &&
           <header>
             <h2 className="page-section-header">{title}</h2>

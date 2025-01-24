@@ -10,9 +10,11 @@ export const blockAnimations = () => {
           // Get all classes from the element
           const animation = entry.target.getAttribute('data-animation');
           if (true) {
+            console.log('entry.target', entry.target.classList);
             // Add the animation class to trigger the animation
+            entry.target.classList.remove('opacity-0');
             entry.target.classList.add(animation);
-            entry.target.classList.add('animate__animated'); // Ensure it runs the animation
+            entry.target.classList.add('animate__animated');
           }
 
           observer.unobserve(entry.target); // Stop observing after the animation is triggered

@@ -13,7 +13,7 @@ export const SocialMediaFrontend = ({
 }) => {
   return (
     <section
-      className={`block social-media-block ${className ?? ''}`}
+      className={`block social-media-block ${className ?? ''} ${animation ? 'opacity-0 animate__animated' : ''}`}
       data-animation={animation ?? ''}
     >
       {!!title &&
