@@ -31,7 +31,6 @@ const DEFAULT_QUERY = {
 };
 
 const MIN_TERMS_COUNT_FOR_FILTER = 8;
-
 const EMPTY_ARRAY = [];
 
 /**
@@ -51,10 +50,6 @@ export function sortBySelected(termsTree, terms) {
     const termASelected = treeHasSelection(termA);
     const termBSelected = treeHasSelection(termB);
 
-    if (termASelected === termBSelected) {
-      return 0;
-    }
-
     if (termASelected && !termBSelected) {
       return -1;
     }
@@ -65,6 +60,7 @@ export function sortBySelected(termsTree, terms) {
 
     return 0;
   };
+
   const newTermTree = [...termsTree];
   newTermTree.sort(termIsSelected);
   return newTermTree;

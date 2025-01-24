@@ -141,7 +141,7 @@ class ArchiveImport extends Controller
 
         //phpcs:disable
         echo 'Peak memory usage: ' . $this->readable_bytes(memory_get_peak_usage());
-        echo "Total: $total<br/>";
+        echo 'Total: ' . $total . '<br/>';
         echo 'Existing or duplicate: ' . count($existing) . '<br/>';
         echo 'Created:: ' . count($created) . '<br/>';
         echo 'Errors(' . count($errors) . '): ' . print_r($errors, true) . '<br/>';

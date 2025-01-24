@@ -129,8 +129,7 @@ final class Loader
                 $this->default_services[] = Importer::class;
             }
 
-            $view = new View();
-            (new Controllers\Menu\ArchiveImport($view))->load();
+            (new Controllers\Menu\ArchiveImport(new View()))->load();
         }
 
         // Run Activator after theme switched to planet4-master-theme or a planet4 child theme.
@@ -178,9 +177,8 @@ final class Loader
         $services[] = Controllers\Menu\PostmetaCheckController::class;
         $services[] = Admin\Rest::class;
 
-        $view = new View();
         foreach ($services as $service) {
-            (new $service($view))->load();
+            (new $service(new View()))->load();
         }
     }
 

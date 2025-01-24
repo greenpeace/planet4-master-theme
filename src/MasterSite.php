@@ -344,9 +344,9 @@ class MasterSite extends TimberSite
         $remove_rtl_fix();
         add_action('wpml_after_startup', $remove_rtl_fix, 10, 0);
 
+        AuthorPage::hooks();
         BreakpointsImageSizes::hooks();
         QueryLoopPagination::hooks();
-        AuthorPage::hooks();
         Search\Search::hooks();
         Sendgrid::hooks();
     }
