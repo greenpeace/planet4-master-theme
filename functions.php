@@ -98,12 +98,8 @@ add_action(
     'rest_api_init',
     function (): void {
         Rest::register_endpoints();
-        Api\Gallery::register_endpoint();
         Api\Search::register_endpoint();
         Api\Settings::register_endpoint();
-        Api\Covers::register_endpoint();
-        Api\Articles::register_endpoint();
-        Api\SocialMedia::register_endpoint();
     }
 );
 
