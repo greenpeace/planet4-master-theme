@@ -740,7 +740,7 @@ class MasterSite extends TimberSite
             $footer_social_menu = new TimberMenu('footer-social-menu');
             $context['footer_social_menu'] = $footer_social_menu->get_items();
         } else {
-            $context['footer_primary_menu'] = wp_get_nav_menu_items('Footer Social');
+            $context['footer_social_menu'] = wp_get_nav_menu_items('Footer Social');
         }
 
         if (has_nav_menu('footer-primary-menu')) {
@@ -749,8 +749,7 @@ class MasterSite extends TimberSite
         } else {
             $context['footer_primary_menu'] = wp_get_nav_menu_items('Footer Primary');
         }
-
-
+        
         if (has_nav_menu('footer-secondary-menu')) {
             $footer_secondary_menu = new TimberMenu('footer-secondary-menu');
             $context['footer_secondary_menu'] = $footer_secondary_menu->get_items();
