@@ -58,7 +58,11 @@ class Functions
                 }
 
                 // Process blocks recursively.
-                $blocks = self::process_blocks_recursive($blocks, $block_check_callback, $block_transformation_callback);
+                $blocks = self::process_blocks_recursive(
+                    $blocks,
+                    $block_check_callback,
+                    $block_transformation_callback
+                );
 
                 // Serialize the blocks content.
                 $new_content = serialize_blocks($blocks);
@@ -107,13 +111,15 @@ class Functions
             }
 
             // Check for innerBlocks and process recursively.
-            if (!empty($block['innerBlocks']) && is_array($block['innerBlocks'])) {
-                $block['innerBlocks'] = self::process_blocks_recursive(
-                    $block['innerBlocks'],
-                    $block_check_callback,
-                    $block_transformation_callback
-                );
+            if (empty($block['innerBlocks']) || !is_array($block['innerBlocks'])) {
+                continue;
             }
+
+            $block['innerBlocks'] = self::process_blocks_recursive(
+                $block['innerBlocks'],
+                $block_check_callback,
+                $block_transformation_callback
+            );
         }
 
         // Unset the reference to avoid issues.
