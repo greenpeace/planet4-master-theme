@@ -9,6 +9,7 @@
 
 namespace P4\MasterTheme\Blocks;
 
+use WP_REST_Server;
 use P4\MasterTheme\ActionPage;
 
 /**
@@ -155,6 +156,7 @@ class Covers extends BaseBlock
 
         add_action('enqueue_block_editor_assets', [ self::class, 'enqueue_editor_assets' ]);
         add_action('wp_enqueue_scripts', [ self::class, 'enqueue_frontend_assets' ]);
+        add_action('rest_api_init', [ self::class, 'register_endpoint' ]);
     }
 
     /**
@@ -442,5 +444,30 @@ class Covers extends BaseBlock
         }
 
         return self::POSTS_LIMIT;
+    }
+
+    /**
+     * Register endpoint to retrieve the covers for the Covers block.
+     *
+     * @example GET /wp-json/planet4/v1/get-covers/
+     */
+    public static function register_endpoint(): void
+    {
+        register_rest_route(
+            self::REST_NAMESPACE,
+            'get-covers',
+            [
+                [
+                    'permission_callback' => static function () {
+                        return true;
+                    },
+                    'methods' => WP_REST_Server::READABLE,
+                    'callback' => static function ($request) {
+                        $covers = self::get_covers($request->get_params());
+                        return rest_ensure_response($covers);
+                    },
+                ],
+            ]
+        );
     }
 }
