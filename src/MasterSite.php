@@ -159,6 +159,9 @@ class MasterSite extends TimberSite
             [
                 'navigation-bar-menu' => __('Navigation Bar Menu', 'planet4-master-theme-backend'),
                 'donate-menu' => __('Donate Button', 'planet4-master-theme-backend'),
+                'footer-primary-menu' => __('Footer Primary Menu', 'planet4-master-theme-backend'),
+                'footer-secondary-menu' => __('Footer Secondary Menu', 'planet4-master-theme-backend'),
+                'footer-social-menu' => __('Footer Social Menu', 'planet4-master-theme-backend'),
             ]
         );
 
@@ -330,7 +333,23 @@ class MasterSite extends TimberSite
             10
         );
 
+        // Fix WPML-related RTL issue.
+        $remove_rtl_fix = function (): void {
+            global $sitepress;
+            // This RTL fix does not seem a good idea.
+            // Probably it was a bad attempt at solving the issues `url_to_postid` creates.
+            remove_action('wp_head', [$sitepress, 'rtl_fix']);
+            remove_action('admin_print_styles', [$sitepress, 'rtl_fix']);
+
+            // This caused `switch_lang` to get called. As a result the RTL fix messed up.
+            remove_filter('url_to_postid', [$sitepress, 'url_to_postid']);
+        };
+        $remove_rtl_fix();
+        add_action('wpml_after_startup', $remove_rtl_fix, 10, 0);
+
         AuthorPage::hooks();
+        BreakpointsImageSizes::hooks();
+        QueryLoopPagination::hooks();
         Search\Search::hooks();
         Sendgrid::hooks();
     }
@@ -735,9 +754,28 @@ class MasterSite extends TimberSite
         // Footer context.
         $context['copyright_text_line1'] = $options['copyright_line1'] ?? '';
         $context['copyright_text_line2'] = $options['copyright_line2'] ?? '';
-        $context['footer_social_menu'] = wp_get_nav_menu_items('Footer Social');
-        $context['footer_primary_menu'] = wp_get_nav_menu_items('Footer Primary');
-        $context['footer_secondary_menu'] = wp_get_nav_menu_items('Footer Secondary');
+
+        if (has_nav_menu('footer-social-menu')) {
+            $footer_social_menu = new TimberMenu('footer-social-menu');
+            $context['footer_social_menu'] = $footer_social_menu->get_items();
+        } else {
+            $context['footer_social_menu'] = wp_get_nav_menu_items('Footer Social');
+        }
+
+        if (has_nav_menu('footer-primary-menu')) {
+            $footer_primary_menu = new TimberMenu('footer-primary-menu');
+            $context['footer_primary_menu'] = $footer_primary_menu->get_items();
+        } else {
+            $context['footer_primary_menu'] = wp_get_nav_menu_items('Footer Primary');
+        }
+
+        if (has_nav_menu('footer-secondary-menu')) {
+            $footer_secondary_menu = new TimberMenu('footer-secondary-menu');
+            $context['footer_secondary_menu'] = $footer_secondary_menu->get_items();
+        } else {
+            $context['footer_secondary_menu'] = wp_get_nav_menu_items('Footer Secondary');
+        }
+
         // Default depth level set to 1 if not selected from admin.
         $context['p4_comments_depth'] = get_option('thread_comments_depth') ?? 1;
 

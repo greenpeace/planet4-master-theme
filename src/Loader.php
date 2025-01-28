@@ -56,8 +56,21 @@ final class Loader
         $this->load_block_services();
         Commands::load();
 
-        // During PLANET-6373 transition, priority between theme and plugin matters.
         add_action('init', [self::class, 'add_blocks'], 20);
+
+        // Load parallax library for Media & Text block.
+        add_action(
+            'wp_enqueue_scripts',
+            static function (): void {
+                wp_enqueue_script(
+                    'rellax',
+                    'https://cdnjs.cloudflare.com/ajax/libs/rellax/1.12.1/rellax.min.js',
+                    [],
+                    '1.12.1',
+                    true
+                );
+            }
+        );
     }
 
     /**
@@ -116,6 +129,8 @@ final class Loader
                 // phpcs:enable
                 $this->default_services[] = Importer::class;
             }
+
+            (new Controllers\Menu\ArchiveImport(new View()))->load();
         }
 
         // Run Activator after theme switched to planet4-master-theme or a planet4 child theme.
@@ -163,9 +178,8 @@ final class Loader
         $services[] = Controllers\Menu\PostmetaCheckController::class;
         $services[] = Admin\Rest::class;
 
-        $view = new View();
         foreach ($services as $service) {
-            (new $service($view))->load();
+            (new $service(new View()))->load();
         }
     }
 

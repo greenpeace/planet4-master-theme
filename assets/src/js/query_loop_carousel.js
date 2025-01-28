@@ -57,7 +57,6 @@ export const setupQueryLoopCarousel = () => {
       carousel.setAttribute('id', uniqueId);
       carousel.classList.add(LAYOUTS.carousel, 'slide');
       carousel.dataset.bsRide = LAYOUTS.carousel;
-      carousel.dataset.bsInterval = 'false';
 
       list.classList.add(`${LAYOUTS.carousel}-inner`);
       list.after(carousel);
