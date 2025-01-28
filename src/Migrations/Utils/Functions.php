@@ -265,7 +265,14 @@ class Functions
      */
     public static function create_block_paragraph(array $attrs, string $content): array
     {
-        $html = '<p>' . $content . '</p>';
+        $margin = $attrs['style']['spacing']['margin'];
+
+        $styles =
+            isset($margin) ?
+            'margin-top: ' . $margin['top'] . '; margin-bottom: ' . $margin['bottom'] . ';' :
+            '';
+
+        $html = '<p style="' . $styles . '">' . $content . '</p>';
 
         return self::create_new_block(
             Constants::BLOCK_PARAGRAPH,
