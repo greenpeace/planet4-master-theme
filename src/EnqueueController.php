@@ -207,6 +207,8 @@ class EnqueueController
      * Enqueues the Google Tag Manager script and passes the context data to it.
      *
      * @param array $context The context data to be passed to the script.
+     * Enqueues the Google Tag Manager script and passes the context data to it.
+     *
      */
     public function enqueue_google_tag_manager(array $context): void
     {
