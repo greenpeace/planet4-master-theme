@@ -268,16 +268,18 @@ class MediaReplacer
      *
      * @param string $original_image_id The ID of the original image.
      */
-    private function replace_image_variants($original_image_id)
+    private function replace_image_variants(string $original_image_id): void
     {
         $temp_file = $this->save_original_image_in_temporal_file($original_image_id);
 
         $this->resize_and_sync_images($original_image_id, $temp_file);
 
         // Cleanup: Remove the temporary file after processing
-        if (file_exists($temp_file)) {
-            unlink($temp_file);
+        if (!file_exists($temp_file)) {
+            return;
         }
+
+        unlink($temp_file);
     }
 
     /**
@@ -285,7 +287,7 @@ class MediaReplacer
      *
      * @param string $original_image_id The ID of the original image.
      */
-    private function save_original_image_in_temporal_file($original_image_id)
+    private function save_original_image_in_temporal_file(string $original_image_id)
     {
         $image_url = get_post($original_image_id)->guid;
         if (!filter_var($image_url, FILTER_VALIDATE_URL)) {
@@ -322,7 +324,7 @@ class MediaReplacer
      * @param string $original_image_id The ID of the original image.
      * @param string $temp_file The path to the temporary file.
      */
-    private function resize_and_sync_images($original_image_id, $temp_file)
+    private function resize_and_sync_images(string $original_image_id, string $temp_file)
     {
         $image_variants = get_post_meta($original_image_id, 'sm_cloud')[0]['sizes'];
         $image_title = get_post($original_image_id)->post_title;
@@ -332,25 +334,25 @@ class MediaReplacer
         $mime_type = $file_info['type'];
         $file_extension = $file_info['ext'];
 
-        foreach($image_variants as $size => $image) {
+        foreach ($image_variants as $size => $image) {
             // Load the image editor for the specified file.
-            $editor = wp_get_image_editor( $temp_file );
+            $editor = wp_get_image_editor($temp_file);
 
-            if ( is_wp_error( $editor ) ) {
+            if (is_wp_error($editor)) {
                 return false;
             }
 
             // Resize the image to the desired dimensions.
-            $result = $editor->resize( $image['width'], $image['height'], true );
+            $result = $editor->resize($image['width'], $image['height'], true);
 
-            if ( is_wp_error( $result ) ) {
+            if (is_wp_error($result)) {
                 return;
             }
 
             // Save the resized image.
             $resized_file = $editor->save();
 
-            if ( is_wp_error( $resized_file ) ) {
+            if (is_wp_error($resized_file)) {
                 return;
             }
 
@@ -376,7 +378,7 @@ class MediaReplacer
      * @param string $original_image_id The ID of the original image.
      * @param string $mime_type The MIME type of the image.
      */
-    private function sync_image_variant($image_title, $image, $resized_file, $size, $original_image_id, $mime_type, $file_extension)
+    private function sync_image_variant(string $image_title, array $image, array $resized_file, string $size, string $original_image_id, string $mime_type, $file_extension): void
     {
         // Remove the file extension using pathinfo().
         $image_name = pathinfo($image_title, PATHINFO_DIRNAME) . '/' . pathinfo($image_title, PATHINFO_FILENAME);
