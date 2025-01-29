@@ -54,34 +54,6 @@ class GravityFormsExtensions
         ],
     ];
 
-    public const P4_SHARE_BUTTONS = [
-        [
-            'label' => 'WhatsApp',
-            'name' => 'whatsapp',
-            'default_value' => 1,
-        ],
-        [
-            'label' => 'Facebook',
-            'name' => 'facebook',
-            'default_value' => 1,
-        ],
-        [
-            'label' => 'Twitter',
-            'name' => 'twitter',
-            'default_value' => 1,
-        ],
-        [
-            'label' => 'Email',
-            'name' => 'email',
-            'default_value' => 1,
-        ],
-        [
-            'label' => 'Native share (mobile only)',
-            'name' => 'native',
-            'default_value' => 1,
-        ],
-    ];
-
     public array $current_entry = [];
 
     public string $is_payment_successful = '';
@@ -370,13 +342,6 @@ class GravityFormsExtensions
         }
 
         $fields['p4_share_buttons']['fields'][] = [
-            'type' => 'checkbox',
-            'name' => 'p4_gf_share_platforms',
-            'label' => __('Show share buttons below message', 'planet4-master-theme-backend'),
-            'choices' => self::P4_SHARE_BUTTONS,
-        ];
-
-        $fields['p4_share_buttons']['fields'][] = [
             'type' => 'text',
             'name' => 'p4_gf_share_text_override',
             'label' => __('Share text', 'planet4-master-theme-backend'),
@@ -499,14 +464,17 @@ class GravityFormsExtensions
             </script>";
         }
 
+        $social_share_options = planet4_get_option('social_share_options', []);
+
         $confirmation_fields = [
             'confirmation' => $confirmation,
             'share_platforms' => [
-                'facebook' => $current_confirmation['facebook'] ?? true,
-                'twitter' => $current_confirmation['twitter'] ?? true,
-                'whatsapp' => $current_confirmation['whatsapp'] ?? true,
-                'native' => $current_confirmation['native'] ?? true,
-                'email' => $current_confirmation['email'] ?? true,
+                'facebook' => $social_share_options['facebook'] ?? false,
+                'twitter' => $social_share_options['twitter'] ?? false,
+                'whatsapp' => $social_share_options['whatsapp'] ?? false,
+                'email' => $social_share_options['email'] ?? false,
+                // We might add a setting for this one in the future, but for now we always enable it in GF.
+                'native' => true,
             ],
             'post' => $post,
             'social_accounts' => $post->get_social_accounts($context['footer_social_menu'] ?: []),
