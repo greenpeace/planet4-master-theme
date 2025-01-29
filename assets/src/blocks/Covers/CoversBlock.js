@@ -41,19 +41,12 @@ export const registerCoversBlock = () => {
     // Add our custom styles
     styles: [
       {
-        name: COVERS_TYPES.content,
-        label: getStyleLabel(
-          __('Content covers', 'planet4-blocks-backend'),
-          __('Content covers pull the image from the post', 'planet4-blocks-backend')
-        ),
-        isDefault: true,
-      },
-      {
         name: COVERS_TYPES.takeAction,
         label: getStyleLabel(
           __('Take Action covers', 'planet4-blocks-backend'),
           __('Take action covers pull the featured image, tags, have a 25 character excerpt and have a call to action button', 'planet4-blocks-backend')
         ),
+        isDefault: true,
       },
     ],
     deprecated: [

@@ -30,11 +30,12 @@ if (isset($wp_query->query_vars['author'])) {
     $context['og_title'] = $author->name;
     $context['og_description'] = get_the_author_meta('description', $author->ID);
     $context['og_image_data'] = [
-        'url' => get_avatar_url($author->ID, [ 'size' => 300 ]),
+        'url' => get_avatar_url($author->ID, [ 'size' => 300, 'default' => $context['default_avatar']]),
         'width' => '300',
         'height' => '300',
     ];
 }
 
+do_action('enqueue_google_tag_manager_script', $context);
 $templates = ['author.twig', 'archive.twig'];
 $page = new ListingPage($templates, $context);

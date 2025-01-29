@@ -3,6 +3,7 @@
 namespace P4\MasterTheme;
 
 use Timber\Post as TimberPost;
+use Timber\Menu as TimberMenu;
 use P4\MasterTheme\Features\OldPostsArchiveNotice;
 use WP_Block;
 use WP_Error;
@@ -550,4 +551,155 @@ class Post extends TimberPost
             "button" => '',
         );
     }
+
+    // phpcs:disable Generic.Files.LineLength.MaxExceeded
+    /**
+     * Custom block render function for Related posts
+     *
+     * @param array  $attributes Array of dynamic attributes to render section.
+     *
+     * @return string HTML markup for front end.
+     */
+    public static function render_related_posts_block(array $attributes): string
+    {
+        // Encode the query attributes to JSON for the block template
+        $query_json = wp_json_encode($attributes['query_attributes'], JSON_UNESCAPED_SLASHES);
+
+        // Dynamically render link to News & Stories page
+        $news_stories_url = '';
+        $news_stories_page = (int) get_option('page_for_posts');
+
+        if ($news_stories_page) {
+            $news_stories_url = get_permalink($news_stories_page);
+        }
+
+        $see_all_link_group = !empty($news_stories_url) ?
+            '<!-- wp:navigation-link {"label":"' . __('See all posts', 'planet4-blocks') . '","url":"' . $news_stories_url . '","className":"see-all-link"} /-->'
+        : '';
+
+        // Define the HTML output for the block
+        $output = '<!-- wp:query ' . $query_json . ' -->
+            <div class="wp-block-query posts-list p4-query-loop is-custom-layout-list">
+                <!-- wp:group {"layout":{"type":"flex","justifyContent":"space-between"}} -->
+                    <div class="wp-block-group">
+                        <!-- wp:heading -->
+                            <h2 class="wp-block-heading">' . __('Related Posts', 'planet4-blocks') . '</h2>
+                        <!-- /wp:heading -->
+                        ' . $see_all_link_group . '
+                    </div>
+                <!-- /wp:group -->
+                <!-- wp:post-template -->
+                    <!-- wp:columns -->
+                        <div class="wp-block-columns">
+                            <!-- wp:post-featured-image {"isLink":true} /-->
+                            <!-- wp:group -->
+                                <div class="wp-block-group">
+                                    <!-- wp:group {"layout":{"type":"flex"}} -->
+                                        <div class="wp-block-group">
+                                            <!-- wp:post-terms {"term":"category","separator":" | "} /-->
+                                            <!-- wp:post-terms {"term":"post_tag","separator":" "} /-->
+                                        </div>
+                                    <!-- /wp:group -->
+                                    <!-- wp:post-title {"isLink":true} /-->
+                                    <!-- wp:post-excerpt /-->
+                                    <!-- wp:group {"className":"posts-list-meta"} -->
+                                        <div class="wp-block-group posts-list-meta">
+                                            <!-- wp:p4/post-author-name /-->
+                                            <!-- wp:post-date /-->
+                                        </div>
+                                    <!-- /wp:group -->
+                                </div>
+                            <!-- /wp:group -->
+                        </div>
+                    <!-- /wp:columns -->
+                <!-- /wp:post-template -->
+                ' . $see_all_link_group . '
+            </div>
+        <!-- /wp:query -->';
+
+        return do_blocks($output);
+    }
+
+    /**
+     * Custom block render function for Bottom page navigation
+     *
+     * @param array  $attributes Array of dynamic attributes to render section.
+     *
+     * @return string HTML markup for front end.
+     */
+    // phpcs:ignore SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter
+    public static function render_navigation_block(array $attributes): string
+    {
+        global $post;
+
+        $menu = new TimberMenu('navigation-bar-menu');
+        $menu_items = $menu->get_items();
+
+        // Check if the current page is in the menu
+        $nav_menu_item = null;
+        foreach ($menu_items as $item) {
+            if ((int) $item->object_id === (int) $post->ID) {
+                $nav_menu_item = $item;
+                break;
+            }
+        }
+
+
+        // Check if the current page is a submenu item
+        $submenu_page = null;
+        foreach ($menu_items as $item) {
+            if (empty($item->children)) {
+                continue;
+            }
+
+            foreach ($item->children as $child) {
+                if ((int) $child->object_id === (int) $post->ID) {
+                    $submenu_page = $child;
+                    break 2;
+                }
+            }
+        }
+
+
+        // Omit the block if the page is not in the menu or submenu
+        if (!$nav_menu_item && !$submenu_page) {
+            return '';
+        }
+
+        // For parent pages, get the previous and next siblings in the menu order
+        $output = '';
+        $siblings = array_filter($menu_items, function ($item) use ($nav_menu_item) {
+            return $item->menu_item_parent === $nav_menu_item->menu_item_parent;
+        });
+
+        $siblings = array_values($siblings);
+
+        $current_index = array_search($nav_menu_item, $siblings);
+
+        if ($current_index !== false) {
+            $prev_item = $siblings[$current_index - 1] ?? null;
+            $next_item = $siblings[$current_index + 1] ?? null;
+            if ($prev_item) {
+                $output .= '<a href="' . esc_url($prev_item->url) . '" class="bottom-navigation-prev"><span class="bottom-navigation-link-text">' . esc_html($prev_item->title) . '</span></a>';
+            }
+            if ($next_item) {
+                $output .= '<a href="' . esc_url($next_item->url) . '" class="bottom-navigation-next"><span class="bottom-navigation-link-text">' . esc_html($next_item->title) . '</span></a>';
+            }
+        }
+
+        // For child pages, only show link to the parent
+        if ($submenu_page !== null && $submenu_page->menu_item_parent) {
+            $parent_item = array_filter($menu_items, function ($item) use ($submenu_page) {
+                return (int) $item->ID === (int) $submenu_page->menu_item_parent;
+            });
+
+            $parent_item = reset($parent_item);
+            if ($parent_item) {
+                $output = '<a href="' . esc_url($parent_item->url) . '" class="bottom-navigation-prev sub-nav-item"><span class="bottom-navigation-link-text">' . esc_html($parent_item->title) . '</span></a>';
+            }
+        }
+
+        return '<div class="container bottom-navigation">' . $output . '</div>';
+    }
 }
+// phpcs:enable Generic.Files.LineLength.MaxExceeded

@@ -14,6 +14,7 @@ class Functions
     /**
      * Execute a block migration.
      *
+     * @param string $block_name - The name of the block to be migrated.
      * @param callable $block_check_callback - Callback function to check if block is valid for migration.
      * @param callable $record block_transformation_callback - Callback function to transform a block.
      * phpcs:disable SlevomatCodingStandard.Functions.UnusedParameter -- interface implementation
@@ -24,7 +25,7 @@ class Functions
         callable $block_transformation_callback
     ): void {
         try {
-            // Get the list of posts using split-two-columns block.
+            // Get the list of posts using the specified block.
             $posts = self::get_posts_using_specific_block(
                 $block_name,
                 Constants::ALL_POST_TYPES,
@@ -49,22 +50,19 @@ class Functions
 
                 echo 'Parsing post ', $current_post_id, "\n"; // phpcs:ignore
 
-                // Get all the blocks of each post.
+                // Parse the blocks from the post content.
                 $blocks = $parser->parse($post->post_content);
 
                 if (!is_array($blocks)) {
                     throw new \Exception("Invalid block structure for post #" . $current_post_id);
                 }
 
-                foreach ($blocks as &$block) {
-                    if (!$block_check_callback($block)) {
-                        continue;
-                    }
-                    $block = $block_transformation_callback($block);
-                }
-
-                // Unset the reference to prevent potential issues.
-                unset($block);
+                // Process blocks recursively.
+                $blocks = self::process_blocks_recursive(
+                    $blocks,
+                    $block_check_callback,
+                    $block_transformation_callback
+                );
 
                 // Serialize the blocks content.
                 $new_content = serialize_blocks($blocks);
@@ -94,6 +92,41 @@ class Functions
         }
     }
     // phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter
+
+    /**
+     * Recursively process blocks and their inner blocks.
+     *
+     * @param string $block_name - The name of the block to be migrated.
+     * @param callable $block_check_callback - Callback function to check if block is valid for migration.
+     * @param callable $record block_transformation_callback - Callback function to transform a block.
+     */
+    private static function process_blocks_recursive(
+        array $blocks,
+        callable $block_check_callback,
+        callable $block_transformation_callback
+    ): array {
+        foreach ($blocks as &$block) {
+            if ($block_check_callback($block)) {
+                $block = $block_transformation_callback($block);
+            }
+
+            // Check for innerBlocks and process recursively.
+            if (empty($block['innerBlocks']) || !is_array($block['innerBlocks'])) {
+                continue;
+            }
+
+            $block['innerBlocks'] = self::process_blocks_recursive(
+                $block['innerBlocks'],
+                $block_check_callback,
+                $block_transformation_callback
+            );
+        }
+
+        // Unset the reference to avoid issues.
+        unset($block);
+
+        return $blocks;
+    }
 
     /**
      * Get all the posts using a specific type of block.
@@ -178,26 +211,26 @@ class Functions
      * Create a new block.
      *
      * @param string $name - The name of the block.
-     * @param array $attrs - The attributes of the block.
-     * @param array $inner_blocks - The internal blocks.
-     * @param string $inner_html - The internal HTML.
-     * @param array $inner_content - The internal content.
+     * @param array $attrs - The attributes of the block (optional).
+     * @param array $inner_blocks - The internal blocks (optional).
+     * @param string $inner_html - The internal HTML (optional).
+     * @param array $inner_content - The internal content (optional).
      * @return array - The new block.
      */
     public static function create_new_block(
         string $name,
-        array $attrs,
-        array $inner_blocks,
-        string $inner_html,
-        array $inner_content
+        ?array $attrs = [],
+        ?array $inner_blocks = [],
+        ?string $inner_html = '',
+        ?array $inner_content = []
     ): array {
-        $block = [];
-        $block['blockName'] = $name;
-        $block['attrs'] = $attrs;
-        $block['innerBlocks'] = $inner_blocks;
-        $block['innerHTML'] = $inner_html;
-        $block['innerContent'] = $inner_content;
-        return $block;
+        return [
+            'blockName' => $name,
+            'attrs' => $attrs,
+            'innerBlocks' => $inner_blocks,
+            'innerHTML' => $inner_html,
+            'innerContent' => $inner_content,
+        ];
     }
 
     /**
@@ -232,7 +265,14 @@ class Functions
      */
     public static function create_block_paragraph(array $attrs, string $content): array
     {
-        $html = '<p>' . $content . '</p>';
+        $margin = $attrs['style']['spacing']['margin'];
+
+        $styles =
+            isset($margin) ?
+            'margin-top: ' . $margin['top'] . '; margin-bottom: ' . $margin['bottom'] . ';' :
+            '';
+
+        $html = '<p style="' . $styles . '">' . $content . '</p>';
 
         return self::create_new_block(
             Constants::BLOCK_PARAGRAPH,
@@ -310,17 +350,23 @@ class Functions
      *
      * @param array $attrs - The attributes of the block.
      * @param string $text - The button label.
-     * @param string $link - The button link.
+     * @param string|null $link - The button link (optional).
      * @return array - The new button block.
      */
-    public static function create_block_single_button(array $attrs, string $text, string $link): array
+    public static function create_block_single_button(array $attrs, string $text, ?string $link = null): array
     {
         $classname = isset($attrs['className']) ? $attrs['className'] : '';
 
         // phpcs:disable Generic.Files.LineLength.MaxExceeded
-        $html = '
+        if (!$link) {
+            $html = '
+            <div class="wp-block-button ' . $classname . '"><a class="wp-block-button__link wp-element-button">' . $text . '</a></div>
+        ';
+        } else {
+            $html = '
             <div class="wp-block-button ' . $classname . '"><a target="_self" href="' . $link . '" class="wp-block-button__link wp-element-button">' . $text . '</a></div>
         ';
+        }
         // phpcs:enable Generic.Files.LineLength.MaxExceeded
 
         return self::create_new_block(
@@ -366,7 +412,6 @@ class Functions
      * @param string $img_id - The image ID.
      * @return array - The new media & text block.
      */
-
     public static function create_media_text_block(
         array $attrs,
         array $inner_blocks,
@@ -409,7 +454,6 @@ class Functions
      *
      * @return array - The new Embed block.
      */
-
     public static function create_embed_block(
         string $social_media_url,
         string $type,
@@ -439,6 +483,98 @@ class Functions
     }
 
     /**
+     * Create a new Query Loop block.
+     *
+     * @param array $inner_blocks - The inner blocks.
+     * @param array $attrs - The block attributes.
+     * @param string $classname - The block CSS class name.
+     *
+     * @return array - The new Post Query block.
+     */
+    public static function create_block_query(array $inner_blocks, array $attrs, string $classname): array
+    {
+        $html = '
+      <div class="wp-block-query posts-list p4-query-loop is-custom-layout-' . $classname . '">
+
+
+
+
+
+
+
+
+
+      </div>
+      ';
+
+        $content = array (
+        0 => '
+    <div class="wp-block-query posts-list p4-query-loop is-custom-layout-' . $classname . '">',
+        1 => null,
+        2 => '
+
+    ',
+        3 => null,
+        4 => '
+
+    ',
+        5 => null,
+        6 => '
+
+    ',
+        7 => null,
+        8 => '
+
+    ',
+        9 => null,
+        10 => '
+
+    ',
+        11 => null,
+        12 => '</div>
+    ',
+        );
+
+        return self::create_new_block(
+            Constants::BLOCK_QUERY,
+            $attrs,
+            $inner_blocks,
+            $html,
+            $content,
+        );
+    }
+
+    /**
+     * Create a new Query No Results block.
+     *
+     * @param array $inner_blocks - The inner blocks.
+     * @param array $attrs - The block attributes.
+     *
+     * @return array - The new Query No Results block.
+     */
+    public static function create_block_query_no_results(array $inner_blocks, array $attrs): array
+    {
+        $html = '
+
+        ';
+        $content = array (
+                0 => '
+        ',
+                1 => null,
+                2 => '
+        ',
+        );
+
+        return self::create_new_block(
+            Constants::BLOCK_QUERY_NO_RESULTS,
+            $attrs,
+            $inner_blocks,
+            $html,
+            $content,
+        );
+    }
+
+    /**
      * Create a new Group block.
      *
      * @param array $inner_blocks - The block's inner blocks.
@@ -446,12 +582,16 @@ class Functions
      *
      * @return array - The new Group block.
      */
-
     public static function create_group_block(array $inner_blocks, array $attrs): array
     {
+        $classname =
+            isset($attrs['className']) ?
+            'wp-block-group ' . $attrs['className'] :
+            'wp-block-group';
+
         // IMPORTANT: DO NOT MODIFY THIS FORMAT!
         $inner_html =
-        '<div class="wp-block-group">
+        '<div class="' . $classname . '">
 
 
 
@@ -462,7 +602,7 @@ class Functions
         // IMPORTANT: DO NOT MODIFY THIS FORMAT!
         $inner_content = array (
             0 => '
-        <div class="wp-block-group">',
+        <div class="' . $classname . '">',
             1 => null,
             2 => '
         ',
@@ -483,6 +623,37 @@ class Functions
             $inner_blocks,
             $inner_html,
             $inner_content,
+        );
+    }
+
+    /**
+     * Create a new Post template.
+     *
+     * @param array $inner_blocks - The template inner blocks.
+     * @param array $attrs - The template attributes.
+     *
+     * @return array - The new Post template.
+     */
+    public static function create_post_template(array $inner_blocks, array $attrs): array
+    {
+        $html = '
+
+      ';
+
+        $content = array (
+                    0 => '
+            ',
+                    1 => null,
+                    2 => '
+            ',
+        );
+
+        return self::create_new_block(
+            Constants::BLOCK_POST_TEMPLATE,
+            $attrs,
+            $inner_blocks,
+            $html,
+            $content,
         );
     }
 }

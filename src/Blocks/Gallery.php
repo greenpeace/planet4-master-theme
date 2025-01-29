@@ -3,6 +3,7 @@
 namespace P4\MasterTheme\Blocks;
 
 use WP_Block_Type_Registry;
+use WP_REST_Server;
 
 class Gallery extends BaseBlock
 {
@@ -100,6 +101,7 @@ class Gallery extends BaseBlock
 
         add_action('enqueue_block_editor_assets', [ self::class, 'enqueue_editor_assets' ]);
         add_action('wp_enqueue_scripts', [ self::class, 'enqueue_frontend_assets' ]);
+        add_action('rest_api_init', [ self::class, 'register_endpoint' ]);
     }
 
     /**
@@ -197,5 +199,30 @@ class Gallery extends BaseBlock
         }
 
         return $images;
+    }
+
+    /**
+     * Endpoint to retrieve the images for the Gallery block
+     *
+     * @example GET /wp-json/planet4/v1/gallery/images/
+     */
+    public static function register_endpoint(): void
+    {
+        register_rest_route(
+            self::REST_NAMESPACE,
+            'gallery/images',
+            [
+                [
+                    'permission_callback' => static function () {
+                        return true;
+                    },
+                    'methods' => WP_REST_Server::READABLE,
+                    'callback' => static function ($request) {
+                        $images = self::get_images($request->get_params());
+                        return rest_ensure_response($images);
+                    },
+                ],
+            ]
+        );
     }
 }

@@ -9,6 +9,7 @@
 
 namespace P4\MasterTheme\Blocks;
 
+use WP_REST_Server;
 use P4\MasterTheme\ActionPage;
 
 /**
@@ -33,14 +34,12 @@ class Covers extends BaseBlock
      */
     private const OLD_COVER_TYPES = [
         '1' => 'take-action',
-        '3' => 'content',
     ];
 
     /**
      * New cover types, used for version 2.
      */
     private const TAKE_ACTION_COVER_TYPE = 'take-action';
-    private const CONTENT_COVER_TYPE = 'content';
 
     /**
      * Layout options.
@@ -90,7 +89,7 @@ class Covers extends BaseBlock
                 'attributes' => [
                     'cover_type' => [
                         'type' => 'string',
-                        'default' => self::CONTENT_COVER_TYPE,
+                        'default' => self::TAKE_ACTION_COVER_TYPE,
                     ],
                     'initialRowsLimit' => [
                         'type' => 'integer',
@@ -157,6 +156,7 @@ class Covers extends BaseBlock
 
         add_action('enqueue_block_editor_assets', [ self::class, 'enqueue_editor_assets' ]);
         add_action('wp_enqueue_scripts', [ self::class, 'enqueue_frontend_assets' ]);
+        add_action('rest_api_init', [ self::class, 'register_endpoint' ]);
     }
 
     /**
@@ -180,13 +180,11 @@ class Covers extends BaseBlock
      */
     public static function get_covers(array $fields): array
     {
-        $cover_type = $fields['cover_type'] ?? self::CONTENT_COVER_TYPE;
+        $cover_type = $fields['cover_type'];
         $covers = [];
 
         if (self::TAKE_ACTION_COVER_TYPE === $cover_type) {
             $covers = self::populate_posts_for_act_pages($fields);
-        } elseif (self::CONTENT_COVER_TYPE === $cover_type) {
-            $covers = self::populate_posts_for_cfc($fields);
         }
 
         return $covers;
@@ -435,48 +433,6 @@ class Covers extends BaseBlock
     }
 
     /**
-     * Populate posts for content four column template.
-     *
-     * @param array $fields This is the array of fields of this block.
-     */
-    private static function populate_posts_for_cfc(array $fields): array
-    {
-        $post_ids = $fields['posts'] ?? [];
-        $posts = empty($post_ids)
-            ? self::filter_posts_for_cfc($fields)
-            : self::filter_posts_by_ids($fields);
-
-        if (empty($posts)) {
-            return [];
-        }
-
-        $posts_array = [];
-        foreach ($posts as $post) {
-            $post_data = [
-                'title' => $post->post_title,
-                'excerpt' => $post->post_excerpt,
-                'alt_text' => '',
-                'image' => '',
-                'srcset' => '',
-                'link' => get_permalink($post),
-                'date_formatted' => get_the_date('', $post->ID),
-            ];
-
-            if (has_post_thumbnail($post)) {
-                $post_data['image'] = get_the_post_thumbnail_url($post, 'medium');
-                $img_id = get_post_thumbnail_id($post);
-                $srcset = wp_get_attachment_image_srcset($img_id, 'full', wp_get_attachment_metadata($img_id));
-                $post_data['srcset'] = is_string($srcset) ? $srcset : 'false';
-                $post_data['alt_text'] = get_post_meta($img_id, '_wp_attachment_image_alt', true);
-            }
-
-            $posts_array[] = $post_data;
-        }
-
-        return $posts_array;
-    }
-
-    /**
      * @param string $layout Covers block layout.
      *
      * @return int Number of posts to fetch.
@@ -488,5 +444,30 @@ class Covers extends BaseBlock
         }
 
         return self::POSTS_LIMIT;
+    }
+
+    /**
+     * Register endpoint to retrieve the covers for the Covers block.
+     *
+     * @example GET /wp-json/planet4/v1/get-covers/
+     */
+    public static function register_endpoint(): void
+    {
+        register_rest_route(
+            self::REST_NAMESPACE,
+            'get-covers',
+            [
+                [
+                    'permission_callback' => static function () {
+                        return true;
+                    },
+                    'methods' => WP_REST_Server::READABLE,
+                    'callback' => static function ($request) {
+                        $covers = self::get_covers($request->get_params());
+                        return rest_ensure_response($covers);
+                    },
+                ],
+            ]
+        );
     }
 }

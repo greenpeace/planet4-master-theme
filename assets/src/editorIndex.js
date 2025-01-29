@@ -9,9 +9,15 @@ import {registerSocialMediaBlock} from './blocks/SocialMedia/SocialMediaBlock';
 import {registerBlockTemplates} from './block-templates/register';
 import {registerTimelineBlock} from './blocks/Timeline/TimelineBlock';
 import {registerColumnsBlock} from './blocks/Columns/ColumnsBlock';
+import {registerTopicLinkBlock} from './blocks/TopicLink/TopicLinkBlock';
 import {registerBlockStyles} from './block-styles';
 import {registerBlockVariations} from './block-variations';
 import {registerActionButtonTextBlock} from './blocks/ActionCustomButtonText';
+import {setupBlockEditorValidation} from './block-editor/setupBlockEditorValidation';
+import {addButtonLinkPasteWarning} from './block-editor/addButtonLinkPasteWarning';
+import {addBlockFilters} from './block-editor/BlockFilters';
+import {replaceTaxonomyTermSelectors} from './block-editor/replaceTaxonomyTermSelectors';
+import {setupImageBlockExtension} from './block-editor/setupImageBlockExtension';
 
 wp.domReady(() => {
   // Blocks
@@ -21,6 +27,8 @@ wp.domReady(() => {
   registerHappyPointBlock();
   registerSocialMediaBlock();
   registerTimelineBlock();
+  registerPostsListBlock();
+  registerTopicLinkBlock();
 
   // Block Templates
   registerBlockTemplates();
@@ -29,7 +37,6 @@ wp.domReady(() => {
   if (window.p4_vars.features.beta_blocks === 'on') {
     registerActionButtonTextBlock();
     registerActionsListBlock();
-    registerPostsListBlock();
   }
 
   // Custom block styles
@@ -37,10 +44,13 @@ wp.domReady(() => {
 
   // Block variations
   registerBlockVariations();
+
+  // Editor behaviour.
+  setupQueryLoopBlockExtension();
+  setupCustomSidebar();
+  addButtonLinkPasteWarning();
+  addBlockFilters();
+  replaceTaxonomyTermSelectors();
+  setupImageBlockExtension();
+  setupBlockEditorValidation();
 });
-
-setupCustomSidebar();
-
-// Setup new attributes to the core/query.
-// It should be executed after the DOM is ready
-setupQueryLoopBlockExtension();
