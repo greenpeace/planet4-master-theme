@@ -36,13 +36,15 @@ class MediaReplacer
         add_action('wp_ajax_replace_media', [$this, 'ajax_replace_media']);
         add_action('admin_notices', [$this, 'display_admin_notices']);
 
-        // echo "<pre>";
-        // $serialized_data = get_post_meta(1281)['sm_cloud'][0];
+        echo "<pre>";
+        // var_dump(get_post_meta(1306, 'sm_cloud')[0]['sizes']);
+        // $serialized_data = get_post_meta(1306)['sm_cloud'][0];
         // $data = unserialize($serialized_data);
-        // var_dump($data['name']);
+        // $image_name = pathinfo($data['name'], PATHINFO_DIRNAME) . '/' . pathinfo($data['name'], PATHINFO_FILENAME);
+        // var_dump($image_name);
         // $absolutePath = '2025/01/ec8a67a2-gp-img-1.jpg';
         // var_dump( ud_get_stateless_media()->get_client()->get_media($absolutePath) );
-        // echo "</pre>";
+        echo "</pre>";
 
         // echo get_post_type(771);
 
@@ -214,7 +216,7 @@ class MediaReplacer
     function generate_thumbnails_before_upload($file, $id) {
         // Check if GD is available
         if (!extension_loaded('gd')) {
-            return new WP_Error('gd_missing', 'GD extension is not available.');
+            return 'GD extension is not available';
         }
 
         // Get the image path
@@ -230,7 +232,7 @@ class MediaReplacer
         } elseif ($image_type == IMAGETYPE_GIF) {
             $image = imagecreatefromgif($image_path);
         } else {
-            return new WP_Error('invalid_image_type', 'Invalid image type.');
+            return 'Invalid image type.';
         }
 
         // Define the sizes you want to generate (e.g., thumbnail size)
@@ -240,42 +242,15 @@ class MediaReplacer
             'large' => array(1024, 1024),   // 1024x1024 px
         );
 
-        // $image_variants = get_post_meta($id, 'sm_cloud')[0]['sizes'];
+        $image_variants = get_post_meta($id, 'sm_cloud')[0]['sizes'];
 
 
         // Generate the thumbnails
         $thumbnails = array();
 
-        // foreach ($image_variants as $size => $image) {
-        //     $thumb = imagecreatetruecolor($image['width'], $image['height']);
-        //     imagecopyresampled($thumb, $image, 0, 0, 0, 0, $image['width'], $image['height'], $image_info[0], $image_info[1]);
-
-        //     // Save the thumbnail to a temporary location
-        //     $thumbnail_file = tempnam(sys_get_temp_dir(), 'thumb_') . ".jpg";
-        //     imagejpeg($thumb, $thumbnail_file);
-
-        //     // Store the generated thumbnail file path for later use
-        //     $thumbnails[$size] = $thumbnail_file;
-
-        //     $variant_image_args = array(
-        //         'name' => 'pedro-' . $size,
-        //         'force' => true,
-        //         'absolutePath' => $thumbnail_file,
-        //         'cacheControl' => 'public, max-age=36000, must-revalidate',
-        //         'contentDisposition' => null,
-        //         'mimeType' => 'image/jpeg',
-        //     );
-
-        //     ud_get_stateless_media()->get_client()->add_media($variant_image_args);
-
-
-        //     imagedestroy($thumb); // Free up memory
-        // }
-
-
-        foreach ($sizes as $size => $dimensions) {
-            $thumb = imagecreatetruecolor($dimensions[0], $dimensions[1]);
-            imagecopyresampled($thumb, $image, 0, 0, 0, 0, $dimensions[0], $dimensions[1], $image_info[0], $image_info[1]);
+        foreach ($image_variants as $size => $image_data) {
+            $thumb = imagecreatetruecolor($image_data['width'], $image_data['height']);
+            imagecopyresampled($thumb, $image, 0, 0, 0, 0, $image_data['width'], $image_data['height'], $image_info[0], $image_info[1]);
 
             // Save the thumbnail to a temporary location
             $thumbnail_file = tempnam(sys_get_temp_dir(), 'thumb_') . ".jpg";
@@ -284,8 +259,17 @@ class MediaReplacer
             // Store the generated thumbnail file path for later use
             $thumbnails[$size] = $thumbnail_file;
 
+            // $image_title = get_post($id)->post_title;
+
+            // $image_name = pathinfo($image_title, PATHINFO_DIRNAME) . '/' . pathinfo($image_title, PATHINFO_FILENAME);
+
+            $serialized_data = get_post_meta($id)['sm_cloud'][0];
+            $data = unserialize($serialized_data);
+            $image_name = pathinfo($data['name'], PATHINFO_DIRNAME) . '/' . pathinfo($data['name'], PATHINFO_FILENAME);
+
             $variant_image_args = array(
-                'name' => 'pedro-' . $size . '.' . $file_extension,
+                'name' => $image_name . '-' . $image_data['width'] . 'x' . $image_data['height'] . '.jpg',
+                // 'name' => 'pedro-' . $size,
                 'force' => true,
                 'absolutePath' => $thumbnail_file,
                 'cacheControl' => 'public, max-age=36000, must-revalidate',
@@ -299,150 +283,39 @@ class MediaReplacer
             imagedestroy($thumb); // Free up memory
         }
 
+
+        // foreach ($sizes as $size => $dimensions) {
+        //     $thumb = imagecreatetruecolor($dimensions[0], $dimensions[1]);
+        //     imagecopyresampled($thumb, $image, 0, 0, 0, 0, $dimensions[0], $dimensions[1], $image_info[0], $image_info[1]);
+
+        //     // Save the thumbnail to a temporary location
+        //     $thumbnail_file = tempnam(sys_get_temp_dir(), 'thumb_') . ".jpg";
+        //     imagejpeg($thumb, $thumbnail_file);
+
+        //     // Store the generated thumbnail file path for later use
+        //     $thumbnails[$size] = $thumbnail_file;
+
+        //     $variant_image_args = array(
+        //         'name' => 'pedro-' . $size . '.' . $file_extension,
+        //         'force' => true,
+        //         'absolutePath' => $thumbnail_file,
+        //         'cacheControl' => 'public, max-age=36000, must-revalidate',
+        //         'contentDisposition' => null,
+        //         'mimeType' => 'image/jpeg',
+        //     );
+
+        //     ud_get_stateless_media()->get_client()->add_media($variant_image_args);
+
+
+        //     imagedestroy($thumb); // Free up memory
+        // }
+
         imagedestroy($image); // Free up memory
 
-        return $id;
+        return get_post_meta($id, 'sm_cloud')[0]['sizes'];
 
-        // Step 2: Now upload the original file and thumbnails using wp_handle_upload()
-        // First, upload the original file
-        // $upload_overrides = array('test_form' => false);
-        // $movefile = wp_handle_upload($file, $upload_overrides);
-
-        // if ($movefile && !isset($movefile['error'])) {
-        //     // Create the attachment for the original file
-        //     $attachment = array(
-        //         'guid' => $movefile['url'],
-        //         'post_mime_type' => $file['type'],
-        //         'post_title' => sanitize_file_name($file['name']),
-        //         'post_content' => '',
-        //         'post_status' => 'inherit',
-        //     );
-        //     $attachment_id = wp_insert_attachment($attachment, $movefile['file']);
-
-        //     // Generate metadata for the original image and upload the thumbnails
-        //     $metadata = wp_generate_attachment_metadata($attachment_id, $movefile['file']);
-
-        //     // Add the generated thumbnails to metadata manually
-        //     foreach ($thumbnails as $size => $thumbnail_file) {
-        //         $thumbnail_id = wp_insert_attachment(array(
-        //             'post_title' => basename($thumbnail_file),
-        //             'post_mime_type' => 'image/jpeg',
-        //             'guid' => $movefile['url'],
-        //             'post_status' => 'inherit',
-        //         ), $thumbnail_file);
-
-        //         // Add this thumbnail to the metadata
-        //         $metadata['sizes'][$size] = wp_generate_attachment_metadata($thumbnail_id, $thumbnail_file);
-        //     }
-
-        //     // Update the metadata of the original image with the thumbnails
-        //     wp_update_attachment_metadata($attachment_id, $metadata);
-
-        //     // Clean up: delete temporary thumbnails
-        //     foreach ($thumbnails as $thumbnail) {
-        //         unlink($thumbnail); // Remove the temporary thumbnail file
-        //     }
-
-        //     return $attachment_id; // Return the attachment ID of the original image
-        // } else {
-        //     return new WP_Error('upload_error', 'File upload failed', $movefile['error']);
-        // }
     }
 
-
-    // private function replace_image_variants($id)
-    // {
-    //     $serialized_data = get_post_meta($id)['sm_cloud'][0];
-    //     $data = unserialize($serialized_data);
-    //     wp_delete_post($id, true);
-    //     return $data['name'];
-    // }
-
-    // private function replace_image_variants($file, $id)
-    // {
-    //     // Get old attachment data before deletion
-    //     $attachment = get_post($id);
-
-    //     // Get upload directory info
-    //     $upload_dir = wp_upload_dir();
-
-    //     // Ensure the old file is deleted
-    //     // $old_file_path = get_attached_file($id);
-    //     // if ($old_file_path && file_exists($old_file_path)) {
-    //     //     unlink($old_file_path); // Delete the old file
-    //     // }
-
-    //     // // Delete the old attachment
-    //     $deletion = wp_delete_attachment($id, true);
-
-    //     // if (!$deletion) {
-    //     //     return false;
-    //     // }
-
-    //     // Set a custom filename
-    //     // $serialized_data = get_post_meta($id)['sm_cloud'][0];
-    //     // $data = unserialize($serialized_data);
-    //     // $file_ext = pathinfo($file['name'], PATHINFO_EXTENSION);
-    //     // $new_filename = 'custom-prefix-' . time() . '.' . $file_ext;
-    //     $file['name'] = '78026ddc-202501449cb006-gp-img-2.jpg';
-
-    //     $max_retries = 10;
-    //     $retries = 0;
-    //     $object_deleted = false;
-
-    //     $absolutePath = '2025/01/78026ddc-202501449cb006-gp-img-2.jpg';
-    //     $aaa = ( ud_get_stateless_media()->get_client()->get_media($absolutePath) );
-
-    //     while ($retries < $max_retries) {
-    //         // Check if the object exists in the bucket
-    //         try {
-    //             $aaa;
-    //             sleep(1);
-    //         } catch (Exception $e) {
-    //             // Object not found, assumed deleted
-    //             $object_deleted = true;
-    //             break;
-    //         }
-    //         $retries++;
-    //     }
-
-    //     // Upload the new file
-    //     $upload = wp_handle_upload($file, ['test_form' => false]);
-
-    //     if (!$upload || isset($upload['error'])) {
-    //         return false;
-    //     }
-
-    //     // Create a new attachment post
-    //     $attachment_data = [
-    //         'post_mime_type' => $upload['type'],
-    //         'post_title'     => 'test name pedro',
-    //         'post_content'   => '',
-    //         'post_status'    => 'inherit',
-    //     ];
-
-    //     $new_attachment_id = wp_insert_attachment($attachment_data, $upload['file']);
-
-    //     if (is_wp_error($new_attachment_id)) {
-    //         return false;
-    //     }
-
-    //     // Make sure WP-Stateless processes the new file
-    //     // do_action('wp_generate_attachment_metadata', $new_attachment_id);
-
-    //     // Generate metadata and create new thumbnails
-    //     require_once ABSPATH . 'wp-admin/includes/image.php';
-    //     $attach_data = wp_generate_attachment_metadata($new_attachment_id, $upload['file']);
-    //     wp_update_attachment_metadata($new_attachment_id, $attach_data);
-
-    //     // Clear any cached WP-Stateless data
-    //     // delete_post_meta($new_attachment_id, 'sm_cloud');
-
-    //     // // Delete the old attachment
-    //     // $deletion = wp_delete_attachment($id, true);
-
-    //     return $new_attachment_id;
-    // }
 
     /**
      * Replaces the media file associated with the old attachment ID
