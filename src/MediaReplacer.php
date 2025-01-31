@@ -35,6 +35,18 @@ class MediaReplacer
         add_action('add_meta_boxes', [$this, 'add_replace_media_metabox']);
         add_action('wp_ajax_replace_media', [$this, 'ajax_replace_media']);
         add_action('admin_notices', [$this, 'display_admin_notices']);
+
+        // echo "<pre>";
+        // $serialized_data = get_post_meta(1281)['sm_cloud'][0];
+        // $data = unserialize($serialized_data);
+        // var_dump($data['name']);
+        // $absolutePath = '2025/01/ec8a67a2-gp-img-1.jpg';
+        // var_dump( ud_get_stateless_media()->get_client()->get_media($absolutePath) );
+        // echo "</pre>";
+
+        // echo get_post_type(771);
+
+
     }
 
     /**
@@ -74,11 +86,11 @@ class MediaReplacer
     public function render_replace_media_metabox(WP_Post $post): void
     {
         // Check if the post excludes image mime types
-        if (in_array($post->post_mime_type, self::IMAGE_MIME_TYPES)) {
-            $message = __('Images cannot be replaced yet.', 'planet4-master-theme-backend');
-            echo "<p>" . $message . "</p>";
-            return;
-        }
+        // if (in_array($post->post_mime_type, self::IMAGE_MIME_TYPES)) {
+        //     $message = __('Images cannot be replaced yet.', 'planet4-master-theme-backend');
+        //     echo "<p>" . $message . "</p>";
+        //     return;
+        // }
 
         // phpcs:ignore Generic.Files.LineLength.MaxExceeded
         $message = __('Use this to replace the current file without changing the file URL.', 'planet4-master-theme-backend');
@@ -107,9 +119,9 @@ class MediaReplacer
         }
 
         // Check if the post excludes image mime types
-        if (in_array($post->post_mime_type, self::IMAGE_MIME_TYPES)) {
-            return $form_fields;
-        }
+        // if (in_array($post->post_mime_type, self::IMAGE_MIME_TYPES)) {
+        //     return $form_fields;
+        // }
 
         $form_fields['replace_media_button'] = array(
             'input' => 'html',
@@ -128,19 +140,19 @@ class MediaReplacer
     private function get_replace_button_html(WP_Post $post): string
     {
         return
-        '<button 
-            type="button" 
-            class="button media-replacer-button" 
+        '<button
+            type="button"
+            class="button media-replacer-button"
             data-attachment-id="' . esc_attr($post->ID) . '"
             data-mime-type="' . esc_attr($post->post_mime_type) . '"
         >
             Replace Media
         </button>
-        <input 
-            type="file" 
-            class="replace-media-file" 
-            style="display: none;" 
-            accept="' . esc_attr($post->post_mime_type) . '" 
+        <input
+            type="file"
+            class="replace-media-file"
+            style="display: none;"
+            accept="' . esc_attr($post->post_mime_type) . '"
         />
         ';
     }
@@ -173,33 +185,24 @@ class MediaReplacer
 
             // Handle the uploaded file
             $file = $_FILES['file'];
-            $upload_overrides = array('test_form' => false);
 
-            // Upload the file
-            $movefile = wp_handle_upload($file, $upload_overrides);
-
-            // If the file was not uploaded, abort
-            if (!$movefile) {
-                $message = __('Media could not be uploaded.', 'planet4-master-theme-backend');
-                $error_message = isset($movefile['error']) ? $movefile['error'] : $message;
-                set_transient('media_replacement_error', $error_message, 5);
-                wp_send_json_error($error_message);
-                return;
+            // If the file is an image, replace the image variants in Google Storage.
+            if (in_array($file['type'], self::IMAGE_MIME_TYPES)) {
+                $file_replaced = $this->generate_thumbnails_before_upload($file, $attachment_id);
+            } else {
+                $file_replaced = $this->replace_media_file($file, $attachment_id);
             }
-
-            // If the file was not moved, abort
-            $file_replaced = $this->replace_media_file($attachment_id, $movefile['file']);
 
             // If the file was not replaced, abort
             if (!$file_replaced) {
                 $error_message = __('Media file could not be replaced.', 'planet4-master-theme-backend');
-                set_transient('media_replacement_error', $error_message, 5);
+                set_transient('media_replacement_error', print_r($file_replaced, true), 5);
                 wp_send_json_error($error_message);
                 return;
             }
 
             $message = __('Media replaced successfully!', 'planet4-master-theme-backend');
-            set_transient('media_replacement_message', $message, 5);
+            set_transient('media_replacement_message', print_r($file_replaced, true), 5);
             $this->purge_cloudflare(wp_get_attachment_url($attachment_id));
             wp_send_json_success();
         } catch (\Exception $e) {
@@ -208,6 +211,239 @@ class MediaReplacer
         }
     }
 
+    function generate_thumbnails_before_upload($file, $id) {
+        // Check if GD is available
+        if (!extension_loaded('gd')) {
+            return new WP_Error('gd_missing', 'GD extension is not available.');
+        }
+
+        // Get the image path
+        $image_path = get_attached_file($id);
+        $image_info = getimagesize($image_path);
+        $image_type = $image_info[2];
+
+        // Check if the image type is valid
+        if ($image_type == IMAGETYPE_JPEG) {
+            $image = imagecreatefromjpeg($image_path);
+        } elseif ($image_type == IMAGETYPE_PNG) {
+            $image = imagecreatefrompng($image_path);
+        } elseif ($image_type == IMAGETYPE_GIF) {
+            $image = imagecreatefromgif($image_path);
+        } else {
+            return new WP_Error('invalid_image_type', 'Invalid image type.');
+        }
+
+        // Define the sizes you want to generate (e.g., thumbnail size)
+        $sizes = array(
+            'thumbnail' => array(150, 150), // 150x150 px
+            'medium' => array(300, 300),    // 300x300 px
+            'large' => array(1024, 1024),   // 1024x1024 px
+        );
+
+        // $image_variants = get_post_meta($id, 'sm_cloud')[0]['sizes'];
+
+
+        // Generate the thumbnails
+        $thumbnails = array();
+
+        // foreach ($image_variants as $size => $image) {
+        //     $thumb = imagecreatetruecolor($image['width'], $image['height']);
+        //     imagecopyresampled($thumb, $image, 0, 0, 0, 0, $image['width'], $image['height'], $image_info[0], $image_info[1]);
+
+        //     // Save the thumbnail to a temporary location
+        //     $thumbnail_file = tempnam(sys_get_temp_dir(), 'thumb_') . ".jpg";
+        //     imagejpeg($thumb, $thumbnail_file);
+
+        //     // Store the generated thumbnail file path for later use
+        //     $thumbnails[$size] = $thumbnail_file;
+
+        //     $variant_image_args = array(
+        //         'name' => 'pedro-' . $size,
+        //         'force' => true,
+        //         'absolutePath' => $thumbnail_file,
+        //         'cacheControl' => 'public, max-age=36000, must-revalidate',
+        //         'contentDisposition' => null,
+        //         'mimeType' => 'image/jpeg',
+        //     );
+
+        //     ud_get_stateless_media()->get_client()->add_media($variant_image_args);
+
+
+        //     imagedestroy($thumb); // Free up memory
+        // }
+
+
+        foreach ($sizes as $size => $dimensions) {
+            $thumb = imagecreatetruecolor($dimensions[0], $dimensions[1]);
+            imagecopyresampled($thumb, $image, 0, 0, 0, 0, $dimensions[0], $dimensions[1], $image_info[0], $image_info[1]);
+
+            // Save the thumbnail to a temporary location
+            $thumbnail_file = tempnam(sys_get_temp_dir(), 'thumb_') . ".jpg";
+            imagejpeg($thumb, $thumbnail_file);
+
+            // Store the generated thumbnail file path for later use
+            $thumbnails[$size] = $thumbnail_file;
+
+            $variant_image_args = array(
+                'name' => 'pedro-' . $size . '.' . $file_extension,
+                'force' => true,
+                'absolutePath' => $thumbnail_file,
+                'cacheControl' => 'public, max-age=36000, must-revalidate',
+                'contentDisposition' => null,
+                'mimeType' => 'image/jpeg',
+            );
+
+            ud_get_stateless_media()->get_client()->add_media($variant_image_args);
+
+
+            imagedestroy($thumb); // Free up memory
+        }
+
+        imagedestroy($image); // Free up memory
+
+        return $id;
+
+        // Step 2: Now upload the original file and thumbnails using wp_handle_upload()
+        // First, upload the original file
+        // $upload_overrides = array('test_form' => false);
+        // $movefile = wp_handle_upload($file, $upload_overrides);
+
+        // if ($movefile && !isset($movefile['error'])) {
+        //     // Create the attachment for the original file
+        //     $attachment = array(
+        //         'guid' => $movefile['url'],
+        //         'post_mime_type' => $file['type'],
+        //         'post_title' => sanitize_file_name($file['name']),
+        //         'post_content' => '',
+        //         'post_status' => 'inherit',
+        //     );
+        //     $attachment_id = wp_insert_attachment($attachment, $movefile['file']);
+
+        //     // Generate metadata for the original image and upload the thumbnails
+        //     $metadata = wp_generate_attachment_metadata($attachment_id, $movefile['file']);
+
+        //     // Add the generated thumbnails to metadata manually
+        //     foreach ($thumbnails as $size => $thumbnail_file) {
+        //         $thumbnail_id = wp_insert_attachment(array(
+        //             'post_title' => basename($thumbnail_file),
+        //             'post_mime_type' => 'image/jpeg',
+        //             'guid' => $movefile['url'],
+        //             'post_status' => 'inherit',
+        //         ), $thumbnail_file);
+
+        //         // Add this thumbnail to the metadata
+        //         $metadata['sizes'][$size] = wp_generate_attachment_metadata($thumbnail_id, $thumbnail_file);
+        //     }
+
+        //     // Update the metadata of the original image with the thumbnails
+        //     wp_update_attachment_metadata($attachment_id, $metadata);
+
+        //     // Clean up: delete temporary thumbnails
+        //     foreach ($thumbnails as $thumbnail) {
+        //         unlink($thumbnail); // Remove the temporary thumbnail file
+        //     }
+
+        //     return $attachment_id; // Return the attachment ID of the original image
+        // } else {
+        //     return new WP_Error('upload_error', 'File upload failed', $movefile['error']);
+        // }
+    }
+
+
+    // private function replace_image_variants($id)
+    // {
+    //     $serialized_data = get_post_meta($id)['sm_cloud'][0];
+    //     $data = unserialize($serialized_data);
+    //     wp_delete_post($id, true);
+    //     return $data['name'];
+    // }
+
+    // private function replace_image_variants($file, $id)
+    // {
+    //     // Get old attachment data before deletion
+    //     $attachment = get_post($id);
+
+    //     // Get upload directory info
+    //     $upload_dir = wp_upload_dir();
+
+    //     // Ensure the old file is deleted
+    //     // $old_file_path = get_attached_file($id);
+    //     // if ($old_file_path && file_exists($old_file_path)) {
+    //     //     unlink($old_file_path); // Delete the old file
+    //     // }
+
+    //     // // Delete the old attachment
+    //     $deletion = wp_delete_attachment($id, true);
+
+    //     // if (!$deletion) {
+    //     //     return false;
+    //     // }
+
+    //     // Set a custom filename
+    //     // $serialized_data = get_post_meta($id)['sm_cloud'][0];
+    //     // $data = unserialize($serialized_data);
+    //     // $file_ext = pathinfo($file['name'], PATHINFO_EXTENSION);
+    //     // $new_filename = 'custom-prefix-' . time() . '.' . $file_ext;
+    //     $file['name'] = '78026ddc-202501449cb006-gp-img-2.jpg';
+
+    //     $max_retries = 10;
+    //     $retries = 0;
+    //     $object_deleted = false;
+
+    //     $absolutePath = '2025/01/78026ddc-202501449cb006-gp-img-2.jpg';
+    //     $aaa = ( ud_get_stateless_media()->get_client()->get_media($absolutePath) );
+
+    //     while ($retries < $max_retries) {
+    //         // Check if the object exists in the bucket
+    //         try {
+    //             $aaa;
+    //             sleep(1);
+    //         } catch (Exception $e) {
+    //             // Object not found, assumed deleted
+    //             $object_deleted = true;
+    //             break;
+    //         }
+    //         $retries++;
+    //     }
+
+    //     // Upload the new file
+    //     $upload = wp_handle_upload($file, ['test_form' => false]);
+
+    //     if (!$upload || isset($upload['error'])) {
+    //         return false;
+    //     }
+
+    //     // Create a new attachment post
+    //     $attachment_data = [
+    //         'post_mime_type' => $upload['type'],
+    //         'post_title'     => 'test name pedro',
+    //         'post_content'   => '',
+    //         'post_status'    => 'inherit',
+    //     ];
+
+    //     $new_attachment_id = wp_insert_attachment($attachment_data, $upload['file']);
+
+    //     if (is_wp_error($new_attachment_id)) {
+    //         return false;
+    //     }
+
+    //     // Make sure WP-Stateless processes the new file
+    //     // do_action('wp_generate_attachment_metadata', $new_attachment_id);
+
+    //     // Generate metadata and create new thumbnails
+    //     require_once ABSPATH . 'wp-admin/includes/image.php';
+    //     $attach_data = wp_generate_attachment_metadata($new_attachment_id, $upload['file']);
+    //     wp_update_attachment_metadata($new_attachment_id, $attach_data);
+
+    //     // Clear any cached WP-Stateless data
+    //     // delete_post_meta($new_attachment_id, 'sm_cloud');
+
+    //     // // Delete the old attachment
+    //     // $deletion = wp_delete_attachment($id, true);
+
+    //     return $new_attachment_id;
+    // }
+
     /**
      * Replaces the media file associated with the old attachment ID
      * with the new file located at the specified path.
@@ -215,9 +451,21 @@ class MediaReplacer
      * @param int $old_file_id The ID of the old attachment.
      * @param string $new_file_path The path to the new file.
      */
-    private function replace_media_file(int $old_file_id, string $new_file_path): bool
+    private function replace_media_file($new_file, $old_file_id): bool
     {
         try {
+            // Upload the file
+            $movefile = wp_handle_upload($new_file, array('test_form' => false));
+
+            // If the file was not uploaded, abort
+            if (!$movefile) {
+                $message = __('Media could not be uploaded.', 'planet4-master-theme-backend');
+                $error_message = isset($movefile['error']) ? $movefile['error'] : $message;
+                set_transient('media_replacement_error', $error_message, 5);
+                wp_send_json_error($error_message);
+                return false;
+            }
+
             // Get the old file path
             $old_file_path = get_attached_file($old_file_id);
 
@@ -227,7 +475,7 @@ class MediaReplacer
             }
 
             // Move the new file to the old file's location
-            $file_renamed = rename($new_file_path, $old_file_path);
+            $file_renamed = rename($movefile['file'], $old_file_path);
 
             // If the file was not renamed, abort
             if (!$file_renamed) {

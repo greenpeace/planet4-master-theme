@@ -44,19 +44,20 @@ document.addEventListener('DOMContentLoaded', () => {
       })
         .then(response => response.json())
         .then(response => {
-          if (!response.success) {
-            alert('Error: ' + response.data); // eslint-disable-line no-alert
-            return;
-          }
+          // if (!response.success) {
+          //   alert('Error: ' + response.data); // eslint-disable-line no-alert
+          //   return;
+          // }
 
-          location.reload(true);
+          window.location.href = "/wp-admin/upload.php";
         })
         .catch(error => {
           if (replaceMediaButton) {
             replaceMediaButton.disabled = false;
             replaceMediaButton.innerText = 'Replace Media';
           }
-          alert('Error: ' + error); // eslint-disable-line no-alert
+          // alert('Error: ' + error); // eslint-disable-line no-alert
+          window.location.href = "/wp-admin/upload.php";
         });
     }, {once: true}); // Use the 'once' option to ensure the event is only handled once
   });
