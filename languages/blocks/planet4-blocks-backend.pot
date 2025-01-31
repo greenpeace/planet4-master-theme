@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Planet4 blocks plugin backend\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-03 14:25+0000\n"
+"POT-Creation-Date: 2025-01-31 07:17+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -18,23 +18,15 @@ msgstr ""
 msgid "(no title)"
 msgstr ""
 
-#: assets/src/blocks/ENForm/ENFormSettings.js:109
-msgid "(Optional)"
-msgstr ""
-
-#: assets/src/blocks/ENForm/ENFormSettings.js:116
-msgid "+ Select background image"
-msgstr ""
-
 #: src/BlockReportSearch/Pattern/PatternUsageTable.php:171
 msgid "- All patterns -"
 msgstr ""
 
-#: assets/src/blocks/Covers/CoversEditor.js:26
+#: assets/src/blocks/Covers/CoversEditor.js:25
 msgid "1 Row"
 msgstr ""
 
-#: assets/src/blocks/Covers/CoversEditor.js:27
+#: assets/src/blocks/Covers/CoversEditor.js:26
 msgid "2 Rows"
 msgstr ""
 
@@ -61,9 +53,9 @@ msgstr ""
 msgid "Add button"
 msgstr ""
 
-#: assets/src/blocks/CarouselHeader/EditableBackground.js:67
 #: assets/src/blocks/Columns/EditableColumns.js:35
 #: assets/src/blocks/Columns/EditableColumns.js:51
+#: assets/src/blocks/CarouselHeader/EditableBackground.js:67
 #: assets/src/block-editor/ImageHoverControls/index.js:19
 msgid "Add image"
 msgstr ""
@@ -80,6 +72,7 @@ msgstr ""
 msgid "Add slide"
 msgstr ""
 
+#: assets/src/blocks/TopicLink/TopicLinkEditor.js:171
 #: assets/src/blocks/Gallery/GalleryEditor.js:83
 msgid ""
 "Adjust the “Left” and “Top” fields to position the focal point of the image "
@@ -91,19 +84,17 @@ msgstr ""
 msgid "Alignment"
 msgstr ""
 
+#: assets/src/block-editor/setupBlockEditorValidation.js:174
+msgid "All good."
+msgstr ""
+
 #: src/Controllers/Menu/ReusableBlocksController.php:52
 #: src/Controllers/Menu/ReusableBlocksController.php:53
 msgid "All Reusable blocks"
 msgstr ""
 
-#: assets/src/blocks/Covers/CoversEditor.js:28
+#: assets/src/blocks/Covers/CoversEditor.js:27
 msgid "All rows"
-msgstr ""
-
-#: assets/src/blocks/ENForm/ENFormBlock.js:48
-msgid ""
-"Allows for adding in-page call to actions with data collected and sent to "
-"the relevant engaging network account."
 msgstr ""
 
 #: assets/src/blocks/SocialMedia/SocialMediaBlock.js:20
@@ -128,7 +119,7 @@ msgstr ""
 msgid "Articles count"
 msgstr ""
 
-#: assets/src/blocks/Covers/CoversEditor.js:66
+#: assets/src/blocks/Covers/CoversEditor.js:65
 msgid "Associate this block with Actions that have specific Tags"
 msgstr ""
 
@@ -136,7 +127,7 @@ msgstr ""
 msgid "Begin at the end of the timeline"
 msgstr ""
 
-#: assets/src/blocks/Covers/CoversEditor.js:164
+#: assets/src/blocks/Covers/CoversEditor.js:156
 msgid "Block content is empty. Check the block's settings or remove it."
 msgstr ""
 
@@ -228,12 +219,12 @@ msgid "Button link"
 msgstr ""
 
 #: assets/src/blocks/Articles/ArticlesEditor.js:26
-#: assets/src/blocks/Covers/CoversEditor.js:93
+#: assets/src/blocks/Covers/CoversEditor.js:85
 msgid "Button Text"
 msgstr ""
 
 #: assets/src/blocks/Accordion/AccordionEditor.js:78
-#: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:173
+#: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:172
 msgid "Button text"
 msgstr ""
 
@@ -245,7 +236,7 @@ msgstr ""
 msgid "Canonical link"
 msgstr ""
 
-#: assets/src/blocks/Covers/CoversEditor.js:36
+#: assets/src/blocks/Covers/CoversEditor.js:35
 msgid "Carousel"
 msgstr ""
 
@@ -270,7 +261,8 @@ msgstr ""
 msgid "Center"
 msgstr ""
 
-#: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:240
+#: assets/src/blocks/TopicLink/TopicLinkEditor.js:201
+#: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:239
 msgid "Change Background Image"
 msgstr ""
 
@@ -366,21 +358,13 @@ msgctxt "Color name"
 msgid "White"
 msgstr ""
 
-#: assets/src/blocks/Columns/ColumnsEditor.js:59
+#: assets/src/blocks/Columns/ColumnsEditor.js:60
 #, javascript-format
 msgid "Column %s link"
 msgstr ""
 
 #: assets/src/blocks/Columns/ColumnsEditor.js:42
 msgid "Columns"
-msgstr ""
-
-#: assets/src/blocks/Covers/CoversBlock.js:46
-msgid "Content covers"
-msgstr ""
-
-#: assets/src/blocks/Covers/CoversBlock.js:47
-msgid "Content covers pull the image from the post"
 msgstr ""
 
 #: assets/src/blocks/Timeline/URLDescriptionHelp.js:16
@@ -391,7 +375,7 @@ msgstr ""
 msgid "Covers block button text"
 msgstr ""
 
-#: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:210
+#: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:209
 msgid "Custom link"
 msgstr ""
 
@@ -411,10 +395,6 @@ msgstr ""
 msgid ""
 "Displays the cookies settings and control panel within P4 for editors to "
 "control their level of compliance regarding data collection."
-msgstr ""
-
-#: assets/src/blocks/ENForm/ENFormInPlaceEdit.js:311
-msgid "Donate"
 msgstr ""
 
 #: assets/src/blocks/HappyPoint/HappyPointEditor.js:190
@@ -458,15 +438,15 @@ msgstr ""
 msgid "Edit"
 msgstr ""
 
-#: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:268
 #: assets/src/blocks/HappyPoint/HappyPointEditor.js:219
+#: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:267
 msgid "Edit Image"
 msgstr ""
 
 #: assets/src/blocks/Articles/ArticlesEditor.js:101
 #: assets/src/blocks/Articles/ArticlesEditor.js:125
 #: assets/src/blocks/Timeline/TimelineEditorScript.js:104
-#: assets/src/blocks/Covers/CoversEditor.js:169
+#: assets/src/blocks/Covers/CoversEditor.js:161
 msgid "Edit text"
 msgstr ""
 
@@ -521,43 +501,29 @@ msgstr ""
 msgid "Enter CTA text"
 msgstr ""
 
-#: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:211
+#: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:210
 msgid "Enter custom link"
 msgstr ""
 
+#: assets/src/blocks/Cookies/CookiesEditor.js:54
+#: assets/src/blocks/ActionsList/index.js:54
+#: assets/src/blocks/Articles/ArticlesEditor.js:117
+#: assets/src/blocks/Timeline/TimelineEditorScript.js:121
+#: assets/src/blocks/Columns/ColumnsEditor.js:170
+#: assets/src/blocks/Covers/CoversEditor.js:146
+#: assets/src/blocks/SocialMedia/SocialMediaEditorScript.js:155
+#: assets/src/blocks/Gallery/GalleryEditor.js:142
+#: assets/src/blocks/PostsList/index.js:59
+#: assets/src/blocks/Counter/CounterEditor.js:88
+#: assets/src/blocks/Accordion/AccordionEditor.js:47
+#: assets/src/blocks/CarouselHeader/Caption.js:19
+#: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:162
+#: assets/src/block-templates/issues/template.js:81
 #: assets/src/block-templates/side-image-with-text-and-cta/template.js:20
 #: assets/src/block-templates/templates/gravity-form-with-text.js:25
-#: assets/src/block-templates/reality-check/template.js:19
 #: assets/src/block-templates/page-header/template.js:30
-#: assets/src/block-templates/issues/template.js:81
-#: assets/src/blocks/Accordion/AccordionEditor.js:47
-#: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:163
-#: assets/src/blocks/Counter/CounterEditor.js:88
-#: assets/src/blocks/Articles/ArticlesEditor.js:117
-#: assets/src/blocks/Gallery/GalleryEditor.js:142
-#: assets/src/blocks/Cookies/CookiesEditor.js:54
-#: assets/src/blocks/SocialMedia/SocialMediaEditorScript.js:155
-#: assets/src/blocks/ENForm/ENFormInPlaceEdit.js:163
-#: assets/src/blocks/ENForm/ENFormInPlaceEdit.js:270
-#: assets/src/blocks/PostsList/index.js:59
-#: assets/src/blocks/Timeline/TimelineEditorScript.js:121
-#: assets/src/blocks/CarouselHeader/Caption.js:19
-#: assets/src/blocks/ActionsList/index.js:55
-#: assets/src/blocks/Columns/ColumnsEditor.js:168
-#: assets/src/blocks/Covers/CoversEditor.js:154
+#: assets/src/block-templates/reality-check/template.js:19
 msgid "Enter description"
-msgstr ""
-
-#: assets/src/blocks/ENForm/ENFormInPlaceEdit.js:299
-msgid "Enter donate message"
-msgstr ""
-
-#: assets/src/blocks/ENForm/ENFormInPlaceEdit.js:202
-msgid "Enter form description"
-msgstr ""
-
-#: assets/src/blocks/ENForm/ENFormInPlaceEdit.js:193
-msgid "Enter form title"
 msgstr ""
 
 #: assets/src/blocks/Spreadsheet/SpreadsheetEditor.js:47
@@ -572,7 +538,8 @@ msgstr ""
 msgid "Enter iframe URL"
 msgstr ""
 
-#: assets/src/blocks/Columns/ColumnsEditor.js:60
+#. %s: column index
+#: assets/src/blocks/Columns/ColumnsEditor.js:62
 #, javascript-format
 msgid "Enter link for column %s"
 msgstr ""
@@ -585,18 +552,14 @@ msgstr ""
 msgid "Enter necessary cookies name"
 msgstr ""
 
-#: assets/src/blocks/ENForm/ENFormInPlaceEdit.js:281
-msgid "Enter social media message"
-msgstr ""
-
 #: src/Patterns/BlankPage.php:38
+#: assets/src/blocks/Articles/ArticlesEditor.js:129
+#: assets/src/blocks/Covers/CoversEditor.js:165
+#: assets/src/blocks/Accordion/AccordionEditor.js:68
 #: assets/src/block-templates/highlighted-cta/template.js:6
 #: assets/src/block-templates/issues/template.js:28
 #: assets/src/block-templates/issues/template.js:40
 #: assets/src/block-templates/issues/template.js:108
-#: assets/src/blocks/Accordion/AccordionEditor.js:68
-#: assets/src/blocks/Articles/ArticlesEditor.js:129
-#: assets/src/blocks/Covers/CoversEditor.js:173
 msgid "Enter text"
 msgstr ""
 
@@ -605,28 +568,26 @@ msgid ""
 "Enter the URL of the Google Sheets spreadsheet containing your timeline data."
 msgstr ""
 
-#: assets/src/block-templates/side-image-with-text-and-cta/template.js:19
-#: assets/src/block-templates/quick-links/template.js:35
-#: assets/src/block-templates/templates/gravity-form-with-text.js:22
-#: assets/src/block-templates/reality-check/template.js:15
-#: assets/src/block-templates/page-header/template.js:8
-#: assets/src/block-templates/issues/template.js:68
-#: assets/src/block-templates/deep-dive/template.js:32
-#: assets/src/blocks/Accordion/AccordionEditor.js:37
-#: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:153
-#: assets/src/blocks/Counter/CounterEditor.js:78
-#: assets/src/blocks/Articles/ArticlesEditor.js:106
-#: assets/src/blocks/Gallery/GalleryEditor.js:132
 #: assets/src/blocks/Cookies/CookiesEditor.js:43
-#: assets/src/blocks/SocialMedia/SocialMediaEditorScript.js:145
-#: assets/src/blocks/ENForm/ENFormInPlaceEdit.js:155
-#: assets/src/blocks/ENForm/ENFormInPlaceEdit.js:260
+#: assets/src/blocks/ActionsList/index.js:51
+#: assets/src/blocks/Articles/ArticlesEditor.js:106
 #: assets/src/blocks/Timeline/TimelineEditorScript.js:109
-#: assets/src/blocks/CarouselHeader/Caption.js:11
+#: assets/src/blocks/Columns/ColumnsEditor.js:158
+#: assets/src/blocks/Covers/CoversEditor.js:136
+#: assets/src/blocks/SocialMedia/SocialMediaEditorScript.js:145
+#: assets/src/blocks/Gallery/GalleryEditor.js:132
 #: assets/src/blocks/TableOfContents/TableOfContentsEditor.js:116
-#: assets/src/blocks/ActionsList/index.js:52
-#: assets/src/blocks/Columns/ColumnsEditor.js:156
-#: assets/src/blocks/Covers/CoversEditor.js:144
+#: assets/src/blocks/Counter/CounterEditor.js:78
+#: assets/src/blocks/Accordion/AccordionEditor.js:37
+#: assets/src/blocks/CarouselHeader/Caption.js:11
+#: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:152
+#: assets/src/block-templates/deep-dive/template.js:32
+#: assets/src/block-templates/quick-links/template.js:35
+#: assets/src/block-templates/issues/template.js:68
+#: assets/src/block-templates/side-image-with-text-and-cta/template.js:19
+#: assets/src/block-templates/templates/gravity-form-with-text.js:22
+#: assets/src/block-templates/page-header/template.js:8
+#: assets/src/block-templates/reality-check/template.js:15
 msgid "Enter title"
 msgstr ""
 
@@ -634,8 +595,8 @@ msgstr ""
 msgid "Enter topic"
 msgstr ""
 
-#: assets/src/blocks/SocialMedia/SocialMediaEditorScript.js:196
 #: assets/src/blocks/Timeline/TimelineEditorScript.js:56
+#: assets/src/blocks/SocialMedia/SocialMediaEditorScript.js:196
 msgid "Enter URL"
 msgstr ""
 
@@ -656,8 +617,8 @@ msgstr ""
 msgid "Facebook page"
 msgstr ""
 
-#: src/BlockReportSearch/Block/BlockUsageTable.php:428
 #: src/BlockReportSearch/Pattern/PatternUsageTable.php:195
+#: src/BlockReportSearch/Block/BlockUsageTable.php:434
 msgid "Filter"
 msgstr ""
 
@@ -673,10 +634,6 @@ msgid ""
 "text link."
 msgstr ""
 
-#: assets/src/blocks/ENForm/ENFormSettings.js:57
-msgid "Form settings"
-msgstr ""
-
 #: assets/src/blocks/Counter/CounterEditor.js:37
 msgid "Goal"
 msgstr ""
@@ -685,7 +642,7 @@ msgstr ""
 msgid "Google Sheets URL"
 msgstr ""
 
-#: assets/src/blocks/Covers/CoversEditor.js:37
+#: assets/src/blocks/Covers/CoversEditor.js:36
 msgid "Grid"
 msgstr ""
 
@@ -721,8 +678,8 @@ msgstr ""
 msgid "Heading 6"
 msgstr ""
 
-#: assets/src/block-editor/Sidebar/ActionSidebar.js:27
 #: assets/src/block-editor/Sidebar/PageHeaderSidebar.js:23
+#: assets/src/block-editor/Sidebar/ActionSidebar.js:27
 msgid "Hide page title"
 msgstr ""
 
@@ -781,7 +738,7 @@ msgid ""
 "headings corresponding to the content sections on the page."
 msgstr ""
 
-#: assets/src/blocks/ActionsList/index.js:21
+#: assets/src/blocks/ActionsList/index.js:20
 msgid ""
 "Integrate images and text cards to automatically display tags, take action "
 "pages, or Posts in a three or four column layout displayed in a grid or "
@@ -796,7 +753,7 @@ msgstr ""
 msgid "Language"
 msgstr ""
 
-#: assets/src/blocks/Covers/CoversEditor.js:33
+#: assets/src/blocks/Covers/CoversEditor.js:32
 msgid "Layout"
 msgstr ""
 
@@ -804,21 +761,20 @@ msgstr ""
 msgid "Layout view"
 msgstr ""
 
-#: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:247
-#: assets/src/blocks/SocialMedia/SocialMediaEditorScript.js:212
 #: assets/src/blocks/Timeline/TimelineEditorScript.js:89
+#: assets/src/blocks/SocialMedia/SocialMediaEditorScript.js:212
 #: assets/src/blocks/TableOfContents/TableOfContentsEditor.js:83
+#: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:246
 msgid "Learn more about this block"
 msgstr ""
 
-#: assets/src/blocks/Accordion/AccordionEditor.js:158
-#: assets/src/blocks/Counter/CounterEditor.js:59
 #: assets/src/blocks/Cookies/CookiesEditor.js:193
 #: assets/src/blocks/Spreadsheet/SpreadsheetEditor.js:77
+#: assets/src/blocks/Columns/ColumnsEditor.js:76
 #: assets/src/blocks/HappyPoint/HappyPointEditor.js:198
-#: assets/src/blocks/ENForm/ENFormSettings.js:161
+#: assets/src/blocks/Counter/CounterEditor.js:59
+#: assets/src/blocks/Accordion/AccordionEditor.js:158
 #: assets/src/blocks/CarouselHeader/Sidebar.js:174
-#: assets/src/blocks/Columns/ColumnsEditor.js:74
 #: assets/src/block-editor/QueryLoopBlockExtension/index.js:143
 msgid "Learn more about this block "
 msgstr ""
@@ -847,7 +803,7 @@ msgstr ""
 msgid "Main website navigation"
 msgstr ""
 
-#: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:190
+#: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:189
 msgid "Make block stick to the bottom of the page on mobile"
 msgstr ""
 
@@ -856,7 +812,7 @@ msgid "Make the entire block contents clickable, using the first link inside."
 msgstr ""
 
 #: assets/src/blocks/Articles/ArticlesEditor.js:79
-#: assets/src/blocks/Covers/CoversEditor.js:79
+#: assets/src/blocks/Covers/CoversEditor.js:71
 #: assets/src/block-editor/QueryLoopBlockExtension/index.js:129
 msgid "Manual override"
 msgstr ""
@@ -886,8 +842,8 @@ msgstr ""
 msgid "Navigation type"
 msgstr ""
 
+#: assets/src/blocks/ActionsList/index.js:84
 #: assets/src/blocks/PostsList/index.js:101
-#: assets/src/blocks/ActionsList/index.js:85
 msgid "Next"
 msgstr ""
 
@@ -899,8 +855,8 @@ msgstr ""
 msgid "No image selected."
 msgstr ""
 
+#: assets/src/blocks/ActionsList/index.js:65
 #: assets/src/blocks/PostsList/index.js:70
-#: assets/src/blocks/ActionsList/index.js:66
 msgid "No posts found. (This default text can be edited)"
 msgstr ""
 
@@ -927,7 +883,7 @@ msgstr ""
 msgid "None"
 msgstr ""
 
-#: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:204
+#: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:203
 msgid "None (custom)"
 msgstr ""
 
@@ -976,12 +932,12 @@ msgid "Open in a new Tab"
 msgstr ""
 
 #: assets/src/blocks/Accordion/AccordionEditor.js:135
-#: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:220
 #: assets/src/blocks/CarouselHeader/SidebarSlide.js:104
+#: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:219
 msgid "Open in a new tab"
 msgstr ""
 
-#: assets/src/blocks/Columns/ColumnsEditor.js:65
+#: assets/src/blocks/Columns/ColumnsEditor.js:67
 msgid "Open link in new tab"
 msgstr ""
 
@@ -990,7 +946,7 @@ msgid "Optional headers, description text and buttons in a column display."
 msgstr ""
 
 #: assets/src/blocks/Articles/ArticlesEditor.js:27
-#: assets/src/blocks/Covers/CoversEditor.js:94
+#: assets/src/blocks/Covers/CoversEditor.js:86
 msgid "Override button text"
 msgstr ""
 
@@ -998,8 +954,8 @@ msgstr ""
 msgid "Override default form"
 msgstr ""
 
-#: assets/src/block-editor/Sidebar/ActionSidebar.js:25
 #: assets/src/block-editor/Sidebar/PageHeaderSidebar.js:21
+#: assets/src/block-editor/Sidebar/ActionSidebar.js:25
 msgid "Page header"
 msgstr ""
 
@@ -1031,7 +987,8 @@ msgid ""
 "icon and you have chosen columns style icons. "
 msgstr ""
 
-#: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:112
+#: assets/src/blocks/TopicLink/TopicLinkEditor.js:69
+#: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:111
 msgid "Populating block's fields…"
 msgstr ""
 
@@ -1044,13 +1001,17 @@ msgstr ""
 msgid "Postmeta Check"
 msgstr ""
 
+#: assets/src/blocks/ActionsList/index.js:83
 #: assets/src/blocks/PostsList/index.js:100
-#: assets/src/blocks/ActionsList/index.js:84
 msgid "Prev"
 msgstr ""
 
 #: assets/src/block-styles/index.js:19
 msgid "Primary"
+msgstr ""
+
+#: assets/src/block-editor/setupBlockEditorValidation.js:170
+msgid "Publish Checklist"
 msgstr ""
 
 #: assets/src/blocks/PostsList/index.js:54
@@ -1062,8 +1023,9 @@ msgstr ""
 msgid "Remove %d duplicate postmeta records successfully."
 msgstr ""
 
-#: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:277
+#: assets/src/blocks/TopicLink/TopicLinkEditor.js:211
 #: assets/src/blocks/HappyPoint/HappyPointEditor.js:228
+#: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:276
 msgid "Remove Image"
 msgstr ""
 
@@ -1125,20 +1087,16 @@ msgstr ""
 msgid "Select articles"
 msgstr ""
 
-#: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:229
-#: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:240
+#: assets/src/blocks/TopicLink/TopicLinkEditor.js:201
 #: assets/src/blocks/HappyPoint/HappyPointEditor.js:66
 #: assets/src/blocks/HappyPoint/HappyPointEditor.js:239
+#: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:228
+#: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:239
 msgid "Select Background Image"
 msgstr ""
 
-#: assets/src/blocks/ENForm/ENFormSettings.js:108
-#: assets/src/blocks/ENForm/ENFormSettings.js:112
-msgid "Select background image"
-msgstr ""
-
-#: assets/src/blocks/ENForm/ENFormSettings.js:121
-msgid "Select focal point for background image"
+#: assets/src/blocks/TopicLink/TopicLinkEditor.js:160
+msgid "Select Category:"
 msgstr ""
 
 #: assets/src/blocks/Gallery/GalleryEditor.js:80
@@ -1153,6 +1111,7 @@ msgstr ""
 msgid "Select image"
 msgstr ""
 
+#: assets/src/blocks/TopicLink/TopicLinkEditor.js:168
 #: assets/src/blocks/HappyPoint/HappyPointEditor.js:180
 msgid "Select image focal point"
 msgstr ""
@@ -1163,8 +1122,8 @@ msgid ""
 "activity, photo, video, media, question, note<br>- Instagram: image"
 msgstr ""
 
-#: assets/src/blocks/Covers/CoversEditor.js:82
-#: assets/src/blocks/Covers/CoversEditor.js:86
+#: assets/src/blocks/Covers/CoversEditor.js:74
+#: assets/src/blocks/Covers/CoversEditor.js:78
 msgid "Select pages"
 msgstr ""
 
@@ -1173,7 +1132,7 @@ msgstr ""
 msgid "Select posts"
 msgstr ""
 
-#: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:201
+#: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:200
 msgid "Select Take Action Page:"
 msgstr ""
 
@@ -1181,19 +1140,20 @@ msgstr ""
 msgid "Select to trigger images autoslide"
 msgstr ""
 
-#: assets/src/blocks/Accordion/AccordionEditor.js:116
-#: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:199
-#: assets/src/blocks/Counter/CounterEditor.js:14
+#: assets/src/blocks/TopicLink/TopicLinkEditor.js:158
 #: assets/src/blocks/Articles/ArticlesEditor.js:24
-#: assets/src/blocks/Gallery/GalleryEditor.js:77
-#: assets/src/blocks/SocialMedia/SocialMediaEditorScript.js:166
-#: assets/src/blocks/Spreadsheet/SpreadsheetEditor.js:36
-#: assets/src/blocks/HappyPoint/HappyPointEditor.js:102
 #: assets/src/blocks/Timeline/TimelineEditorScript.js:53
-#: assets/src/blocks/CarouselHeader/Sidebar.js:151
-#: assets/src/blocks/TableOfContents/TableOfContentsEditor.js:52
+#: assets/src/blocks/Spreadsheet/SpreadsheetEditor.js:36
 #: assets/src/blocks/Columns/ColumnsEditor.js:40
-#: assets/src/blocks/Covers/CoversEditor.js:48
+#: assets/src/blocks/Covers/CoversEditor.js:47
+#: assets/src/blocks/SocialMedia/SocialMediaEditorScript.js:166
+#: assets/src/blocks/HappyPoint/HappyPointEditor.js:102
+#: assets/src/blocks/Gallery/GalleryEditor.js:77
+#: assets/src/blocks/TableOfContents/TableOfContentsEditor.js:52
+#: assets/src/blocks/Counter/CounterEditor.js:14
+#: assets/src/blocks/Accordion/AccordionEditor.js:116
+#: assets/src/blocks/CarouselHeader/Sidebar.js:151
+#: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:198
 msgid "Settings"
 msgstr ""
 
@@ -1203,14 +1163,6 @@ msgstr ""
 
 #: assets/src/blocks/TableOfContents/TableOfContentsBlock.js:61
 msgid "Short sidebar"
-msgstr ""
-
-#: assets/src/blocks/ENForm/ENFormInPlaceEdit.js:347
-msgid "Sign"
-msgstr ""
-
-#: assets/src/blocks/ENForm/ENFormInPlaceEdit.js:21
-msgid "Signup form"
 msgstr ""
 
 #. Name of the template
@@ -1238,7 +1190,7 @@ msgstr ""
 msgid "Style and analytics settings from the parent page will be used."
 msgstr ""
 
-#: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:187
+#: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:186
 msgid "Styles"
 msgstr ""
 
@@ -1250,11 +1202,11 @@ msgstr ""
 msgid "Table of Contents item"
 msgstr ""
 
-#: assets/src/blocks/Covers/CoversBlock.js:54
+#: assets/src/blocks/Covers/CoversBlock.js:46
 msgid "Take Action covers"
 msgstr ""
 
-#: assets/src/blocks/Covers/CoversBlock.js:55
+#: assets/src/blocks/Covers/CoversBlock.js:47
 msgid ""
 "Take action covers pull the featured image, tags, have a 25 character "
 "excerpt and have a call to action button"
@@ -1262,19 +1214,6 @@ msgstr ""
 
 #: assets/src/blocks/Counter/CounterEditor.js:48
 msgid "Text"
-msgstr ""
-
-#: assets/src/blocks/ENForm/ENFormInPlaceEdit.js:354
-#: assets/src/blocks/ENForm/ENFormInPlaceEdit.js:366
-msgid "Text below button"
-msgstr ""
-
-#: assets/src/blocks/ENForm/ENFormInPlaceEdit.js:26
-msgid "Thank you message"
-msgstr ""
-
-#: assets/src/blocks/ENForm/ENFormSettings.js:135
-msgid "Thank You note settings"
 msgstr ""
 
 #: templates/duplicate-postmeta-report.twig:51
@@ -1423,11 +1362,11 @@ msgstr ""
 msgid "Whitelisted meta_key's for delete operation"
 msgstr ""
 
-#: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:195
+#: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:194
 msgid "You can only have one sticky boxout per post"
 msgstr ""
 
 #: assets/src/blocks/Articles/ArticlesEditor.js:28
-#: assets/src/blocks/Covers/CoversEditor.js:95
+#: assets/src/blocks/Covers/CoversEditor.js:87
 msgid "Your default is set to [ Load more ]"
 msgstr ""
