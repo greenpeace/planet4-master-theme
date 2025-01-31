@@ -43,7 +43,8 @@ class MediaReplacer
         // $image_name = pathinfo($data['name'], PATHINFO_DIRNAME) . '/' . pathinfo($data['name'], PATHINFO_FILENAME);
         // var_dump($image_name);
         // $absolutePath = '2025/01/ec8a67a2-gp-img-1.jpg';
-        // var_dump( ud_get_stateless_media()->get_client()->get_media($absolutePath) );
+        // var_dump( ud_get_stateless_media()->get_client()->get_media($absolutePath) );v
+        var_dump($_FILES);
         echo "</pre>";
 
         // echo get_post_type(771);
@@ -198,13 +199,13 @@ class MediaReplacer
             // If the file was not replaced, abort
             if (!$file_replaced) {
                 $error_message = __('Media file could not be replaced.', 'planet4-master-theme-backend');
-                set_transient('media_replacement_error', print_r($file_replaced, true), 5);
+                set_transient('media_replacement_error', print_r($file['file'], true), 5);
                 wp_send_json_error($error_message);
                 return;
             }
 
             $message = __('Media replaced successfully!', 'planet4-master-theme-backend');
-            set_transient('media_replacement_message', print_r($file_replaced, true), 5);
+            set_transient('media_replacement_message', print_r($file['file'], true), 5);
             $this->purge_cloudflare(wp_get_attachment_url($attachment_id));
             wp_send_json_success();
         } catch (\Exception $e) {
@@ -220,7 +221,7 @@ class MediaReplacer
         }
 
         // Get the image path
-        $image_path = get_attached_file($id);
+        $image_path = $file['tmp_name'];
         $image_info = getimagesize($image_path);
         $image_type = $image_info[2];
 
@@ -312,7 +313,7 @@ class MediaReplacer
 
         imagedestroy($image); // Free up memory
 
-        return get_post_meta($id, 'sm_cloud')[0]['sizes'];
+        return $id;
 
     }
 
