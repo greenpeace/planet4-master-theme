@@ -20,31 +20,31 @@ class MediaReplacer
             'mime' => 'image/jpeg',
             'create' => 'imagecreatefromjpeg',
             'save' => 'imagejpeg',
-            'extension' => 'jpg'
+            'extension' => 'jpg',
         ],
         IMAGETYPE_PNG => [
             'mime' => 'image/png',
             'create' => 'imagecreatefrompng',
             'save' => 'imagepng',
-            'extension' => 'png'
+            'extension' => 'png',
         ],
         IMAGETYPE_GIF => [
             'mime' => 'image/gif',
             'create' => 'imagecreatefromgif',
             'save' => 'imagegif',
-            'extension' => 'gif'
+            'extension' => 'gif',
         ],
         IMAGETYPE_BMP => [
             'mime' => 'image/bmp',
             'create' => 'imagecreatefrombmp',
             'save' => 'imagebmp',
-            'extension' => 'bmp'
+            'extension' => 'bmp',
         ],
         IMAGETYPE_WEBP => [
             'mime' => 'image/webp',
             'create' => 'imagecreatefromwebp',
             'save' => 'imagewebp',
-            'extension' => 'webp'
+            'extension' => 'webp',
         ],
     ];
 
@@ -220,13 +220,13 @@ class MediaReplacer
             // If the file was not replaced, abort
             if (!$file_replaced) {
                 $error_message = __('Media file could not be replaced.', 'planet4-master-theme-backend');
-                set_transient('media_replacement_error', print_r($file_replaced, true), 5);
+                set_transient('media_replacement_error', $error_message, 5);
                 wp_send_json_error($error_message);
                 return;
             }
 
             $message = __('Media replaced successfully!', 'planet4-master-theme-backend');
-            set_transient('media_replacement_message', print_r($file_replaced, true), 5);
+            set_transient('media_replacement_message', $message, 5);
             $this->purge_cloudflare(wp_get_attachment_url($attachment_id));
             wp_send_json_success();
         } catch (\Exception $e) {
@@ -239,10 +239,10 @@ class MediaReplacer
      * Replaces the media file associated with the old attachment ID
      * with the new file located at the specified path.
      *
+     * @param string $new_file The path to the new file.
      * @param int $old_file_id The ID of the old attachment.
-     * @param string $new_file_path The path to the new file.
      */
-    private function replace_media_file($new_file, $old_file_id): bool
+    private function replace_media_file(string $new_file, int $old_file_id): bool
     {
         try {
             // Upload the file
@@ -314,7 +314,7 @@ class MediaReplacer
      * @param array $file An array with data of the new image.
      * @param string $id The id of the image to be replaced.
      */
-    private function replace_images($file, $id)
+    private function replace_images(array $file, string $id): bool
     {
         $new_image_path = $file['tmp_name'];
         $new_image_info = getimagesize($new_image_path);
@@ -324,14 +324,14 @@ class MediaReplacer
 
         // Validate image type against allowed MIME types
         if (!isset(self::IMAGE_MIME_TYPES[$new_image_type])) {
-            return 'Invalid image type.';
+            return false;
         }
 
         // Load the image dynamically
         $image_data = self::IMAGE_MIME_TYPES[$new_image_type];
         $image = call_user_func($image_data['create'], $new_image_path);
         if (!$image) {
-            return 'Failed to create image resource.';
+            return false;
         }
 
         $old_image_meta = get_post_meta($id, 'sm_cloud')[0];
@@ -364,7 +364,7 @@ class MediaReplacer
         );
 
         imagedestroy($image); // Free memory
-        return $new_image_info;
+        return true;
     }
 
     /**
@@ -373,27 +373,27 @@ class MediaReplacer
      * This function saves the image to a temporary file, prepares the appropriate upload arguments
      * (including metadata), and then uploads the image to the media storage.
      *
-     * @param {resource} image - The image resource (created from the image data).
-     * @param {Object} image_data - The image metadata, including the file extension, mime type, and save method.
+     * @param {Object} image - The image resource (created from the image data).
+     * @param {array} image_data - The image metadata, including the file extension, mime type, and save method.
      * @param {string} image_name - The name of the image, used as a base for the upload.
      * @param {number} new_image_width - The width of the new image.
      * @param {number} new_image_height - The height of the new image.
-     * @param {Object} file - The file object containing information about the uploaded image.
+     * @param {array} file - The file object containing information about the uploaded image.
      * @param {string} id - The unique identifier for the image (used for metadata).
      * @param {array} old_image_meta - The metadata of the old image.
      *
      * @returns {void}
      */
-    private function upload_thumbnails (
-        $image,
-        $image_data,
-        $image_name,
-        $new_image_width,
-        $new_image_height,
-        $file,
-        $id,
-        $old_image_meta
-    ) {
+    private function upload_thumbnails(
+        object $image,
+        array $image_data,
+        string $image_name,
+        int $new_image_width,
+        int $new_image_height,
+        array $file,
+        string $id,
+        array $old_image_meta
+    ): void {
         // Handle each size variant
         foreach ($old_image_meta['sizes'] as $size => $old_image_data) {
             $old_image_width = $old_image_data['width'];
@@ -419,9 +419,14 @@ class MediaReplacer
             imagecopyresampled(
                 $thumb,
                 $image,
-                0, 0, $src_x, $src_y,
-                $old_image_width, $old_image_height,
-                $src_width, $src_height
+                0,
+                0,
+                $src_x,
+                $src_y,
+                $old_image_width,
+                $old_image_height,
+                $src_width,
+                $src_height
             );
 
             // Upload the resized variant
@@ -446,29 +451,29 @@ class MediaReplacer
      * This function saves the image to a temporary file, prepares the appropriate upload arguments
      * (including metadata), and then uploads the image to the media storage.
      *
-     * @param {resource} image - The image resource (created from the image data).
-     * @param {Object} image_data - The image metadata, including the file extension, mime type, and save method.
+     * @param {Object} image - The image resource (created from the image data).
+     * @param {array} image_data - The image metadata, including the file extension, mime type, and save method.
      * @param {string} image_name - The name of the image, used as a base for the upload.
      * @param {number} new_image_width - The width of the new image.
      * @param {number} new_image_height - The height of the new image.
-     * @param {Object} file - The file object containing information about the uploaded image.
+     * @param {array} file - The file object containing information about the uploaded image.
      * @param {string} id - The unique identifier for the image (used for metadata).
      * @param {string} size - The size identificator.
-     * @param {boolean} [is_thumbnail=false] - Flag indicating whether the image is a thumbnail (false for main image, true for thumbnails).
+     * @param {boolean} [is_thumbnail=false] - Flag indicating whether the image is a thumbnail.
      *
      * @returns {void}
      */
     private function upload_image(
-        $image,
-        $image_data,
-        $image_name,
-        $new_image_width,
-        $new_image_height,
-        $file,
-        $id,
-        $size,
-        $is_thumbnail = false
-    ) {
+        object $image,
+        array $image_data,
+        string $image_name,
+        int $new_image_width,
+        int $new_image_height,
+        array $file,
+        string $id,
+        string $size,
+        bool $is_thumbnail = false
+    ): void {
         // Save the image to a temporary location
         $thumbnail_file = tempnam(sys_get_temp_dir(), 'thumb_') . '.' . $image_data['extension'];
         call_user_func($image_data['save'], $image, $thumbnail_file);
@@ -486,10 +491,15 @@ class MediaReplacer
                 'height' => $new_image_height,
                 'file-hash' => md5($image_name),
                 'size' => $size,
-                $is_thumbnail ? 'child-of' : 'object-id' => $id,
-                $is_thumbnail ? null : 'source-id' => !$is_thumbnail ? md5($file . ud_get_stateless_media()->get('sm.bucket')) : null,
             ],
         ];
+
+        if ($is_thumbnail) {
+            $image_args['metadata']['child-of'] = $id;
+        } else {
+            $image_args['metadata']['object-id'] = $id;
+            $image_args['metadata']['source-id'] = md5($file . ud_get_stateless_media()->get('sm.bucket'));
+        }
 
         // Upload the image (main or variant)
         ud_get_stateless_media()->get_client()->add_media($image_args);
