@@ -205,6 +205,12 @@ class MediaReplacer
             // Determine if the file is an image based on its MIME type
             $image_type = array_search($file_mime_type, array_column(self::IMAGE_MIME_TYPES, 'mime'));
 
+            // If the file is an image, we manually create the thumbnails and replace them in Google Storage.
+            // That's because thumbnails cannot be created using the "wp_generate_attachment_metadata" function
+            // when the WP Stateless plugin is set to store and serve files with Google Cloud Storage only,
+            // and media files are not stored locally.
+            // This happens because the "wp_handle_upload" function uploads the image directly to Google Storage,
+            // and then "wp_generate_attachment_metadata" function is not able to create thumbnails.
             if ($image_type !== false) {
                 $file_replaced = $this->replace_images($file, $attachment_id);
             } else {
@@ -301,8 +307,9 @@ class MediaReplacer
     }
 
     /**
-     * Replaces images associated with the old attachment ID.
-     * Not only the main image, but also all the thumbnails are replaced.
+     * Replaces images (main image and also all the thumbnails).
+     * Thumbnails are manually created using the GD library.
+     * Images are uploaded to Google Storage using WP Stateless functions.
      *
      * @param array $file An array with data of the new image.
      * @param string $id The id of the image to be replaced.
@@ -332,6 +339,14 @@ class MediaReplacer
             return 'Failed to create image resource.';
         }
 
+        // Helper function to handle image saving and uploading
+        $this->upload_image(
+            $image,
+            $image_data,
+            $image_name,
+            $new_image_width,$new_image_height, $file, $id, false);
+
+        // Handle each size variant
         foreach ($old_image_meta['sizes'] as $size => $old_image_data) {
             $old_image_width = $old_image_data['width'];
             $old_image_height = $old_image_data['height'];
@@ -341,13 +356,11 @@ class MediaReplacer
             $dst_aspect = $old_image_width / $old_image_height;
 
             if ($src_aspect > $dst_aspect) {
-                // Source image is wider than the destination, crop width
                 $src_height = $new_image_height;
                 $src_width = (int) ($new_image_height * $dst_aspect);
                 $src_x = (int) (($new_image_width - $src_width) / 2);
                 $src_y = 0;
             } else {
-                // Source image is taller than the destination, crop height
                 $src_width = $new_image_width;
                 $src_height = (int) ($new_image_width / $dst_aspect);
                 $src_x = 0;
@@ -363,31 +376,41 @@ class MediaReplacer
                 $src_width, $src_height
             );
 
-            // Save the cropped image to a temporary location
-            $thumbnail_file = tempnam(sys_get_temp_dir(), 'thumb_') . '.' . $image_data['extension'];
-            call_user_func($image_data['save'], $thumb, $thumbnail_file);
-
-            $variant_image_args = [
-                'name' => $image_name . '-' . $old_image_width . 'x' . $old_image_height . '.' . $image_data['extension'],
-                'force' => true,
-                'absolutePath' => $thumbnail_file,
-                'cacheControl' => 'public, max-age=36000, must-revalidate',
-                'contentDisposition' => null,
-                'mimeType' => $image_data['mime'],
-                'metadata' => [
-                    'width' => $new_image_width,
-                    'height' => $new_image_height,
-                    'file-hash' => md5($image_name),
-                    'size' => $size,
-                    'child-of' => $id,
-                ],
-            ];
-
-            ud_get_stateless_media()->get_client()->add_media($variant_image_args);
+            // Upload the resized variant
+            $this->upload_image($thumb, $image_data, $image_name . '-' . $old_image_width . 'x' . $old_image_height, $new_image_width, $new_image_height, $file, $id, true);
             imagedestroy($thumb); // Free memory
         }
+
         imagedestroy($image); // Free memory
         return $new_image_info;
+    }
+
+    private function upload_image($image, $image_data, $image_name, $new_image_width, $new_image_height, $file, $id, $is_variant = false)
+    {
+        // Save the image to a temporary location
+        $thumbnail_file = tempnam(sys_get_temp_dir(), 'thumb_') . '.' . $image_data['extension'];
+        call_user_func($image_data['save'], $image, $thumbnail_file);
+
+        // Prepare the upload arguments
+        $variant_image_args = [
+            'name' => $image_name . '.' . $image_data['extension'], // Keep the original name or variant
+            'force' => true, // Force replacement
+            'absolutePath' => $thumbnail_file, // Path to the new image
+            'cacheControl' => 'public, max-age=36000, must-revalidate',
+            'contentDisposition' => null,
+            'mimeType' => $image_data['mime'],
+            'metadata' => [
+                'width' => $new_image_width,
+                'height' => $new_image_height,
+                'file-hash' => md5($image_name),
+                'size' => $is_variant ? 'variant' : '__full', // Set size based on whether it's a variant
+                $is_variant ? 'child-of' : 'object-id' => $id,
+                $is_variant ? null : 'source-id' => !$is_variant ? md5($file . ud_get_stateless_media()->get('sm.bucket')) : null,
+            ],
+        ];
+
+        // Upload the image (main or variant)
+        ud_get_stateless_media()->get_client()->add_media($variant_image_args);
     }
 
     /**
