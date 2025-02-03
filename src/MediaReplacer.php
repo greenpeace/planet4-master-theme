@@ -16,13 +16,36 @@ class MediaReplacer
      * We need this list as for now we will only replace non-image files.
      */
     private const IMAGE_MIME_TYPES = [
-        'image/jpeg',
-        'image/png',
-        'image/gif',
-        'image/bmp',
-        'image/webp',
-        'image/tiff',
-        'image/svg+xml',
+        IMAGETYPE_JPEG => [
+            'mime' => 'image/jpeg',
+            'create' => 'imagecreatefromjpeg',
+            'save' => 'imagejpeg',
+            'extension' => 'jpg'
+        ],
+        IMAGETYPE_PNG => [
+            'mime' => 'image/png',
+            'create' => 'imagecreatefrompng',
+            'save' => 'imagepng',
+            'extension' => 'png'
+        ],
+        IMAGETYPE_GIF => [
+            'mime' => 'image/gif',
+            'create' => 'imagecreatefromgif',
+            'save' => 'imagegif',
+            'extension' => 'gif'
+        ],
+        IMAGETYPE_BMP => [
+            'mime' => 'image/bmp',
+            'create' => 'imagecreatefrombmp',
+            'save' => 'imagebmp',
+            'extension' => 'bmp'
+        ],
+        IMAGETYPE_WEBP => [
+            'mime' => 'image/webp',
+            'create' => 'imagecreatefromwebp',
+            'save' => 'imagewebp',
+            'extension' => 'webp'
+        ],
     ];
 
     /**
@@ -174,11 +197,15 @@ class MediaReplacer
             $attachment_id = intval($_POST['attachment_id']);
             $file = $_FILES['file'];
 
-            if (in_array($file['type'], self::IMAGE_MIME_TYPES)) {
-                $file_replaced = $this->replace_images($file, $attachment_id);
-            } else {
-                $file_replaced = $this->replace_media_file($file, $attachment_id);
-            }
+            // If the file is an image, create the thumbnails and replace them.
+            // If not, replace the file.
+            // if (in_array($file['type'], self::IMAGE_MIME_TYPES)) {
+            //     $file_replaced = $this->replace_images($file, $attachment_id);
+            // } else {
+            //     $file_replaced = $this->replace_media_file($file, $attachment_id);
+            // }
+
+            $file_replaced = $this->replace_images($file, $attachment_id);
 
             // If the file was not replaced, abort
             if (!$file_replaced) {
@@ -196,64 +223,6 @@ class MediaReplacer
             set_transient('media_replacement_error', $e->getMessage(), 5);
             return;
         }
-    }
-
-    function replace_images($file, $id) {
-        $new_image_path = $file['tmp_name'];
-        $new_image_info = getimagesize($new_image_path);
-        $new_image_width = $new_image_info[0];
-        $new_image_height = $new_image_info[1];
-        $new_image_type = $new_image_info[2];
-
-        $old_image_meta = get_post_meta($id, 'sm_cloud')[0];
-        $old_image_dirname = pathinfo($old_image_meta['name'], PATHINFO_DIRNAME);
-        $old_image_fileame = pathinfo($old_image_meta['name'], PATHINFO_FILENAME);
-        $image_name = $old_image_dirname . '/' . $old_image_fileame;
-
-        // Check if the image type is valid
-        if ($new_image_type == IMAGETYPE_JPEG) {
-            $image = imagecreatefromjpeg($new_image_path);
-        } elseif ($new_image_type == IMAGETYPE_PNG) {
-            $image = imagecreatefrompng($new_image_path);
-        } elseif ($new_image_type == IMAGETYPE_GIF) {
-            $image = imagecreatefromgif($new_image_path);
-        } else {
-            return 'Invalid image type.';
-        }
-
-        foreach ($old_image_meta['sizes'] as $old_image_data) {
-            $old_image_width = $old_image_data['width'];
-            $old_image_height = $old_image_data['height'];
-
-            $thumb = imagecreatetruecolor($old_image_width, $old_image_height);
-
-            imagecopyresampled(
-                $thumb,
-                $image, 0, 0, 0, 0,
-                $old_image_width,
-                $old_image_height,
-                $new_image_width,
-                $new_image_height
-            );
-
-            // Save the thumbnail to a temporary location
-            $thumbnail_file = tempnam(sys_get_temp_dir(), 'thumb_') . ".jpg";
-            imagejpeg($thumb, $thumbnail_file);
-
-            $variant_image_args = array(
-                'name' => $image_name . '-' . $old_image_width . 'x' . $old_image_height . '.jpg',
-                'force' => true,
-                'absolutePath' => $thumbnail_file,
-                'cacheControl' => 'public, max-age=36000, must-revalidate',
-                'contentDisposition' => null,
-                'mimeType' => 'image/jpeg',
-            );
-
-            ud_get_stateless_media()->get_client()->add_media($variant_image_args);
-            imagedestroy($thumb); // Free up memory
-        }
-        imagedestroy($image); // Free up memory
-        return $new_image_info;
     }
 
     /**
@@ -325,6 +294,96 @@ class MediaReplacer
             set_transient('media_replacement_error', $e->getMessage(), 5);
             return false;
         }
+    }
+
+    /**
+     * Replaces images associated with the old attachment ID.
+     * Not only the main image, but also all the thumbnails are replaced.
+     *
+     * @param array $file An array with data of the new image.
+     * @param string $id The id of the image to be replaced.
+     */
+    private function replace_images($file, $id)
+    {
+        $new_image_path = $file['tmp_name'];
+        $new_image_info = getimagesize($new_image_path);
+        $new_image_width = $new_image_info[0];
+        $new_image_height = $new_image_info[1];
+        $new_image_type = $new_image_info[2];
+
+        $old_image_meta = get_post_meta($id, 'sm_cloud')[0];
+        $old_image_dirname = pathinfo($old_image_meta['name'], PATHINFO_DIRNAME);
+        $old_image_filename = pathinfo($old_image_meta['name'], PATHINFO_FILENAME);
+        $image_name = $old_image_dirname . '/' . $old_image_filename;
+
+        // Validate image type against allowed MIME types
+        if (!isset(self::IMAGE_MIME_TYPES[$new_image_type])) {
+            return 'Invalid image type.';
+        }
+
+        // Load the image dynamically
+        $image_data = self::IMAGE_MIME_TYPES[$new_image_type];
+        $image = call_user_func($image_data['create'], $new_image_path);
+        if (!$image) {
+            return 'Failed to create image resource.';
+        }
+
+        foreach ($old_image_meta['sizes'] as $size => $old_image_data) {
+            $old_image_width = $old_image_data['width'];
+            $old_image_height = $old_image_data['height'];
+
+            // Determine cropping dimensions
+            $src_aspect = $new_image_width / $new_image_height;
+            $dst_aspect = $old_image_width / $old_image_height;
+
+            if ($src_aspect > $dst_aspect) {
+                // Source image is wider than the destination, crop width
+                $src_height = $new_image_height;
+                $src_width = (int) ($new_image_height * $dst_aspect);
+                $src_x = (int) (($new_image_width - $src_width) / 2);
+                $src_y = 0;
+            } else {
+                // Source image is taller than the destination, crop height
+                $src_width = $new_image_width;
+                $src_height = (int) ($new_image_width / $dst_aspect);
+                $src_x = 0;
+                $src_y = (int) (($new_image_height - $src_height) / 2);
+            }
+
+            $thumb = imagecreatetruecolor($old_image_width, $old_image_height);
+            imagecopyresampled(
+                $thumb,
+                $image,
+                0, 0, $src_x, $src_y,
+                $old_image_width, $old_image_height,
+                $src_width, $src_height
+            );
+
+            // Save the cropped image to a temporary location
+            $thumbnail_file = tempnam(sys_get_temp_dir(), 'thumb_') . '.' . $image_data['extension'];
+            call_user_func($image_data['save'], $thumb, $thumbnail_file);
+
+            $variant_image_args = [
+                'name' => $image_name . '-' . $old_image_width . 'x' . $old_image_height . '.' . $image_data['extension'],
+                'force' => true,
+                'absolutePath' => $thumbnail_file,
+                'cacheControl' => 'public, max-age=36000, must-revalidate',
+                'contentDisposition' => null,
+                'mimeType' => $image_data['mime'],
+                'metadata' => [
+                    'width' => $new_image_width,
+                    'height' => $new_image_height,
+                    'file-hash' => md5($image_name),
+                    'size' => $size,
+                    'child-of' => $id,
+                ],
+            ];
+
+            ud_get_stateless_media()->get_client()->add_media($variant_image_args);
+            imagedestroy($thumb); // Free memory
+        }
+        imagedestroy($image); // Free memory
+        return $new_image_info;
     }
 
     /**
