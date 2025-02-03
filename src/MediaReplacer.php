@@ -34,18 +34,6 @@ class MediaReplacer
             'save' => 'imagegif',
             'extension' => 'gif',
         ],
-        IMAGETYPE_BMP => [
-            'mime' => 'image/bmp',
-            'create' => 'imagecreatefrombmp',
-            'save' => 'imagebmp',
-            'extension' => 'bmp',
-        ],
-        IMAGETYPE_WEBP => [
-            'mime' => 'image/webp',
-            'create' => 'imagecreatefromwebp',
-            'save' => 'imagewebp',
-            'extension' => 'webp',
-        ],
     ];
 
     /**
@@ -217,7 +205,7 @@ class MediaReplacer
                 $this->replace_media_file($file, $attachment_id);
             }
         } catch (\Exception $e) {
-            set_transient('media_replacement_error', $e->getMessage(), 5);
+            $this->set_error($e->getMessage());
             return;
         }
     }
@@ -239,8 +227,7 @@ class MediaReplacer
             if (!$movefile) {
                 $message = __('Media could not be uploaded.', 'planet4-master-theme-backend');
                 $error_message = isset($movefile['error']) ? $movefile['error'] : $message;
-                set_transient('media_replacement_error', $error_message, 5);
-                wp_send_json_error($error_message);
+                $this->set_error($error_message);
                 return false;
             }
 
@@ -257,6 +244,7 @@ class MediaReplacer
 
             // If the file was not renamed, abort
             if (!$file_renamed) {
+                $this->set_error('Media file could not be renamed.');
                 return false;
             }
 
@@ -275,6 +263,7 @@ class MediaReplacer
 
             // If the post was not updated, abort
             if (is_wp_error($post_updated) || $post_updated === 0) {
+                $this->set_error('Post was not updated.');
                 return false;
             }
 
@@ -287,9 +276,7 @@ class MediaReplacer
 
             // If the file was not replaced, abort
             if (!$post_meta_updated) {
-                $error_message = __('Media file could not be replaced.', 'planet4-master-theme-backend');
-                set_transient('media_replacement_error', $error_message, 5);
-                wp_send_json_error($error_message);
+                $this->set_error('Media file could not be replaced.');
                 return false;
             }
 
@@ -298,7 +285,7 @@ class MediaReplacer
             $this->purge_cloudflare(wp_get_attachment_url($old_file_id));
             wp_send_json_success();
         } catch (\Exception $e) {
-            set_transient('media_replacement_error', $e->getMessage(), 5);
+            $this->set_error($e->getMessage());
             return false;
         }
     }
@@ -313,55 +300,68 @@ class MediaReplacer
      */
     private function replace_images(array $file, string $id): bool
     {
-        $new_image_path = $file['tmp_name'];
-        $new_image_info = getimagesize($new_image_path);
-        $new_image_width = $new_image_info[0];
-        $new_image_height = $new_image_info[1];
-        $new_image_type = $new_image_info[2];
+        try {
+            $new_image_path = $file['tmp_name'];
+            $new_image_info = getimagesize($new_image_path);
+            $new_image_width = $new_image_info[0];
+            $new_image_height = $new_image_info[1];
+            $new_image_type = $new_image_info[2];
 
-        // Validate image type against allowed MIME types
-        if (!isset(self::IMAGE_MIME_TYPES[$new_image_type])) {
+            // Validate image type against allowed MIME types
+            if (!isset(self::IMAGE_MIME_TYPES[$new_image_type])) {
+                $this->set_error('Media file is not an image.');
+                return false;
+            }
+
+            // Load the image dynamically
+            $image_data = self::IMAGE_MIME_TYPES[$new_image_type];
+            $image = call_user_func($image_data['create'], $new_image_path);
+            if (!$image) {
+                $this->set_error('Image could not be loaded.');
+                return false;
+            }
+
+            $old_image_meta = get_post_meta($id, 'sm_cloud')[0];
+            if (!$old_image_meta) {
+                $this->set_error('Image metadata could not be loaded.');
+                return false;
+            }
+
+            $old_image_dirname = pathinfo($old_image_meta['name'], PATHINFO_DIRNAME);
+            $old_image_filename = pathinfo($old_image_meta['name'], PATHINFO_FILENAME);
+            $image_name = $old_image_dirname . '/' . $old_image_filename;
+
+            // Helper function to handle image saving and uploading
+            $status_main_image = $this->upload_image(
+                $image,
+                $image_data,
+                $image_name,
+                $new_image_width,
+                $new_image_height,
+                $file,
+                $id,
+                '__full',
+                false
+            );
+
+            $status_thumbnails = $this->upload_thumbnails(
+                $image,
+                $image_data,
+                $image_name,
+                $new_image_width,
+                $new_image_height,
+                $file,
+                $id,
+                $old_image_meta
+            );
+
+            imagedestroy($image); // Free memory
+            set_transient('image_replacement_status', implode('<br>', $status_thumbnails), 5);
+            return true;
+        } catch (\Exception $e) {
+            $this->set_error($e->getMessage());
             return false;
         }
-
-        // Load the image dynamically
-        $image_data = self::IMAGE_MIME_TYPES[$new_image_type];
-        $image = call_user_func($image_data['create'], $new_image_path);
-        if (!$image) {
-            return false;
-        }
-
-        $old_image_meta = get_post_meta($id, 'sm_cloud')[0];
-        $old_image_dirname = pathinfo($old_image_meta['name'], PATHINFO_DIRNAME);
-        $old_image_filename = pathinfo($old_image_meta['name'], PATHINFO_FILENAME);
-        $image_name = $old_image_dirname . '/' . $old_image_filename;
-
-        // Helper function to handle image saving and uploading
-        $this->upload_image(
-            $image,
-            $image_data,
-            $image_name,
-            $new_image_width,
-            $new_image_height,
-            $file,
-            $id,
-            '__full',
-            false
-        );
-
-        $this->upload_thumbnails(
-            $image,
-            $image_data,
-            $image_name,
-            $new_image_width,
-            $new_image_height,
-            $file,
-            $id,
-            $old_image_meta
-        );
-
-        imagedestroy($image); // Free memory
-        return true;
     }
 
     /**
@@ -379,7 +379,7 @@ class MediaReplacer
      * @param {string} id - The unique identifier for the image (used for metadata).
      * @param {array} old_image_meta - The metadata of the old image.
      *
-     * @returns {void}
+     * @returns {boolean}
      */
     private function upload_thumbnails(
         object $image,
@@ -390,55 +390,68 @@ class MediaReplacer
         array $file,
         string $id,
         array $old_image_meta
-    ): void {
-        // Handle each size variant
-        foreach ($old_image_meta['sizes'] as $size => $old_image_data) {
-            $old_image_width = $old_image_data['width'];
-            $old_image_height = $old_image_data['height'];
+    ): mixed {
+        try {
+            $status = [];
 
-            // Determine cropping dimensions
-            $src_aspect = $new_image_width / $new_image_height;
-            $dst_aspect = $old_image_width / $old_image_height;
+            // Handle each size variant
+            foreach ($old_image_meta['sizes'] as $size => $old_image_data) {
+                $old_image_width = $old_image_data['width'];
+                $old_image_height = $old_image_data['height'];
 
-            if ($src_aspect > $dst_aspect) {
-                $src_height = $new_image_height;
-                $src_width = (int) ($new_image_height * $dst_aspect);
-                $src_x = (int) (($new_image_width - $src_width) / 2);
-                $src_y = 0;
-            } else {
-                $src_width = $new_image_width;
-                $src_height = (int) ($new_image_width / $dst_aspect);
-                $src_x = 0;
-                $src_y = (int) (($new_image_height - $src_height) / 2);
+                // Determine cropping dimensions
+                $src_aspect = $new_image_width / $new_image_height;
+                $dst_aspect = $old_image_width / $old_image_height;
+
+                if ($src_aspect > $dst_aspect) {
+                    $src_height = $new_image_height;
+                    $src_width = (int) ($new_image_height * $dst_aspect);
+                    $src_x = (int) (($new_image_width - $src_width) / 2);
+                    $src_y = 0;
+                } else {
+                    $src_width = $new_image_width;
+                    $src_height = (int) ($new_image_width / $dst_aspect);
+                    $src_x = 0;
+                    $src_y = (int) (($new_image_height - $src_height) / 2);
+                }
+
+                $thumb = imagecreatetruecolor($old_image_width, $old_image_height);
+                imagecopyresampled(
+                    $thumb,
+                    $image,
+                    0,
+                    0,
+                    $src_x,
+                    $src_y,
+                    $old_image_width,
+                    $old_image_height,
+                    $src_width,
+                    $src_height
+                );
+
+                // Upload the resized variant
+                $result = $this->upload_image(
+                    $thumb,
+                    $image_data,
+                    $image_name . '-' . $old_image_width . 'x' . $old_image_height,
+                    $new_image_width,
+                    $new_image_height,
+                    $file,
+                    $id,
+                    $size,
+                    true
+                );
+                if ($result) {
+                    array_push($status, $image_name . '-' . $old_image_width . 'x' . $old_image_height);
+                } else {
+                    array_push($status, 'error');
+                }
+                imagedestroy($thumb); // Free memory
             }
-
-            $thumb = imagecreatetruecolor($old_image_width, $old_image_height);
-            imagecopyresampled(
-                $thumb,
-                $image,
-                0,
-                0,
-                $src_x,
-                $src_y,
-                $old_image_width,
-                $old_image_height,
-                $src_width,
-                $src_height
-            );
-
-            // Upload the resized variant
-            $this->upload_image(
-                $thumb,
-                $image_data,
-                $image_name . '-' . $old_image_width . 'x' . $old_image_height,
-                $new_image_width,
-                $new_image_height,
-                $file,
-                $id,
-                $size,
-                true
-            );
-            imagedestroy($thumb); // Free memory
+            return $status;
+        } catch (\Exception $e) {
+            $this->set_error($e->getMessage());
+            return false;
         }
     }
 
@@ -458,7 +471,7 @@ class MediaReplacer
      * @param {string} size - The size identificator.
      * @param {boolean} [is_thumbnail=false] - Flag indicating whether the image is a thumbnail.
      *
-     * @returns {void}
+     * @returns {mixed}
      */
     private function upload_image(
         object $image,
@@ -470,36 +483,43 @@ class MediaReplacer
         string $id,
         string $size,
         bool $is_thumbnail = false
-    ): void {
-        // Save the image to a temporary location
-        $thumbnail_file = tempnam(sys_get_temp_dir(), 'thumb_') . '.' . $image_data['extension'];
-        call_user_func($image_data['save'], $image, $thumbnail_file);
+    ): mixed {
+        try {
+            // Save the image to a temporary location
+            $thumbnail_file = tempnam(sys_get_temp_dir(), 'thumb_') . '.' . $image_data['extension'];
+            call_user_func($image_data['save'], $image, $thumbnail_file);
 
-        // Prepare the upload arguments
-        $image_args = [
-            'name' => $image_name . '.' . $image_data['extension'],
-            'force' => true, // Force replacement
-            'absolutePath' => $thumbnail_file, // Path to the new image
-            'cacheControl' => 'public, max-age=36000, must-revalidate',
-            'contentDisposition' => null,
-            'mimeType' => $image_data['mime'],
-            'metadata' => [
-                'width' => $new_image_width,
-                'height' => $new_image_height,
-                'file-hash' => md5($image_name),
-                'size' => $size,
-            ],
-        ];
+            $name = $image_name . '.' . $image_data['extension'];
 
-        if ($is_thumbnail) {
-            $image_args['metadata']['child-of'] = $id;
-        } else {
-            $image_args['metadata']['object-id'] = $id;
-            $image_args['metadata']['source-id'] = md5($file . ud_get_stateless_media()->get('sm.bucket'));
+            // Prepare the upload arguments
+            $image_args = [
+                'name' => $name,
+                'force' => true, // Force replacement
+                'absolutePath' => $thumbnail_file, // Path to the new image
+                'cacheControl' => 'public, max-age=36000, must-revalidate',
+                'contentDisposition' => null,
+                'mimeType' => $image_data['mime'],
+                'metadata' => [
+                    'width' => $new_image_width,
+                    'height' => $new_image_height,
+                    'file-hash' => md5($image_name),
+                    'size' => $size,
+                ],
+            ];
+
+            if ($is_thumbnail) {
+                $image_args['metadata']['child-of'] = $id;
+            } else {
+                $image_args['metadata']['object-id'] = $id;
+                $image_args['metadata']['source-id'] = md5($file . ud_get_stateless_media()->get('sm.bucket'));
+            }
+
+            // Upload the image (main or variant)
+            return ud_get_stateless_media()->get_client()->add_media($image_args);
+        } catch (\Exception $e) {
+            $this->set_error($e->getMessage());
+            return false;
         }
-
-        // Upload the image (main or variant)
-        ud_get_stateless_media()->get_client()->add_media($image_args);
     }
 
     /**
@@ -534,11 +554,25 @@ class MediaReplacer
     }
 
     /**
+     * Set a transient with an error message.
+     * Send a JSON error response with the error message.
+     *
+     * @param string $message The error message.
+     */
+    private function set_error(string $message): void
+    {
+        $error_message = __($message, 'planet4-master-theme-backend');
+        set_transient('media_replacement_error', $error_message, 5);
+        wp_send_json_error($error_message);
+    }
+
+    /**
      * Displays admin notices for media replacement messages.
      */
     public function display_admin_notices(): void
     {
         // Helper function to display notices
+        $this->render_notice('image_replacement_status', 'warning');
         $this->render_notice('media_replacement_message', 'success');
         $this->render_notice('media_replacement_error', 'error');
         $this->render_notice('cloudflare_purge_message', 'success');
@@ -557,7 +591,17 @@ class MediaReplacer
             return;
         }
 
-        $notice_class = $type === 'success' ? 'notice-success' : 'notice-error';
+        switch($type) {
+            case 'success':
+                $notice_class = 'notice-success';
+                break;
+            case 'error':
+                $notice_class = 'notice-error';
+                break;
+            default:
+                $notice_class = 'notice-warning';
+        }
+
         echo '
             <div class="notice ' . esc_attr($notice_class) . ' is-dismissible">
             <p>' . esc_html($message) . '</p>

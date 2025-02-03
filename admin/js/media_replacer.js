@@ -42,11 +42,8 @@ document.addEventListener('DOMContentLoaded', () => {
         method: 'POST',
         body: formData,
       })
-        .then(response => response.json())
         .then(response => {
-          if (!response.success) {
-            return;
-          }
+          response.json();
           location.reload(true);
         })
         .catch(() => {
