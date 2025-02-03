@@ -348,6 +348,7 @@ class MediaReplacer
             $new_image_height,
             $file,
             $id,
+            '__full',
             false
         );
 
@@ -366,6 +367,23 @@ class MediaReplacer
         return $new_image_info;
     }
 
+    /**
+     * Uploads an image (either main or thumbnail) to the media client.
+     *
+     * This function saves the image to a temporary file, prepares the appropriate upload arguments
+     * (including metadata), and then uploads the image to the media storage.
+     *
+     * @param {resource} image - The image resource (created from the image data).
+     * @param {Object} image_data - The image metadata, including the file extension, mime type, and save method.
+     * @param {string} image_name - The name of the image, used as a base for the upload.
+     * @param {number} new_image_width - The width of the new image.
+     * @param {number} new_image_height - The height of the new image.
+     * @param {Object} file - The file object containing information about the uploaded image.
+     * @param {string} id - The unique identifier for the image (used for metadata).
+     * @param {array} old_image_meta - The metadata of the old image.
+     *
+     * @returns {void}
+     */
     private function upload_thumbnails (
         $image,
         $image_data,
@@ -415,12 +433,31 @@ class MediaReplacer
                 $new_image_height,
                 $file,
                 $id,
+                $size,
                 true
             );
             imagedestroy($thumb); // Free memory
         }
     }
 
+    /**
+     * Uploads an image (either main or thumbnail) to the media client.
+     *
+     * This function saves the image to a temporary file, prepares the appropriate upload arguments
+     * (including metadata), and then uploads the image to the media storage.
+     *
+     * @param {resource} image - The image resource (created from the image data).
+     * @param {Object} image_data - The image metadata, including the file extension, mime type, and save method.
+     * @param {string} image_name - The name of the image, used as a base for the upload.
+     * @param {number} new_image_width - The width of the new image.
+     * @param {number} new_image_height - The height of the new image.
+     * @param {Object} file - The file object containing information about the uploaded image.
+     * @param {string} id - The unique identifier for the image (used for metadata).
+     * @param {string} size - The size identificator.
+     * @param {boolean} [is_thumbnail=false] - Flag indicating whether the image is a thumbnail (false for main image, true for thumbnails).
+     *
+     * @returns {void}
+     */
     private function upload_image(
         $image,
         $image_data,
@@ -429,7 +466,8 @@ class MediaReplacer
         $new_image_height,
         $file,
         $id,
-        $is_variant = false
+        $size,
+        $is_thumbnail = false
     ) {
         // Save the image to a temporary location
         $thumbnail_file = tempnam(sys_get_temp_dir(), 'thumb_') . '.' . $image_data['extension'];
@@ -447,9 +485,9 @@ class MediaReplacer
                 'width' => $new_image_width,
                 'height' => $new_image_height,
                 'file-hash' => md5($image_name),
-                'size' => $is_variant ? 'variant' : '__full', // Set size based on whether it's a variant
-                $is_variant ? 'child-of' : 'object-id' => $id,
-                $is_variant ? null : 'source-id' => !$is_variant ? md5($file . ud_get_stateless_media()->get('sm.bucket')) : null,
+                'size' => $size,
+                $is_thumbnail ? 'child-of' : 'object-id' => $id,
+                $is_thumbnail ? null : 'source-id' => !$is_thumbnail ? md5($file . ud_get_stateless_media()->get('sm.bucket')) : null,
             ],
         ];
 
