@@ -212,23 +212,10 @@ class MediaReplacer
             // This happens because the "wp_handle_upload" function uploads the image directly to Google Storage,
             // and then "wp_generate_attachment_metadata" function is not able to create thumbnails.
             if ($image_type !== false) {
-                $file_replaced = $this->replace_images($file, $attachment_id);
+                $this->replace_images($file, $attachment_id);
             } else {
-                $file_replaced = $this->replace_media_file($file, $attachment_id);
+                $this->replace_media_file($file, $attachment_id);
             }
-
-            // If the file was not replaced, abort
-            if (!$file_replaced) {
-                $error_message = __('Media file could not be replaced.', 'planet4-master-theme-backend');
-                set_transient('media_replacement_error', $error_message, 5);
-                wp_send_json_error($error_message);
-                return;
-            }
-
-            $message = __('Media replaced successfully!', 'planet4-master-theme-backend');
-            set_transient('media_replacement_message', $message, 5);
-            $this->purge_cloudflare(wp_get_attachment_url($attachment_id));
-            wp_send_json_success();
         } catch (\Exception $e) {
             set_transient('media_replacement_error', $e->getMessage(), 5);
             return;
@@ -298,8 +285,18 @@ class MediaReplacer
             $attach_data = wp_generate_attachment_metadata($old_file_id, $old_file_path);
             $post_meta_updated = wp_update_attachment_metadata($old_file_id, $attach_data);
 
-            // If the post meta was not updated, abort
-            return $post_meta_updated;
+            // If the file was not replaced, abort
+            if (!$post_meta_updated) {
+                $error_message = __('Media file could not be replaced.', 'planet4-master-theme-backend');
+                set_transient('media_replacement_error', $error_message, 5);
+                wp_send_json_error($error_message);
+                return false;
+            }
+
+            $message = __('Media replaced successfully!', 'planet4-master-theme-backend');
+            set_transient('media_replacement_message', $message, 5);
+            $this->purge_cloudflare(wp_get_attachment_url($old_file_id));
+            wp_send_json_success();
         } catch (\Exception $e) {
             set_transient('media_replacement_error', $e->getMessage(), 5);
             return false;
