@@ -322,11 +322,6 @@ class MediaReplacer
         $new_image_height = $new_image_info[1];
         $new_image_type = $new_image_info[2];
 
-        $old_image_meta = get_post_meta($id, 'sm_cloud')[0];
-        $old_image_dirname = pathinfo($old_image_meta['name'], PATHINFO_DIRNAME);
-        $old_image_filename = pathinfo($old_image_meta['name'], PATHINFO_FILENAME);
-        $image_name = $old_image_dirname . '/' . $old_image_filename;
-
         // Validate image type against allowed MIME types
         if (!isset(self::IMAGE_MIME_TYPES[$new_image_type])) {
             return 'Invalid image type.';
@@ -339,13 +334,48 @@ class MediaReplacer
             return 'Failed to create image resource.';
         }
 
+        $old_image_meta = get_post_meta($id, 'sm_cloud')[0];
+        $old_image_dirname = pathinfo($old_image_meta['name'], PATHINFO_DIRNAME);
+        $old_image_filename = pathinfo($old_image_meta['name'], PATHINFO_FILENAME);
+        $image_name = $old_image_dirname . '/' . $old_image_filename;
+
         // Helper function to handle image saving and uploading
         $this->upload_image(
             $image,
             $image_data,
             $image_name,
-            $new_image_width,$new_image_height, $file, $id, false);
+            $new_image_width,
+            $new_image_height,
+            $file,
+            $id,
+            false
+        );
 
+        $this->upload_thumbnails(
+            $image,
+            $image_data,
+            $image_name,
+            $new_image_width,
+            $new_image_height,
+            $file,
+            $id,
+            $old_image_meta
+        );
+
+        imagedestroy($image); // Free memory
+        return $new_image_info;
+    }
+
+    private function upload_thumbnails (
+        $image,
+        $image_data,
+        $image_name,
+        $new_image_width,
+        $new_image_height,
+        $file,
+        $id,
+        $old_image_meta
+    ) {
         // Handle each size variant
         foreach ($old_image_meta['sizes'] as $size => $old_image_data) {
             $old_image_width = $old_image_data['width'];
@@ -377,23 +407,37 @@ class MediaReplacer
             );
 
             // Upload the resized variant
-            $this->upload_image($thumb, $image_data, $image_name . '-' . $old_image_width . 'x' . $old_image_height, $new_image_width, $new_image_height, $file, $id, true);
+            $this->upload_image(
+                $thumb,
+                $image_data,
+                $image_name . '-' . $old_image_width . 'x' . $old_image_height,
+                $new_image_width,
+                $new_image_height,
+                $file,
+                $id,
+                true
+            );
             imagedestroy($thumb); // Free memory
         }
-
-        imagedestroy($image); // Free memory
-        return $new_image_info;
     }
 
-    private function upload_image($image, $image_data, $image_name, $new_image_width, $new_image_height, $file, $id, $is_variant = false)
-    {
+    private function upload_image(
+        $image,
+        $image_data,
+        $image_name,
+        $new_image_width,
+        $new_image_height,
+        $file,
+        $id,
+        $is_variant = false
+    ) {
         // Save the image to a temporary location
         $thumbnail_file = tempnam(sys_get_temp_dir(), 'thumb_') . '.' . $image_data['extension'];
         call_user_func($image_data['save'], $image, $thumbnail_file);
 
         // Prepare the upload arguments
-        $variant_image_args = [
-            'name' => $image_name . '.' . $image_data['extension'], // Keep the original name or variant
+        $image_args = [
+            'name' => $image_name . '.' . $image_data['extension'],
             'force' => true, // Force replacement
             'absolutePath' => $thumbnail_file, // Path to the new image
             'cacheControl' => 'public, max-age=36000, must-revalidate',
@@ -410,7 +454,7 @@ class MediaReplacer
         ];
 
         // Upload the image (main or variant)
-        ud_get_stateless_media()->get_client()->add_media($variant_image_args);
+        ud_get_stateless_media()->get_client()->add_media($image_args);
     }
 
     /**
