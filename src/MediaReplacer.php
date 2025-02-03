@@ -53,6 +53,10 @@ class MediaReplacer
      */
     public function __construct()
     {
+        if (function_exists('is_plugin_active') && !is_plugin_active('wp-stateless/wp-stateless-media.php')) {
+            return;
+        }
+
         add_action('admin_enqueue_scripts', [$this, 'enqueue_media_modal_script']);
         add_filter('attachment_fields_to_edit', [$this, 'add_replace_media_button'], 10, 2);
         add_action('add_meta_boxes', [$this, 'add_replace_media_metabox']);
@@ -98,7 +102,7 @@ class MediaReplacer
     {
         // Check if the attachment post is an image
         // If so, check if the GD extension is loaded
-        if (in_array($post->post_mime_type, self::IMAGE_MIME_TYPES) && !extension_loaded('gd')) {
+        if (in_array($post->post_mime_type, array_column(self::IMAGE_MIME_TYPES, 'mime')) && !extension_loaded('gd')) {
             $message = __('There was a problem. This image cannot be replaced.', 'planet4-master-theme-backend');
             echo "<p>" . $message . "</p>";
             return;
@@ -132,7 +136,7 @@ class MediaReplacer
 
         // Check if the attachment post is an image
         // If so, check if the GD extension is loaded
-        if (in_array($post->post_mime_type, self::IMAGE_MIME_TYPES) && !extension_loaded('gd')) {
+        if (in_array($post->post_mime_type, array_column(self::IMAGE_MIME_TYPES, 'mime')) && !extension_loaded('gd')) {
             return $form_fields;
         }
 
@@ -196,16 +200,16 @@ class MediaReplacer
 
             $attachment_id = intval($_POST['attachment_id']);
             $file = $_FILES['file'];
+            $file_mime_type = mime_content_type($file['tmp_name']);
 
-            // If the file is an image, create the thumbnails and replace them.
-            // If not, replace the file.
-            // if (in_array($file['type'], self::IMAGE_MIME_TYPES)) {
-            //     $file_replaced = $this->replace_images($file, $attachment_id);
-            // } else {
-            //     $file_replaced = $this->replace_media_file($file, $attachment_id);
-            // }
+            // Determine if the file is an image based on its MIME type
+            $image_type = array_search($file_mime_type, array_column(self::IMAGE_MIME_TYPES, 'mime'));
 
-            $file_replaced = $this->replace_images($file, $attachment_id);
+            if ($image_type !== false) {
+                $file_replaced = $this->replace_images($file, $attachment_id);
+            } else {
+                $file_replaced = $this->replace_media_file($file, $attachment_id);
+            }
 
             // If the file was not replaced, abort
             if (!$file_replaced) {
