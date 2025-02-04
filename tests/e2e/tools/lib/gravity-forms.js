@@ -21,7 +21,7 @@ const toggleRestAPI = async ({page}, enabled) => {
   } else {
     await expect(authSettings).toBeHidden();
   }
-  await page.getByRole('button', {name: 'Update'}).click();
+  await page.getByRole('button', {name: 'Update', exact: true}).click();
   await expect(page.locator('.gforms_note_success')).toBeVisible();
 };
 
