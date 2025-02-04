@@ -469,10 +469,10 @@ class GravityFormsExtensions
         $confirmation_fields = [
             'confirmation' => $confirmation,
             'share_platforms' => [
-                'facebook' => $social_share_options['facebook'] ?? false,
-                'twitter' => $social_share_options['twitter'] ?? false,
-                'whatsapp' => $social_share_options['whatsapp'] ?? false,
-                'email' => $social_share_options['email'] ?? false,
+                'facebook' => in_array('facebook', $social_share_options),
+                'twitter' => in_array('twitter', $social_share_options),
+                'whatsapp' => in_array('whatsapp', $social_share_options),
+                'email' => in_array('email', $social_share_options),
                 // We might add a setting for this one in the future, but for now we always enable it in GF.
                 'native' => true,
             ],

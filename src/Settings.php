@@ -699,7 +699,7 @@ class Settings
     // phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter
 
     /**
-     * Render category dropdown.
+     * Render social share checkboxes.
      *
      * @param CMB2_Field $field_args Field arguments.
      * @param array $value Value.
@@ -711,14 +711,15 @@ class Settings
             $selected = in_array($key, $value);
 
             printf(
-                '<label><input type="checkbox" id="%1$s" name="%2$s" value="%3$s" %4$s />%5$s</label>',
+                '<label class="social-share-checkbox">
+                    <input type="checkbox" id="%1$s" name="%2$s" value="%3$s" %4$s />%5$s
+                </label>',
                 $field_args->id(),
                 $field_args->id() . '[' . $key . ']',
                 $key,
                 $selected ? 'checked' : '',
                 $label,
             );
-            echo '<br/><br/>';
         }
         echo '</fieldset>';
     }

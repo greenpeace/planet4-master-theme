@@ -335,18 +335,16 @@ class Post extends TimberPost
 
     /**
      * Get values for share buttons content.
-     *
-     * @return string[]
      */
     public function social_share_platforms(): array
     {
         $social_share_options = planet4_get_option('social_share_options', []);
 
         return [
-            'facebook' => $social_share_options['facebook'] ?? false,
-            'twitter' => $social_share_options['twitter'] ?? false,
-            'whatsapp' => $social_share_options['whatsapp'] ?? false,
-            'email' => $social_share_options['email'] ?? false,
+            'facebook' => in_array('facebook', $social_share_options),
+            'twitter' => in_array('twitter', $social_share_options),
+            'whatsapp' => in_array('whatsapp', $social_share_options),
+            'email' => in_array('email', $social_share_options),
             // We might add a setting for this one in the future, but for now we always disable it in Posts.
             'native' => false,
         ];
