@@ -17,7 +17,7 @@ class Exporter
         add_action('admin_action_export_data', [ $this, 'single_post_export_data' ]);
         add_filter('post_row_actions', [ $this, 'single_post_export' ], 10, 2);
         add_filter('page_row_actions', [ $this, 'single_post_export' ], 10, 2);
-        add_action('admin_footer-edit.php', [ $this, 'single_post_export_bulk' ]);
+        add_action('admin_footer', [ $this, 'single_post_export_bulk' ]);
         add_action('load-edit.php', [ $this, 'single_post_export_bulk_action' ]);
         add_action('admin_head', [ $this, 'add_import_button' ]);
     }

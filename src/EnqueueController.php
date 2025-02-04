@@ -85,7 +85,7 @@ class EnqueueController
     {
         $script = [
             'id' => 'bulkExportText',
-            'name' => 'hubspot-bulk-export-script',
+            'name' => 'bulk-export-script',
             'path' => '/assets/build/bulkExport.js',
         ];
 
@@ -101,9 +101,9 @@ class EnqueueController
             return;
         }
 
-        $script = 'var ' . $script['id'] . ' = "' . $text . '";';
+        $inline_script = 'var ' . $script['id'] . ' = "' . $text . '";';
 
-        wp_add_inline_script($script['name'], $script);
+        wp_add_inline_script($script['name'], $inline_script);
     }
 
     /**
