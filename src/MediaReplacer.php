@@ -36,7 +36,16 @@ class MediaReplacer
         ],
     ];
 
+    private const TRANSIENT = [
+        'file' => 'file_replacement_notice',
+        'cloudflare' => 'cloudflare_purge_notice',
+    ];
+
+    private CloudflarePurger $cf;
+
     private array $replacement_status;
+
+    private array $cloudflare_purge_status;
 
     /**
      * MediaReplacer constructor.
@@ -47,7 +56,14 @@ class MediaReplacer
             return;
         }
 
+        $this->cf = new CloudflarePurger();
+
         $this->replacement_status = [
+            'success' => [],
+            'error' => [],
+        ];
+
+        $this->cloudflare_purge_status = [
             'success' => [],
             'error' => [],
         ];
@@ -56,7 +72,8 @@ class MediaReplacer
         add_filter('attachment_fields_to_edit', [$this, 'add_replace_media_button'], 10, 2);
         add_action('add_meta_boxes', [$this, 'add_replace_media_metabox']);
         add_action('wp_ajax_replace_media', [$this, 'ajax_replace_media']);
-        add_action('admin_notices', [$this, 'display_admin_notices']);
+        add_action('admin_notices', [$this, 'display_file_replacement_notices']);
+        add_action('admin_notices', [$this, 'display_cloudflare_notices']);
     }
 
     /**
@@ -180,7 +197,7 @@ class MediaReplacer
             // Check if the attachment ID is set
             if (!isset($_POST['attachment_id'])) {
                 $message = __('Attachment ID is missing.', 'planet4-master-theme-backend');
-                set_transient('media_replacement_error', $message, 5);
+                array_push($this->replacement_status['error'], $message);
                 wp_send_json_error($message);
                 return;
             }
@@ -188,7 +205,7 @@ class MediaReplacer
             // Check if the file is set
             if (empty($_FILES['file'])) {
                 $message = __('File is missing.', 'planet4-master-theme-backend');
-                set_transient('media_replacement_error', $message, 5);
+                array_push($this->replacement_status['error'], $message);
                 wp_send_json_error($message);
                 return;
             }
@@ -212,7 +229,8 @@ class MediaReplacer
                 $this->replace_media_file($file, $attachment_id);
             }
         } catch (\Exception $e) {
-            $this->set_error($e->getMessage());
+            array_push($this->replacement_status['error'], $e->getMessage());
+            wp_send_json_error($e->getMessage());
             return;
         }
     }
@@ -234,7 +252,8 @@ class MediaReplacer
             if (!$movefile) {
                 $message = __('Media could not be uploaded.', 'planet4-master-theme-backend');
                 $error_message = isset($movefile['error']) ? $movefile['error'] : $message;
-                $this->set_error($error_message);
+                array_push($this->replacement_status['error'], $error_message);
+                wp_send_json_error($error_message);
                 return false;
             }
 
@@ -251,7 +270,9 @@ class MediaReplacer
 
             // If the file was not renamed, abort
             if (!$file_renamed) {
-                $this->set_error('Media file could not be renamed.');
+                $error_message = __('Media file could not be renamed.', 'planet4-master-theme-backend');
+                array_push($this->replacement_status['error'], $error_message);
+                wp_send_json_error($error_message);
                 return false;
             }
 
@@ -270,7 +291,9 @@ class MediaReplacer
 
             // If the post was not updated, abort
             if (is_wp_error($post_updated) || $post_updated === 0) {
-                $this->set_error('Post was not updated.');
+                $error_message = __('Post was not updated.', 'planet4-master-theme-backend');
+                array_push($this->replacement_status['error'], $error_message);
+                wp_send_json_error($error_message);
                 return false;
             }
 
@@ -283,16 +306,19 @@ class MediaReplacer
 
             // If the file was not replaced, abort
             if (!$post_meta_updated) {
-                $this->set_error('Media file could not be replaced.');
+                $error_message = __('Media file could not be replaced.', 'planet4-master-theme-backend');
+                array_push($this->replacement_status['error'], $error_message);
+                wp_send_json_error($error_message);
                 return false;
             }
 
-            $message = __('Media replaced successfully!', 'planet4-master-theme-backend');
-            set_transient('media_replacement_message', $message, 5);
-            $this->purge_cloudflare(wp_get_attachment_url($old_file_id));
-            wp_send_json_success();
+            // $message = __('Media replaced successfully!', 'planet4-master-theme-backend');
+            // set_transient('media_replacement_message', $message, 5);
+            // $this->purge_cloudflare(wp_get_attachment_url($old_file_id));
+            // wp_send_json_success();
         } catch (\Exception $e) {
-            $this->set_error($e->getMessage());
+            array_push($this->replacement_status['error'], $e->getMessage());
+            wp_send_json_error($e->getMessage());
             return false;
         }
     }
@@ -316,7 +342,9 @@ class MediaReplacer
 
             // Validate image type against allowed MIME types
             if (!isset(self::IMAGE_MIME_TYPES[$new_image_type])) {
-                $this->set_error('Media file is not an image.');
+                $error_message = __('Media file is not an image.', 'planet4-master-theme-backend');
+                array_push($this->replacement_status['error'], $error_message);
+                wp_send_json_error($error_message);
                 return false;
             }
 
@@ -324,13 +352,17 @@ class MediaReplacer
             $image_data = self::IMAGE_MIME_TYPES[$new_image_type];
             $image = call_user_func($image_data['create'], $new_image_path);
             if (!$image) {
-                $this->set_error('Image could not be loaded.');
+                $error_message = __('Image could not be loaded.', 'planet4-master-theme-backend');
+                array_push($this->replacement_status['error'], $error_message);
+                wp_send_json_error($error_message);
                 return false;
             }
 
             $old_image_meta = get_post_meta($id, 'sm_cloud')[0];
             if (!$old_image_meta) {
-                $this->set_error('Image metadata could not be loaded.');
+                $error_message = __('Image metadata could not be loaded.', 'planet4-master-theme-backend');
+                array_push($this->replacement_status['error'], $error_message);
+                wp_send_json_error($error_message);
                 return false;
             }
 
@@ -339,7 +371,7 @@ class MediaReplacer
             $image_name = $old_image_dirname . '/' . $old_image_filename;
 
             // Helper function to handle image saving and uploading
-            $status_main_image = $this->upload_image(
+            $this->upload_image(
                 $image,
                 $image_data,
                 $image_name,
@@ -362,12 +394,12 @@ class MediaReplacer
                 $old_image_meta
             );
 
-            imagedestroy($image); // Free memory
-            // set_transient('image_replacement_status', print_r($this->replacement_status, true), 5);
-            set_transient('image_replacement_status', json_encode($this->replacement_status, JSON_PRETTY_PRINT), 5);
+            imagedestroy($image);
+            set_transient(self::TRANSIENT['file'], json_encode($this->replacement_status, JSON_PRETTY_PRINT), 5);
             return true;
         } catch (\Exception $e) {
-            $this->set_error($e->getMessage());
+            array_push($this->replacement_status['error'], $e->getMessage());
+            wp_send_json_error($e->getMessage());
             return false;
         }
     }
@@ -458,7 +490,8 @@ class MediaReplacer
             }
             return $status;
         } catch (\Exception $e) {
-            $this->set_error($e->getMessage());
+            array_push($this->replacement_status['error'], $e->getMessage());
+            wp_send_json_error($e->getMessage());
             return false;
         }
     }
@@ -527,13 +560,15 @@ class MediaReplacer
 
             if ($status) {
                 array_push($this->replacement_status['success'], $name);
+                $this->purge_cloudflare('https://www.greenpeace.org/static/planet4-defaultcontent-stateless-develop/2025/02/cd58e1a0-gp-img-1-300x131.jpg');
                 return true;
             } else {
                 array_push($this->replacement_status['error'], $name);
                 return false;
             }
         } catch (\Exception $e) {
-            $this->set_error($e->getMessage());
+            array_push($this->replacement_status['error'], $e->getMessage());
+            wp_send_json_error($e->getMessage());
             return false;
         }
     }
@@ -546,8 +581,7 @@ class MediaReplacer
     private function purge_cloudflare(string $url): void
     {
         try {
-            $cf = new CloudflarePurger();
-            $generator = $cf->purge([$url]);
+            $generator = $this->cf->purge([$url]);
             $api_responses = [];
 
             foreach ($generator as $purge_result) {
@@ -556,62 +590,31 @@ class MediaReplacer
             }
 
             if ($api_responses[0]) {
-                $message = __('URL was successfully purged from cache: ', 'planet4-master-theme-backend') . $url;
-                set_transient('cloudflare_purge_message', $message, 5);
+                array_push($this->cloudflare_purge_status['success'], $url);
             } else {
-                // phpcs:ignore Generic.Files.LineLength.MaxExceeded
-                $error_message = __('There was an error purging the URL from cache: ', 'planet4-master-theme-backend') . $url;
-                set_transient('cloudflare_purge_error', $error_message, 5);
+                array_push($this->cloudflare_purge_status['error'], $url);
             }
         } catch (\Exception $e) {
-            set_transient('cloudflare_purge_error', $e->getMessage(), 5);
-            return;
+            array_push($this->cloudflare_purge_status['error'], $e->getMessage());
         }
-    }
 
-    /**
-     * Set a transient with an error message.
-     * Send a JSON error response with the error message.
-     *
-     * @param string $message The error message.
-     */
-    private function set_error(string $message): void
-    {
-        $error_message = __($message, 'planet4-master-theme-backend');
-        set_transient('media_replacement_error', $error_message, 5);
-        wp_send_json_error($error_message);
-    }
-
-    /**
-     * Displays admin notices for media replacement messages.
-     */
-    public function display_admin_notices(): void
-    {
-        // Helper function to display notices
-        $this->render_notice('image_replacement_status', 'warning');
-        $this->render_notice('media_replacement_message', 'success');
-        $this->render_notice('media_replacement_error', 'error');
-        $this->render_notice('cloudflare_purge_message', 'success');
-        $this->render_notice('cloudflare_purge_error', 'error');
+        set_transient(self::TRANSIENT['cloudflare'], json_encode($this->cloudflare_purge_status, JSON_PRETTY_PRINT), 5);
     }
 
     /**
      * Renders admin notices.
-     *
-     * @param string $transient_key The Transient key.
-     * @param string $type The type of message.
      */
-    private function render_notice(): void
+    public function display_file_replacement_notices(): void
     {
-        if ($status = get_transient('image_replacement_status')) {
+        if ($status = get_transient(self::TRANSIENT['file'])) {
             $status = json_decode($status, true);
 
             if (!empty($status['success'])) {
                 echo "<div class='notice notice-success is-dismissible'>";
                 echo "<strong>Successfully replaced:</strong>";
                 echo "<ul>";
-                foreach ($status['success'] as $file) {
-                    echo "<li>" . esc_html($file) . "</li>";
+                foreach ($status['success'] as $success) {
+                    echo "<li>" . esc_html($success) . "</li>";
                 }
                 echo "</ul>";
                 echo "</div>";
@@ -621,13 +624,43 @@ class MediaReplacer
                 echo "<div class='notice notice-error is-dismissible'>";
                 echo "<strong>Replacement errors:</strong>";
                 echo "<ul>";
-                foreach ($status['error'] as $file) {
-                    echo "<li>" . esc_html($file) . "</li>";
+                foreach ($status['error'] as $error) {
+                    echo "<li>" . esc_html($error) . "</li>";
                 }
                 echo "</ul>";
                 echo "</div>";
             }
         }
-        delete_transient('image_replacement_status');
+        delete_transient(self::TRANSIENT['file']);
+    }
+
+    public function display_cloudflare_notices(): void
+    {
+        if ($status = get_transient(self::TRANSIENT['cloudflare'])) {
+            $status = json_decode($status, true);
+
+            if (!empty($status['success'])) {
+                echo "<div class='notice notice-success is-dismissible'>";
+                echo "<strong>URLs were successfully purged from cache:</strong>";
+                echo "<ul>";
+                foreach ($status['success'] as $success) {
+                    echo "<li>" . esc_html($success) . "</li>";
+                }
+                echo "</ul>";
+                echo "</div>";
+            }
+
+            if (!empty($status['error'])) {
+                echo "<div class='notice notice-error is-dismissible'>";
+                echo "<strong>There was an error purging this URLs from cache:</strong>";
+                echo "<ul>";
+                foreach ($status['error'] as $error) {
+                    echo "<li>" . esc_html($error) . "</li>";
+                }
+                echo "</ul>";
+                echo "</div>";
+            }
+        }
+        delete_transient(self::TRANSIENT['cloudflare']);
     }
 }
