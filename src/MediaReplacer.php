@@ -36,6 +36,8 @@ class MediaReplacer
         ],
     ];
 
+    private array $replacement_status;
+
     /**
      * MediaReplacer constructor.
      */
@@ -44,6 +46,11 @@ class MediaReplacer
         if (function_exists('is_plugin_active') && !is_plugin_active('wp-stateless/wp-stateless-media.php')) {
             return;
         }
+
+        $this->replacement_status = [
+            'success' => [],
+            'error' => [],
+        ];
 
         add_action('admin_enqueue_scripts', [$this, 'enqueue_media_modal_script']);
         add_filter('attachment_fields_to_edit', [$this, 'add_replace_media_button'], 10, 2);
@@ -344,7 +351,7 @@ class MediaReplacer
                 false
             );
 
-            $status_thumbnails = $this->upload_thumbnails(
+            $this->upload_thumbnails(
                 $image,
                 $image_data,
                 $image_name,
@@ -356,7 +363,8 @@ class MediaReplacer
             );
 
             imagedestroy($image); // Free memory
-            set_transient('image_replacement_status', implode('<br>', $status_thumbnails), 5);
+            // set_transient('image_replacement_status', print_r($this->replacement_status, true), 5);
+            set_transient('image_replacement_status', json_encode($this->replacement_status, JSON_PRETTY_PRINT), 5);
             return true;
         } catch (\Exception $e) {
             $this->set_error($e->getMessage());
@@ -515,7 +523,15 @@ class MediaReplacer
             }
 
             // Upload the image (main or variant)
-            return ud_get_stateless_media()->get_client()->add_media($image_args);
+            $status = ud_get_stateless_media()->get_client()->add_media($image_args);
+
+            if ($status) {
+                array_push($this->replacement_status['success'], $name);
+                return true;
+            } else {
+                array_push($this->replacement_status['error'], $name);
+                return false;
+            }
         } catch (\Exception $e) {
             $this->set_error($e->getMessage());
             return false;
@@ -585,27 +601,33 @@ class MediaReplacer
      * @param string $transient_key The Transient key.
      * @param string $type The type of message.
      */
-    private function render_notice(string $transient_key, string $type): void
+    private function render_notice(): void
     {
-        if (!$message = get_transient($transient_key)) {
-            return;
-        }
+        if ($status = get_transient('image_replacement_status')) {
+            $status = json_decode($status, true);
 
-        switch($type) {
-            case 'success':
-                $notice_class = 'notice-success';
-                break;
-            case 'error':
-                $notice_class = 'notice-error';
-                break;
-            default:
-                $notice_class = 'notice-warning';
-        }
+            if (!empty($status['success'])) {
+                echo "<div class='notice notice-success is-dismissible'>";
+                echo "<strong>Successfully replaced:</strong>";
+                echo "<ul>";
+                foreach ($status['success'] as $file) {
+                    echo "<li>" . esc_html($file) . "</li>";
+                }
+                echo "</ul>";
+                echo "</div>";
+            }
 
-        echo '
-            <div class="notice ' . esc_attr($notice_class) . ' is-dismissible">
-            <p>' . esc_html($message) . '</p>
-            </div>';
-        delete_transient($transient_key);
+            if (!empty($status['error'])) {
+                echo "<div class='notice notice-error is-dismissible'>";
+                echo "<strong>Replacement errors:</strong>";
+                echo "<ul>";
+                foreach ($status['error'] as $file) {
+                    echo "<li>" . esc_html($file) . "</li>";
+                }
+                echo "</ul>";
+                echo "</div>";
+            }
+        }
+        delete_transient('image_replacement_status');
     }
 }
