@@ -370,7 +370,7 @@ class BlockUsageTable extends WP_List_Table
         sort($this->blocks_ns);
         $filter = $this->search_params->namespace() ?? null;
 
-        echo '<select name="namespace" id="filter-by-ns" onchange="filterBlockNames();">';
+        echo '<select name="namespace" id="filter-by-ns">';
         echo '<option value="">- All namespaces -</option>';
         foreach ($this->blocks_ns as $ns) {
             echo sprintf(
