@@ -6,6 +6,7 @@ namespace P4\MasterTheme\Migrations;
 
 use P4\MasterTheme\MigrationRecord;
 use P4\MasterTheme\MigrationScript;
+use WP_Query;
 
 /**
  * Migrate Covers block of type Content to Posts List blocks.
@@ -123,7 +124,7 @@ class M037MigrateCoversContentBlockToPostsListBlock extends MigrationScript
             'tags' => isset($attrs['tags']) ? $attrs['tags'] : [],
             'posts' => isset($attrs['posts']) ? $attrs['posts'] : [],
             'post_types' => isset($attrs['post_types']) ? $attrs['post_types'] : [],
-            'rows' => isset($attrs['initialRowsLimit']) ? $attrs['initialRowsLimit'] : 0,
+            'rows' => isset($attrs['initialRowsLimit']) ? $attrs['initialRowsLimit'] : 1,
         ];
     }
 
@@ -145,7 +146,6 @@ class M037MigrateCoversContentBlockToPostsListBlock extends MigrationScript
         int $per_page,
     ): array {
         $query = [];
-        $query['perPage'] = ($per_page >= 2 || $layout_type === 'flex') ? 8 : 4;
         $query['pages'] = 0;
         $query['offset'] = 0;
         $query['postType'] = Utils\Constants::POST_TYPES_POST;
@@ -158,6 +158,22 @@ class M037MigrateCoversContentBlockToPostsListBlock extends MigrationScript
         $query['inherit'] = false;
         $query['hasPassword'] = false;
         $query['postIn'] = $posts_override;
+
+        // Set the number of posts per page.
+        // Initially, the number of posts per page is equal to the number of posts to display.
+        $query['perPage'] = self::get_number_found_posts($post_types, $tags);
+
+        // If the layout is grid and the number of posts per page is higher than zero,
+        // the number of posts per page is 4 times the number of rows.
+        if ($layout_type === 'grid' && $per_page > 0) {
+            $query['perPage'] = $per_page * 4;
+        }
+
+        // If there are posts to override,
+        // the number of posts per page is equal to the number of posts to override.
+        if (!empty($posts_override)) {
+            $query['perPage'] = count($posts_override);
+        }
 
         if (!empty($tags)) {
             $query['taxQuery']['post_tag'] = $tags;
@@ -176,6 +192,45 @@ class M037MigrateCoversContentBlockToPostsListBlock extends MigrationScript
         $attrs['namespace'] = Utils\Constants::BLOCK_POSTS_LIST;
         $attrs['layout'] = $layout;
         return $attrs;
+    }
+
+    /** Set the number of posts found based on the tags and post types.
+     *
+     * @param array $types - The list of terms of the "p4-page-type" taxonomy.
+     * @param array $tags - The list of post tags.
+     * @return int - The number of posts found.
+     */
+    private static function get_number_found_posts(array $types, array $tags): int
+    {
+        $args = [];
+        $args['tax_query'] = [];
+        $args['post_type'] = Utils\Constants::POST_TYPES_POST;
+
+        if (!empty($types)) {
+            $filter_types = [
+                'taxonomy' => 'p4-page-type',
+                'field' => 'term_id',
+                'terms' => $types,
+            ];
+            array_push($args['tax_query'], $filter_types);
+        }
+        if (!empty($tags)) {
+            $filter_tags = [
+                'taxonomy' => 'post_tag',
+                'field' => 'term_id',
+                'terms' => $tags,
+            ];
+            array_push($args['tax_query'], $filter_tags);
+        }
+        if (!empty($types) && !empty($tags)) {
+            $args['tax_query']['relation'] = 'AND';
+        }
+
+        // Execute the query.
+        $query = new WP_Query($args);
+
+        // Get the number of posts found.
+        return $query->found_posts;
     }
 
     /**

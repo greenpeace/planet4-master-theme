@@ -17,7 +17,8 @@ class QueryLoopPagination
             function ($content) {
                 // Check if prev and next buttons are disabled.
                 if (
-                    str_contains($content, 'wp-block-query-pagination-previous disabled')
+                    $content
+                    && str_contains($content, 'wp-block-query-pagination-previous disabled')
                     && str_contains($content, 'wp-block-query-pagination-next disabled')
                 ) {
                     return null;

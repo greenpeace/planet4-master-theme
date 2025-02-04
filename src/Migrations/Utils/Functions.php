@@ -14,6 +14,7 @@ class Functions
     /**
      * Execute a block migration.
      *
+     * @param string $block_name - The name of the block to be migrated.
      * @param callable $block_check_callback - Callback function to check if block is valid for migration.
      * @param callable $record block_transformation_callback - Callback function to transform a block.
      * phpcs:disable SlevomatCodingStandard.Functions.UnusedParameter -- interface implementation
@@ -24,7 +25,7 @@ class Functions
         callable $block_transformation_callback
     ): void {
         try {
-            // Get the list of posts using split-two-columns block.
+            // Get the list of posts using the specified block.
             $posts = self::get_posts_using_specific_block(
                 $block_name,
                 Constants::ALL_POST_TYPES,
@@ -49,22 +50,19 @@ class Functions
 
                 echo 'Parsing post ', $current_post_id, "\n"; // phpcs:ignore
 
-                // Get all the blocks of each post.
+                // Parse the blocks from the post content.
                 $blocks = $parser->parse($post->post_content);
 
                 if (!is_array($blocks)) {
                     throw new \Exception("Invalid block structure for post #" . $current_post_id);
                 }
 
-                foreach ($blocks as &$block) {
-                    if (!$block_check_callback($block)) {
-                        continue;
-                    }
-                    $block = $block_transformation_callback($block);
-                }
-
-                // Unset the reference to prevent potential issues.
-                unset($block);
+                // Process blocks recursively.
+                $blocks = self::process_blocks_recursive(
+                    $blocks,
+                    $block_check_callback,
+                    $block_transformation_callback
+                );
 
                 // Serialize the blocks content.
                 $new_content = serialize_blocks($blocks);
@@ -94,6 +92,41 @@ class Functions
         }
     }
     // phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter
+
+    /**
+     * Recursively process blocks and their inner blocks.
+     *
+     * @param string $block_name - The name of the block to be migrated.
+     * @param callable $block_check_callback - Callback function to check if block is valid for migration.
+     * @param callable $record block_transformation_callback - Callback function to transform a block.
+     */
+    private static function process_blocks_recursive(
+        array $blocks,
+        callable $block_check_callback,
+        callable $block_transformation_callback
+    ): array {
+        foreach ($blocks as &$block) {
+            if ($block_check_callback($block)) {
+                $block = $block_transformation_callback($block);
+            }
+
+            // Check for innerBlocks and process recursively.
+            if (empty($block['innerBlocks']) || !is_array($block['innerBlocks'])) {
+                continue;
+            }
+
+            $block['innerBlocks'] = self::process_blocks_recursive(
+                $block['innerBlocks'],
+                $block_check_callback,
+                $block_transformation_callback
+            );
+        }
+
+        // Unset the reference to avoid issues.
+        unset($block);
+
+        return $blocks;
+    }
 
     /**
      * Get all the posts using a specific type of block.
@@ -232,7 +265,14 @@ class Functions
      */
     public static function create_block_paragraph(array $attrs, string $content): array
     {
-        $html = '<p>' . $content . '</p>';
+        $margin = $attrs['style']['spacing']['margin'];
+
+        $styles =
+            isset($margin) ?
+            'margin-top: ' . $margin['top'] . '; margin-bottom: ' . $margin['bottom'] . ';' :
+            '';
+
+        $html = '<p style="' . $styles . '">' . $content . '</p>';
 
         return self::create_new_block(
             Constants::BLOCK_PARAGRAPH,
