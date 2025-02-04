@@ -430,10 +430,8 @@ class MediaReplacer
         array $file,
         string $id,
         array $old_image_meta
-    ): mixed {
+    ): bool {
         try {
-            $status = [];
-
             // Handle each size variant
             foreach ($old_image_meta['sizes'] as $size => $old_image_data) {
                 $old_image_width = $old_image_data['width'];
@@ -470,7 +468,7 @@ class MediaReplacer
                 );
 
                 // Upload the resized variant
-                $result = $this->upload_image(
+                $this->upload_image(
                     $thumb,
                     $image_data,
                     $image_name . '-' . $old_image_width . 'x' . $old_image_height,
@@ -481,14 +479,11 @@ class MediaReplacer
                     $size,
                     true
                 );
-                if ($result) {
-                    array_push($status, $image_name . '-' . $old_image_width . 'x' . $old_image_height);
-                } else {
-                    array_push($status, 'error');
-                }
-                imagedestroy($thumb); // Free memory
+
+                // Free memory
+                imagedestroy($thumb);
             }
-            return $status;
+            return true;
         } catch (\Exception $e) {
             array_push($this->replacement_status['error'], $e->getMessage());
             wp_send_json_error($e->getMessage());
@@ -601,66 +596,49 @@ class MediaReplacer
         set_transient(self::TRANSIENT['cloudflare'], json_encode($this->cloudflare_purge_status, JSON_PRETTY_PRINT), 5);
     }
 
-    /**
-     * Renders admin notices.
-     */
     public function display_file_replacement_notices(): void
     {
-        if ($status = get_transient(self::TRANSIENT['file'])) {
-            $status = json_decode($status, true);
-
-            if (!empty($status['success'])) {
-                echo "<div class='notice notice-success is-dismissible'>";
-                echo "<strong>Successfully replaced:</strong>";
-                echo "<ul>";
-                foreach ($status['success'] as $success) {
-                    echo "<li>" . esc_html($success) . "</li>";
-                }
-                echo "</ul>";
-                echo "</div>";
-            }
-
-            if (!empty($status['error'])) {
-                echo "<div class='notice notice-error is-dismissible'>";
-                echo "<strong>Replacement errors:</strong>";
-                echo "<ul>";
-                foreach ($status['error'] as $error) {
-                    echo "<li>" . esc_html($error) . "</li>";
-                }
-                echo "</ul>";
-                echo "</div>";
-            }
-        }
-        delete_transient(self::TRANSIENT['file']);
+        $this->display_notices(
+            'file',
+            'Successfully replaced:',
+            'Replacement errors:'
+        );
     }
 
     public function display_cloudflare_notices(): void
     {
-        if ($status = get_transient(self::TRANSIENT['cloudflare'])) {
+        $this->display_notices(
+            'cloudflare',
+            'URLs were successfully purged from cache:',
+            'There was an error purging these URLs from cache:'
+        );
+    }
+
+    /**
+     * Renders admin notices.
+     */
+    private function display_notices(string $transient_key, string $success_message, string $error_message): void
+    {
+        if ($status = get_transient(self::TRANSIENT[$transient_key])) {
             $status = json_decode($status, true);
 
             if (!empty($status['success'])) {
-                echo "<div class='notice notice-success is-dismissible'>";
-                echo "<strong>URLs were successfully purged from cache:</strong>";
-                echo "<ul>";
-                foreach ($status['success'] as $success) {
-                    echo "<li>" . esc_html($success) . "</li>";
-                }
-                echo "</ul>";
-                echo "</div>";
+                printf(
+                    "<div class='notice notice-success is-dismissible'><strong>%s</strong><ul><li>%s</li></ul></div>",
+                    esc_html($success_message),
+                    implode("</li><li>", array_map('esc_html', $status['success']))
+                );
             }
 
             if (!empty($status['error'])) {
-                echo "<div class='notice notice-error is-dismissible'>";
-                echo "<strong>There was an error purging this URLs from cache:</strong>";
-                echo "<ul>";
-                foreach ($status['error'] as $error) {
-                    echo "<li>" . esc_html($error) . "</li>";
-                }
-                echo "</ul>";
-                echo "</div>";
+                printf(
+                    "<div class='notice notice-error is-dismissible'><strong>%s</strong><ul><li>%s</li></ul></div>",
+                    esc_html($error_message),
+                    implode("</li><li>", array_map('esc_html', $status['error']))
+                );
             }
+
+            delete_transient(self::TRANSIENT[$transient_key]);
         }
-        delete_transient(self::TRANSIENT['cloudflare']);
     }
 }
