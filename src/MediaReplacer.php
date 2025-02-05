@@ -106,8 +106,6 @@ class MediaReplacer
 
     /**
      * Adds a button to replace media files in the attachments editor.
-     *
-     * @param WP_Post $post The current attachment post object.
      */
     public function render_replace_media_metabox(WP_Post $post): void
     {
@@ -127,10 +125,6 @@ class MediaReplacer
 
     /**
      * Adds a button to replace media files to the Attachment details modal.
-     *
-     * @param array $form_fields The existing form fields for the attachment.
-     * @param WP_Post $post The current attachment post object.
-     * @return array Modified form fields with the replace media button added.
      */
     public function add_replace_media_button(array $form_fields, WP_Post $post): array
     {
@@ -161,9 +155,6 @@ class MediaReplacer
 
     /**
      * Renders the HTML of the Replace Media button.
-     *
-     * @param WP_Post $post The current attachment post object.
-     * @return string The button html.
      */
     private function get_replace_button_html(WP_Post $post): string
     {
@@ -237,9 +228,6 @@ class MediaReplacer
     /**
      * Replaces the media file associated with the old attachment ID
      * with the new file located at the specified path.
-     *
-     * @param array $new_file The file data array of the new file.
-     * @param int $old_file_id The ID of the old attachment.
      */
     private function replace_media_file(array $file, int $old_file_id): bool
     {
@@ -299,14 +287,10 @@ class MediaReplacer
         wp_update_attachment_metadata($old_file_id, $attach_data);
     }
 
-
     /**
      * Replaces images (main image and also all the thumbnails).
      * Thumbnails are manually created using the GD library.
      * Images are uploaded to Google Storage using WP Stateless functions.
-     *
-     * @param array $file An array with data of the new image.
-     * @param string $id The id of the image to be replaced.
      */
     private function replace_images(array $file, string $id): bool
     {
@@ -411,13 +395,16 @@ class MediaReplacer
         }
     }
 
+    /**
+     * Creates the image thumbnails.
+     */
     private function create_image_thumbnail(
-        $image,
-        $new_image_width,
-        $new_image_height,
-        $old_image_width,
-        $old_image_height
-    ) {
+        object $image,
+        int $new_image_width,
+        int $new_image_height,
+        int $old_image_width,
+        int $old_image_height
+    ): object {
         // Determine cropping dimensions
         $src_aspect = $new_image_width / $new_image_height;
         $dst_aspect = $old_image_width / $old_image_height;
@@ -455,18 +442,6 @@ class MediaReplacer
      *
      * This function saves the image to a temporary file, prepares the appropriate upload arguments
      * (including metadata), and then uploads the image to the media storage.
-     *
-     * @param {Object} image - The image resource (created from the image data).
-     * @param {array} image_data - The image metadata, including the file extension, mime type, and save method.
-     * @param {string} image_name - The name of the image, used as a base for the upload.
-     * @param {number} new_image_width - The width of the new image.
-     * @param {number} new_image_height - The height of the new image.
-     * @param {array} file - The file object containing information about the uploaded image.
-     * @param {string} id - The unique identifier for the image (used for metadata).
-     * @param {string} size - The size identificator.
-     * @param {boolean} [is_thumbnail=false] - Flag indicating whether the image is a thumbnail.
-     *
-     * @returns {mixed}
      */
     private function upload_file(
         object $image,
@@ -499,10 +474,10 @@ class MediaReplacer
                 array_push($this->replacement_status['success'], $file_name . '.' . $extension);
                 $this->purge_cloudflare('https://www.greenpeace.org/static/');
                 return true;
-            } else {
-                array_push($this->replacement_status['error'], $file_name . '.' . $extension);
-                return false;
             }
+
+            array_push($this->replacement_status['error'], $file_name . '.' . $extension);
+            return false;
         } catch (\Exception $e) {
             array_push($this->replacement_status['error'], $e->getMessage());
             wp_send_json_error($e->getMessage());
@@ -512,8 +487,6 @@ class MediaReplacer
 
     /**
      * Purge the Cloudflare cache for a specific URL.
-     *
-     * @param string $url The URL to be purged.
      */
     private function purge_cloudflare(string $url): void
     {
@@ -557,26 +530,28 @@ class MediaReplacer
      */
     private function render_notices(string $transient_key, string $success_message, string $error_message): void
     {
-        if ($status = get_transient(self::TRANSIENT[$transient_key])) {
-            $status = json_decode($status, true);
-
-            if (!empty($status['success'])) {
-                printf(
-                    "<div class='notice notice-success is-dismissible'><strong>%s</strong><ul><li>%s</li></ul></div>",
-                    esc_html($success_message),
-                    implode("</li><li>", array_map('esc_html', $status['success']))
-                );
-            }
-
-            if (!empty($status['error'])) {
-                printf(
-                    "<div class='notice notice-error is-dismissible'><strong>%s</strong><ul><li>%s</li></ul></div>",
-                    esc_html($error_message),
-                    implode("</li><li>", array_map('esc_html', $status['error']))
-                );
-            }
-
-            delete_transient(self::TRANSIENT[$transient_key]);
+        if (!$status = get_transient(self::TRANSIENT[$transient_key])) {
+            return;
         }
+
+        $status = json_decode($status, true);
+
+        if (!empty($status['success'])) {
+            printf(
+                "<div class='notice notice-success is-dismissible'><strong>%s</strong><ul><li>%s</li></ul></div>",
+                esc_html($success_message),
+                implode("</li><li>", array_map('esc_html', $status['success']))
+            );
+        }
+
+        if (!empty($status['error'])) {
+            printf(
+                "<div class='notice notice-error is-dismissible'><strong>%s</strong><ul><li>%s</li></ul></div>",
+                esc_html($error_message),
+                implode("</li><li>", array_map('esc_html', $status['error']))
+            );
+        }
+
+        delete_transient(self::TRANSIENT[$transient_key]);
     }
 }
