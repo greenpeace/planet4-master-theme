@@ -72,8 +72,7 @@ class MediaReplacer
         add_filter('attachment_fields_to_edit', [$this, 'add_replace_media_button'], 10, 2);
         add_action('add_meta_boxes', [$this, 'add_replace_media_metabox']);
         add_action('wp_ajax_replace_media', [$this, 'ajax_replace_media']);
-        add_action('admin_notices', [$this, 'display_file_replacement_notices']);
-        add_action('admin_notices', [$this, 'display_cloudflare_notices']);
+        add_action('admin_notices', [$this, 'display_notices']);
     }
 
     /**
@@ -245,73 +244,6 @@ class MediaReplacer
     private function replace_media_file(string $new_file, int $old_file_id): bool
     {
         try {
-            // Upload the file
-            $movefile = wp_handle_upload($new_file, array('test_form' => false));
-
-            // If the file was not uploaded, abort
-            if (!$movefile) {
-                $message = __('Media could not be uploaded.', 'planet4-master-theme-backend');
-                $error_message = isset($movefile['error']) ? $movefile['error'] : $message;
-                array_push($this->replacement_status['error'], $error_message);
-                wp_send_json_error($error_message);
-                return false;
-            }
-
-            // Get the old file path
-            $old_file_path = get_attached_file($old_file_id);
-
-            // Check if the old file exists
-            if (file_exists($old_file_path)) {
-                unlink($old_file_path);
-            }
-
-            // Move the new file to the old file's location
-            $file_renamed = rename($movefile['file'], $old_file_path);
-
-            // If the file was not renamed, abort
-            if (!$file_renamed) {
-                $error_message = __('Media file could not be renamed.', 'planet4-master-theme-backend');
-                array_push($this->replacement_status['error'], $error_message);
-                wp_send_json_error($error_message);
-                return false;
-            }
-
-            // Update the attachment metadata with new information
-            $filetype = wp_check_filetype($old_file_path);
-            $attachment_data = array(
-                'ID' => $old_file_id,
-                'post_mime_type' => $filetype['type'],
-                'post_title' => preg_replace('/\.[^.]+$/', '', basename($old_file_path)),
-                'post_content' => '',
-                'post_status' => 'inherit',
-            );
-
-            // Update the database record for the file
-            $post_updated = wp_update_post($attachment_data);
-
-            // If the post was not updated, abort
-            if (is_wp_error($post_updated) || $post_updated === 0) {
-                $error_message = __('Post was not updated.', 'planet4-master-theme-backend');
-                array_push($this->replacement_status['error'], $error_message);
-                wp_send_json_error($error_message);
-                return false;
-            }
-
-            // Update file metadata
-            // By calling the "wp_update_attachment_metadata" function,
-            // the WP Stateless plugin syncs the file with Google Storage.
-            // https://github.com/udx/wp-stateless/blob/0871da645453240007178f4a5f243ceab6a188ea/lib/classes/class-bootstrap.php#L376
-            $attach_data = wp_generate_attachment_metadata($old_file_id, $old_file_path);
-            $post_meta_updated = wp_update_attachment_metadata($old_file_id, $attach_data);
-
-            // If the file was not replaced, abort
-            if (!$post_meta_updated) {
-                $error_message = __('Media file could not be replaced.', 'planet4-master-theme-backend');
-                array_push($this->replacement_status['error'], $error_message);
-                wp_send_json_error($error_message);
-                return false;
-            }
-
             // $message = __('Media replaced successfully!', 'planet4-master-theme-backend');
             // set_transient('media_replacement_message', $message, 5);
             // $this->purge_cloudflare(wp_get_attachment_url($old_file_id));
@@ -370,29 +302,59 @@ class MediaReplacer
             $old_image_filename = pathinfo($old_image_meta['name'], PATHINFO_FILENAME);
             $image_name = $old_image_dirname . '/' . $old_image_filename;
 
-            // Helper function to handle image saving and uploading
-            $this->upload_image(
+            $metadata = [
+                'width' => $new_image_width,
+                'height' => $new_image_height,
+                'file-hash' => md5($old_image_filename),
+                'size' => '__full',
+                'object-id' => $id,
+                'source-id' => md5($file . ud_get_stateless_media()->get('sm.bucket')),
+            ];
+
+            // Upload the resized variant
+            $this->upload_file(
                 $image,
                 $image_data,
-                $image_name,
-                $new_image_width,
-                $new_image_height,
-                $file,
-                $id,
-                '__full',
-                false
+                $image_data['extension'],
+                $image_data['mime'],
+                $old_image_filename,
+                $metadata
             );
 
-            $this->upload_thumbnails(
-                $image,
-                $image_data,
-                $image_name,
-                $new_image_width,
-                $new_image_height,
-                $file,
-                $id,
-                $old_image_meta
-            );
+            // Handle each size variant
+            foreach ($old_image_meta['sizes'] as $size => $old_image_data) {
+                $old_image_width = $old_image_data['width'];
+                $old_image_height = $old_image_data['height'];
+
+                $metadata = [
+                    'width' => $new_image_width,
+                    'height' => $new_image_height,
+                    'file-hash' => md5($image_name . '-' . $old_image_width . 'x' . $old_image_height),
+                    'size' => $size,
+                    'child-of' => $id,
+                ];
+
+                $thumb = $this->create_image_thumbnail(
+                    $image,
+                    $new_image_width,
+                    $new_image_height,
+                    $old_image_width,
+                    $old_image_height
+                );
+
+                // Upload the resized variant
+                $this->upload_file(
+                    $thumb,
+                    $image_data,
+                    $image_data['extension'],
+                    $image_data['mime'],
+                    $image_name . '-' . $old_image_width . 'x' . $old_image_height,
+                    $metadata
+                );
+
+                // Free memory
+                imagedestroy($thumb);
+            }
 
             imagedestroy($image);
             set_transient(self::TRANSIENT['file'], json_encode($this->replacement_status, JSON_PRETTY_PRINT), 5);
@@ -404,91 +366,43 @@ class MediaReplacer
         }
     }
 
-    /**
-     * Uploads an image (either main or thumbnail) to the media client.
-     *
-     * This function saves the image to a temporary file, prepares the appropriate upload arguments
-     * (including metadata), and then uploads the image to the media storage.
-     *
-     * @param {Object} image - The image resource (created from the image data).
-     * @param {array} image_data - The image metadata, including the file extension, mime type, and save method.
-     * @param {string} image_name - The name of the image, used as a base for the upload.
-     * @param {number} new_image_width - The width of the new image.
-     * @param {number} new_image_height - The height of the new image.
-     * @param {array} file - The file object containing information about the uploaded image.
-     * @param {string} id - The unique identifier for the image (used for metadata).
-     * @param {array} old_image_meta - The metadata of the old image.
-     *
-     * @returns {boolean}
-     */
-    private function upload_thumbnails(
-        object $image,
-        array $image_data,
-        string $image_name,
-        int $new_image_width,
-        int $new_image_height,
-        array $file,
-        string $id,
-        array $old_image_meta
-    ): bool {
-        try {
-            // Handle each size variant
-            foreach ($old_image_meta['sizes'] as $size => $old_image_data) {
-                $old_image_width = $old_image_data['width'];
-                $old_image_height = $old_image_data['height'];
+    private function create_image_thumbnail(
+        $image,
+        $new_image_width,
+        $new_image_height,
+        $old_image_width,
+        $old_image_height
+    ) {
+        // Determine cropping dimensions
+        $src_aspect = $new_image_width / $new_image_height;
+        $dst_aspect = $old_image_width / $old_image_height;
 
-                // Determine cropping dimensions
-                $src_aspect = $new_image_width / $new_image_height;
-                $dst_aspect = $old_image_width / $old_image_height;
-
-                if ($src_aspect > $dst_aspect) {
-                    $src_height = $new_image_height;
-                    $src_width = (int) ($new_image_height * $dst_aspect);
-                    $src_x = (int) (($new_image_width - $src_width) / 2);
-                    $src_y = 0;
-                } else {
-                    $src_width = $new_image_width;
-                    $src_height = (int) ($new_image_width / $dst_aspect);
-                    $src_x = 0;
-                    $src_y = (int) (($new_image_height - $src_height) / 2);
-                }
-
-                $thumb = imagecreatetruecolor($old_image_width, $old_image_height);
-                imagecopyresampled(
-                    $thumb,
-                    $image,
-                    0,
-                    0,
-                    $src_x,
-                    $src_y,
-                    $old_image_width,
-                    $old_image_height,
-                    $src_width,
-                    $src_height
-                );
-
-                // Upload the resized variant
-                $this->upload_image(
-                    $thumb,
-                    $image_data,
-                    $image_name . '-' . $old_image_width . 'x' . $old_image_height,
-                    $new_image_width,
-                    $new_image_height,
-                    $file,
-                    $id,
-                    $size,
-                    true
-                );
-
-                // Free memory
-                imagedestroy($thumb);
-            }
-            return true;
-        } catch (\Exception $e) {
-            array_push($this->replacement_status['error'], $e->getMessage());
-            wp_send_json_error($e->getMessage());
-            return false;
+        if ($src_aspect > $dst_aspect) {
+            $src_height = $new_image_height;
+            $src_width = (int) ($new_image_height * $dst_aspect);
+            $src_x = (int) (($new_image_width - $src_width) / 2);
+            $src_y = 0;
+        } else {
+            $src_width = $new_image_width;
+            $src_height = (int) ($new_image_width / $dst_aspect);
+            $src_x = 0;
+            $src_y = (int) (($new_image_height - $src_height) / 2);
         }
+
+        $thumb = imagecreatetruecolor($old_image_width, $old_image_height);
+        imagecopyresampled(
+            $thumb,
+            $image,
+            0,
+            0,
+            $src_x,
+            $src_y,
+            $old_image_width,
+            $old_image_height,
+            $src_width,
+            $src_height
+        );
+        return $thumb;
     }
 
     /**
@@ -509,56 +423,39 @@ class MediaReplacer
      *
      * @returns {mixed}
      */
-    private function upload_image(
+    private function upload_file(
         object $image,
         array $image_data,
-        string $image_name,
-        int $new_image_width,
-        int $new_image_height,
-        array $file,
-        string $id,
-        string $size,
-        bool $is_thumbnail = false
+        string $extension,
+        string $mime,
+        string $file_name,
+        array $metadata,
     ): mixed {
         try {
             // Save the image to a temporary location
-            $thumbnail_file = tempnam(sys_get_temp_dir(), 'thumb_') . '.' . $image_data['extension'];
-            call_user_func($image_data['save'], $image, $thumbnail_file);
-
-            $name = $image_name . '.' . $image_data['extension'];
+            $temporary_file_path = tempnam(sys_get_temp_dir(), 'thumb_') . '.' . $extension;
+            call_user_func($image_data['save'], $image, $temporary_file_path);
 
             // Prepare the upload arguments
             $image_args = [
-                'name' => $name,
-                'force' => true, // Force replacement
-                'absolutePath' => $thumbnail_file, // Path to the new image
+                'name' => $file_name . '.' . $extension,
+                'force' => true,
+                'absolutePath' => $temporary_file_path,
                 'cacheControl' => 'public, max-age=36000, must-revalidate',
                 'contentDisposition' => null,
-                'mimeType' => $image_data['mime'],
-                'metadata' => [
-                    'width' => $new_image_width,
-                    'height' => $new_image_height,
-                    'file-hash' => md5($image_name),
-                    'size' => $size,
-                ],
+                'mimeType' => $mime,
+                'metadata' => $metadata,
             ];
-
-            if ($is_thumbnail) {
-                $image_args['metadata']['child-of'] = $id;
-            } else {
-                $image_args['metadata']['object-id'] = $id;
-                $image_args['metadata']['source-id'] = md5($file . ud_get_stateless_media()->get('sm.bucket'));
-            }
 
             // Upload the image (main or variant)
             $status = ud_get_stateless_media()->get_client()->add_media($image_args);
 
             if ($status) {
-                array_push($this->replacement_status['success'], $name);
-                $this->purge_cloudflare('https://www.greenpeace.org/static/planet4-defaultcontent-stateless-develop/2025/02/cd58e1a0-gp-img-1-300x131.jpg');
+                array_push($this->replacement_status['success'], $file_name . '.' . $extension);
+                $this->purge_cloudflare('https://www.greenpeace.org/static/');
                 return true;
             } else {
-                array_push($this->replacement_status['error'], $name);
+                array_push($this->replacement_status['error'], $file_name . '.' . $extension);
                 return false;
             }
         } catch (\Exception $e) {
@@ -596,18 +493,14 @@ class MediaReplacer
         set_transient(self::TRANSIENT['cloudflare'], json_encode($this->cloudflare_purge_status, JSON_PRETTY_PRINT), 5);
     }
 
-    public function display_file_replacement_notices(): void
+    public function display_notices(): void
     {
-        $this->display_notices(
+        $this->render_notices(
             'file',
             'Successfully replaced:',
             'Replacement errors:'
         );
-    }
-
-    public function display_cloudflare_notices(): void
-    {
-        $this->display_notices(
+        $this->render_notices(
             'cloudflare',
             'URLs were successfully purged from cache:',
             'There was an error purging these URLs from cache:'
@@ -617,7 +510,7 @@ class MediaReplacer
     /**
      * Renders admin notices.
      */
-    private function display_notices(string $transient_key, string $success_message, string $error_message): void
+    private function render_notices(string $transient_key, string $success_message, string $error_message): void
     {
         if ($status = get_transient(self::TRANSIENT[$transient_key])) {
             $status = json_decode($status, true);
