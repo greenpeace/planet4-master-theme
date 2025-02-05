@@ -44,15 +44,28 @@ class QueryLoopExtension
             function ($query, $block) {
                 $blockQuery = $block->context['query'] ?? [];
 
-                // Sanitize query only applied to ActionsList block.
-                if ((bool) array_key_exists('isCustomQueryLoop', $blockQuery)) {
-                    $is_new_ia = !empty(planet4_get_option('new_ia'));
-                    $query['post_type'] = $is_new_ia ? 'p4_action' : 'page';
+                $is_new_ia = !empty(planet4_get_option('new_ia'));
+
+                $query['post_type'] = ['page'];
+
+                // This applies only to Actions List block
+                if($blockQuery['isCustom']) {
 
                     if (!$is_new_ia) {
                         $query['post_parent'] = $blockQuery['parent'];
+                    } else {
+                        $query['post_type'] = ['page', 'p4_action'];
+                        $query['post_parent__in'] = [planet4_get_option('take_action_page')];
+
+                        // This is the proper filter
+                        $query['orderby'] = [
+                            'menu_order' => 'ASC',
+                            'post_date' => 'DESC',
+                            'post_title' => 'ASC',
+                        ];
                     }
                 }
+
 
                 if (!empty($blockQuery['postIn'])) {
                     $query['post__in'] = array_map('intval', (array) $blockQuery['postIn']);
