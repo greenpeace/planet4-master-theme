@@ -238,22 +238,67 @@ class MediaReplacer
      * Replaces the media file associated with the old attachment ID
      * with the new file located at the specified path.
      *
-     * @param string $new_file The path to the new file.
+     * @param array $new_file The file data array of the new file.
      * @param int $old_file_id The ID of the old attachment.
      */
-    private function replace_media_file(string $new_file, int $old_file_id): bool
+    private function replace_media_file(array $file, int $old_file_id): bool
     {
-        try {
-            // $message = __('Media replaced successfully!', 'planet4-master-theme-backend');
-            // set_transient('media_replacement_message', $message, 5);
-            // $this->purge_cloudflare(wp_get_attachment_url($old_file_id));
-            // wp_send_json_success();
-        } catch (\Exception $e) {
-            array_push($this->replacement_status['error'], $e->getMessage());
-            wp_send_json_error($e->getMessage());
+        $upload_overrides = array('test_form' => false);
+
+        // Upload the file
+        $movefile = wp_handle_upload($file, $upload_overrides);
+
+        // If the file was not uploaded, abort
+        if (!$movefile) {
+            $message = __('Media could not be uploaded.', 'planet4-master-theme-backend');
+            $error_message = isset($movefile['error']) ? $movefile['error'] : $message;
+            set_transient('media_replacement_error', $error_message, 5);
+            wp_send_json_error($error_message);
             return false;
         }
+
+        // Get the old file path
+        $old_file_path = get_attached_file($old_file_id);
+
+        // Check if the old file exists
+        if (file_exists($old_file_path)) {
+            unlink($old_file_path);
+        }
+
+        // Move the new file to the old file's location
+        $file_renamed = rename($movefile['file'], $old_file_path);
+
+        // If the file was not renamed, abort
+        if (!$file_renamed) {
+            return false;
+        }
+
+        // Update the attachment metadata with new information
+        $filetype = wp_check_filetype($old_file_path);
+        $attachment_data = array(
+            'ID' => $old_file_id,
+            'post_mime_type' => $filetype['type'],
+            'post_title' => preg_replace('/\.[^.]+$/', '', basename($old_file_path)),
+            'post_content' => '',
+            'post_status' => 'inherit',
+        );
+
+        // Update the database record for the file
+        $post_updated = wp_update_post($attachment_data);
+
+        // If the post was not updated, abort
+        if (is_wp_error($post_updated) || $post_updated === 0) {
+            return false;
+        }
+
+        // Update file metadata
+        // By calling the "wp_update_attachment_metadata" function,
+        // the WP Stateless plugin syncs the file with Google Storage.
+        // https://github.com/udx/wp-stateless/blob/0871da645453240007178f4a5f243ceab6a188ea/lib/classes/class-bootstrap.php#L376
+        $attach_data = wp_generate_attachment_metadata($old_file_id, $old_file_path);
+        wp_update_attachment_metadata($old_file_id, $attach_data);
     }
+
 
     /**
      * Replaces images (main image and also all the thumbnails).
