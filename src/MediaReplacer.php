@@ -11,10 +11,11 @@ use WP_Post;
  */
 class MediaReplacer
 {
-    /**
-     * List of image MIME types.
-     * We need this list as for now we will only replace non-image files.
-     */
+    private CloudflarePurger $cf;
+    private array $replacement_status;
+    private array $cloudflare_purge_status;
+    private array $user_messages;
+
     private const IMAGE_MIME_TYPES = [
         IMAGETYPE_JPEG => [
             'mime' => 'image/jpeg',
@@ -41,18 +42,18 @@ class MediaReplacer
         'cloudflare' => 'cloudflare_purge_notice',
     ];
 
-    private CloudflarePurger $cf;
-
-    private array $replacement_status;
-
-    private array $cloudflare_purge_status;
-
     /**
      * MediaReplacer constructor.
      */
     public function __construct()
     {
+        // If the plugin is not active, abort.
         if (function_exists('is_plugin_active') && !is_plugin_active('wp-stateless/wp-stateless-media.php')) {
+            return;
+        }
+
+        // If the stateless mode is disabled, abort.
+        if (function_exists('get_option') && get_option('sm_mode') === 'disabled') {
             return;
         }
 
@@ -68,11 +69,27 @@ class MediaReplacer
             'error' => [],
         ];
 
+        // phpcs:disable Generic.Files.LineLength.MaxExceeded
+        $this->user_messages = [
+            'replace' => __('Replace Media', 'planet4-master-theme-backend'),
+            'metabox' => __('Use this to replace the current file without changing the file URL.', 'planet4-master-theme-backend'),
+            'attach' => __('Attachment ID is missing.', 'planet4-master-theme-backend'),
+            'file' => __('File is missing.', 'planet4-master-theme-backend'),
+            'media' => __('Media could not be replaced.', 'planet4-master-theme-backend'),
+            'gd' => __('GD library is missing.', 'planet4-master-theme-backend'),
+            'image' => __('Error processing image.', 'planet4-master-theme-backend'),
+            'success' => __('File was succesfully replaced!', 'planet4-master-theme-backend'),
+            'error' => __('There was a problem and the file could not be replaced:', 'planet4-master-theme-backend'),
+            'cf_success' => __('URLs were successfully purged from cache:', 'planet4-master-theme-backend'),
+            'cf_error' => __('There was an error purging these URLs from cache:', 'planet4-master-theme-backend'),
+        ];
+        // phpcs:enable Generic.Files.LineLength.MaxExceeded
+
         add_action('admin_enqueue_scripts', [$this, 'enqueue_media_modal_script']);
         add_filter('attachment_fields_to_edit', [$this, 'add_replace_media_button'], 10, 2);
         add_action('add_meta_boxes', [$this, 'add_replace_media_metabox']);
         add_action('wp_ajax_replace_media', [$this, 'ajax_replace_media']);
-        add_action('admin_notices', [$this, 'display_notices']);
+        add_action('admin_notices', [$this, 'display_admin_notices']);
     }
 
     /**
@@ -96,7 +113,7 @@ class MediaReplacer
     {
         add_meta_box(
             'replace_media_metabox',
-            'Replace Media',
+            $this->user_messages['replace'],
             [$this, 'render_replace_media_metabox'],
             'attachment',
             'side',
@@ -109,17 +126,7 @@ class MediaReplacer
      */
     public function render_replace_media_metabox(WP_Post $post): void
     {
-        // Check if the attachment post is an image
-        // If so, check if the GD extension is loaded
-        if (in_array($post->post_mime_type, array_column(self::IMAGE_MIME_TYPES, 'mime')) && !extension_loaded('gd')) {
-            $message = __('There was a problem. This image cannot be replaced.', 'planet4-master-theme-backend');
-            echo "<p>" . $message . "</p>";
-            return;
-        }
-
-        // phpcs:ignore Generic.Files.LineLength.MaxExceeded
-        $message = __('Use this to replace the current file without changing the file URL.', 'planet4-master-theme-backend');
-        echo "<p>" . $message . "</p>";
+        echo "<p>" . $this->user_messages['metabox'] . "</p>";
         echo $this->get_replace_button_html($post);
     }
 
@@ -136,12 +143,6 @@ class MediaReplacer
         // Check if the current page is an editing page
         // If so, return as a metabox is added to the page
         if (isset($_GET['action']) && $_GET['action'] === 'edit') {
-            return $form_fields;
-        }
-
-        // Check if the attachment post is an image
-        // If so, check if the GD extension is loaded
-        if (in_array($post->post_mime_type, array_column(self::IMAGE_MIME_TYPES, 'mime')) && !extension_loaded('gd')) {
             return $form_fields;
         }
 
@@ -165,7 +166,7 @@ class MediaReplacer
             data-attachment-id="' . esc_attr($post->ID) . '"
             data-mime-type="' . esc_attr($post->post_mime_type) . '"
         >
-            Replace Media
+        ' . $this->user_messages['replace'] . '
         </button>
         <input
             type="file"
@@ -186,18 +187,12 @@ class MediaReplacer
         try {
             // Check if the attachment ID is set
             if (!isset($_POST['attachment_id'])) {
-                $message = __('Attachment ID is missing.', 'planet4-master-theme-backend');
-                array_push($this->replacement_status['error'], $message);
-                wp_send_json_error($message);
-                return;
+                throw new \Exception($this->user_messages['attach']);
             }
 
             // Check if the file is set
             if (empty($_FILES['file'])) {
-                $message = __('File is missing.', 'planet4-master-theme-backend');
-                array_push($this->replacement_status['error'], $message);
-                wp_send_json_error($message);
-                return;
+                throw new \Exception($this->user_messages['file']);
             }
 
             $attachment_id = intval($_POST['attachment_id']);
@@ -207,84 +202,76 @@ class MediaReplacer
             // Determine if the file is an image based on its MIME type
             $image_type = array_search($file_mime_type, array_column(self::IMAGE_MIME_TYPES, 'mime'));
 
-            // If the file is an image, we manually create the thumbnails and replace them in Google Storage.
-            // That's because thumbnails cannot be created using the "wp_generate_attachment_metadata" function
-            // when the WP Stateless plugin is set to store and serve files with Google Cloud Storage only,
-            // and media files are not stored locally.
-            // This happens because the "wp_handle_upload" function uploads the image directly to Google Storage,
-            // and then "wp_generate_attachment_metadata" function is not able to create thumbnails.
             if ($image_type !== false) {
                 $this->replace_images($file, $attachment_id);
             } else {
                 $this->replace_media_file($file, $attachment_id);
             }
         } catch (\Exception $e) {
-            array_push($this->replacement_status['error'], $e->getMessage());
-            wp_send_json_error($e->getMessage());
-            return;
+            $this->error_handler($e->getMessage());
         }
     }
 
     /**
-     * Replaces the media file associated with the old attachment ID
-     * with the new file located at the specified path.
+     * Replaces the non-image media file.
      */
-    private function replace_media_file(array $file, int $old_file_id): bool
+    private function replace_media_file(array $file, int $old_file_id): void
     {
-        $upload_overrides = array('test_form' => false);
+        try {
+            // Upload the file
+            $movefile = wp_handle_upload($file, array('test_form' => false));
 
-        // Upload the file
-        $movefile = wp_handle_upload($file, $upload_overrides);
+            // If the file was not uploaded, abort
+            if (!$movefile) {
+                throw new \Exception($this->user_messages['media']);
+                return;
+            }
 
-        // If the file was not uploaded, abort
-        if (!$movefile) {
-            $message = __('Media could not be uploaded.', 'planet4-master-theme-backend');
-            $error_message = isset($movefile['error']) ? $movefile['error'] : $message;
-            set_transient('media_replacement_error', $error_message, 5);
-            wp_send_json_error($error_message);
-            return false;
+            // Get the old file path
+            $old_file_path = get_attached_file($old_file_id);
+
+            // Check if the old file exists
+            if (file_exists($old_file_path)) {
+                unlink($old_file_path);
+            }
+
+            // Move the new file to the old file's location
+            $file_renamed = rename($movefile['file'], $old_file_path);
+
+            // If the file was not renamed, abort
+            if (!$file_renamed) {
+                throw new \Exception($this->user_messages['media']);
+                return;
+            }
+
+            // Update the attachment metadata with new information
+            $filetype = wp_check_filetype($old_file_path);
+            $attachment_data = array(
+                'ID' => $old_file_id,
+                'post_mime_type' => $filetype['type'],
+                'post_title' => preg_replace('/\.[^.]+$/', '', basename($old_file_path)),
+                'post_content' => '',
+                'post_status' => 'inherit',
+            );
+
+            // Update the database record for the file
+            $post_updated = wp_update_post($attachment_data);
+
+            // If the post was not updated, abort
+            if (is_wp_error($post_updated) || $post_updated === 0) {
+                throw new \Exception($this->user_messages['media']);
+                return;
+            }
+
+            // Update file metadata
+            $attach_data = wp_generate_attachment_metadata($old_file_id, $old_file_path);
+            wp_update_attachment_metadata($old_file_id, $attach_data);
+
+            $this->success_handler($this->user_messages['success'], $old_file_path);
+            return;
+        } catch (\Exception $e) {
+            $this->error_handler($e->getMessage());
         }
-
-        // Get the old file path
-        $old_file_path = get_attached_file($old_file_id);
-
-        // Check if the old file exists
-        if (file_exists($old_file_path)) {
-            unlink($old_file_path);
-        }
-
-        // Move the new file to the old file's location
-        $file_renamed = rename($movefile['file'], $old_file_path);
-
-        // If the file was not renamed, abort
-        if (!$file_renamed) {
-            return false;
-        }
-
-        // Update the attachment metadata with new information
-        $filetype = wp_check_filetype($old_file_path);
-        $attachment_data = array(
-            'ID' => $old_file_id,
-            'post_mime_type' => $filetype['type'],
-            'post_title' => preg_replace('/\.[^.]+$/', '', basename($old_file_path)),
-            'post_content' => '',
-            'post_status' => 'inherit',
-        );
-
-        // Update the database record for the file
-        $post_updated = wp_update_post($attachment_data);
-
-        // If the post was not updated, abort
-        if (is_wp_error($post_updated) || $post_updated === 0) {
-            return false;
-        }
-
-        // Update file metadata
-        // By calling the "wp_update_attachment_metadata" function,
-        // the WP Stateless plugin syncs the file with Google Storage.
-        // https://github.com/udx/wp-stateless/blob/0871da645453240007178f4a5f243ceab6a188ea/lib/classes/class-bootstrap.php#L376
-        $attach_data = wp_generate_attachment_metadata($old_file_id, $old_file_path);
-        wp_update_attachment_metadata($old_file_id, $attach_data);
     }
 
     /**
@@ -292,9 +279,16 @@ class MediaReplacer
      * Thumbnails are manually created using the GD library.
      * Images are uploaded to Google Storage using WP Stateless functions.
      */
-    private function replace_images(array $file, string $id): bool
+    private function replace_images(array $file, string $id): void
     {
         try {
+            // The GD extension is needed for image manipulation.
+            // If it's not loaded, abort.
+            if (!extension_loaded('gd')) {
+                throw new \Exception($this->user_messages['gd']);
+                return;
+            }
+
             $new_image_path = $file['tmp_name'];
             $new_image_info = getimagesize($new_image_path);
             $new_image_width = $new_image_info[0];
@@ -303,34 +297,35 @@ class MediaReplacer
 
             // Validate image type against allowed MIME types
             if (!isset(self::IMAGE_MIME_TYPES[$new_image_type])) {
-                $error_message = __('Media file is not an image.', 'planet4-master-theme-backend');
-                array_push($this->replacement_status['error'], $error_message);
-                wp_send_json_error($error_message);
-                return false;
+                throw new \Exception($this->user_messages['image']);
+                return;
             }
 
             // Load the image dynamically
             $image_data = self::IMAGE_MIME_TYPES[$new_image_type];
             $image = call_user_func($image_data['create'], $new_image_path);
             if (!$image) {
-                $error_message = __('Image could not be loaded.', 'planet4-master-theme-backend');
-                array_push($this->replacement_status['error'], $error_message);
-                wp_send_json_error($error_message);
-                return false;
+                throw new \Exception($this->user_messages['image']);
+                return;
             }
 
+            // Get the image metadata.
             $old_image_meta = get_post_meta($id, 'sm_cloud')[0];
             if (!$old_image_meta) {
-                $error_message = __('Image metadata could not be loaded.', 'planet4-master-theme-backend');
-                array_push($this->replacement_status['error'], $error_message);
-                wp_send_json_error($error_message);
-                return false;
+                throw new \Exception($this->user_messages['image']);
+                return;
             }
 
             $old_image_dirname = pathinfo($old_image_meta['name'], PATHINFO_DIRNAME);
             $old_image_filename = pathinfo($old_image_meta['name'], PATHINFO_FILENAME);
             $image_name = $old_image_dirname . '/' . $old_image_filename;
 
+            if (!function_exists('ud_get_stateless_media')) {
+                throw new \Exception($this->user_messages['image']);
+                return;
+            }
+
+            // Create metadata for uploading the main image.
             $metadata = [
                 'width' => $new_image_width,
                 'height' => $new_image_height,
@@ -340,7 +335,7 @@ class MediaReplacer
                 'source-id' => md5($file . ud_get_stateless_media()->get('sm.bucket')),
             ];
 
-            // Upload the resized variant
+            // Replace the main image.
             $this->upload_file(
                 $image,
                 $image_data,
@@ -350,11 +345,12 @@ class MediaReplacer
                 $metadata
             );
 
-            // Handle each size variant
+            // Handle image thumbnails.
             foreach ($old_image_meta['sizes'] as $size => $old_image_data) {
                 $old_image_width = $old_image_data['width'];
                 $old_image_height = $old_image_data['height'];
 
+                // Create metadata for the thumbnails.
                 $metadata = [
                     'width' => $new_image_width,
                     'height' => $new_image_height,
@@ -363,6 +359,7 @@ class MediaReplacer
                     'child-of' => $id,
                 ];
 
+                // Create thumbnail.
                 $thumb = $this->create_image_thumbnail(
                     $image,
                     $new_image_width,
@@ -371,7 +368,7 @@ class MediaReplacer
                     $old_image_height
                 );
 
-                // Upload the resized variant
+                // Replace thumbnail in Google Cloud Storage.
                 $this->upload_file(
                     $thumb,
                     $image_data,
@@ -384,14 +381,15 @@ class MediaReplacer
                 // Free memory
                 imagedestroy($thumb);
             }
-
+            // Free memory
             imagedestroy($image);
-            set_transient(self::TRANSIENT['file'], json_encode($this->replacement_status, JSON_PRETTY_PRINT), 5);
-            return true;
+
+            // Send JSON success data.
+            wp_send_json_success();
+            return;
         } catch (\Exception $e) {
-            array_push($this->replacement_status['error'], $e->getMessage());
-            wp_send_json_error($e->getMessage());
-            return false;
+            $this->error_handler($e->getMessage());
+            return;
         }
     }
 
@@ -405,43 +403,48 @@ class MediaReplacer
         int $old_image_width,
         int $old_image_height
     ): object {
-        // Determine cropping dimensions
-        $src_aspect = $new_image_width / $new_image_height;
-        $dst_aspect = $old_image_width / $old_image_height;
+        try {
+            // Determine cropping dimensions
+            $src_aspect = $new_image_width / $new_image_height;
+            $dst_aspect = $old_image_width / $old_image_height;
 
-        if ($src_aspect > $dst_aspect) {
-            $src_height = $new_image_height;
-            $src_width = (int) ($new_image_height * $dst_aspect);
-            $src_x = (int) (($new_image_width - $src_width) / 2);
-            $src_y = 0;
-        } else {
-            $src_width = $new_image_width;
-            $src_height = (int) ($new_image_width / $dst_aspect);
-            $src_x = 0;
-            $src_y = (int) (($new_image_height - $src_height) / 2);
+            if ($src_aspect > $dst_aspect) {
+                $src_height = $new_image_height;
+                $src_width = (int) ($new_image_height * $dst_aspect);
+                $src_x = (int) (($new_image_width - $src_width) / 2);
+                $src_y = 0;
+            } else {
+                $src_width = $new_image_width;
+                $src_height = (int) ($new_image_width / $dst_aspect);
+                $src_x = 0;
+                $src_y = (int) (($new_image_height - $src_height) / 2);
+            }
+
+            $thumb = imagecreatetruecolor($old_image_width, $old_image_height);
+            imagecopyresampled(
+                $thumb,
+                $image,
+                0,
+                0,
+                $src_x,
+                $src_y,
+                $old_image_width,
+                $old_image_height,
+                $src_width,
+                $src_height
+            );
+            return $thumb;
+        } catch (\Exception $e) {
+            $this->error_handler($e->getMessage());
         }
-
-        $thumb = imagecreatetruecolor($old_image_width, $old_image_height);
-        imagecopyresampled(
-            $thumb,
-            $image,
-            0,
-            0,
-            $src_x,
-            $src_y,
-            $old_image_width,
-            $old_image_height,
-            $src_width,
-            $src_height
-        );
-        return $thumb;
     }
 
     /**
-     * Uploads an image (either main or thumbnail) to the media client.
+     * Uploads a file to the media client.
      *
-     * This function saves the image to a temporary file, prepares the appropriate upload arguments
-     * (including metadata), and then uploads the image to the media storage.
+     * Saves the image to a temporary file.
+     * Prepares the appropriate upload arguments
+     * Uploads the image to the media storage.
      */
     private function upload_file(
         object $image,
@@ -450,9 +453,9 @@ class MediaReplacer
         string $mime,
         string $file_name,
         array $metadata,
-    ): mixed {
+    ): void {
         try {
-            // Save the image to a temporary location
+            // Save the file to a temporary location
             $temporary_file_path = tempnam(sys_get_temp_dir(), 'thumb_') . '.' . $extension;
             call_user_func($image_data['save'], $image, $temporary_file_path);
 
@@ -467,21 +470,23 @@ class MediaReplacer
                 'metadata' => $metadata,
             ];
 
+            if (!function_exists('ud_get_stateless_media')) {
+                throw new \Exception($this->user_messages['image']);
+                return;
+            }
+
             // Upload the image (main or variant)
             $status = ud_get_stateless_media()->get_client()->add_media($image_args);
 
             if ($status) {
-                array_push($this->replacement_status['success'], $file_name . '.' . $extension);
-                $this->purge_cloudflare('https://www.greenpeace.org/static/');
-                return true;
+                $this->success_handler($this->user_messages['success'], $file_name . '.' . $extension);
+                return;
             }
-
-            array_push($this->replacement_status['error'], $file_name . '.' . $extension);
-            return false;
+            throw new \Exception($this->user_messages['image']);
+            return;
         } catch (\Exception $e) {
-            array_push($this->replacement_status['error'], $e->getMessage());
-            wp_send_json_error($e->getMessage());
-            return false;
+            $this->error_handler($e->getMessage());
+            return;
         }
     }
 
@@ -507,28 +512,62 @@ class MediaReplacer
         } catch (\Exception $e) {
             array_push($this->cloudflare_purge_status['error'], $e->getMessage());
         }
-
-        set_transient(self::TRANSIENT['cloudflare'], json_encode($this->cloudflare_purge_status, JSON_PRETTY_PRINT), 5);
+        $this->transient_handler(self::TRANSIENT['cloudflare'], $this->cloudflare_purge_status);
     }
 
-    public function display_notices(): void
+    /**
+     * Handles errors in replacements.
+     * Sets error messages.
+     */
+    private function error_handler(string $message): void
     {
-        $this->render_notices(
+        array_push($this->replacement_status['error'], $message);
+        $this->transient_handler(self::TRANSIENT['file'], $this->replacement_status);
+        wp_send_json_error($message);
+    }
+
+    /**
+     * Handles successful replacements.
+     * Sets successful messages.
+     * Purges cloudflare cache.
+     */
+    private function success_handler(string $message, string $url): void
+    {
+        array_push($this->replacement_status['success'], $message);
+        $this->transient_handler(self::TRANSIENT['file'], $this->replacement_status);
+        $this->purge_cloudflare($url);
+    }
+
+    /**
+     * Handles transients.
+     */
+    private function transient_handler(string $transient, array $messages): void
+    {
+        $encoded_msg = json_encode($messages, JSON_PRETTY_PRINT);
+        set_transient($transient, $encoded_msg, 5);
+    }
+
+    /**
+     * Displays admin notices.
+     */
+    public function display_admin_notices(): void
+    {
+        $this->render_notice(
             'file',
-            'Successfully replaced:',
-            'Replacement errors:'
+            $this->user_messages['success'],
+            $this->user_messages['error'],
         );
-        $this->render_notices(
+        $this->render_notice(
             'cloudflare',
-            'URLs were successfully purged from cache:',
-            'There was an error purging these URLs from cache:'
+            $this->user_messages['cf_success'],
+            $this->user_messages['cf_error'],
         );
     }
 
     /**
      * Renders admin notices.
      */
-    private function render_notices(string $transient_key, string $success_message, string $error_message): void
+    private function render_notice(string $transient_key, string $success_message, string $error_message): void
     {
         if (!$status = get_transient(self::TRANSIENT[$transient_key])) {
             return;
@@ -538,15 +577,14 @@ class MediaReplacer
 
         if (!empty($status['success'])) {
             printf(
-                "<div class='notice notice-success is-dismissible'><strong>%s</strong><ul><li>%s</li></ul></div>",
+                "<div class='notice notice-success is-dismissible'><p>%s</p></div>",
                 esc_html($success_message),
-                implode("</li><li>", array_map('esc_html', $status['success']))
             );
         }
 
         if (!empty($status['error'])) {
             printf(
-                "<div class='notice notice-error is-dismissible'><strong>%s</strong><ul><li>%s</li></ul></div>",
+                "<div class='notice notice-error is-dismissible'><p>%s</p><li>%s</li></div>",
                 esc_html($error_message),
                 implode("</li><li>", array_map('esc_html', $status['error']))
             );
