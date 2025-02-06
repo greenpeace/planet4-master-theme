@@ -224,7 +224,6 @@ class MediaReplacer
             // If the file was not uploaded, abort
             if (!$movefile) {
                 throw new \Exception($this->user_messages['media']);
-                return;
             }
 
             // Get the old file path
@@ -241,7 +240,6 @@ class MediaReplacer
             // If the file was not renamed, abort
             if (!$file_renamed) {
                 throw new \Exception($this->user_messages['media']);
-                return;
             }
 
             // Update the attachment metadata with new information
@@ -260,7 +258,6 @@ class MediaReplacer
             // If the post was not updated, abort
             if (is_wp_error($post_updated) || $post_updated === 0) {
                 throw new \Exception($this->user_messages['media']);
-                return;
             }
 
             // Update file metadata
@@ -286,7 +283,6 @@ class MediaReplacer
             // If it's not loaded, abort.
             if (!extension_loaded('gd')) {
                 throw new \Exception($this->user_messages['gd']);
-                return;
             }
 
             $new_image_path = $file['tmp_name'];
@@ -298,7 +294,6 @@ class MediaReplacer
             // Validate image type against allowed MIME types
             if (!isset(self::IMAGE_MIME_TYPES[$new_image_type])) {
                 throw new \Exception($this->user_messages['image']);
-                return;
             }
 
             // Load the image dynamically
@@ -306,14 +301,12 @@ class MediaReplacer
             $image = call_user_func($image_data['create'], $new_image_path);
             if (!$image) {
                 throw new \Exception($this->user_messages['image']);
-                return;
             }
 
             // Get the image metadata.
             $old_image_meta = get_post_meta($id, 'sm_cloud')[0];
             if (!$old_image_meta) {
                 throw new \Exception($this->user_messages['image']);
-                return;
             }
 
             $old_image_dirname = pathinfo($old_image_meta['name'], PATHINFO_DIRNAME);
@@ -322,17 +315,16 @@ class MediaReplacer
 
             if (!function_exists('ud_get_stateless_media')) {
                 throw new \Exception($this->user_messages['image']);
-                return;
             }
 
             // Create metadata for uploading the main image.
             $metadata = [
                 'width' => $new_image_width,
                 'height' => $new_image_height,
-                'file-hash' => md5($old_image_filename),
                 'size' => '__full',
                 'object-id' => $id,
-                'source-id' => md5($file . ud_get_stateless_media()->get('sm.bucket')),
+                'source-id' => md5($file . ud_get_stateless_media()->get('sm.bucket')), //NOSONAR
+                'file-hash' => md5($old_image_filename), //NOSONAR
             ];
 
             // Replace the main image.
@@ -354,7 +346,7 @@ class MediaReplacer
                 $metadata = [
                     'width' => $new_image_width,
                     'height' => $new_image_height,
-                    'file-hash' => md5($image_name . '-' . $old_image_width . 'x' . $old_image_height),
+                    'file-hash' => md5($image_name . '-' . $old_image_width . 'x' . $old_image_height),  //NOSONAR
                     'size' => $size,
                     'child-of' => $id,
                 ];
@@ -472,7 +464,6 @@ class MediaReplacer
 
             if (!function_exists('ud_get_stateless_media')) {
                 throw new \Exception($this->user_messages['image']);
-                return;
             }
 
             // Upload the image (main or variant)
@@ -483,7 +474,6 @@ class MediaReplacer
                 return;
             }
             throw new \Exception($this->user_messages['image']);
-            return;
         } catch (\Exception $e) {
             $this->error_handler($e->getMessage());
             return;
