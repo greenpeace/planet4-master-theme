@@ -18,7 +18,10 @@
                     <span class="single-post-meta-bullet" aria-hidden="true">&#8226;</span>
                     <time class="single-post-time" pubdate>{{ post.post_date|date }}</time>
                 </div>
-                {% include "blocks/share_buttons.twig" with {social:post.share_meta} %}
+                {% include "blocks/share_buttons.twig" with {
+                    social:post.share_meta,
+                    share_platforms: post.social_share_platforms,
+                } %}
             </header>
         </div>
 
