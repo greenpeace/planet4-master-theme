@@ -1094,18 +1094,14 @@ class MasterSite extends TimberSite
             . esc_html__('Weight', 'planet4-master-theme-backend')
             . ' (1-' . esc_attr(Search\Search::DEFAULT_MAX_WEIGHT) . ')</label>
                 <input id="weight" type="text" name="weight" value="' . esc_attr($weight) . '" />';
-?><script>
-            $ = jQuery;
-            $('#parent_id').off('change').on('change', function() {
-                // Check selected Parent page and give bigger weight if it will be an Action page
-                if ('<?php echo esc_js($options['act_page'] ?? -1); ?>' === $(this).val()) {
-                    $('#weight').val(<?php echo esc_js(Search\Search::DEFAULT_ACTION_WEIGHT); ?>);
-                } else {
-                    $('#weight').val(<?php echo esc_js(Search\Search::DEFAULT_PAGE_WEIGHT); ?>);
-                }
-            });
-        </script>
-<?php
+
+        $script_data = [
+            'act_page' => $options['act_page'] ?? null,
+            'action_weight' => Search\Search::DEFAULT_ACTION_WEIGHT,
+            'page_weight' => Search\Search::DEFAULT_PAGE_WEIGHT,
+        ];
+
+        do_action('enqueue_metabox_search_script', $script_data);
     }
     // phpcs:enable Generic.WhiteSpace.ScopeIndent
 
@@ -1668,17 +1664,9 @@ class MasterSite extends TimberSite
             return;
         }
 
-        echo '<div id="p4-notice" class="notice notice-info is-dismissible">'
-            . wp_kses_post($message)
-            . '</div>'
-            . "<script>(function() {
-                jQuery('#p4-notice').on('click', '.notice-dismiss', () => {
-                    jQuery.post(ajaxurl, {'action': 'dismiss_dashboard_notice'}, function(response) {
-                        jQuery('#p4-notice').hide();
-                    });
-                });
-            })();</script>
-            ";
+        do_action('enqueue_dismiss_dashboard_notice_script');
+
+        echo '<div id="p4-notice" class="notice notice-info is-dismissible">' . wp_kses_post($message) . '</div>';
     }
 
     /**

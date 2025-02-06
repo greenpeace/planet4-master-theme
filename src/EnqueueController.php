@@ -18,6 +18,11 @@ class EnqueueController
         add_action('enqueue_hubspot_cookie_script', [$this, 'enqueue_hubspot_cookie']);
         add_action('enqueue_share_buttons_script', [$this, 'enqueue_share_buttons']);
         add_action('enqueue_google_tag_manager_script', [$this, 'enqueue_google_tag_manager']);
+        add_action('enqueue_bulk_export_script', [$this, 'enqueue_bulk_export']);
+        add_action('enqueue_media_import_button_script', [$this, 'enqueue_media_import_button']);
+        add_action('enqueue_filter_block_names_script', [$this, 'enqueue_filter_block_names']);
+        add_action('enqueue_metabox_search_script', [$this, 'enqueue_metabox_search']);
+        add_action('enqueue_dismiss_dashboard_notice_script', [$this, 'enqueue_dismiss_dashboard_notice']);
     }
 
     /**
@@ -34,6 +39,21 @@ class EnqueueController
             '/assets/build/toggleCommentSubmit.js',
             [],
             $this->get_file_version('/assets/build/toggleCommentSubmit.js'),
+            true
+        );
+    }
+
+    /**
+     * Enqueues the filter block names script.
+     *
+     */
+    public function enqueue_filter_block_names(): void
+    {
+        $this->enqueue_script(
+            'filter-block-names-script',
+            '/assets/build/filterBlockNames.js',
+            [],
+            $this->get_file_version('/assets/build/filterBlockNames.js'),
             true
         );
     }
@@ -57,6 +77,136 @@ class EnqueueController
     }
 
     /**
+     * Enqueues the bulk export script.
+     *
+     * @param string $text The text to be passed to the script.
+     */
+    public function enqueue_bulk_export(string $text): void
+    {
+        $script = [
+            'id' => 'bulkExportText',
+            'name' => 'bulk-export-script',
+            'path' => '/assets/build/bulkExport.js',
+        ];
+
+        $this->enqueue_script(
+            $script['name'],
+            $script['path'],
+            [],
+            $this->get_file_version($script['path']),
+            true
+        );
+
+        if (!wp_script_is($script['name'], 'enqueued')) {
+            return;
+        }
+
+        $inline_script = 'var ' . $script['id'] . ' = "' . $text . '";';
+
+        wp_add_inline_script($script['name'], $inline_script);
+    }
+
+    /**
+     * Enqueues the dismiss dashboard notice script.
+     *
+     * This method registers and enqueues the JavaScript file used to add
+     * the dismiss button to the dashboard notices.
+     *
+     */
+    public function enqueue_dismiss_dashboard_notice(): void
+    {
+        $script = [
+            'id' => 'dismissDashboardNotice',
+            'name' => 'dismiss-dashboard-notice-script',
+            'path' => '/assets/build/dismissDashboardNotice.js',
+        ];
+
+        $this->enqueue_script(
+            $script['name'],
+            $script['path'],
+            [],
+            $this->get_file_version($script['path']),
+            true
+        );
+
+        if (!wp_script_is($script['name'], 'enqueued')) {
+            return;
+        }
+
+        wp_localize_script($script['name'], $script['id'], array(
+            'ajaxurl' => admin_url('admin-ajax.php'),
+        ));
+    }
+
+    /**
+     * Enqueues the media import button script.
+     *
+     * This method registers and enqueues the JavaScript file used to add
+     * the media import button to the media library.
+     *
+     * @param string $label The label for the media import button.
+     *
+     */
+    public function enqueue_media_import_button(string $label): void
+    {
+        $script = [
+            'id' => 'mediaImportLabel',
+            'name' => 'media-import-button-script',
+            'path' => '/assets/build/mediaImportButton.js',
+        ];
+
+        $this->enqueue_script(
+            $script['name'],
+            $script['path'],
+            [],
+            $this->get_file_version($script['path']),
+            true
+        );
+
+        if (!wp_script_is($script['name'], 'enqueued')) {
+            return;
+        }
+
+        $btn_label = 'var ' . $script['id'] . ' = "' . $label . '";';
+
+        wp_add_inline_script($script['name'], $btn_label);
+    }
+
+    /**
+     * Enqueues the metabox search script.
+     *
+     * This method registers and enqueues the JavaScript file used to manage
+     * the functionality of setting the metabox weight based on the parent page.
+     *
+     * @param array $data The data to be passed to the script.
+     */
+    public function enqueue_metabox_search(array $data): void
+    {
+        $script = [
+            'id' => 'metaboxSearchData',
+            'name' => 'metabox-search-script',
+            'path' => '/assets/build/metaboxSearch.js',
+        ];
+
+        $this->enqueue_script(
+            $script['name'],
+            $script['path'],
+            [],
+            $this->get_file_version($script['path']),
+            true
+        );
+
+        if (!wp_script_is($script['name'], 'enqueued')) {
+            return;
+        }
+
+        wp_localize_script($script['name'], $script['id'], $data);
+    }
+
+    /**
+     * Enqueues the Google Tag Manager script and passes the context data to it.
+     *
+     * @param array $context The context data to be passed to the script.
      * Enqueues the Google Tag Manager script and passes the context data to it.
      *
      */
@@ -114,6 +264,8 @@ class EnqueueController
      *
      * This method registers and enqueues the JavaScript file for handling
      * share buttons on the website.
+     *
+     * @param array $social_data The data to be passed to the script.
      *
      */
     public function enqueue_share_buttons(array $social_data): void

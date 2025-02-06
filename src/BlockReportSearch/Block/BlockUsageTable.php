@@ -102,6 +102,8 @@ class BlockUsageTable extends WP_List_Table
                 'Table requires a WP_Block_Type_Registry instance.'
             );
         }
+
+        do_action('enqueue_filter_block_names_script');
     }
 
     /**
@@ -368,7 +370,7 @@ class BlockUsageTable extends WP_List_Table
         sort($this->blocks_ns);
         $filter = $this->search_params->namespace() ?? null;
 
-        echo '<select name="namespace" id="filter-by-ns" onchange="filterBlockNames();">';
+        echo '<select name="namespace" id="filter-by-ns">';
         echo '<option value="">- All namespaces -</option>';
         foreach ($this->blocks_ns as $ns) {
             echo sprintf(
@@ -400,23 +402,6 @@ class BlockUsageTable extends WP_List_Table
             );
         }
         echo '</select>';
-
-        echo "<script>
-			const filterBlockNames = () => {
-				let selectedNs = document.getElementById('filter-by-ns').selectedOptions[0].value;
-				let select = document.getElementById('filter-by-name');
-				for (let option of select.options) {
-					let display = selectedNs.length <= 0
-						|| option.value.length <= 0
-						|| option.value.startsWith(`\${selectedNs}/`);
-					option.style.display = display ? 'inline' : 'none';
-				}
-				if ( selectedNs.length >= 1 ) {
-					select.value = '';
-				}
-			}
-			filterBlockNames();
-		</script>";
     }
 
     /**

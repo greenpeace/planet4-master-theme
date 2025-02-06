@@ -17,7 +17,7 @@ class Exporter
         add_action('admin_action_export_data', [ $this, 'single_post_export_data' ]);
         add_filter('post_row_actions', [ $this, 'single_post_export' ], 10, 2);
         add_filter('page_row_actions', [ $this, 'single_post_export' ], 10, 2);
-        add_action('admin_footer-edit.php', [ $this, 'single_post_export_bulk' ]);
+        add_action('admin_footer', [ $this, 'single_post_export_bulk' ]);
         add_action('load-edit.php', [ $this, 'single_post_export_bulk_action' ]);
         add_action('admin_head', [ $this, 'add_import_button' ]);
     }
@@ -44,15 +44,8 @@ class Exporter
         if (!current_user_can('edit_posts')) {
             return;
         }
-        ?>
-    <script type="text/javascript">
-        jQuery(function ($) {
-            jQuery('<option>').val('export')
-                .text('<?php esc_html_e('Export', 'planet4-master-theme-backend'); ?>')
-                .appendTo("select[name='action']");
-        });
-    </script>
-        <?php
+        $text = __('Export', 'planet4-master-theme-backend');
+        do_action('enqueue_bulk_export_script', $text);
     }
 
     /**
@@ -107,20 +100,10 @@ class Exporter
 
     /**
      * Add Import Button
-     *
-     * phpcs:disable Generic.Files.LineLength.MaxExceeded
      */
     public function add_import_button(): void
     {
-        ?>
-        <script>
-            jQuery(function(){
-                jQuery(".upload-php .wrap .page-title-action")
-                    .after('<a href="upload.php?page=media-picker" class="add-new-h2"><?php esc_html_e('Import Greenpeace Media', 'planet4-master-theme-backend'); ?></a>');
-            });
-
-        </script>
-        <?php
+        $label = __('Import Greenpeace Media', 'planet4-master-theme-backend');
+        do_action('enqueue_media_import_button_script', $label);
     }
-    // phpcs:enable Generic.Files.LineLength.MaxExceeded
 }
