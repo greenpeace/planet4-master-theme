@@ -128,7 +128,7 @@ export const setupQueryLoopBlockExtension = () => {
               {
                 <PanelBody title={__('Manual override', 'planet4-blocks-backend')} initialOpen={query.postIn.length > 0}>
                   <PostSelector
-                    label={__('CAUTION: Adding articles individually will override the automatic functionality of this block. For good user experience, please include at least three articles so that spacing and alignment of the design remains intact.', 'planet4-blocks-backend')}
+                    label={__('CAUTION: Adding posts individually will override the automatic functionality of this block. For good user experience, please include at least 3 articles in list view, 4 articles in grid view, and 9 articles in carousel view, so that spacing and alignment of the design remains intact.', 'planet4-blocks-backend')}
                     selected={query.postIn || []}
                     onChange={updateQuery}
                     postType={query.postType || 'post'}
