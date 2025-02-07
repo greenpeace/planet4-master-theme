@@ -11,9 +11,7 @@ use WP_Post;
  */
 class MediaReplacer
 {
-    private CloudflarePurger $cf;
     private array $replacement_status;
-    private array $cloudflare_purge_status;
     private array $user_messages;
 
     private const IMAGE_MIME_TYPES = [
@@ -39,7 +37,6 @@ class MediaReplacer
 
     private const TRANSIENT = [
         'file' => 'file_replacement_notice',
-        'cloudflare' => 'cloudflare_purge_notice',
     ];
 
     /**
@@ -57,14 +54,7 @@ class MediaReplacer
             return;
         }
 
-        // $this->cf = new CloudflarePurger();
-
         $this->replacement_status = [
-            'success' => [],
-            'error' => [],
-        ];
-
-        $this->cloudflare_purge_status = [
             'success' => [],
             'error' => [],
         ];
@@ -347,7 +337,7 @@ class MediaReplacer
                 $metadata = [
                     'width' => $new_image_width,
                     'height' => $new_image_height,
-                    'file-hash' => md5($image_name . '-' . $old_image_width . 'x' . $old_image_height),  //NOSONAR
+                    'file-hash' => md5($image_name . '-' . $old_image_width . 'x' . $old_image_height), //NOSONAR
                     'size' => $size,
                     'child-of' => $id,
                 ];
@@ -482,31 +472,6 @@ class MediaReplacer
     }
 
     /**
-     * Purge the Cloudflare cache for a specific URL.
-     */
-    private function purge_cloudflare(string $url): void
-    {
-        try {
-            $generator = $this->cf->purge([$url]);
-            $api_responses = [];
-
-            foreach ($generator as $purge_result) {
-                [$api_response] = $purge_result;
-                $api_responses[] = $api_response;
-            }
-
-            if ($api_responses[0]) {
-                array_push($this->cloudflare_purge_status['success'], $url);
-            } else {
-                array_push($this->cloudflare_purge_status['error'], $url);
-            }
-        } catch (\Exception $e) {
-            array_push($this->cloudflare_purge_status['error'], $e->getMessage());
-        }
-        $this->transient_handler(self::TRANSIENT['cloudflare'], $this->cloudflare_purge_status);
-    }
-
-    /**
      * Handles errors in replacements.
      * Sets error messages.
      */
@@ -520,13 +485,11 @@ class MediaReplacer
     /**
      * Handles successful replacements.
      * Sets successful messages.
-     * Purges cloudflare cache.
      */
-    private function success_handler(string $message, string $url): void
+    private function success_handler(string $message): void
     {
         array_push($this->replacement_status['success'], $message);
         $this->transient_handler(self::TRANSIENT['file'], $this->replacement_status);
-        // $this->purge_cloudflare($url);
     }
 
     /**
@@ -547,11 +510,6 @@ class MediaReplacer
             'file',
             $this->user_messages['success'],
             $this->user_messages['error'],
-        );
-        $this->render_notice(
-            'cloudflare',
-            $this->user_messages['cf_success'],
-            $this->user_messages['cf_error'],
         );
     }
 
