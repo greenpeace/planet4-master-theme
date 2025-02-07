@@ -50,7 +50,7 @@ class MediaReplacer
         }
 
         // If the stateless mode is disabled, abort.
-        if (function_exists('get_option') && get_option('sm_mode') === 'disabled') {
+        if (function_exists('ud_get_stateless_media') && ud_get_stateless_media('sm.mode') === 'disabled') {
             return;
         }
 
