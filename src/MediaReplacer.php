@@ -57,7 +57,7 @@ class MediaReplacer
             return;
         }
 
-        $this->cf = new CloudflarePurger();
+        // $this->cf = new CloudflarePurger();
 
         $this->replacement_status = [
             'success' => [],
@@ -265,6 +265,7 @@ class MediaReplacer
             wp_update_attachment_metadata($old_file_id, $attach_data);
 
             $this->success_handler($this->user_messages['success'], $old_file_path);
+            wp_send_json_success();
             return;
         } catch (\Exception $e) {
             $this->error_handler($e->getMessage());
@@ -525,7 +526,7 @@ class MediaReplacer
     {
         array_push($this->replacement_status['success'], $message);
         $this->transient_handler(self::TRANSIENT['file'], $this->replacement_status);
-        $this->purge_cloudflare($url);
+        // $this->purge_cloudflare($url);
     }
 
     /**

@@ -42,15 +42,21 @@ document.addEventListener('DOMContentLoaded', () => {
         method: 'POST',
         body: formData,
       })
+        .then(response => response.json())
         .then(response => {
-          response.json();
+          if (!response.success) {
+            alert('Error: ' + response.data); // eslint-disable-line no-alert
+            return;
+          }
+
           location.reload(true);
         })
-        .catch(() => {
+        .catch(error => {
           if (replaceMediaButton) {
             replaceMediaButton.disabled = false;
             replaceMediaButton.innerText = 'Replace Media';
           }
+          alert('Error: ' + error); // eslint-disable-line no-alert
         });
     }, {once: true}); // Use the 'once' option to ensure the event is only handled once
   });
