@@ -560,3 +560,86 @@ add_action(
     3
 );
 // phpcs:enable Generic.Files.LineLength.MaxExceeded
+
+
+function testWPQuery() {
+    // use WP_Query;
+    $args = [
+        // 'post_type' => array(' page', 'post'),
+        'post_status'    => 'publish',
+        'post_type' => array('page', 'p4_action'),
+        // 'post_type' => array('p4_action'),
+        'posts_per_page' => 100,
+        'post_parent__in' => [planet4_get_option('take_action_page')],
+        // 'post_parent__in' => [9, planet4_get_option('take_action_page')],
+        'tax_query' => array(
+            'relation' => 'OR',
+            array(
+                'taxonomy' => 'action-type',
+                'field' => 'slug',
+                'terms' => 'petitions',
+            ),
+        ),
+    ];
+
+    // $args = [
+    //     ''
+    // ];
+
+    $query = new WP_Query($args);
+    $query->query($args);
+    // echo $args;
+    // echo "Test";
+    // die();
+    // var_dump($query);
+    // echo $query->request;
+    // var_dump(json_encode($query));
+    // echo $query->request;
+    echo "post_type - ID - post_title - post_parent" . "\n";
+    foreach ($query->posts as $post) {
+        echo $post->post_type . ' ' . $post->ID . ' ' . $post->post_parent . ' ' . $post->post_title . ' ' . "\n";
+    }
+
+    global $wpdb;
+    $result = $wpdb->get_results("(
+        SELECT ID, post_title, post_type, post_parent
+        FROM wp_posts
+        WHERE post_type = 'p4_action'
+    )
+        UNION ALL
+    (
+        SELECT ID, post_title, post_type, post_parent
+        FROM wp_posts
+        WHERE post_type = 'page'
+        AND post_parent = " . planet4_get_option('take_action_page') ."
+    ) ORDER BY ID DESC", OBJECT);
+    // var_dump($result);
+    // echo "post_type - ID - post_title - post_parent" . "\n";
+    // foreach ($result as $post) {
+    //     echo $post->ID . '    ' . $post->post_type . '       ' . $post->post_parent . '    ' . $post->post_title . ' ' . "\n";
+    // }
+
+
+    die();
+}
+add_action('init', 'testWPQuery');
+
+
+// new WP_Query([
+//     'post_status'    => 'publish',
+//     'post_type' => array('page', 'my_taxonomy'),
+//     'post_parent__in' => [$post_parent_id],
+// ]);
+
+
+// ID    post_type  post_parent  post_title
+// -------------------------------------------------------------
+// 1623  p4_action  0            This is another P4 Action
+// 1605  page       1149         Page - Parent of Take Action #2
+// 1596  page       1149         Page - Parent of Take Action #1
+// 1594  p4_action   0           This is a p4_action
+// 1120  p4_action   9           Consectetur adipiscing
+// 855   p4_action   0           Oceans
+// 32    p4_action   9           Vestibulum placerat
+// 30    p4_action   9           Consectetur adipiscing elit
+// 28    p4_action   9           Vestibulum leo libero
