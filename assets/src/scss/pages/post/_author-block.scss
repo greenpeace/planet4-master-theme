@@ -48,9 +48,9 @@
 }
 
 .author-block-info-name {
-  font-family: var(--font-family-paragraph-secondary);
   font-size: var(--font-size-m--font-family-tertiary);
-  font-weight: var(--font-weight-regular);
+  font-weight: var(--font-weight-semibold);
+  color: var(--gp-green-800);
   margin: 16px 0;
   text-align: center;
 }
@@ -78,6 +78,13 @@
   a {
     @include shared-link-styles;
   }
+}
+
+.author-block-info-name a,
+.author-block-info-name a:hover,
+.author-bio,
+.author-block-description-button {
+  font-family: var(--font-family-tertiary);
 }
 
 .author-block-description-button {
