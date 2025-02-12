@@ -44,13 +44,13 @@ wp.domReady(() => {
 
   // Block variations
   registerBlockVariations();
-
-  // Editor behaviour.
-  setupQueryLoopBlockExtension();
-  setupCustomSidebar();
-  addButtonLinkPasteWarning();
-  addBlockFilters();
-  replaceTaxonomyTermSelectors();
-  setupImageBlockExtension();
-  setupBlockEditorValidation();
 });
+
+// Editor behaviour(It should be executed after the DOM is ready).
+setupQueryLoopBlockExtension();
+setupCustomSidebar();
+addButtonLinkPasteWarning();
+addBlockFilters();
+replaceTaxonomyTermSelectors();
+setupImageBlockExtension();
+setupBlockEditorValidation();
