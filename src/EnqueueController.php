@@ -254,6 +254,7 @@ class EnqueueController
             'enforce_cookies_policy' => $context['enforce_cookies_policy'] ?? null,
             'cookies_enable_google_consent_mode' => $context['cookies']->enable_google_consent_mode ?? null,
             'post_password_required' => $context['post']->password_required ?? null,
+            'search_results' => $context['found_posts'] ?? '',
         ];
 
         wp_localize_script($script['name'], $script['id'], $gtm_data);

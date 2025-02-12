@@ -60,6 +60,9 @@ if (googleTagManagerData?.google_tag_value) {
     'post_categories': googleTagManagerData.post_categories,
     'reading_time': googleTagManagerData.reading_time ? `#${googleTagManagerData.reading_time}` : '',
     'page_date': googleTagManagerData.page_date ? `#${googleTagManagerData.page_date}` : '',
+    ...(googleTagManagerData.page_category === 'Search Page' && {
+      'search_results': googleTagManagerData.search_results,
+    }),
   });
 
   if (!googleTagManagerData?.post_password_required) {
