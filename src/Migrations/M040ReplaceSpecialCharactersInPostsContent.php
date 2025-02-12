@@ -4,6 +4,7 @@ namespace P4\MasterTheme\Migrations;
 
 use P4\MasterTheme\MigrationRecord;
 use P4\MasterTheme\MigrationScript;
+use WP_Query;
 
 /**
  * Replace special characters ("u003c", "u003e", "u0022") in the posts content.
@@ -20,37 +21,49 @@ class M040ReplaceSpecialCharactersInPostsContent extends MigrationScript
     {
         echo 'Replacing special characters in posts content...', "\n"; // phpcs:ignore
 
-        $args = [
-            'post_type' => get_post_types(['public' => true], 'names'),
-            'post_status' => 'any',
-            'posts_per_page' => -1,
-        ];
+        $post_types = array_diff(get_post_types(['public' => true], 'names'), ['archive']);
+        $paged = 1;
+        $per_page = 30;
 
-        $results = get_posts($args) ?? [];
+        do {
+            $query = new WP_Query([
+                'post_type' => $post_types,
+                'posts_per_page' => $per_page,
+                'paged' => $paged,
+                'post_status' => 'any',
+                'fields' => 'ids',
+            ]);
 
-        foreach ((array) $results as $post) {
-            if (empty($post->post_content)) {
-                continue;
+            if (!$query->have_posts()) {
+                break;
             }
 
-            $current_post_id = $post->ID;
+            foreach ($query->posts as $post_id) {
+                $content = get_post_field('post_content', $post_id);
 
-            echo 'Parsing post ', $current_post_id, "\n"; // phpcs:ignore
+                if (empty($content)) {
+                    continue;
+                }
 
-            $post_content = $post->post_content;
+                echo 'Parsing post ', $post_id, "\n"; // phpcs:ignore
 
-            // Only replace standalone "u003c", "u003e", "u0022" (not inside quotes or escape sequences)
-            $post_content = preg_replace('/(?<!\\\\)u003c/', '<', $post_content);
-            $post_content = preg_replace('/(?<!\\\\)u003e/', '>', $post_content);
-            $post_content = preg_replace('/(?<!\\\\)u0022/', '"', $post_content);
+                $updated_content = preg_replace('/(?<!\\\\)u003c/', '<', $content);
+                $updated_content = preg_replace('/(?<!\\\\)u003e/', '>', $updated_content);
+                $updated_content = preg_replace('/(?<!\\\\)u0022/', '"', $updated_content);
 
-            $post_args = [
-                'ID' => $current_post_id,
-                'post_content' => $post_content,
-            ];
+                if ($updated_content === $content) {
+                    continue;
+                }
 
-            wp_update_post(wp_slash($post_args));
-        }
+                wp_update_post([
+                    'ID' => $post_id,
+                    'post_content' => wp_slash($updated_content),
+                ]);
+            }
+
+            $paged++;
+            wp_reset_postdata();
+        } while ($query->found_posts > ($paged - 1) * $per_page);
     }
     // phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter
 }
