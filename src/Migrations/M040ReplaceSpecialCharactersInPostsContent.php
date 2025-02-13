@@ -45,8 +45,6 @@ class M040ReplaceSpecialCharactersInPostsContent extends MigrationScript
                     continue;
                 }
 
-                echo 'Parsing post ', $post_id, "\n"; // phpcs:ignore
-
                 $updated_content = preg_replace('/(?<!\\\\)u003c/', '<', $content);
                 $updated_content = preg_replace('/(?<!\\\\)u003e/', '>', $updated_content);
                 $updated_content = preg_replace('/(?<!\\\\)u0022/', '"', $updated_content);
@@ -55,10 +53,16 @@ class M040ReplaceSpecialCharactersInPostsContent extends MigrationScript
                     continue;
                 }
 
-                wp_update_post([
+                $result = wp_update_post([
                     'ID' => $post_id,
                     'post_content' => wp_slash($updated_content),
                 ]);
+
+                if (!is_wp_error($result) && $result > 0) {
+                    echo "Post updated successfully: ID ", $post_id, "\n"; // phpcs:ignore
+                } else {
+                    echo "Failed to update post: ID ", $post_id, "\n"; // phpcs:ignore
+                }
             }
 
             $paged++;
