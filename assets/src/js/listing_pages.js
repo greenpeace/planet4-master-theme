@@ -1,25 +1,34 @@
 const {__} = wp.i18n;
 
 export const setupListingPages = () => {
+  const listingPageContent = document.getElementById('listing-page-content');
+  // If the current page is not a listing page, we do nothing.
+  if (!listingPageContent) {
+    return;
+  }
+
   // Setup behaviour for list/grid toggle.
   const listViewToggle = document.querySelector('.list-view-toggle');
   const gridViewToggle = document.querySelector('.grid-view-toggle');
 
-  const listingPageContent = document.getElementById('listing-page-content');
-
-  if (!listingPageContent || !listViewToggle || !gridViewToggle) {
+  if (!listViewToggle && !gridViewToggle) {
     return;
   }
 
-  const switchViews = () => {
-    listingPageContent.classList.toggle('wp-block-query--list');
-    listingPageContent.classList.toggle('wp-block-query--grid');
-    gridViewToggle.classList.toggle('d-none');
-    listViewToggle.classList.toggle('d-none');
+  listingPageContent.classList.toggle('wp-block-query--list', gridViewToggle);
+  listingPageContent.classList.toggle('wp-block-query--grid', listViewToggle);
+
+  const switchViews = layout => {
+    const newUrl = new URL(window.location.href);
+    newUrl.searchParams.set('layout', layout);
+    window.location.href = newUrl.href;
   };
 
-  listViewToggle.onclick = switchViews;
-  gridViewToggle.onclick = switchViews;
+  if (listViewToggle) {
+    listViewToggle.onclick = () => switchViews('list');
+  } else {
+    gridViewToggle.onclick = () => switchViews('grid');
+  }
 
   // Setup filters for the News & Stories page.
   const filters = document.querySelector('.listing-page-filters');
@@ -30,7 +39,7 @@ export const setupListingPages = () => {
   const AVAILABLE_FILTERS = ['category', 'post-type'];
 
   const updateFilters = () => {
-    const newUrl = new URL(window.location.href.split('/page/')[0]);
+    const newUrl = new URL(window.location.href.replace(/\/page\/\d/, '/'));
 
     AVAILABLE_FILTERS.forEach(filter => {
       const {value} = document.getElementById(filter);

@@ -6,12 +6,15 @@
         {% else %}
             <h2>{{ listing_page_title ?? __( 'All articles', 'planet4-master-theme' ) }}</h2>
         {% endif %}
-        <span class="grid-view-toggle" title="{{__( 'Grid layout', 'planet4-master-theme' ) }}">
-            {{ 'grid-view'|svgicon }}
-        </span>
-        <span class="list-view-toggle d-none" title="{{__( 'List layout', 'planet4-master-theme' ) }}">
-            {{ 'list-view'|svgicon }}
-        </span>
+        {% if layout == 'list' %}
+            <span class="grid-view-toggle" title="{{__( 'Grid layout', 'planet4-master-theme' ) }}">
+                {{ 'grid-view'|svgicon }}
+            </span>
+        {% else %}
+            <span class="list-view-toggle" title="{{__( 'List layout', 'planet4-master-theme' ) }}">
+                {{ 'list-view'|svgicon }}
+            </span>
+        {% endif %}
     </div>
     <div>{{ listing_page_content|raw }}</div>
 </div>
