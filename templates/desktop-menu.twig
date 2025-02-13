@@ -17,8 +17,9 @@
                             data-ga-category="Menu Navigation"
                             data-ga-action="{{ link_ga_action }}"
                             data-ga-label="{{ page_category }}">
-                        {{ item.title }}
+                            {{ item.title }}
                     </a>
+                    <button class="accessible-nav-link" tabindex="0"></button>
 
                     {% if item.children is not empty %}
                         {% include 'navigation-submenu.twig' with { menu: item } %}

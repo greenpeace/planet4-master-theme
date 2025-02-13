@@ -294,6 +294,42 @@ a.nav-link:hover:before,
   }
 }
 
+.accessible-nav-link {
+  opacity: 0;
+  width: 0;
+  height: 0;
+  padding: 0;
+  top: 0;
+  bottom: 0;
+  border: 0;
+  padding: 0;
+  margin: auto;
+  margin-left: 3px;
+  position: absolute;
+  pointer-events: none;
+  background: transparent;
+  background-image: url("../../images/chevron.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center center;
+  transform: rotate(90deg);
+
+  &.rotate {
+    transform: rotate(270deg);
+  }
+}
+
+.nav-item:has(.nav-submenu:focus-within) .accessible-nav-link,
+.accessible-nav-link:focus {
+  opacity: 1;
+  width: 10px;
+  height: 10px;
+  pointer-events: auto;
+  outline: 2px solid #99c3ff;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
 .nav-donate .nav-submenu {
   @include large-and-less {
     right: 68px;
