@@ -113,6 +113,8 @@ class MediaReplacer
 
     /**
      * Adds a button to replace media files in the attachments editor.
+     *
+     * @param WP_Post $post The attachment post object.
      */
     public function render_replace_media_metabox(WP_Post $post): void
     {
@@ -121,7 +123,11 @@ class MediaReplacer
     }
 
     /**
-     * Adds a button to replace media files to the Attachment details modal.
+     * Adds a button to replace media files in the Attachment details modal.
+     *
+     * @param array $form_fields Existing attachment form fields.
+     * @param WP_Post $post The attachment post object.
+     * @return array Modified attachment form fields.
      */
     public function add_replace_media_button(array $form_fields, WP_Post $post): array
     {
@@ -145,7 +151,10 @@ class MediaReplacer
     }
 
     /**
-     * Renders the HTML of the Replace Media button.
+     * Generates the HTML for the Replace Media button.
+     *
+     * @param WP_Post $post The attachment post object.
+     * @return string The HTML for the replace button.
      */
     private function get_replace_button_html(WP_Post $post): string
     {
@@ -204,6 +213,10 @@ class MediaReplacer
 
     /**
      * Replaces the non-image media file.
+     *
+     * @param array $file The uploaded file data.
+     * @param int $old_file_id The ID of the attachment to replace.
+     * @param string $file_mime_type The MIME type of the uploaded file.
      */
     private function replace_media_file(
         array $file,
@@ -243,6 +256,9 @@ class MediaReplacer
      * Replaces images (main image and also all the thumbnails).
      * Thumbnails are manually created using the GD library.
      * Images are uploaded to Google Storage using WP Stateless functions.
+     *
+     * @param array $file The uploaded file data.
+     * @param string $id The attachment ID.
      */
     private function replace_images(array $file, string $id): void
     {
@@ -332,6 +348,17 @@ class MediaReplacer
         }
     }
 
+    /**
+     * Uploads and replaces image thumbnails.
+     *
+     * @param string $id The attachment ID.
+     * @param object $image The GD image resource.
+     * @param int $new_image_width The width of the new image.
+     * @param int $new_image_height The height of the new image.
+     * @param array $old_image_meta Metadata of the old image.
+     * @param string $image_name The name of the image.
+     * @param array $image_data The image properties (MIME type, extension, etc.).
+     */
     private function upload_thumbnails(
         string $id,
         object $image,
@@ -382,7 +409,14 @@ class MediaReplacer
     }
 
     /**
-     * Creates the image thumbnails.
+     * Creates an image thumbnail.
+     *
+     * @param object $image The GD image resource.
+     * @param int $new_image_width The width of the new image.
+     * @param int $new_image_height The height of the new image.
+     * @param int $old_image_width The width of the thumbnail.
+     * @param int $old_image_height The height of the thumbnail.
+     * @return object The generated thumbnail image.
      */
     private function create_image_thumbnail(
         object $image,
@@ -428,11 +462,13 @@ class MediaReplacer
     }
 
     /**
-     * Uploads a file to the media client.
+     * Uploads a file to the media storage.
      *
-     * Saves the image to a temporary file.
-     * Prepares the appropriate upload arguments
-     * Uploads the image to the media storage.
+     * @param string $name The file name.
+     * @param string $absolute_path The absolute path to the file.
+     * @param string $mime The MIME type of the file.
+     * @param array $metadata Metadata for the file upload.
+     * @return bool True if the upload was successful, false otherwise.
      */
     private function upload_file(
         string $name,
@@ -473,6 +509,8 @@ class MediaReplacer
     /**
      * Handles errors in replacements.
      * Sets error messages.
+     *
+     * @param string $message The error message.
      */
     private function error_handler(string $message): void
     {
@@ -485,6 +523,8 @@ class MediaReplacer
     /**
      * Handles successful replacements.
      * Sets successful messages.
+     *
+     * @param string $message The success message.
      */
     private function success_handler(string $message): void
     {
@@ -493,7 +533,10 @@ class MediaReplacer
     }
 
     /**
-     * Handles transients.
+     * Manages transient messages.
+     *
+     * @param string $transient The transient key.
+     * @param array $messages The messages to store.
      */
     private function transient_handler(string $transient, array $messages): void
     {
@@ -514,7 +557,11 @@ class MediaReplacer
     }
 
     /**
-     * Renders admin notices.
+     * Renders an admin notice.
+     *
+     * @param string $transient_key The key for the transient notice.
+     * @param string $success_message The success message.
+     * @param string $error_message The error message.
      */
     private function render_notice(string $transient_key, string $success_message, string $error_message): void
     {
