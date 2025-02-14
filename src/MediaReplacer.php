@@ -242,11 +242,11 @@ class MediaReplacer
                 ]
             );
 
-            if ($status) {
-                wp_send_json_success();
-            } else {
+            if (!$status) {
                 throw new \Exception($this->user_messages['error']);
             }
+
+            wp_send_json_success();
         } catch (\Exception $e) {
             $this->error_handler($e->getMessage());
         }
@@ -336,11 +336,11 @@ class MediaReplacer
             // Free memory
             imagedestroy($image);
 
-            if ($status) {
-                wp_send_json_success();
-            } else {
+            if (!$status) {
                 throw new \Exception($this->user_messages['error']);
             }
+
+            wp_send_json_success();
             return;
         } catch (\Exception $e) {
             $this->error_handler($e->getMessage());
@@ -514,9 +514,10 @@ class MediaReplacer
      */
     private function error_handler(string $message): void
     {
+        //phpcs:ignore Squiz.PHP.DiscouragedFunctions.Discouraged
+        error_log($message);
         array_push($this->replacement_status['error'], $message);
         $this->transient_handler(self::TRANSIENT['file'], $this->replacement_status);
-        error_log($message);
         wp_send_json_error($message);
     }
 
