@@ -47,6 +47,9 @@ class ListingPage
         $this->context['page_category'] = is_home() ? 'News' : 'Listing Page';
         $this->context['og_type'] = isset($this->context['author']) ? 'profile' : 'website';
 
+        // Set layout (grid or list)
+        $this->context['layout'] = $_GET['layout'] ?? 'list';
+
         // Filters (News & Stories page only)
         $this->set_filters();
 
