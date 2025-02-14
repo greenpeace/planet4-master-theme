@@ -45,9 +45,9 @@ class M040ReplaceSpecialCharactersInPostsContent extends MigrationScript
                     continue;
                 }
 
-                $updated_content = preg_replace('/(?<!\\\\)u003c/', '<', $content);
-                $updated_content = preg_replace('/(?<!\\\\)u003e/', '>', $updated_content);
-                $updated_content = preg_replace('/(?<!\\\\)u0022/', '"', $updated_content);
+                $updated_content = preg_replace('/(?<!\\\\)u003c/', '\u003c', $content);
+                $updated_content = preg_replace('/(?<!\\\\)u003e/', '\u003e', $updated_content);
+                $updated_content = preg_replace('/(?<!\\\\)u0022/', '\u0022', $updated_content);
 
                 if ($updated_content === $content) {
                     continue;
