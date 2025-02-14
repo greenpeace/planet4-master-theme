@@ -195,7 +195,7 @@ class MediaReplacer
             if ($image_type !== false) {
                 $this->replace_images($file, $attachment_id);
             } else {
-                $this->replace_media_file($file, $attachment_id);
+                $this->replace_media_file($file, $attachment_id, $file_mime_type);
             }
         } catch (\Exception $e) {
             $this->error_handler($e->getMessage());
@@ -205,30 +205,35 @@ class MediaReplacer
     /**
      * Replaces the non-image media file.
      */
-    private function replace_media_file(array $file, int $old_file_id): void
-    {
+    private function replace_media_file(
+        array $file,
+        int $old_file_id,
+        string $file_mime_type
+    ): void {
         try {
             if (!function_exists('ud_get_stateless_media')) {
-                throw new \Exception($this->user_messages['image']);
+                throw new \Exception($this->user_messages['error']);
             }
 
-            // Create metadata for uploading the main image.
-            $metadata = [
-                'size' => '__full',
-                'object-id' => $old_file_id,
-                'source-id' => md5($file . ud_get_stateless_media()->get('sm.bucket')), //NOSONAR
-                // 'file-hash' => md5($old_image_filename), //NOSONAR
-            ];
+            $filename = get_post_meta($old_file_id)['_wp_attached_file'][0];
 
-            $this->upload_file(
-                get_post_meta($old_file_id)['_wp_attached_file'][0],
+            $status = $this->upload_file(
+                $filename,
                 $file['tmp_name'],
-                'application/pdf',
-                $metadata
+                $file_mime_type,
+                [
+                    'size' => '__full',
+                    'object-id' => $old_file_id,
+                    'source-id' => md5($file . ud_get_stateless_media()->get('sm.bucket')), //NOSONAR
+                    'file-hash' => md5($filename), //NOSONAR
+                ]
             );
 
-            wp_send_json_success();
-            return;
+            if ($status) {
+                wp_send_json_success();
+            } else {
+                throw new \Exception($this->user_messages['error']);
+            }
         } catch (\Exception $e) {
             $this->error_handler($e->getMessage());
         }
@@ -291,64 +296,88 @@ class MediaReplacer
             ];
 
             // Save the file to a temporary location
-            $temporary_file_path = tempnam(sys_get_temp_dir(), 'thumb_') . '.' . $image_data['extension'];
+            $temporary_file_path = tempnam(sys_get_temp_dir(), 'img_') . '.' . $image_data['extension'];
             call_user_func($image_data['save'], $image, $temporary_file_path);
 
             // Replace the main image.
-            $this->upload_file(
+            $status = $this->upload_file(
                 $old_image_filename . '.' . $image_data['extension'],
                 $temporary_file_path,
                 $image_data['mime'],
                 $metadata
             );
 
-            // Handle image thumbnails.
-            foreach ($old_image_meta['sizes'] as $size => $old_image_data) {
-                $old_image_width = $old_image_data['width'];
-                $old_image_height = $old_image_data['height'];
+            $this->upload_thumbnails(
+                $id,
+                $image,
+                $new_image_width,
+                $new_image_height,
+                $old_image_meta,
+                $image_name,
+                $image_data
+            );
 
-                // Create metadata for the thumbnails.
-                $metadata = [
-                    'width' => $new_image_width,
-                    'height' => $new_image_height,
-                    'file-hash' => md5($image_name . '-' . $old_image_width . 'x' . $old_image_height), //NOSONAR
-                    'size' => $size,
-                    'child-of' => $id,
-                ];
-
-                // Create thumbnail.
-                $thumb = $this->create_image_thumbnail(
-                    $image,
-                    $new_image_width,
-                    $new_image_height,
-                    $old_image_width,
-                    $old_image_height
-                );
-
-                // Save the file to a temporary location
-                $temporary_file_path = tempnam(sys_get_temp_dir(), 'thumb_') . '.' . $image_data['extension'];
-                call_user_func($image_data['save'], $thumb, $temporary_file_path);
-
-                // Replace thumbnail in Google Cloud Storage.
-                $this->upload_file(
-                    $image_name . '-' . $old_image_width . 'x' . $old_image_height . '.' . $image_data['extension'],
-                    $temporary_file_path,
-                    $image_data['mime'],
-                    $metadata
-                );
-
-                // Free memory
-                imagedestroy($thumb);
-            }
             // Free memory
             imagedestroy($image);
 
-            // Send JSON success data.
-            wp_send_json_success();
+            if ($status) {
+                wp_send_json_success();
+            } else {
+                throw new \Exception($this->user_messages['error']);
+            }
             return;
         } catch (\Exception $e) {
             $this->error_handler($e->getMessage());
             return;
+        }
+    }
+
+    private function upload_thumbnails(
+        string $id,
+        object $image,
+        int $new_image_width,
+        int $new_image_height,
+        array $old_image_meta,
+        string $image_name,
+        array $image_data
+    ): void {
+        // Handle image thumbnails.
+        foreach ($old_image_meta['sizes'] as $size => $old_image_data) {
+            $old_image_width = $old_image_data['width'];
+            $old_image_height = $old_image_data['height'];
+
+            // Create metadata for the thumbnails.
+            $metadata = [
+                'width' => $new_image_width,
+                'height' => $new_image_height,
+                'file-hash' => md5($image_name . '-' . $old_image_width . 'x' . $old_image_height), //NOSONAR
+                'size' => $size,
+                'child-of' => $id,
+            ];
+
+            // Create thumbnail.
+            $thumb = $this->create_image_thumbnail(
+                $image,
+                $new_image_width,
+                $new_image_height,
+                $old_image_width,
+                $old_image_height
+            );
+
+            // Save the file to a temporary location
+            $temporary_file_path = tempnam(sys_get_temp_dir(), 'thumb_') . '.' . $image_data['extension'];
+            call_user_func($image_data['save'], $thumb, $temporary_file_path);
+
+            // Replace thumbnail in Google Cloud Storage.
+            $this->upload_file(
+                $image_name . '-' . $old_image_width . 'x' . $old_image_height . '.' . $image_data['extension'],
+                $temporary_file_path,
+                $image_data['mime'],
+                $metadata
+            );
+
+            // Free memory
+            imagedestroy($thumb);
         }
     }
 
@@ -410,7 +439,7 @@ class MediaReplacer
         string $absolute_path,
         string $mime,
         array $metadata
-    ): void {
+    ): bool {
         try {
             // Prepare the upload arguments
             $image_args = [
@@ -424,20 +453,20 @@ class MediaReplacer
             ];
 
             if (!function_exists('ud_get_stateless_media')) {
-                throw new \Exception($this->user_messages['image']);
+                throw new \Exception($this->user_messages['error']);
             }
 
-            // Upload the image (main or variant)
+            // Upload the file to Google Cloud Storage.
             $status = ud_get_stateless_media()->get_client()->add_media($image_args);
 
             if ($status) {
                 $this->success_handler($this->user_messages['success'], $name);
-                return;
+                return true;
             }
-            throw new \Exception($this->user_messages['image']);
+            throw new \Exception($this->user_messages['error']);
         } catch (\Exception $e) {
             $this->error_handler($e->getMessage());
-            return;
+            return false;
         }
     }
 
@@ -449,6 +478,7 @@ class MediaReplacer
     {
         array_push($this->replacement_status['error'], $message);
         $this->transient_handler(self::TRANSIENT['file'], $this->replacement_status);
+        error_log($message);
         wp_send_json_error($message);
     }
 
