@@ -147,14 +147,13 @@
 }
 
 .nav-search-clear {
-  background-color: var(--top-navigation--color, var(--grey-900));
   border: none;
   float: right;
   margin-inline-end: 36px;
   width: 24px;
   height: 24px;
   background-color: transparent;
-  background-image: url('../../images/cancel.svg');
+  background-image: url("../../images/cancel.svg");
   background-repeat: no-repeat;
   background-position: center;
 

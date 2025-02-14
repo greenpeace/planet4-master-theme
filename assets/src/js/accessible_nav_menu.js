@@ -112,4 +112,4 @@ class AccessibleNavMenu {
 }
 
 // Initialize the accessible nav menu handler
-new AccessibleNavMenu();
+new AccessibleNavMenu(); //NOSONAR
