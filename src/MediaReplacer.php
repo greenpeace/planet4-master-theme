@@ -208,54 +208,48 @@ class MediaReplacer
     private function replace_media_file(array $file, int $old_file_id): void
     {
         try {
-            // Upload the file
-            $movefile = wp_handle_upload($file, array('test_form' => false));
+            $new_image_path = $file['tmp_name'];
 
-            // If the file was not uploaded, abort
-            if (!$movefile) {
-                throw new \Exception($this->user_messages['media']);
+            if (!function_exists('ud_get_stateless_media')) {
+                throw new \Exception($this->user_messages['image']);
             }
 
-            // Get the old file path
-            $old_file_path = get_attached_file($old_file_id);
+            // Create metadata for uploading the main image.
+            $metadata = [
+                'size' => '__full',
+                'object-id' => $old_file_id,
+                'source-id' => md5($file . ud_get_stateless_media()->get('sm.bucket')), //NOSONAR
+                // 'file-hash' => md5($old_image_filename), //NOSONAR
+            ];
 
-            // Check if the old file exists
-            if (file_exists($old_file_path)) {
-                unlink($old_file_path);
+            // Prepare the upload arguments
+            $image_args = [
+                // 'name' => 'f698fc20-dummy.pdf',
+                'name' => get_post_meta($old_file_id)['_wp_attached_file'][0],
+                'force' => true,
+                'absolutePath' => $new_image_path,
+                'cacheControl' => 'public, max-age=36000, must-revalidate',
+                'contentDisposition' => null,
+                'mimeType' => 'application/pdf',
+                'metadata' => $metadata,
+            ];
+
+            if (!function_exists('ud_get_stateless_media')) {
+                throw new \Exception($this->user_messages['image']);
             }
 
-            // Move the new file to the old file's location
-            $file_renamed = rename($movefile['file'], $old_file_path);
+            // Upload the image (main or variant)
+            $status = ud_get_stateless_media()->get_client()->add_media($image_args);
 
-            // If the file was not renamed, abort
-            if (!$file_renamed) {
-                throw new \Exception($this->user_messages['media']);
+            if ($status) {
+                $this->success_handler($this->user_messages['success'], 'aaaa');
+                wp_send_json_success();
+                return;
             }
 
-            // Update the attachment metadata with new information
-            $filetype = wp_check_filetype($old_file_path);
-            $attachment_data = array(
-                'ID' => $old_file_id,
-                'post_mime_type' => $filetype['type'],
-                'post_title' => preg_replace('/\.[^.]+$/', '', basename($old_file_path)),
-                'post_content' => '',
-                'post_status' => 'inherit',
-            );
-
-            // Update the database record for the file
-            $post_updated = wp_update_post($attachment_data);
-
-            // If the post was not updated, abort
-            if (is_wp_error($post_updated) || $post_updated === 0) {
-                throw new \Exception($this->user_messages['media']);
-            }
-
-            // Update file metadata
-            $attach_data = wp_generate_attachment_metadata($old_file_id, $old_file_path);
-            wp_update_attachment_metadata($old_file_id, $attach_data);
-
-            $this->success_handler($this->user_messages['success'], $old_file_path);
-            wp_send_json_success();
+            // error_log(print_r($file, true));
+            // $this->success_handler($this->user_messages['success'], $old_file_path);
+            // wp_send_json_success();
             return;
         } catch (\Exception $e) {
             $this->error_handler($e->getMessage());
@@ -318,15 +312,26 @@ class MediaReplacer
                 'file-hash' => md5($old_image_filename), //NOSONAR
             ];
 
+            // Save the file to a temporary location
+            $temporary_file_path = tempnam(sys_get_temp_dir(), 'thumb_') . '.' . $image_data['extension'];
+            call_user_func($image_data['save'], $image, $temporary_file_path);
+
             // Replace the main image.
             $this->upload_file(
-                $image,
-                $image_data,
-                $image_data['extension'],
+                $old_image_filename . '.' . $image_data['extension'],
+                $temporary_file_path,
                 $image_data['mime'],
-                $old_image_filename,
                 $metadata
             );
+
+            // $this->upload_file(
+            //     $image,
+            //     $image_data,
+            //     $image_data['extension'],
+            //     $image_data['mime'],
+            //     $old_image_filename,
+            //     $metadata
+            // );
 
             // Handle image thumbnails.
             foreach ($old_image_meta['sizes'] as $size => $old_image_data) {
@@ -351,15 +356,26 @@ class MediaReplacer
                     $old_image_height
                 );
 
+                // Save the file to a temporary location
+                $temporary_file_path = tempnam(sys_get_temp_dir(), 'thumb_') . '.' . $image_data['extension'];
+                call_user_func($image_data['save'], $thumb, $temporary_file_path);
+
                 // Replace thumbnail in Google Cloud Storage.
                 $this->upload_file(
-                    $thumb,
-                    $image_data,
-                    $image_data['extension'],
+                    $image_name . '-' . $old_image_width . 'x' . $old_image_height . '.' . $image_data['extension'],
+                    $temporary_file_path,
                     $image_data['mime'],
-                    $image_name . '-' . $old_image_width . 'x' . $old_image_height,
                     $metadata
                 );
+
+                // $this->upload_file(
+                //     $thumb,
+                //     $image_data,
+                //     $image_data['extension'],
+                //     $image_data['mime'],
+                //     $image_name . '-' . $old_image_width . 'x' . $old_image_height,
+                //     $metadata
+                // );
 
                 // Free memory
                 imagedestroy($thumb);
@@ -430,27 +446,21 @@ class MediaReplacer
      * Uploads the image to the media storage.
      */
     private function upload_file(
-        object $image,
-        array $image_data,
-        string $extension,
+        string $name,
+        string $absolute_path,
         string $mime,
-        string $file_name,
-        array $metadata,
+        array $metadata
     ): void {
         try {
-            // Save the file to a temporary location
-            $temporary_file_path = tempnam(sys_get_temp_dir(), 'thumb_') . '.' . $extension;
-            call_user_func($image_data['save'], $image, $temporary_file_path);
-
             // Prepare the upload arguments
             $image_args = [
-                'name' => $file_name . '.' . $extension,
-                'force' => true,
-                'absolutePath' => $temporary_file_path,
-                'cacheControl' => 'public, max-age=36000, must-revalidate',
-                'contentDisposition' => null,
+                'name' => $name,
+                'absolutePath' => $absolute_path,
                 'mimeType' => $mime,
                 'metadata' => $metadata,
+                'cacheControl' => 'public, max-age=36000, must-revalidate',
+                'contentDisposition' => null,
+                'force' => true,
             ];
 
             if (!function_exists('ud_get_stateless_media')) {
@@ -461,7 +471,7 @@ class MediaReplacer
             $status = ud_get_stateless_media()->get_client()->add_media($image_args);
 
             if ($status) {
-                $this->success_handler($this->user_messages['success'], $file_name . '.' . $extension);
+                $this->success_handler($this->user_messages['success'], $name);
                 return;
             }
             throw new \Exception($this->user_messages['image']);
@@ -470,6 +480,48 @@ class MediaReplacer
             return;
         }
     }
+
+    // private function upload_file(
+    //     object $image,
+    //     array $image_data,
+    //     string $extension,
+    //     string $mime,
+    //     string $file_name,
+    //     array $metadata,
+    // ): void {
+    //     try {
+    //         // Save the file to a temporary location
+    //         $temporary_file_path = tempnam(sys_get_temp_dir(), 'thumb_') . '.' . $extension;
+    //         call_user_func($image_data['save'], $image, $temporary_file_path);
+
+    //         // Prepare the upload arguments
+    //         $image_args = [
+    //             'name' => $file_name . '.' . $extension,
+    //             'force' => true,
+    //             'absolutePath' => $temporary_file_path,
+    //             'cacheControl' => 'public, max-age=36000, must-revalidate',
+    //             'contentDisposition' => null,
+    //             'mimeType' => $mime,
+    //             'metadata' => $metadata,
+    //         ];
+
+    //         if (!function_exists('ud_get_stateless_media')) {
+    //             throw new \Exception($this->user_messages['image']);
+    //         }
+
+    //         // Upload the image (main or variant)
+    //         $status = ud_get_stateless_media()->get_client()->add_media($image_args);
+
+    //         if ($status) {
+    //             $this->success_handler($this->user_messages['success'], $file_name . '.' . $extension);
+    //             return;
+    //         }
+    //         throw new \Exception($this->user_messages['image']);
+    //     } catch (\Exception $e) {
+    //         $this->error_handler($e->getMessage());
+    //         return;
+    //     }
+    // }
 
     /**
      * Handles errors in replacements.
