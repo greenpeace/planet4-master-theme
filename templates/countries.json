@@ -469,6 +469,17 @@
           "locale": ["pl-PL"]
         }
       ]
+    },
+    {
+      "name": "Portugal",
+      "codes": ["PT"],
+      "lang": [
+        {
+          "name": "Portugal",
+          "url": "https://www.greenpeace.pt/",
+          "locale": ["pt-PT"]
+        }
+      ]
     }
   ],
   "R": [
