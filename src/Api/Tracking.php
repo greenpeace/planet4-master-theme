@@ -92,7 +92,7 @@ class Tracking
             OBJECT
         );
 
-        $data = array();
+        $data = [];
 
         foreach ($query as $row) {
             $unserialized = maybe_unserialize($row->meta_value);
