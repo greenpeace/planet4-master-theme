@@ -101,6 +101,7 @@ add_action(
         Api\Search::register_endpoint();
         Api\Settings::register_endpoint();
         Api\AnalyticsValues::register_endpoint();
+        Api\Tracking::register_endpoint();
     }
 );
 
