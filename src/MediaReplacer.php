@@ -9,7 +9,8 @@ use WP_Post;
  *
  * This class is used to replace media elements in WordPress.
  */
-class MediaReplacer {
+class MediaReplacer
+{
     private array $replacement_status;
     private array $user_messages;
 
