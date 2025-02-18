@@ -277,7 +277,6 @@ a.nav-link:hover:before,
   padding: 0;
   top: 0;
   bottom: 0;
-  right: -15px;
   margin: auto;
 
   &.rotate {
@@ -295,7 +294,7 @@ a.nav-link:hover:before,
 
   .accessible-nav-link {
     @include dropdown-icon;
-    right: 15px;
+    right: $sp-2;
   }
 }
 
@@ -327,6 +326,7 @@ a.nav-link:hover:before,
 .nav-item {
   .accessible-nav-link {
     @include dropdown-icon;
+    right: -$sp-2;
     opacity: 0;
     width: 0;
     height: 0;
