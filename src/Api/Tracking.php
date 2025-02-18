@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace P4\MasterTheme\Api;
 
 use WP_REST_Server;
+use WP_REST_Request;
 
 /**
  * Instance Tracking API
@@ -16,6 +17,9 @@ class Tracking
      *
      * @example GET /wp-json/planet4/v1/tracking/
      */
+
+    public static int $last_days_default = 30;
+
     public static function register_endpoint(): void
     {
         register_rest_route(
@@ -23,14 +27,20 @@ class Tracking
             'tracking',
             [
                 'methods' => WP_REST_Server::READABLE,
-                'callback' => function ($request) {
+                'callback' => function (WP_REST_Request $request) {
                     $params = $request->get_params();
+
+                    if (empty(filter_input(INPUT_GET, 'last_days', FILTER_SANITIZE_NUMBER_INT))) {
+                        $params['last_days'] = self::$last_days_default;
+                    }
+
+                    $params['full'] = filter_var($params['full'], FILTER_VALIDATE_BOOLEAN);
 
                     return [
                         'logins' => self::get_logins($params),
                     ];
                 },
-                'permission_callback' => function ($request) {
+                'permission_callback' => function (WP_REST_Request $request) {
                     if (current_user_can('manage_options')) {
                         return true;
                     }
@@ -39,20 +49,21 @@ class Tracking
                         return false;
                     }
 
-                    $token = $request->get_header('X-Auth-Token');
+                    $token = trim($request->get_header('X-Auth-Token') ?? '');
+
                     return !empty($token) && $token === PLANET4_API_KEY;
                 },
                 'args' => array(
                     'last_days' => array(
                         'required' => false,
-                        'default' => 30,
+                        'default' => self::$last_days_default,
                     ),
                     'full' => array(
                         'required' => false,
                         'default' => false,
                     ),
                 ),
-            ]
+            ],
         );
     }
 
@@ -71,10 +82,13 @@ class Tracking
         $now = time();
 
         $query = $wpdb->get_results(
-            "select * from wp_usermeta as m
-            inner join wp_users as u
-            on m.user_id = u.ID
-            and m.meta_key='session_tokens'",
+            $wpdb->prepare(
+                "SELECT u.display_name, m.meta_value
+                FROM {$wpdb->usermeta} AS m
+                INNER JOIN {$wpdb->users} AS u ON m.user_id = u.ID
+                WHERE m.meta_key = %s",
+                'session_tokens'
+            ),
             OBJECT
         );
 
