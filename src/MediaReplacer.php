@@ -343,10 +343,8 @@ class MediaReplacer
             }
 
             wp_send_json_success();
-            return;
         } catch (\LogicException $e) {
             $this->error_handler($e->getMessage());
-            return;
         }
     }
 
