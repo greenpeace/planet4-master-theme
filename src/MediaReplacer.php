@@ -185,12 +185,12 @@ class MediaReplacer {
         try {
             // Check if the attachment ID is set
             if (!isset($_POST['attachment_id'])) {
-                throw new \Exception($this->user_messages['attach']);
+                throw new \LogicException($this->user_messages['attach']);
             }
 
             // Check if the file is set
             if (empty($_FILES['file'])) {
-                throw new \Exception($this->user_messages['file']);
+                throw new \LogicException($this->user_messages['file']);
             }
 
             $attachment_id = intval($_POST['attachment_id']);
@@ -205,7 +205,7 @@ class MediaReplacer {
             } else {
                 $this->replace_media_file($file, $attachment_id, $file_mime_type);
             }
-        } catch (\Exception $e) {
+        } catch (\LogicException $e) {
             $this->error_handler($e->getMessage());
         }
     }
@@ -224,7 +224,7 @@ class MediaReplacer {
     ): void {
         try {
             if (!function_exists('ud_get_stateless_media')) {
-                throw new \Exception($this->user_messages['error']);
+                throw new \LogicException($this->user_messages['error']);
             }
 
             $filename = get_post_meta($old_file_id)['_wp_attached_file'][0];
@@ -242,11 +242,11 @@ class MediaReplacer {
             );
 
             if (!$status) {
-                throw new \Exception($this->user_messages['error']);
+                throw new \LogicException($this->user_messages['error']);
             }
 
             wp_send_json_success();
-        } catch (\Exception $e) {
+        } catch (\LogicException $e) {
             $this->error_handler($e->getMessage());
         }
     }
@@ -265,7 +265,7 @@ class MediaReplacer {
             // The GD extension is needed for image manipulation.
             // If it's not loaded, abort.
             if (!extension_loaded('gd')) {
-                throw new \Exception($this->user_messages['gd']);
+                throw new \LogicException($this->user_messages['gd']);
             }
 
             $new_image_path = $file['tmp_name'];
@@ -276,20 +276,20 @@ class MediaReplacer {
 
             // Validate image type against allowed MIME types
             if (!isset(self::IMAGE_MIME_TYPES[$new_image_type])) {
-                throw new \Exception($this->user_messages['image']);
+                throw new \LogicException($this->user_messages['image']);
             }
 
             // Load the image dynamically
             $image_data = self::IMAGE_MIME_TYPES[$new_image_type];
             $image = call_user_func($image_data['create'], $new_image_path);
             if (!$image) {
-                throw new \Exception($this->user_messages['image']);
+                throw new \LogicException($this->user_messages['image']);
             }
 
             // Get the image metadata.
             $old_image_meta = get_post_meta($id, 'sm_cloud')[0];
             if (!$old_image_meta) {
-                throw new \Exception($this->user_messages['image']);
+                throw new \LogicException($this->user_messages['image']);
             }
 
             $old_image_dirname = pathinfo($old_image_meta['name'], PATHINFO_DIRNAME);
@@ -297,7 +297,7 @@ class MediaReplacer {
             $image_name = $old_image_dirname . '/' . $old_image_filename;
 
             if (!function_exists('ud_get_stateless_media')) {
-                throw new \Exception($this->user_messages['image']);
+                throw new \LogicException($this->user_messages['image']);
             }
 
             // Create metadata for uploading the main image.
@@ -336,12 +336,12 @@ class MediaReplacer {
             imagedestroy($image);
 
             if (!$status) {
-                throw new \Exception($this->user_messages['error']);
+                throw new \LogicException($this->user_messages['error']);
             }
 
             wp_send_json_success();
             return;
-        } catch (\Exception $e) {
+        } catch (\LogicException $e) {
             $this->error_handler($e->getMessage());
             return;
         }
@@ -455,7 +455,7 @@ class MediaReplacer {
                 $src_height
             );
             return $thumb;
-        } catch (\Exception $e) {
+        } catch (\LogicException $e) {
             $this->error_handler($e->getMessage());
         }
     }
@@ -488,7 +488,7 @@ class MediaReplacer {
             ];
 
             if (!function_exists('ud_get_stateless_media')) {
-                throw new \Exception($this->user_messages['error']);
+                throw new \LogicException($this->user_messages['error']);
             }
 
             // Upload the file to Google Cloud Storage.
@@ -498,8 +498,8 @@ class MediaReplacer {
                 $this->success_handler($this->user_messages['success'], $name);
                 return true;
             }
-            throw new \Exception($this->user_messages['error']);
-        } catch (\Exception $e) {
+            throw new \LogicException($this->user_messages['error']);
+        } catch (\LogicException $e) {
             $this->error_handler($e->getMessage());
             return false;
         }
