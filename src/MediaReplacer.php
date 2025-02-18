@@ -293,6 +293,7 @@ class MediaReplacer
                 throw new \LogicException($this->user_messages['image']);
             }
 
+            $old_image_extension = pathinfo($old_image_meta['name'], PATHINFO_EXTENSION);
             $old_image_dirname = pathinfo($old_image_meta['name'], PATHINFO_DIRNAME);
             $old_image_filename = pathinfo($old_image_meta['name'], PATHINFO_FILENAME);
             $image_name = $old_image_dirname . '/' . $old_image_filename;
@@ -312,12 +313,12 @@ class MediaReplacer
             ];
 
             // Save the file to a temporary location
-            $temporary_file_path = tempnam(sys_get_temp_dir(), 'img_') . '.' . $image_data['extension'];
+            $temporary_file_path = tempnam(sys_get_temp_dir(), 'img_') . '.' . $old_image_extension;
             call_user_func($image_data['save'], $image, $temporary_file_path);
 
             // Replace the main image.
             $status = $this->upload_file(
-                $old_image_filename . '.' . $image_data['extension'],
+                $old_image_filename . '.' . $old_image_extension,
                 $temporary_file_path,
                 $image_data['mime'],
                 $metadata
@@ -330,7 +331,8 @@ class MediaReplacer
                 $new_image_height,
                 $old_image_meta,
                 $image_name,
-                $image_data
+                $image_data,
+                $old_image_extension
             );
 
             // Free memory
@@ -358,6 +360,7 @@ class MediaReplacer
      * @param array $old_image_meta Metadata of the old image.
      * @param string $image_name The name of the image.
      * @param array $image_data The image properties (MIME type, extension, etc.).
+     * @param string $old_image_extension The original image file extension.
      */
     private function upload_thumbnails(
         string $id,
@@ -366,7 +369,8 @@ class MediaReplacer
         int $new_image_height,
         array $old_image_meta,
         string $image_name,
-        array $image_data
+        array $image_data,
+        string $old_image_extension
     ): void {
         // Handle image thumbnails.
         foreach ($old_image_meta['sizes'] as $size => $old_image_data) {
@@ -392,12 +396,12 @@ class MediaReplacer
             );
 
             // Save the file to a temporary location
-            $temporary_file_path = tempnam(sys_get_temp_dir(), 'thumb_') . '.' . $image_data['extension'];
+            $temporary_file_path = tempnam(sys_get_temp_dir(), 'thumb_') . '.' . $old_image_extension;
             call_user_func($image_data['save'], $thumb, $temporary_file_path);
 
             // Replace thumbnail in Google Cloud Storage.
             $this->upload_file(
-                $image_name . '-' . $old_image_width . 'x' . $old_image_height . '.' . $image_data['extension'],
+                $image_name . '-' . $old_image_width . 'x' . $old_image_height . '.' . $old_image_extension,
                 $temporary_file_path,
                 $image_data['mime'],
                 $metadata
