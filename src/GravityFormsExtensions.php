@@ -840,7 +840,7 @@ class GravityFormsExtensions
 
 
             $script = '<script type="text/javascript">
-                if (window["google_tag_value"]) {
+                if (typeof googleTagManagerData !== "undefined" && googleTagManagerData?.google_tag_value) {
                     window.dataLayer = window.dataLayer || [];
 
                     let push_data = {
