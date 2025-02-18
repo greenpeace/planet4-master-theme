@@ -262,11 +262,40 @@ a.nav-link:hover:before,
   }
 }
 
+@mixin dropdown-icon {
+  width: 10px;
+  height: 10px;
+  pointer-events: none;
+  position: absolute;;
+  background: transparent;
+  background-image: url("../../images/chevron.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center center;
+  transform: rotate(90deg);
+  border: 0;
+  padding: 0;
+  top: 0;
+  bottom: 0;
+  right: -15px;
+  margin: auto;
+
+  &.rotate {
+    transform: rotate(270deg);
+  }
+}
+
 .nav-donate {
   padding: $sp-2 0;
+  position: relative;
 
   @include large-and-up {
     padding: 0;
+  }
+
+  .accessible-nav-link {
+    @include dropdown-icon;
+    right: 15px;
   }
 }
 
@@ -281,6 +310,7 @@ a.nav-link:hover:before,
     font-weight: var(--font-weight-regular);
   }
   color: inherit;
+  position: relative;
 
   @include large-and-up {
     line-height: var(--navbar-menu-height);
@@ -294,27 +324,12 @@ a.nav-link:hover:before,
   }
 }
 
-.accessible-nav-link {
-  opacity: 0;
-  width: 0;
-  height: 0;
-  top: 0;
-  bottom: 0;
-  border: 0;
-  padding: 0;
-  margin: auto;
-  margin-left: 3px;
-  position: absolute;
-  pointer-events: none;
-  background: transparent;
-  background-image: url("../../images/chevron.svg");
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center center;
-  transform: rotate(90deg);
-
-  &.rotate {
-    transform: rotate(270deg);
+.nav-item {
+  .accessible-nav-link {
+    @include dropdown-icon;
+    opacity: 0;
+    width: 0;
+    height: 0;
   }
 }
 
