@@ -4,19 +4,19 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gravity Forms 2.6.9\n"
 "Report-Msgid-Bugs-To: https://gravityforms.com/support\n"
-"Last-Translator: Matjaz Dovecar\n"
+"Last-Translator: Ines Kavgic\n"
 "Language-Team: Slovenian\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2023-01-11T19:56:21+00:00\n"
-"PO-Revision-Date: 2023-03-15 17:46+0000\n"
+"PO-Revision-Date: 2025-02-19 09:07+0000\n"
 "X-Generator: Loco https://localise.biz/\n"
 "X-Domain: gravityforms\n"
 "Language: sl_SI\n"
 "Plural-Forms: nplurals=4; plural=n%100==1 ? 0 : n%100==2 ? 1 : "
 "n%100==3||n%100==4 ? 2 : 3;\n"
-"X-Loco-Version: 2.6.4; wp-6.1.1"
+"X-Loco-Version: 2.7.1; wp-6.7.2"
 
 #: entry_detail.php:820
 msgid " Bulk action"
@@ -7709,7 +7709,7 @@ msgstr ""
 
 #: form_display.php:4475
 msgid "Please review the fields below."
-msgstr ""
+msgstr "Prosimo, preverite spodnja polja."
 
 #: gravityforms.php:2182
 msgid "Please select a form"
@@ -10808,7 +10808,7 @@ msgstr ""
 
 #: form_display.php:4475
 msgid "There was a problem with your submission."
-msgstr ""
+msgstr "Prišlo je do težave z vašo oddajo."
 
 #: includes/system-status/class-gf-system-report.php:877
 msgid ""
