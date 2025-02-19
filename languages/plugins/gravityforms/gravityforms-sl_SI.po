@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2023-01-11T19:56:21+00:00\n"
-"PO-Revision-Date: 2025-02-19 09:07+0000\n"
+"PO-Revision-Date: 2025-02-19 13:00+0000\n"
 "X-Generator: Loco https://localise.biz/\n"
 "X-Domain: gravityforms\n"
 "Language: sl_SI\n"
@@ -7555,7 +7555,7 @@ msgstr ""
 #. Translators: comma-separated list of the labels of missing fields.
 #: includes/fields/class-gf-field.php:802
 msgid "Please complete the following fields: %s."
-msgstr ""
+msgstr "Prosimo, izpolnite naslednja polja: %s."
 
 #: settings.php:1046
 msgid "Please complete the reCAPTCHA widget to validate your reCAPTCHA keys:"
