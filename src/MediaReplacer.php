@@ -543,6 +543,16 @@ class MediaReplacer
                 \Sentry\captureException(print_r($purgedUrls, true));
             }
         }
+        $this->cf->purge([$stateless_url]);
+
+        // foreach ($aa as [$response, $purgedUrls]) {
+        //     error_log ("Purged URLs:");
+        //     error_log(print_r($purgedUrls, true));
+        //     // print_r($purgedUrls);
+        //     // echo "Response:\n";
+        //     error_log('aaaa $response');
+        //     error_log(print_r($response, true));
+        // }
 
         array_push($this->replacement_status['success'], $message);
         $this->transient_handler(self::TRANSIENT['file'], $this->replacement_status);
