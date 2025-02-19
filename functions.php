@@ -559,4 +559,18 @@ add_action(
     10,
     3
 );
+
+// Update Core Post Author block with P4 custom block
+// P4 custom block has author override value
+add_filter(
+    'render_block',
+    function ($block_content, $block): string {
+        if ($block['blockName'] === 'core/post-author-name') {
+            return render_block(['blockName' => 'p4/post-author-name']);
+        }
+        return $block_content;
+    },
+    10,
+    2
+);
 // phpcs:enable Generic.Files.LineLength.MaxExceeded
