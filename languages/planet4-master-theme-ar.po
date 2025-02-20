@@ -4,7 +4,7 @@ msgstr ""
 "&& n%100<=10 ? 3 : n%100 >= 11 && n%100<=99 ? 4 : 5;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2025-02-20 14:31+0000\n"
+"PO-Revision-Date: 2025-02-20 14:32+0000\n"
 "Language-Team: Arabic\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -254,7 +254,7 @@ msgstr "اسم"
 
 #: src/MasterSite.php:86 src/Search.php:704
 msgid "Newest"
-msgstr ""
+msgstr "الأحدث"
 
 #: src/MasterSite.php:90 src/Search.php:708
 msgid "Oldest"
@@ -420,7 +420,7 @@ msgstr ""
 
 #: assets/src/js/country_select.js:30
 msgid "Worldwide site list"
-msgstr ""
+msgstr "قائمة المواقع العالمية"
 
 #: templates/comment_form/comment_field.twig:3
 msgid "Your Comment"
