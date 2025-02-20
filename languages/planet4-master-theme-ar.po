@@ -4,7 +4,7 @@ msgstr ""
 "&& n%100<=10 ? 3 : n%100 >= 11 && n%100<=99 ? 4 : 5;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2025-02-20 14:44+0000\n"
+"PO-Revision-Date: 2025-02-20 14:45+0000\n"
 "Language-Team: Arabic\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -257,7 +257,7 @@ msgstr "الموقع الدولي (باللغة الإنجليزية)"
 
 #: templates/single-password.twig:18 templates/single-page.twig:15
 msgid "Invalid password, please try again"
-msgstr ""
+msgstr "كلمة المرور غير صالحة، يرجى المحاولة مرة أخرى"
 
 #: single.php:115
 msgid "Leave your reply"
@@ -274,7 +274,7 @@ msgstr "إدارة"
 
 #: templates/cookies/cookies_settings.twig:11
 msgid "Manage your cookies preferences"
-msgstr ""
+msgstr "إدارة تفضيلات ملفات تعريف الارتباط الخاصة بك"
 
 #. Description of the theme
 msgid "Master theme for the Planet 4 Wordpress project"
@@ -311,7 +311,7 @@ msgstr "صفحة"
 
 #: templates/cookies/cookies_settings.twig:12
 msgid "Please select which cookies you are willing to store."
-msgstr ""
+msgstr "يرجى تحديد ملفات تعريف الارتباط التي ترغب في تخزينها."
 
 #: src/Post.php:367
 msgid "POST"
