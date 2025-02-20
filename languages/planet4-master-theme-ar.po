@@ -110,7 +110,7 @@ msgstr "جميع المقالات بواسطة"
 
 #: templates/cookies/cookies_settings.twig:55
 msgid "Allow all"
-msgstr ""
+msgstr "السماح للجميع"
 
 #: templates/cookies/cookies_settings.twig:16
 msgid "Always enabled"
