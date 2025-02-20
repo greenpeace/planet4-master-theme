@@ -4,7 +4,7 @@ msgstr ""
 "&& n%100<=10 ? 3 : n%100 >= 11 && n%100<=99 ? 4 : 5;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2025-02-20 14:24+0000\n"
+"PO-Revision-Date: 2025-02-20 14:26+0000\n"
 "Language-Team: Arabic\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -92,7 +92,7 @@ msgstr "أرشيف"
 
 #: src/PostArchive.php:77
 msgid "Archive URL"
-msgstr ""
+msgstr "عنوان الأرشيف"
 
 #: page-templates/sitemap.php:26
 msgid "Articles"
