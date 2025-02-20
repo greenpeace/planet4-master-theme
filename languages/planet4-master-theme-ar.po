@@ -4,7 +4,7 @@ msgstr ""
 "&& n%100<=10 ? 3 : n%100 >= 11 && n%100<=99 ? 4 : 5;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2025-02-20 14:32+0000\n"
+"PO-Revision-Date: 2025-02-20 14:37+0000\n"
 "Language-Team: Arabic\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -25,20 +25,29 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
 #. %1$d = Number of results.
-#: src/Search.php:716
+#: src/Search.php:770
 #, php-format
 msgid "%1$d result for '%2$s'"
 msgid_plural "%1$d results for '%2$s'"
-msgstr[0] "هي نتيجة"
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
-msgstr[5] ""
+msgstr[0] ""
+"%1$d نتيجة ل '%2$s'\n"
+msgstr[1] "%1$d نتيجة ل '%2$s'"
+msgstr[2] "%1$d نتائج ل '%2$s'"
+msgstr[3] "%1$d نتائج ل '%2$s'"
+msgstr[4] "%1$d نتائج ل '%2$s'"
+msgstr[5] "%1$d نتائج ل '%2$s'"
+
+#. reading time in min.
+#. %d = Number of minutes for reading time.
+#: src/Post.php:613 src/Post/ReadingTimeCalculator.php:135
+#: templates/tease-taxonomy-action.twig:53
+#: templates/tease-taxonomy-post.twig:63 templates/tease-author.twig:54
+#: templates/single.twig:69
+msgid "%d min read"
+msgstr "قراءة %d دقيقة"
 
 #. %d = Number of results.
-#: src/Search.php:722
-#, php-format
+#: src/Search.php:782
 msgid "%d result"
 msgid_plural "%d results"
 msgstr[0] "٪ د النتيجة"
@@ -48,78 +57,96 @@ msgstr[3] ""
 msgstr[4] ""
 msgstr[5] ""
 
-#: assets/src/js/country_select.js:47
-msgid "."
-msgstr "."
-
-#: 404.php:18
+#: 404.php:21
 msgid "404 Page"
 msgstr ""
 "عذراً الصفحة التي تبحث عنها غير موجودة بالموقع الرجاء التأكد من عنوان الصفحة"
 
-#: page-templates/sitemap.php:25
+#: page-templates/sitemap.php:43
 msgid "About Greenpeace"
 msgstr "عن غرينبيس"
 
-#: templates/blocks/author_profile.twig:5
-msgid "about the author"
+#: templates/blocks/author_profile.twig:14
+#, fuzzy
+#| msgid "about the author"
+msgid "About the author"
 msgstr "نبذة عن الكاتب"
 
-#: page-templates/sitemap.php:23
+#: templates/cookies.twig:26
+msgid "Accept all cookies"
+msgstr ""
+
+#: page-templates/sitemap.php:41
 msgid "Act"
 msgstr "تحرك"
 
-#: src/Search.php:954 src/Post.php:264
+#: src/Post.php:358
 msgid "ACTION"
 msgstr "تحرُك"
 
-#: src/Search.php:792
+#: src/Search/Filters/ContentTypes.php:112
 msgid "Action"
 msgstr "تحرُك"
 
-#: templates/search.twig:210
+#: templates/search.twig:145 templates/search.twig:289
+msgid "Action Type"
+msgstr ""
+
+#: templates/search.twig:215
 msgid "ACTIVE FILTERS"
 msgstr "الفلاتر المفعّلة"
 
-#: templates/search.twig:200
+#: templates/all-actions.twig:9 templates/taxonomy.twig:32
+msgid "All actions"
+msgstr ""
+
+#: templates/listing-page.twig:4 templates/taxonomy.twig:32
+msgid "All articles"
+msgstr ""
+
+#: templates/author.twig:22 templates/author.twig:25
+msgid "All articles by "
+msgstr ""
+
+#: templates/cookies/cookies_settings.twig:55
+msgid "Allow all"
+msgstr ""
+
+#: templates/cookies/cookies_settings.twig:16
+msgid "Always enabled"
+msgstr ""
+
+#: templates/search.twig:205
 msgid "Apply filters"
 msgstr "طبق الفلاتر"
 
-#: src/Search.php:813 src/Search.php:974 templates/tease-search.twig:38
-#: templates/tease-search.twig:120
+#: src/Search/Filters/ContentTypes.php:108 templates/tease-search.twig:43
+#: templates/tease-search.twig:123
 msgid "Archive"
 msgstr "أرشيف"
 
-#: src/PostArchive.php:77
+#: src/PostArchive.php:80
 msgid "Archive URL"
 msgstr "عنوان الأرشيف"
 
-#: page-templates/sitemap.php:26
+#: page-templates/sitemap.php:44
 msgid "Articles"
 msgstr "مقالات"
 
-#: src/Search.php:962 templates/search.twig:172
-msgid "CAMPAIGN"
-msgstr "حملة"
-
-#: src/Search.php:796 templates/search.twig:253 templates/tease-search.twig:36
-#: templates/tease-search.twig:118
+#: src/Search/Filters/ContentTypes.php:104 templates/tease-search.twig:41
+#: templates/tease-search.twig:121
 msgid "Campaign"
 msgstr "حملة"
 
-#: templates/search.twig:199
+#: templates/search.twig:204
 msgid "Cancel"
 msgstr "إلغاء"
 
-#: templates/search.twig:111
-msgid "CATEGORY"
-msgstr "الفئة"
-
-#: templates/search.twig:279
+#: templates/search.twig:87 templates/search.twig:231
 msgid "Category"
 msgstr "الفئة"
 
-#: templates/navigation-bar.twig:45
+#: templates/footer_country_selector.twig:11
 msgid "Change Country"
 msgstr "غّير البلد"
 
@@ -127,55 +154,53 @@ msgstr "غّير البلد"
 msgid "Check for typos, and try your search again"
 msgstr "تحقق من الأخطاء المطبعية ، وحاول البحث مرة أخرى"
 
-#: templates/search.twig:219
+#: templates/search.twig:224
 msgid "Clear all"
 msgstr "امسح الكل"
 
-#: templates/navigation-bar.twig:32
-msgid "Close Menu"
-msgstr "إغلق القائمة"
+#: templates/search-form.twig:32 templates/search.twig:39
+msgid "Clear search"
+msgstr ""
 
-#: templates/comment_form/comment_field.twig:2
+#: templates/burger-menu.twig:10
+msgid "Close navigation mobile menu"
+msgstr ""
+
+#: templates/comment_form/comment_field.twig:4
 msgid "Comment"
 msgstr "تعليق"
 
-#: templates/single.twig:75 templates/comments_section.twig:2
+#: templates/single.twig:76 templates/comments_section.twig:2
 msgid "Comments"
 msgstr "تعليقات"
 
-#: templates/search.twig:306
-msgid "Content type"
+#: templates/search.twig:174 templates/search.twig:318
+#, fuzzy
+#| msgid "Content type"
+msgid "Content Type"
 msgstr "نوع المحتوى"
 
-#: templates/search.twig:140
-msgid "CONTENT TYPES"
-msgstr "أنواع المحتويات"
-
-#: templates/comments_section.twig:8
+#: templates/comments_section.twig:9
 msgid "Discussion"
 msgstr "نقاش"
 
-#: src/Search.php:966 src/Post.php:270
+#: src/Post.php:364
 msgid "DOCUMENT"
 msgstr "ملف"
 
-#: src/Search.php:800
+#: src/Search/Filters/ContentTypes.php:92
 msgid "Document"
 msgstr "ملف"
 
-#: src/MasterSite.php:482
-msgid "Donate"
-msgstr "تبرع"
-
-#: templates/tease-search.twig:113
+#: templates/tease-search.twig:116
 msgid "Download"
 msgstr "حمل"
 
-#: templates/comment_form/email_field.twig:2
+#: templates/comment_form/email_field.twig:13
 msgid "Email"
 msgstr "البريد الإلكتروني"
 
-#: 404.php:17
+#: 404.php:20
 msgid "Enter your search term below"
 msgstr "أدخل مصطلح البحث الخاص بك أدناه"
 
@@ -183,17 +208,17 @@ msgstr "أدخل مصطلح البحث الخاص بك أدناه"
 msgid "Evergreen Page"
 msgstr "صفحة خضراء"
 
-#: page-templates/sitemap.php:24
+#: page-templates/sitemap.php:42
 msgid "Explore"
 msgstr "إكتشف"
 
-#: templates/search.twig:59
+#: templates/search.twig:64
 msgid "Filters"
 msgstr "فلاتر"
 
-#: templates/cookies.twig:6
-msgid "Got it!"
-msgstr "واضح!"
+#: templates/footer_social_media.twig:2
+msgid "Follow us"
+msgstr ""
 
 #. Author of the theme
 msgid "Greenpeace International"
@@ -203,6 +228,15 @@ msgstr "غرينبيس الدولية"
 msgid "Greenpeace Planet 4 Master Theme"
 msgstr "الموضوع الرئيسي لغرينبيس بلانيت 4"
 
+#. phpcs:ignore Generic.Files.LineLength.MaxExceeded
+#: functions.php:454
+msgid "here"
+msgstr ""
+
+#: templates/burger-menu.twig:34
+msgid "Home"
+msgstr ""
+
 #. Author URI of the theme
 msgid "https://github.com/greenpeace"
 msgstr "https://github.com/greenpeace"
@@ -211,192 +245,223 @@ msgstr "https://github.com/greenpeace"
 msgid "https://github.com/greenpeace/planet4-master-theme"
 msgstr "https://github.com/greenpeace/planet4-master-theme"
 
-#: src/MasterSite.php:483
+#: single.php:108
+msgid ""
+"I agree on providing my name, email and content so that my comment can be "
+"stored and displayed in the website."
+msgstr ""
+
+#: src/MasterSite.php:668
 msgid "International (English)"
 msgstr "الموقع الدولي (باللغة الإنجليزية)"
 
-#: templates/search.twig:82
-msgid "ISSUE"
-msgstr "المسألة"
+#: templates/single-password.twig:18 templates/single-page.twig:15
+msgid "Invalid password, please try again"
+msgstr ""
 
-#: templates/search.twig:226
-msgid "Issue"
-msgstr "المسألة"
-
-#: single.php:110
+#: single.php:115
 msgid "Leave your reply"
 msgstr "اكتب ردك"
 
-#: templates/taxonomy.twig:42 templates/author.twig:56
+#: templates/all-posts.twig:35 templates/author.twig:48
+#: templates/all-actions.twig:35 templates/taxonomy.twig:59
 msgid "Load More"
 msgstr "تحميل المزيد"
 
-#: templates/tease-search.twig:148
+#: templates/tease-search.twig:156
 msgid "Manage"
 msgstr "إدارة"
+
+#: templates/cookies/cookies_settings.twig:11
+msgid "Manage your cookies preferences"
+msgstr ""
 
 #. Description of the theme
 msgid "Master theme for the Planet 4 Wordpress project"
 msgstr "الموضوع الرئيسي لمشروع ووردبرس بلانيت 4"
 
-#: templates/navigation-bar.twig:18
+#: templates/navigation-bar.twig:19
 msgid "Menu"
 msgstr "قائمة"
 
-#: src/MasterSite.php:82 src/Search.php:700
+#: src/Search.php:754 src/MasterSite.php:89
 msgid "Most relevant"
 msgstr ""
 "الأكثر صلة\n"
 
-#: templates/comment_form/author_field.twig:2
+#: templates/comment_form/author_field.twig:13
 msgid "Name"
 msgstr "اسم"
 
-#: src/MasterSite.php:86 src/Search.php:704
+#: src/Search.php:758 src/MasterSite.php:93
 msgid "Newest"
 msgstr "الأحدث"
 
-#: src/MasterSite.php:90 src/Search.php:708
+#: src/Search.php:762 src/MasterSite.php:97
 msgid "Oldest"
 msgstr "الأقدم"
 
-#: src/Search.php:957 src/Post.php:266
+#: src/Post.php:360
 msgid "PAGE"
 msgstr "صفحة"
 
-#: src/Search.php:804
+#: src/Search/Filters/ContentTypes.php:96
 msgid "Page"
 msgstr "صفحة"
 
-#: src/Search.php:970 src/Post.php:273
+#: templates/cookies/cookies_settings.twig:12
+msgid "Please select which cookies you are willing to store."
+msgstr ""
+
+#: src/Post.php:367
 msgid "POST"
 msgstr "انشر"
 
-#: src/Search.php:808
+#: src/Search/Filters/ContentTypes.php:100
 msgid "Post"
 msgstr "المنشور"
 
-#: templates/comment_form/submit_button.twig:1
+#: templates/comment_form/submit_button.twig:23
 msgid "Post comment"
 msgstr ""
 "أضف تعليقا\n"
 
-#: templates/author.twig:32
-msgid "Posts by "
-msgstr "نشر بواسطة"
+#: templates/search.twig:116 templates/search.twig:260
+msgid "Post Type"
+msgstr ""
 
-#: tag.php:91
-msgid "Publications"
-msgstr "المنشورات"
-
-#: templates/blocks/author_profile.twig:11
-msgid "Read More"
-msgstr "اقرأ المزيد"
-
-#: templates/search.twig:68 templates/search.twig:207
+#: templates/search.twig:73 templates/search.twig:212
 msgid "Refine your search"
 msgstr ""
 "حدد نطاق البحث\n"
 
-#: tag.php:118
-msgid "Related Campaigns"
-msgstr "الحملات ذات الصلة"
+#: templates/cookies/cookies_settings.twig:47
+msgid "Reject all"
+msgstr ""
 
-#: templates/taxonomy.twig:18
+#: templates/cookies.twig:35
+msgid "Reject all cookies"
+msgstr ""
+
+#: templates/all-posts.twig:11 templates/all-actions.twig:11
+#: templates/taxonomy.twig:35
 msgid "Results"
 msgstr "النتائج"
 
-#: templates/navigation-bar.twig:7 templates/search.twig:8
-#: templates/search.twig:45 templates/404.twig:17
+#: templates/cookies/cookies_settings.twig:63
+msgid "Save preferences"
+msgstr ""
+
+#: templates/search-form.twig:2 templates/404.twig:17 templates/search.twig:8
+#: templates/search.twig:50
 msgid "Search"
 msgstr "بحث"
 
-#: templates/navigation-bar.twig:44
+#: templates/footer_country_selector.twig:11
 msgid "Selected"
 msgstr "المحدد"
 
-#: templates/blocks/share_buttons.twig:7 templates/blocks/share_buttons.twig:14
-#: templates/blocks/share_buttons.twig:21
+#: templates/cookies.twig:18
+msgid "Settings"
+msgstr ""
+
+#: templates/blocks/share_buttons.twig:44
+#: templates/blocks/share_buttons.twig:53
+#: templates/blocks/share_buttons.twig:62
 msgid "Share on"
 msgstr "شارك على"
 
-#: templates/blocks/share_buttons.twig:28
+#: templates/blocks/share_buttons.twig:71
+#: templates/blocks/share_buttons.twig:81
 msgid "Share via"
 msgstr "شارك عبر"
 
 #. %s = number of results per page.
-#: src/Search.php:1079
+#: src/Search.php:1014
 #, php-format
 #| msgid "SHOW %s MORE RESULTS"
 msgid "Show %s more results"
 msgstr "عرض %s المزيد"
+
+#: templates/blocks/author_profile.twig:45
+msgid "Show less"
+msgstr ""
+
+#: templates/blocks/author_profile.twig:44
+msgid "Show more"
+msgstr ""
 
 #. Name of the template
 msgid "Sitemap Page"
 msgstr ""
 "خريطة الموقع\n"
 
-#: templates/base.twig:11
+#: templates/base.twig:18
 msgid "Skip to Content"
 msgstr "تخطى الى المحتوى"
 
-#: templates/base.twig:12
+#: templates/base.twig:19
 msgid "Skip to Footer"
 msgstr "انتقل إلى تذييل الصفحة"
 
-#: templates/base.twig:10
+#: templates/base.twig:17
 msgid "Skip to Navigation"
 msgstr "تخطى إلى التنقل"
 
-#: 404.php:16
+#: 404.php:19
 msgid "Sorry, we can't find that page!"
 msgstr "عذرا ، لا يمكننا العثور على تلك الصفحة!"
 
-#: templates/search.twig:337
+#: templates/search.twig:351
 msgid "Sort by"
 msgstr ""
 "ترتيب حسب\n"
 
-#: templates/single-page.twig:15 templates/single-password.twig:20
+#: templates/single-password.twig:22 templates/single-page.twig:19
 msgid "Submit"
 msgstr "إرسال"
 
-#: templates/search.twig:385
-msgid "Suggested search terms"
+#: templates/featured-action.twig:12
+msgid "Take Action"
 msgstr ""
-"مصطلحات البحث المقترحة\n"
 
-#: templates/tease-search.twig:142
+#: src/Search.php:424 src/ActionPage.php:209
 msgid "Take action"
 msgstr "تحرك الأن"
 
-#: tag.php:73 src/Campaigns.php:252
-msgid "Things you can do"
-msgstr "أشياء تستطيع فعلها"
-
-#: tag.php:119
-msgid "This Campaign is not assigned to an Issue"
+#. %s = Redirection url variable.
+#: src/GravityFormsExtensions.php:668
+#, php-format
+msgid ""
+"Thank you! Please <a href=\"%s\">click here</a> if you are not redirected "
+"within a few seconds."
 msgstr ""
-"لم يتم تعيين هذه الحملة لمشكلة\n"
 
-#: templates/single-page.twig:12 templates/single-password.twig:17
+#. phpcs:ignore Generic.Files.LineLength.MaxExceeded
+#: functions.php:453
+msgid ""
+"The content on this page is hidden because this page is being used as your "
+"\\\"All Posts\\\" listing page. You can disable this by un-setting the "
+"\\\"Posts page\\\""
+msgstr ""
+
+#: assets/src/js/pdf_icon.js:20
+msgid "This link will open a PDF file"
+msgstr ""
+
+#: templates/single-password.twig:15 templates/single-page.twig:12
 msgid "To see the content of this page, please enter your password  below"
 msgstr "لرؤية محتوى هذه الصفحة، يرجى إدخال كلمة المرور الخاصة بك أدناه"
 
-#: templates/navigation-bar.twig:6
-msgid "Toggle navigation menu"
-msgstr ""
-"تبديل قائمة التنقل\n"
-
-#: src/MasterSite.php:436
+#: src/MasterSite.php:599
 msgid "Toggle search box"
 msgstr "تبديل مربع البحث"
 
-#: templates/navigation-bar.twig:97
+#: templates/desktop-menu.twig:57 templates/navigation-bar.twig:38
 msgid "Toggle search form"
 msgstr "تبديل نموذج البحث"
 
-#: src/MasterSite.php:435
+#: src/MasterSite.php:598
 msgid "Toggle worldwide site selection menu"
 msgstr "تبديل قائمة اختيار الموقع إلى جميع أنحاء العالم"
 
@@ -404,32 +469,19 @@ msgstr "تبديل قائمة اختيار الموقع إلى جميع أنحا
 msgid "Try searching for somthing else"
 msgstr "حاول البحث عن شيء آخر"
 
-#: templates/search.twig:26
-msgid "We also included results for "
-msgstr ""
-"لقد قمنا أيضًا بتضمين نتائج لـ\n"
-
-#: tag.php:74 src/Campaigns.php:253
-msgid "We want you to take action because together we're strong."
-msgstr "نريدك أن تتخذ إجراءً لأننا معاً نكون أقوى."
-
 #: templates/search.twig:19
 msgid "We're sorry we couldn't find any matches for your search term."
 msgstr ""
 "نأسف لعدم العثور على أي مطابقات لعبارة البحث.\n"
 
-#: assets/src/js/country_select.js:30
-msgid "Worldwide site list"
-msgstr "قائمة المواقع العالمية"
-
-#: templates/comment_form/comment_field.twig:3
+#: templates/comment_form/comment_field.twig:2
 msgid "Your Comment"
 msgstr "تعليقك"
 
-#: templates/comment_form/email_field.twig:3
+#: templates/comment_form/email_field.twig:2
 msgid "Your Email"
 msgstr "بريدك الالكتروني"
 
-#: templates/comment_form/author_field.twig:3
+#: templates/comment_form/author_field.twig:2
 msgid "Your Name"
 msgstr "اسمك"
