@@ -4,7 +4,7 @@ msgstr ""
 "&& n%100<=10 ? 3 : n%100 >= 11 && n%100<=99 ? 4 : 5;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2025-02-20 14:49+0000\n"
+"PO-Revision-Date: 2025-02-20 14:50+0000\n"
 "Language-Team: Arabic\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -436,6 +436,8 @@ msgid ""
 "Thank you! Please <a href=\"%s\">click here</a> if you are not redirected "
 "within a few seconds."
 msgstr ""
+"شكرًا لك! الرجاء <a href=\"%s\">النقر هنا</a> إذا لم تتم إعادة توجيهك خلال "
+"بضع ثوانٍ."
 
 #. phpcs:ignore Generic.Files.LineLength.MaxExceeded
 #: functions.php:453
@@ -444,10 +446,12 @@ msgid ""
 "\\\"All Posts\\\" listing page. You can disable this by un-setting the "
 "\\\"Posts page\\\""
 msgstr ""
+"محتوى هذه الصفحة مخفي لأنه يتم استخدام هذه الصفحة كصفحة قائمة \\\"جميع "
+"المشاركات\\\". يمكنك تعطيل هذا عن طريق إلغاء تعيين \\\"صفحة المشاركات\\\""
 
 #: assets/src/js/pdf_icon.js:20
 msgid "This link will open a PDF file"
-msgstr ""
+msgstr "سيؤدي هذا الرابط إلى فتح ملف PDF"
 
 #: templates/single-password.twig:15 templates/single-page.twig:12
 msgid "To see the content of this page, please enter your password  below"
