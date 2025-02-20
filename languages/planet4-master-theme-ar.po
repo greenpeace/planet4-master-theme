@@ -4,7 +4,7 @@ msgstr ""
 "&& n%100<=10 ? 3 : n%100 >= 11 && n%100<=99 ? 4 : 5;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2025-02-20 14:29+0000\n"
+"PO-Revision-Date: 2025-02-20 14:31+0000\n"
 "Language-Team: Arabic\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -326,10 +326,10 @@ msgstr "شارك عبر"
 
 #. %s = number of results per page.
 #: src/Search.php:1079
-#, fuzzy, php-format
+#, php-format
 #| msgid "SHOW %s MORE RESULTS"
 msgid "Show %s more results"
-msgstr "عرض المزيد"
+msgstr "عرض %s المزيد"
 
 #. Name of the template
 msgid "Sitemap Page"
