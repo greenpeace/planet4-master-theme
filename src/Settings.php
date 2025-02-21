@@ -421,6 +421,8 @@ class Settings
                             'posts_and_forms' => __('Posts & Forms', 'planet4-master-theme-backend'),
                         ],
                         'default' => 'posts_and_forms',
+                        'desc' => __('This is determining where the options above will be applied<br>
+                        If only Posts is selected, you can still customize sharing options for each form on its Confirmation settings.', 'planet4-master-theme-backend'),
                     ],
                 ],
             ],
