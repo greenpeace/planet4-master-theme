@@ -20,7 +20,12 @@
                         {{ item.title }}
                     </a>
                     {% if item.children is not empty %}
-                        <button class="accessible-nav-link" tabindex="0"></button>
+                        <button
+                            class="accessible-nav-link"
+                            tabindex="0"
+                            aria-label="Accessible Navigation Link"
+                        >
+                        </button>
                         {% include 'navigation-submenu.twig' with { menu: item } %}
                     {% endif %}
                 </li>

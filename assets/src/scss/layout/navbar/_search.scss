@@ -152,17 +152,17 @@
   margin-inline-end: 36px;
   width: 24px;
   height: 24px;
-  background-color: transparent;
-  background-image: url("../../images/cancel.svg");
+  background-color: #ececec;
+  background-image: url("../../images/black-cross.svg");
   background-repeat: no-repeat;
   background-position: center;
+  background-size: 12px;
+  border-radius: 100%;
 
   &:focus,
   &:focus-visible {
     outline: 2px solid #99c3ff;
     outline-offset: 2px;
-    border-radius: 2px;
-    border-radius: 100%;
   }
 
   html[dir="rtl"] & {
