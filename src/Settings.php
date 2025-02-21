@@ -412,6 +412,18 @@ class Settings
                         'type' => 'social_share_checkboxes',
                         'default' => [],
                     ],
+                    [
+                        'name' => __('Apply social sharing options', 'planet4-master-theme-backend'),
+                        'id' => 'apply_social_sharing_options',
+                        'type' => 'radio',
+                        'options' => [
+                            'posts' => __('Posts', 'planet4-master-theme-backend'),
+                            'posts_and_forms' => __('Posts & Forms', 'planet4-master-theme-backend'),
+                        ],
+                        'default' => 'posts_and_forms',
+                        'desc' => __('This is determining where the options above will be applied<br>
+                        If only Posts is selected, you can still customize sharing options for each form on its Confirmation settings.', 'planet4-master-theme-backend'),
+                    ],
                 ],
             ],
             'planet4_settings_404_page' => [
