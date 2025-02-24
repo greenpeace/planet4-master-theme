@@ -12,7 +12,6 @@ import {removeNoPostText} from './query-no-posts';
 import {removeRelatedPostsSection} from './remove_related_section_no_posts';
 import {setupCountrySelector} from './country_selector';
 import {setupTransparentNavHomepage} from './homepage_transparent_nav';
-import {makeSecondaryNavigationStickyonScroll} from './sticky_on_scroll_sn';
 
 function requireAll(r) {
   r.keys().forEach(r);
@@ -33,5 +32,4 @@ document.addEventListener('DOMContentLoaded', () => {
   setupClickabelActionsListCards();
   setupCountrySelector();
   setupTransparentNavHomepage();
-  makeSecondaryNavigationStickyonScroll();
 });
