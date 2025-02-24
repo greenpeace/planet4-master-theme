@@ -23,7 +23,7 @@
                         <button
                             class="accessible-nav-link"
                             tabindex="0"
-                            aria-label="Accessible Navigation Link"
+                            aria-label="{{ __( 'Open navigation link dropdown menu', 'planet4-master-theme' ) }}"
                         >
                         </button>
                         {% include 'navigation-submenu.twig' with { menu: item } %}
@@ -46,7 +46,7 @@
                         <button
                             class="accessible-nav-link"
                             tabindex="0"
-                            aria-label="Accessible Navigation Link"
+                            aria-label="{{ __( 'Open donate button dropdown menu', 'planet4-master-theme' ) }}"
                         >
                         </button>
                         {% include 'navigation-submenu.twig' with { menu: donate_menu } %}
