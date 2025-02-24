@@ -124,32 +124,24 @@ class Tracking
     }
 
     /**
-     * Get last logins filtered by days.
+     * Get last tracking data filtered by days.
      *
      * @param array $params refers to request params
-     * @return array Get logins.
+     * @return array Get tracking data.
     */
     private static function get_content_created(array $params): array
     {
         global $wpdb;
 
-        $response = [];
+        // phpcs:disable
+        $sql = 'SELECT count(ID) as total, post_type FROM %1$s WHERE post_date >= NOW() - INTERVAL %2$s DAY AND post_status = "publish" AND post_type IN ("post", "page", "p4_action") GROUP BY post_type';
+        $prepared_sql = $wpdb->prepare($sql, $wpdb->posts, $params['last_days']);
+        $result = $wpdb->get_results($prepared_sql);
+        // phpcs:enable
 
-        $query = $wpdb->get_results(
-            $wpdb->prepare(
-                "SELECT count(ID) as total, post_type
-                FROM wp_posts
-                WHERE post_date >= NOW() - INTERVAL %d  DAY
-                AND post_type IN ('post', 'page', 'p4_action')
-                GROUP BY post_type",
-                $params['last_days']
-            ),
-            OBJECT
-        );
+        $data = [];
 
-        $data = array();
-
-        foreach ($query as $row) {
+        foreach ($result as $row) {
             $data[$row->post_type] = [
                 'total' => (int) $row->total,
             ];
