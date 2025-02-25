@@ -6,6 +6,7 @@ namespace P4\MasterTheme\Api;
 
 use WP_REST_Server;
 use WP_REST_Request;
+use P4\MasterTheme\SqlParameters;
 
 /**
  * Instance Tracking API
@@ -69,7 +70,7 @@ class Tracking
     }
 
     /**
-     * Get last logins filtered by days.
+     * Retrieves the total number of logins in the last X days.
      *
      * @param array $params refers to request params
      * @return array Get logins.
@@ -124,7 +125,7 @@ class Tracking
     }
 
     /**
-     * Get last tracking data filtered by days.
+     * Retrieves the total number of published posts created in the last X days, grouped by post type.
      *
      * @param array $params refers to request params
      * @return array Get tracking data.
@@ -133,15 +134,29 @@ class Tracking
     {
         global $wpdb;
 
-        // phpcs:disable
-        $sql = 'SELECT count(ID) as total, post_type FROM %1$s WHERE post_date >= NOW() - INTERVAL %2$s DAY AND post_status = "publish" AND post_type IN ("post", "page", "p4_action") GROUP BY post_type';
-        $prepared_sql = $wpdb->prepare($sql, $wpdb->posts, $params['last_days']);
-        $result = $wpdb->get_results($prepared_sql);
-        // phpcs:enable
+        $post_types = \get_post_types(
+            [
+                'public' => true,
+                'exclude_from_search' => false,
+            ]
+        );
+
+         $sql_params = new SqlParameters();
+         $sql = 'SELECT post_type, count(ID) AS total
+            FROM ' . $sql_params->identifier($wpdb->posts) . '
+            WHERE post_date >= NOW() - INTERVAL ' . $params['last_days'] . ' DAY
+            AND post_status = ' . $sql_params->string('publish') . '
+            AND post_type IN ' . $sql_params->string_list($post_types) . '
+            GROUP BY post_type';
+         $results = $wpdb->get_results(
+             // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+             $wpdb->prepare($sql, $sql_params->get_values()),
+             \OBJECT
+         );
 
         $data = [];
 
-        foreach ($result as $row) {
+        foreach ($results as $row) {
             $data[$row->post_type] = [
                 'total' => (int) $row->total,
             ];
