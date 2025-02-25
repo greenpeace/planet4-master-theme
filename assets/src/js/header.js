@@ -40,4 +40,3 @@ export const setupHeader = () => {
   // Handle clicking on navigation elements.
   toggleNavElements();
 };
-
