@@ -720,6 +720,10 @@ class GravityFormsExtensions
      */
     public function p4_client_side_gravityforms_prefill($form): array
     {
+        if (!is_array($form)) {
+            return $form;
+        }
+
         $supported_field_types = ['GF_Field_Hidden'];
 
         $gf_frontend_populate = [];
