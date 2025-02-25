@@ -12,14 +12,14 @@
     color: inherit;
   }
 
-  button:hover {
+  button:not(.country-control-close):hover {
     text-decoration: var(--link--hover--text-decoration);
   }
 
   button:focus {
     border-radius: var(--link--focus--border-radius, 4px);
-    outline: var(--link--focus--border, 2px solid rgba($white, 0.6));
-    outline-offset: 0;
+    outline: var(--link--focus--border, 2px solid #99c3ff);
+    outline-offset: 1px;
   }
 
   button:focus:not(:focus-visible) {
@@ -178,13 +178,12 @@
 }
 
 .country-control-close {
-  background-color: var(--white);
-  background-repeat: no-repeat;
   border: none;
-  display: block;
+  background-image: url("../../images/cross.svg");
+  background-color: transparent;
+  background-size: cover;
   float: right;
   height: 16px;
-  mask: url("../../images/cross.svg") 50% 50%/16px 16px no-repeat;
   width: 16px;
 
   html[dir="rtl"] & {
