@@ -1,33 +1,27 @@
+import {useEffect} from '@wordpress/element';
 import {getHeadingsFromBlocks} from '../TableOfContents/getHeadingsFromBlocks';
 import {initializeJustifyContentAdjustment} from './adjustNavWidth';
 
 const {useSelect} = wp.data;
-const {useEffect} = wp.element;
 const {InspectorControls} = wp.blockEditor;
 const {PanelBody} = wp.components;
 const {__} = wp.i18n;
 
-const renderEdit = () => {
-  return (
-    <InspectorControls>
-      <PanelBody title={__('Learn more about this block', 'planet4-blocks-backend')} initialOpen={false}>
-        <p className="components-base-control__help">
-          <a target="_blank" href="https://planet4.greenpeace.org/content/blocks/table-of-contents/" rel="noreferrer">
+const renderEdit = () =>  (
+  // Update with correct link
+  <InspectorControls>
+    <PanelBody title={__('Learn more about this block', 'planet4-blocks-backend')} initialOpen={false}>
+      <p className="components-base-control__help">
+        <a target="_blank" href="https://planet4.greenpeace.org/content/blocks/table-of-contents/" rel="noreferrer">
             P4 Handbook - P4 Secondary Navigation Menu
-          </a>
-          {' '} &#128203;
-        </p>
-      </PanelBody>
-    </InspectorControls>
-  );
-};
+        </a>
+        {' '} &#128203;
+      </p>
+    </PanelBody>
+  </InspectorControls>
+);
 
-const renderView = attributes => {
-  const {
-    levels,
-    isExample,
-    exampleMenuItems,
-  } = attributes;
+const renderView = ({levels, isExample, exampleMenuItems}) => {
 
   const blocks = useSelect(select => select('core/block-editor').getBlocks(), []);
 

@@ -26,4 +26,3 @@ export const setupHeader = () => {
   // Set up other nav interactions and events.
   setupNavInteractions();
 };
-

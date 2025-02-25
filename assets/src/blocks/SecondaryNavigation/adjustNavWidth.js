@@ -6,9 +6,7 @@ function adjustJustifyContent() {
   const containerWidth = container.clientWidth;
   let totalChildrenWidth = (children.length - 1) * 48;
 
-  children.forEach(child => {
-    totalChildrenWidth += child.offsetWidth;
-  });
+  children.forEach(child => totalChildrenWidth += child.offsetWidth);
 
   container.style.justifyContent = totalChildrenWidth <= containerWidth ? 'center' : 'flex-start';
 }
