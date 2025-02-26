@@ -1,16 +1,13 @@
-function toggleCommentSubmit() {
-  const checkbox = document.getElementById('gdpr-comments-checkbox');
+document.addEventListener('DOMContentLoaded', () => {
+  const checkbox = document.querySelector('#gdpr-comments-checkbox');
   const submit = document.querySelector('#commentform button[type="submit"]');
 
-  if (checkbox.checked) {
-    submit.removeAttribute('disabled');
-  } else {
-    submit.setAttribute('disabled', '');
+  if (!checkbox || !submit) {
+    return;
   }
-}
 
-document.addEventListener('DOMContentLoaded', () => {
-  document.getElementById('gdpr-comments-checkbox')
-    .addEventListener('change', () => toggleCommentSubmit());
-  toggleCommentSubmit();
+  const toggleSubmit = () => { submit.disabled = !checkbox.checked; };
+
+  checkbox.addEventListener('change', toggleSubmit);
+  toggleSubmit();
 });
