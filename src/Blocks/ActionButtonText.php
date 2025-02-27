@@ -63,19 +63,26 @@ class ActionButtonText extends BaseBlock
      * @param  WP_Block $block      Block instance.
      * @return string   Returns the value for the field.
      * @phpcs:disable SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter
+     * @phpcs:disable Generic.Files.LineLength.MaxExceeded
     */
     public function render_block(array $attributes, string $content, WP_Block $block): string
     {
         $post_id = $block->context['postId'];
         $link = get_permalink($post_id);
         $meta = get_post_meta($post_id);
-        if (isset($meta['action_button_text']) && $meta['action_button_text'][0]) {
-            $button_text = $meta['action_button_text'][0];
-        } else {
-            $options = get_option('planet4_options');
-            $button_text = $options['take_action_covers_button_text'] ?? __('Take action', 'planet4-blocks');
-        }
-        return '<a href="' . $link . '" class="btn btn-primary btn-small">' . $button_text . '</a>';
+        $options = get_option('planet4_options');
+
+        $action_btn = $options['take_action_covers_button_text'] ?? __('Take action', 'planet4-blocks');
+        $action_acc_btn = __('Take action', 'planet4-blocks');
+
+        $has_button_text = isset($meta['action_button_text']) && $meta['action_button_text'][0];
+        $has_button_acc_text = isset($meta['action_button_accessibility_text']) && $meta['action_button_accessibility_text'][0];
+
+        $button_text = $has_button_text ? $meta['action_button_text'][0] : $action_btn;
+        $button_acc_text = $has_button_acc_text ? $meta['action_button_accessibility_text'][0] : $action_acc_btn;
+
+        return '<a href="' . $link . '" class="btn btn-primary btn-small" aria-label="' . $button_acc_text . '">' . $button_text . '</a>';
     }
+    // @phpcs:enable Generic.Files.LineLength.MaxExceeded
     // @phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter
 }
