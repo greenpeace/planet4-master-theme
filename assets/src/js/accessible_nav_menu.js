@@ -8,19 +8,19 @@ class AccessibleNavMenu {
   constructor() {
     document.addEventListener('DOMContentLoaded', () => {
       const mainNav = document.querySelector('#nav-main-desktop');
+      const mobileNav = document.querySelector('#nav-main');
 
-      if (!mainNav) {
-        return;
+      if (mainNav) {
+        this.handleNavMenuItem(mainNav);
+        this.handleAccessibleNavLink(mainNav);
+        this.handleNavMenuSub(mainNav);
+        this.handleNavMenuSubItems(mainNav);
       }
-
-      this.handleNavMenuItem(mainNav);
-      this.handleAccessibleNavLink(mainNav);
-      this.handleNavMenuSub(mainNav);
-      this.handleNavMenuSubItems(mainNav);
-
-      this.addKeyboardTrap();
-      this.focusLogoOnMenuOpen();
-      this.focusLogoOnMenuClose();
+      if (mobileNav) {
+        this.addKeyboardTrap(mobileNav);
+        this.focusLogoOnMenuOpen(mobileNav);
+        this.focusLogoOnMenuClose(mobileNav);
+      }
     });
   }
 
@@ -134,10 +134,11 @@ class AccessibleNavMenu {
 
   /**
    * Adds event listeners to create a keyboard trap between the donate button and the close button.
+   * @param {HTMLElement} mobileNav The mobile nav selector.
    */
-  addKeyboardTrap() {
-    const donateBtn = document.querySelector('#nav-main .btn-donate');
-    const closeBtn = document.querySelector('#nav-main .nav-menu-close');
+  addKeyboardTrap(mobileNav) {
+    const donateBtn = mobileNav.querySelector('.btn-donate');
+    const closeBtn = mobileNav.querySelector('.nav-menu-close');
 
     if (!donateBtn || !closeBtn) {
       return;
@@ -150,10 +151,11 @@ class AccessibleNavMenu {
 
   /**
    * Adds event listeners to focus the logo when the menu is opened.
+   * @param {HTMLElement} mobileNav The mobile nav selector.
    */
-  focusLogoOnMenuOpen() {
+  focusLogoOnMenuOpen(mobileNav) {
     const hamburgerBtn = document.querySelector('.nav-menu-toggle');
-    const logo = document.querySelector('#nav-main .site-logo');
+    const logo = mobileNav.querySelector('.site-logo');
 
     if (!hamburgerBtn || !logo) {
       return;
@@ -168,18 +170,23 @@ class AccessibleNavMenu {
 
   /**
    * Adds event listeners to focus the logo when the menu is closed.
+   * @param {HTMLElement} mobileNav The mobile nav selector.
    */
-  focusLogoOnMenuClose() {
-    const closeBtn = document.querySelector('#nav-main .nav-menu-close');
-    const logo = document.querySelector('#header .site-logo');
+  focusLogoOnMenuClose(mobileNav) {
+    const closeBtn = mobileNav.querySelector('.nav-menu-close');
+    const hamburgerLogo = mobileNav.querySelector('.site-logo');
+    const mainLogo = document.querySelector('#header .site-logo');
 
-    if (!logo || !closeBtn) {
+    if (!mainLogo || !hamburgerLogo || !closeBtn) {
       return;
     }
 
     closeBtn.addEventListener('keydown', event => {
       if (event.key === 'Enter') {
-        setTimeout(() => logo.focus(), 0); // Give time for focus to apply
+        setTimeout(() => mainLogo.focus(), 0); // Give time for focus to apply
+      }
+      if (event.key === 'Tab' && event.shiftKey) {
+        setTimeout(() => hamburgerLogo.focus(), 0); // Give time for focus to apply
       }
     });
   }
