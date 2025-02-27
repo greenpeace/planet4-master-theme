@@ -17,6 +17,10 @@ class AccessibleNavMenu {
       this.handleAccessibleNavLink(mainNav);
       this.handleNavMenuSub(mainNav);
       this.handleNavMenuSubItems(mainNav);
+
+      this.addKeyboardTrap();
+      this.focusLogoOnMenuOpen();
+      this.focusLogoOnMenuClose();
     });
   }
 
@@ -125,6 +129,58 @@ class AccessibleNavMenu {
           submenu.querySelector('.accessible-nav-link')?.focus();
         }
       });
+    });
+  }
+
+  /**
+   * Adds event listeners to create a keyboard trap between the donate button and the close button.
+   */
+  addKeyboardTrap() {
+    const donateBtn = document.querySelector('#nav-main .btn-donate');
+    const closeBtn = document.querySelector('#nav-main .nav-menu-close');
+
+    if (!donateBtn || !closeBtn) {
+      return;
+    }
+
+    donateBtn.addEventListener('focusout', () => {
+      closeBtn.focus();
+    });
+  }
+
+  /**
+   * Adds event listeners to focus the logo when the menu is opened.
+   */
+  focusLogoOnMenuOpen() {
+    const hamburgerBtn = document.querySelector('.nav-menu-toggle');
+    const logo = document.querySelector('#nav-main .site-logo');
+
+    if (!hamburgerBtn || !logo) {
+      return;
+    }
+
+    hamburgerBtn.addEventListener('keydown', event => {
+      if (event.key === 'Enter') {
+        setTimeout(() => logo.focus(), 0); // Give time for focus to apply
+      }
+    });
+  }
+
+  /**
+   * Adds event listeners to focus the logo when the menu is closed.
+   */
+  focusLogoOnMenuClose() {
+    const closeBtn = document.querySelector('#nav-main .nav-menu-close');
+    const logo = document.querySelector('#header .site-logo');
+
+    if (!logo || !closeBtn) {
+      return;
+    }
+
+    closeBtn.addEventListener('keydown', event => {
+      if (event.key === 'Enter') {
+        setTimeout(() => logo.focus(), 0); // Give time for focus to apply
+      }
     });
   }
 }
