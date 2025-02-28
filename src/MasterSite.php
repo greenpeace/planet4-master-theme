@@ -935,7 +935,6 @@ class MasterSite extends TimberSite
         ];
 
         // Allow below tags for carousel slider.
-        $allowedposttags['div']['data-bs-ride'] = true;
         $allowedposttags['li']['data-bs-target'] = true;
         $allowedposttags['li']['data-bs-slide-to'] = true;
         $allowedposttags['a']['data-bs-slide'] = true;
