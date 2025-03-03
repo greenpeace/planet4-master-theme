@@ -37,6 +37,7 @@ class MediaReplacer
 
     private const TRANSIENT = [
         'file' => 'file_replacement_notice',
+        'cache' => 'cache_cleaning_url',
     ];
 
     /**
@@ -94,6 +95,25 @@ class MediaReplacer
             Loader::theme_file_ver("admin/js/media_replacer.js"),
             true
         );
+
+        if (!get_transient(self::TRANSIENT['cache'])) {
+            return;
+        }
+
+        wp_enqueue_script(
+            'custom-media-replacer-cache-cleaner',
+            get_template_directory_uri() . '/admin/js/media_replacer_cache_cleaner.js',
+            [],
+            Loader::theme_file_ver("admin/js/media_replacer_cache_cleaner.js"),
+            true
+        );
+
+        if (!wp_script_is('custom-media-replacer-cache-cleaner', 'enqueued')) {
+            return;
+        }
+
+        $inline_script = 'var cacheCleaner = ' . get_transient(self::TRANSIENT['cache']) . ';';
+        wp_add_inline_script('custom-media-replacer-cache-cleaner', $inline_script);
     }
 
     /**
@@ -519,7 +539,8 @@ class MediaReplacer
         //phpcs:ignore Squiz.PHP.DiscouragedFunctions.Discouraged
         error_log($message);
         array_push($this->replacement_status['error'], $message);
-        $this->transient_handler(self::TRANSIENT['file'], $this->replacement_status);
+        $encoded_msg = json_encode($this->replacement_status, JSON_PRETTY_PRINT);
+        set_transient(self::TRANSIENT['file'], $encoded_msg, 5);
         wp_send_json_error($message);
     }
 
@@ -528,11 +549,14 @@ class MediaReplacer
      * Sets successful messages.
      *
      * @param string $message The success message.
+     * @param string $name The name of the file.
      */
-    private function success_handler(string $message): void
+    private function success_handler(string $message, string $name): void
     {
         array_push($this->replacement_status['success'], $message);
-        $this->transient_handler(self::TRANSIENT['file'], $this->replacement_status);
+        $encoded_msg = json_encode($this->replacement_status, JSON_PRETTY_PRINT);
+        set_transient(self::TRANSIENT['file'], $encoded_msg, 5);
+        $this->transient_handler(self::TRANSIENT['cache'], [$name]);
     }
 
     /**
@@ -543,8 +567,29 @@ class MediaReplacer
      */
     private function transient_handler(string $transient, array $messages): void
     {
-        $encoded_msg = json_encode($messages, JSON_PRETTY_PRINT);
-        set_transient($transient, $encoded_msg, 5);
+        // Retrieve existing transient data
+        $existing_messages = get_transient($transient);
+
+        // Decode existing messages if they exist, otherwise initialize an empty array
+        $existing_messages = $existing_messages ? json_decode($existing_messages, true) : [];
+
+        // Ensure it's an array before proceeding
+        if (!is_array($existing_messages)) {
+            $existing_messages = [];
+        }
+
+        // Filter out duplicate messages
+        foreach ($messages as $message) {
+            if (in_array($message, $existing_messages, true)) {
+                continue;
+            }
+
+            $existing_messages[] = $message;
+        }
+
+        // Encode the updated messages and store them back in the transient
+        $encoded_msg = json_encode($existing_messages, JSON_PRETTY_PRINT);
+        set_transient($transient, $encoded_msg, 24 * HOUR_IN_SECONDS);
     }
 
     /**
