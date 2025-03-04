@@ -45,13 +45,10 @@
   }
 
   .clear-search {
-    background-color: var(--grey-900);
-    mask: url("../../images/cross-circle.svg") 50% 50%/24px 24px no-repeat;
-    width: 24px;
+    @include clear-input-styles;
     position: absolute;
     right: $sp-3;
     top: 10px;
-    height: 24px;
 
     @include large-and-up {
       top: $sp-2;

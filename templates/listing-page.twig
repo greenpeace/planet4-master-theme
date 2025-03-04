@@ -7,13 +7,13 @@
             <h2>{{ listing_page_title ?? __( 'All articles', 'planet4-master-theme' ) }}</h2>
         {% endif %}
         {% if layout == 'list' %}
-            <span class="grid-view-toggle" title="{{__( 'Grid layout', 'planet4-master-theme' ) }}">
+            <button class="grid-view-toggle" title="{{__( 'Grid layout', 'planet4-master-theme' ) }}">
                 {{ 'grid-view'|svgicon }}
-            </span>
+            </button>
         {% else %}
-            <span class="list-view-toggle" title="{{__( 'List layout', 'planet4-master-theme' ) }}">
+            <button class="list-view-toggle" title="{{__( 'List layout', 'planet4-master-theme' ) }}">
                 {{ 'list-view'|svgicon }}
-            </span>
+            </button>
         {% endif %}
     </div>
     <div>{{ listing_page_content|raw }}</div>
