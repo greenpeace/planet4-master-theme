@@ -80,6 +80,11 @@ class GravityFormsExtensions
             'name' => 'native',
             'default_value' => 1,
         ],
+        [
+            'label' => 'Bluesky',
+            'name' => 'bluesky',
+            'default_value' => 0,
+        ],
     ];
 
     public array $current_entry = [];
