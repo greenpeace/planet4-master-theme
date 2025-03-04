@@ -36,6 +36,10 @@
     color: $facebook;
   }
 
+  .bluesky {
+    color: $bluesky;
+  }
+
   .email {
     .icon {
       fill: none;
@@ -52,7 +56,7 @@
     }
   }
 
-  .twitter, .facebook, .email {
+  .twitter, .facebook, .email, .bluesky {
     .icon {
       top: 1px;
     }
