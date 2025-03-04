@@ -20,7 +20,7 @@ test('Test Related Posts block', async ({page, requestUtils}) => {
 
   // Related posts enabled
   await page.goto(editUrl);
-  await page.locator('.edit-post-layout__metaboxes').getByRole('combobox', {name: 'Include Articles in Post'}).selectOption('Yes');
+  await page.locator('.edit-post-layout__metaboxes').getByRole('combobox', {name: 'Include Related Posts'}).selectOption('Yes');
   await page.waitForTimeout(1000); // letting metabox post query finish
   await updatePost({page});
 
@@ -32,7 +32,7 @@ test('Test Related Posts block', async ({page, requestUtils}) => {
 
   // Related posts disabled
   await page.goto(editUrl);
-  await page.locator('.edit-post-layout__metaboxes').getByRole('combobox', {name: 'Include Articles in Post'}).selectOption('No');
+  await page.locator('.edit-post-layout__metaboxes').getByRole('combobox', {name: 'Include Related Posts'}).selectOption('No');
   await updatePost({page});
   await page.waitForTimeout(1000); // letting metabox post query finish
 

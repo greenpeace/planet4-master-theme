@@ -204,7 +204,6 @@ final class Loader
 
         new MasterBlocks();//NOSONAR
         new Blocks\Accordion();//NOSONAR
-        new Blocks\Articles();//NOSONAR
         new Blocks\CarouselHeader();//NOSONAR
         new Blocks\Columns();//NOSONAR
         new Blocks\Cookies();//NOSONAR
