@@ -229,8 +229,7 @@ $transition-duration: .2s;
 
   &:focus,
   &:focus-visible {
-    outline: 2px solid #99c3ff;
-    outline-offset: 2px;
+    @include focus-styles;
   }
 
   @supports not (inset-inline-end: $sp-3) {
