@@ -339,7 +339,10 @@
     display: block;
     border-radius: 50%;
     cursor: pointer;
+    background-color: transparent;
     transition: background-color 150ms linear;
+    border: none;
+    padding: 2px;
 
     .icon {
       height: 40px;
@@ -349,6 +352,11 @@
 
     &:hover {
       background-color: var(--grey-200);
+    }
+
+    &:focus {
+      background-color: var(--grey-200);
+      @include focus-styles(50%);
     }
   }
 }
