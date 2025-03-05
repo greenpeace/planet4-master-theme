@@ -43,7 +43,7 @@ use P4\MasterTheme\Migrations\M038RemoveCustomSiteIcon;
 use P4\MasterTheme\Migrations\M039EnableNewSocialSharePlatforms;
 use P4\MasterTheme\Migrations\M040ReplaceSpecialCharactersInPostsContent;
 use P4\MasterTheme\Migrations\M041SetDefaultSocialSharingOption;
-use P4\MasterTheme\Migrations\M042TestingPL;
+use P4\MasterTheme\Migrations\M042FixPostsListMigration;
 
 /**
  * Run any new migration scripts and record results in the log.
@@ -104,7 +104,7 @@ class Migrator
             M039EnableNewSocialSharePlatforms::class,
             M040ReplaceSpecialCharactersInPostsContent::class,
             M041SetDefaultSocialSharingOption::class,
-            M042TestingPL::class,
+            M042FixPostsListMigration::class,
         ];
 
         // Loop migrations and run those that haven't run yet.
