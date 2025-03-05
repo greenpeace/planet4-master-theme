@@ -20,7 +20,7 @@ if (!is_tag()) {
 }
 
 $tag = get_queried_object();
-$redirect_id = $tag !== null && get_term_meta($tag->term_id, 'redirect_page', true);
+$redirect_id = isset($tag, $tag->term_id) ? get_term_meta($tag->term_id, 'redirect_page', true) : false;
 
 if ($redirect_id) {
     global $wp_query;
