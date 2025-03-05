@@ -242,7 +242,7 @@ class Functions
      */
     public static function create_block_heading(array $attrs, string $text): array
     {
-        $level = isset($attrs['level']) ? strval($attrs['level']) : '4';
+        $level = isset($attrs['level']) ? strval($attrs['level']) : '2';
         $html = '<h' . $level . ' class="wp-block-heading">';
         $html .= $text;
         $html .= '</h' . $level . '>';

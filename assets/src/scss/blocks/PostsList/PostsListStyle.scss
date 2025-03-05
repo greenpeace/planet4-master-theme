@@ -92,6 +92,7 @@
 
   .wp-block-post-title {
     font-size: 18px;
+    margin-bottom: 24px;
 
     a {
       @include clamp-text(2);
