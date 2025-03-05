@@ -10,7 +10,7 @@ use P4\MasterTheme\MigrationScript;
 /**
  * Migrate Posts List blocks with errors to Posts List blocks updated.
  */
-class M042TestingPL extends MigrationScript
+class M042FixPostsListMigration extends MigrationScript
 {
     /**
      * Perform the actual migration.
@@ -109,9 +109,15 @@ class M042TestingPL extends MigrationScript
             'columnCount' => 3,
         ];
 
+        $title_block = self::find_block($existing_block['innerBlocks'], 'core/heading');
+        $title = self::match_block_value($title_block['innerHTML'], 'title');
+
+        $description_block = self::find_block($existing_block['innerBlocks'], 'core/paragraph', 'placeholder', 'Enter description');
+        $description = self::match_block_value($description_block['innerHTML'], 'description');
+
         return [
-            'title' => 'Test Title',
-            'description' => 'Test Description',
+            'title' => $title,
+            'description' => $description,
             'categories' => isset($attrs['query']['taxQuery']['p4-page-type']) ? $attrs['query']['taxQuery']['p4-page-type'] : [],
             'tags' => isset($attrs['query']['taxQuery']['post_tag']) ? $attrs['query']['taxQuery']['post_tag'] : [],
             'post_type' => isset($attrs['query']['postType']) ? $attrs['query']['postType'] : [],
@@ -256,7 +262,7 @@ class M042TestingPL extends MigrationScript
                                 ),
                                 Utils\Functions::create_new_block(
                                     Utils\Constants::BLOCK_TITLE,
-                                    ['isLink' => true]
+                                    ['isLink' => true, 'level' => 4]
                                 ),
                                 Utils\Functions::create_new_block(
                                     Utils\Constants::BLOCK_EXCERPT
@@ -378,6 +384,62 @@ class M042TestingPL extends MigrationScript
             ]
         );
     }
+
+     /**
+     * Find either the title or description for the posts list block.
+     *
+     * @param array $blocks - The block.
+     * @param string $targetBlockName name of block to find.
+     * @parma string $attributeKey name of block attribute.
+     * @param string $attributeValue expected key value.
+     * @return array - The title(core/heading) or description(core/paragraph) block.
+     */
+    private static function find_block(
+        array $blocks,
+        string $targetBlockName,
+        ?string $attributeKey = null,
+        ?string $attributeValue = null
+    ): array {
+        foreach ($blocks as $block) {
+            if (isset($block['blockName']) && $block['blockName'] === $targetBlockName) {
+                if (
+                    $attributeKey === null ||
+                    (isset($block['attrs'][$attributeKey]) && $block['attrs'][$attributeKey] === $attributeValue)
+                ) {
+                    return $block;
+                }
+            }
+
+            if (empty($block['innerBlocks'])) {
+                continue;
+            }
+
+            $found = find_block($block['innerBlocks'], $targetBlockName, $attributeKey, $attributeValue);
+            if ($found) {
+                return $found;
+            }
+        }
+        return [];
+    }
+
+    /**
+     * Find either the title or description for the posts list block.
+     *
+     * @param string $block_html - The block innerHTML.
+     * @param string $block_name name of block to use.
+     * @return string - The title(core/heading) or description(core/paragraph) innerHTML value.
+     */
+    private static function match_block_value(string $block_html, string $block_name): string
+    {
+        $patterns = [
+            'title' => '/<h2[^>]*>(.*?)<\/h2>/i',
+            'description' => '/<p[^>]*>(.*?)<\/p>/i',
+        ];
+
+        if (isset($patterns[$block_name]) && preg_match($patterns[$block_name], $block_html, $matches)) {
+            return trim($matches[1]);
+        }
+
+        return '';
+    }
 }
-
-
