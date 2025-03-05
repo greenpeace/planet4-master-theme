@@ -152,7 +152,7 @@ export const setupQueryLoopBlockExtension = () => {
                     )}
                     {isPostsList && (
                       <>
-                        <a target="_blank" href="https://planet4.greenpeace.org/content/blocks/articles/" rel="noreferrer">
+                        <a target="_blank" href="https://planet4.greenpeace.org/content/blocks/posts-list/" rel="noreferrer">
                       P4 Handbook Posts List
                         </a>
                         {' '} &#128478;&#65039;
