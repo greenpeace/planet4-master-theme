@@ -13,7 +13,7 @@ export const registerPostsListBlock = () => {
 
   const seeAllLink = ['core/navigation-link', {...!newsPageLink ? {className: 'd-none'} : {
     url: newsPageLink,
-    label: __('See all stories', 'planet4-blocks-backend'),
+    label: __('See all posts', 'planet4-blocks'),
     className: 'see-all-link',
   }}];
 
