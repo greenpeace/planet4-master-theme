@@ -2,12 +2,12 @@
   .form-section .comment-respond {
     background: var(--color-background-comments_block);
     border-radius: 4px;
-    padding: 24px 16px;
+    padding: $sp-3 $sp-2;
   }
 
   .comment-respond {
     font-size: 0;
-    margin-bottom: 32px;
+    margin-bottom: $sp-4;
 
     input,
     textarea {
@@ -19,20 +19,20 @@
     }
 
     button {
-      margin-top: 8px;
+      margin-top: $sp-1;
       margin-bottom: 0;
     }
 
     @include medium-and-up {
       .comment-author,
       .comment-email {
-        width: calc(50% - 8px);
+        width: calc(50% - $sp-1);
         display: inline-block;
         vertical-align: bottom;
       }
 
       .comment-author {
-        margin-inline-end: 16px;
+        margin-inline-end: $sp-2;
       }
     }
   }
@@ -42,11 +42,11 @@
   --comments-compliance-- {
     font-family: var(--font-family-primary);
   }
-  margin-bottom: 8px;
+  margin-bottom: $sp-1;
 
   #gdpr-comments-checkbox {
     display: inline-block;
-    margin-inline-end: 8px;
+    margin-inline-end: $sp-1;
     width: $checkbox-size !important;
     height: $checkbox-size;
     top: calc($sp-1 - 1px);
@@ -78,7 +78,7 @@
 }
 
 #cancel-comment-reply-link {
-  margin-inline-start: 8px;
+  margin: 0 $sp-1;
   color: var(--grey-600);
 
   &:hover,
@@ -89,49 +89,10 @@
 
 @include medium-and-up {
   .comment-form-cookies-consent {
-    margin-top: 8px;
+    margin-top: $sp-1;
   }
 
   .comments-block .form-section .comment-respond {
-    padding: 32px;
-
-    .logged-in-as {
-      position: absolute;
-      top: 32px;
-      right: 32px;
-      max-width: 70%;
-      line-height: 1.3;
-
-      html[dir="rtl"] & {
-        left: 32px;
-        right: auto;
-      }
-    }
-  }
-
-  .comments-block .comment-respond {
-    position: relative;
-
-    .logged-in-as {
-      position: absolute;
-      top: 0;
-      right: 0;
-
-      html[dir="rtl"] & {
-        left: 0;
-        right: auto;
-      }
-    }
-  }
-
-  .logged-in-as {
-    position: absolute;
-    top: 32px;
-    right: 32px;
-
-    html[dir="rtl"] & {
-      left: 32px;
-      right: auto;
-    }
+    padding: $sp-4;
   }
 }
