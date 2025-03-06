@@ -73,7 +73,7 @@ class ActionButtonText extends BaseBlock
         $options = get_option('planet4_options');
 
         $action_btn = $options['take_action_covers_button_text'] ?? __('Take action', 'planet4-blocks');
-        $action_acc_btn = __('Take action', 'planet4-blocks');
+        $action_acc_btn = __('Get Involved', 'planet4-blocks');
 
         $has_button_text = isset($meta['action_button_text']) && $meta['action_button_text'][0];
         $has_button_acc_text = isset($meta['action_button_accessibility_text']) && $meta['action_button_accessibility_text'][0];
