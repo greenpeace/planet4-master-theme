@@ -133,19 +133,27 @@ class AccessibleNavMenu {
   }
 
   /**
-   * Adds event listeners to create a keyboard trap between the donate button and the close button.
+   * Adds event listeners to create a keyboard trap between the buttons.
    * @param {HTMLElement} mobileNav The mobile nav selector.
    */
   addKeyboardTrap(mobileNav) {
     const donateBtn = mobileNav.querySelector('.btn-donate');
     const closeBtn = mobileNav.querySelector('.nav-menu-close');
+    const logo = mobileNav.querySelector('.site-logo');
 
-    if (!donateBtn || !closeBtn) {
-      return;
-    }
-
-    donateBtn.addEventListener('focusout', () => {
-      closeBtn.focus();
+    closeBtn.addEventListener('keydown', event => {
+      if (event.key === 'Tab' && event.shiftKey) {
+        event.preventDefault();
+        setTimeout(() => donateBtn.focus(), 5);
+      }
+      if (event.key === 'Tab') {
+        setTimeout(() => logo.focus(), 0);
+      }
+    });
+    logo.addEventListener('keydown', event => {
+      if (event.key === 'Tab' && event.shiftKey) {
+        setTimeout(() => closeBtn.focus(), 0);
+      }
     });
   }
 
@@ -163,7 +171,7 @@ class AccessibleNavMenu {
 
     hamburgerBtn.addEventListener('keydown', event => {
       if (event.key === 'Enter') {
-        setTimeout(() => logo.focus(), 0); // Give time for focus to apply
+        setTimeout(() => logo.focus(), 0);
       }
     });
   }
@@ -183,10 +191,10 @@ class AccessibleNavMenu {
 
     closeBtn.addEventListener('keydown', event => {
       if (event.key === 'Enter') {
-        setTimeout(() => mainLogo.focus(), 0); // Give time for focus to apply
+        setTimeout(() => mainLogo.focus(), 0);
       }
       if (event.key === 'Tab' && event.shiftKey) {
-        setTimeout(() => hamburgerLogo.focus(), 0); // Give time for focus to apply
+        setTimeout(() => hamburgerLogo.focus(), 0);
       }
     });
   }

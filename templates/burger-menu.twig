@@ -1,16 +1,4 @@
 <div id="nav-main" class="burger-menu d-lg-none">
-    <button
-            class="nav-menu-close"
-            type="button"
-            aria-label="{{ __( 'Close navigation mobile menu', 'planet4-master-theme' ) }}"
-            aria-expanded="false"
-            data-bs-toggle="open"
-            data-bs-target="#nav-main">
-    <span class="visually-hidden">
-      {{ __( 'Close navigation mobile menu', 'planet4-master-theme' ) }}
-    </span>
-    </button>
-
     <div class="burger-menu-header">
         <a class="site-logo" href="{{ data_nav_bar.home_url }}">
             {% include "blocks/site_logo.twig" %}
@@ -58,5 +46,17 @@
             {{ donate_menu_items[0].title }}
         </a>
     </div>
+
+    <button
+        class="nav-menu-close"
+        type="button"
+        aria-label="{{ __( 'Close navigation mobile menu', 'planet4-master-theme' ) }}"
+        aria-expanded="false"
+        data-bs-toggle="open"
+        data-bs-target="#nav-main">
+            <span class="visually-hidden">
+            {{ __( 'Close navigation mobile menu', 'planet4-master-theme' ) }}
+            </span>
+    </button>
 </div>
 <div class="burger-menu-overlay d-lg-none"></div>
