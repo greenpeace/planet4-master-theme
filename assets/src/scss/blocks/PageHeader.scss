@@ -72,13 +72,11 @@ $text-column-padding-in: 24px;
 
   .wp-block-heading.has-background {
     display: inline;
-    padding: 0;
     font-size: inherit;
     font-weight: inherit;
     line-height: 150%;
     box-decoration-break: clone;
-    box-shadow: 8px 0 0 var(--white);
-    padding-inline-start: $sp-1;
+    padding: 0 $sp-1;
   }
 
   p {
