@@ -54,6 +54,7 @@
     font-weight: bold;
     font-size: 14px;
     margin-top: $sp-2;
+    width: fit-content;
     @include shared-link-styles;
 
     &:hover {
@@ -69,7 +70,6 @@
         font-family: var(--font-family-primary);
         font-weight: var(--font-weight-regular);
       }
-
       float: right;
       margin-top: 0;
 
