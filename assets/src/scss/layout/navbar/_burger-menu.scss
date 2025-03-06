@@ -208,6 +208,12 @@ $transition-duration: .2s;
       transform: rotate(90deg);
     }
   }
+
+  &:focus,
+  &:focus-within,
+  &:focus-visible {
+    @include focus-styles;
+  }
 }
 
 .nav-menu-close {
