@@ -27,6 +27,10 @@
   line-height: 1.5;
   margin-bottom: 8px;
   overflow-wrap: break-word;
+
+  a {
+    @include shared-link-styles;
+  }
 }
 
 .single-comment-meta {
@@ -50,6 +54,11 @@
     font-weight: bold;
     font-size: 14px;
     margin-top: 16px;
+    @include shared-link-styles;
+
+    &:hover {
+      color: var(--grey-900);
+    }
   }
 }
 
