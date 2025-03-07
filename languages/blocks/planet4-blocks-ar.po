@@ -4,7 +4,7 @@ msgstr ""
 "&& n%100<=10 ? 3 : n%100 >= 11 && n%100<=99 ? 4 : 5;\n"
 "Project-Id-Version: Planet4 - Blocks\n"
 "POT-Creation-Date: 2020-09-09 11:52+0000\n"
-"PO-Revision-Date: 2025-03-07 10:42+0000\n"
+"PO-Revision-Date: 2025-03-07 10:44+0000\n"
 "Last-Translator: \n"
 "Language-Team: Arabic\n"
 "MIME-Version: 1.0\n"
@@ -26,11 +26,11 @@ msgstr ""
 
 #: classes/class-loader.php:463
 msgid "Planet 4 Blocks"
-msgstr ""
+msgstr "Planet 4 كتل"
 
 #: classes/class-loader.php:468
 msgid "Planet 4 Blocks - BETA"
-msgstr ""
+msgstr "كتل Planet 4 - النسخة التجريبية"
 
 #: classes/blocks/class-takeactionboxout.php:185
 msgid "take action"
