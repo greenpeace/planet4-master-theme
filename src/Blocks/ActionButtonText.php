@@ -72,14 +72,27 @@ class ActionButtonText extends BaseBlock
         $meta = get_post_meta($post_id);
         $options = get_option('planet4_options');
 
-        $action_btn = $options['take_action_covers_button_text'] ?? __('Take action', 'planet4-blocks');
-        $action_acc_btn = __('Take action', 'planet4-blocks');
-
         $has_button_text = isset($meta['action_button_text']) && $meta['action_button_text'][0];
         $has_button_acc_text = isset($meta['action_button_accessibility_text']) && $meta['action_button_accessibility_text'][0];
+        $has_default_text = !empty($options['take_action_covers_button_text']);
 
-        $button_text = $has_button_text ? $meta['action_button_text'][0] : $action_btn;
-        $button_acc_text = $has_button_acc_text ? $meta['action_button_accessibility_text'][0] : $action_acc_btn;
+        if ($has_button_text) {
+            $button_text = $meta['action_button_text'][0];
+        } elseif ($has_default_text) {
+            $button_text = $options['take_action_covers_button_text'];
+        } else {
+            $button_text = __('Take action', 'planet4-blocks');
+        }
+
+        if ($has_button_acc_text) {
+            $button_acc_text = $meta['action_button_accessibility_text'][0];
+        } elseif ($has_button_text) {
+            $button_acc_text = $meta['action_button_text'][0];
+        } elseif ($has_default_text) {
+            $button_acc_text = $options['take_action_covers_button_text'];
+        } else {
+            $button_acc_text = __('Take action', 'planet4-blocks');
+        }
 
         return '<a href="' . $link . '" class="btn btn-primary btn-small" aria-label="' . $button_acc_text . '">' . $button_text . '</a>';
     }
