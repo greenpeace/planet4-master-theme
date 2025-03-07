@@ -77,7 +77,7 @@ msgstr "بواسطة"
 
 #: assets/src/blocks/Counter/CounterBlock.js:73
 msgid "Text Only"
-msgstr ""
+msgstr "النص فقط"
 
 #: assets/src/blocks/Counter/CounterBlock.js:78
 msgid "Progress Bar"
