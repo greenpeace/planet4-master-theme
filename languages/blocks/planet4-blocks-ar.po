@@ -4,7 +4,7 @@ msgstr ""
 "&& n%100<=10 ? 3 : n%100 >= 11 && n%100<=99 ? 4 : 5;\n"
 "Project-Id-Version: Planet4 - Blocks\n"
 "POT-Creation-Date: 2020-09-09 11:52+0000\n"
-"PO-Revision-Date: 2025-03-07 10:49+0000\n"
+"PO-Revision-Date: 2025-03-07 10:50+0000\n"
 "Last-Translator: \n"
 "Language-Team: Arabic\n"
 "MIME-Version: 1.0\n"
@@ -45,12 +45,12 @@ msgstr "فهم أفضل للقضايا [الغوص في المواضيع الع�
 #: assets/src/block-templates/action/block.json:1
 msgctxt "block title"
 msgid "Action"
-msgstr ""
+msgstr "فعل"
 
 #: assets/src/block-templates/campaign/block.json:1
 msgctxt "block title"
 msgid "Campaign"
-msgstr ""
+msgstr "حملة"
 
 #: assets/src/block-templates/deep-dive/block.json:1
 msgctxt "block title"
