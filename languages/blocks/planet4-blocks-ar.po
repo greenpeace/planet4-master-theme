@@ -4,7 +4,7 @@ msgstr ""
 "&& n%100<=10 ? 3 : n%100 >= 11 && n%100<=99 ? 4 : 5;\n"
 "Project-Id-Version: Planet4 - Blocks\n"
 "POT-Creation-Date: 2020-09-09 11:52+0000\n"
-"PO-Revision-Date: 2025-03-07 10:55+0000\n"
+"PO-Revision-Date: 2025-03-07 10:56+0000\n"
 "Last-Translator: \n"
 "Language-Team: Arabic\n"
 "MIME-Version: 1.0\n"
@@ -110,12 +110,12 @@ msgstr "صورة جانبية مع نص ودعوة لاتخاذ إجراء"
 #: assets/src/block-templates/take-action/block.json:1
 msgctxt "block title"
 msgid "Take Action"
-msgstr ""
+msgstr "اتخذ إجراءً"
 
 #: theme.json:1
 msgctxt "Color name"
 msgid "Action Yellow"
-msgstr ""
+msgstr "العمل الأصفر"
 
 #: theme.json:1
 msgctxt "Color name"
