@@ -14,6 +14,7 @@ class MediaReplacer
     private array $replacement_status;
     private array $user_messages;
     private array $cloudflare_purge_status;
+    private array $stateless_data;
 
     private CloudflarePurger $cf;
 
@@ -53,8 +54,21 @@ class MediaReplacer
             return;
         }
 
+        // If the stateless data is not accessible, abort.
+        if (!function_exists('ud_get_stateless_media')) {
+            return;
+        }
+
+        $stateless_media = ud_get_stateless_media('sm');
+
+        $this->stateless_data = [
+            'mode' => $stateless_media['mode'],
+            'bucket' => $stateless_media['bucket'],
+            'custom_domain' => $stateless_media['custom_domain'],
+        ];
+
         // If the stateless mode is disabled, abort.
-        if (function_exists('ud_get_stateless_media') && ud_get_stateless_media('sm.mode') === 'disabled') {
+        if ($this->stateless_data['mode'] === 'disabled') {
             return;
         }
 
@@ -235,10 +249,6 @@ class MediaReplacer
         string $file_mime_type
     ): void {
         try {
-            if (!function_exists('ud_get_stateless_media')) {
-                throw new \LogicException($this->user_messages['error']);
-            }
-
             $filename = get_post_meta($old_file_id)['_wp_attached_file'][0];
 
             $status = $this->upload_file(
@@ -248,7 +258,7 @@ class MediaReplacer
                 [
                     'size' => '__full',
                     'object-id' => $old_file_id,
-                    'source-id' => md5($filename . ud_get_stateless_media()->get('sm.bucket')), //NOSONAR
+                    'source-id' => md5($file . $this->stateless_data['bucket']), //NOSONAR
                     'file-hash' => md5($filename), //NOSONAR
                 ]
             );
@@ -309,17 +319,13 @@ class MediaReplacer
             $old_image_filename = pathinfo($old_image_meta['name'], PATHINFO_FILENAME);
             $image_name = $old_image_dirname . '/' . $old_image_filename;
 
-            if (!function_exists('ud_get_stateless_media')) {
-                throw new \LogicException($this->user_messages['image']);
-            }
-
             // Create metadata for uploading the main image.
             $metadata = [
                 'width' => $new_image_width,
                 'height' => $new_image_height,
                 'size' => '__full',
                 'object-id' => $id,
-                'source-id' => md5($old_image_filename . ud_get_stateless_media()->get('sm.bucket')), //NOSONAR
+                'source-id' => md5($file . $this->stateless_data['bucket']), //NOSONAR
                 'file-hash' => md5($old_image_filename), //NOSONAR
             ];
 
@@ -501,15 +507,11 @@ class MediaReplacer
                 'force' => true,
             ];
 
-            if (!function_exists('ud_get_stateless_media')) {
-                throw new \LogicException($this->user_messages['error']);
-            }
-
             // Upload the file to Google Cloud Storage.
             $status = ud_get_stateless_media()->get_client()->add_media($image_args);
 
             if ($status) {
-                $stateless_url = "https://www.greenpeace.org/static/" . $status['bucket'] . "/" . $status['name'];
+                $stateless_url = $this->stateless_data['custom_domain'] . $status['name'];
                 $this->success_handler($this->user_messages['success'], $stateless_url);
                 return true;
             }
@@ -606,6 +608,7 @@ class MediaReplacer
             printf(
                 "<div class='notice notice-success is-dismissible'><p>%s</p></div>",
                 esc_html($success_message),
+                implode("</li><li>", array_map('esc_html', $status['success']))
             );
         }
 
