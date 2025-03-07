@@ -130,7 +130,7 @@ msgstr "أزرق 800"
 #: theme.json:1
 msgctxt "Color name"
 msgid "Blue Green 800"
-msgstr ""
+msgstr "أزرق أخضر 800"
 
 #: theme.json:1
 msgctxt "Color name"
