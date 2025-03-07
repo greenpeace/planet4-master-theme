@@ -215,7 +215,7 @@ class ActionPage
             'action_button_accessibility_text',
             array_merge(
                 $args,
-                [ 'default' => __('Get Involved', 'planet4-master-theme') ]
+                [ 'default' => __('Take action', 'planet4-master-theme') ]
             )
         );
 
