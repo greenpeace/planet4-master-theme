@@ -1,8 +1,4 @@
 #nav-mobile {
-  _-- {
-    height: 50px;
-  }
-
   display: flex;
   flex: 1 1 100%;
   flex-grow: 1;
@@ -42,7 +38,7 @@
   .nav-item {
     line-height: 50px;
     font-weight: var(--font-weight-regular);
-    margin: 0 20px;
+    margin: 5px 20px;
   }
 
   .nav-link {

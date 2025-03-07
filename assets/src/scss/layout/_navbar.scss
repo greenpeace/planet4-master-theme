@@ -363,6 +363,12 @@ a.nav-link:hover:before,
   @include large-and-up {
     display: none;
   }
+
+  &:focus,
+  &:focus-within,
+  &:focus-visible {
+    @include focus-styles;
+  }
 }
 
 .navigation-bar_min {
