@@ -4,7 +4,7 @@ msgstr ""
 "&& n%100<=10 ? 3 : n%100 >= 11 && n%100<=99 ? 4 : 5;\n"
 "Project-Id-Version: Planet4 - Blocks\n"
 "POT-Creation-Date: 2020-09-09 11:52+0000\n"
-"PO-Revision-Date: 2025-03-07 10:50+0000\n"
+"PO-Revision-Date: 2025-03-07 10:51+0000\n"
 "Last-Translator: \n"
 "Language-Team: Arabic\n"
 "MIME-Version: 1.0\n"
@@ -55,22 +55,22 @@ msgstr "حملة"
 #: assets/src/block-templates/deep-dive/block.json:1
 msgctxt "block title"
 msgid "Deep Dive"
-msgstr ""
+msgstr "الغوص العميق"
 
 #: assets/src/block-templates/deep-dive-topic/block.json:1
 msgctxt "block title"
 msgid "Deep Dive Topic"
-msgstr ""
+msgstr "موضوع الغوص العميق"
 
 #: assets/src/block-templates/get-informed/block.json:1
 msgctxt "block title"
 msgid "Get Informed"
-msgstr ""
+msgstr "احصل على اطلاع"
 
 #: assets/src/block-templates/high-level-topic/block.json:1
 msgctxt "block title"
 msgid "High-Level Topic"
-msgstr ""
+msgstr "موضوع رفيع المستوى"
 
 #: assets/src/block-templates/highlighted-cta/block.json:1
 msgctxt "block title"
