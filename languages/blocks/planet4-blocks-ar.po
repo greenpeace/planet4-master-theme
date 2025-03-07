@@ -4,8 +4,8 @@ msgstr ""
 "&& n%100<=10 ? 3 : n%100 >= 11 && n%100<=99 ? 4 : 5;\n"
 "Project-Id-Version: Planet4 - Blocks\n"
 "POT-Creation-Date: 2020-09-09 11:52+0000\n"
-"PO-Revision-Date: 2022-05-16 22:59+0000\n"
-"Last-Translator: Dan Tovbein - P4 team\n"
+"PO-Revision-Date: 2025-03-07 10:41+0000\n"
+"Last-Translator: \n"
 "Language-Team: Arabic\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,7 +20,7 @@ msgstr ""
 "_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "Language: ar\n"
 "Report-Msgid-Bugs-To: \n"
-"X-Loco-Version: 2.6.1; wp-5.9.3\n"
+"X-Loco-Version: 2.7.1; wp-6.7.2\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
@@ -38,7 +38,7 @@ msgstr "تحرك"
 
 #: classes/blocks/class-happypoint.php:129
 msgid "Background image"
-msgstr ""
+msgstr "صورة الخلفية"
 
 #: classes/blocks/class-splittwocolumns.php:151
 #: assets/src/blocks/Splittwocolumns/SplittwocolumnsSettings.js:64
@@ -65,7 +65,7 @@ msgstr "مقالات ذات صلة"
 
 #: classes/blocks/class-base-block.php:65
 msgid "Error"
-msgstr ""
+msgstr "خطأ"
 
 #: classes/blocks/class-covers.php:346
 msgid "Take action"
@@ -123,7 +123,7 @@ msgstr ""
 
 #. Description of the plugin
 msgid "Contains the Gutenberg blocks that are used by Planet4 project."
-msgstr ""
+msgstr "تحتوي على كتل Gutenberg التي يستخدمها مشروع Planet4."
 
 #. URI of the plugin
 msgid "http://github.com/greenpeace/planet4-plugin-gutenberg-blocks"
