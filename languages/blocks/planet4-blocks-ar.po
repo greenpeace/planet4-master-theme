@@ -121,7 +121,7 @@ msgstr "جاري تحميل جدول البيانات..."
 
 #. Name of the plugin
 msgid "Planet4 - Gutenberg Blocks"
-msgstr ""
+msgstr "Planet4 - كتل جوتنبرج"
 
 #. Description of the plugin
 msgid "Contains the Gutenberg blocks that are used by Planet4 project."
