@@ -4,7 +4,7 @@ msgstr ""
 "&& n%100<=10 ? 3 : n%100 >= 11 && n%100<=99 ? 4 : 5;\n"
 "Project-Id-Version: Planet4 - Blocks\n"
 "POT-Creation-Date: 2020-09-09 11:52+0000\n"
-"PO-Revision-Date: 2025-03-07 10:51+0000\n"
+"PO-Revision-Date: 2025-03-07 10:53+0000\n"
 "Last-Translator: \n"
 "Language-Team: Arabic\n"
 "MIME-Version: 1.0\n"
@@ -75,17 +75,17 @@ msgstr "موضوع رفيع المستوى"
 #: assets/src/block-templates/highlighted-cta/block.json:1
 msgctxt "block title"
 msgid "Highlighted CTA"
-msgstr ""
+msgstr " الدعوة لاتخاذ إجراء البارزة"
 
 #: assets/src/block-templates/homepage/block.json:1
 msgctxt "block title"
 msgid "Homepage"
-msgstr ""
+msgstr "الصفحة الرئيسية"
 
 #: assets/src/block-templates/issues/block.json:1
 msgctxt "block title"
 msgid "Issues"
-msgstr ""
+msgstr "مشاكل"
 
 #: assets/src/block-templates/page-header/block.json:1
 msgctxt "block title"
