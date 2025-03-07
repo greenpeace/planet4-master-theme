@@ -6,6 +6,7 @@ import {getSidebarFunctions} from './getSidebarFunctions';
 const FIELD_NAVTYPE = 'nav_type';
 const HIDE_PAGE_TITLE = 'p4_hide_page_title_checkbox';
 const BUTTON_TEXT = 'action_button_text';
+const BUTTON_ACCESSIBILITY_TEXT = 'action_button_accessibility_text';
 
 const {__} = wp.i18n;
 const {PluginDocumentSettingPanel} = wp.editor;
@@ -28,11 +29,15 @@ export const ActionSidebar = {
         </PluginDocumentSettingPanel>
         <PluginDocumentSettingPanel
           name="button-text-panel"
-          title={__('Covers block button text', 'planet4-blocks-backend')}
+          title={__('Action Lists block button text', 'planet4-blocks-backend')}
         >
           <TextSidebarField
-            label={__('Edit the button text shown on the Action covers block', 'planet4-blocks-backend')}
+            label={__('Set the text for the Actions List Block\'s Button (e.g., \'Sign Up\')', 'planet4-blocks-backend')}
             {...getParams(BUTTON_TEXT)}
+          />
+          <TextSidebarField
+            label={__('Add descriptive text for screen readers (e.g., \'Sign Up to Stop Meat and Dairy\').', 'planet4-blocks-backend')}
+            {...getParams(BUTTON_ACCESSIBILITY_TEXT)}
           />
         </PluginDocumentSettingPanel>
         <PluginDocumentSettingPanel
