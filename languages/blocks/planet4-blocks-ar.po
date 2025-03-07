@@ -4,7 +4,7 @@ msgstr ""
 "&& n%100<=10 ? 3 : n%100 >= 11 && n%100<=99 ? 4 : 5;\n"
 "Project-Id-Version: Planet4 - Blocks\n"
 "POT-Creation-Date: 2020-09-09 11:52+0000\n"
-"PO-Revision-Date: 2025-03-07 10:57+0000\n"
+"PO-Revision-Date: 2025-03-07 10:59+0000\n"
 "Last-Translator: \n"
 "Language-Team: Arabic\n"
 "MIME-Version: 1.0\n"
@@ -135,52 +135,52 @@ msgstr "أزرق أخضر 800"
 #: theme.json:1
 msgctxt "Color name"
 msgid "Dark Green 800"
-msgstr ""
+msgstr "أخضر غامق 800"
 
 #: theme.json:1
 msgctxt "Color name"
 msgid "GP Green 800"
-msgstr ""
+msgstr "أخضر جي بي 800"
 
 #: theme.json:1
 msgctxt "Color name"
 msgid "Green 400"
-msgstr ""
+msgstr "أخضر 400"
 
 #: theme.json:1
 msgctxt "Color name"
 msgid "Green 500"
-msgstr ""
+msgstr "أخضر 500"
 
 #: theme.json:1
 msgctxt "Color name"
 msgid "Green 800"
-msgstr ""
+msgstr "أخضر 800"
 
 #: theme.json:1
 msgctxt "Color name"
 msgid "Grey 100"
-msgstr ""
+msgstr "رمادي 100"
 
 #: theme.json:1
 msgctxt "Color name"
 msgid "Grey 200"
-msgstr ""
+msgstr "رمادي 200"
 
 #: theme.json:1
 msgctxt "Color name"
 msgid "Grey 600"
-msgstr ""
+msgstr "رمادي 600"
 
 #: theme.json:1
 msgctxt "Color name"
 msgid "Grey 800"
-msgstr ""
+msgstr "رمادي 800"
 
 #: theme.json:1
 msgctxt "Color name"
 msgid "Grey 900"
-msgstr ""
+msgstr "رمادي 900"
 
 #: theme.json:1
 msgctxt "Color name"
