@@ -4,7 +4,7 @@ msgstr ""
 "&& n%100<=10 ? 3 : n%100 >= 11 && n%100<=99 ? 4 : 5;\n"
 "Project-Id-Version: Planet4 - Blocks\n"
 "POT-Creation-Date: 2020-09-09 11:52+0000\n"
-"PO-Revision-Date: 2025-03-07 11:03+0000\n"
+"PO-Revision-Date: 2025-03-07 11:11+0000\n"
 "Last-Translator: \n"
 "Language-Team: Arabic\n"
 "MIME-Version: 1.0\n"
@@ -273,7 +273,7 @@ msgstr "جاري تحميل جدول البيانات..."
 #: assets/src/blocks/CarouselHeader/CarouselControls.js:18
 #: assets/src/blocks/Covers/CoversCarouselLayout.js:48
 msgid "Next"
-msgstr ""
+msgstr "التالي"
 
 #: assets/src/blocks/Spreadsheet/SpreadsheetFrontend.js:123
 msgid "No data matching your search."
@@ -281,33 +281,33 @@ msgstr "لا توجد بيانات تطابق بحثك."
 
 #: assets/src/block-templates/get-informed/template.js:28
 msgid "Our latest actions around the world"
-msgstr ""
+msgstr "أحدث تحركاتنا حول العالم"
 
 #: assets/src/block-templates/get-informed/template.js:24
 msgid "Our recent victories"
-msgstr ""
+msgstr "انتصاراتنا الأخيرة"
 
 #: assets/src/block-templates/deep-dive-topic/template.js:6
 #: assets/src/block-templates/take-action/template.js:8
 msgid "Page header title"
-msgstr ""
+msgstr "عنوان رأس الصفحة"
 
 #: assets/src/blocks/Covers/CoversCarouselLayout.js:44
 msgid "Prev"
-msgstr ""
+msgstr "السابق"
 
 #: assets/src/blocks/Gallery/GalleryCarousel.js:112
 #: assets/src/blocks/CarouselHeader/CarouselControls.js:14
 msgid "Previous"
-msgstr ""
+msgstr "السابق"
 
 #: assets/src/block-templates/take-action/template.js:38
 msgid "Raise awareness in your community"
-msgstr ""
+msgstr "رفع مستوى الوعي في مجتمعك"
 
 #: assets/src/block-templates/homepage/template.js:14
 msgid "Read our Stories"
-msgstr ""
+msgstr "قراءة قصصنا"
 
 #: src/Blocks/Articles.php:50 src/Blocks/Articles.php:58
 #: assets/src/blocks/Articles/ArticlesBlock.js:13
@@ -316,7 +316,7 @@ msgstr "مقالات ذات صلة"
 
 #: functions.php:331
 msgid "Related Posts"
-msgstr ""
+msgstr "المدونات ذات الصلة"
 
 #: assets/src/blocks/Spreadsheet/SpreadsheetFrontend.js:153
 msgid "Search data"
@@ -324,16 +324,16 @@ msgstr "بيانات البحث"
 
 #: functions.php:322
 msgid "See all posts"
-msgstr ""
+msgstr "رؤية جميع المدونات"
 
 #. Name of the template
 #: page-templates/sitemap.php:3
 msgid "Sitemap Page"
-msgstr ""
+msgstr "صفحة خريطة الموقع"
 
 #: assets/src/block-templates/take-action/template.js:17
 msgid "Support a cause"
-msgstr ""
+msgstr "دعم قضية"
 
 #: src/Blocks/Covers.php:418 src/Blocks/TakeActionBoxout.php:153
 #: src/Blocks/ActionButtonText.php:76
@@ -347,48 +347,48 @@ msgstr "تحرك"
 #: assets/src/blocks/Covers/TakeActionCovers.js:54
 #, javascript-format
 msgid "Take action cover, link to %s"
-msgstr ""
+msgstr "غطاء اتخذ إجراءً، ،رابط إلى %s"
 
 #: assets/src/block-templates/take-action/template.js:34
 msgid "Take action with us"
-msgstr ""
+msgstr "اتخاذ الإجراءات اللازمة معنا"
 
 #: assets/src/block-templates/get-informed/template.js:21
 #: assets/src/block-templates/homepage/template.js:10
 msgid "The issues we work on"
-msgstr ""
+msgstr "القضايا التي نعمل عليها"
 
 #: assets/src/block-templates/campaign/template.js:12
 #: assets/src/block-templates/deep-dive-topic/template.js:11
 #: assets/src/block-templates/high-level-topic/template.js:14
 #: assets/src/block-templates/action/template.js:22
 msgid "The problem"
-msgstr ""
+msgstr "المشكلة"
 
 #: assets/src/block-templates/campaign/template.js:16
 msgid "The solution"
-msgstr ""
+msgstr "الحل"
 
 #: assets/src/block-templates/get-informed/template.js:11
 msgid "Topic 1"
-msgstr ""
+msgstr "الموضوع 1"
 
 #: assets/src/block-templates/get-informed/template.js:14
 msgid "Topic 2"
-msgstr ""
+msgstr "الموضوع 2"
 
 #: assets/src/block-templates/get-informed/template.js:18
 msgid "Topic 3"
-msgstr ""
+msgstr "الموضوع 3"
 
 #: assets/src/block-templates/homepage/template.js:22
 msgid "We win campaigns"
-msgstr ""
+msgstr "نحن نفوز بالحملات"
 
 #: assets/src/block-templates/deep-dive-topic/template.js:14
 msgid "What can be done"
-msgstr ""
+msgstr "ما الذي يمكن عمله"
 
 #: assets/src/block-templates/high-level-topic/template.js:22
 msgid "What we do"
-msgstr ""
+msgstr "ماذا نفعل"
