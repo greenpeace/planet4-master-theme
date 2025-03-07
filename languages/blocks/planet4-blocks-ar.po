@@ -90,7 +90,7 @@ msgstr "مشاكل"
 #: assets/src/block-templates/page-header/block.json:1
 msgctxt "block title"
 msgid "Page Header"
-msgstr ""
+msgstr "رأس الصفحة"
 
 #: assets/src/block-templates/quick-links/block.json:1
 msgctxt "block title"
