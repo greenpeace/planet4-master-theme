@@ -4,7 +4,7 @@ msgstr ""
 "&& n%100<=10 ? 3 : n%100 >= 11 && n%100<=99 ? 4 : 5;\n"
 "Project-Id-Version: Planet4 - Blocks\n"
 "POT-Creation-Date: 2020-09-09 11:52+0000\n"
-"PO-Revision-Date: 2025-03-07 10:59+0000\n"
+"PO-Revision-Date: 2025-03-07 11:03+0000\n"
 "Last-Translator: \n"
 "Language-Team: Arabic\n"
 "MIME-Version: 1.0\n"
@@ -185,43 +185,43 @@ msgstr "رمادي 900"
 #: theme.json:1
 msgctxt "Color name"
 msgid "Red 500"
-msgstr ""
+msgstr "الأحمر 500"
 
 #: theme.json:1
 msgctxt "Color name"
 msgid "White"
-msgstr ""
+msgstr "أبيض"
 
 #: assets/src/blocks/Covers/ContentCovers.js:47
 msgid "Cover image, link to "
-msgstr ""
+msgstr "صورة الغلاف، رابط إلى"
 
 #: assets/src/block-templates/take-action/template.js:13
 msgid "Daily actions"
-msgstr ""
+msgstr "الإجراءات اليومية"
 
 #: assets/src/block-templates/take-action/template.js:42
 msgid "Donate"
-msgstr ""
+msgstr "تبرع"
 
 #. Name of the template
 #: page-templates/evergreen.php:3
 msgid "Evergreen Page"
-msgstr ""
+msgstr "صفحة دائمة الخضرة"
 
 #: assets/src/block-templates/get-informed/template.js:8
 #: assets/src/block-templates/high-level-topic/template.js:41
 #: assets/src/block-templates/action/template.js:32
 msgid "Explore by topics"
-msgstr ""
+msgstr "استكشاف حسب المواضيع"
 
 #: assets/src/block-templates/deep-dive-topic/template.js:28
 msgid "Explore other topics"
-msgstr ""
+msgstr "استكشاف مواضيع أخرى"
 
 #: assets/src/block-templates/high-level-topic/template.js:27
 msgid "Featured action title"
-msgstr ""
+msgstr "عنوان العمل المميز"
 
 #: src/Migrations/M032MigrateSplit2ColumnBlock.php:217
 msgid "Get involved"
@@ -229,27 +229,27 @@ msgstr "شارك"
 
 #: assets/src/block-templates/homepage/template.js:18
 msgid "Get to know us"
-msgstr ""
+msgstr "تعرف علينا"
 
 #: assets/src/block-templates/campaign/template.js:21
 #: assets/src/block-templates/deep-dive-topic/template.js:18
 #: assets/src/block-templates/high-level-topic/template.js:31
 msgid "How you can help"
-msgstr ""
+msgstr "كيف يمكنك المساعدة"
 
 #: assets/src/block-templates/deep-dive-topic/template.js:25
 msgid "Keep learning about"
-msgstr ""
+msgstr "استمر في التعلم عن"
 
 #: assets/src/block-templates/high-level-topic/template.js:37
 msgid "Latest investigations"
-msgstr ""
+msgstr "آخر التحقيقات"
 
 #: assets/src/block-templates/get-informed/template.js:31
 #: assets/src/block-templates/deep-dive-topic/template.js:22
 #: assets/src/block-templates/high-level-topic/template.js:34
 msgid "Latest news & stories"
-msgstr ""
+msgstr "آخر الأخبار والقصص"
 
 #: src/Migrations/M032MigrateSplit2ColumnBlock.php:201
 msgid "Learn more about this issue"
