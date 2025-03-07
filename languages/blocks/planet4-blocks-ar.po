@@ -4,7 +4,7 @@ msgstr ""
 "&& n%100<=10 ? 3 : n%100 >= 11 && n%100<=99 ? 4 : 5;\n"
 "Project-Id-Version: Planet4 - Blocks\n"
 "POT-Creation-Date: 2020-09-09 11:52+0000\n"
-"PO-Revision-Date: 2025-03-07 10:47+0000\n"
+"PO-Revision-Date: 2025-03-07 10:48+0000\n"
 "Last-Translator: \n"
 "Language-Team: Arabic\n"
 "MIME-Version: 1.0\n"
@@ -101,7 +101,7 @@ msgstr ""
 
 #: assets/src/blocks/Spreadsheet/SpreadsheetEditor.js:137
 msgid "The Spreadsheet URL appears to be invalid."
-msgstr ""
+msgstr "يبدو أن عنوان URL الخاص بجدول البيانات غير صالح."
 
 #: assets/src/blocks/Spreadsheet/SpreadsheetFrontend.js:141
 msgid "No data matching your search."
