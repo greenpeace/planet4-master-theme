@@ -182,6 +182,7 @@
 
       &:hover {
         background: var(--grey-200);
+        border-radius: 0;
       }
 
       &:before {
@@ -292,9 +293,23 @@ a.nav-link:hover:before,
     padding: 0;
   }
 
+  &.has-children a {
+    padding-inline-end: $sp-4;
+  }
+
   .accessible-nav-link {
     @include dropdown-icon;
     right: $sp-2;
+    left: auto;
+
+    &:focus {
+      @include focus-styles;
+    }
+
+    html[dir="rtl"] & {
+      left: $sp-2;
+      right: auto;
+    }
   }
 }
 
@@ -327,19 +342,22 @@ a.nav-link:hover:before,
   .accessible-nav-link {
     @include dropdown-icon;
     right: -$sp-2;
+    left: auto;
     opacity: 0;
-    width: 0;
-    height: 0;
-  }
-}
 
-.nav-item:has(.nav-submenu:focus-within) .accessible-nav-link,
-.accessible-nav-link:focus {
-  opacity: 1;
-  width: 10px;
-  height: 10px;
-  pointer-events: auto;
-  @include focus-styles;
+    &:focus {
+      opacity: 1;
+      width: 10px;
+      height: 10px;
+      pointer-events: none;
+      @include focus-styles;
+    }
+
+    html[dir="rtl"] & {
+      left: -$sp-2;
+      right: auto;
+    }
+  }
 }
 
 .nav-donate .nav-submenu {
