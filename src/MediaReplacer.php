@@ -13,6 +13,10 @@ class MediaReplacer
 {
     private array $replacement_status;
     private array $user_messages;
+    private array $cloudflare_purge_status;
+    private array $stateless_data;
+
+    private CloudflarePurger $cf;
 
     private const IMAGE_MIME_TYPES = [
         IMAGETYPE_JPEG => [
@@ -37,6 +41,7 @@ class MediaReplacer
 
     private const TRANSIENT = [
         'file' => 'file_replacement_notice',
+        'cache' => 'cloudflare_purge_notice',
     ];
 
     /**
@@ -49,10 +54,30 @@ class MediaReplacer
             return;
         }
 
-        // If the stateless mode is disabled, abort.
-        if (function_exists('ud_get_stateless_media') && ud_get_stateless_media('sm.mode') === 'disabled') {
+        // If the stateless data is not accessible, abort.
+        if (!function_exists('ud_get_stateless_media')) {
             return;
         }
+
+        $stateless_media = ud_get_stateless_media('sm');
+
+        $this->stateless_data = [
+            'mode' => $stateless_media['mode'],
+            'bucket' => $stateless_media['bucket'],
+            'custom_domain' => $stateless_media['custom_domain'],
+        ];
+
+        // If the stateless mode is disabled, abort.
+        if ($this->stateless_data['mode'] === 'disabled') {
+            return;
+        }
+
+        $this->cf = new CloudflarePurger();
+
+        $this->cloudflare_purge_status = [
+            'success' => [],
+            'error' => [],
+        ];
 
         $this->replacement_status = [
             'success' => [],
@@ -224,10 +249,6 @@ class MediaReplacer
         string $file_mime_type
     ): void {
         try {
-            if (!function_exists('ud_get_stateless_media')) {
-                throw new \LogicException($this->user_messages['error']);
-            }
-
             $filename = get_post_meta($old_file_id)['_wp_attached_file'][0];
 
             $status = $this->upload_file(
@@ -237,7 +258,7 @@ class MediaReplacer
                 [
                     'size' => '__full',
                     'object-id' => $old_file_id,
-                    'source-id' => md5($file . ud_get_stateless_media()->get('sm.bucket')), //NOSONAR
+                    'source-id' => md5($file . $this->stateless_data['bucket']), //NOSONAR
                     'file-hash' => md5($filename), //NOSONAR
                 ]
             );
@@ -298,17 +319,13 @@ class MediaReplacer
             $old_image_filename = pathinfo($old_image_meta['name'], PATHINFO_FILENAME);
             $image_name = $old_image_dirname . '/' . $old_image_filename;
 
-            if (!function_exists('ud_get_stateless_media')) {
-                throw new \LogicException($this->user_messages['image']);
-            }
-
             // Create metadata for uploading the main image.
             $metadata = [
                 'width' => $new_image_width,
                 'height' => $new_image_height,
                 'size' => '__full',
                 'object-id' => $id,
-                'source-id' => md5($file . ud_get_stateless_media()->get('sm.bucket')), //NOSONAR
+                'source-id' => md5($file . $this->stateless_data['bucket']), //NOSONAR
                 'file-hash' => md5($old_image_filename), //NOSONAR
             ];
 
@@ -490,15 +507,12 @@ class MediaReplacer
                 'force' => true,
             ];
 
-            if (!function_exists('ud_get_stateless_media')) {
-                throw new \LogicException($this->user_messages['error']);
-            }
-
             // Upload the file to Google Cloud Storage.
             $status = ud_get_stateless_media()->get_client()->add_media($image_args);
 
             if ($status) {
-                $this->success_handler($this->user_messages['success'], $name);
+                $stateless_url = $this->stateless_data['custom_domain'] . $status['name'];
+                $this->success_handler($this->user_messages['success'], $stateless_url);
                 return true;
             }
             throw new \LogicException($this->user_messages['error']);
@@ -529,10 +543,21 @@ class MediaReplacer
      *
      * @param string $message The success message.
      */
-    private function success_handler(string $message): void
+    private function success_handler(string $message, string $stateless_url): void
     {
+        $result = $this->cf->purge([$stateless_url]);
+
+        foreach ($result as [$response, $purged_urls]) {
+            if ($response) {
+                array_push($this->cloudflare_purge_status['success'], $purged_urls[0]);
+            } else {
+                array_push($this->cloudflare_purge_status['error'], $purged_urls[0]);
+            }
+        }
+
         array_push($this->replacement_status['success'], $message);
         $this->transient_handler(self::TRANSIENT['file'], $this->replacement_status);
+        $this->transient_handler(self::TRANSIENT['cache'], $this->cloudflare_purge_status);
     }
 
     /**
@@ -557,6 +582,11 @@ class MediaReplacer
             $this->user_messages['success'],
             $this->user_messages['error'],
         );
+        $this->render_notice(
+            'cache',
+            $this->user_messages['cf_success'],
+            $this->user_messages['cf_error'],
+        );
     }
 
     /**
@@ -578,6 +608,7 @@ class MediaReplacer
             printf(
                 "<div class='notice notice-success is-dismissible'><p>%s</p></div>",
                 esc_html($success_message),
+                implode("</li><li>", array_map('esc_html', $status['success']))
             );
         }
 
