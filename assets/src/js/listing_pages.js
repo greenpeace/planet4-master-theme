@@ -1,4 +1,11 @@
 const {__} = wp.i18n;
+const gridSVG = `<svg viewBox="0 0 32 32" class="icon">
+        <use xlink:href="http://www.planet4.test/wp-content/themes/planet4-master-theme/assets/build/sprite.symbol.svg#grid-view"></use>
+      </svg>`;
+const listSVG = `
+    <svg viewBox="0 0 32 32" class="icon">
+        <use xlink:href="http://www.planet4.test/wp-content/themes/planet4-master-theme/assets/build/sprite.symbol.svg#list-view"></use>
+    </svg>`;
 
 export const setupListingPages = () => {
   const listingPageContent = document.getElementById('listing-page-content');
@@ -6,6 +13,8 @@ export const setupListingPages = () => {
   if (!listingPageContent) {
     return;
   }
+
+  const toggleButton = document.querySelectorAll('.listing-page-title button')[1];
 
   // Setup behaviour for list/grid toggle.
   const listViewToggle = document.querySelector('.list-view-toggle');
@@ -21,7 +30,21 @@ export const setupListingPages = () => {
   const switchViews = layout => {
     const newUrl = new URL(window.location.href);
     newUrl.searchParams.set('layout', layout);
-    window.location.href = newUrl.href;
+    window.history.pushState({}, '', newUrl);
+    listingPageContent.classList.remove('wp-block-query--grid', 'wp-block-query--list');
+    listingPageContent.classList.add(`wp-block-query--${layout}`);
+
+    if (layout === 'list') {
+      toggleButton.title = 'Grid View';
+      toggleButton.innerHTML = gridSVG;
+      toggleButton.onclick = () => switchViews('grid');
+    }
+
+    if (layout === 'grid') {
+      toggleButton.title = 'List View';
+      toggleButton.innerHTML = listSVG;
+      toggleButton.onclick = () => switchViews('list');
+    }
   };
 
   if (listViewToggle) {
@@ -63,3 +86,4 @@ export const setupListingPages = () => {
     listingPageContent.appendChild(noPostsFound);
   }
 };
+
