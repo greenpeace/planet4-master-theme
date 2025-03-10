@@ -292,9 +292,19 @@ a.nav-link:hover:before,
     padding: 0;
   }
 
+  &.has-children {
+    a {
+      padding-right: 36px;
+    }
+  }
+
   .accessible-nav-link {
     @include dropdown-icon;
     right: $sp-2;
+
+    &:focus {
+      @include focus-styles;
+    }
   }
 }
 
