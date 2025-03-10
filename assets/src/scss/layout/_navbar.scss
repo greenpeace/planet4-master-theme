@@ -293,18 +293,22 @@ a.nav-link:hover:before,
     padding: 0;
   }
 
-  &.has-children {
-    a {
-      padding-right: 36px;
-    }
+  &.has-children a {
+    padding-inline-end: $sp-4;
   }
 
   .accessible-nav-link {
     @include dropdown-icon;
     right: $sp-2;
+    left: auto;
 
     &:focus {
       @include focus-styles;
+    }
+
+    html[dir="rtl"] & {
+      left: $sp-2;
+      right: auto;
     }
   }
 }
@@ -338,6 +342,7 @@ a.nav-link:hover:before,
   .accessible-nav-link {
     @include dropdown-icon;
     right: -$sp-2;
+    left: auto;
     opacity: 0;
 
     &:focus {
@@ -346,6 +351,11 @@ a.nav-link:hover:before,
       height: 10px;
       pointer-events: none;
       @include focus-styles;
+    }
+
+    html[dir="rtl"] & {
+      left: -$sp-2;
+      right: auto;
     }
   }
 }
