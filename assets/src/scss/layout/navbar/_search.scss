@@ -147,21 +147,9 @@
 }
 
 .nav-search-clear {
-  border: none;
+  @include clear-input-styles;
   float: right;
   margin-inline-end: 36px;
-  width: 24px;
-  height: 24px;
-  background-color: #ececec;
-  background-image: url("../../images/black-cross.svg");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 12px;
-  border-radius: 100%;
-
-  &:focus {
-    @include focus-styles;
-  }
 
   html[dir="rtl"] & {
     float: left;
@@ -207,7 +195,7 @@
   width: 44px;
 
   &:focus {
-    @include focus-styles;
+    @include focus-styles(50%);
   }
 
   &.open --top-navigation--search-toggle-- {

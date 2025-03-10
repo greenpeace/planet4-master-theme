@@ -319,10 +319,27 @@ $nested-comment-left-margin: 50px;
 }
 
 // Focus styles for buttons, links, etc
-@mixin focus-styles {
+@mixin focus-styles($radius: 4px) {
   outline: 2px solid #99c3ff;
   outline-offset: 1px;
-  border-radius: 4px;
+  border-radius: $radius;
+}
+
+// Clear input button styles (search input for example).
+@mixin clear-input-styles {
+  border: none;
+  width: 24px;
+  height: 24px;
+  background-color: var(--grey-200);
+  background-image: url("../../images/black-cross.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 12px;
+  border-radius: 50%;
+
+  &:focus {
+    @include focus-styles(50%);
+  }
 }
 
 // Apply custom layout to checkboxes

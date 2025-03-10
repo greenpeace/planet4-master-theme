@@ -167,6 +167,10 @@
     border-radius: 50%;
     opacity: 1;
 
+    &:focus {
+      @include focus-styles(50%);
+    }
+
     &:hover {
       background: var(--grey-200);
       padding-inline-start: 0;

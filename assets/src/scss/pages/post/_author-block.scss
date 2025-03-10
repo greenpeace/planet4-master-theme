@@ -111,6 +111,10 @@
     }
   }
 
+  &:focus {
+    @include focus-styles;
+  }
+
   &:after {
     content: "";
     height: 10px;
