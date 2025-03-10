@@ -106,7 +106,7 @@ $transition-duration: .2s;
 
   .nav-items {
     width: 100%;
-    padding: $sp-1x 0 0;
+    padding: $sp-1x $sp-x 0;
   }
 
   @include scrollbar-layout;
@@ -208,19 +208,35 @@ $transition-duration: .2s;
       transform: rotate(90deg);
     }
   }
+
+  &:focus,
+  &:focus-within,
+  &:focus-visible {
+    @include focus-styles;
+  }
 }
 
 .nav-menu-close {
   display: block;
   position: absolute;
-  top: 16px;
   inset-inline-end: $sp-3;
   border: none;
-  height: 16px;
-  width: 16px;
-  mask: url("../../images/cross.svg") 50% 50%/16px 16px no-repeat;
-  background-color: var(--grey-900);
+  height: 20px;
+  width: 20px;
+  top: 18px;
   z-index: 5;
+  background-color: transparent;
+  background-image: url("../../images/black-cross.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  background-size: 12px;
+  border-radius: 100%;
+
+  &:focus,
+  &:focus-visible {
+    @include focus-styles;
+  }
 
   @supports not (inset-inline-end: $sp-3) {
     right: $sp-3;
