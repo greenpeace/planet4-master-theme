@@ -210,6 +210,15 @@ class ActionPage
             )
         );
 
+        register_post_meta(
+            self::POST_TYPE,
+            'action_button_accessibility_text',
+            array_merge(
+                $args,
+                [ 'default' => __('Take action', 'planet4-master-theme') ]
+            )
+        );
+
         foreach (self::META_FIELDS as $field) {
             register_post_meta(self::POST_TYPE, $field, $args);
         }
