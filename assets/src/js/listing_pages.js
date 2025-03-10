@@ -21,7 +21,9 @@ export const setupListingPages = () => {
   const switchViews = layout => {
     const newUrl = new URL(window.location.href);
     newUrl.searchParams.set('layout', layout);
-    window.location.href = newUrl.href;
+    window.history.pushState({}, '', newUrl);
+    listingPageContent.classList.remove('wp-block-query--grid', 'wp-block-query--list');
+    listingPageContent.classList.add(`wp-block-query--${layout}`);
   };
 
   if (listViewToggle) {
@@ -63,3 +65,4 @@ export const setupListingPages = () => {
     listingPageContent.appendChild(noPostsFound);
   }
 };
+
