@@ -328,18 +328,15 @@ a.nav-link:hover:before,
     @include dropdown-icon;
     right: -$sp-2;
     opacity: 0;
-    width: 0;
-    height: 0;
-  }
-}
 
-.nav-item:has(.nav-submenu:focus-within) .accessible-nav-link,
-.accessible-nav-link:focus {
-  opacity: 1;
-  width: 10px;
-  height: 10px;
-  pointer-events: auto;
-  @include focus-styles;
+    &:focus {
+      opacity: 1;
+      width: 10px;
+      height: 10px;
+      pointer-events: none;
+      @include focus-styles;
+    }
+  }
 }
 
 .nav-donate .nav-submenu {
