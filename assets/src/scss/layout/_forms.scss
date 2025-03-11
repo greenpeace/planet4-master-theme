@@ -155,6 +155,11 @@ textarea.form-control {
       opacity: 0;
       transition: all .3s ease;
       margin-bottom: 0;
+
+      html[dir="rtl"] & {
+        right: 0;
+        left: auto;
+      }
     }
 
     .form-control:not(:placeholder-shown) {
