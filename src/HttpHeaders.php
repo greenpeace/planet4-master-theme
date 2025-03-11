@@ -61,6 +61,8 @@ class HttpHeaders
             $headers['X-Frame-Options'] = 'SAMEORIGIN';
         }
 
+        $headers['Permissions-Policy'] = 'geolocation=(),sync-xhr=(self),microphone=(self),camera=(self),payment=()';
+
         return $headers;
     }
 }

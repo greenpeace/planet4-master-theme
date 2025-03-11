@@ -24,6 +24,25 @@ class EnqueueController
         add_action('enqueue_metabox_search_script', [$this, 'enqueue_metabox_search']);
         add_action('enqueue_dismiss_dashboard_notice_script', [$this, 'enqueue_dismiss_dashboard_notice']);
         add_action('wp_enqueue_scripts', [$this, 'enqueue_accessible_nav_menu']);
+        add_action('wp_enqueue_scripts', [$this, 'enqueue_pipe']);
+    }
+
+    public function enqueue_pipe(): void
+    {
+        wp_enqueue_style(
+            'pipe-js-styles',
+            esc_url('https://cdn.addpipe.com/2.0/pipe.css'),
+            [],
+            null,
+            'all'
+        );
+        wp_enqueue_script(
+            'pipe-js-script',
+            esc_url('https://cdn.addpipe.com/2.0/pipe.js'),
+            [],
+            null,
+            false
+        );
     }
 
     public function enqueue_accessible_nav_menu(): void

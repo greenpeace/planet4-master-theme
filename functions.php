@@ -574,4 +574,13 @@ add_filter(
     10,
     2
 );
+
+function modify_permissions_policy_header() {
+    // Remove any existing Permissions-Policy headers to avoid duplication
+    header_remove("Permissions-Policy");
+
+    // Set the Permissions-Policy header with your preferred settings
+    header("Permissions-Policy: geolocation=(),sync-xhr=(self),microphone=(self),camera=(self),payment=()");
+}
+// add_action('send_headers', 'modify_permissions_policy_header', 11);
 // phpcs:enable Generic.Files.LineLength.MaxExceeded
