@@ -23,7 +23,7 @@
   }
 
   .wp-block-post-title {
-    margin-bottom: 24px;
+    margin-bottom: $sp-3;
   }
 
   @include large-and-up {
