@@ -84,15 +84,33 @@ class M042FixPostsListMigration extends MigrationScript
                 $block['attrs']['isLink'] = true;
                 $block['attrs']['level'] = 4;
             }
-            if (isset($block['blockName']) && $block['blockName'] === 'core/post-terms') {
-                if (isset($block['attrs']['term']) && $block['attrs']['term'] === 'post_tag') {
-                    $block['attrs']['term'] = 'category';
-                    $block['attrs']['separator'] = ' | ';
-                } elseif (isset($block['attrs']['term']) && $block['attrs']['term'] === 'category') {
-                    $block['attrs']['term'] = 'post_tag';
-                    $block['attrs']['separator'] = ' ';
+
+            if (isset($block['blockName']) && $block['blockName'] === 'core/post-template') {
+                $core_column_block = &$block['innerBlocks'][0];
+                $core_group_block = &$core_column_block['innerBlocks'][1];
+                $core_post_terms_block = &$core_group_block['innerBlocks'][0]['innerBlocks'];
+
+                if (
+                    isset($core_post_terms_block[0]['attrs']['term']) &&
+                    $core_post_terms_block[0]['attrs']['term'] === 'category'
+                ) {
+                    continue;
                 }
+
+                if (!isset($core_post_terms_block[0]['attrs'])) {
+                    $core_post_terms_block[0]['attrs'] = [];
+                }
+
+                if (!isset($core_post_terms_block[1]['attrs'])) {
+                    $core_post_terms_block[1]['attrs'] = [];
+                }
+
+                $core_post_terms_block[0]['attrs']['term'] = 'category';
+                $core_post_terms_block[0]['attrs']['separator'] = ' | ';
+                $core_post_terms_block[1]['attrs']['term'] = 'post_tag';
+                $core_post_terms_block[1]['attrs']['separator'] = ' ';
             }
+
             if (!isset($block['innerBlocks']) || !is_array($block['innerBlocks'])) {
                 continue;
             }
