@@ -27,6 +27,14 @@
   }
 }
 
+@mixin boxout-heading-font-size($mobile, $desktop) {
+  font-size: $mobile;
+
+  @include large-and-up {
+    font-size: $desktop;
+  }
+}
+
 .boxout {
   background: var(--white);
   width: 100%;
@@ -76,14 +84,38 @@
   .boxout-heading {
     _-- {
       font-family: var(--font-family-heading);
-      font-size: var(--font-size-m--font-family-primary);
       font-weight: var(--font-weight-regular);
       color: var(--color-text-body);
     }
-
     margin-bottom: $sp-1;
     word-break: break-word;
     @include clamp-text(2);
+    // Medium font size is the default.
+    @include boxout-heading-font-size(
+      var(--font-size-s--font-family-primary),
+      var(--font-size-m--font-family-primary)
+    );
+
+    &.small {
+      @include boxout-heading-font-size(
+        var(--font-size-xxs--font-family-primary),
+        var(--font-size-s--font-family-primary)
+      );
+    }
+
+    &.large {
+      @include boxout-heading-font-size(
+        var(--font-size-m--font-family-primary),
+        var(--font-size-l--font-family-primary)
+      );
+    }
+
+    &.x-large {
+      @include boxout-heading-font-size(
+        var(--font-size-l--font-family-primary),
+        var(--font-size-xl--font-family-primary)
+      );
+    }
   }
 
   .btn {
@@ -192,7 +224,6 @@
       @include mobile-only {
         .boxout-heading {
           margin-inline-end: $sp-3;
-          font-size: var(--font-size-xxs--font-family-primary);
         }
       }
     }

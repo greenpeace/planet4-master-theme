@@ -62,6 +62,10 @@ export const registerTakeActionBoxoutBlock = () => {
         type: 'boolean',
         default: false,
       },
+      headingFontSize: {
+        type: 'string',
+        default: '1.25rem',
+      },
     },
     edit: TakeActionBoxoutEditor,
     save() {
