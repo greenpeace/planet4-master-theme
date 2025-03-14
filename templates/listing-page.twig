@@ -7,11 +7,19 @@
             <h2>{{ listing_page_title ?? __( 'All articles', 'planet4-master-theme' ) }}</h2>
         {% endif %}
         {% if layout == 'list' %}
-            <button class="grid-view-toggle" title="{{__( 'Grid layout', 'planet4-master-theme' ) }}">
+            <button
+                class="grid-view-toggle"
+                title="{{__( 'Grid layout', 'planet4-master-theme' ) }}"
+                aria-label="{{__( 'Switch to grid view', 'planet4-master-theme' ) }}"
+            >
                 {{ 'grid-view'|svgicon }}
             </button>
         {% else %}
-            <button class="list-view-toggle" title="{{__( 'List layout', 'planet4-master-theme' ) }}">
+            <button
+                class="list-view-toggle"
+                title="{{__( 'List layout', 'planet4-master-theme' ) }}"
+                aria-label="{{__( 'Switch to list view', 'planet4-master-theme' ) }}"
+            >
                 {{ 'list-view'|svgicon }}
             </button>
         {% endif %}
