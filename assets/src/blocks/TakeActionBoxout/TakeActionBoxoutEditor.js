@@ -2,6 +2,8 @@ import {URLInput} from '../../block-editor/URLInput/URLInput';
 import {ImageHoverControls} from '../../block-editor/ImageHoverControls';
 import {TakeActionBoxoutFrontend} from './TakeActionBoxoutFrontend';
 import {ImagePlaceholder} from './ImagePlaceholder';
+import {FONT_SIZES} from './HeadingFontSizes';
+import {FontSizePicker} from '@wordpress/components';
 
 const {useSelect} = wp.data;
 const {RichText, BlockControls, MediaUpload, MediaUploadCheck, InspectorControls} = wp.blockEditor;
@@ -34,6 +36,7 @@ export const TakeActionBoxoutEditor = ({
     imageId: customImageId,
     className,
     stickyOnMobile,
+    headingFontSize,
   } = attributes;
 
   const {options: p4_options} = window.p4_vars;
@@ -148,7 +151,7 @@ export const TakeActionBoxoutEditor = ({
       <div className="boxout-content">
         <RichText
           tagName="div"
-          className="boxout-heading"
+          className={`boxout-heading ${headingFontSize}`}
           placeholder={__('Enter title', 'planet4-blocks-backend')}
           value={title}
           onChange={toAttribute('title')}
@@ -204,6 +207,12 @@ export const TakeActionBoxoutEditor = ({
               ...actPageOptions,
             ]}
             onChange={page => setAttributes({take_action_page: parseInt(page)})}
+          />
+          <FontSizePicker
+            fontSizes={FONT_SIZES}
+            value={headingFontSize}
+            onChange={fontSize => setAttributes({headingFontSize: fontSize})}
+            disableCustomFontSizes
           />
           {!takeActionPageSelected && <URLInput
             label={__('Custom link', 'planet4-blocks-backend')}

@@ -8,6 +8,7 @@ export const TakeActionBoxoutFrontend = ({
   imageAlt,
   className,
   stickyOnMobile,
+  headingFontSize,
 }) => (
   <section
     className={`boxout ${className || ''}`}
@@ -26,7 +27,7 @@ export const TakeActionBoxoutFrontend = ({
     <div className="boxout-content">
       {title &&
         <a
-          className="boxout-heading"
+          className={`boxout-heading ${headingFontSize}`}
           data-ga-category="Take Action Boxout"
           data-ga-action="Title"
           data-ga-label="n/a"

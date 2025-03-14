@@ -80,6 +80,10 @@ class TakeActionBoxout extends BaseBlock
                         'type' => 'boolean',
                         'default' => false,
                     ],
+                    'headingFontSize' => [
+                        'type' => 'string',
+                        'default' => 'medium',
+                    ],
                 ],
             ]
         );
@@ -117,6 +121,7 @@ class TakeActionBoxout extends BaseBlock
                     'image_alt' => $alt_text ?? '',
                     'image_srcset' => $src_set ?? '',
                     'stickyMobile' => $fields['stickyOnMobile'] ?? false,
+                    'headingFontSize' => $fields['headingFontSize'] ?? 'medium',
                 ],
             ];
         }
@@ -164,6 +169,7 @@ class TakeActionBoxout extends BaseBlock
                 'image_alt' => $image_alt ?? '',
                 'image_srcset' => $src_set ?? '',
                 'stickyMobile' => $fields['stickyOnMobile'] ?? false,
+                'headingFontSize' => $fields['headingFontSize'] ?? 'medium',
             ],
         ];
     }
