@@ -55,6 +55,7 @@ class Settings
         'whatsapp' => 'WhatsApp',
         'twitter' => 'X',
         'email' => 'Email',
+        'bluesky' => 'Bluesky',
     ];
 
     /**
