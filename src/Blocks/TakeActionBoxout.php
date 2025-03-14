@@ -24,18 +24,6 @@ class TakeActionBoxout extends BaseBlock
     public const BLOCK_NAME = 'take-action-boxout';
 
     /**
-     * The different possible values for the heading font size.
-     *
-     * @const array HEADING_FONT_SIZES.
-     */
-    public const HEADING_FONT_SIZES = [
-        '1.125rem' => 'small',
-        '1.25rem' => 'medium',
-        '1.375rem' => 'large',
-        '1.75rem' => 'x-large',
-    ];
-
-    /**
      * TakeActionBoxout constructor.
      */
     public function __construct()
@@ -94,7 +82,7 @@ class TakeActionBoxout extends BaseBlock
                     ],
                     'headingFontSize' => [
                         'type' => 'string',
-                        'default' => '1.25rem',
+                        'default' => 'medium',
                     ],
                 ],
             ]
@@ -133,8 +121,7 @@ class TakeActionBoxout extends BaseBlock
                     'image_alt' => $alt_text ?? '',
                     'image_srcset' => $src_set ?? '',
                     'stickyMobile' => $fields['stickyOnMobile'] ?? false,
-                    'headingClassName' => $fields['headingFontSize'] ?
-                        self::HEADING_FONT_SIZES[$fields['headingFontSize']] : 'medium',
+                    'headingFontSize' => $fields['headingFontSize'] ?? 'medium',
                 ],
             ];
         }
@@ -182,8 +169,7 @@ class TakeActionBoxout extends BaseBlock
                 'image_alt' => $image_alt ?? '',
                 'image_srcset' => $src_set ?? '',
                 'stickyMobile' => $fields['stickyOnMobile'] ?? false,
-                'headingClassName' => $fields['headingFontSize'] ?
-                    self::HEADING_FONT_SIZES[$fields['headingFontSize']] : 'medium',
+                'headingFontSize' => $fields['headingFontSize'] ?? 'medium',
             ],
         ];
     }

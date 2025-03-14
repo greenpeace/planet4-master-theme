@@ -4,29 +4,21 @@ export const FONT_SIZES = [
   {
     name: __('Small'),
     slug: 'small',
-    size: '1.125rem',
+    size: 'small',
   },
   {
     name: __('Medium'),
     slug: 'medium',
-    size: '1.25rem',
+    size: 'medium',
   },
   {
     name: __('Large'),
     slug: 'large',
-    size: '1.375rem',
+    size: 'large',
   },
   {
     name: __('Extra Large'),
     slug: 'x-large',
-    size: '1.75rem',
+    size: 'x-large',
   },
 ];
-
-export const getHeadingFontSizeClassName = fontSize => {
-  if (!fontSize || !FONT_SIZES.find(font => font.size === fontSize)) {
-    return 'medium';
-  }
-
-  return FONT_SIZES.find(font => font.size === fontSize).slug;
-};

@@ -1,5 +1,3 @@
-import {getHeadingFontSizeClassName} from './HeadingFontSizes';
-
 export const TakeActionBoxoutFrontend = ({
   title,
   excerpt,
@@ -29,7 +27,7 @@ export const TakeActionBoxoutFrontend = ({
     <div className="boxout-content">
       {title &&
         <a
-          className={`boxout-heading ${getHeadingFontSizeClassName(headingFontSize)}`}
+          className={`boxout-heading ${headingFontSize}`}
           data-ga-category="Take Action Boxout"
           data-ga-action="Title"
           data-ga-label="n/a"
