@@ -83,7 +83,7 @@ export const registerPostsListBlock = () => {
                 separator: ' ',
               }],
             ]],
-            ['core/post-title', {isLink: true}],
+            ['core/post-title', {isLink: true, level: 4}],
             ['core/post-excerpt'],
             ['core/group', {className: 'posts-list-meta'}, [
               ['core/post-author-name', {isLink: true}],
