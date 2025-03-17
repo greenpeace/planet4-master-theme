@@ -1,11 +1,4 @@
 const {__} = wp.i18n;
-const gridSVG = `<svg viewBox="0 0 32 32" class="icon">
-        <use xlink:href="http://www.planet4.test/wp-content/themes/planet4-master-theme/assets/build/sprite.symbol.svg#grid-view"></use>
-      </svg>`;
-const listSVG = `
-    <svg viewBox="0 0 32 32" class="icon">
-        <use xlink:href="http://www.planet4.test/wp-content/themes/planet4-master-theme/assets/build/sprite.symbol.svg#list-view"></use>
-    </svg>`;
 
 export const setupListingPages = () => {
   const listingPageContent = document.getElementById('listing-page-content');
@@ -13,8 +6,6 @@ export const setupListingPages = () => {
   if (!listingPageContent) {
     return;
   }
-
-  const toggleButton = document.querySelectorAll('.listing-page-title button')[1];
 
   // Setup behaviour for list/grid toggle.
   const listViewToggle = document.querySelector('.list-view-toggle');
@@ -26,6 +17,23 @@ export const setupListingPages = () => {
 
   listingPageContent.classList.toggle('wp-block-query--list', gridViewToggle);
   listingPageContent.classList.toggle('wp-block-query--grid', listViewToggle);
+  const toggleButton = document.querySelector('.layout-toggle');
+  const gridSVG = `<svg viewBox="0 0 32 32" class="icon">
+        <use xlink:href="http://www.planet4.test/wp-content/themes/planet4-master-theme/assets/build/sprite.symbol.svg#grid-view"></use>
+      </svg>`;
+  const listSVG = `
+    <svg viewBox="0 0 32 32" class="icon">
+        <use xlink:href="http://www.planet4.test/wp-content/themes/planet4-master-theme/assets/build/sprite.symbol.svg#list-view"></use>
+    </svg>`;
+
+  const clearStorageAfter = 30 * 60 * 1000; // 1 hour in milliseconds
+
+  // Function to clear localStorage after a set time
+  const clearLocalStorage = () => {
+    setTimeout(() => {
+      localStorage.removeItem('layout');
+    }, clearStorageAfter);
+  };
 
   const switchViews = layout => {
     const newUrl = new URL(window.location.href);
@@ -33,6 +41,9 @@ export const setupListingPages = () => {
     window.history.pushState({}, '', newUrl);
     listingPageContent.classList.remove('wp-block-query--grid', 'wp-block-query--list');
     listingPageContent.classList.add(`wp-block-query--${layout}`);
+
+    localStorage.setItem('layout', layout); // Store the layout
+    clearLocalStorage(); // Schedule clearing
 
     if (layout === 'list') {
       toggleButton.title = 'Grid View';
@@ -46,6 +57,17 @@ export const setupListingPages = () => {
       toggleButton.onclick = () => switchViews('list');
     }
   };
+
+  const initLayout = () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const layout = urlParams.get('layout') || localStorage.getItem('layout');
+
+    if (layout) {
+      switchViews(layout);
+    }
+  };
+
+  initLayout();
 
   if (listViewToggle) {
     listViewToggle.onclick = () => switchViews('list');
