@@ -111,6 +111,22 @@ class M042FixPostsListMigration extends MigrationScript
                 $core_post_terms_block[1]['attrs']['separator'] = ' ';
             }
 
+            if (isset($block['blockName']) && $block['blockName'] === 'core/paragraph') {
+                if (isset($block['attrs']['placeholder']) && $block['attrs']['placeholder'] === 'Enter description') {
+                    $marginTop = "24px";
+                    $marginBottom = "36px";
+                    $style = "margin-top: $marginTop; margin-bottom: $marginBottom;";
+
+                    if (isset($block['innerHTML'])) {
+                        $block['innerHTML'] = preg_replace('/<p([^>]*)>/', '<p\1 style="' . $style . '">', $block['innerHTML'], 1);
+                    }
+
+                    if (isset($block['innerContent'][0])) {
+                        $block['innerContent'][0] = preg_replace('/<p([^>]*)>/', '<p\1 style="' . $style . '">', $block['innerContent'][0], 1);
+                    }
+                }
+            }
+
             if (!isset($block['innerBlocks']) || !is_array($block['innerBlocks'])) {
                 continue;
             }

@@ -96,6 +96,11 @@
 
     a {
       @include clamp-text(2);
+
+      &:hover {
+        text-decoration: underline;
+        text-underline-offset: 2px; // For Firefox
+      }
     }
 
     @include medium-and-less {
