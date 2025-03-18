@@ -58,8 +58,8 @@ if (googleTagManagerData?.google_tag_value) {
     'gPlatform': 'Planet 4',
     'p4_blocks': googleTagManagerData.p4_blocks,
     'post_categories': googleTagManagerData.post_categories,
-    'reading_time': googleTagManagerData.reading_time ? `#${googleTagManagerData.reading_time}` : '',
-    'page_date': googleTagManagerData.page_date ? `#${googleTagManagerData.page_date}` : '',
+    'reading_time': googleTagManagerData.reading_time ?? '',
+    'page_date': googleTagManagerData.page_date ?? '',
     ...(googleTagManagerData.page_category === 'Search Page' && {
       'search_results': googleTagManagerData.search_results,
     }),
