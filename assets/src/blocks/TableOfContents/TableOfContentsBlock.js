@@ -25,7 +25,7 @@ export const registerTableOfContentsBlock = () => {
       },
       levels: {
         type: 'array',
-        default: [{heading: 2, link: false, style: 'none'}],
+        default: [{heading: 2, link: true, style: 'none'}],
       },
       isExample: {
         type: 'boolean',

@@ -69,12 +69,15 @@ class TableOfContents extends BaseBlock
                             'properties' => [
                                 'heading' => [
                                     'type' => 'integer',
+                                    'default' => 2,
                                 ],
                                 'link' => [
                                     'type' => 'boolean',
+                                    'default' => true,
                                 ],
                                 'style' => [
                                     'type' => 'string',
+                                    'default' => 'none',
                                 ],
                             ],
                         ],
