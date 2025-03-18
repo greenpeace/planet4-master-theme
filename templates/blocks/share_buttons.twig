@@ -39,11 +39,12 @@
     {% endif %}
     <!-- Bluesky -->
     {% if share_platforms.bluesky %}
-        <a href="https://bsky.app/intent/compose?text={{ social.title|url_encode }}{% if share_text or social.description %} - {{ (share_text ?? social.description)|striptags|url_encode }}{% endif %}, via @{{ social_accounts.bluesky ?? 'greenpeace' }} {{ (socialLink ~ '&utm_source=bluesky')|url_encode }}"
+        <a href="https://bsky.app/intent/compose?text={{ social.title|url_encode }}{% if share_text or social.description %} - {{ (share_text ?? social.description)|striptags|url_encode }}{% endif %}, via @{{ social_accounts.bluesky }} {{ (socialLink ~ '&utm_source=bluesky')|url_encode }}"
            onclick="window.dataLayerPush('Bluesky');"
            target="_blank" class="share-btn bluesky">
             {{ 'bluesky'|svgicon }}
-            <span class="visually-hidden">{{ __( 'Share on', 'planet4-master-theme' ) }} Bluesky</span>
+            <!-- translators: %s = social share platform. -->
+            <span class="visually-hidden">{{ __( 'Share on %s', 'planet4-master-theme' )|format('Bluesky') }}</span>
         </a>
     {% endif %}
     <!-- Native (Gravity Forms only, for devices that support it) -->
