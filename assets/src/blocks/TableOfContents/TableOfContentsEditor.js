@@ -14,7 +14,7 @@ const renderEdit = (attributes, setAttributes) => {
   function addLevel() {
     const [previousLastLevel] = attributes.levels.slice(-1);
     const newLevel = previousLastLevel.heading + 1;
-    setAttributes({levels: attributes.levels.concat({heading: newLevel, link: false, style: 'none'})});
+    setAttributes({levels: attributes.levels.concat({heading: newLevel, link: true, style: 'none'})});
   }
 
   function onHeadingChange(index, value) {
