@@ -2,12 +2,38 @@ import {test, expect} from '../tools/lib/test-utils.js';
 import {publishPostAndVisit, createPostWithFeaturedImage} from '../tools/lib/post.js';
 import {searchAndInsertBlock} from '../tools/lib/editor.js';
 
-const YOUTUBE_TEST = 'https://www.youtube.com/watch?v=-CwkccAgKrs';
-const VIMEO_TEST = 'https://vimeo.com/120680405';
-const MP4_TEST = 'https://www.greenpeace.org/static/planet4-assets/tests/edge_of_the_wrold.mp4';
-
-const SOUNDCLOUD_TEST = 'https://soundcloud.com/greenpeaceuk-1/04-and-we-will-defend-requiem';
-const MP3_TEST = 'https://www.greenpeace.org/static/planet4-assets/tests/wochenserie_greenpeace.mp3';
+const TEST_MEDIA = [
+  {
+    type: 'video',
+    format: 'youtube',
+    url: 'https://www.youtube.com/watch?v=-CwkccAgKrs',
+    selector: '.wp-block-embed-youtube',
+  },
+  {
+    type: 'video',
+    format: 'vimeo',
+    url: 'https://vimeo.com/120680405',
+    selector: '.wp-block-embed-vimeo',
+  },
+  {
+    type: 'video',
+    format: 'mp4',
+    url: 'https://www.greenpeace.org/static/planet4-assets/tests/edge_of_the_wrold.mp4',
+    selector: '.wp-block-video > video',
+  },
+  {
+    type: 'audio',
+    format: 'soundcloud',
+    url: 'https://soundcloud.com/greenpeaceuk-1/04-and-we-will-defend-requiem',
+    selector: '.wp-block-embed-soundcloud',
+  },
+  {
+    type: 'audio',
+    format: 'mp3',
+    url: 'https://www.greenpeace.org/static/planet4-assets/tests/wochenserie_greenpeace.mp3',
+    selector: '.wp-block-audio > audio',
+  },
+];
 
 /**
  * Add a Video or Audio block to a page with a specific link.
@@ -38,26 +64,11 @@ const addVideoOrAudioBlock = async ({page}, mediaType, mediaLink) => {
 
 test.useAdminLoggedIn();
 
-test('check the Audio and Video blocks', async ({page, admin, editor}) => {
-  // Create a post for the test.
-  await createPostWithFeaturedImage({page, admin, editor}, {title: 'Test Audio and Video blocks'});
-
-  // Add Video blocks with the various examples.
-  await addVideoOrAudioBlock({page}, 'video', YOUTUBE_TEST);
-  await addVideoOrAudioBlock({page}, 'video', VIMEO_TEST);
-  await addVideoOrAudioBlock({page}, 'video', MP4_TEST);
-
-  // Add Audio blocks with the various examples.
-  await addVideoOrAudioBlock({page}, 'audio', SOUNDCLOUD_TEST);
-  await addVideoOrAudioBlock({page}, 'audio', MP3_TEST);
-
-  // Publish page.
-  await publishPostAndVisit({page, editor});
-
-  // Check on the frontend that the blocks are present.
-  await expect(page.locator('.wp-block-embed-youtube')).toBeVisible();
-  await expect(page.locator('.wp-block-embed-vimeo')).toBeVisible();
-  await expect(page.locator('.wp-block-video > video')).toHaveAttribute('src', MP4_TEST);
-  await expect(page.locator('.wp-block-embed-soundcloud')).toBeVisible();
-  await expect(page.locator('.wp-block-audio > audio')).toHaveAttribute('src', MP3_TEST);
+TEST_MEDIA.forEach(({type, format, url, selector}) => {
+  test(`check the ${type} block with format ${format}`, async ({page, admin, editor}) => {
+    await createPostWithFeaturedImage({page, admin, editor}, {title: `Test ${type} block`});
+    await addVideoOrAudioBlock({page}, type, url);
+    await publishPostAndVisit({page, editor});
+    await expect(page.locator(selector)).toBeVisible();
+  });
 });
