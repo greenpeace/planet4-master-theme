@@ -264,7 +264,7 @@ class EnqueueController
             'cf_scope' => $context['cf_scope'] ?? null,
             'cf_department' => $context['cf_department'] ?? null,
             'enforce_cookies_policy' => $context['enforce_cookies_policy'] ?? null,
-            'cookies_enable_google_consent_mode' => $context['cookies']->enable_google_consent_mode ?? null,
+            'cookies_enable_google_consent_mode' => $context['cookies']['enable_google_consent_mode'] ?? null,
             'post_password_required' => $context['post']->password_required ?? null,
             'search_results' => $context['found_posts'] ?? '',
         ];
