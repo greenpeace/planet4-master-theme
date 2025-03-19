@@ -345,6 +345,7 @@ class Post extends TimberPost
             'twitter' => in_array('twitter', $social_share_options),
             'whatsapp' => in_array('whatsapp', $social_share_options),
             'email' => in_array('email', $social_share_options),
+            'bluesky' => in_array('bluesky', $social_share_options),
             // We might add a setting for this one in the future, but for now we always disable it in Posts.
             'native' => false,
         ];
@@ -397,6 +398,7 @@ class Post extends TimberPost
                 'twitter',
                 'youtube',
                 'instagram',
+                'bluesky',
             ];
             foreach ($social_menu as $social_menu_item) {
                 $url_parts = explode('/', rtrim($social_menu_item->url, '/'));

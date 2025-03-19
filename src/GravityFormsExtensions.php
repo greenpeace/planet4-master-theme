@@ -80,6 +80,11 @@ class GravityFormsExtensions
             'name' => 'native',
             'default_value' => 1,
         ],
+        [
+            'label' => 'Bluesky',
+            'name' => 'bluesky',
+            'default_value' => 0,
+        ],
     ];
 
     public array $current_entry = [];
@@ -509,6 +514,7 @@ class GravityFormsExtensions
             'whatsapp' => $current_confirmation['whatsapp'] ?? true,
             'native' => $current_confirmation['native'] ?? true,
             'email' => $current_confirmation['email'] ?? true,
+            'bluesky' => $current_confirmation['bluesky'] ?? true,
         ];
 
         $apply_social_sharing_options = planet4_get_option('apply_social_sharing_options', 'posts_and_forms');
@@ -520,6 +526,7 @@ class GravityFormsExtensions
                 'twitter' => in_array('twitter', $social_share_options),
                 'whatsapp' => in_array('whatsapp', $social_share_options),
                 'email' => in_array('email', $social_share_options),
+                'bluesky' => in_array('bluesky', $social_share_options),
                 // We might add a setting for this one in the future, but for now we always enable it in GF.
                 'native' => true,
             ];
