@@ -20,6 +20,7 @@
                     data-ga-category="Search Page"
                     data-ga-action="Post Type Filter"
                     data-ga-label="{{ post_type.name|e('wp_kses_post')|raw }}"
+                    aria-label="{{__('%s, %d results', 'planet4-master-theme')|format(post_type.name, post_type.results)}}"
                     {{ post_type.checked }} />
                 <span class="custom-control-description">{{ post_type.name|e('wp_kses_post')|raw }} {{ post_type.results > 0 ? '('~post_type.results~')' : '' }}</span>
             </label>

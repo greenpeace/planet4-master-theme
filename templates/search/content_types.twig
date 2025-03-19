@@ -20,6 +20,7 @@
                     data-ga-category="Search Page"
                     data-ga-action="Content Filter"
                     data-ga-label="{{ content_type.name|e('wp_kses_post')|raw }}"
+                    aria-label="{{__('%s, %d results', 'planet4-master-theme')|format(content_type.name, content_type.results)}}"
                     {{ content_type.checked }} />
                 <span class="custom-control-description">{{ content_type.name }} {{ content_type.results > 0 ? '('~content_type.results~')' : '' }}</span>
             </label>
