@@ -7,26 +7,9 @@ export const setupListingPages = () => {
     return;
   }
 
-  // Setup behaviour for list/grid toggle.
-  const listViewToggle = document.querySelector('.list-view-toggle');
-  const gridViewToggle = document.querySelector('.grid-view-toggle');
-
-  if (!listViewToggle && !gridViewToggle) {
-    return;
-  }
-
-  listingPageContent.classList.toggle('wp-block-query--list', gridViewToggle);
-  listingPageContent.classList.toggle('wp-block-query--grid', listViewToggle);
   const toggleButton = document.querySelector('.layout-toggle');
-  const gridSVG = `<svg viewBox="0 0 32 32" class="icon">
-        <use xlink:href="http://www.planet4.test/wp-content/themes/planet4-master-theme/assets/build/sprite.symbol.svg#grid-view"></use>
-      </svg>`;
-  const listSVG = `
-    <svg viewBox="0 0 32 32" class="icon">
-        <use xlink:href="http://www.planet4.test/wp-content/themes/planet4-master-theme/assets/build/sprite.symbol.svg#list-view"></use>
-    </svg>`;
 
-  const clearStorageAfter = 30 * 60 * 1000; // 1 hour in milliseconds
+  const clearStorageAfter = 30 * 60 * 1000; // 30mins in milliseconds
 
   // Function to clear localStorage after a set time
   const clearLocalStorage = () => {
@@ -35,45 +18,57 @@ export const setupListingPages = () => {
     }, clearStorageAfter);
   };
 
-  const switchViews = layout => {
+  const switchViews = layoutView => {
+    let layout = layoutView;
+    if (event.target.tagName && event.target.tagName.toLowerCase() === 'button') {
+      layout = event.target.getAttribute('data-layout');
+    }
+
     const newUrl = new URL(window.location.href);
     newUrl.searchParams.set('layout', layout);
     window.history.pushState({}, '', newUrl);
     listingPageContent.classList.remove('wp-block-query--grid', 'wp-block-query--list');
     listingPageContent.classList.add(`wp-block-query--${layout}`);
 
-    localStorage.setItem('layout', layout); // Store the layout
-    clearLocalStorage(); // Schedule clearing
+    localStorage.setItem('layout', layout);
+    clearLocalStorage();
 
     if (layout === 'list') {
-      toggleButton.title = 'Grid View';
-      toggleButton.innerHTML = gridSVG;
-      toggleButton.onclick = () => switchViews('grid');
+      toggleButton.title = __('Grid View', 'planet4-master-theme');
+      toggleButton.classList.remove('layout-toggle-grid', 'layout-toggle-list');
+      toggleButton.classList.add('layout-toggle-grid');
+      toggleButton.setAttribute('data-layout', 'grid');
+      toggleButton.setAttribute('aria-label', __('Switch to grid view', 'planet4-master-theme'));
     }
 
     if (layout === 'grid') {
-      toggleButton.title = 'List View';
-      toggleButton.innerHTML = listSVG;
-      toggleButton.onclick = () => switchViews('list');
+      toggleButton.title = __('List View', 'planet4-master-theme');
+      toggleButton.classList.remove('layout-toggle-grid', 'layout-toggle-list');
+      toggleButton.classList.add('layout-toggle-list');
+      toggleButton.setAttribute('data-layout', 'list');
+      toggleButton.setAttribute('aria-label', __('Switch to list view', 'planet4-master-theme'));
     }
   };
 
+  if (toggleButton) {
+    toggleButton.onclick = switchViews;
+  }
+
   const initLayout = () => {
     const urlParams = new URLSearchParams(window.location.search);
-    const layout = urlParams.get('layout') || localStorage.getItem('layout');
+    let layout = urlParams.get('layout') || localStorage.getItem('layout');
+    const validLayouts = ['list', 'grid'];
 
-    if (layout) {
+    if (!validLayouts.includes(layout)) {
+      layout = 'list';
+    }
+
+    if (layout && toggleButton) {
       switchViews(layout);
     }
   };
 
   initLayout();
-
-  if (listViewToggle) {
-    listViewToggle.onclick = () => switchViews('list');
-  } else {
-    gridViewToggle.onclick = () => switchViews('grid');
-  }
 
   // Setup filters for the News & Stories page.
   const filters = document.querySelector('.listing-page-filters');
