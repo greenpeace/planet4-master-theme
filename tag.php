@@ -44,7 +44,7 @@ if ($post instanceof \WP_Post) {
 
 $context['taxonomy'] = $tag;
 $context['tag_name'] = single_tag_title('', false);
-$context['tag_description'] = wpautop($tag->description);
+$context['tag_description'] = isset($tag, $tag->description) ? wpautop($tag->description) : '';
 
 // Temporary fix with rewind, cf. https://github.com/WordPress/gutenberg/issues/53593
 rewind_posts();
