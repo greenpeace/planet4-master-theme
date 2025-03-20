@@ -619,7 +619,7 @@ class Post extends TimberPost
                                             <!-- wp:post-terms {"term":"post_tag","separator":" "} /-->
                                         </div>
                                     <!-- /wp:group -->
-                                    <!-- wp:post-title {"isLink":true} /-->
+                                    <!-- wp:post-title {"isLink":true, "level": 4} /-->
                                     <!-- wp:post-excerpt /-->
                                     <!-- wp:group {"className":"posts-list-meta"} -->
                                         <div class="wp-block-group posts-list-meta">
