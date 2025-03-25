@@ -8,7 +8,7 @@ use P4\MasterTheme\MigrationRecord;
 use P4\MasterTheme\MigrationScript;
 
 /**
- * Migrate Posts List blocks with errors to Posts List blocks updated.
+ * Migrate Posts List blocks with errors to Posts List blocks fix.
  */
 class M042FixPostsListMigration extends MigrationScript
 {
@@ -37,7 +37,7 @@ class M042FixPostsListMigration extends MigrationScript
     // phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter
 
     /**
-     * Check whether a block is a Posts List block.
+     * Check whether a block is a Query Loop block.
      *
      * @param array $block - A block data array.
      */
@@ -53,31 +53,36 @@ class M042FixPostsListMigration extends MigrationScript
             return false;
         }
 
-        // Check if the block is a Posts List block.
+        // Check if the block is a Query Loop block.
         return $block['blockName'] === Utils\Constants::BLOCK_QUERY;
     }
 
     /**
-     * Create a new Query block based on attributes of the existing Posts List block.
+     * Update the post title, post terms and paragraph of the
+     * Posts List block
      *
      * @param array $block - The current posts list block.
-     * @return array - The new block.
+     * @return array - array of blocks.
      */
     private static function transform_block(array $block): array
     {
-        self::update_posts_list_block($block['innerBlocks']);
+        if ($block['attrs']['namespace'] === Utils\Constants::BLOCK_POSTS_LIST) {
+            self::update_posts_list_block_title($block['innerBlocks']);
+            self::update_posts_list_block_terms($block['innerBlocks']);
+        }
+
         return $block;
     }
 
-     /**
-     * Find either the title or description for the posts list block.
+    /**
+     * Update post titles.
      *
-     * @param array $blocks - The block.
+     * @param array $blocks - array of blocks.
      */
-    private static function update_posts_list_block(array &$blocks): void
+    private static function update_posts_list_block_title(array &$blocks): void
     {
         foreach ($blocks as &$block) {
-            if (isset($block['blockName']) && $block['blockName'] === 'core/post-title') {
+            if (isset($block['blockName']) && $block['blockName'] === Utils\Constants::BLOCK_TITLE) {
                 if (!isset($block['attrs'])) {
                     $block['attrs'] = [];
                 }
@@ -85,7 +90,19 @@ class M042FixPostsListMigration extends MigrationScript
                 $block['attrs']['level'] = 4;
             }
 
-            if (isset($block['blockName']) && $block['blockName'] === 'core/post-template') {
+            self::update_posts_list_block_title($block['innerBlocks']);
+        }
+    }
+
+     /**
+     * Update Posts List block post terms and paragraph.
+     *
+     * @param array $blocks - array of blocks.
+     */
+    private static function update_posts_list_block_terms(array &$blocks): void
+    {
+        foreach ($blocks as &$block) {
+            if (isset($block['blockName']) && $block['blockName'] === Utils\Constants::BLOCK_POST_TEMPLATE) {
                 $core_column_block = &$block['innerBlocks'][0];
                 $core_group_block = &$core_column_block['innerBlocks'][1];
                 $core_post_terms_block = &$core_group_block['innerBlocks'][0]['innerBlocks'];
@@ -111,18 +128,18 @@ class M042FixPostsListMigration extends MigrationScript
                 $core_post_terms_block[1]['attrs']['separator'] = ' ';
             }
 
-            if (isset($block['blockName']) && $block['blockName'] === 'core/paragraph') {
+            if (isset($block['blockName']) && $block['blockName'] === Utils\Constants::BLOCK_PARAGRAPH) {
                 if (isset($block['attrs']['placeholder']) && $block['attrs']['placeholder'] === 'Enter description') {
                     $marginTop = "24px";
                     $marginBottom = "36px";
                     $style = "margin-top: $marginTop; margin-bottom: $marginBottom;";
 
                     if (isset($block['innerHTML'])) {
-                        $block['innerHTML'] = preg_replace('/<p([^>]*)>/', '<p\1 style="' . $style . '">', $block['innerHTML'], 1);
+                        $block['innerHTML'] = self::addStyleIfMissing($block['innerHTML'], $style);
                     }
 
                     if (isset($block['innerContent'][0])) {
-                        $block['innerContent'][0] = preg_replace('/<p([^>]*)>/', '<p\1 style="' . $style . '">', $block['innerContent'][0], 1);
+                        $block['innerContent'][0] = self::addStyleIfMissing($block['innerContent'][0], $style);
                     }
                 }
             }
@@ -131,7 +148,24 @@ class M042FixPostsListMigration extends MigrationScript
                 continue;
             }
 
-            self::update_posts_list_block($block['innerBlocks']);
+            self::update_posts_list_block_terms($block['innerBlocks']);
         }
+    }
+
+    /**
+     * Adds style attribute to p tag if missing.
+     *
+     * @param string $html - HTML string to parse
+     * @param string $newStyle - style string to add to p tag
+     *
+     * @return string - html content
+     */
+    private static function addStyleIfMissing(string $html, string $newStyle): string
+    {
+        if (preg_match('/<p[^>]*\sstyle=["\']([^"\']*)["\']/', $html)) {
+            return $html;
+        }
+
+        return preg_replace('/<p([^>]*)>/', '<p\1 style="' . $newStyle . '">', $html, 1);
     }
 }
