@@ -512,6 +512,15 @@ class Settings
                         'id' => 'enable_vwo',
                         'type' => 'checkbox',
                     ],
+                    [
+                        'name' => __('VWO Account ID', 'planet4-master-theme-backend'),
+                        'desc' => __(
+                            'ID provided by VWO. Please make sure the VWO Testing option above is enabled.',
+                            'planet4-master-theme-backend'
+                        ),
+                        'id' => 'vwo_account_id',
+                        'type' => 'text',
+                    ],
                 ],
             ],
             'planet4_settings_features' => Features::get_options_page(),

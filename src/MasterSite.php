@@ -737,6 +737,7 @@ class MasterSite extends TimberSite
             planet4_get_option('consent_default_ad_personalization') ?? 'denied';
         $context['facebook_page_id'] = $options['facebook_page_id'] ?? '';
         $context['preconnect_domains'] = [];
+        $context['vwo_account_id'] = $options['vwo_account_id'] ?? null;
 
         if (!empty($options['preconnect_domains'])) {
             $preconnect_domains = explode("\n", $options['preconnect_domains']);

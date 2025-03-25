@@ -6,7 +6,9 @@
 
     {% include 'blocks/meta_fields.twig' %}
 
-    {% include 'head/vwo_test_script.twig' %}
+    {% if vwo_account_id %}
+        {% include 'head/vwo_test_script.twig' %}
+    {% endif %}
 
     {% if hubspot_active %}
         {% do action('enqueue_hubspot_cookie_script') %}
