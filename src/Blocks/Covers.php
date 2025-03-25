@@ -236,6 +236,7 @@ class Covers extends BaseBlock
     {
         $tag_ids = $fields['tags'] ?? [];
         $layout = $fields['layout'] ?? self::GRID_LAYOUT;
+
         $args = [
             'post_type' => ActionPage::POST_TYPE,
             'post_status' => 'publish',

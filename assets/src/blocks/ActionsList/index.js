@@ -28,7 +28,7 @@ export const registerActionsListBlock = () => {
       className: 'actions-list p4-query-loop is-custom-layout-grid',
       query: {
         pages: 0,
-        perPage: 12,
+        perPage: 3,
         offset: 0,
         order: 'desc',
         orderBy: 'date',
