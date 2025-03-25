@@ -49,8 +49,7 @@ class QueryLoopExtension
                 $query['post_type'] = ['page'];
 
                 // This applies only to Actions List block
-                if($blockQuery['isCustom']) {
-
+                if ($blockQuery['isCustom']) {
                     if (!$is_new_ia) {
                         $query['post_parent'] = $blockQuery['parent'];
                     } else {
