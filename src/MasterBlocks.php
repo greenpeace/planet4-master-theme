@@ -198,18 +198,15 @@ class MasterBlocks
         ];
 
         return [
-            // 'enable_analytical_cookies' => planet4_get_option('enable_analytical_cookies', ''),
-            // 'enable_google_consent_mode' => planet4_get_option('enable_google_consent_mode', ''),
-            // 'cookies_default_copy' => $cookies_default_copy,
-            // 'take_action_covers_button_text' => planet4_get_option('take_action_covers_button_text', ''),
-            // 'take_action_page' => $is_new_ia ? $take_action_page : $act_page,
-            'take_action_page' => $take_action_page,
-            'act_page' => $act_page,
-            'act_mixed' => $is_new_ia ? $take_action_page : $act_page,
+            'enable_analytical_cookies' => planet4_get_option('enable_analytical_cookies', ''),
+            'enable_google_consent_mode' => planet4_get_option('enable_google_consent_mode', ''),
+            'cookies_default_copy' => $cookies_default_copy,
+            'take_action_covers_button_text' => planet4_get_option('take_action_covers_button_text', ''),
+            'take_action_page' => $is_new_ia ? $take_action_page : $act_page,
             'new_ia' => $is_new_ia,
-            // 'page_text_404' => planet4_get_option('404_page_text', ''),
-            // 'page_bg_image_404' => planet4_get_option('404_page_bg_image', ''),
-            // 'cookies_field' => planet4_get_option('cookies_field', ''),
+            'page_text_404' => planet4_get_option('404_page_text', ''),
+            'page_bg_image_404' => planet4_get_option('404_page_bg_image', ''),
+            'cookies_field' => planet4_get_option('cookies_field', ''),
         ];
     }
 
