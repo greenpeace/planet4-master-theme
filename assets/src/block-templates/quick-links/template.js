@@ -6,7 +6,7 @@ const category = ['core/column', {}, [
   ['core/group', {className: 'group-stretched-link'}, [
     ['core/image', {
       align: 'center',
-      className: 'is-style-rounded-90 force-no-lightbox force-no-caption mb-0',
+      className: 'is-style-small-circle force-no-lightbox force-no-caption mb-0',
       width: '90px',
       height: '90px',
       url: `${mainThemeUrl}/images/placeholders/placeholder-90x90.jpg`,

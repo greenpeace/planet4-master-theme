@@ -6,7 +6,7 @@ const topic = ['core/column', {}, [
   ['core/group', {className: 'group-stretched-link'}, [
     ['core/image', {
       align: 'center',
-      className: 'force-no-lightbox force-no-caption is-style-rounded-180',
+      className: 'force-no-lightbox force-no-caption is-style-big-circle',
       url: `${mainThemeUrl}/images/placeholders/placeholder-180x180.jpg`,
       height: '180px',
       width: '180px',

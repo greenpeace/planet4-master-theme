@@ -1,7 +1,8 @@
 .group-stretched-link {
   position: relative;
 
-  [class*="is-style-rounded-"].force-no-caption {
+  .is-style-small-circle.force-no-caption,
+  .is-style-big-circle.force-no-caption {
     overflow: hidden;
     border-radius: 50%;
     transform: translateZ(0); // This is needed for Safari, otherwise the animation looks off.
@@ -12,7 +13,8 @@
   }
 
   &:hover > {
-    figure[class*="is-style-rounded-"] img {
+    figure.is-style-small-circle img,
+    figure.is-style-big-circle img {
       transform: scale(1.3);
     }
   }
