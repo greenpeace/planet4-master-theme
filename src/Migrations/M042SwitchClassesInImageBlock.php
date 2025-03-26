@@ -14,12 +14,38 @@ class M042SwitchClassesInImageBlock extends MigrationScript
 {
     private const SIZE_ATTRS = [
         'small' => [
-            'width' => 'width="90"',
-            'height' => 'height="90"',
+            'width' => [
+                'v1' => 'width="90"',
+                'v2' => 'width=90',
+                'v3' => "width='90'",
+            ],
+            'height' => [
+                'v1' => 'height="90"',
+                'v2' => 'height=90',
+                'v3' => "height='90'",
+            ],
+            'full' => [
+                'v1' => 'width:"90px";height:"90px"',
+                'v2' => 'width:90px;height:90px',
+                'v3' => "width:'90px';height:'90px'",
+            ],
         ],
         'big' => [
-            'width' => 'width="180"',
-            'height' => 'height="180"',
+            'width' => [
+                'v1' => 'width="180"',
+                'v2' => 'width=180',
+                'v3' => "width='180'",
+            ],
+            'height' => [
+                'v1' => 'height="180"',
+                'v2' => 'height=180',
+                'v3' => "height='180'",
+            ],
+            'full' => [
+                'v1' => 'width:"180px";height:"180px"',
+                'v2' => 'width:180px;height:180px',
+                'v3' => "width:'180px';height:'180px'",
+            ],
         ],
     ];
     private const CLASSNAME = [
@@ -107,6 +133,8 @@ class M042SwitchClassesInImageBlock extends MigrationScript
                         str_contains($block['attrs']['className'], self::CLASSNAME['old']['big'])
                     )
             ) {
+                var_dump($block);
+
                 $classname = str_replace(
                     [
                         self::CLASSNAME['old']['small'],
@@ -122,14 +150,44 @@ class M042SwitchClassesInImageBlock extends MigrationScript
                     [
                         self::CLASSNAME['old']['small'],
                         self::CLASSNAME['old']['big'],
-                        self::SIZE_ATTRS['small']['width'],
-                        self::SIZE_ATTRS['small']['height'],
-                        self::SIZE_ATTRS['big']['width'],
-                        self::SIZE_ATTRS['big']['height'],
+
+                        self::SIZE_ATTRS['small']['width']['v1'],
+                        self::SIZE_ATTRS['small']['width']['v1'],
+                        self::SIZE_ATTRS['small']['width']['v1'],
+                        self::SIZE_ATTRS['small']['height']['v2'],
+                        self::SIZE_ATTRS['small']['height']['v2'],
+                        self::SIZE_ATTRS['small']['height']['v2'],
+                        self::SIZE_ATTRS['small']['full']['v3'],
+                        self::SIZE_ATTRS['small']['full']['v3'],
+                        self::SIZE_ATTRS['small']['full']['v3'],
+
+                        self::SIZE_ATTRS['big']['width']['v1'],
+                        self::SIZE_ATTRS['big']['width']['v1'],
+                        self::SIZE_ATTRS['big']['width']['v1'],
+                        self::SIZE_ATTRS['big']['height']['v2'],
+                        self::SIZE_ATTRS['big']['height']['v2'],
+                        self::SIZE_ATTRS['big']['height']['v2'],
+                        self::SIZE_ATTRS['big']['full']['v3'],
+                        self::SIZE_ATTRS['big']['full']['v3'],
+                        self::SIZE_ATTRS['big']['full']['v3'],
                     ],
                     [
                         self::CLASSNAME['new']['small'],
                         self::CLASSNAME['new']['big'],
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
                         "",
                         "",
                         "",
@@ -144,6 +202,8 @@ class M042SwitchClassesInImageBlock extends MigrationScript
                 $block['attrs']['className'] = $classname;
                 $block['innerHTML'] = $html;
                 $block['innerContent'][0] = $html;
+
+                var_dump($block);
             }
             self::switch_classes($block['innerBlocks']);
         }
