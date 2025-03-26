@@ -504,18 +504,9 @@ class Settings
                         'type' => $is_new_ia ? 'about_us_page_dropdown' : 'hidden',
                     ],
                     [
-                        'name' => __('VWO A/B testing', 'planet4-master-theme-backend'),
-                        'desc' => __(
-                            'Adds a Content Security Policy exception for VWO and enables its anti-flicker mechanism. Do not enable this if you are A/B testing with other tools.',
-                            'planet4-master-theme-backend'
-                        ),
-                        'id' => 'enable_vwo',
-                        'type' => 'checkbox',
-                    ],
-                    [
                         'name' => __('VWO Account ID', 'planet4-master-theme-backend'),
                         'desc' => __(
-                            'ID provided by VWO. Please make sure the VWO Testing option above is enabled.',
+                            'Adds a Content Security Policy exception for VWO and enables its anti-flicker mechanism.',
                             'planet4-master-theme-backend'
                         ),
                         'id' => 'vwo_account_id',

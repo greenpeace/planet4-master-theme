@@ -352,7 +352,7 @@ class MasterSite extends TimberSite
         add_action(
             'wp_head',
             function (): void {
-                $enable_vwo = planet4_get_option('enable_vwo') === 'on';
+                $enable_vwo = planet4_get_option('vwo_account_id') ?? null;
 
                 if (!$enable_vwo) {
                     return;
