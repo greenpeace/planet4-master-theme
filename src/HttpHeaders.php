@@ -44,7 +44,7 @@ class HttpHeaders
         ];
 
         // Add VWO exception to CSP list
-        $enable_vwo = planet4_get_option('enable_vwo') === 'on';
+        $enable_vwo = planet4_get_option('vwo_account_id') ?? null;
         if ($enable_vwo) {
             // phpcs:disable Generic.Files.LineLength.MaxExceeded
             $directives[0] = $directives[0] . ' blob: *.visualwebsiteoptimizer.com *visualwebsiteoptimizer.com app.vwo.com useruploads.vwo.io';

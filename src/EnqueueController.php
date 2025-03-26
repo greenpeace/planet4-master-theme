@@ -24,6 +24,7 @@ class EnqueueController
         add_action('enqueue_metabox_search_script', [$this, 'enqueue_metabox_search']);
         add_action('enqueue_dismiss_dashboard_notice_script', [$this, 'enqueue_dismiss_dashboard_notice']);
         add_action('wp_enqueue_scripts', [$this, 'enqueue_accessible_nav_menu']);
+        add_action('enqueue_vwo_smart_script', [$this, 'enqueue_vwo_smart_code']);
     }
 
     public function enqueue_accessible_nav_menu(): void
@@ -86,6 +87,42 @@ class EnqueueController
             $this->get_file_version('/assets/build/hubspotCookie.js'),
             true
         );
+    }
+
+    /**
+     * Enqueues VWO Smart code script.
+     *
+     * This method registers and enqueues the JavaScript file for handling
+     * VWO A/B testing on the website.
+     *
+     * @param array $account_id ID provided by VWO.
+     *
+     */
+    public function enqueue_vwo_smart_code(string $account_id): void
+    {
+        $script = [
+            'id' => 'vwoSmartScriptCodeData',
+            'name' => 'vwo-smart-code-script',
+            'path' => '/assets/build/vwoSmartCode.js',
+        ];
+
+        $this->enqueue_script(
+            $script['name'],
+            $script['path'],
+            [],
+            $this->get_file_version($script['path']),
+            true
+        );
+
+        if (!wp_script_is($script['name'], 'enqueued')) {
+            return;
+        }
+
+        $data = [
+            'vwo_account_id' => $account_id,
+        ];
+
+        wp_localize_script($script['name'], $script['id'], $data);
     }
 
     /**
