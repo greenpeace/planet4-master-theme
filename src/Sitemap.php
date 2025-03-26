@@ -55,7 +55,7 @@ class Sitemap
     public function get_issues(): array
     {
         $options = get_option('planet4_options');
-        $parent_id = $options['explore_page'];
+        $parent_id = $options['explore_page'] ?? null;
         $issues = [];
 
         if (0 !== absint($parent_id)) {

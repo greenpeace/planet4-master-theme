@@ -237,7 +237,7 @@ class MediaReplacer
                 [
                     'size' => '__full',
                     'object-id' => $old_file_id,
-                    'source-id' => md5($file . ud_get_stateless_media()->get('sm.bucket')), //NOSONAR
+                    'source-id' => md5($filename . ud_get_stateless_media()->get('sm.bucket')), //NOSONAR
                     'file-hash' => md5($filename), //NOSONAR
                 ]
             );
@@ -308,7 +308,7 @@ class MediaReplacer
                 'height' => $new_image_height,
                 'size' => '__full',
                 'object-id' => $id,
-                'source-id' => md5($file . ud_get_stateless_media()->get('sm.bucket')), //NOSONAR
+                'source-id' => md5($old_image_filename . ud_get_stateless_media()->get('sm.bucket')), //NOSONAR
                 'file-hash' => md5($old_image_filename), //NOSONAR
             ];
 

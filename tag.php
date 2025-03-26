@@ -25,14 +25,17 @@ $redirect_id = isset($tag, $tag->term_id) ? get_term_meta($tag->term_id, 'redire
 if ($redirect_id) {
     global $wp_query;
     $redirect_page = get_post($redirect_id);
-    $wp_query->queried_object = $redirect_page;
-    $wp_query->queried_object_id = $redirect_page->ID;
 
-    // Allow modification of redirect page behavior.
-    do_action('p4_action_tag_page_redirect', $redirect_page);
+    if (isset($redirect_page, $redirect_page->ID)) {
+        $wp_query->queried_object = $redirect_page;
+        $wp_query->queried_object_id = $redirect_page->ID;
 
-    include 'page.php';
-    exit();
+        // Allow modification of redirect page behavior.
+        do_action('p4_action_tag_page_redirect', $redirect_page);
+
+        include 'page.php';
+        exit();
+    }
 }
 
 $post = Timber::query_post(false, Post::class); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
@@ -44,7 +47,7 @@ if ($post instanceof \WP_Post) {
 
 $context['taxonomy'] = $tag;
 $context['tag_name'] = single_tag_title('', false);
-$context['tag_description'] = wpautop($tag->description);
+$context['tag_description'] = isset($tag, $tag->description) ? wpautop($tag->description) : '';
 
 // Temporary fix with rewind, cf. https://github.com/WordPress/gutenberg/issues/53593
 rewind_posts();
