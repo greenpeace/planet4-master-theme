@@ -20,7 +20,7 @@
                 data-ga-category="Search Page"
                 data-ga-action="Category Filter"
                 data-ga-label="{{ category.name|e('wp_kses_post')|raw }}"
-                aria-label="{{__('%s, %d results', 'planet4-master-theme')|format(category.name, category.results)}}"
+                aria-label="{{__('Filter results by category %s, %d results were found', 'planet4-master-theme')|format(category.name, category.results)}}"
                 {{ category.checked }} />
             <span class="custom-control-description">{{ category.name|e('wp_kses_post')|raw }} {{ category.results > 0 ? '('~category.results~')' : '' }}</span>
         </label>
