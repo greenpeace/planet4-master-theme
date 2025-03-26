@@ -6,206 +6,81 @@ namespace P4\MasterTheme\Migrations;
 
 use P4\MasterTheme\MigrationRecord;
 use P4\MasterTheme\MigrationScript;
+use WP_Query;
 
 /**
  * Switch classes in the core image block.
  */
 class M042SwitchClassesInImageBlock extends MigrationScript
 {
-    private const SIZE_ATTRS = [
-        'small' => [
-            'width' => [
-                'v1' => 'width="90"',
-                'v2' => 'width=90',
-                'v3' => "width='90'",
-            ],
-            'height' => [
-                'v1' => 'height="90"',
-                'v2' => 'height=90',
-                'v3' => "height='90'",
-            ],
-            'full' => [
-                'v1' => 'width:"90px";height:"90px"',
-                'v2' => 'width:90px;height:90px',
-                'v3' => "width:'90px';height:'90px'",
-            ],
-        ],
-        'big' => [
-            'width' => [
-                'v1' => 'width="180"',
-                'v2' => 'width=180',
-                'v3' => "width='180'",
-            ],
-            'height' => [
-                'v1' => 'height="180"',
-                'v2' => 'height=180',
-                'v3' => "height='180'",
-            ],
-            'full' => [
-                'v1' => 'width:"180px";height:"180px"',
-                'v2' => 'width:180px;height:180px',
-                'v3' => "width:'180px';height:'180px'",
-            ],
-        ],
-    ];
-    private const CLASSNAME = [
-        'old' => [
-            'small' => 'is-style-rounded-90',
-            'big' => 'is-style-rounded-180',
-        ],
-        'new' => [
-            'small' => 'is-style-small-circle',
-            'big' => 'is-style-big-circle',
-        ],
-    ];
-
     /**
-     * Switch classes in the core image block and remove some attributes.
+     * Switch classes in the core image block.
      *
      * @param MigrationRecord $record Information on the execution, can be used to add logs.
      * phpcs:disable SlevomatCodingStandard.Functions.UnusedParameter -- interface implementation
      */
     public static function execute(MigrationRecord $record): void
     {
-        $check_is_valid_block = function ($block) {
-            return self::check_is_valid_block($block);
-        };
+        echo 'Replacing classes in the core/image block...', "\n"; // phpcs:ignore
 
-        $transform_block = function ($block) {
-            return self::transform_block($block);
-        };
+        $post_types = array_diff(get_post_types(['public' => true], 'names'), ['archive']);
+        $paged = 1;
+        $per_page = 30;
 
-        Utils\Functions::execute_block_migration(
-            Utils\Constants::BLOCK_IMAGE,
-            $check_is_valid_block,
-            $transform_block,
-        );
-    }
+        do {
+            $query = new WP_Query([
+                'post_type' => $post_types,
+                'posts_per_page' => $per_page,
+                'paged' => $paged,
+                'post_status' => 'any',
+                'fields' => 'ids',
+            ]);
 
-    /**
-     * Check whether a block is a core Image block.
-     *
-     * @param array $block - A block data array.
-     */
-    private static function check_is_valid_block(array $block): bool
-    {
-        // Check if the block is valid.
-        if (!is_array($block)) {
-            return false;
-        }
-
-        // Check if the block has a 'blockName' key.
-        if (!isset($block['blockName'])) {
-            return false;
-        }
-
-        // Check if the block is a core Image block. If not, abort.
-        return ($block['blockName'] !== Utils\Constants::BLOCK_IMAGE);
-    }
-
-    /**
-     * Transform the block.
-     *
-     * @param array $block - A block array.
-     * @return array - The transformed block.
-     */
-    private static function transform_block(array $block): array
-    {
-        self::switch_classes($block['innerBlocks']);
-        return $block;
-    }
-
-    /**
-     * Replace class names.
-     * Remove width and height attributes.
-     *
-     * @param array $blocks - A block array.
-     */
-    private static function switch_classes(array &$blocks): void
-    {
-        foreach ($blocks as &$block) {
-            if (
-                isset($block['blockName']) &&
-                isset($block['attrs']['className']) &&
-                $block['blockName'] === Utils\Constants::BLOCK_IMAGE &&
-                    (
-                        str_contains($block['attrs']['className'], self::CLASSNAME['old']['small']) ||
-                        str_contains($block['attrs']['className'], self::CLASSNAME['old']['big'])
-                    )
-            ) {
-                var_dump($block);
-
-                $classname = str_replace(
-                    [
-                        self::CLASSNAME['old']['small'],
-                        self::CLASSNAME['old']['big'],
-                    ],
-                    [
-                        self::CLASSNAME['new']['small'],
-                        self::CLASSNAME['new']['big'],
-                    ],
-                    $block['attrs']['className']
-                );
-                $html = str_replace(
-                    [
-                        self::CLASSNAME['old']['small'],
-                        self::CLASSNAME['old']['big'],
-
-                        self::SIZE_ATTRS['small']['width']['v1'],
-                        self::SIZE_ATTRS['small']['width']['v1'],
-                        self::SIZE_ATTRS['small']['width']['v1'],
-                        self::SIZE_ATTRS['small']['height']['v2'],
-                        self::SIZE_ATTRS['small']['height']['v2'],
-                        self::SIZE_ATTRS['small']['height']['v2'],
-                        self::SIZE_ATTRS['small']['full']['v3'],
-                        self::SIZE_ATTRS['small']['full']['v3'],
-                        self::SIZE_ATTRS['small']['full']['v3'],
-
-                        self::SIZE_ATTRS['big']['width']['v1'],
-                        self::SIZE_ATTRS['big']['width']['v1'],
-                        self::SIZE_ATTRS['big']['width']['v1'],
-                        self::SIZE_ATTRS['big']['height']['v2'],
-                        self::SIZE_ATTRS['big']['height']['v2'],
-                        self::SIZE_ATTRS['big']['height']['v2'],
-                        self::SIZE_ATTRS['big']['full']['v3'],
-                        self::SIZE_ATTRS['big']['full']['v3'],
-                        self::SIZE_ATTRS['big']['full']['v3'],
-                    ],
-                    [
-                        self::CLASSNAME['new']['small'],
-                        self::CLASSNAME['new']['big'],
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                    ],
-                    $block['innerHTML']
-                );
-
-                unset($block['attrs']['width']);
-                unset($block['attrs']['height']);
-
-                $block['attrs']['className'] = $classname;
-                $block['innerHTML'] = $html;
-                $block['innerContent'][0] = $html;
-
-                var_dump($block);
+            if (!$query->have_posts()) {
+                break;
             }
-            self::switch_classes($block['innerBlocks']);
-        }
+
+            foreach ($query->posts as $post_id) {
+                $content = get_post_field('post_content', $post_id);
+
+                if (empty($content)) {
+                    continue;
+                }
+
+                $old_substrings = [
+                    'is-style-rounded-90',
+                    'is-style-rounded-180',
+                    'width:90px;height:90px',
+                    'width:180px;height:180px',
+                ];
+
+                $new_substrings = [
+                    'is-style-small-circle',
+                    'is-style-big-circle',
+                    '',
+                    '',
+                ];
+
+                $updated_content = str_replace($old_substrings, $new_substrings, $content);
+
+                if ($updated_content === $content) {
+                    continue;
+                }
+
+                $result = wp_update_post([
+                    'ID' => $post_id,
+                    'post_content' => wp_slash($updated_content),
+                ]);
+
+                if (!is_wp_error($result) && $result > 0) {
+                    echo "Post updated successfully: ID ", $post_id, "\n"; // phpcs:ignore
+                } else {
+                    echo "Failed to update post: ID ", $post_id, "\n"; // phpcs:ignore
+                }
+            }
+
+            $paged++;
+            wp_reset_postdata();
+        } while ($query->found_posts > ($paged - 1) * $per_page);
     }
 }

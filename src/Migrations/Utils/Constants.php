@@ -40,7 +40,6 @@ class Constants
     public const BLOCK_BUTTONS = self::PREFIX_CORE_BLOCKS . '/buttons';
     public const BLOCK_SINGLE_BUTTON = self::PREFIX_CORE_BLOCKS . '/button';
     public const BLOCK_QUERY = self::PREFIX_CORE_BLOCKS . '/query';
-    public const BLOCK_IMAGE = self::PREFIX_CORE_BLOCKS . '/image';
 
     public const POST_TYPES_PAGE = 'page';
     public const POST_TYPES_POST = 'post';
