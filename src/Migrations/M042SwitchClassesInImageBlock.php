@@ -12,9 +12,15 @@ use P4\MasterTheme\MigrationScript;
  */
 class M042SwitchClassesInImageBlock extends MigrationScript
 {
-    private const SIZE = [
-        'width' => 'width="90"',
-        'height' => 'height="90"',
+    private const SIZE_ATTRS = [
+        'small' => [
+            'width' => 'width="90"',
+            'height' => 'height="90"',
+        ],
+        'big' => [
+            'width' => 'width="180"',
+            'height' => 'height="180"',
+        ],
     ];
     private const CLASSNAME = [
         'old' => [
@@ -101,54 +107,32 @@ class M042SwitchClassesInImageBlock extends MigrationScript
                         str_contains($block['attrs']['className'], self::CLASSNAME['old']['big'])
                     )
             ) {
-                $classname = str_replace(
+                $html = str_replace(
                     [
                         self::CLASSNAME['old']['small'],
                         self::CLASSNAME['old']['big'],
+                        self::SIZE_ATTRS['small']['width'],
+                        self::SIZE_ATTRS['small']['height'],
+                        self::SIZE_ATTRS['big']['width'],
+                        self::SIZE_ATTRS['big']['height'],
                     ],
                     [
                         self::CLASSNAME['new']['small'],
                         self::CLASSNAME['new']['big'],
-                    ],
-                    $block['attrs']['className']
-                );
-                $inner_html = str_replace(
-                    [
-                        self::CLASSNAME['old']['small'],
-                        self::CLASSNAME['old']['big'],
-                        self::SIZE['width'],
-                        self::SIZE['height'],
-                    ],
-                    [
-                        self::CLASSNAME['new']['small'],
-                        self::CLASSNAME['new']['big'],
+                        "",
+                        "",
                         "",
                         "",
                     ],
                     $block['innerHTML']
                 );
-                $inner_content = str_replace(
-                    [
-                        self::CLASSNAME['old']['small'],
-                        self::CLASSNAME['old']['big'],
-                        self::SIZE['width'],
-                        self::SIZE['height'],
-                    ],
-                    [
-                        self::CLASSNAME['new']['small'],
-                        self::CLASSNAME['new']['big'],
-                        "",
-                        "",
-                    ],
-                    $block['innerContent']
-                );
 
                 unset($block['attrs']['width']);
                 unset($block['attrs']['height']);
 
-                $block['attrs']['className'] = $classname;
-                $block['innerHTML'] = $inner_html;
-                $block['innerContent'] = $inner_content;
+                $block['attrs']['className'] = $html;
+                $block['innerHTML'] = $html;
+                $block['innerContent'][0] = $html;
             }
             self::switch_classes($block['innerBlocks']);
         }
