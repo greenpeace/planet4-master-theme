@@ -80,7 +80,7 @@ class M042SwitchClassesInImageBlock extends MigrationScript
     /**
      * Transform the block.
      *
-     * @param array $blocks - A block attrs array.
+     * @param array $block - A block array.
      * @return array - The transformed block.
      */
     private static function transform_block(array $block): array
@@ -93,7 +93,7 @@ class M042SwitchClassesInImageBlock extends MigrationScript
      * Replace class names.
      * Remove width and height attributes.
      *
-     * @param array $blocks - A block attrs array.
+     * @param array $blocks - A block array.
      */
     private static function switch_classes(array &$blocks): void
     {
@@ -107,6 +107,17 @@ class M042SwitchClassesInImageBlock extends MigrationScript
                         str_contains($block['attrs']['className'], self::CLASSNAME['old']['big'])
                     )
             ) {
+                $classname = str_replace(
+                    [
+                        self::CLASSNAME['old']['small'],
+                        self::CLASSNAME['old']['big'],
+                    ],
+                    [
+                        self::CLASSNAME['new']['small'],
+                        self::CLASSNAME['new']['big'],
+                    ],
+                    $block['attrs']['className']
+                );
                 $html = str_replace(
                     [
                         self::CLASSNAME['old']['small'],
@@ -130,7 +141,7 @@ class M042SwitchClassesInImageBlock extends MigrationScript
                 unset($block['attrs']['width']);
                 unset($block['attrs']['height']);
 
-                $block['attrs']['className'] = $html;
+                $block['attrs']['className'] = $classname;
                 $block['innerHTML'] = $html;
                 $block['innerContent'][0] = $html;
             }
