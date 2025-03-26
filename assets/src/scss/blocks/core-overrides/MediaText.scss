@@ -13,6 +13,14 @@
     overflow: hidden;
   }
 
+  &.is-image-fill-element {
+    html[dir="rtl"] & {
+      .wp-block-media-text__media img {
+        left: 0;
+      }
+    }
+  }
+
   &.alignfull .wp-block-media-text__content {
     max-width: 440px;
     width: 100%;
