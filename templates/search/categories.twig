@@ -10,6 +10,11 @@
     <ul class="list-unstyled">
     {% for category in categories %}
         {% if (category.results > 0) or (not has_aggregation) %}
+        {% if (category.results == 1) %}
+            {% set aria_label = __('Filter results by category %s, 1 result was found', 'planet4-master-theme')|format(category.name) %}
+        {% else %}
+            {% set aria_label = __('Filter results by category %s, %d results were found', 'planet4-master-theme')|format(category.name, category.results) %}
+        {% endif %}
         <li>
         <label class="custom-control">
             <input
@@ -20,6 +25,7 @@
                 data-ga-category="Search Page"
                 data-ga-action="Category Filter"
                 data-ga-label="{{ category.name|e('wp_kses_post')|raw }}"
+                aria-label="{{ aria_label }}"
                 {{ category.checked }} />
             <span class="custom-control-description">{{ category.name|e('wp_kses_post')|raw }} {{ category.results > 0 ? '('~category.results~')' : '' }}</span>
         </label>

@@ -5,7 +5,7 @@
     {% set collapsed = posts or (not has_aggregation) ? '' : 'collapsed' %}
     {% set show      = posts or (not has_aggregation)? 'show' : '' %}
     {% set expanded  = posts ? true : false %}
-    {% set search_label = __( 'Search', 'planet4-master-theme' ) %}
+    {% set search_label = __( 'Search by name, keyword, or topic', 'planet4-master-theme' ) %}
 
     <div class="search-block">
         <div class="container">
@@ -56,7 +56,10 @@
                 </div>
             </div>
             <div class="search-filter-results row clearfix">
-                <div class="col-lg-4">
+                <a class="skip-link" href="#search-results">
+                    {{ __( 'Skip to search results', 'planet4-master-theme' ) }}
+                </a>
+                <aside class="col-lg-4">
                     <div class="filter-sidebar">
                         <div class="filter-button d-lg-none">
                             <button class="btn btn-filter btn-secondary {{ disabled }}" data-bs-toggle="modal" data-bs-target="#filtermodal">
@@ -104,7 +107,11 @@
                                     <div class="activefilter-list">
                                         {% for filter_type in filters %}
                                             {% for filter in filter_type %}
-                                                <button class="activefilter-tag" data-id="{{ filter.id }}">
+                                                <button
+                                                    aria-label="{{__('Remove %s filter', 'planet4-master-theme')|format(filter.name)}}"
+                                                    class="activefilter-tag"
+                                                    data-id="{{ filter.id }}"
+                                                >
                                                     {{ filter.name|e('wp_kses_post')|raw }} <i class="icon-cross">{{ 'times'|svgicon }}</i>
                                                 </button>
                                             {% endfor %}
@@ -119,8 +126,8 @@
                             {% include 'search/content_types.twig' with {'is_modal': false} %}
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-8">
+                </aside>
+                <section class="col-lg-8">
                     <div class="result-area">
                         <div class="sort-filter clearfix">
                             <div class="select-container">
@@ -142,7 +149,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="multiple-search-result">
+                        <div id="search-results" class="multiple-search-result">
                             <ul class="list-unstyled">
                                 {% for post in paged_posts %}
                                     {% include ['tease-search.twig', 'tease-'~post.post_type~'.twig', 'tease.twig'] %}
@@ -164,7 +171,7 @@
                             {% endif %}
                         </div>
                     </div>
-                </div>
+                </section>
             </div>
         </div>
     </div>

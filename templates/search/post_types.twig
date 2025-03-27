@@ -10,6 +10,11 @@
     <ul class="list-unstyled">
     {% for post_type in post_types %}
         {% if (post_type.results > 0) or (not has_aggregation) %}
+        {% if (post_type.results == 1) %}
+            {% set aria_label = __('Filter results by post type %s, 1 result was found', 'planet4-master-theme')|format(post_type.name) %}
+        {% else %}
+            {% set aria_label = __('Filter results by post type %s, %d results were found', 'planet4-master-theme')|format(post_type.name, post_type.results) %}
+        {% endif %}
         <li>
             <label class="custom-control">
                 <input
@@ -20,6 +25,7 @@
                     data-ga-category="Search Page"
                     data-ga-action="Post Type Filter"
                     data-ga-label="{{ post_type.name|e('wp_kses_post')|raw }}"
+                    aria-label="{{ aria_label }}"
                     {{ post_type.checked }} />
                 <span class="custom-control-description">{{ post_type.name|e('wp_kses_post')|raw }} {{ post_type.results > 0 ? '('~post_type.results~')' : '' }}</span>
             </label>
