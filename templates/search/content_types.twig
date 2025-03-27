@@ -10,6 +10,11 @@
         <ul class="list-unstyled">
         {% for id, content_type in content_types %}
             {% if (content_type.results > 0) or (not has_aggregation) %}
+            {% if (content_type.results == 1) %}
+                {% set aria_label = __('Filter results by content type %s, 1 result was found', 'planet4-master-theme')|format(content_type.name) %}
+            {% else %}
+                {% set aria_label = __('Filter results by content type %s, %d results were found', 'planet4-master-theme')|format(content_type.name, content_type.results) %}
+            {% endif %}
             <li>
             <label class="custom-control">
                 <input
@@ -20,7 +25,7 @@
                     data-ga-category="Search Page"
                     data-ga-action="Content Filter"
                     data-ga-label="{{ content_type.name|e('wp_kses_post')|raw }}"
-                    aria-label="{{__('Filter results by content type %s, %d results were found', 'planet4-master-theme')|format(content_type.name, content_type.results)}}"
+                    aria-label="{{ aria_label }}"
                     {{ content_type.checked }} />
                 <span class="custom-control-description">{{ content_type.name }} {{ content_type.results > 0 ? '('~content_type.results~')' : '' }}</span>
             </label>
