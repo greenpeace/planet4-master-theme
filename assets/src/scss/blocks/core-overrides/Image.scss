@@ -2,7 +2,8 @@
   figure,
   img {
     border-radius: 50%;
-    max-height: $size;
+    width: $size;
+    height: $size;
   }
 
   img {
