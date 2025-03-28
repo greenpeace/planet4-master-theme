@@ -58,7 +58,7 @@ $text-column-padding-in: 24px;
   }
 
   .wp-block-group:first-child {
-    @include clamp-text(3);
+    @include clamp-text(5);
     overflow: hidden;
     font-size: $font-size-xxl;
     font-weight: 700;
@@ -67,6 +67,10 @@ $text-column-padding-in: 24px;
     @include medium-and-less {
       padding: 0 $sp-1;
       margin: 0 (-$sp-1);
+    }
+
+    @include medium-and-up {
+      @include clamp-text(3);
     }
   }
 
