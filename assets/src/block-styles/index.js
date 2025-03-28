@@ -56,11 +56,11 @@ export const registerBlockStyles = () => {
   // Register our custom Image block styles
   registerBlockStyle('core/image', [
     {
-      name: 'rounded-180',
+      name: 'big-circle',
       label: __('Rounded 180x180', 'planet4-blocks-backend'),
     },
     {
-      name: 'rounded-90',
+      name: 'small-circle',
       label: __('Rounded 90x90', 'planet4-blocks-backend'),
     },
   ]);

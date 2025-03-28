@@ -39,11 +39,12 @@ const addImageBlockFilter = () => addFilter('editor.BlockEdit', 'core/image/edit
   const block_id = clientId ? `block-${clientId}` : null;
 
   // Update width and height when sized rounded styles are selected
-  if (className.includes('is-style-rounded-')) {
+  if (className.includes('is-style-small-circle') || className.includes('is-style-big-circle')) {
     const classes = className.split(' ');
-    const size = classes.find(c => c.includes('is-style-rounded-')).replace('is-style-rounded-', '') || 180;
-    attributes.width = parseInt(size);
-    attributes.height = parseInt(size);
+    const size = classes.includes('is-style-small-circle') ? 90 : 180;
+
+    attributes.width = size;
+    attributes.height = size;
   }
 
   // Force to use square images when the class `square-*` is added

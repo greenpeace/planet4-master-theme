@@ -2,7 +2,8 @@
   figure,
   img {
     border-radius: 50%;
-    max-height: $size;
+    height: $size;
+    width: $size;
   }
 
   img {
@@ -30,11 +31,11 @@
   margin-top: $sp-1;
   margin-bottom: $sp-2;
 
-  &.is-style-rounded-180 {
+  &.is-style-big-circle {
     @include rounded-image-size(180px);
   }
 
-  &.is-style-rounded-90 {
+  &.is-style-small-circle {
     @include rounded-image-size(90px);
   }
 
