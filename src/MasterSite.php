@@ -344,8 +344,24 @@ class MasterSite extends TimberSite
             // This caused `switch_lang` to get called. As a result the RTL fix messed up.
             remove_filter('url_to_postid', [$sitepress, 'url_to_postid']);
         };
+
         $remove_rtl_fix();
         add_action('wpml_after_startup', $remove_rtl_fix, 10, 0);
+
+        // Add VWO Anti Flicker script
+        add_action(
+            'wp_head',
+            function (): void {
+                $enable_vwo = planet4_get_option('vwo_account_id') ?? null;
+
+                if (!$enable_vwo) {
+                    return;
+                }
+
+                echo '<script>vwo_$("body").vwoCss({"visibility":"visible !important"});</script>' . PHP_EOL;
+            },
+            10
+        );
 
         AuthorPage::hooks();
         BreakpointsImageSizes::hooks();
@@ -721,6 +737,7 @@ class MasterSite extends TimberSite
             planet4_get_option('consent_default_ad_personalization') ?? 'denied';
         $context['facebook_page_id'] = $options['facebook_page_id'] ?? '';
         $context['preconnect_domains'] = [];
+        $context['vwo_account_id'] = $options['vwo_account_id'] ?? null;
 
         if (!empty($options['preconnect_domains'])) {
             $preconnect_domains = explode("\n", $options['preconnect_domains']);
