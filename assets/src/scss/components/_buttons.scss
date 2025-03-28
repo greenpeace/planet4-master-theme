@@ -7,11 +7,10 @@
   --button-- {
     font-family: var(--font-family-button);
     font-size: $font-size-sm;
-    line-height: 3;
     text-align: center;
     font-weight: bold;
     border-radius: 4px;
-    padding: 0 30px;
+    padding: $sp-1x $sp-3x;
     transition-property: color, background-color, border-color;
     transition-duration: 150ms;
     transition-timing-function: linear;
@@ -71,14 +70,7 @@
 .gform_button_select_files {
   _-- {
     font-size: $font-size-xxs;
-    line-height: 2.8;
-  }
-}
-
-.btn-large {
-  _-- {
-    font-size: $font-size-md;
-    line-height: 3.1;
+    padding: $sp-1 $sp-3;
   }
 }
 
@@ -118,7 +110,7 @@
 .gfield button:not(.add_list_item):not(.delete_list_item):not([id^="mceu"]),
 .gform_button_select_files {
   --button-secondary-- {
-    background: rgba($white, 0.7);
+    background: var(--white);
     border-color: var(--color-border-button--secondary);
     color: var(--color-text-button--secondary);
 
@@ -160,10 +152,9 @@
     background: var(--gp-green-400);
     color: var(--grey-900);
     min-width: 180px;
-    padding: 2px 30px;
+    padding: $sp-x $sp-4;
     border-width: 1px;
     border-color: transparent;
-    line-height: 1.65;
 
     &:hover {
       background: var(--gp-green-500);
@@ -201,15 +192,12 @@ button.load-more-mt {
 .post-tag-button {
   _-- {
     font-weight: var(--font-weight-regular);
-    line-height: 2.3;
+    border-color: var(--gp-green-100);
+    color: var(--grey-900);
+    background-color: var(--color-background-tag_button--passive);
   }
-
-  border-color: var(--gp-green-100);
-  color: var(--grey-900);
-  background-color: var(--color-background-tag_button--passive);
   margin-inline-end: $sp-2;
   margin-bottom: $sp-2;
-  padding: 0 $sp-2;
   transition-duration: 100ms;
 
   &:visited {
