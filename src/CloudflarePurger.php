@@ -55,10 +55,13 @@ class CloudflarePurger
         $chunks = array_chunk(array_unique($urls), 30);
 
         foreach ($chunks as $chunk) {
-            yield [
-                $this->api->zonePurgeFiles($this->zone_id, $chunk),
-                $chunk,
-            ];
+            $result = $this->api->zonePurgeFiles($this->zone_id, $chunk);
+
+            if (function_exists('\Sentry\captureMessage')) {
+                \Sentry\captureMessage(print_r($result, true));
+            }
+
+            yield [$result, $chunk];
         }
     }
 
