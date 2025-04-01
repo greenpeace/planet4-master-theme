@@ -39,6 +39,7 @@ module.exports = (env, argv) => {
       hubspotCookie: './assets/src/js/hubspot_cookie.js',
       shareButtons: './assets/src/js/share_buttons.js',
       googleTagManager: './assets/src/js/google_tag_manager.js',
+      vwoSmartCode: './assets/src/js/vwo_smart_code.js',
       bulkExport: './assets/src/js/bulk_export.js',
       accessibleNavMenu: './assets/src/js/accessible_nav_menu.js',
       mediaImportButton: './assets/src/js/media_import_button.js',

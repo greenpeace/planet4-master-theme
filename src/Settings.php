@@ -504,13 +504,13 @@ class Settings
                         'type' => $is_new_ia ? 'about_us_page_dropdown' : 'hidden',
                     ],
                     [
-                        'name' => __('VWO A/B testing', 'planet4-master-theme-backend'),
+                        'name' => __('VWO Account ID', 'planet4-master-theme-backend'),
                         'desc' => __(
-                            'Adds a Content Security Policy exception for VWO.',
+                            'Adds a Content Security Policy exception for VWO and enables its anti-flicker mechanism.',
                             'planet4-master-theme-backend'
                         ),
-                        'id' => 'enable_vwo',
-                        'type' => 'checkbox',
+                        'id' => 'vwo_account_id',
+                        'type' => 'text',
                     ],
                 ],
             ],
