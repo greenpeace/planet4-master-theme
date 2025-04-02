@@ -1,6 +1,6 @@
 const {__} = wp.i18n;
 
-export const setupListingPages = () => {
+(function() {
   const listingPageContent = document.getElementById('listing-page-content');
   // If the current page is not a listing page, we do nothing.
   if (!listingPageContent) {
@@ -20,13 +20,10 @@ export const setupListingPages = () => {
 
   const switchViews = layoutView => {
     let layout = layoutView;
-    if (event.target.tagName && event.target.tagName.toLowerCase() === 'button') {
+    if (event?.target?.tagName && event?.target?.tagName.toLowerCase() === 'button') {
       layout = event.target.getAttribute('data-layout');
     }
 
-    const newUrl = new URL(window.location.href);
-    newUrl.searchParams.set('layout', layout);
-    window.history.pushState({}, '', newUrl);
     listingPageContent.classList.remove('wp-block-query--grid', 'wp-block-query--list');
     listingPageContent.classList.add(`wp-block-query--${layout}`);
 
@@ -55,13 +52,7 @@ export const setupListingPages = () => {
   }
 
   const initLayout = () => {
-    const urlParams = new URLSearchParams(window.location.search);
-    let layout = urlParams.get('layout') || localStorage.getItem('layout');
-    const validLayouts = ['list', 'grid'];
-
-    if (!validLayouts.includes(layout)) {
-      layout = 'list';
-    }
+    const layout = localStorage.getItem('layout') || '';
 
     if (layout && toggleButton) {
       switchViews(layout);
@@ -102,5 +93,5 @@ export const setupListingPages = () => {
     noPostsFound.innerHTML = __('No posts found!', 'planet4-master-theme');
     listingPageContent.appendChild(noPostsFound);
   }
-};
+})();
 
