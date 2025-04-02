@@ -40,6 +40,7 @@ module.exports = (env, argv) => {
       shareButtons: './assets/src/js/share_buttons.js',
       googleTagManager: './assets/src/js/google_tag_manager.js',
       vwoSmartCode: './assets/src/js/vwo_smart_code.js',
+      listingPages: './assets/src/js/listing_pages.js',
       bulkExport: './assets/src/js/bulk_export.js',
       accessibleNavMenu: './assets/src/js/accessible_nav_menu.js',
       mediaImportButton: './assets/src/js/media_import_button.js',

@@ -335,33 +335,38 @@
   }
 }
 
-.grid-view-toggle,
-.list-view-toggle {
+.layout-button-ctn {
   display: none;
 
   @include medium-and-up {
-    display: block;
     border-radius: 50%;
-    cursor: pointer;
-    background-color: transparent;
-    transition: background-color 150ms linear;
-    border: none;
-    padding: 2px;
-
-    .icon {
-      height: 40px;
-      width: 40px;
-      top: 0;
-    }
+    display: inline-block;
 
     &:hover {
       background-color: var(--grey-200);
     }
 
-    &:focus {
+    &:focus-within {
       background-color: var(--grey-200);
       @include focus-styles(50%);
     }
+  }
+}
+
+.layout-toggle {
+  mask-repeat: no-repeat;
+  mask-size: contain;
+  mask-position: center;
+  height: 40px;
+  width: 40px;
+  background-color: var(--grey-900);
+
+  &.layout-toggle-grid {
+    mask-image: url("../../images/grid-view.svg");
+  }
+
+  &.layout-toggle-list {
+    mask-image: url("../../images/list-view.svg");
   }
 }
 

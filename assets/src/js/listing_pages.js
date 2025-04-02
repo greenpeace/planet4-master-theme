@@ -1,34 +1,65 @@
 const {__} = wp.i18n;
 
-export const setupListingPages = () => {
+(function() {
   const listingPageContent = document.getElementById('listing-page-content');
   // If the current page is not a listing page, we do nothing.
   if (!listingPageContent) {
     return;
   }
 
-  // Setup behaviour for list/grid toggle.
-  const listViewToggle = document.querySelector('.list-view-toggle');
-  const gridViewToggle = document.querySelector('.grid-view-toggle');
+  const toggleButton = document.querySelector('.layout-toggle');
 
-  if (!listViewToggle && !gridViewToggle) {
-    return;
-  }
+  const clearStorageAfter = 30 * 60 * 1000; // 30mins in milliseconds
 
-  listingPageContent.classList.toggle('wp-block-query--list', gridViewToggle);
-  listingPageContent.classList.toggle('wp-block-query--grid', listViewToggle);
-
-  const switchViews = layout => {
-    const newUrl = new URL(window.location.href);
-    newUrl.searchParams.set('layout', layout);
-    window.location.href = newUrl.href;
+  // Function to clear localStorage after a set time
+  const clearLocalStorage = () => {
+    setTimeout(() => {
+      localStorage.removeItem('layout');
+    }, clearStorageAfter);
   };
 
-  if (listViewToggle) {
-    listViewToggle.onclick = () => switchViews('list');
-  } else {
-    gridViewToggle.onclick = () => switchViews('grid');
+  const switchViews = layoutView => {
+    let layout = layoutView;
+    if (event?.target?.tagName && event?.target?.tagName.toLowerCase() === 'button') {
+      layout = event.target.getAttribute('data-layout');
+    }
+
+    listingPageContent.classList.remove('wp-block-query--grid', 'wp-block-query--list');
+    listingPageContent.classList.add(`wp-block-query--${layout}`);
+
+    localStorage.setItem('layout', layout);
+    clearLocalStorage();
+
+    if (layout === 'list') {
+      toggleButton.title = __('Grid View', 'planet4-master-theme');
+      toggleButton.classList.remove('layout-toggle-grid', 'layout-toggle-list');
+      toggleButton.classList.add('layout-toggle-grid');
+      toggleButton.setAttribute('data-layout', 'grid');
+      toggleButton.setAttribute('aria-label', __('Switch to grid view', 'planet4-master-theme'));
+    }
+
+    if (layout === 'grid') {
+      toggleButton.title = __('List View', 'planet4-master-theme');
+      toggleButton.classList.remove('layout-toggle-grid', 'layout-toggle-list');
+      toggleButton.classList.add('layout-toggle-list');
+      toggleButton.setAttribute('data-layout', 'list');
+      toggleButton.setAttribute('aria-label', __('Switch to list view', 'planet4-master-theme'));
+    }
+  };
+
+  if (toggleButton) {
+    toggleButton.onclick = switchViews;
   }
+
+  const initLayout = () => {
+    const layout = localStorage.getItem('layout') || '';
+
+    if (layout && toggleButton) {
+      switchViews(layout);
+    }
+  };
+
+  initLayout();
 
   // Setup filters for the News & Stories page.
   const filters = document.querySelector('.listing-page-filters');
@@ -62,4 +93,5 @@ export const setupListingPages = () => {
     noPostsFound.innerHTML = __('No posts found!', 'planet4-master-theme');
     listingPageContent.appendChild(noPostsFound);
   }
-};
+})();
+

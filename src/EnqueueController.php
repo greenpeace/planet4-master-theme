@@ -23,6 +23,7 @@ class EnqueueController
         add_action('enqueue_filter_block_names_script', [$this, 'enqueue_filter_block_names']);
         add_action('enqueue_metabox_search_script', [$this, 'enqueue_metabox_search']);
         add_action('enqueue_dismiss_dashboard_notice_script', [$this, 'enqueue_dismiss_dashboard_notice']);
+        add_action('enqueue_listing_page_layout_switch_script', [$this, 'enqueue_listing_page_layout_switch']);
         add_action('wp_enqueue_scripts', [$this, 'enqueue_accessible_nav_menu']);
         add_action('enqueue_vwo_smart_script', [$this, 'enqueue_vwo_smart_code']);
     }
@@ -123,6 +124,24 @@ class EnqueueController
         ];
 
         wp_localize_script($script['name'], $script['id'], $data);
+    }
+
+    /**
+     * Enqueues Listing pages dynamic switch script.
+     *
+     * This method registers and enqueues the JavaScript file for dynamically
+     * switching the listing page layout without refrshing the page.
+     *
+     */
+    public function enqueue_listing_page_layout_switch(): void
+    {
+        $this->enqueue_script(
+            'listing-page-layout-switch-script',
+            '/assets/build/listingPages.js',
+            ['wp-i18n'],
+            $this->get_file_version('/assets/build/listingPages.js'),
+            true
+        );
     }
 
     /**
