@@ -22,6 +22,10 @@
     }
   }
 
+  .wp-block-post-title {
+    margin-bottom: $sp-3;
+  }
+
   @include large-and-up {
     .wp-block-post {
       flex-basis: calc(25% - $sp-2);

@@ -92,17 +92,24 @@
 
   .wp-block-post-title {
     font-size: 18px;
+    margin-top: calc($sp-1x - 2px); // 10px
+    margin-bottom: calc($sp-1x - 2px);
 
     a {
       @include clamp-text(2);
-    }
 
-    @include medium-and-less {
-      margin-top: $sp-x;
+      &:hover {
+        text-decoration: underline;
+        text-underline-offset: 2px; // For Firefox
+      }
     }
 
     @include large-and-up {
       font-size: 20px;
+    }
+
+    @include x-large-and-up {
+      margin-bottom: $sp-3;
     }
   }
 
