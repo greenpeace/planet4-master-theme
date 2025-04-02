@@ -10,7 +10,7 @@ use P4\MasterTheme\MigrationScript;
 /**
  * Migrate Articles block to Posts List blocks.
  */
-class M042MigrateArticlesBlockToPostsListBlock extends MigrationScript
+class M044MigrateArticlesBlockToPostsListBlock extends MigrationScript
 {
     /**
      * Perform the actual migration.
