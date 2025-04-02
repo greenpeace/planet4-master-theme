@@ -1,16 +1,14 @@
 .site-logo {
   line-height: var(--navbar-menu-height--small);
 
-  @include large-and-up {
-    line-height: var(--navbar-menu-height--large);
-  }
-
   img {
     height: 26px;
   }
 
   @include large-and-up {
     margin-inline-start: calc((100vw - 960px) / 2);
+    line-height: var(--navbar-menu-height--large);
+    padding-left: $sp-1x;
   }
 
   @include x-large-and-up {
