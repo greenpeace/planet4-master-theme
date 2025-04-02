@@ -10,7 +10,7 @@ use P4\MasterTheme\MigrationScript;
 /**
  * Remove unnecessary attributes in the core image block that produce errors.
  */
-class M042SwitchClassesInImageBlock extends MigrationScript
+class M043SwitchClassesInImageBlock extends MigrationScript
 {
     /**
      * Perform the actual migration.
@@ -70,14 +70,10 @@ class M042SwitchClassesInImageBlock extends MigrationScript
             [
                 'width:90px;height:90px',
                 'width:180px;height:180px',
-                'width="180"',
-                'height="180"',
                 'width="90"',
                 'height="90"',
             ];
             $to_replace = [
-                '',
-                '',
                 '',
                 '',
                 '',
