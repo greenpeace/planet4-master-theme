@@ -1567,11 +1567,14 @@ class MasterSite extends TimberSite
         ];
 
         // Add a Restrictions field.
-        $form_fields['restrictions_text'] = [
-            'label' => __('Restrictions', 'planet4-master-theme-backend'),
-            'input' => 'html',
-            'html' => get_post_meta($post->ID, self::RESTRICTIONS_META_FIELD, true),
-        ];
+        $img_restrictions = get_post_meta($post->ID, self::RESTRICTIONS_META_FIELD, true);
+        if ($img_restrictions) {
+            $form_fields['restrictions_text'] = [
+                'label' => __('Restrictions', 'planet4-master-theme-backend'),
+                'input' => 'html',
+                'html' => $img_restrictions,
+            ];
+        }
 
         return $form_fields;
     }
