@@ -30,8 +30,6 @@ export const registerActionsListBlock = () => {
         pages: 0,
         perPage: 3,
         offset: 0,
-        orderBy: ['menu_order', 'post_date', 'post_title'],
-        order: ['asc', 'desc', 'asc'],
         postStatus: 'publish',
         author: '',
         search: '',
