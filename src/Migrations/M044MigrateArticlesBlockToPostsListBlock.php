@@ -74,6 +74,11 @@ class M044MigrateArticlesBlockToPostsListBlock extends MigrationScript
         $classname = 'list';
         $rows = $existing_block_attrs['rows'];
         $current_post_id = $existing_block_attrs['current_post_id'];
+        // add "Additional CSS class(es)" to new migrated block, if exists.
+        $additional_class = $existing_block_attrs['additional_class'];
+        if ($additional_class) {
+            $classname = $classname . ' ' . $additional_class;
+        }
 
         $attrs = self::set_query_block_attrs($tags, $posts_override, $post_types, $layout_type, $rows, $current_post_id);
 
@@ -112,6 +117,7 @@ class M044MigrateArticlesBlockToPostsListBlock extends MigrationScript
             'post_types' => isset($attrs['post_types']) ? $attrs['post_types'] : [],
             'rows' => isset($attrs['article_count']) ? $attrs['article_count'] : 3,
             'current_post_id' => isset($attrs['current_post_id']) ? $attrs['current_post_id'] : 0,
+            'additional_class' => isset($attrs['className']) ? $attrs['className'] : '',
         ];
     }
 
