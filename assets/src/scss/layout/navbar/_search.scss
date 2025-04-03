@@ -144,6 +144,10 @@
     display: inline-block;
     line-height: var(--navbar-menu-height);
   }
+
+  &:focus {
+    @include focus-styles;
+  }
 }
 
 .nav-search-clear {
