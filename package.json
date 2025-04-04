@@ -7,7 +7,10 @@
   "scripts": {
     "start": "wp-scripts start --config webpack.config.js --mode=development",
     "build": "wp-scripts build --config webpack.config.js --mode=production",
-    "lint:css": "wp-scripts lint-style"
+    "lint:css": "npx stylelint 'assets/src/scss/**/*.scss'",
+    "lint:js": "npx eslint 'assets/src/**/*.js' 'tests/e2e/**/*.js' 'admin/js/**/*.js'",
+    "lint": "npm run lint:js && npm run lint:css",
+    "prepare": "husky"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.7.2",
@@ -25,6 +28,8 @@
     "dotenv": "^16.3.1",
     "eslint-plugin-react": "^7.20.3",
     "eslint-plugin-react-hooks": "^4.6.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.5.0",
     "mini-css-extract-plugin": "^2.7.6",
     "postcss": "^8.4.16",
     "postcss-loader": "^6.2.1",
@@ -58,5 +63,9 @@
   },
   "optionalDependencies": {
     "fsevents": "^2.3.2"
+  },
+  "lint-staged": {
+    "*.js": "npm run lint:js -- --fix",
+    "*.css": "npm run lint:css -- --fix"
   }
 }
