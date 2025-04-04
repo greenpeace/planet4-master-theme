@@ -57,7 +57,8 @@ class QueryLoopExtension
                         $query['posts_per_page'] = -1;
 
                         global $wpdb;
-                        $post_ids = $wpdb->get_col($wpdb->prepare("
+                        $post_ids = $wpdb->get_col($wpdb->prepare(
+                            "
                             (SELECT ID FROM {$wpdb->posts} WHERE post_type = %s)
                             UNION ALL
                             (SELECT ID FROM {$wpdb->posts} WHERE post_type = %s AND post_parent = %d)",
