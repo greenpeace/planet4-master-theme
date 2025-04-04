@@ -62,8 +62,8 @@ class QueryLoopExtension
                             (SELECT ID FROM {$wpdb->posts} WHERE post_type = %s)
                             UNION ALL
                             (SELECT ID FROM {$wpdb->posts} WHERE post_type = %s AND post_parent = %d)",
-                            'p4_action2',
-                            'page2',
+                            'p4_action',
+                            'page',
                             planet4_get_option('take_action_page')
                         ));
 
