@@ -4,7 +4,7 @@
   flex-shrink: 0;
   height: 1em;
   width: 1em;
-  fill: currentColor;
+  fill: currentcolor;
   transition: fill .3s;
 }
 
@@ -17,7 +17,7 @@ a.standalone-link {
   &::after {
     content: "";
     display: inline-block;
-    background-color: currentColor;
+    background-color: currentcolor;
     pointer-events: none;
     margin-inline-start: .2rem;
     height: .7rem;
@@ -34,7 +34,7 @@ a.pdf-link {
   &::after {
     content: "";
     display: inline-block;
-    background-color: currentColor;
+    background-color: currentcolor;
     height: 1rem;
     width: 1rem;
     margin-bottom: -2px;
@@ -50,7 +50,7 @@ a.external-link {
   &::after {
     content: "";
     display: inline-block;
-    background-color: currentColor;
+    background-color: currentcolor;
     height: .7rem;
     width: .7rem;
     margin-inline-start: .2rem;

@@ -95,11 +95,11 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Install dependencies
+          command: PUPPETEER_SKIP_DOWNLOAD=true PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true npm ci --unsafe-perm=true --legacy-peer-deps
+      - run:
           name: Lint CSS
           command: stylelint "assets/src/scss/**/*.scss"
-      - run:
-          name: Install eslint react plugin
-          command: PUPPETEER_SKIP_DOWNLOAD=true PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true npm install eslint-plugin-react --unsafe-perm=true --legacy-peer-deps
       - run:
           name: Lint JS
           command: eslint "assets/src/**/*.js" "tests/e2e/**/*.js" "admin/js/**/*.js"

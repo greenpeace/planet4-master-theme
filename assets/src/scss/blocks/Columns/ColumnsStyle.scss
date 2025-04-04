@@ -97,7 +97,8 @@
   // Columns block, layout icons.
   &.block-style-icons {
     .row {
-      margin-bottom: -$sp-4; // Compensate for last row margin
+      // Compensate for last row margin
+      margin-bottom: -$sp-4;
 
       @include large-and-up {
         margin-bottom: 0;
@@ -296,7 +297,7 @@
             mask-repeat: no-repeat;
             mask-size: contain;
             background-repeat: no-repeat;
-            background-color: currentColor;
+            background-color: currentcolor;
 
             html[dir="rtl"] & {
               right: auto;

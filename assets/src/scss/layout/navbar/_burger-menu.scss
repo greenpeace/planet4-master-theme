@@ -197,7 +197,7 @@ $transition-duration: .2s;
     mask-size: contain;
     mask-position: center;
     background-repeat: no-repeat;
-    background-color: currentColor;
+    background-color: currentcolor;
     transform: rotate(-90deg);
     transition: transform 0.3s linear;
     color: var(--color-text-nav_link);

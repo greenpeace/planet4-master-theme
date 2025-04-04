@@ -1,10 +1,21 @@
 {
+  "extends": ["stylelint-config-recommended"],
+  "overrides": [
+    {
+      "files": ["**/*.scss"],
+      "customSyntax": "postcss-scss",
+      "rules": {
+        "at-rule-no-unknown": null
+      }
+    }
+  ],
   "rules": {
     "color-hex-case": "lower",
     "color-no-invalid-hex": true,
 
     "font-family-no-duplicate-names": true,
     "font-family-name-quotes": "always-where-recommended",
+    "font-family-no-missing-generic-family-keyword": [true, {"ignoreFontFamilies": ["ForkAwesome"]}],
 
     "function-calc-no-unspaced-operator": true,
     "function-comma-space-after": "always",
@@ -81,6 +92,7 @@
 
     "indentation": 2,
     "max-nesting-depth": 7,
+    "no-descending-specificity": null,
     "no-duplicate-selectors": true,
     "no-eol-whitespace": true,
     "no-extra-semicolons": true,

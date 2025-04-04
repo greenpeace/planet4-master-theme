@@ -1,29 +1,19 @@
 // This file is based in: https://github.com/dimsemenov/PhotoSwipe/blob/v4.1.3/src/css/default-skin/default-skin.scss
 // ...with some minor tweaks/additions.
-
 /*! PhotoSwipe Default UI CSS by Dmitry Semenov | photoswipe.com | MIT license */
-
 /*
-
 Contents:
-
 1. Buttons
 2. Share modal and links
 3. Index indicator ("1 of X" counter)
 4. Caption
 5. Loading indicator
 6. Additional styles (root element, top bar, idle state, hidden state, etc.)
-
 */
-
 // PhotoSwipe uses Autoprefixer, so vendor prefixed are added automatically when needed.
-
 /*
-
 1. Buttons
-
 */
-
 /* <button> css reset */
 .pswp__button {
   width: 44px;
