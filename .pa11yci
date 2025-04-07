@@ -1,0 +1,19 @@
+{
+    "defaults": {
+        "timeout": 30000,
+        "viewport": {
+            "width": 1200,
+            "height": 800
+        },
+        "chromeLaunchConfig": {
+            "ignoreHTTPSErrors": true,
+            "args": ["--no-sandbox", "--disable-setuid-sandbox"]
+        },
+        "includeWarnings": true,
+        "includeNotices": true
+    },
+    "urls": [
+        "http://www.planet4.test/",
+        "http://www.planet4.test/?s="
+    ]
+}
