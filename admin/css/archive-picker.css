@@ -104,6 +104,7 @@
   font-weight: 400;
   margin: 0;
   white-space: nowrap;
+  line-height: 150%;
 }
 
 .nav-bulk-select {
@@ -455,10 +456,6 @@
   display: none;
 }
 
-.archive-picker-title {
-  line-height: 150%;
-}
-
 @media (max-width: 767px) {
   .multiple-search-form .components-spinner {
     display: block;
@@ -575,9 +572,9 @@
     padding: 0 !important;
     background-color: transparent !important;
     border: none !important;
-    display: flex !important;;
+    display: flex !important;
     align-items: center;
-    color: #1D2327 !important;
+    color: #1d2327 !important;
   }
 
   .btn-cancel-bulk-select::before {
@@ -585,7 +582,7 @@
     height: 18px;
     width: 18px;
     display: block;
-    background-color: #1D2327;;
+    background-color: #1d2327;
     mask: url("../../images/chevron.svg");
     mask-size: contain;
     mask-repeat: no-repeat;
@@ -670,6 +667,6 @@
 
 .compat-field-restrictions_text .field,
 .restrictions-warning dd {
-  color: #D43B57; /* var(--red-500); */
+  color: #d43B57; /* var(--red-500); */
   font-weight: bold;
 }

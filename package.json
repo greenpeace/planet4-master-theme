@@ -31,6 +31,8 @@
     "husky": "^9.1.7",
     "lint-staged": "^15.5.0",
     "mini-css-extract-plugin": "^2.7.6",
+    "pa11y-ci": "^3.1.0",
+    "pa11y-ci-reporter-html": "^7.0.0",
     "postcss": "^8.4.16",
     "postcss-loader": "^6.2.1",
     "postcss-scss": "^4.0.9",

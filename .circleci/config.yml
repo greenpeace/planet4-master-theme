@@ -12,9 +12,17 @@ job-references:
       echo "export PATH=$HOME/.composer/vendor/bin:$PATH" >> $BASH_ENV
       source /home/circleci/.bashrc
 
-  install_dependencies: &install_dependencies
+  install_php_dependencies: &install_php_dependencies
     name: Install dependencies
-    command: composer install
+    command: |
+      composer install
+      sudo apt-get update
+      sudo apt-get install --no-install-recommends -y mariadb-client subversion
+
+  install_node_dependencies: &install_node_dependencies
+    name: Install dependencies
+    command: |
+      npm ci --unsafe-perm=true --legacy-peer-deps
 
   php_job: &php_job
     environment:
@@ -23,7 +31,7 @@ job-references:
     steps:
       - checkout
       - run: *setup_environment
-      - run: *install_dependencies
+      - run: *install_php_dependencies
       - run:
           name: phpcs
           command: |
@@ -31,7 +39,7 @@ job-references:
             vendor/bin/phpcs --config-set installed_paths vendor/wp-coding-standards/wpcs,vendor/slevomat/coding-standard
             vendor/bin/phpcs -i
             vendor/bin/phpcs -d error_reporting="E_ALL&~E_DEPRECATED" \
-              --report=junit --report-file=/tmp/test-results/phpcs/$CIRCLE_STAGE.xml \
+              --report=junit --report-file=/tmp/test-results/phpcs/$CIRCLE_JOB.xml \
               src/ page-templates/ tests/ *.php
       - run:
           name: phpunit
@@ -42,11 +50,11 @@ job-references:
             base=$(curl -s https://raw.githubusercontent.com/greenpeace/planet4-base/main/composer.json)
             WP_VERSION=$(jq -r '.extra["wp-version"] // empty' \<<< "${base}")
             bash bin/install-wp-tests.sh wordpress_test root '' 127.0.0.1 $WP_VERSION
-            vendor/bin/phpunit --log-junit /tmp/test-results/phpunit/$CIRCLE_STAGE.xml
+            vendor/bin/phpunit --log-junit /tmp/test-results/phpunit/$CIRCLE_JOB.xml
       - store_test_results:
           path: /tmp/test-results
       - store_artifacts:
-          path: /tmp/coverage-report
+          path: /tmp/test-results
 
   p4_instance_conf: &p4_instance_conf
     docker:
@@ -70,7 +78,7 @@ jobs:
   php81-tests:
     <<: *php_job
     docker:
-      - image: greenpeaceinternational/p4-unit-tests:php8.1
+      - image: cimg/php:8.1
         auth:
           <<: *docker_auth
       - image: cimg/mysql:5.7
@@ -80,7 +88,7 @@ jobs:
   php83-tests:
     <<: *php_job
     docker:
-      - image: greenpeaceinternational/p4-unit-tests:php8.3
+      - image: cimg/php:8.3
         auth:
           <<: *docker_auth
       - image: cimg/mysql:5.7
@@ -89,26 +97,22 @@ jobs:
 
   frontend-tests:
     docker:
-      - image: greenpeaceinternational/p4-unit-tests:node20.18.0
+      - image: cimg/node:20.18.0
         auth:
           <<: *docker_auth
     steps:
       - checkout
-      - run:
-          name: Install dependencies
-          command: PUPPETEER_SKIP_DOWNLOAD=true PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true npm ci --unsafe-perm=true --legacy-peer-deps
+      - run: *install_node_dependencies
       - run:
           name: Lint CSS
-          command: stylelint "assets/src/scss/**/*.scss"
+          command: npm run lint:css
       - run:
           name: Lint JS
-          command: eslint "assets/src/**/*.js" "tests/e2e/**/*.js" "admin/js/**/*.js"
-      - store_test_results:
-          path: /tmp/test-results
+          command: npm run lint:js
 
   commitlint:
     docker:
-      - image: greenpeaceinternational/p4-unit-tests:node20.18.0
+      - image: cimg/node:20.18.0
         auth:
           <<: *docker_auth
     steps:
@@ -119,22 +123,23 @@ jobs:
 
   a11y-tests:
     docker:
-      - image: greenpeaceinternational/p4-unit-tests:node20.18.0
+      - image: cimg/node:20.18.0-browsers
         auth:
           <<: *docker_auth
-    working_directory: /home/circleci/
     steps:
       - attach_workspace:
           at: /tmp/workspace
+      - checkout
+      - run: *install_node_dependencies
       - run:
           name: Accessibility tests
           command: |
             home="https://www-dev.greenpeace.org/test-$(cat /tmp/workspace/test-instance)/"
             search="https://www-dev.greenpeace.org/test-$(cat /tmp/workspace/test-instance)/?s="
-            curl -s https://raw.githubusercontent.com/greenpeace/planet4-base/main/pa11y/.pa11yci | jq ' .urls = ["'"$home"'", "'"$search"'"]' > pa11y.json
-            pa11y-ci -c pa11y.json -T 1000 --reporter=pa11y-ci-reporter-html
+            cat .pa11yci | jq ' .urls = ["'"$home"'", "'"$search"'"]' > pa11y.json
+            npx pa11y-ci -c pa11y.json -T 1000 --reporter=pa11y-ci-reporter-html
       - store_artifacts:
-          path: /home/circleci/pa11y-ci-report
+          path: /home/circleci/project/pa11y-ci-report
 
   request-instance:
     environment:
