@@ -20,7 +20,6 @@ use P4\MasterTheme\ListingPage;
 use Timber\Timber;
 
 $context = Timber::get_context();
-$posts = Timber::get_posts();
 $templates = [ 'index.twig' ];
 
 if (is_home()) {
@@ -40,25 +39,6 @@ if (is_home()) {
     Context::set_og_meta_fields($context, $post);
     Context::set_campaign_datalayer($context, $page_meta_data);
     Context::set_utm_params($context, $post);
-
-    $sticky_posts = array_filter($posts, function ($p) {
-        if(is_sticky($p->ID)) {
-            return $p;
-        }
-    });
-
-    if(count($sticky_posts) > 4) {
-        $posts = array_filter($posts, function ($p) {
-            if(!is_sticky($p->ID)) {
-                return $p;
-            }
-        });
-    } else {
-        $sticky_posts = array();
-    }
-
-    $context['posts'] = $posts;
-    $context['sticky_posts'] = $sticky_posts;
 
     array_unshift($templates, 'all-posts.twig');
 
