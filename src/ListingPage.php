@@ -55,13 +55,14 @@ class ListingPage
         $current_page_id = get_queried_object_id();
 
         if ($news_page_id === $current_page_id) {
-            $this->set_filters();
             $this->set_featured_posts();
+            $this->set_filters();
         }
 
         $this->add_listing_page_content();
         $this->set_featured_action();
         $this->set_news_page_link();
+
     }
 
     /**
