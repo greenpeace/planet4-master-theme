@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Planet4 - Blocks\n"
 "POT-Creation-Date: 2020-09-09 11:52+0000\n"
-"PO-Revision-Date: 2024-12-06 15:18+0000\n"
+"PO-Revision-Date: 2025-04-08 18:50+0000\n"
 "Last-Translator: Rickson Figueira\n"
 "Language-Team: Portuguese (Brazil)\n"
 "MIME-Version: 1.0\n"
@@ -19,7 +19,7 @@ msgstr ""
 "_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "Language: pt_BR\n"
 "Report-Msgid-Bugs-To: \n"
-"X-Loco-Version: 2.6.11; wp-6.5.5\n"
+"X-Loco-Version: 2.7.1; wp-6.7.2\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
@@ -200,7 +200,7 @@ msgstr ""
 
 #: assets/src/block-templates/take-action/template.js:42
 msgid "Donate"
-msgstr ""
+msgstr "Doe agora"
 
 #: src/Blocks/BaseBlock.php:67
 msgid "Error"
@@ -324,17 +324,17 @@ msgstr ""
 
 #: functions.php:315
 msgid "See all posts"
-msgstr ""
+msgstr "Ver todos os posts"
 
 #: assets/src/blocks/ENForm/ShareButtons.js:59
 #: assets/src/blocks/ENForm/ShareButtons.js:71
 #: assets/src/blocks/ENForm/ShareButtons.js:83
 msgid "Share on"
-msgstr ""
+msgstr "Compartilhar no"
 
 #: assets/src/blocks/ENForm/ShareButtons.js:95
 msgid "Share via"
-msgstr ""
+msgstr "Compartilhar via"
 
 #. Name of the template
 #: page-templates/sitemap.php:3
