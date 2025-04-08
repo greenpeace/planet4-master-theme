@@ -1,4 +1,4 @@
-<section class="featured-posts">
+<section id="featured-posts">
     <div class="container">
         {% if  excluded_post_ids is defined and excluded_post_ids|length >= 4 %}
             <!-- wp:query {"query":{"inherit":false,"exclude":{{ excluded_post_ids|json_encode }}}} -->
