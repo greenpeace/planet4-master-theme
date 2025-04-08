@@ -70,9 +70,9 @@ class ListingPage
      */
     private function add_listing_page_content(): void
     {
-        $template_path = get_template_directory() . "/parts/query-listing-page.twig";
-        $template = Timber::compile($template_path, $this->context);
-        $this->context['listing_page_content'] = do_blocks($template);
+        $template = file_get_contents(get_template_directory() . "/parts/query-listing-page.html");
+        $content = do_blocks($template);
+        $this->context['listing_page_content'] = $content;
     }
 
     /**
