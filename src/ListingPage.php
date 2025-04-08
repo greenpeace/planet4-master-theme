@@ -156,7 +156,17 @@ class ListingPage
             return;
         }
 
-        $featured_post_ids = array_slice($sticky_posts, 0, 4);
+        $sticky_posts = new \WP_Query([
+            'post__in' => $sticky_posts,
+            'posts_per_page' => 4,
+            'post_type' => 'post',
+            'post_status' => 'publish',
+            'fields' => 'ids',
+            'orderby' => 'modified',
+            'order' => 'DESC',
+        ]);
+
+        $featured_post_ids = $sticky_posts->posts;
         $this->context['featured_post_ids'] = $featured_post_ids;
 
         $featured_query = new \WP_Query([
@@ -167,7 +177,6 @@ class ListingPage
         ]);
 
         $excluded_post_ids = $featured_query->posts;
-
         $this->context['excluded_post_ids'] = $excluded_post_ids;
 
         // Get the featured posts template
