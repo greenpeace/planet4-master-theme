@@ -246,7 +246,8 @@ class BlockUsageTable extends WP_List_Table
             if (! is_array($on_type)) {
                 $on_type = $on_type ? $this->blocks_registered : [];
             }
-            $allowed = array_merge($allowed, array_values($on_type));
+            $query_loop_variations = ['planet4-blocks/posts-list', 'planet4-blocks/actions-list'];
+            $allowed = array_merge($allowed, array_values($on_type), $query_loop_variations);
         }
 
         $allowed = array_unique($allowed);
