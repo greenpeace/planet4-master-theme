@@ -72,7 +72,7 @@ class M044MigrateArticlesBlockToPostsListBlock extends MigrationScript
         $post_types = $existing_block_attrs['post_types'];
         $layout_type = 'default';
         $classname = 'list';
-        $rows = $existing_block_attrs['rows'];
+        $per_page = $existing_block_attrs['per_page'];
         $current_post_id = $existing_block_attrs['current_post_id'];
         // add "Additional CSS class(es)" to new migrated block, if exists.
         $additional_class = $existing_block_attrs['additional_class'];
@@ -80,7 +80,7 @@ class M044MigrateArticlesBlockToPostsListBlock extends MigrationScript
             $classname = $classname . ' ' . $additional_class;
         }
 
-        $attrs = self::set_query_block_attrs($tags, $posts_override, $post_types, $layout_type, $rows, $current_post_id);
+        $attrs = self::set_query_block_attrs($tags, $posts_override, $post_types, $layout_type, $per_page, $current_post_id);
 
         $inner_blocks = [
             self::get_head_group_block($existing_block_attrs['title']),
@@ -115,7 +115,7 @@ class M044MigrateArticlesBlockToPostsListBlock extends MigrationScript
             'tags' => isset($attrs['tags']) ? $attrs['tags'] : [],
             'posts' => isset($attrs['posts']) ? $attrs['posts'] : [],
             'post_types' => isset($attrs['post_types']) ? $attrs['post_types'] : [],
-            'rows' => isset($attrs['article_count']) ? $attrs['article_count'] : 3,
+            'per_page' => isset($attrs['article_count']) ? $attrs['article_count'] : 3,
             'current_post_id' => isset($attrs['current_post_id']) ? $attrs['current_post_id'] : 0,
             'additional_class' => isset($attrs['className']) ? $attrs['className'] : '',
         ];
@@ -341,7 +341,7 @@ class M044MigrateArticlesBlockToPostsListBlock extends MigrationScript
     }
 
     /**
-     * Create and get a new group block for the Covers head.
+     * Create and get a new group block for the PostList block.
      *
      * @param string $title - The block title.
      * @return array - The new block.

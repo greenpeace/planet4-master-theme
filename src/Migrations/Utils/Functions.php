@@ -272,7 +272,7 @@ class Functions
      */
     public static function create_block_paragraph(array $attrs, string $content): array
     {
-        if (isset($attrs['style'])) {
+        if (isset($attrs['style']['spacing']['margin'])) {
             $margin = $attrs['style']['spacing']['margin'];
         }
 
