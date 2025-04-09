@@ -175,6 +175,7 @@ class ListingPage
             'post_type' => 'post',
             'post_status' => 'publish',
             'fields' => 'ids',
+            'posts_per_page' => -1,
         ]);
 
         $excluded_post_ids = $featured_query->posts;
