@@ -315,7 +315,7 @@ class EnqueueController
             'page_date' => $context['page_date'] ?? null,
             'cf_campaign_name' => $context['cf_campaign_name'] ?? null,
             'cf_project_id' => $context['cf_project_id'] ?? null,
-            'cf_local_project_id' => $context['cf_local_project_id'] ?? null,
+            'cf_local_project' => $context['cf_local_project'] ?? null,
             'cf_basket_name' => $context['cf_basket_name'] ?? null,
             'cf_scope' => $context['cf_scope'] ?? null,
             'cf_department' => $context['cf_department'] ?? null,
