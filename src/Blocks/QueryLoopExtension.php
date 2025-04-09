@@ -43,6 +43,50 @@ class QueryLoopExtension
             'query_loop_block_query_vars',
             function ($query, $block) {
                 $blockQuery = $block->context['query'] ?? [];
+
+                // This applies only to Actions List block
+                if ($blockQuery['isCustom']) {
+                    $is_new_ia = !empty(planet4_get_option('new_ia'));
+
+                    if (!$is_new_ia) {
+                        $query['post_type'] = ['page'];
+                        $query['post_parent'] = planet4_get_option('act_page');
+                    } else {
+                        $query['post_type'] = ['page', 'p4_action'];
+                        $query['post_status'] = 'publish';
+                        $query['posts_per_page'] = -1;
+
+                        global $wpdb;
+                        $post_ids = $wpdb->get_col($wpdb->prepare(
+                            "
+                            (SELECT ID FROM {$wpdb->posts} WHERE post_type = %s)
+                            UNION ALL
+                            (SELECT ID FROM {$wpdb->posts} WHERE post_type = %s AND post_parent = %d)",
+                            'p4_action',
+                            'page',
+                            planet4_get_option('take_action_page')
+                        ));
+
+                        if (!empty($post_ids)) {
+                            $query['post__in'] = $post_ids;
+                        } else {
+                            $query['post__in'] = [0];
+                        }
+
+                        if (is_array($blockQuery['orderBy'])) {
+                            $query['orderby'] = array_combine(
+                                $blockQuery['orderBy'],
+                                $blockQuery['order'] ?? array_fill(0, count($blockQuery['orderBy']), 'ASC')
+                            );
+                        } else {
+                            $query['orderby'] = [
+                                'menu_order' => 'ASC',
+                                'post_date' => 'DESC',
+                                'post_title' => 'ASC',
+                            ];
+                        }
+                    }
+                }
                 if (!empty($blockQuery['postIn'])) {
                     $query['post__in'] = array_map('intval', (array) $blockQuery['postIn']);
                     $query['orderby'] = 'post__in';
