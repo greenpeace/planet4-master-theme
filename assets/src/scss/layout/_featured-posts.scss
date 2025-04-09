@@ -88,6 +88,11 @@
 
       &:first-child {
         grid-row: span 3;
+
+        .query-list-item-body {
+          padding-left: 0;
+          padding-right: 0;
+        }
       }
 
       &:not(:first-child) {
