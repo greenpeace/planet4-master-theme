@@ -111,7 +111,7 @@ export const EditableColumns = ({
             <RichText
               tagName="div"
               className={isCampaign || [LAYOUT_NO_IMAGE, LAYOUT_TASKS].includes(columns_block_style) ?
-                `btn btn-${isCampaign ? 'primary' : 'secondary'} ${columns_block_style === LAYOUT_TASKS ? 'btn-small' : ''}` :
+                `btn btn-${isCampaign ? 'primary' : 'secondary'}` :
                 'standalone-link'}
               placeholder={[LAYOUT_NO_IMAGE, LAYOUT_TASKS].includes(columns_block_style) ?
                 __('Enter column button text', 'planet4-blocks-backend') :
