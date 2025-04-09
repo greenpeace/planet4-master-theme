@@ -25,6 +25,10 @@ class Gallery extends BaseBlock
     public const LAYOUT_THREE_COLUMNS = 2;
     public const LAYOUT_GRID = 3;
 
+    public const CLASS_LAYOUT_SLIDER = 'is-style-slider';
+    public const CLASS_LAYOUT_THREE_COLUMNS = 'is-style-three-columns';
+    public const CLASS_LAYOUT_GRID = 'is-style-grid';
+
     /**
      * Gallery constructor.
      */
@@ -196,6 +200,12 @@ class Gallery extends BaseBlock
             }
 
             $images[] = $image_data;
+        }
+
+        // If the gallery style is "3 Columns" we need to limit the number of images to 3
+        // to avoid the lightbox carousel to show more images than that.
+        if ($fields['className'] === self::CLASS_LAYOUT_THREE_COLUMNS) {
+            $images = array_slice($images, 0, 3);
         }
 
         return $images;
