@@ -62,7 +62,6 @@ class ListingPage
         $this->add_listing_page_content();
         $this->set_featured_action();
         $this->set_news_page_link();
-
     }
 
     /**
