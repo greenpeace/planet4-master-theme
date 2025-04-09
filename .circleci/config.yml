@@ -345,7 +345,7 @@ jobs:
           name: Get merge commit test instance
           command: |
             instance=$(find-commit-test-instance.py)
-            if [ "$instance" = "False" || -z "$instance" ]; then
+            if [ "$instance" = "False" ] || [ -z "$instance" ]; then
                 echo "No test instance found."
                 circleci-agent step halt
             fi
