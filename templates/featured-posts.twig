@@ -1,0 +1,37 @@
+<section id="featured-posts">
+    <div class="container">
+        {% if  excluded_post_ids is defined and excluded_post_ids|length >= 4 %}
+            <!-- wp:query {"query":{"inherit":false,"exclude":{{ excluded_post_ids|json_encode }}}} -->
+            <div id="featured-posts-content" class="wp-block-query wp-block-query--list">
+                <!-- wp:post-template -->
+                    <div class="query-list-item-image query-list-item-image-max-width">
+                        <!-- wp:p4/post-featured-image /-->
+                    </div>
+                    <div class="query-list-item-body">
+                        <div class="query-list-item-post-terms">
+                            <div class="wrapper-post-term">
+                                <!-- wp:post-terms {"term":"p4-page-type"} /-->
+                            </div>
+                            <div class="wrapper-post-tag">
+                                <!-- wp:post-terms {"term":"post_tag"} /-->
+                            </div>
+                        </div>
+
+                        <header>
+                            <!-- wp:post-title {"isLink":true, "level":4, "className": "query-list-item-headline"} /-->
+                        </header>
+                        <!-- wp:post-excerpt {"className": "query-list-item-content"} /-->
+
+                        <div class="query-list-item-meta d-flex flex-wrap">
+                            <!-- wp:p4/post-author-name /-->
+                            <span class="query-list-item-bullet" aria-hidden="true">•</span>
+                            <!-- wp:post-date /-->
+                            <!-- wp:p4/reading-time /-->
+                        </div>
+                    </div>
+                <!-- /wp:post-template -->
+            </div>
+            <!-- /wp:query -->
+        {% endif %}
+    </div>
+</section>

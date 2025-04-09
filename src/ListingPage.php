@@ -50,8 +50,14 @@ class ListingPage
         // Set layout (grid or list)
         $this->context['layout'] = $_GET['layout'] ?? 'list';
 
-        // Filters (News & Stories page only)
-        $this->set_filters();
+        // Check if this is the News & Stories page
+        $news_page_id = (int) get_option('page_for_posts');
+        $current_page_id = get_queried_object_id();
+
+        if ($news_page_id === $current_page_id) {
+            $this->set_featured_posts();
+            $this->set_filters();
+        }
 
         $this->add_listing_page_content();
         $this->set_featured_action();
@@ -134,6 +140,51 @@ class ListingPage
 
         $this->context['current_category'] = $_GET['category'] ?? '';
         $this->context['current_post_type'] = $_GET['post-type'] ?? '';
+    }
+
+    /**
+     * Add featured posts to the context for the News & Stories page.
+     */
+    private function set_featured_posts(): void
+    {
+        if (!is_home()) {
+            return;
+        }
+
+        $sticky_posts = get_option('sticky_posts');
+        if (empty($sticky_posts) || count($sticky_posts) < 4) {
+            return;
+        }
+
+        $sticky_posts = new \WP_Query([
+            'post__in' => $sticky_posts,
+            'posts_per_page' => 4,
+            'post_type' => 'post',
+            'post_status' => 'publish',
+            'fields' => 'ids',
+            'orderby' => 'modified',
+            'order' => 'DESC',
+        ]);
+
+        $featured_post_ids = $sticky_posts->posts;
+        $this->context['featured_post_ids'] = $featured_post_ids;
+
+        $featured_query = new \WP_Query([
+            'post__not_in' => $featured_post_ids,
+            'post_type' => 'post',
+            'post_status' => 'publish',
+            'fields' => 'ids',
+            'posts_per_page' => -1,
+        ]);
+
+        $excluded_post_ids = $featured_query->posts;
+        $this->context['excluded_post_ids'] = $excluded_post_ids;
+
+        // Get the featured posts template
+        $template_path = get_template_directory() . "/templates/featured-posts.twig";
+        $template = Timber::compile($template_path, $this->context);
+
+        $this->context['featured_posts_content'] = do_blocks($template);
     }
 
     /**
