@@ -77,6 +77,16 @@ export const setupQueryLoopBlockExtension = () => {
           postIn: value && value.length > 0 ? value : [],
         }});
 
+        const loopInnerBlocks = (blocks, callback) => {
+          blocks.forEach(block => {
+            callback(block);
+
+            if (block.innerBlocks && block.innerBlocks.length > 0) {
+              loopInnerBlocks(block.innerBlocks, callback);
+            }
+          });
+        };
+
         useEffect(() => {
           if (postTemplate) {
             const timeout = setTimeout(() => {
@@ -123,6 +133,27 @@ export const setupQueryLoopBlockExtension = () => {
           wp.data.select('core/block-editor').getSelectedBlock(),
         ]);
 
+        useEffect(() => {
+          if (!isPostsList || !attributes.breadcrumbs?.type) {
+            return;
+          }
+
+          const {type: breadcrumbType} = attributes.breadcrumbs;
+          const innerBlocks = wp.data.select('core/block-editor').getBlocks(attributes.clientId || props.clientId);
+
+          loopInnerBlocks(innerBlocks, block => {
+            if (block.name === 'core/post-terms') {
+              if (block.attributes.term !== breadcrumbType) {
+                wp.data.dispatch('core/block-editor').updateBlockAttributes(
+                  block.clientId,
+                  {term: breadcrumbType}
+                );
+              }
+            }
+          });
+
+        }, [attributes.breadcrumbs?.type]);
+
         return useMemo(() => (
           <>
             <InspectorControls>
@@ -158,7 +189,7 @@ export const setupQueryLoopBlockExtension = () => {
                 <PanelBody title={__('Taxonomy breadcrumbs', 'planet4-blocks-backend')} initialOpen={false}>
                   <RadioControl
                     label={__('Choose which taxonomy to display on Post breadcrumbs', 'planet4-blocks-backend')}
-                    selected={attributes.breadcrumbs?.type || 'default'}
+                    selected={attributes.breadcrumbs?.type || POSTS_LISTS_BREADCRUMBS[0].value}
                     options={POSTS_LISTS_BREADCRUMBS}
                     onChange={updateBreadcrumbType}
                   />
