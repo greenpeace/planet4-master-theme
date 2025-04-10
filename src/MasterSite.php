@@ -358,7 +358,20 @@ class MasterSite extends TimberSite
                     return;
                 }
 
-                echo '<script>vwo_$("body").vwoCss({"visibility":"visible !important"});</script>' . PHP_EOL;
+                echo '
+                    <script>
+                        window.vwo_$ = window.vwo_$ || function() {
+                            (window._vwoQueue = window._vwoQueue || []).push(arguments);
+                            return {
+                            vwoCss: function() {}
+                            };
+                        };
+                    </script>
+
+                    <script>
+                        vwo_$("body").vwoCss({"visibility":"visible !important"});
+                    </script>
+                ';
             },
             10
         );
