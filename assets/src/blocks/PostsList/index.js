@@ -5,8 +5,8 @@ export const POSTS_LISTS_LAYOUT_TYPES = [
   {label: 'Carousel', value: 'flex', columnCount: 8},
 ];
 export const POSTS_LISTS_BREADCRUMBS = [
-  {label: 'Category', value: 'default'},
-  {label: 'Post Type', value: 'post-type'},
+  {label: 'Category', value: 'category'},
+  {label: 'Post Type', value: 'p4-page-type'},
 ];
 
 export const registerPostsListBlock = () => {
@@ -53,7 +53,7 @@ export const registerPostsListBlock = () => {
         columnCount: 3,
       },
       breadcrumbs: {
-        type: 'default',
+        type: POSTS_LISTS_BREADCRUMBS[0].value,
       },
     },
     innerBlocks: [
@@ -82,12 +82,7 @@ export const registerPostsListBlock = () => {
           ['core/group', {}, [
             ['core/group', {layout: {type: 'flex'}}, [
               ['core/post-terms', {
-                term: 'category',
-                separator: ' | ',
-              }],
-              ['core/post-terms', {
-                term: 'post_tag',
-                separator: ' ',
+                term: POSTS_LISTS_BREADCRUMBS[0].value,
               }],
             ]],
             ['core/post-title', {isLink: true, level: 4}],
