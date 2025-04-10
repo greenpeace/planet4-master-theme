@@ -67,7 +67,7 @@ export const registerActionsListBlock = () => {
       ['core/post-template', {lock: {move: true, remove: true}}, [
         ['core/post-featured-image', {isLink: true}],
         ['core/group', {}, [
-          ['core/post-terms', {term: 'post_tag', separator: ' '}],
+          ['core/post-terms', {term: 'category', separator: ' '}],
           ['core/post-title', {isLink: true}],
           ['core/post-excerpt'],
         ]],
