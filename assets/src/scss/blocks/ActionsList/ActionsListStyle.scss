@@ -129,11 +129,20 @@
     }
   }
 
-  .wp-block-post-terms a {
-    color: var(--grey-600);
-    font-size: 14px;
-    font-weight: bold;
-    font-family: var(--font-family-tertiary);
+  .wp-block-post-terms {
+    // This hides all the terms except the first one,
+    // since the 'core/post-terms' block doesn't have a way to hide them.
+    &.taxonomy-category {
+      a:nth-child(n+2), span {
+        display: none;
+      }
+    }
+    a {
+      color: var(--grey-600);
+      font-size: 14px;
+      font-weight: bold;
+      font-family: var(--font-family-tertiary);
+    }
   }
 
   &.is-custom-layout-grid {
