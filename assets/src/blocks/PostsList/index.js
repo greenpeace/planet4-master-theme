@@ -4,6 +4,10 @@ export const POSTS_LISTS_LAYOUT_TYPES = [
   {label: 'Grid', value: 'grid', columnCount: 4},
   {label: 'Carousel', value: 'flex', columnCount: 8},
 ];
+export const POSTS_LISTS_BREADCRUMBS = [
+  {label: 'Category', value: 'default'},
+  {label: 'Post Type', value: 'post-type'},
+];
 
 export const registerPostsListBlock = () => {
   const {registerBlockVariation} = wp.blocks;
@@ -47,6 +51,9 @@ export const registerPostsListBlock = () => {
       layout: {
         type: 'default',
         columnCount: 3,
+      },
+      breadcrumbs: {
+        type: 'default',
       },
     },
     innerBlocks: [

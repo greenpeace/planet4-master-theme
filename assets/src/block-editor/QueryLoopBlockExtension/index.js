@@ -1,4 +1,4 @@
-import {POSTS_LIST_BLOCK_NAME, POSTS_LISTS_LAYOUT_TYPES} from '../../blocks/PostsList';
+import {POSTS_LIST_BLOCK_NAME, POSTS_LISTS_LAYOUT_TYPES, POSTS_LISTS_BREADCRUMBS} from '../../blocks/PostsList';
 import {ACTIONS_LIST_BLOCK_NAME, ACTIONS_LIST_LAYOUT_TYPES} from '../../blocks/ActionsList';
 import {PostSelector} from '../PostSelector';
 
@@ -54,6 +54,21 @@ export const setupQueryLoopBlockExtension = () => {
             className: ((className.includes(pattern)) ?
               className.replace(/\is-custom-layout-.*/, `${pattern}${layoutType.label}`) :
               `${className} ${pattern}${layoutType.label}`).toLowerCase(),
+          });
+        }, [attributes]);
+
+        const updateBreadcrumbType = useCallback(type => {
+          const breadcrumbsType = isPostsList ? POSTS_LISTS_BREADCRUMBS.find(t => t.value === type) : null;
+
+          if (!breadcrumbsType) {
+            return;
+          }
+
+          setAttributes({
+            breadcrumbs: {
+              ...(attributes.breadcrumbs || {}),
+              type: breadcrumbsType.value,
+            },
           });
         }, [attributes]);
 
@@ -139,6 +154,16 @@ export const setupQueryLoopBlockExtension = () => {
                   />
                 </PanelBody>
               }
+              {isPostsList && (
+                <PanelBody title={__('Taxonomy breadcrumbs', 'planet4-blocks-backend')} initialOpen={false}>
+                  <RadioControl
+                    label={__('Choose which taxonomy to display on Post breadcrumbs', 'planet4-blocks-backend')}
+                    selected={attributes.breadcrumbs?.type || 'default'}
+                    options={POSTS_LISTS_BREADCRUMBS}
+                    onChange={updateBreadcrumbType}
+                  />
+                </PanelBody>
+              )}
               {
                 <PanelBody title={__('Learn more about this block ', 'planet4-blocks-backend')} initialOpen={false}>
                   <p className="components-base-control__help">
