@@ -18,6 +18,6 @@ if (vwoSmartScriptCodeData?.vwo_account_id) {
 
   const fragment = document.createRange().createContextualFragment(vwoScript);
 
-  document.head.appendChild(fragment);
+  document.head.prepend(fragment);
 }
 

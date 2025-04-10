@@ -47,7 +47,7 @@ class HttpHeaders
         $enable_vwo = planet4_get_option('vwo_account_id') ?? null;
         if ($enable_vwo) {
             // phpcs:disable Generic.Files.LineLength.MaxExceeded
-            $directives[0] = $directives[0] . ' blob: *.visualwebsiteoptimizer.com *visualwebsiteoptimizer.com app.vwo.com useruploads.vwo.io';
+            $directives[0] = $directives[0] . ' blob: *.visualwebsiteoptimizer.com app.vwo.com useruploads.vwo.io';
         }
 
         $csp_header = implode('; ', $directives);
