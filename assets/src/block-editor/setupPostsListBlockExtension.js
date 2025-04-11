@@ -21,7 +21,6 @@ export const setupPostsListBlockExtension = () => {
         if (!postId || !taxonomy) {return;}
 
         wp.apiFetch({path: `/wp/v2/posts/${postId}`}).then(post => {
-          // console.log(post);
           const taxonomyField = taxonomy === 'category' ? 'categories' : taxonomy;
           const termIds = post[taxonomyField];
           if (termIds && termIds.length > 0) {
@@ -32,7 +31,13 @@ export const setupPostsListBlockExtension = () => {
         });
       }, [postId, taxonomy]);
 
-      return wp.element.createElement('p', {}, term || 'Loading...');
+      const linkAttrs = {href: '', onClick: e => e.preventDefault()};
+      const contentAttrs = {className: 'taxonomy-category wp-block-post-terms'};
+
+      const link = wp.element.createElement('a', linkAttrs, term || 'Loading...');
+      const content = wp.element.createElement('div', contentAttrs, link);
+
+      return content;
     },
     save() {
       return null;
