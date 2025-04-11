@@ -125,6 +125,10 @@ class BlockRegistrationController
                         'type'    => 'string',
                         'default' => 'category',
                     ],
+                    'taxonomy' => [
+                        'type'    => 'string',
+                        'default' => 'category',
+                    ],
                 ],
             ]
         );

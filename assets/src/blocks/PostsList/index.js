@@ -83,6 +83,7 @@ export const registerPostsListBlock = () => {
             ['core/group', {layout: {type: 'flex'}}, [
               ['p4/taxonomy-breadcrumb', {
                 taxonomy: POSTS_LISTS_BREADCRUMBS[0].value,
+                post_type: 'posts',
               }],
             ]],
             ['core/post-title', {isLink: true, level: 4}],
