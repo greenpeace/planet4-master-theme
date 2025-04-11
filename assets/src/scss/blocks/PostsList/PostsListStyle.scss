@@ -58,14 +58,6 @@
     }
   }
 
-  // This hides all the terms except the first one,
-  // since the 'core/post-terms' block doesn't have a way to hide them.
-  .taxonomy-category {
-    a:nth-child(n+2), span {
-      display: none;
-    }
-  }
-
   .wp-block-post-terms:not(:first-child):before {
     margin-inline-end: $sp-1;
     color: var(--gp-green-800);
