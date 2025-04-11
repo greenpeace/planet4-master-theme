@@ -142,11 +142,11 @@ export const setupQueryLoopBlockExtension = () => {
           const innerBlocks = wp.data.select('core/block-editor').getBlocks(attributes.clientId || props.clientId);
 
           loopInnerBlocks(innerBlocks, block => {
-            if (block.name === 'core/post-terms') {
+            if (block.name === 'p4/taxonomy-breadcrumb') {
               if (block.attributes.term !== breadcrumbType) {
                 wp.data.dispatch('core/block-editor').updateBlockAttributes(
                   block.clientId,
-                  {term: breadcrumbType}
+                  {taxonomy: breadcrumbType}
                 );
               }
             }

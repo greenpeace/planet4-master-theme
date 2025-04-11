@@ -84,6 +84,7 @@ export const registerPostsListBlock = () => {
               ['core/post-terms', {
                 term: POSTS_LISTS_BREADCRUMBS[0].value,
               }],
+              ['p4/taxonomy-breadcrumb', {taxonomy: POSTS_LISTS_BREADCRUMBS[0].value}],
             ]],
             ['core/post-title', {isLink: true, level: 4}],
             ['core/post-excerpt'],

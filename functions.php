@@ -213,6 +213,38 @@ add_filter(
     2
 );
 
+
+function render_one_category_block($attributes, $content, $block) {
+    $post_id = $block->context['postId'] ?? get_the_ID();
+    $taxonomy = $attributes['taxonomy'] ?? 'category';
+
+    $terms = get_the_terms($post_id, $taxonomy);
+    if (is_wp_error($terms) || empty($terms)) {
+        return '';
+    }
+
+    $first = $terms[0];
+    return sprintf('<span class="one-category">%s</span>', esc_html($first->name));
+}
+
+function register_one_category_block() {
+    register_block_type('p4/taxonomy-breadcrumb', [
+        'api_version'     => 2,
+        'render_callback' => 'render_one_category_block',
+        'uses_context'    => ['postId'],
+        'attributes'      => [
+            'taxonomy' => [
+                'type'    => 'string',
+                'default' => 'category',
+            ],
+        ],
+    ]);
+}
+add_action('init', 'register_one_category_block');
+
+
+
+
 /**
  * I'll move this somewhere else in master theme.
  *
