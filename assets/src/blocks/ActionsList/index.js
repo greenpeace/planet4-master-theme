@@ -69,6 +69,7 @@ export const registerActionsListBlock = () => {
         ['core/group', {}, [
           ['p4/taxonomy-breadcrumb', {
             taxonomy: 'category',
+            post_type: queryPostType,
           }],
           ['core/post-title', {isLink: true}],
           ['core/post-excerpt'],
