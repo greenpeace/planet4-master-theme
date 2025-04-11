@@ -8,9 +8,9 @@ use P4\MasterTheme\MigrationRecord;
 use P4\MasterTheme\MigrationScript;
 
 /**
- * Remove the post tags from the Posts List blocks.
+ * Replace the Post Terms blocks with the Taxonomy Breadcrumb block in Posts List and Actions List.
  */
-class M044RemoveTagsFromPostsListMigration extends MigrationScript
+class M044ReplaceTaxonomyInQueryBlockMigration extends MigrationScript
 {
     /**
      * Perform the actual migration.
@@ -71,16 +71,33 @@ class M044RemoveTagsFromPostsListMigration extends MigrationScript
      */
     private static function transform_block(array &$blocks): void
     {
+        $inserted = false; // Flag to ensure insertion happens only once
+
         foreach ($blocks as $key => &$block) {
             if (
                 isset($block['blockName']) &&
                 isset($block['attrs']) &&
-                isset($block['attrs']['term']) &&
-                $block['blockName'] === Utils\Constants::BLOCK_TERMS &&
-                $block['attrs']['term'] !== 'category'
+                isset($block['attrs']['term'])
             ) {
                 if (array_key_exists($key, $blocks)) {
                     unset($blocks[$key]);
+
+                    if (!$inserted) {
+                        $new_block = [
+                            'blockName' => 'p4/taxonomy-breadcrumb',
+                            'attrs' => [
+                                'taxonomy' => 'category',
+                            ],
+                        ];
+
+                        $blocks = array_merge(
+                            array_slice($blocks, 0, $key),
+                            [$new_block],
+                            array_slice($blocks, $key)
+                        );
+
+                        $inserted = true;
+                    }
                 }
             }
 
