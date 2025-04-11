@@ -18,6 +18,7 @@ import {addButtonLinkPasteWarning} from './block-editor/addButtonLinkPasteWarnin
 import {addBlockFilters} from './block-editor/BlockFilters';
 import {replaceTaxonomyTermSelectors} from './block-editor/replaceTaxonomyTermSelectors';
 import {setupImageBlockExtension} from './block-editor/setupImageBlockExtension';
+import {setupPostsListBlockExtension} from './block-editor/setupPostsListBlockExtension';
 
 wp.domReady(() => {
   // Blocks
@@ -54,3 +55,4 @@ addBlockFilters();
 replaceTaxonomyTermSelectors();
 setupImageBlockExtension();
 setupBlockEditorValidation();
+setupPostsListBlockExtension();
