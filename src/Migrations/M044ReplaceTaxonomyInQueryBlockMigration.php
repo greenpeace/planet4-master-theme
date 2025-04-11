@@ -25,7 +25,7 @@ class M044ReplaceTaxonomyInQueryBlockMigration extends MigrationScript
         };
 
         $transform_block = function ($block) {
-            self::transform_block($block['innerBlocks']);
+            self::transform_block($block['innerBlocks'], $block['attrs']['namespace']);
             return $block;
         };
 
@@ -60,17 +60,20 @@ class M044ReplaceTaxonomyInQueryBlockMigration extends MigrationScript
         }
 
         // Check if the block is a Posts List block.
-        return $block['blockName'] === Utils\Constants::BLOCK_QUERY && $block['attrs']['namespace'] === Utils\Constants::BLOCK_POSTS_LIST;
+        return $block['blockName'] === Utils\Constants::BLOCK_QUERY &&
+            (
+                $block['attrs']['namespace'] === Utils\Constants::BLOCK_POSTS_LIST ||
+                $block['attrs']['namespace'] === Utils\Constants::BLOCK_ACTIONS_LIST
+            );
     }
 
     /**
      * Remove the terms from the Posts List blocks, except categories.
      *
-     * @param array $blocks - The current blocks array.
-     * @return void
      */
-    private static function transform_block(array &$blocks): void
+    private static function transform_block(array &$blocks, string $type): void
     {
+
         $inserted = false; // Flag to ensure insertion happens only once
 
         foreach ($blocks as $key => &$block) {
@@ -87,6 +90,9 @@ class M044ReplaceTaxonomyInQueryBlockMigration extends MigrationScript
                             'blockName' => 'p4/taxonomy-breadcrumb',
                             'attrs' => [
                                 'taxonomy' => 'category',
+                                'post_type' => $type === Utils\Constants::BLOCK_POSTS_LIST
+                                    ? 'posts'
+                                    : 'p4_action',
                             ],
                         ];
 
@@ -105,7 +111,7 @@ class M044ReplaceTaxonomyInQueryBlockMigration extends MigrationScript
                 continue;
             }
 
-            self::transform_block($block['innerBlocks']);
+            self::transform_block($block['innerBlocks'], $type);
         }
     }
 }
