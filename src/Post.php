@@ -615,7 +615,7 @@ class Post extends TimberPost
                                 <div class="wp-block-group">
                                     <!-- wp:group {"layout":{"type":"flex"}} -->
                                         <div class="wp-block-group">
-                                            <!-- wp:post-terms {"term":"category"} /-->
+                                            <!-- wp:p4/taxonomy-breadcrumb {"taxonomy":"category"} /-->
                                         </div>
                                     <!-- /wp:group -->
                                     <!-- wp:post-title {"isLink":true, "level": 4} /-->
