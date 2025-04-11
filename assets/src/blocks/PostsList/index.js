@@ -81,10 +81,9 @@ export const registerPostsListBlock = () => {
           ['core/post-featured-image', {isLink: true}],
           ['core/group', {}, [
             ['core/group', {layout: {type: 'flex'}}, [
-              ['core/post-terms', {
-                term: POSTS_LISTS_BREADCRUMBS[0].value,
+              ['p4/taxonomy-breadcrumb', {
+                taxonomy: POSTS_LISTS_BREADCRUMBS[0].value,
               }],
-              ['p4/taxonomy-breadcrumb', {taxonomy: POSTS_LISTS_BREADCRUMBS[0].value}],
             ]],
             ['core/post-title', {isLink: true, level: 4}],
             ['core/post-excerpt'],

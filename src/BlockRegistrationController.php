@@ -109,7 +109,15 @@ class BlockRegistrationController
                     }
 
                     $first = $terms[0];
-                    return sprintf('<span class="one-category">%s</span>', esc_html($first->name));
+                    $term_link = get_term_link($first);
+
+                    return sprintf('
+                        <div class="wp-block-post-terms">
+                            <a href="%s">%s</a>
+                        </div>',
+                        esc_url($term_link),
+                        esc_html($first->name)
+                    );
                 },
                 'uses_context'    => ['postId'],
                 'attributes'      => [
