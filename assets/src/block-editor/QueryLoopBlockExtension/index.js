@@ -1,6 +1,7 @@
 import {POSTS_LIST_BLOCK_NAME, POSTS_LISTS_LAYOUT_TYPES, POSTS_LISTS_BREADCRUMBS} from '../../blocks/PostsList';
 import {ACTIONS_LIST_BLOCK_NAME, ACTIONS_LIST_LAYOUT_TYPES} from '../../blocks/ActionsList';
 import {PostSelector} from '../PostSelector';
+import {TAX_BREADCRUMB_BLOCK_NAME} from '../setupTaxonomyBreadcrumbBlock';
 
 const {InspectorControls} = wp.blockEditor;
 const {RadioControl, PanelBody} = wp.components;
@@ -81,7 +82,7 @@ export const setupQueryLoopBlockExtension = () => {
           const innerBlocks = wp.data.select('core/block-editor').getBlocks(attributes.clientId || props.clientId);
 
           loopInnerBlocks(innerBlocks, block => {
-            if (block.name === 'p4/taxonomy-breadcrumb') {
+            if (block.name === TAX_BREADCRUMB_BLOCK_NAME) {
               if (block.attributes.term !== value) {
                 setBreadcrumbTaxonomy(value);
                 wp.data.dispatch('core/block-editor').updateBlockAttributes(
@@ -101,7 +102,7 @@ export const setupQueryLoopBlockExtension = () => {
           const innerBlocks = wp.data.select('core/block-editor').getBlocks(attributes.clientId || props.clientId);
 
           loopInnerBlocks(innerBlocks, block => {
-            if (block.name === 'p4/taxonomy-breadcrumb' && block.attributes?.taxonomy) {
+            if (block.name === TAX_BREADCRUMB_BLOCK_NAME && block.attributes?.taxonomy) {
               setBreadcrumbTaxonomy(block.attributes.taxonomy);
             }
           });
