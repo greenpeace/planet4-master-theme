@@ -1,4 +1,8 @@
+import {POSTS_LISTS_BREADCRUMBS} from '../PostsList';
+import {TAX_BREADCRUMB_BLOCK_NAME} from '../../block-editor/setupTaxonomyBreadcrumbBlock';
+
 export const ACTIONS_LIST_BLOCK_NAME = 'planet4-blocks/actions-list';
+
 export const ACTIONS_LIST_LAYOUT_TYPES = [
   {label: 'Grid', value: 'grid', columnCount: 3},
   {label: 'Carousel', value: 'flex', columnCount: 6},
@@ -67,8 +71,8 @@ export const registerActionsListBlock = () => {
       ['core/post-template', {lock: {move: true, remove: true}}, [
         ['core/post-featured-image', {isLink: true}],
         ['core/group', {}, [
-          ['p4/taxonomy-breadcrumb', {
-            taxonomy: 'category',
+          [TAX_BREADCRUMB_BLOCK_NAME, {
+            taxonomy: POSTS_LISTS_BREADCRUMBS[0].value,
             post_type: queryPostType,
           }],
           ['core/post-title', {isLink: true}],

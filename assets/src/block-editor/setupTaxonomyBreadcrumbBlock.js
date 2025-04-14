@@ -1,6 +1,10 @@
+import {POSTS_LISTS_BREADCRUMBS} from '../blocks/PostsList';
+
+export const TAX_BREADCRUMB_BLOCK_NAME = 'p4/taxonomy-breadcrumb';
+
 export const setupTaxonomyBreadcrumbBlock = () => {
   wp.blocks.registerBlockType(
-    'p4/taxonomy-breadcrumb',
+    TAX_BREADCRUMB_BLOCK_NAME,
     {
       apiVersion: 2,
       title: 'Taxonomy Breadcrumb',
@@ -9,7 +13,7 @@ export const setupTaxonomyBreadcrumbBlock = () => {
       attributes: {
         taxonomy: {
           type: 'string',
-          default: 'category',
+          default: POSTS_LISTS_BREADCRUMBS[0].value,
         },
         post_type: {
           type: 'string',
