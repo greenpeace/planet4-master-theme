@@ -1,3 +1,5 @@
+const {__} = wp.i18n;
+
 import {POSTS_LISTS_BREADCRUMBS} from '../blocks/PostsList';
 
 export const TAX_BREADCRUMB_BLOCK_NAME = 'p4/taxonomy-breadcrumb';
@@ -7,7 +9,7 @@ export const setupTaxonomyBreadcrumbBlock = () => {
     TAX_BREADCRUMB_BLOCK_NAME,
     {
       apiVersion: 2,
-      title: 'Taxonomy Breadcrumb',
+      title: __('Taxonomy Breadcrumb', 'planet4-blocks-backend'),
       icon: 'tag',
       category: 'widgets',
       attributes: {

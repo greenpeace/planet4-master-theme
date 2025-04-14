@@ -322,10 +322,6 @@ function register_more_blocks(): void
                     'type'    => 'string',
                     'default' => 'category',
                 ],
-                'taxonomy' => [
-                    'type'    => 'string',
-                    'default' => 'category',
-                ],
             ],
         ]
     );
