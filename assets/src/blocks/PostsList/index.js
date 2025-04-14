@@ -52,9 +52,6 @@ export const registerPostsListBlock = () => {
         type: 'default',
         columnCount: 3,
       },
-      breadcrumbs: {
-        type: POSTS_LISTS_BREADCRUMBS[0].value,
-      },
     },
     innerBlocks: [
       ['core/group', {layout: {type: 'flex', justifyContent: 'space-between'}}, [
