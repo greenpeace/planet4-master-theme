@@ -43,6 +43,10 @@ class Constants
     public const BLOCK_QUERY = self::PREFIX_CORE_BLOCKS . '/query';
     public const BLOCK_IMAGE = self::PREFIX_CORE_BLOCKS . '/image';
 
+    public const P4_OTHER_BLOCKS = [
+        'breadcrumb' => 'p4/taxonomy-breadcrumb',
+    ];
+
     public const POST_TYPES_PAGE = 'page';
     public const POST_TYPES_POST = 'post';
     public const POST_TYPES_ACTION = 'p4_action';
