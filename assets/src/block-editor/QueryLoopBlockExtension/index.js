@@ -28,6 +28,7 @@ export const setupQueryLoopBlockExtension = () => {
 
         const [postTemplate, setPostTemplate] = useState();
         const [selectedBlock, setSelectedBlock] = useState();
+        const [breadcrumbTaxonomy, setBreadcrumbTaxonomy] = useState();
 
         const {className, query} = attributes;
         const layoutTypes = isActionsList ? ACTIONS_LIST_LAYOUT_TYPES : POSTS_LISTS_LAYOUT_TYPES;
@@ -57,21 +58,6 @@ export const setupQueryLoopBlockExtension = () => {
           });
         }, [attributes]);
 
-        const updateBreadcrumbType = useCallback(type => {
-          const breadcrumbsType = isPostsList ? POSTS_LISTS_BREADCRUMBS.find(t => t.value === type) : null;
-
-          if (!breadcrumbsType) {
-            return;
-          }
-
-          setAttributes({
-            breadcrumbs: {
-              ...(attributes.breadcrumbs || {}),
-              type: breadcrumbsType.value,
-            },
-          });
-        }, [attributes]);
-
         const updateQuery = value => setAttributes({query: {
           ...query,
           postIn: value && value.length > 0 ? value : [],
@@ -86,6 +72,40 @@ export const setupQueryLoopBlockExtension = () => {
             }
           });
         };
+
+        const updateBreadcrumbType = value => {
+          if (!isPostsList) {
+            return;
+          }
+
+          const innerBlocks = wp.data.select('core/block-editor').getBlocks(attributes.clientId || props.clientId);
+
+          loopInnerBlocks(innerBlocks, block => {
+            if (block.name === 'p4/taxonomy-breadcrumb') {
+              if (block.attributes.term !== value) {
+                setBreadcrumbTaxonomy(value);
+                wp.data.dispatch('core/block-editor').updateBlockAttributes(
+                  block.clientId,
+                  {taxonomy: value}
+                );
+              }
+            }
+          });
+        };
+
+        useEffect(() => {
+          if (!isPostsList) {
+            return;
+          }
+
+          const innerBlocks = wp.data.select('core/block-editor').getBlocks(attributes.clientId || props.clientId);
+
+          loopInnerBlocks(innerBlocks, block => {
+            if (block.name === 'p4/taxonomy-breadcrumb' && block.attributes?.taxonomy) {
+              setBreadcrumbTaxonomy(block.attributes.taxonomy);
+            }
+          });
+        }, []);
 
         useEffect(() => {
           if (postTemplate) {
@@ -133,27 +153,6 @@ export const setupQueryLoopBlockExtension = () => {
           wp.data.select('core/block-editor').getSelectedBlock(),
         ]);
 
-        useEffect(() => {
-          if (!isPostsList || !attributes.breadcrumbs?.type) {
-            return;
-          }
-
-          const {type: breadcrumbType} = attributes.breadcrumbs;
-          const innerBlocks = wp.data.select('core/block-editor').getBlocks(attributes.clientId || props.clientId);
-
-          loopInnerBlocks(innerBlocks, block => {
-            if (block.name === 'p4/taxonomy-breadcrumb') {
-              if (block.attributes.term !== breadcrumbType) {
-                wp.data.dispatch('core/block-editor').updateBlockAttributes(
-                  block.clientId,
-                  {taxonomy: breadcrumbType}
-                );
-              }
-            }
-          });
-
-        }, [attributes.breadcrumbs?.type]);
-
         return useMemo(() => (
           <>
             <InspectorControls>
@@ -189,7 +188,7 @@ export const setupQueryLoopBlockExtension = () => {
                 <PanelBody title={__('Taxonomy breadcrumbs', 'planet4-blocks-backend')} initialOpen={false}>
                   <RadioControl
                     label={__('Choose which taxonomy to display on Post breadcrumbs', 'planet4-blocks-backend')}
-                    selected={attributes.breadcrumbs?.type || POSTS_LISTS_BREADCRUMBS[0].value}
+                    selected={breadcrumbTaxonomy || POSTS_LISTS_BREADCRUMBS[0].value}
                     options={POSTS_LISTS_BREADCRUMBS}
                     onChange={updateBreadcrumbType}
                   />
