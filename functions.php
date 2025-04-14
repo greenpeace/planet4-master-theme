@@ -295,8 +295,8 @@ function register_more_blocks(): void
     register_block_type(
         'p4/taxonomy-breadcrumb',
         [
-            'api_version'     => 2,
-            'render_callback' => function ($attributes, $content, $block) {
+            'api_version' => 2,
+            'render_callback' => function ($attributes, $block) {
                 $post_id = $block->context['postId'] ?? get_the_ID();
                 $taxonomy = $attributes['taxonomy'] ?? 'category';
 
@@ -308,18 +308,12 @@ function register_more_blocks(): void
                 $first = $terms[0];
                 $term_link = get_term_link($first);
 
-                return sprintf('
-                    <div class="wp-block-post-terms">
-                        <a href="%s">%s</a>
-                    </div>',
-                    esc_url($term_link),
-                    esc_html($first->name)
-                );
+                return sprintf('<div class="wp-block-post-terms"><a href="%s">%s</a></div>', esc_url($term_link), esc_html($first->name));
             },
-            'uses_context'    => ['postId'],
-            'attributes'      => [
+            'uses_context' => ['postId'],
+            'attributes' => [
                 'taxonomy' => [
-                    'type'    => 'string',
+                    'type' => 'string',
                     'default' => 'category',
                 ],
             ],
