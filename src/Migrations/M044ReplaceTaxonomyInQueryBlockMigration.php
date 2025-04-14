@@ -68,49 +68,42 @@ class M044ReplaceTaxonomyInQueryBlockMigration extends MigrationScript
     }
 
     /**
-     * Remove the terms from the Posts List blocks, except categories.
-     *
+     * Replace the Post Terms blocks with the Taxonomy Breadcrumb block.
      */
     private static function transform_block(array &$blocks, string $type): void
     {
-
         $inserted = false; // Flag to ensure insertion happens only once
 
         foreach ($blocks as $key => &$block) {
             if (
                 isset($block['blockName']) &&
                 isset($block['attrs']) &&
-                isset($block['attrs']['term'])
+                isset($block['attrs']['term']) &&
+                array_key_exists($key, $blocks)
             ) {
-                if (array_key_exists($key, $blocks)) {
-                    unset($blocks[$key]);
+                unset($blocks[$key]);
 
-                    if (!$inserted) {
-                        $new_block = [
-                            'blockName' => Utils\Constants::P4_OTHER_BLOCKS['breadcrumb'],
-                            'attrs' => [
-                                'taxonomy' => 'category',
-                                'post_type' => $type === Utils\Constants::BLOCK_POSTS_LIST
-                                    ? Utils\Constants::POST_TYPES_POST
-                                    : Utils\Constants::POST_TYPES_ACTION,
-                            ],
-                        ];
-
-                        $blocks = array_merge(
-                            array_slice($blocks, 0, $key),
-                            [$new_block],
-                            array_slice($blocks, $key)
-                        );
-
-                        $inserted = true;
-                    }
+                if (!$inserted) {
+                    $new_block = [
+                        'blockName' => Utils\Constants::P4_OTHER_BLOCKS['breadcrumb'],
+                        'attrs' => [
+                            'taxonomy' => 'category',
+                            'post_type' => $type === Utils\Constants::BLOCK_POSTS_LIST
+                                ? Utils\Constants::POST_TYPES_POST
+                                : Utils\Constants::POST_TYPES_ACTION,
+                        ],
+                    ];
+                    $blocks = array_merge(
+                        array_slice($blocks, 0, $key),
+                        [$new_block],
+                        array_slice($blocks, $key)
+                    );
+                    $inserted = true;
                 }
             }
-
             if (!isset($block['innerBlocks']) || !is_array($block['innerBlocks'])) {
                 continue;
             }
-
             self::transform_block($block['innerBlocks'], $type);
         }
     }

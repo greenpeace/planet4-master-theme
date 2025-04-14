@@ -34,6 +34,7 @@ export const setupQueryLoopBlockExtension = () => {
         const {className, query} = attributes;
         const layoutTypes = isActionsList ? ACTIONS_LIST_LAYOUT_TYPES : POSTS_LISTS_LAYOUT_TYPES;
         const currentPostId = wp.data.select('core/editor').getCurrentPostId();
+        const innerBlocks = wp.data.select('core/block-editor').getBlocks(attributes.clientId || props.clientId);
 
         const updateLayoutType = useCallback(type => {
           const layoutType = layoutTypes.find(t => t.value === type);
@@ -78,18 +79,13 @@ export const setupQueryLoopBlockExtension = () => {
           if (!isPostsList) {
             return;
           }
-
-          const innerBlocks = wp.data.select('core/block-editor').getBlocks(attributes.clientId || props.clientId);
-
           loopInnerBlocks(innerBlocks, block => {
-            if (block.name === TAX_BREADCRUMB_BLOCK_NAME) {
-              if (block.attributes.term !== value) {
-                setBreadcrumbTaxonomy(value);
-                wp.data.dispatch('core/block-editor').updateBlockAttributes(
-                  block.clientId,
-                  {taxonomy: value}
-                );
-              }
+            if (block.name === TAX_BREADCRUMB_BLOCK_NAME && block.attributes.term !== value) {
+              setBreadcrumbTaxonomy(value);
+              wp.data.dispatch('core/block-editor').updateBlockAttributes(
+                block.clientId,
+                {taxonomy: value}
+              );
             }
           });
         };
@@ -98,9 +94,6 @@ export const setupQueryLoopBlockExtension = () => {
           if (!isPostsList) {
             return;
           }
-
-          const innerBlocks = wp.data.select('core/block-editor').getBlocks(attributes.clientId || props.clientId);
-
           loopInnerBlocks(innerBlocks, block => {
             if (block.name === TAX_BREADCRUMB_BLOCK_NAME && block.attributes?.taxonomy) {
               setBreadcrumbTaxonomy(block.attributes.taxonomy);
