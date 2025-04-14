@@ -427,7 +427,6 @@ add_action(
             'field' => 'term_id',
             'terms' => [$post_type->term_id],
         ]]);
-        $query->set('post__not_in', get_option('sticky_posts'));
     }
 );
 
