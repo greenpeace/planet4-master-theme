@@ -98,7 +98,6 @@ final class Loader
             BlockSettings::class,
             MediaReplacer::class,
             EnqueueController::class,
-            BlockRegistrationController::class,
         ];
 
         if (is_admin()) {
