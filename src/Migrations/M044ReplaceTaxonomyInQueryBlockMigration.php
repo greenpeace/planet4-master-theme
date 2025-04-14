@@ -87,12 +87,12 @@ class M044ReplaceTaxonomyInQueryBlockMigration extends MigrationScript
 
                     if (!$inserted) {
                         $new_block = [
-                            'blockName' => 'p4/taxonomy-breadcrumb',
+                            'blockName' => Utils\Constants::P4_OTHER_BLOCKS['breadcrumb'],
                             'attrs' => [
                                 'taxonomy' => 'category',
                                 'post_type' => $type === Utils\Constants::BLOCK_POSTS_LIST
-                                    ? 'posts'
-                                    : 'p4_action',
+                                    ? Utils\Constants::POST_TYPES_POST
+                                    : Utils\Constants::POST_TYPES_ACTION,
                             ],
                         ];
 

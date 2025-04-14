@@ -13,7 +13,7 @@ export const setupTaxonomyBreadcrumbBlock = () => {
         },
         post_type: {
           type: 'string',
-          default: 'posts',
+          default: 'post',
         },
       },
       supports: {html: false},
@@ -30,10 +30,12 @@ function editFunction({attributes, context}) {
   const [term, setTerm] = wp.element.useState(null);
 
   wp.element.useEffect(() => {
-    if (!postId || !taxonomy) {return;}
+    if (!postId || !taxonomy || !post_type) {return;}
 
-    wp.apiFetch({path: `/wp/v2/${post_type || 'posts'}/${postId}`}).then(post => {
-      const taxonomyField = taxonomy === 'category' ? 'categories' : taxonomy;
+    const postTypeField = post_type === 'post' ? 'posts' : post_type;
+    const taxonomyField = taxonomy === 'category' ? 'categories' : taxonomy;
+
+    wp.apiFetch({path: `/wp/v2/${postTypeField}/${postId}`}).then(post => {
       const termIds = post[taxonomyField];
       if (termIds && termIds.length > 0) {
         wp.apiFetch({path: `/wp/v2/${taxonomyField}/${termIds[0]}`}).then(termData => {
