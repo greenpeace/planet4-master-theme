@@ -394,6 +394,7 @@ add_action(
             }
         </style>';
 
+        // phpcs:disable Generic.Files.LineLength.MaxExceeded
         wp_add_inline_script(
             'wp-notices',
             sprintf(
