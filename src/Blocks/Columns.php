@@ -113,13 +113,7 @@ class Columns extends BaseBlock
     {
         $columns_block_style = $attributes['columns_block_style'];
 
-        // Only show columns that have a title or a description.
-        $columns = array_filter(
-            $attributes['columns'],
-            static function (array $column) {
-                return !empty($column['title']) || !empty($column['description']);
-            }
-        );
+        $columns = $attributes['columns'];
 
         $columns = array_slice($columns, 0, self::MAX_COLUMNS);
 
