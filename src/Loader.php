@@ -81,6 +81,7 @@ final class Loader
     private function load_services(array $services): void
     {
         $this->default_services = [
+            BlockRegisterController::class,
             CustomTaxonomy::class,
             PostCampaign::class,
             PostArchive::class,
