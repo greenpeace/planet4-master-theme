@@ -1,4 +1,5 @@
 import gravityFormWithText from '../templates/gravity-form-with-text';
+import {getPostListBlockTemplate, POSTS_LIST_BLOCK_ATTRIBUTES} from '../../blocks/PostsList'
 
 const {__} = wp.i18n;
 
@@ -20,16 +21,18 @@ const template = () => ([
     ['planet4-block-templates/issues', {
       title: __('The issues we work on', 'planet4-blocks'),
     }],
-    ['planet4-blocks/articles', {
-      article_heading: __('Our recent victories', 'planet4-blocks'),
-    }],
+    ['core/query',
+      POSTS_LIST_BLOCK_ATTRIBUTES,
+      getPostListBlockTemplate(__('Our recent victories', 'planet4-blocks'))
+    ],
     ['planet4-blocks/gallery', {
       className: 'is-style-grid',
       gallery_block_title: __('Our latest actions around the world', 'planet4-blocks'),
     }],
-    ['planet4-blocks/articles', {
-      article_heading: __('Latest news & stories', 'planet4-blocks'),
-    }],
+    ['core/query',
+      POSTS_LIST_BLOCK_ATTRIBUTES,
+      getPostListBlockTemplate(__('Latest news & stories', 'planet4-blocks'))
+    ],
     gravityFormWithText(),
   ]],
 ]);
