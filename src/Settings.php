@@ -368,6 +368,20 @@ class Settings
                             'granted' => __('Granted', 'planet4-master-theme-backend'),
                         ],
                     ],
+                    [
+                        'name' => __('Consent default: url_passthrough', 'planet4-master-theme-backend'),
+                        'desc' => __(
+                            'Test description',
+                            'planet4-master-theme-backend'
+                        ),
+                        'id' => 'consent_default_url_passthrough',
+                        'type' => 'select',
+                        'default' => 'true',
+                        'options' => [
+                            'true' => __('True', 'planet4-master-theme-backend'),
+                            'false' => __('False', 'planet4-master-theme-backend'),
+                        ],
+                    ],
                 ],
             ],
             'planet4_settings_social' => [
