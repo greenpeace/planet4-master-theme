@@ -12,17 +12,92 @@ export const LISTS_BREADCRUMBS = [
   {label: 'Post Type', value: 'p4-page-type'},
 ];
 
-export const registerPostsListBlock = () => {
-  const {registerBlockVariation} = wp.blocks;
-  const {__} = wp.i18n;
+const {__} = wp.i18n;
 
-  const newsPageLink = window.p4_vars.news_page_link;
+const newsPageLink = window.p4_vars.news_page_link;
 
-  const seeAllLink = ['core/navigation-link', {...!newsPageLink ? {className: 'd-none'} : {
+const seeAllLink = ['core/navigation-link', {...!newsPageLink ? {className: 'd-none'} : {
     url: newsPageLink,
     label: __('See all posts', 'planet4-blocks'),
     className: 'see-all-link',
   }}];
+
+export const POSTS_LIST_BLOCK_ATTRIBUTES = {
+  namespace: POSTS_LIST_BLOCK_NAME,
+  className: 'posts-list p4-query-loop is-custom-layout-list',
+  query: {
+    perPage: 3,
+    pages: 0,
+    offset: 0,
+    postType: 'post',
+    order: 'desc',
+    orderBy: 'date',
+    author: '',
+    search: '',
+    exclude: [],
+    sticky: '',
+    inherit: false,
+    postIn: [],
+    hasPassword: false,
+  },
+  layout: {
+    type: 'default',
+    columnCount: 3,
+  },
+};
+
+export const getPostListBlockTemplate = (title = __('Related Posts', 'planet4-blocks-backend')) => ([
+  ['core/group', {layout: {type: 'flex', justifyContent: 'space-between'}}, [
+    ['core/heading', {lock: {move: true}, content: title}],
+    seeAllLink,
+  ]],
+  ['core/paragraph', {
+    lock: {move: true},
+    placeholder: __('Enter description', 'planet4-blocks-backend'),
+    style: {
+      spacing: {
+        margin: {
+          top: '24px',
+          bottom: '36px',
+        },
+      },
+    },
+  }],
+  ['core/query-no-results', {}, [
+    ['core/paragraph', {content: __('No posts found. (This default text can be edited)', 'planet4-blocks-backend')}],
+  ]],
+  ['core/post-template', {lock: {move: true, remove: true}}, [
+    ['core/columns', {}, [
+      ['core/post-featured-image', {isLink: true}],
+      ['core/group', {}, [
+        ['core/group', {layout: {type: 'flex'}}, [
+          [TAX_BREADCRUMB_BLOCK_NAME, {
+            taxonomy: LISTS_BREADCRUMBS[0].value,
+            post_type: 'posts',
+          }],
+        ]],
+        ['core/post-title', {isLink: true, level: 4}],
+        ['core/post-excerpt'],
+        ['core/group', {className: 'posts-list-meta'}, [
+          ['core/post-author-name', {isLink: true}],
+          ['core/post-date'],
+        ]],
+      ]],
+    ]],
+  ]],
+  ['core/buttons', {
+    className: 'carousel-controls',
+    lock: {move: true},
+    layout: {type: 'flex', justifyContent: 'space-between', orientation: 'horizontal', flexWrap: 'nowrap'},
+  }, [
+    ['core/button', {className: 'carousel-control-prev', text: __('Prev', 'planet4-blocks-backend')}],
+    ['core/button', {className: 'carousel-control-next', text: __('Next', 'planet4-blocks-backend')}],
+  ]],
+  seeAllLink,
+]);
+
+export const registerPostsListBlock = () => {
+  const {registerBlockVariation} = wp.blocks;
 
   return registerBlockVariation('core/query', {
     name: POSTS_LIST_BLOCK_NAME,
@@ -33,77 +108,7 @@ export const registerPostsListBlock = () => {
     scope: ['inserter'],
     allowedControls: ['taxQuery', 'pages', 'offset'],
     isActive: ({namespace, query}) => namespace === POSTS_LIST_BLOCK_NAME && query.postType === 'post',
-    attributes: {
-      namespace: POSTS_LIST_BLOCK_NAME,
-      className: 'posts-list p4-query-loop is-custom-layout-list',
-      query: {
-        perPage: 3,
-        pages: 0,
-        offset: 0,
-        postType: 'post',
-        order: 'desc',
-        orderBy: 'date',
-        author: '',
-        search: '',
-        exclude: [],
-        sticky: '',
-        inherit: false,
-        postIn: [],
-        hasPassword: false,
-      },
-      layout: {
-        type: 'default',
-        columnCount: 3,
-      },
-    },
-    innerBlocks: [
-      ['core/group', {layout: {type: 'flex', justifyContent: 'space-between'}}, [
-        ['core/heading', {lock: {move: true}, content: __('Related Posts', 'planet4-blocks-backend')}],
-        seeAllLink,
-      ]],
-      ['core/paragraph', {
-        lock: {move: true},
-        placeholder: __('Enter description', 'planet4-blocks-backend'),
-        style: {
-          spacing: {
-            margin: {
-              top: '24px',
-              bottom: '36px',
-            },
-          },
-        },
-      }],
-      ['core/query-no-results', {}, [
-        ['core/paragraph', {content: __('No posts found. (This default text can be edited)', 'planet4-blocks-backend')}],
-      ]],
-      ['core/post-template', {lock: {move: true, remove: true}}, [
-        ['core/columns', {}, [
-          ['core/post-featured-image', {isLink: true}],
-          ['core/group', {}, [
-            ['core/group', {layout: {type: 'flex'}}, [
-              [TAX_BREADCRUMB_BLOCK_NAME, {
-                taxonomy: LISTS_BREADCRUMBS[0].value,
-                post_type: 'posts',
-              }],
-            ]],
-            ['core/post-title', {isLink: true, level: 4}],
-            ['core/post-excerpt'],
-            ['core/group', {className: 'posts-list-meta'}, [
-              ['core/post-author-name', {isLink: true}],
-              ['core/post-date'],
-            ]],
-          ]],
-        ]],
-      ]],
-      ['core/buttons', {
-        className: 'carousel-controls',
-        lock: {move: true},
-        layout: {type: 'flex', justifyContent: 'space-between', orientation: 'horizontal', flexWrap: 'nowrap'},
-      }, [
-        ['core/button', {className: 'carousel-control-prev', text: __('Prev', 'planet4-blocks-backend')}],
-        ['core/button', {className: 'carousel-control-next', text: __('Next', 'planet4-blocks-backend')}],
-      ]],
-      seeAllLink,
-    ],
+    attributes: POSTS_LIST_BLOCK_ATTRIBUTES,
+    innerBlocks: getPostListBlockTemplate(),
   });
 };
