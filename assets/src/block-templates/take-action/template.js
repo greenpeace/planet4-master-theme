@@ -1,4 +1,4 @@
-import {getPostListBlockTemplate, POSTS_LIST_BLOCK_ATTRIBUTES} from '../../blocks/PostsList'
+import {getPostListBlockTemplate, POSTS_LIST_BLOCK_ATTRIBUTES} from '../../blocks/PostsList';
 
 const {__} = wp.i18n;
 
@@ -13,7 +13,7 @@ const template = ({
     ['core/spacer', {height: '64px'}],
     ['core/query',
       POSTS_LIST_BLOCK_ATTRIBUTES,
-      getPostListBlockTemplate(__('Daily actions', 'planet4-blocks'))
+      getPostListBlockTemplate(__('Daily actions', 'planet4-blocks')),
     ],
     ['core/spacer', {height: '32px'}],
     ['planet4-blocks/covers', {
@@ -35,7 +35,7 @@ const template = ({
       ['core/group', {className: 'container'}, [
         ['core/query',
           POSTS_LIST_BLOCK_ATTRIBUTES,
-          getPostListBlockTemplate(__('Take action with us', 'planet4-blocks'))
+          getPostListBlockTemplate(__('Take action with us', 'planet4-blocks')),
         ],
         ['core/spacer', {height: '32px'}],
         ['planet4-block-templates/deep-dive', {
@@ -44,7 +44,7 @@ const template = ({
         ['core/spacer', {height: '32px'}],
         ['core/query',
           POSTS_LIST_BLOCK_ATTRIBUTES,
-          getPostListBlockTemplate(__('Donate', 'planet4-blocks'))
+          getPostListBlockTemplate(__('Donate', 'planet4-blocks')),
         ],
       ]],
     ]],
