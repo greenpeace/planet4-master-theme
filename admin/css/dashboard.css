@@ -27,3 +27,8 @@
 #gf_dashboard_message {
   display: none;
 }
+
+/* Temporarily hide the Stateless Media notices in the admin area. */
+.stateless-admin-notice {
+  display: none !important;
+}
