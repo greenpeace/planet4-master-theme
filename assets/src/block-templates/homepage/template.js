@@ -13,7 +13,7 @@ const template = () => (
       ['core/spacer', {height: '88px'}],
       ['core/query',
         POSTS_LIST_BLOCK_ATTRIBUTES,
-        getPostListBlockTemplate(__('Read our Stories', 'planet4-blocks'))
+        getPostListBlockTemplate(__('Read our Stories', 'planet4-blocks')),
       ],
       ['core/spacer', {height: '56px'}],
       ['planet4-block-templates/side-image-with-text-and-cta', {

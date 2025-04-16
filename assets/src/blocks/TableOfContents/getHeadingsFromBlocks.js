@@ -4,7 +4,7 @@ import {unescape} from '../../functions/unescape';
 // We can put the other blocks that can have a heading inside in here along with the attribute containing the heading text.
 // Then we can also filter those to include them in the menu.
 const blockTypesWithHeadings = [
-  {name: 'core/query', fieldName: 'core/heading', level: 2},
+  {name: 'core/query', fieldName: 'core/heading', level: 4},
 ];
 
 // Naive regex to remove html tags. Don't use anywhere else as it's too limited, but for the expected HTML in heading
