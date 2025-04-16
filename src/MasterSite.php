@@ -762,7 +762,7 @@ class MasterSite extends TimberSite
         $context['consent_default_ad_personalization'] =
             planet4_get_option('consent_default_ad_personalization') ?? 'denied';
         $context['consent_default_url_passthrough'] =
-            planet4_get_option('consent_default_url_passthrough') ?? 'false';
+            planet4_get_option('consent_default_url_passthrough') ?? false;
         $context['facebook_page_id'] = $options['facebook_page_id'] ?? '';
         $context['preconnect_domains'] = [];
         $context['vwo_account_id'] = $options['vwo_account_id'] ?? null;
