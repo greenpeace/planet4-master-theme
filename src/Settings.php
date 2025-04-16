@@ -376,10 +376,10 @@ class Settings
                         ),
                         'id' => 'consent_default_url_passthrough',
                         'type' => 'select',
-                        'default' => 'true',
+                        'default' => true,
                         'options' => [
-                            'true' => __('True', 'planet4-master-theme-backend'),
-                            'false' => __('False', 'planet4-master-theme-backend'),
+                            true => __('True', 'planet4-master-theme-backend'),
+                            false => __('False', 'planet4-master-theme-backend'),
                         ],
                     ],
                 ],
