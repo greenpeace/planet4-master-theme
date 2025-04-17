@@ -74,6 +74,23 @@ class BlockUsage
     }
 
     /**
+     * Function to filter Query Loop block
+     *
+     * @param array $blocks     array of posts/pages.
+     * @param string $block_name string for which query variation to find.
+     */
+    private function filter_query_blocks(array $blocks, string $block_name): array
+    {
+        $found_blocks = array_filter($blocks, function ($post) use ($block_name) {
+            return 'core/query' === $post['block_type']
+                && isset($post['block_attrs']['namespace'])
+                && $block_name === $post['block_attrs']['namespace'];
+        });
+
+        return $found_blocks;
+    }
+
+    /**
      * @param int[]      $posts_ids Posts IDs.
      * @param Parameters $params Query parameters.
      */
@@ -92,6 +109,7 @@ class BlockUsage
         foreach ($this->posts as $post) {
             $block_listblock_list = array_merge($block_listblock_list, $this->parse_post($post));
         }
+
         $this->blocks = $block_listblock_list;
     }
 
@@ -123,13 +141,19 @@ class BlockUsage
         ];
 
         if (! empty($filters['block_type'])) {
-            $filtered = array_filter(
-                $filtered,
-                function ($i) use ($filters) {
-                    return $i['block_type'] === $filters['block_type']
-                        || $i['local_name'] === $filters['local_name'];
-                }
-            );
+            if ('planet4-blocks/posts-list' === $filters['block_type']) {
+                $filtered = $this->filter_query_blocks($filtered, 'planet4-blocks/posts-list');
+            } elseif ('planet4-blocks/actions-list' === $filters['block_type']) {
+                $filtered = $this->filter_query_blocks($filtered, 'planet4-blocks/actions-list');
+            } else {
+                $filtered = array_filter(
+                    $filtered,
+                    function ($i) use ($filters) {
+                        return $i['block_type'] === $filters['block_type']
+                            || $i['local_name'] === $filters['local_name'];
+                    }
+                );
+            }
         } elseif (! empty($filters['block_ns'])) {
             $filtered = array_filter(
                 $filtered,
