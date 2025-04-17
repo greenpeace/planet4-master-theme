@@ -30,8 +30,7 @@ export const registerActionsListBlock = () => {
         pages: 0,
         perPage: 3,
         offset: 0,
-        order: 'desc',
-        orderBy: 'date',
+        postStatus: 'publish',
         author: '',
         search: '',
         exclude: [],
@@ -40,7 +39,8 @@ export const registerActionsListBlock = () => {
         postType: queryPostType,
         postIn: [],
         hasPassword: false,
-        ...!IS_NEW_IA && {postParent: ACT_PAGE},
+        ...!IS_NEW_IA && {parent: ACT_PAGE},
+        isCustom: true, // This value is only applied to understand that the query comes from Actions List and not from QLB
       },
       layout: {
         type: 'grid',
