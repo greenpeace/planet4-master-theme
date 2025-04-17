@@ -97,12 +97,9 @@
 
   .btn {
     width: calc(50% - 8px);
-    line-height: 2.4;
     font-size: 14px;
-    padding: 0;
 
     @include medium-and-up {
-      padding: 0 $sp-2;
       width: auto;
     }
   }

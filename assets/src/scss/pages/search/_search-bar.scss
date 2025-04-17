@@ -62,7 +62,6 @@
 
   .search-btn {
     font-size: $font-size-sm;
-    line-height: 2.75;
 
     svg {
       margin-right: 4px;
@@ -78,7 +77,6 @@
 
     @include large-and-up {
       margin-top: 2px;
-      line-height: 3;
 
       svg {
         margin-right: 4px;

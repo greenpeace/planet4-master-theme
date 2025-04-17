@@ -78,7 +78,7 @@ export const TakeActionCovers = ({
             <p className="cover-card-excerpt" dangerouslySetInnerHTML={{__html: excerpt}} />
           </div>
           <a
-            className="btn cover-card-btn btn-primary"
+            className="btn cover-card-btn btn-primary btn-small"
             data-ga-category="Take Action Covers"
             data-ga-action="Call to Action"
             data-ga-label="n/a"

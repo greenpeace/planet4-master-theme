@@ -40,7 +40,7 @@
     <div class="cookies-settings-buttons {{ cookies.enable_reject_all_cookies ? 'with-reject-all' : '' }}">
         {% if cookies.enable_reject_all_cookies %}
             <button
-                class="btn btn-secondary reject-all-cookies"
+                class="btn btn-secondary reject-all-cookies btn-small"
                 data-ga-category="Cookies box"
                 data-ga-action="Reject all"
             >
@@ -48,14 +48,14 @@
             </button>
         {% endif %}
         <button
-            class="btn btn-secondary allow-all-cookies"
+            class="btn btn-secondary allow-all-cookies btn-small"
             data-ga-category="Cookies box"
             data-ga-action="Allow all"
         >
             {{ __( 'Allow all', 'planet4-master-theme' ) }}
         </button>
         <button
-            class="btn btn-primary"
+            class="btn btn-primary btn-small"
             id="save-cookies-settings"
             data-ga-category="Cookies box"
             data-ga-action="Save preferences"
