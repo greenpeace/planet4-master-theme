@@ -1,6 +1,7 @@
-import {POSTS_LIST_BLOCK_NAME, POSTS_LISTS_LAYOUT_TYPES} from '../../blocks/PostsList';
+import {POSTS_LIST_BLOCK_NAME, POSTS_LISTS_LAYOUT_TYPES, POSTS_LISTS_BREADCRUMBS} from '../../blocks/PostsList';
 import {ACTIONS_LIST_BLOCK_NAME, ACTIONS_LIST_LAYOUT_TYPES} from '../../blocks/ActionsList';
 import {PostSelector} from '../PostSelector';
+import {TAX_BREADCRUMB_BLOCK_NAME} from '../setupTaxonomyBreadcrumbBlock';
 
 const {InspectorControls} = wp.blockEditor;
 const {RadioControl, PanelBody} = wp.components;
@@ -28,10 +29,12 @@ export const setupQueryLoopBlockExtension = () => {
 
         const [postTemplate, setPostTemplate] = useState();
         const [selectedBlock, setSelectedBlock] = useState();
+        const [breadcrumbTaxonomy, setBreadcrumbTaxonomy] = useState();
 
         const {className, query} = attributes;
         const layoutTypes = isActionsList ? ACTIONS_LIST_LAYOUT_TYPES : POSTS_LISTS_LAYOUT_TYPES;
         const currentPostId = wp.data.select('core/editor').getCurrentPostId();
+        const innerBlocks = wp.data.select('core/block-editor').getBlocks(attributes.clientId || props.clientId);
 
         const updateLayoutType = useCallback(type => {
           const layoutType = layoutTypes.find(t => t.value === type);
@@ -61,6 +64,42 @@ export const setupQueryLoopBlockExtension = () => {
           ...query,
           postIn: value && value.length > 0 ? value : [],
         }});
+
+        const loopInnerBlocks = (blocks, callback) => {
+          blocks.forEach(block => {
+            callback(block);
+
+            if (block.innerBlocks && block.innerBlocks.length > 0) {
+              loopInnerBlocks(block.innerBlocks, callback);
+            }
+          });
+        };
+
+        const updateBreadcrumbType = value => {
+          if (!isPostsList) {
+            return;
+          }
+          loopInnerBlocks(innerBlocks, block => {
+            if (block.name === TAX_BREADCRUMB_BLOCK_NAME && block.attributes.term !== value) {
+              setBreadcrumbTaxonomy(value);
+              wp.data.dispatch('core/block-editor').updateBlockAttributes(
+                block.clientId,
+                {taxonomy: value}
+              );
+            }
+          });
+        };
+
+        useEffect(() => {
+          if (!isPostsList) {
+            return;
+          }
+          loopInnerBlocks(innerBlocks, block => {
+            if (block.name === TAX_BREADCRUMB_BLOCK_NAME && block.attributes?.taxonomy) {
+              setBreadcrumbTaxonomy(block.attributes.taxonomy);
+            }
+          });
+        }, []);
 
         useEffect(() => {
           if (postTemplate) {
@@ -139,6 +178,16 @@ export const setupQueryLoopBlockExtension = () => {
                   />
                 </PanelBody>
               }
+              {isPostsList && (
+                <PanelBody title={__('Taxonomy breadcrumbs', 'planet4-blocks-backend')} initialOpen={false}>
+                  <RadioControl
+                    label={__('Choose which taxonomy to display on Post breadcrumbs', 'planet4-blocks-backend')}
+                    selected={breadcrumbTaxonomy || POSTS_LISTS_BREADCRUMBS[0].value}
+                    options={POSTS_LISTS_BREADCRUMBS}
+                    onChange={updateBreadcrumbType}
+                  />
+                </PanelBody>
+              )}
               {
                 <PanelBody title={__('Learn more about this block ', 'planet4-blocks-backend')} initialOpen={false}>
                   <p className="components-base-control__help">

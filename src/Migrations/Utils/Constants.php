@@ -17,6 +17,7 @@ class Constants
     public const BLOCK_P4_COLUMNS = self::PREFIX_P4_BLOCKS . '/columns';
     public const BLOCK_ENFORM = self::PREFIX_P4_BLOCKS . '/enform';
     public const BLOCK_POSTS_LIST = self::PREFIX_P4_BLOCKS . '/posts-list';
+    public const BLOCK_ACTIONS_LIST = self::PREFIX_P4_BLOCKS . '/actions-list';
 
     public const BLOCK_EMBED = self::PREFIX_CORE_BLOCKS . '/embed';
     public const BLOCK_AUDIO = self::PREFIX_CORE_BLOCKS . '/audio';
@@ -41,6 +42,10 @@ class Constants
     public const BLOCK_SINGLE_BUTTON = self::PREFIX_CORE_BLOCKS . '/button';
     public const BLOCK_QUERY = self::PREFIX_CORE_BLOCKS . '/query';
     public const BLOCK_IMAGE = self::PREFIX_CORE_BLOCKS . '/image';
+
+    public const P4_OTHER_BLOCKS = [
+        'breadcrumb' => 'p4/taxonomy-breadcrumb',
+    ];
 
     public const POST_TYPES_PAGE = 'page';
     public const POST_TYPES_POST = 'post';
