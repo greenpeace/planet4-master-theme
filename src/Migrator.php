@@ -45,6 +45,7 @@ use P4\MasterTheme\Migrations\M040ReplaceSpecialCharactersInPostsContent;
 use P4\MasterTheme\Migrations\M041SetDefaultSocialSharingOption;
 use P4\MasterTheme\Migrations\M042FixPostsListMigration;
 use P4\MasterTheme\Migrations\M043SwitchClassesInImageBlock;
+use P4\MasterTheme\Migrations\M044SetDefaultUrlPassthroughOption;
 
 /**
  * Run any new migration scripts and record results in the log.
@@ -107,6 +108,7 @@ class Migrator
             M041SetDefaultSocialSharingOption::class,
             M042FixPostsListMigration::class,
             M043SwitchClassesInImageBlock::class,
+            M044SetDefaultUrlPassthroughOption::class,
         ];
 
         // Loop migrations and run those that haven't run yet.

@@ -8,6 +8,7 @@ if (googleTagManagerData?.google_tag_value) {
   const consent_default_ad_storage = googleTagManagerData.consent_default_ad_storage;
   const consent_default_ad_user_data = googleTagManagerData.consent_default_ad_user_data;
   const consent_default_ad_personalization = googleTagManagerData.consent_default_ad_personalization;
+  const consent_default_url_passthrough = googleTagManagerData.consent_default_url_passthrough;
   window.dataLayer = window.dataLayer || [];
 
   function gtag() { dataLayer.push(arguments); };
@@ -44,7 +45,7 @@ if (googleTagManagerData?.google_tag_value) {
       };
     }
     gtag('consent', 'default', capabilities);
-    gtag('set', 'url_passthrough', true);
+    gtag('set', 'url_passthrough', consent_default_url_passthrough);
     gtag('set', 'ads_data_redaction', capabilities.ad_storage === 'denied');
     dataLayer.push({event: 'defaultConsent', ...capabilities});
   }
