@@ -1,3 +1,5 @@
+import {getPostListBlockTemplate, POSTS_LIST_BLOCK_ATTRIBUTES} from '../../blocks/PostsList';
+
 const {__} = wp.i18n;
 
 const template = () => ([
@@ -18,9 +20,10 @@ const template = () => ([
       title: __('How you can help', 'planet4-blocks'),
       cover_type: 'take-action',
     }],
-    ['planet4-blocks/articles', {
-      article_heading: __('Latest news & stories', 'planet4-blocks'),
-    }],
+    ['core/query',
+      POSTS_LIST_BLOCK_ATTRIBUTES,
+      getPostListBlockTemplate(__('Latest news & stories', 'planet4-blocks')),
+    ],
     ['planet4-block-templates/deep-dive', {
       title: __('Keep learning about', 'planet4-blocks'),
     }],
