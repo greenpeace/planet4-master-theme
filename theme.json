@@ -4,7 +4,7 @@
   "styles": {
     "color": {
       "background": "var(--body--background-color)",
-      "text": "var(--body--color)"
+      "text": "var(--color-text-body)"
     },
     "typography": {
       "fontFamily": "var(--body--font-family)"
