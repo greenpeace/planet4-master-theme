@@ -47,6 +47,8 @@ const renderEdit = (attributes, toAttribute, setAttributes) => {
       <PanelBody title={__('Settings', 'planet4-blocks-backend')}>
         {layout !== COVERS_LAYOUTS.carousel &&
           <SelectControl
+            __nextHasNoMarginBottom
+            __next40pxDefaultSize
             label="Rows to display"
             value={initialRowsLimit}
             options={rowLimitOptions}
@@ -82,6 +84,8 @@ const renderEdit = (attributes, toAttribute, setAttributes) => {
         }
         {layout !== COVERS_LAYOUTS.carousel &&
           <TextControl
+            __nextHasNoMarginBottom
+            __next40pxDefaultSize
             label={__('Button Text', 'planet4-blocks-backend')}
             placeholder={__('Override button text', 'planet4-blocks-backend')}
             help={__('Your default is set to [ Load more ]', 'planet4-blocks-backend')}

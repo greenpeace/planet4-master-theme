@@ -8,6 +8,8 @@ export const URLInput = props => {
   return (
     <div>
       <TextControl
+        __nextHasNoMarginBottom
+        __next40pxDefaultSize
         label={label}
         placeholder={placeholder}
         value={value}

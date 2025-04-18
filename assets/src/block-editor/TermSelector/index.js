@@ -295,13 +295,13 @@ export function TermSelector({slug}) {
     (slug === 'post_tag' ? fallbackIsTag : fallbackIsNotTag);
   const newTermButtonLabel = labelWithFallback(
     'add_new_item',
-    __('Add new tag'),
-    __('Add new term')
+    __('Add Tag'),
+    __('Add Term')
   );
   const newTermLabel = labelWithFallback(
     'new_item_name',
-    __('Add new tag'),
-    __('Add new term')
+    __('Add Tag'),
+    __('Add Term')
   );
   const newTermSubmitLabel = newTermButtonLabel;
   const filterLabel = taxonomy?.labels?.search_items ?? __('Search Terms');
@@ -312,6 +312,8 @@ export function TermSelector({slug}) {
     <>
       { showFilter && (
         <TextControl
+          __next40pxDefaultSize
+          __nextHasNoMarginBottom
           className="editor-post-taxonomies__hierarchical-terms-filter"
           label={filterLabel}
           value={filterValue}
@@ -343,6 +345,8 @@ export function TermSelector({slug}) {
       { showForm && (
         <form onSubmit={onAddTerm}>
           <TextControl
+            __nextHasNoMarginBottom
+            __next40pxDefaultSize
             className="editor-post-taxonomies__hierarchical-terms-input"
             label={newTermLabel}
             value={formName}

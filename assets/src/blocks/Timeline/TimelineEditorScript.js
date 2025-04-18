@@ -64,6 +64,8 @@ const renderEdit = (
         <URLDescriptionHelp />
 
         <SelectControl
+          __nextHasNoMarginBottom
+          __next40pxDefaultSize
           label={__('Language', 'planet4-blocks-backend')}
           value={language}
           options={languages}
@@ -71,6 +73,8 @@ const renderEdit = (
         />
 
         <SelectControl
+          __nextHasNoMarginBottom
+          __next40pxDefaultSize
           label={__('Timeline navigation position', 'planet4-blocks-backend')}
           value={timenav_position}
           options={positions}
@@ -78,6 +82,7 @@ const renderEdit = (
         />
 
         <CheckboxControl
+          __nextHasNoMarginBottom
           label={__('Start at end', 'planet4-blocks-backend')}
           help={__('Begin at the end of the timeline', 'planet4-blocks-backend')}
           value={start_at_end}

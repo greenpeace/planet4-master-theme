@@ -157,6 +157,8 @@ export const TopicLinkEditor = ({
     <InspectorControls>
       <PanelBody title={__('Settings', 'planet4-blocks-backend')}>
         <SelectControl
+          __nextHasNoMarginBottom
+          __next40pxDefaultSize
           label={__('Select Category:', 'planet4-blocks-backend')}
           value={categoryId}
           options={[...categoriesList.map(category => ({label: category.name, value: category.id}))]}
@@ -171,6 +173,7 @@ export const TopicLinkEditor = ({
               {__('Adjust the “Left” and “Top” fields to position the focal point of the image in percentage, where 0% is the top/left edge and 100% is the bottom/right edge.', 'planet4-blocks-backend')}
             </p>
             <FocalPointPicker
+              __nextHasNoMarginBottom
               url={imageUrl}
               dimensions={{width: 400, height: 100}}
               value={getFocalPoint(focal_points)}
