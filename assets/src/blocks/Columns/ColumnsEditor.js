@@ -64,6 +64,7 @@ const renderEdit = (attributes, toAttribute, setAttributes, isSelected) => {
                   onChange={toAttribute('cta_link', index)}
                 />
                 <CheckboxControl
+                  __nextHasNoMarginBottom
                   label={__('Open link in new tab', 'planet4-blocks-backend')}
                   value={link_new_tab}
                   checked={link_new_tab}

@@ -23,6 +23,8 @@ const renderEdit = (attributes, toAttribute) => {
     <InspectorControls>
       <PanelBody title={__('Settings', 'planet4-blocks-backend')}>
         <TextControl
+          __nextHasNoMarginBottom
+          __next40pxDefaultSize
           label={__('Button Text', 'planet4-blocks-backend')}
           placeholder={__('Override button text', 'planet4-blocks-backend')}
           help={__('Your default is set to [ Load more ]', 'planet4-blocks-backend')}
@@ -35,6 +37,7 @@ const renderEdit = (attributes, toAttribute) => {
           onChange={toAttribute('read_more_link')}
         />
         <CheckboxControl
+          __nextHasNoMarginBottom
           label={__('Open in a new Tab', 'planet4-blocks-backend')}
           help={__('Open button link in new tab', 'planet4-blocks-backend')}
           value={attributes.button_link_new_tab}
@@ -42,6 +45,8 @@ const renderEdit = (attributes, toAttribute) => {
           onChange={toAttribute('button_link_new_tab')}
         />
         <TextControl
+          __nextHasNoMarginBottom
+          __next40pxDefaultSize
           label={__('Articles count', 'planet4-blocks-backend')}
           help={__('Number of articles', 'planet4-blocks-backend')}
           type="number"
@@ -64,6 +69,7 @@ const renderEdit = (attributes, toAttribute) => {
             />
             <div className="ignore-categories-wrapper">
               <CheckboxControl
+                __nextHasNoMarginBottom
                 label={__('Ignore categories', 'planet4-blocks-backend')}
                 help={__('Ignore categories when filtering posts to populate the content of this block', 'planet4-blocks-backend')}
                 value={attributes.ignore_categories}

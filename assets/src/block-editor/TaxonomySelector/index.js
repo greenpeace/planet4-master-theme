@@ -8,6 +8,8 @@ export const TaxonomySelector = memo(props => {
 
   return useMemo(() => (
     <FormTokenField
+      __nextHasNoMarginBottom
+      __next40pxDefaultSize
       suggestions={parsedSuggestions}
       label={label}
       onChange={handleChange}

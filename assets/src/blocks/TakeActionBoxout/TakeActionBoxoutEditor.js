@@ -189,6 +189,7 @@ export const TakeActionBoxoutEditor = ({
         <PanelBody title={__('Styles', 'planet4-blocks-backend')}>
           <div className="sticky-boxout-checkbox">
             <ToggleControl
+              __nextHasNoMarginBottom
               label={__('Make block stick to the bottom of the page on mobile', 'planet4-blocks-backend')}
               value={stickyOnMobile}
               checked={stickyOnMobile}
@@ -200,6 +201,8 @@ export const TakeActionBoxoutEditor = ({
         </PanelBody>
         <PanelBody title={__('Settings', 'planet4-blocks-backend')}>
           <SelectControl
+            __nextHasNoMarginBottom
+            __next40pxDefaultSize
             label={__('Select Take Action Page:', 'planet4-blocks-backend')}
             value={take_action_page}
             options={[
@@ -209,6 +212,7 @@ export const TakeActionBoxoutEditor = ({
             onChange={page => setAttributes({take_action_page: parseInt(page)})}
           />
           <FontSizePicker
+            __next40pxDefaultSize
             fontSizes={FONT_SIZES}
             value={headingFontSize}
             onChange={fontSize => setAttributes({headingFontSize: fontSize})}
@@ -224,13 +228,16 @@ export const TakeActionBoxoutEditor = ({
               }
             }}
           />}
-          {!takeActionPageSelected && <CheckboxControl
-            label={__('Open in a new tab', 'planet4-blocks-backend')}
-            value={newTab}
-            checked={newTab}
-            onChange={toAttribute('newTab')}
-            disabled={takeActionPageSelected}
-          />}
+          {!takeActionPageSelected &&
+            <CheckboxControl
+              __nextHasNoMarginBottom
+              label={__('Open in a new tab', 'planet4-blocks-backend')}
+              value={newTab}
+              checked={newTab}
+              onChange={toAttribute('newTab')}
+              disabled={takeActionPageSelected}
+            />
+          }
           {!takeActionPageSelected &&
             <MediaUploadCheck>
               <MediaUpload
