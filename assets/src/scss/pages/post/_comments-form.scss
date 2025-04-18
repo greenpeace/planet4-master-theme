@@ -1,4 +1,10 @@
 .comments-block {
+  font-family: var(--font-family-paragraph-secondary);
+
+  .required-field-message {
+    display: none;
+  }
+
   .form-section .comment-respond {
     background: var(--color-background-comments_block);
     border-radius: 4px;
@@ -6,7 +12,6 @@
   }
 
   .comment-respond {
-    font-size: 0;
     margin-bottom: $sp-4;
 
     input,
@@ -32,7 +37,7 @@
       }
 
       .comment-author {
-        margin-inline-end: $sp-2;
+        margin-inline-end: $sp-1x;
       }
     }
   }

@@ -74,6 +74,7 @@
     font-family: var(--font-family-tertiary);
     font-size: var(--font-size-m--font-family-tertiary);
   }
+  background-clip: border-box;
   border-radius: 4px;
   background-color: var(--white);
   border: 1px solid var(--grey-500);
@@ -90,12 +91,12 @@
     opacity: 0.5;
   }
 
-  &:not(:disabled):hover {
+  &:not(:disabled):not(:focus):hover {
     border-color: var(--grey-600);
   }
 
   &:focus {
-    box-shadow: 0 0 0 2px rgba(0, 109, 253, 0.4);
+    box-shadow: 0 0 0 2px var(--gp-green-800);
     color: var(--color-text-body);
     border-color: transparent;
     outline: 0;
@@ -134,43 +135,6 @@ input[type="email"].form-control {
 textarea.form-control {
   padding: $sp-1x $sp-2;
   resize: none;
-}
-
-.form-group {
-  margin-bottom: 1rem;
-
-  &.animated-label {
-    position: relative;
-
-    label {
-      font-size: var(--font-size-xs--font-family-tertiary);
-      font-family: var(--font-family-paragraph-secondary);
-      font-weight: var(--font-weight-regular);
-      pointer-events: none;
-      position: absolute;
-      left: 0;
-      top: $sp-2;
-      color: var(--grey-600);
-      padding-inline-start: $sp-2;
-      opacity: 0;
-      transition: all .3s ease;
-      margin-bottom: 0;
-
-      html[dir="rtl"] & {
-        right: 0;
-        left: auto;
-      }
-    }
-
-    .form-control:not(:placeholder-shown) {
-      padding: 18px $sp-2 $sp-x $sp-2;
-
-      & ~ label {
-        transform: translateY(-10px);
-        opacity: 1;
-      }
-    }
-  }
 }
 
 input,

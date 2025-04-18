@@ -1,6 +1,7 @@
-<div class="form-group animated-label comment-author">
+<div class="comment-author mb-3">
     {% set placeholder = __( 'Your Name', 'planet4-master-theme' ) %}
     {% set commenter_name = function('wp_get_current_commenter').comment_author ?? '' %}
+    <label for="comments-name-input">{{ __( 'Name (required)', 'planet4-master-theme' )  }}</label>
     <input
         value="{{ commenter_name }}"
         type="text"
@@ -10,5 +11,4 @@
         placeholder="{{ placeholder }}"
         required
     />
-    <label for="comments-name-input">{{ __( 'Name', 'planet4-master-theme' )  }}*</label>
 </div>
