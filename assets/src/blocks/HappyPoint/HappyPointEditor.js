@@ -102,6 +102,8 @@ export const HappyPointEditor = ({attributes, setAttributes, isSelected}) => {
             <PanelBody title={__('Settings', 'planet4-blocks-backend')}>
               <div className="wp-block-master-theme-happypoint__RangeControl">
                 <RangeControl
+                  __next40pxDefaultSize
+                  __nextHasNoMarginBottom
                   label={__('Opacity', 'planet4-blocks-backend')}
                   value={opacity}
                   onChange={toAttribute('opacity')}
@@ -112,6 +114,7 @@ export const HappyPointEditor = ({attributes, setAttributes, isSelected}) => {
                 />
               </div>
               <CheckboxControl
+                __nextHasNoMarginBottom
                 label={__('Override default form', 'planet4-blocks-backend')}
                 value={override_default_content}
                 checked={override_default_content}
@@ -140,6 +143,8 @@ export const HappyPointEditor = ({attributes, setAttributes, isSelected}) => {
                   {USE_IFRAME_URL === local_content_provider && (
                     <div>
                       <TextControl
+                        __nextHasNoMarginBottom
+                        __next40pxDefaultSize
                         label={__('Iframe URL', 'planet4-blocks-backend')}
                         placeholder={__('Enter iframe URL', 'planet4-blocks-backend')}
                         value={iframeUrl}
@@ -158,6 +163,7 @@ export const HappyPointEditor = ({attributes, setAttributes, isSelected}) => {
                   {USE_EMBED_CODE === local_content_provider && (
                     <div>
                       <TextareaControl
+                        __nextHasNoMarginBottom
                         label={__('HubSpot embed code', 'planet4-blocks-backend')}
                         value={embedCode}
                         onChange={code => {
@@ -183,6 +189,7 @@ export const HappyPointEditor = ({attributes, setAttributes, isSelected}) => {
                     {__('Drag the mouse to the focal area or input the position with numbers for more precision.', 'planet4-blocks-backend')}
                   </p>
                   <FocalPointPicker
+                    __nextHasNoMarginBottom
                     url={imageUrl}
                     dimensions={dimensions}
                     value={focal_point_params}

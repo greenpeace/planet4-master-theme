@@ -105,7 +105,7 @@ class ActionPage
             'menu_name' => _x('Actions', 'admin menu', 'planet4-master-theme-backend'),
             'name_admin_bar' => _x('Actions', 'add new on admin bar', 'planet4-master-theme-backend'),
             'add_new' => _x('Add New', 'action', 'planet4-master-theme-backend'),
-            'add_new_item' => __('Add New Action', 'planet4-master-theme-backend'),
+            'add_new_item' => __('Add Action', 'planet4-master-theme-backend'),
             'new_item' => __('New Action', 'planet4-master-theme-backend'),
             'edit_item' => __('Edit Action', 'planet4-master-theme-backend'),
             'view_item' => __('View Action', 'planet4-master-theme-backend'),
@@ -167,7 +167,7 @@ class ActionPage
             'parent_item_colon' => null,
             'edit_item' => __('Edit Action Type', 'planet4-master-theme-backend'),
             'update_item' => __('Update Action Type', 'planet4-master-theme-backend'),
-            'add_new_item' => __('Add new Action Type', 'planet4-master-theme-backend'),
+            'add_new_item' => __('Add Action Type', 'planet4-master-theme-backend'),
             'new_item_name' => __('New Action Type', 'planet4-master-theme-backend'),
             'menu_name' => __('Action Type', 'planet4-master-theme-backend'),
         ];

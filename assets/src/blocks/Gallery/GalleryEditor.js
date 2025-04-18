@@ -86,6 +86,7 @@ const renderEdit = (attributes, setAttributes, isSelected) => {
                 {focalPointImages.map((item, index) => (
                   <li key={index}>
                     <FocalPointPicker
+                      __nextHasNoMarginBottom
                       url={item.url}
                       dimensions={dimensions}
                       value={item.focalPoint}

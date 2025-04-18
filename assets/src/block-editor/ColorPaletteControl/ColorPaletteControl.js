@@ -10,8 +10,13 @@ function ColorPaletteControl({label, className, value, help, instanceId, onChang
   const optionsAsColors = options.map(({value, ...props}) => ({color: value, ...props}));
 
   return options.length > 0 && (
-    <BaseControl label={label} id={id} help={help}
-      className={classnames(className, 'components-color-palette-control')}>
+    <BaseControl
+      __nextHasNoMarginBottom
+      label={label}
+      id={id}
+      help={help}
+      className={classnames(className, 'components-color-palette-control')}
+    >
       <ColorPalette
         value={value}
         onChange={onChange}
