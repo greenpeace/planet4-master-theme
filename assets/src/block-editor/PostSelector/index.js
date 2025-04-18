@@ -106,6 +106,8 @@ export const PostSelector = attributes => {
 
   return (
     <FormTokenField
+      __nextHasNoMarginBottom
+      __next40pxDefaultSize
       label={label || __('Select posts', 'planet4-blocks-backend')}
       value={getValue() || null}
       suggestions={options.map(post => post.title || '<empty title>')}

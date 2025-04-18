@@ -132,6 +132,7 @@ const renderEdit = ({tabs}, setAttributes, updateTabAttribute) => {
                 }}
               />
               <CheckboxControl
+                __nextHasNoMarginBottom
                 label={__('Open in a new tab', 'planet4-blocks-backend')}
                 value={button.button_new_tab}
                 checked={button.button_new_tab}

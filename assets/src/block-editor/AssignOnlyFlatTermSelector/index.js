@@ -146,7 +146,7 @@ export const AssignOnlyFlatTermSelector = ({slug}) => {
 
   const newTermLabel =
     taxonomy?.labels?.add_new_item ??
-    (slug === 'post_tag' ? __('Add new tag') : __('Add new Term'));
+    (slug === 'post_tag' ? __('Add Tag') : __('Add Term'));
   const singularName =
     taxonomy?.labels?.singular_name ??
     (slug === 'post_tag' ? __('Tag') : __('Term'));
@@ -169,6 +169,7 @@ export const AssignOnlyFlatTermSelector = ({slug}) => {
   return (
     <FormTokenField
       __next40pxDefaultSize
+      __nextHasNoMarginBottom
       value={values}
       suggestions={suggestions}
       onChange={onChange}

@@ -150,6 +150,7 @@ export const Sidebar = ({
   return <InspectorControls>
     <PanelBody title={__('Settings', 'planet4-blocks-backend')}>
       <CheckboxControl
+        __nextHasNoMarginBottom
         label={__('Carousel Autoplay', 'planet4-blocks-backend')}
         help={__('Select to trigger images autoslide', 'planet4-blocks-backend')}
         value={carouselAutoplay}
