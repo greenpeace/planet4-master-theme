@@ -1,12 +1,14 @@
 import {TopicLinkEditor} from './TopicLinkEditor.js';
 
 const {registerBlockType} = wp.blocks;
+const {__} = wp.i18n;
 
 const BLOCK_NAME = 'planet4-blocks/topic-link';
 
 export const registerTopicLinkBlock = () => {
   registerBlockType(BLOCK_NAME, {
     title: 'Topic Link',
+    description: __('The Topic link block enables editors to manually link to either a high-level or deep-dive topic page by selecting a category or entering a custom URL.', 'planet4-blocks-backend'),
     icon: 'migrate',
     category: 'planet4-blocks',
     supports: {
