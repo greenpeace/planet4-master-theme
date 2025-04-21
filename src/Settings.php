@@ -371,7 +371,7 @@ class Settings
                     [
                         'name' => __('Consent default: url_passthrough', 'planet4-master-theme-backend'),
                         'desc' => __(
-                            'Test description',
+                            'The default value for url_passthrough.<br>Allows information about ad clicks to be passed through URL parameters without cookies when consent is granted outside the landing page (Google Consent Mode V2).',
                             'planet4-master-theme-backend'
                         ),
                         'id' => 'consent_default_url_passthrough',
