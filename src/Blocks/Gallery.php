@@ -204,7 +204,7 @@ class Gallery extends BaseBlock
 
         // If the gallery style is "3 Columns" we need to limit the number of images to 3
         // to avoid the lightbox carousel to show more images than that.
-        if ($fields['className'] === self::CLASS_LAYOUT_THREE_COLUMNS) {
+        if (isset($fields['className']) && $fields['className'] === self::CLASS_LAYOUT_THREE_COLUMNS) {
             $images = array_slice($images, 0, 3);
         }
 
