@@ -97,69 +97,59 @@ Text Domain: planet4-master-theme
 }
 
 // Override Navbar styles for Homepage only
-.home {
-  .page-content {
-    padding-top: 0;
+@include large-and-up {
+  .home {
+    .page-content {
+      padding-top: 0;
+    }
 
-    @include medium-and-less {
-      .page-content {
-        padding-top: 0 !important;
+    .top-navigation {
+      transition: background-color 0.5s ease;
+    }
+
+    &:not(.scrolled) .top-navigation {
+      box-shadow: none;
+
+      --color-background-navigation_bar: transparent;
+
+      .nav-menu {
+        --color-text-nav_link: var(--white);
       }
-    }
-  }
 
-  .top-navigation {
-    transition: background-color 0.5s ease;
-  }
+      .nav-submenu {
+        --submenu-nav-link--color: var(--grey-900);
+        --submenu-nav-link--hover--color: var(--submenu-nav-link--color);
+      }
 
-  &:not(.scrolled) .top-navigation {
-    box-shadow: none;
+      #search_form {
+        #search_input,
+        #search_input::placeholder {
+          @media (min-width: 1200px) {
+            color: var(--white);
+          }
+        }
 
-    --color-background-navigation_bar: transparent;
-
-    .nav-menu {
-      --color-text-nav_link: var(--white);
-    }
-
-    .nav-submenu {
-      --submenu-nav-link--color: var(--grey-900);
-      --submenu-nav-link--hover--color: var(--submenu-nav-link--color);
-    }
-
-    #search_form {
-      #search_input,
-      #search_input::placeholder {
-        @media (min-width: 1200px) {
-          color: var(--white);
+        button {
+          .icon {
+            fill: var(--white);
+          }
         }
       }
 
-      button {
-        .icon {
-          fill: var(--white);
-        }
+      .icon {
+        fill: var(--white);
       }
     }
 
-    .icon {
-      fill: var(--white);
+    .site-logo {
+      img {
+        transition: height 0.4s;
+        height: calc(26px + 1 / 2 * calc(1.61803 * 26px - 26px));
+      }
     }
   }
 
-  .site-logo {
-    img {
-      transition: height 0.4s;
-      height: calc(26px + 1 / 2 * calc(1.61803 * 26px - 26px));
-    }
+  body.scrolled.home .site-logo img {
+    height: 26px;
   }
-
-  .with-mobile-tabs #nav-mobile {
-    @include medium-and-less {
-      display: none;
-    }
-  }
-}
-
-body.scrolled.home .site-logo img {
-  height: 26px;
 }
