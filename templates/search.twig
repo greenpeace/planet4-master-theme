@@ -25,32 +25,28 @@
                 </div>
                 <div class="col-md-12">
                     <div class="search-bar">
-                        <form id="search_form_inner" role="search" class="form" action="{{ data_nav_bar.home_url }}">
-                            <div class="row">
-                                <div class="col-md-9 search-input-container">
-                                    <input type="search" id="search-page-input" class="form-control mb-2 mb-sm-0" placeholder="{{ search_label }}" value="{{ search_query|e('wp_kses_post') }}" name="s" aria-label="Search">
-                                    <input type="hidden" name="orderby" value="{{ selected_sort ?? default_sort }}" />
-                                    <button
-                                        class="clear-search"
-                                        aria-label="{{ __( 'Clear search', 'planet4-master-theme' ) }}"
-                                        type="button"
-                                        onclick="document.getElementById('search-page-input').value=null;"
-                                    >
-                                        <span class="visually-hidden">{{ __( 'Clear search', 'planet4-master-theme' ) }}</span>
-                                    </button>
-                                </div>
-                                <div class="col-md-3">
-                                    <button
-                                        type="submit"
-                                        class="btn btn-primary search-btn btn-block"
-                                        data-ga-category="Search Page"
-                                        data-ga-action="Search Button"
-                                        data-ga-label="n/a" >
-                                        {{ 'search'|svgicon }}
-                                        {{ __('Search', 'planet4-master-theme' ) }}
-                                    </button>
-                                </div>
+                        <form id="search_form_inner" role="search" class="form d-md-flex" action="{{ data_nav_bar.home_url }}">
+                            <div class="search-input-container w-100">
+                                <input type="search" id="search-page-input" class="form-control" placeholder="{{ search_label }}" value="{{ search_query|e('wp_kses_post') }}" name="s" aria-label="Search">
+                                <input type="hidden" name="orderby" value="{{ selected_sort ?? default_sort }}" />
+                                <button
+                                    class="clear-search"
+                                    aria-label="{{ __( 'Clear search', 'planet4-master-theme' ) }}"
+                                    type="button"
+                                    onclick="document.getElementById('search-page-input').value=null;"
+                                >
+                                    <span class="visually-hidden">{{ __( 'Clear search', 'planet4-master-theme' ) }}</span>
+                                </button>
                             </div>
+                            <button
+                                type="submit"
+                                class="btn btn-primary search-btn btn-block  mt-2 mt-md-0"
+                                data-ga-category="Search Page"
+                                data-ga-action="Search Button"
+                                data-ga-label="n/a" >
+                                {{ 'search'|svgicon }}
+                                {{ __('Search', 'planet4-master-theme' ) }}
+                            </button>
                         </form>
                     </div>
                 </div>
