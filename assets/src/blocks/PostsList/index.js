@@ -7,7 +7,7 @@ export const POSTS_LISTS_LAYOUT_TYPES = [
   {label: 'Grid', value: 'grid', columnCount: 4},
   {label: 'Carousel', value: 'flex', columnCount: 8},
 ];
-export const POSTS_LISTS_BREADCRUMBS = [
+export const LISTS_BREADCRUMBS = [
   {label: 'Category', value: 'category'},
   {label: 'Post Type', value: 'p4-page-type'},
 ];
@@ -82,7 +82,7 @@ export const registerPostsListBlock = () => {
           ['core/group', {}, [
             ['core/group', {layout: {type: 'flex'}}, [
               [TAX_BREADCRUMB_BLOCK_NAME, {
-                taxonomy: POSTS_LISTS_BREADCRUMBS[0].value,
+                taxonomy: LISTS_BREADCRUMBS[0].value,
                 post_type: 'posts',
               }],
             ]],

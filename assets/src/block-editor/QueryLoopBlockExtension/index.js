@@ -1,4 +1,4 @@
-import {POSTS_LIST_BLOCK_NAME, POSTS_LISTS_LAYOUT_TYPES, POSTS_LISTS_BREADCRUMBS} from '../../blocks/PostsList';
+import {POSTS_LIST_BLOCK_NAME, POSTS_LISTS_LAYOUT_TYPES, LISTS_BREADCRUMBS} from '../../blocks/PostsList';
 import {ACTIONS_LIST_BLOCK_NAME, ACTIONS_LIST_LAYOUT_TYPES} from '../../blocks/ActionsList';
 import {PostSelector} from '../PostSelector';
 import {TAX_BREADCRUMB_BLOCK_NAME} from '../setupTaxonomyBreadcrumbBlock';
@@ -182,8 +182,8 @@ export const setupQueryLoopBlockExtension = () => {
                 <PanelBody title={__('Taxonomy breadcrumbs', 'planet4-blocks-backend')} initialOpen={false}>
                   <RadioControl
                     label={__('Choose which taxonomy to display on Post breadcrumbs', 'planet4-blocks-backend')}
-                    selected={breadcrumbTaxonomy || POSTS_LISTS_BREADCRUMBS[0].value}
-                    options={POSTS_LISTS_BREADCRUMBS}
+                    selected={breadcrumbTaxonomy || LISTS_BREADCRUMBS[0].value}
+                    options={LISTS_BREADCRUMBS}
                     onChange={updateBreadcrumbType}
                   />
                 </PanelBody>

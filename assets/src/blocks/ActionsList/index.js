@@ -1,4 +1,4 @@
-import {POSTS_LISTS_BREADCRUMBS} from '../PostsList';
+import {LISTS_BREADCRUMBS} from '../PostsList';
 import {TAX_BREADCRUMB_BLOCK_NAME} from '../../block-editor/setupTaxonomyBreadcrumbBlock';
 
 export const ACTIONS_LIST_BLOCK_NAME = 'planet4-blocks/actions-list';
@@ -72,7 +72,7 @@ export const registerActionsListBlock = () => {
         ['core/post-featured-image', {isLink: true}],
         ['core/group', {}, [
           [TAX_BREADCRUMB_BLOCK_NAME, {
-            taxonomy: POSTS_LISTS_BREADCRUMBS[0].value,
+            taxonomy: LISTS_BREADCRUMBS[0].value,
             post_type: queryPostType,
           }],
           ['core/post-title', {isLink: true}],

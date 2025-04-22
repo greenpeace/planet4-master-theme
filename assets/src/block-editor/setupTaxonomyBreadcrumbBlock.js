@@ -1,6 +1,6 @@
 const {__} = wp.i18n;
 
-import {POSTS_LISTS_BREADCRUMBS} from '../blocks/PostsList';
+import {LISTS_BREADCRUMBS} from '../blocks/PostsList';
 
 export const TAX_BREADCRUMB_BLOCK_NAME = 'p4/taxonomy-breadcrumb';
 
@@ -15,7 +15,7 @@ export const setupTaxonomyBreadcrumbBlock = () => {
       attributes: {
         taxonomy: {
           type: 'string',
-          default: POSTS_LISTS_BREADCRUMBS[0].value,
+          default: LISTS_BREADCRUMBS[0].value,
         },
         post_type: {
           type: 'string',
