@@ -64,8 +64,8 @@ class Functions
                     $block_transformation_callback
                 );
 
-                // Serialize the blocks content.
-                $new_content = serialize_blocks($blocks);
+                // Serialize the blocks content & suppress warnings for this specific line
+                $new_content = @serialize_blocks($blocks);
 
                 if ($post->post_content === $new_content) {
                     continue;
