@@ -10,7 +10,7 @@ use P4\MasterTheme\MigrationScript;
 /**
  * Replace the Post Terms blocks with the Taxonomy Breadcrumb block in Posts List and Actions List.
  */
-class M044ReplaceTaxonomyInQueryBlockMigration extends MigrationScript
+class M045ReplaceTaxonomyInQueryBlock extends MigrationScript
 {
     /**
      * Perform the actual migration.
