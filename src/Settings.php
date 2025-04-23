@@ -368,6 +368,20 @@ class Settings
                             'granted' => __('Granted', 'planet4-master-theme-backend'),
                         ],
                     ],
+                    [
+                        'name' => __('Consent default: url_passthrough', 'planet4-master-theme-backend'),
+                        'desc' => __(
+                            'The default value for url_passthrough.<br>Allows information about ad clicks to be passed through URL parameters without cookies when consent is granted outside the landing page (Google Consent Mode V2).',
+                            'planet4-master-theme-backend'
+                        ),
+                        'id' => 'consent_default_url_passthrough',
+                        'type' => 'select',
+                        'default' => true,
+                        'options' => [
+                            true => __('True', 'planet4-master-theme-backend'),
+                            false => __('False', 'planet4-master-theme-backend'),
+                        ],
+                    ],
                 ],
             ],
             'planet4_settings_social' => [

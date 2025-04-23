@@ -305,6 +305,7 @@ class EnqueueController
             'consent_default_ad_storage' => $context['consent_default_ad_storage'] ?? null,
             'consent_default_ad_user_data' => $context['consent_default_ad_user_data'] ?? null,
             'consent_default_ad_personalization' => $context['consent_default_ad_personalization'] ?? null,
+            'consent_default_url_passthrough' => $context['consent_default_url_passthrough'] ? 'true' : 'false',
             'page_category' => $context['page_category'] ?? null,
             'p4_signedin_status' => $context['p4_signedin_status'] ?? null,
             'p4_visitor_type' => $context['p4_visitor_type'] ?? null,
