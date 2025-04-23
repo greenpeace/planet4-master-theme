@@ -164,6 +164,17 @@ export const setupQueryLoopBlockExtension = () => {
                   />
                 </PanelBody>
               )}
+              {isPostsList && (
+                <PanelBody title={__('Taxonomy breadcrumbs', 'planet4-blocks-backend')} initialOpen={false}>
+                  <RadioControl
+                    label={__('Choose which taxonomy to display on Post breadcrumbs', 'planet4-blocks-backend')}
+                    selected={breadcrumbTaxonomy || LISTS_BREADCRUMBS[0].value}
+                    options={LISTS_BREADCRUMBS}
+                    onChange={updateBreadcrumbType}
+                    className="text-capitalize"
+                  />
+                </PanelBody>
+              )}
               {
                 <PanelBody title={__('Manual override', 'planet4-blocks-backend')} initialOpen={query.postIn.length > 0}>
                   <PostSelector
@@ -178,16 +189,6 @@ export const setupQueryLoopBlockExtension = () => {
                   />
                 </PanelBody>
               }
-              {isPostsList && (
-                <PanelBody title={__('Taxonomy breadcrumbs', 'planet4-blocks-backend')} initialOpen={false}>
-                  <RadioControl
-                    label={__('Choose which taxonomy to display on Post breadcrumbs', 'planet4-blocks-backend')}
-                    selected={breadcrumbTaxonomy || LISTS_BREADCRUMBS[0].value}
-                    options={LISTS_BREADCRUMBS}
-                    onChange={updateBreadcrumbType}
-                  />
-                </PanelBody>
-              )}
               {
                 <PanelBody title={__('Learn more about this block ', 'planet4-blocks-backend')} initialOpen={false}>
                   <p className="components-base-control__help">
