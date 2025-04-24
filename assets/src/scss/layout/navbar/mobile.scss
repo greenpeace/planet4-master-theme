@@ -7,6 +7,7 @@
   overflow-y: hidden;
   scrollbar-width: none;
   transition: height 0.2s linear;
+  height: 50px;
 
   @include large-and-up {
     display: none;
@@ -38,7 +39,7 @@
   .nav-item {
     line-height: 50px;
     font-weight: var(--font-weight-regular);
-    margin: 5px 20px;
+    margin: 0 20px;
   }
 
   .nav-link {
