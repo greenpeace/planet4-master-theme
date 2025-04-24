@@ -1,8 +1,15 @@
+import {TAX_BREADCRUMB_BLOCK_NAME} from '../../block-editor/setupTaxonomyBreadcrumbBlock';
+
 export const POSTS_LIST_BLOCK_NAME = 'planet4-blocks/posts-list';
+
 export const POSTS_LISTS_LAYOUT_TYPES = [
   {label: 'List', value: 'default', columnCount: 3},
   {label: 'Grid', value: 'grid', columnCount: 4},
   {label: 'Carousel', value: 'flex', columnCount: 8},
+];
+export const LISTS_BREADCRUMBS = [
+  {label: 'Category', value: 'category'},
+  {label: 'Post Type', value: 'p4-page-type'},
 ];
 
 export const registerPostsListBlock = () => {
@@ -74,13 +81,9 @@ export const registerPostsListBlock = () => {
           ['core/post-featured-image', {isLink: true}],
           ['core/group', {}, [
             ['core/group', {layout: {type: 'flex'}}, [
-              ['core/post-terms', {
-                term: 'category',
-                separator: ' | ',
-              }],
-              ['core/post-terms', {
-                term: 'post_tag',
-                separator: ' ',
+              [TAX_BREADCRUMB_BLOCK_NAME, {
+                taxonomy: LISTS_BREADCRUMBS[0].value,
+                post_type: 'posts',
               }],
             ]],
             ['core/post-title', {isLink: true, level: 4}],

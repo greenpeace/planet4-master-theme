@@ -23,9 +23,11 @@
   @include table;
 }
 
-.components-panel__body label {
-  font-size: 13px !important;
-  text-transform: none !important;
+.components-panel__body {
+  label, .text-capitalize legend {
+    font-size: 13px !important;
+    text-transform: none !important;
+  }
 }
 
 .components-radio-control__option {

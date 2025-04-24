@@ -291,6 +291,34 @@ function register_more_blocks(): void
             'render_callback' => [ Post::class, 'render_navigation_block' ],
         ]
     );
+
+    register_block_type(
+        'p4/taxonomy-breadcrumb',
+        [
+            'api_version' => 2,
+            'render_callback' => function ($attributes, $block) {
+                $post_id = $block->context['postId'] ?? get_the_ID();
+                $taxonomy = $attributes['taxonomy'] ?? 'category';
+
+                $terms = get_the_terms($post_id, $taxonomy);
+                if (is_wp_error($terms) || empty($terms)) {
+                    return '';
+                }
+
+                $first = $terms[0];
+                $term_link = get_term_link($first);
+
+                return sprintf('<div class="wp-block-post-terms"><a href="%s">%s</a></div>', esc_url($term_link), esc_html($first->name));
+            },
+            'uses_context' => ['postId'],
+            'attributes' => [
+                'taxonomy' => [
+                    'type' => 'string',
+                    'default' => 'category',
+                ],
+            ],
+        ]
+    );
 }
 
 add_action('init', 'register_more_blocks');
@@ -389,7 +417,6 @@ add_action(
             'field' => 'term_id',
             'terms' => [$post_type->term_id],
         ]]);
-        $query->set('post__not_in', get_option('sticky_posts'));
     }
 );
 
