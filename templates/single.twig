@@ -104,14 +104,14 @@
 
         <!-- Post Block Start -->
         <div class="container narrow-container">
-            <div class="post-content" id="content">
+            <main class="post-content" id="content">
                 <article class="post-details clearfix">
                     {{ post.content|raw }}
                     {% if ( post.take_action_boxout ) %}
                         {{ fn('do_blocks', post.take_action_boxout )|raw }}
                     {% endif %}
                 </article>
-            </div>
+            </main>
             <div class="post-tags">
                 {% if ( post.tags ) %}
                     {% for tag in post.tags %}
