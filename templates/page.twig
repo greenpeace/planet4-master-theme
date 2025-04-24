@@ -1,8 +1,8 @@
 {% extends "base.twig" %}
 
 {% block content %}
-    <div class="page-content container {% if hide_page_title or not header_title %}no-page-title{% endif %}" id="content">
+    <main class="page-content container {% if hide_page_title or not header_title %}no-page-title{% endif %}" id="content">
         {{ post.content|raw }}
-    </div>
+    </main>
     {{ fn('do_blocks', '<!-- wp:p4/bottom-page-navigation-block /-->')|raw }}
 {% endblock %}
