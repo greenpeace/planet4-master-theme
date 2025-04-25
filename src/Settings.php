@@ -122,6 +122,17 @@ class Settings
                             'media_buttons' => false,
                         ],
                     ],
+                    [
+                        'name' => __('Enable Transparent Navigation', 'planet4-master-theme-backend'),
+                        'desc' => __('This enables the transparent navigation on the homepage only.', 'planet4-master-theme-backend'),
+                        'id' => 'transparent_nav',
+                        'type' => 'select',
+                        'default' => true,
+                        'options' => [
+                            true => __('True', 'planet4-master-theme-backend'),
+                            false => __('False', 'planet4-master-theme-backend'),
+                        ],
+                    ],
                 ],
             ],
             'planet4_settings_defaults_content' => [

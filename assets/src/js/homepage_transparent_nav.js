@@ -1,21 +1,12 @@
 /**
- * Handles the transition between the new styles and default styles for the
+ * Handles the transition between the transparent styles and default styles for the
  * Navigation Menu when it is scrolled.
  */
 export const setupTransparentNavHomepage = () => {
   let isScrolled = false;
 
-  /**
-   * Executes when the DOM is fully loaded.
-   *
-   * @param {Function} fn - The callback function to run when the DOM is ready.
-   */
-  function ready(fn) {
-    if (document.readyState !== 'loading') {
-      fn();
-    } else {
-      document.addEventListener('DOMContentLoaded', fn);
-    }
+  if (!document.body.classList.contains('home')) {
+    return;
   }
 
   /**
@@ -49,16 +40,9 @@ export const setupTransparentNavHomepage = () => {
     }
   }
 
-  // Only executes if the DOM is ready and the page is the Homepage.
-  ready(() => {
-    if (!document.body.classList.contains('home')) {
-      return;
-    }
-
-    if (getYPosition() > 0) {
-      isScrolled = true;
-      document.body.classList.add('scrolled');
-    }
-    window.addEventListener('scroll', trackScrollAsBodyClass);
-  });
+  if (getYPosition() > 0) {
+    isScrolled = true;
+    document.body.classList.add('scrolled');
+  }
+  window.addEventListener('scroll', trackScrollAsBodyClass);
 };

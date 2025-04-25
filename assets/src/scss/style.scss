@@ -97,8 +97,8 @@ Text Domain: planet4-master-theme
 }
 
 // Override Navbar styles for Homepage only
-@include large-and-up {
-  .home {
+body.transparent-nav {
+  @include large-and-up {
     .page-content {
       padding-top: 0;
     }
@@ -139,6 +139,10 @@ Text Domain: planet4-master-theme
       .icon {
         fill: var(--white);
       }
+
+      .nav-search-toggle.open {
+        background: var(--grey-800);
+      }
     }
 
     .site-logo {
@@ -149,7 +153,7 @@ Text Domain: planet4-master-theme
     }
   }
 
-  body.scrolled.home .site-logo img {
+  &.scrolled .site-logo img {
     height: 26px;
   }
 }

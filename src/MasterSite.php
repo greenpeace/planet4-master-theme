@@ -394,6 +394,19 @@ class MasterSite extends TimberSite
                 return $upload;
             }
         );
+
+        // Enable Transparent nav for homepage
+        add_filter(
+            'body_class',
+            function ($classes) {
+                $enable_transparent_nav = planet4_get_option('transparent_nav') ?? false;
+                if (is_front_page() && $enable_transparent_nav) {
+                    $classes[] = 'transparent-nav';
+                }
+
+                return $classes;
+            }
+        );
     }
 
     /**
