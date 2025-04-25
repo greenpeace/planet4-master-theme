@@ -12,7 +12,7 @@ export const ACTIONS_LIST_LAYOUT_TYPES = [
 export const registerActionsListBlock = () => {
   const {registerBlockVariation} = wp.blocks;
   const {__} = wp.i18n;
-  const postType = 'p4_query_loop_interceptor';
+  const postType = 'p4_multipost';
 
   registerBlockVariation('core/query', {
     name: ACTIONS_LIST_BLOCK_NAME,
