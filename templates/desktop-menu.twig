@@ -34,14 +34,14 @@
             {% if donate_menu_items is not empty %}
                 {% set donate_menu = donate_menu_items|first %}
                 <li class="nav-donate {{ donate_menu.children is not empty ? 'has-children' : '' }}">
-                    <a
+                    <button
                         class="btn btn-donate"
                         href="{{ donate_menu.link }}"
                         data-ga-category="Menu Navigation"
                         data-ga-action="Donate"
                         data-ga-label="{{ page_category }}">
                         {{ donate_menu.title }}
-                    </a>
+                    </button>
                     {% if donate_menu.children is not empty %}
                         <button
                             class="accessible-nav-link"
