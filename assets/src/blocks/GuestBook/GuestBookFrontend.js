@@ -8,8 +8,8 @@ export const GuestBookFrontend = () => {
   };
 
   return (
-    <p>
+    <section>
       <iframe src={buildURL()} width="100%" height={700} title="GuestBook" />
-    </p>
+    </section>
   );
 };
