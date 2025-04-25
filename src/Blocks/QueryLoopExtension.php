@@ -19,8 +19,9 @@ class QueryLoopExtension
 
     public static function registerEditorQuery(): void
     {
+
         // This is used to handle Actions List block with multiple Post Types
-        register_post_type('p4_query_loop_interceptor', [
+        register_post_type('p4_multipost', [
             'label' => 'P4 Query Loop Interceptor',
             'description' => 'This post type is used to filter filter queries since arrays are not supported natively.',
             'public' => false,
@@ -34,7 +35,7 @@ class QueryLoopExtension
         add_filter('rest_post_query', [self::class, 'postInFilter'], 10, 2);
         add_filter('rest_page_query', [self::class, 'postInFilter'], 10, 2);
         add_filter('rest_p4_action_query', [self::class, 'postInFilter'], 10, 2);
-        add_filter('rest_p4_query_loop_interceptor_query', function ($query, $request) {
+        add_filter('rest_p4_multipost_query', function ($query, $request) {
             return self::sanitizePostTypes($query, $request->get_params());
         }, 10, 2);
     }
@@ -44,7 +45,7 @@ class QueryLoopExtension
         add_filter(
             'query_loop_block_query_vars',
             function ($query, $block) {
-                if ($block->context['query']['postType'] === 'p4_query_loop_interceptor') {
+                if ($block->context['query']['postType'] === 'p4_multipost') {
                     return self::sanitizePostTypes(
                         $query,
                         $block->context['query'],
