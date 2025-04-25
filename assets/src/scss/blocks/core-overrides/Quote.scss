@@ -1,0 +1,38 @@
+// We only add our custom styles to the "Default" style, so that
+// editors can still access the "Plain" one if they want something different.
+.wp-block-quote:not(.is-style-plain) {
+  font-style: italic;
+  quotes: auto;
+
+  > p {
+    font-size: $font-size-lg;
+    line-height: 1.2;
+
+    &:before {
+      content: open-quote;
+      display: block;
+      font-weight: bold;
+      font-size: 5rem;
+      margin-bottom: -$sp-5;
+      font-style: normal;
+    }
+
+    &:after {
+      content: close-quote;
+      font-weight: bold;
+      margin-inline-start: $sp-x;
+    }
+
+    @include medium-and-up {
+      font-size: $font-size-xl;
+    }
+
+    @include x-large-and-up {
+      font-size: $font-size-xl;
+    }
+  }
+
+  cite {
+    font-style: normal;
+  }
+}
