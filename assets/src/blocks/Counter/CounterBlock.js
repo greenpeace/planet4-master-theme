@@ -54,12 +54,12 @@ export const registerCounterBlock = () => {
     edit: CounterEditor,
     save: props => {
       const markup = renderToString(
-        <div
+        <section
           data-hydrate={BLOCK_NAME}
           data-attributes={JSON.stringify(props.attributes)}
         >
           <CounterFrontend {...props.attributes} />
-        </div>
+        </section>
       );
       return <RawHTML>{markup}</RawHTML>;
     },
