@@ -47,6 +47,7 @@ use P4\MasterTheme\Migrations\M042FixPostsListMigration;
 use P4\MasterTheme\Migrations\M043SwitchClassesInImageBlock;
 use P4\MasterTheme\Migrations\M044SetDefaultUrlPassthroughOption;
 use P4\MasterTheme\Migrations\M045ReplaceTaxonomyInQueryBlock;
+use P4\MasterTheme\Migrations\M046MigrateArticlesBlockToPostsListBlock;
 
 /**
  * Run any new migration scripts and record results in the log.
@@ -111,6 +112,7 @@ class Migrator
             M043SwitchClassesInImageBlock::class,
             M044SetDefaultUrlPassthroughOption::class,
             M045ReplaceTaxonomyInQueryBlock::class,
+            M046MigrateArticlesBlockToPostsListBlock::class,
         ];
 
         // Loop migrations and run those that haven't run yet.

@@ -29,7 +29,7 @@ $context['post'] = $post;
 $post->set_issues_links();
 
 // Get the cmb2 custom fields data
-// Articles block parameters to populate the articles block
+// Articles block parameters to populate the related-posts block(previously known as articles block)
 // p4_take_action_page parameter to populate the take action boxout block
 // Author override parameter. If this is set then the author profile section will not be displayed.
 $page_meta_data = get_post_meta($post->ID);

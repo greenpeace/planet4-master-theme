@@ -27,7 +27,6 @@ class BlockSettings
 
     private const POST_BLOCK_TYPES = [
         self::P4_BLOCKS_PREFIX . '/accordion',
-        self::P4_BLOCKS_PREFIX . '/articles',
         self::P4_BLOCKS_PREFIX . '/counter',
         self::P4_BLOCKS_PREFIX . '/gallery',
         self::P4_BLOCKS_PREFIX . '/social-media',
@@ -41,7 +40,6 @@ class BlockSettings
 
     private const PAGE_BLOCK_TYPES = [
         self::P4_BLOCKS_PREFIX . '/accordion',
-        self::P4_BLOCKS_PREFIX . '/articles',
         self::P4_BLOCKS_PREFIX . '/carousel-header',
         self::P4_BLOCKS_PREFIX . '/columns',
         self::P4_BLOCKS_PREFIX . '/cookies',
@@ -61,7 +59,6 @@ class BlockSettings
 
     private const CAMPAIGN_BLOCK_TYPES = [
         self::P4_BLOCKS_PREFIX . '/accordion',
-        self::P4_BLOCKS_PREFIX . '/articles',
         self::P4_BLOCKS_PREFIX . '/carousel-header',
         self::P4_BLOCKS_PREFIX . '/columns',
         self::P4_BLOCKS_PREFIX . '/cookies',
@@ -79,7 +76,6 @@ class BlockSettings
 
     private const ACTION_BLOCK_TYPES = [
         self::P4_BLOCKS_PREFIX . '/accordion',
-        self::P4_BLOCKS_PREFIX . '/articles',
         self::P4_BLOCKS_PREFIX . '/carousel-header',
         self::P4_BLOCKS_PREFIX . '/columns',
         self::P4_BLOCKS_PREFIX . '/cookies',
