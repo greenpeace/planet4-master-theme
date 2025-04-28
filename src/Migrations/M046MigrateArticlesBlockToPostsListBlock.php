@@ -230,12 +230,8 @@ class M046MigrateArticlesBlockToPostsListBlock extends MigrationScript
                                 Utils\Functions::create_group_block(
                                     [
                                         Utils\Functions::create_new_block(
-                                            Utils\Constants::BLOCK_TERMS,
-                                            ['term' => 'category', 'separator' => ' | ']
-                                        ),
-                                        Utils\Functions::create_new_block(
-                                            Utils\Constants::BLOCK_TERMS,
-                                            ['term' => 'post_tag', 'separator' => ' ']
+                                            Utils\Constants::P4_OTHER_BLOCKS['breadcrumb'],
+                                            ['taxonomy' => 'category', 'post_type' => Utils\Constants::POST_TYPES_POST]
                                         ),
                                     ],
                                     ['layout' => ['type' => 'flex']]
