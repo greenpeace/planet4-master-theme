@@ -66,7 +66,7 @@ export const registerActionsListBlock = () => {
         ['core/group', {}, [
           [TAX_BREADCRUMB_BLOCK_NAME, {
             taxonomy: LISTS_BREADCRUMBS[0].value,
-            post_type: queryPostType,
+            post_type: postType,
           }],
           ['core/post-title', {isLink: true}],
           ['core/post-excerpt'],

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace P4\MasterTheme\Blocks;
 
+use WP_REST_Request;
+
 /**
  * Handle Posts/Actions List block manual override query with custom `postIn` filter.
  * `include` is not used because it generates some issues with getEntityRecords filters.
@@ -19,11 +21,10 @@ class QueryLoopExtension
 
     public static function registerEditorQuery(): void
     {
-
         // This is used to handle Actions List block with multiple Post Types
         register_post_type('p4_multipost', [
-            'label' => 'P4 Query Loop Interceptor',
-            'description' => 'This post type is used to filter filter queries since arrays are not supported natively.',
+            'label' => 'P4 multipost',
+            'description' => 'This post type is used to filter queries since arrays are not supported natively.',
             'public' => false,
             'show_ui' => false,
             'show_in_rest' => true,
@@ -62,12 +63,12 @@ class QueryLoopExtension
     /**
      * Filter the query to include the postIn and hasPassword parameters
      *
-     * @param array $args The query
-     * @param array $request The request
+     * @param array           $args The query
+     * @param WP_REST_Request $request The request
      *
      * @return array The new parsed query
      */
-    public static function postInFilter(array $args, array $request): array
+    public static function postInFilter(array $args, WP_REST_Request $request): array
     {
         $postIn = $request->get_param('postIn');
         if (!empty($postIn)) {
