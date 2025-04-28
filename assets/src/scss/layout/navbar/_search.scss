@@ -143,6 +143,10 @@
   @include x-large-and-up {
     display: inline-block;
   }
+
+  &:focus {
+    @include focus-styles;
+  }
 }
 
 .nav-search-clear {

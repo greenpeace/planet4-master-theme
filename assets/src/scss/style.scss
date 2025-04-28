@@ -143,6 +143,15 @@ body.transparent-nav {
       .nav-search-toggle.open {
         background: var(--grey-800);
       }
+
+      .accessible-nav-link {
+        background-image: url("../../images/white_arrow_up.svg");
+        transform: rotate(180deg);
+
+        &.rotate {
+          transform: rotate(360deg);
+        }
+      }
     }
 
     .site-logo {
