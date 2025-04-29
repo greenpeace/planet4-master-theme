@@ -12,7 +12,6 @@ export const ACTIONS_LIST_LAYOUT_TYPES = [
 export const registerActionsListBlock = () => {
   const {registerBlockVariation} = wp.blocks;
   const {__} = wp.i18n;
-  const postType = 'p4_multipost';
 
   registerBlockVariation('core/query', {
     name: ACTIONS_LIST_BLOCK_NAME,
@@ -22,7 +21,7 @@ export const registerActionsListBlock = () => {
     scope: ['inserter'],
     allowedControls: ['taxQuery', 'pages', 'offset'],
     category: 'planet4-blocks-beta',
-    isActive: ({namespace, query}) => namespace === ACTIONS_LIST_BLOCK_NAME && query.postType === postType,
+    isActive: ({namespace}) => namespace === ACTIONS_LIST_BLOCK_NAME,
     attributes: {
       namespace: ACTIONS_LIST_BLOCK_NAME,
       className: 'actions-list p4-query-loop is-custom-layout-grid',
@@ -35,7 +34,8 @@ export const registerActionsListBlock = () => {
         exclude: [],
         sticky: '',
         inherit: false,
-        postType,
+        postType: 'page',
+        custom: 'p4_custom_attr',
         postIn: [],
         hasPassword: false,
       },
@@ -66,7 +66,7 @@ export const registerActionsListBlock = () => {
         ['core/group', {}, [
           [TAX_BREADCRUMB_BLOCK_NAME, {
             taxonomy: LISTS_BREADCRUMBS[0].value,
-            post_type: postType,
+            post_type: 'page',
           }],
           ['core/post-title', {isLink: true}],
           ['core/post-excerpt'],

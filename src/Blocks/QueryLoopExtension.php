@@ -21,24 +21,9 @@ class QueryLoopExtension
 
     public static function registerEditorQuery(): void
     {
-        // This is used to handle Actions List block with multiple Post Types
-        register_post_type('p4_multipost', [
-            'label' => 'P4 multipost',
-            'description' => 'This post type is used to filter queries since arrays are not supported natively.',
-            'public' => false,
-            'show_ui' => false,
-            'show_in_rest' => true,
-            'capability_type' => 'post',
-            'supports' => [],
-            'query_var' => false,
-        ]);
-
         add_filter('rest_post_query', [self::class, 'postInFilter'], 10, 2);
         add_filter('rest_page_query', [self::class, 'postInFilter'], 10, 2);
         add_filter('rest_p4_action_query', [self::class, 'postInFilter'], 10, 2);
-        add_filter('rest_p4_multipost_query', function ($query, $request) {
-            return self::sanitizePostTypes($query, $request->get_params());
-        }, 10, 2);
     }
 
     public static function registerFrontendQuery(): void
@@ -46,13 +31,26 @@ class QueryLoopExtension
         add_filter(
             'query_loop_block_query_vars',
             function ($query, $block) {
-                if ($block->context['query']['postType'] === 'p4_multipost') {
+                if ($block->context['query']['custom'] === 'p4_custom_attr') {
                     return self::sanitizePostTypes(
                         $query,
                         $block->context['query'],
                     );
                 }
-
+                return $query;
+            },
+            10,
+            2
+        );
+        add_filter(
+            'rest_page_query',
+            function ($query, $request) {
+                if ($request->get_params()['custom'] === 'p4_custom_attr') {
+                    return self::sanitizePostTypes(
+                        $query,
+                        $request->get_params(),
+                    );
+                }
                 return $query;
             },
             10,
@@ -92,6 +90,7 @@ class QueryLoopExtension
      */
     public static function sanitizePostTypes(array $query, array $params = []): array
     {
+
         $is_new_ia = !empty(planet4_get_option('new_ia'));
         $query['post_status'] = 'publish';
 
