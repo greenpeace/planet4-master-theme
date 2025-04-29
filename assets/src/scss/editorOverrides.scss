@@ -214,20 +214,6 @@ input.describe[type=text][data-setting=caption] {
   pointer-events: none;
 }
 
-.InlineToggleControl {
-  .components-toggle-control {
-    display: flex;
-
-    .components-base-control__field {
-      margin: 0;
-    }
-
-    p {
-      margin: 0;
-    }
-  }
-}
-
 .p4-plugin-pre-publish-panel-error {
   ul {
     background: var(--red-500);
