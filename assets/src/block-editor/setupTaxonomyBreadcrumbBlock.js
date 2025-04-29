@@ -36,19 +36,25 @@ function editFunction({attributes, context}) {
   const [term, setTerm] = wp.element.useState(null);
 
   wp.element.useEffect(() => {
-    if (!postId || !taxonomy || !post_type) {return;}
+    (async () => {
+      if (!postId || !taxonomy || !post_type) {return;}
 
-    const postTypeField = post_type === 'post' ? 'posts' : post_type;
-    const taxonomyField = taxonomy === 'category' ? 'categories' : taxonomy;
+      const taxonomyField = taxonomy === 'category' ? 'categories' : taxonomy;
+      let postTypeField = post_type === 'post' ? 'posts' : post_type;
 
-    wp.apiFetch({path: `/wp/v2/${postTypeField}/${postId}`}).then(post => {
-      const termIds = post[taxonomyField];
-      if (termIds && termIds.length > 0) {
-        wp.apiFetch({path: `/wp/v2/${taxonomyField}/${termIds[0]}`}).then(termData => {
-          setTerm(termData.name);
-        });
+      if(post_type === 'p4_multipost') {
+        postTypeField = await wp.apiFetch({path: `/wp/v2/p4_multipost/${postId}`});
       }
-    });
+
+      wp.apiFetch({path: `/wp/v2/${postTypeField}/${postId}`}).then(post => {
+        const termIds = post[taxonomyField];
+        if (termIds && termIds.length > 0) {
+          wp.apiFetch({path: `/wp/v2/${taxonomyField}/${termIds[0]}`}).then(termData => {
+            setTerm(termData.name);
+          });
+        }
+      });
+    })();
   }, [postId, taxonomy]);
 
   const linkAttrs = {href: '', onClick: e => e.preventDefault()};

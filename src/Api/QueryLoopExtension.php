@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace P4\MasterTheme\Api;
 
 use WP_REST_Response;
+use WP_REST_Request;
 
 /**
  * Instance QueryLoopExtension API
@@ -26,8 +27,13 @@ class QueryLoopExtension
             '/p4_multipost/(?P<id>\d+)',
             [
                 'methods' => 'GET',
-                'callback' => function () {
-                    return new WP_REST_Response([], 200);
+                'callback' => function (WP_REST_Request $request) {
+                    global $wpdb;
+                    $post_type = $wpdb->get_col($wpdb->prepare(
+                        "SELECT post_type FROM {$wpdb->posts} WHERE ID = %s",
+                        $request->get_param('id')
+                    ));
+                    return new WP_REST_Response($post_type[0] ?? "", 200);
                 },
                 'permission_callback' => '__return_true',
             ]
