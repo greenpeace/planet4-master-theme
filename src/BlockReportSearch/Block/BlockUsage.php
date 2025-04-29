@@ -15,6 +15,9 @@ use P4\MasterTheme\BlockReportSearch\Block\Query\Parameters;
  */
 class BlockUsage
 {
+    public const POSTS_LIST_NAME = 'planet4-blocks/posts-list';
+    public const ACTIONS_LIST_NAME = 'planet4-blocks/actions-list';
+
     private BlockSearch $search;
 
     private WP_Block_Parser $parser;
@@ -44,28 +47,10 @@ class BlockUsage
      */
     public function get_blocks(Parameters $params): array
     {
-        // print_r('I AM CALLED SECOND ');
-        // echo PHP_EOL . ' ';
-        // print_r($params);
         $this->posts_ids = $this->search->get_posts($params);
-        // print_r('THIS IN POST IDs...  ');
-        // print_r(count($this->posts_ids));
-        // echo PHP_EOL . ' ';
 
         return $this->get_filtered_blocks($this->posts_ids, $params);
     }
-
-    /**
-     * @param Parameters $params Query parameters.
-     * @return int[]
-     */
-    // public function get_posts(Parameters $params): array
-    // {
-    //     print_r('I AM CALLED FIRST ');
-    //     $block_list = $this->get_blocks($this->posts_ids, $params);
-
-    //     return array_unique(array_column($block_list, 'post_id'));
-    // }
 
     /**
      * @param int[]      $posts_ids Posts IDs.
@@ -73,10 +58,9 @@ class BlockUsage
      */
     private function get_filtered_blocks(array $posts_ids, Parameters $params): array
     {
-        // print_r('I AM CALLED LAST ');
         $this->fetch_blocks($posts_ids, $params);
-        // $this->filter_blocks($params);
-        // $this->sort_blocks($params->order());
+        $this->filter_blocks($params);
+        $this->sort_blocks($params->order());
 
         return $this->blocks;
     }
@@ -84,18 +68,15 @@ class BlockUsage
     /**
      * Function to filter Query Loop block
      *
-     * @param array $blocks     array of posts/pages.
+     * @param array $blocks     array of blocks.
      * @param string $block_name string for which query variation to find.
      */
-    private function filter_query_blocks(array $blocks, string $block_name): array
+    public function filter_query_blocks(array $blocks, string $block_name): array
     {
-        $found_blocks = array_filter($blocks, function ($post) use ($block_name) {
-            return 'core/query' === $post['block_type']
-                && isset($post['block_attrs']['namespace'])
-                && $block_name === $post['block_attrs']['namespace'];
-        });
-
-        return $found_blocks;
+        return array_filter($blocks, fn($post) =>
+            $post['block_type'] === 'core/query'
+            && isset($post['block_attrs']['namespace'])
+            && $post['block_attrs']['namespace'] === $block_name);
     }
 
     /**
@@ -112,18 +93,11 @@ class BlockUsage
         ];
 
         $this->posts = get_posts($posts_args) ?? [];
-        // print_r($this->posts); //gets the actual page HTML
 
         $block_listblock_list = [];
-        // print_r('THIS RUNS ON CHECKS...  ');
-        // print_r(count($this->posts));
-        // echo PHP_EOL . ' ';
         foreach ($this->posts as $post) {
             $block_listblock_list = array_merge($block_listblock_list, $this->parse_post($post));
         }
-
-        // print_r('THIS RUNS AFTER PARSE...  ');
-        // print_r(count($block_listblock_list));
 
         $this->blocks = $block_listblock_list;
     }
@@ -136,7 +110,6 @@ class BlockUsage
      */
     private function filter_blocks(Parameters $params): void
     {
-        // print_r('THIS RUNS... ');
         if (
             empty($params->namespace())
             && empty($params->name())
@@ -144,8 +117,6 @@ class BlockUsage
         ) {
             return;
         }
-
-        print_r($params->namespace());
 
         $filtered = $this->blocks;
 
@@ -159,24 +130,22 @@ class BlockUsage
         ];
 
         if (! empty($filters['block_type'])) {
-            if ('planet4-blocks/posts-list' === $filters['block_type']) {
-                $filtered = $this->filter_query_blocks($filtered, 'planet4-blocks/posts-list');
-            } elseif ('planet4-blocks/actions-list' === $filters['block_type']) {
-                $filtered = $this->filter_query_blocks($filtered, 'planet4-blocks/actions-list');
+            if (in_array($filters['block_type'], [self::POSTS_LIST_NAME, self::ACTIONS_LIST_NAME], true)) {
+                $filtered = $this->filter_query_blocks($filtered, $filters['block_type']);
             } else {
                 $filtered = array_filter(
                     $filtered,
-                    function ($i) use ($filters) {
-                        return $i['block_type'] === $filters['block_type']
-                            || $i['local_name'] === $filters['local_name'];
+                    function ($block) use ($filters) {
+                        return $block['block_type'] === $filters['block_type']
+                            || $block['local_name'] === $filters['local_name'];
                     }
                 );
             }
         } elseif (! empty($filters['block_ns'])) {
             $filtered = array_filter(
                 $filtered,
-                function ($i) use ($filters) {
-                    return $i['block_ns'] === $filters['block_ns'];
+                function ($block) use ($filters) {
+                    return $block['block_ns'] === $filters['block_ns'];
                 }
             );
         }
@@ -184,8 +153,8 @@ class BlockUsage
         if (! empty($text)) {
             $filtered = array_filter(
                 $filtered,
-                function ($i) use ($text) {
-                    return strpos($i['block_type'], $text) !== false
+                function ($block) use ($text) {
+                    return strpos($block['block_type'], $text) !== false
 						//phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.serialize_serialize
                         || strpos(serialize($i['block_attrs']), $text) !== false;
                 }
@@ -229,20 +198,13 @@ class BlockUsage
     private function parse_post(\WP_Post $post): array
     {
         $output = $this->parser->parse($post->post_content);
-        // print_r('IN PARSING BEFORE FILTER...   ');
-        // print_r(count($output));
 
         $block_list = array_filter(
             $output,
             function ($block) {
-                // if (isset($block['attrs']['namespace']) && $block['blockName'] === 'core/query') {
-                //     print_r($block['blockName']);
-                // }
                 return ! empty($block['blockName']);
             }
         );
-
-        // print_r($block_list);
 
         $items = [];
         while (! empty($block_list)) {
