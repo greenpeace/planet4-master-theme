@@ -11,7 +11,6 @@
 
   input {
     font-size: $font-size-sm;
-    height: 2.75em;
     line-height: 2.75;
     appearance: none;
 
@@ -34,7 +33,6 @@
 
     @include large-and-up {
       font-size: 1.125rem;
-      height: 3em;
       line-height: 3;
     }
   }
@@ -48,11 +46,9 @@
     @include clear-input-styles;
     position: absolute;
     right: $sp-3;
-    top: 10px;
-
-    @include large-and-up {
-      top: $sp-2;
-    }
+    top: 0;
+    bottom: 0;
+    margin: auto;
 
     html[dir="rtl"] & {
       right: auto;
@@ -66,21 +62,11 @@
     svg {
       margin-right: 4px;
       vertical-align: baseline;
+      margin-top: -3px;
     }
 
-    // We need this margin exception for tablets because otherwise the button moves to 2 lines.
     @include medium-and-up {
-      svg {
-        margin-right: 0;
-      }
-    }
-
-    @include large-and-up {
-      margin-top: 2px;
-
-      svg {
-        margin-right: 4px;
-      }
+      margin-inline-start: $sp-3;
     }
 
     i {
