@@ -33,15 +33,7 @@
 
 .without-search-result,
 .search-result {
-  margin-top: 48px;
-
-  @include small-and-up {
-    margin-top: 0;
-  }
-
-  @include large-and-up {
-    margin-top: 94px;
-  }
+  margin-top: 94px;
 
   @include x-large-and-up {
     margin-top: 120px;
