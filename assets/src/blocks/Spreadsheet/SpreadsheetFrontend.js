@@ -161,7 +161,7 @@ export const SpreadsheetFrontend = ({
                   <th
                     className={(
                       index === sortColumnIndex ?
-                        `spreadsheet-sorted-by sort-${sortDirection}` :
+                        `sort-${sortDirection}` :
                         ''
                     )}
                     onClick={onHeaderClick}
