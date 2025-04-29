@@ -76,8 +76,8 @@ abstract class BaseBlock
     {
         $json = wp_json_encode([ 'attributes' => $attributes ]);
 
-        return '<section data-render="' . self::get_full_block_name() .
-            '" data-attributes="' . htmlspecialchars($json) . '"></section>';
+        return '<div data-render="' . self::get_full_block_name() .
+            '" data-attributes="' . htmlspecialchars($json) . '"></div>';
     }
 
     /**
@@ -248,8 +248,8 @@ abstract class BaseBlock
         $end = $matches[0][ count($matches[0]) - 2 ][1];
         $content = substr($content, 0, $end);
 
-        return '<section data-hydrate="' . self::get_full_block_name()
+        return '<div data-hydrate="' . self::get_full_block_name()
             . '" data-attributes="' . htmlspecialchars($json) . '">'
-            . $content . '</section>';
+            . $content . '</div>';
     }
 }

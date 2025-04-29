@@ -34,12 +34,12 @@ export const registerSpreadsheetBlock = () => {
     attributes,
     edit: SpreadsheetEditor,
     save: props => {
-      const markup = renderToString(<section
+      const markup = renderToString(<div
         data-hydrate={BLOCK_NAME}
         data-attributes={JSON.stringify(props.attributes)}
       >
         <SpreadsheetFrontend {...props.attributes} />
-      </section>);
+      </div>);
       return <RawHTML>{markup}</RawHTML>;
     },
     deprecated: [

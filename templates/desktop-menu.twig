@@ -36,7 +36,8 @@
                 <li class="nav-donate {{ donate_menu.children is not empty ? 'has-children' : '' }}">
                     <button
                         class="btn btn-donate"
-                        href="{{ donate_menu.link }}"
+                        onclick="window.location='{{ donate_menu_items[0].link }}';"
+                        role="link"
                         data-ga-category="Menu Navigation"
                         data-ga-action="Donate"
                         data-ga-label="{{ page_category }}">
