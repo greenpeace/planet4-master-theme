@@ -97,24 +97,29 @@ class QueryLoopExtension
 
         if (!$is_new_ia) {
             $query['post_type'] = ['page'];
-            $query['post_parent'] = planet4_get_option('act_page');
+            $query['post_parent'] = !empty(planet4_get_option('act_page'))
+                ? planet4_get_option('act_page')
+                : -1;
 
             if (!empty($params['postIn'])) {
                 $query['post__in'] = array_map('intval', (array) $params['postIn']);
             }
         } else {
             $query['post_type'] = ['page', 'p4_action'];
+            $post_ids = [];
 
-            global $wpdb;
-            $post_ids = $wpdb->get_col($wpdb->prepare(
-                "
-                (SELECT ID FROM {$wpdb->posts} WHERE post_type = %s)
-                UNION ALL
-                (SELECT ID FROM {$wpdb->posts} WHERE post_type = %s AND post_parent = %d)",
-                'p4_action',
-                'page',
-                planet4_get_option('take_action_page')
-            ));
+            if (!empty(planet4_get_option('take_action_page'))) {
+                global $wpdb;
+                $post_ids = $wpdb->get_col($wpdb->prepare(
+                    "
+                    (SELECT ID FROM {$wpdb->posts} WHERE post_type = %s)
+                    UNION ALL
+                    (SELECT ID FROM {$wpdb->posts} WHERE post_type = %s AND post_parent = %d)",
+                    'p4_action',
+                    'page',
+                    planet4_get_option('take_action_page')
+                ));
+            }
 
             if (!empty($post_ids)) {
                 $query['post__in'] = $post_ids;
