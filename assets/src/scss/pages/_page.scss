@@ -70,18 +70,6 @@
   }
 }
 
-.with-mobile-tabs {
-  @include medium-and-less {
-    & ~ :not(.page-header) + .page-content {
-      padding-top: calc(var(--navbar-menu-height--small));
-    }
-
-    & ~ .featured-posts + .page-content {
-      padding: 0;
-    }
-  }
-}
-
 .single-campaign {
   .page-content {
     > p:last-child {
