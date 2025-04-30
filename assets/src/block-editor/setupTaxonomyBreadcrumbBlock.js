@@ -40,10 +40,16 @@ function editFunction({attributes, context}) {
       if (!postId || !taxonomy || !post_type) {return;}
 
       const taxonomyField = taxonomy === 'category' ? 'categories' : taxonomy;
-      let postTypeField = post_type === 'post' ? 'posts' : post_type;
 
-      if(post_type === 'p4_multipost') {
+      let postTypeField = post_type;
+      if(postTypeField === 'p4_multipost') {
         postTypeField = await wp.apiFetch({path: `/wp/v2/p4_multipost/${postId}`});
+      } else {
+        for(const type of [['post', 'posts'], ['page', 'pages']]) {
+          if(postTypeField === type[0]) {
+            postTypeField = type[1];
+          }
+        }
       }
 
       wp.apiFetch({path: `/wp/v2/${postTypeField}/${postId}`}).then(post => {
