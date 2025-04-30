@@ -42,13 +42,15 @@ function editFunction({attributes, context}) {
       const taxonomyField = taxonomy === 'category' ? 'categories' : taxonomy;
 
       let postTypeField = post_type;
+
       if(postTypeField === 'p4_multipost') {
         postTypeField = await wp.apiFetch({path: `/wp/v2/p4_multipost/${postId}`});
-      } else {
-        for(const type of [['post', 'posts'], ['page', 'pages']]) {
-          if(postTypeField === type[0]) {
-            postTypeField = type[1];
-          }
+      }
+
+      // Pluralize post types
+      for(const type of [['post', 'posts'], ['page', 'pages']]) {
+        if(postTypeField === type[0]) {
+          postTypeField = type[1];
         }
       }
 
