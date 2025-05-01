@@ -63,6 +63,7 @@ table.spreadsheet-table {
       background-color: inherit;
       color: inherit;
       border: none;
+      display: flex;
     }
 
     color: var(--white);
@@ -74,11 +75,12 @@ table.spreadsheet-table {
     svg {
       width: $sp-2;
       margin-left: $sp-1;
-      // Compensate for a small baseline misalignment
-      margin-top: -2px;
-      // Use opacity instead of `display: none` to avoid jumpyness on headers
-      opacity: 0;
-      transition: opacity .3s, transform .4s;
+    }
+
+    &.sort-desc {
+      svg {
+        transform: rotate(180deg);
+      }
     }
   }
 }
@@ -122,18 +124,6 @@ table.spreadsheet-table.is-color-gp-green {
 
   tr:nth-child(odd) {
     background: var(--beige-200);
-  }
-}
-
-table.spreadsheet-table.spreadsheet-sorted-by {
-  svg {
-    opacity: 1;
-  }
-
-  &.sort-desc {
-    svg {
-      transform: rotate(180deg);
-    }
   }
 }
 

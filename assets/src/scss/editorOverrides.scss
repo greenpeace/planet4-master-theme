@@ -212,20 +212,6 @@ input.describe[type=text][data-setting=caption] {
   pointer-events: none;
 }
 
-.InlineToggleControl {
-  .components-toggle-control {
-    display: flex;
-
-    .components-base-control__field {
-      margin: 0;
-    }
-
-    p {
-      margin: 0;
-    }
-  }
-}
-
 .p4-plugin-pre-publish-panel-error {
   ul {
     background: var(--red-500);
@@ -246,7 +232,6 @@ input.describe[type=text][data-setting=caption] {
 // Sidebar help texts
 .components-base-control__help,
 .components-form-token-field__help,
-.sidebar-blocks-help ul li,
 .FieldHelp {
   font-size: 13px;
   line-height: 1.5;
