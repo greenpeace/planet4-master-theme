@@ -535,11 +535,18 @@ if (class_exists('\\Sentry\\Options')) {
         $options->setSampleRate(0.50);
 
         // Set server_name tag
-        $podname = gethostname();
+        $podname = gethostname() ?: 'unknown'; // Fallback to 'unknown' if gethostname() fails
         $parts = explode('-', $podname);
-        $server_name = isset($parts[1]) ? $parts[1] : $podname;
-        if (count($parts) > 6) {
-            $server_name = $parts[1] . '-' . $parts[2];
+
+        if (count($parts) === 1) {
+            // Local development
+            $server_name = $podname;
+        } elseif ($parts[1] === 'test') {
+            // Test instances
+            $server_name = $parts[2];
+        } else {
+            // Production/Development instances
+            $server_name = $parts[1];
         }
         $options->setServerName($server_name);
 
