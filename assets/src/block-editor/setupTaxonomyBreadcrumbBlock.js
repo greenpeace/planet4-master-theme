@@ -36,26 +36,40 @@ function editFunction({attributes, context}) {
   const [term, setTerm] = wp.element.useState(null);
 
   wp.element.useEffect(() => {
-    if (!postId || !taxonomy || !post_type) {return;}
+    (async () => {
+      if (!postId || !taxonomy || !post_type) {return;}
 
-    const postTypeField = post_type === 'post' ? 'posts' : post_type;
-    const taxonomyField = taxonomy === 'category' ? 'categories' : taxonomy;
+      const taxonomyField = taxonomy === 'category' ? 'categories' : taxonomy;
 
-    wp.apiFetch({path: `/wp/v2/${postTypeField}/${postId}`}).then(post => {
-      const termIds = post[taxonomyField];
-      if (termIds && termIds.length > 0) {
-        wp.apiFetch({path: `/wp/v2/${taxonomyField}/${termIds[0]}`}).then(termData => {
-          setTerm(termData.name);
-        });
+      let postTypeField = post_type;
+
+      if(postTypeField === 'p4_multipost') {
+        postTypeField = await wp.apiFetch({path: `/wp/v2/p4_multipost/${postId}`});
       }
-    });
+
+      // Pluralize post types
+      for(const type of [['post', 'posts'], ['page', 'pages']]) {
+        if(postTypeField === type[0]) {
+          postTypeField = type[1];
+        }
+      }
+
+      wp.apiFetch({path: `/wp/v2/${postTypeField}/${postId}`}).then(post => {
+        const termIds = post[taxonomyField];
+        if (termIds && termIds.length > 0) {
+          wp.apiFetch({path: `/wp/v2/${taxonomyField}/${termIds[0]}`}).then(termData => {
+            setTerm(termData.name);
+          });
+        }
+      });
+    })();
   }, [postId, taxonomy]);
 
   const linkAttrs = {href: '', onClick: e => e.preventDefault()};
   const contentAttrs = {className: 'taxonomy-category wp-block-post-terms'};
 
-  const link = wp.element.createElement('a', linkAttrs, term || 'Loading...');
-  const content = wp.element.createElement('div', contentAttrs, link);
+  const link = term ? wp.element.createElement('a', linkAttrs, term || 'Loading...') : null;
+  const content = link ? wp.element.createElement('div', contentAttrs, link) : null;
 
   return content;
 }

@@ -102,6 +102,7 @@ add_action(
         Api\Settings::register_endpoint();
         Api\AnalyticsValues::register_endpoint();
         Api\Tracking::register_endpoint();
+        Api\QueryLoopExtension::register_endpoint();
     }
 );
 

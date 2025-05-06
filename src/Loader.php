@@ -202,6 +202,8 @@ final class Loader
             return;
         }
 
+        Blocks\QueryLoopExtension::registerHooks();
+
         new MasterBlocks();//NOSONAR
         new Blocks\Accordion();//NOSONAR
         new Blocks\CarouselHeader();//NOSONAR
@@ -229,7 +231,6 @@ final class Loader
 
         new Blocks\ActionButtonText();//NOSONAR
 
-        Blocks\QueryLoopExtension::registerHooks();
         add_filter(
             'allowed_block_types_all',
             function ($allowed_block_types) {
