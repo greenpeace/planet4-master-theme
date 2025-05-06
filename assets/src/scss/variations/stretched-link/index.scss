@@ -1,6 +1,12 @@
 .group-stretched-link {
   position: relative;
 
+  a,
+  a:hover {
+    border: none;
+    background: none;
+  }
+
   [class*="is-style-rounded-"].force-no-caption {
     overflow: hidden;
     border-radius: 50%;
