@@ -15,6 +15,9 @@ use P4\MasterTheme\BlockReportSearch\Block\Query\Parameters;
  */
 class BlockUsage
 {
+    public const POSTS_LIST_NAME = 'planet4-blocks/posts-list';
+    public const ACTIONS_LIST_NAME = 'planet4-blocks/actions-list';
+
     private BlockSearch $search;
 
     private WP_Block_Parser $parser;
@@ -50,17 +53,6 @@ class BlockUsage
     }
 
     /**
-     * @param Parameters $params Query parameters.
-     * @return int[]
-     */
-    public function get_posts(Parameters $params): array
-    {
-        $block_list = $this->get_blocks($this->posts_ids, $params);
-
-        return array_unique(array_column($block_list, 'post_id'));
-    }
-
-    /**
      * @param int[]      $posts_ids Posts IDs.
      * @param Parameters $params Query parameters.
      */
@@ -71,6 +63,20 @@ class BlockUsage
         $this->sort_blocks($params->order());
 
         return $this->blocks;
+    }
+
+    /**
+     * Function to filter Query Loop block
+     *
+     * @param array $blocks     array of blocks.
+     * @param string $block_name string for which query variation to find.
+     */
+    public function filter_query_blocks(array $blocks, string $block_name): array
+    {
+        return array_filter($blocks, fn($post) =>
+            $post['block_type'] === 'core/query'
+            && isset($post['block_attrs']['namespace'])
+            && $post['block_attrs']['namespace'] === $block_name);
     }
 
     /**
@@ -92,6 +98,7 @@ class BlockUsage
         foreach ($this->posts as $post) {
             $block_listblock_list = array_merge($block_listblock_list, $this->parse_post($post));
         }
+
         $this->blocks = $block_listblock_list;
     }
 
@@ -123,18 +130,22 @@ class BlockUsage
         ];
 
         if (! empty($filters['block_type'])) {
-            $filtered = array_filter(
-                $filtered,
-                function ($i) use ($filters) {
-                    return $i['block_type'] === $filters['block_type']
-                        || $i['local_name'] === $filters['local_name'];
-                }
-            );
+            if (in_array($filters['block_type'], [self::POSTS_LIST_NAME, self::ACTIONS_LIST_NAME], true)) {
+                $filtered = $this->filter_query_blocks($filtered, $filters['block_type']);
+            } else {
+                $filtered = array_filter(
+                    $filtered,
+                    function ($block) use ($filters) {
+                        return $block['block_type'] === $filters['block_type']
+                            || $block['local_name'] === $filters['local_name'];
+                    }
+                );
+            }
         } elseif (! empty($filters['block_ns'])) {
             $filtered = array_filter(
                 $filtered,
-                function ($i) use ($filters) {
-                    return $i['block_ns'] === $filters['block_ns'];
+                function ($block) use ($filters) {
+                    return $block['block_ns'] === $filters['block_ns'];
                 }
             );
         }
@@ -142,8 +153,8 @@ class BlockUsage
         if (! empty($text)) {
             $filtered = array_filter(
                 $filtered,
-                function ($i) use ($text) {
-                    return strpos($i['block_type'], $text) !== false
+                function ($block) use ($text) {
+                    return strpos($block['block_type'], $text) !== false
 						//phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.serialize_serialize
                         || strpos(serialize($i['block_attrs']), $text) !== false;
                 }
