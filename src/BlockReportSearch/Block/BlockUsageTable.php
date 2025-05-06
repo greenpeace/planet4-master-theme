@@ -246,7 +246,8 @@ class BlockUsageTable extends WP_List_Table
             if (! is_array($on_type)) {
                 $on_type = $on_type ? $this->blocks_registered : [];
             }
-            $allowed = array_merge($allowed, array_values($on_type));
+            $query_loop_variations = [$this->block_usage::POSTS_LIST_NAME, $this->block_usage::ACTIONS_LIST_NAME];
+            $allowed = array_merge($allowed, array_values($on_type), $query_loop_variations);
         }
 
         $allowed = array_unique($allowed);
@@ -540,13 +541,14 @@ class BlockUsageTable extends WP_List_Table
         $cols = $this->get_columns();
         $colspan = count($cols);
         $first_col = array_key_first($cols);
+        $block_name = $_GET['name'] ?? null;
 
         if ($this->latest_row !== $item[ $first_col ]) {
             echo '<tr>';
             echo sprintf(
                 '<th colspan="%s"><strong>%s</strong></th>',
                 esc_attr($colspan),
-                esc_html($item[ $first_col ])
+                esc_html($block_name)
             );
             echo '</tr>';
         }

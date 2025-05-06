@@ -52,12 +52,10 @@ class SqlQuery implements Block\Query
     private function get_sql_query(Block\Query\Parameters ...$params_list): string
     {
         // Prepare query parameters.
-        $like = [];
         $status = [];
         $type = [];
         $order = [];
         foreach ($params_list as $params) {
-            $like[] = ( new Like($params) )->__toString();
             $status = array_merge($status, $params->post_status() ?? []);
             $type = array_merge($type, $params->post_type() ?? []);
             $order = array_merge($order, $params->order() ?? []);
@@ -73,9 +71,6 @@ class SqlQuery implements Block\Query
 			WHERE post_status IN ' . $sql_params->string_list($status);
         if (! empty($type)) {
             $sql .= ' AND post_type IN ' . $sql_params->string_list($type);
-        }
-        foreach ($like as $l) {
-            $sql .= ' AND post_content LIKE ' . $sql_params->string($l) . ' ';
         }
         if (! empty($order)) {
             $sql .= ' ORDER BY ' . implode(',', $order);
