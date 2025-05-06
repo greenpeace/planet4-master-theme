@@ -4,11 +4,11 @@
 
     <div class="clearfix"></div>
 
-    <article id="post-{{ post.ID }}">
+    <main id="post-{{ post.ID }}">
 
-        <div class="container narrow-container">
+        <article class="container narrow-container">
             <header class="page-header">
-                <div class="top-page-tags">
+                <nav class="top-page-tags">
                     {% if ( page_type ) %}
                         <a
                             class="tag-item tag-item--main page-type"
@@ -43,7 +43,7 @@
                             {% endfor %}
                         </div>
                     {% endif %}
-                </div>
+                </nav>
                 <h1 class="page-header-title">{{ post.title|raw }}</h1>
                 <div class="single-post-meta">
                     {% if not post.get_author_override and post.author.avatar %}
@@ -100,17 +100,13 @@
                     </div>
                 {% endif %}
             </header>
-        </div>
-
-        <!-- Post Block Start -->
-        <div class="container narrow-container">
             <div class="post-content" id="content">
-                <article class="post-details clearfix">
+                <div class="post-details clearfix">
                     {{ post.content|raw }}
                     {% if ( post.take_action_boxout ) %}
                         {{ fn('do_blocks', post.take_action_boxout )|raw }}
                     {% endif %}
-                </article>
+                </div>
             </div>
             <div class="post-tags">
                 {% if ( post.tags ) %}
@@ -126,8 +122,7 @@
                     {% endfor %}
                 {% endif %}
             </div>
-        </div>
-        <!-- Post Page Block End -->
+        </article>
 
         {% include "blocks/author_profile.twig" with {post:post} %}
 
@@ -139,5 +134,5 @@
         {% if ( show_comments ) %}
             {% include "comments_section.twig" with {comments:post.get_comments()} %}
         {% endif %}
-    </article>
+    </main>
 {% endblock %}
