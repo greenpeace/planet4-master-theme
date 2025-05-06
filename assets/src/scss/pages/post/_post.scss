@@ -55,10 +55,13 @@
 
 .single-post-author {
   font-family: var(--font-family-paragraph-secondary);
-  font-weight: var(--font-weight-semibold);
   color: var(--color-text-meta_item);
   display: block;
   margin: 0;
+
+  a {
+    font-weight: var(--font-weight-semibold);
+  }
 }
 
 .single-post-time,
