@@ -718,7 +718,7 @@ class Post extends TimberPost
             }
         }
 
-        return '<div class="container bottom-navigation">' . $output . '</div>';
+        return '<nav class="container bottom-navigation">' . $output . '</nav>';
     }
 }
 // phpcs:enable Generic.Files.LineLength.MaxExceeded

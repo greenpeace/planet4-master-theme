@@ -6,7 +6,11 @@ document.addEventListener('DOMContentLoaded', () => {
     return;
   }
 
-  const toggleSubmit = () => { submit.disabled = !checkbox.checked; };
+  const toggleSubmit = () => {
+    const isChecked = checkbox.checked;
+    submit.disabled = !isChecked;
+    submit.setAttribute('aria-disabled', !isChecked);
+  };
 
   checkbox.addEventListener('change', toggleSubmit);
   toggleSubmit();
