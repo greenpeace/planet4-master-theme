@@ -399,7 +399,8 @@ class MasterSite extends TimberSite
         add_filter(
             'body_class',
             function ($classes) {
-                $enable_transparent_nav = planet4_get_option('transparent_nav') ?? false;
+                $enable_transparent_nav = !empty(planet4_get_option('transparent_nav'));
+
                 if (is_front_page() && $enable_transparent_nav) {
                     $classes[] = 'transparent-nav';
                 }
