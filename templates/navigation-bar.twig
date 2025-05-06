@@ -1,6 +1,4 @@
-{% set header_classes = 'top-navigation navbar'
-    ~ (custom_styles.nav_border == 'border' ? ' navigation-bar_border' : '')
-    ~ (mobile_tabs_menu ? ' with-mobile-tabs' : '') %}
+{% set header_classes = 'top-navigation navbar' ~ (custom_styles.nav_border == 'border' ? ' navigation-bar_border' : '') %}
 {% set search_icon = 'search'|svgicon %}
 {% set search_input_id = 'search_input' %}
 {% set data_ga_attrs = 'data-ga-category="Menu Navigation" data-ga-action="Search" data-ga-label="' ~ page_category ~ '"' %}
