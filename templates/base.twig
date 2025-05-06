@@ -4,8 +4,10 @@
 
 {% endblock %}
 
+{% set mobile_tabs_class = mobile_tabs_menu ? 'with-mobile-tabs' : '' %}
+
 <body
-    class="{{ body_class }} {{ custom_body_classes|default("") }}"
+    class="{{ body_class }} {{ custom_body_classes|default("") }} {{ mobile_tabs_class }}"
     data-nro="{{ site.link }}"
     data-post-type="{{ fn( 'get_post_type' ) }}"
     data-post-categories="{{ fn( 'get_the_category')|map(cat => cat.term_id)|join(',') }}"

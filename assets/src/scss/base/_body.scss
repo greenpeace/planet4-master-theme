@@ -16,6 +16,18 @@ body {
   .mejs-container {
     clear: initial;
   }
+
+  @include medium-and-less {
+    &.with-mobile-tabs {
+      .page-header {
+        padding-top: 140px;
+      }
+
+      .no-page-title {
+        padding-top: 110px;
+      }
+    }
+  }
 }
 
 .container > * {

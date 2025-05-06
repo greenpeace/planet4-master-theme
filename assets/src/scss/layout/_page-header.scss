@@ -87,15 +87,6 @@
   }
 }
 
-.with-mobile-tabs {
-  ~ .page-header,
-  ~ article .page-header {
-    @include medium-and-less {
-      padding-top: 140px;
-    }
-  }
-}
-
 .page-header-background {
   overflow: hidden;
   position: absolute;
