@@ -36,7 +36,7 @@ abstract class BaseBlock
     {
         $data = $this->prepare_data($attributes);
 
-        $block_output = \Timber::compile(static::BLOCK_NAME . '.twig', $data);
+        $block_output = \Timber\Timber::compile(static::BLOCK_NAME . '.twig', $data);
 
         // phpcs:ignore WordPress.WP.I18n.NonSingularStringLiteralText
         $empty_message = defined('static::EMPTY_MESSAGE') ? __(static::EMPTY_MESSAGE, 'planet4-blocks') :

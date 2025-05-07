@@ -708,21 +708,21 @@ class MasterSite extends \Timber\Site
         $context['copyright_text_line2'] = $options['copyright_line2'] ?? '';
 
         if (has_nav_menu('footer-social-menu')) {
-            $footer_social_menu = new TimberMenu('footer-social-menu');
+            $footer_social_menu = Timber::get_menu('footer-social-menu');
             $context['footer_social_menu'] = wp_get_nav_menu_items($footer_social_menu->id);
         } else {
             $context['footer_social_menu'] = wp_get_nav_menu_items('Footer Social');
         }
 
         if (has_nav_menu('footer-primary-menu')) {
-            $footer_primary_menu = new TimberMenu('footer-primary-menu');
+            $footer_primary_menu = Timber::get_menu('footer-primary-menu');
             $context['footer_primary_menu'] = wp_get_nav_menu_items($footer_primary_menu->id);
         } else {
             $context['footer_primary_menu'] = wp_get_nav_menu_items('Footer Primary');
         }
 
         if (has_nav_menu('footer-secondary-menu')) {
-            $footer_secondary_menu = new TimberMenu('footer-secondary-menu');
+            $footer_secondary_menu = Timber::get_menu('footer-secondary-menu');
             $context['footer_secondary_menu'] = wp_get_nav_menu_items($footer_secondary_menu->id);
         } else {
             $context['footer_secondary_menu'] = wp_get_nav_menu_items('Footer Secondary');

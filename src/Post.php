@@ -3,7 +3,6 @@
 namespace P4\MasterTheme;
 
 use Timber\Timber;
-use Timber\Menu as TimberMenu;
 use P4\MasterTheme\Features\OldPostsArchiveNotice;
 use WP_Block;
 use WP_Error;
@@ -685,7 +684,7 @@ class Post extends \Timber\Post
     {
         global $post;
 
-        $menu = new TimberMenu('navigation-bar-menu');
+        $menu = Timber::get_menu('navigation-bar-menu');
         $menu_items = $menu->get_items();
 
         // Check if the current page is in the menu
