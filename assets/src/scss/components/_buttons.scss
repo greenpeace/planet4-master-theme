@@ -16,8 +16,7 @@
     transition-timing-function: linear;
 
     &:focus {
-      outline: 2px solid rgba(0, 106, 255, 0.4);
-      outline-offset: 2px;
+      @include focus-styles;
     }
   }
 
