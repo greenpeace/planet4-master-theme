@@ -90,7 +90,6 @@ if (!class_exists('\\Timber\\Timber')) {
     );
     return;
 }
-\Timber\Timber::init();
 
 add_action(
     'rest_api_init',
