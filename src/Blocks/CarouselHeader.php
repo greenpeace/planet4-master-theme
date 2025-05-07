@@ -111,23 +111,6 @@ class CarouselHeader extends BaseBlock
     // @phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter
 
     /**
-     * Load additional frontend assets
-     */
-    public static function enqueue_frontend_assets(): void
-    {
-        if (BlockList::has_block(self::get_full_block_name())) {
-            wp_enqueue_script(
-                'hammer',
-                'https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js',
-                [],
-                '2.0.8',
-                true
-            );
-        }
-        parent::enqueue_frontend_assets();
-    }
-
-    /**
      * If the content is not empty, it's the new version and doesn't need any back end rendering.
      * Otherwise, it means the block was not migrated in the editor yet. Fall back to front end rendering from scratch.
      *
