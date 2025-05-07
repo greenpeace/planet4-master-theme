@@ -27,13 +27,5 @@ class TimberSettings
             $options['cache'] = defined('WP_DEBUG') ? !WP_DEBUG : true;
             return $options;
         });
-
-        add_filter('timber/locations', static function (array $locations): array {
-            $locations['enform'] = [
-                dirname(__DIR__) . '/templates/block_templates',
-                dirname(__DIR__) . '/templates/block_templates/enform',
-            ];
-            return $locations;
-        });
     }
 }
