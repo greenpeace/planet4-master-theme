@@ -180,6 +180,8 @@ export const SocialMediaEditor = ({
               {__('What Facebook page content would you like to display?', 'planet4-blocks-backend')}
             </label>
             <SelectControl
+              __nextHasNoMarginBottom
+              __next40pxDefaultSize
               id="render-siderbar__control"
               value={facebook_page_tab}
               options={[
@@ -198,6 +200,8 @@ export const SocialMediaEditor = ({
           onChange={toAttribute('social_media_url')}
         />
         <SelectControl
+          __nextHasNoMarginBottom
+          __next40pxDefaultSize
           label={__('Alignment', 'planet4-blocks-backend')}
           value={alignment_class}
           options={[

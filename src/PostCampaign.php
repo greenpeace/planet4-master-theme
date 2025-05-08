@@ -127,7 +127,7 @@ class PostCampaign
             'menu_name' => _x('Campaigns', 'admin menu', 'planet4-master-theme-backend'),
             'name_admin_bar' => _x('Campaign', 'add new on admin bar', 'planet4-master-theme-backend'),
             'add_new' => _x('Add New', 'campaign', 'planet4-master-theme-backend'),
-            'add_new_item' => __('Add New Campaign', 'planet4-master-theme-backend'),
+            'add_new_item' => __('Add Campaign', 'planet4-master-theme-backend'),
             'new_item' => __('New Campaign', 'planet4-master-theme-backend'),
             'edit_item' => __('Edit Campaign', 'planet4-master-theme-backend'),
             'view_item' => __('View Campaign', 'planet4-master-theme-backend'),

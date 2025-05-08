@@ -39,6 +39,8 @@ const renderEdit = (attributes, toAttribute, setAttributes, isSelected) => {
       <InspectorControls>
         <PanelBody title={__('Settings', 'planet4-blocks-backend')}>
           <RangeControl
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
             label={__('Columns', 'planet4-blocks-backend')}
             value={columns.length}
             onChange={value => {
@@ -64,6 +66,7 @@ const renderEdit = (attributes, toAttribute, setAttributes, isSelected) => {
                   onChange={toAttribute('cta_link', index)}
                 />
                 <CheckboxControl
+                  __nextHasNoMarginBottom
                   label={__('Open link in new tab', 'planet4-blocks-backend')}
                   value={link_new_tab}
                   checked={link_new_tab}
