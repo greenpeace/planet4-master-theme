@@ -1,0 +1,20 @@
+.wp-block-quote {
+  font-style: italic;
+
+  > p {
+    font-size: $font-size-lg;
+    line-height: 1.2;
+
+    @include medium-and-up {
+      font-size: $font-size-xl;
+    }
+
+    @include x-large-and-up {
+      font-size: $font-size-xl;
+    }
+  }
+
+  cite {
+    font-style: normal;
+  }
+}
