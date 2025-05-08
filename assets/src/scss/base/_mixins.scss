@@ -274,14 +274,17 @@ $nested-comment-left-margin: 50px;
   background-size: 100% 0;
   background-position: bottom;
   transition: background-size .15s ease;
+  color: var(--color-text-body);
 
   &:hover {
     background-size: 100% 100%;
+    color: var(--color-text-body);
   }
 
   &:hover,
   &:active {
     text-decoration: none !important;
+    color: var(--color-text-body);
   }
 }
 

@@ -15,8 +15,7 @@
   }
 
   p:not(.article-list-item-meta) a,
-  > ul li a,
-  > ol li a {
+  .wp-block-list a {
     @include shared-link-styles;
   }
 

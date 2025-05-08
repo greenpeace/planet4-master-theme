@@ -100,8 +100,7 @@
   }
 
   p:not(.article-list-item-meta) a,
-  > article > ul li a,
-  > article > ol li a,
+  > article .wp-block-list a,
   > article > li a {
     @include shared-link-styles;
   }
