@@ -122,7 +122,8 @@ class GravityFormsExtensions
         add_action('gform_stripe_fulfillment', [ $this, 'record_fulfillment_entry' ], 10, 2);
         add_action('gform_post_payment_action', [ $this, 'check_stripe_payment_status' ], 10, 2);
         add_action('gform_pre_render', [$this, 'enqueue_share_buttons'], 10, 2);
-        add_filter('gform_merge_tag_filter', [$this, 'fix_attachment_links'], 10, 6);
+        add_filter('gform_merge_tag_filter', [$this, 'fix_email_attachment_link'], 10, 6);
+        add_filter('gform_entry_field_value', [$this, 'fix_entry_file_link'], 10, 4);
     }
 
     /**
@@ -135,7 +136,7 @@ class GravityFormsExtensions
      *
      * @phpcs:disable SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter
      */
-    public function fix_attachment_links(
+    public function fix_email_attachment_link(
         string $value,
         string $merge_tag,
         string $modifier,
@@ -143,42 +144,60 @@ class GravityFormsExtensions
         mixed $raw_value,
         string $format
     ) {
-        if ($merge_tag === 'all_fields' && $field->type === 'fileupload') {
-            // Extract URL from the value
-            preg_match("/href='([^']+)'/", $value, $matches);
-            $href = $matches[1] ?? null;
+        if ($field->type === 'fileupload' && $merge_tag === 'all_fields') {
+            $value = self::fix_google_cloud_link($value);
+        }
+        return $value;
+    }
 
-            if ($href) {
-                // Parse the URL
-                $parts = parse_url($href);
-                $scheme = $parts['scheme']; // https
-                $host = $parts['host'];     // www.greenpeace.org
-                $path = $parts['path'];     // /static/planet4-test.../filename
-
-                // Split path into segments
-                $segments = explode('/', trim($path, '/'));
-
-                // Check for the duplicated sub-folders
-                if (isset($segments[2], $segments[3], $segments[6], $segments[7]) &&
-                    $segments[2] === $segments[6] &&
-                    $segments[3] === $segments[7]) {
-
-                    // Remove indexes 2 and 3 that contain the duplicated elements
-                    unset($segments[2], $segments[3]);
-
-                    // Reindex array and create the full new URL
-                    $segments = array_values($segments);
-                    $new_path = '/' . implode('/', $segments);
-                    $new_url = $scheme . '://' . $host . $new_path;
-
-                    // Replace old href with the corrected one
-                    $value = str_replace($href, $new_url, $value);
-                }
-            }
+    public function fix_entry_file_link(
+        string $value,
+        object $field,
+        object $entry,
+        object $form
+    ) {
+        if ($field->type !== 'fileupload') {
+            $value = self::fix_google_cloud_link($value);
         }
         return $value;
     }
     // @phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter
+
+    private function fix_google_cloud_link($value)
+    {
+        // Extract URL from the value
+        preg_match("/href='([^']+)'/", $value, $matches);
+        $href = $matches[1] ?? null;
+
+        if ($href) {
+            // Parse the URL
+            $parts = parse_url($href);
+            $scheme = $parts['scheme']; // https
+            $host = $parts['host'];     // www.greenpeace.org
+            $path = $parts['path'];     // /static/planet4-test.../filename
+
+            // Split path into segments
+            $segments = explode('/', trim($path, '/'));
+
+            // Check for the duplicated sub-folders
+            if (isset($segments[2], $segments[3], $segments[6], $segments[7]) &&
+                $segments[2] === $segments[6] &&
+                $segments[3] === $segments[7]) {
+
+                // Remove indexes 2 and 3 that contain the duplicated elements
+                unset($segments[2], $segments[3]);
+
+                // Reindex array and create the full new URL
+                $segments = array_values($segments);
+                $new_path = '/' . implode('/', $segments);
+                $new_url = $scheme . '://' . $host . $new_path;
+
+                // Replace old href with the corrected one
+                $value = str_replace($href, $new_url, $value);
+            }
+        }
+        return $value;
+    }
 
     /**
      * Enqueue the share buttons script only if the confirmation type is a message.
