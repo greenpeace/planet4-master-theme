@@ -99,13 +99,6 @@
     }
   }
 
-  p:not(.article-list-item-meta) a,
-  > article > ul li a,
-  > article > ol li a,
-  > article > li a {
-    @include shared-link-styles;
-  }
-
   img {
     max-width: 100%;
     height: auto;
@@ -268,6 +261,13 @@
   h4 {
     padding: $sp-2x 0 $sp-1 0;
     font-weight: 700;
+  }
+
+  p:not(.article-list-item-meta) a,
+  .wp-block-list a,
+  > ul li a,
+  > ol li a {
+    @include shared-link-styles;
   }
 }
 
