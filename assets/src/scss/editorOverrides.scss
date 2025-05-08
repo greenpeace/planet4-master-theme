@@ -130,8 +130,7 @@
     }
   }
 
-  > ul li a,
-  > ol li a {
+  .wp-block-list a {
     @include shared-link-styles;
   }
 }
