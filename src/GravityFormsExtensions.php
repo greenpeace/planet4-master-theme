@@ -134,6 +134,8 @@ class GravityFormsExtensions
      * has to be turned into "https://www.greenpeace.org/static/bucket/gravity_forms/some_id/2025/05/filename"
      * as the "year/month" sub-folders ("2025/05") are duplicated.
      *
+     * @return string The formated link.
+     *
      * @phpcs:disable SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter
      */
     public function fix_email_attachment_link(
@@ -143,19 +145,24 @@ class GravityFormsExtensions
         object $field,
         mixed $raw_value,
         string $format
-    ) {
+    ): string {
         if ($field->type === 'fileupload' && $merge_tag === 'all_fields') {
             $value = self::fix_google_cloud_link($value);
         }
         return $value;
     }
 
+    /**
+     * AAA
+     *
+     * @return string The formated value.
+     */
     public function fix_entry_file_link(
         string $value,
         object $field,
         object $entry,
         object $form
-    ) {
+    ): string {
         if ($field->type !== 'fileupload') {
             $value = self::fix_google_cloud_link($value);
         }
@@ -163,7 +170,12 @@ class GravityFormsExtensions
     }
     // @phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter
 
-    private function fix_google_cloud_link($value)
+    /**
+     * AAA
+     *
+     * @return string The formated value.
+     */
+    private function fix_google_cloud_link(string $value): string
     {
         // Extract URL from the value
         preg_match("/href='([^']+)'/", $value, $matches);
@@ -173,17 +185,18 @@ class GravityFormsExtensions
             // Parse the URL
             $parts = parse_url($href);
             $scheme = $parts['scheme']; // https
-            $host = $parts['host'];     // www.greenpeace.org
-            $path = $parts['path'];     // /static/planet4-test.../filename
+            $host = $parts['host']; // www.greenpeace.org
+            $path = $parts['path']; // /static/planet4-test.../filename
 
             // Split path into segments
             $segments = explode('/', trim($path, '/'));
 
             // Check for the duplicated sub-folders
-            if (isset($segments[2], $segments[3], $segments[6], $segments[7]) &&
+            if (
+                isset($segments[2], $segments[3], $segments[6], $segments[7]) &&
                 $segments[2] === $segments[6] &&
-                $segments[3] === $segments[7]) {
-
+                $segments[3] === $segments[7]
+            ) {
                 // Remove indexes 2 and 3 that contain the duplicated elements
                 unset($segments[2], $segments[3]);
 
