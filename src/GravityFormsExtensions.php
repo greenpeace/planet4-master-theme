@@ -147,34 +147,24 @@ class GravityFormsExtensions
         string $format
     ): string {
         if ($field->type === 'fileupload' && $merge_tag === 'all_fields') {
-            $value = self::fix_google_cloud_link($value);
+            $value = $this->fix_google_cloud_link($value);
         }
         return $value;
     }
 
-    /**
-     * AAA
-     *
-     * @return string The formated value.
-     */
     public function fix_entry_file_link(
         string $value,
         object $field,
-        object $entry,
-        object $form
+        mixed $entry,
+        mixed $form
     ): string {
-        if ($field->type !== 'fileupload') {
-            $value = self::fix_google_cloud_link($value);
+        if ($field->type === 'fileupload') {
+            $value = $this->fix_google_cloud_link($value);
         }
         return $value;
     }
     // @phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter
 
-    /**
-     * AAA
-     *
-     * @return string The formated value.
-     */
     private function fix_google_cloud_link(string $value): string
     {
         // Extract URL from the value
