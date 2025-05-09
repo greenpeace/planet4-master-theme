@@ -194,6 +194,13 @@ class GravityFormsExtensions
     }
     // @phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter
 
+    /**
+     * Remove the duplicated path from a link.
+     *
+     * For example, "https://www.greenpeace.org/static/bucket/2025/05/gravity_forms/some_id/2025/05/filename"
+     * is turned into "https://www.greenpeace.org/static/bucket/gravity_forms/some_id/2025/05/filename"
+     * as the "year/month" sub-folders ("2025/05") are duplicated.
+     */
     private function fix_google_cloud_link(string $value): string
     {
         // Match all href='...'
@@ -215,18 +222,20 @@ class GravityFormsExtensions
 
                 // Check for duplicated folders (index 2 == 6 and 3 == 7)
                 if (
-                    isset($segments[2], $segments[3], $segments[6], $segments[7]) &&
-                    $segments[2] === $segments[6] &&
-                    $segments[3] === $segments[7]
+                    !isset($segments[2], $segments[3], $segments[6], $segments[7]) ||
+                    $segments[2] !== $segments[6] ||
+                    $segments[3] !== $segments[7]
                 ) {
-                    unset($segments[2], $segments[3]);
-                    $segments = array_values($segments);
-                    $new_path = '/' . implode('/', $segments);
-                    $new_url = $scheme . '://' . $host . $new_path;
-
-                    // Replace only the href portion inside the value
-                    $value = str_replace($href, $new_url, $value);
+                    continue;
                 }
+
+                unset($segments[2], $segments[3]);
+                $segments = array_values($segments);
+                $new_path = '/' . implode('/', $segments);
+                $new_url = $scheme . '://' . $host . $new_path;
+
+                // Replace only the href portion inside the value
+                $value = str_replace($href, $new_url, $value);
             }
         }
         return $value;
