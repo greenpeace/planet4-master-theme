@@ -122,8 +122,10 @@ class GravityFormsExtensions
         add_action('gform_stripe_fulfillment', [ $this, 'record_fulfillment_entry' ], 10, 2);
         add_action('gform_post_payment_action', [ $this, 'check_stripe_payment_status' ], 10, 2);
         add_action('gform_pre_render', [$this, 'enqueue_share_buttons'], 10, 2);
-        add_filter('gform_merge_tag_filter', [$this, 'fix_email_attachment_link'], 10, 6);
-        add_filter('gform_entry_field_value', [$this, 'fix_entry_file_link'], 10, 4);
+        // add_filter('gform_merge_tag_filter', [$this, 'fix_email_attachment_link'], 10, 6);
+        // add_filter('gform_entry_field_value', [$this, 'fix_entry_file_link'], 10, 4);
+
+        add_filter('gform_get_field_value', [$this, 'fix_entry_file_link'], 10, 3);
     }
 
     /**
@@ -152,11 +154,22 @@ class GravityFormsExtensions
         return $value;
     }
 
+    // public function fix_entry_file_link(
+    //     string $value,
+    //     object $field,
+    //     mixed $entry,
+    //     mixed $form
+    // ): string {
+    //     if ($field->type === 'fileupload') {
+    //         $value = $this->fix_google_cloud_link($value);
+    //     }
+    //     return $value;
+    // }
+
     public function fix_entry_file_link(
         string $value,
-        object $field,
         mixed $entry,
-        mixed $form
+        object $field
     ): string {
         if ($field->type === 'fileupload') {
             $value = $this->fix_google_cloud_link($value);
