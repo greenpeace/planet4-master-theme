@@ -61,53 +61,6 @@ function editFunction({attributes, context}) {
   return content;
 }
 
-// function editFunction({attributes, context}) {
-//   const {post_type} = attributes;
-//   const postId = context.postId;
-//   const [term, setTerm] = wp.element.useState(null);
-//   const TAXONOMY = window.p4_vars.options.taxonomy_breadcrumbs || null;
-
-//   wp.element.useEffect(() => {
-//     (async () => {
-//       if (!postId || !TAXONOMY || !post_type) {return;}
-
-//       const taxonomyField = TAXONOMY === 'category' ? 'categories' : TAXONOMY;
-
-//     wp.apiFetch({path: `/wp/v2/${postTypeField}/${postId}`}).then(post => {
-//       const termIds = post[taxonomyField];
-//       if (termIds && termIds.length > 0) {
-//         wp.apiFetch({path: `/wp/v2/${taxonomyField}/${termIds[0]}`}).then(termData => {
-//           setTerm(termData.name);
-//         });
-//       }
-
-//       // Pluralize post types
-//       for(const type of [['post', 'posts'], ['page', 'pages']]) {
-//         if(postTypeField === type[0]) {
-//           postTypeField = type[1];
-//         }
-//       }
-
-//       wp.apiFetch({path: `/wp/v2/${postTypeField}/${postId}`}).then(post => {
-//         const termIds = post[taxonomyField];
-//         if (termIds && termIds.length > 0) {
-//           wp.apiFetch({path: `/wp/v2/${taxonomyField}/${termIds[0]}`}).then(termData => {
-//             setTerm(termData.name);
-//           });
-//         }
-//       });
-//     })();
-//   }, [postId, TAXONOMY]);
-
-//   const linkAttrs = {href: '', onClick: e => e.preventDefault()};
-//   const contentAttrs = {className: 'taxonomy-category wp-block-post-terms'};
-
-//   const link = wp.element.createElement('a', linkAttrs, term || 'Loading...');
-//   const content = wp.element.createElement('div', contentAttrs, link);
-
-//   return content;
-// }
-
 function saveFunction() {
   return null;
 }
