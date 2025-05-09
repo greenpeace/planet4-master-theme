@@ -299,7 +299,8 @@ function register_more_blocks(): void
             'api_version' => 2,
             'render_callback' => function ($attributes, $block) {
                 $post_id = $block->context['postId'] ?? get_the_ID();
-                $taxonomy = $attributes['taxonomy'] ?? 'category';
+                $options = get_option('planet4_options');
+                $taxonomy = $options['global_taxonomy_breadcrumbs'] ?? 'category';
 
                 $terms = get_the_terms($post_id, $taxonomy);
                 if (is_wp_error($terms) || empty($terms)) {
