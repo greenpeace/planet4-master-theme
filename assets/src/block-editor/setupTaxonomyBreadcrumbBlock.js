@@ -40,12 +40,15 @@ function editFunction({attributes, context}) {
     (async () => {
       if (!postId || !TAXONOMY || !post_type) {return;}
 
-      const taxonomyField = TAXONOMY === 'category' ? 'categories' : TAXONOMY;
+      let postTypeField = '';
+      let taxonomyField = '';
 
-      let postTypeField = post_type;
-
-      if(postTypeField === 'p4_multipost') {
+      if(post_type === 'p4_multipost') {
         postTypeField = await wp.apiFetch({path: `/wp/v2/p4_multipost/${postId}`});
+        taxonomyField = 'categories';
+      } else {
+        postTypeField = post_type;
+        taxonomyField = TAXONOMY === 'category' ? 'categories' : TAXONOMY;
       }
 
       // Pluralize post types
