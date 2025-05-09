@@ -196,36 +196,37 @@ class GravityFormsExtensions
 
     private function fix_google_cloud_link(string $value): string
     {
-        // Extract URL from the value
-        preg_match("/href='([^']+)'/", $value, $matches);
-        $href = $matches[1] ?? null;
+        // Match all href='...'
+        preg_match_all("/href='([^']+)'/", $value, $matches);
 
-        if ($href) {
-            // Parse the URL
-            $parts = parse_url($href);
-            $scheme = $parts['scheme']; // https
-            $host = $parts['host']; // www.greenpeace.org
-            $path = $parts['path']; // /static/planet4-test.../filename
+        if (!empty($matches[1])) {
+            foreach ($matches[1] as $href) {
+                // Parse the URL
+                $parts = parse_url($href);
+                if (!isset($parts['scheme'], $parts['host'], $parts['path'])) {
+                    continue; // Skip invalid URLs
+                }
 
-            // Split path into segments
-            $segments = explode('/', trim($path, '/'));
+                $scheme = $parts['scheme'];
+                $host = $parts['host'];
+                $path = $parts['path'];
 
-            // Check for the duplicated sub-folders
-            if (
-                isset($segments[2], $segments[3], $segments[6], $segments[7]) &&
-                $segments[2] === $segments[6] &&
-                $segments[3] === $segments[7]
-            ) {
-                // Remove indexes 2 and 3 that contain the duplicated elements
-                unset($segments[2], $segments[3]);
+                $segments = explode('/', trim($path, '/'));
 
-                // Reindex array and create the full new URL
-                $segments = array_values($segments);
-                $new_path = '/' . implode('/', $segments);
-                $new_url = $scheme . '://' . $host . $new_path;
+                // Check for duplicated folders (index 2 == 6 and 3 == 7)
+                if (
+                    isset($segments[2], $segments[3], $segments[6], $segments[7]) &&
+                    $segments[2] === $segments[6] &&
+                    $segments[3] === $segments[7]
+                ) {
+                    unset($segments[2], $segments[3]);
+                    $segments = array_values($segments);
+                    $new_path = '/' . implode('/', $segments);
+                    $new_url = $scheme . '://' . $host . $new_path;
 
-                // Replace old href with the corrected one
-                $value = str_replace($href, $new_url, $value);
+                    // Replace only the href portion inside the value
+                    $value = str_replace($href, $new_url, $value);
+                }
             }
         }
         return $value;
