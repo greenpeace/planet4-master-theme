@@ -302,6 +302,7 @@ function register_more_blocks(): void
                 $global_taxonomy = $options['global_taxonomy_breadcrumbs'] ?? 'category';
                 $taxonomy = ($attributes['post_type'] === 'p4_action' || $attributes['post_type'] === 'post') ? 'category' : $global_taxonomy;
                 // $taxonomy = $options['global_taxonomy_breadcrumbs'] ?? 'category';
+                $taxonomy = $attributes['post_type'] === 'p4_multipost' ? 'category' : $global_taxonomy;
 
                 $terms = get_the_terms($post_id, $taxonomy);
                 if (is_wp_error($terms) || empty($terms)) {
