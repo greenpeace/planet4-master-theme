@@ -126,6 +126,14 @@ class GravityFormsExtensions
         add_action('gform_pre_render', [$this, 'enqueue_share_buttons'], 10, 2);
     }
 
+    /**
+     * Fix the link to files uploaded in a form.
+     *
+     * We need this because WP-Stateless duplicates the "year/month" path added as part of the file URL.
+     * For example, "https://www.greenpeace.org/static/bucket/2025/05/gravity_forms/some_id/2025/05/filename"
+     * has to be turned into "https://www.greenpeace.org/static/bucket/gravity_forms/some_id/2025/05/filename"
+     * as the "year/month" sub-folders ("2025/05") are duplicated.
+     */
     private function fix_file_links(): void
     {
         add_filter('gform_merge_tag_filter', [$this, 'fix_email_file_link'], 10, 6);
@@ -133,17 +141,10 @@ class GravityFormsExtensions
         add_filter('gform_entries_field_value', [$this, 'fix_entries_file_link'], 10, 4);
     }
 
+    // @phpcs:disable SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter
+
     /**
      * Fix the link in the email body that connects to files uploaded in a form.
-     *
-     * We need this because WP-Stateless duplicates the "year/month" added as part of the file URL.
-     * For example, "https://www.greenpeace.org/static/bucket/2025/05/gravity_forms/some_id/2025/05/filename"
-     * has to be turned into "https://www.greenpeace.org/static/bucket/gravity_forms/some_id/2025/05/filename"
-     * as the "year/month" sub-folders ("2025/05") are duplicated.
-     *
-     * @return string The formated link.
-     *
-     * @phpcs:disable SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter
      */
     public function fix_email_file_link(
         string $value,
@@ -159,6 +160,9 @@ class GravityFormsExtensions
         return $value;
     }
 
+    /**
+     * Fix the link in a single entry that connects to files uploaded in a form.
+     */
     public function fix_entry_file_link(
         string $value,
         object $field,
@@ -171,6 +175,9 @@ class GravityFormsExtensions
         return $value;
     }
 
+    /**
+     * Fix the link in the entries page that connects to files uploaded in a form.
+     */
     public function fix_entries_file_link(
         string $value,
         int $form_id,
