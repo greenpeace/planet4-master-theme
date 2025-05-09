@@ -140,6 +140,7 @@ class Settings
                         'options' => [
                             'category' => __('Category', 'planet4-master-theme-backend'),
                             'p4-page-type' => __('Post Type', 'planet4-master-theme-backend'),
+                            // 'post_type' => __('Post Type', 'planet4-master-theme-backend'),
                         ],
                         'default' => 'category',
                         'desc' => __('Choose which taxonomy to display on Post breadcrumbs', 'planet4-master-theme-backend'),
