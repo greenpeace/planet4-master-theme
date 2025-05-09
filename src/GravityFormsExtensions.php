@@ -4,6 +4,7 @@ namespace P4\MasterTheme;
 
 use GFAPI;
 use GFCommon;
+use GFFormsModel;
 use DOMDocument;
 use Timber\Timber;
 
@@ -97,6 +98,7 @@ class GravityFormsExtensions
     public function __construct()
     {
         $this->hooks();
+        $this->fix_file_links();
     }
 
     /**
@@ -122,10 +124,13 @@ class GravityFormsExtensions
         add_action('gform_stripe_fulfillment', [ $this, 'record_fulfillment_entry' ], 10, 2);
         add_action('gform_post_payment_action', [ $this, 'check_stripe_payment_status' ], 10, 2);
         add_action('gform_pre_render', [$this, 'enqueue_share_buttons'], 10, 2);
-        // add_filter('gform_merge_tag_filter', [$this, 'fix_email_attachment_link'], 10, 6);
-        // add_filter('gform_entry_field_value', [$this, 'fix_entry_file_link'], 10, 4);
+    }
 
-        add_filter('gform_get_field_value', [$this, 'fix_entry_file_link'], 10, 3);
+    private function fix_file_links(): void
+    {
+        add_filter('gform_merge_tag_filter', [$this, 'fix_email_file_link'], 10, 6);
+        add_filter('gform_entry_field_value', [$this, 'fix_entry_file_link'], 10, 4);
+        add_filter('gform_entries_field_value', [$this, 'fix_entries_file_link'], 10, 4);
     }
 
     /**
@@ -140,7 +145,7 @@ class GravityFormsExtensions
      *
      * @phpcs:disable SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter
      */
-    public function fix_email_attachment_link(
+    public function fix_email_file_link(
         string $value,
         string $merge_tag,
         string $modifier,
@@ -154,23 +159,27 @@ class GravityFormsExtensions
         return $value;
     }
 
-    // public function fix_entry_file_link(
-    //     string $value,
-    //     object $field,
-    //     mixed $entry,
-    //     mixed $form
-    // ): string {
-    //     if ($field->type === 'fileupload') {
-    //         $value = $this->fix_google_cloud_link($value);
-    //     }
-    //     return $value;
-    // }
-
     public function fix_entry_file_link(
         string $value,
+        object $field,
         mixed $entry,
-        object $field
+        mixed $form
     ): string {
+        if ($field->type === 'fileupload') {
+            $value = $this->fix_google_cloud_link($value);
+        }
+        return $value;
+    }
+
+    public function fix_entries_file_link(
+        string $value,
+        int $form_id,
+        int $field_id,
+        mixed $entry
+    ): string {
+        $form = GFAPI::get_form($form_id);
+        $field = GFFormsModel::get_field($form, $field_id);
+
         if ($field->type === 'fileupload') {
             $value = $this->fix_google_cloud_link($value);
         }
