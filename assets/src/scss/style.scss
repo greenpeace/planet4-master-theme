@@ -144,13 +144,17 @@ body.transparent-nav {
         background: var(--grey-800);
       }
 
-      .accessible-nav-link {
+      .accessible-nav-link:not(.nav-donate.has-children .accessible-nav-link) {
         background-image: url("../../images/white_arrow_up.svg");
         transform: rotate(180deg);
 
         &.rotate {
           transform: rotate(360deg);
         }
+      }
+
+      .nav-languages-toggle {
+        color: var(--white);
       }
     }
 
