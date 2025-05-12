@@ -497,13 +497,14 @@ class Functions
      * @param array $inner_blocks - The inner blocks.
      * @param array $attrs - The block attributes.
      * @param string $classname - The block CSS class name.
+     * @param string $type - Whether the block is a Posts List or an Actions List.
      *
      * @return array - The new Post Query block.
      */
-    public static function create_block_query(array $inner_blocks, array $attrs, string $classname): array
+    public static function create_block_query(array $inner_blocks, array $attrs, string $classname, string $type = 'posts-list'): array
     {
         $html = '
-      <div class="wp-block-query posts-list p4-query-loop is-custom-layout-' . $classname . '">
+      <div class="wp-block-query ' . $type . ' p4-query-loop is-custom-layout-' . $classname . '">
 
 
 
@@ -518,7 +519,7 @@ class Functions
 
         $content = array (
         0 => '
-    <div class="wp-block-query posts-list p4-query-loop is-custom-layout-' . $classname . '">',
+    <div class="wp-block-query ' . $type . ' p4-query-loop is-custom-layout-' . $classname . '">',
         1 => null,
         2 => '
 
@@ -643,7 +644,7 @@ class Functions
      *
      * @return array - The new Post template.
      */
-    public static function create_post_template(array $inner_blocks, array $attrs): array
+    public static function create_post_template(array $inner_blocks, array $attrs, string $type = ''): array
     {
         $html = '
 
@@ -656,6 +657,30 @@ class Functions
                     2 => '
             ',
         );
+
+        if ($type === 'actions-list') {
+            $html = '
+
+
+
+
+
+            ';
+
+            $content = array (
+                        0 => '
+                ',
+                        1 => null,
+                        2 => '
+                ',
+                        3 => null,
+                        4 => '
+                ',
+                        5 => null,
+                        6 => '
+                ',
+            );
+        }
 
         return self::create_new_block(
             Constants::BLOCK_POST_TEMPLATE,

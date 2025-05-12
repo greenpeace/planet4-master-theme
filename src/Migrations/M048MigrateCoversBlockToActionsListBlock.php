@@ -53,6 +53,10 @@ class M048MigrateCoversBlockToActionsListBlock extends MigrationScript
             return false;
         }
 
+        if ($block['attrs']['namespace'] === 'planet4-blocks/actions-list') {
+            var_dump($block);
+        }
+
         // Check if the block is a Covers block.
         return $block['blockName'] === Utils\Constants::BLOCK_COVERS;
     }
@@ -70,8 +74,8 @@ class M048MigrateCoversBlockToActionsListBlock extends MigrationScript
         $tags = $existing_block_attrs['tags'];
         $posts_override = $existing_block_attrs['posts'];
         $post_types = $existing_block_attrs['post_types'];
-        $layout_type = 'default';
-        $classname = 'list';
+        $layout_type = $existing_block_attrs['layout'] ?? 'grid';
+        $classname = 'actions-list p4-query-loop is-custom-layout-grid';
         $per_page = $existing_block_attrs['rows'];
         $current_post_id = $existing_block_attrs['current_post_id'];
         $additional_class = $existing_block_attrs['additional_class'];
@@ -79,8 +83,6 @@ class M048MigrateCoversBlockToActionsListBlock extends MigrationScript
         if ($additional_class) {
             $classname = $classname . ' ' . $additional_class;
         }
-
-        $classname = 'test-classname';
 
         $attrs = self::set_query_block_attrs($tags, $posts_override, $post_types, $layout_type, $per_page, $current_post_id);
 
@@ -95,7 +97,8 @@ class M048MigrateCoversBlockToActionsListBlock extends MigrationScript
         $aa = Utils\Functions::create_block_query(
             $inner_blocks,
             $attrs,
-            $classname
+            $classname,
+            'actions-list'
         );
 
         return $aa;
@@ -110,7 +113,6 @@ class M048MigrateCoversBlockToActionsListBlock extends MigrationScript
     private static function get_posts_list_block_attrs(array $existing_block): array
     {
         $attrs = $existing_block['attrs'];
-        var_dump($attrs);
 
         return [
             'posts' => isset($attrs['posts']) ? $attrs['posts'] : [],
@@ -122,6 +124,7 @@ class M048MigrateCoversBlockToActionsListBlock extends MigrationScript
             'layout' => isset($attrs['layout']) ? $attrs['layout'] : null,
             'rows' => isset($attrs['initialRowsLimit']) ? $attrs['initialRowsLimit'] : 0,
             'tags' => isset($attrs['tags']) ? $attrs['tags'] : [],
+            'additional_class' => isset($attrs['additional_class']) ? $attrs['additional_class'] : '',
         ];
     }
 
@@ -131,7 +134,7 @@ class M048MigrateCoversBlockToActionsListBlock extends MigrationScript
      * @param array $tags - The list of post tags.
      * @param array $posts_override - The list of posts to include in the query.
      * @param array $post_types - The list of terms of the "p4-page-type" taxonomy.
-     * @param string $layout_type - The layout type (grid or flex).
+     * @param string $layout_type - The layout type.
      * @param int $per_page - The number of elements per page.
      * @param int $current_post_id - The current post ID.
      * @return array - The attributes.
@@ -146,20 +149,18 @@ class M048MigrateCoversBlockToActionsListBlock extends MigrationScript
     ): array {
         $query = [];
         $query['pages'] = 0;
+        $query['perPage'] = $per_page ?? 3;
         $query['offset'] = 0;
-        $query['postType'] = Utils\Constants::POST_TYPES_ACTION;
-        $query['order'] = 'desc';
-        $query['orderBy'] = 'date';
         $query['author'] = '';
         $query['search'] = '';
         $query['exclude'] = [$current_post_id];
         $query['sticky'] = '';
         $query['inherit'] = false;
-        $query['hasPassword'] = false;
+        $query['postType'] = 'p4_multipost';
         $query['postIn'] = $posts_override;
-
-        // Set the number of posts per page.
-        $query['perPage'] = $per_page;
+        $query['hasPassword'] = false;
+        $query['order'] = 'desc';
+        $query['orderBy'] = 'date';
 
         if (!empty($tags)) {
             $query['taxQuery']['post_tag'] = $tags;
@@ -169,13 +170,14 @@ class M048MigrateCoversBlockToActionsListBlock extends MigrationScript
         }
 
         $layout = [];
-        $layout['type'] = $layout_type;
+        $layout['type'] = $layout_type ?? 'grid';
         $layout['columnCount'] = 3;
 
         $attrs = [];
-        $attrs['queryId'] = 0;
+        $attrs['queryId'] = 1;
         $attrs['query'] = $query;
-        $attrs['namespace'] = Utils\Constants::BLOCK_POSTS_LIST;
+        $attrs['namespace'] = Utils\Constants::BLOCK_ACTIONS_LIST;
+        $attrs['className'] = 'actions-list p4-query-loop is-custom-layout-grid';
         $attrs['layout'] = $layout;
         return $attrs;
     }
@@ -230,7 +232,7 @@ class M048MigrateCoversBlockToActionsListBlock extends MigrationScript
                     [
                         Utils\Functions::create_new_block(
                             Utils\Constants::P4_OTHER_BLOCKS['breadcrumb'],
-                            ['taxonomy' => 'category', 'post_type' => Utils\Constants::POST_TYPES_POST]
+                            ['post_type' => 'p4_multipost']
                         ),
                         Utils\Functions::create_new_block(
                             Utils\Constants::BLOCK_TITLE,
@@ -240,7 +242,7 @@ class M048MigrateCoversBlockToActionsListBlock extends MigrationScript
                             Utils\Constants::BLOCK_EXCERPT
                         ),
                     ],
-                    ['layout' => ['type' => 'flex']]
+                    []
                 ),
                 Utils\Functions::create_group_block(
                     [],
@@ -252,7 +254,8 @@ class M048MigrateCoversBlockToActionsListBlock extends MigrationScript
                     'move' => true,
                     'remove' => true,
                 ],
-            ]
+            ],
+            'actions-list',
         );
     }
 
