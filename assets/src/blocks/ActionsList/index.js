@@ -1,6 +1,10 @@
 import {LISTS_BREADCRUMBS} from '../PostsList';
 import {TAX_BREADCRUMB_BLOCK_NAME} from '../../block-editor/setupTaxonomyBreadcrumbBlock';
 
+const {__} = wp.i18n;
+
+const POST_TYPE_MULTIPOST = 'p4_multipost';
+
 export const ACTIONS_LIST_BLOCK_NAME = 'planet4-blocks/actions-list';
 
 export const ACTIONS_LIST_LAYOUT_TYPES = [
@@ -8,11 +12,79 @@ export const ACTIONS_LIST_LAYOUT_TYPES = [
   {label: 'Carousel', value: 'flex', columnCount: 6},
 ];
 
+export const ACTIONS_LIST_BLOCK_ATTRIBUTES = {
+  namespace: ACTIONS_LIST_BLOCK_NAME,
+  className: 'actions-list p4-query-loop is-custom-layout-grid',
+  query: {
+    pages: 0,
+    perPage: 3,
+    offset: 0,
+    author: '',
+    search: '',
+    exclude: [],
+    sticky: '',
+    inherit: false,
+    postType: POST_TYPE_MULTIPOST,
+    postIn: [],
+    hasPassword: false,
+  },
+  layout: {
+    type: 'grid',
+    columnCount: 3,
+  },
+};
+
+export const getActionsListBlockTemplate = (title = '') => (
+  [
+    ['core/heading', {
+      lock: {move: true},
+      content: title,
+      placeholder: __('Enter title', 'planet4-blocks-backend'),
+    }],
+    ['core/paragraph', {
+      lock: {move: true},
+      placeholder: __('Enter description', 'planet4-blocks-backend'),
+      style: {
+        spacing: {
+          margin: {
+            top: '24px',
+            bottom: '32px',
+          },
+        },
+      },
+    }],
+    ['core/query-no-results', {}, [
+      ['core/paragraph', {content: __('No posts found. (This default text can be edited)', 'planet4-blocks-backend')}],
+    ]],
+    ['core/post-template', {lock: {move: true, remove: true}}, [
+      ['core/post-featured-image', {isLink: true}],
+      ['core/group', {}, [
+        [TAX_BREADCRUMB_BLOCK_NAME, {
+          taxonomy: LISTS_BREADCRUMBS[0].value,
+          post_type: POST_TYPE_MULTIPOST,
+        }],
+        ['core/post-title', {isLink: true}],
+        ['core/post-excerpt'],
+      ]],
+      ['core/group', {className: 'read-more-nav'}, [
+        ['planet4-blocks/action-button-text'],
+      ]],
+    ]],
+    ['core/buttons', {
+      className: 'carousel-controls',
+      lock: {move: true},
+      layout: {type: 'flex', justifyContent: 'space-between', orientation: 'horizontal', flexWrap: 'nowrap'},
+    }, [
+      ['core/button', {className: 'carousel-control-prev', text: __('Prev', 'planet4-blocks-backend')}],
+      ['core/button', {className: 'carousel-control-next', text: __('Next', 'planet4-blocks-backend')}],
+    ]],
+  ]
+);
+
 // Register the ActionsList block.
 export const registerActionsListBlock = () => {
   const {registerBlockVariation} = wp.blocks;
-  const {__} = wp.i18n;
-  const postType = 'p4_multipost';
+
 
   registerBlockVariation('core/query', {
     name: ACTIONS_LIST_BLOCK_NAME,
@@ -22,67 +94,8 @@ export const registerActionsListBlock = () => {
     scope: ['inserter'],
     allowedControls: ['taxQuery', 'pages', 'offset'],
     category: 'planet4-blocks',
-    isActive: ({namespace, query}) => namespace === ACTIONS_LIST_BLOCK_NAME && query.postType === postType,
-    attributes: {
-      namespace: ACTIONS_LIST_BLOCK_NAME,
-      className: 'actions-list p4-query-loop is-custom-layout-grid',
-      query: {
-        pages: 0,
-        perPage: 3,
-        offset: 0,
-        author: '',
-        search: '',
-        exclude: [],
-        sticky: '',
-        inherit: false,
-        postType,
-        postIn: [],
-        hasPassword: false,
-      },
-      layout: {
-        type: 'grid',
-        columnCount: 3,
-      },
-    },
-    innerBlocks: [
-      ['core/heading', {lock: {move: true}, placeholder: __('Enter title', 'planet4-blocks-backend')}],
-      ['core/paragraph', {
-        lock: {move: true},
-        placeholder: __('Enter description', 'planet4-blocks-backend'),
-        style: {
-          spacing: {
-            margin: {
-              top: '24px',
-              bottom: '32px',
-            },
-          },
-        },
-      }],
-      ['core/query-no-results', {}, [
-        ['core/paragraph', {content: __('No posts found. (This default text can be edited)', 'planet4-blocks-backend')}],
-      ]],
-      ['core/post-template', {lock: {move: true, remove: true}}, [
-        ['core/post-featured-image', {isLink: true}],
-        ['core/group', {}, [
-          [TAX_BREADCRUMB_BLOCK_NAME, {
-            taxonomy: LISTS_BREADCRUMBS[0].value,
-            post_type: postType,
-          }],
-          ['core/post-title', {isLink: true}],
-          ['core/post-excerpt'],
-        ]],
-        ['core/group', {className: 'read-more-nav'}, [
-          ['planet4-blocks/action-button-text'],
-        ]],
-      ]],
-      ['core/buttons', {
-        className: 'carousel-controls',
-        lock: {move: true},
-        layout: {type: 'flex', justifyContent: 'space-between', orientation: 'horizontal', flexWrap: 'nowrap'},
-      }, [
-        ['core/button', {className: 'carousel-control-prev', text: __('Prev', 'planet4-blocks-backend')}],
-        ['core/button', {className: 'carousel-control-next', text: __('Next', 'planet4-blocks-backend')}],
-      ]],
-    ],
+    isActive: ({namespace, query}) => namespace === ACTIONS_LIST_BLOCK_NAME && query.postType === POST_TYPE_MULTIPOST,
+    attributes: ACTIONS_LIST_BLOCK_ATTRIBUTES,
+    innerBlocks: getActionsListBlockTemplate(),
   });
 };
