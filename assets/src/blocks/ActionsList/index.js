@@ -21,7 +21,7 @@ export const registerActionsListBlock = () => {
     icon: 'list-view',
     scope: ['inserter'],
     allowedControls: ['taxQuery', 'pages', 'offset'],
-    category: 'planet4-blocks-beta',
+    category: 'planet4-blocks',
     isActive: ({namespace, query}) => namespace === ACTIONS_LIST_BLOCK_NAME && query.postType === postType,
     attributes: {
       namespace: ACTIONS_LIST_BLOCK_NAME,
