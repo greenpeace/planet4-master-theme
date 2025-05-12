@@ -10,15 +10,19 @@ class Constants
     private const PREFIX_P4_BLOCKS = 'planet4-blocks';
     private const PREFIX_CORE_BLOCKS = 'core';
 
+    public const POSTS_LIST = 'posts-list';
+    public const ACTIONS_LIST = 'actions-list';
+
     public const BLOCK_MEDIA_VIDEO = self::PREFIX_P4_BLOCKS . '/media-video';
     public const BLOCK_COVERS = self::PREFIX_P4_BLOCKS . '/covers';
     public const BLOCK_SPLIT_TWO_COLUMNS = self::PREFIX_P4_BLOCKS . '/split-two-columns';
     public const BLOCK_SOCIAL_MEDIA = self::PREFIX_P4_BLOCKS . '/social-media';
     public const BLOCK_P4_COLUMNS = self::PREFIX_P4_BLOCKS . '/columns';
     public const BLOCK_ENFORM = self::PREFIX_P4_BLOCKS . '/enform';
-    public const BLOCK_POSTS_LIST = self::PREFIX_P4_BLOCKS . '/posts-list';
-    public const BLOCK_ACTIONS_LIST = self::PREFIX_P4_BLOCKS . '/actions-list';
+    public const BLOCK_POSTS_LIST = self::PREFIX_P4_BLOCKS . '/' . self::POSTS_LIST;
+    public const BLOCK_ACTIONS_LIST = self::PREFIX_P4_BLOCKS . '/' . self::ACTIONS_LIST;
     public const BLOCK_ARTICLES = self::PREFIX_P4_BLOCKS . '/articles';
+    public const ACTION_BUTTON = self::PREFIX_P4_BLOCKS . '/action-button-text';
 
     public const BLOCK_EMBED = self::PREFIX_CORE_BLOCKS . '/embed';
     public const BLOCK_AUDIO = self::PREFIX_CORE_BLOCKS . '/audio';
@@ -52,6 +56,7 @@ class Constants
     public const POST_TYPES_POST = 'post';
     public const POST_TYPES_ACTION = 'p4_action';
     public const POST_TYPES_CAMPAIGN = 'campaign';
+    public const POST_TYPES_MULTIPOST = 'p4_multipost';
 
     public const ALL_POST_TYPES = [
         self::POST_TYPES_PAGE,
