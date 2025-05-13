@@ -637,3 +637,18 @@ add_filter('upload_dir', function ($dirs) {
 
     return $dirs;
 });
+
+// Change wp-stateless Object path to year/month/day
+add_action('init', function () {
+    if (function_exists('ud_get_stateless_media')) {
+        ud_get_stateless_media()->add_filter('sm:item:object_name', function ($object_name, $prefix, $name, $ext, $sm) {
+            $timestamp = current_time('timestamp'); // Uses WP timezone
+            $year  = date('Y', $timestamp);
+            $month = date('m', $timestamp);
+            $day   = date('d', $timestamp);
+
+            $filename = $name . '.' . $ext;
+            return "$year/$month/$day/$filename";
+        }, 10, 5);
+    }
+});
