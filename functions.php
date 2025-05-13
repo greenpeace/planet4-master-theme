@@ -621,3 +621,19 @@ add_filter(
     2
 );
 // phpcs:enable Generic.Files.LineLength.MaxExceeded
+
+// Change wordpress media upload path from year/month => year/month/day (eg /uploads/2025/05/ => /uploads/2025/05/13/)
+add_filter('upload_dir', function ($dirs) {
+    $time = current_time('mysql'); // respects WP time zone
+    $y = substr($time, 0, 4);
+    $m = substr($time, 5, 2);
+    $d = substr($time, 8, 2);
+
+    $subdir = "/$y/$m/$d";
+
+    $dirs['subdir'] = $subdir;
+    $dirs['path'] = $dirs['basedir'] . $subdir;
+    $dirs['url'] = $dirs['baseurl'] . $subdir;
+
+    return $dirs;
+});
