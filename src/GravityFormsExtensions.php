@@ -154,10 +154,10 @@ class GravityFormsExtensions
         mixed $raw_value,
         string $format
     ): string {
-        if ($field->type === 'fileupload' && $merge_tag === 'all_fields') {
-            $value = $this->fix_google_cloud_link($value);
+        if ($field->type !== 'fileupload' || $merge_tag !== 'all_fields') {
+            return $value;
         }
-        return $value;
+        return $this->fix_google_cloud_link($value);
     }
 
     /**
@@ -169,10 +169,10 @@ class GravityFormsExtensions
         mixed $entry,
         mixed $form
     ): string {
-        if ($field->type === 'fileupload') {
-            $value = $this->fix_google_cloud_link($value);
+        if ($field->type !== 'fileupload') {
+            return $value;
         }
-        return $value;
+        return $this->fix_google_cloud_link($value);
     }
 
     /**
@@ -187,10 +187,10 @@ class GravityFormsExtensions
         $form = GFAPI::get_form($form_id);
         $field = GFFormsModel::get_field($form, $field_id);
 
-        if ($field->type === 'fileupload') {
-            $value = $this->fix_google_cloud_link($value);
+        if ($field->type !== 'fileupload') {
+            return $value;
         }
-        return $value;
+        return $this->fix_google_cloud_link($value);
     }
     // @phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter
 
