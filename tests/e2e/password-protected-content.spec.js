@@ -12,7 +12,7 @@ test('check password protected content', async ({page, requestUtils}) => {
     method: 'POST',
     data: {
       title: TEST_TITLE,
-      content: `<!-- wp:paragraph --><p>${TEST_PARAGRAPH}</p><!-- /wp:paragraph -->`,
+      content: `<p>${TEST_PARAGRAPH}</p>`,
       status: 'publish',
       featured_media: 357,
       password: TEST_PASSWORD,

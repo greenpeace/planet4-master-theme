@@ -28,8 +28,8 @@ async function openComponentPanel({page, editor}, panelTitle) {
  * @return {Promise<void>}   - Playwright Locator
  */
 const searchAndInsertBlock = async ({page}, blockName, namespace = '') => {
-  await page.getByRole('button', {name: 'Toggle block inserter'}).click();
-  await page.getByLabel('Search for blocks and patterns').click();
+  await page.getByRole('button', {name: 'Block Inserter'}).click();
+  await page.getByPlaceholder('Search').click();
   await page.keyboard.type(blockName);
 
   if (namespace !== '') {

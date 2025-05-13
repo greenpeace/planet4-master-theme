@@ -16,7 +16,7 @@ test.describe('Test Posts List block', () => {
     await searchAndInsertBlock({page}, 'Posts List');
 
     // Change amount of posts from 3 to 4.
-    await page.getByRole('spinbutton', {name: 'Posts per page'}).fill('4');
+    await page.getByRole('spinbutton', {name: 'Items per page'}).fill('4');
 
     // Filter by "Energy" category.
     const editorSettings = page.getByRole('region', {name: 'Editor settings'});

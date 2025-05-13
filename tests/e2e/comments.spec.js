@@ -8,7 +8,7 @@ test('Test adding a Comment to a Post', async ({page, admin, requestUtils}) => {
     method: 'POST',
     data: {
       title: 'Test post',
-      content: '<!-- wp:paragraph --><p>This is a test post</p><!-- /wp:paragraph -->',
+      content: '<p>This is a test post</p>',
       status: 'publish',
       featured_media: 357,
     },

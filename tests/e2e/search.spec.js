@@ -14,7 +14,7 @@ test('check search works', async ({page, requestUtils}) => {
     method: 'POST',
     data: {
       title: tagPageTitle,
-      content: '<!-- wp:paragraph --><p>The redirect page for the new tag</p><!-- /wp:paragraph -->',
+      content: '<p>The redirect page for the new tag</p>',
       status: 'publish',
       featured_media: 357,
     },
@@ -38,7 +38,7 @@ test('check search works', async ({page, requestUtils}) => {
     method: 'POST',
     data: {
       title: postTitle,
-      content: '<!-- wp:paragraph --><p>This is a search test post</p><!-- /wp:paragraph -->',
+      content: '<p>This is a search test post</p>',
       status: 'publish',
       featured_media: 357,
       tags: [tag.id],
