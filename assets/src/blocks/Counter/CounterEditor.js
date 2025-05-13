@@ -14,6 +14,8 @@ export const CounterEditor = ({setAttributes, attributes, isSelected}) => {
         <PanelBody title={__('Settings', 'planet4-blocks-backend')}>
           <div>
             <TextControl
+              __nextHasNoMarginBottom
+              __next40pxDefaultSize
               label={__('Number of Items Collected', 'planet4-blocks-backend')}
               placeholder={__('e.g. Signatures at this moment', 'planet4-blocks-backend')}
               type="number"
@@ -34,6 +36,8 @@ export const CounterEditor = ({setAttributes, attributes, isSelected}) => {
 
           <div>
             <TextControl
+              __nextHasNoMarginBottom
+              __next40pxDefaultSize
               label={__('Goal', 'planet4-blocks-backend')}
               placeholder={__('e.g. Total amount of signatures', 'planet4-blocks-backend')}
               type="number"
@@ -45,6 +49,7 @@ export const CounterEditor = ({setAttributes, attributes, isSelected}) => {
 
           <div>
             <TextareaControl
+              __nextHasNoMarginBottom
               label={__('Text', 'planet4-blocks-backend')}
               placeholder={__('e.g. "signatures collected of %target%"', 'planet4-blocks-backend')}
               value={attributes.text}
