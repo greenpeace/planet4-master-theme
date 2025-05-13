@@ -39,7 +39,7 @@
     "laminas/laminas-dom": "^2.12",
     "phpunit/phpunit": "^7.5||^9.5",
     "yoast/phpunit-polyfills": "^1.1.0",
-    "timber/timber": "1.24.0"
+    "timber/timber": "1.24.1"
   },
   "scripts": {
     "fixes": "vendor/bin/phpcbf",
