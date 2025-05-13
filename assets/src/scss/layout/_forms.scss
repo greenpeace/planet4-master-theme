@@ -107,6 +107,10 @@
   &:has(> input[type="checkbox"]) {
     @include custom-checkbox;
   }
+
+  &.ginput_container_fileupload input:focus {
+    @include focus-styles;
+  }
 }
 
 input[type="text"].form-control,
