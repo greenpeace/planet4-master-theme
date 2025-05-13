@@ -4,6 +4,7 @@ namespace P4\MasterTheme;
 
 use GFAPI;
 use GFCommon;
+use GFFormsModel;
 use DOMDocument;
 use Timber\Timber;
 
@@ -97,6 +98,7 @@ class GravityFormsExtensions
     public function __construct()
     {
         $this->hooks();
+        $this->fix_file_links();
     }
 
     /**
@@ -119,10 +121,124 @@ class GravityFormsExtensions
         add_filter('gform_form_post_get_meta', [$this, 'p4_gf_enable_default_meta_settings'], 10, 1);
         add_filter('gform_hubspot_form_object_pre_save_feed', [$this, 'p4_gf_hb_form_object_pre_save_feed'], 10, 1);
         add_action('gform_after_submission', [$this, 'p4_send_gp_pixel_counter'], 10, 2);
-
         add_action('gform_stripe_fulfillment', [ $this, 'record_fulfillment_entry' ], 10, 2);
         add_action('gform_post_payment_action', [ $this, 'check_stripe_payment_status' ], 10, 2);
         add_action('gform_pre_render', [$this, 'enqueue_share_buttons'], 10, 2);
+    }
+
+    /**
+     * Fix the link to files uploaded in a form.
+     *
+     * We need this because WP-Stateless duplicates the "year/month" path added as part of the file URL.
+     * For example, "https://www.greenpeace.org/static/bucket/2025/05/gravity_forms/some_id/2025/05/filename"
+     * has to be turned into "https://www.greenpeace.org/static/bucket/gravity_forms/some_id/2025/05/filename"
+     * as the "year/month" sub-folders ("2025/05") are duplicated.
+     */
+    private function fix_file_links(): void
+    {
+        add_filter('gform_merge_tag_filter', [$this, 'fix_email_file_link'], 10, 6);
+        add_filter('gform_entry_field_value', [$this, 'fix_entry_file_link'], 10, 4);
+        add_filter('gform_entries_field_value', [$this, 'fix_entries_file_link'], 10, 4);
+    }
+
+    // @phpcs:disable SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter
+
+    /**
+     * Fix the link in the email body that connects to files uploaded in a form.
+     */
+    public function fix_email_file_link(
+        string $value,
+        string $merge_tag,
+        string $modifier,
+        object $field,
+        mixed $raw_value,
+        string $format
+    ): string {
+        if ($field->type !== 'fileupload' || $merge_tag !== 'all_fields') {
+            return $value;
+        }
+        return $this->fix_google_cloud_link($value);
+    }
+
+    /**
+     * Fix the link in a single entry that connects to files uploaded in a form.
+     */
+    public function fix_entry_file_link(
+        string $value,
+        object $field,
+        mixed $entry,
+        mixed $form
+    ): string {
+        if ($field->type !== 'fileupload') {
+            return $value;
+        }
+        return $this->fix_google_cloud_link($value);
+    }
+
+    /**
+     * Fix the link in the entries page that connects to files uploaded in a form.
+     */
+    public function fix_entries_file_link(
+        string $value,
+        int $form_id,
+        int $field_id,
+        mixed $entry
+    ): string {
+        $form = GFAPI::get_form($form_id);
+        $field = GFFormsModel::get_field($form, $field_id);
+
+        if ($field->type !== 'fileupload') {
+            return $value;
+        }
+        return $this->fix_google_cloud_link($value);
+    }
+    // @phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter
+
+    /**
+     * Remove the duplicated path from a link.
+     *
+     * For example, "https://www.greenpeace.org/static/bucket/2025/05/gravity_forms/some_id/2025/05/filename"
+     * is turned into "https://www.greenpeace.org/static/bucket/gravity_forms/some_id/2025/05/filename"
+     * as the "year/month" sub-folders ("2025/05") are duplicated.
+     */
+    private function fix_google_cloud_link(string $value): string
+    {
+        // Match all href='...'
+        preg_match_all("/href='([^']+)'/", $value, $matches);
+
+        if (!empty($matches[1])) {
+            foreach ($matches[1] as $href) {
+                // Parse the URL
+                $parts = parse_url($href);
+                if (!isset($parts['scheme'], $parts['host'], $parts['path'])) {
+                    continue; // Skip invalid URLs
+                }
+
+                $scheme = $parts['scheme'];
+                $host = $parts['host'];
+                $path = $parts['path'];
+
+                $segments = explode('/', trim($path, '/'));
+
+                // Check for duplicated folders (index 2 == 6 and 3 == 7)
+                if (
+                    !isset($segments[2], $segments[3], $segments[6], $segments[7]) ||
+                    $segments[2] !== $segments[6] ||
+                    $segments[3] !== $segments[7]
+                ) {
+                    continue;
+                }
+
+                unset($segments[2], $segments[3]);
+                $segments = array_values($segments);
+                $new_path = '/' . implode('/', $segments);
+                $new_url = $scheme . '://' . $host . $new_path;
+
+                // Replace only the href portion inside the value
+                $value = str_replace($href, $new_url, $value);
+            }
+        }
+        return $value;
     }
 
     /**
