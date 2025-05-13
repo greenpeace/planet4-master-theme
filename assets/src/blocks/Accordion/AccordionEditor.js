@@ -68,7 +68,7 @@ const renderView = ({title, description, tabs, className}, setAttributes, isSele
               placeholder={__('Enter text', 'planet4-blocks-backend')}
               value={tab.text}
               onChange={updateTabAttribute('text', index)}
-              allowedFormats={['core/bold', 'core/italic']}
+              allowedFormats={['core/bold', 'core/italic', 'core/link']}
             />
             {tab.button ?
               <div className="button-container">
