@@ -101,6 +101,7 @@ export const SidebarSlide = ({
               <div className="row">
                 <div className="col">
                   <CheckboxControl
+                    __nextHasNoMarginBottom
                     label={__('Open in a new tab', 'planet4-blocks-backend')}
                     value={link_url_new_tab}
                     checked={link_url_new_tab}
@@ -112,6 +113,7 @@ export const SidebarSlide = ({
                 <div className="row">
                   <div className="col">
                     <FocalPointPicker
+                      __nextHasNoMarginBottom
                       label={__('Image focal point', 'planet4-blocks-backend')}
                       url={image_url}
                       dimensions={{width: 300, height: 100}}

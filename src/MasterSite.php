@@ -675,7 +675,7 @@ class MasterSite extends TimberSite
 
         foreach ($domains as $domain) {
             $mofile = get_template_directory() . '/languages/' . $domain . '-' . $locale . '.mo';
-            load_textdomain(str_replace('blocks/', '', $domain), $mofile);
+            load_theme_textdomain(str_replace('blocks/', '', $domain), $mofile);
         }
     }
 

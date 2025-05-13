@@ -27,6 +27,8 @@ export const TableOfContentsLevel = props => {
     <div>
       <p>{`${__('Level', 'planet4-blocks-backend')} ${Number(index + 1)}`}</p>
       <SelectControl
+        __nextHasNoMarginBottom
+        __next40pxDefaultSize
         label={__('Table of Contents item', 'planet4-blocks-backend')}
         value={heading}
         options={getHeadingOptions(minLevel)}
@@ -34,6 +36,7 @@ export const TableOfContentsLevel = props => {
       />
 
       <CheckboxControl
+        __nextHasNoMarginBottom
         label={__('Link', 'planet4-blocks-backend')}
         value={link}
         checked={link}
@@ -42,6 +45,8 @@ export const TableOfContentsLevel = props => {
       />
 
       <SelectControl
+        __nextHasNoMarginBottom
+        __next40pxDefaultSize
         label={__('List style', 'planet4-blocks-backend')}
         value={style}
         options={[

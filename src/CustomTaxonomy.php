@@ -243,7 +243,7 @@ class CustomTaxonomy
             'parent_item_colon' => null,
             'edit_item' => __('Edit Post Type', 'planet4-master-theme-backend'),
             'update_item' => __('Update Post Type', 'planet4-master-theme-backend'),
-            'add_new_item' => __('Add new Post Type', 'planet4-master-theme-backend'),
+            'add_new_item' => __('Add Post Type', 'planet4-master-theme-backend'),
             'new_item_name' => __('New Post Type', 'planet4-master-theme-backend'),
             'menu_name' => __('Post Types', 'planet4-master-theme-backend'),
         ];
