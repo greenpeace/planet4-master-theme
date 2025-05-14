@@ -12,7 +12,7 @@ test('Test navigation bar menu', async ({page, admin, requestUtils}) => {
     method: 'POST',
     data: {
       title: testPageTitle,
-      content: '<!-- wp:paragraph --><p>The new page for the navigation bar test</p><!-- /wp:paragraph -->',
+      content: '<p>The new page for the navigation bar test</p>',
       status: 'publish',
       featured_media: 357,
     },

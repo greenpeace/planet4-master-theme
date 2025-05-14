@@ -47,7 +47,7 @@ test('Test Spreadsheet block', async ({page, admin, editor}) => {
   await expect(editorTable.locator('tbody tr:first-child td:first-child')).toHaveText('Albania');
 
   // Change table color to green and make sure it's applied.
-  await page.locator('button[aria-label="Color: green"]').click();
+  await page.locator('button[aria-label="green"]').click();
   await expect(editorTable).toHaveClass(/is-color-green/);
 
   // Publish page.

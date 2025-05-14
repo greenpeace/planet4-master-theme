@@ -9,7 +9,7 @@ test('Test Related Posts block', async ({page, requestUtils}) => {
     method: 'POST',
     data: {
       title: 'Test post for Related Posts',
-      content: '<!-- wp:paragraph --><p>This is a test post</p><!-- /wp:paragraph -->',
+      content: '<p>This is a test post</p>',
       status: 'publish',
       featured_media: 357,
       categories: [2],
