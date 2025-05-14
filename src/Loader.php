@@ -219,10 +219,18 @@ final class Loader
         new Blocks\Timeline();//NOSONAR
         new Blocks\TopicLink();//NOSONAR
 
-        register_block_pattern_category(
-            'page-headers',
-            [ 'label' => 'Page Headers' ],
-        );
+        $pattern_categories = [
+            'page-headers' => 'Page Headers',
+            'layouts' => 'Layouts',
+            'planet4' => 'Planet 4',
+        ];
+
+        foreach ($pattern_categories as $name => $label) {
+            register_block_pattern_category(
+                $name,
+                ['label' => $label],
+            );
+        }
 
         // Load block patterns.
         BlockPattern::register_all();
