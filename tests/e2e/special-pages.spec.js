@@ -17,7 +17,7 @@ test('Test special pages (Act and Explore)', async ({page, admin, requestUtils})
       method: 'POST',
       data: {
         title: 'Act page test',
-        content: '<!-- wp:paragraph --><p>Random content</p><!-- /wp:paragraph -->',
+        content: '<p>Random content</p>',
         status: 'publish',
         featured_media: 357,
       },
@@ -28,7 +28,7 @@ test('Test special pages (Act and Explore)', async ({page, admin, requestUtils})
       method: 'POST',
       data: {
         title: 'Explore page test',
-        content: '<!-- wp:paragraph --><p>Random content</p><!-- /wp:paragraph -->',
+        content: '<p>Random content</p>',
         status: 'publish',
         featured_media: 357,
       },
