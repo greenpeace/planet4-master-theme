@@ -55,10 +55,8 @@
     }
   }
 
-  .wp-block-post-terms:not(:first-child):before {
-    margin-inline-end: $sp-1;
-    color: var(--gp-green-800);
-    content: "•";
+  .wp-block-post-terms:not(:first-child) {
+    @include render-bullet();
   }
 
   &>.wp-block-heading,
