@@ -54,7 +54,7 @@
 
     // We hide the tags after the first 5.
     &:nth-of-type(n+6) {
-      display:none;
+      display: none;
     }
 
     &:before {
@@ -63,10 +63,8 @@
     }
   }
 
-  .wp-block-post-terms:not(:first-child):before {
-    margin-inline-end: $sp-1;
-    color: var(--gp-green-800);
-    content: "•";
+  .wp-block-post-terms:not(:first-child) {
+    @include render-bullet();
   }
 
   & > .wp-block-heading,
