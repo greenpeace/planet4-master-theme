@@ -74,6 +74,10 @@ export const getPostListBlockTemplate = (title = __('Related Posts', 'planet4-bl
             taxonomy: LISTS_BREADCRUMBS[0].value,
             post_type: 'posts',
           }],
+          ['core/post-terms', {
+            term: 'post_tag',
+            separator: ' ',
+          }],
         ]],
         ['core/post-title', {isLink: true, level: 4}],
         ['core/post-excerpt'],
