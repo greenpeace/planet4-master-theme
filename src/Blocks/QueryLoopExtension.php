@@ -46,6 +46,7 @@ class QueryLoopExtension
                 if (!empty($blockQuery['postIn'])) {
                     $query['post__in'] = array_map('intval', (array) $blockQuery['postIn']);
                     $query['orderby'] = 'post__in';
+                    $query['ignore_sticky_posts'] = true;
                 }
                 if (isset($blockQuery['hasPassword'])) {
                     $query['has_password'] = (bool) $blockQuery['hasPassword'];
