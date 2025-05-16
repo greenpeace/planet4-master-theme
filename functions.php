@@ -300,7 +300,7 @@ function register_more_blocks(): void
                 $post_id = $block->context['postId'] ?? get_the_ID();
                 $options = get_option('planet4_options');
                 $global_taxonomy = $options['global_taxonomy_breadcrumbs'] ?? 'category';
-                $taxonomy = ($attributes['post_type'] === 'p4_multipost' || $attributes['post_type'] === 'post') ? 'category' : $global_taxonomy;
+                $taxonomy = ($attributes['post_type'] === 'p4_action' || $attributes['post_type'] === 'post') ? 'category' : $global_taxonomy;
 
                 $terms = get_the_terms($post_id, $taxonomy);
                 if (is_wp_error($terms) || empty($terms)) {
