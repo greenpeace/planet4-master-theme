@@ -75,7 +75,7 @@ export function sortBySelected(termsTree, terms) {
  * @return {Object} Term object.
  */
 export function findTerm(terms, name) {
-  return terms.find(terms, term => term.name.toLowerCase() === name.toLowerCase());
+  return terms.find(term => term.name.toLowerCase() === name.toLowerCase());
 }
 
 /**
