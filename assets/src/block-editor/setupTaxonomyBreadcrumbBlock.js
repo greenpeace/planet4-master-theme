@@ -54,8 +54,8 @@ function editFunction({attributes, context}) {
   const linkAttrs = {href: '', onClick: e => e.preventDefault()};
   const contentAttrs = {className: 'taxonomy-category wp-block-post-terms'};
 
-  const link = wp.element.createElement('a', linkAttrs, term || 'Loading...');
-  const content = wp.element.createElement('div', contentAttrs, link);
+  const link = term ? wp.element.createElement('a', linkAttrs, term || 'Loading...') : null;
+  const content = link ? wp.element.createElement('div', contentAttrs, link) : null;
 
   return content;
 }
