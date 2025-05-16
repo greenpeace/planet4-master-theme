@@ -31,15 +31,16 @@ export const setupTaxonomyBreadcrumbBlock = () => {
 };
 
 function editFunction({attributes, context}) {
-  const {taxonomy, post_type} = attributes;
+  const {post_type} = attributes;
   const postId = context.postId;
   const [term, setTerm] = wp.element.useState(null);
+  const TAXONOMY = window.p4_vars.options.taxonomy_breadcrumbs || null;
 
   wp.element.useEffect(() => {
-    if (!postId || !taxonomy || !post_type) {return;}
+    if (!postId || !TAXONOMY || !post_type) {return;}
 
     const postTypeField = post_type === 'post' ? 'posts' : post_type;
-    const taxonomyField = taxonomy === 'category' ? 'categories' : taxonomy;
+    const taxonomyField = (post_type === 'p4_action') || (TAXONOMY === 'category') ? 'categories' : TAXONOMY;
 
     wp.apiFetch({path: `/wp/v2/${postTypeField}/${postId}`}).then(post => {
       const termIds = post[taxonomyField];
@@ -49,7 +50,7 @@ function editFunction({attributes, context}) {
         });
       }
     });
-  }, [postId, taxonomy]);
+  }, [postId, TAXONOMY]);
 
   const linkAttrs = {href: '', onClick: e => e.preventDefault()};
   const contentAttrs = {className: 'taxonomy-category wp-block-post-terms'};
