@@ -51,6 +51,7 @@ use P4\MasterTheme\Migrations\M046MigrateArticlesBlockToPostsListBlock;
 use P4\MasterTheme\Migrations\M047EnableTransparentNavigation;
 use P4\MasterTheme\Migrations\M048SetDefaultTaxonomyBreadcrumb;
 use P4\MasterTheme\Migrations\M049MigrateCoversBlockToActionsListBlock;
+use P4\MasterTheme\Migrations\M050AddTagsBackInPostsListBlock;
 
 /**
  * Run any new migration scripts and record results in the log.
@@ -119,6 +120,7 @@ class Migrator
             M047EnableTransparentNavigation::class,
             M048SetDefaultTaxonomyBreadcrumb::class,
             M049MigrateCoversBlockToActionsListBlock::class,
+            M050AddTagsBackInPostsListBlock::class,
         ];
 
         // Loop migrations and run those that haven't run yet.
