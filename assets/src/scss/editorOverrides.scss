@@ -432,3 +432,8 @@ input.describe[type=text][data-setting=caption] {
 .components-base-control__field {
   margin-bottom: $sp-1;
 }
+
+.edit-post-meta-boxes-area #p4_metabox_post h2.hndle,
+#cmb2-metabox-p4_metabox_post .cmb-th {
+  font-weight: 500;
+}
