@@ -23,7 +23,7 @@ class QueryLoopExtension
     {
         $postInFilter = function ($args, $request) {
             $postIn = $request->get_param('postIn');
-            $block_name = $request->get_param('custom_attr');
+            $block_name = $request->get_param('block_name');
 
             if ($block_name === self::ACTIONS_LIST_BLOCK) {
                 return self::buildActionListQuery($args, $request->get_params());
@@ -51,7 +51,7 @@ class QueryLoopExtension
             function ($query, $block) {
                 $blockQuery = $block->context['query'] ?? [];
 
-                if ($blockQuery['custom_attr'] === self::ACTIONS_LIST_BLOCK) {
+                if ($blockQuery['block_name'] === self::ACTIONS_LIST_BLOCK) {
                     return self::buildActionListQuery($query, $block->context['query'],);
                 }
                 if (!empty($blockQuery['postIn'])) {
