@@ -425,3 +425,11 @@ $nested-comment-left-margin: 50px;
     }
   }
 }
+
+@mixin render-bullet($spacing: $sp-1) {
+  &:before {
+    margin-inline-end: $spacing;
+    color: var(--gp-green-800);
+    content: "•";
+  }
+}
