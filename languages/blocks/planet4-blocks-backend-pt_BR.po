@@ -3,15 +3,16 @@ msgstr ""
 "Project-Id-Version: Planet4 blocks plugin backend\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-06-07 10:10+0000\n"
-"PO-Revision-Date: 2025-01-31 07:19+0000\n"
-"Last-Translator: rafa <rafael.silva@greenpeace.org>\n"
+"PO-Revision-Date: 2025-05-26 19:13+0000\n"
+"Last-Translator: Rickson Figueira\n"
 "Language-Team: Portuguese (Brazil)\n"
 "Language: pt_BR\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Loco https://localise.biz/"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.7.2; wp-6.7.2"
 
 #: src/BlockReportSearch/Block/BlockUsage.php:241
 msgid "(no title)"
@@ -85,7 +86,7 @@ msgstr ""
 
 #: assets/src/block-editor/setupBlockEditorValidation.js:174
 msgid "All good."
-msgstr ""
+msgstr "Tudo certo."
 
 #: src/Controllers/Menu/ReusableBlocksController.php:52
 #: src/Controllers/Menu/ReusableBlocksController.php:53
