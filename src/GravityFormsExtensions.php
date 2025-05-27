@@ -181,7 +181,7 @@ class GravityFormsExtensions
     public function fix_entries_file_link(
         string $value,
         int $form_id,
-        int $field_id,
+        mixed $field_id,
         mixed $entry
     ): string {
         $form = GFAPI::get_form($form_id);
