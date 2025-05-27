@@ -45,6 +45,7 @@ export const registerActionsListBlock = () => {
         postIn: [],
         hasPassword: false,
         ...!IS_NEW_IA && {postParent: ACT_PAGE},
+        block_name: ACTIONS_LIST_BLOCK_NAME,
       },
       layout: {
         type: 'grid',

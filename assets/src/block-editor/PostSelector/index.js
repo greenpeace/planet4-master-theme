@@ -34,8 +34,11 @@ export const PostSelector = attributes => {
    */
   const act_parent = window.p4_vars.options.take_action_page || null;
   const args = {per_page: -1, orderby: 'title', post_status: 'publish'};
+
   const posts = useSelect(select => {
-    if ('post' === postType || 'p4_action' === postType || 'page' === postType) {
+
+    // For the Posts List block:
+    if ('post' === postType) {
       return [
         ...select('core').getEntityRecords('postType', postType, {include: selected}) || [],
         ...select('core').getEntityRecords('planet4/v1', 'published', {
@@ -46,24 +49,37 @@ export const PostSelector = attributes => {
       ];
     }
 
-    if ('post,page' === postType) {
-      return [
-        ...select('core').getEntityRecords('postType', 'post', {include: selected}) || [],
+    // For the Actions List block when the new IA is disabled:
+    if ('page' === postType) {
+      const selectedPosts = [
         ...select('core').getEntityRecords('postType', 'page', {include: selected}) || [],
-        ...select('core').getEntityRecords('planet4/v1', 'published', {post_type: postType, ...args}) || [],
       ];
+      const pages = act_parent ?
+        (select('core').getEntityRecords('postType', 'page', {parent: act_parent, ...args}) || []) :
+        [];
+      return [].concat(selectedPosts, pages);
     }
 
-    if ('act_page' === postType) {
+    // For the Covers block.
+    // For the Actions List blocks when the new IA is enabled:
+    if ('act_page' === postType || 'p4_action' === postType) {
       const selectedPosts = [
         ...select('core').getEntityRecords('postType', 'page', {include: selected}) || [],
         ...select('core').getEntityRecords('postType', 'p4_action', {include: selected}) || [],
       ];
       const actions = select('core').getEntityRecords('postType', 'p4_action', args) || [];
       const pages = act_parent ?
-        (select('core').getEntityRecords('postType', 'page', {post_parent: act_parent, ...args}) || []) :
+        (select('core').getEntityRecords('postType', 'page', {parent: act_parent, ...args}) || []) :
         [];
       return [].concat(selectedPosts, actions, pages);
+    }
+
+    if ('post,page' === postType) {
+      return [
+        ...select('core').getEntityRecords('postType', 'post', {include: selected}) || [],
+        ...select('core').getEntityRecords('postType', 'page', {include: selected}) || [],
+        ...select('core').getEntityRecords('planet4/v1', 'published', {post_type: postType, ...args}) || [],
+      ];
     }
 
     return [];
