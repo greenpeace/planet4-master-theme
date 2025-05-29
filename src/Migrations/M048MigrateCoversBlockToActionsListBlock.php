@@ -53,10 +53,6 @@ class M048MigrateCoversBlockToActionsListBlock extends MigrationScript
             return false;
         }
 
-        if ($block['attrs']['namespace'] === 'planet4-blocks/actions-list') {
-            var_dump($block);
-        }
-
         // Check if the block is a Covers block.
         return $block['blockName'] === Utils\Constants::BLOCK_COVERS;
     }
@@ -113,7 +109,7 @@ class M048MigrateCoversBlockToActionsListBlock extends MigrationScript
             'post_types' => isset($attrs['post_types']) ? $attrs['post_types'] : [],
             'current_post_id' => isset($attrs['current_post_id']) ? $attrs['current_post_id'] : 0,
             'layout' => isset($attrs['layout']) ? $attrs['layout'] : 'grid',
-            'per_page' => isset($attrs['initialRowsLimit']) ? $attrs['initialRowsLimit'] : 3,
+            'per_page' => isset($attrs['initialRowsLimit']) ? $attrs['initialRowsLimit'] : 1,
             'additional_class' => isset($attrs['additional_class']) ? $attrs['additional_class'] : '',
         ];
     }
@@ -142,6 +138,11 @@ class M048MigrateCoversBlockToActionsListBlock extends MigrationScript
             $items_per_page = 6;
         } else {
             $items_per_page = 100;
+        }
+
+        // If the layout is carousel (flex), we need at least 4 items per page.
+        if ($layout_type === 'flex' && $items_per_page < 4) {
+            $items_per_page = 4;
         }
 
         $query = [];
