@@ -501,8 +501,12 @@ class Functions
      *
      * @return array - The new Post Query block.
      */
-    public static function create_block_query(array $inner_blocks, array $attrs, string $classname, string $type = 'posts-list'): array
-    {
+    public static function create_block_query(
+        array $inner_blocks,
+        array $attrs,
+        string $classname,
+        string $type = 'posts-list'
+    ): array {
         $html = '
       <div class="wp-block-query ' . $type . ' p4-query-loop is-custom-layout-' . $classname . '">
 
