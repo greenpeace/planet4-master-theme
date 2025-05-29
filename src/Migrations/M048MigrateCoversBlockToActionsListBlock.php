@@ -119,8 +119,7 @@ class M048MigrateCoversBlockToActionsListBlock extends MigrationScript
 
         if ($per_page === 1) {
             $items_per_page = 3;
-        }
-        else if ($per_page === 2) {
+        } elseif ($per_page === 2) {
             $items_per_page = 6;
         } else {
             $items_per_page = 100;
