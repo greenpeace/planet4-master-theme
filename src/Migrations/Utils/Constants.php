@@ -56,7 +56,6 @@ class Constants
     public const POST_TYPES_POST = 'post';
     public const POST_TYPES_ACTION = 'p4_action';
     public const POST_TYPES_CAMPAIGN = 'campaign';
-    public const POST_TYPES_MULTIPOST = 'p4_multipost';
 
     public const ALL_POST_TYPES = [
         self::POST_TYPES_PAGE,
