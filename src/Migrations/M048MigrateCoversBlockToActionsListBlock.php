@@ -153,7 +153,7 @@ class M048MigrateCoversBlockToActionsListBlock extends MigrationScript
         $query['exclude'] = [$current_post_id];
         $query['sticky'] = '';
         $query['inherit'] = false;
-        $query['postType'] = Utils\Constants::POST_TYPES_MULTIPOST;
+        $query['postType'] = Utils\Constants::POST_TYPES_ACTION;
         $query['postIn'] = $posts_override;
         $query['hasPassword'] = false;
         $query['order'] = 'desc';
@@ -222,7 +222,7 @@ class M048MigrateCoversBlockToActionsListBlock extends MigrationScript
                     [
                         Utils\Functions::create_new_block(
                             Utils\Constants::P4_OTHER_BLOCKS['breadcrumb'],
-                            ['post_type' => Utils\Constants::POST_TYPES_MULTIPOST]
+                            ['post_type' => Utils\Constants::POST_TYPES_ACTION]
                         ),
                         Utils\Functions::create_new_block(
                             Utils\Constants::BLOCK_TITLE,
