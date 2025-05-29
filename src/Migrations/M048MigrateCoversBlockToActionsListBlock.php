@@ -8,7 +8,7 @@ use P4\MasterTheme\MigrationRecord;
 use P4\MasterTheme\MigrationScript;
 
 /**
- * Migrate Articles block to Posts List blocks.
+ * Migrate Covers blocks (Actions type) to Actions List blocks.
  */
 class M048MigrateCoversBlockToActionsListBlock extends MigrationScript
 {
@@ -37,9 +37,7 @@ class M048MigrateCoversBlockToActionsListBlock extends MigrationScript
     // phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter
 
     /**
-     * Check whether a block is an Articles block.
-     *
-     * @param array $block - A block data array.
+     * Check whether a block is a Covers block.
      */
     private static function check_is_valid_block(array $block): bool
     {
@@ -58,10 +56,7 @@ class M048MigrateCoversBlockToActionsListBlock extends MigrationScript
     }
 
     /**
-     * Create a new Query block based on attributes of an Articles block.
-     *
-     * @param array $block - The current articles block.
-     * @return array - The new block.
+     * Create a new Query block based on attributes of a Covers block.
      */
     private static function transform_block(array $block): array
     {
@@ -93,10 +88,7 @@ class M048MigrateCoversBlockToActionsListBlock extends MigrationScript
     }
 
     /**
-     * Get the attributes of a Post lists block.
-     *
-     * @param array $existing_block - The current Articles block.
-     * @return array - The attributes.
+     * Get the attributes from a Covers block.
      */
     private static function get_posts_list_block_attrs(array $existing_block): array
     {
@@ -116,12 +108,6 @@ class M048MigrateCoversBlockToActionsListBlock extends MigrationScript
 
     /**
      * Set all the attributes to create a new Query block.
-     *
-     * @param array $posts_override - The list of posts to include in the query.
-     * @param string $layout_type - The layout type.
-     * @param int $per_page - The number of elements per page.
-     * @param int $current_post_id - The current post ID.
-     * @return array - The attributes.
      */
     private static function set_query_block_attrs(
         array $posts_override,
@@ -175,8 +161,6 @@ class M048MigrateCoversBlockToActionsListBlock extends MigrationScript
 
     /**
      * Create and get a new buttons container block.
-     *
-     * @return array - The new block.
      */
     private static function get_buttons_block(): array
     {
@@ -208,8 +192,6 @@ class M048MigrateCoversBlockToActionsListBlock extends MigrationScript
 
     /**
      * Create and get a new post template.
-     *
-     * @return array - The new template.
      */
     private static function get_post_template(): array
     {
@@ -256,8 +238,6 @@ class M048MigrateCoversBlockToActionsListBlock extends MigrationScript
 
     /**
      * Create and get a new query-no-results block.
-     *
-     * @return array - The new block.
      */
     private static function get_query_no_results_block(): array
     {
@@ -274,9 +254,6 @@ class M048MigrateCoversBlockToActionsListBlock extends MigrationScript
 
     /**
      * Create and get a new paragraph block.
-     *
-     * @param string $description - The text for the paragraph.
-     * @return array - The new block.
      */
     private static function get_paragraph_block(string $description): array
     {
@@ -300,10 +277,7 @@ class M048MigrateCoversBlockToActionsListBlock extends MigrationScript
     }
 
     /**
-     * Create and get a new group block for the PostList block.
-     *
-     * @param string $title - The block title.
-     * @return array - The new block.
+     * Create and get a new heading block.
      */
     private static function get_head_block(string $title): array
     {
