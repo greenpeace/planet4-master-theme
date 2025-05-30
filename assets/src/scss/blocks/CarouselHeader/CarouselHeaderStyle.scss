@@ -617,6 +617,54 @@ $medium-image-height: 600px;
     bottom: 0;
     z-index: 3000;
 
+    > .container {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    // Check RTL
+    .carousel-autoplay-control {
+      position: relative;
+      margin-inline-start: 13px;
+      height: 24px;
+      width: 30px;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: transparent;
+
+      &.stop, &.play {
+        &::after {
+          mask-size: cover;
+          background-color: var(--white);
+          content: "";
+        }
+      }
+
+      &.stop {
+        &::after {
+          width: 14px;
+          height: 14px;
+          mask-image: url("../../images/pause.svg");
+        }
+      }
+
+      &.play {
+        &::after {
+          width: 13px;
+          height: 18px;
+          mask-image: url("../../images/play.svg");
+        }
+      }
+
+      &:hover {
+        opacity: .6;
+      }
+    }
+
     @include large-and-up {
       > .container {
         margin-inline-start: 80px;
@@ -637,7 +685,7 @@ $medium-image-height: 600px;
     text-align: center;
     margin: 0;
     bottom: 0;
-    height: 44px;
+    line-height: 0;
 
     @include medium-and-up {
       text-align: right;
