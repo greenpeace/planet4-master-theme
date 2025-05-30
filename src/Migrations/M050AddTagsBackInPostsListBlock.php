@@ -47,7 +47,8 @@ class M050AddTagsBackInPostsListBlock extends MigrationScript
         }
 
         // Check if the block is a Posts List block.
-        return $block['blockName'] === Utils\Constants::BLOCK_QUERY && $block['attrs']['namespace'] === Utils\Constants::BLOCK_POSTS_LIST;
+        return $block['blockName'] === Utils\Constants::BLOCK_QUERY &&
+            $block['attrs']['namespace'] === Utils\Constants::BLOCK_POSTS_LIST;
     }
 
     /**
