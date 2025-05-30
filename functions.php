@@ -298,7 +298,9 @@ function register_more_blocks(): void
             'api_version' => 2,
             'render_callback' => function ($attributes, $block) {
                 $post_id = $block->context['postId'] ?? get_the_ID();
-                $taxonomy = $attributes['taxonomy'] ?? 'category';
+                $options = get_option('planet4_options');
+                $global_taxonomy = $options['global_taxonomy_breadcrumbs'] ?? 'category';
+                $taxonomy = $attributes['post_type'] === 'p4_action' ? 'category' : $global_taxonomy;
 
                 $terms = get_the_terms($post_id, $taxonomy);
                 if (is_wp_error($terms) || empty($terms)) {
@@ -315,6 +317,10 @@ function register_more_blocks(): void
                 'taxonomy' => [
                     'type' => 'string',
                     'default' => 'category',
+                ],
+                'post_type' => [
+                    'type' => 'string',
+                    'default' => 'post',
                 ],
             ],
         ]
