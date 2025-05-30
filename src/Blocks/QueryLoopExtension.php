@@ -36,21 +36,25 @@ class QueryLoopExtension
      */
     public static function registerEditorQuery(array $args, \WP_REST_Request $request): array
     {
-        $postIn = $request->get_param('postIn');
-        $block_name = $request->get_param('block_name');
-        $exclude = $request->get_param('exclude');
+        $postInFilter = function ($args, $request) {
 
-        if ($block_name === self::ACTIONS_LIST_BLOCK) {
-            $args = self::buildActionListQuery($args);
-        }
-        if (!empty($postIn)) {
-            $args['post__in'] = array_map('intval', (array) $postIn);
-            $args['orderby'] = 'post__in';
-        }
-        if ($args['post__in'] && !empty($exclude)) {
-            $excludes_posts = array_map('strval', $exclude);
-            $args['post__in'] = array_values(array_diff($args['post__in'], $excludes_posts));
-        }
+            $postIn = $request->get_param('postIn');
+            if (!empty($postIn)) {
+                $args['post__in'] = array_map('intval', (array) $postIn);
+                $args['orderby'] = 'post__in';
+            }
+            $hasPassword = $request->get_param('hasPassword');
+            if (!empty($hasPassword)) {
+                $args['has_password'] = $hasPassword !== false && $hasPassword !== 'false';
+            }
+            $blockName = $request->get_param('block_name');
+            if (!empty($blockName)) {
+                if ($blockName === self::ACTIONS_LIST_BLOCK) {
+                    return self::buildActionListQuery($args, $request->get_params());
+                }
+            }
+            return $args;
+        };
 
         // Ensure only published items without password are queried
         $args['post_status'] = 'publish';
@@ -71,24 +75,22 @@ class QueryLoopExtension
     {
         $blockQuery = $block->context['query'] ?? [];
 
-        if ($blockQuery['block_name'] === self::ACTIONS_LIST_BLOCK) {
-            $query = self::buildActionListQuery($query);
-        }
-        if (!empty($blockQuery['postIn'])) {
-            $query['post__in'] = array_map('intval', (array) $blockQuery['postIn']);
-            $query['orderby'] = 'post__in';
-            $query['ignore_sticky_posts'] = true;
-        }
-        if ($query['post__in'] && !empty($blockQuery['exclude'])) {
-            $excludes_posts = array_map('strval', $blockQuery['exclude']);
-            $query['post__in'] = array_values(array_diff($query['post__in'], $excludes_posts));
-        }
-
-        // Ensure only published items without password are queried
-        $query['post_status'] = 'publish';
-        $query['has_password'] = false;
-
-        return $query;
+                if (isset($blockQuery['block_name']) && $blockQuery['block_name'] === self::ACTIONS_LIST_BLOCK) {
+                    return self::buildActionListQuery($query, $block->context['query'],);
+                }
+                if (!empty($blockQuery['postIn'])) {
+                    $query['post__in'] = array_map('intval', (array) $blockQuery['postIn']);
+                    $query['orderby'] = 'post__in';
+                    $query['ignore_sticky_posts'] = true;
+                }
+                if (isset($blockQuery['hasPassword'])) {
+                    $query['has_password'] = (bool) $blockQuery['hasPassword'];
+                }
+                return $query;
+            },
+            10,
+            2
+        );
     }
 
     /**
