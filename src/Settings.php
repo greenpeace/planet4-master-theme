@@ -138,7 +138,7 @@ class Settings
                         'id' => 'global_taxonomy_breadcrumbs',
                         'type' => 'radio',
                         'options' => [
-                            'category' => __('Category', 'planet4-master-theme-backend'),
+                            'category' => __('Category (default)', 'planet4-master-theme-backend'),
                             'p4-page-type' => __('Post Type', 'planet4-master-theme-backend'),
                         ],
                         'default' => 'category',
