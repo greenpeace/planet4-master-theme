@@ -1,5 +1,6 @@
 import gravityFormWithText from '../templates/gravity-form-with-text';
 import {getPostListBlockTemplate, POSTS_LIST_BLOCK_ATTRIBUTES} from '../../blocks/PostsList';
+import {getActionsListBlockTemplate, ACTIONS_LIST_BLOCK_ATTRIBUTES} from '../../blocks/ActionsList';
 
 const {__} = wp.i18n;
 
@@ -25,7 +26,10 @@ const template = () => (
         mediaPosition: 'right',
       }],
       ['core/spacer', {height: '56px'}],
-      ['planet4-blocks/covers'],
+      ['core/query',
+        ACTIONS_LIST_BLOCK_ATTRIBUTES,
+        getActionsListBlockTemplate(),
+      ],
       ['core/spacer', {height: '72px'}],
       gravityFormWithText(),
     ]],
