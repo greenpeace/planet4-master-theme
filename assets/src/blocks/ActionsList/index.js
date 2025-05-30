@@ -16,6 +16,22 @@ const ACT_PAGE = window.p4_vars.options.take_action_page || -1;
 
 const queryPostType = IS_NEW_IA ? 'p4_action' : 'page';
 
+// Register the ActionsList block.
+export const registerActionsListBlock = () => {
+  registerBlockVariation('core/query', {
+    name: ACTIONS_LIST_BLOCK_NAME,
+    title: 'Actions List',
+    description: __('Integrate images and text cards to automatically display tags, take action pages, or Posts in a three or four column layout displayed in a grid or carousel.', 'planet4-blocks-backend'),
+    icon: 'list-view',
+    scope: ['inserter'],
+    allowedControls: ['taxQuery', 'pages', 'offset'],
+    category: 'planet4-blocks',
+    isActive: ({namespace, query}) => namespace === ACTIONS_LIST_BLOCK_NAME && query.postType === queryPostType,
+    attributes: ACTIONS_LIST_BLOCK_ATTRIBUTES,
+    innerBlocks: getActionsListBlockTemplate(),
+  });
+};
+
 export const ACTIONS_LIST_BLOCK_ATTRIBUTES = {
   namespace: ACTIONS_LIST_BLOCK_NAME,
   className: 'actions-list p4-query-loop is-custom-layout-grid',
@@ -82,19 +98,3 @@ export const getActionsListBlockTemplate = (title = __('', 'planet4-blocks-backe
     ['core/button', {className: 'carousel-control-next', text: __('Next', 'planet4-blocks-backend')}],
   ]],
 ]);
-
-// Register the ActionsList block.
-export const registerActionsListBlock = () => {
-  registerBlockVariation('core/query', {
-    name: ACTIONS_LIST_BLOCK_NAME,
-    title: 'Actions List',
-    description: __('Integrate images and text cards to automatically display tags, take action pages, or Posts in a three or four column layout displayed in a grid or carousel.', 'planet4-blocks-backend'),
-    icon: 'list-view',
-    scope: ['inserter'],
-    allowedControls: ['taxQuery', 'pages', 'offset'],
-    category: 'planet4-blocks',
-    isActive: ({namespace, query}) => namespace === ACTIONS_LIST_BLOCK_NAME && query.postType === queryPostType,
-    attributes: ACTIONS_LIST_BLOCK_ATTRIBUTES,
-    innerBlocks: getActionsListBlockTemplate(),
-  });
-};
