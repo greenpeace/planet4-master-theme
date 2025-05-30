@@ -90,10 +90,6 @@ export const registerCounterBlock = () => {
       name: 'bar',
       label: 'Progress Bar',
     },
-    {
-      name: 'arc',
-      label: 'Progress Dial',
-    },
   ];
 
   // Add our custom styles
