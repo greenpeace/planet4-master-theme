@@ -60,9 +60,8 @@ export const PostSelector = attributes => {
       return [].concat(selectedPosts, pages);
     }
 
-    // For the Covers block.
     // For the Actions List blocks when the new IA is enabled:
-    if ('act_page' === postType || 'p4_action' === postType) {
+    if ('p4_action' === postType) {
       const selectedPosts = [
         ...select('core').getEntityRecords('postType', 'page', {include: selected}) || [],
         ...select('core').getEntityRecords('postType', 'p4_action', {include: selected}) || [],
@@ -72,14 +71,6 @@ export const PostSelector = attributes => {
         (select('core').getEntityRecords('postType', 'page', {parent: act_parent, ...args}) || []) :
         [];
       return [].concat(selectedPosts, actions, pages);
-    }
-
-    if ('post,page' === postType) {
-      return [
-        ...select('core').getEntityRecords('postType', 'post', {include: selected}) || [],
-        ...select('core').getEntityRecords('postType', 'page', {include: selected}) || [],
-        ...select('core').getEntityRecords('planet4/v1', 'published', {post_type: postType, ...args}) || [],
-      ];
     }
 
     return [];
