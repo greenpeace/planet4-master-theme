@@ -96,7 +96,6 @@ export class CounterFrontend extends Component {
     if (styleClass) {
       style = styleClass;
     }
-    const arcLength = 31.5;
 
     const percent = Math.min(target > 0 ? Math.round(completed / target * 100) : 0, 100);
 
@@ -116,18 +115,10 @@ export class CounterFrontend extends Component {
           <p className="page-section-description" dangerouslySetInnerHTML={{__html: description}} />
         }
         <div className="content-counter">
-          {(style === 'bar') &&
+          {style === 'bar' &&
             <div className="progress-container">
               <div className="progress-bar" style={{width: `calc(${percent}% + 20px)`}} />
             </div>
-          }
-          {style === 'arc' &&
-            <svg className="progress-arc" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 24 14">
-              <path className="background" d="M 2 12 A 1 1 0 1 1 22 12" />
-              <path className="foreground" d="M 2 12 A 1 1 0 1 1 22 12"
-                strokeDasharray={arcLength}
-                strokeDashoffset={`${(1 - (percent / 100)) * arcLength}`} />
-            </svg>
           }
           {text &&
             <div
