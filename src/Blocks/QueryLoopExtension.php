@@ -22,19 +22,21 @@ class QueryLoopExtension
     public static function registerEditorQuery(): void
     {
         $postInFilter = function ($args, $request) {
-            $postIn = $request->get_param('postIn');
-            $block_name = $request->get_param('block_name');
 
-            if ($block_name === self::ACTIONS_LIST_BLOCK) {
-                return self::buildActionListQuery($args, $request->get_params());
-            }
+            $postIn = $request->get_param('postIn');
             if (!empty($postIn)) {
                 $args['post__in'] = array_map('intval', (array) $postIn);
                 $args['orderby'] = 'post__in';
             }
-            if ($request->has_param('hasPassword')) {
-                $hasPassword = $request->get_param('hasPassword');
+            $hasPassword = $request->get_param('hasPassword');
+            if (!empty($hasPassword)) {
                 $args['has_password'] = $hasPassword !== false && $hasPassword !== 'false';
+            }
+            $blockName = $request->get_param('block_name');
+            if (!empty($blockName)) {
+                if ($blockName === self::ACTIONS_LIST_BLOCK) {
+                    return self::buildActionListQuery($args, $request->get_params());
+                }
             }
             return $args;
         };
@@ -51,7 +53,7 @@ class QueryLoopExtension
             function ($query, $block) {
                 $blockQuery = $block->context['query'] ?? [];
 
-                if ($blockQuery['block_name'] === self::ACTIONS_LIST_BLOCK) {
+                if (isset($blockQuery['block_name']) && $blockQuery['block_name'] === self::ACTIONS_LIST_BLOCK) {
                     return self::buildActionListQuery($query, $block->context['query'],);
                 }
                 if (!empty($blockQuery['postIn'])) {
