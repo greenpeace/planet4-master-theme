@@ -50,6 +50,7 @@ use P4\MasterTheme\Migrations\M045ReplaceTaxonomyInQueryBlock;
 use P4\MasterTheme\Migrations\M046MigrateArticlesBlockToPostsListBlock;
 use P4\MasterTheme\Migrations\M047EnableTransparentNavigation;
 use P4\MasterTheme\Migrations\M048SetDefaultTaxonomyBreadcrumb;
+use P4\MasterTheme\Migrations\M049AddTagsBackInPostsListBlock;
 
 /**
  * Run any new migration scripts and record results in the log.
@@ -117,6 +118,7 @@ class Migrator
             M046MigrateArticlesBlockToPostsListBlock::class,
             M047EnableTransparentNavigation::class,
             M048SetDefaultTaxonomyBreadcrumb::class,
+            M049AddTagsBackInPostsListBlock::class,
         ];
 
         // Loop migrations and run those that haven't run yet.
