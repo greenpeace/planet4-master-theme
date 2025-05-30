@@ -1,5 +1,6 @@
 import gravityFormWithText from '../templates/gravity-form-with-text';
 import {getPostListBlockTemplate, POSTS_LIST_BLOCK_ATTRIBUTES} from '../../blocks/PostsList';
+import {getActionsListBlockTemplate, ACTIONS_LIST_BLOCK_ATTRIBUTES} from '../../blocks/ActionsList';
 
 const {__} = wp.i18n;
 
@@ -27,17 +28,18 @@ const template = () => ([
     ['planet4-block-templates/highlighted-cta', {
       titlePlaceholder: __('Featured action title', 'planet4-blocks'),
     }],
-    ['planet4-blocks/covers', {
-      cover_type: 'take-action',
-      title: __('How you can help', 'planet4-blocks'),
-    }],
+    ['core/query',
+      ACTIONS_LIST_BLOCK_ATTRIBUTES,
+      getActionsListBlockTemplate(__('How you can help', 'planet4-blocks')),
+    ],
     ['core/query',
       POSTS_LIST_BLOCK_ATTRIBUTES,
       getPostListBlockTemplate(__('Latest news & stories', 'planet4-blocks')),
     ],
-    ['planet4-blocks/covers', {
-      title: __('Latest investigations', 'planet4-blocks'),
-    }],
+    ['core/query',
+      ACTIONS_LIST_BLOCK_ATTRIBUTES,
+      getActionsListBlockTemplate(__('Latest investigations', 'planet4-blocks')),
+    ],
     gravityFormWithText(),
     ['planet4-block-templates/quick-links', {
       title: __('Explore by topics', 'planet4-blocks'),
