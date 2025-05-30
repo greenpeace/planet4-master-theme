@@ -8,9 +8,9 @@ use P4\MasterTheme\MigrationRecord;
 use P4\MasterTheme\MigrationScript;
 
 /**
- * Migrate Covers blocks (Actions type) to Actions List blocks.
+ * Migrate Articles block to Posts List blocks.
  */
-class M048MigrateCoversBlockToActionsListBlock extends MigrationScript
+class M049MigrateCoversBlockToActionsListBlock extends MigrationScript
 {
     /**
      * Perform the actual migration.
@@ -37,7 +37,9 @@ class M048MigrateCoversBlockToActionsListBlock extends MigrationScript
     // phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter
 
     /**
-     * Check whether a block is a Covers block.
+     * Check whether a block is an Articles block.
+     *
+     * @param array $block - A block data array.
      */
     private static function check_is_valid_block(array $block): bool
     {
@@ -56,110 +58,132 @@ class M048MigrateCoversBlockToActionsListBlock extends MigrationScript
     }
 
     /**
-     * Create a new Query block based on attributes of a Covers block.
+     * Create a new Query block based on attributes of an Articles block.
+     *
+     * @param array $block - The current articles block.
+     * @return array - The new block.
      */
     private static function transform_block(array $block): array
     {
         $existing_block_attrs = self::get_posts_list_block_attrs($block);
 
+        $tags = $existing_block_attrs['tags'];
         $posts_override = $existing_block_attrs['posts'];
-        $layout_type = $existing_block_attrs['layout'] === 'carousel' ? 'flex' : 'grid';
-        $classname = Utils\Constants::ACTIONS_LIST . ' p4-query-loop is-custom-layout-' . $existing_block_attrs['layout'];
-        $per_page = $existing_block_attrs['per_page'];
+        $post_types = $existing_block_attrs['post_types'];
+        $layout_type = 'default';
+        $classname = 'list';
+        $per_page = $existing_block_attrs['rows'];
         $current_post_id = $existing_block_attrs['current_post_id'];
         $additional_class = $existing_block_attrs['additional_class'];
 
-        $attrs = self::set_query_block_attrs($posts_override, $layout_type, $per_page, $current_post_id, $classname);
+        if ($additional_class) {
+            $classname = $classname . ' ' . $additional_class;
+        }
+
+        $classname = 'test-classname';
+
+        $attrs = self::set_query_block_attrs($tags, $posts_override, $post_types, $layout_type, $per_page, $current_post_id);
 
         $inner_blocks = [
-            self::get_head_block($existing_block_attrs['title']),
-            self::get_paragraph_block($existing_block_attrs['description']),
+            self::get_head_block('I am a title'),
+            self::get_paragraph_block('I am a description'),
             self::get_query_no_results_block(),
             self::get_post_template(),
             self::get_buttons_block(),
         ];
 
-        return Utils\Functions::create_block_query(
+        $aa = Utils\Functions::create_block_query(
             $inner_blocks,
             $attrs,
-            $additional_class ? $classname . ' ' . $additional_class : $classname,
-            Utils\Constants::ACTIONS_LIST
+            $classname
         );
+
+        return $aa;
     }
 
     /**
-     * Get the attributes from a Covers block.
+     * Get the attributes of a Post lists block.
+     *
+     * @param array $existing_block - The current Articles block.
+     * @return array - The attributes.
      */
     private static function get_posts_list_block_attrs(array $existing_block): array
     {
         $attrs = $existing_block['attrs'];
+        var_dump($attrs);
 
         return [
-            'title' => isset($attrs['title']) ? $attrs['title'] : '',
-            'description' => isset($attrs['description']) ? $attrs['description'] : '',
             'posts' => isset($attrs['posts']) ? $attrs['posts'] : [],
             'post_types' => isset($attrs['post_types']) ? $attrs['post_types'] : [],
             'current_post_id' => isset($attrs['current_post_id']) ? $attrs['current_post_id'] : 0,
-            'layout' => isset($attrs['layout']) ? $attrs['layout'] : 'grid',
-            'per_page' => isset($attrs['initialRowsLimit']) ? $attrs['initialRowsLimit'] : 1,
-            'additional_class' => isset($attrs['additional_class']) ? $attrs['additional_class'] : '',
+            'title' => isset($attrs['article_heading']) && !empty($attrs['article_heading']) ?
+                $attrs['article_heading'] : __('Related Articles', 'planet4-blocks'),
+            'description' => isset($attrs['articles_description']) ? $attrs['articles_description'] : '',
+            'layout' => isset($attrs['layout']) ? $attrs['layout'] : null,
+            'rows' => isset($attrs['initialRowsLimit']) ? $attrs['initialRowsLimit'] : 0,
+            'tags' => isset($attrs['tags']) ? $attrs['tags'] : [],
         ];
     }
 
     /**
      * Set all the attributes to create a new Query block.
+     *
+     * @param array $tags - The list of post tags.
+     * @param array $posts_override - The list of posts to include in the query.
+     * @param array $post_types - The list of terms of the "p4-page-type" taxonomy.
+     * @param string $layout_type - The layout type (grid or flex).
+     * @param int $per_page - The number of elements per page.
+     * @param int $current_post_id - The current post ID.
+     * @return array - The attributes.
      */
     private static function set_query_block_attrs(
+        array $tags,
         array $posts_override,
+        array $post_types,
         string $layout_type,
         int $per_page,
-        int $current_post_id,
-        string $classname,
+        int $current_post_id
     ): array {
-
-        if ($per_page === 1) {
-            $items_per_page = 3;
-        } elseif ($per_page === 2) {
-            $items_per_page = 6;
-        } else {
-            $items_per_page = 100;
-        }
-
-        // If the layout is carousel (flex), we need at least 4 items per page.
-        if ($layout_type === 'flex' && $items_per_page < 4) {
-            $items_per_page = 4;
-        }
-
         $query = [];
         $query['pages'] = 0;
-        $query['perPage'] = $items_per_page;
         $query['offset'] = 0;
+        $query['postType'] = Utils\Constants::POST_TYPES_ACTION;
+        $query['order'] = 'desc';
+        $query['orderBy'] = 'date';
         $query['author'] = '';
         $query['search'] = '';
         $query['exclude'] = [$current_post_id];
         $query['sticky'] = '';
         $query['inherit'] = false;
-        $query['postType'] = Utils\Constants::POST_TYPES_ACTION;
-        $query['postIn'] = $posts_override;
         $query['hasPassword'] = false;
-        $query['order'] = 'desc';
-        $query['orderBy'] = 'date';
+        $query['postIn'] = $posts_override;
+
+        // Set the number of posts per page.
+        $query['perPage'] = $per_page;
+
+        if (!empty($tags)) {
+            $query['taxQuery']['post_tag'] = $tags;
+        }
+        if (!empty($post_types)) {
+            $query['taxQuery']['p4-page-type'] = $post_types;
+        }
 
         $layout = [];
         $layout['type'] = $layout_type;
         $layout['columnCount'] = 3;
 
         $attrs = [];
-        $attrs['queryId'] = 1;
+        $attrs['queryId'] = 0;
         $attrs['query'] = $query;
-        $attrs['namespace'] = Utils\Constants::BLOCK_ACTIONS_LIST;
-        $attrs['className'] = $classname;
+        $attrs['namespace'] = Utils\Constants::BLOCK_POSTS_LIST;
         $attrs['layout'] = $layout;
         return $attrs;
     }
 
     /**
      * Create and get a new buttons container block.
+     *
+     * @return array - The new block.
      */
     private static function get_buttons_block(): array
     {
@@ -191,6 +215,8 @@ class M048MigrateCoversBlockToActionsListBlock extends MigrationScript
 
     /**
      * Create and get a new post template.
+     *
+     * @return array - The new template.
      */
     private static function get_post_template(): array
     {
@@ -204,7 +230,7 @@ class M048MigrateCoversBlockToActionsListBlock extends MigrationScript
                     [
                         Utils\Functions::create_new_block(
                             Utils\Constants::P4_OTHER_BLOCKS['breadcrumb'],
-                            ['post_type' => Utils\Constants::POST_TYPES_ACTION]
+                            ['taxonomy' => 'category', 'post_type' => Utils\Constants::POST_TYPES_POST]
                         ),
                         Utils\Functions::create_new_block(
                             Utils\Constants::BLOCK_TITLE,
@@ -214,15 +240,11 @@ class M048MigrateCoversBlockToActionsListBlock extends MigrationScript
                             Utils\Constants::BLOCK_EXCERPT
                         ),
                     ],
-                    []
+                    ['layout' => ['type' => 'flex']]
                 ),
                 Utils\Functions::create_group_block(
-                    [
-                        Utils\Functions::create_new_block(
-                            Utils\Constants::ACTION_BUTTON,
-                        ),
-                    ],
-                    ['className' => 'read-more-nav',]
+                    [],
+                    []
                 ),
             ],
             [
@@ -230,13 +252,14 @@ class M048MigrateCoversBlockToActionsListBlock extends MigrationScript
                     'move' => true,
                     'remove' => true,
                 ],
-            ],
-            Utils\Constants::ACTIONS_LIST,
+            ]
         );
     }
 
     /**
      * Create and get a new query-no-results block.
+     *
+     * @return array - The new block.
      */
     private static function get_query_no_results_block(): array
     {
@@ -253,6 +276,9 @@ class M048MigrateCoversBlockToActionsListBlock extends MigrationScript
 
     /**
      * Create and get a new paragraph block.
+     *
+     * @param string $description - The text for the paragraph.
+     * @return array - The new block.
      */
     private static function get_paragraph_block(string $description): array
     {
@@ -276,7 +302,10 @@ class M048MigrateCoversBlockToActionsListBlock extends MigrationScript
     }
 
     /**
-     * Create and get a new heading block.
+     * Create and get a new group block for the PostList block.
+     *
+     * @param string $title - The block title.
+     * @return array - The new block.
      */
     private static function get_head_block(string $title): array
     {
