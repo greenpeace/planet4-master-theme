@@ -52,16 +52,19 @@
   .taxonomy-post_tag a {
     display: inline-block;
 
+    // We hide the tags after the first 5.
+    &:nth-of-type(n+6) {
+      display: none;
+    }
+
     &:before {
       content: "#";
       speak-as: none;
     }
   }
 
-  .wp-block-post-terms:not(:first-child):before {
-    margin-inline-end: $sp-1;
-    color: var(--gp-green-800);
-    content: "•";
+  .wp-block-post-terms:not(:first-child) {
+    @include render-bullet();
   }
 
   & > .wp-block-heading,
@@ -118,14 +121,15 @@
   }
 
   &.is-custom-layout-carousel {
+    // We don't show tags in this layout because they often break the design.
+    .taxonomy-post_tag {
+      display: none;
+    }
+
     .wp-block-columns {
       flex-direction: column;
       gap: $sp-2;
       margin-bottom: 0;
-    }
-
-    .wp-block-post-terms:not(:first-child) {
-      display: none;
     }
 
     @include medium-and-less {
@@ -145,10 +149,6 @@
     }
 
     @include large-and-up {
-      .wp-block-post-terms:not(:first-child) {
-        display: block;
-      }
-
       .carousel-item-wrapper {
         grid-template-columns: repeat(4, 1fr);
       }
@@ -248,6 +248,11 @@
 
   &.is-custom-layout-grid {
     display: block !important;
+
+    // We don't show tags in this layout because they often break the design.
+    .taxonomy-post_tag {
+      display: none;
+    }
 
     .wp-block-columns {
       flex-direction: column;
