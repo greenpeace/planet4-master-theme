@@ -7,6 +7,10 @@ export const registerBlockStyles = () => {
   unregisterBlockStyle('core/button', 'fill');
   unregisterBlockStyle('core/button', 'outline');
 
+  // Remove Quote block styles.
+  unregisterBlockStyle('core/quote', 'default');
+  unregisterBlockStyle('core/quote', 'plain');
+
   // Add our custom Button block styles
   registerBlockStyle('core/button', [
     {
