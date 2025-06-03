@@ -62,24 +62,6 @@
     margin-left: -10px;
   }
 
-  .progress-arc {
-    _-- {
-      max-width: 225px;
-      stroke-width: 3;
-    }
-    margin-bottom: -$sp-2x;
-
-    fill: none;
-
-    .background _-- {
-      stroke: var(--grey-200);
-    }
-
-    .foreground _-- {
-      stroke: var(--gp-green-500);
-    }
-  }
-
   .counter-text {
     _-- {
       font-size: 1rem;
