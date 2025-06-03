@@ -1,3 +1,4 @@
+import {getActionsListBlockTemplate, ACTIONS_LIST_BLOCK_ATTRIBUTES} from '../../blocks/ActionsList';
 import gravityFormWithText from '../templates/gravity-form-with-text';
 
 const {__} = wp.i18n;
@@ -24,9 +25,10 @@ const template = () => ([
         }],
       ]],
     ]],
-    ['planet4-blocks/covers', {
-      cover_type: 'take-action',
-    }],
+    ['core/query',
+      ACTIONS_LIST_BLOCK_ATTRIBUTES,
+      getActionsListBlockTemplate(),
+    ],
     ['core/separator', {backgroundColor: 'grey-20'}],
     ['planet4-block-templates/quick-links', {
       title: __('Explore by topics', 'planet4-blocks'),
