@@ -49,7 +49,6 @@ use P4\MasterTheme\Migrations\M044SetDefaultUrlPassthroughOption;
 use P4\MasterTheme\Migrations\M045ReplaceTaxonomyInQueryBlock;
 use P4\MasterTheme\Migrations\M046MigrateArticlesBlockToPostsListBlock;
 use P4\MasterTheme\Migrations\M047EnableTransparentNavigation;
-use P4\MasterTheme\Migrations\M048SetDefaultTaxonomyBreadcrumb;
 
 /**
  * Run any new migration scripts and record results in the log.
@@ -116,7 +115,6 @@ class Migrator
             M045ReplaceTaxonomyInQueryBlock::class,
             M046MigrateArticlesBlockToPostsListBlock::class,
             M047EnableTransparentNavigation::class,
-            M048SetDefaultTaxonomyBreadcrumb::class,
         ];
 
         // Loop migrations and run those that haven't run yet.

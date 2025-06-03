@@ -207,7 +207,6 @@ class MasterBlocks
             'page_text_404' => planet4_get_option('404_page_text', ''),
             'page_bg_image_404' => planet4_get_option('404_page_bg_image', ''),
             'cookies_field' => planet4_get_option('cookies_field', ''),
-            'taxonomy_breadcrumbs' => planet4_get_option('global_taxonomy_breadcrumbs', ''),
         ];
     }
 

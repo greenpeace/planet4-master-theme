@@ -134,17 +134,6 @@ class Settings
                 'title' => 'Defaults content',
                 'fields' => [
                     [
-                        'name' => __('Taxonomy breadcrumbs', 'planet4-master-theme-backend'),
-                        'id' => 'global_taxonomy_breadcrumbs',
-                        'type' => 'radio',
-                        'options' => [
-                            'category' => __('Category (default)', 'planet4-master-theme-backend'),
-                            'p4-page-type' => __('Post Type', 'planet4-master-theme-backend'),
-                        ],
-                        'default' => 'category',
-                        'desc' => __('Choose which taxonomy to display on Post breadcrumbs', 'planet4-master-theme-backend'),
-                    ],
-                    [
                         'name' => __('Actions List default button text', 'planet4-master-theme-backend'),
                         'id' => 'take_action_covers_button_text',
                         'type' => 'text',
