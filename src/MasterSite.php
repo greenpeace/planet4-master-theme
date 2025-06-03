@@ -89,15 +89,15 @@ class MasterSite extends TimberSite
         $this->theme_images_dir = $this->theme_dir . '/images/';
         $this->sort_options = [
             '_score' => [
-                'name' => __('Most relevant', 'planet4-master-theme'),
+                'name' => 'Most relevant',
                 'order' => 'DESC',
             ],
             'post_date' => [
-                'name' => __('Newest', 'planet4-master-theme'),
+                'name' => 'Newest',
                 'order' => 'DESC',
             ],
             'post_date_asc' => [
-                'name' => __('Oldest', 'planet4-master-theme'),
+                'name' => 'Oldest',
                 'order' => 'ASC',
             ],
         ];
@@ -137,7 +137,7 @@ class MasterSite extends TimberSite
         // Save "p4_global_project_tracking_id" on post save.
         add_action('save_post', [$this, 'save_global_project_id'], 10, 1);
         add_action('post_updated', [$this, 'clean_post_cache'], 10, 3);
-        add_action('after_setup_theme', [$this, 'p4_master_theme_setup']);
+        add_action('init', [$this, 'p4_master_theme_setup']);
         add_action('pre_insert_term', [$this, 'disallow_insert_term'], 1, 2);
         add_filter('wp_dropdown_users_args', [$this, 'filter_authors'], 10, 1);
         add_filter('wp_image_editors', [$this, 'allowedEditors']);
