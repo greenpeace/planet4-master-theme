@@ -63,8 +63,6 @@ module.exports = (env, argv) => {
       CookiesEditorScript: './assets/src/blocks/Cookies/CookiesEditorScript.js',
       CounterScript: './assets/src/blocks/Counter/CounterScript.js',
       CounterEditorScript: './assets/src/blocks/Counter/CounterEditorScript.js',
-      CoversEditorScript: './assets/src/blocks/Covers/CoversEditorScript.js',
-      CoversScript: './assets/src/blocks/Covers/CoversScript.js',
       SpreadsheetScript: './assets/src/blocks/Spreadsheet/SpreadsheetScript.js',
       SpreadsheetEditorScript: './assets/src/blocks/Spreadsheet/SpreadsheetEditorScript.js',
       SocialMediaEditorScript: './assets/src/blocks/SocialMedia/SocialMediaEditorScript.js',
