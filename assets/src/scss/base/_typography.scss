@@ -154,3 +154,7 @@ figcaption {
     @include shared-link-styles;
   }
 }
+
+.text-initial {
+  text-transform: initial !important;
+}
