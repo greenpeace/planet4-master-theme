@@ -130,31 +130,35 @@ class M049MigrateCoversBlockToActionsListBlock extends MigrationScript
             $items_per_page = 4;
         }
 
-        $query = [];
-        $query['pages'] = 0;
-        $query['perPage'] = $items_per_page;
-        $query['offset'] = 0;
-        $query['author'] = '';
-        $query['search'] = '';
-        $query['exclude'] = [$current_post_id];
-        $query['sticky'] = '';
-        $query['inherit'] = false;
-        $query['postType'] = Utils\Constants::POST_TYPES_ACTION;
-        $query['postIn'] = $posts_override;
-        $query['hasPassword'] = false;
-        $query['order'] = 'desc';
-        $query['orderBy'] = 'date';
+        $query = [
+            'pages' => 0,
+            'perPage' => $items_per_page,
+            'offset' => 0,
+            'author' => '',
+            'search' => '',
+            'exclude' => [$current_post_id],
+            'sticky' => '',
+            'inherit' => false,
+            'postType' => Utils\Constants::POST_TYPES_ACTION,
+            'postIn' => $posts_override,
+            'hasPassword' => false,
+            'order' => 'desc',
+            'orderBy' => 'date',
+        ];
 
-        $layout = [];
-        $layout['type'] = $layout_type;
-        $layout['columnCount'] = 3;
+        $layout = [
+            'type' => $layout_type,
+            'columnCount' => 3,
+        ];
 
-        $attrs = [];
-        $attrs['queryId'] = 1;
-        $attrs['query'] = $query;
-        $attrs['namespace'] = Utils\Constants::BLOCK_ACTIONS_LIST;
-        $attrs['className'] = $classname;
-        $attrs['layout'] = $layout;
+        $attrs = [
+            'queryId' => 1,
+            'query' => $query,
+            'namespace' => Utils\Constants::BLOCK_ACTIONS_LIST,
+            'className' => $classname,
+            'layout' => $layout,
+        ];
+
         return $attrs;
     }
 
