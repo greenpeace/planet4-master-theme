@@ -66,8 +66,8 @@
   .wrapper-post-tag {
     @include render-bullet;
 
-    .taxonomy-post_tag {
-      display: inline;
+    .taxonomy-post_tag a {
+      margin-inline-end: $sp-x;
     }
 
     a {

@@ -42,7 +42,7 @@
   }
 
   .taxonomy-post_tag a {
-    display: inline-block;
+    margin-inline-end: $sp-x;
 
     // We hide the tags after the first 5.
     &:nth-of-type(n+6) {
