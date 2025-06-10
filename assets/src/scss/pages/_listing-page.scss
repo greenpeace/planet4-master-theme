@@ -64,6 +64,7 @@
   }
 
   .wrapper-post-tag {
+    display: flex;
     @include render-bullet;
 
     .taxonomy-post_tag a {

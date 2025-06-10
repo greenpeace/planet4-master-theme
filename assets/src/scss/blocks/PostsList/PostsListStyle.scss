@@ -36,7 +36,7 @@
 
   // In List and Grid layouts, we only show the link at the bottom of the block.
   // In Carousel layout, we show it next to the header only in larger screens.
-  .wp-block-heading+.see-all-link {
+  .wp-block-heading + .see-all-link {
     display: none;
     visibility: hidden;
   }
@@ -59,13 +59,18 @@
     @include render-bullet();
   }
 
-  &>.wp-block-heading,
-  &>p {
+  & > .wp-block-heading,
+  & > p {
     width: 100%;
   }
 
   .wp-block-columns.is-layout-flex {
     gap: $sp-2x;
+
+    .is-layout-flex {
+      flex-wrap: nowrap;
+      align-items: flex-start;
+    }
   }
 
   .wp-block-post-featured-image {
@@ -113,175 +118,174 @@
   }
 
   &.is-custom-layout-carousel {
-    .carousel-controls+.see-all-link {
+    .carousel-controls + .see-all-link {
       align-self: flex-start;
+    }
 
-      // We don't show tags in this layout because they often break the design.
-      .taxonomy-post_tag {
+    // We don't show tags in this layout because they often break the design.
+    .taxonomy-post_tag {
+      display: none;
+    }
+
+    .wp-block-columns {
+      flex-direction: column;
+      gap: $sp-2;
+      margin-bottom: 0;
+    }
+
+    @include medium-and-less {
+      .wp-block-post {
+        width: 250px;
+      }
+
+      .wp-block-post-featured-image img {
+        height: 192px;
+      }
+    }
+
+    @include medium-and-up {
+      .wp-block-post {
+        width: 276px;
+      }
+    }
+
+    @include large-and-up {
+      .wp-block-heading + .see-all-link {
+        display: block;
+        visibility: visible;
+      }
+
+      .carousel-controls + .see-all-link {
         display: none;
+        visibility: hidden;
       }
 
-      .wp-block-columns {
-        flex-direction: column;
-        gap: $sp-2;
-        margin-bottom: 0;
+      .wp-block-post-terms:not(:first-child) {
+        display: block;
       }
 
-      @include medium-and-less {
-        .wp-block-post {
-          width: 250px;
-        }
-
-        .wp-block-post-featured-image img {
-          height: 192px;
-        }
+      .carousel-item-wrapper {
+        grid-template-columns: repeat(4, 1fr);
       }
 
-      @include medium-and-up {
-        .wp-block-post {
-          width: 276px;
-        }
+      .wp-block-post {
+        width: 100%;
       }
+    }
+  }
+
+  .wp-block-post-excerpt {
+    margin-top: -15px;
+
+    p {
+      width: 100%;
+      margin-bottom: $sp-1;
+      font-size: var(--font-size-m--font-family-secondary);
+      @include clamp-text(3);
+      word-break: break-word;
 
       @include large-and-up {
-        .wp-block-heading+.see-all-link {
-          display: block;
-          visibility: visible;
-        }
-
-        .carousel-controls+.see-all-link {
-          display: none;
-          visibility: hidden;
-        }
-
-        .wp-block-post-terms:not(:first-child) {
-          display: block;
-        }
-
-        .carousel-item-wrapper {
-          grid-template-columns: repeat(4, 1fr);
-        }
-
-        .wp-block-post {
-          width: 100%;
-        }
+        line-height: 1.5;
       }
+    }
+  }
+
+  .is-layout-flow > .is-layout-flow {
+    display: flex;
+    gap: $sp-x;
+    font-size: calc(var(--font-size-xxs--font-family-primary) - 2px);
+    color: var(--grey-600);
+    font-family: var(--font-family-paragraph-secondary);
+  }
+
+  .wp-block-post-author-name,
+  .article-list-item-author {
+    font-size: calc(var(--font-size-xxs--font-family-primary) - 2px);
+    display: flex;
+
+    a {
+      color: var(--grey-600);
+      font-weight: var(--font-weight-semibold);
+    }
+
+    &::after {
+      content: ".";
+      font-size: calc(var(--font-size-m--font-family-primary) + 5px);
+      margin-top: -6px;
+      margin-inline-start: $sp-x;
+    }
+  }
+
+  .wp-block-post-terms {
+    margin-top: -5px;
+
+    &__separator,
+    a,
+    a:visited {
+      color: var(--gp-green-800);
+      font-weight: var(--font-weight-semibold);
+      font-family: var(--font-family-tertiary);
+      font-size: var(--font-size-m--font-family-tertiary);
+    }
+  }
+
+  @media (max-width: 767px) {
+    .wp-block-heading {
+      font-size: var(--font-size-2xl--font-family-primary);
+    }
+  }
+
+  @media (max-width: 781px) {
+    .wp-block-post-featured-image {
+      flex-basis: 100%;
+
+      img {
+        height: 100%;
+      }
+    }
+
+    .wp-block-group.is-layout-flow {
+      flex-basis: 100%;
     }
 
     .wp-block-post-excerpt {
-      margin-top: -15px;
-
-      p {
+      &__excerpt {
         width: 100%;
-        margin-bottom: $sp-1;
-        font-size: var(--font-size-m--font-family-secondary);
-        @include clamp-text(3);
-        word-break: break-word;
-
-        @include large-and-up {
-          line-height: 1.5;
-        }
       }
     }
+  }
 
-    .is-layout-flow>.is-layout-flow {
-      display: flex;
-      gap: $sp-x;
-      font-size: calc(var(--font-size-xxs--font-family-primary) - 2px);
-      color: var(--grey-600);
-      font-family: var(--font-family-paragraph-secondary);
-    }
-
-    .wp-block-post-author-name,
-    .article-list-item-author {
-      font-size: calc(var(--font-size-xxs--font-family-primary) - 2px);
-      display: flex;
-
-      a {
-        color: var(--grey-600);
-        font-weight: var(--font-weight-semibold);
-      }
-
-      &::after {
-        content: ".";
-        font-size: calc(var(--font-size-m--font-family-primary) + 5px);
-        margin-top: -6px;
-        margin-inline-start: $sp-x;
-      }
-    }
-
+  @media (max-width: 1200px) {
+    .wp-block-post-excerpt,
     .wp-block-post-terms {
-      margin-top: -5px;
+      margin-top: 0;
+    }
+  }
 
-      &__separator,
-      a,
-      a:visited {
-        color: var(--gp-green-800);
-        font-weight: var(--font-weight-semibold);
-        font-family: var(--font-family-tertiary);
-        font-size: var(--font-size-m--font-family-tertiary);
-      }
+  &.is-custom-layout-grid {
+    display: block !important;
+
+    // We don't show tags in this layout because they often break the design.
+    .taxonomy-post_tag {
+      display: none;
     }
 
-    @media (max-width: 767px) {
-      .wp-block-heading {
-        font-size: var(--font-size-2xl--font-family-primary);
-      }
+    .wp-block-columns {
+      flex-direction: column;
+      gap: $sp-2;
+      margin-bottom: 0;
     }
 
-    @media (max-width: 781px) {
-      .wp-block-post-featured-image {
-        flex-basis: 100%;
+    .wp-block-post-template {
+      display: grid;
+      gap: $sp-3;
 
-        img {
-          height: 100%;
-        }
+      @include medium-and-up {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
-      .wp-block-group.is-layout-flow {
-        flex-basis: 100%;
-      }
-
-      .wp-block-post-excerpt {
-        &__excerpt {
-          width: 100%;
-        }
-      }
-    }
-
-    @media (max-width: 1200px) {
-
-      .wp-block-post-excerpt,
-      .wp-block-post-terms {
-        margin-top: 0;
-      }
-    }
-
-    &.is-custom-layout-grid {
-      display: block !important;
-
-      // We don't show tags in this layout because they often break the design.
-      .taxonomy-post_tag {
-        display: none;
-      }
-
-      .wp-block-columns {
-        flex-direction: column;
-        gap: $sp-2;
-        margin-bottom: 0;
-      }
-
-      .wp-block-post-template {
-        display: grid;
-        gap: $sp-3;
-
-        @include medium-and-up {
-          grid-template-columns: repeat(2, minmax(0, 1fr));
-        }
-
-        @include large-and-up {
-          grid-template-columns: repeat(4, minmax(0, 1fr));
-        }
+      @include large-and-up {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
       }
     }
   }
