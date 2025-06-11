@@ -4,7 +4,7 @@
 
   > p,
   > p.block-editor-rich-text__editable { // This is for the editor.
-    font-size: $font-size-lg;
+    font-size: var(--font-size-l--font-family-primary);
     line-height: 1.2;
 
     &:before {
@@ -23,11 +23,11 @@
     }
 
     @include medium-and-up {
-      font-size: $font-size-xl;
+      font-size: var(--font-size-xl--font-family-primary);
     }
 
     @include x-large-and-up {
-      font-size: $font-size-xl;
+      font-size: var(--font-size-xl--font-family-primary);
     }
   }
 
