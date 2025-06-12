@@ -22,14 +22,15 @@
 @import "blocks/PageHeader";
 
 // Native Blocks
-@import "blocks/core-overrides/Image";
 @import "blocks/core-overrides/BlockSpacing";
+@import "blocks/core-overrides/Columns";
+@import "blocks/core-overrides/Embed";
+@import "blocks/core-overrides/Heading";
+@import "blocks/core-overrides/Image";
+@import "blocks/core-overrides/MediaText";
+@import "blocks/core-overrides/Quote";
 @import "blocks/core-overrides/Separator";
 @import "blocks/core-overrides/Table";
-@import "blocks/core-overrides/MediaText";
-@import "blocks/core-overrides/Columns";
-@import "blocks/core-overrides/Heading";
-@import "blocks/core-overrides/Embed";
 
 // Other
 @import "blocks/WideBlocks";
