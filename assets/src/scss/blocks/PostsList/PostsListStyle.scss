@@ -32,21 +32,13 @@
         }
       }
     }
-
-    @include large-and-up {
-      display: none;
-      visibility: hidden;
-    }
   }
 
+  // In List and Grid layouts, we only show the link at the bottom of the block.
+  // In Carousel layout, we show it next to the header only in larger screens.
   .wp-block-heading + .see-all-link {
     display: none;
     visibility: hidden;
-
-    @include large-and-up {
-      display: block;
-      visibility: visible;
-    }
   }
 
   .taxonomy-post_tag a {
@@ -118,6 +110,10 @@
   }
 
   &.is-custom-layout-carousel {
+    .carousel-controls + .see-all-link {
+      align-self: flex-start;
+    }
+
     .wp-block-columns {
       flex-direction: column;
       gap: $sp-2;
@@ -145,6 +141,16 @@
     }
 
     @include large-and-up {
+      .wp-block-heading + .see-all-link {
+        display: block;
+        visibility: visible;
+      }
+
+      .carousel-controls + .see-all-link {
+        display: none;
+        visibility: hidden;
+      }
+
       .wp-block-post-terms:not(:first-child) {
         display: block;
       }
