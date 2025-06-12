@@ -1,9 +1,11 @@
 const {addFilter} = wp.hooks;
+const {__} = wp.i18n;
 
 export const addBlockFilters = () => {
   addFileBlockFilter();
   addImageBlockFilter();
   addGravityFormsBlockFilter();
+  addQuoteBlockExtraDescription();
 };
 
 // Hide download button by default in the File block.
@@ -65,6 +67,18 @@ const addGravityFormsBlockFilter = () => addFilter('blocks.registerBlockType', '
   }
 
   settings.attributes.ajax.default = true;
+
+  return settings;
+});
+
+// Add more details to Quote block description.
+const addQuoteBlockExtraDescription = () => addFilter('blocks.registerBlockType', 'planet4-blocks/filters/quote', (settings, name) => {
+  if ('core/quote' !== name) {
+    return settings;
+  }
+
+  const {description} = settings;
+  settings.description = `${description}. ${__('Try to keep your Quote short and concise, so that it stands out effectively.', 'planet4-blocks-backend')}`;
 
   return settings;
 });

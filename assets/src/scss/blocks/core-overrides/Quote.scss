@@ -1,0 +1,37 @@
+.wp-block-quote {
+  font-style: italic;
+  quotes: auto;
+
+  > p,
+  > p.block-editor-rich-text__editable { // This is for the editor.
+    font-size: var(--font-size-l--font-family-primary);
+    line-height: 1.2;
+
+    &:before {
+      content: open-quote;
+      display: block;
+      font-weight: bold;
+      font-size: 5rem;
+      margin-bottom: -$sp-5;
+      font-style: normal;
+    }
+
+    &:after {
+      content: close-quote;
+      font-weight: bold;
+      margin-inline-start: $sp-x;
+    }
+
+    @include medium-and-up {
+      font-size: var(--font-size-xl--font-family-primary);
+    }
+
+    @include x-large-and-up {
+      font-size: var(--font-size-xl--font-family-primary);
+    }
+  }
+
+  cite {
+    font-style: normal;
+  }
+}
