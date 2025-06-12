@@ -62,6 +62,7 @@ class QueryLoopExtension
                 if (isset($blockQuery['hasPassword'])) {
                     $query['has_password'] = (bool) $blockQuery['hasPassword'];
                 }
+                $query['post_status'] = 'publish'; // Ensure only published posts are queried
                 return $query;
             },
             10,
@@ -80,7 +81,8 @@ class QueryLoopExtension
     private static function buildActionListQuery(array $query, array $params = []): array
     {
         $is_new_ia = !empty(planet4_get_option('new_ia'));
-        $query['post_status'] = 'publish';
+        $query['post_status'] = 'publish'; // Ensure only published posts are queried
+        $query['has_password'] = false; // Exclude password-protected posts
 
         if (!$is_new_ia) {
             $query['post_type'] = ['page'];
@@ -119,10 +121,6 @@ class QueryLoopExtension
 
             if (!empty($params['postIn'])) {
                 $query['post__in'] = array_map('intval', (array) $params['postIn']);
-            }
-
-            if (!empty($params['hasPassword'])) {
-                $query['has_password'] = $params['hasPassword'] !== false && $params['hasPassword'] !== 'false';
             }
 
             $query['orderby'] = [
