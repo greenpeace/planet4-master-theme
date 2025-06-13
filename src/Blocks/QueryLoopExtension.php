@@ -24,6 +24,7 @@ class QueryLoopExtension
     {
         $postInFilter = function ($args, $request) {
             $postIn = $request->get_param('postIn');
+            $hasPassword = $request->get_param('hasPassword');
             $block_name = $request->get_param('block_name');
 
             if ($block_name === self::ACTIONS_LIST_BLOCK) {
@@ -36,6 +37,10 @@ class QueryLoopExtension
             if (!empty($postIn)) {
                 $args['post__in'] = array_map('intval', (array) $postIn);
                 $args['orderby'] = 'post__in';
+            }
+            // Exclude posts with the custom property `has_password` set to false
+            if ($hasPassword) {
+                $args['has_password'] = $hasPassword !== false && $hasPassword !== 'false';
             }
             return $args;
         };
@@ -63,6 +68,10 @@ class QueryLoopExtension
                     $query['post__in'] = array_map('intval', (array) $blockQuery['postIn']);
                     $query['orderby'] = 'post__in';
                     $query['ignore_sticky_posts'] = true;
+                }
+                // Exclude posts with the custom property `has_password` set to false
+                if (isset($blockQuery['hasPassword'])) {
+                    $query['has_password'] = (bool) $blockQuery['hasPassword'];
                 }
                 return $query;
             },
