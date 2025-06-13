@@ -39,6 +39,7 @@ export const POSTS_LIST_BLOCK_ATTRIBUTES = {
     inherit: false,
     postIn: [],
     hasPassword: false,
+    block_name: POSTS_LIST_BLOCK_NAME,
   },
   layout: {
     type: 'default',

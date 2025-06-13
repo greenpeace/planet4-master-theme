@@ -12,6 +12,7 @@ namespace P4\MasterTheme\Blocks;
 class QueryLoopExtension
 {
     public const ACTIONS_LIST_BLOCK = 'planet4-blocks/actions-list';
+    public const POSTS_LIST_BLOCK = 'planet4-blocks/posts-list';
 
     public static function registerHooks(): void
     {
@@ -28,13 +29,13 @@ class QueryLoopExtension
             if ($block_name === self::ACTIONS_LIST_BLOCK) {
                 return self::buildActionListQuery($args, $request->get_params());
             }
+            if ($block_name === self::POSTS_LIST_BLOCK) {
+                $args['post_status'] = 'publish'; // Ensure only published posts are queried
+                $args['has_password'] = false; // Exclude password-protected posts
+            }
             if (!empty($postIn)) {
                 $args['post__in'] = array_map('intval', (array) $postIn);
                 $args['orderby'] = 'post__in';
-            }
-            if ($request->has_param('hasPassword')) {
-                $hasPassword = $request->get_param('hasPassword');
-                $args['has_password'] = $hasPassword !== false && $hasPassword !== 'false';
             }
             return $args;
         };
@@ -54,15 +55,15 @@ class QueryLoopExtension
                 if ($blockQuery['block_name'] === self::ACTIONS_LIST_BLOCK) {
                     return self::buildActionListQuery($query, $block->context['query'],);
                 }
+                if ($blockQuery['block_name'] === self::POSTS_LIST_BLOCK) {
+                    $query['post_status'] = 'publish'; // Ensure only published posts are queried
+                    $query['has_password'] = false; // Exclude password-protected posts
+                }
                 if (!empty($blockQuery['postIn'])) {
                     $query['post__in'] = array_map('intval', (array) $blockQuery['postIn']);
                     $query['orderby'] = 'post__in';
                     $query['ignore_sticky_posts'] = true;
                 }
-                if (isset($blockQuery['hasPassword'])) {
-                    $query['has_password'] = (bool) $blockQuery['hasPassword'];
-                }
-                $query['post_status'] = 'publish'; // Ensure only published posts are queried
                 return $query;
             },
             10,
