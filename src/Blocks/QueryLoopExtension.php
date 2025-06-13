@@ -24,7 +24,6 @@ class QueryLoopExtension
     {
         $postInFilter = function ($args, $request) {
             $postIn = $request->get_param('postIn');
-            $hasPassword = $request->get_param('hasPassword');
             $block_name = $request->get_param('block_name');
 
             if ($block_name === self::ACTIONS_LIST_BLOCK) {
@@ -39,7 +38,8 @@ class QueryLoopExtension
                 $args['orderby'] = 'post__in';
             }
             // Exclude posts with the custom property `has_password` set to false
-            if ($hasPassword) {
+            if ($request->has_param('hasPassword')) {
+                $hasPassword = $request->get_param('hasPassword');
                 $args['has_password'] = $hasPassword !== false && $hasPassword !== 'false';
             }
             return $args;
