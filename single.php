@@ -79,6 +79,7 @@ if ('yes' === $post->include_articles) {
         'query' => [
             'perPage' => 3,
             'post_type' => 'post',
+            'hasPassword' => false,
             'taxQuery' => [
                 'post_tag' => $tag_id_array,
                 'category' => $category_id_array,
