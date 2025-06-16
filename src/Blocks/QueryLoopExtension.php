@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace P4\MasterTheme\Blocks;
 
+use WP_Block;
+
 /**
  * Enhances the query loop block with custom filtering logic for specific blocks.
  * Supports manual inclusion of posts (`postIn`) and filtering password-protected content.
@@ -27,12 +29,13 @@ class QueryLoopExtension
     /**
      * Modifies REST API query args for editor context.
      *
-     * @param array           $args    The original query arguments.
+     * @param array $args The original query arguments.
      * @param \WP_REST_Request $request The incoming REST request.
      *
      * @return array Modified query arguments.
      */
-    public static function registerEditorQuery($args, $request) {
+    public static function registerEditorQuery(array $args, \WP_REST_Request $request): array
+    {
         $postIn = $request->get_param('postIn');
         $block_name = $request->get_param('block_name');
 
@@ -53,12 +56,13 @@ class QueryLoopExtension
     /**
      * Modifies query args for frontend query loop blocks.
      *
-     * @param array    $query The original WP_Query args.
+     * @param array $query The original WP_Query args.
      * @param WP_Block $block The block instance, containing context.
      *
      * @return array Modified query arguments.
      */
-    public static function registerFrontendQuery($query, $block) {
+    public static function registerFrontendQuery(array $query, WP_Block $block): array
+    {
         $blockQuery = $block->context['query'] ?? [];
 
         if ($blockQuery['block_name'] === self::ACTIONS_LIST_BLOCK) {
@@ -78,7 +82,7 @@ class QueryLoopExtension
     /**
      * Build a filtered post query based on IA mode and request parameters.
      *
-     * @param array $query  The base WP_Query arguments.
+     * @param array $query The base WP_Query arguments.
      * @param array $params Additional parameters, typically from a block context or REST request.
      *
      * @return array Modified query arguments.
@@ -99,7 +103,7 @@ class QueryLoopExtension
     /**
      * Builds the query for new IA configuration using the act_page as parent.
      *
-     * @param array $query  The current query args.
+     * @param array $query The current query args.
      * @param array $params Parameters that may contain 'postIn'.
      *
      * @return array Modified query arguments.
@@ -120,7 +124,7 @@ class QueryLoopExtension
     /**
      * Builds the query for old IA configuration using both action and page types.
      *
-     * @param array $query  The current query args.
+     * @param array $query The current query args.
      * @param array $params Parameters that may include 'postIn' and 'hasPassword'.
      *
      * @return array Modified query arguments.
