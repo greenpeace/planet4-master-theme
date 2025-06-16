@@ -40,7 +40,7 @@ class QueryLoopExtension
         $block_name = $request->get_param('block_name');
 
         if ($block_name === self::ACTIONS_LIST_BLOCK) {
-            return self::buildActionListQuery($args, $request->get_params());
+            $args = self::buildActionListQuery($args);
         }
         if (!empty($postIn)) {
             $args['post__in'] = array_map('intval', (array) $postIn);
@@ -66,13 +66,15 @@ class QueryLoopExtension
         $blockQuery = $block->context['query'] ?? [];
 
         if ($blockQuery['block_name'] === self::ACTIONS_LIST_BLOCK) {
-            return self::buildActionListQuery($query, $block->context['query'],);
+            $query = self::buildActionListQuery($query);
         }
+
         if (!empty($blockQuery['postIn'])) {
             $query['post__in'] = array_map('intval', (array) $blockQuery['postIn']);
             $query['orderby'] = 'post__in';
             $query['ignore_sticky_posts'] = true;
         }
+
         if (isset($blockQuery['hasPassword'])) {
             $query['has_password'] = (bool) $blockQuery['hasPassword'];
         }
@@ -87,15 +89,15 @@ class QueryLoopExtension
      *
      * @return array Modified query arguments.
      */
-    private static function buildActionListQuery(array $query, array $params = []): array
+    private static function buildActionListQuery(array $query): array
     {
         $is_new_ia = !empty(planet4_get_option('new_ia'));
         $query['post_status'] = 'publish';
 
         if (!$is_new_ia) {
-            $query = self::buildOldIaActionListQuery($query, $params);
+            $query = self::buildOldIaActionListQuery($query);
         } else {
-            $query = self::buildNewIaActionListQuery($query, $params);
+            $query = self::buildNewIaActionListQuery($query);
         }
         return $query;
     }
@@ -104,20 +106,16 @@ class QueryLoopExtension
      * Builds the query for old IA configuration using the act_page as parent.
      *
      * @param array $query The current query args.
-     * @param array $params Parameters that may contain 'postIn'.
      *
      * @return array Modified query arguments.
      */
-    private static function buildOldIaActionListQuery(array $query, array $params = []): array
+    private static function buildOldIaActionListQuery(array $query): array
     {
         $query['post_type'] = ['page'];
         $query['post_parent'] = !empty(planet4_get_option('act_page'))
             ? planet4_get_option('act_page')
             : -1;
 
-        if (!empty($params['postIn'])) {
-            $query['post__in'] = array_map('intval', (array) $params['postIn']);
-        }
         return $query;
     }
 
@@ -125,11 +123,10 @@ class QueryLoopExtension
      * Builds the query for new IA configuration using both action and page types.
      *
      * @param array $query The current query args.
-     * @param array $params Parameters that may include 'postIn' and 'hasPassword'.
      *
      * @return array Modified query arguments.
      */
-    private static function buildNewIaActionListQuery(array $query, array $params = []): array
+    private static function buildNewIaActionListQuery(array $query): array
     {
         global $wpdb;
 
@@ -154,14 +151,6 @@ class QueryLoopExtension
             $query['post__in'] = $post_ids;
         } else {
             $query['post__in'] = [0];
-        }
-
-        if (!empty($params['postIn'])) {
-            $query['post__in'] = array_map('intval', (array) $params['postIn']);
-        }
-
-        if (!empty($params['hasPassword'])) {
-            $query['has_password'] = $params['hasPassword'] !== false && $params['hasPassword'] !== 'false';
         }
 
         $query['orderby'] = [
