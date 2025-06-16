@@ -4,10 +4,18 @@ declare(strict_types=1);
 
 namespace P4\MasterTheme\Blocks;
 
+/**
+ * Enhances the query loop block with custom filtering logic for specific blocks.
+ * Supports manual inclusion of posts (`postIn`) and filtering password-protected content.
+ * Also handles IA-mode-based query construction for action pages.
+ */
 class QueryLoopExtension
 {
     public const ACTIONS_LIST_BLOCK = 'planet4-blocks/actions-list';
 
+    /**
+     * Register all necessary filters for both REST API and frontend query handling.
+     */
     public static function registerHooks(): void
     {
         add_filter('rest_post_query', [self::class, 'registerEditorQuery'], 10, 2);
@@ -16,6 +24,14 @@ class QueryLoopExtension
         add_filter('query_loop_block_query_vars', [self::class, 'registerFrontendQuery'], 10, 2);
     }
 
+    /**
+     * Modifies REST API query args for editor context.
+     *
+     * @param array           $args    The original query arguments.
+     * @param \WP_REST_Request $request The incoming REST request.
+     *
+     * @return array Modified query arguments.
+     */
     public static function registerEditorQuery($args, $request) {
         $postIn = $request->get_param('postIn');
         $block_name = $request->get_param('block_name');
@@ -34,6 +50,14 @@ class QueryLoopExtension
         return $args;
     }
 
+    /**
+     * Modifies query args for frontend query loop blocks.
+     *
+     * @param array    $query The original WP_Query args.
+     * @param WP_Block $block The block instance, containing context.
+     *
+     * @return array Modified query arguments.
+     */
     public static function registerFrontendQuery($query, $block) {
         $blockQuery = $block->context['query'] ?? [];
 
@@ -51,7 +75,7 @@ class QueryLoopExtension
         return $query;
     }
 
-     /**
+    /**
      * Build a filtered post query based on IA mode and request parameters.
      *
      * @param array $query  The base WP_Query arguments.
@@ -72,6 +96,14 @@ class QueryLoopExtension
         return $query;
     }
 
+    /**
+     * Builds the query for new IA configuration using the act_page as parent.
+     *
+     * @param array $query  The current query args.
+     * @param array $params Parameters that may contain 'postIn'.
+     *
+     * @return array Modified query arguments.
+     */
     private static function buildNewIaActionListQuery(array $query, array $params = []): array
     {
         $query['post_type'] = ['page'];
@@ -85,6 +117,14 @@ class QueryLoopExtension
         return $query;
     }
 
+    /**
+     * Builds the query for old IA configuration using both action and page types.
+     *
+     * @param array $query  The current query args.
+     * @param array $params Parameters that may include 'postIn' and 'hasPassword'.
+     *
+     * @return array Modified query arguments.
+     */
     private static function buildOldIaActionListQuery(array $query, array $params = []): array
     {
         global $wpdb;
