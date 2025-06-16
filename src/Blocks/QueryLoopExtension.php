@@ -93,22 +93,22 @@ class QueryLoopExtension
         $query['post_status'] = 'publish';
 
         if (!$is_new_ia) {
-            $query = self::buildNewIaActionListQuery($query, $params);
-        } else {
             $query = self::buildOldIaActionListQuery($query, $params);
+        } else {
+            $query = self::buildNewIaActionListQuery($query, $params);
         }
         return $query;
     }
 
     /**
-     * Builds the query for new IA configuration using the act_page as parent.
+     * Builds the query for old IA configuration using the act_page as parent.
      *
      * @param array $query The current query args.
      * @param array $params Parameters that may contain 'postIn'.
      *
      * @return array Modified query arguments.
      */
-    private static function buildNewIaActionListQuery(array $query, array $params = []): array
+    private static function buildOldIaActionListQuery(array $query, array $params = []): array
     {
         $query['post_type'] = ['page'];
         $query['post_parent'] = !empty(planet4_get_option('act_page'))
@@ -122,14 +122,14 @@ class QueryLoopExtension
     }
 
     /**
-     * Builds the query for old IA configuration using both action and page types.
+     * Builds the query for new IA configuration using both action and page types.
      *
      * @param array $query The current query args.
      * @param array $params Parameters that may include 'postIn' and 'hasPassword'.
      *
      * @return array Modified query arguments.
      */
-    private static function buildOldIaActionListQuery(array $query, array $params = []): array
+    private static function buildNewIaActionListQuery(array $query, array $params = []): array
     {
         global $wpdb;
 
