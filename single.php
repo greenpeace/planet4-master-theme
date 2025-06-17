@@ -79,7 +79,6 @@ if ('yes' === $post->include_articles) {
         'query' => [
             'perPage' => 3,
             'post_type' => 'post',
-            'hasPassword' => false,
             'taxQuery' => [
                 'post_tag' => $tag_id_array,
                 'category' => $category_id_array,
@@ -87,7 +86,6 @@ if ('yes' === $post->include_articles) {
             'exclude' => [$post->ID],
         ],
         'className' => 'posts-list p4-query-loop is-custom-layout-list',
-        'hasPassword' => false,
         'layout' => [
             'type' => 'default',
             'columnCount' => 3,
