@@ -140,6 +140,7 @@ class M049MigrateCoversBlockToActionsListBlock extends MigrationScript
             'sticky' => '',
             'inherit' => false,
             'postType' => Utils\Constants::POST_TYPES_ACTION,
+            'block_name' => Utils\Constants::BLOCK_ACTIONS_LIST,
             'postIn' => $posts_override,
             'hasPassword' => false,
             'order' => 'desc',
