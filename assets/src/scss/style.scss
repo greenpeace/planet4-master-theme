@@ -169,3 +169,26 @@ body.transparent-nav {
     height: 26px;
   }
 }
+
+// Styles for carousel skip links
+
+.carousel-skip-link {
+  position: absolute;
+  left: -9999px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  font-family: var(--font-family-tertiary);
+  font-size: var(--font-size-m--font-family-tertiary);
+}
+
+.carousel-skip-link:focus {
+  left: 4px;
+  bottom: 3px;
+  width: auto;
+  height: auto;
+  background-color: white;
+  color: var(--grey-900);
+  border-radius: 4px;
+  padding: 5px 10px;
+}

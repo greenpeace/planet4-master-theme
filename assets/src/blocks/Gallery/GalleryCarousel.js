@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import {IMAGE_SIZES} from './imageSizes';
 import {getCaptionWithCredits} from './getCaptionWithCredits.js';
 
@@ -128,7 +130,6 @@ export const GalleryCarousel = ({images, onImageClick, isEditing}) => {
               title={image.alt_text}
               data-index={index}
               onClick={onImageClick}
-              role="presentation"
             />
 
             {(image.caption || image.credits) && (
