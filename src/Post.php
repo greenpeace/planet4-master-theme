@@ -604,7 +604,6 @@ class Post extends TimberPost
                         <!-- wp:heading -->
                             <h2 class="wp-block-heading">' . __('Related Posts', 'planet4-blocks') . '</h2>
                         <!-- /wp:heading -->
-                        ' . $see_all_link_group . '
                     </div>
                 <!-- /wp:group -->
                 <!-- wp:post-template -->
