@@ -36,27 +36,12 @@ class QueryLoopExtension
      */
     public static function registerEditorQuery(array $args, \WP_REST_Request $request): array
     {
-        $postIn = $request->get_param('postIn');
-        $block_name = $request->get_param('block_name');
-        $exclude = $request->get_param('exclude');
-
-        if ($block_name === self::ACTIONS_LIST_BLOCK) {
-            $args = self::buildActionListQuery($args);
-        }
-        if (!empty($postIn)) {
-            $args['post__in'] = array_map('intval', (array) $postIn);
-            $args['orderby'] = 'post__in';
-        }
-        if ($args['post__in'] && !empty($exclude)) {
-            $excludes_posts = array_map('strval', $exclude);
-            $args['post__in'] = array_values(array_diff($args['post__in'], $excludes_posts));
-        }
-
-        // Ensure only published items without password are queried
-        $args['post_status'] = 'publish';
-        $args['has_password'] = false;
-
-        return $args;
+        $params = [
+            'postIn' => $request->get_param('postIn'),
+            'block_name' => $request->get_param('block_name'),
+            'exclude' => $request->get_param('exclude'),
+        ];
+        return self::applyCommonQueryModifiers($args, $params);
     }
 
     /**
@@ -69,19 +54,37 @@ class QueryLoopExtension
      */
     public static function registerFrontendQuery(array $query, WP_Block $block): array
     {
-        $blockQuery = $block->context['query'] ?? [];
+        $params = $block->context['query'] ?? [];
+        return self::applyCommonQueryModifiers($query, $params);
+    }
 
-        if ($blockQuery['block_name'] === self::ACTIONS_LIST_BLOCK) {
+    /**
+     * Applies common filtering logic used by both frontend and editor queries.
+     *
+     * @param array $query The WP_Query arguments to modify.
+     * @param array $params Parameters extracted from either block context or REST request.
+     *
+     * @return array Modified query arguments.
+     */
+    private static function applyCommonQueryModifiers(array $query, array $params): array
+    {
+        if (!empty($params['block_name']) && $params['block_name'] === self::ACTIONS_LIST_BLOCK) {
             $query = self::buildActionListQuery($query);
         }
-        if (!empty($blockQuery['postIn'])) {
-            $query['post__in'] = array_map('intval', (array) $blockQuery['postIn']);
+
+        if (!empty($params['postIn'])) {
+            $query['post__in'] = array_map('intval', (array) $params['postIn']);
             $query['orderby'] = 'post__in';
             $query['ignore_sticky_posts'] = true;
         }
         if ($query['post__in'] && !empty($blockQuery['exclude'])) {
             $excludes_posts = array_map('strval', $blockQuery['exclude']);
             $query['post__in'] = array_values(array_diff($query['post__in'], $excludes_posts));
+        }
+
+        if (!empty($query['post__in']) && !empty($params['exclude'])) {
+            $exclude = array_map('intval', (array) $params['exclude']);
+            $query['post__in'] = array_values(array_diff($query['post__in'], $exclude));
         }
 
         // Ensure only published items without password are queried
