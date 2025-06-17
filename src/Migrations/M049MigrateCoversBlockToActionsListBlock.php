@@ -95,14 +95,14 @@ class M049MigrateCoversBlockToActionsListBlock extends MigrationScript
         $attrs = $existing_block['attrs'];
 
         return [
-            'title' => isset($attrs['title']) ? $attrs['title'] : '',
-            'description' => isset($attrs['description']) ? $attrs['description'] : '',
-            'posts' => isset($attrs['posts']) ? $attrs['posts'] : [],
-            'post_types' => isset($attrs['post_types']) ? $attrs['post_types'] : [],
-            'current_post_id' => isset($attrs['current_post_id']) ? $attrs['current_post_id'] : 0,
+            'title' => $attrs['title'] ?? '',
+            'description' => $attrs['description'] ?? '',
+            'posts' => $attrs['posts'] ?? [],
+            'post_types' => $attrs['post_types'] ?? [],
+            'current_post_id' => $attrs['current_post_id'] ?? 0,
             'layout' => isset($attrs['layout']) ? $attrs['layout'] : 'grid',
-            'per_page' => isset($attrs['initialRowsLimit']) ? $attrs['initialRowsLimit'] : 1,
-            'additional_class' => isset($attrs['additional_class']) ? $attrs['additional_class'] : '',
+            'per_page' => $attrs['initialRowsLimit'] ?? 1,
+            'additional_class' => $attrs['additional_class'] ?? '',
         ];
     }
 

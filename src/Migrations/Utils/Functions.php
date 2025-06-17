@@ -645,6 +645,7 @@ class Functions
      *
      * @param array $inner_blocks - The template inner blocks.
      * @param array $attrs - The template attributes.
+     * @param string $type - The post template type ('posts-list' or 'actions-list').
      *
      * @return array - The new Post template.
      */
