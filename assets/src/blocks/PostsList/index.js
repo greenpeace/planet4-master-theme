@@ -90,8 +90,8 @@ export const getPostListBlockTemplate = (title = __('Related Posts', 'planet4-bl
     lock: {move: true},
     layout: {type: 'flex', justifyContent: 'space-between', orientation: 'horizontal', flexWrap: 'nowrap'},
   }, [
-    ['core/button', {className: 'carousel-control-prev', text: __('Prev', 'planet4-blocks-backend')}],
-    ['core/button', {className: 'carousel-control-next', text: __('Next', 'planet4-blocks-backend')}],
+    ['core/button', {className: 'carousel-control-prev', text: __('Prev', 'planet4-blocks-backend'), tagName: 'button'}],
+    ['core/button', {className: 'carousel-control-next', text: __('Next', 'planet4-blocks-backend'), tagName: 'button'}],
   ]],
   seeAllLink,
 ]);
