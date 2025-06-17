@@ -1,4 +1,4 @@
-import {LISTS_BREADCRUMBS} from '../PostsList';
+import {LISTS_BREADCRUMBS, carouselButtons} from '../PostsList';
 import {TAX_BREADCRUMB_BLOCK_NAME} from '../../block-editor/setupTaxonomyBreadcrumbBlock';
 
 export const ACTIONS_LIST_BLOCK_NAME = 'planet4-blocks/actions-list';
@@ -73,14 +73,7 @@ export const getActionsListBlockTemplate = (title = __('', 'planet4-blocks-backe
       ['planet4-blocks/action-button-text'],
     ]],
   ]],
-  ['core/buttons', {
-    className: 'carousel-controls',
-    lock: {move: true},
-    layout: {type: 'flex', justifyContent: 'space-between', orientation: 'horizontal', flexWrap: 'nowrap'},
-  }, [
-    ['core/button', {className: 'carousel-control-prev', text: __('Prev', 'planet4-blocks-backend')}],
-    ['core/button', {className: 'carousel-control-next', text: __('Next', 'planet4-blocks-backend')}],
-  ]],
+  carouselButtons,
 ]);
 
 // Register the ActionsList block.
