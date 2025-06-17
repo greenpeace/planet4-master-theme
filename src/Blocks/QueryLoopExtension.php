@@ -38,6 +38,7 @@ class QueryLoopExtension
     {
         $postIn = $request->get_param('postIn');
         $block_name = $request->get_param('block_name');
+        $exclude = $request->get_param('exclude');
 
         if ($block_name === self::ACTIONS_LIST_BLOCK) {
             $args = self::buildActionListQuery($args);
@@ -45,6 +46,10 @@ class QueryLoopExtension
         if (!empty($postIn)) {
             $args['post__in'] = array_map('intval', (array) $postIn);
             $args['orderby'] = 'post__in';
+        }
+        if ($args['post__in'] && !empty($exclude)) {
+            $excludes_posts = array_map('strval', $exclude);
+            $args['post__in'] = array_values(array_diff($args['post__in'], $excludes_posts));
         }
 
         // Ensure only published items without password are queried
@@ -73,6 +78,10 @@ class QueryLoopExtension
             $query['post__in'] = array_map('intval', (array) $blockQuery['postIn']);
             $query['orderby'] = 'post__in';
             $query['ignore_sticky_posts'] = true;
+        }
+        if ($query['post__in'] && !empty($blockQuery['exclude'])) {
+            $excludes_posts = array_map('strval', $blockQuery['exclude']);
+            $query['post__in'] = array_values(array_diff($query['post__in'], $excludes_posts));
         }
 
         // Ensure only published items without password are queried
