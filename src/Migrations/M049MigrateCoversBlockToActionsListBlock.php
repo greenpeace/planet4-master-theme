@@ -271,7 +271,7 @@ class M049MigrateCoversBlockToActionsListBlock extends MigrationScript
                     'spacing' => [
                         'margin' => [
                             'top' => '24px',
-                            'bottom' => '36px',
+                            'bottom' => '32px',
                         ],
                     ],
                 ],
