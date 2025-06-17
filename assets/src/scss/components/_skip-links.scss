@@ -19,3 +19,25 @@
     }
   }
 }
+
+// Styles for carousel skip link
+.carousel-skip-link {
+  position: absolute;
+  left: -9999px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  font-family: var(--font-family-tertiary);
+  font-size: var(--font-size-m--font-family-tertiary);
+}
+
+.carousel-skip-link:focus {
+  left: 50px;
+  bottom: 10px;
+  width: auto;
+  height: auto;
+  background-color: white;
+  color: var(--grey-900);
+  border-radius: $sp-x;
+  padding: 5px 10px;
+}
