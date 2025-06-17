@@ -68,8 +68,16 @@ class M049MigrateCoversBlockToActionsListBlock extends MigrationScript
         $per_page = $existing_block_attrs['per_page'];
         $current_post_id = $existing_block_attrs['current_post_id'];
         $additional_class = $existing_block_attrs['additional_class'];
+        $tags = $existing_block_attrs['tags'];
 
-        $attrs = self::set_query_block_attrs($posts_override, $layout_type, $per_page, $current_post_id, $classname);
+        $attrs = self::set_query_block_attrs(
+            $posts_override,
+            $layout_type,
+            $per_page,
+            $current_post_id,
+            $classname,
+            $tags
+        );
 
         $inner_blocks = [
             self::get_head_block($existing_block_attrs['title']),
@@ -99,6 +107,7 @@ class M049MigrateCoversBlockToActionsListBlock extends MigrationScript
             'description' => $attrs['description'] ?? '',
             'posts' => $attrs['posts'] ?? [],
             'post_types' => $attrs['post_types'] ?? [],
+            'tags' => $attrs['tags'] ?? [],
             'current_post_id' => $attrs['current_post_id'] ?? 0,
             'layout' => isset($attrs['layout']) ? $attrs['layout'] : 'grid',
             'per_page' => $attrs['initialRowsLimit'] ?? 1,
@@ -115,6 +124,7 @@ class M049MigrateCoversBlockToActionsListBlock extends MigrationScript
         int $per_page,
         int $current_post_id,
         string $classname,
+        array $tags,
     ): array {
 
         if ($per_page === 1) {
@@ -146,6 +156,10 @@ class M049MigrateCoversBlockToActionsListBlock extends MigrationScript
             'order' => 'desc',
             'orderBy' => 'date',
         ];
+
+        if (!empty($tags)) {
+            $query['taxQuery']['post_tag'] = $tags;
+        }
 
         $layout = [
             'type' => $layout_type,
