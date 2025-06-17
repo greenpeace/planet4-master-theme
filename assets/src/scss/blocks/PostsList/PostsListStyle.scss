@@ -41,22 +41,27 @@
     visibility: hidden;
   }
 
-  .taxonomy-post_tag a {
-    margin-inline-end: $sp-x;
-
-    // We hide the tags after the first 5.
-    &:nth-of-type(n+6) {
-      display: none;
-    }
+  .taxonomy-post_tag {
+    @include render-bullet();
+    margin-inline-start: $sp-1x;
 
     &:before {
-      content: "#";
-      speak-as: none;
+      margin-inline-start: -$sp-1x;
     }
-  }
 
-  .wp-block-post-terms:not(:first-child) {
-    @include render-bullet();
+    a {
+      margin-inline-end: $sp-x;
+
+      // We hide the tags after the first 5.
+      &:nth-of-type(n+6) {
+        display: none;
+      }
+
+      &:before {
+        content: "#";
+        speak-as: none;
+      }
+    }
   }
 
   & > .wp-block-heading,
