@@ -296,7 +296,7 @@
   justify-content: space-between;
   width: 100%;
   min-height: 20px;
-  margin-bottom: 10px;
+  margin-bottom: 25px;
   position: relative;
 }
 
@@ -667,6 +667,6 @@
 
 .compat-field-restrictions_text .field,
 .restrictions-warning dd {
-  color: #d43B57; /* var(--red-500); */
+  color: #d43b57; /* var(--red-500); */
   font-weight: bold;
 }

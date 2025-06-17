@@ -86,3 +86,34 @@ export const updateCarouselBlockAttributes = (image, currentBlock) => {
     },
   };
 };
+
+export const updateCoverBlockAttributes = (image, currentBlock) => {
+  const sizes = image.media_details?.sizes || {};
+  const sizeSlug = sizes.full ? 'full' : 'large';
+  const div = document.createElement('div');
+
+  if (currentBlock.originalContent) {
+    div.innerHTML = currentBlock.originalContent;
+    div.querySelector('img').setAttribute('class', `wp-block-cover__image-background wp-image-${image.id} size-${sizeSlug}`);
+    div.querySelector('img').src = image.source_url;
+    div.querySelector('img').setAttribute('alt', image.alt_text);
+  } else {
+    div.innerHTML = `
+      <div class="wp-block-cover is-light"><img class="wp-block-cover__image-background wp-image-${image.id} size-${sizeSlug}" alt=${image.alt_text} src=${image.source_url} data-object-fit="cover"/><span aria-hidden="true" class="wp-block-cover__background has-background-dim" style="background-color:#FFF"></span><div class="wp-block-cover__inner-container"></div></div>
+    `;
+  }
+
+  return {
+    attributes: {
+      alt: image.alt_text,
+      customOverlayColor: '#FFF',
+      dimRatio: 50,
+      url: image.source_url,
+      id: image.id,
+      isUserOverlayColor: false,
+      isDark: false,
+      sizeSlug,
+    },
+    originalContent: div.innerHTML,
+  };
+};

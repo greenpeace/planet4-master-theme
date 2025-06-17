@@ -8,6 +8,7 @@ import {
   updateHappyPointAttributes,
   updateMediaAndTextAttributes,
   updateCarouselBlockAttributes,
+  updateCoverBlockAttributes,
 } from './blockUpdateFunctions';
 
 const {Spinner} = wp.components;
@@ -20,7 +21,13 @@ const timeout = delay => {
   return new Promise(resolve => setTimeout(resolve, delay));
 };
 
-const acceptedBlockTypes = ['core/image', 'planet4-blocks/happypoint', 'core/media-text', 'planet4-blocks/carousel-header'];
+const acceptedBlockTypes = [
+  'core/image',
+  'planet4-blocks/happypoint',
+  'core/media-text',
+  'planet4-blocks/carousel-header',
+  'core/cover',
+];
 
 export const EDITOR_VIEW = 'editor';
 export const ADMIN_VIEW = 'admin';
@@ -316,6 +323,8 @@ export default function ArchivePicker({view = ADMIN_VIEW}) {
         await processImageForBlock(id, updateCarouselBlockAttributes);
       } else if (currentBlock.name === 'core/media-text') {
         await processImageForBlock(id, updateMediaAndTextAttributes);
+      } else if (currentBlock.name === 'core/cover') {
+        await processImageForBlock(id, updateCoverBlockAttributes);
       } else {
         // Happy Point Block
         const updatedAttributes = updateHappyPointAttributes(id);
