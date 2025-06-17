@@ -38,7 +38,6 @@ export const POSTS_LIST_BLOCK_ATTRIBUTES = {
     sticky: '',
     inherit: false,
     postIn: [],
-    hasPassword: false,
   },
   layout: {
     type: 'default',

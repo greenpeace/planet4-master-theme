@@ -46,10 +46,11 @@ class QueryLoopExtension
             $args['post__in'] = array_map('intval', (array) $postIn);
             $args['orderby'] = 'post__in';
         }
-        if ($request->has_param('hasPassword')) {
-            $hasPassword = $request->get_param('hasPassword');
-            $args['has_password'] = $hasPassword !== false && $hasPassword !== 'false';
-        }
+
+        // Ensure only published items without password are queried
+        $args['post_status'] = 'publish';
+        $args['has_password'] = false;
+
         return $args;
     }
 
@@ -68,16 +69,16 @@ class QueryLoopExtension
         if ($blockQuery['block_name'] === self::ACTIONS_LIST_BLOCK) {
             $query = self::buildActionListQuery($query);
         }
-
         if (!empty($blockQuery['postIn'])) {
             $query['post__in'] = array_map('intval', (array) $blockQuery['postIn']);
             $query['orderby'] = 'post__in';
             $query['ignore_sticky_posts'] = true;
         }
 
-        if (isset($blockQuery['hasPassword'])) {
-            $query['has_password'] = (bool) $blockQuery['hasPassword'];
-        }
+        // Ensure only published items without password are queried
+        $query['post_status'] = 'publish';
+        $query['has_password'] = false;
+
         return $query;
     }
 
@@ -92,7 +93,6 @@ class QueryLoopExtension
     private static function buildActionListQuery(array $query): array
     {
         $is_new_ia = !empty(planet4_get_option('new_ia'));
-        $query['post_status'] = 'publish';
 
         if (!$is_new_ia) {
             $query = self::buildOldIaActionListQuery($query);

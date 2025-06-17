@@ -86,7 +86,6 @@ if ('yes' === $post->include_articles) {
             'exclude' => [$post->ID],
         ],
         'className' => 'posts-list p4-query-loop is-custom-layout-list',
-        'hasPassword' => false,
         'layout' => [
             'type' => 'default',
             'columnCount' => 3,

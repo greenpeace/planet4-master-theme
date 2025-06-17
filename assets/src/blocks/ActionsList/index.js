@@ -43,7 +43,6 @@ export const registerActionsListBlock = () => {
         inherit: false,
         postType: queryPostType,
         postIn: [],
-        hasPassword: false,
         ...!IS_NEW_IA && {postParent: ACT_PAGE},
         block_name: ACTIONS_LIST_BLOCK_NAME,
       },
