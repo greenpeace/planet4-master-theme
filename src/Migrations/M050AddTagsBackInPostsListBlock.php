@@ -81,10 +81,6 @@ class M050AddTagsBackInPostsListBlock extends MigrationScript
                     Utils\Constants::BLOCK_TERMS,
                     ['term' => 'post_tag', 'separator' => ' '],
                 );
-                $tax_block = Utils\Functions::create_new_block(
-                    Utils\Constants::P4_OTHER_BLOCKS['breadcrumb'],
-                    ['taxonomy' => 'category', 'post_type' => Utils\Constants::POST_TYPES_POST],
-                );
 
                 $block['innerBlocks'] = array_merge($block['innerBlocks'], [$new_block]);
 
