@@ -685,7 +685,11 @@ class Post extends \Timber\Post
         global $post;
 
         $menu = Timber::get_menu('navigation-bar-menu');
-        $menu_items = $menu->get_items();
+        if ($menu) {
+            $menu_items = $menu->get_items();
+        } else {
+            $menu_items = [];
+        }
 
         // Check if the current page is in the menu
         $nav_menu_item = null;
