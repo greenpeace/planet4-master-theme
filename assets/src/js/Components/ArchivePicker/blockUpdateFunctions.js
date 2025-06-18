@@ -1,22 +1,23 @@
 export const updateImageBlockAttributes = (image, currentBlock) => {
+  const {id, source_url, caption, alt_text} = image;
   const div = document.createElement('div');
 
-  if (image.id) {
+  if (id) {
     // Check if the current block has content already, then just replace it.
     if (currentBlock.originalContent) {
       div.innerHTML = currentBlock.originalContent;
-      div.querySelector('img').setAttribute('class', `wp-image-${image.id}`);
-      div.querySelector('img').src = image.source_url;
+      div.querySelector('img').setAttribute('class', `wp-image-${id}`);
+      div.querySelector('img').src = source_url;
       if (div.querySelector('figcaption')) {
-        div.querySelector('figcaption').textContent = image.caption.raw;
+        div.querySelector('figcaption').textContent = caption.raw;
       }
     } else {
       // If there is no content then create block content.
       div.innerHTML = `
         <figure class="wp-block-image size-large">
-          <img src=${image.source_url} alt=${image.alt_text} class="wp-image-${image.id}"/>
+          <img src=${source_url} alt=${alt_text} class="wp-image-${id}"/>
           <figcaption class="wp-element-caption">
-            ${image.caption.raw}
+            ${caption.raw}
           </figcaption>
         </figure>`;
     }
@@ -24,10 +25,10 @@ export const updateImageBlockAttributes = (image, currentBlock) => {
 
   return {
     attributes: {
-      id: image.id,
-      url: image.source_url,
-      caption: image.caption.raw,
-      alt: image.alt_text,
+      id,
+      url: source_url,
+      caption: caption.raw,
+      alt: alt_text,
     },
     originalContent: div.innerHTML,
   };
@@ -40,23 +41,24 @@ export const updateHappyPointAttributes = id => {
 
 export const updateMediaAndTextAttributes = (image, currentBlock) => {
   const div = document.createElement('div');
+  const {id, link, source_url, alt_text} = image;
 
   if (currentBlock.originalContent) {
     div.innerHTML = currentBlock.originalContent;
-    div.querySelector('img').setAttribute('class', `wp-image-${image.id}`);
-    div.querySelector('img').src = image.source_url;
+    div.querySelector('img').setAttribute('class', `wp-image-${id}`);
+    div.querySelector('img').src = source_url;
   } else {
     div.innerHTML = `
-      <div class="wp-block-media-text is-stacked-on-mobile"><figure class="wp-block-media-text__media"><img src=${image.source_url} alt=${image.alt_text} class="wp-image-${image.id} size-full"/></figure><div class="wp-block-media-text__content"></div></div>
+      <div class="wp-block-media-text is-stacked-on-mobile"><figure class="wp-block-media-text__media"><img src=${source_url} alt=${alt_text} class="wp-image-${id} size-full"/></figure><div class="wp-block-media-text__content"></div></div>
     `;
   }
 
   return {
     attributes: {
-      mediaLink: image.link,
-      mediaUrl: image.source_url,
-      mediaAlt: image.alt_text,
-      mediaId: image.id,
+      mediaLink: link,
+      mediaUrl: source_url,
+      mediaAlt: alt_text,
+      mediaId: id,
       mediaType: 'image',
       useFeaturedImage: false,
     },
@@ -84,5 +86,37 @@ export const updateCarouselBlockAttributes = (image, currentBlock) => {
     attributes: {
       slides,
     },
+  };
+};
+
+export const updateCoverBlockAttributes = (image, currentBlock) => {
+  const {id, alt_text, source_url} = image;
+  const sizes = image.media_details?.sizes || {};
+  const sizeSlug = sizes.full ? 'full' : 'large';
+  const div = document.createElement('div');
+
+  if (currentBlock.originalContent) {
+    div.innerHTML = currentBlock.originalContent;
+    div.querySelector('img').setAttribute('class', `wp-block-cover__image-background wp-image-${id} size-${sizeSlug}`);
+    div.querySelector('img').src = source_url;
+    div.querySelector('img').setAttribute('alt', alt_text);
+  } else {
+    div.innerHTML = `
+      <div class="wp-block-cover is-light"><img class="wp-block-cover__image-background wp-image-${id} size-${sizeSlug}" alt=${alt_text} src=${source_url} data-object-fit="cover"/><span aria-hidden="true" class="wp-block-cover__background has-background-dim" style="background-color:#FFF"></span><div class="wp-block-cover__inner-container"></div></div>
+    `;
+  }
+
+  return {
+    attributes: {
+      alt: alt_text,
+      customOverlayColor: '#FFF',
+      dimRatio: 50,
+      url: source_url,
+      id,
+      isUserOverlayColor: false,
+      isDark: false,
+      sizeSlug,
+    },
+    originalContent: div.innerHTML,
   };
 };
