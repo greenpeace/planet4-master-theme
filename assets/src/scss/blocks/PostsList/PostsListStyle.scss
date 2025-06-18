@@ -51,6 +51,7 @@
 
     a {
       margin-inline-end: $sp-x;
+      display: inline-block;
 
       // We hide the tags after the first 5.
       &:nth-of-type(n+6) {

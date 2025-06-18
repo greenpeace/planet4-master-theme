@@ -72,6 +72,8 @@
     }
 
     a {
+      display: inline-block;
+
       // We hide the tags after the first 5.
       &:nth-of-type(n+6) {
         display: none;
