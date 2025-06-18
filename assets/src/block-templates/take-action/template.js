@@ -1,4 +1,5 @@
 import {getPostListBlockTemplate, POSTS_LIST_BLOCK_ATTRIBUTES} from '../../blocks/PostsList';
+import {getActionsListBlockTemplate, ACTIONS_LIST_BLOCK_ATTRIBUTES} from '../../blocks/ActionsList';
 
 const {__} = wp.i18n;
 
@@ -16,9 +17,10 @@ const template = ({
       getPostListBlockTemplate(__('Daily actions', 'planet4-blocks')),
     ],
     ['core/spacer', {height: '32px'}],
-    ['planet4-blocks/covers', {
-      title: __('Support a cause', 'planet4-blocks'),
-    }],
+    ['core/query',
+      ACTIONS_LIST_BLOCK_ATTRIBUTES,
+      getActionsListBlockTemplate(__('Support a cause', 'planet4-blocks')),
+    ],
     ['core/spacer', {height: '48px'}],
     ['core/group', {
       align: 'full',
