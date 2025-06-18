@@ -6,6 +6,7 @@
  * @package P4MT
  */
 
+use Timber\Timber;
 
 /**
  * Class CategoryPageTest.
