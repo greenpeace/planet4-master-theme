@@ -70,12 +70,14 @@ class M049MigrateCoversBlockToActionsListBlock extends MigrationScript
         $additional_class = $existing_block_attrs['additional_class'];
         $tags = $existing_block_attrs['tags'];
 
+        $css_classnames = $additional_class ? $classname . ' ' . $additional_class : $classname;
+
         $attrs = self::set_query_block_attrs(
             $posts_override,
             $layout_type,
             $per_page,
             $current_post_id,
-            $classname,
+            $css_classnames,
             $tags
         );
 
@@ -90,7 +92,7 @@ class M049MigrateCoversBlockToActionsListBlock extends MigrationScript
         return Utils\Functions::create_block_query(
             $inner_blocks,
             $attrs,
-            $additional_class ? $classname . ' ' . $additional_class : $classname,
+            $css_classnames,
             Utils\Constants::ACTIONS_LIST
         );
     }
@@ -111,7 +113,7 @@ class M049MigrateCoversBlockToActionsListBlock extends MigrationScript
             'current_post_id' => $attrs['current_post_id'] ?? 0,
             'layout' => isset($attrs['layout']) ? $attrs['layout'] : 'grid',
             'per_page' => $attrs['initialRowsLimit'] ?? 1,
-            'additional_class' => $attrs['additional_class'] ?? '',
+            'additional_class' => $attrs['className'] ?? '',
         ];
     }
 
