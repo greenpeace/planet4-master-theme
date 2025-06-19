@@ -1,6 +1,7 @@
 import {v4 as uuid} from 'uuid';
 
 // Constants
+const {__} = wp.i18n;
 const ARROW_DIRECTIONS = ['prev', 'next'];
 const LAYOUTS = {
   carousel: 'carousel',
@@ -92,6 +93,7 @@ export const setupQueryLoopCarousel = () => {
       }
 
       let carouselItem,
+        carouselSkipLink,
         itemWrapper,
         indicator,
         totalCarouselItems = 0;
@@ -105,7 +107,16 @@ export const setupQueryLoopCarousel = () => {
           itemWrapper = document.createElement('div');
           itemWrapper.classList.add('carousel-item-wrapper');
 
+          carouselSkipLink = document.createElement('a');
+          carouselSkipLink.href = '#';
+          carouselSkipLink.textContent = __('Continue Navigating Carousel', 'planet4-blocks-backend');
+          carouselSkipLink.classList.add('carousel-skip-link');
+          carouselSkipLink.setAttribute('id', 'carousel-skip');
+          carouselSkipLink.setAttribute('role', 'link');
+
+
           carouselItem.append(itemWrapper);
+          carouselItem.append(carouselSkipLink);
 
           if (indicators) {
             indicator = document.createElement('li');
@@ -126,6 +137,14 @@ export const setupQueryLoopCarousel = () => {
         }
 
         itemWrapper.append(post);
+
+        carouselSkipLink.addEventListener('click', e => {
+          e.preventDefault();
+
+          const carouselNextBtn = layout.querySelector(`${BUTTONS_CLASS} ${CONTROLS_CLASS}-next a`);
+          carouselNextBtn.setAttribute('tabindex', '0');
+          carouselNextBtn.focus();
+        });
       });
     } else {
       // This is for the grid or list layouts, we need to remove the arrows.
