@@ -34,8 +34,8 @@ use P4\MasterTheme\Post;
 use Timber\Timber;
 
 $context = Timber::get_context();
-$post = new Post(); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
-$page_meta_data = get_post_meta($post->ID) ?: [];
+$timber_post = new Post($post->ID);
+$page_meta_data = get_post_meta($timber_post->ID) ?: [];
 $page_meta_data = array_map(fn($v) => reset($v), $page_meta_data);
 
 // Ensure redirect is only performed if we're not already on a tag URL. Because tag.php includes this file.
@@ -46,7 +46,7 @@ if (! is_tag() && RedirectRedirectPages::is_active()) {
         'meta_query' => [
             [
                 'key' => 'redirect_page',
-                'value' => $post->ID,
+                'value' => $timber_post->ID,
                 'compare' => '=',
             ],
         ],
@@ -63,10 +63,10 @@ if (! is_tag() && RedirectRedirectPages::is_active()) {
 }
 
 // Set Navigation Issues links.
-$post->set_issues_links();
+$timber_post->set_issues_links();
 
 // Get Navigation Campaigns links.
-$page_tags = wp_get_post_tags($post->ID);
+$page_tags = wp_get_post_tags($timber_post->ID);
 $tags = [];
 
 if (is_array($page_tags) && $page_tags) {
@@ -80,30 +80,30 @@ if (is_array($page_tags) && $page_tags) {
 }
 
 // Set GTM Data Layer values.
-$post->set_data_layer();
-$data_layer = $post->get_data_layer();
+$timber_post->set_data_layer();
+$data_layer = $timber_post->get_data_layer();
 
-Context::set_header($context, $page_meta_data, $post->title);
+Context::set_header($context, $page_meta_data, $timber_post->title);
 Context::set_background_image($context);
-Context::set_og_meta_fields($context, $post);
+Context::set_og_meta_fields($context, $timber_post);
 Context::set_campaign_datalayer($context, $page_meta_data);
-Context::set_utm_params($context, $post);
-Context::set_p4_blocks_datalayer($context, $post);
+Context::set_utm_params($context, $timber_post);
+Context::set_p4_blocks_datalayer($context, $timber_post);
 
-$context['post'] = $post;
-$context['social_accounts'] = $post->get_social_accounts($context['footer_social_menu'] ?: []);
+$context['post'] = $timber_post;
+$context['social_accounts'] = $timber_post->get_social_accounts($context['footer_social_menu'] ?: []);
 $context['page_category'] = $data_layer['page_category'];
-$context['post_tags'] = implode(', ', $post->tags());
-$context['post_categories'] = implode(', ', $post->categories());
+$context['post_tags'] = implode(', ', $timber_post->tags());
+$context['post_categories'] = implode(', ', $timber_post->categories());
 $context['custom_body_classes'] = 'brown-bg ';
 
 if (is_tag()) {
     $context['canonical_link'] = home_url($wp->request);
 }
 
-if (post_password_required($post->ID)) {
+if (post_password_required($timber_post->ID)) {
     // Password protected form validation.
-    $context['is_password_valid'] = $post->is_password_valid();
+    $context['is_password_valid'] = $timber_post->is_password_valid();
 
     // Hide the page title from links to the extra feeds.
     remove_action('wp_head', 'feed_links_extra', 3);
@@ -114,5 +114,5 @@ if (post_password_required($post->ID)) {
     Timber::render('single-page.twig', $context);
 } else {
     do_action('enqueue_google_tag_manager_script', $context);
-    Timber::render([ 'page-' . $post->post_name . '.twig', 'page.twig' ], $context);
+    Timber::render([ 'page-' . $timber_post->post_name . '.twig', 'page.twig' ], $context);
 }

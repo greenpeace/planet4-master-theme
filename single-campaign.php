@@ -12,26 +12,20 @@ use Timber\Timber;
 
 // Initializing variables.
 $context = Timber::get_context();
-
-/**
- * Post object.
- *
- * @var Post $post
- * */
-$post = Timber::query_post(false, Post::class); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
-$context['post'] = $post;
+$timber_post = new Post($post->ID);
+$context['post'] = $timber_post;
 
 // Get the cmb2 custom fields data.
-$meta = $post->custom;
+$meta = $timber_post->custom;
 
-$current_level_campaign_id = $post->ID;
+$current_level_campaign_id = $timber_post->ID;
 
 do {
     $top_level_campaign_id = $current_level_campaign_id;
     $current_level_campaign_id = wp_get_post_parent_id($current_level_campaign_id);
 } while ($current_level_campaign_id);
 
-if ($top_level_campaign_id === $post->ID) {
+if ($top_level_campaign_id === $timber_post->ID) {
     $campaign_meta = $meta;
 } else {
     $parent_meta = get_post_meta($top_level_campaign_id);
@@ -44,7 +38,7 @@ if ($top_level_campaign_id === $post->ID) {
 // This is just an example of how to get children pages, this will probably be done in some kind of menu block.
 $sub_pages = get_children(
     [
-        'post_parent' => $post->ID,
+        'post_parent' => $timber_post->ID,
         'post_type' => 'campaign',
     ]
 );
@@ -66,18 +60,18 @@ if ($theme_name) {
 }
 
 // Set GTM Data Layer values.
-$post->set_data_layer();
-$data_layer = $post->get_data_layer();
+$timber_post->set_data_layer();
+$data_layer = $timber_post->get_data_layer();
 
-Context::set_header($context, $meta, $post->title);
+Context::set_header($context, $meta, $timber_post->title);
 Context::set_background_image($context);
-Context::set_og_meta_fields($context, $post);
+Context::set_og_meta_fields($context, $timber_post);
 Context::set_campaign_datalayer($context, $campaign_meta);
-Context::set_utm_params($context, $post);
+Context::set_utm_params($context, $timber_post);
 Context::set_custom_styles($context, $campaign_meta, 'campaign');
 
-$context['post'] = $post;
-$context['social_accounts'] = $post->get_social_accounts($context['footer_social_menu'] ?: []);
+$context['post'] = $timber_post;
+$context['social_accounts'] = $timber_post->get_social_accounts($context['footer_social_menu'] ?: []);
 $context['page_category'] = $data_layer['page_category'];
 
 $context['custom_font_families'] = [
@@ -107,11 +101,11 @@ foreach (range(1, 5) as $i) {
     $context['social_overrides'][$i]['icon'] = $campaign_footer_item['icon'];
 }
 
-Context::set_p4_blocks_datalayer($context, $post);
+Context::set_p4_blocks_datalayer($context, $timber_post);
 
-if (post_password_required($post->ID)) {
+if (post_password_required($timber_post->ID)) {
     // Password protected form validation.
-    $context['is_password_valid'] = $post->is_password_valid();
+    $context['is_password_valid'] = $timber_post->is_password_valid();
 
     // Hide the campaign title from links to the extra feeds.
     remove_action('wp_head', 'feed_links_extra', 3);
@@ -123,7 +117,7 @@ if (post_password_required($post->ID)) {
 } else {
     do_action('enqueue_google_tag_manager_script', $context);
     Timber::render(
-        ['single-' . $post->ID . '.twig', 'single-' . $post->post_type . '.twig', 'single.twig'],
+        ['single-' . $timber_post->ID . '.twig', 'single-' . $timber_post->post_type . '.twig', 'single.twig'],
         $context
     );
 }

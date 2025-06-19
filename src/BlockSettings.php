@@ -133,6 +133,7 @@ class BlockSettings
         self::CORE_BLOCKS_PREFIX . '/column',
         self::CORE_BLOCKS_PREFIX . '/cover',
         self::CORE_BLOCKS_PREFIX . '/embed',
+        self::CORE_BLOCKS_PREFIX . '/footnotes',
         self::CORE_BLOCKS_PREFIX . '/media-text',
         self::CORE_EMBED_BLOCKS_PREFIX . '/twitter',
         self::CORE_EMBED_BLOCKS_PREFIX . '/youtube',
