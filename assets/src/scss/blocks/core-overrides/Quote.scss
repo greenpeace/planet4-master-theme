@@ -33,5 +33,9 @@
 
   cite {
     font-style: normal;
+
+    a {
+      @include shared-link-styles;
+    }
   }
 }
