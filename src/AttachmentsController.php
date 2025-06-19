@@ -25,6 +25,7 @@ class AttachmentsController
     public function __construct()
     {
         add_action('add_attachment', [$this, 'set_sm_cloud_metadata'], 99);
+        add_action('add_attachment', [$this, 'update_iptc_metadata']);
         add_action('wpml_after_update_attachment_texts', [$this, 'sync_translation_sm_cloud_meta'], 1, 2);
         add_filter('image_downsize', [$this, 'overrule_wp_stateless_for_no_images'], 100, 2);
         add_filter('attachment_fields_to_edit', [$this, 'add_image_attachment_fields_to_edit'], 10, 2);
@@ -147,5 +148,30 @@ class AttachmentsController
         }
 
         return $post;
+    }
+
+    public function update_iptc_metadata($post_id): void
+    {
+        $file = get_attached_file($post_id);
+
+        if (!file_exists($file)) {
+            return;
+        }
+
+        $info = @getimagesize($file, $image_info);
+
+        if (!isset($image_info['APP13'])) {
+            return;
+        }
+
+        $iptc = iptcparse($image_info['APP13']) ?: [];
+
+        if (!empty($iptc['2#040']) && !empty($iptc['2#040'][0])) {
+            update_post_meta($post_id, self::META_FIELDS['restriction'], $iptc['2#040'][0]);
+        }
+
+        if (!empty($iptc['2#110']) && !empty($iptc['2#110'][0])) {
+            update_post_meta($post_id, self::META_FIELDS['credit'], $iptc['2#110'][0]);
+        }
     }
 }

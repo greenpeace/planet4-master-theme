@@ -417,35 +417,6 @@ add_action(
     }
 );
 
-
-
-
-add_action('add_attachment', function ($post_id) {
-    $file = get_attached_file($post_id);
-    $size = getimagesize($file, $info);
-    if (!isset($info['APP13'])) return;
-
-    $iptc = iptcparse($info['APP13']) ?: [];
-
-    var_dump($iptc); // Debugging line, remove in production
-
-    if (!empty($iptc['2#025'])) {
-        update_post_meta($post_id, '_meta_keywords', implode(', ', $iptc['2#025']));
-    }
-
-    if (!empty($iptc['2#005'])) {
-        update_post_meta($post_id, '_meta_title', $iptc['2#005'][0]);
-    }
-
-    if (!empty($iptc['2#120'])) {
-        update_post_meta($post_id, '_meta_caption', $iptc['2#120'][0]);
-    }
-
-    if (!empty($iptc['2#110'])) {
-        update_post_meta($post_id, '_meta_credit', $iptc['2#110'][0]);
-    }
-});
-
 // This action overrides the WordPress functionality for adding a notice message
 // https://github.com/WordPress/wordpress-develop/blob/trunk/src/wp-admin/edit-form-blocks.php#L303-L305
 // When it's a page for posts.
