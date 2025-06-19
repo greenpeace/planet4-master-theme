@@ -219,6 +219,15 @@ class ActionPage
             )
         );
 
+        register_post_meta(
+            self::POST_TYPE,
+            'action_task_type',
+            array_merge(
+                $args,
+                [ 'default' => __('Action Task Type', 'planet4-master-theme') ]
+            )
+        );
+
         foreach (self::META_FIELDS as $field) {
             register_post_meta(self::POST_TYPE, $field, $args);
         }
