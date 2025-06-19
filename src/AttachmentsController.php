@@ -9,12 +9,12 @@ class AttachmentsController
 {
     public const META_FIELDS = [
         'restriction' => '_media_restriction',
-        'credit'      => '_credit_text',
+        'credit' => '_credit_text',
     ];
 
     public const IMG_ATTACHMENT_FIELDS = [
         'restriction' => 'restrictions_text',
-        'credit'      => 'credit_text',
+        'credit' => 'credit_text',
     ];
 
     public const SM_CLOUD = 'sm_cloud';
@@ -40,7 +40,7 @@ class AttachmentsController
      *
      * @param int $post_id Attachment post ID.
      */
-    public function set_sm_cloud_metadata($post_id): void
+    public function set_sm_cloud_metadata(int $post_id): void
     {
         if (
             ! defined('WP_IMPORTING')
@@ -81,7 +81,7 @@ class AttachmentsController
      *
      * @return mixed Modified result or false if not an image.
      */
-    public function overrule_wp_stateless_for_no_images($downsize, $id): mixed
+    public function overrule_wp_stateless_for_no_images($downsize, \WP_Post $id): mixed
     {
         return wp_attachment_is_image($id) ? $downsize : false;
     }
@@ -92,7 +92,7 @@ class AttachmentsController
      * @param int        $original_attachment_id ID of the original attachment.
      * @param \stdClass  $translation            WPML translation object.
      */
-    public function sync_translation_sm_cloud_meta($original_attachment_id, $translation): void
+    public function sync_translation_sm_cloud_meta(int $original_attachment_id, \stdClass $translation): void
     {
         $original_sm_cloud = get_post_meta($original_attachment_id, self::SM_CLOUD, true);
         update_post_meta($translation->element_id, self::SM_CLOUD, $original_sm_cloud);
@@ -150,7 +150,14 @@ class AttachmentsController
         return $post;
     }
 
-    public function update_iptc_metadata($post_id): void
+    /**
+     * Extracts IPTC metadata from a newly added image attachment and stores relevant fields as post meta.
+     * IPTC metadata is a standardized format used to embed information such as author, copyright,
+     * usage restrictions, and credits directly within image files.
+     *
+     * @param int $post_id Attachment post ID.
+     */
+    public function update_iptc_metadata(int $post_id): void
     {
         $file = get_attached_file($post_id);
 
@@ -158,6 +165,9 @@ class AttachmentsController
             return;
         }
 
+        // Extracts image metadata and populates $image_info['APP13'] with raw IPTC data if available.
+        // This is a by-reference output parameter. When getimagesize() is called with a second argument,
+        // PHP fills it with additional data, including IPTC metadata (APP13) if present.
         $info = @getimagesize($file, $image_info);
 
         if (!isset($image_info['APP13'])) {
@@ -166,12 +176,16 @@ class AttachmentsController
 
         $iptc = iptcparse($image_info['APP13']) ?: [];
 
+        // If IPTC "Special Instructions" (tag 2:040) exists, save it as the 'restriction' meta field
         if (!empty($iptc['2#040']) && !empty($iptc['2#040'][0])) {
             update_post_meta($post_id, self::META_FIELDS['restriction'], $iptc['2#040'][0]);
         }
 
-        if (!empty($iptc['2#110']) && !empty($iptc['2#110'][0])) {
-            update_post_meta($post_id, self::META_FIELDS['credit'], $iptc['2#110'][0]);
+        // If IPTC "Credit" (tag 2:110) exists, save it as the 'credit' meta field
+        if (empty($iptc['2#110']) || empty($iptc['2#110'][0])) {
+            return;
         }
+
+        update_post_meta($post_id, self::META_FIELDS['credit'], $iptc['2#110'][0]);
     }
 }
