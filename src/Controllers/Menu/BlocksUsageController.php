@@ -175,12 +175,29 @@ class BlocksUsageController extends Controller
             $special_filter
         );
 
-        // Display data.
-        echo '<div class="wrap">
-            <h1 class="wp-heading-inline">Block usage</h1>
-            <hr class="wp-header-end">';
+        global $submenu;
 
+        $parent_slug = BlocksReportController::P4BKS_REPORTS_SLUG_NAME;
+
+        // Display data.
+        echo '<div class="wrap">';
         echo '<form id="blocks-report" method="get">';
+        echo '<header>';
+        echo '<img src="' . get_template_directory_uri() . '/images/planet4.png" />';
+        if (isset($submenu[$parent_slug])) {
+            $current_page = $_GET['page'] ?? '';
+
+            echo '<nav>';
+            foreach ($submenu[$parent_slug] as $item) {
+                $page_title = $item[0]; // Label
+                $menu_slug  = $item[2]; // Slug used in ?page=
+
+                $class = ($menu_slug === $current_page) ? ' class="active"' : '';
+                echo '<a href="admin.php?page=' . esc_attr($menu_slug) . '"' . $class . '>' . esc_html($page_title) . '</a>';
+            }
+            echo '</nav>';
+        }
+        echo '</header>';
         $table->views();
         $table->search_box('Search in block attributes', 'blocks-report');
         $table->display();
@@ -195,6 +212,10 @@ class BlocksUsageController extends Controller
      */
     public function plugin_patterns_report(): void
     {
+        global $submenu;
+
+        $parent_slug = BlocksReportController::P4BKS_REPORTS_SLUG_NAME;
+
         // Nonce verify.
         if (isset($_REQUEST['filter_action'])) {
             check_admin_referer('bulk-' . PatternUsageTable::PLURAL);
@@ -214,11 +235,24 @@ class BlocksUsageController extends Controller
         );
 
         // Display data.
-        echo '<div class="wrap">
-            <h1 class="wp-heading-inline">Pattern usage</h1>
-            <hr class="wp-header-end">';
-
+        echo '<div class="wrap">';
         echo '<form id="patterns-report" method="get">';
+        echo '<header>';
+        echo '<img src="' . get_template_directory_uri() . '/images/planet4.png" />';
+        if (isset($submenu[$parent_slug])) {
+            $current_page = $_GET['page'] ?? '';
+
+            echo '<nav>';
+            foreach ($submenu[$parent_slug] as $item) {
+                $page_title = $item[0]; // Label
+                $menu_slug  = $item[2]; // Slug used in ?page=
+
+                $class = ($menu_slug === $current_page) ? ' class="active"' : '';
+                echo '<a href="admin.php?page=' . esc_attr($menu_slug) . '"' . $class . '>' . esc_html($page_title) . '</a>';
+            }
+            echo '</nav>';
+        }
+        echo '</header>';
         $table->views();
         $table->display();
         echo '<input type="hidden" name="action"

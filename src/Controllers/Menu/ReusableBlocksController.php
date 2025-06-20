@@ -22,6 +22,28 @@ class ReusableBlocksController extends Controller
      */
     public function admin_page_display(): void
     {
+        global $submenu;
+
+        $parent_slug = BlocksReportController::P4BKS_REPORTS_SLUG_NAME;
+
+        echo '<div id="reusable-blocks-report">';
+        echo '<header>';
+        echo '<img src="' . get_template_directory_uri() . '/images/planet4.png" />';
+        if (isset($submenu[$parent_slug])) {
+            $current_page = $_GET['page'] ?? '';
+
+            echo '<nav>';
+            foreach ($submenu[$parent_slug] as $item) {
+                $page_title = $item[0]; // Label
+                $menu_slug  = $item[2]; // Slug used in ?page=
+
+                $class = ($menu_slug === $current_page) ? ' class="active"' : '';
+                echo '<a href="admin.php?page=' . esc_attr($menu_slug) . '"' . $class . '>' . esc_html($page_title) . '</a>';
+            }
+            echo '</nav>';
+        }
+        echo '</header>';
+
         echo '
             <h1>Reusable Blocks</h1>
             <p>
@@ -29,6 +51,7 @@ class ReusableBlocksController extends Controller
                 <a href="site-editor.php?path=/patterns">Appearance &gt; Patterns</a>.
             </p>
         ';
+        echo '</div>';
     }
 
     /**

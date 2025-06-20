@@ -793,15 +793,27 @@ class Settings
             ['echo' => false]
         );
 
+        // Build the navigation markup
+        $nav_html = '';
+        foreach ($this->subpages as $key => $value) {
+            $is_active = $key === $plugin_page ? ' class="active"' : '';
+            $nav_html .= '<a href="admin.php?page=' . esc_attr($key) . '"' . $is_active . '>' . esc_html($value['title']) . '</a>';
+        }
+
+        // Now echo everything with sprintf
         echo sprintf(
             '<div class="wrap %s">
-				<h2>%s</h2>
-				%s
-				%s
-			</div>',
+                <header>
+                    <img src="%s/images/planet4.png" />
+                    <nav>%s</nav>
+                </header>
+                %s
+                %s
+            </div>',
             esc_attr(self::KEY),
-            esc_html(get_admin_page_title()),
-            wp_kses($description ? '<div>' . $description . '</div>' : '', 'post'),
+            esc_url(get_template_directory_uri()),
+            $nav_html,
+            wp_kses($description ? '<div class="description">' . $description . '</div>' : '', 'post'),
             $form // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
         );
     }
