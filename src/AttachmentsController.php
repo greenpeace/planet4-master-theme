@@ -178,7 +178,7 @@ class AttachmentsController
         // Extracts image metadata and populates $image_info['APP13'] with raw IPTC data if available.
         // $image_info is a by-reference output parameter. When getimagesize() is called with a second
         // argument, PHP fills it with additional data, including IPTC metadata (APP13) if present.
-        $info = @getimagesize($file, $image_info);
+        $info = @getimagesize($file, $image_info); //NOSONAR
 
         if (!is_array($image_info) || !isset($image_info['APP13'])) {
             return;
@@ -187,6 +187,7 @@ class AttachmentsController
         $iptc = iptcparse($image_info['APP13']) ?: [];
 
         // If IPTC "Special Instructions" (tag 2:040) exists, save it as the 'restriction' meta field
+        // phpcs:ignore SlevomatCodingStandard.ControlStructures.EarlyExit.EarlyExitNotUsed
         if (!empty($iptc['2#040']) && !empty($iptc['2#040'][0])) {
             update_post_meta(
                 $post_id,
@@ -196,6 +197,7 @@ class AttachmentsController
         }
 
         // If IPTC "Credit" (tag 2:110) exists, save it as the 'credit' meta field
+        // phpcs:ignore SlevomatCodingStandard.ControlStructures.EarlyExit.EarlyExitNotUsed
         if (!empty($iptc['2#110']) && !empty($iptc['2#110'][0])) {
             update_post_meta(
                 $post_id,
