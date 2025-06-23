@@ -10,12 +10,16 @@
 .blocks_page_plugin_patterns_report,
 .blocks_page_postmeta_report,
 .blocks_page_edit-post_type-wp_block {
-  .ud-admin-notice {
-    margin-top: 70px !important;
+  #wpcontent {
+    background-color: #f5f7f8;
   }
 
-  #wpcontent {
-    background-color: #f6f4ef;
+  #wpbody-content {
+    padding-top: 70px;
+  }
+
+  .notice {
+    margin: 0 0 10px !important;
   }
 }
 
@@ -25,15 +29,24 @@
 #blocks-report,
 .planet4_options {
   margin: 0 auto;
-  padding: 80px 0;
+  padding: 20px 0 40px;
   max-width: 1200px;
+
+  a {
+    color: #198700;
+  }
+
+  .wp-core-ui .button, .wp-core-ui .button-secondary {
+    color: #198700 !important;
+    border-color: #198700 !important;
+  }
 
   header {
     position: fixed;
     top: 30px;
-    left: 160px;
-    width: calc(100% - (160px));
-    background-color: #167f82;
+    left: 36px;
+    width: calc(100% - (36px));
+    background-color: #1f4912;
     padding: 15px 30px;
     z-index: 1000;
     display: flex;
@@ -41,23 +54,34 @@
     justify-content: space-between;
     box-sizing: border-box;
 
+    @media only screen and (min-width: 960px) {
+      left: 160px;
+      width: calc(100% - (160px));
+    }
+
+    nav {
+      @media only screen and (max-width: 960px) {
+        display: none;
+      }
+
+      a {
+        color: #fff;
+        text-decoration: none;
+        margin-left: 10px;
+        padding: 10px;
+        font-weight: bold;
+        border-radius: 4px;
+
+        &.active {
+          background-color: #113008;
+        }
+      }
+    }
+
     img {
       width: 200px;
       height: auto;
       filter: brightness(0) invert(1);
-    }
-
-    nav a {
-      color: #fff;
-      text-decoration: none;
-      margin-left: 10px;
-      padding: 10px;
-      font-weight: bold;
-      border-radius: 4px;
-
-      &.active {
-        background-color: #0b6063;
-      }
     }
   }
 
@@ -66,27 +90,34 @@
     margin-bottom: 15px;
     padding: 20px;
     box-sizing: border-box;
-    box-shadow: 0 1px 2px rgba(16, 24, 40, .1);
+    box-shadow: 2px 2px 2px rgba(16, 24, 40, .1);
     border-radius: 0 15px 15px 0;
     border-left: 5px solid #d43b57;
   }
 
   .button-primary {
-    position: fixed;
-    right: 25px;
-    bottom: 15px;
-    padding: 5px 15px !important;
+    padding: 5px 30px !important;
     font-size: 14px !important;
     z-index: 1000;
+    background: #ffe100;
+    border: #ffe100;
+    color: black;
+    font-weight: bold;
+    margin: 20px 0 40px;
+    float: right;
   }
 
   .form-table {
-    box-shadow: 0 1px 2px rgba(16, 24, 40, .1);
+    box-shadow: 2px 2px 2px rgba(16, 24, 40, .1);
     border-radius: 0 15px 15px 0;
     overflow: hidden;
 
     .cmb-row {
-      border-bottom: 1px solid #dad8d1;
+      background-color: #fff;
+
+      &:nth-child(odd) {
+        background-color: #ececec;
+      }
     }
 
     .cmb-row:not(.hidden) {
@@ -100,14 +131,12 @@
     }
 
     .cmb-th {
-      background: #eceae4;
       float: none;
       padding: 20px;
       box-sizing: border-box;
     }
 
     .cmb-td {
-      background: #fff;
       float: none;
       padding: 20px;
       box-sizing: border-box;
