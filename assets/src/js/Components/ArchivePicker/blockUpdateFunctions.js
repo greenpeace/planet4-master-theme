@@ -1,3 +1,16 @@
+/**
+ * Updates the attributes and content of the Image block based on a given image object.
+ *
+ * This function generates new content for a block by either updating the existing HTML
+ * of the block if it exists (`originalContent`), or creating new block content from scratch.
+ * It returns an object with updated attributes and the rendered HTML content.
+ *
+ * @param {Object} image        - The image data object.
+ *
+ * @param {Object} currentBlock - The current block object.
+ *
+ * @return {Object} An object containing the updated block attributes and rendered HTML content.
+ */
 export const updateImageBlockAttributes = (image, currentBlock) => {
   const {id, source_url, caption, alt_text} = image;
   const div = document.createElement('div');
@@ -66,6 +79,18 @@ export const updateMediaAndTextAttributes = (image, currentBlock) => {
   };
 };
 
+/**
+ * Updates the attributes of the Carousel block with new image data at the current slide index.
+ *
+ * This function modifies the `slides` array of the current Carousel block, updating the slide
+ * at the `currentImageIndex` with a new image ID, image URL, and a constructed `srcset` string.
+ *
+ * @param {Object} image        - The image data object.
+ *
+ * @param {Object} currentBlock - The current carousel block object.
+ *
+ * @return {Object} An object containing updated block attributes.
+ */
 export const updateCarouselBlockAttributes = (image, currentBlock) => {
   const slides = currentBlock.attributes.slides;
   const currentImageIndex = currentBlock.attributes.currentImageIndex;
@@ -118,5 +143,27 @@ export const updateCoverBlockAttributes = (image, currentBlock) => {
       sizeSlug,
     },
     originalContent: div.innerHTML,
+  };
+};
+
+/**
+ * Updates the attributes of the Topic Link block with image data.
+ *
+ * This function extracts key information from the provided image object
+ * and returns an object containing the corresponding block attributes.
+ *
+ * @param {Object} image - The image data object.
+ *
+ * @return {Object} An object containing updated block attributes.
+ */
+export const updateTopicLinkBlockAttributes = image => {
+  const {id, alt_text, source_url} = image;
+
+  return {
+    attributes: {
+      imageId: id,
+      imageAlt: alt_text,
+      imageUrl: source_url,
+    },
   };
 };
