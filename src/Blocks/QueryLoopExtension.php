@@ -77,12 +77,8 @@ class QueryLoopExtension
             $query['orderby'] = 'post__in';
             $query['ignore_sticky_posts'] = true;
         }
-        if ($query['post__in'] && !empty($blockQuery['exclude'])) {
-            $excludes_posts = array_map('strval', $blockQuery['exclude']);
-            $query['post__in'] = array_values(array_diff($query['post__in'], $excludes_posts));
-        }
 
-        if (!empty($query['post__in']) && !empty($params['exclude'])) {
+        if (isset($query['post__in']) && !empty($query['post__in']) && !empty($params['exclude'])) {
             $exclude = array_map('intval', (array) $params['exclude']);
             $query['post__in'] = array_values(array_diff($query['post__in'], $exclude));
         }
