@@ -1,6 +1,11 @@
 <div id="nav-main" class="burger-menu d-lg-none">
     <div class="burger-menu-header">
-        <a class="site-logo" href="{{ data_nav_bar.home_url }}" aria-label="{{ __( 'Greenpeace Homepage', 'planet4-master-theme' ) }}">
+        <a
+            tabindex="-1"
+            class="site-logo"
+            href="{{ data_nav_bar.home_url }}"
+            aria-label="{{ __( 'Greenpeace Homepage', 'planet4-master-theme' ) }}"
+        >
             {% include "blocks/site_logo.twig" %}
         </a>
 
@@ -19,7 +24,9 @@
                         target="{{ item.target }}"
                         data-ga-category="Menu Navigation"
                         data-ga-action="Home"
-                        data-ga-label="{{ page_category }}">
+                        data-ga-label="{{ page_category }}"
+                        tabindex="-1"
+                    >
                         {{ __( 'Home', 'planet4-master-theme' ) }}
                     </a>
                 </li>
@@ -43,7 +50,9 @@
             target="{{ item.target }}"
             data-ga-category="Menu Navigation"
             data-ga-action="Donate"
-            data-ga-label="{{ page_category }}">
+            data-ga-label="{{ page_category }}"
+            tabindex="-1"
+        >
             {{ donate_menu_items[0].title }}
         </button>
     </div>
@@ -54,10 +63,12 @@
         aria-label="{{ __( 'Close navigation mobile menu', 'planet4-master-theme' ) }}"
         aria-expanded="false"
         data-bs-toggle="open"
-        data-bs-target="#nav-main">
-            <span class="visually-hidden">
-            {{ __( 'Close navigation mobile menu', 'planet4-master-theme' ) }}
-            </span>
+        data-bs-target="#nav-main"
+        tabindex="-1"
+    >
+        <span class="visually-hidden">
+        {{ __( 'Close navigation mobile menu', 'planet4-master-theme' ) }}
+        </span>
     </button>
 </div>
 <div class="burger-menu-overlay d-lg-none"></div>
