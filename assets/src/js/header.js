@@ -127,6 +127,7 @@ const setMobileTabsMenuScroll = () => {
   let lastScrollDir = null;
   let lastScrollTop = window.pageYOffset || document.documentElement.scrollTop;
   let lastScrollRef = lastScrollTop;
+  const menuItems = menu.querySelectorAll('.nav-link');
 
   // Check support for eventlistener opts (passive option)
   // Cf. https://github.com/WICG/EventListenerOptions/blob/gh-pages/explainer.md#feature-detection
@@ -183,6 +184,7 @@ const setMobileTabsMenuScroll = () => {
       lastScrollDir = dir;
       lastScrollRef = lastScrollTop;
       menu.classList.add('mobile-menu-hidden');
+      menuItems.forEach(item => item.setAttribute('tabindex', -1));
       return;
     }
 
@@ -191,6 +193,7 @@ const setMobileTabsMenuScroll = () => {
       lastScrollDir = dir;
       lastScrollRef = lastScrollTop;
       menu.classList.remove('mobile-menu-hidden');
+      menuItems.forEach(item => item.setAttribute('tabindex', 0));
     }
   };
 
