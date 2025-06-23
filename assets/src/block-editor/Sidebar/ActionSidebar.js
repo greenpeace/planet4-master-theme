@@ -1,10 +1,14 @@
 import {NavigationType} from '../NavigationType/NavigationType';
 import {CheckboxSidebarField} from '../SidebarFields/CheckboxSidebarField';
+import {DatePickerSidebarField} from '../SidebarFields/DatePickerSidebarField';
+import {SelectSidebarField} from '../SidebarFields/SelectSidebarField';
 import {TextSidebarField} from '../SidebarFields/TextSidebarField';
 import {SelectSidebarField} from '../SidebarFields/SelectSidebarField';
 import {DatePickerSidebarField} from '../SidebarFields/DatePickerSidebarField';
 import {getSidebarFunctions} from './getSidebarFunctions';
 
+const TASK_TYPE = 'action_task_type';
+const DEADLINE = 'action_deadline';
 const FIELD_NAVTYPE = 'nav_type';
 const HIDE_PAGE_TITLE = 'p4_hide_page_title_checkbox';
 const BUTTON_TEXT = 'action_button_text';
@@ -52,6 +56,27 @@ export const ActionSidebar = {
             )}
           </PluginDocumentSettingPanel>
         )}
+        <PluginDocumentSettingPanel
+          name="action-options-panel"
+          title={__('Action Options', 'planet4-blocks-backend')}
+        >
+          {/* Show only if feature is enabled */}
+          <SelectSidebarField
+            label={__('Task Type', 'planet4-master-theme-backend')}
+            options={[
+              {label: '- Select Task Type -', value: 'not set'},
+              {label: 'Do it Online', value: 'online'},
+              {label: 'Do it IRL', value: 'irl'},
+            ]}
+            {...getParams(TASK_TYPE)}/>
+          <DatePickerSidebarField
+            id={DEADLINE}
+            label={__('Deadline Date', 'planet4-master-theme-backend')}
+            forceEndDate={true}
+            {...getParams(DEADLINE)}
+          />
+        </PluginDocumentSettingPanel>
+
         <PluginDocumentSettingPanel
           name="page-header-panel"
           title={__('Page header', 'planet4-blocks-backend')}
