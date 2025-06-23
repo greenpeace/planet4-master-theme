@@ -26,9 +26,24 @@ class AttachmentsController
     {
         add_action('add_attachment', [$this, 'handle_new_attachment']);
         add_action('wpml_after_update_attachment_texts', [$this, 'sync_translation_sm_cloud_meta'], 1, 2);
-        add_filter('image_downsize', [$this, 'overrule_wp_stateless_for_no_images'], 100, 2);
         add_filter('attachment_fields_to_edit', [$this, 'add_image_attachment_fields_to_edit'], 10, 2);
         add_filter('attachment_fields_to_save', [$this, 'add_image_attachment_fields_to_save'], 10, 2);
+
+        // WP Stateless plugin short-circuits the image_downsize() process
+        // with wpCloud\StatelessMedia\Bootstrap::image_downsize().
+        // Contrary to the native function, it will return attachment data
+        // even if the attachment is not an image.
+        // The attachment is then treated as an image by the function
+        // wp_get_attachment_link() generating the link, even for a PDF.
+        // We overrule wp-stateless response if file is not an image.
+        add_filter(
+            'image_downsize',
+            function ($downsize, $id) {
+                return wp_attachment_is_image($id) ? $downsize : false;
+            },
+            100,
+            2
+        );
     }
 
     /**
@@ -78,22 +93,6 @@ class AttachmentsController
 
         $metadata = wp_get_attachment_metadata($post_id);
         wp_update_attachment_metadata($post_id, $metadata);
-    }
-
-    /**
-     * Fix WP-Stateless behavior where non-images are incorrectly returned as images.
-     *
-     * Prevents functions like `wp_get_attachment_link()` from treating documents
-     * (e.g. PDFs) as images by returning false when the file isn't an image.
-     *
-     * @param mixed    $downsize Result from previous image_downsize filter.
-     * @param int      $id Attachment ID.
-     *
-     * @return mixed Modified result or false if not an image.
-     */
-    public function overrule_wp_stateless_for_no_images($downsize, int $id): mixed
-    {
-        return wp_attachment_is_image($id) ? $downsize : false;
     }
 
     /**
