@@ -59,14 +59,16 @@ const toggleNavElement = element => {
 
     // Update tab index for keyboard navigation depending on burger menu being open or not.
     const burgerMenu = document.querySelector('.burger-menu');
-    const tabbingItems = [
-      burgerMenu.querySelector('.site-logo'),
-      burgerMenu.querySelector('.btn-donate'),
-      burgerMenu.querySelector('.nav-menu-close'),
-      ...burgerMenu.querySelectorAll('.nav-link'),
-      ...burgerMenu.querySelectorAll('.collapsable-btn'),
-    ];
-    tabbingItems.forEach(item => item.setAttribute('tabindex', burgerMenu.classList.contains('open') ? 0 : -1));
+    if (burgerMenu) {
+      const tabbingItems = [
+        burgerMenu.querySelector('.site-logo'),
+        burgerMenu.querySelector('.btn-donate'),
+        burgerMenu.querySelector('.nav-menu-close'),
+        ...burgerMenu.querySelectorAll('.nav-link'),
+        ...burgerMenu.querySelectorAll('.collapsable-btn'),
+      ];
+      tabbingItems.forEach(item => item.setAttribute('tabindex', burgerMenu.classList.contains('open') ? 0 : -1));
+    }
   }
 
   // Toggle data-ga-action attribute used in GTM tracking.
@@ -138,7 +140,6 @@ const setMobileTabsMenuScroll = () => {
   let lastScrollDir = null;
   let lastScrollTop = window.pageYOffset || document.documentElement.scrollTop;
   let lastScrollRef = lastScrollTop;
-  const menuItems = menu.querySelectorAll('.nav-link');
 
   // Check support for eventlistener opts (passive option)
   // Cf. https://github.com/WICG/EventListenerOptions/blob/gh-pages/explainer.md#feature-detection
@@ -190,12 +191,15 @@ const setMobileTabsMenuScroll = () => {
       return;
     }
 
+    const menuItems = menu.querySelectorAll('.nav-link');
     // Hide
     if (dir === 'down' && ref >= distToClose) {
       lastScrollDir = dir;
       lastScrollRef = lastScrollTop;
       menu.classList.add('mobile-menu-hidden');
-      menuItems.forEach(item => item.setAttribute('tabindex', -1));
+      if (menuItems && menuItems.length > 0) {
+        menuItems.forEach(item => item.setAttribute('tabindex', -1));
+      }
       return;
     }
 
@@ -204,7 +208,9 @@ const setMobileTabsMenuScroll = () => {
       lastScrollDir = dir;
       lastScrollRef = lastScrollTop;
       menu.classList.remove('mobile-menu-hidden');
-      menuItems.forEach(item => item.setAttribute('tabindex', 0));
+      if (menuItems && menuItems.length > 0) {
+        menuItems.forEach(item => item.setAttribute('tabindex', 0));
+      }
     }
   };
 
