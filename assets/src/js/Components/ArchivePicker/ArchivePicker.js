@@ -9,6 +9,7 @@ import {
   updateMediaAndTextAttributes,
   updateCarouselBlockAttributes,
   updateCoverBlockAttributes,
+  updateTopicLinkBlockAttributes,
 } from './blockUpdateFunctions';
 
 const {Spinner} = wp.components;
@@ -21,13 +22,15 @@ const timeout = delay => {
   return new Promise(resolve => setTimeout(resolve, delay));
 };
 
-const acceptedBlockTypes = [
-  'core/image',
-  'planet4-blocks/happypoint',
-  'core/media-text',
-  'planet4-blocks/carousel-header',
-  'core/cover',
-];
+const acceptedBlockTypes = new Map([
+  ['core/cover', updateCoverBlockAttributes],
+  ['core/image', updateImageBlockAttributes],
+  ['planet4-blocks/carousel-header', updateCarouselBlockAttributes],
+  ['core/media-text', updateMediaAndTextAttributes],
+  ['planet4-blocks/topic-link', updateTopicLinkBlockAttributes],
+]);
+
+const acceptedBlockTypesView = [...acceptedBlockTypes.keys(), 'planet4-blocks/happypoint'];
 
 export const EDITOR_VIEW = 'editor';
 export const ADMIN_VIEW = 'admin';
@@ -314,21 +317,35 @@ export default function ArchivePicker({view = ADMIN_VIEW}) {
     await wp.data.dispatch('core/block-editor').updateBlock(currentBlock.clientId, updatedAttributes);
   };
 
+  /**
+   * Handles the image insertion process for supported Gutenberg blocks.
+   *
+   * This function determines the current block type and delegates image processing
+   * to the appropriate attribute update handler. It dispatches various actions
+   * throughout the process and handles both success and error flows.
+   *
+   * Supported block types are defined in the `acceptedBlockTypes` map or handled explicitly.
+   *
+   * @async
+   * @function processImageToAddToEditor
+   * @param {number} id - The ID of the image to insert into the block.
+   * @return {Promise<void>} A promise that resolves when processing is complete.
+   */
   const processImageToAddToEditor = async id => {
     dispatch({type: ACTIONS.ADD_IMAGE_TO_POST});
     try {
-      if (currentBlock.name === 'core/image') {
-        await processImageForBlock(id, updateImageBlockAttributes);
-      } else if (currentBlock.name === 'planet4-blocks/carousel-header') {
-        await processImageForBlock(id, updateCarouselBlockAttributes);
-      } else if (currentBlock.name === 'core/media-text') {
-        await processImageForBlock(id, updateMediaAndTextAttributes);
-      } else if (currentBlock.name === 'core/cover') {
-        await processImageForBlock(id, updateCoverBlockAttributes);
+      const blockName = currentBlock.name;
+
+      if (acceptedBlockTypes.has(blockName)) {
+        const handler = acceptedBlockTypes.get(blockName);
+        await processImageForBlock(id, handler);
       } else {
-        // Happy Point Block
+      // Handle Happy Point Block or other default case
         const updatedAttributes = updateHappyPointAttributes(id);
-        await wp.data.dispatch('core/block-editor').updateBlock(currentBlock.clientId, updatedAttributes);
+        await wp.data.dispatch('core/block-editor').updateBlock(
+          currentBlock.clientId,
+          updatedAttributes
+        );
       }
 
       dispatch({type: ACTIONS.ADDED_IMAGE_TO_POST});
@@ -550,7 +567,7 @@ export default function ArchivePicker({view = ADMIN_VIEW}) {
 
       {view === EDITOR_VIEW && (
         <>
-          {(isUserSelectingFeaturedImage || acceptedBlockTypes.includes(currentBlock?.name)) ? (
+          {(isUserSelectingFeaturedImage || acceptedBlockTypesView.includes(currentBlock?.name)) ? (
             <section className="archive-picker">
               <div className={classNames('archive-picker-main', {'is-open': selectedImages.length > 0 && !bulkSelect})}>
                 <ArchivePickerToolbar />
