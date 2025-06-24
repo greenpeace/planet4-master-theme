@@ -78,7 +78,8 @@ class Functions
                 );
 
                 // Update the post with the replaced blocks.
-                $result = wp_update_post($post_update);
+                $post_update_slashed = wp_slash($post_update);
+                $result = wp_update_post($post_update_slashed);
 
                 if ($result === 0) {
                     throw new \Exception("There was an error trying to update the post #" . $current_post_id);
