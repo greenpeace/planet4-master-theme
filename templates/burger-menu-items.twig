@@ -15,8 +15,10 @@
                 target="{{ item.target }}"
                 data-ga-category="Menu Navigation"
                 data-ga-action="{{ link_ga_action }}"
-                data-ga-label="{{ page_category }}">
-                    {{ item.title }}
+                data-ga-label="{{ page_category }}"
+                tabindex="-1"
+            >
+                {{ item.title }}
             </a>
             {% if item.children is not empty %}
                 <button
@@ -26,7 +28,9 @@
                     data-bs-target="#menu-{{ targetId }}"
                     aria-label="{{ __( 'Nav Link Button', 'planet4-master-theme' ) }}"
                     aria-expanded="false"
-                    aria-controls="menu-{{ targetId }}"></button>
+                    aria-controls="menu-{{ targetId }}"
+                    tabindex="-1"
+                ></button>
             {% endif %}
         </div>
 
@@ -54,6 +58,7 @@
                         data-ga-category="Submenu Navigation"
                         data-ga-action="{{ link_ga_action }}"
                         data-ga-label="{{ page_category }}"
+                        tabindex="-1"
                     >
                         <span>{{ item.title|e('wp_kses_post')|raw }}</span>
                     </a>
