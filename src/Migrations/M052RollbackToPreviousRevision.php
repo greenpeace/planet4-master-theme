@@ -70,6 +70,7 @@ class M052RollbackToPreviousRevision extends MigrationScript
 
         $rollback_to_revision = 0;
         $prev_revision = null;
+        $num_revision_rollback = 0;
 
         foreach ($revisions as $revision) {
             // Check if previous revision existed and has post_author 0.
@@ -78,13 +79,14 @@ class M052RollbackToPreviousRevision extends MigrationScript
                 break;
             }
             $prev_revision = $revision;
+            $num_revision_rollback++;
         }
 
         // Match the prev_revision date.
         if ($rollback_to_revision && date('Y-m-d', strtotime($prev_revision->post_date)) == $revision_date) { // phpcs:ignore
             $result = wp_restore_post_revision($rollback_to_revision);
             if (!is_wp_error($result) && $result > 0) {
-                echo "Post revision restore successfully: ID ", $post_id, " revision ID:", $rollback_to_revision, "\n"; // phpcs:ignore
+                echo "Post revision restore successfully: ID ", $post_id, " revision ID:", $rollback_to_revision, " count:", $num_revision_rollback, "\n"; // phpcs:ignore
             } else {
                 echo "Failed to restore post: ID ", $post_id, "\n"; // phpcs:ignore
             }
