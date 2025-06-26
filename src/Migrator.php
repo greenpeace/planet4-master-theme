@@ -53,6 +53,7 @@ use P4\MasterTheme\Migrations\M048SetDefaultTaxonomyBreadcrumb;
 use P4\MasterTheme\Migrations\M049MigrateCoversBlockToActionsListBlock;
 use P4\MasterTheme\Migrations\M050AddTagsBackInPostsListBlock;
 use P4\MasterTheme\Migrations\M051ReplaceSpecialCharactersInPostsContent;
+use P4\MasterTheme\Migrations\M052RollbackToPreviousRevision;
 
 /**
  * Run any new migration scripts and record results in the log.
@@ -123,6 +124,7 @@ class Migrator
             M049MigrateCoversBlockToActionsListBlock::class,
             M050AddTagsBackInPostsListBlock::class,
             M051ReplaceSpecialCharactersInPostsContent::class,
+            M052RollbackToPreviousRevision::class,
         ];
 
         // Loop migrations and run those that haven't run yet.
