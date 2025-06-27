@@ -219,6 +219,22 @@ class ActionPage
             )
         );
 
+        register_post_meta(
+            self::POST_TYPE,
+            'action_task_type',
+            array_merge(
+                $args,
+            )
+        );
+
+        register_post_meta(
+            self::POST_TYPE,
+            'action_deadline',
+            array_merge(
+                $args,
+            )
+        );
+
         foreach (self::META_FIELDS as $field) {
             register_post_meta(self::POST_TYPE, $field, $args);
         }
