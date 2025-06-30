@@ -61,7 +61,7 @@ class M052RollbackToPreviousRevision extends MigrationScript
     {
         // Fetch last 5 revisions regardless of date, cause we need to restore a revision before the targeted revision.
         $revisions = wp_get_post_revisions($post_id, [
-            'posts_per_page' => 5,
+            'posts_per_page' => 10,
             'order' => 'DESC',
         ]);
         if (!$revisions) {
@@ -74,7 +74,7 @@ class M052RollbackToPreviousRevision extends MigrationScript
 
         foreach ($revisions as $revision) {
             // Check if previous revision existed and has post_author 0.
-            if ($prev_revision && 0 == $prev_revision->post_author) { // phpcs:ignore
+            if ($prev_revision && 0 === (int)$prev_revision->post_author) {
                 $rollback_to_revision = $revision->ID;
                 break;
             }
@@ -83,7 +83,7 @@ class M052RollbackToPreviousRevision extends MigrationScript
         }
 
         // Match the prev_revision date & number of revision rollback count.
-        if (1 === $num_revision_rollback && $rollback_to_revision && date('Y-m-d', strtotime($prev_revision->post_date)) == $revision_date) { // phpcs:ignore
+        if (1 === $num_revision_rollback && $rollback_to_revision && date('Y-m-d', strtotime($prev_revision->post_date)) === $revision_date) { // phpcs:ignore
             $result = wp_restore_post_revision($rollback_to_revision);
             if (!is_wp_error($result) && $result > 0) {
                 echo "Post revision restore successfully: ID ", $post_id, " revision ID:", $rollback_to_revision, " count:", $num_revision_rollback, "\n"; // phpcs:ignore
