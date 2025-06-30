@@ -91,7 +91,7 @@ class M052RollbackToPreviousRevision extends MigrationScript
                 echo "Failed to restore post: ID ", $post_id, "\n"; // phpcs:ignore
             }
         } else {
-            if ($num_revision_rollback > 1 && $rollback_to_revision && date('Y-m-d', strtotime($prev_revision->post_date)) == $revision_date) {
+            if ($num_revision_rollback > 1 && $rollback_to_revision && date('Y-m-d', strtotime($prev_revision->post_date)) == $revision_date) { // phpcs:ignore
                 echo "Post revision restore skipped: ID ", $post_id, " revision ID:", $rollback_to_revision, " count:", $num_revision_rollback, "\n"; // phpcs:ignore
             }
         }
