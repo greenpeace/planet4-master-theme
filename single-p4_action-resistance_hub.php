@@ -11,6 +11,17 @@
 
 $features = get_option('planet4_features');
 
+// Enqueue Resistance Hub styles only for this template
+add_action('wp_enqueue_scripts', function() {
+  if (is_page_template('single-p4_action-resistance_hub.php')) {
+    wp_enqueue_style(
+      'p4-action-resistance-hub',
+      get_template_directory_uri() . '/assets/build/resistance-hub.css',
+      [],
+    );
+  }
+});
+
 if (isset($features['action_options']) && (bool) $features['action_options']) {
     add_filter(
         'render_block',
@@ -52,201 +63,6 @@ if (isset($features['action_options']) && (bool) $features['action_options']) {
     include get_template_directory() . '/single-p4_action.php';
 
     ?>
-  <style>
-  .page-template-single-p4_action-resistance_hub {
-    --navbar-menu-min-height: 100px;
-
-    color: var(--white);
-    background-color: var(--gp-green-800);
-  }
-
-  .page-template-single-p4_action-resistance_hub > #content {
-    padding-top: calc(var(--navbar-menu-min-height) + 65px);
-  }
-
-  .page-template-single-p4_action-resistance_hub > #content h1.wp-block-heading,
-  .page-template-single-p4_action-resistance_hub > #content h2.wp-block-heading {
-    color: var(--white);
-    margin: 0;
-    margin-bottom: 20px;
-  }
-
-  .page-template-single-p4_action-resistance_hub > #content h1.wp-block-heading {
-    font-size: 60px;
-  }
-
-  .page-template-single-p4_action-resistance_hub > #content h2.wp-block-heading {
-    font-size: 32px;
-  }
-
-  .page-template-single-p4_action-resistance_hub header *:not(.container):not(.container *) {
-    display: none;
-  }
-
-  .page-template-single-p4_action-resistance_hub .boxout {
-    height: auto;
-    box-shadow: none;
-    margin-top: 90px;
-  }
-
-  .page-template-single-p4_action-resistance_hub .boxout .boxout-heading {
-    font-size: 42px;
-    line-height: 100%;
-    overflow: visible;
-    line-clamp: unset;
-    -webkit-line-clamp: unset;
-    margin-bottom: 16px;
-  }
-
-  .page-template-single-p4_action-resistance_hub .boxout .boxout-excerpt {
-    font-size: 24px;
-    line-clamp: unset;
-    -webkit-line-clamp: unset;
-  }
-
-  .page-template-single-p4_action-resistance_hub .boxout .boxout-content {
-    padding-top: 30px;
-    padding-bottom: 30px;
-  }
-
-  .page-template-single-p4_action-resistance_hub .actions-list {
-    margin-top: 20px;
-  }
-
-  .page-template-single-p4_action-resistance_hub .actions-list .wp-block-post {
-    background-color: transparent;
-    box-shadow: none;
-    border: 2px solid var(--white);
-    margin-top: 44px;
-    overflow: visible;
-  }
-
-  .page-template-single-p4_action-resistance_hub .actions-list .wp-block-post *:not(.read-more-nav .btn) {
-    color: var(--white);
-  }
-
-  .page-template-single-p4_action-resistance_hub .actions-list .wp-block-post .chip-deadline {
-    position: absolute;
-    padding: 8px 9px;
-    bottom: 10px;
-    margin-inline-start: 10px;
-    background-color: var(--gp-green-500);
-    border-radius: 6px;
-    font-family: var(--font-family-primary);
-    color: var(--grey-900);
-    line-height: 100%;
-  }
-
-  .page-template-single-p4_action-resistance_hub .actions-list .wp-block-post .chip-tasktype,
-  .page-template-single-p4_action-resistance_hub .boxout .chip-tasktype {
-    position: absolute;
-    display: flex;
-    align-items: center;
-    width: fit-content;
-    height: 34px;
-    background-color: var(--white);
-    color: var(--grey-900) !important;
-    font-family: var(--font-family-primary);
-    font-size: 24px;
-    padding: 7px 13px;
-    border-radius: 6px 6px 0px 0px;
-    top: -34px;
-    left: 20px;
-  }
-
-  .page-template-single-p4_action-resistance_hub .actions-list .read-more-nav {
-    width: 100%;
-  }
-
-  .page-template-single-p4_action-resistance_hub footer {
-    padding-top: initial;
-  }
-
-  .page-template-single-p4_action-resistance_hub footer *:not(.copyright):not(.copyright *) {
-    display: none;
-  }
-
-  .page-template-single-p4_action-resistance_hub .actions-list + .wp-block-columns {
-    padding: 50px 12px;
-    margin-top: 0;
-    margin-bottom: 0;
-    background-color: var(--white);
-    color: var(--grey-900);
-    max-width: 100vw !important;
-  }
-
-  .page-template-single-p4_action-resistance_hub .actions-list + .wp-block-columns h2 {
-    color: var(--grey-900) !important;
-  }
-
-  .page-template-single-p4_action-resistance_hub .actions-list + .wp-block-columns .wp-block-column {
-    display: flex;
-    flex-basis: initial !important;
-  }
-
-  /* Apply button styles */
-  .page-template-single-p4_action-resistance_hub .actions-list .btn,
-  .page-template-single-p4_action-resistance_hub .boxout .boxout-content .btn,
-  .page-template-single-p4_action-resistance_hub .wp-block-button__link.wp-element-button {
-    position: static;
-    width: 100%;
-    font-size: 25px;
-    line-height: 100%;
-    padding-top: 18px;
-    padding-bottom: 18px;
-  }
-
-  /* Apply gform overlay styles */
-  .page-template-single-p4_action-resistance_hub .gform_wrapper {
-    display: none;
-    z-index: 9999;
-    margin: auto;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    position: fixed;
-    flex-direction: column;
-    align-self: center;
-    background-color: var(--white);
-    padding: 20px 40px;
-  }
-
-  .page-template-single-p4_action-resistance_hub .gform-overlay {
-    cursor: pointer;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(69, 73, 76, 0.80);
-    position: fixed;
-    left: 0;
-    top: 0;
-    z-index: 999;
-  }
-
-  /* Clean up empty paragraphs */
-  .page-template-single-p4_action-resistance_hub p:empty {
-    display: none;
-  }
-
-  @media (max-width: 992px) {
-    .page-template-single-p4_action-resistance_hub .boxout .boxout-placeholder {
-      order: 1;
-    }
-  }
-
-  @media (min-width: 1200px) {
-    .page-template-single-p4_action-resistance_hub .actions-list + .wp-block-columns {
-      max-width: 720px;
-    }
-  }
-
-  @media (min-width: 1440px) {
-    .page-template-single-p4_action-resistance_hub .boxout {
-      width: 66%;
-    }
-  }
-  </style>
-
   <script>
   document.addEventListener('DOMContentLoaded', () => {
     // Update header layout

@@ -26,6 +26,7 @@ module.exports = (env, argv) => {
       index: './assets/src/js/app.js',
       style: './assets/src/scss/style.scss',
       post: './assets/src/scss/post.scss',
+      'resistance-hub': './assets/src/scss/pages/_resistance-hub.scss',
       editorStyle: './assets/src/scss/editorStyle.scss',
       bootstrap: './assets/src/scss/bootstrap-build.scss',
       'country-selector': './assets/src/scss/partials/country-selector.scss',

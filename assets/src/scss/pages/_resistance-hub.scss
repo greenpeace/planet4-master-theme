@@ -1,0 +1,250 @@
+@mixin chip-task-type {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  height: 34px;
+  background-color: var(--white);
+  color: var(--grey-900) !important;
+  font-family: var(--font-family-primary);
+  font-size: 24px;
+  padding: 7px 13px;
+  border-radius: 6px 6px 0px 0px;
+  top: -34px;
+  left: 20px;
+}
+
+@mixin btn-cta {
+  position: static;
+  width: 100%;
+  font-size: 25px;
+  line-height: 100%;
+  padding-top: 18px;
+  padding-bottom: 18px;
+}
+
+.page-template-single-p4_action-resistance_hub {
+  --navbar-menu-min-height: 100px;
+  color: var(--white);
+  background-color: var(--gp-green-800);
+
+  header {
+    *:not(.container):not(.container *) {
+      display: none !important;
+    }
+
+    .container {
+      padding: 0;
+    }
+
+    .site-logo {
+      margin-inline-start: 0;
+    }
+  }
+
+  footer {
+    padding-top: initial;
+
+    & *:not(.copyright):not(.copyright *) {
+      display: none;
+    }
+  }
+
+  p:empty {
+    display: none;
+  }
+
+  .page-header-title,
+  > #content h2.wp-block-heading {
+    color: var(--white);
+    margin: 0;
+    margin-bottom: 20px;
+  }
+
+  & > #content {
+    h1.wp-block-heading {
+      font-size: 60px;
+    }
+
+    h2.wp-block-heading {
+      font-size: 32px;
+    }
+  }
+
+  .boxout {
+    height: auto;
+    box-shadow: none;
+    margin-top: 90px;
+
+    .boxout-heading {
+      font-size: 42px;
+      line-height: 100%;
+      overflow: visible;
+      line-clamp: unset;
+      -webkit-line-clamp: unset;
+      margin-bottom: 16px;
+    }
+
+    .boxout-excerpt {
+      font-size: 24px;
+      line-clamp: unset;
+      -webkit-line-clamp: unset;
+    }
+
+    .boxout-content {
+      padding-top: 30px;
+      padding-bottom: 30px;
+
+      .btn {
+        @include btn-cta;
+      }
+    }
+
+    .chip-tasktype {
+      @include chip-task-type;
+    }
+  }
+
+  .actions-list {
+    margin-top: 20px;
+
+    .wp-block-post {
+      background-color: transparent;
+      box-shadow: none;
+      border: 2px solid var(--white);
+      margin-top: 44px;
+      overflow: visible;
+
+      .wp-block-post-title {
+        font-size: 42px;
+        line-height: 46px;
+      }
+
+      .wp-block-post-excerpt p {
+        font-size: 24px;
+        line-height: 30px;
+      }
+
+      .actions-list-links {
+        display: flex;
+        flex-direction: column;
+
+        .wp-block-group {
+          margin-bottom: 20px;
+        }
+      }
+
+      .read-more-nav {
+        position: unset;
+        margin-top: auto;
+        width: 100%;
+      }
+
+      .wp-block-group.is-layout-flow {
+        padding: 0 20px;
+      }
+
+      .chip-deadline {
+        position: absolute;
+        padding: 8px 9px;
+        bottom: 10px;
+        margin-inline-start: 10px;
+        border-radius: 6px;
+        background-color: var(--gp-green-500);
+        color: var(--grey-900);
+        font-family: var(--font-family-primary);
+        line-height: 100%;
+      }
+
+      .chip-tasktype {
+        @include chip-task-type;
+      }
+
+      .btn {
+        @include btn-cta;
+      }
+
+      & *:not(.read-more-nav .btn) {
+        color: var(--white);
+      }
+    }
+
+    & + .wp-block-columns {
+      padding: 50px 12px;
+      margin-top: 0;
+      margin-bottom: 0;
+      background-color: var(--white);
+      color: var(--grey-900);
+      max-width: 100vw !important;
+
+      h2 {
+        color: var(--grey-900) !important;
+      }
+
+      .wp-block-column {
+        display: flex;
+        flex-basis: initial !important;
+      }
+    }
+  }
+
+  .wp-block-button__link.wp-element-button {
+    @include btn-cta;
+  }
+
+  .gform_wrapper {
+    display: none;
+    z-index: 9999;
+    margin: auto;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    position: fixed;
+    flex-direction: column;
+    align-self: center;
+    background-color: var(--white);
+    padding: 20px 40px;
+  }
+
+  .gform-overlay {
+    cursor: pointer;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(69, 73, 76, 0.80);
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 999;
+  }
+
+  @media (max-width: 992px) {
+    .boxout .boxout-placeholder {
+      order: 1;
+    }
+  }
+
+  @media (min-width: 1200px) {
+    .actions-list + .wp-block-columns {
+      max-width: 720px;
+    }
+  }
+
+  @media (min-width: 1440px) {
+    .boxout {
+      width: 66%;
+    }
+  }
+
+  @media (min-width: 1200px) {
+    .actions-list + .wp-block-columns {
+      max-width: 720px;
+    }
+  }
+
+  @media (min-width: 1440px) {
+    .boxout {
+      width: 66%;
+    }
+  }
+}
