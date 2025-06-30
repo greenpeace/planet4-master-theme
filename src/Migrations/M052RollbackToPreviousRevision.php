@@ -82,13 +82,17 @@ class M052RollbackToPreviousRevision extends MigrationScript
             $num_revision_rollback++;
         }
 
-        // Match the prev_revision date.
-        if ($rollback_to_revision && date('Y-m-d', strtotime($prev_revision->post_date)) == $revision_date) { // phpcs:ignore
+        // Match the prev_revision date & number of revision rollback count.
+        if (1 === $num_revision_rollback && $rollback_to_revision && date('Y-m-d', strtotime($prev_revision->post_date)) == $revision_date) { // phpcs:ignore
             $result = wp_restore_post_revision($rollback_to_revision);
             if (!is_wp_error($result) && $result > 0) {
                 echo "Post revision restore successfully: ID ", $post_id, " revision ID:", $rollback_to_revision, " count:", $num_revision_rollback, "\n"; // phpcs:ignore
             } else {
                 echo "Failed to restore post: ID ", $post_id, "\n"; // phpcs:ignore
+            }
+        } else {
+            if ($num_revision_rollback > 1 && $rollback_to_revision && date('Y-m-d', strtotime($prev_revision->post_date)) == $revision_date) {
+                echo "Post revision restore skipped: ID ", $post_id, " revision ID:", $rollback_to_revision, " count:", $num_revision_rollback, "\n"; // phpcs:ignore
             }
         }
     }
