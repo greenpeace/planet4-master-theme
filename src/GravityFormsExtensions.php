@@ -251,6 +251,10 @@ class GravityFormsExtensions
      */
     public function enqueue_share_buttons(array $form): array
     {
+        if (!is_array($form['confirmations'])) {
+            return $form;
+        }
+        
         $social = reset($form['confirmations']);
         if ($social['type'] === 'message') {
             do_action('enqueue_share_buttons_script', $social);
