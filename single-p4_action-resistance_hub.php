@@ -16,14 +16,22 @@ if (isset($features['action_options']) && (bool) $features['action_options']) {
         'render_block',
         function ($block_content, $block) {
             global $post;
+            $post_id = $post->ID;
+
+            if($block['blockName'] === "planet4-blocks/take-action-boxout") {
+                $post_id = (int) $block['attrs']['take_action_page'];
+            }
 
             if (
                 isset($block['blockName']) &&
-                $block['blockName'] === 'planet4-blocks/action-button-text' &&
-                $post && $post->post_type === 'p4_action'
+                (
+                    $block['blockName'] === 'planet4-blocks/action-button-text' ||
+                    $block['blockName'] === "planet4-blocks/take-action-boxout"
+                )
             ) {
-                $action_task_type_value = get_post_meta($post->ID, 'action_task_type', true);
-                $action_deadline_value = get_post_meta($post->ID, 'action_deadline', true);
+
+                $action_task_type_value = get_post_meta($post_id, 'action_task_type', true);
+                $action_deadline_value = get_post_meta($post_id, 'action_deadline', true);
 
                 if ($action_task_type_value && $action_deadline_value) {
                     $block_content = preg_replace(
@@ -76,19 +84,9 @@ if (isset($features['action_options']) && (bool) $features['action_options']) {
   }
 
   .page-template-single-p4_action-resistance_hub .boxout {
-    /* width: 100%; */
     height: auto;
     box-shadow: none;
     margin-top: 90px;
-  }
-
-  .page-template-single-p4_action-resistance_hub .boxout::before {
-    content: "Do it IRL";
-    display: block;
-    position: absolute;
-    top: -50px;
-    color: var(--grey-900);
-    background-color: var(--white);
   }
 
   .page-template-single-p4_action-resistance_hub .boxout .boxout-heading {
@@ -139,7 +137,8 @@ if (isset($features['action_options']) && (bool) $features['action_options']) {
     line-height: 100%;
   }
 
-  .page-template-single-p4_action-resistance_hub .actions-list .wp-block-post .chip-tasktype {
+  .page-template-single-p4_action-resistance_hub .actions-list .wp-block-post .chip-tasktype,
+  .page-template-single-p4_action-resistance_hub .boxout .chip-tasktype {
     position: absolute;
     display: flex;
     align-items: center;
@@ -148,6 +147,7 @@ if (isset($features['action_options']) && (bool) $features['action_options']) {
     background-color: var(--white);
     color: var(--grey-900) !important;
     font-family: var(--font-family-primary);
+    font-size: 24px;
     padding: 7px 13px;
     border-radius: 6px 6px 0px 0px;
     top: -34px;
@@ -327,9 +327,14 @@ if (isset($features['action_options']) && (bool) $features['action_options']) {
     }
 
     // Iterate posts
-    for (const post of Array.from(document.querySelectorAll('.wp-block-post-template .wp-block-post'))) {
-      const cta = post.querySelector('.read-more-nav a');
+    for (const post of [
+        ...Array.from(document.querySelectorAll('.wp-block-post-template .wp-block-post')),
+        ...document.querySelectorAll('.boxout'),
+    ]) {
+        const isBoxout = post.classList.contains('boxout') || false;
+        console.log(isBoxout)
 
+      const cta = post.querySelector(isBoxout ? '.btn' : '.read-more-nav a');
       const taskType = cta.getAttribute('data-tasktype');
       const deadline = cta.getAttribute('data-deadline');
 
@@ -341,14 +346,19 @@ if (isset($features['action_options']) && (bool) $features['action_options']) {
         var chipTaskType = document.createElement('span'); // Scoped variable
         chipTaskType.classList.add('chip-tasktype');
         chipTaskType.innerHTML = `Do it ${taskType}`;
+
+        if(isBoxout) {
+            post.append(chipTaskType);
+        }
       }
 
-      if(deadline) {
+      if(deadline && !isBoxout) {
         let diffDates = new Date(deadline) - Date.now();
         if(diffDates > 0) {
           const chipDeadline = document.createElement('span');
+          const secondsInDay = 1000 * 60 * 60 * 24;
           chipDeadline.classList.add('chip-deadline');
-          chipDeadline.innerHTML = `${Math.round((Date.parse(deadline) - Date.now()) / (1000 * 60 * 60 * 24))} days left`;
+          chipDeadline.innerHTML = `${Math.round((Date.parse(deadline) - Date.now()) / secondsInDay)} days left`;
           post.querySelector('.wp-block-post-featured-image').append(chipDeadline);
 
           // Only append if the deadline has not finished
