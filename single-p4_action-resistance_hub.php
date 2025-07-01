@@ -109,30 +109,37 @@ if (isset($features['action_options']) && (bool) $features['action_options']) {
       container.append(gpLogo);
     }
 
-    // Add block wide class to leave message block
-    const leaveMessageWrapper = document.querySelector('.page-template-single-p4_action-resistance_hub .actions-list + .wp-block-columns');
-    if(leaveMessageWrapper) {
-      leaveMessageWrapper.classList.add('block-wide');
-    }
+    const actionsList = document.querySelector('.actions-list');
+    /// Move columns content into a container
+    const columns = document.querySelector('.actions-list + .wp-block-columns');
+
+console.log(columns,actionsList)
+  if(columns && actionsList) {
+    const columnsWrapper = document.createElement('div');
+    columnsWrapper.classList.add('columns-wrapper');
+    columnsWrapper.classList.add('block-wide');
+    columns.classList.add('container');
+    columnsWrapper.append(columns);
+    actionsList.parentNode.insertBefore(columnsWrapper, actionsList.nextSibling)
 
     // Add functionatility of leaving a message
     const leaveMessageButton = Array.from(document.querySelectorAll('.wp-element-button'))
-      .find(btn => btn.textContent.trim() === 'Leave a message');
+    .find(btn => btn.textContent.trim() === 'Leave a message');
 
     if (leaveMessageButton) {
       leaveMessageButton.addEventListener('click', () => {
         let overlay = document.querySelector('.gform-overlay');
         if(!overlay) {
-          overlay = document.createElement('div');
-          overlay.classList.add('gform-overlay');
-          document.body.append(overlay);
+        overlay = document.createElement('div');
+        overlay.classList.add('gform-overlay');
+        document.body.append(overlay);
         }
 
         overlay.style.display = 'block';
 
         const form = document.querySelector('.gform_wrapper');
         if(form) {
-          form.style.display = 'flex';
+        form.style.display = 'flex';
         }
 
         overlay.addEventListener('click', () => {
@@ -141,6 +148,7 @@ if (isset($features['action_options']) && (bool) $features['action_options']) {
         });
       });
     }
+  }
 
     // Iterate posts
     for (const post of [
@@ -164,7 +172,7 @@ if (isset($features['action_options']) && (bool) $features['action_options']) {
         chipTaskType.innerHTML = `Do it ${taskType}`;
 
         if(isBoxout) {
-            post.append(chipTaskType);
+          post.append(chipTaskType);
         }
       }
 
