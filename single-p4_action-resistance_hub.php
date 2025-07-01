@@ -12,14 +12,22 @@
 $features = get_option('planet4_features');
 
 // Enqueue Resistance Hub styles only for this template
-add_action('wp_enqueue_scripts', function() {
-  if (is_page_template('single-p4_action-resistance_hub.php')) {
+add_action('wp_enqueue_scripts', function (): void {
+    $template = get_page_template();
+    if (!$template) {
+        return;
+    }
+
+    $template_data = get_file_data($template, array('Template Name' => 'Template Name'));
+    if ($template_data['Template Name'] !== 'Resistance Hub Campaign') {
+        return;
+    }
+
     wp_enqueue_style(
-      'p4-action-resistance-hub',
-      get_template_directory_uri() . '/assets/build/resistance-hub.css',
-      [],
+        'p4-action-resistance-hub',
+        get_template_directory_uri() . '/assets/build/resistance-hub.css',
+        [],
     );
-  }
 });
 
 if (isset($features['action_options']) && (bool) $features['action_options']) {
@@ -29,18 +37,23 @@ if (isset($features['action_options']) && (bool) $features['action_options']) {
             global $post;
             $post_id = $post->ID;
 
-            if($block['blockName'] === "planet4-blocks/take-action-boxout") {
+            if (!isset($block['blockName'])) {
+                return $block_content;
+            }
+
+            $block_name = $block['blockName'];
+
+            if (
+                $block_name === "planet4-blocks/take-action-boxout" &&
+                isset($block['attrs']['take_action_page'])
+            ) {
                 $post_id = (int) $block['attrs']['take_action_page'];
             }
 
             if (
-                isset($block['blockName']) &&
-                (
-                    $block['blockName'] === 'planet4-blocks/action-button-text' ||
-                    $block['blockName'] === "planet4-blocks/take-action-boxout"
-                )
+                $block_name === 'planet4-blocks/action-button-text' ||
+                $block_name === "planet4-blocks/take-action-boxout"
             ) {
-
                 $action_task_type_value = get_post_meta($post_id, 'action_task_type', true);
                 $action_deadline_value = get_post_meta($post_id, 'action_deadline', true);
 
