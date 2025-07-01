@@ -42,54 +42,63 @@ class Functions
             $parser = new WP_Block_Parser();
 
             foreach ($posts as $post) {
-                if (empty($post->post_content)) {
+                try {
+                    if (empty($post->post_content)) {
+                        continue;
+                    }
+
+                    $current_post_id = $post->ID; // Store the current post ID
+
+                    echo 'Parsing post ', $current_post_id, "\n"; // phpcs:ignore
+
+                    // Parse the blocks from the post content.
+                    $blocks = $parser->parse($post->post_content);
+
+                    if (!is_array($blocks)) {
+                        throw new \Exception("Invalid block structure for post #" . $current_post_id);
+                    }
+
+                    // Process blocks recursively.
+                    $blocks = self::process_blocks_recursive(
+                        $blocks,
+                        $block_check_callback,
+                        $block_transformation_callback,
+                        $current_post_id
+                    );
+
+                    // Serialize the blocks content & suppress warnings for this specific line
+                    $new_content = @serialize_blocks($blocks);
+
+                    if ($post->post_content === $new_content) {
+                        continue;
+                    }
+
+                    $post_update = array(
+                        'ID' => $current_post_id,
+                        'post_content' => $new_content,
+                    );
+
+                    // Update the post with the replaced blocks.
+                    $post_update_slashed = wp_slash($post_update);
+                    $result = wp_update_post($post_update_slashed, true);
+
+                    if (is_wp_error($result)) {
+                        throw new \Exception($result->get_error_message()); //NOSONAR
+                    }
+
+                    if ($result === 0) {
+                        throw new \Exception("Unknown error updating post #" . $current_post_id); //NOSONAR
+                    }
+
+                    echo "Migration successful\n";
+                } catch (\Throwable $e) {
+                    echo "Migration failed for post ID: ", $post->ID, "\n";
+                    echo $e->getMessage(), "\n";
                     continue;
                 }
-
-                $current_post_id = $post->ID; // Store the current post ID
-
-                echo 'Parsing post ', $current_post_id, "\n"; // phpcs:ignore
-
-                // Parse the blocks from the post content.
-                $blocks = $parser->parse($post->post_content);
-
-                if (!is_array($blocks)) {
-                    throw new \Exception("Invalid block structure for post #" . $current_post_id);
-                }
-
-                // Process blocks recursively.
-                $blocks = self::process_blocks_recursive(
-                    $blocks,
-                    $block_check_callback,
-                    $block_transformation_callback,
-                    $current_post_id
-                );
-
-                // Serialize the blocks content & suppress warnings for this specific line
-                $new_content = @serialize_blocks($blocks);
-
-                if ($post->post_content === $new_content) {
-                    continue;
-                }
-
-                $post_update = array(
-                    'ID' => $current_post_id,
-                    'post_content' => $new_content,
-                );
-
-                // Update the post with the replaced blocks.
-                $post_update_slashed = wp_slash($post_update);
-                $result = wp_update_post($post_update_slashed);
-
-                if ($result === 0) {
-                    throw new \Exception("There was an error trying to update the post #" . $current_post_id);
-                }
-
-                echo "Migration successful\n";
             }
-        } catch (\ErrorException $e) {
-            // Catch any exceptions and display the post ID if available
-            echo "Migration wasn't executed for post ID: ", $current_post_id ?? 'unknown', "\n";
+        } catch (\Throwable $e) {
+            echo "Migration wasn't executed for block: ", $block_name ?? 'unknown', "\n";
             echo $e->getMessage(), "\n";
         }
     }
