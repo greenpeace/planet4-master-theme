@@ -24,8 +24,9 @@ class AttachmentsController
      */
     public function __construct()
     {
-        add_action('add_attachment', [$this, 'handle_new_attachment']);
+        add_action('add_attachment', [$this, 'set_sm_cloud_metadata'], 99);
         add_action('wpml_after_update_attachment_texts', [$this, 'sync_translation_sm_cloud_meta'], 1, 2);
+        add_filter('wp_generate_attachment_metadata', [$this, 'update_iptc_metadata'], 10, 2);
         add_filter('attachment_fields_to_edit', [$this, 'add_image_attachment_fields_to_edit'], 10, 2);
         add_filter('attachment_fields_to_save', [$this, 'add_image_attachment_fields_to_save'], 10, 2);
 
@@ -47,14 +48,55 @@ class AttachmentsController
     }
 
     /**
-     * Handles new attachments by extracting IPTC metadata and updating `sm_cloud` metadata.
+     * /**
+     * Extracts IPTC metadata from a newly added image attachment and stores relevant fields as post meta.
+     * IPTC metadata is a standardized format used to embed information such as author, copyright,
+     * usage restrictions, and credits directly within image files.
      *
-     * @param int $post_id Attachment post ID.
+     * @param array $metadata Generated metadata.
+     * @param int   $post_id  Attachment post ID.
+     * @return array Metadata (unchanged).
      */
-    public function handle_new_attachment(int $post_id): void
+    public function update_iptc_metadata(array $metadata, int $post_id): mixed
     {
-        $this->update_iptc_metadata($post_id);
-        $this->set_sm_cloud_metadata($post_id);
+        $file = get_attached_file($post_id);
+
+        if (!file_exists($file)) {
+            return null;
+        }
+
+        // Extracts image metadata and populates $image_info['APP13'] with raw IPTC data if available.
+        // $image_info is a by-reference output parameter. When getimagesize() is called with a second
+        // argument, PHP fills it with additional data, including IPTC metadata (APP13) if present.
+        $info = @getimagesize($file, $image_info); //NOSONAR
+
+        if (!is_array($image_info) || !isset($image_info['APP13'])) {
+            return null;
+        }
+
+        $iptc = iptcparse($image_info['APP13']) ?: [];
+
+        // If IPTC "Special Instructions" (tag 2:040) exists, save it as the 'restriction' meta field
+        // phpcs:ignore SlevomatCodingStandard.ControlStructures.EarlyExit.EarlyExitNotUsed
+        if (!empty($iptc['2#040']) && !empty($iptc['2#040'][0])) {
+            update_post_meta(
+                $post_id,
+                self::META_FIELDS['restriction'],
+                sanitize_text_field($iptc['2#040'][0])
+            );
+        }
+
+        // If IPTC "Credit" (tag 2:110) exists, save it as the 'credit' meta field
+        // phpcs:ignore SlevomatCodingStandard.ControlStructures.EarlyExit.EarlyExitNotUsed
+        if (!empty($iptc['2#110']) && !empty($iptc['2#110'][0])) {
+            update_post_meta(
+                $post_id,
+                self::META_FIELDS['credit'],
+                sanitize_text_field($iptc['2#110'][0])
+            );
+        }
+
+        return $metadata;
     }
 
     /**
@@ -65,7 +107,7 @@ class AttachmentsController
      *
      * @param int $post_id Attachment post ID.
      */
-    private function set_sm_cloud_metadata(int $post_id): void
+    public function set_sm_cloud_metadata(int $post_id): void
     {
         if (
             ! defined('WP_IMPORTING')
@@ -157,52 +199,5 @@ class AttachmentsController
         }
 
         return $post;
-    }
-
-    /**
-     * Extracts IPTC metadata from a newly added image attachment and stores relevant fields as post meta.
-     * IPTC metadata is a standardized format used to embed information such as author, copyright,
-     * usage restrictions, and credits directly within image files.
-     *
-     * @param int $post_id Attachment post ID.
-     */
-    private function update_iptc_metadata(int $post_id): void
-    {
-        $file = get_attached_file($post_id);
-
-        if (!file_exists($file)) {
-            return;
-        }
-
-        // Extracts image metadata and populates $image_info['APP13'] with raw IPTC data if available.
-        // $image_info is a by-reference output parameter. When getimagesize() is called with a second
-        // argument, PHP fills it with additional data, including IPTC metadata (APP13) if present.
-        $info = @getimagesize($file, $image_info); //NOSONAR
-
-        if (!is_array($image_info) || !isset($image_info['APP13'])) {
-            return;
-        }
-
-        $iptc = iptcparse($image_info['APP13']) ?: [];
-
-        // If IPTC "Special Instructions" (tag 2:040) exists, save it as the 'restriction' meta field
-        // phpcs:ignore SlevomatCodingStandard.ControlStructures.EarlyExit.EarlyExitNotUsed
-        if (!empty($iptc['2#040']) && !empty($iptc['2#040'][0])) {
-            update_post_meta(
-                $post_id,
-                self::META_FIELDS['restriction'],
-                sanitize_text_field($iptc['2#040'][0])
-            );
-        }
-
-        // If IPTC "Credit" (tag 2:110) exists, save it as the 'credit' meta field
-        // phpcs:ignore SlevomatCodingStandard.ControlStructures.EarlyExit.EarlyExitNotUsed
-        if (!empty($iptc['2#110']) && !empty($iptc['2#110'][0])) {
-            update_post_meta(
-                $post_id,
-                self::META_FIELDS['credit'],
-                sanitize_text_field($iptc['2#110'][0])
-            );
-        }
     }
 }
