@@ -4,7 +4,7 @@ msgstr ""
 "&&(n%100<10||n%100 >= 20)? 1 : 2);\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2025-07-03 14:40+0000\n"
+"PO-Revision-Date: 2025-07-03 14:41+0000\n"
 "Language-Team: Polish\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -149,22 +149,22 @@ msgstr "Kampania"
 #: assets/src/block-templates/deep-dive/block.json:1
 msgctxt "block title"
 msgid "Deep Dive"
-msgstr ""
+msgstr "Głęboki nur"
 
 #: assets/src/block-templates/deep-dive-topic/block.json:1
 msgctxt "block title"
 msgid "Deep Dive Topic"
-msgstr ""
+msgstr "Temat głębokiego nura ;)"
 
 #: assets/src/block-templates/get-informed/block.json:1
 msgctxt "block title"
 msgid "Get Informed"
-msgstr ""
+msgstr "Dowiedz się"
 
 #: assets/src/block-templates/high-level-topic/block.json:1
 msgctxt "block title"
 msgid "High-Level Topic"
-msgstr ""
+msgstr "Ważny temat"
 
 #: assets/src/block-templates/highlighted-cta/block.json:1
 msgctxt "block title"
