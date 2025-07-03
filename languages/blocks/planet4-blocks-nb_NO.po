@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Planet4 - Blocks\n"
 "POT-Creation-Date: 2020-12-02 12:05+0000\n"
-"PO-Revision-Date: 2025-07-03 09:18+0000\n"
+"PO-Revision-Date: 2025-07-03 09:19+0000\n"
 "Last-Translator: Svilena Koleva\n"
 "Language-Team: Norwegian (Bokmål)\n"
 "MIME-Version: 1.0\n"
@@ -327,12 +327,12 @@ msgstr ""
 
 #: src/Post.php:596 assets/src/blocks/PostsList/index.js:21
 msgid "See all posts"
-msgstr ""
+msgstr "Se alle artiklene"
 
 #: src/Migrations/M037MigrateCoversContentBlockToPostsListBlock.php:347
 #: src/Migrations/M046MigrateArticlesBlockToPostsListBlock.php:287
 msgid "See all stories"
-msgstr ""
+msgstr "Se alle artiklene"
 
 #. Name of the template
 #: page-templates/sitemap.php:3
