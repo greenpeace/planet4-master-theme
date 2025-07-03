@@ -4,7 +4,7 @@ msgstr ""
 "&&(n%100<10||n%100 >= 20)? 1 : 2);\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2025-07-03 14:38+0000\n"
+"PO-Revision-Date: 2025-07-03 14:40+0000\n"
 "Language-Team: Polish\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -388,7 +388,7 @@ msgstr ""
 #: templates/search/categories.twig:14
 #, php-format
 msgid "Filter results by category %s, 1 result was found"
-msgstr ""
+msgstr "Filtruj wyniki po kategorii %s - znaleziono 1 wynik"
 
 #: templates/search/content_types.twig:16
 #, php-format
@@ -560,7 +560,7 @@ msgstr "Szukaj"
 
 #: templates/search.twig:8
 msgid "Search by name, keyword, or topic"
-msgstr ""
+msgstr "Szukaj po nazwie, słowie kluczowym lub temacie"
 
 #: templates/footer_country_selector.twig:11
 msgid "Selected"
