@@ -5,12 +5,12 @@ import {SelectSidebarField} from '../SidebarFields/SelectSidebarField';
 import {DatePickerSidebarField} from '../SidebarFields/DatePickerSidebarField';
 import {getSidebarFunctions} from './getSidebarFunctions';
 
-const DEADLINE = 'action_deadline';
 const FIELD_NAVTYPE = 'nav_type';
 const HIDE_PAGE_TITLE = 'p4_hide_page_title_checkbox';
 const BUTTON_TEXT = 'action_button_text';
 const BUTTON_ACCESSIBILITY_TEXT = 'action_button_accessibility_text';
 const TASK_TYPE = 'actions_task_type';
+const DEADLINE = 'actions_deadline';
 
 const {__} = wp.i18n;
 const {PluginDocumentSettingPanel} = wp.editor;
@@ -31,8 +31,7 @@ export const ActionSidebar = {
         {(isTaskTypeEnabled || isDeadlineEnabled) && (
           <PluginDocumentSettingPanel
             name="action-options-panel"
-            title={__('Action Options', 'planet4-blocks-backend')}
-          >
+            title={__('Action Options', 'planet4-blocks-backend')}>
             {isTaskTypeEnabled && (
               <SelectSidebarField
                 label={__('Task Type', 'planet4-master-theme-backend')}

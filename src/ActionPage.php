@@ -229,7 +229,7 @@ class ActionPage
 
         register_post_meta(
             self::POST_TYPE,
-            'action_deadline',
+            'actions_deadline',
             array_merge(
                 $args,
             )

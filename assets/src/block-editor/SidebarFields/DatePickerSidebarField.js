@@ -11,11 +11,7 @@ export const DatePickerSidebarField = ({id, value, setValue, label, forceEndDate
           return;
         }
 
-        if(forceEndDate) {
-          setValue(`${date.slice(0,10)+'T23:59:59'}`);
-        } else {
-          setValue(date);
-        }
+        setValue(forceEndDate ? `${date.slice(0,10)+'T23:59:59'}` : date);
       }}
       __nextHasNoMarginBottom
     />
