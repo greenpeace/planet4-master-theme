@@ -6,9 +6,35 @@ const {InspectorControls} = wp.blockEditor;
 const {RadioControl, PanelBody} = wp.components;
 const {useCallback, useEffect, useMemo, useState} = wp.element;
 const {addFilter} = wp.hooks;
+const {useSelect} = wp.data;
 const {__} = wp.i18n;
 
+const areTaxonomiesDifferent = (tax1, tax2) => {
+  if (!tax1 && !tax2) {
+    return false;
+  }
+  if (!tax1 || !tax2) {
+    return true;
+  }
+
+  let areTagsDifferent = false;
+  if (tax1.post_tag && tax2.post_tag) {
+    areTagsDifferent = tax1.post_tag.length !== tax2.post_tag.length;
+  }
+  let arePostTypesDifferent = false;
+  if (tax1['p4-page-type'] && tax2['p4-page-type']) {
+    arePostTypesDifferent = tax1['p4-page-type'].length !== tax2['p4-page-type'].length;
+  }
+  let areCategoriesDifferent = false;
+  if (tax1.category && tax2.category) {
+    areCategoriesDifferent = tax1.category.length !== tax2.category.length;
+  }
+
+  return areTagsDifferent || arePostTypesDifferent || areCategoriesDifferent;
+};
+
 const targetP4Blocks = [ACTIONS_LIST_BLOCK_NAME, POSTS_LIST_BLOCK_NAME];
+const newsPageLink = window.p4_vars.news_page_link;
 
 export const setupQueryLoopBlockExtension = () => {
   const {createHigherOrderComponent} = wp.compose;
@@ -26,10 +52,36 @@ export const setupQueryLoopBlockExtension = () => {
           return <BlockEdit {...props} />;
         }
 
+        const TAXONOMIES = useSelect(select => {
+          return {
+            postTypes: select('core').getEntityRecords('taxonomy', 'p4-page-type') || [],
+            tags: select('core').getEntityRecords('taxonomy', 'post_tag') || [],
+            categories: select('core').getEntityRecords('taxonomy', 'category') || [],
+          };
+        });
+
+        const buildCustomNewsPageLinkFromTaxonomies = taxonomies => {
+          if (!taxonomies) {
+            return newsPageLink;
+          }
+          let customSeeAllLink = newsPageLink + '?';
+          const {category, post_tag, 'p4-page-type': postType} = taxonomies;
+          if (category?.length) {
+            customSeeAllLink += `category=${TAXONOMIES.categories.find(cat => cat.id === category[0]).slug}&`;
+          }
+          if (post_tag?.length) {
+            customSeeAllLink += `tag=${TAXONOMIES.tags.find(tag => tag.id === post_tag[0]).slug}&`;
+          }
+          if (postType?.length) {
+            customSeeAllLink += `post-type=${TAXONOMIES.postTypes.find(pt => pt.id === postType[0]).slug}`;
+          }
+          return customSeeAllLink;
+        };
+
         const [postTemplate, setPostTemplate] = useState();
         const [selectedBlock, setSelectedBlock] = useState();
 
-        const {className, query} = attributes;
+        const {className, query, namespace} = attributes;
         const layoutTypes = isActionsList ? ACTIONS_LIST_LAYOUT_TYPES : POSTS_LISTS_LAYOUT_TYPES;
         const currentPostId = wp.data.select('core/editor').getCurrentPostId();
 
@@ -99,6 +151,22 @@ export const setupQueryLoopBlockExtension = () => {
             },
           });
         }, []);
+
+        // Update the News & Stories link based on the taxonomy filters selected in Posts List.
+        useEffect(() => {
+          if (newsPageLink && selectedBlock && namespace === 'planet4-blocks/posts-list') {
+            const seeAllLink = selectedBlock.innerBlocks.find(block => block.name === 'core/navigation-link');
+            if (!seeAllLink) {
+              return;
+            }
+            const oldTaxonomies = selectedBlock.attributes.query.taxQuery || null;
+            const newTaxonomies = query.taxQuery || null;
+            if (!areTaxonomiesDifferent(oldTaxonomies, newTaxonomies)) {
+              return;
+            }
+            seeAllLink.attributes.url = buildCustomNewsPageLinkFromTaxonomies(newTaxonomies);
+          }
+        }, [attributes]);
 
         useEffect(() => {
           // Reset every time a new block is selected
