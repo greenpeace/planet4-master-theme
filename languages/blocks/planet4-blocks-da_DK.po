@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Planet4 - Blocks\n"
 "POT-Creation-Date: 2020-09-09 11:52+0000\n"
-"PO-Revision-Date: 2025-07-03 08:56+0000\n"
+"PO-Revision-Date: 2025-07-03 09:07+0000\n"
 "Last-Translator: Svilena Koleva\n"
 "Language-Team: Danish\n"
 "MIME-Version: 1.0\n"
@@ -245,7 +245,7 @@ msgstr ""
 #: assets/src/block-templates/high-level-topic/template.js:37
 #: assets/src/block-templates/get-informed/template.js:34
 msgid "Latest news & stories"
-msgstr ""
+msgstr "Seneste nyheder og historier"
 
 #: src/Migrations/M032MigrateSplit2ColumnBlock.php:201
 msgid "Learn more about this issue"
@@ -253,7 +253,7 @@ msgstr "Se mere"
 
 #: assets/src/blocks/Spreadsheet/SpreadsheetFrontend.js:185
 msgid "Loading spreadsheet data…"
-msgstr ""
+msgstr "Indlæser regnearksdata…"
 
 #: src/QueryLoopPagination.php:63
 #: src/Migrations/M049MigrateCoversBlockToActionsListBlock.php:207
@@ -262,7 +262,7 @@ msgstr ""
 #: assets/src/blocks/Gallery/GalleryCarousel.js:146
 #: assets/src/blocks/CarouselHeader/CarouselControls.js:18
 msgid "Next"
-msgstr ""
+msgstr "Næste"
 
 #: assets/src/blocks/Spreadsheet/SpreadsheetFrontend.js:123
 msgid "No data matching your search."
@@ -272,7 +272,7 @@ msgstr ""
 #: src/Migrations/M037MigrateCoversContentBlockToPostsListBlock.php:365
 #: src/Migrations/M046MigrateArticlesBlockToPostsListBlock.php:305
 msgid "No posts found."
-msgstr ""
+msgstr "Ingen indlæg fundet."
 
 #: src/Migrations/M049MigrateCoversBlockToActionsListBlock.php:267
 #: src/Migrations/M037MigrateCoversContentBlockToPostsListBlock.php:364
@@ -298,12 +298,12 @@ msgstr ""
 #: src/Migrations/M037MigrateCoversContentBlockToPostsListBlock.php:259
 #: src/Migrations/M046MigrateArticlesBlockToPostsListBlock.php:202
 msgid "Prev"
-msgstr ""
+msgstr "Tidligere"
 
 #: assets/src/blocks/Gallery/GalleryCarousel.js:112
 #: assets/src/blocks/CarouselHeader/CarouselControls.js:14
 msgid "Previous"
-msgstr ""
+msgstr "Tidligere"
 
 #: assets/src/block-templates/take-action/template.js:44
 msgid "Raise awareness in your community"
