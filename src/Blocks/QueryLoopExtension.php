@@ -14,6 +14,7 @@ use WP_Block;
 class QueryLoopExtension
 {
     public const ACTIONS_LIST_BLOCK = 'planet4-blocks/actions-list';
+    public const POSTS_LIST_BLOCK = 'planet4-blocks/posts-list';
 
     /**
      * Register all necessary filters for both REST API and frontend query handling.
@@ -24,6 +25,7 @@ class QueryLoopExtension
         add_filter('rest_page_query', [self::class, 'registerEditorQuery'], 10, 2);
         add_filter('rest_p4_action_query', [self::class, 'registerEditorQuery'], 10, 2);
         add_filter('query_loop_block_query_vars', [self::class, 'registerFrontendQuery'], 10, 2);
+        add_filter('render_block_core/query', [self::class, 'renderPostsListBlock'], 10, 2);
     }
 
     /**
@@ -168,5 +170,49 @@ class QueryLoopExtension
             'post__in' => 'ASC',
         ];
         return $query;
+    }
+
+    /**
+     * Updates the "News & Stories" link based on taxonomy filters selected in the Posts List.
+     *
+     * @param string $block_content The current rendered block.
+     * @param array $block The block attributes.
+     *
+     * @return string Modified rendered block.
+     */
+    public static function renderPostsListBlock(string $block_content, array $block): string
+    {
+        if ($block['attrs']['namespace'] === self::POSTS_LIST_BLOCK && isset($block['attrs']['query']['taxQuery'])) {
+            $news_page = (int) get_option('page_for_posts');
+
+            if (!$news_page) {
+                return $block_content;
+            }
+
+            $news_page_link = get_permalink($news_page);
+            $taxonomies = $block['attrs']['query']['taxQuery'];
+            $categories = $taxonomies['category'] ?? [];
+            $tags = $taxonomies['post_tag'] ?? [];
+            $post_types = $taxonomies['p4-page-type'] ?? [];
+
+            $custom_news_page_link = $news_page_link . '?';
+            if (!empty($categories)) {
+                $category = get_term_by('id', $categories[0], 'category');
+                $custom_news_page_link .= 'category=' . $category->slug . '&';
+            }
+
+            if (!empty($tags)) {
+                $tag = get_term_by('id', $tags[0], 'post_tag');
+                $custom_news_page_link .= 'tag=' . $tag->slug . '&';
+            }
+
+            if (!empty($post_types)) {
+                $post_type = get_term_by('id', $post_types[0], 'p4-page-type');
+                $custom_news_page_link .= 'post-type=' . $post_type->slug;
+            }
+
+            return str_replace($news_page_link, $custom_news_page_link, $block_content);
+        }
+        return $block_content;
     }
 }
