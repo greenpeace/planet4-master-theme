@@ -4,7 +4,7 @@ msgstr ""
 "&&(n%100<10||n%100 >= 20)? 1 : 2);\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2025-07-03 14:34+0000\n"
+"PO-Revision-Date: 2025-07-03 14:38+0000\n"
 "Language-Team: Polish\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -169,7 +169,7 @@ msgstr ""
 #: assets/src/block-templates/highlighted-cta/block.json:1
 msgctxt "block title"
 msgid "Highlighted CTA"
-msgstr ""
+msgstr "Wyróżnione CTA"
 
 #: assets/src/block-templates/homepage/block.json:1
 msgctxt "block title"
@@ -199,7 +199,7 @@ msgstr ""
 #: assets/src/block-templates/side-image-with-text-and-cta/block.json:1
 msgctxt "block title"
 msgid "Side image with text and CTA"
-msgstr ""
+msgstr "Obrazek z tekstem i CTA"
 
 #: assets/src/block-templates/take-action/block.json:1
 msgctxt "block title"
@@ -317,11 +317,11 @@ msgstr ""
 #: theme.json:1
 msgctxt "Color name"
 msgid "White"
-msgstr ""
+msgstr "Biały"
 
 #: templates/comment_form/comment_field.twig:3
 msgid "Comment (required)"
-msgstr ""
+msgstr "Komentarz (wymagane)"
 
 #: templates/comments_section.twig:2 templates/single.twig:76
 msgid "Comments"
@@ -351,7 +351,7 @@ msgstr "Pobierz"
 
 #: templates/comment_form/email_field.twig:4
 msgid "Email (required)"
-msgstr ""
+msgstr "Email (wymagany)"
 
 #: 404.php:22
 msgid "Enter your search term below"
@@ -393,7 +393,7 @@ msgstr ""
 #: templates/search/content_types.twig:16
 #, php-format
 msgid "Filter results by content type %s, %d results were found"
-msgstr ""
+msgstr "Filtruj wyniki wg %s, %d znaleziono"
 
 #: templates/search/content_types.twig:14
 #, php-format
@@ -428,7 +428,7 @@ msgstr "Greenpeace Planet 4 Master Theme"
 
 #: assets/src/js/listing_pages.js:34
 msgid "Grid View"
-msgstr ""
+msgstr "Widok Siatki"
 
 #: functions.php:519
 msgid "here"
@@ -492,7 +492,7 @@ msgstr "Według trafności"
 
 #: templates/comment_form/author_field.twig:4
 msgid "Name (required)"
-msgstr ""
+msgstr "Imię (wymagane)"
 
 #: src/Search/SearchPage.php:66
 msgid "Newest"
@@ -620,7 +620,7 @@ msgstr "Skocz do nawigacji"
 
 #: templates/search.twig:56
 msgid "Skip to search results"
-msgstr ""
+msgstr "Pomiń i przejdź do wyników wyszukania"
 
 #: 404.php:21
 msgid "Sorry, we can't find that page!"
@@ -638,7 +638,7 @@ msgstr "Prześlij"
 
 #: assets/src/js/listing_pages.js:38
 msgid "Switch to grid view"
-msgstr ""
+msgstr "Przełącz na widok siatki"
 
 #: assets/src/js/listing_pages.js:46
 msgid "Switch to list view"
