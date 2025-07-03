@@ -298,12 +298,12 @@ msgstr ""
 #: src/Migrations/M037MigrateCoversContentBlockToPostsListBlock.php:259
 #: src/Migrations/M046MigrateArticlesBlockToPostsListBlock.php:202
 msgid "Prev"
-msgstr ""
+msgstr "Föregående"
 
 #: assets/src/blocks/Gallery/GalleryCarousel.js:112
 #: assets/src/blocks/CarouselHeader/CarouselControls.js:14
 msgid "Previous"
-msgstr ""
+msgstr "Föregående"
 
 #: assets/src/block-templates/take-action/template.js:44
 msgid "Raise awareness in your community"
@@ -327,12 +327,12 @@ msgstr ""
 
 #: src/Post.php:596 assets/src/blocks/PostsList/index.js:21
 msgid "See all posts"
-msgstr ""
+msgstr "Se alla artiklar"
 
 #: src/Migrations/M037MigrateCoversContentBlockToPostsListBlock.php:347
 #: src/Migrations/M046MigrateArticlesBlockToPostsListBlock.php:287
 msgid "See all stories"
-msgstr ""
+msgstr "Se alla artiklar"
 
 #. Name of the template
 #: page-templates/sitemap.php:3
