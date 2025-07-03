@@ -221,7 +221,7 @@ class ActionPage
 
         register_post_meta(
             self::POST_TYPE,
-            'action_task_type',
+            'actions_task_type',
             array_merge(
                 $args,
             )

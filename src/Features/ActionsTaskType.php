@@ -7,14 +7,14 @@ use P4\MasterTheme\Feature;
 /**
  * @see description().
  */
-class ActionOptions extends Feature
+class ActionsTaskType extends Feature
 {
     /**
      * @inheritDoc
      */
     public static function id(): string
     {
-        return 'action_options';
+        return 'actions_task_type';
     }
 
     /**
@@ -22,7 +22,7 @@ class ActionOptions extends Feature
      */
     protected static function name(): string
     {
-        return __('Action Options', 'planet4-master-theme-backend');
+        return __('Actions Task Type', 'planet4-master-theme-backend');
     }
 
     /**
@@ -32,7 +32,7 @@ class ActionOptions extends Feature
     {
         return __(
             // phpcs:ignore Generic.Files.LineLength.MaxExceeded
-            'Adds options for showing whether an Action is either Online or IRL and deadline on Actions List block',
+            'Adds option for showing whether an Action is either Online or IRL on Actions List block',
             'planet4-master-theme-backend',
         );
     }

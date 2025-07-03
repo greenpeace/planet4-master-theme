@@ -11,7 +11,7 @@ use P4\MasterTheme\Features\LazyYoutubePlayer;
 use P4\MasterTheme\Features\RedirectRedirectPages;
 use P4\MasterTheme\Features\Planet4Blocks;
 use P4\MasterTheme\Features\OldPostsArchiveNotice;
-use P4\MasterTheme\Features\ActionOptions;
+use P4\MasterTheme\Features\ActionsTaskType;
 use P4\MasterTheme\Loader;
 use P4\MasterTheme\Settings;
 use CMB2;
@@ -100,7 +100,7 @@ class Features
             RedirectRedirectPages::class,
             Planet4Blocks::class,
             OldPostsArchiveNotice::class,
-            ActionOptions::class,
+            ActionsTaskType::class,
 
             // Dev only.
             DisableDataSync::class,

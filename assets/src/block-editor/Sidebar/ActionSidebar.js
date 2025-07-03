@@ -8,7 +8,7 @@ const FIELD_NAVTYPE = 'nav_type';
 const HIDE_PAGE_TITLE = 'p4_hide_page_title_checkbox';
 const BUTTON_TEXT = 'action_button_text';
 const BUTTON_ACCESSIBILITY_TEXT = 'action_button_accessibility_text';
-const TASK_TYPE = 'action_task_type';
+const TASK_TYPE = 'actions_task_type';
 
 const {__} = wp.i18n;
 const {PluginDocumentSettingPanel} = wp.editor;
@@ -23,7 +23,7 @@ export const ActionSidebar = {
 
     return (
       <>
-        {Boolean(window.p4_vars.features.action_options) && (
+        {Boolean(window.p4_vars.features.actions_task_type) && (
           <>
             <PluginDocumentSettingPanel
               name="action-options-panel"
