@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2024-11-21 08:53+0000\n"
+"PO-Revision-Date: 2025-07-03 09:17+0000\n"
 "Language-Team: Finnish\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,8 +23,8 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
-#. %1$d = Number of results.
-#: src/Search.php:770
+#. %1$d: Number of results. %2$s: Search terms.
+#: src/Search/SearchPage.php:264
 #, php-format
 msgid "%1$d result for '%2$s'"
 msgid_plural "%1$d results for '%2$s'"
@@ -33,25 +33,25 @@ msgstr[1] "%1$d tulosta haullesi '%2$s'"
 
 #. reading time in min.
 #. %d = Number of minutes for reading time.
-#: src/Post.php:613 src/Post/ReadingTimeCalculator.php:135
+#: src/Post.php:518 src/Post/ReadingTimeCalculator.php:135
+#: templates/tease-author.twig:54 templates/single.twig:69
 #: templates/tease-taxonomy-action.twig:53
-#: templates/tease-taxonomy-post.twig:63 templates/tease-author.twig:54
-#: templates/single.twig:69
+#: templates/tease-taxonomy-post.twig:63
 msgid "%d min read"
 msgstr "Lukuaika %d min"
 
-#. %d = Number of results.
-#: src/Search.php:782
+#. %d: Number of results.
+#: src/Search/SearchPage.php:256
 msgid "%d result"
 msgid_plural "%d results"
 msgstr[0] "%d tulos"
 msgstr[1] "%d tulosta"
 
-#: 404.php:21
+#: 404.php:23
 msgid "404 Page"
 msgstr "404 Sivu"
 
-#: page-templates/sitemap.php:43
+#: page-templates/sitemap.php:44
 msgid "About Greenpeace"
 msgstr "Meistä"
 
@@ -65,37 +65,45 @@ msgstr "kirjoittajasta"
 msgid "Accept all cookies"
 msgstr "Hyväksy kaikki"
 
-#: page-templates/sitemap.php:41
+#: page-templates/sitemap.php:42
 msgid "Act"
 msgstr "toimi"
 
-#: src/Post.php:358
+#: src/Post.php:236
 msgid "ACTION"
 msgstr "ACTION"
 
-#: src/Search/Filters/ContentTypes.php:112
+#: src/Search/Filters/ContentTypes.php:126
 msgid "Action"
 msgstr "action"
 
-#: templates/search.twig:145 templates/search.twig:289
+#: templates/search/action_types.twig:7
 msgid "Action Type"
 msgstr "Toiminto"
 
-#: templates/search.twig:215
+#: templates/search.twig:102
 msgid "ACTIVE FILTERS"
 msgstr "VALITUT"
 
-#: templates/all-actions.twig:9 templates/taxonomy.twig:32
+#: templates/all-actions.twig:7 templates/taxonomy.twig:36
 msgid "All actions"
 msgstr ""
 
-#: templates/listing-page.twig:4 templates/taxonomy.twig:32
+#: templates/listing-page.twig:11 templates/taxonomy.twig:37
 msgid "All articles"
 msgstr "Kaikki artikkelit"
 
-#: templates/author.twig:22 templates/author.twig:25
+#: templates/author.twig:23
 msgid "All articles by "
 msgstr "Kaikki artikkelit kirjoittaja "
+
+#: templates/listing-page-filters.twig:18
+msgid "All posts"
+msgstr "Kaikki artikkelit"
+
+#: templates/listing-page-filters.twig:6
+msgid "All topics"
+msgstr ""
 
 #: templates/cookies/cookies_settings.twig:55
 msgid "Allow all"
@@ -105,11 +113,15 @@ msgstr "Salli kaikki"
 msgid "Always enabled"
 msgstr "Aina päällä"
 
-#: templates/search.twig:205
+#: templates/listing-page-filters.twig:29
+msgid "Apply"
+msgstr ""
+
+#: templates/search.twig:92
 msgid "Apply filters"
 msgstr "Valitse"
 
-#: src/Search/Filters/ContentTypes.php:108 templates/tease-search.twig:43
+#: src/Search/Filters/ContentTypes.php:121 templates/tease-search.twig:43
 #: templates/tease-search.twig:123
 msgid "Archive"
 msgstr "Arkisto"
@@ -118,20 +130,90 @@ msgstr "Arkisto"
 msgid "Archive URL"
 msgstr "Arkistoi URL"
 
-#: page-templates/sitemap.php:44
+#: page-templates/sitemap.php:45
 msgid "Articles"
 msgstr "Artikkelit"
 
-#: src/Search/Filters/ContentTypes.php:104 templates/tease-search.twig:41
+#: assets/src/block-templates/action/block.json:1
+msgctxt "block title"
+msgid "Action"
+msgstr ""
+
+#: assets/src/block-templates/campaign/block.json:1
+msgctxt "block title"
+msgid "Campaign"
+msgstr ""
+
+#: assets/src/block-templates/deep-dive/block.json:1
+msgctxt "block title"
+msgid "Deep Dive"
+msgstr ""
+
+#: assets/src/block-templates/deep-dive-topic/block.json:1
+msgctxt "block title"
+msgid "Deep Dive Topic"
+msgstr ""
+
+#: assets/src/block-templates/get-informed/block.json:1
+msgctxt "block title"
+msgid "Get Informed"
+msgstr ""
+
+#: assets/src/block-templates/high-level-topic/block.json:1
+msgctxt "block title"
+msgid "High-Level Topic"
+msgstr ""
+
+#: assets/src/block-templates/highlighted-cta/block.json:1
+msgctxt "block title"
+msgid "Highlighted CTA"
+msgstr ""
+
+#: assets/src/block-templates/homepage/block.json:1
+msgctxt "block title"
+msgid "Homepage"
+msgstr ""
+
+#: assets/src/block-templates/issues/block.json:1
+msgctxt "block title"
+msgid "Issues"
+msgstr ""
+
+#: assets/src/block-templates/page-header/block.json:1
+msgctxt "block title"
+msgid "Page Header"
+msgstr ""
+
+#: assets/src/block-templates/quick-links/block.json:1
+msgctxt "block title"
+msgid "Quick Links"
+msgstr ""
+
+#: assets/src/block-templates/reality-check/block.json:1
+msgctxt "block title"
+msgid "Reality Check"
+msgstr ""
+
+#: assets/src/block-templates/side-image-with-text-and-cta/block.json:1
+msgctxt "block title"
+msgid "Side image with text and CTA"
+msgstr ""
+
+#: assets/src/block-templates/take-action/block.json:1
+msgctxt "block title"
+msgid "Take Action"
+msgstr ""
+
+#: src/Search/Filters/ContentTypes.php:116 templates/tease-search.twig:41
 #: templates/tease-search.twig:121
 msgid "Campaign"
 msgstr "Kampanja"
 
-#: templates/search.twig:204
+#: templates/search.twig:91
 msgid "Cancel"
 msgstr "Peruuta"
 
-#: templates/search.twig:87 templates/search.twig:231
+#: templates/search/categories.twig:7
 msgid "Category"
 msgstr "Kategoria"
 
@@ -143,27 +225,107 @@ msgstr "Vaihda maata"
 msgid "Check for typos, and try your search again"
 msgstr "Tarkista kirjoitusvirheet ja kokeile uudestaan."
 
-#: templates/search.twig:224
+#: templates/search.twig:115
 msgid "Clear all"
 msgstr "Tyhjennä"
 
-#: templates/search-form.twig:32 templates/search.twig:39
+#: templates/search-form.twig:32 templates/search.twig:38
 msgid "Clear search"
 msgstr "Tyhjennä haku"
 
-#: templates/burger-menu.twig:10
+#: templates/burger-menu.twig:70
 msgid "Close navigation mobile menu"
 msgstr "Sulje mobiilinavigaatio"
 
-#: templates/comment_form/comment_field.twig:4
-msgid "Comment"
-msgstr "Kommentti"
+#: theme.json:1
+msgctxt "Color name"
+msgid "Action Yellow"
+msgstr ""
 
-#: templates/single.twig:76 templates/comments_section.twig:2
+#: theme.json:1
+msgctxt "Color name"
+msgid "Beige 100"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Blue 800"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Blue Green 800"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Dark Green 800"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "GP Green 800"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Green 400"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Green 500"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Green 800"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Grey 100"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Grey 200"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Grey 600"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Grey 800"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Grey 900"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Red 500"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "White"
+msgstr ""
+
+#: templates/comment_form/comment_field.twig:3
+msgid "Comment (required)"
+msgstr ""
+
+#: templates/comments_section.twig:2 templates/single.twig:76
 msgid "Comments"
 msgstr "kommentit"
 
-#: templates/search.twig:174 templates/search.twig:318
+#: templates/search/content_types.twig:7
 #, fuzzy
 #| msgid "Content type"
 msgid "Content Type"
@@ -173,11 +335,11 @@ msgstr "Content type"
 msgid "Discussion"
 msgstr "Kommentit"
 
-#: src/Post.php:364
+#: src/Post.php:242
 msgid "DOCUMENT"
 msgstr "DOKUMENTTI"
 
-#: src/Search/Filters/ContentTypes.php:92
+#: src/Search/Filters/ContentTypes.php:101
 msgid "Document"
 msgstr "Dokumentti"
 
@@ -185,23 +347,68 @@ msgstr "Dokumentti"
 msgid "Download"
 msgstr "Lataa"
 
-#: templates/comment_form/email_field.twig:13
-msgid "Email"
-msgstr "Sähköposti"
+#: templates/comment_form/email_field.twig:4
+msgid "Email (required)"
+msgstr ""
 
-#: 404.php:20
+#: 404.php:22
 msgid "Enter your search term below"
 msgstr "Kirjoita hakusana alle"
 
 #. Name of the template
+#: page-templates/evergreen.php:3
 msgid "Evergreen Page"
 msgstr "Evergreen Page"
 
-#: page-templates/sitemap.php:42
+#: page-templates/sitemap.php:43
 msgid "Explore"
 msgstr "Tutki"
 
-#: templates/search.twig:64
+#: templates/listing-page-filters.twig:3
+msgid "Filter by category"
+msgstr ""
+
+#: templates/search/action_types.twig:16
+#, php-format
+msgid "Filter results by action type %s, %d results were found"
+msgstr ""
+
+#: templates/search/action_types.twig:14
+#, php-format
+msgid "Filter results by action type %s, 1 result was found"
+msgstr ""
+
+#: templates/search/categories.twig:16
+#, php-format
+msgid "Filter results by category %s, %d results were found"
+msgstr ""
+
+#: templates/search/categories.twig:14
+#, php-format
+msgid "Filter results by category %s, 1 result was found"
+msgstr ""
+
+#: templates/search/content_types.twig:16
+#, php-format
+msgid "Filter results by content type %s, %d results were found"
+msgstr ""
+
+#: templates/search/content_types.twig:14
+#, php-format
+msgid "Filter results by content type %s, 1 result was found"
+msgstr ""
+
+#: templates/search/post_types.twig:16
+#, php-format
+msgid "Filter results by post type %s, %d results were found"
+msgstr ""
+
+#: templates/search/post_types.twig:14
+#, php-format
+msgid "Filter results by post type %s, 1 result was found"
+msgstr ""
+
+#: templates/search.twig:63
 msgid "Filters"
 msgstr "Valinnat"
 
@@ -217,12 +424,15 @@ msgstr "Greenpeace International"
 msgid "Greenpeace Planet 4 Master Theme"
 msgstr ""
 
-#. phpcs:ignore Generic.Files.LineLength.MaxExceeded
-#: functions.php:454
+#: assets/src/js/listing_pages.js:34
+msgid "Grid View"
+msgstr ""
+
+#: functions.php:519
 msgid "here"
 msgstr "tästä"
 
-#: templates/burger-menu.twig:34
+#: templates/burger-menu.twig:30
 msgid "Home"
 msgstr "Etusivulle"
 
@@ -234,7 +444,7 @@ msgstr ""
 msgid "https://github.com/greenpeace/planet4-master-theme"
 msgstr ""
 
-#: single.php:108
+#: single.php:120
 msgid ""
 "I agree on providing my name, email and content so that my comment can be "
 "stored and displayed in the website."
@@ -242,7 +452,7 @@ msgstr ""
 "Suostun siihen, että nimeäni, sähköpostiani ja sisältöjäni käytetään, jotta "
 "kommenttini voidaan tallentaa ja näyttää sivustolla."
 
-#: src/MasterSite.php:668
+#: src/MasterSite.php:809
 msgid "International (English)"
 msgstr "Kansainvälinen (englanniksi)"
 
@@ -250,14 +460,13 @@ msgstr "Kansainvälinen (englanniksi)"
 msgid "Invalid password, please try again"
 msgstr "Väärä salasana, ole hyvä ja yritä uudelleen"
 
-#: single.php:115
+#: single.php:127
 msgid "Leave your reply"
 msgstr "Jata kommenttisi"
 
-#: templates/all-posts.twig:35 templates/author.twig:48
-#: templates/all-actions.twig:35 templates/taxonomy.twig:59
-msgid "Load More"
-msgstr "Lataa lisää"
+#: assets/src/js/listing_pages.js:42
+msgid "List View"
+msgstr ""
 
 #: templates/tease-search.twig:156
 msgid "Manage"
@@ -271,31 +480,39 @@ msgstr "Hallinnoi evästeasetuksiasi"
 msgid "Master theme for the Planet 4 Wordpress project"
 msgstr ""
 
-#: templates/navigation-bar.twig:19
+#: templates/navigation-bar.twig:17
 msgid "Menu"
 msgstr "Valikko"
 
-#: src/Search.php:754 src/MasterSite.php:89
+#: src/Search/SearchPage.php:62
 msgid "Most relevant"
 msgstr "Osuvimmat"
 
-#: templates/comment_form/author_field.twig:13
-msgid "Name"
-msgstr "Nimi"
+#: templates/comment_form/author_field.twig:4
+msgid "Name (required)"
+msgstr ""
 
-#: src/Search.php:758 src/MasterSite.php:93
+#: src/Search/SearchPage.php:66
 msgid "Newest"
 msgstr "Uusin"
 
-#: src/Search.php:762 src/MasterSite.php:97
+#: templates/tag.twig:13 templates/taxonomy.twig:13
+msgid "News & stories"
+msgstr "Uutiset"
+
+#: assets/src/js/listing_pages.js:93
+msgid "No posts found!"
+msgstr ""
+
+#: src/Search/SearchPage.php:70
 msgid "Oldest"
 msgstr "Vanhin"
 
-#: src/Post.php:360
+#: src/Post.php:238
 msgid "PAGE"
 msgstr "SIVU"
 
-#: src/Search/Filters/ContentTypes.php:96
+#: src/Search/Filters/ContentTypes.php:106
 msgid "Page"
 msgstr "Sivu"
 
@@ -303,23 +520,23 @@ msgstr "Sivu"
 msgid "Please select which cookies you are willing to store."
 msgstr "Ole hyvä ja valitse, mitkä evästeet haluat tallentaa."
 
-#: src/Post.php:367
+#: src/Post.php:245
 msgid "POST"
 msgstr "JULKAISE"
 
-#: src/Search/Filters/ContentTypes.php:100
+#: src/Search/Filters/ContentTypes.php:111
 msgid "Post"
 msgstr "Julkaisu"
 
-#: templates/comment_form/submit_button.twig:23
+#: templates/comment_form/submit_button.twig:9
 msgid "Post comment"
 msgstr "Lähetä"
 
-#: templates/search.twig:116 templates/search.twig:260
+#: templates/search/post_types.twig:7
 msgid "Post Type"
 msgstr "Julkaisun tyyppi"
 
-#: templates/search.twig:73 templates/search.twig:212
+#: templates/search.twig:72 templates/search.twig:99
 msgid "Refine your search"
 msgstr "Etsi uudelleen"
 
@@ -331,19 +548,17 @@ msgstr "Hylkää kaikki"
 msgid "Reject all cookies"
 msgstr "Hylkää kaikki evästeet"
 
-#: templates/all-posts.twig:11 templates/all-actions.twig:11
-#: templates/taxonomy.twig:35
-msgid "Results"
-msgstr "Tulokset"
-
 #: templates/cookies/cookies_settings.twig:63
 msgid "Save preferences"
 msgstr "Tallenna asetukset"
 
-#: templates/search-form.twig:2 templates/404.twig:17 templates/search.twig:8
-#: templates/search.twig:50
+#: templates/search-form.twig:2 templates/search.twig:48 templates/404.twig:16
 msgid "Search"
 msgstr "Etsi"
+
+#: templates/search.twig:8
+msgid "Search by name, keyword, or topic"
+msgstr ""
 
 #: templates/footer_country_selector.twig:11
 msgid "Selected"
@@ -353,19 +568,24 @@ msgstr "Valinnat"
 msgid "Settings"
 msgstr "Asetukset"
 
-#: templates/blocks/share_buttons.twig:44
-#: templates/blocks/share_buttons.twig:53
-#: templates/blocks/share_buttons.twig:62
+#: templates/blocks/share_buttons.twig:10
+#: templates/blocks/share_buttons.twig:19
+#: templates/blocks/share_buttons.twig:28
 msgid "Share on"
 msgstr "Jaa"
 
-#: templates/blocks/share_buttons.twig:71
-#: templates/blocks/share_buttons.twig:81
+#: templates/blocks/share_buttons.twig:47
+#, php-format
+msgid "Share on %s"
+msgstr ""
+
+#: templates/blocks/share_buttons.twig:37
+#: templates/blocks/share_buttons.twig:57
 msgid "Share via"
 msgstr "Jaa"
 
 #. %s = number of results per page.
-#: src/Search.php:1014
+#: src/Search/SearchPage.php:78
 #, fuzzy, php-format
 #| msgid "SHOW %s MORE RESULTS"
 msgid "Show %s more results"
@@ -380,26 +600,31 @@ msgid "Show more"
 msgstr "Näytä lisää"
 
 #. Name of the template
+#: page-templates/sitemap.php:3
 msgid "Sitemap Page"
 msgstr "Sivukartta"
 
-#: templates/base.twig:18
+#: templates/base.twig:25
 msgid "Skip to Content"
 msgstr "Hyppää eteenpäin"
 
-#: templates/base.twig:19
+#: templates/base.twig:26
 msgid "Skip to Footer"
 msgstr "Hyppää alatunnisteeseen"
 
-#: templates/base.twig:17
+#: templates/base.twig:24
 msgid "Skip to Navigation"
 msgstr "Hyppää valikkoon"
 
-#: 404.php:19
+#: templates/search.twig:56
+msgid "Skip to search results"
+msgstr ""
+
+#: 404.php:21
 msgid "Sorry, we can't find that page!"
 msgstr "Metsään meni, emme löytäneet tätä sivua."
 
-#: templates/search.twig:351
+#: templates/search.twig:130
 msgid "Sort by"
 msgstr "Järjestä"
 
@@ -407,24 +632,31 @@ msgstr "Järjestä"
 msgid "Submit"
 msgstr "Lähetä"
 
+#: assets/src/js/listing_pages.js:38
+msgid "Switch to grid view"
+msgstr ""
+
+#: assets/src/js/listing_pages.js:46
+msgid "Switch to list view"
+msgstr ""
+
 #: templates/featured-action.twig:12
 msgid "Take Action"
 msgstr ""
 
-#: src/Search.php:424 src/ActionPage.php:209
+#: src/ActionPage.php:209 src/ActionPage.php:218 src/Search/SearchPage.php:140
 msgid "Take action"
 msgstr "toimi nyt"
 
 #. %s = Redirection url variable.
-#: src/GravityFormsExtensions.php:668
+#: src/GravityFormsExtensions.php:989
 #, php-format
 msgid ""
 "Thank you! Please <a href=\"%s\">click here</a> if you are not redirected "
 "within a few seconds."
 msgstr ""
 
-#. phpcs:ignore Generic.Files.LineLength.MaxExceeded
-#: functions.php:453
+#: functions.php:518
 msgid ""
 "The content on this page is hidden because this page is being used as your "
 "\\\"All Posts\\\" listing page. You can disable this by un-setting the "
@@ -434,6 +666,12 @@ msgstr ""
 "listaussivunasi. Voit vaihtaa tämän poistamalla \\\"Julkaisut-sivu\\\" -"
 "asetuksen käytöstä. "
 
+#. 1: URL domain
+#: assets/src/js/external_links.js:28
+#, javascript-format
+msgid "This link will lead you to %1$s"
+msgstr ""
+
 #: assets/src/js/pdf_icon.js:20
 msgid "This link will open a PDF file"
 msgstr "Linkki avaa PDF-tiedoston"
@@ -442,20 +680,22 @@ msgstr "Linkki avaa PDF-tiedoston"
 msgid "To see the content of this page, please enter your password  below"
 msgstr "Syötä salasana nähdäksesi tämän sivun sisällön."
 
-#: src/MasterSite.php:599
+#: src/MasterSite.php:728
 msgid "Toggle search box"
 msgstr "Kytke hakutoiminto päälle"
 
-#: templates/desktop-menu.twig:57 templates/navigation-bar.twig:38
+#: templates/navigation-bar.twig:36 templates/desktop-menu.twig:70
 msgid "Toggle search form"
 msgstr "Kytke hakulomake päälle"
 
-#: src/MasterSite.php:598
+#: src/MasterSite.php:727
 msgid "Toggle worldwide site selection menu"
 msgstr "Kytke päälle maailmanlaajuinen sivustovalikko"
 
 #: templates/search.twig:22
-msgid "Try searching for somthing else"
+#, fuzzy
+#| msgid "Try searching for somthing else"
+msgid "Try searching for something else"
 msgstr "Koeta etsiä jotakin muuta."
 
 #: templates/search.twig:19
