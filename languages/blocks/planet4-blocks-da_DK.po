@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Planet4 - Blocks\n"
 "POT-Creation-Date: 2020-09-09 11:52+0000\n"
-"PO-Revision-Date: 2025-07-03 09:07+0000\n"
+"PO-Revision-Date: 2025-07-03 09:21+0000\n"
 "Last-Translator: Svilena Koleva\n"
 "Language-Team: Danish\n"
 "MIME-Version: 1.0\n"
@@ -298,12 +298,12 @@ msgstr ""
 #: src/Migrations/M037MigrateCoversContentBlockToPostsListBlock.php:259
 #: src/Migrations/M046MigrateArticlesBlockToPostsListBlock.php:202
 msgid "Prev"
-msgstr "Tidligere"
+msgstr "Forrige"
 
 #: assets/src/blocks/Gallery/GalleryCarousel.js:112
 #: assets/src/blocks/CarouselHeader/CarouselControls.js:14
 msgid "Previous"
-msgstr "Tidligere"
+msgstr "Forrige"
 
 #: assets/src/block-templates/take-action/template.js:44
 msgid "Raise awareness in your community"
