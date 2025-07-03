@@ -6,6 +6,11 @@ export const DatePickerSidebarField = ({id, value, setValue, label, forceEndDate
       id={id}
       currentDate={value}
       onChange={date => {
+        if(date === value) {
+          setValue(null);
+          return;
+        }
+
         if(forceEndDate) {
           setValue(`${date.slice(0,10)+'T23:59:59'}`);
         } else {
