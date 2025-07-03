@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Planet4 - Blocks\n"
-"POT-Creation-Date: 2025-01-07 14:58+0000\n"
+"POT-Creation-Date: 2025-07-03 08:35+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -22,11 +22,6 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 "Language: "
 
-#. article reading time
-#: assets/src/blocks/Articles/ArticlePreview.js:180
-msgid "%d min read"
-msgstr ""
-
 #: assets/src/blocks/Cookies/CookiesFrontend.js:131
 #: assets/src/blocks/Cookies/CookiesEditor.js:73
 msgid "Always enabled"
@@ -36,7 +31,7 @@ msgstr ""
 msgid "Background image"
 msgstr ""
 
-#: assets/src/block-templates/high-level-topic/template.js:18
+#: assets/src/block-templates/high-level-topic/template.js:20
 msgid "Better understand the issues [deep dive topics]"
 msgstr ""
 
@@ -190,16 +185,18 @@ msgctxt "Color name"
 msgid "White"
 msgstr ""
 
-#: assets/src/blocks/Covers/ContentCovers.js:47
-msgid "Cover image, link to "
-msgstr ""
-
-#: assets/src/block-templates/take-action/template.js:13
+#: assets/src/block-templates/take-action/template.js:17
 msgid "Daily actions"
 msgstr ""
 
-#: assets/src/block-templates/take-action/template.js:42
+#: assets/src/block-templates/take-action/template.js:49
 msgid "Donate"
+msgstr ""
+
+#: src/Migrations/M049MigrateCoversBlockToActionsListBlock.php:285
+#: src/Migrations/M037MigrateCoversContentBlockToPostsListBlock.php:385
+#: src/Migrations/M046MigrateArticlesBlockToPostsListBlock.php:325
+msgid "Enter description"
 msgstr ""
 
 #. Name of the template
@@ -207,17 +204,17 @@ msgstr ""
 msgid "Evergreen Page"
 msgstr ""
 
-#: assets/src/block-templates/get-informed/template.js:8
-#: assets/src/block-templates/high-level-topic/template.js:41
-#: assets/src/block-templates/action/template.js:32
+#: assets/src/block-templates/high-level-topic/template.js:45
+#: assets/src/block-templates/get-informed/template.js:9
+#: assets/src/block-templates/action/template.js:34
 msgid "Explore by topics"
 msgstr ""
 
-#: assets/src/block-templates/deep-dive-topic/template.js:28
+#: assets/src/block-templates/deep-dive-topic/template.js:32
 msgid "Explore other topics"
 msgstr ""
 
-#: assets/src/block-templates/high-level-topic/template.js:27
+#: assets/src/block-templates/high-level-topic/template.js:29
 msgid "Featured action title"
 msgstr ""
 
@@ -225,27 +222,27 @@ msgstr ""
 msgid "Get involved"
 msgstr ""
 
-#: assets/src/block-templates/homepage/template.js:18
+#: assets/src/block-templates/homepage/template.js:21
 msgid "Get to know us"
 msgstr ""
 
-#: assets/src/block-templates/campaign/template.js:21
-#: assets/src/block-templates/deep-dive-topic/template.js:18
-#: assets/src/block-templates/high-level-topic/template.js:31
+#: assets/src/block-templates/deep-dive-topic/template.js:22
+#: assets/src/block-templates/high-level-topic/template.js:33
+#: assets/src/block-templates/campaign/template.js:23
 msgid "How you can help"
 msgstr ""
 
-#: assets/src/block-templates/deep-dive-topic/template.js:25
+#: assets/src/block-templates/deep-dive-topic/template.js:29
 msgid "Keep learning about"
 msgstr ""
 
-#: assets/src/block-templates/high-level-topic/template.js:37
+#: assets/src/block-templates/high-level-topic/template.js:41
 msgid "Latest investigations"
 msgstr ""
 
-#: assets/src/block-templates/get-informed/template.js:31
-#: assets/src/block-templates/deep-dive-topic/template.js:22
-#: assets/src/block-templates/high-level-topic/template.js:34
+#: assets/src/block-templates/deep-dive-topic/template.js:26
+#: assets/src/block-templates/high-level-topic/template.js:37
+#: assets/src/block-templates/get-informed/template.js:34
 msgid "Latest news & stories"
 msgstr ""
 
@@ -253,21 +250,16 @@ msgstr ""
 msgid "Learn more about this issue"
 msgstr ""
 
-#: src/Blocks/Covers.php:83 src/Blocks/Covers.php:145
-#: src/Blocks/Articles.php:46 src/Blocks/Articles.php:91
-#: assets/src/blocks/Articles/ArticlesBlock.js:37
-#: assets/src/blocks/Covers/CoversConstants.js:63
-#: assets/src/blocks/Covers/deprecated/coversV2.js:57
-msgid "Load more"
-msgstr ""
-
 #: assets/src/blocks/Spreadsheet/SpreadsheetFrontend.js:185
 msgid "Loading spreadsheet data…"
 msgstr ""
 
+#: src/QueryLoopPagination.php:63
+#: src/Migrations/M049MigrateCoversBlockToActionsListBlock.php:207
+#: src/Migrations/M037MigrateCoversContentBlockToPostsListBlock.php:263
+#: src/Migrations/M046MigrateArticlesBlockToPostsListBlock.php:206
 #: assets/src/blocks/Gallery/GalleryCarousel.js:146
 #: assets/src/blocks/CarouselHeader/CarouselControls.js:18
-#: assets/src/blocks/Covers/CoversCarouselLayout.js:48
 msgid "Next"
 msgstr ""
 
@@ -275,20 +267,35 @@ msgstr ""
 msgid "No data matching your search."
 msgstr ""
 
-#: assets/src/block-templates/get-informed/template.js:28
+#: src/Migrations/M049MigrateCoversBlockToActionsListBlock.php:268
+#: src/Migrations/M037MigrateCoversContentBlockToPostsListBlock.php:365
+#: src/Migrations/M046MigrateArticlesBlockToPostsListBlock.php:305
+msgid "No posts found."
+msgstr ""
+
+#: src/Migrations/M049MigrateCoversBlockToActionsListBlock.php:267
+#: src/Migrations/M037MigrateCoversContentBlockToPostsListBlock.php:364
+#: src/Migrations/M046MigrateArticlesBlockToPostsListBlock.php:304
+msgid "No posts found. (This default text can be edited)"
+msgstr ""
+
+#: assets/src/block-templates/get-informed/template.js:30
 msgid "Our latest actions around the world"
 msgstr ""
 
-#: assets/src/block-templates/get-informed/template.js:24
+#: assets/src/block-templates/get-informed/template.js:26
 msgid "Our recent victories"
 msgstr ""
 
-#: assets/src/block-templates/deep-dive-topic/template.js:6
-#: assets/src/block-templates/take-action/template.js:8
+#: assets/src/block-templates/deep-dive-topic/template.js:9
+#: assets/src/block-templates/take-action/template.js:11
 msgid "Page header title"
 msgstr ""
 
-#: assets/src/blocks/Covers/CoversCarouselLayout.js:44
+#: src/QueryLoopPagination.php:39
+#: src/Migrations/M049MigrateCoversBlockToActionsListBlock.php:203
+#: src/Migrations/M037MigrateCoversContentBlockToPostsListBlock.php:259
+#: src/Migrations/M046MigrateArticlesBlockToPostsListBlock.php:202
 msgid "Prev"
 msgstr ""
 
@@ -297,20 +304,19 @@ msgstr ""
 msgid "Previous"
 msgstr ""
 
-#: assets/src/block-templates/take-action/template.js:38
+#: assets/src/block-templates/take-action/template.js:44
 msgid "Raise awareness in your community"
 msgstr ""
 
-#: assets/src/block-templates/homepage/template.js:14
+#: assets/src/block-templates/homepage/template.js:17
 msgid "Read our Stories"
 msgstr ""
 
-#: src/Blocks/Articles.php:50 src/Blocks/Articles.php:58
-#: assets/src/blocks/Articles/ArticlesBlock.js:13
+#: src/Migrations/M046MigrateArticlesBlockToPostsListBlock.php:113
 msgid "Related Articles"
 msgstr ""
 
-#: functions.php:331
+#: src/Post.php:605
 msgid "Related Posts"
 msgstr ""
 
@@ -318,8 +324,13 @@ msgstr ""
 msgid "Search data"
 msgstr ""
 
-#: functions.php:322
+#: src/Post.php:596 assets/src/blocks/PostsList/index.js:21
 msgid "See all posts"
+msgstr ""
+
+#: src/Migrations/M037MigrateCoversContentBlockToPostsListBlock.php:347
+#: src/Migrations/M046MigrateArticlesBlockToPostsListBlock.php:287
+msgid "See all stories"
 msgstr ""
 
 #. Name of the template
@@ -327,64 +338,57 @@ msgstr ""
 msgid "Sitemap Page"
 msgstr ""
 
-#: assets/src/block-templates/take-action/template.js:17
+#: assets/src/block-templates/take-action/template.js:22
 msgid "Support a cause"
 msgstr ""
 
-#: src/Blocks/Covers.php:418 src/Blocks/TakeActionBoxout.php:153
-#: src/Blocks/ActionButtonText.php:76
-#: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:20
+#: src/Blocks/TakeActionBoxout.php:158 src/Blocks/ActionButtonText.php:84
+#: src/Blocks/ActionButtonText.php:94
+#: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:22
 #: assets/src/blocks/ActionCustomButtonText/edit.js:4
 msgid "Take action"
 msgstr ""
 
-#. cover title
-#: assets/src/blocks/Covers/TakeActionCovers.js:46
-#: assets/src/blocks/Covers/TakeActionCovers.js:54
-#, javascript-format
-msgid "Take action cover, link to %s"
-msgstr ""
-
-#: assets/src/block-templates/take-action/template.js:34
+#: assets/src/block-templates/take-action/template.js:40
 msgid "Take action with us"
 msgstr ""
 
-#: assets/src/block-templates/get-informed/template.js:21
-#: assets/src/block-templates/homepage/template.js:10
+#: assets/src/block-templates/homepage/template.js:12
+#: assets/src/block-templates/get-informed/template.js:22
 msgid "The issues we work on"
 msgstr ""
 
-#: assets/src/block-templates/campaign/template.js:12
-#: assets/src/block-templates/deep-dive-topic/template.js:11
-#: assets/src/block-templates/high-level-topic/template.js:14
-#: assets/src/block-templates/action/template.js:22
+#: assets/src/block-templates/deep-dive-topic/template.js:14
+#: assets/src/block-templates/high-level-topic/template.js:16
+#: assets/src/block-templates/campaign/template.js:13
+#: assets/src/block-templates/action/template.js:23
 msgid "The problem"
 msgstr ""
 
-#: assets/src/block-templates/campaign/template.js:16
+#: assets/src/block-templates/campaign/template.js:17
 msgid "The solution"
 msgstr ""
 
-#: assets/src/block-templates/get-informed/template.js:11
+#: assets/src/block-templates/get-informed/template.js:12
 msgid "Topic 1"
 msgstr ""
 
-#: assets/src/block-templates/get-informed/template.js:14
+#: assets/src/block-templates/get-informed/template.js:15
 msgid "Topic 2"
 msgstr ""
 
-#: assets/src/block-templates/get-informed/template.js:18
+#: assets/src/block-templates/get-informed/template.js:19
 msgid "Topic 3"
 msgstr ""
 
-#: assets/src/block-templates/homepage/template.js:22
+#: assets/src/block-templates/homepage/template.js:25
 msgid "We win campaigns"
 msgstr ""
 
-#: assets/src/block-templates/deep-dive-topic/template.js:14
+#: assets/src/block-templates/deep-dive-topic/template.js:17
 msgid "What can be done"
 msgstr ""
 
-#: assets/src/block-templates/high-level-topic/template.js:22
+#: assets/src/block-templates/high-level-topic/template.js:24
 msgid "What we do"
 msgstr ""
