@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2025-07-03 08:18+0000\n"
+"PO-Revision-Date: 2025-07-03 09:03+0000\n"
 "Language-Team: Danish\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -99,7 +99,7 @@ msgstr "Alle artikler af "
 
 #: templates/listing-page-filters.twig:18
 msgid "All posts"
-msgstr ""
+msgstr "Alle artikler"
 
 #: templates/listing-page-filters.twig:6
 msgid "All topics"
@@ -319,7 +319,7 @@ msgstr ""
 
 #: templates/comment_form/comment_field.twig:3
 msgid "Comment (required)"
-msgstr ""
+msgstr "Kommentar (påkrævet)"
 
 #: templates/comments_section.twig:2 templates/single.twig:76
 msgid "Comments"
@@ -349,7 +349,7 @@ msgstr "Hent"
 
 #: templates/comment_form/email_field.twig:4
 msgid "Email (required)"
-msgstr ""
+msgstr "E-mail (påkrævet)"
 
 #: 404.php:22
 msgid "Enter your search term below"
@@ -366,47 +366,47 @@ msgstr "Se mere"
 
 #: templates/listing-page-filters.twig:3
 msgid "Filter by category"
-msgstr ""
+msgstr "Filtrer efter kategori"
 
 #: templates/search/action_types.twig:16
 #, php-format
 msgid "Filter results by action type %s, %d results were found"
-msgstr ""
+msgstr "Filtrer resultater efter handlingstype %s, %d resultater blev fundet"
 
 #: templates/search/action_types.twig:14
 #, php-format
 msgid "Filter results by action type %s, 1 result was found"
-msgstr ""
+msgstr "Filtrer resultater efter handlingstype %s, 1 resultat blev fundet"
 
 #: templates/search/categories.twig:16
 #, php-format
 msgid "Filter results by category %s, %d results were found"
-msgstr ""
+msgstr "Filtrer resultater efter kategori %s, %d resultater blev fundet"
 
 #: templates/search/categories.twig:14
 #, php-format
 msgid "Filter results by category %s, 1 result was found"
-msgstr ""
+msgstr "Filtrer resultater efter kategori %s, 1 resultat blev fundet"
 
 #: templates/search/content_types.twig:16
 #, php-format
 msgid "Filter results by content type %s, %d results were found"
-msgstr ""
+msgstr "Filtrer resultater efter indholdstype %s, %d resultater blev fundet"
 
 #: templates/search/content_types.twig:14
 #, php-format
 msgid "Filter results by content type %s, 1 result was found"
-msgstr ""
+msgstr "Filtrer resultater efter indholdstype %s, 1 resultat blev fundet"
 
 #: templates/search/post_types.twig:16
 #, php-format
 msgid "Filter results by post type %s, %d results were found"
-msgstr ""
+msgstr "Filtrer resultater efter indlægstype %s, %d resultater blev fundet"
 
 #: templates/search/post_types.twig:14
 #, php-format
 msgid "Filter results by post type %s, 1 result was found"
-msgstr ""
+msgstr "Filtrer resultater efter indlægstype %s, 1 resultat blev fundet"
 
 #: templates/search.twig:63
 msgid "Filters"
@@ -490,7 +490,7 @@ msgstr "Mest relevante"
 
 #: templates/comment_form/author_field.twig:4
 msgid "Name (required)"
-msgstr ""
+msgstr "Navn (påkrævet)"
 
 #: src/Search/SearchPage.php:66
 msgid "Newest"
@@ -502,7 +502,7 @@ msgstr "Nyheder"
 
 #: assets/src/js/listing_pages.js:93
 msgid "No posts found!"
-msgstr ""
+msgstr "Ingen indlæg fundet!"
 
 #: src/Search/SearchPage.php:70
 msgid "Oldest"
@@ -558,7 +558,7 @@ msgstr "Søg"
 
 #: templates/search.twig:8
 msgid "Search by name, keyword, or topic"
-msgstr ""
+msgstr "Søg efter navn, søgeord eller emne"
 
 #: templates/footer_country_selector.twig:11
 msgid "Selected"
@@ -577,7 +577,7 @@ msgstr "Del på"
 #: templates/blocks/share_buttons.twig:47
 #, php-format
 msgid "Share on %s"
-msgstr ""
+msgstr "Del på %s"
 
 #: templates/blocks/share_buttons.twig:37
 #: templates/blocks/share_buttons.twig:57
@@ -618,7 +618,7 @@ msgstr "Fortsæt til oversigt"
 
 #: templates/search.twig:56
 msgid "Skip to search results"
-msgstr ""
+msgstr "Spring til søgeresultater"
 
 #: 404.php:21
 msgid "Sorry, we can't find that page!"
@@ -634,11 +634,11 @@ msgstr "Indsend"
 
 #: assets/src/js/listing_pages.js:38
 msgid "Switch to grid view"
-msgstr ""
+msgstr "Skift til gittervisning"
 
 #: assets/src/js/listing_pages.js:46
 msgid "Switch to list view"
-msgstr ""
+msgstr "Skift til listevisning"
 
 #: templates/featured-action.twig:12
 msgid "Take Action"
@@ -667,7 +667,7 @@ msgstr ""
 #: assets/src/js/external_links.js:28
 #, javascript-format
 msgid "This link will lead you to %1$s"
-msgstr ""
+msgstr "Dette link fører dig til %1$s"
 
 #: assets/src/js/pdf_icon.js:20
 msgid "This link will open a PDF file"
@@ -688,7 +688,7 @@ msgstr "Toggle search form"
 
 #: src/MasterSite.php:727
 msgid "Toggle worldwide site selection menu"
-msgstr ""
+msgstr "Slå menuen til/fra for at vælge et globalt websted"
 
 #: templates/search.twig:22
 #, fuzzy
