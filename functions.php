@@ -562,4 +562,21 @@ add_filter(
     10,
     2
 );
+
+// Unset the Resistance Hub Campaign page when action_options is disabled
+// Remove it from selector within the editor
+add_filter('theme_page_templates', function ($post_templates) {
+    $features = get_option('planet4_features');
+
+    if (!isset($features['action_options']) || !$features['action_options']) {
+        foreach ($post_templates as $template_file => $template_name) {
+            if ($template_file !== 'single-p4_action-resistance_hub.php') {
+                continue;
+            }
+
+            unset($post_templates[$template_file]);
+        }
+    }
+    return $post_templates;
+}, 10, 2);
 // phpcs:enable Generic.Files.LineLength.MaxExceeded
