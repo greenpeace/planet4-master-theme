@@ -374,19 +374,6 @@ class MasterSite extends TimberSite
         Search\Search::hooks();
         Sendgrid::hooks();
 
-        // Force WordPress to use UTC date for upload paths to ensure consistency across different timezones.
-        // This prevents issues where uploads might be placed in a different month folder in the
-        // Stateless bucket than what WordPress expects.
-        add_filter(
-            'upload_dir',
-            function ($upload) {
-                $upload['subdir'] = '/' . gmdate('Y/m');
-                $upload['path'] = $upload['basedir'] . $upload['subdir'];
-                $upload['url'] = $upload['baseurl'] . $upload['subdir'];
-                return $upload;
-            }
-        );
-
         // Enable Transparent nav for homepage
         add_filter(
             'body_class',
