@@ -39,12 +39,6 @@ class MasterSite extends TimberSite
     public const CREDIT_META_FIELD = '_credit_text';
 
     /**
-     * Restrictions meta field key
-     *
-     */
-    public const RESTRICTIONS_META_FIELD = '_media_restriction';
-
-    /**
      * Theme directory
      *
      */
@@ -209,8 +203,6 @@ class MasterSite extends TimberSite
         );
 
         add_action('init', [$this, 'login_redirect'], 1);
-        add_filter('attachment_fields_to_edit', [$this, 'add_image_attachment_fields_to_edit'], 10, 2);
-        add_filter('attachment_fields_to_save', [$this, 'add_image_attachment_fields_to_save'], 10, 2);
         version_compare(get_bloginfo('version'), '5.5', '<')
             ? add_action('init', [$this, 'p4_register_core_image_block'])
             : add_filter('register_block_type_args', [$this, 'register_core_blocks_callback']);
@@ -1576,54 +1568,6 @@ class MasterSite extends TimberSite
         $query_string = apply_filters('planet4_youtube_embed_parameters', 'rel=0');
 
         return [$youtube_id, $query_string];
-    }
-
-    /**
-     * Add custom media metadata fields.
-     *
-     * @param array    $form_fields An array of fields included in the attachment form.
-     * @param \WP_Post $post The attachment record in the database.
-     *
-     * @return array Final array of form fields to use.
-     */
-    public function add_image_attachment_fields_to_edit(array $form_fields, \WP_Post $post): array
-    {
-        // Add a Credit field.
-        $form_fields['credit_text'] = [
-            'label' => __('Credit', 'planet4-master-theme-backend'),
-            'input' => 'text', // this is default if "input" is omitted.
-            'value' => get_post_meta($post->ID, self::CREDIT_META_FIELD, true),
-            'helps' => __('The owner of the image.', 'planet4-master-theme-backend'),
-        ];
-
-        // Add a Restrictions field.
-        $img_restrictions = get_post_meta($post->ID, self::RESTRICTIONS_META_FIELD, true);
-        if ($img_restrictions) {
-            $form_fields['restrictions_text'] = [
-                'label' => __('Restrictions', 'planet4-master-theme-backend'),
-                'input' => 'html',
-                'html' => $img_restrictions,
-            ];
-        }
-
-        return $form_fields;
-    }
-
-    /**
-     * Save custom media metadata fields
-     *
-     * @param array $post        The $post data for the attachment.
-     * @param array $attachment  The $attachment part of the form $_POST ($_POST[attachments][postID]).
-     *
-     * @return array $post
-     */
-    public function add_image_attachment_fields_to_save(array $post, array $attachment): array
-    {
-        if (isset($attachment['credit_text'])) {
-            update_post_meta($post['ID'], self::CREDIT_META_FIELD, $attachment['credit_text']);
-        }
-
-        return $post;
     }
 
     /**

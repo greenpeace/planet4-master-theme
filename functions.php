@@ -168,15 +168,6 @@ add_filter(
     10,
     2
 );
-add_action(
-    'wpml_after_update_attachment_texts',
-    function ($original_attachment_id, $translation): void {
-        $original_sm_cloud = get_post_meta($original_attachment_id, 'sm_cloud', true);
-        update_post_meta($translation->element_id, 'sm_cloud', $original_sm_cloud);
-    },
-    1,
-    2
-);
 
 /**
  * This is not a column in WordPress by default, but is added by the Post Type Switcher plugin.
@@ -424,60 +415,6 @@ add_action(
             'terms' => [$post_type->term_id],
         ]]);
     }
-);
-
-// Calls attachment metadata update on importer job.
-// This triggers the wp-stateless hook (if it exists),
-// which sets the sm_cloud metadata for the uploaded file.
-// Wp-stateless is then able to find the file on GCS on step 2,
-// instead of looking for it in the local uploads folder.
-add_action(
-    'add_attachment',
-    function ($post_id): void {
-        if (
-            ! defined('WP_IMPORTING')
-            || ! WP_IMPORTING
-            || ! isset($_GET['step']) // phpcs:ignore WordPress.Security.NonceVerification
-            || '1' !== $_GET['step'] // phpcs:ignore WordPress.Security.NonceVerification
-            || ! class_exists('wpCloud\StatelessMedia\Bootstrap')
-        ) {
-            return;
-        }
-
-        if (version_compare(\wpCloud\StatelessMedia\Bootstrap::$version, '3.0', '<')) {
-            return;
-        }
-
-        $post = get_post($post_id);
-        if (! $post || 'attachment' !== $post->post_type) {
-            return;
-        }
-
-        $cloud_meta = get_post_meta($post_id, 'sm_cloud', true);
-        if (! empty($cloud_meta)) {
-            return;
-        }
-
-        $metadata = wp_get_attachment_metadata($post_id);
-        wp_update_attachment_metadata($post_id, $metadata);
-    },
-    99
-);
-
-// WP Stateless plugin short-circuits the image_downsize() process
-// with wpCloud\StatelessMedia\Bootstrap::image_downsize().
-// Contrary to the native function, it will return attachment data
-// even if the attachment is not an image.
-// The attachment is then treated as an image by the function
-// wp_get_attachment_link() generating the link, even for a PDF.
-// We overrule wp-stateless response if file is not an image.
-add_filter(
-    'image_downsize',
-    function ($downsize, $id) {
-        return wp_attachment_is_image($id) ? $downsize : false;
-    },
-    100,
-    2
 );
 
 // This action overrides the WordPress functionality for adding a notice message
