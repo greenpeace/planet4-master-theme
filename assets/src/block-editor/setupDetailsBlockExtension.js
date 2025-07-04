@@ -4,11 +4,19 @@ import {InspectorControls} from '@wordpress/block-editor';
 const {addFilter} = wp.hooks;
 const {__} = wp.i18n;
 
+/**
+ * List of block names this extension applies to.
+ * @type {string[]}
+ */
 const targetBlocks = [
   'core/details',
 ];
 
-const captionAlignmentOptions = [
+/**
+ * Style variant options for the details block.
+ * @type {{label: string, value: string}[]}
+ */
+const styleVariants = [
   {
     label: __('Default'),
     value: 'default',
@@ -27,44 +35,65 @@ const captionAlignmentOptions = [
   },
 ];
 
+/**
+ * Initializes the style variant extension for the core/details block.
+ */
 export const setupDetailsBlockExtension = () => {
   addFilter(
     'blocks.registerBlockType',
     'planet4-blocks/overrides/details',
-    addCaptionStyleAttributes
+    addStyleVariantsAttributes
   );
   addFilter(
     'editor.BlockEdit',
     'planet4-blocks/overrides/details-controls',
-    withCaptionStyle
+    addStyleVariantsControls
   );
 };
 
-const addCaptionStyleAttributes = (settings, name) => {
+/**
+ * Adds the `customStyle` attribute to the target block.
+ *
+ * @param {Object} settings - The block settings.
+ * @param {string} name     - The block name.
+ * @return {Object} Modified block settings.
+ */
+const addStyleVariantsAttributes = (settings, name) => {
   if (!targetBlocks.includes(name)) {
     return settings;
   }
   settings.attributes = {
     ...settings.attributes,
-    captionAlignment: {
+    customStyle: {
       type: 'string',
-      default: captionAlignmentOptions[0].value,
+      default: styleVariants[0].value,
     },
   };
   return settings;
 };
 
-const withCaptionStyle = wp.compose.createHigherOrderComponent(BlockEdit => props => {
+/**
+ * Adds inspector controls and class name updates for the selected style variant.
+ *
+ * @param {Function} BlockEdit - The original block edit component.
+ * @return {Function} Enhanced block edit component.
+ */
+const addStyleVariantsControls = wp.compose.createHigherOrderComponent(BlockEdit => props => {
   if (!targetBlocks.includes(props.name)) {
     return <BlockEdit {...props} />;
   }
 
-  const updateCaptionAlignment = alignment => {
+  /**
+   * Updates the block's className based on the selected style variant.
+   *
+   * @param {string} alignment - The selected style variant value.
+   */
+  const updateStyleVariants = alignment => {
     const className = props.attributes.className || '';
     const classList = className.split(' ').filter(Boolean);
 
     // Remove any existing caption alignment class
-    captionAlignmentOptions.forEach(option => {
+    styleVariants.forEach(option => {
       const existingClass = `p4-details--${option.value}`;
       const index = classList.indexOf(existingClass);
       if (index !== -1) {
@@ -80,7 +109,7 @@ const withCaptionStyle = wp.compose.createHigherOrderComponent(BlockEdit => prop
     props.setAttributes({className: classList.join(' ')});
   };
 
-  const {captionAlignment} = props.attributes;
+  const {customStyle} = props.attributes;
 
   return (
     <>
@@ -89,17 +118,17 @@ const withCaptionStyle = wp.compose.createHigherOrderComponent(BlockEdit => prop
         <PanelBody title={__('Block Styles')} initialOpen={true}>
           <ButtonGroup>
             {
-              captionAlignmentOptions.map((option, key) => {
+              styleVariants.map((option, key) => {
                 return <Button
                   key={key}
                   value={option.value}
                   onClick={() => {
                     props.setAttributes({
-                      captionAlignment: option.value,
+                      customStyle: option.value,
                     });
-                    updateCaptionAlignment(option.value);
+                    updateStyleVariants(option.value);
                   }}
-                  variant={captionAlignment === option.value ? 'primary' : 'secondary'}>
+                  variant={customStyle === option.value ? 'primary' : 'secondary'}>
                   {option.label}
                 </Button>;
               })
@@ -109,4 +138,4 @@ const withCaptionStyle = wp.compose.createHigherOrderComponent(BlockEdit => prop
       </InspectorControls>
     </>
   );
-}, 'withCaptionStyle');
+}, 'addStyleVariantsControls');
