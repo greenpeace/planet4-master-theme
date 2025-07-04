@@ -1,8 +1,10 @@
 import {NavigationType} from '../NavigationType/NavigationType';
 import {CheckboxSidebarField} from '../SidebarFields/CheckboxSidebarField';
+import {SelectSidebarField} from '../SidebarFields/SelectSidebarField';
 import {TextSidebarField} from '../SidebarFields/TextSidebarField';
 import {getSidebarFunctions} from './getSidebarFunctions';
 
+const TASK_TYPE = 'action_task_type';
 const FIELD_NAVTYPE = 'nav_type';
 const HIDE_PAGE_TITLE = 'p4_hide_page_title_checkbox';
 const BUTTON_TEXT = 'action_button_text';
@@ -21,6 +23,24 @@ export const ActionSidebar = {
 
     return (
       <>
+        {Boolean(window.p4_vars.features.action_options) && (
+          <>
+            <PluginDocumentSettingPanel
+              name="action-options-panel"
+              title={__('Action Options', 'planet4-blocks-backend')}
+            >
+              {/* Show only if feature is enabled */}
+              <SelectSidebarField
+                label={__('Task Type', 'planet4-master-theme-backend')}
+                options={[
+                  {label: '- Select Task Type -', value: 'not set'},
+                  {label: 'Do it Online', value: 'online'},
+                  {label: 'Do it IRL', value: 'irl'},
+                ]}
+                {...getParams(TASK_TYPE)}/>
+            </PluginDocumentSettingPanel>
+          </>
+        )}
         <PluginDocumentSettingPanel
           name="page-header-panel"
           title={__('Page header', 'planet4-blocks-backend')}
