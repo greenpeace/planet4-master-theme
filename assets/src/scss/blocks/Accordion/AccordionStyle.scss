@@ -200,10 +200,10 @@
   }
 
   &.p4-details--light summary {
-      @include headline-light;
+    @include headline-light;
   }
 
   &.p4-details--outline summary {
-      @include headline-outline;
+    @include headline-outline;
   }
 }
