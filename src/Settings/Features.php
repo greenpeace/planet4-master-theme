@@ -12,6 +12,7 @@ use P4\MasterTheme\Features\RedirectRedirectPages;
 use P4\MasterTheme\Features\Planet4Blocks;
 use P4\MasterTheme\Features\OldPostsArchiveNotice;
 use P4\MasterTheme\Features\ActionsTaskType;
+use P4\MasterTheme\Features\ActionsDeadline;
 use P4\MasterTheme\Loader;
 use P4\MasterTheme\Settings;
 use CMB2;
@@ -101,6 +102,7 @@ class Features
             Planet4Blocks::class,
             OldPostsArchiveNotice::class,
             ActionsTaskType::class,
+            ActionsDeadline::class,
 
             // Dev only.
             DisableDataSync::class,

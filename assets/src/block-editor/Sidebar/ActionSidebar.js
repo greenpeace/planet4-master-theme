@@ -2,6 +2,7 @@ import {NavigationType} from '../NavigationType/NavigationType';
 import {CheckboxSidebarField} from '../SidebarFields/CheckboxSidebarField';
 import {TextSidebarField} from '../SidebarFields/TextSidebarField';
 import {SelectSidebarField} from '../SidebarFields/SelectSidebarField';
+import {DatePickerSidebarField} from '../SidebarFields/DatePickerSidebarField';
 import {getSidebarFunctions} from './getSidebarFunctions';
 
 const FIELD_NAVTYPE = 'nav_type';
@@ -9,6 +10,7 @@ const HIDE_PAGE_TITLE = 'p4_hide_page_title_checkbox';
 const BUTTON_TEXT = 'action_button_text';
 const BUTTON_ACCESSIBILITY_TEXT = 'action_button_accessibility_text';
 const TASK_TYPE = 'actions_task_type';
+const DEADLINE = 'actions_deadline';
 
 const {__} = wp.i18n;
 const {PluginDocumentSettingPanel} = wp.editor;
@@ -21,14 +23,16 @@ export const ActionSidebar = {
   render: () => {
     const {getParams} = getSidebarFunctions();
 
+    const isTaskTypeEnabled = Boolean(window.p4_vars.features.actions_task_type);
+    const isDeadlineEnabled = Boolean(window.p4_vars.features.actions_deadline);
+
     return (
       <>
-        {Boolean(window.p4_vars.features.actions_task_type) && (
-          <>
-            <PluginDocumentSettingPanel
-              name="action-options-panel"
-              title={__('Action Options', 'planet4-blocks-backend')}
-            >
+        {(isTaskTypeEnabled || isDeadlineEnabled) && (
+          <PluginDocumentSettingPanel
+            name="action-options-panel"
+            title={__('Action Options', 'planet4-blocks-backend')}>
+            {isTaskTypeEnabled && (
               <SelectSidebarField
                 label={__('Task Type', 'planet4-master-theme-backend')}
                 options={[
@@ -36,9 +40,17 @@ export const ActionSidebar = {
                   {label: __('Do it Online', 'planet4-blocks-backend'), value: 'online'},
                   {label: __('Do it IRL', 'planet4-blocks-backend'), value: 'irl'},
                 ]}
-                {...getParams(TASK_TYPE)}/>
-            </PluginDocumentSettingPanel>
-          </>
+                {...getParams(TASK_TYPE)}
+              />)}
+            {isDeadlineEnabled && (
+              <DatePickerSidebarField
+                id={DEADLINE}
+                label={__('Deadline Date', 'planet4-master-theme-backend')}
+                forceEndDate={true}
+                {...getParams(DEADLINE)}
+              />
+            )}
+          </PluginDocumentSettingPanel>
         )}
         <PluginDocumentSettingPanel
           name="page-header-panel"
