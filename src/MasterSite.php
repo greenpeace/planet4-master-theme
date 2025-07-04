@@ -29,7 +29,7 @@ class MasterSite extends TimberSite
      * Version of notice
      *
      */
-    private const DASHBOARD_MESSAGE_VERSION = '0.4';
+    private const DASHBOARD_MESSAGE_VERSION = '0.6';
 
     /**
      * Credit meta field key
@@ -1420,15 +1420,17 @@ class MasterSite extends TimberSite
      */
     private function p4_message(): string
     {
-        return '<h2>Welcome to the new P4 message board!</h2>
-            <p>New to the Planet 4 platform? Here are some self - paced courses that can help you get up to speed. 👇
+        return '<h2>📢 The new Posts List and Actions List blocks are here!</h2>
+            <p>
                 <ul>
                     <li><span style="margin-right: 3px;">
-                        <a href="https://greenpeace.studytube.nl/courses/22122">Planet 4 Fundamentals</a> 🌏</span>
-                        learn the very basic of Planet 4.</li>
+                        <a href="https://planet4.greenpeace.org/content/blocks/posts-list/" target="_blank">Posts List</a>:
+                        <span> 📝 It replaces the Articles block and the Covers block Content Style</span>
+                    </li>
                     <li><span style="margin-right: 3px;">
-                        <a href="https://greenpeace.studytube.nl/courses/23208/planet-4">Planet 4 Power User</a> 🚀</span>
-                        a more in-depth course to understand how to manage a P4 website and how to make best use of its engagement features.</li>
+                        <a href="https://planet4.greenpeace.org/content/blocks/actions-list/">Actions List</a>:
+                        <span> ✨ It replaces the Covers block Take Action Style</span>
+                    </li>
                 </ul>
             </p>';
     }
