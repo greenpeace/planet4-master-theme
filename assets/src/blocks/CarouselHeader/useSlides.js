@@ -1,4 +1,5 @@
-const {useEffect, useState} = wp.element;
+import Hammer from 'hammerjs';
+const {useEffect, useState, useCallback, useRef} = wp.element;
 
 const activeClass = 'active';
 
@@ -10,13 +11,14 @@ const activeClass = 'active';
  * - Adds an *exit* transition class for the `active` element
  * - Adds a listener for `ontransitionend` to the `active` element
  *
- * @param {Array}  slidesRef
- * @param {*}      lastSlide
- * @param {*}      containerRef
- * @param {Object} options
+ * @param {Array}   slidesRef
+ * @param {*}       totalSlides
+ * @param {*}       containerRef
+ * @param {boolean} carousel_autoplay
+ * @param {Object}  options
  * @return {*} functions for the carousel header slides
  */
-export const useSlides = (slidesRef, lastSlide, containerRef, options = {
+export const useSlides = (slidesRef, totalSlides, containerRef, carousel_autoplay, options = {
   // Following Bootstrap's approach for RTL:
   // https://getbootstrap.com/docs/5.0/getting-started/rtl/#approach
   // Note: in non-directional transitions (e.g.: fade out),
@@ -30,40 +32,35 @@ export const useSlides = (slidesRef, lastSlide, containerRef, options = {
     prev: 'exit-to-end',
   },
 }) => {
+  const [autoplay, setAutoplay] = useState(carousel_autoplay);
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [autoplayCancelled, setAutoplayCancelled] = useState(false);
+  const [lastSlide, setLastSlide] = useState(currentSlide);
   const [sliding, setSliding] = useState(false);
+  // Set up the autoplay for the slides
+  const timerRef = useRef(null);
 
-  const goToNextSlide = (autoplay = false) => {
-    goToSlide(currentSlide === lastSlide ? 0 : currentSlide + 1);
-    if (!autoplay) {
-      setAutoplayCancelled(true);
-    }
-  };
+  const isRTL = document.querySelector('html').dir === 'rtl';
 
-  const goToPrevSlide = (autoplay = false) => {
-    goToSlide(currentSlide === 0 ? lastSlide : currentSlide - 1);
-    if (!autoplay) {
-      setAutoplayCancelled(true);
-    }
-  };
+  const handleAutoplay = useCallback(() => {
+    setAutoplay(!autoplay);
+  }, [autoplay]);
 
-  // eslint-disable-next-line no-shadow
-  const getOrder = (currentSlide, newSlide, lastSlide) => {
-    let order = newSlide < currentSlide ? 'prev' : 'next';
-    if (newSlide === lastSlide && currentSlide === 0 && order !== 'prev') {
+  const getOrder = useCallback(() => {
+    let order = currentSlide < lastSlide ? 'prev' : 'next';
+    if (currentSlide === (totalSlides - 1) && currentSlide === 0 && order !== 'prev') {
       order = 'prev';
-    } else if (newSlide === 0 && currentSlide === lastSlide && order !== 'next') {
+    } else if (currentSlide === 0 && lastSlide === totalSlides - 1 && order !== 'next') {
       order = 'next';
     }
     return order;
-  };
+  }, [currentSlide, lastSlide, totalSlides]);
+
 
   const getSlideHeight = slideRef => {
     return `${slideRef.querySelector('.carousel-item-mask .background-holder').offsetHeight + slideRef.querySelector('.carousel-caption').offsetHeight}px`;
   };
 
-  const setCarouselHeight = slideRef => {
+  const setCarouselHeight = useCallback(slideRef => {
     if (!containerRef || !containerRef.current) {
       return;
     }
@@ -78,20 +75,20 @@ export const useSlides = (slidesRef, lastSlide, containerRef, options = {
         container.style.height = null
       );
     }
-  };
+  }, [containerRef]);
 
-  const goToSlide = (newSlide, forceCurrentSlide = false) => {
+  const goToSlide = useCallback((forceCurrentSlide = false) => {
     if (!slidesRef.current) {
       return;
     }
 
-    const nextElement = slidesRef.current[newSlide];
-    const activeElement = slidesRef.current[currentSlide];
+    const activeElement = slidesRef.current[lastSlide];
+    const nextElement = slidesRef.current[currentSlide];
 
-    if (newSlide !== currentSlide && nextElement && activeElement && !sliding) {
+    if (nextElement && activeElement && !sliding) {
       setSliding(true);
 
-      const order = getOrder(currentSlide, newSlide, lastSlide);
+      const order = getOrder();
       const enterTransitionClass = options.enterTransitionClasses[order];
       const exitTransitionClass = options.exitTransitionClasses[order];
 
@@ -107,8 +104,6 @@ export const useSlides = (slidesRef, lastSlide, containerRef, options = {
         activeElement.classList.remove(activeClass);
         nextElement.classList.remove(enterTransitionClass);
         nextElement.classList.add(activeClass);
-
-        setCurrentSlide(newSlide);
       };
 
       activeElement.addEventListener('transitionend', unsetTransitionClasses);
@@ -120,19 +115,94 @@ export const useSlides = (slidesRef, lastSlide, containerRef, options = {
         unsetTransitionClasses();
       }
     }
-  };
+  }, [lastSlide, currentSlide, sliding, getOrder, options, slidesRef, setCarouselHeight]);
+
+  const goToPrevSlide = useCallback(() => {
+    setLastSlide(currentSlide);
+    if((currentSlide - 1) < 0) {
+      setCurrentSlide(totalSlides - 1);
+    } else {
+      setCurrentSlide(currentSlide - 1);
+    }
+  }, [currentSlide, totalSlides, setCurrentSlide]);
+
+  // const goToNextSlide = (autoplay = false) => {
+  const goToNextSlide = useCallback(() => {
+    setLastSlide(currentSlide);
+    if(currentSlide + 1 < totalSlides) {
+      setCurrentSlide(currentSlide + 1);
+    } else {
+      setCurrentSlide(0);
+    }
+  }, [currentSlide, totalSlides, setCurrentSlide]);
 
   useEffect(() => {
-    // Update the sliding flag only when the current slide is being changed
-    setSliding(false);
-  }, [currentSlide]);
+    if (!containerRef.current) {
+      return;
+    }
+
+    const carouselElement = containerRef.current;
+    const carouselHeadHammer = new Hammer(carouselElement, {recognizers: []});
+    const hammer = new Hammer.Manager(carouselHeadHammer.element);
+    const swipe = new Hammer.Swipe();
+    // Only allow horizontal swiping (not vertical swiping)
+    swipe.set({direction: Hammer.DIRECTION_HORIZONTAL});
+    hammer.add(swipe);
+
+    hammer.on('swipeleft', isRTL ? goToPrevSlide : goToNextSlide);
+    hammer.on('swiperight', isRTL ? goToNextSlide : goToPrevSlide);
+
+    return () => {
+      hammer.off('swipeleft', isRTL ? goToPrevSlide : goToNextSlide);
+      hammer.off('swiperight', isRTL ? goToNextSlide : goToPrevSlide);
+    };
+  }, [containerRef, currentSlide, goToNextSlide, goToPrevSlide, isRTL]);
+
+  useEffect(() => {
+    if (!containerRef.current) {
+      return;
+    }
+
+    const currentSlideRef = slidesRef.current[currentSlide];
+    if (currentSlideRef) {
+      setCarouselHeight(currentSlideRef);
+
+      window.addEventListener('resize', () => setCarouselHeight(currentSlideRef));
+    }
+
+    return () => window.removeEventListener('resize', () => setCarouselHeight(currentSlideRef));
+  }, [currentSlide, setCarouselHeight, containerRef, slidesRef]);
+
+  useEffect(() => {
+    if(currentSlide !== lastSlide) {
+      goToSlide();
+    }
+
+  }, [currentSlide, lastSlide, goToSlide]);
+
+  useEffect(() => {
+    if (autoplay && totalSlides > 1) {
+      if (timerRef.current) {
+        clearTimeout(timerRef.current);
+      }
+      timerRef.current = setTimeout(() => goToNextSlide(), 1000);
+      return () => clearTimeout(timerRef.current);
+    } else if (timerRef.current) {
+      clearTimeout(timerRef.current);
+    }
+  }, [totalSlides, autoplay, timerRef, goToNextSlide]);
 
   return {
+    totalSlides,
+    lastSlide,
     currentSlide,
     goToSlide,
     goToNextSlide,
     goToPrevSlide,
+    handleAutoplay,
+    setCurrentSlide,
+    setAutoplay,
     setCarouselHeight,
-    autoplayCancelled,
+    autoplay,
   };
 };
