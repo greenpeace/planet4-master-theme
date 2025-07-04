@@ -1,13 +1,7 @@
 @mixin headline {
-  --accordion-block-dark-style-- {
-    border-color: transparent;
-    background: var(--p4-dark-green-800);
-    color: var(--white);
-
-    &:hover {
-      background: var(--p4-dark-green-900);
-    }
-  }
+  border-color: transparent;
+  background: var(--p4-dark-green-800);
+  color: var(--white);
   cursor: pointer;
   position: relative;
   display: block;
@@ -23,6 +17,10 @@
   margin-bottom: $sp-2;
   border-width: 1px;
   border-style: solid;
+
+  &:hover {
+    background: var(--p4-dark-green-900);
+  }
 
   &.open:after {
     transform: rotate(-90deg);
@@ -72,6 +70,26 @@
   }
 }
 
+@mixin headline-light {
+  border-color: transparent;
+  background: var(--beige-100);
+  color: var(--color-text-body);
+
+  &:hover {
+    background: var(--beige-200);
+  }
+}
+
+@mixin headline-outline {
+  border-color: var(--grey-500);
+  background: var(--white);
+  color: var(--grey-900);
+
+  &:hover {
+    background: var(--grey-100);
+  }
+}
+
 @mixin paragraph {
   margin: 0;
   font-family: var(--body--font-family);
@@ -79,7 +97,7 @@
 }
 
 @mixin button {
-  margin: $sp-3 0 0;
+  margin: $sp-3 0 0 !important;
   width: 80%;
 
   @include medium-and-up {
@@ -135,53 +153,57 @@
   }
 
   &.is-style-light .accordion-content .accordion-headline {
-    --accordion-block-light-style-- {
-      border-color: transparent;
-      background: var(--beige-100);
-      color: var(--color-text-body);
-
-      &:hover {
-        background: var(--beige-200);
-      }
-    }
+    @include headline-light;
   }
 
   &.is-style-outline .accordion-content .accordion-headline {
-    border-color: var(--grey-500);
-    background: var(--white);
-    color: var(--grey-900);
-
-    &:hover {
-      background: var(--grey-100);
-    }
+    @include headline-outline;
   }
 }
 
 // Overrides for the Details block:
-.wp-block-details.p4-details {
-  _-- {
-    font-family: var(--font-family-primary);
-  }
+.wp-block-details {
+  &[class^="p4-details--"],
+  &[class*=" p4-details--"] {
+    _-- {
+      font-family: var(--font-family-primary);
+    }
 
-  &[open] {
-    summary::after {
-      transform: rotate(-90deg) !important;
+    &[open] {
+      summary::after {
+        transform: rotate(-90deg) !important;
+      }
+    }
+
+    summary {
+      @include headline;
+    }
+
+    .wp-block-paragraph, p {
+      @include paragraph;
+    }
+
+    .wp-block-button {
+      @include button;
+    }
+
+    // Add the "p4-details-group" class to a group block inside the Details block
+    // to mimick the Accordion panel style.
+    .p4-details-group.wp-block-group {
+      @include panel;
+
+      &.is-layout-constrained > :where(:not(.alignleft):not(.alignright):not(.alignfull)) {
+        margin: 0;
+        max-width: 100%;
+      }
     }
   }
 
-  summary {
-    @include headline;
+  &.p4-details--light summary {
+      @include headline-light;
   }
 
-  .wp-block-paragraph, p {
-    @include paragraph;
-  }
-
-  .wp-block-button {
-    @include button;
-  }
-
-  .wp-block-group {
-    @include panel;
+  &.p4-details--outline summary {
+      @include headline-outline;
   }
 }

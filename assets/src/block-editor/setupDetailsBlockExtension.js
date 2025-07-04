@@ -1,12 +1,30 @@
-import {ToggleControl, PanelBody} from '@wordpress/components';
+import {Button, ButtonGroup, PanelBody} from '@wordpress/components';
 import {InspectorControls} from '@wordpress/block-editor';
 
 const {addFilter} = wp.hooks;
 const {__} = wp.i18n;
 
-// Enable spacing control on the following blocks
 const targetBlocks = [
   'core/details',
+];
+
+const captionAlignmentOptions = [
+  {
+    label: __('Default'),
+    value: 'default',
+  },
+  {
+    label: __('Dark'),
+    value: 'dark',
+  },
+  {
+    label: __('Light'),
+    value: 'light',
+  },
+  {
+    label: __('Outline'),
+    value: 'outline',
+  },
 ];
 
 export const setupDetailsBlockExtension = () => {
@@ -23,7 +41,6 @@ export const setupDetailsBlockExtension = () => {
 };
 
 const addCaptionStyleAttributes = (settings, name) => {
-  // Do nothing if it's another block than our defined ones.
   if (!targetBlocks.includes(name)) {
     return settings;
   }
@@ -31,7 +48,7 @@ const addCaptionStyleAttributes = (settings, name) => {
     ...settings.attributes,
     captionAlignment: {
       type: 'string',
-      default: '',
+      default: captionAlignmentOptions[0].value,
     },
   };
   return settings;
@@ -42,38 +59,52 @@ const withCaptionStyle = wp.compose.createHigherOrderComponent(BlockEdit => prop
     return <BlockEdit {...props} />;
   }
 
-  const updateCaptionAlignment = enabled => {
+  const updateCaptionAlignment = alignment => {
     const className = props.attributes.className || '';
     const classList = className.split(' ').filter(Boolean);
-    const hasClass = classList.includes('p4-details');
 
-    if (enabled && !hasClass) {
-      classList.push('p4-details');
-    } else if (!enabled && hasClass) {
-      // Remove the class
-      const index = classList.indexOf('p4-details');
-      classList.splice(index, 1);
+    // Remove any existing caption alignment class
+    captionAlignmentOptions.forEach(option => {
+      const existingClass = `p4-details--${option.value}`;
+      const index = classList.indexOf(existingClass);
+      if (index !== -1) {
+        classList.splice(index, 1);
+      }
+    });
+
+    // Add new class only if it's not "default"
+    if (alignment !== 'default') {
+      classList.push(`p4-details--${alignment}`);
     }
 
     props.setAttributes({className: classList.join(' ')});
   };
 
+  const {captionAlignment} = props.attributes;
+
   return (
     <>
       <BlockEdit {...props} />
       <InspectorControls>
-        <PanelBody title={__('Styles')} initialOpen={true}>
-          {/* eslint-disable-next-line jsx-a11y/label-has-for, jsx-a11y/label-has-associated-control */}
-          <label className="mb-4">
-              Apply the P4 Styles to the Details block.
-          </label>
-          <ToggleControl
-            label={__('Use P4 Styles')}
-            checked={(props.attributes.className || '').includes('p4-details')}
-            onChange={isChecked => {
-              updateCaptionAlignment(isChecked);
-            }}
-          />
+        <PanelBody title={__('Block Styles')} initialOpen={true}>
+          <ButtonGroup>
+            {
+              captionAlignmentOptions.map((option, key) => {
+                return <Button
+                  key={key}
+                  value={option.value}
+                  onClick={() => {
+                    props.setAttributes({
+                      captionAlignment: option.value,
+                    });
+                    updateCaptionAlignment(option.value);
+                  }}
+                  variant={captionAlignment === option.value ? 'primary' : 'secondary'}>
+                  {option.label}
+                </Button>;
+              })
+            }
+          </ButtonGroup>
         </PanelBody>
       </InspectorControls>
     </>
