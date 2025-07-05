@@ -121,7 +121,7 @@ export const GalleryCarousel = ({images, onImageClick, isEditing}) => {
             <img
               loading="lazy"
               src={image.image_src}
-              srcSet={image.image_srcset}
+              {...(image.image_srcset ? {srcSet: image.image_srcset} : {})}
               sizes={IMAGE_SIZES.carousel}
               style={{objectPosition: image.focus_image}}
               alt={image.alt_text}
