@@ -61,7 +61,8 @@
   }
 
   .array-item {
-    margin-left: 20px;
+    max-height: 85px;
+    overflow: scroll;
     font-family: monospace;
   }
 

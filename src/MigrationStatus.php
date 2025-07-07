@@ -13,11 +13,20 @@ class MigrationStatus
      */
     private string $key = 'planet4_migration_status';
 
+    private array $p4_migrations = [];
+
     /**
      * Constructor
      */
     public function __construct()
     {
+        $p4_migrations = get_option('planet4_migrations');
+
+        if (!$p4_migrations) {
+            return;
+        }
+        $this->p4_migrations = $p4_migrations;
+
         // Set our title.
         $this->title = 'Data migrations';
         $this->hooks();
@@ -60,12 +69,7 @@ class MigrationStatus
      */
     public function admin_page_display(): void
     {
-        echo '<h2>P4 Migration Status</h2>' . "\n";
-        $gp_migrations = get_option('planet4_migrations');
-
-        if (!$gp_migrations) {
-            return;
-        }
+        echo '<h2>Data migrations</h2>' . "\n";
 
         echo '<div class="migration-status">
                 <table>
@@ -83,24 +87,24 @@ class MigrationStatus
                     <tbody>';
 
         // Change migration order in Array to show recent first.
-        $gp_migrations = array_reverse($gp_migrations, true);
-        foreach ($gp_migrations as $key => $gp_migration) {
-            $migration_status = $gp_migration['success'] ? 'Success' : 'Failed';
-            $migration_status_class = $gp_migration['success'] ? 'success' : 'error';
-            $migration_logs = implode('\n', $gp_migration['logs']);
+        $p4_migrations = array_reverse($this->p4_migrations, true);
+        foreach ($p4_migrations as $key => $p4_migration) {
+            $migration_status = $p4_migration['success'] ? 'Success' : 'Failed';
+            $migration_status_class = $p4_migration['success'] ? 'success' : 'error';
+            $migration_logs = implode('\n', $p4_migration['logs']);
 
             echo '<tr>
                     <td>' . $key . '</td>
-                    <td>' . str_replace('P4\MasterTheme\Migrations\\', '', $gp_migration['id']) . '</td>
+                    <td>' . str_replace('P4\MasterTheme\Migrations\\', '', $p4_migration['id']) . '</td>
                     <td>
-                        <div class="datetime">' . $gp_migration['start_time']->date . ' ' .
-                $gp_migration['start_time']->timezone . '</div>
+                        <div class="datetime">' . $p4_migration['start_time']->date . ' ' .
+                $p4_migration['start_time']->timezone . '</div>
                     </td>
                     <td>
-                        <div class="datetime">' . $gp_migration['end_time']->date . ' ' .
-                $gp_migration['end_time']->timezone . '</div>
+                        <div class="datetime">' . $p4_migration['end_time']->date . ' ' .
+                $p4_migration['end_time']->timezone . '</div>
                     </td>
-                    <td>' . $this->calculateTimeDiff($gp_migration['start_time'], $gp_migration['end_time']) . '</td>
+                    <td>' . $this->calculateTimeDiff($p4_migration['start_time'], $p4_migration['end_time']) . '</td>
                     <td class="' . $migration_status_class . '">' . $migration_status . '</td>
                     <td>
                         <div class="array-item">' . $migration_logs . '</div>

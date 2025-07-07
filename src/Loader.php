@@ -89,7 +89,6 @@ final class Loader
             PostReportController::class,
             Cookies::class,
             DevReport::class,
-            MigrationStatus::class,
             MasterSite::class,
             AttachmentsController::class,
             HttpHeaders::class,
@@ -109,6 +108,7 @@ final class Loader
             $this->default_services[] = ControlPanel::class;
             $this->default_services[] = MediaArchive\UiIntegration::class;
             $this->default_services[] = MediaArchive\Rest::class;
+            $this->default_services[] = MigrationStatus::class;
             foreach (Features::external_settings() as $setting_class) {
                 $this->default_services[] = $setting_class;
             }
