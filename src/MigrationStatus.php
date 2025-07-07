@@ -19,7 +19,7 @@ class MigrationStatus
     public function __construct()
     {
         // Set our title.
-        $this->title = 'Migration status';
+        $this->title = 'Data migrations';
         $this->hooks();
     }
 
@@ -60,7 +60,7 @@ class MigrationStatus
      */
     public function admin_page_display(): void
     {
-        echo '<h1>P4 Migration Status</h1>' . "\n";
+        echo '<h2>P4 Migration Status</h2>' . "\n";
         $gp_migrations = get_option('planet4_migrations');
 
         if (!$gp_migrations) {
