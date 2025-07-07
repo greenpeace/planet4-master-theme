@@ -38,3 +38,41 @@
     grid-template-columns: 1fr 4fr;
   }
 }
+
+.migration-status {
+  overflow-x: auto;
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+    vertical-align: top;
+  }
+
+  th {
+    background-color: #f2f2f2;
+    width: 150px;
+  }
+
+  .array-item {
+    max-height: 85px;
+    overflow: scroll;
+    font-family: monospace;
+  }
+
+  .error {
+    color: #d9534f;
+    font-weight: bold;
+  }
+
+  .success {
+    color: #1a9913;
+    font-weight: bold;
+  }
+}

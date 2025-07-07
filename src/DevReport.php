@@ -61,7 +61,7 @@ class DevReport
      */
     public function admin_page_display(): void
     {
-        echo '<h1>P4 Dev report</h1>' . "\n";
+        echo '<h2>P4 Dev report</h2>' . "\n";
         $gp_packages = get_option('greenpeace_packages');
 
         if (!$gp_packages) {
