@@ -52,7 +52,7 @@ use P4\MasterTheme\Migrations\M047EnableTransparentNavigation;
 use P4\MasterTheme\Migrations\M048SetDefaultTaxonomyBreadcrumb;
 use P4\MasterTheme\Migrations\M049MigrateCoversBlockToActionsListBlock;
 use P4\MasterTheme\Migrations\M050AddTagsBackInPostsListBlock;
-use P4\MasterTheme\Migrations\M051ReplaceSpecialCharactersInPostsContent;
+//use P4\MasterTheme\Migrations\M051ReplaceSpecialCharactersInPostsContent;
 use P4\MasterTheme\Migrations\M052RollbackToPreviousRevision;
 
 /**
@@ -123,7 +123,7 @@ class Migrator
             M048SetDefaultTaxonomyBreadcrumb::class,
             M049MigrateCoversBlockToActionsListBlock::class,
             M050AddTagsBackInPostsListBlock::class,
-            M051ReplaceSpecialCharactersInPostsContent::class,
+            //M051ReplaceSpecialCharactersInPostsContent::class,
             M052RollbackToPreviousRevision::class,
         ];
 
