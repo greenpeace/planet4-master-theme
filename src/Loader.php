@@ -89,6 +89,7 @@ final class Loader
             PostReportController::class,
             Cookies::class,
             DevReport::class,
+            MigrationStatus::class,
             MasterSite::class,
             AttachmentsController::class,
             HttpHeaders::class,
