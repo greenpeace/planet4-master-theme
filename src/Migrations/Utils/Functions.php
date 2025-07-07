@@ -41,6 +41,11 @@ class Functions
 
             $parser = new WP_Block_Parser();
 
+            // Set a global variable to skip the post title requirement.
+            // This is necessary to avoid the "Title is a required field" error when updating posts
+            // that do not have a title, which is common in migrations.
+            $GLOBALS['p4_skip_require_post_title'] = true;
+
             foreach ($posts as $post) {
                 try {
                     if (empty($post->post_content)) {
@@ -97,6 +102,9 @@ class Functions
                     continue;
                 }
             }
+
+            // Remove the global variable to skip the post title requirement.
+            unset($GLOBALS['p4_skip_require_post_title']);
         } catch (\Throwable $e) {
             echo "Migration wasn't executed for block: ", $block_name ?? 'unknown', "\n";
             echo $e->getMessage(), "\n";

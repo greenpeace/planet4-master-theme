@@ -501,6 +501,11 @@ class MasterSite extends TimberSite
      */
     public static function require_post_title(array $data): ?array
     {
+        // Skip the post title requirement if the global variable is set.
+        if (!empty($GLOBALS['p4_skip_require_post_title'])) {
+            return $data;
+        }
+
         $types = Search\Filters\ContentTypes::get_all();
         if (
             empty($data['post_title'])
