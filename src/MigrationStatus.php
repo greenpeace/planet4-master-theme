@@ -93,12 +93,12 @@ class MigrationStatus
                     <td>' . $key . '</td>
                     <td>' . str_replace('P4\MasterTheme\Migrations\\', '', $gp_migration['id']) . '</td>
                     <td>
-                        <div class="datetime">' . $gp_migration['start_time']->date . '</div>
-                        <div class="object-property">' . $gp_migration['start_time']->timezone . '</div>
+                        <div class="datetime">' . $gp_migration['start_time']->date . ' ' .
+                $gp_migration['start_time']->timezone . '</div>
                     </td>
                     <td>
-                        <div class="datetime">' . $gp_migration['end_time']->date . '</div>
-                        <div class="object-property">' . $gp_migration['end_time']->timezone . '</div>
+                        <div class="datetime">' . $gp_migration['end_time']->date . ' ' .
+                $gp_migration['end_time']->timezone . '</div>
                     </td>
                     <td>' . $this->calculateTimeDiff($gp_migration['start_time'], $gp_migration['end_time']) . '</td>
                     <td class="' . $migration_status_class . '">' . $migration_status . '</td>

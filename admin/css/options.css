@@ -60,11 +60,6 @@
     width: 150px;
   }
 
-  .object-property {
-    margin-left: 20px;
-    font-family: monospace;
-  }
-
   .array-item {
     margin-left: 20px;
     font-family: monospace;
