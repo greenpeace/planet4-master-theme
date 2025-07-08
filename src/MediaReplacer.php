@@ -372,8 +372,19 @@ class MediaReplacer
     ): void {
         // Handle image thumbnails.
         foreach ($old_image_meta['sizes'] as $size => $old_image_data) {
-            $old_image_width = $old_image_data['width'];
-            $old_image_height = $old_image_data['height'];
+
+            // Get the image width and height from the file name.
+            // This is necessary for the cases where the width and height
+            // cannot be extracted from the "sizes" array.
+            if ($old_image_data['name']) {
+                if (preg_match('/-(\d+)x(\d+)\.(jpg|jpeg|png|gif|webp)$/i', $old_image_data['name'], $matches)) {
+                    $old_width = (int) $matches[1];
+                    $old_height = (int) $matches[2];
+                }
+            }
+
+            $old_image_width = (int) ($old_image_data['width'] ?? $old_width);
+            $old_image_height = (int) ($old_image_data['height'] ?? $old_height);
 
             // Create metadata for the thumbnails.
             $metadata = [
