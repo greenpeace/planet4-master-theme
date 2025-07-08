@@ -14,10 +14,16 @@ class ListingPage
      *
      */
     public array $context = [];
+    /**
+     * The maximum number of sticky posts to display.
+     *
+     * @const int MAX_STICKY_POSTS used to limit the number of sticky posts also to filter main query.
+     */
+    /** @static int */
+    public static int $MAX_STICKY_POSTS = 4;
 
     /**
      * Templates
-     *
      */
     protected array $templates = [];
 
@@ -147,23 +153,11 @@ class ListingPage
             return;
         }
 
-        $sticky_posts = get_option('sticky_posts');
-        if (empty($sticky_posts) || count($sticky_posts) < 4) {
+        $featured_post_ids = self::get_sticky_posts();
+
+        if (empty($featured_post_ids)) {
             return;
         }
-
-        $sticky_posts = new \WP_Query([
-            'post__in' => $sticky_posts,
-            'posts_per_page' => 4,
-            'post_type' => 'post',
-            'post_status' => 'publish',
-            'fields' => 'ids',
-            'orderby' => 'modified',
-            'order' => 'DESC',
-        ]);
-
-        $featured_post_ids = $sticky_posts->posts;
-        $this->context['featured_post_ids'] = $featured_post_ids;
 
         $featured_query = new \WP_Query([
             'post__not_in' => $featured_post_ids,
@@ -174,12 +168,14 @@ class ListingPage
         ]);
 
         $excluded_post_ids = $featured_query->posts;
+
+        $this->context['featured_post_ids'] = $featured_post_ids;
+        $this->context['max_sticky_posts'] = self::$MAX_STICKY_POSTS;
         $this->context['excluded_post_ids'] = $excluded_post_ids;
 
         // Get the featured posts template
         $template_path = get_template_directory() . "/templates/featured-posts.twig";
         $template = Timber::compile($template_path, $this->context);
-
         $this->context['featured_posts_content'] = do_blocks($template);
     }
 
@@ -191,5 +187,54 @@ class ListingPage
         do_action('enqueue_listing_page_layout_switch_script');
         do_action('enqueue_google_tag_manager_script', $this->context);
         Timber::render($this->templates, $this->context);
+    }
+
+    public static function get_sticky_posts(): array
+    {
+        $sticky_posts = get_option('sticky_posts');
+
+        if (empty($sticky_posts)) {
+            return [];
+        }
+
+        $sticky_posts = new \WP_Query([
+            'post__in' => $sticky_posts,
+            'posts_per_page' => self::$MAX_STICKY_POSTS,
+            'post_type' => 'post',
+            'post_status' => 'publish',
+            'fields' => 'ids',
+            'orderby' => 'date',
+            'order' => 'DESC',
+        ]);
+
+        if (count($sticky_posts->posts) < self::$MAX_STICKY_POSTS) {
+            return [];
+        }
+
+        return array_slice($sticky_posts->posts, 0, self::$MAX_STICKY_POSTS);
+    }
+
+    /**
+     * Move the categories filter to the ListingPage class.
+     */
+    public static function get_selected_categories(): array
+    {
+        $category_slug = isset($_GET['category']) ? $_GET['category'] : '';
+        $category = get_category_by_slug($category_slug);
+        return $category ? [$category->term_id] : [];
+    }
+
+    /**
+     * Move the post types filter to the ListingPage class.
+     */
+    public static function get_selected_post_types(): array
+    {
+        $post_type_slug = isset($_GET['post-type']) ? $_GET['post-type'] : '';
+        $post_type = get_term_by('slug', $post_type_slug, 'p4-page-type');
+        return !$post_type ? [] : [[
+            'taxonomy' => 'p4-page-type',
+            'field' => 'term_id',
+            'terms' => [$post_type->term_id],
+        ]];
     }
 }
