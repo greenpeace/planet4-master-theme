@@ -65,7 +65,7 @@
 
     &:hover,
     &:focus {
-      box-shadow: 0 4px 14px rgba(0, 0, 0, .2);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, .3);
 
       .btn-primary {
         background: var(--button-primary--hover--background);
@@ -101,7 +101,7 @@
   }
 
   .wp-block-post-title {
-    font-size: 20px;
+    font-size: var(--font-size-m--font-family-primary);
     margin-bottom: $sp-1;
 
     a {
@@ -111,12 +111,12 @@
 
   .wp-block-post-excerpt p {
     font-family: var(--font-family-tertiary);
-    font-size: 1rem;
-    line-height: 1.5rem;
+    font-size: var(--font-size-xxs--font-family-primary);
+    line-height: var(--line-height-m--font-family-tertiary);
     @include clamp-text(3);
 
     @include large-and-up {
-      line-height: 1.5;
+      line-height: var(--line-height-m--font-family-tertiary);
     }
   }
 
@@ -131,9 +131,10 @@
 
   .wp-block-post-terms a {
     color: var(--grey-600);
-    font-size: 14px;
-    font-weight: bold;
+    font-size: var(--font-size-s--font-family-tertiary);
+    font-weight: var(--font-weight-bold);
     font-family: var(--font-family-tertiary);
+    line-height: var(--line-height-s--font-family-tertiary);
   }
 
   &.is-custom-layout-grid {
