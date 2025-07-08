@@ -318,7 +318,7 @@ class MediaReplacer
 
             // Replace the main image.
             $status = $this->upload_file(
-                $old_image_filename . '.' . $old_image_extension,
+                $old_image_meta['name'],
                 $temporary_file_path,
                 $image_data['mime'],
                 $metadata
