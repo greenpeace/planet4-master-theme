@@ -496,7 +496,7 @@ class MediaReplacer
                 'absolutePath' => $absolute_path,
                 'mimeType' => $mime,
                 'metadata' => $metadata,
-                'cacheControl' => 'public, max-age=36000, must-revalidate',
+                'cacheControl' => 'no-cache, max-age=0, must-revalidate',
                 'contentDisposition' => null,
                 'force' => true,
             ];
