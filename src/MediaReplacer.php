@@ -228,10 +228,12 @@ class MediaReplacer
                 throw new \LogicException($this->user_messages['error']);
             }
 
-            $filename = get_post_meta($old_file_id)['_wp_attached_file'][0];
+            $file_meta = get_post_meta($old_file_id);
+            $filename = $file_meta['_wp_attached_file'][0];
+            $sm_cloud_data = unserialize($file_meta['sm_cloud'][0]);
 
             $status = $this->upload_file(
-                $filename,
+                $sm_cloud_data['name'],
                 $file['tmp_name'],
                 $file_mime_type,
                 [
