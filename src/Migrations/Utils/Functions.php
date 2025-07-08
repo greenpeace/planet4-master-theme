@@ -5,6 +5,7 @@ namespace P4\MasterTheme\Migrations\Utils;
 use WP_Block_Parser;
 use P4\MasterTheme\BlockReportSearch\BlockSearch;
 use P4\MasterTheme\BlockReportSearch\Block\Query\Parameters;
+use P4\MasterTheme\MigrationRecord;
 
 /**
  * Utility functions for the migration scripts.
@@ -17,12 +18,14 @@ class Functions
      * @param string $block_name - The name of the block to be migrated.
      * @param callable $block_check_callback - Callback function to check if block is valid for migration.
      * @param callable $record block_transformation_callback - Callback function to transform a block.
+     * @param MigrationRecord $record - The record to log the migration results.
      * phpcs:disable SlevomatCodingStandard.Functions.UnusedParameter -- interface implementation
      */
     public static function execute_block_migration(
         string $block_name,
         callable $block_check_callback,
-        callable $block_transformation_callback
+        callable $block_transformation_callback,
+        ?MigrationRecord $record = null
     ): void {
         try {
             // Get the list of posts using the specified block.
@@ -94,12 +97,26 @@ class Functions
                 } catch (\Throwable $e) {
                     echo "Migration failed for post ID: ", $post->ID, "\n";
                     echo $e->getMessage(), "\n";
+
+                    if ($record) {
+                        $record->add_log(
+                            "Migration failed for post ID: " . $post->ID .
+                            " Error: " . $e->getMessage() . " - "
+                        );
+                    }
                     continue;
                 }
             }
         } catch (\Throwable $e) {
             echo "Migration wasn't executed for block: ", $block_name ?? 'unknown', "\n";
             echo $e->getMessage(), "\n";
+
+            if ($record) {
+                $record->add_log(
+                    "Migration wasn't executed for block: " . $block_name ?? 'unknown' .
+                    " Error: " . $e->getMessage()
+                );
+            }
         }
     }
     // phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter

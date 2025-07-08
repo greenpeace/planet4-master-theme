@@ -32,6 +32,7 @@ class M049MigrateCoversBlockToActionsListBlock extends MigrationScript
             Utils\Constants::BLOCK_COVERS,
             $check_is_valid_block,
             $transform_block,
+            $record
         );
     }
     // phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter

@@ -32,6 +32,7 @@ class M046MigrateArticlesBlockToPostsListBlock extends MigrationScript
             Utils\Constants::BLOCK_ARTICLES,
             $check_is_valid_block,
             $transform_block,
+            $record
         );
     }
     // phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter
