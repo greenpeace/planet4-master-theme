@@ -96,7 +96,9 @@ export const setupQueryLoopBlockExtension = () => {
           if (postType?.length) {
             customSeeAllLink += `post-type=${TAXONOMIES.postTypes.find(pt => pt.id === postType[0]).slug}`;
           }
-          return customSeeAllLink;
+
+          // Remove the '&' character at the end if needed.
+          return customSeeAllLink.slice(-1) === '&' ? customSeeAllLink.slice(0, -1) : customSeeAllLink;
         };
 
         const [postTemplate, setPostTemplate] = useState();
