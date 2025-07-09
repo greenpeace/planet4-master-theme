@@ -9,6 +9,14 @@ const {addFilter} = wp.hooks;
 const {useSelect} = wp.data;
 const {__} = wp.i18n;
 
+/**
+ * Compares 2 taxonomy filter values to see if they are different.
+ *
+ * @param {Array} tax1 - The first taxonomy filters.
+ * @param {Array} tax2 - The second taxonomy filters.
+ *
+ * @return {boolean} - Whether or not the taxonomies are different.
+ */
 const areTaxonomiesDifferent = (tax1, tax2) => {
   if (!tax1 && !tax2) {
     return false;
@@ -17,25 +25,28 @@ const areTaxonomiesDifferent = (tax1, tax2) => {
     return true;
   }
 
-  let areTagsDifferent = false;
+  let different = false;
   if (tax1.post_tag && tax2.post_tag) {
-    areTagsDifferent = tax1.post_tag.length !== tax2.post_tag.length;
-  }
-  let arePostTypesDifferent = false;
-  if (tax1['p4-page-type'] && tax2['p4-page-type']) {
-    arePostTypesDifferent = tax1['p4-page-type'].length !== tax2['p4-page-type'].length;
-  }
-  let areCategoriesDifferent = false;
-  if (tax1.category && tax2.category) {
-    areCategoriesDifferent = tax1.category.length !== tax2.category.length;
+    different = tax1.post_tag.length !== tax2.post_tag.length;
   }
 
-  return areTagsDifferent || arePostTypesDifferent || areCategoriesDifferent;
+  if (tax1['p4-page-type'] && tax2['p4-page-type'] && !different) {
+    different = tax1['p4-page-type'].length !== tax2['p4-page-type'].length;
+  }
+
+  if (tax1.category && tax2.category && !different) {
+    different = tax1.category.length !== tax2.category.length;
+  }
+
+  return different;
 };
 
 const targetP4Blocks = [ACTIONS_LIST_BLOCK_NAME, POSTS_LIST_BLOCK_NAME];
 const newsPageLink = window.p4_vars.news_page_link;
 
+/**
+ * Sets up our custom implementation of the Query Loop block in the editor.
+ */
 export const setupQueryLoopBlockExtension = () => {
   const {createHigherOrderComponent} = wp.compose;
 
@@ -52,6 +63,9 @@ export const setupQueryLoopBlockExtension = () => {
           return <BlockEdit {...props} />;
         }
 
+        /**
+         * All the taxonomy filters that are available for the Query Loop block.
+         */
         const TAXONOMIES = useSelect(select => {
           return {
             postTypes: select('core').getEntityRecords('taxonomy', 'p4-page-type') || [],
@@ -60,6 +74,13 @@ export const setupQueryLoopBlockExtension = () => {
           };
         });
 
+        /**
+         * Build a custom "see all" link url based on selected taxonomy filters.
+         *
+         * @param {Array} taxonomies - The taxonomy filters.
+         *
+         * @return {string} - The new "see all" link url.
+         */
         const buildCustomNewsPageLinkFromTaxonomies = taxonomies => {
           if (!taxonomies) {
             return newsPageLink;
