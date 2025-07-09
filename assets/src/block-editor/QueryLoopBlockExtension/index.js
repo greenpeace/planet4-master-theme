@@ -34,6 +34,34 @@ const targetP4Blocks = [ACTIONS_LIST_BLOCK_NAME, POSTS_LIST_BLOCK_NAME];
 const newsPageLink = window.p4_vars.news_page_link;
 
 /**
+ * Build a custom "see all" link url based on selected taxonomy filters.
+ *
+ * @param {Array} allTaxonomies - All the available taxonomies.
+ * @param {Array} selected      - The selected taxonomy filters.
+ *
+ * @return {string} - The new "see all" link url.
+ */
+const buildCustomNewsPageLinkFromTaxonomies = (allTaxonomies, selected) => {
+  if (!selected) {
+    return newsPageLink;
+  }
+  let customSeeAllLink = newsPageLink + '?';
+  const {category, post_tag, 'p4-page-type': postType} = selected;
+  if (category?.length) {
+    customSeeAllLink += `category=${allTaxonomies.categories.find(cat => cat.id === category[0]).slug}&`;
+  }
+  if (post_tag?.length) {
+    customSeeAllLink += `tag=${allTaxonomies.tags.find(tag => tag.id === post_tag[0]).slug}&`;
+  }
+  if (postType?.length) {
+    customSeeAllLink += `post-type=${allTaxonomies.postTypes.find(pt => pt.id === postType[0]).slug}`;
+  }
+
+  // Remove the '&' character at the end if needed.
+  return customSeeAllLink.endsWith('&') ? customSeeAllLink.slice(0, -1) : customSeeAllLink;
+};
+
+/**
  * Sets up our custom implementation of the Query Loop block in the editor.
  */
 export const setupQueryLoopBlockExtension = () => {
@@ -62,33 +90,6 @@ export const setupQueryLoopBlockExtension = () => {
             categories: select('core').getEntityRecords('taxonomy', 'category') || [],
           };
         });
-
-        /**
-         * Build a custom "see all" link url based on selected taxonomy filters.
-         *
-         * @param {Array} taxonomies - The taxonomy filters.
-         *
-         * @return {string} - The new "see all" link url.
-         */
-        const buildCustomNewsPageLinkFromTaxonomies = taxonomies => {
-          if (!taxonomies) {
-            return newsPageLink;
-          }
-          let customSeeAllLink = newsPageLink + '?';
-          const {category, post_tag, 'p4-page-type': postType} = taxonomies;
-          if (category?.length) {
-            customSeeAllLink += `category=${TAXONOMIES.categories.find(cat => cat.id === category[0]).slug}&`;
-          }
-          if (post_tag?.length) {
-            customSeeAllLink += `tag=${TAXONOMIES.tags.find(tag => tag.id === post_tag[0]).slug}&`;
-          }
-          if (postType?.length) {
-            customSeeAllLink += `post-type=${TAXONOMIES.postTypes.find(pt => pt.id === postType[0]).slug}`;
-          }
-
-          // Remove the '&' character at the end if needed.
-          return customSeeAllLink.endsWith('&') ? customSeeAllLink.slice(0, -1) : customSeeAllLink;
-        };
 
         const [postTemplate, setPostTemplate] = useState();
         const [selectedBlock, setSelectedBlock] = useState();
@@ -176,7 +177,7 @@ export const setupQueryLoopBlockExtension = () => {
             if (!areTaxonomiesDifferent(oldTaxonomies, newTaxonomies)) {
               return;
             }
-            seeAllLink.attributes.url = buildCustomNewsPageLinkFromTaxonomies(newTaxonomies);
+            seeAllLink.attributes.url = buildCustomNewsPageLinkFromTaxonomies(TAXONOMIES, newTaxonomies);
           }
         }, [attributes]);
 
