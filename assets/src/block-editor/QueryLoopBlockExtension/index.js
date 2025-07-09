@@ -25,20 +25,9 @@ const areTaxonomiesDifferent = (tax1, tax2) => {
     return true;
   }
 
-  let different = false;
-  if (tax1.post_tag && tax2.post_tag) {
-    different = tax1.post_tag.length !== tax2.post_tag.length;
-  }
-
-  if (tax1['p4-page-type'] && tax2['p4-page-type'] && !different) {
-    different = tax1['p4-page-type'].length !== tax2['p4-page-type'].length;
-  }
-
-  if (tax1.category && tax2.category && !different) {
-    different = tax1.category.length !== tax2.category.length;
-  }
-
-  return different;
+  return tax1?.post_tag?.length !== tax2?.post_tag?.length ||
+    tax1['p4-page-type']?.length !== tax2['p4-page-type']?.length ||
+    tax1?.category?.length !== tax2?.category?.length;
 };
 
 const targetP4Blocks = [ACTIONS_LIST_BLOCK_NAME, POSTS_LIST_BLOCK_NAME];
@@ -98,7 +87,7 @@ export const setupQueryLoopBlockExtension = () => {
           }
 
           // Remove the '&' character at the end if needed.
-          return customSeeAllLink.slice(-1) === '&' ? customSeeAllLink.slice(0, -1) : customSeeAllLink;
+          return customSeeAllLink.endsWith('&') ? customSeeAllLink.slice(0, -1) : customSeeAllLink;
         };
 
         const [postTemplate, setPostTemplate] = useState();
