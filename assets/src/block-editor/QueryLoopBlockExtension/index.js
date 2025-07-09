@@ -57,8 +57,8 @@ const buildCustomNewsPageLinkFromTaxonomies = (allTaxonomies, selected) => {
     customSeeAllLink += `post-type=${allTaxonomies.postTypes.find(pt => pt.id === postType[0]).slug}`;
   }
 
-  // Remove the '&' character at the end if needed.
-  return customSeeAllLink.endsWith('&') ? customSeeAllLink.slice(0, -1) : customSeeAllLink;
+  // Remove the '&' or '?' character at the end if needed.
+  return customSeeAllLink.endsWith('&') || customSeeAllLink.endsWith('?') ? customSeeAllLink.slice(0, -1) : customSeeAllLink;
 };
 
 /**
@@ -84,12 +84,14 @@ export const setupQueryLoopBlockExtension = () => {
          * All the taxonomy filters that are available for the Query Loop block.
          */
         const TAXONOMIES = useSelect(select => {
-          return {
-            postTypes: select('core').getEntityRecords('taxonomy', 'p4-page-type') || [],
-            tags: select('core').getEntityRecords('taxonomy', 'post_tag') || [],
-            categories: select('core').getEntityRecords('taxonomy', 'category') || [],
-          };
-        });
+          const core = select('core');
+          const postTypes = core.getEntityRecords('taxonomy', 'p4-page-type') || [];
+          const tags = core.getEntityRecords('taxonomy', 'post_tag') || [];
+          const categories = core.getEntityRecords('taxonomy', 'category') || [];
+
+          return {postTypes, tags, categories};
+        },
+        []);
 
         const [postTemplate, setPostTemplate] = useState();
         const [selectedBlock, setSelectedBlock] = useState();
@@ -167,7 +169,7 @@ export const setupQueryLoopBlockExtension = () => {
 
         // Update the News & Stories link based on the taxonomy filters selected in Posts List.
         useEffect(() => {
-          if (newsPageLink && selectedBlock && namespace === 'planet4-blocks/posts-list') {
+          if (newsPageLink && selectedBlock && namespace === POSTS_LIST_BLOCK_NAME) {
             const seeAllLink = selectedBlock.innerBlocks.find(block => block.name === 'core/navigation-link');
             if (!seeAllLink) {
               return;
