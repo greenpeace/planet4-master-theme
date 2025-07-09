@@ -116,7 +116,8 @@ class M053CustomisePostsListSeeAllLink extends MigrationScript
             ) {
                 continue;
             }
-            $innerBlock['attrs']['url'] = $new_see_all_url;
+            // We remove the ending "&" character if needed.
+            $innerBlock['attrs']['url'] = rtrim($new_see_all_url, '&');
         }
 
         return $block;
