@@ -10,6 +10,8 @@ use P4\MasterTheme\MigrationScript;
  */
 class M053CustomisePostsListSeeAllLink extends MigrationScript
 {
+    private static ?int $news_page_id = null;
+
     /**
      * Perform the actual migration.
      *
@@ -42,8 +44,7 @@ class M053CustomisePostsListSeeAllLink extends MigrationScript
     private static function check_is_valid_block(array $block): bool
     {
         // Check if the News & Stories page is defined in the settings.
-        $news_page_id = (int) get_option('page_for_posts');
-        if (!$news_page_id) {
+        if (!self::news_page_id()) {
             return false;
         }
 
@@ -82,8 +83,7 @@ class M053CustomisePostsListSeeAllLink extends MigrationScript
     private static function transform_block(array $block): array
     {
         // Get the News & Stories page url.
-        $news_page_id = (int) get_option('page_for_posts');
-        $news_page_url = get_permalink($news_page_id);
+        $news_page_url = get_permalink(self::news_page_id());
 
         // Create the new "see all" URL based on taxonomy filters.
         $new_see_all_url = $news_page_url . '?';
@@ -99,7 +99,7 @@ class M053CustomisePostsListSeeAllLink extends MigrationScript
         }
         // Add category filter
         if ($category_id) {
-            $category = get_category_by_id($category_id);
+            $category = get_term_by('id', $category_id, 'category');
             $new_see_all_url .= 'category=' . $category->slug . '&';
         }
         // Add post type filter
@@ -116,10 +116,21 @@ class M053CustomisePostsListSeeAllLink extends MigrationScript
             ) {
                 continue;
             }
-            // We remove the ending "&" character if needed.
-            $innerBlock['attrs']['url'] = rtrim($new_see_all_url, '&');
+            // We remove the ending "&" or "?" character if needed.
+            $innerBlock['attrs']['url'] = rtrim($new_see_all_url, '&?');
         }
 
         return $block;
+    }
+
+    /**
+     * Returns the News & Stories page id from the settings.
+     */
+    private static function news_page_id(): int
+    {
+        if (self::$news_page_id === null) {
+            self::$news_page_id = (int) get_option('page_for_posts');
+        }
+        return self::$news_page_id;
     }
 }
