@@ -378,7 +378,6 @@ class MediaReplacer
     ): void {
         // Handle image thumbnails.
         foreach ($old_image_meta['sizes'] as $size => $old_image_data) {
-
             // Get the image width and height from the file name.
             // This is necessary for the cases where the width and height
             // cannot be extracted from the "sizes" array.
