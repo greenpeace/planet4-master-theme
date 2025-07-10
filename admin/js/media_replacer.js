@@ -49,7 +49,8 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
           }
 
-          window.location.href = window.location.href + '&nocache=' + new Date().getTime();
+          // Reload the page once the replacement is completed.
+          location.replace(location.href);
         })
         .catch(error => {
           if (replaceMediaButton) {
