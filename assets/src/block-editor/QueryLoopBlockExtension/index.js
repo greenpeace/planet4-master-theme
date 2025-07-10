@@ -6,10 +6,83 @@ const {InspectorControls} = wp.blockEditor;
 const {RadioControl, PanelBody} = wp.components;
 const {useCallback, useEffect, useMemo, useState} = wp.element;
 const {addFilter} = wp.hooks;
+const {useSelect} = wp.data;
 const {__} = wp.i18n;
 
-const targetP4Blocks = [ACTIONS_LIST_BLOCK_NAME, POSTS_LIST_BLOCK_NAME];
+/**
+ * Compares 2 taxonomy filter values to see if they are different.
+ *
+ * @param {Array} tax1 - The first taxonomy filters.
+ * @param {Array} tax2 - The second taxonomy filters.
+ *
+ * @return {boolean} - Whether or not the taxonomies are different.
+ */
+const areTaxonomiesDifferent = (tax1, tax2) => {
+  if (!tax1 && !tax2) {
+    return false;
+  }
+  if (!tax1 || !tax2) {
+    return true;
+  }
 
+  return tax1?.post_tag?.length !== tax2?.post_tag?.length ||
+    tax1['p4-page-type']?.length !== tax2['p4-page-type']?.length ||
+    tax1?.category?.length !== tax2?.category?.length;
+};
+
+const targetP4Blocks = [ACTIONS_LIST_BLOCK_NAME, POSTS_LIST_BLOCK_NAME];
+const newsPageLink = window.p4_vars.news_page_link;
+
+/**
+ * Build a custom "see all" link url based on selected taxonomy filters.
+ *
+ * @param {Array} allTaxonomies - All the available taxonomies.
+ * @param {Array} selected      - The selected taxonomy filters.
+ *
+ * @return {string} - The new "see all" link url.
+ */
+const buildCustomNewsPageLinkFromTaxonomies = (allTaxonomies, selected) => {
+  if (!selected) {
+    return newsPageLink;
+  }
+  let customSeeAllLink = newsPageLink + '?';
+  const {category, post_tag, 'p4-page-type': postType} = selected;
+  if (category?.length) {
+    customSeeAllLink += `category=${allTaxonomies.categories.find(cat => cat.id === category[0]).slug}&`;
+  }
+  if (post_tag?.length) {
+    customSeeAllLink += `tag=${allTaxonomies.tags.find(tag => tag.id === post_tag[0]).slug}&`;
+  }
+  if (postType?.length) {
+    customSeeAllLink += `post-type=${allTaxonomies.postTypes.find(pt => pt.id === postType[0]).slug}`;
+  }
+
+  // Remove the '&' or '?' character at the end if needed.
+  return customSeeAllLink.endsWith('&') || customSeeAllLink.endsWith('?') ? customSeeAllLink.slice(0, -1) : customSeeAllLink;
+};
+
+/**
+ * Add "News & Stories" links one by one, recursively looking through inner blocks.
+ *
+ * @param {Array} innerBlocks - The inner blocks.
+ * @param {Array} links       - The links that have already been found.
+ */
+const addNewsStoriesLink = (innerBlocks, links) => innerBlocks.forEach(innerBlock => {
+  if (
+    innerBlock.name === 'core/navigation-link' &&
+    innerBlock.attributes?.className === 'see-all-link'
+  ) {
+    links.push(innerBlock);
+  }
+
+  if (innerBlock.innerBlocks?.length > 0) {
+    addNewsStoriesLink(innerBlock.innerBlocks, links);
+  }
+});
+
+/**
+ * Sets up our custom implementation of the Query Loop block in the editor.
+ */
 export const setupQueryLoopBlockExtension = () => {
   const {createHigherOrderComponent} = wp.compose;
 
@@ -26,10 +99,23 @@ export const setupQueryLoopBlockExtension = () => {
           return <BlockEdit {...props} />;
         }
 
+        /**
+         * All the taxonomy filters that are available for the Query Loop block.
+         */
+        const TAXONOMIES = useSelect(select => {
+          const core = select('core');
+          const postTypes = core.getEntityRecords('taxonomy', 'p4-page-type', {per_page: -1}) || [];
+          const tags = core.getEntityRecords('taxonomy', 'post_tag', {per_page: -1}) || [];
+          const categories = core.getEntityRecords('taxonomy', 'category', {per_page: -1}) || [];
+
+          return {postTypes, tags, categories};
+        },
+        []);
+
         const [postTemplate, setPostTemplate] = useState();
         const [selectedBlock, setSelectedBlock] = useState();
 
-        const {className, query} = attributes;
+        const {className, query, namespace} = attributes;
         const layoutTypes = isActionsList ? ACTIONS_LIST_LAYOUT_TYPES : POSTS_LISTS_LAYOUT_TYPES;
         const currentPostId = wp.data.select('core/editor').getCurrentPostId();
 
@@ -99,6 +185,25 @@ export const setupQueryLoopBlockExtension = () => {
             },
           });
         }, []);
+
+        // Update the News & Stories link based on the taxonomy filters selected in Posts List.
+        useEffect(() => {
+          if (!newsPageLink || !selectedBlock || namespace !== POSTS_LIST_BLOCK_NAME || !selectedBlock.innerBlocks) {
+            return;
+          }
+          const newsStoriesLinks = [];
+          addNewsStoriesLink(selectedBlock.innerBlocks, newsStoriesLinks);
+
+          if (!newsStoriesLinks.length) {
+            return;
+          }
+          const oldTaxonomies = selectedBlock.attributes.query.taxQuery || null;
+          const newTaxonomies = query.taxQuery || null;
+          if (!areTaxonomiesDifferent(oldTaxonomies, newTaxonomies)) {
+            return;
+          }
+          newsStoriesLinks.forEach(link => link.attributes.url = buildCustomNewsPageLinkFromTaxonomies(TAXONOMIES, newTaxonomies));
+        }, [attributes]);
 
         useEffect(() => {
           // Reset every time a new block is selected
