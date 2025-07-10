@@ -13,6 +13,8 @@ class MediaReplacer
 {
     private array $replacement_status;
     private array $user_messages;
+    private string $bucket_name;
+    private mixed $stateless;
 
     private const IMAGE_MIME_TYPES = [
         IMAGETYPE_JPEG => [
@@ -49,10 +51,20 @@ class MediaReplacer
             return;
         }
 
-        // If the stateless mode is disabled, abort.
-        if (function_exists('ud_get_stateless_media') && ud_get_stateless_media('sm.mode') === 'disabled') {
+        // If the stateless_media function does not exist, abort.
+        if (!function_exists('ud_get_stateless_media')) {
             return;
         }
+
+        /** @disregard P1010 Undefined function 'P4\MasterTheme\ud_get_stateless_media' */
+        $this->stateless = ud_get_stateless_media();
+
+        // If the stateless mode is disabled, abort.
+        if ($this->stateless->get('sm.mode') === 'disabled') {
+            return;
+        }
+
+        $this->bucket_name = $this->stateless->get('sm.bucket');
 
         $this->replacement_status = [
             'success' => [],
@@ -224,20 +236,18 @@ class MediaReplacer
         string $file_mime_type
     ): void {
         try {
-            if (!function_exists('ud_get_stateless_media')) {
-                throw new \LogicException($this->user_messages['error']);
-            }
-
-            $filename = get_post_meta($old_file_id)['_wp_attached_file'][0];
+            $file_meta = get_post_meta($old_file_id);
+            $filename = $file_meta['_wp_attached_file'][0];
+            $sm_cloud_data = unserialize($file_meta['sm_cloud'][0]);
 
             $status = $this->upload_file(
-                $filename,
+                $sm_cloud_data['name'],
                 $file['tmp_name'],
                 $file_mime_type,
                 [
                     'size' => '__full',
                     'object-id' => $old_file_id,
-                    'source-id' => md5($filename . ud_get_stateless_media()->get('sm.bucket')), //NOSONAR
+                    'source-id' => md5($filename . $this->bucket_name), //NOSONAR
                     'file-hash' => md5($filename), //NOSONAR
                 ]
             );
@@ -298,17 +308,13 @@ class MediaReplacer
             $old_image_filename = pathinfo($old_image_meta['name'], PATHINFO_FILENAME);
             $image_name = $old_image_dirname . '/' . $old_image_filename;
 
-            if (!function_exists('ud_get_stateless_media')) {
-                throw new \LogicException($this->user_messages['image']);
-            }
-
             // Create metadata for uploading the main image.
             $metadata = [
                 'width' => $new_image_width,
                 'height' => $new_image_height,
                 'size' => '__full',
                 'object-id' => $id,
-                'source-id' => md5($old_image_filename . ud_get_stateless_media()->get('sm.bucket')), //NOSONAR
+                'source-id' => md5($old_image_filename . $this->bucket_name), //NOSONAR
                 'file-hash' => md5($old_image_filename), //NOSONAR
             ];
 
@@ -318,7 +324,7 @@ class MediaReplacer
 
             // Replace the main image.
             $status = $this->upload_file(
-                $old_image_filename . '.' . $old_image_extension,
+                $old_image_meta['name'],
                 $temporary_file_path,
                 $image_data['mime'],
                 $metadata
@@ -372,8 +378,20 @@ class MediaReplacer
     ): void {
         // Handle image thumbnails.
         foreach ($old_image_meta['sizes'] as $size => $old_image_data) {
-            $old_image_width = $old_image_data['width'];
-            $old_image_height = $old_image_data['height'];
+            $old_image_width = (int) ($old_image_data['width']);
+            $old_image_height = (int) ($old_image_data['height']);
+
+            // Get the image width and height from the file name.
+            // This is necessary for the cases where the width and height
+            // cannot be extracted from the "sizes" array.
+            if (
+                (!$old_image_width || !$old_image_height) &&
+                $old_image_data['name'] &&
+                preg_match('/-(\d+)x(\d+)\.(jpg|jpeg|png|gif|webp)$/i', $old_image_data['name'], $matches)
+            ) {
+                $old_image_width = (int) $matches[1];
+                $old_image_height = (int) $matches[2];
+            }
 
             // Create metadata for the thumbnails.
             $metadata = [
@@ -418,7 +436,7 @@ class MediaReplacer
      * @param int $new_image_height The height of the new image.
      * @param int $old_image_width The width of the thumbnail.
      * @param int $old_image_height The height of the thumbnail.
-     * @return object The generated thumbnail image.
+     * @return mixed The generated thumbnail image, or null in case of error.
      */
     private function create_image_thumbnail(
         object $image,
@@ -426,7 +444,7 @@ class MediaReplacer
         int $new_image_height,
         int $old_image_width,
         int $old_image_height
-    ): object {
+    ): mixed {
         try {
             // Determine cropping dimensions
             $src_aspect = $new_image_width / $new_image_height;
@@ -460,6 +478,7 @@ class MediaReplacer
             return $thumb;
         } catch (\LogicException $e) {
             $this->error_handler($e->getMessage());
+            return null;
         }
     }
 
@@ -485,17 +504,13 @@ class MediaReplacer
                 'absolutePath' => $absolute_path,
                 'mimeType' => $mime,
                 'metadata' => $metadata,
-                'cacheControl' => 'public, max-age=36000, must-revalidate',
+                'cacheControl' => 'no-cache, max-age=0, must-revalidate',
                 'contentDisposition' => null,
                 'force' => true,
             ];
 
-            if (!function_exists('ud_get_stateless_media')) {
-                throw new \LogicException($this->user_messages['error']);
-            }
-
             // Upload the file to Google Cloud Storage.
-            $status = ud_get_stateless_media()->get_client()->add_media($image_args);
+            $status = $this->stateless->get_client()->add_media($image_args);
 
             if ($status) {
                 $this->success_handler($this->user_messages['success'], $name);
