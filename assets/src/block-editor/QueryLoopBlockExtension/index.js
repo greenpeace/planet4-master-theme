@@ -122,9 +122,9 @@ export const setupQueryLoopBlockExtension = () => {
          */
         const TAXONOMIES = useSelect(select => {
           const core = select('core');
-          const postTypes = core.getEntityRecords('taxonomy', 'p4-page-type') || [];
-          const tags = core.getEntityRecords('taxonomy', 'post_tag') || [];
-          const categories = core.getEntityRecords('taxonomy', 'category') || [];
+          const postTypes = core.getEntityRecords('taxonomy', 'p4-page-type', {per_page: -1}) || [];
+          const tags = core.getEntityRecords('taxonomy', 'post_tag', {per_page: -1}) || [];
+          const categories = core.getEntityRecords('taxonomy', 'category', {per_page: -1}) || [];
 
           return {postTypes, tags, categories};
         },
