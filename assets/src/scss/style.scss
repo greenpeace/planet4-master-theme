@@ -169,3 +169,11 @@ body.transparent-nav {
     height: 26px;
   }
 }
+
+// Override Carousel div focus
+.wp-block-button.carousel-control-next,
+.wp-block-button.carousel-control-prev {
+  &:focus-within {
+    @include focus-styles();
+  }
+}

@@ -22,6 +22,27 @@ const seeAllLink = ['core/navigation-link', {...!newsPageLink ? {className: 'd-n
   className: 'see-all-link',
 }}];
 
+export const carouselButtons = ['core/buttons', {
+  className: 'carousel-controls',
+  lock: {move: true},
+  layout: {type: 'flex', justifyContent: 'space-between', orientation: 'horizontal', flexWrap: 'nowrap'},
+}, [
+  ['core/button',
+    {
+      className: 'carousel-control-prev',
+      text: __('Previous Carousel Slide', 'planet4-blocks-backend'),
+      tagName: 'button',
+    },
+  ],
+  ['core/button',
+    {
+      className: 'carousel-control-next',
+      text: __('Next Carousel Slide', 'planet4-blocks-backend'),
+      tagName: 'button',
+    },
+  ],
+]];
+
 export const POSTS_LIST_BLOCK_ATTRIBUTES = {
   namespace: POSTS_LIST_BLOCK_NAME,
   className: 'posts-list p4-query-loop is-custom-layout-list',
@@ -88,14 +109,7 @@ export const getPostListBlockTemplate = (title = __('Related Posts', 'planet4-bl
       ]],
     ]],
   ]],
-  ['core/buttons', {
-    className: 'carousel-controls',
-    lock: {move: true},
-    layout: {type: 'flex', justifyContent: 'space-between', orientation: 'horizontal', flexWrap: 'nowrap'},
-  }, [
-    ['core/button', {className: 'carousel-control-prev', text: __('Prev', 'planet4-blocks-backend')}],
-    ['core/button', {className: 'carousel-control-next', text: __('Next', 'planet4-blocks-backend')}],
-  ]],
+  carouselButtons,
   seeAllLink,
 ]);
 

@@ -1,6 +1,7 @@
 import {v4 as uuid} from 'uuid';
 
 // Constants
+const {__} = wp.i18n;
 const ARROW_DIRECTIONS = ['prev', 'next'];
 const LAYOUTS = {
   carousel: 'carousel',
@@ -62,6 +63,14 @@ export const setupQueryLoopCarousel = () => {
       carousel.append(list);
       const posts = list.querySelectorAll('.wp-block-post');
 
+      const backToList = document.createElement('a');
+      backToList.href = `#${uniqueId}`;
+      backToList.textContent = __('Back to List', 'planet4-blocks-backend');
+      backToList.classList.add('carousel-skip-link');
+      backToList.setAttribute('role', 'link');
+
+      layout.append(backToList);
+
       // Only add indicators if there are more items to show
       if (posts.length > itemsPerSlide) {
         indicators = document.createElement('ol');
@@ -77,7 +86,7 @@ export const setupQueryLoopCarousel = () => {
           controlBtn.dataset.bsTarget = `#${uniqueId}`;
           controlBtn.dataset.bsSlide = direction;
 
-          const link = controlBtn.querySelector('a');
+          const link = controlBtn.querySelector('button');
           if (link) {
             link.classList.add('visually-hidden');
           }
@@ -94,12 +103,23 @@ export const setupQueryLoopCarousel = () => {
       let carouselItem,
         itemWrapper,
         indicator,
+        slideReset,
         totalCarouselItems = 0;
 
       posts.forEach((post, index) => {
         if (index % itemsPerSlide === 0) {
+          // Reset link that is only accessible via JS
+          slideReset = document.createElement('a');
+          slideReset.classList.add('carousel-ghost-link');
+          slideReset.setAttribute('aria-hidden', 'true');
+          slideReset.setAttribute('tabindex', '-1');
+          slideReset.style.position = 'absolute';
+          slideReset.style.opacity = '0';
+          slideReset.style.pointerEvents = 'none';
+          list.appendChild(slideReset);
+
           carouselItem = document.createElement('li');
-          carouselItem.classList.add('carousel-item', 'carousel-li');
+          carouselItem.classList.add('carousel-item', 'carousel-li', `carousel-slide-${totalCarouselItems}`);
           list.append(carouselItem);
 
           itemWrapper = document.createElement('div');
@@ -126,6 +146,27 @@ export const setupQueryLoopCarousel = () => {
         }
 
         itemWrapper.append(post);
+
+        const carouselButtons = layout.querySelectorAll(`${BUTTONS_CLASS} ${CONTROLS_CLASS}-next, ${BUTTONS_CLASS} ${CONTROLS_CLASS}-prev`);
+
+        // This resets the focus to the ghost element so users can tab over the new slide.
+        carouselButtons.forEach(button => {
+          button.addEventListener('click', () => {
+            setTimeout(() => {
+              const resetFocusLink = layout.querySelector('.carousel-ghost-link');
+              const currentSlide = layout.querySelector('.carousel-item.active');
+              if (resetFocusLink) {
+                const match = currentSlide.className.match(/carousel-slide-(\d+)/);
+                const slideIndex = match ? parseInt(match[1], 10) : null;
+
+                // This adds a voice over so the screen reader reads out which Slide you are on.
+                resetFocusLink.removeAttribute('aria-hidden');
+                resetFocusLink.setAttribute('aria-label', `Slide ${slideIndex}`);
+                resetFocusLink.focus();
+              }
+            }, 600);
+          });
+        });
       });
     } else {
       // This is for the grid or list layouts, we need to remove the arrows.
