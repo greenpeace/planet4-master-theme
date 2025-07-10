@@ -62,41 +62,23 @@ const buildCustomNewsPageLinkFromTaxonomies = (allTaxonomies, selected) => {
 };
 
 /**
- * Find all the "News & Stories" links within the Posts List inner blocks.
- *
- * @param {Array} innerBlocks - The list of inner blocks.
- *
- * @return {Array} - All the "News & Stories" links.
- */
-const findNewsStoriesLinks = innerBlocks => {
-  const links = [];
-  addNewsStoriesLink(0, innerBlocks, links);
-  return links;
-};
-
-/**
  * Add "News & Stories" links one by one, recursively looking through inner blocks.
  *
- * @param {number} index       - The index of the block currently being checked.
- * @param {Array}  innerBlocks - The inner blocks.
- * @param {Array}  links       - The links that have already been found.
+ * @param {Array} innerBlocks - The inner blocks.
+ * @param {Array} links       - The links that have already been found.
  */
-const addNewsStoriesLink = (index, innerBlocks, links) => {
-  if (index >= innerBlocks.length) {
-    return;
+const addNewsStoriesLink = (innerBlocks, links) => innerBlocks.forEach(innerBlock => {
+  if (
+    innerBlock.name === 'core/navigation-link' &&
+    innerBlock.attributes?.className === 'see-all-link'
+  ) {
+    links.push(innerBlock);
   }
 
-  innerBlocks.forEach(innerBlock => {
-    if (innerBlock.name === 'core/navigation-link' && innerBlock.attributes.className === 'see-all-link') {
-      links.push(innerBlock);
-    }
-    if (innerBlock.innerBlocks?.length > 0) {
-      addNewsStoriesLink(0, innerBlock.innerBlocks, links);
-    } else {
-      addNewsStoriesLink(index + 1, innerBlocks, links);
-    }
-  });
-};
+  if (innerBlock.innerBlocks?.length > 0) {
+    addNewsStoriesLink(innerBlock.innerBlocks, links);
+  }
+});
 
 /**
  * Sets up our custom implementation of the Query Loop block in the editor.
@@ -206,10 +188,12 @@ export const setupQueryLoopBlockExtension = () => {
 
         // Update the News & Stories link based on the taxonomy filters selected in Posts List.
         useEffect(() => {
-          if (!newsPageLink || !selectedBlock || namespace !== POSTS_LIST_BLOCK_NAME) {
+          if (!newsPageLink || !selectedBlock || namespace !== POSTS_LIST_BLOCK_NAME || !selectedBlock.innerBlocks) {
             return;
           }
-          const newsStoriesLinks = findNewsStoriesLinks(selectedBlock.innerBlocks);
+          const newsStoriesLinks = [];
+          addNewsStoriesLink(selectedBlock.innerBlocks, newsStoriesLinks);
+
           if (!newsStoriesLinks.length) {
             return;
           }
