@@ -108,17 +108,9 @@ class M053CustomisePostsListSeeAllLink extends MigrationScript
             $new_see_all_url .= 'post-type=' . $post_type->slug;
         }
 
-        // Update the "see all" link in inner blocks.
-        foreach ($block['innerBlocks'] as &$innerBlock) {
-            if (
-                $innerBlock['blockName'] !== Utils\Constants::BLOCK_NAV_LINK ||
-                $innerBlock['attrs']['className'] !== 'see-all-link'
-            ) {
-                continue;
-            }
-            // We remove the ending "&" or "?" character if needed.
-            $innerBlock['attrs']['url'] = rtrim($new_see_all_url, '&?');
-        }
+        // Update the "see all" link in all navigation links.
+        // We remove the ending "&" or "?" character if needed.
+        self::update_see_all_links($block['innerBlocks'], rtrim($new_see_all_url, '&?'));
 
         return $block;
     }
@@ -132,5 +124,29 @@ class M053CustomisePostsListSeeAllLink extends MigrationScript
             self::$news_page_id = (int) get_option('page_for_posts');
         }
         return self::$news_page_id;
+    }
+
+    /**
+     * Update the "see all" url in all navigation link blocks, by default the Posts List block has two.
+     *
+     * @param array $blocks - The blocks to go through and potentially update.
+     * @param string $new_link - The new url value.
+     */
+    private static function update_see_all_links(array &$blocks, string $new_link): void
+    {
+        foreach ($blocks as &$block) {
+            if (
+                $block['blockName'] === Utils\Constants::BLOCK_NAV_LINK &&
+                $block['attrs']['className'] === 'see-all-link'
+            ) {
+                $block['attrs']['url'] = $new_link;
+            }
+
+            if (!$block['innerBlocks']) {
+                continue;
+            }
+
+            self::update_see_all_links($block['innerBlocks'], $new_link);
+        }
     }
 }
