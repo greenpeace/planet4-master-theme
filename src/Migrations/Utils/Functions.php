@@ -100,8 +100,7 @@ class Functions
 
                     if ($record) {
                         $record->add_log(
-                            "Migration failed for post ID: " . $post->ID .
-                            " Error: " . $e->getMessage() . " - "
+                            "PID: " . $post->ID . " Error: " . $e->getMessage() . " - "
                         );
                     }
                     continue;
@@ -113,8 +112,7 @@ class Functions
 
             if ($record) {
                 $record->add_log(
-                    "Migration wasn't executed for block: " . $block_name ?? 'unknown' .
-                    " Error: " . $e->getMessage()
+                    "Block: " . $block_name ?? 'unknown' . " Error: " . $e->getMessage()
                 );
             }
         }
