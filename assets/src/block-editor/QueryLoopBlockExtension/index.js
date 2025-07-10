@@ -206,18 +206,19 @@ export const setupQueryLoopBlockExtension = () => {
 
         // Update the News & Stories link based on the taxonomy filters selected in Posts List.
         useEffect(() => {
-          if (newsPageLink && selectedBlock && namespace === POSTS_LIST_BLOCK_NAME) {
-            const newsStoriesLinks = findNewsStoriesLinks(selectedBlock.innerBlocks);
-            if (!newsStoriesLinks.length) {
-              return;
-            }
-            const oldTaxonomies = selectedBlock.attributes.query.taxQuery || null;
-            const newTaxonomies = query.taxQuery || null;
-            if (!areTaxonomiesDifferent(oldTaxonomies, newTaxonomies)) {
-              return;
-            }
-            newsStoriesLinks.forEach(link => link.attributes.url = buildCustomNewsPageLinkFromTaxonomies(TAXONOMIES, newTaxonomies));
+          if (!newsPageLink || !selectedBlock || namespace !== POSTS_LIST_BLOCK_NAME) {
+            return;
           }
+          const newsStoriesLinks = findNewsStoriesLinks(selectedBlock.innerBlocks);
+          if (!newsStoriesLinks.length) {
+            return;
+          }
+          const oldTaxonomies = selectedBlock.attributes.query.taxQuery || null;
+          const newTaxonomies = query.taxQuery || null;
+          if (!areTaxonomiesDifferent(oldTaxonomies, newTaxonomies)) {
+            return;
+          }
+          newsStoriesLinks.forEach(link => link.attributes.url = buildCustomNewsPageLinkFromTaxonomies(TAXONOMIES, newTaxonomies));
         }, [attributes]);
 
         useEffect(() => {
