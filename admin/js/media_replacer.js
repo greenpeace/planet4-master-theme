@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
           }
 
-          window.location.href = window.location.href + '&nocache=' + new Date().getTime();
+          location.reload(true);
         })
         .catch(error => {
           if (replaceMediaButton) {
