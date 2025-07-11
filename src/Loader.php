@@ -90,6 +90,8 @@ final class Loader
             Cookies::class,
             DevReport::class,
             MasterSite::class,
+            CommentFormHandler::class,
+            LoginHandler::class,
             AttachmentsController::class,
             HttpHeaders::class,
             ActionPage::class,

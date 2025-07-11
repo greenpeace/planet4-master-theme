@@ -57,12 +57,6 @@ class MasterSite extends TimberSite
     protected array $sort_options;
 
     /**
-     * Variable that lets us know if the user has or hasn't used google to log in
-     *
-     */
-    protected bool $google_login_error = false;
-
-    /**
      * MasterSite constructor.
      */
     public function __construct()
@@ -159,14 +153,6 @@ class MasterSite extends TimberSite
             ]
         );
 
-        add_filter('authenticate', [$this, 'enforce_google_signon'], 4, 3);
-        add_filter('authenticate', [$this, 'check_google_login_error'], 30, 1);
-        add_filter('login_headerurl', [$this, 'add_login_logo_url']);
-        add_filter('login_headertext', [$this, 'add_login_logo_url_title']);
-        add_action('login_enqueue_scripts', [$this, 'add_login_stylesheet']);
-        add_filter('comment_form_submit_field', [$this, 'gdpr_cc_comment_form_add_class'], 150, 1);
-        add_filter('comment_form_default_fields', [$this, 'comment_form_cookie_checkbox_add_class']);
-        add_filter('comment_form_default_fields', [$this, 'comment_form_replace_inputs']);
         add_filter('embed_oembed_html', [$this, 'filter_youtube_oembed_nocookie'], 10, 2);
         add_filter('oembed_result', [$this, 'filter_youtube_oembed_nocookie'], 10, 2);
         add_filter(
@@ -429,35 +415,6 @@ class MasterSite extends TimberSite
         if (wp_safe_redirect($adminUrl)) {
             exit;
         }
-    }
-
-    /**
-     * Sets the URL for the logo link in the login page.
-     */
-    public function add_login_logo_url(): string
-    {
-        return home_url();
-    }
-
-    /**
-     * Sets the title for the logo link in the login page.
-     */
-    public function add_login_logo_url_title(): string
-    {
-        return get_bloginfo('name');
-    }
-
-    /**
-     * Sets a custom stylesheet for the login page.
-     */
-    public function add_login_stylesheet(): void
-    {
-        wp_enqueue_style(
-            'custom-login',
-            $this->theme_dir . '/admin/css/login.css',
-            [],
-            Loader::theme_file_ver('admin/css/login.css')
-        );
     }
 
     /**
@@ -1176,74 +1133,6 @@ class MasterSite extends TimberSite
     }
 
     /**
-     * Forces a user to login using Google Auth if they have a greenpeace.org email
-     *
-     * @param WP_User|WP_Error|null $user The current user logging in.
-     * @param String|null $username The username of the user.
-     * @param String|null $password The password of the user.
-     * @return WP_User|WP_Error|null
-     */
-    public function enforce_google_signon($user, ?string $username = null, ?string $password = null)
-    {
-
-        if (defined('WP_DEBUG') && WP_DEBUG === true) {
-            return $user;
-        }
-
-        if (empty($username) || empty($password)) {
-            return $user;
-        }
-
-        if (strpos($username, '@')) {
-            $user_data = get_user_by('email', trim(wp_unslash($username)));
-        } else {
-            $login = trim($username);
-            $user_data = get_user_by('login', $login);
-        }
-
-        if (empty($user_data) || is_wp_error($user)) {
-            return $user;
-        }
-
-        $email_user_name = mb_substr($user_data->data->user_email, 0, strpos($user_data->data->user_email, '@'));
-
-        // Dont enforce google login on aliases.
-        if (strpos($email_user_name, '+')) {
-            return $user;
-        }
-
-        $domain = '@greenpeace.org';
-        if (mb_substr($user_data->data->user_email, -strlen($domain)) === $domain) {
-            $this->google_login_error = true;
-        }
-
-        return $user;
-    }
-
-    /**
-     * Checks if we have set a google login error earlier on so we can prevent login if google login wasn't used
-     *
-     * @param WP_User|WP_Error|null $user The current user logging in.
-     *
-     * @return WP_User|WP_Error|null
-     */
-    public function check_google_login_error($user)
-    {
-        if ($this->google_login_error) {
-            $this->google_login_error = false;
-            return new WP_Error(
-                'google_login',
-                __(
-                    'You are trying to login with a Greenpeace email. Please use the Google login button instead.',
-                    'planet4-master-theme-backend'
-                )
-            );
-        }
-
-        return $user;
-    }
-
-    /**
      * Saves the Search weight of the Post/Page.
      *
      * @param int     $post_id The ID of the current Post.
@@ -1410,70 +1299,6 @@ class MasterSite extends TimberSite
         $sidebar .= '<p><a target="_blank" href="https://planet4.greenpeace.org/">Planet 4 Handbook</a></p>';
 
         $screen->set_help_sidebar($sidebar);
-    }
-
-    /**
-     * Filter and add class to GDPR consent checkbox label after the GDPR fields appended to comment form submit field.
-     *
-     * @param string $submit_field The HTML content of comment form submit field.
-     *
-     * @return string HTML content of comment form submit field.
-     */
-    public function gdpr_cc_comment_form_add_class(string $submit_field): string
-    {
-
-        $pattern[0] = '/(for=["\']gdpr-comments-checkbox["\'])/';
-        $replacement[0] = '$1 class="custom-control-description"';
-        $pattern[1] = '/(id=["\']gdpr-comments-checkbox["\'])/';
-        $replacement[1] = '$1 style="width:auto;"';
-        $pattern[2] = '/id="gdpr-comments-compliance"/';
-        $replacement[2] = 'id="gdpr-comments-compliance" class="custom-control"';
-
-        $submit_field = preg_replace($pattern, $replacement, $submit_field);
-
-        return $submit_field;
-    }
-
-    /**
-     * Add classes to the default comment form cookie checkbox.
-     *
-     * @param array $fields The default fields of the comment form.
-     *
-     * @return array the new fields.
-     */
-    public function comment_form_cookie_checkbox_add_class(array $fields): array
-    {
-
-        if (isset($fields['cookies'])) {
-            $pattern[0] = '/(class=["\']comment-form-cookies-consent["\'])/';
-            $replacement[0] = 'class="comment-form-cookies-consent custom-control"';
-            $pattern[1] = '/(for=["\']wp-comment-cookies-consent["\'])/';
-            $replacement[1] = '$1 class="custom-control-description"';
-
-            $fields['cookies'] = preg_replace($pattern, $replacement, $fields['cookies']);
-        }
-
-        return $fields;
-    }
-
-    /**
-     * Use different templates for the comment form fields (name and email).
-     * Also remove the website field since we don't want to use it.
-     *
-     * @param array $fields The default fields of the comment form.
-     *
-     * @return array the new fields.
-     */
-    public function comment_form_replace_inputs(array $fields): array
-    {
-
-        $fields['author'] = Timber::compile('comment_form/author_field.twig');
-        $fields['email'] = Timber::compile('comment_form/email_field.twig');
-        if (isset($fields['url'])) {
-            unset($fields['url']);
-        }
-
-        return $fields;
     }
 
     /**
