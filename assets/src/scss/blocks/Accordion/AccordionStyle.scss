@@ -1,28 +1,127 @@
-.accordion-block {
-  _-- {
-    font-family: var(--font-family-primary);
+@mixin headline {
+  border-color: transparent;
+  background: var(--p4-dark-green-800);
+  color: var(--white);
+  cursor: pointer;
+  position: relative;
+  display: block;
+  padding-top: $sp-2;
+  padding-bottom: $sp-2;
+  padding-inline-start: $sp-2;
+  padding-inline-end: $sp-5x;
+  font-size: $font-size-sm;
+  border-radius: 4px;
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-xs--font-family-primary);
+  margin-top: 0;
+  margin-bottom: $sp-2;
+  border-width: 1px;
+  border-style: solid;
+
+  &:hover {
+    background: var(--p4-dark-green-900);
   }
 
-  &.is-style-light .accordion-content .accordion-headline {
-    --accordion-block-light-style-- {
-      border-color: transparent;
-      background: var(--beige-100);
-      color: var(--color-text-body);
+  &.open:after {
+    transform: rotate(-90deg);
+  }
 
-      &:hover {
-        background: var(--beige-200);
+  &:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 16px;
+    left: auto;
+    margin: auto;
+    pointer-events: none;
+    height: 1rem;
+    width: 0.5rem;
+    display: inline-block;
+    transition: transform 300ms linear;
+    transform: rotate(90deg);
+    mask-image: url("../../images/chevron.svg");
+    mask-repeat: no-repeat;
+    mask-size: contain;
+    background-repeat: no-repeat;
+    background-color: currentcolor;
+
+    html[dir="rtl"] & {
+      right: auto;
+      left: 16px;
+    }
+  }
+
+  @include medium-and-up {
+    padding-inline-start: $sp-3;
+    font-size: var(--font-size-m--font-family-primary);
+    margin-bottom: $sp-3;
+    line-height: var(--line-height-m--font-family-primary);
+
+    &:after {
+      height: 1.25rem;
+      width: 0.6rem;
+      right: 24px;
+
+      html[dir="rtl"] & {
+        left: 24px;
       }
     }
   }
+}
 
-  &.is-style-outline .accordion-content .accordion-headline {
-    border-color: var(--grey-500);
-    background: var(--white);
-    color: var(--grey-900);
+@mixin headline-light {
+  border-color: transparent;
+  background: var(--beige-100);
+  color: var(--color-text-body);
 
-    &:hover {
-      background: var(--grey-100);
-    }
+  &:hover {
+    background: var(--beige-200);
+  }
+}
+
+@mixin headline-outline {
+  border-color: var(--grey-500);
+  background: var(--white);
+  color: var(--grey-900);
+
+  &:hover {
+    background: var(--grey-100);
+  }
+}
+
+@mixin paragraph {
+  margin: 0;
+  font-family: var(--body--font-family);
+  font-weight: var(--font-weight-regular);
+}
+
+@mixin button {
+  margin: $sp-3 0 0 !important;
+  width: 80%;
+
+  @include medium-and-up {
+    width: 40%;
+  }
+  @include large-and-up {
+    width: 25%;
+  }
+}
+
+@mixin panel {
+  padding: 0 $sp-2 $sp-3 $sp-2;
+  background-color: var(--white);
+  overflow: hidden;
+  transition: display 1s, opacity 1s, height 1s ease-in-out;
+
+  @include medium-and-up {
+    padding: 0 $sp-3 $sp-5 $sp-3;
+  }
+}
+
+.accordion-block {
+  _-- {
+    font-family: var(--font-family-primary);
   }
 
   .accordion-content {
@@ -30,65 +129,11 @@
     flex-direction: column;
 
     .accordion-headline {
-      --accordion-block-dark-style-- {
-        border-color: transparent;
-        background: var(--p4-dark-green-800);
-        color: var(--white);
-
-        &:hover {
-          background: var(--p4-dark-green-900);
-        }
-      }
-      cursor: pointer;
-      position: relative;
-      display: block;
-      padding-top: $sp-2;
-      padding-bottom: $sp-2;
-      padding-inline-start: $sp-2;
-      padding-inline-end: $sp-5x;
-      font-size: $font-size-sm;
-      border-radius: 4px;
-      font-weight: var(--font-weight-regular);
-      line-height: var(--line-height-xs--font-family-primary);
-      margin-top: 0;
-      margin-bottom: $sp-2;
-      border-width: 1px;
-      border-style: solid;
-
-      &.open:after {
-        transform: rotate(-90deg);
-      }
-
-      &:after {
-        content: "";
-        position: absolute;
-        top: 16px;
-        right: 16px;
-        left: auto;
-        pointer-events: none;
-        height: 1rem;
-        width: 0.5rem;
-        display: inline-block;
-        transition: transform 300ms linear;
-        transform: rotate(90deg);
-        mask-image: url("../../images/chevron.svg");
-        mask-repeat: no-repeat;
-        mask-size: contain;
-        background-repeat: no-repeat;
-        background-color: currentcolor;
-
-        html[dir="rtl"] & {
-          right: auto;
-          left: 16px;
-        }
-      }
+      @include headline;
     }
 
     .panel {
-      padding: 0 $sp-2 $sp-3 $sp-2;
-      background-color: var(--white);
-      overflow: hidden;
-      transition: display 1s, opacity 1s, height 1s ease-in-out;
+      @include panel;
 
       &.panel-hidden {
         visibility: hidden;
@@ -99,49 +144,66 @@
     }
 
     .accordion-text {
-      margin: 0;
-      font-family: var(--body--font-family);
-      font-weight: var(--font-weight-regular);
+      @include paragraph;
     }
 
     .accordion-btn {
-      margin: $sp-3 0 0;
-      width: 80%;
+      @include button;
     }
   }
 
-  @include medium-and-up {
-    .accordion-content {
-      .accordion-headline {
-        padding-inline-start: $sp-3;
-        font-size: var(--font-size-m--font-family-primary);
-        margin-bottom: $sp-3;
-        line-height: var(--line-height-m--font-family-primary);
+  &.is-style-light .accordion-content .accordion-headline {
+    @include headline-light;
+  }
 
-        &:after {
-          height: 1.25rem;
-          width: 0.6rem;
-          right: 24px;
+  &.is-style-outline .accordion-content .accordion-headline {
+    @include headline-outline;
+  }
+}
 
-          html[dir="rtl"] & {
-            left: 24px;
-          }
-        }
+// Overrides for the Details block:
+.wp-block-details {
+  &[class^="p4-details--"],
+  &[class*=" p4-details--"] {
+    _-- {
+      font-family: var(--font-family-primary);
+    }
+
+    &[open] {
+      summary::after {
+        transform: rotate(-90deg) !important;
       }
+    }
 
-      .panel {
-        padding: 0 $sp-3 $sp-5 $sp-3;
-      }
+    summary {
+      @include headline;
+    }
 
-      .accordion-btn {
-        width: 40%;
+    .wp-block-paragraph, p {
+      @include paragraph;
+    }
+
+    .wp-block-button {
+      @include button;
+    }
+
+    // Add the "p4-details-group" class to a group block inside the Details block
+    // to mimick the Accordion panel style.
+    .p4-details-group.wp-block-group {
+      @include panel;
+
+      &.is-layout-constrained > :where(:not(.alignleft):not(.alignright):not(.alignfull)) {
+        margin: 0;
+        max-width: 100%;
       }
     }
   }
 
-  @include large-and-up {
-    .accordion-content .accordion-btn {
-      width: 25%;
-    }
+  &.p4-details--light summary {
+    @include headline-light;
+  }
+
+  &.p4-details--outline summary {
+    @include headline-outline;
   }
 }
