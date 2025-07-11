@@ -79,4 +79,4 @@ add_filter(
     2
 );
 
-include get_template_directory() . '/single-p4_action.php';
+include_once get_template_directory() . '/single-p4_action.php';
