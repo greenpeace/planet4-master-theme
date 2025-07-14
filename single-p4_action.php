@@ -16,7 +16,7 @@ use P4\MasterTheme\Context;
 use Timber\Timber;
 
 $context = Timber::context();
-$post = Timber::get_post(); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
+$post = Timber::get_post();
 $page_meta_data = get_post_meta($post->ID);
 $page_meta_data = array_map(fn ($v) => reset($v), $page_meta_data);
 

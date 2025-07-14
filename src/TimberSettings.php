@@ -12,8 +12,8 @@ class TimberSettings
             $custom_classmap = [
                 'page' => Post::class,
                 'post' => Post::class,
-                //'tag' => Post::class,
                 'campaign' => Post::class,
+                'p4_action' => Post::class,
                 'p4-page-type' => Post::class,
             ];
 

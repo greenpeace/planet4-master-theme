@@ -22,7 +22,7 @@ $context = Timber::context();
 $templates = [ 'index.twig' ];
 
 if (is_home()) {
-    $post = Timber::get_post(); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
+    $post = Timber::get_post();
     $post->set_data_layer();
     $data_layer = $post->get_data_layer();
 

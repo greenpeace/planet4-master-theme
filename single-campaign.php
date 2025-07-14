@@ -17,11 +17,11 @@ $context = Timber::context();
  *
  * @var Post $post
  * */
-$post = Timber::query_post(false); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
+$post = Timber::get_post();
 $context['post'] = $post;
 
 // Get the cmb2 custom fields data.
-$meta = $post->custom;
+$meta = $post->meta;
 
 $current_level_campaign_id = $post->ID;
 
