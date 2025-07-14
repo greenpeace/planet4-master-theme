@@ -17,7 +17,7 @@ $timber_post = Timber::get_post($post->ID);
 $context['post'] = $timber_post;
 
 // Get the cmb2 custom fields data.
-$meta = $timber_post->custom;
+$meta = $timber_post->meta;
 
 $current_level_campaign_id = $timber_post->ID;
 

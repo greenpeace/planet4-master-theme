@@ -20,7 +20,7 @@ if (!is_tag()) {
 
 $tag = get_queried_object();
 
-$post = Timber::get_post(false); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
+$post = Timber::get_post();
 $context = Timber::context();
 if ($post instanceof \WP_Post) {
     $post = Timber::get_post($post->ID);
