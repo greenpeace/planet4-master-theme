@@ -11,7 +11,7 @@ use P4\MasterTheme\Sitemap;
 use Timber\Timber;
 
 $context = Timber::context();
-$post = Timber::get_post(); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
+$post = Timber::get_post();
 $page_meta_data = get_post_meta($post->ID);
 
 $context['post'] = $post;

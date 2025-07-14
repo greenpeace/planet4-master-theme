@@ -455,10 +455,6 @@ class Post extends \Timber\Post
      */
     public function reading_time(): int
     {
-        if (empty($this->id)) {
-            //return 0;
-        }
-
         $cache_key = $this->id . '~' . $this->post_modified;
         $from_cache = wp_cache_get($cache_key);
         if ($from_cache) {
