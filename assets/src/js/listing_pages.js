@@ -67,7 +67,7 @@ const {__} = wp.i18n;
     return;
   }
 
-  const AVAILABLE_FILTERS = ['category', 'post-type'];
+  const AVAILABLE_FILTERS = ['category', 'post-type', 'tag'];
 
   const updateFilters = () => {
     const newUrl = new URL(window.location.href.replace(/\/page\/\d/, '/'));

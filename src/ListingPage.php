@@ -126,20 +126,16 @@ class ListingPage
             return;
         }
 
-        $all_categories = get_categories();
-        $categories = [];
-        // Only categories that have at least 1 Post assigned should be displayed for filtering.
-        foreach ($all_categories as $cat) {
-            if (!get_posts(['post_type' => 'post', 'category' => $cat->term_id])) {
-                continue;
-            }
-            $categories[] = $cat;
-        }
+        $categories = get_categories();
+        $tags = get_tags();
+
         $this->context['categories'] = $categories;
         $this->context['post_types'] = get_terms(['taxonomy' => 'p4-page-type']);
+        $this->context['tags'] = $tags;
 
         $this->context['current_category'] = $_GET['category'] ?? '';
         $this->context['current_post_type'] = $_GET['post-type'] ?? '';
+        $this->context['current_tag'] = $_GET['tag'] ?? '';
     }
 
     /**

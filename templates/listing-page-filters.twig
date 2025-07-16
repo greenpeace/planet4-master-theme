@@ -1,30 +1,56 @@
 <div class="listing-page-filters">
-    <label for="category" class="visually-hidden">
-        {{ __('Filter by category', 'planet4-master-theme' ) }}
-    </label>
-    <select class="form-select listing-page-select" id="category">
-        <option value="">{{__( 'All topics', 'planet4-master-theme' ) }}</option>
-        {% for key,category in categories %}
-            {% set isSelected = current_category == category.slug %}
-            <option
-                value="{{category.slug}}"
-                {{isSelected ? 'selected' : ''}}
-            >
-                {{ category.name|raw }}
-            </option>
-        {% endfor %}
-    </select>
-    <select class="form-select listing-page-select" id="post-type">
-        <option value="">{{__( 'All posts', 'planet4-master-theme' ) }}</option>
-        {% for key,post_type in post_types %}
-            {% set isSelected = current_post_type == post_type.slug %}
-            <option
-                value="{{post_type.slug}}"
-                {{isSelected ? 'selected' : ''}}
-            >
-                {{ post_type.name|raw }}
-            </option>
-        {% endfor %}
-    </select>
-    <button id="apply-filters" class="btn btn-primary">{{__('Apply', 'planet4-master-theme')}}</button>
+     <div class="listing-page-select">
+        <label for="post-type" class="listing-page-select-label">
+            {{__('Content type', 'planet4-master-theme')}}
+        </label>
+        <select class="form-select" id="post-type">
+            <option value="">{{__('All posts', 'planet4-master-theme')}}</option>
+            {% for key,post_type in post_types %}
+                {% set isSelected = current_post_type == post_type.slug %}
+                <option
+                    value="{{post_type.slug}}"
+                    {{isSelected ? 'selected' : ''}}
+                >
+                    {{ post_type.name|raw }}
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="listing-page-select">
+        <label for="category" class="listing-page-select-label">
+        {{__('Category', 'planet4-master-theme')}}
+        </label>
+        <select class="form-select" id="category">
+            <option value="">{{__('All topics', 'planet4-master-theme')}}</option>
+            {% for key,category in categories %}
+                {% set isSelected = current_category == category.slug %}
+                <option
+                    value="{{category.slug}}"
+                    {{isSelected ? 'selected' : ''}}
+                >
+                    {{ category.name|raw }}
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="listing-page-select">
+        <label for="tag" class="listing-page-select-label">
+            {{__('Keywords', 'planet4-master-theme')}}
+        </label>
+        <select class="form-select" id="tag">
+            <option value="">{{__('All keywords', 'planet4-master-theme')}}</option>
+            {% for key,tag in tags %}
+                {% set isSelected = current_tag == tag.slug %}
+                <option
+                    value="{{tag.slug}}"
+                    {{isSelected ? 'selected' : ''}}
+                >
+                    {{ tag.name|raw }}
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="filter-btn">
+        <button id="apply-filters" class="btn btn-primary">{{__('Apply', 'planet4-master-theme')}}</button>
+    </div>
 </div>

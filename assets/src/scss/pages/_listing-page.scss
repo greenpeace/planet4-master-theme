@@ -359,11 +359,17 @@
 }
 
 .listing-page-filters {
-  width: 100%;
+  width: 90%;
 
   .listing-page-select {
     width: 100%;
-    margin-bottom: $sp-3;
+
+    select {
+      margin-bottom: $sp-3;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
   }
 
   .btn-primary {
@@ -376,7 +382,6 @@
     .listing-page-select {
       margin-inline-end: $sp-3;
       margin-bottom: 0;
-      width: 220px;
     }
 
     .btn-primary {
@@ -384,10 +389,8 @@
     }
   }
 
-  @include large-and-up {
-    .listing-page-select {
-      width: 300px;
-    }
+  @include small-and-less {
+    width: 100%;
   }
 }
 
@@ -395,4 +398,21 @@
   text-align: center;
   font-size: var(--font-size-m--font-family-primary);
   padding-top: $sp-4;
+}
+
+.listing-page-select-label {
+  font-family: var(--font-family-tertiary);
+  font-size: var(--font-size-m--font-family-tertiary);
+  margin-bottom: $sp-1;
+  color: var(--grey-600);
+}
+
+.filter-btn {
+  display: flex;
+  align-self: center;
+  justify-self: center;
+
+  @include medium-and-less {
+    width: 100%;
+  }
 }
