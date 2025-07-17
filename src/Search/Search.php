@@ -46,7 +46,7 @@ class Search
         }
 
         if (!empty($query->query_vars['s'])) {
-            $query->set('s',self::sanitize_query($query->query_vars['s']));
+            $query->set('s', self::sanitize_query($query->query_vars['s']));
         }
 
         self::set_default_args($query);
@@ -196,8 +196,8 @@ class Search
     private static function sanitize_query(string $query_search): string
     {
         // Clean up query search
-        $query_search = sanitize_text_field($query_search);
         $query_search = preg_replace('/[<>]/', '', $query_search);
+        $query_search = sanitize_text_field($query_search);
         $query_search = esc_html($query_search);
 
         // Limit search query length to avoid long queries
