@@ -57,12 +57,12 @@ class AttachmentsController
      * @param int   $post_id  Attachment post ID.
      * @return array Metadata (unchanged).
      */
-    public function update_iptc_metadata(array $metadata, int $post_id): mixed
+    public function update_iptc_metadata(array $metadata, int $post_id): array
     {
         $file = get_attached_file($post_id);
 
         if (!file_exists($file)) {
-            return null;
+            return $metadata;
         }
 
         // Extracts image metadata and populates $image_info['APP13'] with raw IPTC data if available.
@@ -71,7 +71,7 @@ class AttachmentsController
         $info = @getimagesize($file, $image_info); //NOSONAR
 
         if (!is_array($image_info) || !isset($image_info['APP13'])) {
-            return null;
+            return $metadata;
         }
 
         $iptc = iptcparse($image_info['APP13']) ?: [];
