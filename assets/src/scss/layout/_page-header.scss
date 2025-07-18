@@ -186,13 +186,3 @@
     margin-top: 36px;
   }
 }
-
-.page-header-content {
-  display: none;
-  margin-top: 0;
-
-  @include medium-and-up {
-    display: block;
-    margin-bottom: 0;
-  }
-}
