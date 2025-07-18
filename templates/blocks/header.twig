@@ -61,7 +61,9 @@
                 <h3 class="page-header-subtitle">{{ header_subtitle }}</h3>
             {% endif %}
             {% if ( header_description ) %}
-                <div class="page-header-content">{{ header_description|e('wp_kses_post')|raw }}</div>
+                <div class="page-header-content d-none d-md-block mt-0 mb-md-0">
+                    {{ header_description|e('wp_kses_post')|raw }}
+                </div>
             {% endif %}
             {% if ( header_button_title and header_button_link ) %}
                 <div class="row">

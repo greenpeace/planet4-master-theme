@@ -17,7 +17,9 @@
                 <h1 class="page-header-title">
                     <span aria-label="hashtag">#</span>{{ tag_name|e('wp_kses_post')|raw }}
                 </h1>
-                <div class="page-header-content">{{ tag_description|e('wp_kses_post')|raw }}</div>
+                <div class="page-header-content mt-0 mb-md-0">
+                    {{ tag_description|e('wp_kses_post')|raw }}
+                </div>
                 {% if ( featured_action ) %}
                     {% include 'featured-action.twig'
                         with {
