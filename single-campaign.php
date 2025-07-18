@@ -7,22 +7,21 @@
  */
 
 use P4\MasterTheme\Context;
-use P4\MasterTheme\Post;
 use Timber\Timber;
 
 // Initializing variables.
-$context = Timber::get_context();
+$context = Timber::context();
 
 /**
  * Post object.
  *
  * @var Post $post
  * */
-$post = Timber::query_post(false, Post::class); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
+$post = Timber::get_post();
 $context['post'] = $post;
 
 // Get the cmb2 custom fields data.
-$meta = $post->custom;
+$meta = $post->meta;
 
 $current_level_campaign_id = $post->ID;
 
