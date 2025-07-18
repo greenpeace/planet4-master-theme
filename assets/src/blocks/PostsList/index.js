@@ -100,7 +100,7 @@ export const getPostListBlockTemplate = (title = __('Related Posts', 'planet4-bl
             separator: ' ',
           }],
         ]],
-        ['core/post-title', {isLink: true, level: 4}],
+        ['core/post-title', {isLink: true, level: 3}],
         ['core/post-excerpt'],
         ['core/group', {className: 'posts-list-meta'}, [
           ['core/post-author-name', {isLink: true}],
