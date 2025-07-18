@@ -18,6 +18,10 @@
  * @since    Timber 0.1
  */
 
+if (!$post) {
+    return;
+}
+
 use P4\MasterTheme\Context;
 use P4\MasterTheme\Post;
 use Timber\Timber;
