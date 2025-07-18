@@ -1,5 +1,7 @@
 <?php
 
+global $post;
+
 /**
  * The main template file
  * This is the most generic template file in a WordPress theme
@@ -14,6 +16,10 @@
  * @since   Timber 0.1
  */
 
+if (!$post) {
+    return;
+}
+
 use P4\MasterTheme\Context;
 use P4\MasterTheme\Post;
 use P4\MasterTheme\ListingPage;
@@ -23,11 +29,11 @@ $context = Timber::get_context();
 $templates = [ 'index.twig' ];
 
 if (is_home()) {
-    $post = new Post(); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
-    $post->set_data_layer();
-    $data_layer = $post->get_data_layer();
+    $timber_post = new Post($post->ID);
+    $timber_post->set_data_layer();
+    $data_layer = $timber_post->get_data_layer();
 
-    $page_meta_data = get_post_meta($post->ID);
+    $page_meta_data = get_post_meta($timber_post->ID);
     $page_meta_data = array_map(fn ($v) => reset($v), $page_meta_data);
 
     $context['title'] = ( $page_meta_data['p4_title'] ?? '' )
@@ -37,9 +43,9 @@ if (is_home()) {
 
     Context::set_header($context, $page_meta_data, $context['title']);
     Context::set_background_image($context);
-    Context::set_og_meta_fields($context, $post);
+    Context::set_og_meta_fields($context, $timber_post);
     Context::set_campaign_datalayer($context, $page_meta_data);
-    Context::set_utm_params($context, $post);
+    Context::set_utm_params($context, $timber_post);
 
     array_unshift($templates, 'all-posts.twig');
 
