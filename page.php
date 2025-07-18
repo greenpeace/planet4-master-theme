@@ -1,5 +1,7 @@
 <?php
 
+global $post;
+
 /**
  * The template for displaying all pages.
  *

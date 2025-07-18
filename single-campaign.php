@@ -1,5 +1,7 @@
 <?php
 
+global $post;
+
 /**
  * Template Variables for Campaigns.
  *

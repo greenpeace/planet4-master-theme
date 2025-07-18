@@ -1,5 +1,7 @@
 <?php
 
+global $post;
+
 /**
  * The Template for displaying all single posts
  *

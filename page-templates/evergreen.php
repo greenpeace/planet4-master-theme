@@ -1,5 +1,7 @@
 <?php
 
+global $post;
+
 /**
  * Template Name: Evergreen Page
  * The template for displaying evergreen pages.
