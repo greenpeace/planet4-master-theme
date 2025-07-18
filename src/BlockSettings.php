@@ -134,6 +134,7 @@ class BlockSettings
         self::CORE_BLOCKS_PREFIX . '/cover',
         self::CORE_BLOCKS_PREFIX . '/embed',
         self::CORE_BLOCKS_PREFIX . '/media-text',
+        self::CORE_BLOCKS_PREFIX . '/details',
         self::CORE_EMBED_BLOCKS_PREFIX . '/twitter',
         self::CORE_EMBED_BLOCKS_PREFIX . '/youtube',
         self::CORE_EMBED_BLOCKS_PREFIX . '/facebook',
