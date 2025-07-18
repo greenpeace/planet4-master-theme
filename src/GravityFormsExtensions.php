@@ -154,9 +154,10 @@ class GravityFormsExtensions
         mixed $raw_value,
         string $format
     ): string {
-        if ($field->type !== 'fileupload' || $merge_tag !== 'all_fields') {
+        if ($field->type !== 'fileupload') {
             return $value;
         }
+
         return $this->fix_google_cloud_link($value);
     }
 
@@ -203,13 +204,13 @@ class GravityFormsExtensions
      */
     private function fix_google_cloud_link(string $value): string
     {
-        // Match all href='...'
-        preg_match_all("/href='([^']+)'/", $value, $matches);
+        // Match all URLs (href/src direct or plain text)
+        preg_match_all('/(https:\/\/[^\s"\'>]+)/', $value, $matches);
 
         if (!empty($matches[1])) {
-            foreach ($matches[1] as $href) {
+            foreach ($matches[1] as $url) {
                 // Parse the URL
-                $parts = parse_url($href);
+                $parts = parse_url($url);
                 if (!isset($parts['scheme'], $parts['host'], $parts['path'])) {
                     continue; // Skip invalid URLs
                 }
@@ -220,7 +221,7 @@ class GravityFormsExtensions
 
                 $segments = explode('/', trim($path, '/'));
 
-                // Check for duplicated folders (index 2 == 6 and 3 == 7)
+                // Check for duplicated year/month
                 if (
                     !isset($segments[2], $segments[3], $segments[6], $segments[7]) ||
                     $segments[2] !== $segments[6] ||
@@ -229,13 +230,14 @@ class GravityFormsExtensions
                     continue;
                 }
 
+                // Remove the duplicated year/month segment
                 unset($segments[2], $segments[3]);
                 $segments = array_values($segments);
                 $new_path = '/' . implode('/', $segments);
                 $new_url = $scheme . '://' . $host . $new_path;
 
-                // Replace only the href portion inside the value
-                $value = str_replace($href, $new_url, $value);
+                // Replace the original URL in the content
+                $value = str_replace($url, $new_url, $value);
             }
         }
         return $value;
