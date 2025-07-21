@@ -26,7 +26,10 @@ export default () => {
     });
     window.addEventListener('testPassive', null, opts);
     window.removeEventListener('testPassive', null, opts);
-  } catch (e) {} // eslint-disable-line no-empty
+  } catch (e) {
+    // eslint-disable-next-line no-console
+    console.log(e);
+  }
 
   /**
    * Get scroll direction, distance from the lastScrollTop, and distance from a reference point
