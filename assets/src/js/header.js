@@ -46,7 +46,7 @@ const toggleNavElement = element => {
 
   // We need to focus the search input when showing it
   const searchInput = document.querySelector('#search_input');
-  if (element.classList.contains('nav-search-toggle') || element.classList.contains('navbar-search-toggle')) {
+  if (element.classList.contains('nav-search-toggle')) {
     if (wasExpanded) {
       searchInput.focus();
     }
@@ -74,7 +74,6 @@ const toggleNavElement = element => {
   // Toggle data-ga-action attribute used in GTM tracking.
   const countryDropdownToggle = document.querySelector('.country-dropdown-toggle');
   const countrySelectorToggle = document.querySelector('.country-selector-toggle');
-  const navbarSearchToggle = document.querySelector('.navbar-search-toggle');
   const navMenuToggle = document.querySelector('.nav-menu-toggle');
 
   if (countryDropdownToggle) {
@@ -83,10 +82,6 @@ const toggleNavElement = element => {
 
   if (countrySelectorToggle) {
     updateGaAction(countrySelectorToggle, 'Country Selector');
-  }
-
-  if (navbarSearchToggle) {
-    updateGaAction(navbarSearchToggle, 'Search');
   }
 
   if (navMenuToggle) {
@@ -229,7 +224,6 @@ export const setupHeader = () => {
     '.nav-menu-toggle',
     '.country-dropdown-toggle',
     '.country-selector-toggle',
-    '.navbar-search-toggle',
     '.nav-search-toggle',
   ];
 
