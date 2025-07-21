@@ -1,7 +1,7 @@
 /**
  * Setup accessible navigation menu.
  */
-export default () => document.addEventListener('DOMContentLoaded', () => {
+export default () => {
   const mainNav = document.querySelector('#nav-main-desktop');
   const mobileNav = document.querySelector('#nav-main');
 
@@ -181,4 +181,4 @@ export default () => document.addEventListener('DOMContentLoaded', () => {
     focusLogoOnMenuOpen();
     focusLogoOnMenuClose();
   }
-});
+};
