@@ -24,19 +24,7 @@ class EnqueueController
         add_action('enqueue_metabox_search_script', [$this, 'enqueue_metabox_search']);
         add_action('enqueue_dismiss_dashboard_notice_script', [$this, 'enqueue_dismiss_dashboard_notice']);
         add_action('enqueue_listing_page_layout_switch_script', [$this, 'enqueue_listing_page_layout_switch']);
-        add_action('wp_enqueue_scripts', [$this, 'enqueue_accessible_nav_menu']);
         add_action('enqueue_vwo_smart_script', [$this, 'enqueue_vwo_smart_code']);
-    }
-
-    public function enqueue_accessible_nav_menu(): void
-    {
-        $this->enqueue_script(
-            'accessible-nav-menu-script',
-            '/assets/build/accessibleNavMenu.js',
-            [],
-            $this->get_file_version('/assets/build/accessibleNavMenu.js'),
-            true
-        );
     }
 
     /**

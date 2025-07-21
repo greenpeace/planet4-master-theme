@@ -1,5 +1,7 @@
 /* global hj */
 
+import setupAccessibleNavMenu from './header/setupAccessibleNavMenu';
+
 const updateGaAction = (element, elementName) => {
   element.dataset.gaAction = `${element.getAttribute('aria-expanded') === 'false' ? 'Open' : 'Close'} ${elementName}`;
 };
@@ -278,5 +280,8 @@ export const setupHeader = () => {
   }
 
   setMobileTabsMenuScroll();
+
+  // Setup keyboard accessibility in the navigation menu.
+  setupAccessibleNavMenu();
 };
 
