@@ -131,7 +131,10 @@ class MetaboxRegister
         $options = get_option('planet4_options');
 
         echo '<label for="my_meta_box_text">'
-            . esc_html__('Weight', 'planet4-master-theme-backend')
+            . esc_html__(
+                'Set the weight for the current Post/Page in the search results',
+                'planet4-master-theme-backend'
+            )
             . ' (1-' . esc_attr(Search\Search::DEFAULT_MAX_WEIGHT) . ')</label>
                 <input id="weight" type="text" name="weight" value="' . esc_attr($weight) . '" />';
 
