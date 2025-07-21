@@ -98,6 +98,7 @@ final class Loader
             GravityFormsExtensions::class,
             BlockSettings::class,
             EnqueueController::class,
+            YouTubeHandler::class,
         ];
 
         if (is_admin()) {
