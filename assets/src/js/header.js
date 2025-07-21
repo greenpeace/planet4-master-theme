@@ -1,8 +1,7 @@
-/* global hj */
-
 import setupAccessibleNavMenu from './header/setupAccessibleNavMenu';
 import setupMobileTabs from './header/setupMobileTabs';
 import setupCloseNavButtons from './header/setupCloseNavButtons';
+import {sendHotjarEventOnSearchFocus} from './header/setupNavSearch';
 import {closeInactiveNavElements, toggleNavElement} from './header/navElementFunctions';
 
 const TOGGLE_ELEMENT_CLASSES = [
@@ -37,18 +36,8 @@ export const setupHeader = () => {
     }
   };
 
-  let searchFocused = false;
-  const searchInput = document.getElementById('search_input');
-  if (searchInput) {
-    searchInput.addEventListener('focus', () => {
-      if (!searchFocused) {
-        if (hj) {
-          hj('event', 'search');
-        }
-        searchFocused = true;
-      }
-    });
-  }
+  // Send event to Hotjar on search input focus.
+  sendHotjarEventOnSearchFocus();
 
   // Make sure navigation is accessible.
   setupAccessibleNavMenu();

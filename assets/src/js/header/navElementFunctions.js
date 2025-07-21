@@ -1,6 +1,6 @@
 import {toggleGaActionAttribute} from './setupGaAction';
 import lockScrollWhenNavMenuOpen from './lockScrollWhenNavMenuOpen';
-import updateSearchToggleAttributes from './updateSearchToggleAttributes';
+import {updateSearchToggleAttributes} from './setupNavSearch';
 
 /**
  * Close inactive nav elements when clicking on document body.
