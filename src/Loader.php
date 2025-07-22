@@ -99,6 +99,7 @@ final class Loader
             BlockSettings::class,
             EnqueueController::class,
             YouTubeHandler::class,
+            CommentFormCustomizer::class,
         ];
 
         if (is_admin()) {
