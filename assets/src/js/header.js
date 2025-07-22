@@ -1,6 +1,7 @@
 /* global hj */
 
 import setupAccessibleNavMenu from './header/setupAccessibleNavMenu';
+import setupCloseNavMenuButton from './header/setupCloseNavMenuButton';
 
 const updateGaAction = (element, elementName) => {
   element.dataset.gaAction = `${element.getAttribute('aria-expanded') === 'false' ? 'Open' : 'Close'} ${elementName}`;
@@ -114,12 +115,6 @@ const closeInactiveNavElements = event => {
       button.click();
     }
   });
-};
-
-const closeElement = (event, buttonClass) => {
-  event.preventDefault();
-  const closeButton = document.querySelector(buttonClass);
-  closeButton.click();
 };
 
 /**
@@ -249,16 +244,8 @@ export const setupHeader = () => {
     }
   };
 
-  // Close the elements if the user clicks on the corresponding close buttons
-  const closeNavbarButton = document.querySelector('.close-navbar-dropdown');
-  if (closeNavbarButton) {
-    closeNavbarButton.onclick = event => closeElement(event, '.navbar-dropdown-toggle');
-  }
-
-  const closeNavMenuButton = document.querySelector('.nav-menu-close');
-  if (closeNavMenuButton) {
-    closeNavMenuButton.onclick = event => closeElement(event, '.nav-menu-toggle');
-  }
+  // Spoof click on nav menu toggle when clicking on nav menu close button.
+  setupCloseNavMenuButton();
 
   let searchFocused = false;
   const searchInput = document.getElementById('search_input');
