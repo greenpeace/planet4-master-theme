@@ -1,5 +1,5 @@
 .nav-search-form {
-  background-color: var(--body--background-color);
+  background-color: inherit;
   border: none;
   border-top: var(--top-navigation--separation);
   box-shadow: 0 2px 4px rgba($grey-900, 0.15);
@@ -60,7 +60,6 @@
   }
 
   @include x-large-and-up {
-    background: var(--top-navigation--background, inherit);
     border-inline-start: var(--top-navigation--separation);
     border-top: none;
     box-shadow: none;
