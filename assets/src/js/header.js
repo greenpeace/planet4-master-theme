@@ -1,8 +1,8 @@
 /* global hj */
 
 import setupAccessibleNavMenu from './header/setupAccessibleNavMenu';
-import setupCloseNavMenuButton from './header/setupCloseNavMenuButton';
 import setupMobileTabsMenuScroll from './header/setupMobileTabsMenuScroll';
+import {setupCloseNavMenuButton, setupDocumentClick} from './header/setupCloseMenu';
 
 const updateGaAction = (element, elementName) => {
   element.dataset.gaAction = `${element.getAttribute('aria-expanded') === 'false' ? 'Open' : 'Close'} ${elementName}`;
@@ -93,31 +93,6 @@ const toggleNavElement = element => {
   }
 };
 
-const closeInactiveNavElements = event => {
-  let searchToggled = false;
-  const clickedElement = event.target;
-
-  const activeElements = [...document.querySelectorAll('button[aria-expanded="true"]')];
-
-  activeElements.forEach(button => {
-    const buttonTarget = button.dataset && button.dataset.bsTarget;
-
-    if (button.classList.contains('nav-search-toggle')) {
-      if (searchToggled) {
-        return;
-      }
-      searchToggled = true;
-    }
-
-    const buttonTargetElement = document.querySelector(buttonTarget);
-
-    if (buttonTargetElement && !buttonTargetElement.contains(clickedElement)) {
-      // Spoof a click on the open menu's toggle to close that menu.
-      button.click();
-    }
-  });
-};
-
 export const setupHeader = () => {
   const toggleElementClasses = [
     '.navbar-dropdown-toggle',
@@ -138,17 +113,12 @@ export const setupHeader = () => {
     };
   });
 
-  document.onclick = closeInactiveNavElements;
-
   // Close all menus on escape pressed
   document.onkeyup = event => {
     if (event.key === 'Escape') {
       document.body.click();
     }
   };
-
-  // Spoof click on nav menu toggle when clicking on nav menu close button.
-  setupCloseNavMenuButton();
 
   let searchFocused = false;
   const searchInput = document.getElementById('search_input');
@@ -165,6 +135,12 @@ export const setupHeader = () => {
 
   // Set the mobile tabs menu behavior on scroll
   setupMobileTabsMenuScroll();
+
+  // Close navbar elements when clicking outside of menu.
+  setupDocumentClick();
+
+  // Spoof click on nav menu toggle when clicking on nav menu close button.
+  setupCloseNavMenuButton();
 
   // Setup keyboard accessibility in the navigation menu.
   setupAccessibleNavMenu();
