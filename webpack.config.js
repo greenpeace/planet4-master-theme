@@ -44,7 +44,6 @@ module.exports = (env, argv) => {
       vwoSmartCode: './assets/src/js/vwo_smart_code.js',
       listingPages: './assets/src/js/listing_pages.js',
       bulkExport: './assets/src/js/bulk_export.js',
-      accessibleNavMenu: './assets/src/js/accessible_nav_menu.js',
       mediaImportButton: './assets/src/js/media_import_button.js',
       filterBlockNames: './assets/src/js/filter_block_names.js',
       metaboxSearch: './assets/src/js/metabox_search.js',
