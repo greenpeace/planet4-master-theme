@@ -15,6 +15,10 @@ final class PublicAssets
     public static function enqueue_js(): void
     {
         if (!file_exists(get_template_directory() . '/assets/build/index.js')) {
+            add_action('admin_notices', function (): void {
+                echo '<div class="error"><p>No Assets build found!. '
+                    . 'Make sure you build a theme assets using a command `npm run build:assets`.</p></div>';
+            });
             return;
         }
 
