@@ -13,6 +13,7 @@ use P4\MasterTheme\Features\Planet4Blocks;
 use P4\MasterTheme\Features\OldPostsArchiveNotice;
 use P4\MasterTheme\Features\ActionsTaskType;
 use P4\MasterTheme\Features\ActionsDeadline;
+use P4\MasterTheme\Features\ActionsUserPersonalization;
 use P4\MasterTheme\Loader;
 use P4\MasterTheme\Settings;
 use CMB2;
@@ -103,6 +104,7 @@ class Features
             OldPostsArchiveNotice::class,
             ActionsTaskType::class,
             ActionsDeadline::class,
+            ActionsUserPersonalization::class,
 
             // Dev only.
             DisableDataSync::class,
