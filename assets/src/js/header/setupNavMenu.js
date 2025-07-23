@@ -1,0 +1,78 @@
+const NAV_MENU_CLOSE_CLASS = '.nav-menu-close';
+const NAV_MENU_TOGGLE_CLASS = '.nav-menu-toggle';
+
+/**
+ * Spoof click on nav menu toggle when clicking on nav menu close button.
+ */
+export const setupCloseNavMenuButton = () => {
+  const closeNavMenuButton = document.querySelector(NAV_MENU_CLOSE_CLASS);
+  const closeButton = document.querySelector(NAV_MENU_TOGGLE_CLASS);
+
+  if (!closeNavMenuButton || !closeButton) {
+    return;
+  }
+
+  closeNavMenuButton.onclick = event => {
+    event.preventDefault();
+    closeButton.click();
+  };
+};
+
+/**
+ * Close navigation elements when clicking outside of it.
+ *
+ * @param {event} event Click event.
+ */
+const closeInactiveNavElements = event => {
+  let searchToggled = false;
+  const clickedElement = event.target;
+
+  const activeElements = [...document.querySelectorAll('button[aria-expanded="true"]')];
+
+  activeElements.forEach(button => {
+    const buttonTarget = button.dataset && button.dataset.bsTarget;
+
+    if (button.classList.contains('nav-search-toggle')) {
+      if (searchToggled) {
+        return;
+      }
+      searchToggled = true;
+    }
+
+    const buttonTargetElement = document.querySelector(buttonTarget);
+
+    if (buttonTargetElement && !buttonTargetElement.contains(clickedElement)) {
+      // Spoof a click on the open menu's toggle to close that menu.
+      button.click();
+    }
+  });
+};
+
+/**
+ * Lock scroll when navigation menu is open.
+ *
+ * @param {HTMLElement} element     Element that was toggled.
+ * @param {boolean}     wasExpanded If toggle was expanded.
+ */
+export const lockScrollWhenNavMenuOpen = (element, wasExpanded) => {
+  if (!element.classList.contains(NAV_MENU_TOGGLE_CLASS.substring(1))) {
+    return;
+  }
+  const htmlElement = document.getElementsByTagName('html')[0];
+  htmlElement.style.overflowY = wasExpanded ? 'auto' : 'hidden';
+
+  // Update tab index for keyboard navigation depending on burger menu being open or not.
+  const burgerMenu = document.querySelector('.burger-menu');
+  if (burgerMenu) {
+    const tabbingItems = [
+      burgerMenu.querySelector('.site-logo'),
+      burgerMenu.querySelector('.btn-donate'),
+      burgerMenu.querySelector(NAV_MENU_CLOSE_CLASS),
+      ...burgerMenu.querySelectorAll('.nav-link'),
+      ...burgerMenu.querySelectorAll('.collapsable-btn'),
+    ];
+    tabbingItems.forEach(item => item.setAttribute('tabindex', burgerMenu.classList.contains('open') ? 0 : -1));
+  }
+};
+
+export const setupDocumentClick = () => document.onclick = closeInactiveNavElements;
