@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Update header layout
   const header = document.getElementById('header');
   const gpLogo = document.querySelector('.site-logo');
-  if(header && gpLogo) {
+  if (header && gpLogo) {
     const container = document.createElement('div');
     container.classList.add('container');
     header.append(container);
@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
   /// Move columns content into a container
   const columns = document.querySelector('.actions-list + .wp-block-columns');
 
-  if(columns && actionsList) {
+  if (columns && actionsList) {
     const columnsWrapper = document.createElement('div');
     columnsWrapper.classList.add('columns-wrapper');
     columnsWrapper.classList.add('block-wide');
@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (openModalButton) {
       openModalButton.addEventListener('click', () => {
         let overlay = document.querySelector('.gform-overlay');
-        if(!overlay) {
+        if (!overlay) {
           overlay = document.createElement('div');
           overlay.classList.add('gform-overlay');
           document.body.append(overlay);
@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
         overlay.style.display = 'block';
 
         const form = document.querySelector('.gform_wrapper');
-        if(form) {
+        if (form) {
           form.style.display = 'flex';
         }
 
@@ -93,30 +93,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const cta = post.querySelector(isBoxout ? '.btn' : '.read-more-nav a');
 
-    if(actionsTaskType) {
+    if (actionsTaskType) {
       const taskType = cta.getAttribute('data-tasktype');
-      if(taskType) {
+      if (taskType) {
         // eslint-disable-next-line no-var
         var chipTaskType = document.createElement('span'); // Scoped variable
         chipTaskType.classList.add('chip-tasktype');
         chipTaskType.innerHTML = `Do it ${taskType}`;
 
-        if(isBoxout) {
+        if (isBoxout) {
           post.append(chipTaskType);
         }
       }
       cta.removeAttribute('data-tasktype');
     }
 
-    if(actionsDeadline) {
+    if (actionsDeadline) {
       const deadline = cta.getAttribute('data-deadline');
-      if(deadline && !isBoxout) {
+      if (deadline && !isBoxout) {
         const diffDates = new Date(deadline) - Date.now();
-        if(diffDates > 0) {
+        if (diffDates > 0) {
           const chipDeadline = document.createElement('span');
           const secondsInDay = 1000 * 60 * 60 * 24;
           const featuredImage = post.querySelector('.wp-block-post-featured-image');
-          if(featuredImage) {
+          if (featuredImage) {
             chipDeadline.classList.add('chip-deadline');
             chipDeadline.innerHTML = `${Math.round((Date.parse(deadline) - Date.now()) / secondsInDay)} days left`;
             featuredImage.append(chipDeadline);
