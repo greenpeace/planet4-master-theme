@@ -7,14 +7,14 @@ use P4\MasterTheme\Feature;
 /**
  * @see description().
  */
-class ActionsDeadline extends Feature
+class ActionsUserPersonalization extends Feature
 {
     /**
      * @inheritDoc
      */
     public static function id(): string
     {
-        return 'actions_deadline';
+        return 'actions_user_personalization';
     }
 
     /**
@@ -22,7 +22,7 @@ class ActionsDeadline extends Feature
      */
     protected static function name(): string
     {
-        return __('Actions Deadline', 'planet4-master-theme-backend');
+        return __('Actions User Personalization', 'planet4-master-theme-backend');
     }
 
     /**
@@ -32,7 +32,7 @@ class ActionsDeadline extends Feature
     {
         return __(
             // phpcs:ignore Generic.Files.LineLength.MaxExceeded
-            'Adds option for showing a countdown on Actions List block. This feature only works on Actions that use the Resistance Hub template.',
+            'Shows Actions as completed if the user has visited them already. This feature only works on Actions that use the Resistance Hub template.',
             'planet4-master-theme-backend',
         );
     }

@@ -17,7 +17,7 @@
 @mixin btn-cta {
   position: static;
   width: 100%;
-  font-size: 25px;
+  font-size: 18px;
   line-height: 100%;
   padding-top: 18px;
   padding-bottom: 18px;
@@ -72,7 +72,7 @@
   }
 
   .boxout {
-    height: auto;
+    height: 300px;
     box-shadow: none;
     margin-top: 90px;
 
@@ -86,7 +86,7 @@
     }
 
     .boxout-excerpt {
-      font-size: 24px;
+      font-size: 18px;
       line-clamp: unset;
       -webkit-line-clamp: unset;
     }
@@ -117,13 +117,13 @@
       overflow: visible;
 
       .wp-block-post-title {
-        font-size: 42px;
-        line-height: 46px;
+        font-size: 32px;
+        line-height: 1.275;
       }
 
       .wp-block-post-excerpt p {
-        font-size: 24px;
-        line-height: 30px;
+        font-size: 18px;
+        line-height: 1.5;
       }
 
       .actions-list-links {
@@ -165,7 +165,7 @@
         @include btn-cta;
       }
 
-      & *:not(.read-more-nav .btn) {
+      *:not(.read-more-nav .btn):not(.chip-deadline) {
         color: var(--white);
       }
     }
@@ -243,6 +243,87 @@
   @media (min-width: 1440px) {
     .boxout {
       width: 66%;
+    }
+  }
+
+  .boxout.completed,
+  .wp-block-post.completed {
+    background-color: var(--gp-green-500);
+    border-color: transparent;
+    padding: 24px;
+    min-height: auto;
+    height: 240px;
+    display: block;
+
+    .chip-tasktype {
+      display: none;
+    }
+
+    .boxout-content {
+      padding: 0;
+      margin: 0;
+    }
+
+    .boxout-excerpt,
+    .wp-block-post-excerpt p {
+      line-clamp: 2;
+      -webkit-line-clamp: 2;
+      line-height: 1.5;
+      font-size: 18px;
+    }
+
+    .wp-block-post-terms {
+      display: none;
+    }
+
+    .wp-block-post-title,
+    .boxout-heading {
+      font-size: 32px;
+
+      a {
+        line-clamp: 1;
+        -webkit-line-clamp: 1;
+      }
+    }
+
+    .completed-message {
+      padding-top: 0;
+      font-family: var(--font-family-primary);
+      display: flex;
+      align-items: center;
+      margin-bottom: 8px;
+
+      span:first-child {
+        background-image: url("../../images/checkmark.svg");
+        min-width: 50px;
+        min-height: 50px;
+        background-color: var(--white);
+        border-radius: 50%;
+        margin-inline-end: 8px;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 30px;
+      }
+    }
+
+    .chip-deadline {
+      display: none;
+    }
+
+    *:not(.read-more-nav .btn):not(.chip-deadline) {
+      color: var(--grey-900);
+    }
+
+    .wp-block-group.is-layout-flow {
+      padding: 0;
+      margin-bottom: 0;
+    }
+
+    .btn {
+      background-color: transparent;
+      width: auto;
+      padding: 0;
+      font-size: 18px;
     }
   }
 }
