@@ -8,10 +8,6 @@ global $post;
  * @package P4MT
  */
 
-if (!$post) {
-    return;
-}
-
 use P4\MasterTheme\Context;
 use P4\MasterTheme\Post;
 use Timber\Timber;

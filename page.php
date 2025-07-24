@@ -30,10 +30,6 @@ global $post;
  * Post     : Action
  */
 
-if (!$post) {
-    return;
-}
-
 use P4\MasterTheme\Context;
 use P4\MasterTheme\Features\RedirectRedirectPages;
 use P4\MasterTheme\Post;

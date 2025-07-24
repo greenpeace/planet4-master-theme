@@ -307,6 +307,7 @@
 
   @include medium-and-up {
     margin: $sp-5 0;
+    padding-bottom: $sp-4;
   }
 }
 
@@ -318,7 +319,7 @@
   }
 
   @include medium-and-up {
-    margin-bottom: $sp-5;
+    margin-bottom: $sp-7;
   }
 }
 
@@ -363,7 +364,18 @@
 
   .listing-page-select {
     width: 100%;
-    margin-bottom: $sp-3;
+    position: relative;
+
+    select {
+      margin-bottom: $sp-3;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+      @include medium-and-up {
+        margin-bottom: 0;
+      }
+    }
   }
 
   .btn-primary {
@@ -395,4 +407,27 @@
   text-align: center;
   font-size: var(--font-size-m--font-family-primary);
   padding-top: $sp-4;
+}
+
+.listing-page-select-label {
+  font-family: var(--font-family-tertiary);
+  font-size: var(--font-size-m--font-family-tertiary);
+  margin-bottom: $sp-1;
+  color: var(--grey-600);
+
+  @include medium-and-up {
+    position: absolute;
+    top: -$sp-4;
+    left: 0;
+  }
+}
+
+.filter-btn {
+  display: flex;
+  align-self: center;
+  justify-self: center;
+
+  @include medium-and-less {
+    width: 100%;
+  }
 }
