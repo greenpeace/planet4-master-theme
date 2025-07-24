@@ -1,11 +1,10 @@
-const NAV_MENU_CLOSE_CLASS = '.nav-menu-close';
 const NAV_MENU_TOGGLE_CLASS = '.nav-menu-toggle';
 
 /**
  * Spoof click on nav menu toggle when clicking on nav menu close button.
  */
 export const setupCloseNavMenuButton = () => {
-  const closeNavMenuButton = document.querySelector(NAV_MENU_CLOSE_CLASS);
+  const closeNavMenuButton = document.querySelector('.nav-menu-close');
   const closeButton = document.querySelector(NAV_MENU_TOGGLE_CLASS);
 
   if (!closeNavMenuButton || !closeButton) {
@@ -47,6 +46,7 @@ const closeInactiveNavElements = event => {
     }
   });
 };
+export const setupDocumentClick = () => document.onclick = closeInactiveNavElements;
 
 /**
  * Lock scroll when navigation menu is open.
@@ -60,19 +60,4 @@ export const lockScrollWhenNavMenuOpen = (element, wasExpanded) => {
   }
   const htmlElement = document.getElementsByTagName('html')[0];
   htmlElement.style.overflowY = wasExpanded ? 'auto' : 'hidden';
-
-  // Update tab index for keyboard navigation depending on burger menu being open or not.
-  const burgerMenu = document.querySelector('.burger-menu');
-  if (burgerMenu) {
-    const tabbingItems = [
-      burgerMenu.querySelector('.site-logo'),
-      burgerMenu.querySelector('.btn-donate'),
-      burgerMenu.querySelector(NAV_MENU_CLOSE_CLASS),
-      ...burgerMenu.querySelectorAll('.nav-link'),
-      ...burgerMenu.querySelectorAll('.collapsable-btn'),
-    ];
-    tabbingItems.forEach(item => item.setAttribute('tabindex', burgerMenu.classList.contains('open') ? 0 : -1));
-  }
 };
-
-export const setupDocumentClick = () => document.onclick = closeInactiveNavElements;

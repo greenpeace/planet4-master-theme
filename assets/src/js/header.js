@@ -1,6 +1,6 @@
 /* global hj */
 
-import setupAccessibleNavMenu from './header/setupAccessibleNavMenu';
+import {setupAccessibleNavMenu, updateNavMenuTabIndex} from './header/accessibleNavMenu';
 import setupMobileTabsMenuScroll from './header/setupMobileTabsMenuScroll';
 import {setupCloseNavMenuButton, setupDocumentClick, lockScrollWhenNavMenuOpen} from './header/setupNavMenu';
 
@@ -58,6 +58,9 @@ const toggleNavElement = element => {
 
   // Lock scroll when navigation menu is open
   lockScrollWhenNavMenuOpen(element, wasExpanded);
+
+  // Update tab index for keyboard navigation depending on burger menu being open or not.
+  updateNavMenuTabIndex();
 
   // Toggle data-ga-action attribute used in GTM tracking.
   const countryDropdownToggle = document.querySelector('.country-dropdown-toggle');

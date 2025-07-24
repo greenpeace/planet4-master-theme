@@ -9,7 +9,7 @@ const NAV_MENU_CLOSE_CLASS = '.nav-menu-close';
 /**
  * Function to handle keyboard accessibility in the navigation menu.
  */
-export default () => {
+export const setupAccessibleNavMenu = () => {
   const mainNav = document.querySelector('#nav-main-desktop');
   const mobileNav = document.querySelector('#nav-main');
 
@@ -189,4 +189,23 @@ export default () => {
     focusLogoOnMenuOpen();
     focusLogoOnMenuClose();
   }
+};
+
+/**
+ * Function to update tab index for keyboard navigation depending on burger menu being open or not.
+ */
+export const updateNavMenuTabIndex = () => {
+  const menu = document.querySelector('.burger-menu');
+  if (!menu) {
+    return;
+  }
+
+  const tabbingItems = [
+    menu.querySelector(SITE_LOGO_CLASS),
+    menu.querySelector('.btn-donate'),
+    menu.querySelector(NAV_MENU_CLOSE_CLASS),
+    ...menu.querySelectorAll('.nav-link'),
+    ...menu.querySelectorAll('.collapsable-btn'),
+  ];
+  tabbingItems.forEach(item => item.setAttribute('tabindex', menu.classList.contains('open') ? 0 : -1));
 };
