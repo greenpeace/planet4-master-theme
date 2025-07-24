@@ -307,6 +307,7 @@
 
   @include medium-and-up {
     margin: $sp-5 0;
+    padding-bottom: $sp-4;
   }
 }
 
@@ -318,7 +319,7 @@
   }
 
   @include medium-and-up {
-    margin-bottom: $sp-5;
+    margin-bottom: $sp-7;
   }
 }
 
@@ -363,12 +364,17 @@
 
   .listing-page-select {
     width: 100%;
+    position: relative;
 
     select {
       margin-bottom: $sp-3;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+
+      @include medium-and-up {
+        margin-bottom: 0;
+      }
     }
   }
 
@@ -405,6 +411,12 @@
   font-size: var(--font-size-m--font-family-tertiary);
   margin-bottom: $sp-1;
   color: var(--grey-600);
+
+  @include medium-and-up {
+    position: absolute;
+    top: -$sp-4;
+    left: 0;
+  }
 }
 
 .filter-btn {
