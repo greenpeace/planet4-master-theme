@@ -14,6 +14,7 @@ use WP_Block;
 class QueryLoopExtension
 {
     public const ACTIONS_LIST_BLOCK = 'planet4-blocks/actions-list';
+    public const POSTS_LIST_BLOCK = 'planet4-blocks/posts-list';
 
     /**
      * Register all necessary filters for both REST API and frontend query handling.
@@ -68,25 +69,34 @@ class QueryLoopExtension
      */
     private static function applyCommonQueryModifiers(array $query, array $params): array
     {
-        if (!empty($params['block_name']) && $params['block_name'] === self::ACTIONS_LIST_BLOCK) {
-            $query = self::buildActionListQuery($query);
-        }
-
-        if (!empty($params['postIn'])) {
-            $query['post__in'] = array_map('intval', (array) $params['postIn']);
-            $query['orderby'] = 'post__in';
-            $query['ignore_sticky_posts'] = true;
-        }
-
-        if (isset($query['post__in']) && !empty($query['post__in']) && !empty($params['exclude'])) {
-            $exclude = array_map('intval', (array) $params['exclude']);
-            $query['post__in'] = array_values(array_diff($query['post__in'], $exclude));
-        }
-
         // Ensure only published items without password are queried
         $query['post_status'] = 'publish';
         $query['has_password'] = false;
 
+        if (!empty($params['block_name'])) {
+            if ($params['block_name'] === self::ACTIONS_LIST_BLOCK) {
+                $query = self::buildActionListQuery($query);
+            }
+
+            if ($params['block_name'] === self::POSTS_LIST_BLOCK) {
+                $query['ignore_sticky_posts'] = true;
+                $query['orderby'] = [
+                    'post_date' => 'DESC',
+                ];
+
+                return $query;
+            }
+        }
+
+        if (!empty($params['postIn'])) {
+            $query['post__in'] = array_map('intval', (array) $params['postIn']);
+            $query['ignore_sticky_posts'] = true;
+
+            if (!empty($query['post__in']) && !empty($params['exclude'])) {
+                $exclude = array_map('intval', (array) $params['exclude']);
+                $query['post__in'] = array_values(array_diff($query['post__in'], $exclude));
+            }
+        }
         return $query;
     }
 

@@ -38,6 +38,7 @@ export const POSTS_LIST_BLOCK_ATTRIBUTES = {
     sticky: '',
     inherit: false,
     postIn: [],
+    block_name: POSTS_LIST_BLOCK_NAME,
   },
   layout: {
     type: 'default',
