@@ -1,8 +1,8 @@
 /* global hj */
 
-import setupAccessibleNavMenu from './header/setupAccessibleNavMenu';
+import {setupAccessibleNavMenu, updateNavMenuTabIndex} from './header/accessibleNavMenu';
 import setupMobileTabsMenuScroll from './header/setupMobileTabsMenuScroll';
-import {setupCloseNavMenuButton, setupDocumentClick} from './header/setupCloseMenu';
+import {setupCloseNavMenuButton, setupDocumentClick, lockScrollWhenNavMenuOpen} from './header/setupNavMenu';
 
 const updateGaAction = (element, elementName) => {
   element.dataset.gaAction = `${element.getAttribute('aria-expanded') === 'false' ? 'Open' : 'Close'} ${elementName}`;
@@ -57,23 +57,10 @@ const toggleNavElement = element => {
   }
 
   // Lock scroll when navigation menu is open
-  if (element.classList.contains('nav-menu-toggle')) {
-    const htmlElement = document.getElementsByTagName('html')[0];
-    htmlElement.style.overflowY = wasExpanded ? 'auto' : 'hidden';
+  lockScrollWhenNavMenuOpen(element, wasExpanded);
 
-    // Update tab index for keyboard navigation depending on burger menu being open or not.
-    const burgerMenu = document.querySelector('.burger-menu');
-    if (burgerMenu) {
-      const tabbingItems = [
-        burgerMenu.querySelector('.site-logo'),
-        burgerMenu.querySelector('.btn-donate'),
-        burgerMenu.querySelector('.nav-menu-close'),
-        ...burgerMenu.querySelectorAll('.nav-link'),
-        ...burgerMenu.querySelectorAll('.collapsable-btn'),
-      ];
-      tabbingItems.forEach(item => item.setAttribute('tabindex', burgerMenu.classList.contains('open') ? 0 : -1));
-    }
-  }
+  // Update tab index for keyboard navigation depending on burger menu being open or not.
+  updateNavMenuTabIndex();
 
   // Toggle data-ga-action attribute used in GTM tracking.
   const countryDropdownToggle = document.querySelector('.country-dropdown-toggle');
