@@ -14,6 +14,38 @@
     }
   }
 
+  // These styles will be applied to the Quick Links Block only
+  &.quick-links {
+    @include mobile-only {
+      @include wide-block;
+
+      $item-width: calc(100vw / 4);
+
+      padding-left: $sp-1x;
+      padding-right: $sp-1x;
+
+      .wp-block-column {
+        flex-basis: $item-width;
+      }
+
+      @media (max-width: 380px) {
+        $item-width: calc(100vw / 3);
+
+        .wp-block-column {
+          flex-basis: $item-width;
+        }
+      }
+
+      @media (min-width: 420px) {
+        $item-width: calc(100vw / 5);
+
+        .wp-block-column {
+          flex-basis: $item-width;
+        }
+      }
+    }
+  }
+
   @include small-and-less {
     gap: $sp-2;
   }
