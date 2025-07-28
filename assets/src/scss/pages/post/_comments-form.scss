@@ -64,10 +64,6 @@
   }
 }
 
-.comment-form-cookies-consent input[type="checkbox"] ~ .custom-control-description {
-  font-size: 14px;
-}
-
 .logged-in-as {
   font-size: var(--font-size-s--font-family-tertiary);
   font-family: var(--font-family-tertiary);
@@ -93,10 +89,6 @@
 }
 
 @include medium-and-up {
-  .comment-form-cookies-consent {
-    margin-top: $sp-1;
-  }
-
   .comments-block .form-section .comment-respond {
     padding: $sp-4;
   }

@@ -15,7 +15,6 @@ class CommentFormCustomizer
     public function __construct()
     {
         add_filter('comment_form_submit_field', [$this, 'gdpr_cc_comment_form_add_class'], 150, 1);
-        add_filter('comment_form_default_fields', [$this, 'comment_form_cookie_checkbox_add_class']);
         add_filter('comment_form_default_fields', [$this, 'comment_form_replace_inputs']);
     }
 
@@ -39,28 +38,6 @@ class CommentFormCustomizer
         $submit_field = preg_replace($pattern, $replacement, $submit_field);
 
         return $submit_field;
-    }
-
-    /**
-     * Add classes to the default comment form cookie checkbox.
-     *
-     * @param array $fields The default fields of the comment form.
-     *
-     * @return array the new fields.
-     */
-    public function comment_form_cookie_checkbox_add_class(array $fields): array
-    {
-
-        if (isset($fields['cookies'])) {
-            $pattern[0] = '/(class=["\']comment-form-cookies-consent["\'])/';
-            $replacement[0] = 'class="comment-form-cookies-consent custom-control"';
-            $pattern[1] = '/(for=["\']wp-comment-cookies-consent["\'])/';
-            $replacement[1] = '$1 class="custom-control-description"';
-
-            $fields['cookies'] = preg_replace($pattern, $replacement, $fields['cookies']);
-        }
-
-        return $fields;
     }
 
     /**
