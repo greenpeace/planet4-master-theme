@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2025-07-03 09:24+0000\n"
+"PO-Revision-Date: 2025-07-30 10:34+0000\n"
 "Language-Team: Swedish\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -254,7 +254,7 @@ msgstr ""
 #: theme.json:1
 msgctxt "Color name"
 msgid "Blue Green 800"
-msgstr ""
+msgstr "Blue Green 800"
 
 #: theme.json:1
 msgctxt "Color name"
