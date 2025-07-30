@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2025-07-30 10:37+0000\n"
+"PO-Revision-Date: 2025-07-30 10:38+0000\n"
 "Language-Team: Swedish\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -633,11 +633,11 @@ msgstr "Skicka"
 
 #: assets/src/js/listing_pages.js:38
 msgid "Switch to grid view"
-msgstr ""
+msgstr "Växla till rutnätsvy"
 
 #: assets/src/js/listing_pages.js:46
 msgid "Switch to list view"
-msgstr ""
+msgstr "Växla till listvy"
 
 #: templates/featured-action.twig:12
 msgid "Take Action"
@@ -669,7 +669,7 @@ msgstr ""
 #: assets/src/js/external_links.js:28
 #, javascript-format
 msgid "This link will lead you to %1$s"
-msgstr ""
+msgstr "Denna länk tar dig till %1$s"
 
 #: assets/src/js/pdf_icon.js:20
 msgid "This link will open a PDF file"
