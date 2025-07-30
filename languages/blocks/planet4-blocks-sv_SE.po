@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Planet4 - Blocks\n"
 "POT-Creation-Date: 2020-09-09 11:52+0000\n"
-"PO-Revision-Date: 2025-07-03 09:23+0000\n"
+"PO-Revision-Date: 2025-07-30 09:15+0000\n"
 "Last-Translator: Svilena Koleva\n"
 "Language-Team: Swedish\n"
 "MIME-Version: 1.0\n"
@@ -245,7 +245,7 @@ msgstr ""
 #: assets/src/block-templates/high-level-topic/template.js:37
 #: assets/src/block-templates/get-informed/template.js:34
 msgid "Latest news & stories"
-msgstr ""
+msgstr "Senaste nytt"
 
 #: src/Migrations/M032MigrateSplit2ColumnBlock.php:201
 msgid "Learn more about this issue"
@@ -311,7 +311,7 @@ msgstr ""
 
 #: assets/src/block-templates/homepage/template.js:17
 msgid "Read our Stories"
-msgstr ""
+msgstr "Läs våra berättelser"
 
 #: src/Migrations/M046MigrateArticlesBlockToPostsListBlock.php:113
 msgid "Related Articles"
