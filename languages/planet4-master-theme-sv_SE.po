@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2025-07-30 10:38+0000\n"
+"PO-Revision-Date: 2025-07-30 10:48+0000\n"
 "Language-Team: Swedish\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -365,47 +365,47 @@ msgstr "Utforska"
 
 #: templates/listing-page-filters.twig:3
 msgid "Filter by category"
-msgstr ""
+msgstr "Filtrera efter kategori"
 
 #: templates/search/action_types.twig:16
 #, php-format
 msgid "Filter results by action type %s, %d results were found"
-msgstr ""
+msgstr "Filtrera resultaten efter åtgärdstyp %s, %d resultat hittades"
 
 #: templates/search/action_types.twig:14
 #, php-format
 msgid "Filter results by action type %s, 1 result was found"
-msgstr ""
+msgstr "Filtrera resultat efter åtgärdstyp %s, 1 resultat hittades"
 
 #: templates/search/categories.twig:16
 #, php-format
 msgid "Filter results by category %s, %d results were found"
-msgstr ""
+msgstr "Filtrera resultaten efter kategori %s, %d resultat hittades"
 
 #: templates/search/categories.twig:14
 #, php-format
 msgid "Filter results by category %s, 1 result was found"
-msgstr ""
+msgstr "Filtrera resultat efter kategori %s, ett resultat hittades"
 
 #: templates/search/content_types.twig:16
 #, php-format
 msgid "Filter results by content type %s, %d results were found"
-msgstr ""
+msgstr "Filtrera resultat efter inläggstyp %s, %d resultat hittades"
 
 #: templates/search/content_types.twig:14
 #, php-format
 msgid "Filter results by content type %s, 1 result was found"
-msgstr ""
+msgstr "Filtrera resultat efter innehållstyp %s, 1 resultat hittades"
 
 #: templates/search/post_types.twig:16
 #, php-format
 msgid "Filter results by post type %s, %d results were found"
-msgstr ""
+msgstr "Filtrera resultat efter inläggstyp %s, %d resultat hittades"
 
 #: templates/search/post_types.twig:14
 #, php-format
 msgid "Filter results by post type %s, 1 result was found"
-msgstr ""
+msgstr "Filtrera resultat efter inläggstyp %s, 1 resultat hittades"
 
 #: templates/search.twig:63
 msgid "Filters"
@@ -425,7 +425,7 @@ msgstr "Greenpeace Planet 4 Master Theme"
 
 #: assets/src/js/listing_pages.js:34
 msgid "Grid View"
-msgstr ""
+msgstr "Rutnätsvy"
 
 #: functions.php:519
 msgid "here"
@@ -465,7 +465,7 @@ msgstr "Kommentera"
 
 #: assets/src/js/listing_pages.js:42
 msgid "List View"
-msgstr ""
+msgstr "Listvy"
 
 #: templates/tease-search.twig:156
 msgid "Manage"
@@ -501,7 +501,7 @@ msgstr "Nyheter"
 
 #: assets/src/js/listing_pages.js:93
 msgid "No posts found!"
-msgstr ""
+msgstr "Inga inlägg hittades!"
 
 #: src/Search/SearchPage.php:70
 msgid "Oldest"
@@ -557,7 +557,7 @@ msgstr "Sök"
 
 #: templates/search.twig:8
 msgid "Search by name, keyword, or topic"
-msgstr ""
+msgstr "Sök efter namn, nyckelord eller ämne"
 
 #: templates/footer_country_selector.twig:11
 msgid "Selected"
@@ -576,7 +576,7 @@ msgstr "Dela på"
 #: templates/blocks/share_buttons.twig:47
 #, php-format
 msgid "Share on %s"
-msgstr ""
+msgstr "Share on %s"
 
 #: templates/blocks/share_buttons.twig:37
 #: templates/blocks/share_buttons.twig:57
