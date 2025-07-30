@@ -66,7 +66,7 @@ export const getActionsListBlockTemplate = (title = __('', 'planet4-blocks-backe
         taxonomy: LISTS_BREADCRUMBS[0].value,
         post_type: queryPostType,
       }],
-      ['core/post-title', {isLink: true}],
+      ['core/post-title', {isLink: true, level: 3}],
       ['core/post-excerpt'],
     ]],
     ['core/group', {className: 'read-more-nav'}, [
