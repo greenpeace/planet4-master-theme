@@ -1,3 +1,15 @@
+@mixin apply-item-width($gap, $items-count) {
+  $gap: 0;
+  $total-gap: calc($gap * $items-count);
+  $apply-item-width: calc(100vw / calc($items-count + .5));
+
+  gap: $gap !important;
+
+  .wp-block-column {
+    flex-basis: $apply-item-width;
+  }
+}
+
 .wp-block-columns.is-not-stacked-on-mobile.is-style-mobile-carousel {
   @include large-and-less {
     flex-wrap: nowrap;
@@ -18,30 +30,17 @@
   &.quick-links {
     @include mobile-only {
       @include wide-block;
-
-      $item-width: calc(100vw / 4);
+      @include apply-item-width(0, 3);
 
       padding-left: $sp-1x;
       padding-right: $sp-1x;
 
-      .wp-block-column {
-        flex-basis: $item-width;
-      }
-
-      @media (max-width: 380px) {
-        $item-width: calc(100vw / 3);
-
-        .wp-block-column {
-          flex-basis: $item-width;
-        }
+      @media (max-width: 340px) {
+        @include apply-item-width(0, 2);
       }
 
       @media (min-width: 420px) {
-        $item-width: calc(100vw / 5);
-
-        .wp-block-column {
-          flex-basis: $item-width;
-        }
+        @include apply-item-width(0, 4);
       }
     }
   }
