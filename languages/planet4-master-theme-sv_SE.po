@@ -617,7 +617,7 @@ msgstr "Hoppa till navigering"
 
 #: templates/search.twig:56
 msgid "Skip to search results"
-msgstr ""
+msgstr "Hoppa till sökresultaten"
 
 #: 404.php:21
 msgid "Sorry, we can't find that page!"
