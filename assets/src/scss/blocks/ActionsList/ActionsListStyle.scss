@@ -13,6 +13,10 @@
         grid-template-columns: repeat(3, 1fr);
       }
     }
+
+    .load-more-actions-container {
+      display: none;
+    }
   }
 
   ul li {
@@ -150,6 +154,10 @@
       @include large-and-up {
         grid-template-columns: repeat(3, minmax(0, 1fr));
       }
+    }
+
+    .wp-block-post:nth-child(n+7) {
+      display: none;
     }
   }
 }

@@ -100,6 +100,7 @@ class QueryLoopExtension
                 $query['post__in'] = array_values(array_diff($query['post__in'], $exclude));
             }
         }
+
         return $query;
     }
 
