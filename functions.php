@@ -438,15 +438,6 @@ add_action(
                 margin-left: 5px;
             }
         </style>';
-
-        wp_add_inline_script(
-            'wp-notices',
-            sprintf(
-                'wp.data.dispatch( "core/notices" ).createNotice("warning", "%s" , { isDismissible: false, actions: [ { label: "%s", url: "options-reading.php"} ] } )',
-                __('The content on this page is hidden because this page is being used as your \"All Posts\" listing page. You can disable this by un-setting the \"Posts page\"', 'planet4-master-theme'),
-                __('here', 'planet4-master-theme')
-            )
-        );
     },
     100
 );
