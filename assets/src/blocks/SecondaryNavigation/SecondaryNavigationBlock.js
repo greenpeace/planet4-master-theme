@@ -1,5 +1,4 @@
 import {SecondaryNavigationEditor} from './SecondaryNavigationEditor';
-import {example} from './example';
 
 const {__} = wp.i18n;
 
@@ -18,13 +17,6 @@ export const registerSecondaryNavigationBlock = () => {
         type: 'array',
         default: [{heading: 2, link: true}],
       },
-      exampleMenuItems: { // Used for the block's preview, which can't extract items from anything.
-        type: 'array',
-      },
-    },
-    isExample: {
-      type: 'boolean',
-      default: false,
     },
     supports: {
       multiple: false, // Use the block just once per post.
@@ -34,6 +26,5 @@ export const registerSecondaryNavigationBlock = () => {
     save() {
       return null;
     },
-    example,
   });
 };
