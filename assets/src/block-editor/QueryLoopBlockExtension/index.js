@@ -135,7 +135,7 @@ export const setupQueryLoopBlockExtension = () => {
             },
             query: {
               ...query,
-              perPage: layoutType.columnCount,
+              perPage: layoutType.perPage || layoutType.columnCount,
             },
             className: ((className.includes(pattern)) ?
               className.replace(/\is-custom-layout-.*/, `${pattern}${layoutType.label}`) :
