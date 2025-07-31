@@ -2,14 +2,38 @@ import {useState, useEffect, useRef} from '@wordpress/element';
 import {getHeadingsFromDom} from '../TableOfContents/getHeadingsFromDom';
 import {initializeJustifyContentAdjustment} from './adjustNavWidth';
 
-const makeSecondaryNavigationStickyonScroll = () => {
+/**
+ * Makes the secondary navigation sticky when the page header scrolls past
+ * a defined offset and there's enough space in the content container.
+ *
+ * Adds/removes the 'stuck' class on `.sn-wrapper` based on scroll position.
+ */
+const makeSecondaryNavigationStickyOnScroll = () => {
   const pageHeader = document.querySelector('.is-pattern-p4-page-header');
-
   const stickyElement = document.querySelector('.sn-wrapper');
   const container = document.querySelector('.page-content');
-  const offset = 20;
+
+  if (!pageHeader || !stickyElement || !container) {return;}
+
+  const getDynamicOffset = () => {
+    const isMobile = window.innerWidth <= 991;
+    const hasAdminBar = !!document.getElementById('wpadminbar');
+    const hasStuckOpen = document.body.classList.contains('stuck-open');
+
+    if (isMobile) {
+      if (hasStuckOpen) {return 110;}
+      if (hasAdminBar) {return 86;}
+      return 60;
+    }
+
+    // Desktop logic
+    if (hasAdminBar) {return 52;}
+    return 20;
+  };
 
   window.addEventListener('scroll', () => {
+    const offset = getDynamicOffset();
+
     const containerRect = container.getBoundingClientRect();
     const stickyRect = stickyElement.getBoundingClientRect();
     const pageHeaderRect = pageHeader.getBoundingClientRect();
@@ -32,14 +56,13 @@ export const SecondaryNavigationFrontend = ({levels}) => {
   const isManualScroll = useRef(false);
   const hasLoaded = useRef(false);
   const navListRef = useRef(null);
-
   const isMobile = window.innerWidth <= 991;
-
-
   const headings = getHeadingsFromDom(levels);
+  const dropdownRef = useRef(null);
+  const toggleRef = useRef(null);
 
   useEffect(() => {
-    makeSecondaryNavigationStickyonScroll();
+    makeSecondaryNavigationStickyOnScroll();
     initializeJustifyContentAdjustment();
   }, []);
 
@@ -59,19 +82,21 @@ export const SecondaryNavigationFrontend = ({levels}) => {
 
         const {id, innerText} = entry.target;
 
-        setActiveLink(id);
-        setCurrentHeaderLink(innerText);
-        window.history.replaceState(null, null, `#${id}`);
+        if (id !== activeLink) {
+          setActiveLink(id);
+          setCurrentHeaderLink(innerText);
+          window.history.replaceState(null, null, `#${id}`);
 
-        // Make active element visible on scroll
-        setTimeout(() => {
-          const navItem = document.querySelector('.secondary-navigation-link.active');
-          navItem?.scrollIntoView({
-            behavior: 'smooth',
-            inline: 'center',
-            block: 'nearest',
-          });
-        }, 0);
+          // Make active element visible on scroll
+          setTimeout(() => {
+            const navItem = document.querySelector('.secondary-navigation-link.active');
+            navItem?.scrollIntoView({
+              behavior: 'smooth',
+              inline: 'center',
+              block: 'nearest',
+            });
+          }, 0);
+        }
       });
     };
 
@@ -82,9 +107,7 @@ export const SecondaryNavigationFrontend = ({levels}) => {
       if (link) {observer.observe(link);}
     });
 
-    setTimeout(() => {
-      hasLoaded.current = true;
-    }, 500);
+    setTimeout(() => hasLoaded.current = true, 500);
 
     return () => {
       headings.forEach(({anchor}) => {
@@ -92,20 +115,19 @@ export const SecondaryNavigationFrontend = ({levels}) => {
         if (link) {observer.unobserve(link);}
       });
     };
-  }, [headings]);
+  }, [activeLink, headings]);
 
   useEffect(() => {
-    // For smaller screens to update the new Navigation with the active element.
-    if (isMobile) {
-      const hash = window.location.hash?.replace('#', '');
+  // Exit early if not on a mobile screen
+    if (!isMobile) {return;}
 
-      if (hash) {
-        const matchedHeading = headings.find(h => h.anchor === hash);
-        if (matchedHeading) {
-          setActiveLink(matchedHeading.anchor);
-          setCurrentHeaderLink(matchedHeading.content);
-        }
-      }
+    const hash = window.location.hash?.replace('#', '');
+    if (!hash) {return;}
+
+    const matchedHeading = headings.find(h => h.anchor === hash);
+    if (matchedHeading) {
+      setActiveLink(matchedHeading.anchor);
+      setCurrentHeaderLink(matchedHeading.content);
     }
   }, [isMobile, headings]);
 
@@ -117,7 +139,7 @@ export const SecondaryNavigationFrontend = ({levels}) => {
     const updateArrows = () => {
       const {scrollLeft, scrollWidth, clientWidth} = navEl;
       setShowLeftArrow(scrollLeft > 0);
-      setShowRightArrow(scrollLeft + clientWidth < scrollWidth);
+      setShowRightArrow((scrollLeft + clientWidth + 10) < scrollWidth);
     };
 
     updateArrows();
@@ -130,6 +152,29 @@ export const SecondaryNavigationFrontend = ({levels}) => {
     };
   }, []);
 
+  useEffect(() => {
+    if (!isMobile) {return;}
+
+    // Close dropdown if user clicks outside of nav when open
+    const handleClickOutside = event => {
+      if (
+        isDropdownOpen &&
+      dropdownRef.current &&
+      toggleRef.current &&
+      !dropdownRef.current.contains(event.target) &&
+      !toggleRef.current.contains(event.target)
+      ) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener('click', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, [isDropdownOpen, isMobile]);
+
 
   const handleClick = (id, text) => {
     isClicking.current = true;
@@ -137,77 +182,74 @@ export const SecondaryNavigationFrontend = ({levels}) => {
     setCurrentHeaderLink(text);
     setIsDropdownOpen(false);
 
-    setTimeout(() => {
-      isClicking.current = false;
-    }, 500);
+    setTimeout(() => isClicking.current = false, 500);
   };
 
-  const handleDropdown = () => {
-    setIsDropdownOpen(prev => !prev);
-  };
+  const handleDropdown = () => setIsDropdownOpen(prev => !prev);
 
   const scrollLeft = () => {
     isManualScroll.current = true;
     navListRef.current?.scrollBy({left: -150, behavior: 'smooth'});
 
     // Reset after short delay
-    setTimeout(() => {
-      isManualScroll.current = false;
-    }, 500);
+    setTimeout(() => isManualScroll.current = false, 500);
   };
 
   const scrollRight = () => {
     isManualScroll.current = true;
     navListRef.current.scrollBy({left: 150, behavior: 'smooth'});
 
-    setTimeout(() => {
-      isManualScroll.current = false;
-    }, 500);
+    setTimeout(() => isManualScroll.current = false, 500);
   };
 
   return (
-    <div className="sn-wrapper">
-      <div className="secondary-nav-dropdown">
-        <p className="current-active-class">{currentHeaderLink}</p>
-        <p
-          className={`dropdown-btn ${isDropdownOpen ? 'active' : ''}`}
-          onClick={handleDropdown}
-          role="presentation"
-        >
-        </p>
-      </div>
-      <div className={`block secondary-navigation-block ${isDropdownOpen ? 'show' : ''}`}>
-        <div className="secondary-navigation-menu container">
-          {showLeftArrow && (
-            <button className="nav-arrow left" onClick={scrollLeft}>
-              &#8592;
-            </button>
-          )}
-          <div className="secondary-nav-scroll-wrapper">
-            <ul className="secondary-navigation-item" ref={navListRef}>
-              {headings.map(({anchor, content}) => (
-                <li
-                  key={anchor}
-                >
-                  <a
-                    className={`secondary-navigation-link ${activeLink === anchor ? 'active': ''}`}
-                    href={`#${anchor}`}
-                    data-target={anchor}
-                    onClick={() => handleClick(anchor, content)}
-                  >
-                    {content}
-                  </a>
-                </li>
-              ))}
-            </ul>
+    <>
+      {headings.length > 0 && (
+        <div className="sn-wrapper">
+          <div
+            className="secondary-nav-dropdown"
+            onClick={handleDropdown}
+            role="presentation"
+            ref={toggleRef}
+          >
+            <p className="current-active-class">{currentHeaderLink}</p>
+            <p className={`dropdown-btn ${isDropdownOpen ? 'active' : ''}`}></p>
           </div>
-          {showRightArrow && (
-            <button className="nav-arrow right" onClick={scrollRight}>
+          <div
+            className={`block secondary-navigation-block ${isDropdownOpen ? 'show' : ''}`}
+            ref={dropdownRef}
+          >
+            <div className="secondary-navigation-menu container">
+              {showLeftArrow && (
+                <button className="nav-arrow left" onClick={scrollLeft}>
+              &#8592;
+                </button>
+              )}
+              <div className="secondary-nav-scroll-wrapper">
+                <ul className="secondary-navigation-item" ref={navListRef}>
+                  {headings.map(({anchor, content}) => (
+                    <li key={anchor}>
+                      <a
+                        className={`secondary-navigation-link ${activeLink === anchor ? 'active': ''}`}
+                        href={`#${anchor}`}
+                        data-target={anchor}
+                        onClick={() => handleClick(anchor, content)}
+                      >
+                        {content}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              {showRightArrow && (
+                <button className="nav-arrow right" onClick={scrollRight}>
               &#8594;
-            </button>
-          )}
+                </button>
+              )}
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
+      )}
+    </>
   );
 };
