@@ -1,31 +1,10 @@
-/* global hj */
-
 import {setupAccessibleNavMenu} from './header/setupAccessibleNavMenu';
 import setupMobileTabsMenuScroll from './header/setupMobileTabsMenuScroll';
 import {setupCloseNavMenuButton, setupDocumentClick, toggleNavElements} from './header/setupNavMenu';
 import {setupTransparentNavHomepage} from './header/setupTransparentNavHomepage';
+import {setupNavInteractions} from './header/setupNavInteractions';
 
 export const setupHeader = () => {
-  // Close all menus on escape pressed
-  document.onkeyup = event => {
-    if (event.key === 'Escape') {
-      document.body.click();
-    }
-  };
-
-  let searchFocused = false;
-  const searchInput = document.getElementById('search_input');
-  if (searchInput) {
-    searchInput.addEventListener('focus', () => {
-      if (!searchFocused) {
-        if (hj) {
-          hj('event', 'search');
-        }
-        searchFocused = true;
-      }
-    });
-  }
-
   // Set the mobile tabs menu behavior on scroll.
   setupMobileTabsMenuScroll();
 
@@ -41,7 +20,10 @@ export const setupHeader = () => {
   // Handle clicking on navigation elements.
   toggleNavElements();
 
-  //Handles the transition to the transparent styles for the Navigation Menu.
+  // Handles the transition to the transparent styles for the Navigation Menu.
   setupTransparentNavHomepage();
+
+  // Set up other nav interactions and events.
+  setupNavInteractions();
 };
 
