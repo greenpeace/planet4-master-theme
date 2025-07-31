@@ -25,9 +25,7 @@ const renderView = ({levels, isExample, exampleMenuItems}) => {
 
   const blocks = useSelect(select => select('core/block-editor').getBlocks(), []);
 
-  useEffect(() => {
-    initializeJustifyContentAdjustment();
-  }, []);
+  useEffect(initializeJustifyContentAdjustment, []);
 
   const flatHeadings = getHeadingsFromBlocks(blocks, levels);
 

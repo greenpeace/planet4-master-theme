@@ -2,7 +2,13 @@ import {useState, useEffect, useRef} from '@wordpress/element';
 import {getHeadingsFromDom} from '../TableOfContents/getHeadingsFromDom';
 import {initializeJustifyContentAdjustment} from './adjustNavWidth';
 
-const makeSecondaryNavigationStickyonScroll = () => {
+/**
+ * Makes the secondary navigation sticky when the page header scrolls past
+ * a defined offset and there's enough space in the content container.
+ *
+ * Adds/removes the 'stuck' class on `.sn-wrapper` based on scroll position.
+ */
+const makeSecondaryNavigationStickyOnScroll = () => {
   const pageHeader = document.querySelector('.is-pattern-p4-page-header');
 
   const stickyElement = document.querySelector('.sn-wrapper');
@@ -32,14 +38,13 @@ export const SecondaryNavigationFrontend = ({levels}) => {
   const isManualScroll = useRef(false);
   const hasLoaded = useRef(false);
   const navListRef = useRef(null);
-
   const isMobile = window.innerWidth <= 991;
 
 
   const headings = getHeadingsFromDom(levels);
 
   useEffect(() => {
-    makeSecondaryNavigationStickyonScroll();
+    makeSecondaryNavigationStickyOnScroll();
     initializeJustifyContentAdjustment();
   }, []);
 
@@ -82,9 +87,7 @@ export const SecondaryNavigationFrontend = ({levels}) => {
       if (link) {observer.observe(link);}
     });
 
-    setTimeout(() => {
-      hasLoaded.current = true;
-    }, 500);
+    setTimeout(() => hasLoaded.current = true, 500);
 
     return () => {
       headings.forEach(({anchor}) => {
@@ -95,17 +98,16 @@ export const SecondaryNavigationFrontend = ({levels}) => {
   }, [headings]);
 
   useEffect(() => {
-    // For smaller screens to update the new Navigation with the active element.
-    if (isMobile) {
-      const hash = window.location.hash?.replace('#', '');
+  // Exit early if not on a mobile screen
+    if (!isMobile) {return;}
 
-      if (hash) {
-        const matchedHeading = headings.find(h => h.anchor === hash);
-        if (matchedHeading) {
-          setActiveLink(matchedHeading.anchor);
-          setCurrentHeaderLink(matchedHeading.content);
-        }
-      }
+    const hash = window.location.hash?.replace('#', '');
+    if (!hash) {return;}
+
+    const matchedHeading = headings.find(h => h.anchor === hash);
+    if (matchedHeading) {
+      setActiveLink(matchedHeading.anchor);
+      setCurrentHeaderLink(matchedHeading.content);
     }
   }, [isMobile, headings]);
 
@@ -137,44 +139,35 @@ export const SecondaryNavigationFrontend = ({levels}) => {
     setCurrentHeaderLink(text);
     setIsDropdownOpen(false);
 
-    setTimeout(() => {
-      isClicking.current = false;
-    }, 500);
+    setTimeout(() => isClicking.current = false, 500);
   };
 
-  const handleDropdown = () => {
-    setIsDropdownOpen(prev => !prev);
-  };
+  const handleDropdown = () => setIsDropdownOpen(prev => !prev);
 
   const scrollLeft = () => {
     isManualScroll.current = true;
     navListRef.current?.scrollBy({left: -150, behavior: 'smooth'});
 
     // Reset after short delay
-    setTimeout(() => {
-      isManualScroll.current = false;
-    }, 500);
+    setTimeout(() => isManualScroll.current = false, 500);
   };
 
   const scrollRight = () => {
     isManualScroll.current = true;
     navListRef.current.scrollBy({left: 150, behavior: 'smooth'});
 
-    setTimeout(() => {
-      isManualScroll.current = false;
-    }, 500);
+    setTimeout(() => isManualScroll.current = false, 500);
   };
 
   return (
     <div className="sn-wrapper">
-      <div className="secondary-nav-dropdown">
+      <div
+        className="secondary-nav-dropdown"
+        onClick={handleDropdown}
+        role="presentation"
+      >
         <p className="current-active-class">{currentHeaderLink}</p>
-        <p
-          className={`dropdown-btn ${isDropdownOpen ? 'active' : ''}`}
-          onClick={handleDropdown}
-          role="presentation"
-        >
-        </p>
+        <p className={`dropdown-btn ${isDropdownOpen ? 'active' : ''}`}></p>
       </div>
       <div className={`block secondary-navigation-block ${isDropdownOpen ? 'show' : ''}`}>
         <div className="secondary-navigation-menu container">
@@ -186,9 +179,7 @@ export const SecondaryNavigationFrontend = ({levels}) => {
           <div className="secondary-nav-scroll-wrapper">
             <ul className="secondary-navigation-item" ref={navListRef}>
               {headings.map(({anchor, content}) => (
-                <li
-                  key={anchor}
-                >
+                <li key={anchor}>
                   <a
                     className={`secondary-navigation-link ${activeLink === anchor ? 'active': ''}`}
                     href={`#${anchor}`}
