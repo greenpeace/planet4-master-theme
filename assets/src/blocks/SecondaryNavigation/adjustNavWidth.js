@@ -1,5 +1,5 @@
-function adjustJustifyContent() {
-  const container = document.querySelector('.secondary-navigation-item');
+const adjustJustifyContent = () => {
+  const container = document.querySelector('.secondary-navigation-items');
   if (!container) {return;}
 
   const children = Array.from(container.children);
@@ -9,7 +9,7 @@ function adjustJustifyContent() {
   children.forEach(child => totalChildrenWidth += child.offsetWidth);
 
   container.style.justifyContent = totalChildrenWidth <= containerWidth ? 'center' : 'flex-start';
-}
+};
 
 export const initializeJustifyContentAdjustment = () => {
   window.addEventListener('load', adjustJustifyContent);
