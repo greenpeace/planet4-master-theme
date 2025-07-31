@@ -3,31 +3,29 @@ import {getHeadingsFromBlocks} from '../TableOfContents/getHeadingsFromBlocks';
 import {initializeJustifyContentAdjustment} from './adjustNavWidth';
 
 const {useSelect} = wp.data;
-const {InspectorControls} = wp.blockEditor;
-const {PanelBody} = wp.components;
+// const {InspectorControls} = wp.blockEditor;
+// const {PanelBody} = wp.components;
 const {__} = wp.i18n;
 
-const renderEdit = () =>  (
-  // Update with correct link
-  <InspectorControls>
-    <PanelBody title={__('Learn more about this block', 'planet4-blocks-backend')} initialOpen={false}>
-      <p className="components-base-control__help">
-        <a target="_blank" href="https://planet4.greenpeace.org/content/blocks/table-of-contents/" rel="noreferrer">
-            P4 Handbook - P4 Secondary Navigation Menu
-        </a>
-        {' '} &#128203;
-      </p>
-    </PanelBody>
-  </InspectorControls>
-);
+// const renderEdit = () =>  (
+//   // TODO: Update with correct link
+//   // <InspectorControls>
+//   //   <PanelBody title={__('Learn more about this block', 'planet4-blocks-backend')} initialOpen={false}>
+//   //     <p className="components-base-control__help">
+//   //       <a target="_blank" href="https://planet4.greenpeace.org/content/blocks/table-of-contents/" rel="noreferrer">
+//   //           P4 Handbook - P4 Secondary Navigation Menu
+//   //       </a>
+//   //       {' '} &#128203;
+//   //     </p>
+//   //   </PanelBody>
+//   // </InspectorControls>
+// );
 
 const renderView = ({levels, isExample, exampleMenuItems}) => {
 
   const blocks = useSelect(select => select('core/block-editor').getBlocks(), []);
 
-  useEffect(() => {
-    initializeJustifyContentAdjustment();
-  }, []);
+  useEffect(initializeJustifyContentAdjustment, []);
 
   const flatHeadings = getHeadingsFromBlocks(blocks, levels);
 
@@ -58,9 +56,10 @@ const renderView = ({levels, isExample, exampleMenuItems}) => {
   );
 };
 
+// eslint-disable-next-line no-unused-vars
 export const SecondaryNavigationEditor = ({attributes, isSelected}) => (
   <>
-    {isSelected && renderEdit()}
+    {/* {isSelected && renderEdit()} */}
     {renderView(attributes)}
   </>
 );

@@ -1,7 +1,7 @@
 .secondary-navigation-block {
   margin-left: calc(-50vw - -50%);
   width: 100vw;
-  height: 70px;
+  height: 65px;
   padding: 10px;
   background: var(--p4-dark-green-800);
   position: relative;
@@ -34,6 +34,10 @@
     border: none;
     color: var(--white);
     font-size: 20px;
+
+    @include large-and-less {
+      top: 10px;
+    }
   }
 }
 
@@ -50,12 +54,20 @@
 }
 
 .nav-arrow.left {
-  left: -25px;
+  left: -20px;
   transform: rotate(180deg);
+
+  @include large-and-less {
+    left: -15px;
+  }
 }
 
 .nav-arrow.right {
-  right: -25px;
+  right: -20px;
+
+  @include large-and-less {
+    right: -15px;
+  }
 }
 
 .secondary-nav-scroll-wrapper {
@@ -84,9 +96,16 @@
   margin-left: calc(-50vw - -50%);
   background: var(--p4-dark-green-800);
   margin-bottom: -$sp-1;
+  cursor: pointer;
 
   @include large-and-up {
     display: none;
+  }
+
+  &:focus,
+  &:focus-within,
+  &:focus-visible {
+    @include focus-styles;
   }
 }
 
@@ -120,13 +139,36 @@
   top: $sp-6x;
   left: 0;
 
+  body.admin-bar & {
+    top: 84px;
+  }
+
   @include medium-and-less {
-    top: 60px;
     transition: top 0.2s linear;
 
-    &.stuck-open {
+    top: 60px; // default
+
+    body.stuck-open & {
       top: 110px;
-      transition: top 0.2s linear;
+    }
+
+    body.admin-bar & {
+      top: 92px;
+    }
+
+    body.admin-bar.stuck-open & {
+      top: 142px;
+    }
+  }
+
+  // Override for mobile where #wpadminbar is taller
+  @media screen and (max-width: 782px) {
+    body.admin-bar & {
+      top: 105px;
+    }
+
+    body.admin-bar.stuck-open & {
+      top: 155px;
     }
   }
 }
@@ -135,34 +177,42 @@
   list-style: none;
   display: flex;
   overflow-x: auto;
-  flex-wrap: nowrap;
-  scroll-padding-inline-start: $sp-3;
+  padding-inline-start: $sp-3;
   gap: $sp-6;
   scrollbar-width: none;
+  margin-top: 2px;
+  padding-inline-end: $sp-3;
+
+  @include large-and-less {
+    margin-top: 4px;
+  }
 
   li {
-    padding: 5px;
+    padding: 4px;
     flex-shrink: 0;
     text-align: center;
     cursor: pointer;
     scroll-snap-align: start;
 
-    &:has(a.active) {
-      border-bottom: $sp-x solid var(--gp-green-400);
+    a {
+      display: inline-block;
+      padding-bottom: 3px;
+      color: inherit;
 
-      a {
+      &.active {
+        border-bottom: 3px solid var(--gp-green-400);
         color: var(--white) !important;
 
         &:hover {
           text-decoration: none;
         }
       }
-    }
 
-    &:hover {
-      text-decoration: none;
-      color: var(--white) !important;
-      border-bottom: $sp-x solid var(--gp-green-400);
+      &:hover {
+        text-decoration: none;
+        color: var(--white) !important;
+        border-bottom: 3px solid var(--gp-green-400);
+      }
     }
   }
 
@@ -186,26 +236,32 @@
       justify-content: flex-start;
       height: 100%;
       position: relative;
-      margin-top: -$sp-2x;
+      margin-bottom: -$sp-2;
 
-      &:has(a.active) {
-        border-bottom: none;
+      &:not(:first-child) {
+        margin-top: -$sp-2x;
+      }
 
-        a {
+      a {
+        &.active {
           color: var(--grey-900) !important;
-          font-size: var(--font-size-s--font-family-primary);
           font-weight: var(--font-weight-bold);
 
           &:hover {
-            text-decoration: none;
+            border-bottom: 3px solid var(--gp-green-400);
           }
         }
-      }
 
-      &:hover {
-        border-bottom: none;
-        color: var(--grey-900) !important;
+        &:hover {
+          text-decoration: none;
+          color: var(--grey-900) !important;
+          border-bottom: none;
+        }
       }
+    }
+
+    li:first-child {
+      margin-top: -$sp-2;
     }
   }
 }
@@ -238,11 +294,20 @@
 
 .current-active-class,
 .dropdown-btn {
-  margin-top: 10px;
+  margin-top: 15px;
 }
 
 .sn-wrapper {
-  height: 15vh; // hack to prevent flicker when scrolling
   width: 100vw;
   margin-left: calc(-50vw - -50%);
+}
+
+.page-content > h2 {
+  scroll-margin-top: 150px;
+}
+
+.page-content > h2:first-of-type {
+  @include medium-and-less {
+    margin-top: 30px !important;
+  }
 }
