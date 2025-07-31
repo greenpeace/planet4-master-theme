@@ -1,5 +1,6 @@
 .btn,
 .wp-block-button a,
+.wp-block-button button,
 .wp-block-file a.wp-block-file__button,
 .gfield button:not(.add_list_item):not(.delete_list_item):not([id^="mceu"]),
 .gform_button_select_files,
@@ -104,6 +105,7 @@
 
 .btn-secondary,
 .wp-block-button.is-style-secondary a,
+.wp-block-button.is-style-secondary button,
 [class="wp-block-button"] a,
 .wp-block-file a.wp-block-file__button,
 .gfield button:not(.add_list_item):not(.delete_list_item):not([id^="mceu"]),
