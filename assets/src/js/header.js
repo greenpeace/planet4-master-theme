@@ -1,6 +1,6 @@
 /* global hj */
 
-import {setupAccessibleNavMenu} from './header/accessibleNavMenu';
+import {setupAccessibleNavMenu} from './header/setupAccessibleNavMenu';
 import setupMobileTabsMenuScroll from './header/setupMobileTabsMenuScroll';
 import {setupCloseNavMenuButton, setupDocumentClick, toggleNavElements} from './header/setupNavMenu';
 
