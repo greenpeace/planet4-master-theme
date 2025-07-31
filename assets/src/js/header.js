@@ -3,6 +3,7 @@
 import {setupAccessibleNavMenu} from './header/setupAccessibleNavMenu';
 import setupMobileTabsMenuScroll from './header/setupMobileTabsMenuScroll';
 import {setupCloseNavMenuButton, setupDocumentClick, toggleNavElements} from './header/setupNavMenu';
+import {setupTransparentNavHomepage} from './header/setupTransparentNavHomepage';
 
 export const setupHeader = () => {
   // Close all menus on escape pressed
@@ -39,5 +40,8 @@ export const setupHeader = () => {
 
   // Handle clicking on navigation elements.
   toggleNavElements();
+
+  //Handles the transition to the transparent styles for the Navigation Menu.
+  setupTransparentNavHomepage();
 };
 
