@@ -1,5 +1,5 @@
 import {setSearchToggles, toggleGaActionAttributes} from './setupGaActions';
-import {updateNavMenuTabIndex} from './accessibleNavMenu';
+import {updateNavMenuTabIndex} from './setupAccessibleNavMenu';
 
 const NAV_MENU_TOGGLE_CLASS = '.nav-menu-toggle';
 const NAV_SEARCH_TOGGLE = 'nav-search-toggle';
