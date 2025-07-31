@@ -1,3 +1,6 @@
+import {setSearchToggles, toggleGaActionAttributes} from './setupGaActions';
+import {updateNavMenuTabIndex} from './accessibleNavMenu';
+
 const NAV_MENU_TOGGLE_CLASS = '.nav-menu-toggle';
 
 /**
@@ -49,15 +52,53 @@ const closeInactiveNavElements = event => {
 export const setupDocumentClick = () => document.onclick = closeInactiveNavElements;
 
 /**
- * Lock scroll when navigation menu is open.
+ * Function to handle clicking on a navigation element.
  *
- * @param {HTMLElement} element     Element that was toggled.
- * @param {boolean}     wasExpanded If toggle was expanded.
+ * @param {HTMLElement} element The element that has been clicked.
  */
-export const lockScrollWhenNavMenuOpen = (element, wasExpanded) => {
-  if (!element.classList.contains(NAV_MENU_TOGGLE_CLASS.substring(1))) {
-    return;
+export const toggleNavElement = element => {
+  const target = element.dataset.bsTarget;
+  const wasExpanded = element.getAttribute('aria-expanded') === 'true';
+
+  if (!target) {
+    throw new Error('Missing `data-bs-target` attribute: specify the container to be toggled');
   }
-  const htmlElement = document.getElementsByTagName('html')[0];
-  htmlElement.style.overflowY = wasExpanded ? 'auto' : 'hidden';
+
+  const toggleClass = element.dataset.bsToggle;
+  if (!toggleClass) {
+    throw new Error('Missing `data-bs-toggle` attribute: specify the class to toggle');
+  }
+
+  // Toggle visibility of the target specified via data-bs-target.
+  const targetElement = document.querySelector(target);
+  targetElement.classList.toggle(toggleClass);
+  element.classList.toggle(toggleClass);
+
+  // Toggle aria-expanded attribute
+  element.setAttribute('aria-expanded', wasExpanded ? 'false' : 'true');
+
+  // Propagate attributes to all search toggles
+  if (element.classList.contains('nav-search-toggle')) {
+    setSearchToggles(!wasExpanded);
+  }
+
+  // We need to focus the search input when showing it
+  const searchInput = document.querySelector('#search_input');
+  if (element.classList.contains('nav-search-toggle')) {
+    if (wasExpanded) {
+      searchInput.focus();
+    }
+  }
+
+  // Lock scroll when navigation menu is open
+  if (element.classList.contains(NAV_MENU_TOGGLE_CLASS.substring(1))) {
+    const htmlElement = document.getElementsByTagName('html')[0];
+    htmlElement.style.overflowY = wasExpanded ? 'auto' : 'hidden';
+  }
+
+  // Update tab index for keyboard navigation depending on burger menu being open or not.
+  updateNavMenuTabIndex();
+
+  // Toggle data-ga-action attribute used in GTM tracking.
+  toggleGaActionAttributes();
 };
