@@ -52,20 +52,6 @@ const closeInactiveNavElements = event => {
 export const setupDocumentClick = () => document.onclick = closeInactiveNavElements;
 
 /**
- * Lock scroll when navigation menu is open.
- *
- * @param {HTMLElement} element     Element that was toggled.
- * @param {boolean}     wasExpanded If toggle was expanded.
- */
-const lockScrollWhenNavMenuOpen = (element, wasExpanded) => {
-  if (!element.classList.contains(NAV_MENU_TOGGLE_CLASS.substring(1))) {
-    return;
-  }
-  const htmlElement = document.getElementsByTagName('html')[0];
-  htmlElement.style.overflowY = wasExpanded ? 'auto' : 'hidden';
-};
-
-/**
  * Function to handle clicking on a navigation element.
  *
  * @param {HTMLElement} element The element that has been clicked.
@@ -105,7 +91,10 @@ export const toggleNavElement = element => {
   }
 
   // Lock scroll when navigation menu is open
-  lockScrollWhenNavMenuOpen(element, wasExpanded);
+  if (element.classList.contains(NAV_MENU_TOGGLE_CLASS.substring(1))) {
+    const htmlElement = document.getElementsByTagName('html')[0];
+    htmlElement.style.overflowY = wasExpanded ? 'auto' : 'hidden';
+  }
 
   // Update tab index for keyboard navigation depending on burger menu being open or not.
   updateNavMenuTabIndex();
