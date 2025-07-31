@@ -2,7 +2,7 @@ import {TableOfContentsLevel} from './TableOfContentsLevel';
 import {TableOfContentsItems} from './TableOfContentsItems';
 import {getTableOfContentsStyle} from './getTableOfContentsStyle';
 import {makeHierarchical} from './makeHierarchical';
-import {getHeadingsFromBlocks} from './getHeadingsFromBlocks';
+import {getHeadingsFromBlocks} from '../../functions/getHeadingsFromBlocks';
 import {deepClone} from '../../functions/deepClone';
 
 const {useSelect} = wp.data;
