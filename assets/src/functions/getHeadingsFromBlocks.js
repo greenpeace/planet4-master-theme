@@ -1,5 +1,5 @@
 import {generateAnchor} from './generateAnchor';
-import {unescape} from '../../functions/unescape';
+import {unescape} from './unescape';
 
 // We can put the other blocks that can have a heading inside in here along with the attribute containing the heading text.
 // Then we can also filter those to include them in the menu.
@@ -59,6 +59,35 @@ export const getHeadingsFromBlocks = (blocks, selectedLevels) => {
           shouldLink: levelConfig.link,
         });
       }));
+
+      return;
+    }
+
+    // For QLB variants.
+    // Does not work well with Actions List in the Editor
+    // Can't get updated value for Actions List heading
+    if (block.name === 'core/query') {
+      const innerHeading = block.innerBlocks[0]?.innerBlocks[0];
+
+      if (innerHeading) {
+        const blockLevel = innerHeading.attributes.level;
+        const levelConfig = selectedLevels.find(selected => selected.heading === blockLevel);
+
+        if (levelConfig) {
+          const anchor = innerHeading.attributes.anchor || generateAnchor(
+            innerHeading.attributes.content,
+            headings.map(h => h.anchor)
+          );
+
+          headings.push({
+            level: blockLevel,
+            content: unescape(stripTags(innerHeading.attributes.content)),
+            anchor,
+            style: levelConfig.style,
+            shouldLink: levelConfig.link,
+          });
+        }
+      }
 
       return;
     }

@@ -28,7 +28,6 @@ class SecondaryNavigation extends BaseBlock
      */
     public function __construct()
     {
-
         $this->register_secondary_navigation_block();
     }
 

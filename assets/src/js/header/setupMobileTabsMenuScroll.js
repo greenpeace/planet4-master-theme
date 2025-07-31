@@ -1,5 +1,6 @@
 // Reusable class for hiding the mobile tabs.
 const HIDDEN_TABS_CLASS = 'mobile-menu-hidden';
+const STUCK_NAV_CLASS = 'stuck-open';
 
 /**
  * Set the mobile tabs menu behavior on scroll
@@ -71,15 +72,13 @@ export default () => {
     }
 
     const menuItems = menu.querySelectorAll('.nav-link');
-    const stickyNav = document.querySelector('.sn-wrapper'); // secondary navigation block
     // Hide
     if (dir === 'down' && ref >= distToClose) {
       lastScrollDir = dir;
       lastScrollRef = lastScrollTop;
       menu.classList.add(HIDDEN_TABS_CLASS);
-      if (stickyNav?.classList.contains('stuck-open')) {
-        stickyNav.classList.remove('stuck-open');
-      }
+      document.body.classList.remove(STUCK_NAV_CLASS);
+
       if (menuItems && menuItems.length > 0) {
         menuItems.forEach(item => item.setAttribute('tabindex', -1));
       }
@@ -91,9 +90,8 @@ export default () => {
       lastScrollDir = dir;
       lastScrollRef = lastScrollTop;
       menu.classList.remove(HIDDEN_TABS_CLASS);
-      if (stickyNav?.classList.contains('stuck')) {
-        stickyNav.classList.add('stuck-open');
-      }
+      document.body.classList.add(STUCK_NAV_CLASS);
+
       if (menuItems && menuItems.length > 0) {
         menuItems.forEach(item => item.setAttribute('tabindex', 0));
       }
