@@ -47,6 +47,21 @@ class ElasticSearch
         // Disable match fuzziness to avoid irrelevant results
         // Cf. https://elasticpress.zendesk.com/hc/en-us/articles/25809934420109-How-to-disable-fuzziness
         add_filter('ep_post_match_fuzziness', fn() => 0);
+
+        add_filter( 'ep_config_mapping', [$this, 'fix_post_date_mapping'], 1, 10 );
+        add_filter( 'ep_post_mapping', [$this, 'fix_post_date_mapping'], 1, 10);
+
+        add_action('ep_invalid_response', static function ($response): void {
+            error_log(
+                '--- ElasticPress Query FAILED ---' . PHP_EOL .
+                'Error Response: ' . $response['response']['code'] . PHP_EOL .
+                'Request Body: ' . $response['body'] . PHP_EOL
+            );
+            if (function_exists('\Sentry\captureMessage')) {
+                \Sentry\captureMessage('ElasticPress Query FAILED Response Code:' .
+                    $response['response']['code'] . ' Response Body:' . $response['body']);
+            }
+        }, 1, 10);
     }
 
     public static function is_active(): bool
@@ -65,5 +80,23 @@ class ElasticSearch
             return false;
         }
         return \ElasticPress\Features::factory()->get_registered_feature('facets')->is_active();
+    }
+
+    public static function fix_post_date_mapping( $mapping ) {
+        if ( isset( $mapping['mappings']['properties']['post_date'] ) &&
+            "text" === $mapping['mappings']['properties']['post_date']['type'] ) {
+            $mapping['mappings']['properties']['post_date'] = [
+                'type' => 'date',
+                'format' => 'yyyy-MM-dd HH:mm:ss'
+            ];
+        }
+        if ( isset( $mapping['mappings']['properties']['post_date_gmt'] ) &&
+            "text" === $mapping['mappings']['properties']['post_date_gmt']['type'] ) {
+            $mapping['mappings']['properties']['post_date_gmt'] = [
+                'type' => 'date',
+                'format' => 'yyyy-MM-dd HH:mm:ss'
+            ];
+        }
+        return $mapping;
     }
 }
