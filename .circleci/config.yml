@@ -144,6 +144,8 @@ jobs:
   request-instance:
     environment:
       GOOGLE_PROJECT_ID: planet-4-151612
+      CIRCLE_PROJECT_REPONAME: << pipeline.trigger_parameters.github_app.repo_name >>
+      CIRCLE_PULL_REQUEST: << pipeline.event.context.github.pr_url >>
     docker:
       - image: greenpeaceinternational/circleci-base:latest
         auth:
