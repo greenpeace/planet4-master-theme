@@ -26,6 +26,7 @@ const template = ({
   backgroundColor = 'beige-100',
 }) => ([
   ['core/group', {
+    className: 'block',
     align: 'full',
     backgroundColor,
   }, [

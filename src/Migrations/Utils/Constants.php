@@ -8,6 +8,7 @@ namespace P4\MasterTheme\Migrations\Utils;
 class Constants
 {
     private const PREFIX_P4_BLOCKS = 'planet4-blocks';
+    private const PREFIX_P4_BLOCK_TEMPLATES = 'planet4-block-templates';
     private const PREFIX_CORE_BLOCKS = 'core';
 
     public const POSTS_LIST = 'posts-list';
@@ -23,6 +24,9 @@ class Constants
     public const BLOCK_ACTIONS_LIST = self::PREFIX_P4_BLOCKS . '/' . self::ACTIONS_LIST;
     public const BLOCK_ARTICLES = self::PREFIX_P4_BLOCKS . '/articles';
     public const ACTION_BUTTON = self::PREFIX_P4_BLOCKS . '/action-button-text';
+
+    // P4 Block Templates
+    public const BLOCK_TEMPLATE_QUICK_LINKS = self::PREFIX_P4_BLOCK_TEMPLATES . '/quick-links';
 
     public const BLOCK_EMBED = self::PREFIX_CORE_BLOCKS . '/embed';
     public const BLOCK_AUDIO = self::PREFIX_CORE_BLOCKS . '/audio';
