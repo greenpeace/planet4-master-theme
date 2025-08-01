@@ -1,5 +1,8 @@
 {% set ga_page_type = post.post_type|capitalize %}
 {% set post_link = post.link %}
+{% if not post_link %}
+    {% set post_link = function('get_permalink', post.ID) %}
+{% endif %}
 {% if ( 'p4_action' == post.post_type ) %}
     {% set is_action = true %}
     {% set ga_page_type = 'Take Action' %}
