@@ -5,7 +5,7 @@
  * @function setupClickabelActionsListCards
  */
 
-export const setupClickabelActionsListCards = () => {
+export const setupClickableActionsListCards = () => {
   const liElements = document.querySelectorAll('.actions-list ul li:not(.carousel-li)');
 
   liElements.forEach(li => {
