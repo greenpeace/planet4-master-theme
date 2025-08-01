@@ -123,4 +123,22 @@ class ElasticSearch
         }
         return \ElasticPress\Features::factory()->get_registered_feature('facets')->is_active();
     }
+
+    public static function fix_post_date_mapping( $mapping ) {
+        if ( isset( $mapping['mappings']['properties']['post_date'] ) &&
+            "text" === $mapping['mappings']['properties']['post_date']['type'] ) {
+            $mapping['mappings']['properties']['post_date'] = [
+                'type' => 'date',
+                'format' => 'yyyy-MM-dd HH:mm:ss'
+            ];
+        }
+        if ( isset( $mapping['mappings']['properties']['post_date_gmt'] ) &&
+            "text" === $mapping['mappings']['properties']['post_date_gmt']['type'] ) {
+            $mapping['mappings']['properties']['post_date_gmt'] = [
+                'type' => 'date',
+                'format' => 'yyyy-MM-dd HH:mm:ss'
+            ];
+        }
+        return $mapping;
+    }
 }
