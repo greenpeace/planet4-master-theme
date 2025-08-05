@@ -125,33 +125,4 @@ class ElasticSearch
         }
         return \ElasticPress\Features::factory()->get_registered_feature('facets')->is_active();
     }
-
-    /**
-     * Fix the mapping for post_date and post_date_gmt fields.
-     *
-     * @param array $mapping The current mapping.
-     * @return array The updated mapping.
-     */
-    public static function fix_post_date_mapping(array $mapping): array
-    {
-        if (
-            isset($mapping['mappings']['properties']['post_date']) &&
-            "text" === $mapping['mappings']['properties']['post_date']['type']
-        ) {
-            $mapping['mappings']['properties']['post_date'] = [
-                'type' => 'date',
-                'format' => 'yyyy-MM-dd HH:mm:ss',
-            ];
-        }
-        if (
-            isset($mapping['mappings']['properties']['post_date_gmt']) &&
-            "text" === $mapping['mappings']['properties']['post_date_gmt']['type']
-        ) {
-            $mapping['mappings']['properties']['post_date_gmt'] = [
-                'type' => 'date',
-                'format' => 'yyyy-MM-dd HH:mm:ss',
-            ];
-        }
-        return $mapping;
-    }
 }
