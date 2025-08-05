@@ -103,8 +103,6 @@ class ElasticSearch
                     'ElasticPress Query FAILED: Unknown response format: ' . print_r($response, true)
                 );
             }
-            \Sentry\captureMessage('ElasticPress Query FAILED Response Code:' .
-                $response['response']['code'] . ' Response Body:' . $response['body']);
         }, 1, 10);
     }
 
