@@ -80,9 +80,28 @@ class ElasticSearch
         add_filter('ep_post_mapping', $fix_post_date_mapping, 1, 10);
 
         add_action('ep_invalid_response', static function ($response): void {
-            if (function_exists('\Sentry\captureMessage')) {
-                \Sentry\captureMessage('ElasticSearch Query FAILED Response Code:' .
-                    $response['response']['code'] . ' Response Body:' . $response['body']);
+            if (!function_exists('\Sentry\captureMessage')) {
+                return;
+            }
+
+            if (is_wp_error($response)) {
+                \Sentry\captureMessage(
+                    'ElasticPress Query FAILED (WP_Error): ' . $response->get_error_message()
+                );
+                return;
+            }
+
+            if (isset($response['response']['code'], $response['body'])) {
+                \Sentry\captureMessage(
+                    'ElasticPress Query FAILED Response Code: ' .
+                    $response['response']['code'] .
+                    ' Response Body: ' . $response['body']
+                );
+            } else {
+                \Sentry\captureMessage(
+                    // phpcs:ignore Squiz.PHP.DiscouragedFunctions.Discouraged
+                    'ElasticPress Query FAILED: Unknown response format: ' . print_r($response, true)
+                );
             }
         }, 1, 10);
     }
