@@ -34,7 +34,9 @@
     }
 
     .container {
-      padding: 0;
+      @media (min-width: 768px) {
+        padding: 0;
+      }
     }
 
     .site-logo {
@@ -72,9 +74,9 @@
   }
 
   .boxout {
-    height: 300px;
     box-shadow: none;
     margin-top: 90px;
+    margin-bottom: 0;
 
     .boxout-heading {
       font-size: 42px;
@@ -103,6 +105,10 @@
     .chip-tasktype {
       @include chip-task-type;
     }
+
+    @media (min-width: 768px) {
+      height: 300px;
+    }
   }
 
   .actions-list {
@@ -115,6 +121,7 @@
       border: 2px solid var(--white);
       margin-top: 44px;
       overflow: visible;
+      margin-bottom: 0;
 
       .wp-block-post-title {
         font-size: 32px;
@@ -254,7 +261,6 @@
     min-height: auto;
     height: 240px;
     display: block;
-    margin-bottom: 0;
 
     .chip-tasktype {
       display: none;
