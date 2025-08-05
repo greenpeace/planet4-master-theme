@@ -10,6 +10,8 @@
  * @since    Timber 0.1
  */
 
+namespace P4\MasterTheme;
+
 $features = get_option('planet4_features');
 
 // Enqueue Resistance Hub styles and script only for this template
@@ -28,14 +30,14 @@ add_action('wp_enqueue_scripts', function (): void {
         'p4-action-resistance-hub-styles',
         get_template_directory_uri() . '/assets/build/resistance-hub-campaign-styles.css',
         [],
-        true,
+        Loader::theme_file_ver('/assets/build/resistance-hub-campaign-styles.css'),
     );
 
     wp_enqueue_script(
         'p4-action-resistance-hub-script',
         get_template_directory_uri() . '/assets/build/resistance-hub-campaign.js',
         ['wp-i18n'],
-        true,
+        Loader::theme_file_ver('/assets/build/resistance-hub-campaign.js'),
     );
 });
 
