@@ -80,32 +80,10 @@ class ElasticSearch
         add_filter('ep_post_mapping', $fix_post_date_mapping, 1, 10);
 
         add_action('ep_invalid_response', static function ($response): void {
-            error_log(
-                '--- ElasticSearch Query FAILED ---' . PHP_EOL .
-                'Error Response: ' . $response['response']['code'] . PHP_EOL .
-                'Request Body: ' . $response['body'] . PHP_EOL
-            );
             if (function_exists('\Sentry\captureMessage')) {
                 \Sentry\captureMessage('ElasticSearch Query FAILED Response Code:' .
                     $response['response']['code'] . ' Response Body:' . $response['body']);
             }
-
-            // Check if indexing is in progress.
-//            if (! \ElasticPress\Utils\get_indexing_status()) {
-//                // Trigger a full index
-//                try {
-//                    \ElasticPress\IndexHelper::factory()->full_index([
-//                        'put_mapping' => true, // Whether to update index mappings
-//                        'method'      => 'cli', // 'cli' or 'web'. CLI is better for large sites
-//                        'network_wide' => false, // For multisite, whether to index all sites
-//                        'offset' => 350,
-//                        'pagination_method' => 'id_range',
-//                        'per_page' => 100,
-//                    ]);
-//                } catch (\Exception $e) {
-//                    function_exists('\Sentry\captureException') && \Sentry\captureException($e);
-//                }
-//            }
         }, 1, 10);
     }
 
