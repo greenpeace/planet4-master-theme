@@ -108,19 +108,11 @@ class ElasticSearch
                 return;
             }
 
-            // Trigger a full index
-            try {
-                \ElasticPress\IndexHelper::factory()->full_index([
-                    'put_mapping' => true,
-                    'method' => 'dashboard',
-                    'network_wide' => false,
-                    'show_errors' => false,
-                    'trigger' => 'manual',
-                    'output_method' => [],
-                ]);
-            } catch (\Exception $e) {
-                function_exists('\Sentry\captureException') && \Sentry\captureException($e);
-            }
+            \Sentry\captureMessage(
+                'P4 ES sync cron job scheduled in 30 sec. ' . date("Y-m-d H:i:s")
+            );
+            // Schedule cron job to execute in 30 sec.
+            wp_schedule_single_event(time() + 30, 'p4_full_es_sync_action');
         }, 1, 10);
     }
 
