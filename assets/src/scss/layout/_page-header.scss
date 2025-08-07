@@ -85,6 +85,12 @@
       line-height: 1.1;
     }
   }
+
+  .tag & {
+    p a {
+      @include shared-link-styles;
+    }
+  }
 }
 
 .page-header-background {
