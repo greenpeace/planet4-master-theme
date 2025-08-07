@@ -171,12 +171,17 @@ class QueryLoopExtension
             $query['post__in'] = [0];
         }
 
-        $query['orderby'] = [
-            'menu_order' => 'ASC',
-            'post_date' => 'DESC',
-            'post_title' => 'ASC',
-            'post__in' => 'ASC',
-        ];
+        if (!empty($query['post__in'])) {
+            $query['orderby'] = 'post__in';
+        } else {
+            $query['orderby'] = [
+                'menu_order' => 'ASC',
+                'post_date' => 'DESC',
+                'post_title' => 'ASC',
+                'post__in' => 'ASC',
+            ];
+        }
+
         return $query;
     }
 }
