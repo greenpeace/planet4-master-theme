@@ -55,6 +55,7 @@ use P4\MasterTheme\Migrations\M050AddTagsBackInPostsListBlock;
 use P4\MasterTheme\Migrations\M052RollbackToPreviousRevision;
 use P4\MasterTheme\Migrations\M053CustomisePostsListSeeAllLink;
 use P4\MasterTheme\Migrations\M054PostsActionsListHeaderButtonUpdate;
+use P4\MasterTheme\Migrations\M055AddDefaultSiteIcon;
 
 /**
  * Run any new migration scripts and record results in the log.
@@ -127,6 +128,7 @@ class Migrator
             M052RollbackToPreviousRevision::class,
             M053CustomisePostsListSeeAllLink::class,
             M054PostsActionsListHeaderButtonUpdate::class,
+            M055AddDefaultSiteIcon::class,
         ];
 
         // Loop migrations and run those that haven't run yet.
