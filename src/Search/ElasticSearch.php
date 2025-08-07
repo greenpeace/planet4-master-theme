@@ -103,6 +103,24 @@ class ElasticSearch
                     'ElasticPress Query FAILED: Unknown response format: ' . print_r($response, true)
                 );
             }
+            // Check if indexing is in progress.
+            if (\ElasticPress\Utils\get_indexing_status()) {
+                return;
+            }
+
+            // Trigger a full index
+            try {
+                \ElasticPress\IndexHelper::factory()->full_index([
+                    'put_mapping' => true,
+                    'method' => 'dashboard',
+                    'network_wide' => false,
+                    'show_errors' => false,
+                    'trigger' => 'manual',
+                    'output_method' => [],
+                ]);
+            } catch (\Exception $e) {
+                function_exists('\Sentry\captureException') && \Sentry\captureException($e);
+            }
         }, 1, 10);
     }
 
