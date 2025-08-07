@@ -47,6 +47,63 @@ class ElasticSearch
         // Disable match fuzziness to avoid irrelevant results
         // Cf. https://elasticpress.zendesk.com/hc/en-us/articles/25809934420109-How-to-disable-fuzziness
         add_filter('ep_post_match_fuzziness', fn() => 0);
+
+        /**
+         * Fix the mapping for post_date and post_date_gmt fields.
+         *
+         * @param array $mapping The current mapping.
+         * @return array The updated mapping.
+         */
+        $fix_post_date_mapping = static function (array $mapping): array {
+            if (
+                isset($mapping['mappings']['properties']['post_date']) &&
+                "text" === $mapping['mappings']['properties']['post_date']['type']
+            ) {
+                $mapping['mappings']['properties']['post_date'] = [
+                    'type' => 'date',
+                    'format' => 'yyyy-MM-dd HH:mm:ss',
+                ];
+            }
+            if (
+                isset($mapping['mappings']['properties']['post_date_gmt']) &&
+                "text" === $mapping['mappings']['properties']['post_date_gmt']['type']
+            ) {
+                $mapping['mappings']['properties']['post_date_gmt'] = [
+                    'type' => 'date',
+                    'format' => 'yyyy-MM-dd HH:mm:ss',
+                ];
+            }
+            return $mapping;
+        };
+
+        add_filter('ep_config_mapping', $fix_post_date_mapping, 1, 10);
+        add_filter('ep_post_mapping', $fix_post_date_mapping, 1, 10);
+
+        add_action('ep_invalid_response', static function ($response): void {
+            if (!function_exists('\Sentry\captureMessage')) {
+                return;
+            }
+
+            if (is_wp_error($response)) {
+                \Sentry\captureMessage(
+                    'ElasticPress Query FAILED (WP_Error): ' . $response->get_error_message()
+                );
+                return;
+            }
+
+            if (isset($response['response']['code'], $response['body'])) {
+                \Sentry\captureMessage(
+                    'ElasticPress Query FAILED Response Code: ' .
+                    $response['response']['code'] .
+                    ' Response Body: ' . $response['body']
+                );
+            } else {
+                \Sentry\captureMessage(
+                    // phpcs:ignore Squiz.PHP.DiscouragedFunctions.Discouraged
+                    'ElasticPress Query FAILED: Unknown response format: ' . print_r($response, true)
+                );
+            }
+        }, 1, 10);
     }
 
     public static function is_active(): bool
