@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2025-07-30 10:48+0000\n"
+"PO-Revision-Date: 2025-08-08 12:39+0000\n"
 "Language-Team: Swedish\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -96,11 +96,15 @@ msgstr "Alla artiklar"
 msgid "All articles by "
 msgstr "Alla artiklar av "
 
-#: templates/listing-page-filters.twig:18
+#: templates/listing-page-filters.twig:41
+msgid "All keywords"
+msgstr "Alla sökord"
+
+#: templates/listing-page-filters.twig:7
 msgid "All posts"
 msgstr "Alla artiklar"
 
-#: templates/listing-page-filters.twig:6
+#: templates/listing-page-filters.twig:24
 msgid "All topics"
 msgstr "Alla ämnen"
 
@@ -112,9 +116,9 @@ msgstr "Tillåt alla"
 msgid "Always enabled"
 msgstr "Tillåt alltid"
 
-#: templates/listing-page-filters.twig:29
+#: templates/listing-page-filters.twig:54
 msgid "Apply"
-msgstr ""
+msgstr "Tillämpa"
 
 #: templates/search.twig:92
 msgid "Apply filters"
@@ -212,7 +216,7 @@ msgstr "Kampanj"
 msgid "Cancel"
 msgstr "Avbryt"
 
-#: templates/search/categories.twig:7
+#: templates/listing-page-filters.twig:21 templates/search/categories.twig:7
 msgid "Category"
 msgstr "Kategori"
 
@@ -232,7 +236,7 @@ msgstr "Rensa alla"
 msgid "Clear search"
 msgstr "Rensa sökning"
 
-#: templates/burger-menu.twig:70
+#: templates/burger-menu.twig:67
 msgid "Close navigation mobile menu"
 msgstr "Stäng meny"
 
@@ -330,6 +334,10 @@ msgstr "Kommentarer"
 msgid "Content Type"
 msgstr "Innehållstyp"
 
+#: templates/listing-page-filters.twig:4
+msgid "Content type"
+msgstr ""
+
 #: templates/comments_section.twig:9
 msgid "Discussion"
 msgstr "Diskussion"
@@ -355,17 +363,13 @@ msgid "Enter your search term below"
 msgstr "Skriv in din sökning nedan"
 
 #. Name of the template
-#: page-templates/evergreen.php:3
+#: page-templates/evergreen.php:5
 msgid "Evergreen Page"
 msgstr "Evergreen-sida"
 
 #: page-templates/sitemap.php:43
 msgid "Explore"
 msgstr "Utforska"
-
-#: templates/listing-page-filters.twig:3
-msgid "Filter by category"
-msgstr "Filtrera efter kategori"
 
 #: templates/search/action_types.twig:16
 #, php-format
@@ -427,7 +431,7 @@ msgstr "Greenpeace Planet 4 Master Theme"
 msgid "Grid View"
 msgstr "Rutnätsvy"
 
-#: functions.php:519
+#: functions.php:456
 msgid "here"
 msgstr "här"
 
@@ -443,7 +447,7 @@ msgstr "https://github.com/greenpeace"
 msgid "https://github.com/greenpeace/planet4-master-theme"
 msgstr "https://github.com/greenpeace/planet4-master-theme"
 
-#: single.php:120
+#: single.php:119
 msgid ""
 "I agree on providing my name, email and content so that my comment can be "
 "stored and displayed in the website."
@@ -451,7 +455,7 @@ msgstr ""
 "Jag godkänner att mitt namn, min e-post, och innehåll sparas så att min "
 "kommentar kan lagras och visas på hemsidan."
 
-#: src/MasterSite.php:809
+#: src/MasterSite.php:785
 msgid "International (English)"
 msgstr "International (English)"
 
@@ -459,7 +463,11 @@ msgstr "International (English)"
 msgid "Invalid password, please try again"
 msgstr "Ogiltigt lösenord, var god försök igen"
 
-#: single.php:127
+#: templates/listing-page-filters.twig:38
+msgid "Keywords"
+msgstr ""
+
+#: single.php:126
 msgid "Leave your reply"
 msgstr "Kommentera"
 
@@ -546,6 +554,11 @@ msgstr "Avvisa allt"
 #: templates/cookies.twig:35
 msgid "Reject all cookies"
 msgstr "Avvisa alla cookies "
+
+#. Name of the template
+#: single-p4_action-resistance_hub.php:3
+msgid "Resistance Hub Campaign"
+msgstr ""
 
 #: templates/cookies/cookies_settings.twig:63
 msgid "Save preferences"
@@ -648,14 +661,14 @@ msgid "Take action"
 msgstr "Engagera dig"
 
 #. %s = Redirection url variable.
-#: src/GravityFormsExtensions.php:989
+#: src/GravityFormsExtensions.php:995
 #, php-format
 msgid ""
 "Thank you! Please <a href=\"%s\">click here</a> if you are not redirected "
 "within a few seconds."
 msgstr ""
 
-#: functions.php:518
+#: functions.php:455
 msgid ""
 "The content on this page is hidden because this page is being used as your "
 "\\\"All Posts\\\" listing page. You can disable this by un-setting the "
@@ -679,7 +692,7 @@ msgstr "Den här länken öppnar en PDF-fil"
 msgid "To see the content of this page, please enter your password  below"
 msgstr "Ange ditt lösenord nedan för att se innehållet på sidan "
 
-#: src/MasterSite.php:728
+#: src/MasterSite.php:704
 msgid "Toggle search box"
 msgstr "Öppna sökrutan"
 
@@ -687,7 +700,7 @@ msgstr "Öppna sökrutan"
 msgid "Toggle search form"
 msgstr "Öppna sökformuläret"
 
-#: src/MasterSite.php:727
+#: src/MasterSite.php:703
 msgid "Toggle worldwide site selection menu"
 msgstr "Öppna menyn för våra kontor världen över"
 
