@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2025-08-08 12:22+0000\n"
+"PO-Revision-Date: 2025-08-08 12:25+0000\n"
 "Language-Team: Finnish\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -87,7 +87,7 @@ msgstr "VALITUT"
 
 #: templates/all-actions.twig:7 templates/taxonomy.twig:36
 msgid "All actions"
-msgstr ""
+msgstr "Kaikki toiminnot"
 
 #: templates/listing-page.twig:11 templates/taxonomy.twig:37
 msgid "All articles"
@@ -99,7 +99,7 @@ msgstr "Kaikki artikkelit kirjoittaja "
 
 #: templates/listing-page-filters.twig:41
 msgid "All keywords"
-msgstr ""
+msgstr "Kaikki avainsanat"
 
 #: templates/listing-page-filters.twig:7
 msgid "All posts"
@@ -107,7 +107,7 @@ msgstr "Kaikki artikkelit"
 
 #: templates/listing-page-filters.twig:24
 msgid "All topics"
-msgstr ""
+msgstr "Kaikki aiheet"
 
 #: templates/cookies/cookies_settings.twig:55
 msgid "Allow all"
@@ -465,7 +465,7 @@ msgstr "Väärä salasana, ole hyvä ja yritä uudelleen"
 
 #: templates/listing-page-filters.twig:38
 msgid "Keywords"
-msgstr ""
+msgstr "Avainsanat"
 
 #: single.php:126
 msgid "Leave your reply"
