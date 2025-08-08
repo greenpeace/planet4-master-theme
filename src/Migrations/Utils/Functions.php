@@ -398,9 +398,14 @@ class Functions
     public static function create_block_single_button(array $attrs, string $text, ?string $link = null): array
     {
         $classname = isset($attrs['className']) ? $attrs['className'] : '';
+        $is_button = isset($attrs['tagName']) && $attrs['tagName'] === 'button';
 
         // phpcs:disable Generic.Files.LineLength.MaxExceeded
-        if (!$link) {
+        if ($is_button) {
+            $html = '
+                <div class="wp-block-button ' . $classname . '"><button class="wp-block-button__link wp-element-button">' . $text . '</button></div>
+            ';
+        } elseif (!$link) {
             $html = '
             <div class="wp-block-button ' . $classname . '"><a class="wp-block-button__link wp-element-button">' . $text . '</a></div>
         ';
