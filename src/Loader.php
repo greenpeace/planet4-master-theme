@@ -100,6 +100,7 @@ final class Loader
             EnqueueController::class,
             YouTubeHandler::class,
             CommentFormCustomizer::class,
+            CronJob::class,
         ];
 
         if (is_admin()) {
