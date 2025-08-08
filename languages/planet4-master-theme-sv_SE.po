@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2025-08-08 12:39+0000\n"
+"PO-Revision-Date: 2025-08-08 12:40+0000\n"
 "Language-Team: Swedish\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -336,7 +336,7 @@ msgstr "Innehållstyp"
 
 #: templates/listing-page-filters.twig:4
 msgid "Content type"
-msgstr ""
+msgstr "Innehållstyp"
 
 #: templates/comments_section.twig:9
 msgid "Discussion"
@@ -465,7 +465,7 @@ msgstr "Ogiltigt lösenord, var god försök igen"
 
 #: templates/listing-page-filters.twig:38
 msgid "Keywords"
-msgstr ""
+msgstr "Nyckelord"
 
 #: single.php:126
 msgid "Leave your reply"
