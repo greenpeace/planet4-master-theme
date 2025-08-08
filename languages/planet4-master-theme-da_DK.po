@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2025-08-08 12:18+0000\n"
+"PO-Revision-Date: 2025-08-08 12:20+0000\n"
 "Language-Team: Danish\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -79,7 +79,7 @@ msgstr "Aktion"
 
 #: templates/search/action_types.twig:7
 msgid "Action Type"
-msgstr ""
+msgstr "Handlingstype"
 
 #: templates/search.twig:102
 msgid "ACTIVE FILTERS"
@@ -87,7 +87,7 @@ msgstr "AKTIVE FILTRE"
 
 #: templates/all-actions.twig:7 templates/taxonomy.twig:36
 msgid "All actions"
-msgstr ""
+msgstr "Alle handlinger"
 
 #: templates/listing-page.twig:11 templates/taxonomy.twig:37
 msgid "All articles"
@@ -119,7 +119,7 @@ msgstr "Altid aktiveret"
 
 #: templates/listing-page-filters.twig:54
 msgid "Apply"
-msgstr ""
+msgstr "Anvend"
 
 #: templates/search.twig:92
 msgid "Apply filters"
