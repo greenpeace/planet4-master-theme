@@ -76,6 +76,8 @@ export default () => {
       lastScrollDir = dir;
       lastScrollRef = lastScrollTop;
       menu.classList.add(HIDDEN_TABS_CLASS);
+      document.body.classList.remove('stuck-open');
+
       if (menuItems && menuItems.length > 0) {
         menuItems.forEach(item => item.setAttribute('tabindex', -1));
       }
@@ -87,6 +89,8 @@ export default () => {
       lastScrollDir = dir;
       lastScrollRef = lastScrollTop;
       menu.classList.remove(HIDDEN_TABS_CLASS);
+      document.body.classList.add('stuck-open');
+
       if (menuItems && menuItems.length > 0) {
         menuItems.forEach(item => item.setAttribute('tabindex', 0));
       }
