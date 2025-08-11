@@ -19,6 +19,15 @@ class YouTubeHandler
     }
 
     /**
+     * Returns the whitelist of URL params that require keeping the normal youtube.com domain.
+     *
+     */
+    protected function get_keep_params(): array
+    {
+        return apply_filters('planet4_youtube_keep_domain_params', ['list', 'si', 'rel', 'start', 't', 'index']);
+    }
+
+    /**
      * Filter function for embed_oembed_html.
      * Transform youtube embeds to youtube-nocookie.
      *
@@ -40,7 +49,7 @@ class YouTubeHandler
 
     /**
      * Filter function for embed_oembed_html.
-     * Transform youtube embeds to youtube-nocookie.
+     * Transform youtube embeds to youtube-nocookie if optional keep params are absent.
      *
      * @see https://developer.wordpress.org/reference/hooks/embed_oembed_html/
      *
@@ -55,18 +64,26 @@ class YouTubeHandler
             return $cache;
         }
 
-        if (!empty($url)) {
-            if (strpos($url, 'youtube.com') !== false || strpos($url, 'youtu.be') !== false) {
-                [$youtube_id, $query_string] = self::parse_youtube_url($url);
+        if (empty($url) || (strpos($url, 'youtube.com') === false && strpos($url, 'youtu.be') === false)) {
+            return $cache;
+        }
 
-                $style = "background-image: url('https://i.ytimg.com/vi/$youtube_id/hqdefault.jpg');";
-
-                return '<lite-youtube style="' . $style . '" videoid="' . $youtube_id
-                    . '" params="' . $query_string . '"></lite-youtube>';
+        // If the original URL contains a keep param, don't convert to lite
+        parse_str(parse_url($url, PHP_URL_QUERY) ?? '', $url_query_params);
+        $keep_params = $this->get_keep_params();
+        foreach ($keep_params as $p) {
+            if (array_key_exists($p, $url_query_params)) {
+                return $cache; // keep the oEmbed iframe as it is (so it can show custom related videos)
             }
         }
 
-        return $cache;
+        // otherwise safely make the lite player and preserve allowed params
+        [$youtube_id, $query_string] = self::parse_youtube_url($url);
+
+        $style = "background-image: url('https://i.ytimg.com/vi/$youtube_id/hqdefault.jpg');";
+
+        return '<lite-youtube style="' . esc_attr($style) . '" videoid="' . esc_attr($youtube_id)
+            . '" params="' . esc_attr($query_string) . '"></lite-youtube>';
     }
 
     /**
@@ -82,18 +99,88 @@ class YouTubeHandler
      */
     private function old_youtube_filter($cache, string $url)
     {
-        if (!empty($url)) {
-            if (strpos($url, 'youtube.com') !== false || strpos($url, 'youtu.be') !== false) {
-                $replacements = [
-                    'youtube.com' => 'youtube-nocookie.com',
-                    'feature=oembed' => 'feature=oembed&rel=0',
-                ];
+        if (empty($url) || (strpos($url, 'youtube.com') === false && strpos($url, 'youtu.be') === false)) {
+            return $cache;
+        }
 
-                $cache = str_replace(array_keys($replacements), array_values($replacements), $cache);
+        parse_str(parse_url($url, PHP_URL_QUERY) ?? '', $url_query_params);
+
+        $keep_params = $this->get_keep_params();
+
+        libxml_use_internal_errors(true);
+        $dom = new DOMDocument();
+        // phpcs:ignore Generic.Files.LineLength.MaxExceeded
+        $dom->loadHTML(mb_convert_encoding($cache, 'HTML-ENTITIES', 'UTF-8'), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+
+        $iframes = $dom->getElementsByTagName('iframe');
+
+        foreach ($iframes as $iframe) {
+            $src = $iframe->getAttribute('src');
+            if (empty($src)) {
+                continue;
+            }
+
+            $parts = parse_url($src);
+            parse_str($parts['query'] ?? '', $iframe_query_params);
+            $merged_params = array_merge($url_query_params, $iframe_query_params);
+
+            $keep_domain = false;
+            foreach ($keep_params as $p) {
+                if (array_key_exists($p, $merged_params) && $merged_params[$p] !== '') {
+                    $keep_domain = true;
+                    break;
+                }
+            }
+
+            if ($keep_domain) {
+                $host = $parts['host'] ?? '';
+                if (strpos($host, 'youtube-nocookie.com') !== false) {
+                    $parts['host'] = 'www.youtube.com';
+                    $new_src = $this->build_url($parts);
+                    $iframe->setAttribute('src', $new_src);
+                }
+            } else {
+                $iframe_query_params = $iframe_query_params ?? [];
+                if (!isset($iframe_query_params['rel'])) {
+                    $iframe_query_params['rel'] = '0';
+                }
+
+                $parts['host'] = 'www.youtube-nocookie.com';
+                $parts['query'] = http_build_query($iframe_query_params);
+                $new_src = $this->build_url($parts);
+                $iframe->setAttribute('src', $new_src);
             }
         }
 
-        return $cache;
+        $new_cache = $dom->saveHTML();
+        libxml_clear_errors();
+
+        // If DOM parsing produced nothing, fall back to the old string replace
+        if (empty(trim($new_cache))) {
+            $replacements = [
+                'youtube.com' => 'youtube-nocookie.com',
+                'feature=oembed' => 'feature=oembed&rel=0',
+            ];
+
+            return str_replace(array_keys($replacements), array_values($replacements), $cache);
+        }
+
+        return $new_cache;
+    }
+
+     /**
+     * Rebuild URL from parse_url parts.
+     */
+    private function build_url(array $parts): string
+    {
+        $scheme = isset($parts['scheme']) ? $parts['scheme'] . '://' : 'https://';
+        $host = $parts['host'] ?? '';
+        $port = isset($parts['port']) ? ':' . $parts['port'] : '';
+        $path = $parts['path'] ?? '';
+        $query = isset($parts['query']) && $parts['query'] !== '' ? '?' . $parts['query'] : '';
+        $frag = isset($parts['fragment']) ? '#' . $parts['fragment'] : '';
+
+        return $scheme . $host . $port . $path . $query . $frag;
     }
 
     /**
