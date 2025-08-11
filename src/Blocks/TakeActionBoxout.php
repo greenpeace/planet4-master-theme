@@ -170,6 +170,7 @@ class TakeActionBoxout extends BaseBlock
                 'image_srcset' => $src_set ?? '',
                 'stickyMobile' => $fields['stickyOnMobile'] ?? false,
                 'headingFontSize' => $fields['headingFontSize'] ?? 'medium',
+                'page_id' => $page_id,
             ],
         ];
     }

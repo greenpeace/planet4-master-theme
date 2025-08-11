@@ -1,7 +1,7 @@
 {% block take_action_boxout %}
 	{% if ( boxout ) %}
 		<section
-			class="boxout{% if boxout.stickyMobile %} sticky-bottom-mobile collapse show{% endif %}"
+			class="boxout {% if boxout.page_id %}post-{{boxout.page_id}}{% endif %} {% if boxout.stickyMobile %} sticky-bottom-mobile collapse show{% endif %}"
 			{{ boxout.stickyMobile ? 'id="action-card"' }}
 		>
 			<a
