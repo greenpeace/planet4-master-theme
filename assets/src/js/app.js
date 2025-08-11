@@ -34,4 +34,6 @@ document.addEventListener('DOMContentLoaded', () => {
   setupCountrySelector();
   setupTransparentNavHomepage();
   setupActionsListLoadMore();
+
+  window.addEventListener('resize', setupActionsListLoadMore);
 });
