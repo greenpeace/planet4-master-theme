@@ -156,8 +156,22 @@
       }
     }
 
-    .wp-block-post:nth-child(n+7) {
-      display: none;
+    @include mobile-only {
+      .wp-block-post:nth-child(n+4) {
+        display: none;
+      }
+    }
+
+    @include medium-and-less {
+      .wp-block-post:nth-child(n+5) {
+        display: none;
+      }
+    }
+
+    @include large-and-up {
+      .wp-block-post:nth-child(n+7) {
+        display: none;
+      }
     }
   }
 }

@@ -32,4 +32,6 @@ document.addEventListener('DOMContentLoaded', () => {
   setupClickableActionsListCards();
   setupCountrySelector();
   setupActionsListLoadMore();
+
+  window.addEventListener('resize', setupActionsListLoadMore);
 });
