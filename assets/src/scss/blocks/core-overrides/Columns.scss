@@ -35,11 +35,11 @@
       padding-left: $sp-1x;
       padding-right: $sp-1x;
 
-      @media (max-width: 340px) {
+      @media (max-width: 350px) {
         @include apply-item-width(0, 2);
       }
 
-      @media (min-width: 420px) {
+      @media (min-width: 480px) {
         @include apply-item-width(0, 4);
       }
     }
