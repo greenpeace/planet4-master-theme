@@ -110,32 +110,6 @@ document.addEventListener('DOMContentLoaded', () => {
     columns.classList.add('container');
     columnsWrapper.append(columns);
     actionsList.parentNode.insertBefore(columnsWrapper, actionsList.nextSibling);
-
-    // Add functionatility of leaving a message
-    const openModalButton = columnsWrapper.querySelector('.wp-element-button');
-
-    if (openModalButton) {
-      openModalButton.addEventListener('click', () => {
-        let overlay = document.querySelector('.gform-overlay');
-        if (!overlay) {
-          overlay = document.createElement('div');
-          overlay.classList.add('gform-overlay');
-          document.body.append(overlay);
-        }
-
-        overlay.style.display = 'block';
-
-        const form = document.querySelector('.gform_wrapper');
-        if (form) {
-          form.style.display = 'flex';
-        }
-
-        overlay.addEventListener('click', () => {
-          overlay.style.display = 'none';
-          form.style.display = 'none';
-        });
-      });
-    }
   }
 
   // Iterate posts

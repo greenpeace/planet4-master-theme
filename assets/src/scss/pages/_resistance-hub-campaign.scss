@@ -197,32 +197,6 @@
     @include btn-cta;
   }
 
-  .gform_wrapper {
-    display: none;
-    z-index: 9999;
-    margin: auto;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    position: fixed;
-    flex-direction: column;
-    align-self: center;
-    background-color: var(--white);
-    padding: 20px 40px;
-  }
-
-  .gform-overlay {
-    cursor: pointer;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(69, 73, 76, .8);
-    position: fixed;
-    left: 0;
-    top: 0;
-    z-index: 999;
-  }
-
   @media (max-width: 992px) {
     .boxout .boxout-placeholder {
       order: 1;
