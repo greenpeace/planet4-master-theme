@@ -53,52 +53,61 @@ class M056UpdateQuickLinksClassName extends MigrationScript
     }
 
     /**
-     * Update class name
+     * Modify the Quick Links block to add the quick-links class name.
      *
      * @param array $block - A block data array.
      * @return array - The transformed block.
      */
     private static function transform_block(array &$block): array // Using the parameter as a reference to update it
     {
-        $iterate = function (array &$innerBlocks, string $blockName, array $path = []) use (&$iterate): ?array {
-            foreach ($innerBlocks as $index => &$innerBlock) {
-                $currentPath = array_merge($path, [$index]);
-                if ($innerBlock['blockName'] === $blockName) {
-                    if (!str_contains($innerBlock['attrs']['className'], "quick-links")) {
-                        $innerBlock['attrs']['className'] = ($innerBlock['attrs']['className'] ?? '') . ' quick-links';
-
-                        // Update inner content and replace className by adding the one related to Quick Links
-                        foreach ($innerBlock['innerContent'] as &$innerContent) {
-                            if (!is_string($innerContent) || !str_contains($innerContent, 'wp-block-columns')) {
-                                continue;
-                            }
-
-                            $innerContent = preg_replace(
-                                '/class="([^"]*)"/',
-                                'class="$1 quick-links"',
-                                $innerContent
-                            );
-                        }
-                    }
-                    return $innerBlocks;
-                }
-
-                if (empty($innerBlock['innerBlocks'])) {
-                    continue;
-                }
-
-                $found = $iterate($innerBlock['innerBlocks'], $blockName, $currentPath);
-                if (!empty($found)) {
-                    return $found;
-                }
-            }
-            return null;
-        };
-
         if (!empty($block['innerBlocks'])) {
-            $iterate($block['innerBlocks'], 'core/columns');
+            self::update_class_name($block['innerBlocks'], 'core/columns');
         }
 
         return $block;
+    }
+
+    /**
+     * Update the class name of the Quick Links block.
+     *
+     * @param array $innerBlocks - The inner-block of the Quick Links block.
+     * @param string $blockName - The name of the block to update.
+     * @param array $path - The path of the block to update.
+     * @return array|null - The updated inner blocks.
+     */
+    private static function update_class_name(array &$innerBlocks, string $blockName, array $path = []): ?array
+    {
+        foreach ($innerBlocks as $index => &$innerBlock) {
+            $currentPath = array_merge($path, [$index]);
+            if ($innerBlock['blockName'] === $blockName) {
+                if (!str_contains($innerBlock['attrs']['className'], "quick-links")) {
+                    $innerBlock['attrs']['className'] = ($innerBlock['attrs']['className'] ?? '') . ' quick-links';
+
+                    // Update inner content and replace className by adding the one related to Quick Links
+                    foreach ($innerBlock['innerContent'] as &$innerContent) {
+                        if (!is_string($innerContent) || !str_contains($innerContent, 'wp-block-columns')) {
+                            continue;
+                        }
+
+                        $innerContent = preg_replace(
+                            '/class="([^"]*)"/',
+                            'class="$1 quick-links"',
+                            $innerContent
+                        );
+                    }
+                }
+                return $innerBlocks;
+            }
+
+            if (empty($innerBlock['innerBlocks'])) {
+                continue;
+            }
+
+            $found = self::update_class_name($innerBlock['innerBlocks'], $blockName, $currentPath);
+            if (!empty($found)) {
+                return $found;
+            }
+        }
+        return null;
     }
 }
