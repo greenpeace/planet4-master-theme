@@ -1,4 +1,4 @@
-{% if  excluded_post_ids is defined and featured_post_ids|length == max_sticky_posts %}
+{% if  excluded_post_ids is defined and featured_post_ids|length == sticky_posts_to_show %}
 <section id="featured-posts">
     <div class="container">
         <!-- wp:query {"query":{"inherit":false,"exclude":{{ excluded_post_ids|json_encode }}}} -->

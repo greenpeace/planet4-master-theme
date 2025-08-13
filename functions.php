@@ -394,6 +394,7 @@ add_filter(
     2
 );
 
+// Add filters to the main query on News & Stories page.
 add_action(
     'pre_get_posts',
     function ($query): void {

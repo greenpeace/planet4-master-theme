@@ -15,12 +15,12 @@ class ListingPage
      */
     public array $context = [];
     /**
-     * The maximum number of sticky posts to display.
+     * The amount of sticky posts to display.
      *
-     * @const int MAX_STICKY_POSTS used to limit the number of sticky posts also to filter main query.
+     * @const int STICKY_POSTS_TO_SHOW used to limit the number of sticky posts also to filter main query.
      */
     /** @static int */
-    public static int $MAX_STICKY_POSTS = 4;
+    public static int $STICKY_POSTS_TO_SHOW = 4;
 
     /**
      * Templates
@@ -170,7 +170,7 @@ class ListingPage
         $excluded_post_ids = $featured_query->posts;
 
         $this->context['featured_post_ids'] = $featured_post_ids;
-        $this->context['max_sticky_posts'] = self::$MAX_STICKY_POSTS;
+        $this->context['sticky_posts_to_show'] = self::$STICKY_POSTS_TO_SHOW;
         $this->context['excluded_post_ids'] = $excluded_post_ids;
 
         // Get the featured posts template
@@ -199,7 +199,7 @@ class ListingPage
 
         $sticky_posts = new \WP_Query([
             'post__in' => $sticky_posts,
-            'posts_per_page' => self::$MAX_STICKY_POSTS,
+            'posts_per_page' => self::$STICKY_POSTS_TO_SHOW,
             'post_type' => 'post',
             'post_status' => 'publish',
             'fields' => 'ids',
@@ -207,15 +207,15 @@ class ListingPage
             'order' => 'DESC',
         ]);
 
-        if (count($sticky_posts->posts) < self::$MAX_STICKY_POSTS) {
+        if (count($sticky_posts->posts) < self::$STICKY_POSTS_TO_SHOW) {
             return [];
         }
 
-        return array_slice($sticky_posts->posts, 0, self::$MAX_STICKY_POSTS);
+        return array_slice($sticky_posts->posts, 0, self::$STICKY_POSTS_TO_SHOW);
     }
 
     /**
-     * Move the categories filter to the ListingPage class.
+     * Add the category filter to News & Stories page.
      */
     public static function get_selected_categories(): array
     {
@@ -225,7 +225,7 @@ class ListingPage
     }
 
     /**
-     * Move the post types filter to the ListingPage class.
+     * Add the post-type filter to News & Stories page.
      */
     public static function get_selected_post_types(): array
     {
