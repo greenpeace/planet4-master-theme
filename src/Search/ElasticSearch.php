@@ -103,6 +103,16 @@ class ElasticSearch
                     'ElasticPress Query FAILED: Unknown response format: ' . print_r($response, true)
                 );
             }
+            // Check if indexing is in progress.
+            if (\ElasticPress\Utils\get_indexing_status()) {
+                return;
+            }
+
+            \Sentry\captureMessage(
+                'P4 ES sync cron job scheduled in 30 sec. ' . date("Y-m-d H:i:s")
+            );
+            // Schedule cron job to execute in 30 sec.
+            wp_schedule_single_event(time() + 30, 'p4_full_es_sync_action');
         }, 1, 10);
     }
 
