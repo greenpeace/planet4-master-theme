@@ -101,6 +101,7 @@ final class Loader
             YouTubeHandler::class,
             CommentFormCustomizer::class,
             CronJob::class,
+            DashboardNotice::class,
         ];
 
         if (is_admin()) {
