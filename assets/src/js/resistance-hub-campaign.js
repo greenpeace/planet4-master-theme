@@ -119,21 +119,19 @@ document.addEventListener('DOMContentLoaded', () => {
   ]) {
     const isBoxout = post.classList.contains('boxout') || false;
 
-    const cta = post.querySelector(isBoxout ? '.btn' : '.read-more-nav a');
+    const cta = post.querySelector('.btn-primary');
 
     if (actionsTaskType) {
       const taskType = cta.getAttribute('data-tasktype');
-      if (taskType) {
-        // eslint-disable-next-line no-var
-        var chipTaskType = document.createElement('span'); // Scoped variable
-        chipTaskType.classList.add('chip-tasktype');
-        chipTaskType.innerHTML = `Do it ${taskType}`;
 
-        if (isBoxout) {
-          post.append(chipTaskType);
-        }
+      if (taskType) {
+        const chipTaskType = document.createElement('span');
+        chipTaskType.classList.add('chip-tasktype');
+        const taskTypeLabel = taskType === 'irl' ? 'Offline' : 'Online';
+        chipTaskType.innerHTML = `Do it ${taskTypeLabel}`;
+
+        post.append(chipTaskType);
       }
-      cta.removeAttribute('data-tasktype');
     }
 
     if (actionsDeadline) {
@@ -148,13 +146,9 @@ document.addEventListener('DOMContentLoaded', () => {
             chipDeadline.classList.add('chip-deadline');
             chipDeadline.innerHTML = `${Math.round((Date.parse(deadline) - Date.now()) / secondsInDay)} days left`;
             featuredImage.append(chipDeadline);
-
-            // Only append if the deadline has not finished
-            post.append(chipTaskType);
           }
         }
       }
-      cta.removeAttribute('data-deadline');
     }
   }
 

@@ -67,11 +67,21 @@ add_filter(
             $actions_task_type_value = get_post_meta($post_id, 'actions_task_type', true);
             $actions_deadline_value = get_post_meta($post_id, 'actions_deadline', true);
 
-            if ($actions_task_type_value && $actions_deadline_value) {
+            $pattern = '/(<a[^>]*\bclass="[^"]*\bbtn\b[^"]*\bbtn-primary\b[^"]*"[^>]*)>/i';
+
+            if ($actions_task_type_value) {
                 $block_content = preg_replace(
-                    '/(<a[^>]*class="[^"]*btn[^"]*"[^>]*)/',
-                    // phpcs:disable Generic.Files.LineLength.MaxExceeded
-                    '$1 data-tasktype="' . esc_attr($actions_task_type_value) . '"' . ' data-deadline="' . esc_attr($actions_deadline_value) . '"',
+                    $pattern,
+                    '$1 data-tasktype="' . esc_attr($actions_task_type_value) . '">',
+                    $block_content,
+                    1
+                );
+            }
+
+            if ($actions_deadline_value) {
+                $block_content = preg_replace(
+                    $pattern,
+                    '$1 data-deadline="' . esc_attr($actions_deadline_value) . '">',
                     $block_content,
                     1
                 );
