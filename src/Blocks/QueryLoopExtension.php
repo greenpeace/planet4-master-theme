@@ -76,6 +76,9 @@ class QueryLoopExtension
         if (!empty($params['block_name'])) {
             if ($params['block_name'] === self::ACTIONS_LIST_BLOCK) {
                 $query = self::buildActionListQuery($query);
+                if (!empty($params['postIn'])) {
+                    $query['orderby'] = 'post__in';
+                }
             }
 
             if ($params['block_name'] === self::POSTS_LIST_BLOCK) {
@@ -171,16 +174,12 @@ class QueryLoopExtension
             $query['post__in'] = [0];
         }
 
-        if (!empty($query['post__in'])) {
-            $query['orderby'] = 'post__in';
-        } else {
-            $query['orderby'] = [
-                'menu_order' => 'ASC',
-                'post_date' => 'DESC',
-                'post_title' => 'ASC',
-                'post__in' => 'ASC',
-            ];
-        }
+        $query['orderby'] = [
+            'menu_order' => 'ASC',
+            'post_date' => 'DESC',
+            'post_title' => 'ASC',
+            'post__in' => 'ASC',
+        ];
 
         return $query;
     }
