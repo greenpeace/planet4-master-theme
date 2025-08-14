@@ -1,3 +1,15 @@
+@mixin apply-item-width($gap, $items-count) {
+  $gap: 0;
+  $total-gap: calc($gap * $items-count);
+  $apply-item-width: calc(100vw / calc($items-count + .5));
+
+  gap: $gap !important;
+
+  .wp-block-column {
+    flex-basis: $apply-item-width;
+  }
+}
+
 .wp-block-columns.is-not-stacked-on-mobile.is-style-mobile-carousel {
   @include large-and-less {
     flex-wrap: nowrap;
@@ -11,6 +23,25 @@
     .wp-block-column {
       flex-basis: auto;
       flex-shrink: 0;
+    }
+  }
+
+  // These styles will be applied to the Quick Links Block only
+  &.quick-links {
+    @include mobile-only {
+      @include wide-block;
+      @include apply-item-width(0, 3);
+
+      padding-left: $sp-1x;
+      padding-right: $sp-1x;
+
+      @media (max-width: 350px) {
+        @include apply-item-width(0, 2);
+      }
+
+      @media (min-width: 480px) {
+        @include apply-item-width(0, 4);
+      }
     }
   }
 
