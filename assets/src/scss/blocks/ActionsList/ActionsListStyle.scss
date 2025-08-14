@@ -13,6 +13,10 @@
         grid-template-columns: repeat(3, 1fr);
       }
     }
+
+    .load-more-actions-container {
+      display: none;
+    }
   }
 
   ul li {
@@ -149,6 +153,24 @@
 
       @include large-and-up {
         grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    @include mobile-only {
+      .wp-block-post:nth-child(n+4) {
+        display: none;
+      }
+    }
+
+    @include medium-and-less {
+      .wp-block-post:nth-child(n+5) {
+        display: none;
+      }
+    }
+
+    @include large-and-up {
+      .wp-block-post:nth-child(n+7) {
+        display: none;
       }
     }
   }

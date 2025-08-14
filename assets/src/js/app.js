@@ -7,11 +7,12 @@ import {setupPDFIcon} from './pdf_icon';
 import {setupSearch} from './search';
 import {setupExternalLinks} from './external_links';
 import {setupQueryLoopCarousel} from './query_loop_carousel';
-import {setupClickabelActionsListCards} from './actions_list_clickable_cards';
+import {setupClickableActionsListCards} from './actions_list_clickable_cards';
 import {removeNoPostText} from './query-no-posts';
 import {removeRelatedPostsSection} from './remove_related_section_no_posts';
 import {setupCountrySelector} from './country_selector';
 import {setupTransparentNavHomepage} from './homepage_transparent_nav';
+import {setupActionsListLoadMore} from './actions_list_load_more';
 
 function requireAll(r) {
   r.keys().forEach(r);
@@ -29,7 +30,10 @@ document.addEventListener('DOMContentLoaded', () => {
   setupQueryLoopCarousel();
   removeNoPostText();
   removeRelatedPostsSection();
-  setupClickabelActionsListCards();
+  setupClickableActionsListCards();
   setupCountrySelector();
   setupTransparentNavHomepage();
+  setupActionsListLoadMore();
+
+  window.addEventListener('resize', setupActionsListLoadMore);
 });
