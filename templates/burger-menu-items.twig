@@ -11,7 +11,7 @@
         <div class="burger-menu-item-wrapper accordion-header" id="burger-menu-accordion-{{ targetId }}">
             <a
                 class="nav-link"
-                href="{{ item.get_link }}"
+                href="{{ item.link }}"
                 target="{{ item.target }}"
                 data-ga-category="Menu Navigation"
                 data-ga-action="{{ link_ga_action }}"
@@ -53,7 +53,7 @@
                     {% endif %}
                     <a
                         class="nav-link"
-                        href="{{ item.get_link }}"
+                        href="{{ item.link }}"
                         target="{{ item.target }}"
                         data-ga-category="Submenu Navigation"
                         data-ga-action="{{ link_ga_action }}"

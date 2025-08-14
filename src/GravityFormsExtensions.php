@@ -585,8 +585,8 @@ class GravityFormsExtensions
             return $confirmation;
         }
 
-        $context = Timber::get_context();
-        $post = Timber::query_post(false, Post::class);
+        $context = Timber::context();
+        $post = Timber::get_post();
 
         $current_confirmation = $form['confirmation'];
 
