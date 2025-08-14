@@ -56,4 +56,3 @@ export const setupHeader = () => {
   // Setup keyboard accessibility in the navigation menu.
   setupAccessibleNavMenu();
 };
-
