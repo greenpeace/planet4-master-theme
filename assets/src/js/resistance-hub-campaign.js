@@ -1,4 +1,4 @@
-const {__} = wp.i18n;
+const {__, sprintf} = wp.i18n;
 
 const markActionsAsCompleted = () => {
   // Make sure customization is enabled in the settings
@@ -127,9 +127,8 @@ document.addEventListener('DOMContentLoaded', () => {
       if (taskType) {
         const chipTaskType = document.createElement('span');
         chipTaskType.classList.add('chip-tasktype');
-        const taskTypeLabel = taskType === 'irl' ? 'Offline' : 'Online';
-        chipTaskType.innerHTML = `Do it ${taskTypeLabel}`;
-
+        // translators: %s: Task Type
+        chipTaskType.innerHTML = sprintf(__('Do it %s', 'planet4-blocks-backend'), taskType);
         post.append(chipTaskType);
       }
     }
