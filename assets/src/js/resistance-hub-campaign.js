@@ -122,9 +122,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const cta = post.querySelector('.btn-primary');
 
     if (actionsTaskType) {
-      const taskType = cta.getAttribute('data-tasktype');
+      let taskType = cta.getAttribute('data-tasktype');
 
       if (taskType) {
+        taskType = taskType.charAt(0).toUpperCase() + taskType.slice(1); // Capitalize the first letter
         const chipTaskType = document.createElement('span');
         chipTaskType.classList.add('chip-tasktype');
         // translators: %s: Task Type
