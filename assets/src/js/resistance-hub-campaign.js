@@ -129,7 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const chipTaskType = document.createElement('span');
         chipTaskType.classList.add('chip-tasktype');
         // translators: %s: Task Type
-        chipTaskType.innerHTML = sprintf(__('Do it %s', 'planet4-blocks-backend'), taskType);
+        chipTaskType.innerHTML = sprintf(__('Do it %s', 'planet4-blocks'), taskType);
         post.append(chipTaskType);
       }
     }

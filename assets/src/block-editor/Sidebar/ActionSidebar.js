@@ -34,18 +34,18 @@ export const ActionSidebar = {
             title={__('Action Options', 'planet4-blocks-backend')}>
             {isTaskTypeEnabled && (
               <SelectSidebarField
-                label={__('Task Type', 'planet4-master-theme-backend')}
+                label={__('Task Type', 'planet4-blocks-backend')}
                 options={[
                   {label: __('- Select Task Type -', 'planet4-blocks-backend'), value: 'not set'},
-                  {label: __('Do it Online', 'planet4-blocks-backend'), value: 'online'},
-                  {label: __('Do it Offline', 'planet4-blocks-backend'), value: 'offline'},
+                  {label: __('Do it Online', 'planet4-blocks'), value: 'Online'},
+                  {label: __('Do it Offline', 'planet4-blocks'), value: 'Offline'},
                 ]}
                 {...getParams(TASK_TYPE)}
               />)}
             {isDeadlineEnabled && (
               <DatePickerSidebarField
                 id={DEADLINE}
-                label={__('Deadline Date', 'planet4-master-theme-backend')}
+                label={__('Deadline Date', 'planet4-blocks-backend')}
                 forceEndDate={true}
                 {...getParams(DEADLINE)}
               />
