@@ -1,4 +1,4 @@
-const {__, sprintf} = wp.i18n;
+const {__} = wp.i18n;
 
 const markActionsAsCompleted = () => {
   // Make sure customization is enabled in the settings
@@ -122,14 +122,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const cta = post.querySelector('.btn-primary');
 
     if (actionsTaskType) {
-      let taskType = cta.getAttribute('data-tasktype');
+      const taskType = cta.getAttribute('data-tasktype');
 
       if (taskType) {
-        taskType = taskType.charAt(0).toUpperCase() + taskType.slice(1); // Capitalize the first letter
         const chipTaskType = document.createElement('span');
         chipTaskType.classList.add('chip-tasktype');
-        // translators: %s: Task Type
-        chipTaskType.innerHTML = sprintf(__('Do it %s', 'planet4-blocks'), taskType);
+
+        switch (taskType) {
+        case 'online':
+          chipTaskType.innerHTML = __('Do it Online', 'planet4-blocks');
+          break;
+        case 'offline':
+          chipTaskType.innerHTML = __('Do it Offline', 'planet4-blocks');
+          break;
+        }
+
         post.append(chipTaskType);
       }
     }

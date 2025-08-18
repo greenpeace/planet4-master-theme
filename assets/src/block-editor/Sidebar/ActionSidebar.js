@@ -37,8 +37,8 @@ export const ActionSidebar = {
                 label={__('Task Type', 'planet4-blocks-backend')}
                 options={[
                   {label: __('- Select Task Type -', 'planet4-blocks-backend'), value: 'not set'},
-                  {label: __('Do it Online', 'planet4-blocks'), value: 'Online'},
-                  {label: __('Do it Offline', 'planet4-blocks'), value: 'Offline'},
+                  {label: __('Do it Online', 'planet4-blocks'), value: 'online'},
+                  {label: __('Do it Offline', 'planet4-blocks'), value: 'offline'},
                 ]}
                 {...getParams(TASK_TYPE)}
               />)}
