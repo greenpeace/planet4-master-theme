@@ -19,9 +19,7 @@ class M056UpdateQuickLinksClassName extends MigrationScript
     public static function execute(MigrationRecord $record): void
     {
         $check_is_valid_block = function ($block) {
-            if (!empty($block['innerBlocks'])) {
-                return self::check_is_valid_block($block);
-            }
+            return self::check_is_valid_block($block);
         };
 
         $transform_block = function ($block) {
@@ -44,7 +42,7 @@ class M056UpdateQuickLinksClassName extends MigrationScript
     private static function check_is_valid_block(array $block): bool
     {
        // Check if the block is an array, has a 'blockName' key.
-        if (!is_array($block) || !isset($block['blockName'])) {
+        if (!is_array($block) || !isset($block['blockName']) && !empty($block['innerBlocks'])) {
             return false;
         }
 
