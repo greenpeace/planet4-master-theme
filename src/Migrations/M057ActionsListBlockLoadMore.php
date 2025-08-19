@@ -75,7 +75,7 @@ class M057ActionsListBlockLoadMore extends MigrationScript
         // Create the "load more" button.
         $load_more = Utils\Functions::create_block_buttons(
             [
-                'className' => 'load-more-button-container',
+                'className' => 'load-more-actions-container',
                 'layout' => ['type' => 'flex', 'justifyContent' => 'center'],
             ],
             [
@@ -88,6 +88,32 @@ class M057ActionsListBlockLoadMore extends MigrationScript
 
         // Add it to the inner blocks.
         $block['innerBlocks'] = array_merge($block['innerBlocks'], [$load_more]);
+
+        // Update the inner content accordingly.
+        // IMPORTANT: DO NOT MODIFY THIS FORMAT!
+        // phpcs:disable Generic.Files.LineLength.MaxExceeded
+        $block['innerContent'] = array (
+            0 => '
+        <div class="wp-block-query actions-list p4-query-loop is-custom-layout-actions-list p4-query-loop is-custom-layout-grid">',
+            1 => null,
+            2 => '
+        ',
+            3 => null,
+            4 => '
+        ',
+            5 => null,
+            6 => '
+        ',
+            7 => null,
+            8 => '
+        ',
+            9 => null,
+            10 => '
+        ',
+            11 => null,
+            12 => '</div>
+        ',
+        );
 
         // Change "perPage" query attribute to 100 if layout is grid.
         if (str_contains($block['attrs']['className'], 'is-custom-layout-grid')) {
