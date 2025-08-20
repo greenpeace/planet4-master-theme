@@ -32,7 +32,7 @@ class ActionsTaskType extends Feature
     {
         return __(
             // phpcs:ignore Generic.Files.LineLength.MaxExceeded
-            'Adds option for showing whether an Action is either Online or IRL on Actions List block. This feature only works on Actions that use the Resistance Hub template.',
+            'Adds option for showing whether an Action is either Online or Offline on Actions List block. This feature only works on Actions that use the Resistance Hub template.',
             'planet4-master-theme-backend',
         );
     }
