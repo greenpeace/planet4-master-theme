@@ -590,6 +590,41 @@ class Post extends TimberPost
 
         if ($news_stories_page) {
             $news_stories_url = get_permalink($news_stories_page);
+
+            $post_page_filters = $attributes['query_attributes']['query']['taxQuery'];
+            $tag_id = isset($post_page_filters['post_tag']) ? (int) $post_page_filters['post_tag'][0] : null;
+            $category_id = isset($post_page_filters['category']) ? (int) $post_page_filters['category'][0] : null;
+            $post_type_id = isset($post_page_filters['p4-page-type']) ? (int) $post_page_filters['p4-page-type'][0] : null;
+
+            $query_args = [];
+
+            // Add post type filter
+            if ($post_type_id) {
+                $post_type = get_term_by('id', $post_type_id, 'p4-page-type');
+                if ($post_type && !is_wp_error($post_type)) {
+                    $query_args['post-type'] = $post_type->slug;
+                }
+            }
+
+            // Add category filter
+            if ($category_id) {
+                $category = get_term_by('id', $category_id, 'category');
+                if ($category && !is_wp_error($category)) {
+                    $query_args['category'] = $category->slug;
+                }
+            }
+
+            // Add tag filter
+            if ($tag_id) {
+                $tag = get_term_by('id', $tag_id, 'post_tag');
+                if ($tag && !is_wp_error($tag)) {
+                    $query_args['tag'] = $tag->slug;
+                }
+            }
+
+            if (!empty($query_args)) {
+                $news_stories_url = add_query_arg($query_args, $news_stories_url);
+            }
         }
 
         $see_all_link_group = !empty($news_stories_url) ?
