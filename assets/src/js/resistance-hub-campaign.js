@@ -132,7 +132,7 @@ document.addEventListener('DOMContentLoaded', () => {
         case 'online':
           chipTaskType.innerHTML = __('Do it Online', 'planet4-blocks');
           break;
-        case 'offline':
+        case 'irl':
           chipTaskType.innerHTML = __('Do it Offline', 'planet4-blocks');
           break;
         }
