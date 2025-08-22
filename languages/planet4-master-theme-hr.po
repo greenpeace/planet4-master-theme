@@ -4,7 +4,7 @@ msgstr ""
 "n%10<=4 &&(n%100<10||n%100 >= 20)? 1 : 2;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2025-08-22 10:01+0000\n"
+"PO-Revision-Date: 2025-08-22 10:03+0000\n"
 "Language-Team: Croatian\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -81,7 +81,7 @@ msgstr "Aktiviraj se"
 
 #: templates/search/action_types.twig:7
 msgid "Action Type"
-msgstr ""
+msgstr "Vrsta aktivnosti"
 
 #: templates/search.twig:102
 msgid "ACTIVE FILTERS"
@@ -334,7 +334,7 @@ msgstr "Komentari"
 #: templates/search/content_types.twig:7
 #| msgid "Content type"
 msgid "Content Type"
-msgstr "Tip sadržaja"
+msgstr "Vrsta sadržaja"
 
 #: templates/listing-page-filters.twig:4
 msgid "Content type"
