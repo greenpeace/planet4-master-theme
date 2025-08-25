@@ -35,7 +35,7 @@ const template = ({
       ['core/heading', {level: 4, placeholder: __('Enter title', 'planet4-blocks-backend'), content: title}],
       ['core/columns', {
         isStackedOnMobile: false,
-        className: 'is-style-mobile-carousel',
+        className: 'is-style-mobile-carousel quick-links',
       },
       [...Array(5).keys()].map(() => category)],
     ]],

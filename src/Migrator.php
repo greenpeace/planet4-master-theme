@@ -56,6 +56,7 @@ use P4\MasterTheme\Migrations\M052RollbackToPreviousRevision;
 use P4\MasterTheme\Migrations\M053CustomisePostsListSeeAllLink;
 use P4\MasterTheme\Migrations\M054PostsActionsListHeaderButtonUpdate;
 use P4\MasterTheme\Migrations\M055AddDefaultSiteIcon;
+use P4\MasterTheme\Migrations\M056UpdateQuickLinksClassName;
 
 /**
  * Run any new migration scripts and record results in the log.
@@ -129,6 +130,7 @@ class Migrator
             M053CustomisePostsListSeeAllLink::class,
             M054PostsActionsListHeaderButtonUpdate::class,
             M055AddDefaultSiteIcon::class,
+            M056UpdateQuickLinksClassName::class,
         ];
 
         // Loop migrations and run those that haven't run yet.

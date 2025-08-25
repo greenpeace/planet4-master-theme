@@ -433,3 +433,12 @@ $nested-comment-left-margin: 50px;
     content: "•";
   }
 }
+
+@mixin wide-block {
+  width: 100vw;
+  margin-left: calc(((100vw - 100%) / 2) * -1);
+
+  html[dir="rtl"] & {
+    margin-right: calc(((100vw - 100%) / 2) * -1);
+  }
+}
