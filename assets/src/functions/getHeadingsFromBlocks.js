@@ -1,5 +1,5 @@
 import {generateAnchor} from './generateAnchor';
-import {unescape} from '../../functions/unescape';
+import {unescape} from './unescape';
 
 // We can put the other blocks that can have a heading inside in here along with the attribute containing the heading text.
 // Then we can also filter those to include them in the menu.
