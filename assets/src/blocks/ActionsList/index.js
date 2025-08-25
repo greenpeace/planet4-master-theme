@@ -4,7 +4,7 @@ import {TAX_BREADCRUMB_BLOCK_NAME} from '../../block-editor/setupTaxonomyBreadcr
 export const ACTIONS_LIST_BLOCK_NAME = 'planet4-blocks/actions-list';
 
 export const ACTIONS_LIST_LAYOUT_TYPES = [
-  {label: 'Grid', value: 'grid', columnCount: 3, perPage: 100},
+  {label: 'Grid', value: 'grid', columnCount: 3, perPage: 24},
   {label: 'Carousel', value: 'flex', columnCount: 6},
 ];
 
@@ -21,7 +21,7 @@ export const ACTIONS_LIST_BLOCK_ATTRIBUTES = {
   className: 'actions-list p4-query-loop is-custom-layout-grid',
   query: {
     pages: 0,
-    perPage: 100,
+    perPage: 24,
     offset: 0,
     order: 'desc',
     orderBy: 'date',

@@ -115,9 +115,9 @@ class M057ActionsListBlockLoadMore extends MigrationScript
         ',
         );
 
-        // Change "perPage" query attribute to 100 if layout is grid.
+        // Change "perPage" query attribute to 24 if layout is grid.
         if (str_contains($block['attrs']['className'], 'is-custom-layout-grid')) {
-            $block['attrs']['query']['perPage'] = 100;
+            $block['attrs']['query']['perPage'] = 24;
         }
 
         return $block;
