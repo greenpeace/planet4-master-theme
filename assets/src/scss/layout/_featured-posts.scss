@@ -97,7 +97,16 @@
 
       &:not(:first-child) {
         .wp-post-image {
-          height: 152px;
+          height: 164px;
+        }
+
+        .wp-block-post-terms,
+        .wrapper-post-tag:before {
+          margin-top: -12px;
+        }
+
+        .wp-block-post-title {
+          margin-top: -5px;
         }
       }
     }
