@@ -101,7 +101,7 @@
     margin-bottom: calc($sp-1x - 2px);
 
     a {
-      @include clamp-text(2);
+      @include clamp-text(1);
 
       &:hover {
         text-decoration: underline;
@@ -165,12 +165,9 @@
         visibility: hidden;
       }
 
-      .wp-block-post-terms:not(:first-child) {
-        display: block;
-      }
-
       .carousel-item-wrapper {
         grid-template-columns: repeat(4, 1fr);
+        height: 440px;
       }
 
       .wp-block-post {
