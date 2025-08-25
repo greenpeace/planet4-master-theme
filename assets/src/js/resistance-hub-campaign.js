@@ -2,18 +2,17 @@ const {__} = wp.i18n;
 
 // Re-order completed posts in a actions list block into resistance hub.
 const reorderCompletedPosts = () => {
-  const actionsList = document.querySelector('.actions-list .wp-block-post-template');
-  if (!actionsList) {
+  const posts = document.querySelectorAll('.actions-list .wp-block-post-template > li');
+  if (posts.length === 0) {
     return;
   }
 
-  const posts = Array.from(actionsList.children);
   const completed = posts.filter(post => post.classList.contains('completed'));
   const notCompleted = posts.filter(post => !post.classList.contains('completed'));
   if (completed.length > 0) {
-    actionsList.innerHTML = '';
-    completed.forEach(post => actionsList.appendChild(post));
-    notCompleted.forEach(post => actionsList.appendChild(post));
+    posts.innerHTML = '';
+    completed.forEach(post => posts.appendChild(post));
+    notCompleted.forEach(post => posts.appendChild(post));
   }
 };
 
