@@ -9,6 +9,9 @@ $extra-extra-large-width: 1600px;
 // Override html selectors
 $checkbox-size: 20px;
 
+// Posts List default height
+$posts-list-container-height: 468px;
+
 // Spacing
 @function space($base) {
   @return $base * 8px;
