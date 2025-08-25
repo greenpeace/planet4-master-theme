@@ -53,6 +53,7 @@
     "@wordpress/edit-post": "^7.28.1",
     "classnames": "^2.2.6",
     "eslint": "8.56.0",
+    "hammerjs": "^2.0.8",
     "lite-youtube-embed": "^0.3.0",
     "photoswipe": "^4.1.3",
     "react-dom": "^18.3.1",
