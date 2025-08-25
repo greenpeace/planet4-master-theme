@@ -16,6 +16,25 @@ class CronJob
     }
 
     /**
+     * Helper function to perform the ElasticPress full index.
+     */
+    private function sync_helper(): void
+    {
+        try {
+            \ElasticPress\IndexHelper::factory()->full_index([
+                'put_mapping' => true,
+                'method' => 'dashboard',
+                'network_wide' => false,
+                'show_errors' => false,
+                'trigger' => 'manual',
+                'output_method' => [],
+            ]);
+        } catch (\Exception $e) {
+            function_exists('\Sentry\captureException') && \Sentry\captureException($e);
+        }
+    }
+
+    /**
      * Triggers a full Elastic search indexing.
      */
     public function p4_full_es_sync(): void
@@ -33,17 +52,34 @@ class CronJob
         );
 
         // Trigger a full index.
-        try {
-            \ElasticPress\IndexHelper::factory()->full_index([
-                'put_mapping' => true,
-                'method' => 'dashboard',
-                'network_wide' => false,
-                'show_errors' => false,
-                'trigger' => 'manual',
-                'output_method' => [],
-            ]);
-        } catch (\Exception $e) {
-            function_exists('\Sentry\captureException') && \Sentry\captureException($e);
+        $multilingual = is_plugin_active('sitepress-multilingual-cms/sitepress.php');
+
+        if ($multilingual) {
+            // Get default language and active languages.
+            $default_lang = apply_filters('wpml_default_language', null);
+            $languages = apply_filters('wpml_active_languages', null, ['skip_missing' => 0]);
+
+            foreach ($languages as $lang) {
+                $lang_code = $lang['code'];
+                do_action('wpml_switch_language', $lang_code);
+
+                // Set the index name based on the language.
+                // If the language is the default one, use the default index name.
+                // Otherwise, append the language code to the default index name.
+                $default_index = \ElasticPress\Indexables::factory()->get('post')->get_index_name();
+                $lang_index = ($lang_code === $default_lang)
+                    ? $default_index
+                    : $default_index . '-' . $lang_code;
+                // phpcs:ignore SlevomatCodingStandard.Functions.UnusedParameter
+                add_filter('ep_index_name', function ($anme) use ($lang_index) {
+                    return $lang_index;
+                });
+
+                self::sync_helper();
+                remove_all_filters('ep_index_name');
+            }
+        } else {
+            self::sync_helper();
         }
 
         \Sentry\captureMessage(
