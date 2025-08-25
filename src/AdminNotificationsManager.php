@@ -27,7 +27,9 @@ class AdminNotificationsManager
     /**
      * Add a notification to the editor of the page used to show all posts.
      */
-    public function add_all_posts_notification(): void {
+    public function add_all_posts_notification(): void
+    {
+        // phpcs:disable Generic.Files.LineLength.MaxExceeded
         wp_add_inline_script(
             'wp-notices',
             sprintf(
@@ -36,6 +38,7 @@ class AdminNotificationsManager
                 __('here', 'planet4-master-theme')
             )
         );
+        // phpcs:enable Generic.Files.LineLength.MaxExceeded
     }
 
     /**
