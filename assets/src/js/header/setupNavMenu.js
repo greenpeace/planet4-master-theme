@@ -2,6 +2,17 @@ import {setSearchToggles, toggleGaActionAttributes} from './setupGaActions';
 import {updateNavMenuTabIndex} from './accessibleNavMenu';
 
 const NAV_MENU_TOGGLE_CLASS = '.nav-menu-toggle';
+const NAV_SEARCH_TOGGLE = 'nav-search-toggle';
+
+const toggleElementClasses = [
+  '.navbar-dropdown-toggle',
+  '.nav-menu-toggle',
+  '.country-dropdown-toggle',
+  '.country-selector-toggle',
+  '.nav-search-toggle',
+];
+
+const toggleElements = [...document.querySelectorAll(toggleElementClasses.join(','))];
 
 /**
  * Spoof click on nav menu toggle when clicking on nav menu close button.
@@ -34,7 +45,7 @@ const closeInactiveNavElements = event => {
   activeElements.forEach(button => {
     const buttonTarget = button.dataset && button.dataset.bsTarget;
 
-    if (button.classList.contains('nav-search-toggle')) {
+    if (button.classList.contains(NAV_SEARCH_TOGGLE)) {
       if (searchToggled) {
         return;
       }
@@ -50,6 +61,20 @@ const closeInactiveNavElements = event => {
   });
 };
 export const setupDocumentClick = () => document.onclick = closeInactiveNavElements;
+
+/**
+ * Handle clicking on all navigation elements.
+ */
+export const toggleNavElements = () => {
+  toggleElements.forEach(toggleElement => {
+    toggleElement.onclick = event => {
+      event.preventDefault();
+      event.stopPropagation();
+
+      toggleNavElement(toggleElement);
+    };
+  });
+};
 
 /**
  * Function to handle clicking on a navigation element.
@@ -78,13 +103,13 @@ export const toggleNavElement = element => {
   element.setAttribute('aria-expanded', wasExpanded ? 'false' : 'true');
 
   // Propagate attributes to all search toggles
-  if (element.classList.contains('nav-search-toggle')) {
+  if (element.classList.contains(NAV_SEARCH_TOGGLE)) {
     setSearchToggles(!wasExpanded);
   }
 
   // We need to focus the search input when showing it
   const searchInput = document.querySelector('#search_input');
-  if (element.classList.contains('nav-search-toggle')) {
+  if (element.classList.contains(NAV_SEARCH_TOGGLE)) {
     if (wasExpanded) {
       searchInput.focus();
     }

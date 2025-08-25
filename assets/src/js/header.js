@@ -2,28 +2,9 @@
 
 import {setupAccessibleNavMenu} from './header/accessibleNavMenu';
 import setupMobileTabsMenuScroll from './header/setupMobileTabsMenuScroll';
-import {setupCloseNavMenuButton, setupDocumentClick, toggleNavElement} from './header/setupNavMenu';
+import {setupCloseNavMenuButton, setupDocumentClick, toggleNavElements} from './header/setupNavMenu';
 
 export const setupHeader = () => {
-  const toggleElementClasses = [
-    '.navbar-dropdown-toggle',
-    '.nav-menu-toggle',
-    '.country-dropdown-toggle',
-    '.country-selector-toggle',
-    '.nav-search-toggle',
-  ];
-
-  const toggleElements = [...document.querySelectorAll(toggleElementClasses.join(','))];
-
-  toggleElements.forEach(toggleElement => {
-    toggleElement.onclick = event => {
-      event.preventDefault();
-      event.stopPropagation();
-
-      toggleNavElement(toggleElement);
-    };
-  });
-
   // Close all menus on escape pressed
   document.onkeyup = event => {
     if (event.key === 'Escape') {
@@ -44,7 +25,7 @@ export const setupHeader = () => {
     });
   }
 
-  // Set the mobile tabs menu behavior on scroll
+  // Set the mobile tabs menu behavior on scroll.
   setupMobileTabsMenuScroll();
 
   // Close navbar elements when clicking outside of menu.
@@ -55,5 +36,8 @@ export const setupHeader = () => {
 
   // Setup keyboard accessibility in the navigation menu.
   setupAccessibleNavMenu();
+
+  // Handle clicking on navigation elements.
+  toggleNavElements();
 };
 
