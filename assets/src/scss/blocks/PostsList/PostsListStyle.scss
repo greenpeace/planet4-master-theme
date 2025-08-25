@@ -165,12 +165,9 @@
         visibility: hidden;
       }
 
-      .wp-block-post-terms:not(:first-child) {
-        display: block;
-      }
-
       .carousel-item-wrapper {
         grid-template-columns: repeat(4, 1fr);
+        height: 444px;
       }
 
       .wp-block-post {
@@ -208,16 +205,10 @@
     font-size: calc(var(--font-size-xxs--font-family-primary) - 2px);
     display: flex;
 
+    &,
     a {
       color: var(--grey-600);
       font-weight: var(--font-weight-semibold);
-    }
-
-    &::after {
-      content: ".";
-      font-size: calc(var(--font-size-m--font-family-primary) + 5px);
-      margin-top: -6px;
-      margin-inline-start: $sp-x;
     }
   }
 
@@ -292,6 +283,14 @@
       @include large-and-up {
         grid-template-columns: repeat(4, minmax(0, 1fr));
       }
+    }
+  }
+
+  .posts-list-meta {
+    flex-direction: column;
+
+    .wp-block-post-date {
+      margin-top: -15px;
     }
   }
 }
