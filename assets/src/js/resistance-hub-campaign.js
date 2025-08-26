@@ -1,6 +1,6 @@
 const {__} = wp.i18n;
 
-// Re-order not completed posts in a actions list block into resistance hub.
+// Reorder completed posts in the Actions List block on the Resistance Hub template.
 const reorderCompletedPosts = () => {
   [...document.querySelectorAll('.actions-list .wp-block-post-template > li:not(.completed)')]
     .reverse()
