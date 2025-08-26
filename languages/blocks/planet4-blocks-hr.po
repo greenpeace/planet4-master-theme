@@ -4,7 +4,7 @@ msgstr ""
 "n%10<=4 &&(n%100<10||n%100 >= 20)? 1 : 2;\n"
 "Project-Id-Version: Planet4 - Blocks\n"
 "POT-Creation-Date: 2020-12-02 12:05+0000\n"
-"PO-Revision-Date: 2024-12-06 15:18+0000\n"
+"PO-Revision-Date: 2025-08-26 14:39+0000\n"
 "Last-Translator: \n"
 "Language-Team: Croatian\n"
 "MIME-Version: 1.0\n"
@@ -22,7 +22,7 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 "Language: hr\n"
 "Report-Msgid-Bugs-To: \n"
-"X-Loco-Version: 2.5.5; wp-5.8.1"
+"X-Loco-Version: 2.8.0; wp-6.8.2; php-8.1.2-1ubuntu2.22"
 
 #: assets/src/blocks/Articles/ArticlePreview.js:178
 msgid "%d min read"
@@ -252,7 +252,7 @@ msgstr ""
 #: assets/src/block-templates/deep-dive-topic/template.js:22
 #: assets/src/block-templates/high-level-topic/template.js:34
 msgid "Latest news & stories"
-msgstr ""
+msgstr "Najnovije"
 
 #: src/Migrations/M032MigrateSplit2ColumnBlock.php:201
 msgid "Learn more about this issue"
@@ -325,7 +325,7 @@ msgstr ""
 
 #: functions.php:315
 msgid "See all posts"
-msgstr ""
+msgstr "Vidi sve objave"
 
 #: assets/src/blocks/ENForm/ShareButtons.js:59
 #: assets/src/blocks/ENForm/ShareButtons.js:71
