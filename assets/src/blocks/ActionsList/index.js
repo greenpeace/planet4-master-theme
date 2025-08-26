@@ -4,7 +4,7 @@ import {TAX_BREADCRUMB_BLOCK_NAME} from '../../block-editor/setupTaxonomyBreadcr
 export const ACTIONS_LIST_BLOCK_NAME = 'planet4-blocks/actions-list';
 
 export const ACTIONS_LIST_LAYOUT_TYPES = [
-  {label: 'Grid', value: 'grid', columnCount: 3},
+  {label: 'Grid', value: 'grid', columnCount: 3, maxPosts: 24},
   {label: 'Carousel', value: 'flex', columnCount: 6},
 ];
 
@@ -21,7 +21,7 @@ export const ACTIONS_LIST_BLOCK_ATTRIBUTES = {
   className: 'actions-list p4-query-loop is-custom-layout-grid',
   query: {
     pages: 0,
-    perPage: 3,
+    perPage: 24,
     offset: 0,
     order: 'desc',
     orderBy: 'date',
@@ -74,6 +74,18 @@ export const getActionsListBlockTemplate = (title = __('', 'planet4-blocks-backe
     ]],
   ]],
   carouselButtons,
+  ['core/buttons', {
+    className: 'load-more-actions-container',
+    layout: {type: 'flex', justifyContent: 'center'},
+  }, [
+    ['core/button',
+      {
+        className: 'is-style-secondary',
+        text: __('Load more', 'planet4-blocks'),
+        tagName: 'button',
+      },
+    ],
+  ]],
 ]);
 
 // Register the ActionsList block.
