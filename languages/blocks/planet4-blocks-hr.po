@@ -366,7 +366,7 @@ msgstr ""
 #: assets/src/block-templates/get-informed/template.js:21
 #: assets/src/block-templates/homepage/template.js:10
 msgid "The issues we work on"
-msgstr ""
+msgstr "Teme kojima se bavimo"
 
 #: assets/src/block-templates/campaign/template.js:12
 #: assets/src/block-templates/deep-dive-topic/template.js:11
