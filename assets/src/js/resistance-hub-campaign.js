@@ -1,5 +1,14 @@
 const {__} = wp.i18n;
 
+// Reorder completed posts in the Actions List block on the Resistance Hub template.
+const reorderCompletedPosts = () => {
+  [...document.querySelectorAll('.actions-list .wp-block-post-template > li:not(.completed)')]
+    .reverse()
+    .forEach(node => {
+      node.parentNode.insertBefore(node, node.parentNode.firstChild);
+    });
+};
+
 const markActionsAsCompleted = () => {
   // Make sure customization is enabled in the settings
   const isCustomizationEnabled = Boolean(window.p4_vars.features.actions_user_personalization);
@@ -50,6 +59,8 @@ const markActionsAsCompleted = () => {
       };
     }
   });
+
+  reorderCompletedPosts();
 };
 
 document.addEventListener('DOMContentLoaded', () => {
