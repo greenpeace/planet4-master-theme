@@ -554,3 +554,14 @@ add_filter(
     2
 );
 // phpcs:enable Generic.Files.LineLength.MaxExceeded
+
+// Prevent unauthenticated users from accessing the /wp-json/wp/v2/users endpoint.
+add_filter('rest_endpoints', function ($endpoints) {
+    if (isset($endpoints['/wp/v2/users'])) {
+        unset($endpoints['/wp/v2/users']);
+    }
+    if (isset($endpoints['/wp/v2/users/(?P<id>[\d]+)'])) {
+        unset($endpoints['/wp/v2/users/(?P<id>[\d]+)']);
+    }
+    return $endpoints;
+});
