@@ -27,7 +27,10 @@ class M058ReplaceTagsRedirections extends MigrationScript
         $group_id = self::create_new_group();
         $status = self::add_redirections($group_id, $redirections);
 
-        print_r($status); // phpcs:ignore
+        // phpcs:disable Squiz.PHP.DiscouragedFunctions
+        $record->add_log(print_r($status, true));
+        print_r($status);
+        // phpcs:enable Squiz.PHP.DiscouragedFunctions
     }
     // phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter
 

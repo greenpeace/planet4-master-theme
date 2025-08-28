@@ -8,7 +8,6 @@ use P4\MasterTheme\Features\Dev\BetaBlocks;
 use P4\MasterTheme\Features\Dev\CoreBlockPatterns;
 use P4\MasterTheme\Features\Dev\DisableDataSync;
 use P4\MasterTheme\Features\LazyYoutubePlayer;
-use P4\MasterTheme\Features\RedirectRedirectPages;
 use P4\MasterTheme\Features\Planet4Blocks;
 use P4\MasterTheme\Features\OldPostsArchiveNotice;
 use P4\MasterTheme\Features\ActionsTaskType;
@@ -99,7 +98,6 @@ class Features
         return [
             CloudflareDeployPurge::class,
             LazyYoutubePlayer::class,
-            RedirectRedirectPages::class,
             Planet4Blocks::class,
             OldPostsArchiveNotice::class,
             ActionsTaskType::class,
