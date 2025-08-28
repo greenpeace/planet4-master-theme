@@ -16,6 +16,7 @@ class M058ReplaceTagsRedirections extends MigrationScript
      *
      * @param MigrationRecord $record Information on the execution, can be used to add logs.
      * phpcs:disable SlevomatCodingStandard.Functions.UnusedParameter -- interface implementation
+     * phpcs:disable Squiz.PHP.DiscouragedFunctions
      */
     protected static function execute(MigrationRecord $record): void
     {
@@ -24,15 +25,19 @@ class M058ReplaceTagsRedirections extends MigrationScript
         }
 
         $redirections = self::get_existing_redirections();
-        $group_id = self::create_new_group();
-        $status = self::add_redirections($group_id, $redirections);
 
-        // phpcs:disable Squiz.PHP.DiscouragedFunctions
+        if (!empty($redirections)) {
+            $group_id = self::create_new_group();
+            $status = self::add_redirections($group_id, $redirections);
+        } else {
+            $status = "No redirections were found.";
+        }
+
         $record->add_log(print_r($status, true));
         print_r($status);
-        // phpcs:enable Squiz.PHP.DiscouragedFunctions
     }
     // phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter
+    // phpcs:enable Squiz.PHP.DiscouragedFunctions
 
     /**
      * Gets the existing tag redirections and returns them.
@@ -47,30 +52,34 @@ class M058ReplaceTagsRedirections extends MigrationScript
             'hide_empty' => false,
         ));
 
-        if (!is_wp_error($terms) && !empty($terms)) {
-            foreach ($terms as $term) {
-                $redirect_page_id = get_term_meta($term->term_id, 'redirect_page', true);
-
-                if (!empty($redirect_page_id)) {
-                    $source_url = "/tag/" . esc_html($term->slug);
-                    $target_url = get_permalink($redirect_page_id);
-
-                    $redirection = [
-                        'source' => $source_url,
-                        'target' => $target_url,
-                    ];
-
-                    array_push($redirections, $redirection);
-                }
-
-                delete_term_meta($term->term_id, 'redirect_page');
-            }
+        if (is_wp_error($terms) || empty($terms)) {
+            return $redirections;
         }
+
+        foreach ($terms as $term) {
+            $redirect_page_id = get_term_meta($term->term_id, 'redirect_page', true);
+
+            if (!empty($redirect_page_id)) {
+                $source_url = "/tag/" . esc_html($term->slug);
+                $target_url = get_permalink($redirect_page_id);
+
+                $redirection = [
+                    'source' => $source_url,
+                    'target' => $target_url,
+                ];
+
+                array_push($redirections, $redirection);
+            }
+
+            delete_term_meta($term->term_id, 'redirect_page');
+        }
+
         return $redirections;
     }
 
     /**
      * Adds a new redirections group with the name "Taxonomies" if it does not exist yet.
+     * Returns the group ID.
      */
     private static function create_new_group(): int
     {
@@ -89,7 +98,7 @@ class M058ReplaceTagsRedirections extends MigrationScript
             return (int) $existing;
         }
 
-        $wpdb->insert(
+        $result = $wpdb->insert(
             $table,
             [
                 'name' => $group_name,
@@ -101,40 +110,45 @@ class M058ReplaceTagsRedirections extends MigrationScript
             [ '%s', '%d', '%d', '%d', '%d' ]
         );
 
-        $group_id = $wpdb->insert_id;
-        return (int) $group_id;
+        if ($result === false) {
+            return 1; // Returns the default group.
+        }
+
+        return (int) $wpdb->insert_id;
     }
 
     /**
      * Creates the new redirections.
+     * Returns the status.
      */
     private static function add_redirections(int $group_id, array $redirections): array
     {
         $status = [];
 
-        if (class_exists('Red_Item')) {
-            foreach ($redirections as $redirection) {
-                $s = $redirection['source'];
-                $t = $redirection['target'];
-
-                $redirect = Red_Item::create([
-                    'url' => $s,
-                    'action_data' => array('url' => $t),
-                    'match_type' => 'url',
-                    'action_type' => 'url',
-                    'status' => 1,
-                    'regex' => false,
-                    'group_id' => $group_id,
-                ]);
-
-                if ($redirect instanceof Red_Item) {
-                    $status[] = "Redirection successfully created from " . $s . " to " . $t;
-                } else {
-                    $status[] = "Redirection from " . $s . " to " . $t . "failed.";
-                }
-            }
-        } else {
+        if (!class_exists('Red_Item')) {
             $status[] = "Red_Item class does not exist.";
+            return $status;
+        }
+
+        foreach ($redirections as $redirection) {
+            $s = $redirection['source'];
+            $t = $redirection['target'];
+
+            $redirect = Red_Item::create([
+                'url' => $s,
+                'action_data' => array('url' => $t),
+                'match_type' => 'url',
+                'action_type' => 'url',
+                'status' => 1,
+                'regex' => false,
+                'group_id' => $group_id,
+            ]);
+
+            if ($redirect instanceof Red_Item) {
+                $status[] = "Redirection successfully created from " . $s . " to " . $t;
+            } else {
+                $status[] = "Redirection from " . $s . " to " . $t . "failed.";
+            }
         }
 
         return $status;
