@@ -1184,16 +1184,6 @@ class MasterSite extends TimberSite
                 'single' => true,
             ]
         );
-
-        \register_term_meta(
-            'post_tag',
-            'redirect_page',
-            [
-                'show_in_rest' => true,
-                'type' => 'integer',
-                'single' => true,
-            ]
-        );
     }
 
     /**

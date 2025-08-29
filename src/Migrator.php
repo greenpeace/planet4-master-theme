@@ -58,6 +58,7 @@ use P4\MasterTheme\Migrations\M054PostsActionsListHeaderButtonUpdate;
 use P4\MasterTheme\Migrations\M055AddDefaultSiteIcon;
 use P4\MasterTheme\Migrations\M056UpdateQuickLinksClassName;
 use P4\MasterTheme\Migrations\M057ActionsListBlockLoadMore;
+use P4\MasterTheme\Migrations\M058ReplaceTagsRedirections;
 
 /**
  * Run any new migration scripts and record results in the log.
@@ -133,6 +134,7 @@ class Migrator
             M055AddDefaultSiteIcon::class,
             M056UpdateQuickLinksClassName::class,
             M057ActionsListBlockLoadMore::class,
+            M058ReplaceTagsRedirections::class,
         ];
 
         // Loop migrations and run those that haven't run yet.

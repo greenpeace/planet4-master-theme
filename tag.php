@@ -20,23 +20,6 @@ if (!is_tag()) {
 }
 
 $tag = get_queried_object();
-$redirect_id = isset($tag, $tag->term_id) ? get_term_meta($tag->term_id, 'redirect_page', true) : false;
-
-if ($redirect_id) {
-    global $wp_query;
-    $redirect_page = get_post($redirect_id);
-
-    if (isset($redirect_page, $redirect_page->ID)) {
-        $wp_query->queried_object = $redirect_page;
-        $wp_query->queried_object_id = $redirect_page->ID;
-
-        // Allow modification of redirect page behavior.
-        do_action('p4_action_tag_page_redirect', $redirect_page);
-
-        include 'page.php';
-        exit();
-    }
-}
 
 $post = Timber::query_post(false, Post::class); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 $context = Timber::get_context();
