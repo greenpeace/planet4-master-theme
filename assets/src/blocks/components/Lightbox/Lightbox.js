@@ -26,20 +26,18 @@ export const Lightbox = ({index, isOpen, items, onClose = () => {}}) => {
       return;
     }
 
-    const photoSwipe = new PhotoSwipe(photoSwipeElement, PhotoSwipeUI_Default, items, photoSwipeOptions);
-
-    // eslint-disable-next-line no-shadow
-    photoSwipe.listen('gettingData', (index, galleryItem) => {
-      if (galleryItem.w < 1 || galleryItem.h < 1) {
-        const imageSizeHandler = new Image();
-        imageSizeHandler.onload = function() {
-          galleryItem.w = this.width;
-          galleryItem.h = this.height;
-          photoSwipe.updateSize(true);
-        };
-        imageSizeHandler.src = galleryItem.src;
+    const preloadItems = items.map(item => {
+      if (!item.w || !item.h) {
+        const img = new Image();
+        img.src = item.originalSrc.url;
+        item.w = item.originalSrc.width;
+        item.h = item.originalSrc.height;
+        item.src = item.originalSrc.url;
       }
+      return item;
     });
+
+    const photoSwipe = new PhotoSwipe(photoSwipeElement, PhotoSwipeUI_Default, preloadItems, photoSwipeOptions);
 
     photoSwipe.listen('destroy', () => {
       onClose();
