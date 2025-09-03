@@ -73,12 +73,10 @@ class QueryLoopExtension
         $query['post_status'] = 'publish';
         $query['has_password'] = false;
 
+        // If the type of block can be identified:
         if (!empty($params['block_name'])) {
             if ($params['block_name'] === self::ACTIONS_LIST_BLOCK) {
                 $query = self::buildActionListQuery($query);
-                if (!empty($params['postIn'])) {
-                    $query['orderby'] = 'post__in';
-                }
             }
 
             if ($params['block_name'] === self::POSTS_LIST_BLOCK) {
@@ -86,19 +84,20 @@ class QueryLoopExtension
                 $query['orderby'] = [
                     'post_date' => 'DESC',
                 ];
-
-                return $query;
             }
         }
 
+        // If the Manual Override is used:
         if (!empty($params['postIn'])) {
             $query['post__in'] = array_map('intval', (array) $params['postIn']);
             $query['ignore_sticky_posts'] = true;
+            $query['orderby'] = 'post__in';
+        }
 
-            if (!empty($query['post__in']) && !empty($params['exclude'])) {
-                $exclude = array_map('intval', (array) $params['exclude']);
-                $query['post__in'] = array_values(array_diff($query['post__in'], $exclude));
-            }
+        // If the Manual Override is not used, remove the current post from the query:
+        if (empty($params['postIn']) && !empty($query['post__in']) && !empty($params['exclude'])) {
+            $exclude = array_map('intval', (array) $params['exclude']);
+            $query['post__in'] = array_values(array_diff($query['post__in'], $exclude));
         }
 
         return $query;
