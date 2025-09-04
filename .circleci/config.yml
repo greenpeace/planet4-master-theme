@@ -147,7 +147,7 @@ jobs:
       CIRCLE_PROJECT_REPONAME: << pipeline.trigger_parameters.github_app.repo_name >>
       CIRCLE_PULL_REQUEST: << pipeline.event.context.github.pr_url >>
     docker:
-      - image: greenpeaceinternational/circleci-base:latest
+      - image: greenpeaceinternational/circleci-base:pr-query-auth
         auth:
           <<: *docker_auth
     steps:
