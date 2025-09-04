@@ -161,6 +161,8 @@ class MasterSite extends TimberSite
                 return $roles;
             }
         );
+        add_action('user_profile_update_errors', [$this, 'validate_password_policy'], 10, 3);
+        add_action('validate_password_reset', [$this, 'validate_password_reset'], 10, 2);
 
         /**
          * Apply wpautop to non-block content.
@@ -1427,4 +1429,90 @@ class MasterSite extends TimberSite
             update_post_meta($post_id, 'p4_global_project_tracking_id', $project_id);
         }
     }
+
+    // @phpcs:disable SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter
+    /**
+     * Validates password on user creation/update.
+     *
+     * @param WP_Error   $errors Error object.
+     * @param bool       $update True/False if user is being updated.
+     * @param \stdClass    $user   User object.
+     */
+    public function validate_password_policy(WP_Error $errors, bool $update, \stdClass $user): void
+    {
+        if (!isset($_POST['pass1']) || empty($_POST['pass1'])) {
+            return;
+        }
+
+        $check = $this->password_policy_check($_POST['pass1']);
+        if ($check === true) {
+            return;
+        }
+
+        $errors->add('pass', $check);
+    }
+
+    /**
+     * Validates password on password reset.
+     *
+     * @param WP_Error         $errors Error object if any.
+     * @param WP_User|WP_Error $user   User object.
+     */
+    public function validate_password_reset(WP_Error $errors, $user): void
+    {
+        if (!isset($_POST['pass1']) || empty($_POST['pass1'])) {
+            return;
+        }
+
+        $check = $this->password_policy_check($_POST['pass1']);
+        if ($check === true) {
+            return;
+        }
+
+        $errors->add('pass', $check);
+    }
+
+     /**
+     * Password validation rules.
+     *
+     * @param string $password Passwrod value to validate
+     */
+    private function password_policy_check(string $password): string|bool
+    {
+        if (empty($password)) {
+            return __('Password cannot be empty.', 'planet4-master-theme-backend');
+        }
+
+        $length = strlen($password);
+
+        if ($length < 10) {
+            return __('Password must be at least 10 characters long.', 'planet4-master-theme-backend');
+        }
+
+        if ($length < 15) {
+            $errors = [];
+
+            if (!preg_match('/[A-Z]/', $password)) {
+                $errors[] = __('at least one uppercase letter', 'planet4-master-theme-backend');
+            }
+            if (!preg_match('/[0-9]/', $password)) {
+                $errors[] = __('at least one number', 'planet4-master-theme-backend');
+            }
+
+            if (!empty($errors)) {
+                $requirements = implode(' and ', $errors);
+
+                $error_message = sprintf(
+                    /* translators: %s is a list of password requirements, e.g. "an uppercase letter and a number" */
+                    __('Password must contain %s if it is less than 15 characters.', 'planet4-master-theme-backend'),
+                    $requirements
+                );
+
+                return $error_message;
+            }
+        }
+
+        return true;
+    }
+    // @phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter
 }
