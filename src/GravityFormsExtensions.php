@@ -247,11 +247,11 @@ class GravityFormsExtensions
      * Enqueue the share buttons script only if the confirmation type is a message.
      * Pass the social data to the script.
      *
-     * @param array $form The form setting.
-     * @return array The form setting.
+     * @param array|bool $form The form setting.
+     * @return array|bool The form setting.
      *
      */
-    public function enqueue_share_buttons(array $form): array
+    public function enqueue_share_buttons($form): array|bool
     {
         if (!is_array($form['confirmations'])) {
             return $form;
@@ -844,10 +844,9 @@ class GravityFormsExtensions
      * Client side dynamic population of form fields
      *
      * @param array|bool $form The different form fields present
-     *
-     * @return mixed
+     * @return  array|bool The form setting.
      */
-    public function p4_client_side_gravityforms_prefill($form): array
+    public function p4_client_side_gravityforms_prefill($form): array|bool
     {
         if (!is_array($form)) {
             return $form;
