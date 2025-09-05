@@ -31,7 +31,6 @@ global $post;
  */
 
 use P4\MasterTheme\Context;
-use P4\MasterTheme\Features\RedirectRedirectPages;
 use P4\MasterTheme\Post;
 use Timber\Timber;
 
@@ -39,30 +38,6 @@ $context = Timber::get_context();
 $timber_post = new Post($post->ID);
 $page_meta_data = get_post_meta($timber_post->ID) ?: [];
 $page_meta_data = array_map(fn($v) => reset($v), $page_meta_data);
-
-// Ensure redirect is only performed if we're not already on a tag URL. Because tag.php includes this file.
-if (! is_tag() && RedirectRedirectPages::is_active()) {
-    $args = [
-        // Ensure the term is returned even if no posts are tagged with it.
-        'hide_empty' => false,
-        'meta_query' => [
-            [
-                'key' => 'redirect_page',
-                'value' => $timber_post->ID,
-                'compare' => '=',
-            ],
-        ],
-        'fields' => 'ids',
-    ];
-    $terms = get_terms($args);
-
-    if (! empty($terms)) {
-        $term_link = get_term_link($terms[0]);
-
-        wp_safe_redirect($term_link, 301);
-        exit();
-    }
-}
 
 // Set Navigation Issues links.
 $timber_post->set_issues_links();

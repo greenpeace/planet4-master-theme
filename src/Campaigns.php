@@ -68,133 +68,54 @@ class Campaigns
             ]
         );
 
-        if (isset($wp_tag) && $wp_tag instanceof WP_Term) {
-            $selected_page_types = get_term_meta($wp_tag->term_id, 'selected_page_types');
-            if (! isset($selected_page_types[0])) {
-                $selected_page_types[0] = [];
-            }
+        if (!isset($wp_tag) || !($wp_tag instanceof WP_Term)) {
+            return;
+        }
 
-            $attachment_id = get_term_meta($wp_tag->term_id, 'tag_attachment_id', true);
-            $image_attributes = wp_get_attachment_image_src($attachment_id, 'full');
-            $attachment_url = $image_attributes ? $image_attributes[0] : '';
+        $selected_page_types = get_term_meta($wp_tag->term_id, 'selected_page_types');
+        if (! isset($selected_page_types[0])) {
+            $selected_page_types[0] = [];
+        }
 
-            $redirect_page = get_term_meta($wp_tag->term_id, 'redirect_page', true);
-            $dropdown_args = [
-                'show_option_none' => ' ',
-                'hide_empty' => 0,
-                'hierarchical' => true,
-                'selected' => $redirect_page,
-                'name' => 'redirect_page',
-            ];
-
-            $page = $redirect_page ? get_post($redirect_page) : null;
-            $redirect_title = $page ? $page->post_title : null;
-
-            $page = $redirect_page ? get_post($redirect_page) : null;
-            $redirect_title = $page ? $page->post_title : null;
-            ?>
-
-            <tr class="form-field edit-wrap">
-                <th>
-                    <label><?php esc_html_e('Redirect Page', 'planet4-master-theme-backend'); ?></label>
-                </th>
+        $attachment_id = get_term_meta($wp_tag->term_id, 'tag_attachment_id', true);
+        $image_attributes = wp_get_attachment_image_src($attachment_id, 'full');
+        $attachment_url = $image_attributes ? $image_attributes[0] : '';
+        ?>
+        <tr>
+            <th colspan="2">
+                <?php esc_html_e('Column block: Choose which Page Types will populate the content of the Column block. If no box is checked Publications will appear by default.', 'planet4-master-theme-backend'); ?>
+            </th>
+        </tr>
+        <?php foreach ($this->page_types as $index => $page_type) { ?>
+            <tr class="form-field edit-wrap term-page-type-<?php echo esc_attr($page_type->slug); ?>-wrap">
+                <th></th>
                 <td>
-                    <?php wp_dropdown_pages(array_map('esc_attr', $dropdown_args)); ?>
-                    <?php
-                    if ($redirect_page) {
-                        echo '<a href="post.php?post=' . esc_attr($redirect_page)
-                            . '&action=edit" target="_blank">'
-                            . esc_html(
-                                sprintf(
-                                    // translators: Tag redirect page name.
-                                    __('Edit "%s" page', 'planet4-master-theme-backend'),
-                                    $redirect_title ?? '<no title>'
-                                )
-                            )
-                            . '</a>';
-                    }
-                    ?>
-                    <p class="description">
-                        <?php
-                        esc_html_e(
-                            'Leave this field blank if you want to use the default Tag page. Otherwise select a page to redirect this Tag to.',
-                            'planet4-master-theme-backend'
-                        );
-                        ?>
-                    </p>
+                    <div class="field-block shortcode-ui-field-checkbox shortcode-ui-attribute-p4_page_type_<?php echo esc_attr($page_type->slug); ?>">
+                        <label for="shortcode-ui-p4_page_type_<?php echo esc_attr($page_type->slug); ?>">
+                            <input type="checkbox" name="p4_page_type[]" id="shortcode-ui-p4_page_type_<?php echo esc_attr($page_type->slug); ?>" value="<?php echo esc_attr($page_type->slug); ?>" <?php echo in_array($page_type->slug, $selected_page_types[0], true) ? 'checked' : ''; ?>>
+                            <?php echo esc_html($page_type->name); ?>
+
+                        </label>
+                    </div>
                 </td>
             </tr>
-            <tr>
-                <th colspan="2">
-                    <?php esc_html_e('Column block: Choose which Page Types will populate the content of the Column block. If no box is checked Publications will appear by default.', 'planet4-master-theme-backend'); ?>
-                </th>
-            </tr>
-            <?php foreach ($this->page_types as $index => $page_type) { ?>
-                <tr class="form-field edit-wrap term-page-type-<?php echo esc_attr($page_type->slug); ?>-wrap">
-                    <th></th>
-                    <td>
-                        <div class="field-block shortcode-ui-field-checkbox shortcode-ui-attribute-p4_page_type_<?php echo esc_attr($page_type->slug); ?>">
-                            <label for="shortcode-ui-p4_page_type_<?php echo esc_attr($page_type->slug); ?>">
-                                <input type="checkbox" name="p4_page_type[]" id="shortcode-ui-p4_page_type_<?php echo esc_attr($page_type->slug); ?>" value="<?php echo esc_attr($page_type->slug); ?>" <?php echo in_array($page_type->slug, $selected_page_types[0], true) ? 'checked' : ''; ?>>
-                                <?php echo esc_html($page_type->name); ?>
-
-                            </label>
-                        </div>
-                    </td>
-                </tr>
-            <?php } ?>
-            <tr class="form-field edit-wrap term-image-wrap">
-                <th>
-                    <label><?php esc_html_e('Image', 'planet4-master-theme-backend'); ?></label>
-                </th>
-                <td>
-                    <input type="hidden" name="tag_attachment_id" id="tag_attachment_id" class="tag-attachment-id field-id" value="<?php echo esc_attr($attachment_id); ?>" />
-                    <input type="hidden" name="tag_attachment" id="tag_attachment" class="tag-attachment-url field-url" value="<?php echo esc_url($attachment_url); ?>" />
-                    <button class="button insert-media add_media" name="insert_image_tag_button" id="insert_image_tag_button" type="button">
-                        <?php esc_html_e('Select/Upload Image', 'planet4-master-theme-backend'); ?>
-                    </button>
-                    <p class="description"><?php esc_html_e('Associate this tag with an image.', 'planet4-master-theme-backend'); ?></p>
-                    <img class="attachment-thumbnail size-thumbnail" src="<?php echo esc_url($attachment_url); ?>"/>
-                    <i class="dashicons dashicons-dismiss <?php echo $image_attributes ? '' : 'hidden'; ?>" style="cursor: pointer;"></i>
-                </td>
-            </tr>
-            <?php
-        } else {
-            $dropdown_args = [
-                'show_option_none' => ' ',
-                'hide_empty' => 0,
-                'hierarchical' => true,
-                'name' => 'redirect_page',
-            ];
-            ?>
-            <div class="form-field add-wrap">
-                <label><?php esc_html_e('Redirect Page', 'planet4-master-theme-backend'); ?></label>
-                <?php wp_dropdown_pages($dropdown_args); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-                <p class="description">
-                    <?php
-                    esc_html_e(
-                        'Leave this field blank if you want to use the default Tag page. Otherwise select a page to redirect this Tag to.',
-                        'planet4-master-theme-backend'
-                    );
-                    ?>
-                </p>
-            </div>
-            <div class="form-field add-wrap term-image-wrap">
+        <?php } ?>
+        <tr class="form-field edit-wrap term-image-wrap">
+            <th>
                 <label><?php esc_html_e('Image', 'planet4-master-theme-backend'); ?></label>
-                <input type="hidden" name="tag_attachment_id" id="tag_attachment_id" class="tag_attachment_id field-id" value="" />
-                <input type="hidden" name="tag_attachment" id="tag_attachment" class="tag-attachment-url field-url" value="" />
+            </th>
+            <td>
+                <input type="hidden" name="tag_attachment_id" id="tag_attachment_id" class="tag-attachment-id field-id" value="<?php echo esc_attr($attachment_id); ?>" />
+                <input type="hidden" name="tag_attachment" id="tag_attachment" class="tag-attachment-url field-url" value="<?php echo esc_url($attachment_url); ?>" />
                 <button class="button insert-media add_media" name="insert_image_tag_button" id="insert_image_tag_button" type="button">
                     <?php esc_html_e('Select/Upload Image', 'planet4-master-theme-backend'); ?>
                 </button>
                 <p class="description"><?php esc_html_e('Associate this tag with an image.', 'planet4-master-theme-backend'); ?></p>
-                <img class="attachment-thumbnail size-thumbnail" src="" />
-                <i class="dashicons dashicons-dismiss hidden" style="cursor: pointer;"></i>
-                <p class="submit">
-                    <input name="submit" id="addtag" type="submit" class="button button-primary" value="<?php esc_html_e('Add new tag', 'planet4-master-theme-backend'); ?>" />
-                </p>
-            </div>
-            <?php
-        }
+                <img class="attachment-thumbnail size-thumbnail" src="<?php echo esc_url($attachment_url); ?>"/>
+                <i class="dashicons dashicons-dismiss <?php echo $image_attributes ? '' : 'hidden'; ?>" style="cursor: pointer;"></i>
+            </td>
+        </tr>
+        <?php
     }
     // phpcs:enable Generic.Files.LineLength.MaxExceeded
 
@@ -217,17 +138,12 @@ class Campaigns
         $attachment_id = filter_input(INPUT_POST, $field_id, FILTER_VALIDATE_INT);
         $attachment_url = filter_input(INPUT_POST, $field_url, FILTER_VALIDATE_URL);
 
-        if ($attachment_id && $this->validate($attachment_id)) {
-            update_term_meta($term_id, $field_id, $attachment_id);
-            update_term_meta($term_id, $field_url, $attachment_url);
+        if (!$attachment_id || !$this->validate($attachment_id)) {
+            return;
         }
 
-        $redirect_page = filter_input(INPUT_POST, 'redirect_page', FILTER_VALIDATE_INT) ?? 0;
-        if ($redirect_page) {
-            update_term_meta($term_id, 'redirect_page', $redirect_page);
-        } else {
-            delete_term_meta($term_id, 'redirect_page');
-        }
+        update_term_meta($term_id, $field_id, $attachment_id);
+        update_term_meta($term_id, $field_url, $attachment_url);
     }
 
     /**
@@ -240,8 +156,6 @@ class Campaigns
     public function edit_taxonomy_columns(array $columns): array
     {
         $columns['image'] = __('Image', 'planet4-master-theme-backend');
-
-        $columns['redirect_page'] = __('Redirect page', 'planet4-master-theme-backend');
 
         return $columns;
     }
@@ -257,18 +171,6 @@ class Campaigns
      */
     public function manage_taxonomy_custom_column(string $output, string $column, int $term_id): string
     {
-        if ('redirect_page' === $column) {
-            $redirect_page = get_term_meta($term_id, 'redirect_page', true);
-            if (! $redirect_page) {
-                return 'none';
-            }
-
-            $url = get_edit_post_link($redirect_page);
-            $title = get_the_title($redirect_page);
-
-            return "<a href='$url'>$title</a>";
-        }
-
         if ('image' === $column) {
             $attachment_id = get_term_meta($term_id, 'tag_attachment_id', true);
             return wp_get_attachment_image($attachment_id);
