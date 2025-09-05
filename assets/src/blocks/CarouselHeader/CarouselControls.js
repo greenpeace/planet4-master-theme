@@ -1,3 +1,4 @@
+const {useMemo} = wp.element;
 const {__} = wp.i18n;
 
 export const CarouselControls = ({
@@ -8,7 +9,7 @@ export const CarouselControls = ({
   currentSlide = null,
   slides = null,
   autoplay,
-}) => slides.length > 1 && (
+}) => slides.length > 1 && useMemo(() => (
   <>
     {/* Arrows */}
     <button className="carousel-control-prev" onClick={goToPrevSlide} aria-label="Go to previous slide">
@@ -22,20 +23,41 @@ export const CarouselControls = ({
     {/* Indicators */}
     <div className="carousel-indicators-wrapper">
       <div className="container">
-        <ol className="carousel-indicators">
+        <ol className="carousel-indicators" tabIndex={-1}>
           {
-            slides.map((slide, index) =>
+            slides.map((_, index) =>
               <li
-                onClick={() => goToSlide(index)}
                 key={index}
-                className={index === currentSlide ? 'active' : ''}
-                role="presentation"
-              ></li>
+                {...(index === currentSlide) ? {
+                  className: 'active',
+                } : null}
+              >
+                <button
+                  onClick={() => {
+                    if(index !== currentSlide) {
+                      goToSlide(index);
+                    }
+                  }}
+                  tabIndex={0}
+                  onKeyDown={e => {
+                    if ((e.key === 'Enter' || e.key === ' ') && index !== currentSlide) {
+                      e.preventDefault();
+                      goToSlide(index);
+                    }
+                  }}
+                  aria-label={__('Go to slide', 'planet4-blocks') + ` ${index + 1}`}
+                  aria-current={index === currentSlide ? 'true' : undefined}
+                />
+              </li>
             )
           }
         </ol>
-        <button className={`carousel-autoplay-control ${autoplay ? 'stop' : 'play'}`} onClick={handleAutoplay} />
+        <button
+          aria-label={autoplay ? __('Stop Slider', 'planet4-blocks') : __('Play Slider', 'planet4-blocks')}
+          className={`carousel-autoplay-control ${autoplay ? 'stop' : 'play'}`}
+          onClick={handleAutoplay}
+        />
       </div>
     </div>
   </>
-);
+), [currentSlide, autoplay, slides, goToPrevSlide, goToNextSlide, goToSlide, handleAutoplay]);
