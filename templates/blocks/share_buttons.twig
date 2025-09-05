@@ -1,4 +1,7 @@
-{% do action('enqueue_share_buttons_script', social) %}
+{% if social is defined and social is iterable and social|length > 0 %}
+  {% do action('enqueue_share_buttons_script', social) %}
+{% endif %}
+
 {% set socialLink = (share_url ?? social.link) ~ '?utm_medium=' ~ utm_medium ~ utm_content_param ~ utm_campaign_param %}
 <div class="share-buttons">
     <!-- Whatsapp -->
