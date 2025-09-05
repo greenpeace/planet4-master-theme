@@ -313,7 +313,7 @@ $medium-image-height: 600px;
     position: relative;
     top: 0;
     left: 0;
-    padding: 16px 0;
+    padding: $sp-2 0 $sp-3 0;
     background: var(--white);
     height: auto;
     width: 100%;
@@ -323,7 +323,7 @@ $medium-image-height: 600px;
     }
 
     @include medium-and-up {
-      padding-top: $sp-5;
+      padding-top: $sp-4;
     }
 
     @include large-and-up {
@@ -397,21 +397,14 @@ $medium-image-height: 600px;
       color: var(--color-text-heading);
       transition: unset;
       transform: translateX($text-slide-offset);
-      font-size: 1.62rem;
-      margin-bottom: 18px;
-      line-height: 1.2;
 
       html[dir="rtl"] & {
         text-align: right;
       }
 
-      @include small-and-up {
-        font-size: $font-size-xl;
-      }
-
       @include medium-and-up {
-        font-size: 2.25rem;
-        margin-bottom: 24px;
+        font-size: var(--font-size-xl--font-family-primary);
+        line-height: var(--line-height-xl--font-family-primary);
       }
 
       @include large-and-up {
@@ -479,7 +472,6 @@ $medium-image-height: 600px;
       font-family: var(--font-family-primary);
       width: 100%;
       bottom: inherit;
-      margin-bottom: 24px;
       text-align: center;
       max-width: 100%;
       padding-left: 0;
@@ -494,7 +486,6 @@ $medium-image-height: 600px;
       @include medium-and-up {
         text-align: left;
         position: inherit;
-        // bottom: 60px;
         margin-top: 0;
         margin-left: 0;
         width: auto;
@@ -508,14 +499,14 @@ $medium-image-height: 600px;
 
       .btn {
         width: auto;
-        min-width: 240px;
-        max-width: 100%;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+        margin-bottom: 0;
 
-        @include medium-and-up {
-          min-width: 280px;
+        @include large-and-up {
+          min-width: 240px;
+          max-width: 100%;
         }
       }
     }
@@ -535,7 +526,7 @@ $medium-image-height: 600px;
       transition: padding .2s, background-color .2s;
 
       &:hover {
-        background-color: rgba(0, 0, 0, .15);
+        background-color: rgba($grey-900, .15);
         padding-inline-end: 5px;
       }
 
@@ -580,7 +571,7 @@ $medium-image-height: 600px;
       transition: padding .2s, background-color .2s;
 
       &:hover {
-        background-color: rgba(0, 0, 0, .15);
+        background-color: rgba($grey-900, .15);
         padding-inline-start: 5px;
       }
 
@@ -611,23 +602,43 @@ $medium-image-height: 600px;
     }
   }
 
+  .carousel-control-prev, .carousel-control-next {
+    &:focus {
+      @include focus-styles(4px);
+    }
+    &:focus-visible {
+      @include focus-styles(4px);
+    }
+    &:focus:not(:focus-visible) {
+      outline: none;
+      box-shadow: none;
+    }
+  }
+
   .carousel-indicators-wrapper {
-    position: absolute;
     width: 100%;
-    bottom: 0;
     z-index: 3000;
 
     > .container {
       display: flex;
-      justify-content: flex-start;
       align-items: center;
-      margin-bottom: 20px;
+      justify-content: center;
+
+      @include medium-and-up {
+        justify-content: flex-end;
+        margin-bottom: $sp-2x;
+        padding: 0;
+      }
+      @include large-and-up {
+        justify-content: flex-start;
+        padding-inline-start: $sp-1x;
+      }
     }
 
     // Check RTL
     .carousel-autoplay-control {
       position: relative;
-      margin-inline-start: 13px;
+      margin-inline-start: 10px;
       height: 24px;
       width: 30px;
       border: none;
@@ -639,8 +650,23 @@ $medium-image-height: 600px;
       &.stop, &.play {
         &::after {
           mask-size: cover;
-          background-color: var(--white);
           content: "";
+          background-color: var(--grey-900);
+
+          @include large-and-up {
+            background-color: var(--white);
+          }
+        }
+
+        &:focus {
+          @include focus-styles(4px);
+        }
+        &:focus-visible {
+          @include focus-styles(4px);
+        }
+        &:focus:not(:focus-visible) {
+          outline: none;
+          box-shadow: none;
         }
       }
 
@@ -665,7 +691,16 @@ $medium-image-height: 600px;
       }
     }
 
+    @media medium-and-up {
+      justify-content: flex-end;
+    }
+
     @include large-and-up {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      z-index: 9999;
+
       > .container {
         margin-inline-start: 80px;
       }
@@ -679,13 +714,10 @@ $medium-image-height: 600px;
   }
 
   .carousel-indicators {
-    display: block;
+    display: flex;
     position: relative;
-    width: 100%;
-    text-align: center;
     margin: 0;
-    bottom: 0;
-    line-height: 0;
+    text-align: center;
 
     @include medium-and-up {
       text-align: right;
@@ -698,10 +730,6 @@ $medium-image-height: 600px;
 
     @include large-and-up {
       text-align: left;
-      padding-left: 0;
-      padding-right: 0;
-      width: auto;
-      display: block;
 
       html[dir="rtl"] & {
         text-align: right;
@@ -709,26 +737,53 @@ $medium-image-height: 600px;
     }
 
     li {
-      background-color: rgba(0, 0, 0, 0.4);
       width: 40px;
       height: 3px;
       border-radius: 0;
       border: unset;
-      margin: 0 3px;
-      cursor: pointer;
-      display: inline-table;
+      display: flex;
       right: 0;
+      cursor: pointer;
 
-      @include large-and-up {
-        background-color: rgba(255, 255, 255, 0.4);
+      button {
+        width: 100%;
+        height: 100%;
+        border: none;
+
+        &:focus {
+          @include focus-styles(4px);
+        }
+        &:focus-visible {
+          @include focus-styles(4px);
+        }
+        &:focus:not(:focus-visible) {
+          outline: none;
+          box-shadow: none;
+        }
       }
 
-      &.active {
-        background: black;
+      @include large-and-less {
+        button {
+          background-color: rgba($grey-900, .15);
+        }
 
-        @include large-and-up {
+        &.active button {
+          background: var(--grey-900);
+        }
+      }
+
+      @include large-and-up {
+        button {
+          background-color: rgba($white, 0.4);
+        }
+
+        &.active button {
           background: var(--white);
         }
+      }
+
+      &:not(:last-child) {
+        margin-inline-end: 6px;
       }
     }
   }

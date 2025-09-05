@@ -34,7 +34,6 @@ export const useSlides = (slidesRef, totalSlides, containerRef, carousel_autopla
 }) => {
   const [autoplay, setAutoplay] = useState(carousel_autoplay);
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [lastSlide, setLastSlide] = useState(currentSlide);
   const [sliding, setSliding] = useState(false);
   // Set up the autoplay for the slides
   const timerRef = useRef(null);
@@ -45,15 +44,17 @@ export const useSlides = (slidesRef, totalSlides, containerRef, carousel_autopla
     setAutoplay(!autoplay);
   }, [autoplay]);
 
-  const getOrder = useCallback(() => {
-    let order = currentSlide < lastSlide ? 'prev' : 'next';
-    if (currentSlide === (totalSlides - 1) && currentSlide === 0 && order !== 'prev') {
-      order = 'prev';
-    } else if (currentSlide === 0 && lastSlide === totalSlides - 1 && order !== 'next') {
+  const getOrder = useCallback(newSlide => {
+    let order = newSlide < currentSlide ? 'prev' : 'next';
+
+    if(newSlide === 0 && currentSlide === totalSlides - 1) {
       order = 'next';
+    } else if(currentSlide === 0 && newSlide === totalSlides -1) {
+      order = 'prev';
     }
+
     return order;
-  }, [currentSlide, lastSlide, totalSlides]);
+  }, [currentSlide, totalSlides]);
 
 
   const getSlideHeight = slideRef => {
@@ -77,18 +78,17 @@ export const useSlides = (slidesRef, totalSlides, containerRef, carousel_autopla
     }
   }, [containerRef]);
 
-  const goToSlide = useCallback((forceCurrentSlide = false) => {
+  const goToSlide = useCallback((newSlide, forceCurrentSlide = false) => {
     if (!slidesRef.current) {
       return;
     }
-
-    const activeElement = slidesRef.current[lastSlide];
-    const nextElement = slidesRef.current[currentSlide];
+    const nextElement = slidesRef.current[newSlide];
+    const activeElement = slidesRef.current[currentSlide];
 
     if (nextElement && activeElement && !sliding) {
       setSliding(true);
 
-      const order = getOrder();
+      const order = getOrder(newSlide);
       const enterTransitionClass = options.enterTransitionClasses[order];
       const exitTransitionClass = options.exitTransitionClasses[order];
 
@@ -104,6 +104,9 @@ export const useSlides = (slidesRef, totalSlides, containerRef, carousel_autopla
         activeElement.classList.remove(activeClass);
         nextElement.classList.remove(enterTransitionClass);
         nextElement.classList.add(activeClass);
+
+        setCurrentSlide(newSlide);
+        setSliding(false);
       };
 
       activeElement.addEventListener('transitionend', unsetTransitionClasses);
@@ -115,29 +118,19 @@ export const useSlides = (slidesRef, totalSlides, containerRef, carousel_autopla
         unsetTransitionClasses();
       }
     }
-  }, [lastSlide, currentSlide, sliding, getOrder, options, slidesRef, setCarouselHeight]);
+  }, [currentSlide, getOrder, options, sliding, setCarouselHeight, slidesRef]);
 
   const goToPrevSlide = useCallback(() => {
-    setLastSlide(currentSlide);
-    if((currentSlide - 1) < 0) {
-      setCurrentSlide(totalSlides - 1);
-    } else {
-      setCurrentSlide(currentSlide - 1);
-    }
-  }, [currentSlide, totalSlides, setCurrentSlide]);
+    goToSlide(currentSlide === 0 ? totalSlides - 1 : currentSlide - 1);
+  }, [currentSlide, totalSlides, goToSlide]);
 
   // const goToNextSlide = (autoplay = false) => {
   const goToNextSlide = useCallback(() => {
-    setLastSlide(currentSlide);
-    if(currentSlide + 1 < totalSlides) {
-      setCurrentSlide(currentSlide + 1);
-    } else {
-      setCurrentSlide(0);
-    }
-  }, [currentSlide, totalSlides, setCurrentSlide]);
+    goToSlide((currentSlide + 1 >= totalSlides) ? 0 : currentSlide + 1);
+  }, [currentSlide, totalSlides, goToSlide]);
 
   useEffect(() => {
-    if (!containerRef.current) {
+    if (!containerRef || !containerRef.current) {
       return;
     }
 
@@ -159,7 +152,7 @@ export const useSlides = (slidesRef, totalSlides, containerRef, carousel_autopla
   }, [containerRef, currentSlide, goToNextSlide, goToPrevSlide, isRTL]);
 
   useEffect(() => {
-    if (!containerRef.current) {
+    if (!containerRef || !containerRef.current) {
       return;
     }
 
@@ -174,18 +167,11 @@ export const useSlides = (slidesRef, totalSlides, containerRef, carousel_autopla
   }, [currentSlide, setCarouselHeight, containerRef, slidesRef]);
 
   useEffect(() => {
-    if(currentSlide !== lastSlide) {
-      goToSlide();
-    }
-
-  }, [currentSlide, lastSlide, goToSlide]);
-
-  useEffect(() => {
     if (autoplay && totalSlides > 1) {
       if (timerRef.current) {
         clearTimeout(timerRef.current);
       }
-      timerRef.current = setTimeout(() => goToNextSlide(), 1000);
+      timerRef.current = setTimeout(() => goToNextSlide(), 5000);
       return () => clearTimeout(timerRef.current);
     } else if (timerRef.current) {
       clearTimeout(timerRef.current);
@@ -194,7 +180,6 @@ export const useSlides = (slidesRef, totalSlides, containerRef, carousel_autopla
 
   return {
     totalSlides,
-    lastSlide,
     currentSlide,
     goToSlide,
     goToNextSlide,
