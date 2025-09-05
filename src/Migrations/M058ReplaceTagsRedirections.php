@@ -15,7 +15,6 @@ class M058ReplaceTagsRedirections extends MigrationScript
      * Perform the actual migration.
      *
      * @param MigrationRecord $record Information on the execution, can be used to add logs.
-     * phpcs:disable SlevomatCodingStandard.Functions.UnusedParameter -- interface implementation
      * phpcs:disable Squiz.PHP.DiscouragedFunctions
      */
     protected static function execute(MigrationRecord $record): void
@@ -36,7 +35,6 @@ class M058ReplaceTagsRedirections extends MigrationScript
         $record->add_log(print_r($status, true));
         print_r($status);
     }
-    // phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter
     // phpcs:enable Squiz.PHP.DiscouragedFunctions
 
     /**
@@ -47,10 +45,10 @@ class M058ReplaceTagsRedirections extends MigrationScript
     {
         $redirections = [];
 
-        $terms = get_terms(array(
+        $terms = get_terms([
             'taxonomy' => 'post_tag',
             'hide_empty' => false,
-        ));
+        ]);
 
         if (is_wp_error($terms) || empty($terms)) {
             return $redirections;
@@ -60,15 +58,13 @@ class M058ReplaceTagsRedirections extends MigrationScript
             $redirect_page_id = get_term_meta($term->term_id, 'redirect_page', true);
 
             if (!empty($redirect_page_id)) {
-                $source_url = "/tag/" . esc_html($term->slug);
                 $target_url = get_permalink($redirect_page_id);
+                $pattern = "^/tag/" . preg_quote($term->slug, '/') . "/?$";
 
-                $redirection = [
-                    'source' => $source_url,
+                $redirections[] = [
+                    'source' => $pattern,
                     'target' => $target_url,
                 ];
-
-                array_push($redirections, $redirection);
             }
 
             delete_term_meta($term->term_id, 'redirect_page');
@@ -136,11 +132,11 @@ class M058ReplaceTagsRedirections extends MigrationScript
 
             $redirect = Red_Item::create([
                 'url' => $s,
-                'action_data' => array('url' => $t),
+                'action_data' => ['url' => $t],
                 'match_type' => 'url',
                 'action_type' => 'url',
                 'status' => 1,
-                'regex' => false,
+                'regex' => true,
                 'group_id' => $group_id,
             ]);
 
