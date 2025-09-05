@@ -35,6 +35,7 @@ class ControlPanel
         add_action('wp_ajax_check_elasticsearch', [ $this, 'check_elasticsearch' ]);
 
         add_action('admin_enqueue_scripts', [ $this, 'enqueue_admin_assets' ]);
+        add_action('admin_footer', [ $this, 'hide_weak_password_checkbox' ]);
     }
 
     /**
@@ -300,5 +301,38 @@ class ControlPanel
             [],
             Loader::theme_file_ver('admin/css/wpml.css')
         );
+    }
+
+    /**
+     * Hide Checkbox for weak passwords
+     * Checkbox is checked by default
+     */
+    public function hide_weak_password_checkbox(): void
+    {
+        $screen = get_current_screen();
+        if (!in_array($screen->id, ['user', 'user-edit'])) {
+            return;
+        }
+
+        echo"
+            <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const passwordField = document.getElementById('pass1');
+                if (!passwordField) return;
+
+                const observer = new MutationObserver(() => {
+                    const weakCheckbox = document.querySelector('.pw-weak');
+                    if (weakCheckbox) {
+                        weakCheckbox.querySelector('.pw-checkbox').checked = true;
+                        weakCheckbox.style.display = 'none';
+                        weakCheckbox.dispatchEvent(new Event('change'));
+                    }
+                });
+
+                const container = passwordField.parentNode;
+                observer.observe(container, { childList: true, subtree: true });
+            });
+            </script>
+        ";
     }
 }
