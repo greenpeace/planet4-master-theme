@@ -24,8 +24,16 @@ export const CarouselHeaderFrontend = ({slides, carousel_autoplay, className, de
     <section
       className={`block block-header alignfull carousel-header ${className ?? ''}`}
       ref={containerRef}
-      onMouseEnter={() => setAutoplay(true)}
-      onMouseLeave={() => setAutoplay(false)}
+      onMouseEnter={() => {
+        if (window.innerWidth > 991) {
+          setAutoplay(true);
+        }
+      }}
+      onMouseLeave={() => {
+        if (window.innerWidth > 991) {
+          setAutoplay(false);
+        }
+      }}
     >
       <div className="carousel-wrapper-header">
         <div className="carousel-inner" role="listbox">
@@ -39,25 +47,32 @@ export const CarouselHeaderFrontend = ({slides, carousel_autoplay, className, de
               <StaticCaption slide={slide} />
             </Slide>
           ))}
-          <CarouselControls
-            goToPrevSlide={() => {
-              setAutoplay(false);
-              goToPrevSlide();
-            }}
-            goToNextSlide={() => {
-              setAutoplay(false);
-              goToNextSlide();
-            }}
-            goToSlide={goToSlide}
-            handleAutoplay={handleAutoplay}
-            slides={slides}
-            currentSlide={currentSlide}
-            autoplay={autoplay}
-          />
         </div>
       </div>
+      <CarouselControls
+        goToPrevSlide={() => {
+          setAutoplay(false);
+          goToPrevSlide();
+        }}
+        goToNextSlide={() => {
+          setAutoplay(false);
+          goToNextSlide();
+        }}
+        goToSlide={goToSlide}
+        handleAutoplay={handleAutoplay}
+        slides={slides}
+        currentSlide={currentSlide}
+        autoplay={autoplay}
+      />
     </section>
   ), [
+    className,
+    currentSlide,
+    decoding,
+    autoplay,
+    slides,
+    goToSlide,
+    setAutoplay,
     handleAutoplay,
     goToPrevSlide,
     goToNextSlide,
