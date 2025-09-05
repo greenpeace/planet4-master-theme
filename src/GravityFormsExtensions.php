@@ -251,7 +251,7 @@ class GravityFormsExtensions
      * @return array|bool The form setting.
      *
      */
-    public function enqueue_share_buttons(array $form): array|bool
+    public function enqueue_share_buttons($form): array|bool
     {
         if (!is_array($form['confirmations'])) {
             return $form;
@@ -844,8 +844,7 @@ class GravityFormsExtensions
      * Client side dynamic population of form fields
      *
      * @param array|bool $form The different form fields present
-     *
-     * @return mixed
+     * @return  array|bool The form setting.
      */
     public function p4_client_side_gravityforms_prefill($form): array|bool
     {
