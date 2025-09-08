@@ -5,6 +5,7 @@ namespace P4\MasterTheme\Migrations;
 use P4\MasterTheme\MigrationRecord;
 use P4\MasterTheme\MigrationScript;
 use Red_Item;
+use Red_Group;
 
 /**
  * Retire Tags redirection option in favor of the redirection tool.
@@ -94,23 +95,14 @@ class M058ReplaceTagsRedirections extends MigrationScript
             return (int) $existing;
         }
 
-        $result = $wpdb->insert(
-            $table,
-            [
-                'name' => $group_name,
-                'tracking' => 1,
-                'module_id' => 1,
-                'status' => 1,
-                'position' => 0,
-            ],
-            [ '%s', '%d', '%d', '%d', '%d' ]
-        );
+        $group = Red_Group::create($group_name, 1, true);
 
-        if ($result === false) {
-            return 1; // Returns the default group.
+        if ($group instanceof Red_Group) {
+            return (int) $group->get_id();
         }
 
-        return (int) $wpdb->insert_id;
+        // Fallback: return the default group ID
+        return 1;
     }
 
     /**
