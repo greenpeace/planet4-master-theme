@@ -9,6 +9,8 @@
 
 namespace P4\MasterTheme\Blocks;
 
+use P4\MasterTheme\Loader;
+
 /**
  * Class CarouselHeader
  * Registers the CarouselHeader block.

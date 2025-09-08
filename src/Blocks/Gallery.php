@@ -4,6 +4,7 @@ namespace P4\MasterTheme\Blocks;
 
 use WP_Block_Type_Registry;
 use WP_REST_Server;
+use P4\MasterTheme\Loader;
 
 class Gallery extends BaseBlock
 {

@@ -59,22 +59,11 @@ final class Loader
         add_action('init', [self::class, 'add_blocks'], 20);
 
         // Load parallax library for Media & Text block.
-        add_action(
-            'wp_enqueue_scripts',
-            static function (): void {
-                wp_enqueue_script(
-                    'rellax',
-                    'https://cdnjs.cloudflare.com/ajax/libs/rellax/1.12.1/rellax.min.js',
-                    [],
-                    '1.12.1',
-                    true
-                );
-                wp_script_add_data(
-                    'rellax',
-                    'integrity',
-                    'sha512-f5HTYZYTDZelxS7LEQYv8ppMHTZ6JJWglzeQmr0CVTS70vJgaJiIO15ALqI7bhsracojbXkezUIL+35UXwwGrQ=='
-                );
-            }
+        self::load_external_script_with_integrity(
+            'rellax',
+            'https://cdnjs.cloudflare.com/ajax/libs/rellax/1.12.1/rellax.min.js',
+            '1.12.1',
+            'sha512-f5HTYZYTDZelxS7LEQYv8ppMHTZ6JJWglzeQmr0CVTS70vJgaJiIO15ALqI7bhsracojbXkezUIL+35UXwwGrQ==',
         );
     }
 
@@ -354,24 +343,57 @@ final class Loader
     }
 
     /**
-     * Enqueue Hammer.js with versioning.
+     * Enqueue an external script with versioning and optional integrity.
      *
-     * @param array $deps Dependencies of the script.
-     * @param bool $in_footer Whether to enqueue in footer.
+     * @param string $id Script ID
+     * @param string $src Source URL.
+     * @param string $version Script version.
+     * @param string $integrity The integrity hash.
      */
-    public static function enqueue_hammerjs(array $deps = [], bool $in_footer = true): void
-    {
-        wp_enqueue_script(
-            'hammer',
-            'https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js',
+    public static function load_external_script_with_integrity(
+        string $id,
+        string $src,
+        string $version,
+        string $integrity,
+    ): void {
+        wp_register_script(
+            $id,
+            $src,
             [],
-            '2.0.8',
-            true
+            $version,
         );
-        wp_script_add_data(
-            'hammer',
-            'integrity',
-            'sha512-UXumZrZNiOwnTcZSHLOfcTs0aos2MzBWHXOHOuB0J/R44QB0dwY5JgfbvljXcklVf65Gc4El6RjZ+lnwd2az2g=='
+
+        add_filter(
+            'script_loader_tag',
+            function ($tag, $tag_handle, $tag_src) use ($id, $integrity) {
+                if ($tag_handle === $id) {
+                    $tag = sprintf(
+                        // phpcs:disable Generic.Files.LineLength.MaxExceeded
+                        '<script type="text/javascript" src="%s" integrity="%s" id="%s" crossorigin="anonymous"></script>',
+                        esc_url($tag_src),
+                        esc_attr($integrity),
+                        esc_attr($id),
+                    );
+                }
+                return $tag;
+            },
+            10,
+            3
+        );
+
+        wp_enqueue_script($id);
+    }
+
+    /**
+     * Enqueue Hammer.js with versioning.
+     */
+    public static function enqueue_hammerjs(): void
+    {
+        self::load_external_script_with_integrity(
+            'hammerjs',
+            'https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js',
+            '2.0.8',
+            'sha512-UXumZrZNiOwnTcZSHLOfcTs0aos2MzBWHXOHOuB0J/R44QB0dwY5JgfbvljXcklVf65Gc4El6RjZ+lnwd2az2g==',
         );
     }
 }
