@@ -95,14 +95,17 @@ class M058ReplaceTagsRedirections extends MigrationScript
             return (int) $existing;
         }
 
+        if (!class_exists('Red_Group')) {
+            return 1; // Return the default group ID
+        }
+
         $group = Red_Group::create($group_name, 1, true);
 
         if ($group instanceof Red_Group) {
             return (int) $group->get_id();
         }
 
-        // Fallback: return the default group ID
-        return 1;
+        return 1; // Return the default group ID
     }
 
     /**
