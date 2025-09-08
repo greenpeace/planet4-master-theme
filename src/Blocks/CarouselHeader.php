@@ -123,6 +123,11 @@ class CarouselHeader extends BaseBlock
                 '2.0.8',
                 true
             );
+            wp_script_add_data(
+                'hammer',
+                'integrity',
+                'sha512-UXumZrZNiOwnTcZSHLOfcTs0aos2MzBWHXOHOuB0J/R44QB0dwY5JgfbvljXcklVf65Gc4El6RjZ+lnwd2az2g=='
+            );
         }
         parent::enqueue_frontend_assets();
     }

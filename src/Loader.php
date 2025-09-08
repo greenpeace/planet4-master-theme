@@ -69,6 +69,11 @@ final class Loader
                     '1.12.1',
                     true
                 );
+                wp_script_add_data(
+                    'rellax',
+                    'integrity',
+                    'sha512-f5HTYZYTDZelxS7LEQYv8ppMHTZ6JJWglzeQmr0CVTS70vJgaJiIO15ALqI7bhsracojbXkezUIL+35UXwwGrQ=='
+                );
             }
         );
     }

@@ -963,6 +963,11 @@ class MasterSite extends TimberSite
             '3.3.1',
             true
         );
+        wp_script_add_data(
+            'jquery-3',
+            'integrity',
+            'sha512-+NqPlbbtM1QqiK8ZAo4Yrj2c4lNQoGv8P79DPtKzj++l5jnN39rHA/xsqn8zE9l0uSoxaCdrOgFs6yjyfbBxSg=='
+        );
     }
 
     /**
