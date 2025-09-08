@@ -352,4 +352,26 @@ final class Loader
             $in_footer
         );
     }
+
+    /**
+     * Enqueue Hammer.js with versioning.
+     *
+     * @param array $deps Dependencies of the script.
+     * @param bool $in_footer Whether to enqueue in footer.
+     */
+    public static function enqueue_hammerjs(array $deps = [], bool $in_footer = true): void
+    {
+        wp_enqueue_script(
+            'hammer',
+            'https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js',
+            [],
+            '2.0.8',
+            true
+        );
+        wp_script_add_data(
+            'hammer',
+            'integrity',
+            'sha512-UXumZrZNiOwnTcZSHLOfcTs0aos2MzBWHXOHOuB0J/R44QB0dwY5JgfbvljXcklVf65Gc4El6RjZ+lnwd2az2g=='
+        );
+    }
 }
