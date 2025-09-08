@@ -59,11 +59,11 @@ class M058ReplaceTagsRedirections extends MigrationScript
             $redirect_page_id = get_term_meta($term->term_id, 'redirect_page', true);
 
             if (!empty($redirect_page_id)) {
+                $source_url = "/tag/" . esc_html($term->slug);
                 $target_url = get_permalink($redirect_page_id);
-                $pattern = "^/tag/" . preg_quote($term->slug, '/') . "/?$";
 
                 $redirections[] = [
-                    'source' => $pattern,
+                    'source' => $source_url,
                     'target' => $target_url,
                 ];
             }
@@ -125,10 +125,17 @@ class M058ReplaceTagsRedirections extends MigrationScript
             $redirect = Red_Item::create([
                 'url' => $s,
                 'action_data' => ['url' => $t],
+                'match_data' => [
+                    'source' => [
+                        'flag_regex' => true,
+                        'flag_case' => true,
+                        'flag_trailing' => true,
+                        'flag_query' => 'pass',
+                    ],
+                ],
                 'match_type' => 'url',
                 'action_type' => 'url',
                 'status' => 1,
-                'regex' => true,
                 'group_id' => $group_id,
             ]);
 
