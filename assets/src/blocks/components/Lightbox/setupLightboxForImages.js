@@ -28,24 +28,29 @@ const getImageMeta = async imgEl => {
   const imgId = getImageIdFromClass(imgEl);
   if (!imgId) { return null; }
 
-  try {
-    const response = await fetch(`/wp-json/wp/v2/media/${imgId}`);
-    if (!response.ok) { throw new Error('Failed to fetch media info'); }
-
-    const data = await response.json();
-
-    const url =
-      data?.media_details?.sizes?.full?.source_url ?? // try full size
-      data?.media_details?.sizes?.large?.source_url ?? // fallback to large
-      data?.source_url; // fallback to original
-
-    const width = data?.media_details?.width ?? null;
-    const height = data?.media_details?.height ?? null;
-
-    return {url, width, height};
-  } catch (err) {
+  const response = await fetch(`/wp-json/wp/v2/media/${imgId}`);
+  if (!response.ok) {
+    // eslint-disable-next-line no-console
+    console.log('Failed to fetch media info');
     return null;
   }
+
+  const data = await response.json();
+
+  if (data.media_details) {
+    const url =
+        data.media_details.sizes?.full?.source_url || // try full size
+        data.media_details.sizes?.large?.source_url || // fallback to large
+        data.source_url; // fallback to original
+
+    const width = data.media_details.width || null;
+    const height = data.media_details.height || null;
+
+    return {url, width, height};
+  }
+
+  // fallback if no media_details
+  return {url: data.source_url, width: null, height: null};
 };
 
 /**
