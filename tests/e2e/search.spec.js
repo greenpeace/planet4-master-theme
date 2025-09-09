@@ -9,17 +9,6 @@ test('check search works', async ({page, requestUtils}) => {
   const tagPageTitle = `#Tag ${testId}`;
   const postTitle = `Test Post ${testId}`;
 
-  const tagPage = await requestUtils.rest({
-    path: '/wp/v2/pages',
-    method: 'POST',
-    data: {
-      title: tagPageTitle,
-      content: '<p>The redirect page for the new tag</p>',
-      status: 'publish',
-      featured_media: 357,
-    },
-  });
-
   const tag = await requestUtils.rest({
     path: '/wp/v2/tags',
     method: 'POST',
@@ -27,9 +16,6 @@ test('check search works', async ({page, requestUtils}) => {
       slug: `tag-${testId}`,
       name: tagName,
       description: `Description of the tag ${testId}`,
-      meta: {
-        redirect_page: tagPage.id,
-      },
     },
   });
 
