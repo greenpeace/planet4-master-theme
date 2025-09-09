@@ -344,6 +344,7 @@ final class Loader
 
     /**
      * Enqueue an external script with versioning and optional integrity.
+     * Reference https://www.srihash.org/.
      *
      * @param string $id Script ID
      * @param string $src Source URL.
