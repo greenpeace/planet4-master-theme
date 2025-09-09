@@ -26,16 +26,12 @@ export const Lightbox = ({index, isOpen, items, onClose = () => {}}) => {
       return;
     }
 
-    const preloadItems = items.map(item => {
-      if (!item.w || !item.h) {
-        const img = new Image();
-        img.src = item.originalSrc.url;
-        item.w = item.originalSrc.width;
-        item.h = item.originalSrc.height;
-        item.src = item.originalSrc.url;
-      }
-      return item;
-    });
+    const preloadItems = items.map(item => ({
+      src: item.originalSrc?.url || item.src,
+      w: item.originalSrc?.width || item.w,
+      h: item.originalSrc?.height || item.h,
+      title: item.title,
+    }));
 
     const photoSwipe = new PhotoSwipe(photoSwipeElement, PhotoSwipeUI_Default, preloadItems, photoSwipeOptions);
 
