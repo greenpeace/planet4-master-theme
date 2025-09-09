@@ -1,3 +1,4 @@
+import Hammer from 'hammerjs';
 import {IMAGE_SIZES} from './imageSizes';
 import {getCaptionWithCredits} from './getCaptionWithCredits.js';
 
@@ -75,11 +76,11 @@ export const GalleryCarousel = ({images, onImageClick, isEditing}) => {
     }
 
     const carouselElement = containerRef.current;
-    const carouselHammer = new Hammer(carouselElement, {recognizers: []}); // eslint-disable-line no-undef
-    const hammer = new Hammer.Manager(carouselHammer.element); // eslint-disable-line no-undef
-    const swipe = new Hammer.Swipe(); // eslint-disable-line no-undef
+    const carouselHammer = new Hammer(carouselElement, {recognizers: []});
+    const hammer = new Hammer.Manager(carouselHammer.element);
+    const swipe = new Hammer.Swipe();
     // Only allow horizontal swiping (not vertical swiping)
-    swipe.set({direction: Hammer.DIRECTION_HORIZONTAL}); // eslint-disable-line no-undef
+    swipe.set({direction: Hammer.DIRECTION_HORIZONTAL});
     hammer.add(swipe);
 
     hammer.on('swipeleft', isRTL ? goToPrevSlide : goToNextSlide);

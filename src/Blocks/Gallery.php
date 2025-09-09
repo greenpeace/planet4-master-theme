@@ -4,7 +4,6 @@ namespace P4\MasterTheme\Blocks;
 
 use WP_Block_Type_Registry;
 use WP_REST_Server;
-use P4\MasterTheme\Loader;
 
 class Gallery extends BaseBlock
 {
@@ -126,9 +125,6 @@ class Gallery extends BaseBlock
      */
     public static function enqueue_frontend_assets(): void
     {
-        if (BlockList::has_block(self::get_full_block_name())) {
-            Loader::enqueue_hammerjs();
-        }
         parent::enqueue_frontend_assets();
     }
 

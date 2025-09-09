@@ -57,14 +57,6 @@ final class Loader
         Commands::load();
 
         add_action('init', [self::class, 'add_blocks'], 20);
-
-        // Load parallax library for Media & Text block.
-        self::load_external_script_with_integrity(
-            'rellax',
-            'https://cdnjs.cloudflare.com/ajax/libs/rellax/1.12.1/rellax.min.js',
-            '1.12.1',
-            'sha512-f5HTYZYTDZelxS7LEQYv8ppMHTZ6JJWglzeQmr0CVTS70vJgaJiIO15ALqI7bhsracojbXkezUIL+35UXwwGrQ==',
-        );
     }
 
     /**
@@ -383,18 +375,5 @@ final class Loader
         );
 
         wp_enqueue_script($id);
-    }
-
-    /**
-     * Enqueue Hammer.js with versioning.
-     */
-    public static function enqueue_hammerjs(): void
-    {
-        self::load_external_script_with_integrity(
-            'hammerjs',
-            'https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js',
-            '2.0.8',
-            'sha512-UXumZrZNiOwnTcZSHLOfcTs0aos2MzBWHXOHOuB0J/R44QB0dwY5JgfbvljXcklVf65Gc4El6RjZ+lnwd2az2g==',
-        );
     }
 }
