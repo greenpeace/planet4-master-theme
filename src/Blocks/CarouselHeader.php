@@ -9,8 +9,6 @@
 
 namespace P4\MasterTheme\Blocks;
 
-use P4\MasterTheme\Loader;
-
 /**
  * Class CarouselHeader
  * Registers the CarouselHeader block.
@@ -117,9 +115,6 @@ class CarouselHeader extends BaseBlock
      */
     public static function enqueue_frontend_assets(): void
     {
-        if (BlockList::has_block(self::get_full_block_name())) {
-            Loader::enqueue_hammerjs();
-        }
         parent::enqueue_frontend_assets();
     }
 
