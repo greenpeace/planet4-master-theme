@@ -1,9 +1,11 @@
+const {useMemo} = wp.element;
+
 const htmlDecode = input => {
   const doc = new DOMParser().parseFromString(input, 'text/html');
   return doc.documentElement.textContent;
 };
 
-export const StaticCaption = ({slide}) => (
+export const StaticCaption = ({slide, focusable}) => useMemo(() => (
   <div className="carousel-caption">
     <div className="caption-overlay"></div>
     <div className="container main-header">
@@ -22,6 +24,7 @@ export const StaticCaption = ({slide}) => (
             data-ga-action="Call to Action"
             data-ga-label={slide.index}
             {...slide.link_url_new_tab && {rel: 'noreferrer noopener', target: '_blank'}}
+            tabIndex={focusable ? 0 : -1}
           >
             <span>
               {slide.link_text}
@@ -31,4 +34,4 @@ export const StaticCaption = ({slide}) => (
       }
     </div>
   </div>
-);
+), [slide, focusable]);

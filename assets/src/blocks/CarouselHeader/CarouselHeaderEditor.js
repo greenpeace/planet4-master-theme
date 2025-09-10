@@ -21,7 +21,7 @@ export const CarouselHeaderEditor = ({setAttributes, attributes}) => {
 
   const {currentSlide, goToSlide, goToNextSlide, goToPrevSlide} = useSlides(slidesRef, slides.length);
 
-  const changeSlideAttribute = useCallback(() => (slideAttributeName, index) => value => {
+  const changeSlideAttribute = useCallback((slideAttributeName, index) => value => {
     const newSlides = JSON.parse(JSON.stringify(slides));
     newSlides[index][slideAttributeName] = value;
     setAttributes({slides: newSlides});
@@ -102,7 +102,7 @@ export const CarouselHeaderEditor = ({setAttributes, attributes}) => {
         }}
       >Migrate image data</button>}
       <div className="carousel-wrapper-header">
-        <div className="carousel-inner" role="listbox">
+        <ul className="carousel-inner" role="listbox">
           {slides?.map((slide, index) => (
             <Slide
               key={index}
@@ -135,7 +135,7 @@ export const CarouselHeaderEditor = ({setAttributes, attributes}) => {
             slides={slides}
             currentSlide={currentSlide}
           />
-        </div>
+        </ul>
       </div>
     </section>
   ), [
