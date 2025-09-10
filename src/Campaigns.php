@@ -68,54 +68,68 @@ class Campaigns
             ]
         );
 
-        if (!isset($wp_tag) || !($wp_tag instanceof WP_Term)) {
-            return;
-        }
+        if (isset($wp_tag) && $wp_tag instanceof WP_Term) {
+            $selected_page_types = get_term_meta($wp_tag->term_id, 'selected_page_types');
+            if (! isset($selected_page_types[0])) {
+                $selected_page_types[0] = [];
+            }
 
-        $selected_page_types = get_term_meta($wp_tag->term_id, 'selected_page_types');
-        if (! isset($selected_page_types[0])) {
-            $selected_page_types[0] = [];
-        }
+            $attachment_id = get_term_meta($wp_tag->term_id, 'tag_attachment_id', true);
+            $image_attributes = wp_get_attachment_image_src($attachment_id, 'full');
+            $attachment_url = $image_attributes ? $image_attributes[0] : '';
+            ?>
+            <tr>
+                <th colspan="2">
+                    <?php esc_html_e('Column block: Choose which Page Types will populate the content of the Column block. If no box is checked Publications will appear by default.', 'planet4-master-theme-backend'); ?>
+                </th>
+            </tr>
+            <?php foreach ($this->page_types as $index => $page_type) { ?>
+                <tr class="form-field edit-wrap term-page-type-<?php echo esc_attr($page_type->slug); ?>-wrap">
+                    <th></th>
+                    <td>
+                        <div class="field-block shortcode-ui-field-checkbox shortcode-ui-attribute-p4_page_type_<?php echo esc_attr($page_type->slug); ?>">
+                            <label for="shortcode-ui-p4_page_type_<?php echo esc_attr($page_type->slug); ?>">
+                                <input type="checkbox" name="p4_page_type[]" id="shortcode-ui-p4_page_type_<?php echo esc_attr($page_type->slug); ?>" value="<?php echo esc_attr($page_type->slug); ?>" <?php echo in_array($page_type->slug, $selected_page_types[0], true) ? 'checked' : ''; ?>>
+                                <?php echo esc_html($page_type->name); ?>
 
-        $attachment_id = get_term_meta($wp_tag->term_id, 'tag_attachment_id', true);
-        $image_attributes = wp_get_attachment_image_src($attachment_id, 'full');
-        $attachment_url = $image_attributes ? $image_attributes[0] : '';
-        ?>
-        <tr>
-            <th colspan="2">
-                <?php esc_html_e('Column block: Choose which Page Types will populate the content of the Column block. If no box is checked Publications will appear by default.', 'planet4-master-theme-backend'); ?>
-            </th>
-        </tr>
-        <?php foreach ($this->page_types as $index => $page_type) { ?>
-            <tr class="form-field edit-wrap term-page-type-<?php echo esc_attr($page_type->slug); ?>-wrap">
-                <th></th>
+                            </label>
+                        </div>
+                    </td>
+                </tr>
+            <?php } ?>
+            <tr class="form-field edit-wrap term-image-wrap">
+                <th>
+                    <label><?php esc_html_e('Image', 'planet4-master-theme-backend'); ?></label>
+                </th>
                 <td>
-                    <div class="field-block shortcode-ui-field-checkbox shortcode-ui-attribute-p4_page_type_<?php echo esc_attr($page_type->slug); ?>">
-                        <label for="shortcode-ui-p4_page_type_<?php echo esc_attr($page_type->slug); ?>">
-                            <input type="checkbox" name="p4_page_type[]" id="shortcode-ui-p4_page_type_<?php echo esc_attr($page_type->slug); ?>" value="<?php echo esc_attr($page_type->slug); ?>" <?php echo in_array($page_type->slug, $selected_page_types[0], true) ? 'checked' : ''; ?>>
-                            <?php echo esc_html($page_type->name); ?>
-
-                        </label>
-                    </div>
+                    <input type="hidden" name="tag_attachment_id" id="tag_attachment_id" class="tag-attachment-id field-id" value="<?php echo esc_attr($attachment_id); ?>" />
+                    <input type="hidden" name="tag_attachment" id="tag_attachment" class="tag-attachment-url field-url" value="<?php echo esc_url($attachment_url); ?>" />
+                    <button class="button insert-media add_media" name="insert_image_tag_button" id="insert_image_tag_button" type="button">
+                        <?php esc_html_e('Select/Upload Image', 'planet4-master-theme-backend'); ?>
+                    </button>
+                    <p class="description"><?php esc_html_e('Associate this tag with an image.', 'planet4-master-theme-backend'); ?></p>
+                    <img class="attachment-thumbnail size-thumbnail" src="<?php echo esc_url($attachment_url); ?>"/>
+                    <i class="dashicons dashicons-dismiss <?php echo $image_attributes ? '' : 'hidden'; ?>" style="cursor: pointer;"></i>
                 </td>
             </tr>
-        <?php } ?>
-        <tr class="form-field edit-wrap term-image-wrap">
-            <th>
+            <?php
+        } else { ?>
+            <div class="form-field add-wrap term-image-wrap">
                 <label><?php esc_html_e('Image', 'planet4-master-theme-backend'); ?></label>
-            </th>
-            <td>
-                <input type="hidden" name="tag_attachment_id" id="tag_attachment_id" class="tag-attachment-id field-id" value="<?php echo esc_attr($attachment_id); ?>" />
-                <input type="hidden" name="tag_attachment" id="tag_attachment" class="tag-attachment-url field-url" value="<?php echo esc_url($attachment_url); ?>" />
+                <input type="hidden" name="tag_attachment_id" id="tag_attachment_id" class="tag_attachment_id field-id" value="" />
+                <input type="hidden" name="tag_attachment" id="tag_attachment" class="tag-attachment-url field-url" value="" />
                 <button class="button insert-media add_media" name="insert_image_tag_button" id="insert_image_tag_button" type="button">
                     <?php esc_html_e('Select/Upload Image', 'planet4-master-theme-backend'); ?>
                 </button>
                 <p class="description"><?php esc_html_e('Associate this tag with an image.', 'planet4-master-theme-backend'); ?></p>
-                <img class="attachment-thumbnail size-thumbnail" src="<?php echo esc_url($attachment_url); ?>"/>
-                <i class="dashicons dashicons-dismiss <?php echo $image_attributes ? '' : 'hidden'; ?>" style="cursor: pointer;"></i>
-            </td>
-        </tr>
-        <?php
+                <img class="attachment-thumbnail size-thumbnail" src="" />
+                <i class="dashicons dashicons-dismiss hidden" style="cursor: pointer;"></i>
+                <p class="submit">
+                    <input name="submit" id="addtag" type="submit" class="button button-primary" value="<?php esc_html_e('Add new tag', 'planet4-master-theme-backend'); ?>" />
+                </p>
+            </div>
+            <?php
+        }
     }
     // phpcs:enable Generic.Files.LineLength.MaxExceeded
 
