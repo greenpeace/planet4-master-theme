@@ -35,18 +35,18 @@ export const CarouselHeaderFrontend = ({slides, carousel_autoplay, className, de
       }}
     >
       <div className="carousel-wrapper-header">
-        <div className="carousel-inner" role="listbox">
-          {slides.map((slide, index) => (
-            <Slide
-              key={index}
-              active={currentSlide === index}
-              ref={element => slidesRef ? slidesRef.current[index] = element : null}
-            >
-              <SlideBackground decoding={decoding} slide={slide} />
-              <StaticCaption slide={slide} />
-            </Slide>
-          ))}
-        </div>
+        <ul className="carousel-inner" role="listbox">
+          {slides.map((slide, index) => <Slide
+            key={index}
+            active={currentSlide === index}
+            focusable={currentSlide === index}
+            ref={element => slidesRef ? slidesRef.current[index] = element : null}
+          >
+            <SlideBackground decoding={decoding} slide={slide} />
+            <StaticCaption slide={slide} focusable={currentSlide === index} />
+          </Slide>)
+          }
+        </ul>
       </div>
       <CarouselControls
         goToPrevSlide={() => {

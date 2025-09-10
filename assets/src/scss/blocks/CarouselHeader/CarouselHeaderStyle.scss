@@ -79,6 +79,7 @@ $medium-image-height: 600px;
     overflow: visible;
     height: 580px;
     padding-bottom: 0;
+    padding-left: 0;
 
     @include medium-and-up {
       height: 960px;
@@ -606,9 +607,11 @@ $medium-image-height: 600px;
     &:focus {
       @include focus-styles(4px);
     }
+
     &:focus-visible {
       @include focus-styles(4px);
     }
+
     &:focus:not(:focus-visible) {
       outline: none;
       box-shadow: none;
@@ -661,9 +664,11 @@ $medium-image-height: 600px;
         &:focus {
           @include focus-styles(4px);
         }
+
         &:focus-visible {
           @include focus-styles(4px);
         }
+
         &:focus:not(:focus-visible) {
           outline: none;
           box-shadow: none;
@@ -697,7 +702,7 @@ $medium-image-height: 600px;
 
     @include large-and-up {
       position: absolute;
-      bottom: 0;
+      bottom: $sp-2x;
       left: 0;
       z-index: 9999;
 
@@ -753,9 +758,11 @@ $medium-image-height: 600px;
         &:focus {
           @include focus-styles(4px);
         }
+
         &:focus-visible {
           @include focus-styles(4px);
         }
+
         &:focus:not(:focus-visible) {
           outline: none;
           box-shadow: none;
