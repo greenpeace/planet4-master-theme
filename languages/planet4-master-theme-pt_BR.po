@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2025-09-10 18:53+0000\n"
+"PO-Revision-Date: 2025-09-10 18:56+0000\n"
 "Last-Translator: Rickson Figueira\n"
 "Language-Team: Portuguese (Brazil)\n"
 "MIME-Version: 1.0\n"
@@ -510,7 +510,7 @@ msgstr "Notícias e histórias"
 
 #: assets/src/js/listing_pages.js:93
 msgid "No posts found!"
-msgstr ""
+msgstr "Nenhum post encontrado!"
 
 #: src/Search/SearchPage.php:70
 msgid "Oldest"
@@ -571,7 +571,7 @@ msgstr "Busca"
 
 #: templates/search.twig:8
 msgid "Search by name, keyword, or topic"
-msgstr ""
+msgstr "Pesquise por nome, palavra-chave ou tópico"
 
 #: templates/footer_country_selector.twig:11
 msgid "Selected"
@@ -590,7 +590,7 @@ msgstr "Compartilhado em"
 #: templates/blocks/share_buttons.twig:47
 #, php-format
 msgid "Share on %s"
-msgstr ""
+msgstr "Compartilhe em %s"
 
 #: templates/blocks/share_buttons.twig:37
 #: templates/blocks/share_buttons.twig:57
@@ -647,15 +647,15 @@ msgstr "Enviar"
 
 #: assets/src/js/listing_pages.js:38
 msgid "Switch to grid view"
-msgstr ""
+msgstr "Alternar para grade"
 
 #: assets/src/js/listing_pages.js:46
 msgid "Switch to list view"
-msgstr ""
+msgstr "Alternar para lista"
 
 #: templates/featured-action.twig:12
 msgid "Take Action"
-msgstr ""
+msgstr "Apoie uma causa"
 
 #: src/ActionPage.php:209 src/ActionPage.php:218 src/Search/SearchPage.php:140
 msgid "Take action"
