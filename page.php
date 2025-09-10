@@ -31,7 +31,6 @@ global $post;
  */
 
 use P4\MasterTheme\Context;
-use P4\MasterTheme\Post;
 use Timber\Timber;
 
 $context = Timber::context();
