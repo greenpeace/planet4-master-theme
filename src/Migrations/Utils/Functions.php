@@ -403,7 +403,7 @@ class Functions
         // phpcs:disable Generic.Files.LineLength.MaxExceeded
         if ($is_button) {
             $html = '
-                <div class="wp-block-button ' . $classname . '"><button class="wp-block-button__link wp-element-button">' . $text . '</button></div>
+                <div class="wp-block-button ' . $classname . '"><button type="button" class="wp-block-button__link wp-element-button">' . $text . '</button></div>
             ';
         } elseif (!$link) {
             $html = '
