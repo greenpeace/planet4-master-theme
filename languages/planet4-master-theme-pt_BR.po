@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2025-09-10 18:56+0000\n"
+"PO-Revision-Date: 2025-09-10 20:18+0000\n"
 "Last-Translator: Rickson Figueira\n"
 "Language-Team: Portuguese (Brazil)\n"
 "MIME-Version: 1.0\n"
@@ -99,15 +99,15 @@ msgstr "Todos os artigos de"
 
 #: templates/listing-page-filters.twig:41
 msgid "All keywords"
-msgstr ""
+msgstr "Todas as palavras-chave"
 
 #: templates/listing-page-filters.twig:7
 msgid "All posts"
-msgstr ""
+msgstr "Todos os posts"
 
 #: templates/listing-page-filters.twig:24
 msgid "All topics"
-msgstr ""
+msgstr "Todos os tópicos"
 
 #: templates/cookies/cookies_settings.twig:55
 msgid "Allow all"
@@ -119,7 +119,7 @@ msgstr "Sempre habilitado"
 
 #: templates/listing-page-filters.twig:54
 msgid "Apply"
-msgstr ""
+msgstr "Aplicar"
 
 #: templates/search.twig:92
 msgid "Apply filters"
@@ -430,7 +430,7 @@ msgstr "Greenpeace Planet 4 Tema Master"
 
 #: assets/src/js/listing_pages.js:34
 msgid "Grid View"
-msgstr ""
+msgstr "Visualização em grade"
 
 #: functions.php:456
 msgid "here"
