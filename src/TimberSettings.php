@@ -12,9 +12,17 @@ namespace P4\MasterTheme;
 class TimberSettings
 {
     /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->hooks();
+    }
+
+    /**
      * Registers filters to customize Timber behavior.
      */
-    public static function hooks(): void
+    public function hooks(): void
     {
         // Map post types to custom Timber post class.
         add_filter('timber/post/classmap', function ($classmap) {
