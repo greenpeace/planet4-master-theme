@@ -331,7 +331,6 @@ class MasterSite extends \Timber\Site
             10
         );
 
-        TimberSettings::hooks();
         AuthorPage::hooks();
         BreakpointsImageSizes::hooks();
         QueryLoopPagination::hooks();
