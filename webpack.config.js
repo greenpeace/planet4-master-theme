@@ -42,6 +42,7 @@ module.exports = (env, argv) => {
       shareButtons: './assets/src/js/share_buttons.js',
       googleTagManager: './assets/src/js/google_tag_manager.js',
       vwoSmartCode: './assets/src/js/vwo_smart_code.js',
+      hideWeakPasswordCheckbox: './assets/src/js/hide_weak_pw_checkbox.js', //NOSONAR
       listingPages: './assets/src/js/listing_pages.js',
       bulkExport: './assets/src/js/bulk_export.js',
       mediaImportButton: './assets/src/js/media_import_button.js',

@@ -25,6 +25,7 @@ class EnqueueController
         add_action('enqueue_dismiss_dashboard_notice_script', [$this, 'enqueue_dismiss_dashboard_notice']);
         add_action('enqueue_listing_page_layout_switch_script', [$this, 'enqueue_listing_page_layout_switch']);
         add_action('enqueue_vwo_smart_script', [$this, 'enqueue_vwo_smart_code']);
+        add_action('admin_footer', [$this, 'hide_password_checkbox']);
     }
 
     /**
@@ -355,6 +356,29 @@ class EnqueueController
         ];
 
         wp_localize_script($script['name'], $script['id'], $data);
+    }
+
+     /**
+     * Enqueues script to auto hide weak password checkbox.
+     *
+     * This method registers and enqueues the JavaScript file for automatically
+     * enabling the allow weak password checkbox and hiding it from the UI for editors.
+     *
+     */
+    public function hide_password_checkbox(): void
+    {
+        $screen = get_current_screen();
+        if (!in_array($screen->id, ['user', 'user-edit'])) {
+            return;
+        }
+
+        $this->enqueue_script(
+            'hide-password-checkbox-script',
+            '/assets/build/hideWeakPasswordCheckbox.js',
+            [],
+            $this->get_file_version('/assets/build/hideWeakPasswordCheckbox.js'),
+            true
+        );
     }
 
     /**
