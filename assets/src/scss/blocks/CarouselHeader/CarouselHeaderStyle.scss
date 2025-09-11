@@ -626,6 +626,7 @@ $medium-image-height: 600px;
       display: flex;
       align-items: center;
       justify-content: center;
+      height: 24px;
 
       @include medium-and-up {
         justify-content: flex-end;
@@ -642,7 +643,7 @@ $medium-image-height: 600px;
     .carousel-autoplay-control {
       position: relative;
       margin-inline-start: 10px;
-      height: 24px;
+      height: 100%;
       width: 30px;
       border: none;
       display: flex;
