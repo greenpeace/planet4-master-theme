@@ -333,47 +333,4 @@ final class Loader
             $in_footer
         );
     }
-
-    /**
-     * Enqueue an external script with versioning and optional integrity.
-     * Reference https://www.srihash.org/.
-     *
-     * @param string $id Script ID
-     * @param string $src Source URL.
-     * @param string $version Script version.
-     * @param string $integrity The integrity hash.
-     */
-    public static function load_external_script_with_integrity(
-        string $id,
-        string $src,
-        string $version,
-        string $integrity,
-    ): void {
-        wp_register_script(
-            $id,
-            $src,
-            [],
-            $version,
-        );
-
-        add_filter(
-            'script_loader_tag',
-            function ($tag, $tag_handle, $tag_src) use ($id, $integrity) {
-                if ($tag_handle === $id) {
-                    $tag = sprintf(
-                        // phpcs:disable Generic.Files.LineLength.MaxExceeded
-                        '<script type="text/javascript" src="%s" integrity="%s" id="%s" crossorigin="anonymous"></script>',
-                        esc_url($tag_src),
-                        esc_attr($integrity),
-                        esc_attr($id),
-                    );
-                }
-                return $tag;
-            },
-            10,
-            3
-        );
-
-        wp_enqueue_script($id);
-    }
 }
