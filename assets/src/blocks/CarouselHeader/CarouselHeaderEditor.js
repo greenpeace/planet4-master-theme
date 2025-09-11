@@ -19,7 +19,7 @@ export const CarouselHeaderEditor = ({setAttributes, attributes}) => {
   const {carousel_autoplay, slides, className} = attributes;
   const slidesRef = useRef([]);
 
-  const {currentSlide, goToSlide, goToNextSlide, goToPrevSlide} = useSlides(slidesRef, slides.length);
+  const {currentSlide, goToSlide, goToNextSlide, goToPrevSlide, autoplay} = useSlides(slidesRef, slides.length);
 
   const changeSlideAttribute = useCallback((slideAttributeName, index) => value => {
     const newSlides = JSON.parse(JSON.stringify(slides));
@@ -128,24 +128,28 @@ export const CarouselHeaderEditor = ({setAttributes, attributes}) => {
               />
             </Slide>
           ))}
-          <CarouselControls
-            goToPrevSlide={() => goToPrevSlide(carousel_autoplay)}
-            goToNextSlide={() => goToNextSlide(carousel_autoplay)}
-            goToSlide={goToSlide}
-            slides={slides}
-            currentSlide={currentSlide}
-          />
+          {(slides.length > 1) && (
+            <CarouselControls
+              goToPrevSlide={() => goToPrevSlide(autoplay)}
+              goToNextSlide={() => goToNextSlide(autoplay)}
+              goToSlide={goToSlide}
+              slides={slides}
+              currentSlide={currentSlide}
+              autoplay={carousel_autoplay}
+            />
+          )}
         </ul>
       </div>
     </section>
   ), [
+    autoplay,
+    carousel_autoplay,
     className,
     currentSlide,
     slides,
     goToSlide,
     goToPrevSlide,
     goToNextSlide,
-    carousel_autoplay,
     migratedSlides,
     needsMigration,
     setAttributes,
