@@ -69,13 +69,11 @@ const setupImageAndCaption = (lightBoxNode, imageSelector = 'img', captionSelect
       return;
     }
 
-    const imgSrc = image.src ?? image.dataset.src;
+    const src = image.src ?? image.dataset.src;
 
     const item = {
-      src: imgSrc,
-      originalSrc: await getImageMeta(image) ?? imgSrc,
-      w: 0,
-      h: 0,
+      src,
+      originalSrc: await getImageMeta(image) ?? src,
     };
 
     const caption = imageBlock.querySelector(captionSelector);
