@@ -9,7 +9,7 @@ export const CarouselControls = ({
   currentSlide = null,
   slides = null,
   autoplay,
-}) => slides.length > 1 && useMemo(() => (
+}) => useMemo(() => (
   <>
     {/* Arrows */}
     <button className="carousel-control-prev" onClick={goToPrevSlide} aria-label="Go to previous slide">
@@ -52,11 +52,13 @@ export const CarouselControls = ({
             )
           }
         </ol>
-        <button
-          aria-label={autoplay ? __('Stop Slider', 'planet4-blocks') : __('Play Slider', 'planet4-blocks')}
-          className={`carousel-autoplay-control ${autoplay ? 'stop' : 'play'}`}
-          onClick={handleAutoplay}
-        />
+        {autoplay && (
+          <button
+            aria-label={autoplay ? __('Stop Slider', 'planet4-blocks') : __('Play Slider', 'planet4-blocks')}
+            className={`carousel-autoplay-control ${autoplay ? 'stop' : 'play'}`}
+            onClick={handleAutoplay}
+          />
+        )}
       </div>
     </div>
   </>
