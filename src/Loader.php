@@ -97,6 +97,7 @@ final class Loader
             PostMeta::class,
             GravityFormsExtensions::class,
             BlockSettings::class,
+            LoginHandler::class,
             EnqueueController::class,
             YouTubeHandler::class,
             CommentFormCustomizer::class,
