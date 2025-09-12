@@ -1,7 +1,9 @@
+const {useMemo} = wp.element;
 const {RichText} = wp.blockEditor;
+
 const {__} = wp.i18n;
 
-export const Caption = ({slide, index, changeSlideAttribute}) => (
+export const Caption = ({slide, index, changeSlideAttribute}) => useMemo(() => (
   <div className="carousel-caption">
     <div className="caption-overlay"></div>
     <div className="container main-header">
@@ -37,4 +39,4 @@ export const Caption = ({slide, index, changeSlideAttribute}) => (
       </div>
     </div>
   </div>
-);
+), [changeSlideAttribute, index, slide]);
