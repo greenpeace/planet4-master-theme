@@ -54,6 +54,7 @@ export const CarouselHeaderFrontend = ({slides, carousel_autoplay, className, de
           slides={slides}
           currentSlide={currentSlide}
           autoplay={autoplay}
+          disableControls={carousel_autoplay}
         />
       )}
     </section>
@@ -68,5 +69,6 @@ export const CarouselHeaderFrontend = ({slides, carousel_autoplay, className, de
     handleAutoplay,
     goToPrevSlide,
     goToNextSlide,
+    carousel_autoplay,
   ]);
 };
