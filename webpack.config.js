@@ -4,6 +4,7 @@ const TerserJSPlugin = require('terser-webpack-plugin');
 const SpriteLoaderPlugin = require('svg-sprite-loader/plugin');
 const dashDash = require('@greenpeace/dashdash');
 const defaultConfig = require('@wordpress/scripts/config/webpack.config');
+const {BundleAnalyzerPlugin} = require('webpack-bundle-analyzer');
 
 const mediaQueryAliases = {
   '(max-width: 576px)': 'mobile-only',
@@ -155,6 +156,13 @@ module.exports = (env, argv) => {
       new SpriteLoaderPlugin({
         plainSprite: true,
       }),
+      new BundleAnalyzerPlugin(
+        {
+          analyzerMode: 'server',
+          analyzerPort: 8888,
+          openAnalyzer: true,
+        }
+      ),
     ],
     optimization: {
       concatenateModules: isProduction,
