@@ -9,6 +9,8 @@
 
 namespace P4\MasterTheme\Blocks;
 
+use P4\MasterTheme\Features\Dev\NewTimelineBlock;
+
 /**
  * Class Timeline
  *
@@ -73,20 +75,22 @@ class Timeline extends BaseBlock
             ]
         );
 
-        wp_register_script(
-            'timeline-js',
-            'https://cdn.knightlab.com/libs/timeline3/' . self::TIMELINE_JS_VERSION . '/js/timeline-min.js',
-            [],
-            self::TIMELINE_JS_VERSION,
-            true
-        );
+        if (!NewTimelineBlock::is_active()) {
+            wp_register_script(
+                'timeline-js',
+                'https://cdn.knightlab.com/libs/timeline3/' . self::TIMELINE_JS_VERSION . '/js/timeline-min.js',
+                [],
+                self::TIMELINE_JS_VERSION,
+                true
+            );
 
-        wp_register_style(
-            'timeline-css',
-            'https://cdn.knightlab.com/libs/timeline3/' . self::TIMELINE_JS_VERSION . '/css/timeline.css',
-            [],
-            self::TIMELINE_JS_VERSION
-        );
+            wp_register_style(
+                'timeline-css',
+                'https://cdn.knightlab.com/libs/timeline3/' . self::TIMELINE_JS_VERSION . '/css/timeline.css',
+                [],
+                self::TIMELINE_JS_VERSION
+            );
+        }
 
         add_action('enqueue_block_editor_assets', [ self::class, 'enqueue_editor_assets' ]);
         add_action('wp_enqueue_scripts', [ self::class, 'enqueue_frontend_assets' ]);
