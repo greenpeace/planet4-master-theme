@@ -10,17 +10,16 @@ export const CarouselControls = ({
   slides = [],
   autoplay,
 }) => {
-  const [hasAutoplay, setHasAutoplay] = useState(false);
+  const isEditor = typeof wp !== 'undefined' && wp.blockEditor !== undefined;
+  const [showButton, setshowButton] = useState(false);
 
   useEffect(() => {
-    if (autoplay) {
-      setHasAutoplay(true);
+    if (isEditor) {
+      setshowButton(autoplay);
+    } else if (autoplay) {
+      setshowButton(true);
     }
-  }, [autoplay]);
-
-  const handlePausePlayButton = () => {
-    handleAutoplay();
-  };
+  }, [autoplay, isEditor]);
 
   return useMemo(
     () => (
@@ -82,7 +81,7 @@ export const CarouselControls = ({
                 </li>
               ))}
             </ol>
-            {hasAutoplay && (
+            {showButton && (
               <button
                 aria-label={autoplay ?
                   __('Stop Slider', 'planet4-blocks') :
@@ -90,7 +89,7 @@ export const CarouselControls = ({
                 className={`carousel-autoplay-control ${
                   autoplay ? 'stop' : 'play'
                 }`}
-                onClick={handlePausePlayButton}
+                onClick={handleAutoplay}
               />
             )}
           </div>
@@ -103,7 +102,7 @@ export const CarouselControls = ({
       goToPrevSlide,
       goToNextSlide,
       goToSlide,
-      hasAutoplay,
+      showButton,
     ]
   );
 };
