@@ -41,6 +41,7 @@
     "svg-sprite-loader": "^6.0.11",
     "terser-webpack-plugin": "^5.3.9",
     "webpack": "^5.95.0",
+    "webpack-bundle-analyzer": "^4.10.2",
     "wp-scripts": "^0.0.1-security"
   },
   "browserslist": [
