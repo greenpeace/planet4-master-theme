@@ -492,9 +492,6 @@ add_filter(
 
 if (class_exists('\\Sentry\\Options')) {
     add_filter('wp_sentry_options', function (\Sentry\Options $options) {
-        // Only sample 50% of the events
-        $options->setSampleRate(0.50);
-
         // Set server_name tag
         $podname = gethostname() ?: 'unknown'; // Fallback to 'unknown' if gethostname() fails
         $parts = explode('-', $podname);
@@ -509,6 +506,9 @@ if (class_exists('\\Sentry\\Options')) {
             // Production/Development instances
             $server_name = $parts[1];
         }
+
+        $options->setSampleRate(0.5);
+        $options->setTracesSampleRate(1.0);
         $options->setServerName($server_name);
 
         return $options;
