@@ -135,7 +135,8 @@ export const CarouselHeaderEditor = ({setAttributes, attributes}) => {
               goToSlide={goToSlide}
               slides={slides}
               currentSlide={currentSlide}
-              autoplay={carousel_autoplay}
+              autoplay={autoplay}
+              disableControls={carousel_autoplay}
             />
           )}
         </ul>

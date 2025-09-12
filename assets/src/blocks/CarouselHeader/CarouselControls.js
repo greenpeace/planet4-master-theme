@@ -9,6 +9,7 @@ export const CarouselControls = ({
   currentSlide = null,
   slides = null,
   autoplay,
+  disableControls,
 }) => useMemo(() => (
   <>
     {/* Arrows */}
@@ -52,7 +53,7 @@ export const CarouselControls = ({
             )
           }
         </ol>
-        {autoplay && (
+        {disableControls && (
           <button
             aria-label={autoplay ? __('Stop Slider', 'planet4-blocks') : __('Play Slider', 'planet4-blocks')}
             className={`carousel-autoplay-control ${autoplay ? 'stop' : 'play'}`}
@@ -62,4 +63,4 @@ export const CarouselControls = ({
       </div>
     </div>
   </>
-), [currentSlide, autoplay, slides, goToPrevSlide, goToNextSlide, goToSlide, handleAutoplay]);
+), [currentSlide, disableControls, autoplay, slides, goToPrevSlide, goToNextSlide, goToSlide, handleAutoplay]);
