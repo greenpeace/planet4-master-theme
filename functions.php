@@ -491,9 +491,10 @@ add_filter(
 );
 
 if (class_exists('\\Sentry\\Options')) {
-    add_filter('wp_sentry_options', function (\Sentry\Options $options) {
-        // Only sample 50% of the events
-        $options->setSampleRate(0.50);
+    add_filter('wp_sentry_options', function ($options) {
+        // Sample 100% of the events
+        $sample_rate = 1.0;
+        $traces_sample_rate = 1.0;
 
         // Set server_name tag
         $podname = gethostname() ?: 'unknown'; // Fallback to 'unknown' if gethostname() fails
@@ -509,7 +510,18 @@ if (class_exists('\\Sentry\\Options')) {
             // Production/Development instances
             $server_name = $parts[1];
         }
-        $options->setServerName($server_name);
+
+        if ($options instanceof \Sentry\Options) {
+            // Backend (PHP)
+            $options->setSampleRate($sample_rate);
+            $options->setTracesSampleRate($traces_sample_rate);
+            $options->setServerName($server_name);
+        } else {
+            // Frontend (JavaScript)
+            $options['sampleRate'] = $sample_rate;
+            $options['tracesSampleRate'] = $traces_sample_rate;
+            $options['server_name'] = $server_name;
+        }
 
         return $options;
     });
