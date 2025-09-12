@@ -27,7 +27,10 @@ export const setupActionsListLoadMore = () => {
       return;
     }
 
-    const loadMoreButton = loadMoreButtonContainer.querySelector('button');
+    const loadMoreButton = loadMoreButtonContainer.querySelector('.wp-element-button');
+    if (!loadMoreButton) {
+      return;
+    }
     loadMoreButton.onclick = () => {
       const hiddenPosts = posts.filter(post => window.getComputedStyle(post).display === 'none');
       if (hiddenPosts.length <= postsPerRow) {
