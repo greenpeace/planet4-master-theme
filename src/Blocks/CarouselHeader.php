@@ -115,15 +115,6 @@ class CarouselHeader extends BaseBlock
      */
     public static function enqueue_frontend_assets(): void
     {
-        if (BlockList::has_block(self::get_full_block_name())) {
-            wp_enqueue_script(
-                'hammer',
-                'https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js',
-                [],
-                '2.0.8',
-                true
-            );
-        }
         parent::enqueue_frontend_assets();
     }
 

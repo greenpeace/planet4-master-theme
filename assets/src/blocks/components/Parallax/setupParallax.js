@@ -1,3 +1,5 @@
+import Rellax from 'rellax';
+
 export const setupParallax = () => {
   const parallaxImages = document.querySelectorAll('.is-style-parallax img');
 
