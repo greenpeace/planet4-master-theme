@@ -83,6 +83,7 @@ export const getActionsListBlockTemplate = (title = __('', 'planet4-blocks-backe
         className: 'is-style-secondary',
         text: __('Load more', 'planet4-blocks'),
         tagName: 'button',
+        type: 'button',
       },
     ],
   ]],

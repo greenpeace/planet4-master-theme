@@ -32,6 +32,7 @@ export const carouselButtons = ['core/buttons', {
       className: 'carousel-control-prev',
       text: __('Previous Carousel Slide', 'planet4-blocks-backend'),
       tagName: 'button',
+      type: 'button',
     },
   ],
   ['core/button',
@@ -39,6 +40,7 @@ export const carouselButtons = ['core/buttons', {
       className: 'carousel-control-next',
       text: __('Next Carousel Slide', 'planet4-blocks-backend'),
       tagName: 'button',
+      type: 'button',
     },
   ],
 ]];
