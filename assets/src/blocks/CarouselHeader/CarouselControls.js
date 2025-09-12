@@ -31,7 +31,7 @@ export const CarouselControls = ({
         <button
           className="carousel-control-prev"
           onClick={goToPrevSlide}
-          aria-label="Go to previous slide"
+          aria-label={__('Go to the previous slide', 'planet4-blocks')}
         >
           <span className="carousel-control-prev-icon" aria-hidden="true">
             <i></i>
@@ -43,7 +43,7 @@ export const CarouselControls = ({
         <button
           className="carousel-control-next"
           onClick={goToNextSlide}
-          aria-label="Go to next slide"
+          aria-label={__('Go to the next slide', 'planet4-blocks')}
         >
           <span className="carousel-control-next-icon" aria-hidden="true">
             <i></i>
