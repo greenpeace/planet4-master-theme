@@ -78,3 +78,23 @@
   font-size: 13px;
   line-height: 1.5;
 }
+
+// Prevent links being clickable in editor
+.secondary-navigation-link {
+  pointer-events: none;
+  cursor: default;
+}
+
+.secondary-navigation-block:has(.EmptyMessage) {
+  height: unset;
+  padding: unset;
+}
+
+.secondary-navigation-items {
+  width: 90%;
+  margin-inline-start: 7%;
+
+  li:first-child {
+    margin-left: 115px;
+  }
+}

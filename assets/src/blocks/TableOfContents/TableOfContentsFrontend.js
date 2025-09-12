@@ -1,7 +1,7 @@
 import {getTableOfContentsStyle} from './getTableOfContentsStyle';
 import {TableOfContentsItems} from './TableOfContentsItems';
 import {makeHierarchical} from './makeHierarchical';
-import {getHeadingsFromDom} from './getHeadingsFromDom';
+import {getHeadingsFromDom} from '../../functions/getHeadingsFromDom';
 
 export const TableOfContentsFrontend = ({title, className, levels, submenu_style}) => {
   const headings = getHeadingsFromDom(levels);

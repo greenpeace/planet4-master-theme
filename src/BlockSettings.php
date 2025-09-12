@@ -52,6 +52,7 @@ class BlockSettings
         self::P4_BLOCKS_PREFIX . '/take-action-boxout',
         self::P4_BLOCKS_PREFIX . '/timeline',
         self::P4_BLOCKS_PREFIX . '/guestbook',
+        self::P4_BLOCKS_PREFIX . '/secondary-navigation',
         self::HUBSPOT_FORMS_BLOCK,
         self::GRAVITY_FORMS_BLOCK,
     ];
@@ -86,6 +87,7 @@ class BlockSettings
         self::P4_BLOCKS_PREFIX . '/take-action-boxout',
         self::P4_BLOCKS_PREFIX . '/timeline',
         self::P4_BLOCKS_PREFIX . '/guestbook',
+        self::P4_BLOCKS_PREFIX . '/secondary-navigation',
         self::HUBSPOT_FORMS_BLOCK,
         self::GRAVITY_FORMS_BLOCK,
     ];
