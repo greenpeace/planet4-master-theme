@@ -10,7 +10,6 @@ export const CarouselControls = ({
   slides = [],
   autoplay,
 }) => {
-  const [isPaused, setIsPaused] = useState(false);
   const [hasAutoplay, setHasAutoplay] = useState(false);
 
   useEffect(() => {
@@ -20,7 +19,6 @@ export const CarouselControls = ({
   }, [autoplay]);
 
   const handlePausePlayButton = () => {
-    setIsPaused(prev => !prev);
     handleAutoplay();
   };
 
@@ -86,11 +84,11 @@ export const CarouselControls = ({
             </ol>
             {hasAutoplay && (
               <button
-                aria-label={isPaused ?
-                  __('Play Slider', 'planet4-blocks') :
-                  __('Stop Slider', 'planet4-blocks')}
+                aria-label={autoplay ?
+                  __('Stop Slider', 'planet4-blocks') :
+                  __('Play Slider', 'planet4-blocks')}
                 className={`carousel-autoplay-control ${
-                  isPaused ? 'play' : 'stop'
+                  autoplay ? 'stop' : 'play'
                 }`}
                 onClick={handlePausePlayButton}
               />
@@ -105,7 +103,6 @@ export const CarouselControls = ({
       goToPrevSlide,
       goToNextSlide,
       goToSlide,
-      isPaused,
       hasAutoplay,
     ]
   );
