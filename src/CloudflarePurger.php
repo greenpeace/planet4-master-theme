@@ -8,6 +8,7 @@ use CF\Integration\DefaultLogger;
 use CF\WordPress\DataStore;
 use CF\WordPress\WordPressAPI;
 use CF\WordPress\WordPressClientAPI;
+use CF\API\Request;
 use Generator;
 
 /**
@@ -60,6 +61,13 @@ class CloudflarePurger
                 $chunk,
             ];
         }
+    }
+
+    public function zone_purge_files($files)
+    {
+        $request = new Request('DELETE', 'zones/' . $this->zone_id . '/purge_cache', array(), array('files' => $files));
+        $response = $this->api->callAPI($request);
+        return $response;
     }
 
     /**

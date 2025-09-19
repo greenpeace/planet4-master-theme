@@ -553,23 +553,19 @@ class MediaReplacer
     private function success_handler(string $message, string $file_name): void
     {
         $stateless_url = $this->gc_storage_url . $this->bucket_name . "/" . $file_name;
+        $purge_result = $this->cf->zone_purge_files([$stateless_url]);
 
-        //phpcs:disable Squiz.PHP.DiscouragedFunctions.Discouraged
-        //phpcs:disable SlevomatCodingStandard.ControlStructures.EarlyExit.EarlyExitNotUsed
-        foreach ($this->cf->purge([$stateless_url]) as [$success, $chunk]) {
-            $msg_part1 = 'Cloudflare purge result: ' . var_export($success, true);
-            $msg_part2 = 'Cloudflare purge chunk: ' . print_r($chunk, true);
-            $message = $msg_part1 . ' | ' . $msg_part2;
+        if (!$purge_result['success']) {
+            //phpcs:disable Squiz.PHP.DiscouragedFunctions.Discouraged
+            $json_purge_result = json_encode($purge_result, JSON_PRETTY_PRINT);
 
-            error_log($message);
+            error_log('Cloudflare Response: ' . $json_purge_result);
 
             if (function_exists('\Sentry\captureMessage')) {
-                \Sentry\captureMessage($message);
+                \Sentry\captureMessage('Cloudflare Response: ' . $json_purge_result);
             }
+            //phpcs:enable Squiz.PHP.DiscouragedFunctions.Discouraged
         }
-        //phpcs:enable Squiz.PHP.DiscouragedFunctions.Discouraged
-        //phpcs:enable SlevomatCodingStandard.ControlStructures.EarlyExit.EarlyExitNotUsed
-
         array_push($this->replacement_status['success'], $message);
         $this->transient_handler(self::TRANSIENT['file'], $this->replacement_status);
     }
