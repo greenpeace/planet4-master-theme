@@ -11,6 +11,8 @@ use WP_Post;
  */
 class MediaReplacer
 {
+    private CloudflarePurger $cf;
+    private string $gc_storage_url;
     private array $replacement_status;
     private array $user_messages;
     private string $bucket_name;
@@ -55,6 +57,10 @@ class MediaReplacer
         if (!function_exists('ud_get_stateless_media')) {
             return;
         }
+
+        $this->cf = new CloudflarePurger();
+
+        $this->gc_storage_url = 'https://storage.googleapis.com/';
 
         /** @disregard P1010 Undefined function 'P4\MasterTheme\ud_get_stateless_media' */
         $this->stateless = ud_get_stateless_media();
@@ -544,8 +550,21 @@ class MediaReplacer
      *
      * @param string $message The success message.
      */
-    private function success_handler(string $message): void
+    private function success_handler(string $message, string $file_name): void
     {
+        $stateless_url = $this->gc_storage_url . $this->bucket_name . "/" . $file_name;
+
+        foreach ($this->cf->purge([$stateless_url]) as [$success, $chunk]) {
+            $msg_part1 = 'Cloudflare purge result: ' . var_export($success, true);
+            $msg_part2 = 'Cloudflare purge chunk: ' . print_r($chunk, true);
+            $message = $msg_part1 . ' | ' . $msg_part2;
+
+            error_log($message);
+
+            if (function_exists('\Sentry\captureMessage')) {
+                \Sentry\captureMessage($message);
+            }
+        }
         array_push($this->replacement_status['success'], $message);
         $this->transient_handler(self::TRANSIENT['file'], $this->replacement_status);
     }
