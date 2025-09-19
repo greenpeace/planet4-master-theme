@@ -38,7 +38,7 @@ class CloudflarePurger
         $integration = new DefaultIntegration($config, $integration_api, $data_store, $logger);
 
         $this->api = new WordPressClientAPI($integration);
-        $this->zone_id = $this->api->getZoneTag(get_option('cloudflare_cached_domain_name'));
+        $this->zone_id = $this->api->getZoneTag('greenpeace.org');
     }
 
     /**
