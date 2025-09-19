@@ -554,6 +554,8 @@ class MediaReplacer
     {
         $stateless_url = $this->gc_storage_url . $this->bucket_name . "/" . $file_name;
 
+        //phpcs:disable Squiz.PHP.DiscouragedFunctions.Discouraged
+        //phpcs:disable SlevomatCodingStandard.ControlStructures.EarlyExit.EarlyExitNotUsed
         foreach ($this->cf->purge([$stateless_url]) as [$success, $chunk]) {
             $msg_part1 = 'Cloudflare purge result: ' . var_export($success, true);
             $msg_part2 = 'Cloudflare purge chunk: ' . print_r($chunk, true);
@@ -565,6 +567,9 @@ class MediaReplacer
                 \Sentry\captureMessage($message);
             }
         }
+        //phpcs:enable Squiz.PHP.DiscouragedFunctions.Discouraged
+        //phpcs:enable SlevomatCodingStandard.ControlStructures.EarlyExit.EarlyExitNotUsed
+
         array_push($this->replacement_status['success'], $message);
         $this->transient_handler(self::TRANSIENT['file'], $this->replacement_status);
     }
