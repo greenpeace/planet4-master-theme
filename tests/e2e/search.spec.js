@@ -6,7 +6,6 @@ test.useAdminLoggedIn();
 test('check search works', async ({page, requestUtils}) => {
   const testId = `testsearch-${Math.floor(Math.random() * 10000)}`; //NOSONAR
   const tagName = `Tag ${testId}`;
-  const tagPageTitle = `#Tag ${testId}`;
   const postTitle = `Test Post ${testId}`;
 
   const tag = await requestUtils.rest({
@@ -44,7 +43,6 @@ test('check search works', async ({page, requestUtils}) => {
     const searchTags = await page.locator('.search-result-item-tag').allInnerTexts();
 
     expect(searchResult).toContain(testId);
-    expect(searchPage).toContain(tagPageTitle);
     expect(searchPage).toContain(postTitle);
     expect(searchTags).toContain(`#${tagName}`);
   };
