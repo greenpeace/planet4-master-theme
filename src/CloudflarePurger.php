@@ -63,7 +63,14 @@ class CloudflarePurger
         }
     }
 
-    public function zone_purge_files($files)
+    /**
+     * Query API to purge given URLs list.
+     * It's similar to the "purge" function, but this one returns the full response, and not only bool + chunk.
+     *
+     * @param string[] $files URLs list.
+     * @return mixed response.
+     */
+    public function zone_purge_files(array $files)
     {
         $request = new Request('DELETE', 'zones/' . $this->zone_id . '/purge_cache', array(), array('files' => $files));
         $response = $this->api->callAPI($request);
