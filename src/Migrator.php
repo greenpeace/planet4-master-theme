@@ -59,6 +59,7 @@ use P4\MasterTheme\Migrations\M055AddDefaultSiteIcon;
 use P4\MasterTheme\Migrations\M056UpdateQuickLinksClassName;
 use P4\MasterTheme\Migrations\M057ActionsListBlockLoadMore;
 use P4\MasterTheme\Migrations\M058ReplaceTagsRedirections;
+use P4\MasterTheme\Migrations\M059AddMissingTypeToButtons;
 
 /**
  * Run any new migration scripts and record results in the log.
@@ -135,6 +136,7 @@ class Migrator
             M056UpdateQuickLinksClassName::class,
             M057ActionsListBlockLoadMore::class,
             M058ReplaceTagsRedirections::class,
+            M059AddMissingTypeToButtons::class,
         ];
 
         // Loop migrations and run those that haven't run yet.
