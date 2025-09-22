@@ -8,7 +8,6 @@ use CF\Integration\DefaultLogger;
 use CF\WordPress\DataStore;
 use CF\WordPress\WordPressAPI;
 use CF\WordPress\WordPressClientAPI;
-use CF\API\Request;
 use Generator;
 
 /**
@@ -38,7 +37,7 @@ class CloudflarePurger
         $integration = new DefaultIntegration($config, $integration_api, $data_store, $logger);
 
         $this->api = new WordPressClientAPI($integration);
-        $this->zone_id = $this->api->getZoneTag('greenpeace.org');
+        $this->zone_id = $this->api->getZoneTag(get_option('cloudflare_cached_domain_name'));
     }
 
     /**
@@ -61,20 +60,6 @@ class CloudflarePurger
                 $chunk,
             ];
         }
-    }
-
-    /**
-     * Query API to purge given URLs list.
-     * It's similar to the "purge" function, but this one returns the full response, and not only bool + chunk.
-     *
-     * @param string[] $files URLs list.
-     * @return mixed response.
-     */
-    public function zone_purge_files(array $files)
-    {
-        $request = new Request('DELETE', 'zones/' . $this->zone_id . '/purge_cache', array(), array('files' => $files));
-        $response = $this->api->callAPI($request);
-        return $response;
     }
 
     /**

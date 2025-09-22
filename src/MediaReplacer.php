@@ -553,17 +553,7 @@ class MediaReplacer
     private function success_handler(string $message, string $file_name): void
     {
         $stateless_url = $this->gc_storage_url . $this->bucket_name . "/" . $file_name;
-        $purge_result = $this->cf->zone_purge_files([$stateless_url]);
-
-        //phpcs:disable Squiz.PHP.DiscouragedFunctions.Discouraged
-        $json_purge_result = json_encode($purge_result, JSON_PRETTY_PRINT);
-
-        error_log('Cloudflare Response: ' . $json_purge_result);
-
-        if (function_exists('\Sentry\captureMessage')) {
-            \Sentry\captureMessage('Cloudflare Response: ' . $json_purge_result);
-        }
-        //phpcs:enable Squiz.PHP.DiscouragedFunctions.Discouraged
+        $this->cf->purge([$stateless_url]);
 
         array_push($this->replacement_status['success'], $message);
         $this->transient_handler(self::TRANSIENT['file'], $this->replacement_status);
