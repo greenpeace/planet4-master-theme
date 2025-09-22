@@ -588,20 +588,21 @@ class MediaReplacer
         }
 
         $purge_result = $this->cf->zone_purge_files([$formated_files]);
-
-        if ($purge_result['success']) {
-            return;
-        }
-
-        //phpcs:disable Squiz.PHP.DiscouragedFunctions.Discouraged
         $json_purge_result = json_encode($purge_result, JSON_PRETTY_PRINT);
 
-        error_log('Cloudflare Response: ' . $json_purge_result);
+        if ($purge_result['success']) {
+            if (function_exists('\Sentry\captureMessage')) {
+                \Sentry\captureMessage($this->user_messages['cf_success'] . ' : ' . $json_purge_result);
+            }
+        } else {
+            //phpcs:disable Squiz.PHP.DiscouragedFunctions.Discouraged
+            error_log($this->user_messages['cf_error'] . ' : ' . $json_purge_result);
 
-        if (function_exists('\Sentry\captureMessage')) {
-            \Sentry\captureMessage('Cloudflare Response: ' . $json_purge_result);
+            if (function_exists('\Sentry\captureMessage')) {
+                \Sentry\captureMessage($this->user_messages['cf_error'] . ' : ' . $json_purge_result);
+            }
+            //phpcs:enable Squiz.PHP.DiscouragedFunctions.Discouraged
         }
-        //phpcs:enable Squiz.PHP.DiscouragedFunctions.Discouraged
     }
 
     /**
