@@ -329,15 +329,14 @@ class MediaReplacer
             call_user_func($image_data['save'], $image, $temporary_file_path);
 
             // Replace the main image.
-            $main_img_replacement_status = $this->upload_file(
+            $status = $this->upload_file(
                 $old_image_meta['name'],
                 $temporary_file_path,
                 $image_data['mime'],
                 $metadata
             );
 
-            // Replace all the thumbnails.
-            $replacement_status = $this->upload_thumbnails(
+            $this->upload_thumbnails(
                 $id,
                 $image,
                 $new_image_width,
@@ -348,24 +347,13 @@ class MediaReplacer
                 $old_image_extension
             );
 
-            // Combine the status.
-            array_push(
-                $replacement_status,
-                ['file' => $old_image_meta['name'], 'status' => $main_img_replacement_status]
-            );
-
             // Free memory
             imagedestroy($image);
 
-            foreach ($replacement_status as $status) {
-                if ($status) {
-                    array_push($this->replacement_status['success'], $status['file']);
-                } else {
-                    array_push($this->replacement_status['error'], $status['file']);
-                }
+            if (!$status) {
+                throw new \LogicException($this->user_messages['error']);
             }
 
-            $this->purge_files_cache();
             wp_send_json_success();
         } catch (\LogicException $e) {
             $this->error_handler($e->getMessage());
@@ -393,9 +381,7 @@ class MediaReplacer
         string $image_name,
         array $image_data,
         string $old_image_extension
-    ): array {
-        $status_array = [];
-
+    ): void {
         // Handle image thumbnails.
         foreach ($old_image_meta['sizes'] as $size => $old_image_data) {
             $old_image_width = (int) ($old_image_data['width']);
@@ -436,10 +422,8 @@ class MediaReplacer
             call_user_func($image_data['save'], $thumb, $temporary_file_path);
 
             // Replace thumbnail in Google Cloud Storage.
-            $filename = $image_name . '-' . $old_image_width . 'x' . $old_image_height . '.' . $old_image_extension;
-
-            $status = $this->upload_file(
-                $filename,
+            $this->upload_file(
+                $image_name . '-' . $old_image_width . 'x' . $old_image_height . '.' . $old_image_extension,
                 $temporary_file_path,
                 $image_data['mime'],
                 $metadata
@@ -447,10 +431,7 @@ class MediaReplacer
 
             // Free memory
             imagedestroy($thumb);
-
-            array_push($status_array, ['file' => $filename, 'status' => $status]);
         }
-        return $status_array;
     }
 
     /**
@@ -569,40 +550,23 @@ class MediaReplacer
      *
      * @param string $message The success message.
      */
-    private function success_handler(string $message): void
+    private function success_handler(string $message, string $file_name): void
     {
-        array_push($this->replacement_status['success'], $message);
-        $this->transient_handler(self::TRANSIENT['file'], $this->replacement_status);
-    }
+        $stateless_url = $this->gc_storage_url . $this->bucket_name . "/" . $file_name;
+        $purge_result = $this->cf->zone_purge_files([$stateless_url]);
 
-    /**
-     * Purges Cloudflare's cache for files that were succesfully replaced.
-     */
-    private function purge_files_cache(): void
-    {
-        $formated_files = [];
-
-        foreach ($this->replacement_status['success'] as $file) {
-            $stateless_url = $this->gc_storage_url . $this->bucket_name . "/" . $file;
-            array_push($formated_files, $stateless_url);
-        }
-
-        $purge_result = $this->cf->zone_purge_files([$formated_files]);
+        //phpcs:disable Squiz.PHP.DiscouragedFunctions.Discouraged
         $json_purge_result = json_encode($purge_result, JSON_PRETTY_PRINT);
 
-        if ($purge_result['success']) {
-            if (function_exists('\Sentry\captureMessage')) {
-                \Sentry\captureMessage($this->user_messages['cf_success'] . ' : ' . $json_purge_result);
-            }
-        } else {
-            //phpcs:disable Squiz.PHP.DiscouragedFunctions.Discouraged
-            error_log($this->user_messages['cf_error'] . ' : ' . $json_purge_result);
+        error_log('Cloudflare Response: ' . $json_purge_result);
 
-            if (function_exists('\Sentry\captureMessage')) {
-                \Sentry\captureMessage($this->user_messages['cf_error'] . ' : ' . $json_purge_result);
-            }
-            //phpcs:enable Squiz.PHP.DiscouragedFunctions.Discouraged
+        if (function_exists('\Sentry\captureMessage')) {
+            \Sentry\captureMessage('Cloudflare Response: ' . $json_purge_result);
         }
+        //phpcs:enable Squiz.PHP.DiscouragedFunctions.Discouraged
+
+        array_push($this->replacement_status['success'], $message);
+        $this->transient_handler(self::TRANSIENT['file'], $this->replacement_status);
     }
 
     /**
