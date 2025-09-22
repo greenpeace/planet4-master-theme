@@ -95,7 +95,10 @@ class QueryLoopExtension
         }
 
         // If the Manual Override is not used, remove the current post from the query:
-        if (empty($params['postIn']) && !empty($query['post__in']) && !empty($params['exclude'])) {
+        if (
+            empty($params['postIn']) && isset($query['post__in']) &&
+            !empty($query['post__in']) && !empty($params['exclude'])
+        ) {
             $exclude = array_map('intval', (array) $params['exclude']);
             $query['post__in'] = array_values(array_diff($query['post__in'], $exclude));
         }
