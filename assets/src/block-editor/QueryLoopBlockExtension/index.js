@@ -213,6 +213,12 @@ export const setupQueryLoopBlockExtension = () => {
           wp.data.select('core/block-editor').getSelectedBlock(),
         ]);
 
+        // Set the max length of items for the Manual Override feature based on the layout.
+        const maxLength = useMemo(
+          () => { return (attributes.layout.type === 'flex') ? 12 : 100; },
+          [attributes.layout.type]
+        );
+
         return useMemo(() => (
           <>
             <InspectorControls>
@@ -239,7 +245,7 @@ export const setupQueryLoopBlockExtension = () => {
                     postType={query.postType || 'post'}
                     postParent={query?.postParent || null}
                     placeholder={__('Select articles', 'planet4-blocks-backend')}
-                    maxLength={10}
+                    maxLength={maxLength}
                     maxSuggestions={20}
                   />
                 </PanelBody>
