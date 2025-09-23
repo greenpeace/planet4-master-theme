@@ -37,6 +37,19 @@ export const Lightbox = ({index = 0, isOpen, items, onClose = () => {}}) => {
       photoSwipeOptions
     );
 
+    const getData = (i, galleryItem) => {
+      if (!galleryItem.w || !galleryItem.h) {
+        const img = new Image();
+        img.onload = function () {
+          galleryItem.w = this.width;
+          galleryItem.h = this.height;
+          photoSwipe.updateSize(true);
+        };
+        img.src = galleryItem.src;
+      }
+    };
+
+    photoSwipe.listen('gettingData', getData);
     photoSwipe.listen('destroy', onClose);
     photoSwipe.listen('close', onClose);
     photoSwipe.listen('afterChange', () => setCurrentIndex(photoSwipe.getCurrentIndex()));
@@ -44,7 +57,9 @@ export const Lightbox = ({index = 0, isOpen, items, onClose = () => {}}) => {
     photoSwipe.init();
 
     return () => {
-      photoSwipe.destroy();
+      if (photoSwipe && photoSwipe._listeners) {
+        photoSwipe.destroy();
+      }
     };
   }, [isOpen, items, photoSwipeOptions, onClose]);
 
