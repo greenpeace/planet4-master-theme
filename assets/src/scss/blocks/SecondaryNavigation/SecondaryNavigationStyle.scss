@@ -1,0 +1,314 @@
+.secondary-navigation-block {
+  margin-left: calc(-50vw + 50%);
+  width: 100vw;
+  height: 65px;
+  padding: 10px;
+  background: var(--p4-dark-green-800);
+  position: relative;
+
+  @include medium-and-less {
+    > .container {
+      max-width: 100%;
+    }
+
+    position: absolute;
+    left: 0;
+    height: 0;
+    padding: 0;
+    overflow: hidden;
+    transition: height 0.3s linear;
+  }
+
+  .EmptyMessage {
+    text-align: center;
+  }
+}
+
+[data-render="planet4-blocks/secondary-navigation"] {
+  z-index: 999;
+  position: sticky;
+  top: 50px;
+
+  body.admin-bar & {
+    top: 84px !important;
+  }
+
+  @include medium-and-less {
+    top: 60px;
+
+    body.admin-bar & {
+      top: 92px !important;
+    }
+
+    body.stuck-open & {
+      top: 110px !important;
+    }
+
+    body.admin-bar.stuck-open & {
+      top: 141px !important;
+    }
+  }
+
+  // Override for mobile where #wpadminbar is taller
+  @media screen and (max-width: 782px) {
+    body.admin-bar & {
+      top: 106px !important;
+    }
+
+    body.admin-bar.stuck-open & {
+      top: 156px !important;
+    }
+  }
+}
+
+.secondary-navigation-menu {
+  position: relative;
+
+  .nav-arrow {
+    position: absolute;
+    top: 15px;
+    background: none;
+    border: none;
+    color: var(--white);
+    font-size: var(--font-size-m--font-family-primary);
+
+    @include large-and-less {
+      top: 10px;
+    }
+  }
+}
+
+.nav-arrow.left,
+.nav-arrow.right {
+  background-image: none;
+  mask-image: url("../../images/chevron.svg");
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  background-color: var(--white);
+  height: 15px;
+  width: 15px;
+}
+
+.nav-arrow.left {
+  left: -20px;
+  transform: rotate(180deg);
+
+  @include large-and-less {
+    left: -15px;
+  }
+}
+
+.nav-arrow.right {
+  right: -20px;
+
+  @include large-and-less {
+    right: -15px;
+  }
+}
+
+.secondary-nav-scroll-wrapper {
+  @include large-and-up {
+    mask-image: linear-gradient(to right, transparent 0, black 30px, black calc(100% - 30px), transparent 100%);
+    mask-repeat: no-repeat;
+    mask-size: 100% 100%;
+  }
+}
+
+.secondary-navigation-block.show {
+  height: auto;
+  background: var(--white);
+  border-bottom: 0 transparent;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+  transition: height 0.3s linear;
+  max-height: 400px;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+}
+
+.secondary-nav-dropdown {
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1.5rem;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  background: var(--p4-dark-green-800);
+  margin-bottom: -$sp-1;
+  cursor: pointer;
+
+  @include large-and-up {
+    display: none;
+  }
+
+  &:focus,
+  &:focus-within,
+  &:focus-visible {
+    @include focus-styles;
+  }
+}
+
+.dropdown-btn {
+  mask-image: url("../../images/chevron.svg");
+  height: 16px;
+  width: 18px;
+  mask-repeat: no-repeat;
+  mask-size: contain;
+  mask-position: center;
+  background-repeat: no-repeat;
+  background-color: var(--white);
+  margin-inline-start: auto;
+  transform: rotate(90deg);
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.dropdown-btn.active {
+  transform: rotate(-90deg);
+}
+
+.secondary-navigation-items {
+  list-style: none;
+  display: flex;
+  overflow-x: auto;
+  padding-inline-start: $sp-3;
+  gap: $sp-6;
+  scrollbar-width: none;
+  margin-top: 2px;
+  padding-inline-end: $sp-3;
+
+  @include large-and-less {
+    margin-top: $sp-x;
+  }
+
+  li {
+    padding: $sp-x;
+    flex-shrink: 0;
+    text-align: center;
+    cursor: pointer;
+    scroll-snap-align: start;
+
+    a {
+      display: inline-block;
+      padding-bottom: 3px;
+      color: inherit;
+
+      &.active {
+        border-bottom: 3px solid var(--gp-green-400);
+        color: var(--white) !important;
+
+        &:hover {
+          text-decoration: none;
+        }
+      }
+
+      &:hover {
+        text-decoration: none;
+        color: var(--white) !important;
+        border-bottom: 3px solid var(--gp-green-400);
+      }
+    }
+  }
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  @include medium-and-less {
+    flex-direction: column;
+    height: auto;
+    overflow: hidden;
+    margin: auto;
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    padding: 1.5rem;
+
+    li {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      height: 100%;
+      position: relative;
+      margin-bottom: -$sp-2;
+
+      &:not(:first-child) {
+        margin-top: -$sp-2x;
+      }
+
+      a {
+        &.active {
+          color: var(--grey-900) !important;
+          font-weight: var(--font-weight-bold);
+
+          &:hover {
+            border-bottom: 3px solid var(--gp-green-400);
+          }
+        }
+
+        &:hover {
+          text-decoration: none;
+          color: var(--grey-900) !important;
+          border-bottom: none;
+        }
+      }
+    }
+
+    li:first-child {
+      margin-top: -$sp-2;
+    }
+  }
+}
+
+.secondary-navigation-link,
+.current-active-class {
+  color: var(--grey-300) !important;
+  font-weight: var(--font-weight-semibold);
+  font-family: var(--font-family-tertiary);
+  font-size: var(--font-size-m--font-family-tertiary);
+  line-height: var(--line-height-s--font-family-tertiary);
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.secondary-navigation-link {
+  @include medium-and-less {
+    color: var(--grey-700) !important;
+    font-weight: var(--font-weight-regular);
+    font-size: var(--font-size-s--font-family-tertiary);
+  }
+}
+
+.current-active-class {
+  color: var(--white) !important;
+  font-size: var(--font-size-xxs--font-family-primary);
+}
+
+.current-active-class,
+.dropdown-btn {
+  margin-top: 15px;
+}
+
+.sn-wrapper {
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+
+  html[dir="rtl"] & {
+    margin-left: auto;
+    margin-right: calc(-50vw + 50%);
+  }
+}
+
+.page-content > h2:first-of-type {
+  @include medium-and-less {
+    margin-top: 30px !important;
+  }
+}
+
+body.secondary-nav-class {
+  h2 {
+    scroll-margin-top: 200px;
+  }
+}

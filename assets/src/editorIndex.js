@@ -20,6 +20,7 @@ import {replaceTaxonomyTermSelectors} from './block-editor/replaceTaxonomyTermSe
 import {setupImageBlockExtension} from './block-editor/setupImageBlockExtension';
 import {setupDetailsBlockExtension} from './block-editor/setupDetailsBlockExtension';
 import {setupTaxonomyBreadcrumbBlock} from './block-editor/setupTaxonomyBreadcrumbBlock';
+import {registerSecondaryNavigationBlock} from './blocks/SecondaryNavigation/SecondaryNavigationBlock';
 
 wp.domReady(() => {
   // Blocks
@@ -36,6 +37,11 @@ wp.domReady(() => {
 
   // Block Templates
   registerBlockTemplates();
+
+  // Beta blocks
+  if (window.p4_vars.features.beta_blocks === 'on') {
+    registerSecondaryNavigationBlock();
+  }
 
   // Custom block styles
   registerBlockStyles();
