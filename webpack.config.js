@@ -55,8 +55,6 @@ module.exports = (env, argv) => {
       GalleryEditorScript: './assets/src/blocks/Gallery/GalleryEditorScript.js',
       GalleryStyle: './assets/src/scss/blocks/Gallery/GalleryStyle.scss',
       GalleryEditorStyle: './assets/src/scss/blocks/Gallery/GalleryEditorStyle.scss',
-      GuestBookScript: './assets/src/blocks/GuestBook/GuestBookScript.js',
-      GuestBookEditorScript: './assets/src/blocks/GuestBook/GuestBookEditorScript.js',
       CarouselHeaderScript: './assets/src/blocks/CarouselHeader/CarouselHeaderScript.js',
       CarouselHeaderEditorScript: './assets/src/blocks/CarouselHeader/CarouselHeaderEditorScript.js',
       AccordionScript: './assets/src/blocks/Accordion/AccordionScript.js',

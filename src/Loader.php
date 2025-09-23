@@ -217,7 +217,6 @@ final class Loader
         new Blocks\Cookies();//NOSONAR
         new Blocks\Counter();//NOSONAR
         new Blocks\Gallery();//NOSONAR
-        new Blocks\GuestBook();//NOSONAR
         new Blocks\HappyPoint();//NOSONAR
         new Blocks\SocialMedia();//NOSONAR
         new Blocks\Spreadsheet();//NOSONAR
