@@ -75,6 +75,9 @@ class Search
         }
 
         foreach ($query->query_vars['f'] as $type => $val) {
+            if (!is_array($val)) {
+                continue;
+            }
             switch ($type) {
                 case Filters\Categories::QUERY_ID:
                     Filters\Categories::apply_to_query(array_values($val), $query);
