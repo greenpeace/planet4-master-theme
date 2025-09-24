@@ -1,71 +1,70 @@
 import PhotoSwipe from '../../../../../node_modules/photoswipe/dist/photoswipe.js';
 import PhotoSwipeUI_Default from '../../../../../node_modules/photoswipe/dist/photoswipe-ui-default.js';
 
-const {useEffect, useRef, useState} = wp.element;
+const {useEffect, useRef, useState, useMemo} = wp.element;
 
 // `items` should be an array of object with this shape:
 // [{ src, w, h, title }, ...]
 // See: https://photoswipe.com/documentation/getting-started.html
-export const Lightbox = ({index, isOpen, items, onClose = () => {}}) => {
-  let photoSwipeElement = useRef(null);
+export const Lightbox = ({index = 0, isOpen, items, onClose = () => {}}) => {
+  const photoSwipeElement = useRef(null);
+  const [currentIndex, setCurrentIndex] = useState(index);
 
-  const photoSwipeOptions = {
-    index: index || 0,
+  const photoSwipeOptions = useMemo(() => ({
+    index,
     closeOnScroll: false,
     history: false,
     fullscreenEl: false,
     zoomEl: false,
     shareEl: false,
     counterEl: false,
-  };
-
-  const [currentIndex, setCurrentIndex] = useState(photoSwipeOptions.index);
+  }), [index]);
 
   useEffect(() => {
-    if (!isOpen) {
-      return;
-    }
+    if (!isOpen || !photoSwipeElement.current) {return;}
 
-    const photoSwipe = new PhotoSwipe(photoSwipeElement, PhotoSwipeUI_Default, items, photoSwipeOptions);
+    const preloadItems = items.map(item => ({
+      src: item.originalSrc?.url || item.src,
+      w: item.originalSrc?.width || item.w,
+      h: item.originalSrc?.height || item.h,
+      title: item.title,
+    }));
 
-    // eslint-disable-next-line no-shadow
-    photoSwipe.listen('gettingData', (index, galleryItem) => {
-      if (galleryItem.w < 1 || galleryItem.h < 1) {
-        const imageSizeHandler = new Image();
-        imageSizeHandler.onload = function() {
+    const photoSwipe = new PhotoSwipe(
+      photoSwipeElement.current,
+      PhotoSwipeUI_Default,
+      preloadItems,
+      photoSwipeOptions
+    );
+
+    const getData = (i, galleryItem) => {
+      if (!galleryItem.w || !galleryItem.h) {
+        const img = new Image();
+        img.onload = function () {
           galleryItem.w = this.width;
           galleryItem.h = this.height;
           photoSwipe.updateSize(true);
         };
-        imageSizeHandler.src = galleryItem.src;
+        img.src = galleryItem.src;
       }
-    });
+    };
 
-    photoSwipe.listen('destroy', () => {
-      onClose();
-    });
-
-    photoSwipe.listen('close', () => {
-      onClose();
-    });
-
-    photoSwipe.listen('afterChange', () => {
-      setCurrentIndex(photoSwipe.getCurrentIndex());
-    });
+    photoSwipe.listen('gettingData', getData);
+    photoSwipe.listen('destroy', onClose);
+    photoSwipe.listen('close', onClose);
+    photoSwipe.listen('afterChange', () => setCurrentIndex(photoSwipe.getCurrentIndex()));
 
     photoSwipe.init();
-  }, [items, isOpen, index]);
+
+    return () => {
+      if (photoSwipe && photoSwipe._listeners) {
+        photoSwipe.destroy();
+      }
+    };
+  }, [isOpen, items, photoSwipeOptions, onClose]);
 
   return wp.element.createPortal(
-    <div
-      className="pswp"
-      tabIndex="-1"
-      role="dialog"
-      aria-hidden="true"
-      ref={node => {
-        photoSwipeElement = node;
-      }}
-    >
+    <div className="pswp" tabIndex="-1" role="dialog" aria-hidden="true" ref={photoSwipeElement}>
       <div className="pswp__bg" />
       <div className="pswp__scroll-wrap">
         <div className="pswp__container">
