@@ -103,6 +103,7 @@ final class Loader
             CommentFormCustomizer::class,
             CronJob::class,
             DashboardNotice::class,
+            CloudflareTurnstileHandler::class,
         ];
 
         if (is_admin()) {
