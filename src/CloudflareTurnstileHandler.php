@@ -10,6 +10,13 @@ class CloudflareTurnstileHandler
 
     public function __construct()
     {
+        $features = get_option('planet4_features');
+        $use_turnstile = isset($features['cloudflare_turnstile']) ? $features['cloudflare_turnstile'] : null;
+
+        if ("on" !== $use_turnstile) {
+            return;
+        }
+
         // if (!defined('TURNSTILE_SECRET_KEY') || !defined ('TURNSTILE_SITE_KEY')) {
         //     return;
         // }
