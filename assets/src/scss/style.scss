@@ -97,7 +97,7 @@ Text Domain: planet4-master-theme
 
 // Override Navbar styles for Homepage only
 body.transparent-nav {
-  @include large-and-up {
+  @include x-large-and-up {
     .page-content {
       padding-top: 0;
     }
