@@ -6,12 +6,25 @@ document.addEventListener('DOMContentLoaded', () => {
     return;
   }
 
+  let turnstileValid = false;
+
   const toggleSubmit = () => {
     const isChecked = checkbox.checked;
-    submit.disabled = !isChecked;
-    submit.setAttribute('aria-disabled', !isChecked);
+    const enabled = isChecked && turnstileValid;
+
+    submit.disabled = !enabled;
+    submit.setAttribute('aria-disabled', !enabled);
   };
 
+  // Handle GDPR checkbox
   checkbox.addEventListener('change', toggleSubmit);
+
+  // Expose callback for Turnstile (called from PHP inline script)
+  window.ToggleCommentSubmit = function(isValid) {
+    turnstileValid = isValid;
+    toggleSubmit();
+  };
+
+  // Run once on page load
   toggleSubmit();
 });
