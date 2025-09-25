@@ -108,6 +108,10 @@ if (! empty($take_action_page) && ! has_block('planet4-blocks/take-action-boxout
 }
 
 // Build an arguments array to customize WordPress comment form.
+
+$features = get_option('planet4_features');
+$use_turnstile = isset($features['cloudflare_turnstile']) ? $features['cloudflare_turnstile'] : null;
+
 $comments_args = [
     'comment_notes_before' => '',
     'comment_notes_after' => '',
@@ -121,7 +125,7 @@ $comments_args = [
                 'I agree on providing my name, email and content so that my comment can be stored and displayed in the website.',
                 'planet4-master-theme'
             ),
-            'turnstile_site_key' => defined('TURNSTILE_SITE_KEY') ? TURNSTILE_SITE_KEY : null,
+            'turnstile_site_key' => ("on" !== $use_turnstile || !defined('TURNSTILE_SITE_KEY')) ? null : TURNSTILE_SITE_KEY,
         ]
     ),
     'title_reply' => __('Leave your reply', 'planet4-master-theme'),
