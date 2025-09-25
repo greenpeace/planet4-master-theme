@@ -19,6 +19,8 @@ document.addEventListener('DOMContentLoaded', () => {
     };
   }
 
+  let turnstileValid = false;
+
   const toggleSubmit = () => {
     const isChecked = checkbox.checked;
     const enabled = isChecked && turnstileValid;
@@ -27,6 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
     submit.setAttribute('aria-disabled', !enabled);
   };
 
+  // Handle GDPR checkbox
   checkbox.addEventListener('change', toggleSubmit);
 
   toggleSubmit();
