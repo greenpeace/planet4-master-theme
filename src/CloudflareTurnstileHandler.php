@@ -58,7 +58,13 @@ class CloudflareTurnstileHandler
     public function render_widget(): void
     {
         ?>
-        <div class="cf-turnstile" data-sitekey="<?php echo TURNSTILE_SITE_KEY; ?>"></div>
+        <div
+            class="cf-turnstile"
+            data-sitekey="<?php echo TURNSTILE_SITE_KEY; ?>"
+            data-size="compact"
+            data-theme="light"
+        >
+        </div>
         <?php
     }
 
