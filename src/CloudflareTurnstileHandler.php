@@ -22,18 +22,12 @@ class CloudflareTurnstileHandler
         $features = get_option('planet4_features');
         $use_turnstile = isset($features['cloudflare_turnstile']) ? $features['cloudflare_turnstile'] : null;
 
-        if ("on" !== $use_turnstile) {
-            return;
-        }
-
-        if (!defined('TURNSTILE_SECRET_KEY') || !defined('TURNSTILE_SITE_KEY')) {
+        if ("on" !== $use_turnstile || !defined('TURNSTILE_SECRET_KEY')) {
             return;
         }
 
         add_action('wp_enqueue_scripts', [$this, 'enqueue_scripts']);
         add_filter('preprocess_comment', [$this, 'validate_token']);
-        add_action('comment_form_after_fields', [$this, 'render_widget']);
-        add_action('comment_form_logged_in_after', [$this, 'render_widget']);
     }
 
     /**
@@ -61,25 +55,11 @@ class CloudflareTurnstileHandler
     }
 
     /**
-     * Renders the Turnstile widget inside the comment form.
-     * @link https://developers.cloudflare.com/turnstile/get-started/client-side-rendering/#2-add-widget-elements
-     */
-    public function render_widget(): void
-    {
-        ?>
-        <div
-            class="cf-turnstile"
-            data-sitekey="<?php echo TURNSTILE_SITE_KEY; ?>"
-            data-theme="light"
-            data-callback="onSuccess">
-        </div>
-        <?php
-    }
-
-    /**
      * Validates the submitted Turnstile token during comment submission.
      * If validation fails, logs the error via Sentry if available.
+     *
      * @link https://developers.cloudflare.com/turnstile/get-started/server-side-validation/#basic-validation-examples
+     * @link https://developers.cloudflare.com/turnstile/get-started/server-side-validation/#error-codes
      */
     public function validate_token(array $commentdata): mixed
     {
