@@ -49,6 +49,15 @@ class CloudflareTurnstileHandler
             null,
             true
         );
+        wp_add_inline_script(
+            'toggle-comment-submit-script',
+            'function onSuccess(token) {
+                if (window.ToggleCommentSubmit) {
+                    window.ToggleCommentSubmit(true);
+                }
+            }',
+            'before'
+        );
     }
 
     /**
@@ -61,9 +70,8 @@ class CloudflareTurnstileHandler
         <div
             class="cf-turnstile"
             data-sitekey="<?php echo TURNSTILE_SITE_KEY; ?>"
-            data-size="compact"
             data-theme="light"
-        >
+            data-callback="onSuccess">
         </div>
         <?php
     }
