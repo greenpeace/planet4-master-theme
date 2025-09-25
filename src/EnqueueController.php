@@ -40,7 +40,7 @@ class EnqueueController
         $this->enqueue_script(
             'toggle-comment-submit-script',
             '/assets/build/toggleCommentSubmit.js',
-            [],
+            ['turnstile'],
             $this->get_file_version('/assets/build/toggleCommentSubmit.js'),
             true
         );
