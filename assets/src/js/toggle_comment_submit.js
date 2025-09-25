@@ -1,3 +1,7 @@
+/**
+ * Handles enabling/disabling the comment form submit button
+ * based on GDPR checkbox state and Cloudflare Turnstile validation.
+ */
 document.addEventListener('DOMContentLoaded', () => {
   const checkbox = document.querySelector('#gdpr-comments-checkbox');
   const submit = document.querySelector('#commentform button[type="submit"]');
@@ -16,15 +20,12 @@ document.addEventListener('DOMContentLoaded', () => {
     submit.setAttribute('aria-disabled', !enabled);
   };
 
-  // Handle GDPR checkbox
   checkbox.addEventListener('change', toggleSubmit);
 
-  // Expose callback for Turnstile (called from PHP inline script)
   window.ToggleCommentSubmit = function(isValid) {
     turnstileValid = isValid;
     toggleSubmit();
   };
 
-  // Run once on page load
   toggleSubmit();
 });
