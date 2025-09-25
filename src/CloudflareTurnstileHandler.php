@@ -26,7 +26,7 @@ class CloudflareTurnstileHandler
             return;
         }
 
-        if (!defined('TURNSTILE_SECRET_KEY') || !defined ('TURNSTILE_SITE_KEY')) {
+        if (!defined('TURNSTILE_SECRET_KEY') || !defined('TURNSTILE_SITE_KEY')) {
             return;
         }
 
@@ -39,9 +39,9 @@ class CloudflareTurnstileHandler
     /**
      * Enqueues the Cloudflare Turnstile client-side script.
      * @link https://developers.cloudflare.com/turnstile/get-started/client-side-rendering/#1-add-the-turnstile-script
-     * @return void
      */
-    public function enqueue_scripts() {
+    public function enqueue_scripts(): void
+    {
         wp_enqueue_script(
             'turnstile',
             self::API_URL,
@@ -54,11 +54,11 @@ class CloudflareTurnstileHandler
     /**
      * Renders the Turnstile widget inside the comment form.
      * @link https://developers.cloudflare.com/turnstile/get-started/client-side-rendering/#2-add-widget-elements
-     * @return void
      */
-    public function render_widget() {
+    public function render_widget(): void
+    {
         ?>
-        <div class="cf-turnstile" data-sitekey="<?php echo "TURNSTILE_SITE_KEY"; ?>"></div>
+        <div class="cf-turnstile" data-sitekey="<?php echo TURNSTILE_SITE_KEY; ?>"></div>
         <?php
     }
 
@@ -66,9 +66,8 @@ class CloudflareTurnstileHandler
      * Validates the submitted Turnstile token during comment submission.
      * If validation fails, logs the error via Sentry if available.
      * @link https://developers.cloudflare.com/turnstile/get-started/server-side-validation/#basic-validation-examples
-     * @return void
      */
-    public function validate_token()
+    public function validate_token(): void
     {
         if (!isset($_POST['cf-turnstile-response'])) {
             return;
@@ -80,14 +79,18 @@ class CloudflareTurnstileHandler
 
         $validation = $this->validate_turnstile($token, $secret_key, $remoteip);
 
-        if (!$validation['success']) {
-            $errors = $validation['error-codes'] ?? ['unknown-error'];
-            $msg    = 'Turnstile validation failed: ' . implode(', ', $errors);
-
-            if (function_exists('\Sentry\captureMessage')) {
-                \Sentry\captureMessage($msg);
-            }
+        if ($validation['success']) {
+            return;
         }
+
+        $errors = $validation['error-codes'] ?? ['unknown-error'];
+        $msg = 'Turnstile validation failed: ' . implode(', ', $errors);
+
+        if (!function_exists('\Sentry\captureMessage')) {
+            return;
+        }
+
+        \Sentry\captureMessage($msg);
     }
 
     /**
@@ -99,11 +102,11 @@ class CloudflareTurnstileHandler
      * @link https://developers.cloudflare.com/turnstile/get-started/server-side-validation/#basic-validation-examples
      * @return array<string,mixed> The decoded JSON response from the API.
      */
-    private function validate_turnstile($token, $secret, $remoteip = null)
+    private function validate_turnstile(string $token, string $secret, ?string $remoteip = null): array
     {
         $data = [
             'secret' => $secret,
-            'response' => $token
+            'response' => $token,
         ];
 
         if ($remoteip) {
@@ -114,14 +117,14 @@ class CloudflareTurnstileHandler
             'http' => [
                 'header' => "Content-type: application/x-www-form-urlencoded\r\n",
                 'method' => 'POST',
-                'content' => http_build_query($data)
-            ]
+                'content' => http_build_query($data),
+            ],
         ];
 
         $context = stream_context_create($options);
         $response = file_get_contents(self::SITE_VERIFY_URL, false, $context);
 
-        if ($response === FALSE) {
+        if ($response === false) {
             return ['success' => false, 'error-codes' => ['internal-error']];
         }
 
