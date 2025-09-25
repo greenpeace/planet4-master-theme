@@ -121,6 +121,7 @@ $comments_args = [
                 'I agree on providing my name, email and content so that my comment can be stored and displayed in the website.',
                 'planet4-master-theme'
             ),
+            'turnstile_site_key' => defined('TURNSTILE_SITE_KEY') ? TURNSTILE_SITE_KEY : null,
         ]
     ),
     'title_reply' => __('Leave your reply', 'planet4-master-theme'),
