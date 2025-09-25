@@ -29,7 +29,6 @@ document.addEventListener('DOMContentLoaded', () => {
     submit.setAttribute('aria-disabled', !enabled);
   };
 
-  // Handle GDPR checkbox
   checkbox.addEventListener('change', toggleSubmit);
 
   toggleSubmit();
