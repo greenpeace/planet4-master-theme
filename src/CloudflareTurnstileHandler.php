@@ -81,7 +81,7 @@ class CloudflareTurnstileHandler
      * If validation fails, logs the error via Sentry if available.
      * @link https://developers.cloudflare.com/turnstile/get-started/server-side-validation/#basic-validation-examples
      */
-    public function validate_token(): void
+    public function validate_token(array $commentdata): mixed
     {
         if (empty($_POST['cf-turnstile-response'])) {
             wp_die(__('Error: Please complete the captcha.', 'planet4-master-theme-backend'));
@@ -94,7 +94,7 @@ class CloudflareTurnstileHandler
         $validation = $this->validate_turnstile($token, $secret_key, $remoteip);
 
         if ($validation['success']) {
-            return;
+            return $commentdata;
         }
 
         $errors = $validation['error-codes'] ?? ['unknown-error'];
@@ -105,6 +105,7 @@ class CloudflareTurnstileHandler
         }
 
         wp_die(__('Error: Captcha verification failed. Please try again.', 'planet4-master-theme-backend'));
+        return false;
     }
 
     /**
