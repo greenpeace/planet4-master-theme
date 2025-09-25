@@ -6,11 +6,18 @@ document.addEventListener('DOMContentLoaded', () => {
   const checkbox = document.querySelector('#gdpr-comments-checkbox');
   const submit = document.querySelector('#commentform button[type="submit"]');
 
-  if (!checkbox || !submit) {
-    return;
-  }
+  if (!checkbox || !submit) {return;}
 
-  let turnstileValid = false;
+  const turnstile = document.querySelector('.cf-turnstile');
+  let turnstileValid = true;
+
+  if (turnstile) {
+    turnstileValid = false;
+    window.ToggleCommentSubmit = function(isValid) {
+      turnstileValid = isValid;
+      toggleSubmit();
+    };
+  }
 
   const toggleSubmit = () => {
     const isChecked = checkbox.checked;
@@ -21,11 +28,6 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   checkbox.addEventListener('change', toggleSubmit);
-
-  window.ToggleCommentSubmit = function(isValid) {
-    turnstileValid = isValid;
-    toggleSubmit();
-  };
 
   toggleSubmit();
 });

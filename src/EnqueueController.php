@@ -37,10 +37,12 @@ class EnqueueController
      */
     public function enqueue_toggle_comment_submit(): void
     {
+        $deps = wp_script_is('turnstile', 'enqueued') ? ['turnstile'] : [];
+
         $this->enqueue_script(
             'toggle-comment-submit-script',
             '/assets/build/toggleCommentSubmit.js',
-            ['turnstile'],
+            $deps,
             $this->get_file_version('/assets/build/toggleCommentSubmit.js'),
             true
         );
