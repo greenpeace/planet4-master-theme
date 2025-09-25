@@ -75,8 +75,8 @@ class CloudflareTurnstileHandler
      */
     public function validate_token(): void
     {
-        if (!isset($_POST['cf-turnstile-response'])) {
-            return;
+        if (empty($_POST['cf-turnstile-response'])) {
+            wp_die(__('Error: Please complete the captcha.', 'planet4-master-theme-backend'));
         }
 
         $secret_key = TURNSTILE_SECRET_KEY;
@@ -92,11 +92,11 @@ class CloudflareTurnstileHandler
         $errors = $validation['error-codes'] ?? ['unknown-error'];
         $msg = 'Turnstile validation failed: ' . implode(', ', $errors);
 
-        if (!function_exists('\Sentry\captureMessage')) {
-            return;
+        if (function_exists('\Sentry\captureMessage')) {
+            \Sentry\captureMessage($msg);
         }
 
-        \Sentry\captureMessage($msg);
+        wp_die(__('Error: Captcha verification failed. Please try again.', 'planet4-master-theme-backend'));
     }
 
     /**
@@ -110,30 +110,26 @@ class CloudflareTurnstileHandler
      */
     private function validate_turnstile(string $token, string $secret, ?string $remoteip = null): array
     {
-        $data = [
+        $body = [
             'secret' => $secret,
             'response' => $token,
         ];
 
         if ($remoteip) {
-            $data['remoteip'] = $remoteip;
+            $body['remoteip'] = $remoteip;
         }
 
-        $options = [
-            'http' => [
-                'header' => "Content-type: application/x-www-form-urlencoded\r\n",
-                'method' => 'POST',
-                'content' => http_build_query($data),
-            ],
-        ];
+        $response = wp_remote_post(self::SITE_VERIFY_URL, [
+            'body' => $body,
+            'timeout' => 10,
+        ]);
 
-        $context = stream_context_create($options);
-        $response = file_get_contents(self::SITE_VERIFY_URL, false, $context);
-
-        if ($response === false) {
+        if (is_wp_error($response)) {
             return ['success' => false, 'error-codes' => ['internal-error']];
         }
 
-        return json_decode($response, true);
+        $json = json_decode(wp_remote_retrieve_body($response), true);
+
+        return is_array($json) ? $json : ['success' => false, 'error-codes' => ['invalid-json']];
     }
 }
