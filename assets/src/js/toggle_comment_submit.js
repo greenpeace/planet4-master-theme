@@ -19,7 +19,16 @@ document.addEventListener('DOMContentLoaded', () => {
     };
   }
 
-  let turnstileValid = false;
+  const turnstile = document.querySelector('.cf-turnstile');
+  let turnstileValid = true;
+
+  if (turnstile) {
+    turnstileValid = false;
+    window.ToggleCommentSubmit = function(isValid) {
+      turnstileValid = isValid;
+      toggleSubmit();
+    };
+  }
 
   const toggleSubmit = () => {
     const isChecked = checkbox.checked;
