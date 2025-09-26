@@ -76,3 +76,8 @@
     font-weight: bold;
   }
 }
+
+/* Temporarily hide ElasticPress version mismatch notice */
+[data-ep-notice] {
+  display: none !important;
+}
