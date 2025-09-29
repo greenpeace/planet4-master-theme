@@ -111,7 +111,7 @@ if (! empty($take_action_page) && ! has_block('planet4-blocks/take-action-boxout
 
 $features = get_option('planet4_features');
 $use_turnstile = isset($features['cloudflare_turnstile']) ? $features['cloudflare_turnstile'] : null;
-$turnstile = ("on" !== $use_turnstile || !defined('TURNSTILE_SITE_KEY')) ? null : TURNSTILE_SITE_KEY;
+$turnstile = ("on" === $use_turnstile && defined('TURNSTILE_SITE_KEY')) ? TURNSTILE_SITE_KEY : null;
 
 $comments_args = [
     'comment_notes_before' => '',
