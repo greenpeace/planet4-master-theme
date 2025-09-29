@@ -7,6 +7,7 @@
   "scripts": {
     "start": "wp-scripts start --config webpack.config.js --mode=development",
     "build": "wp-scripts build --config webpack.config.js --mode=production",
+    "analyze": "wp-scripts build --config webpack.config.js --mode=production --env analyze",
     "lint:css": "npx stylelint 'assets/src/scss/**/*.scss'",
     "lint:js": "npx eslint 'assets/src/**/*.js' 'tests/e2e/**/*.js' 'admin/js/**/*.js'",
     "lint": "npm run lint:js && npm run lint:css",

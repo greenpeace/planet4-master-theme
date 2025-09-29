@@ -17,6 +17,7 @@ const mediaQueryAliases = {
 
 module.exports = (env, argv) => {
   const isProduction = argv.mode === 'production';
+  const analyze = env && env.analyze;
 
   return {
     //stats: 'verbose',
@@ -156,13 +157,15 @@ module.exports = (env, argv) => {
       new SpriteLoaderPlugin({
         plainSprite: true,
       }),
-      new BundleAnalyzerPlugin(
-        {
-          analyzerMode: 'server',
-          analyzerPort: 8888,
-          openAnalyzer: true,
-        }
-      ),
+      ...(analyze ?
+        [
+          new BundleAnalyzerPlugin({
+            analyzerMode: 'server',
+            analyzerPort: 8888,
+            openAnalyzer: true,
+          }),
+        ] :
+        []),
     ],
     optimization: {
       concatenateModules: isProduction,
