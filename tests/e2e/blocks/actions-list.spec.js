@@ -2,21 +2,21 @@ import {test, expect} from '../tools/lib/test-utils.js';
 import {publishPostAndVisit, createPostWithFeaturedImage} from '../tools/lib/post.js';
 import {searchAndInsertBlock} from '../tools/lib/editor';
 
-const TEST_TITLE = 'Related Stories';
+const TEST_TITLE = 'Campaigns';
 const TEST_CATEGORY = 'Energy';
 
 test.useAdminLoggedIn();
 
-test.describe('Test Posts List block', () => {
+test.describe('Test Actions List block', () => {
   // This is the default layout, so we don't need to select it manually.
-  test('Test the List layout', async ({page, admin, editor}) => {
-    await createPostWithFeaturedImage({page, admin, editor}, {title: 'Test Posts List List Layout', postType: 'page'});
+  test('Test the Grid layout', async ({page, admin, editor}) => {
+    await createPostWithFeaturedImage({page, admin, editor}, {title: 'Test Actions List Grid Layout', postType: 'page'});
 
-    // Add Posts List block.
-    await searchAndInsertBlock({page}, 'Posts List');
+    // Add Actions List block.
+    await searchAndInsertBlock({page}, 'Actions List');
 
-    // Change amount of posts from 3 to 4.
-    await page.getByRole('spinbutton', {name: 'Items per page'}).fill('4');
+    // Set Actions per page to 2.
+    await page.getByRole('spinbutton', {name: 'Items per page'}).fill('2');
 
     // Filter by "Energy" category.
     const editorSettings = page.getByRole('region', {name: 'Editor settings'});
@@ -38,9 +38,9 @@ test.describe('Test Posts List block', () => {
 
     // Test that the block is displayed as expected in the frontend.
     const block = page.locator('.p4-query-loop');
-    await expect(block).toHaveClass(/is-custom-layout-list/);
+    await expect(block).toHaveClass(/is-custom-layout-grid/);
     await expect(block.locator('h2.wp-block-heading')).toHaveText(TEST_TITLE);
-    await expect(block.locator('.wp-block-post')).toHaveCount(4);
+    await expect(block.locator('.wp-block-post')).toHaveCount(2);
     for (const category of await block.locator('.taxonomy-category').all()) {
       await expect(category).toHaveText(TEST_CATEGORY);
     }
