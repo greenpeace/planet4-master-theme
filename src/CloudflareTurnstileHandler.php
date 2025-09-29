@@ -32,6 +32,8 @@ class CloudflareTurnstileHandler
 
     /**
      * Enqueues the Cloudflare Turnstile client-side script.
+     * If the user is recognized as a human, enable the form's submit button.
+     *
      * @link https://developers.cloudflare.com/turnstile/get-started/client-side-rendering/#1-add-the-turnstile-script
      */
     public function enqueue_scripts(): void
@@ -46,9 +48,8 @@ class CloudflareTurnstileHandler
         wp_add_inline_script(
             'toggle-comment-submit-script',
             'function onSuccess(token) {
-                if (window.ToggleCommentSubmit) {
-                    window.ToggleCommentSubmit(true);
-                }
+                if (!window.ToggleCommentSubmit) { return; }
+                window.ToggleCommentSubmit(true);
             }',
             'before'
         );
@@ -58,6 +59,7 @@ class CloudflareTurnstileHandler
      * Validates the submitted Turnstile token during comment submission.
      * If validation fails, logs the error via Sentry if available.
      *
+     * @param array $commentdata    Data about the comment sent by a user.
      * @link https://developers.cloudflare.com/turnstile/get-started/server-side-validation/#basic-validation-examples
      * @link https://developers.cloudflare.com/turnstile/get-started/server-side-validation/#error-codes
      */
