@@ -7,6 +7,7 @@
   "scripts": {
     "start": "wp-scripts start --config webpack.config.js --mode=development",
     "build": "wp-scripts build --config webpack.config.js --mode=production",
+    "analyze": "wp-scripts build --config webpack.config.js --mode=production --env analyze",
     "lint:css": "npx stylelint 'assets/src/scss/**/*.scss'",
     "lint:js": "npx eslint 'assets/src/**/*.js' 'tests/e2e/**/*.js' 'admin/js/**/*.js'",
     "lint": "npm run lint:js && npm run lint:css",
@@ -41,6 +42,7 @@
     "svg-sprite-loader": "^6.0.11",
     "terser-webpack-plugin": "^5.3.9",
     "webpack": "^5.95.0",
+    "webpack-bundle-analyzer": "^4.10.2",
     "wp-scripts": "^0.0.1-security"
   },
   "browserslist": [
