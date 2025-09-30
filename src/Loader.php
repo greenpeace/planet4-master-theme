@@ -89,6 +89,7 @@ final class Loader
             CommentFormCustomizer::class,
             CronJob::class,
             DashboardNotice::class,
+            ImageHandler::class,
         ];
 
         if (is_admin()) {
