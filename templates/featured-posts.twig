@@ -13,7 +13,7 @@
                             <!-- wp:post-terms {"term":"p4-page-type"} /-->
                         </div>
                         <div class="wrapper-post-tag">
-                            <!-- wp:post-terms {"term":"post_tag"} /-->
+                            <!-- wp:post-terms {"term":"post_tag","separator":" "} /-->
                         </div>
                     </div>
 
@@ -24,9 +24,10 @@
 
                     <div class="query-list-item-meta d-flex flex-wrap">
                         <!-- wp:p4/post-author-name /-->
-                        <span class="query-list-item-bullet" aria-hidden="true">•</span>
-                        <!-- wp:post-date /-->
-                        <!-- wp:p4/reading-time /-->
+                       <div class="query-list-meta-date-reading-time">
+                            <!-- wp:post-date /-->
+                            <!-- wp:p4/reading-time /-->
+                       </div>
                     </div>
                 </div>
             <!-- /wp:post-template -->

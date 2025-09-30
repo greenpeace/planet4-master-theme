@@ -32,6 +32,10 @@
         }
       }
     }
+
+    @include medium-and-less {
+      margin-top: $sp-4;
+    }
   }
 
   // In List and Grid layouts, we only show the link at the bottom of the block.
@@ -127,6 +131,10 @@
       align-self: flex-start;
     }
 
+    .carousel-item-wrapper li {
+      height: $posts-list-container-height;
+    }
+
     // We don't show tags in this layout because they often break the design.
     .taxonomy-post_tag {
       display: none;
@@ -163,10 +171,6 @@
       .carousel-controls + .see-all-link {
         display: none;
         visibility: hidden;
-      }
-
-      .wp-block-post-terms:not(:first-child) {
-        display: block;
       }
 
       .carousel-item-wrapper {
@@ -208,16 +212,10 @@
     font-size: calc(var(--font-size-xxs--font-family-primary) - 2px);
     display: flex;
 
+    &,
     a {
       color: var(--grey-600);
       font-weight: var(--font-weight-semibold);
-    }
-
-    &::after {
-      content: ".";
-      font-size: calc(var(--font-size-m--font-family-primary) + 5px);
-      margin-top: -6px;
-      margin-inline-start: $sp-x;
     }
   }
 
@@ -291,6 +289,38 @@
 
       @include large-and-up {
         grid-template-columns: repeat(4, minmax(0, 1fr));
+
+        li {
+          height: $posts-list-container-height;
+        }
+      }
+    }
+  }
+
+  &.is-custom-layout-grid,
+  &.is-custom-layout-carousel {
+    .wp-block-post-terms a {
+      @include clamp-text(1);
+
+      overflow-wrap: break-word;
+      word-break: break-word;
+      hyphens: auto;
+    }
+  }
+
+  .posts-list-meta {
+    flex-direction: column;
+    line-height: var(--line-height-xs--font-family-tertiary);
+
+    .article-list-item-author {
+      @include clamp-text(1);
+
+      &:focus-within {
+        @include focus-styles();
+      }
+
+      a:focus {
+        outline: none;
       }
     }
   }

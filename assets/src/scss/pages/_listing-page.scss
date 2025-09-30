@@ -46,8 +46,11 @@
   color: var(--gp-green-800);
 
   a {
-    white-space: nowrap;
     color: inherit;
+    @include clamp-text(1);
+    overflow-wrap: break-word;
+    word-break: break-word;
+    hyphens: auto;
 
     &:visited {
       color: var(--gp-green-800);
@@ -102,34 +105,43 @@
 }
 
 .query-list-item-meta {
+  display: flex;
+  flex-direction: column;
   font-family: var(--font-family-tertiary);
   font-size: $font-size-xxs;
   font-weight: var(--font-weight-regular);
   color: var(--color-text-meta_item);
   line-height: var(--line-height-s--font-family-tertiary);
 
-  .query-list-item-bullet {
-    display: inline-block;
-    padding: 0 $sp-x;
-  }
-
   .article-list-item-author {
     font-weight: var(--font-weight-semibold);
+    @include clamp-text(1);
+
+    &:focus-within {
+      @include focus-styles();
+    }
   }
 
   .article-list-item-author a {
     color: var(--color-text-meta_item);
+
+    &:focus {
+      outline: none;
+    }
   }
 
   .article-list-item-readtime {
     display: flex;
     @include render-bullet($sp-x);
+    margin-inline-start: 5px;
+  }
+
+  .query-list-meta-date-reading-time {
+    display: flex;
   }
 }
 
 .wp-block-post {
-  margin-bottom: $sp-4;
-
   figure {
     margin-bottom: 0;
   }
@@ -185,6 +197,10 @@
           width: calc((100% / 2) - 1.25em + (1.25em / 2)) !important;
         }
 
+        @include medium-and-up {
+          height: $posts-list-container-height;
+        }
+
         @include large-and-up {
           width: calc((100% / 3) - 1.25em + (1.25em / 3)) !important;
         }
@@ -197,7 +213,7 @@
 
     .query-list-item-headline.wp-block-post-title a {
       @include large-and-up {
-        @include clamp-text(3);
+        @include clamp-text(2);
       }
     }
 
