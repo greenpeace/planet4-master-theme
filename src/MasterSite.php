@@ -956,7 +956,6 @@ class MasterSite extends TimberSite
     public function enqueue_admin_assets(): void
     {
         // Register jQuery 3 for use wherever needed by adding wp_enqueue_script( 'jquery-3' );.
-
         $id = 'jquery-3';
         $version = '3.3.1';
         $src = 'https://cdnjs.cloudflare.com/ajax/libs/jquery/' . $version . '/jquery.min.js';
@@ -975,7 +974,7 @@ class MasterSite extends TimberSite
                 if ($tag_handle === $id) {
                     $tag = sprintf(
                         // phpcs:disable Generic.Files.LineLength.MaxExceeded
-                        '<script type="text/javascript" src="%s" integrity="%s" id="%s" crossorigin="anonymous"></script>',
+                        '<script type="text/javascript" src="%s" integrity="%s" id="%s" crossorigin="anonymous" defer></script>',
                         esc_url($tag_src),
                         esc_attr($integrity),
                         esc_attr($id),
