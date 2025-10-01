@@ -11,7 +11,7 @@ export const registerSecondaryNavigationBlock = () => {
     title: 'Secondary Navigation Menu',
     description: __('Inserts a secondary navigation menu to the page that leads to different sections of the same page.', 'planet4-blocks-backend'),
     icon: 'menu-alt3',
-    category: 'planet4-blocks-beta',
+    category: 'planet4-blocks',
     attributes: {
       levels: {
         type: 'array',
