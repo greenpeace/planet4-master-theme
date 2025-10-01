@@ -83,8 +83,6 @@ export const useSlides = (slidesRef, totalSlides, containerRef, carousel_autopla
       return;
     }
 
-    setAutoplay(false);
-
     const nextElement = slidesRef.current[newSlide];
     const activeElement = slidesRef.current[currentSlide];
 

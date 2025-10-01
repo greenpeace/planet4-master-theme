@@ -1,5 +1,5 @@
 const {useMemo} = wp.element;
-const {__} = wp.i18n;
+const {__, sprintf} = wp.i18n;
 
 export const CarouselControls = ({
   goToPrevSlide = () => {},
@@ -46,7 +46,8 @@ export const CarouselControls = ({
                       goToSlide(index);
                     }
                   }}
-                  aria-label={__('Go to slide', 'planet4-blocks') + ` ${index + 1}`}
+                  // translators: %s: slide index
+                  aria-label={sprintf(__('Go to slide %s', 'planet4-blocks'), index + 1)}
                   aria-current={index === currentSlide ? 'true' : undefined}
                 />
               </li>
