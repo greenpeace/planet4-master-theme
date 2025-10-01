@@ -1,3 +1,4 @@
+import Hammer from 'hammerjs';
 import {useSlides} from './useSlides';
 import {Slide} from './Slide';
 import {CarouselControls} from './CarouselControls';
@@ -7,20 +8,7 @@ import {StaticCaption} from './StaticCaption';
 const {useRef, useEffect, useState} = wp.element;
 const isRTL = document.querySelector('html').dir === 'rtl';
 
-const usePageLoaded = () => {
-  const [pageLoaded, setPageLoaded] = useState(false);
-
-  useEffect(() => {
-    window.addEventListener('load', () => {
-      setPageLoaded(true);
-    });
-  }, []);
-
-  return pageLoaded;
-};
-
 export const CarouselHeaderFrontend = ({slides, carousel_autoplay, className, decoding}) => {
-  const pageLoaded = usePageLoaded();
   const [autoplayPaused, setAutoplayPaused] = useState(false);
   const slidesRef = useRef([]);
   const containerRef = useRef(null);
@@ -39,11 +27,11 @@ export const CarouselHeaderFrontend = ({slides, carousel_autoplay, className, de
     }
 
     const carouselElement = containerRef.current;
-    const carouselHeadHammer = new Hammer(carouselElement, {recognizers: []}); // eslint-disable-line no-undef
-    const hammer = new Hammer.Manager(carouselHeadHammer.element); // eslint-disable-line no-undef
-    const swipe = new Hammer.Swipe(); // eslint-disable-line no-undef
+    const carouselHeadHammer = new Hammer(carouselElement, {recognizers: []});
+    const hammer = new Hammer.Manager(carouselHeadHammer.element);
+    const swipe = new Hammer.Swipe();
     // Only allow horizontal swiping (not vertical swiping)
-    swipe.set({direction: Hammer.DIRECTION_HORIZONTAL}); // eslint-disable-line no-undef
+    swipe.set({direction: Hammer.DIRECTION_HORIZONTAL});
     hammer.add(swipe);
 
     hammer.on('swipeleft', isRTL ? goToPrevSlide : goToNextSlide);
@@ -73,9 +61,6 @@ export const CarouselHeaderFrontend = ({slides, carousel_autoplay, className, de
   // Set up the autoplay for the slides
   const timerRef = useRef(null);
   useEffect(() => {
-    if (!pageLoaded) {
-      return;
-    }
     if (carousel_autoplay && slides.length > 1 && !autoplayPaused && !autoplayCancelled) {
       if (timerRef.current) {
         clearTimeout(timerRef.current);
@@ -85,7 +70,7 @@ export const CarouselHeaderFrontend = ({slides, carousel_autoplay, className, de
     } else if (timerRef.current) {
       clearTimeout(timerRef.current);
     }
-  }, [currentSlide, goToNextSlide, slides, carousel_autoplay, autoplayPaused, autoplayCancelled, pageLoaded]);
+  }, [currentSlide, goToNextSlide, slides, carousel_autoplay, autoplayPaused, autoplayCancelled]);
 
   return (
     <section
@@ -102,7 +87,7 @@ export const CarouselHeaderFrontend = ({slides, carousel_autoplay, className, de
               active={currentSlide === index}
               ref={element => slidesRef ? slidesRef.current[index] = element : null}
             >
-              <SlideBackground decoding={decoding} slide={pageLoaded ? slide : slides[0]} />
+              <SlideBackground decoding={decoding} slide={slide} />
               <StaticCaption slide={slide} />
             </Slide>
           ))}

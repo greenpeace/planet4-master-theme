@@ -57,20 +57,6 @@ final class Loader
         Commands::load();
 
         add_action('init', [self::class, 'add_blocks'], 20);
-
-        // Load parallax library for Media & Text block.
-        add_action(
-            'wp_enqueue_scripts',
-            static function (): void {
-                wp_enqueue_script(
-                    'rellax',
-                    'https://cdnjs.cloudflare.com/ajax/libs/rellax/1.12.1/rellax.min.js',
-                    [],
-                    '1.12.1',
-                    true
-                );
-            }
-        );
     }
 
     /**
