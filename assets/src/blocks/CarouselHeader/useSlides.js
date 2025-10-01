@@ -47,9 +47,9 @@ export const useSlides = (slidesRef, totalSlides, containerRef, carousel_autopla
   const getOrder = useCallback(newSlide => {
     let order = newSlide < currentSlide ? 'prev' : 'next';
 
-    if(newSlide === 0 && currentSlide === totalSlides - 1) {
+    if (newSlide === 0 && currentSlide === totalSlides - 1) {
       order = 'next';
-    } else if(currentSlide === 0 && newSlide === totalSlides -1) {
+    } else if (currentSlide === 0 && newSlide === totalSlides -1) {
       order = 'prev';
     }
 
@@ -82,6 +82,9 @@ export const useSlides = (slidesRef, totalSlides, containerRef, carousel_autopla
     if (!slidesRef.current) {
       return;
     }
+
+    setAutoplay(false);
+
     const nextElement = slidesRef.current[newSlide];
     const activeElement = slidesRef.current[currentSlide];
 
@@ -124,7 +127,6 @@ export const useSlides = (slidesRef, totalSlides, containerRef, carousel_autopla
     goToSlide(currentSlide === 0 ? totalSlides - 1 : currentSlide - 1);
   }, [currentSlide, totalSlides, goToSlide]);
 
-  // const goToNextSlide = (autoplay = false) => {
   const goToNextSlide = useCallback(() => {
     goToSlide((currentSlide + 1 >= totalSlides) ? 0 : currentSlide + 1);
   }, [currentSlide, totalSlides, goToSlide]);

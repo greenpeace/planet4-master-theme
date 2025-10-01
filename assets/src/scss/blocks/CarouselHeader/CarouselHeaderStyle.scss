@@ -79,7 +79,7 @@ $medium-image-height: 600px;
     overflow: visible;
     height: 580px;
     padding-bottom: 0;
-    padding-left: 0;
+    padding-inline-start: 0;
 
     @include medium-and-up {
       height: 960px;
@@ -776,7 +776,7 @@ $medium-image-height: 600px;
         }
 
         &.active button {
-          background: var(--grey-900);
+          background-color: var(--grey-900);
         }
       }
 
