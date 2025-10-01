@@ -45,6 +45,16 @@ class AttachmentsController
             100,
             2
         );
+
+        /**
+         * Overrides the "root_dir" WP-Stateless setting, changing the upload folder structure.
+         *
+         * @link https://stateless.udx.io/docs/changelog/ (check v4.0.0 notes)
+         * @return string The new folder structure
+         */
+        add_filter('wp_stateless_get_setting_root_dir', function () {
+            return date('Y') . "/" . date('m');
+        });
     }
 
     /**
