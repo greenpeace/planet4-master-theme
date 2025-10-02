@@ -106,7 +106,6 @@ class MasterSite extends TimberSite
         add_action('init', [$this, 'p4_master_theme_setup']);
         add_action('pre_insert_term', [$this, 'disallow_insert_term'], 1, 2);
         add_filter('wp_dropdown_users_args', [$this, 'filter_authors'], 10, 1);
-        add_filter('jpeg_quality', fn () => 60);
         add_filter('http_request_timeout', fn () => 10);
         add_action('save_post', [$this, 'p4_auto_generate_excerpt'], 10, 2);
 

@@ -23,12 +23,10 @@ class ImageHandler
         add_action('init', [$this, 'register_meta_fields']);
         add_action('save_post', [$this, 'set_featured_image'], 10, 2);
         add_action('after_setup_theme', [$this, 'add_image_sizes']);
-        add_filter('wp_image_editors', [$this, 'allowedEditors']);
+        add_filter('register_block_type_args', [$this, 'register_core_blocks_callback']);
+        add_filter('wp_image_editors', [$this, 'force_image_compression']);
         add_filter('wp_handle_upload_prefilter', [$this, 'image_type_validation']);
-
-        version_compare(get_bloginfo('version'), '5.5', '<')
-            ? add_action('init', [$this, 'p4_register_core_image_block'])
-            : add_filter('register_block_type_args', [$this, 'register_core_blocks_callback']);
+        add_filter('jpeg_quality', fn () => 60);
     }
 
     /**
@@ -79,13 +77,13 @@ class ImageHandler
     /**
      * Force WordPress to use ImageCompression as image manipulation editor.
      */
-    public function allowedEditors(): array
+    public function force_image_compression(): array
     {
         return [ImageCompression::class];
     }
 
     /**
-     * Validate immage type before WP processes it.
+     * Validate image type before WP processes it.
      * * @param array $file Associative array containing Image details
      */
     public function image_type_validation(array $file): array
@@ -124,7 +122,7 @@ class ImageHandler
 
     /**
      * Override the Gutenberg core/image block render method output,
-     * to add credit field in it's caption text & image alt text as title.
+     * to add credit field in its caption text & image alt text as title.
      *
      * @param array  $attributes    Attributes of the Gutenberg core/image block.
      * @param string $content The image element HTML.
@@ -168,18 +166,6 @@ class ImageHandler
                 '<figcaption>' . esc_attr($image_credit) . '</figcaption></figure>' :
                 $caption . esc_attr($image_credit),
             $content
-        );
-    }
-
-    /**
-     * Add callback function to Gutenberg core/image block.
-     */
-    public function p4_register_core_image_block(): void
-    {
-        unregister_block_type('core/image');
-        register_block_type(
-            'core/image',
-            ['render_callback' => [$this, 'p4_core_image_block_render']]
         );
     }
 
