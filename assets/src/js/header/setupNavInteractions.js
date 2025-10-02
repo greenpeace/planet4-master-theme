@@ -1,5 +1,3 @@
-/* global hj */
-
 export const setupNavInteractions = () => {
   // Close all menus on escape pressed
   document.onkeyup = event => {
@@ -14,9 +12,6 @@ export const setupNavInteractions = () => {
   if (searchInput) {
     searchInput.addEventListener('focus', () => {
       if (!searchFocused) {
-        if (hj) {
-          hj('event', 'search');
-        }
         searchFocused = true;
       }
     });
