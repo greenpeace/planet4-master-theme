@@ -10,8 +10,12 @@ const setupImageAndCaption = (lightBoxNode, imageSelector = 'img', captionSelect
       return;
     }
 
+    // Derive full/original image URL by removing size suffix
+    let fullSrc = image.src ? image.src : image.dataset.src;
+    fullSrc = image.src.replace(/-\d+x\d+(?=\.\w+$)/, '');
+
     const item = {
-      src: image.src ? image.src : image.dataset.src,
+      src: fullSrc,
       w: 0,
       h: 0,
     };
