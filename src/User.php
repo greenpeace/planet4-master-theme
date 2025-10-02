@@ -73,4 +73,19 @@ class User extends Timber\User
 
         return parent::__toString();
     }
+
+    /**
+     * Overrides the author's display name with a custom value.
+     *
+     * If a non-empty string is provided, this method sets the author's
+     * display name to the given value and marks the author as "fake".
+     *
+     * @param string $author_override The author override display name.
+     *
+     */
+    public function set_author_override(string $author_override): void
+    {
+        $this->display_name = $author_override;
+        $this->is_fake = true;
+    }
 }

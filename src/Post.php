@@ -362,7 +362,9 @@ class Post extends \Timber\Post
     {
         $author_override = get_post_meta($this->id, 'p4_author_override', true);
         if ('' !== $author_override) {
-            $this->author = Timber::get_user(false, $author_override); // Create fake User.
+            $fake_user = Timber::get_user(false); // Create fake User.
+            $fake_user->set_author_override($author_override);
+            $this->author = $fake_user;
         } else {
             $this->author = Timber::get_user((int) $this->post_author);
         }
