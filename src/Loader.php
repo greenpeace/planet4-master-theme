@@ -90,6 +90,7 @@ final class Loader
             CronJob::class,
             DashboardNotice::class,
             ImageHandler::class,
+            CloudflareTurnstileHandler::class,
         ];
 
         if (is_admin()) {
