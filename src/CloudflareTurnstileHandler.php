@@ -2,6 +2,8 @@
 
 namespace P4\MasterTheme;
 
+use P4\MasterTheme\Features\CloudflareTurnstile;
+
 /**
  * Handles Cloudflare Turnstile integration for WordPress comment forms.
  *
@@ -19,10 +21,7 @@ class CloudflareTurnstileHandler
      */
     public function __construct()
     {
-        $features = get_option('planet4_features');
-        $use_turnstile = isset($features['cloudflare_turnstile']) ? $features['cloudflare_turnstile'] : null;
-
-        if ("on" !== $use_turnstile || !defined('TURNSTILE_SITE_KEY') || !defined('TURNSTILE_SECRET_KEY')) {
+        if (!CloudflareTurnstile::is_active() || !defined('TURNSTILE_SITE_KEY') || !defined('TURNSTILE_SECRET_KEY')) {
             return;
         }
 

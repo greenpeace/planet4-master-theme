@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   if (turnstile) {
-    window.ToggleCommentSubmit = function(isValid) {
+    window.ToggleCommentSubmit = isValid => {
       turnstileValid = isValid;
       toggleSubmit();
     };
