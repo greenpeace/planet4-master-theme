@@ -34,14 +34,10 @@ wp.domReady(() => {
   registerTopicLinkBlock();
   registerActionButtonTextBlock();
   registerActionsListBlock();
+  registerSecondaryNavigationBlock();
 
   // Block Templates
   registerBlockTemplates();
-
-  // Beta blocks
-  if (window.p4_vars.features.beta_blocks === 'on') {
-    registerSecondaryNavigationBlock();
-  }
 
   // Custom block styles
   registerBlockStyles();
