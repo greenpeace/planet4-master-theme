@@ -13,7 +13,6 @@ use P4\MasterTheme\Features\OldPostsArchiveNotice;
 use P4\MasterTheme\Features\ActionsTaskType;
 use P4\MasterTheme\Features\ActionsDeadline;
 use P4\MasterTheme\Features\ActionsUserPersonalization;
-use P4\MasterTheme\Features\CloudflareTurnstile;
 use P4\MasterTheme\Loader;
 use P4\MasterTheme\Settings;
 use CMB2;
@@ -104,7 +103,6 @@ class Features
             ActionsTaskType::class,
             ActionsDeadline::class,
             ActionsUserPersonalization::class,
-            CloudflareTurnstile::class,
 
             // Dev only.
             DisableDataSync::class,
@@ -123,6 +121,7 @@ class Features
             CommentsGdpr::class,
             DefaultPostType::class,
             ReadingTime::class,
+            CloudflareTurnstile::class,
         ];
     }
 

@@ -11,11 +11,12 @@ document.addEventListener('DOMContentLoaded', () => {
   if (!turnstileContainer) {return;}
 
   // Cloudflare Turnstile callback
-  window.onSuccess = function (token) {
-    if (typeof window.ToggleCommentSubmit === 'function') {
-      // eslint-disable-next-line new-cap
-      window.ToggleCommentSubmit(true);
+  window.onSuccess = token => {
+    if (typeof window.ToggleCommentSubmit !== 'function') {
+      return;
     }
+    // eslint-disable-next-line new-cap
+    window.ToggleCommentSubmit(true);
   };
 
   // eslint-disable-next-line @wordpress/no-unused-vars-before-return
@@ -27,14 +28,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const replyLinks = document.querySelectorAll('.comment-reply-link');
 
-  if (!replyLinks) {return;}
+  if (!replyLinks.length) {return;}
 
   // Let WordPress move the form and reset the widget (clears current state)
-  replyLinks.forEach(link => {
-    link.addEventListener('click', e => {
-      setTimeout(() => {
-        turnstile.reset(widgetId);
-      }, 0);
-    });
-  });
+  replyLinks.forEach(link => link.addEventListener('click', e => setTimeout(() => turnstile.reset(widgetId), 0)));
 });

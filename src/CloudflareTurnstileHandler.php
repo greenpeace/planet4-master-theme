@@ -2,6 +2,8 @@
 
 namespace P4\MasterTheme;
 
+use P4\MasterTheme\Settings\CloudflareTurnstile;
+
 /**
  * Handles Cloudflare Turnstile integration for WordPress comment forms.
  *
@@ -19,10 +21,7 @@ class CloudflareTurnstileHandler
      */
     public function __construct()
     {
-        $features = get_option('planet4_features');
-        $use_turnstile = isset($features['cloudflare_turnstile']) ? $features['cloudflare_turnstile'] : null;
-
-        if ("on" !== $use_turnstile || !defined('TURNSTILE_SITE_KEY') || !defined('TURNSTILE_SECRET_KEY')) {
+        if (!CloudflareTurnstile::get_option() || !defined('TURNSTILE_SITE_KEY') || !defined('TURNSTILE_SECRET_KEY')) {
             return;
         }
 
@@ -71,7 +70,7 @@ class CloudflareTurnstileHandler
     public function validate_token(array $commentdata): mixed
     {
         if (empty($_POST['cf-turnstile-response'])) {
-            wp_die(__('Error: Please complete the captcha.', 'planet4-master-theme-backend'));
+            wp_die(__('Error: Please complete the captcha.', 'planet4-blocks'));
         }
 
         $secret_key = TURNSTILE_SECRET_KEY;
@@ -91,7 +90,7 @@ class CloudflareTurnstileHandler
             \Sentry\captureMessage($msg);
         }
 
-        wp_die(__('Error: Captcha verification failed. Please try again.', 'planet4-master-theme-backend'));
+        wp_die(__('Error: Captcha verification failed. Please try again.', 'planet4-blocks'));
         return false;
     }
 

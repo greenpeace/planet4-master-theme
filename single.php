@@ -15,6 +15,7 @@ global $post;
 use P4\MasterTheme\Context;
 use P4\MasterTheme\Post;
 use P4\MasterTheme\Settings\CommentsGdpr;
+use P4\MasterTheme\Settings\CloudflareTurnstile;
 use Timber\Timber;
 
 // Initializing variables.
@@ -108,11 +109,6 @@ if (! empty($take_action_page) && ! has_block('planet4-blocks/take-action-boxout
 }
 
 // Build an arguments array to customize WordPress comment form.
-
-$features = get_option('planet4_features');
-$use_turnstile = isset($features['cloudflare_turnstile']) ? $features['cloudflare_turnstile'] : null;
-$turnstile = "on" === $use_turnstile && defined('TURNSTILE_SITE_KEY') && defined('TURNSTILE_SECRET_KEY');
-
 $comments_args = [
     'comment_notes_before' => '',
     'comment_notes_after' => '',
@@ -126,7 +122,8 @@ $comments_args = [
                 'I agree on providing my name, email and content so that my comment can be stored and displayed in the website.',
                 'planet4-master-theme'
             ),
-            'render_turnstile' => $turnstile,
+            // phpcs:ignore Generic.Files.LineLength.MaxExceeded
+            'render_turnstile' => CloudflareTurnstile::get_option() && defined('TURNSTILE_SITE_KEY') && defined('TURNSTILE_SECRET_KEY'),
         ]
     ),
     'title_reply' => __('Leave your reply', 'planet4-master-theme'),
