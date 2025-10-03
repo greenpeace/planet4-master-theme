@@ -40,6 +40,7 @@ module.exports = (env, argv) => {
       'lite-yt-embed': './node_modules/lite-youtube-embed/src/lite-yt-embed.js',
       menu_editor: './assets/src/js/menu_editor.js',
       toggleCommentSubmit: './assets/src/js/toggle_comment_submit.js',
+      turnstileRender: './assets/src/js/turnstile_render.js',
       hubspotCookie: './assets/src/js/hubspot_cookie.js',
       shareButtons: './assets/src/js/share_buttons.js',
       googleTagManager: './assets/src/js/google_tag_manager.js',

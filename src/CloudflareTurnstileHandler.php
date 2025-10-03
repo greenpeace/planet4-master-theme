@@ -22,7 +22,7 @@ class CloudflareTurnstileHandler
         $features = get_option('planet4_features');
         $use_turnstile = isset($features['cloudflare_turnstile']) ? $features['cloudflare_turnstile'] : null;
 
-        if ("on" !== $use_turnstile || !defined('TURNSTILE_SECRET_KEY')) {
+        if ("on" !== $use_turnstile || !defined('TURNSTILE_SITE_KEY') || !defined('TURNSTILE_SECRET_KEY')) {
             return;
         }
 
@@ -32,7 +32,8 @@ class CloudflareTurnstileHandler
 
     /**
      * Enqueues the Cloudflare Turnstile client-side script.
-     * If the user is recognized as a human, enable the form's submit button.
+     * Enqueues the script to render the Cloudflare Turnstile.
+     * Passes the site key to the render script.
      *
      * @link https://developers.cloudflare.com/turnstile/get-started/client-side-rendering/#1-add-the-turnstile-script
      */
@@ -45,13 +46,17 @@ class CloudflareTurnstileHandler
             null,
             true
         );
-        wp_add_inline_script(
-            'toggle-comment-submit-script',
-            'function onSuccess(token) {
-                if (!window.ToggleCommentSubmit) { return; }
-                window.ToggleCommentSubmit(true);
-            }',
-            'before'
+        wp_enqueue_script(
+            'turnstile-render-script',
+            get_template_directory_uri() . '/assets/build/turnstileRender.js',
+            ['turnstile'],
+            Loader::theme_file_ver('/assets/build/turnstileRender.js'),
+            true
+        );
+        wp_localize_script(
+            'turnstile-render-script',
+            'TurnstileConfig',
+            ['sitekey' => TURNSTILE_SITE_KEY]
         );
     }
 
