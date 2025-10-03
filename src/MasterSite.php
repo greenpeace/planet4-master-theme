@@ -91,7 +91,6 @@ class MasterSite extends TimberSite
         add_action('init', [$this, 'register_taxonomies'], 2);
         add_action('init', [$this, 'register_oembed_provider']);
         add_action('admin_menu', [$this, 'add_post_revisions_setting']);
-        add_action('admin_enqueue_scripts', [$this, 'enqueue_admin_assets']);
         // Load the editor scripts only enqueuing editor scripts while in context of the editor.
         add_action('enqueue_block_editor_assets', [$this, 'enqueue_editor_assets']);
         // Load main theme assets before any child theme.
@@ -857,45 +856,6 @@ class MasterSite extends TimberSite
             ],
         ];
         return wp_kses($setting, $allowed);
-    }
-
-    /**
-     * Load styling and behaviour on admin pages.
-     */
-    public function enqueue_admin_assets(): void
-    {
-        // Register jQuery 3 for use wherever needed by adding wp_enqueue_script( 'jquery-3' );.
-        $id = 'jquery-3';
-        $version = '3.3.1';
-        $src = 'https://cdnjs.cloudflare.com/ajax/libs/jquery/' . $version . '/jquery.min.js';
-        $integrity = 'sha512-+NqPlbbtM1QqiK8ZAo4Yrj2c4lNQoGv8P79DPtKzj++l5jnN39rHA/xsqn8zE9l0uSoxaCdrOgFs6yjyfbBxSg==';
-
-        wp_register_script(
-            $id,
-            $src,
-            [],
-            $version,
-        );
-
-        add_filter(
-            'script_loader_tag',
-            function ($tag, $tag_handle, $tag_src) use ($id, $integrity) {
-                if ($tag_handle === $id) {
-                    $tag = sprintf(
-                        // phpcs:disable Generic.Files.LineLength.MaxExceeded
-                        '<script type="text/javascript" src="%s" integrity="%s" id="%s" crossorigin="anonymous" defer></script>',
-                        esc_url($tag_src),
-                        esc_attr($integrity),
-                        esc_attr($id),
-                    );
-                }
-                return $tag;
-            },
-            10,
-            3
-        );
-
-        wp_enqueue_script($id);
     }
 
     /**
