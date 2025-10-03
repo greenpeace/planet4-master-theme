@@ -111,14 +111,6 @@ class CarouselHeader extends BaseBlock
     // @phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter
 
     /**
-     * Load additional frontend assets
-     */
-    public static function enqueue_frontend_assets(): void
-    {
-        parent::enqueue_frontend_assets();
-    }
-
-    /**
      * If the content is not empty, it's the new version and doesn't need any back end rendering.
      * Otherwise, it means the block was not migrated in the editor yet. Fall back to front end rendering from scratch.
      *

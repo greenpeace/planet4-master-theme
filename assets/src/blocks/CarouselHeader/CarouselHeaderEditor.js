@@ -9,7 +9,7 @@ import {Sidebar} from './Sidebar';
 import {EditableBackground} from './EditableBackground';
 
 const {useSelect} = wp.data;
-const {useRef} = wp.element;
+const {useCallback, useMemo, useRef} = wp.element;
 
 export const toSrcSet = sizes => {
   return sizes.map(size => `${size.url || size.source_url} ${size.width}w`).join();
@@ -19,28 +19,28 @@ export const CarouselHeaderEditor = ({setAttributes, attributes}) => {
   const {carousel_autoplay, slides, className} = attributes;
   const slidesRef = useRef([]);
 
-  const {currentSlide, goToSlide, goToNextSlide, goToPrevSlide} = useSlides(slidesRef, slides.length - 1);
+  const {currentSlide, goToSlide, goToNextSlide, goToPrevSlide, autoplay} = useSlides(slidesRef, slides.length);
 
-  const changeSlideAttribute = (slideAttributeName, index) => value => {
+  const changeSlideAttribute = useCallback((slideAttributeName, index) => value => {
     const newSlides = JSON.parse(JSON.stringify(slides));
     newSlides[index][slideAttributeName] = value;
     setAttributes({slides: newSlides});
-  };
+  }, [setAttributes, slides]);
 
-  const updateCurrentImageIndex = index => {
+  const updateCurrentImageIndex = useCallback(index => {
     setAttributes({currentImageIndex: index});
-  };
+  }, [setAttributes]);
 
-  const changeSlideImage = (index, imageId, imageUrl, imageAlt, srcSet) => {
+  const changeSlideImage = useCallback((index, imageId, imageUrl, imageAlt, srcSet) => {
     const newSlides = [...slides];
     newSlides[index].image = imageId;
     newSlides[index].image_url = imageUrl;
     newSlides[index].image_alt = imageAlt;
     newSlides[index].image_srcset = srcSet;
     setAttributes({slides: newSlides});
-  };
+  }, [setAttributes, slides]);
 
-  const addSlide = () => {
+  const addSlide = useCallback(() => {
     const newSlides = slides.concat({
       image: null,
       focal_points: {},
@@ -54,9 +54,9 @@ export const CarouselHeaderEditor = ({setAttributes, attributes}) => {
     const lastSlide = newSlides.length - 1;
     // There is no callback to setAttributes so we use timeout instead
     setTimeout(() => goToSlide(lastSlide), 0);
-  };
+  }, [slides, setAttributes, goToSlide]);
 
-  const removeSlide = () => {
+  const removeSlide = useCallback(() => {
     const newSlides = [
       ...slides.slice(0, currentSlide),
       ...slides.slice(currentSlide + 1),
@@ -64,7 +64,7 @@ export const CarouselHeaderEditor = ({setAttributes, attributes}) => {
     const lastSlide = newSlides.length - 1;
     setAttributes({slides: newSlides});
     goToSlide(currentSlide > lastSlide ? 0 : currentSlide, true);
-  };
+  }, [currentSlide, goToSlide, setAttributes, slides]);
 
   const needsMigration = slides.some(slide => !!slide.image && !slide.image_srcset);
   const migratedSlides = useSelect(select => slides && slides.map(slide => {
@@ -83,9 +83,9 @@ export const CarouselHeaderEditor = ({setAttributes, attributes}) => {
     }
     const image_srcset = toSrcSet(Object.values(image.media_details.sizes));
     return ({...slide, image_url: image.source_url, image_srcset, image_alt: image.alt_text});
-  }), [needsMigration]);
+  }), [needsMigration, slides]);
 
-  return (
+  return useMemo(() => (
     <section className={`block block-header alignfull carousel-header ${className ?? ''}`}>
       <Sidebar
         carouselAutoplay={carousel_autoplay}
@@ -102,7 +102,7 @@ export const CarouselHeaderEditor = ({setAttributes, attributes}) => {
         }}
       >Migrate image data</button>}
       <div className="carousel-wrapper-header">
-        <div className="carousel-inner" role="listbox">
+        <ul className="carousel-inner" role="listbox">
           {slides?.map((slide, index) => (
             <Slide
               key={index}
@@ -128,15 +128,36 @@ export const CarouselHeaderEditor = ({setAttributes, attributes}) => {
               />
             </Slide>
           ))}
-          <CarouselControls
-            goToPrevSlide={() => goToPrevSlide(carousel_autoplay)}
-            goToNextSlide={() => goToNextSlide(carousel_autoplay)}
-            goToSlide={goToSlide}
-            slides={slides}
-            currentSlide={currentSlide}
-          />
-        </div>
+          {(slides.length > 1) && (
+            <CarouselControls
+              goToPrevSlide={() => goToPrevSlide(autoplay)}
+              goToNextSlide={() => goToNextSlide(autoplay)}
+              goToSlide={goToSlide}
+              slides={slides}
+              currentSlide={currentSlide}
+              autoplay={autoplay}
+              disableControls={carousel_autoplay}
+            />
+          )}
+        </ul>
       </div>
     </section>
-  );
+  ), [
+    autoplay,
+    carousel_autoplay,
+    className,
+    currentSlide,
+    slides,
+    goToSlide,
+    goToPrevSlide,
+    goToNextSlide,
+    migratedSlides,
+    needsMigration,
+    setAttributes,
+    addSlide,
+    changeSlideAttribute,
+    changeSlideImage,
+    removeSlide,
+    updateCurrentImageIndex,
+  ]);
 };
