@@ -6,17 +6,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const checkbox = document.querySelector('#gdpr-comments-checkbox');
   const submit = document.querySelector('#commentform button[type="submit"]');
 
-  if (!checkbox || !submit) {return;}
-
-  const turnstile = document.querySelector('.cf-turnstile');
-  let turnstileValid = true;
-
-  if (turnstile) {
-    turnstileValid = false;
-    window.ToggleCommentSubmit = function(isValid) {
-      turnstileValid = isValid;
-      toggleSubmit();
-    };
+  if (!checkbox || !submit) {
+    return;
   }
 
   const turnstile = document.querySelector('.cf-turnstile');
@@ -38,7 +29,13 @@ document.addEventListener('DOMContentLoaded', () => {
     submit.setAttribute('aria-disabled', !enabled);
   };
 
-  checkbox.addEventListener('change', toggleSubmit);
+  if (turnstile) {
+    window.ToggleCommentSubmit = function(isValid) {
+      turnstileValid = isValid;
+      toggleSubmit();
+    };
+  }
 
+  checkbox.addEventListener('change', toggleSubmit);
   toggleSubmit();
 });

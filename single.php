@@ -111,7 +111,7 @@ if (! empty($take_action_page) && ! has_block('planet4-blocks/take-action-boxout
 
 $features = get_option('planet4_features');
 $use_turnstile = isset($features['cloudflare_turnstile']) ? $features['cloudflare_turnstile'] : null;
-$turnstile = ("on" === $use_turnstile && defined('TURNSTILE_SITE_KEY')) ? TURNSTILE_SITE_KEY : null;
+$turnstile = "on" === $use_turnstile && defined('TURNSTILE_SITE_KEY') && defined('TURNSTILE_SECRET_KEY');
 
 $comments_args = [
     'comment_notes_before' => '',
@@ -126,7 +126,7 @@ $comments_args = [
                 'I agree on providing my name, email and content so that my comment can be stored and displayed in the website.',
                 'planet4-master-theme'
             ),
-            'turnstile_site_key' => $turnstile,
+            'render_turnstile' => $turnstile,
         ]
     ),
     'title_reply' => __('Leave your reply', 'planet4-master-theme'),
