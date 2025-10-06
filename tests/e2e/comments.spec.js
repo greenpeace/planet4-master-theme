@@ -3,6 +3,11 @@ import {test, expect} from './tools/lib/test-utils.js';
 test.useAdminLoggedIn();
 
 test('Test adding a Comment to a Post', async ({page, admin, requestUtils}) => {
+  // Disable the Cloudflare Turnstile captcha.
+  // As the captcha is an iframe, we cannot test clicking on it.
+  await page.goto('./wp-admin/options-discussion.php');
+  await page.uncheck('#planet4_cloudflare_turnstile');
+
   const newPost = await requestUtils.rest({
     path: '/wp/v2/posts',
     method: 'POST',
