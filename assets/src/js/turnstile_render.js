@@ -12,11 +12,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Cloudflare Turnstile callback
   window.onSuccess = token => {
-    if (typeof window.ToggleCommentSubmit !== 'function') {
+    if (typeof window.turnstileToggleCommentSubmit !== 'function') {
       return;
     }
-    // eslint-disable-next-line new-cap
-    window.ToggleCommentSubmit(true);
+    window.turnstileToggleCommentSubmit(true);
   };
 
   // eslint-disable-next-line @wordpress/no-unused-vars-before-return
