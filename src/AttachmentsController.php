@@ -55,6 +55,10 @@ class AttachmentsController
         add_filter('wp_stateless_get_setting_root_dir', function () {
             return date('Y') . "/" . date('m');
         });
+
+        add_filter('wp_stateless_get_setting_mode', function () {
+            return 'disabled';
+        });
     }
 
     /**
