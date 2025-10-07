@@ -2,7 +2,7 @@ import {SidebarSlide} from './SidebarSlide';
 
 const {InspectorControls} = wp.blockEditor;
 const {CheckboxControl, PanelBody} = wp.components;
-const {useState, useRef, useEffect} = wp.element;
+const {useState, useRef, useEffect, useMemo, useCallback} = wp.element;
 const {__} = wp.i18n;
 
 const getNode = index => (
@@ -20,7 +20,7 @@ export const Sidebar = ({
   const [draggedSlide, setDraggedSlide] = useState(null);
   const slidesRef = useRef(null);
 
-  const upOrDownHandler = evt => {
+  const upOrDownHandler = useCallback(evt => {
     evt.stopPropagation();
 
     if (!slidesRef.current) {
@@ -98,15 +98,15 @@ export const Sidebar = ({
     return () => {
       clearTimeout(timeout);
     };
-  };
+  }, [setAttributes, slides]);
 
-  const onDragStartHandler = evt => {
+  const onDragStartHandler = useCallback(evt => {
     // This is a workaround that avoids to show the `not-allowed` icon on Chrome/Windows
     evt.dataTransfer.effectAllowed = 'move';
     setDraggedSlide(getNode(parseInt(evt.currentTarget.dataset.index)));
-  };
+  }, [setDraggedSlide]);
 
-  const onDragEndHandler = evt => {
+  const onDragEndHandler = useCallback(evt => {
     evt.preventDefault();
 
     if (draggedSlide) {
@@ -121,7 +121,7 @@ export const Sidebar = ({
         slides: Object.values(slidesRef.current.children).map(node => slides[parseInt(node.dataset.index)]),
       });
     }
-  };
+  }, [setAttributes, draggedSlide, slides]);
 
   const onDragOverHandler = evt => {
     evt.preventDefault();
@@ -147,7 +147,7 @@ export const Sidebar = ({
     }
   }, [dragTarget, draggedSlide]);
 
-  return <InspectorControls>
+  return useMemo(() => <InspectorControls>
     <PanelBody title={__('Settings', 'planet4-blocks-backend')}>
       <CheckboxControl
         __nextHasNoMarginBottom
@@ -180,5 +180,15 @@ export const Sidebar = ({
         {' '} &#127904;
       </p>
     </PanelBody>
-  </InspectorControls>;
+  </InspectorControls>,
+  [
+    carouselAutoplay,
+    changeSlideAttribute,
+    goToSlide,
+    setAttributes,
+    slides,
+    onDragEndHandler,
+    upOrDownHandler,
+    onDragStartHandler,
+  ]);
 };
