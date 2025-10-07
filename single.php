@@ -5,7 +5,7 @@ global $post;
 /**
  * The Template for displaying all single posts
  *
- * Methods for TimberHelper can be found in the /lib sub-directory
+ * Methods for \Timber\Helper can be found in the /lib sub-directory
  *
  * @package  WordPress
  * @subpackage  Timber
@@ -13,14 +13,13 @@ global $post;
  */
 
 use P4\MasterTheme\Context;
-use P4\MasterTheme\Post;
 use P4\MasterTheme\Settings\CommentsGdpr;
 use P4\MasterTheme\Settings\CloudflareTurnstile;
 use Timber\Timber;
 
 // Initializing variables.
-$context = Timber::get_context();
-$timber_post = new Post($post->ID);
+$context = Timber::context();
+$timber_post = Timber::get_post($post->ID);
 $context['post'] = $timber_post;
 
 // Set Navigation Issues links.

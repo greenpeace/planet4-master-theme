@@ -54,16 +54,10 @@ function _register_theme(): void
         }
     );
 
-    $plugins_dir = dirname(__FILE__) . '/../vendor/plugins';
-    $timber = $plugins_dir . '/timber/timber.php';
-    if (file_exists($timber)) {
-        require_once $timber;
-    } else {
-        $timber_library = $plugins_dir . '/timber-library/timber.php';
-        if (file_exists($timber_library)) {
-            require_once $timber_library;
-        }
-    }
+    require_once __DIR__ . '/../vendor/autoload.php';
+
+    // Initialize Timber
+    Timber\Timber::init();
 }
 
 tests_add_filter('muplugins_loaded', '_register_theme');

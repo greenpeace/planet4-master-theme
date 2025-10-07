@@ -4,12 +4,8 @@ namespace P4\MasterTheme;
 
 use P4\MasterTheme\Features\Dev\CoreBlockPatterns;
 use Timber\Timber;
-use Timber\Site as TimberSite;
-use Timber\Menu as TimberMenu;
-use Twig_Extension_StringLoader;
-use Twig_Environment;
-use Twig_Markup;
-use Twig_SimpleFilter;
+use Twig\Extension\StringLoaderExtension;
+use Twig\Markup;
 use WP_Error;
 use WP_Post;
 
@@ -17,7 +13,7 @@ use WP_Post;
  * Class MasterSite.
  * The main class that handles Planet4 Master Theme.
  */
-class MasterSite extends TimberSite
+class MasterSite extends \Timber\Site
 {
     /**
      * Theme directory
@@ -52,7 +48,6 @@ class MasterSite extends TimberSite
      */
     protected function settings(): void
     {
-        Timber::$autoescape = true;
         Timber::$dirname = ['templates', 'templates/blocks', 'views'];
         $this->theme_dir = get_template_directory_uri();
         $this->theme_images_dir = $this->theme_dir . '/images/';
@@ -86,8 +81,8 @@ class MasterSite extends TimberSite
 
         add_post_type_support('page', 'excerpt'); // Added excerpt option to pages.
 
-        add_filter('timber_context', [$this, 'add_to_context']);
-        add_filter('get_twig', [$this, 'add_to_twig']);
+        add_filter('timber/context', [$this, 'add_to_context']);
+        add_filter('timber/twig', [$this, 'add_to_twig']);
         add_action('init', [$this, 'register_taxonomies'], 2);
         add_action('init', [$this, 'register_oembed_provider']);
         add_action('admin_menu', [$this, 'add_post_revisions_setting']);
@@ -530,19 +525,21 @@ class MasterSite extends TimberSite
         $context['domain'] = 'planet4-master-theme';
         $context['foo'] = 'bar'; // For unit test purposes.
 
-        $menu = new TimberMenu('navigation-bar-menu');
-        $menu_items = $menu->get_items();
-        $context['navbar_menu'] = $menu;
-        $context['navbar_menu_items'] = array_filter(
-            $menu_items,
-            function ($item) {
-                return !in_array('wpml-ls-item', $item->classes ?? [], true);
-            }
-        );
+        if (has_nav_menu('navigation-bar-menu')) {
+            $menu = Timber::get_menu('navigation-bar-menu');
+            $menu_items = $menu->get_items();
+            $context['navbar_menu'] = $menu;
+            $context['navbar_menu_items'] = array_filter(
+                $menu_items,
+                function ($item) {
+                    return !in_array('wpml-ls-item', $item->classes ?? [], true);
+                }
+            );
+        }
 
         // Check if the menu has been created.
         if (has_nav_menu('donate-menu')) {
-            $donate_menu = new TimberMenu('donate-menu');
+            $donate_menu = Timber::get_menu('donate-menu');
 
             // Check if it has at least 1 item added into the menu.
             if (!empty($donate_menu->get_items())) {
@@ -616,21 +613,21 @@ class MasterSite extends TimberSite
         $context['copyright_text_line2'] = $options['copyright_line2'] ?? '';
 
         if (has_nav_menu('footer-social-menu')) {
-            $footer_social_menu = new TimberMenu('footer-social-menu');
+            $footer_social_menu = Timber::get_menu('footer-social-menu');
             $context['footer_social_menu'] = wp_get_nav_menu_items($footer_social_menu->id);
         } else {
             $context['footer_social_menu'] = wp_get_nav_menu_items('Footer Social');
         }
 
         if (has_nav_menu('footer-primary-menu')) {
-            $footer_primary_menu = new TimberMenu('footer-primary-menu');
+            $footer_primary_menu = Timber::get_menu('footer-primary-menu');
             $context['footer_primary_menu'] = wp_get_nav_menu_items($footer_primary_menu->id);
         } else {
             $context['footer_primary_menu'] = wp_get_nav_menu_items('Footer Primary');
         }
 
         if (has_nav_menu('footer-secondary-menu')) {
-            $footer_secondary_menu = new TimberMenu('footer-secondary-menu');
+            $footer_secondary_menu = Timber::get_menu('footer-secondary-menu');
             $context['footer_secondary_menu'] = wp_get_nav_menu_items($footer_secondary_menu->id);
         } else {
             $context['footer_secondary_menu'] = wp_get_nav_menu_items('Footer Secondary');
@@ -681,11 +678,10 @@ class MasterSite extends TimberSite
      *
      * @return mixed
      */
-    public function add_to_twig(Twig_Environment $twig)
+    public function add_to_twig(\Twig\Environment $twig)
     {
-        $twig->addExtension(new Twig_Extension_StringLoader());
-        $twig->addFilter(new Twig_SimpleFilter('svgicon', [$this, 'svgicon']));
-
+        $twig->addExtension(new StringLoaderExtension());
+        $twig->addFilter(new \Twig\TwigFilter('svgicon', [$this, 'svgicon']));
         return $twig;
     }
 
@@ -694,12 +690,12 @@ class MasterSite extends TimberSite
      *
      * @param string $name Icon name.
      */
-    public function svgicon(string $name): Twig_Markup
+    public function svgicon(string $name): Markup
     {
         $svg_icon_template = '<svg viewBox="0 0 32 32" class="icon"><use xlink:href="'
             . $this->theme_dir . '/assets/build/sprite.symbol.svg#'
             . $name . '"></use></svg>';
-        return new Twig_Markup($svg_icon_template, 'UTF-8');
+        return new Markup($svg_icon_template, 'UTF-8');
     }
 
     /**

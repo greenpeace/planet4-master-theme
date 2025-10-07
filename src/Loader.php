@@ -75,6 +75,7 @@ final class Loader
             PostReportController::class,
             Cookies::class,
             DevReport::class,
+            TimberSettings::class,
             MasterSite::class,
             AttachmentsController::class,
             HttpHeaders::class,

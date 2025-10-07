@@ -6,7 +6,7 @@
  * @package P4MT
  */
 
-use P4\MasterTheme\Post;
+use Timber\Timber;
 
 /**
  * Class CategoryPageTest.
@@ -31,10 +31,10 @@ class CategoryPageTest extends P4TestCase
         $post = $this->factory->post->create_and_get($post_data);
 
         // Wrap WP_Post around Post.
-        $post = new Post($post->ID);
-        $output = TimberHelper::ob_function(
+        $post = Timber::get_post($post->ID);
+        $output = \Timber\Helper::ob_function(
             function () use ($post): void {
-                    Timber::render('tease-taxonomy-post.twig', [ 'post' => $post ]);
+                Timber::render('tease-taxonomy-post.twig', [ 'post' => $post ]);
             }
         );
 
@@ -78,8 +78,8 @@ class CategoryPageTest extends P4TestCase
         $post = $this->factory->post->create_and_get($post_data);
 
         // Wrap WP_Post around Post.
-        $post = new Post($post->ID);
-        $output = TimberHelper::ob_function(
+        $post = Timber::get_post($post->ID);
+        $output = \Timber\Helper::ob_function(
             function () use ($post): void {
                     Timber::render('tease-taxonomy-post.twig', [ 'post' => $post ]);
             }
@@ -119,7 +119,7 @@ class CategoryPageTest extends P4TestCase
         $this->assertTrue(is_category());
 
         wp_styles();
-        $output = TimberHelper::ob_function(
+        $output = \Timber\Helper::ob_function(
             function (): void {
                 global $wp;
                 include get_template_directory() . '/taxonomy.php';

@@ -13,7 +13,7 @@ global $post;
  * /mytheme/page-mypage.php
  * (in which case you'll want to duplicate this file and save to the above path)
  *
- * Methods for TimberHelper can be found in the /lib sub-directory
+ * Methods for \Timber\Helper can be found in the /lib sub-directory
  *
  * @package  WordPress
  * @subpackage  Timber
@@ -21,11 +21,10 @@ global $post;
  */
 
 use P4\MasterTheme\Context;
-use P4\MasterTheme\Post;
 use Timber\Timber;
 
-$context = Timber::get_context();
-$timber_post = new Post($post->ID);
+$context = Timber::context();
+$timber_post = Timber::get_post($post->ID);
 $page_meta_data = get_post_meta($timber_post->ID);
 $page_meta_data = array_map(fn ($v) => reset($v), $page_meta_data);
 
