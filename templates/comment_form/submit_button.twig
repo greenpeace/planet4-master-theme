@@ -5,5 +5,7 @@
     <label id="gdpr-comments-label" for="gdpr-comments-checkbox">{{ gdpr_label }}</label>
 </div>
 {% endif %}
-
+{% if render_turnstile %}
+<div id="turnstile-container"></div>
+{% endif %}
 <button type="submit" class="btn btn-small btn-primary">{{ __( 'Post comment', 'planet4-master-theme' ) }}</button>

@@ -15,6 +15,7 @@ global $post;
 use P4\MasterTheme\Context;
 use P4\MasterTheme\Post;
 use P4\MasterTheme\Settings\CommentsGdpr;
+use P4\MasterTheme\Settings\CloudflareTurnstile;
 use Timber\Timber;
 
 // Initializing variables.
@@ -121,6 +122,8 @@ $comments_args = [
                 'I agree on providing my name, email and content so that my comment can be stored and displayed in the website.',
                 'planet4-master-theme'
             ),
+            // phpcs:ignore Generic.Files.LineLength.MaxExceeded
+            'render_turnstile' => CloudflareTurnstile::get_option() && defined('TURNSTILE_SITE_KEY') && defined('TURNSTILE_SECRET_KEY'),
         ]
     ),
     'title_reply' => __('Leave your reply', 'planet4-master-theme'),

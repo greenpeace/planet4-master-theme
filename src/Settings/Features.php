@@ -121,6 +121,7 @@ class Features
             CommentsGdpr::class,
             DefaultPostType::class,
             ReadingTime::class,
+            CloudflareTurnstile::class,
         ];
     }
 
