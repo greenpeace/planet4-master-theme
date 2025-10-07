@@ -104,6 +104,7 @@ final class Loader
             $this->default_services[] = MediaArchive\Rest::class;
             $this->default_services[] = MigrationStatus::class;
             $this->default_services[] = MediaReplacer::class;
+            $this->default_services[] = PostFunctionsHandler::class;
 
             foreach (Features::external_settings() as $setting_class) {
                 $this->default_services[] = $setting_class;
