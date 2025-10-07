@@ -183,7 +183,7 @@ class Search
     }
 
     /**
-     * Cf. WP admin: Planet 4 > Search content
+     * Cf. WP admin: Planet 4 > Search
      */
     public static function should_include_archive(): bool
     {
