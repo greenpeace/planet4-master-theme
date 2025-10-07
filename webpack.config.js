@@ -31,6 +31,7 @@ module.exports = (env, argv) => {
       'resistance-hub-campaign-styles': './assets/src/scss/pages/_resistance-hub-campaign.scss',
       editorStyle: './assets/src/scss/editorStyle.scss',
       bootstrap: './assets/src/scss/bootstrap-build.scss',
+      vwoAntiFlicker: './assets/src/js/vwo-anti-flicker.js',
       'country-selector': './assets/src/scss/partials/country-selector.scss',
       'gravity-forms': './assets/src/scss/layout/_gravity-forms.scss',
       'resistance-hub-campaign': './assets/src/js/resistance-hub-campaign.js',

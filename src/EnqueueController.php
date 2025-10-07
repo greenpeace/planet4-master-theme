@@ -26,6 +26,25 @@ class EnqueueController
         add_action('enqueue_listing_page_layout_switch_script', [$this, 'enqueue_listing_page_layout_switch']);
         add_action('enqueue_vwo_smart_script', [$this, 'enqueue_vwo_smart_code']);
         add_action('admin_footer', [$this, 'hide_password_checkbox']);
+        add_action('wp_enqueue_scripts', [$this, 'enqueue_vwo_anti_flicker'], 0);
+    }
+
+    /**
+     * Enqueues the VWO Anti-Flicker script in the document head.
+     *
+     * The script is enqueued to load in the `<head>` section to ensure it executes
+     * before page rendering, minimizing layout shifts or style flashes.
+     *
+     */
+    public function enqueue_vwo_anti_flicker(): void
+    {
+        $this->enqueue_script(
+            'vwo-script',
+            '/assets/build/vwoAntiFlicker.js',
+            [],
+            $this->get_file_version('/assets/build/vwoAntiFlicker.js'),
+            false
+        );
     }
 
     /**
