@@ -2,8 +2,6 @@
 
 namespace P4\MasterTheme;
 
-use WP_Post;
-
 /**
  * Class ImageHandler
  */
@@ -42,48 +40,11 @@ class ImageHandler
     public function __construct()
     {
         add_action('init', [$this, 'register_meta_fields']);
-        add_action('save_post', [$this, 'set_featured_image'], 10, 2);
         add_action('after_setup_theme', [$this, 'add_image_sizes']);
         add_filter('register_block_type_args', [$this, 'register_core_blocks_callback']);
         add_filter('wp_image_editors', [$this, 'force_image_compression']);
         add_filter('wp_handle_upload_prefilter', [$this, 'image_type_validation']);
         add_filter('jpeg_quality', fn () => 60);
-    }
-
-    /**
-     * Sets as featured image of the post the first image found attached in the post's content (if any).
-     *
-     * @param int     $post_id The ID of the current Post.
-     * @param WP_Post $post The current Post.
-     */
-    public function set_featured_image(int $post_id, WP_Post $post): void
-    {
-        $types = Search\Filters\ContentTypes::get_all();
-        // Ignore autosave, check user's capabilities and post type.
-        if (
-            defined('DOING_AUTOSAVE') && DOING_AUTOSAVE
-            || !current_user_can('edit_post', $post_id)
-            || !in_array($post->post_type, array_keys($types))
-        ) {
-            return;
-        }
-
-        // Check if user has set the featured image manually.
-        $user_set_featured_image = get_post_meta($post_id, '_thumbnail_id', true);
-
-        // Apply this behavior only if there is not already a featured image.
-        if ($user_set_featured_image) {
-            return;
-        }
-
-        // Find all matches of <img> html tags within the post's content
-        // and get the id of the image from the elements class name.
-        preg_match_all('/<img.+wp-image-(\d+).*>/i', $post->post_content, $matches);
-        if (!isset($matches[1][0]) || !is_numeric($matches[1][0])) {
-            return;
-        }
-
-        set_post_thumbnail($post_id, $matches[1][0]);
     }
 
     /**
