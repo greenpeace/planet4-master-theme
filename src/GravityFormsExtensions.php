@@ -124,6 +124,28 @@ class GravityFormsExtensions
         add_action('gform_stripe_fulfillment', [ $this, 'record_fulfillment_entry' ], 10, 2);
         add_action('gform_post_payment_action', [ $this, 'check_stripe_payment_status' ], 10, 2);
         add_action('gform_pre_render', [$this, 'enqueue_share_buttons'], 10, 2);
+        add_action('admin_enqueue_scripts', [$this, 'enqueue_admin_styles']);
+    }
+
+    /**
+     * Enqueues styles for the GF admin pages.
+     *
+     */
+    public function enqueue_admin_styles(): void
+    {
+        $page = isset($_GET['page']) && $_GET['page'] === 'gf_edit_forms';
+        $subview = isset($_GET['subview']) && $_GET['subview'] === 'notification';
+
+        if (!$page || !$subview) {
+            return;
+        }
+
+        wp_enqueue_style(
+            'gravity-forms-admin',
+            get_stylesheet_directory_uri() . '/admin/css/gravity-forms-admin.css',
+            [],
+            Loader::theme_file_ver('admin/css/gravity-forms-admin.css')
+        );
     }
 
     /**
