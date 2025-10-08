@@ -8,13 +8,6 @@ namespace P4\MasterTheme;
 class MetaboxRegister
 {
     /**
-     * The maximum number of take action pages to show in dropdown.
-     *
-     * @const int MAX_TAKE_ACTION_PAGES
-     */
-    public const MAX_TAKE_ACTION_PAGES = 100;
-
-    /**
      * MetaboxRegister constructor.
      */
     public function __construct()
@@ -27,15 +20,7 @@ class MetaboxRegister
      */
     private function hooks(): void
     {
-        add_action('cmb2_init', [ $this, 'register_p4_meta_box' ]);
-    }
-
-    /**
-     * Register P4 meta box.
-     */
-    public function register_p4_meta_box(): void
-    {
-        $this->register_meta_box_post();
+        add_action('cmb2_init', [ $this, 'register_meta_box_post' ]);
     }
 
     /**
