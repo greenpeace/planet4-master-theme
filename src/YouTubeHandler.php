@@ -2,8 +2,6 @@
 
 namespace P4\MasterTheme;
 
-use P4\MasterTheme\Features\LazyYoutubePlayer;
-
 /**
  * Class YouTubeHandler
  */
@@ -31,11 +29,7 @@ class YouTubeHandler
      */
     public function filter_youtube_oembed_nocookie($cache, string $url)
     {
-        if (LazyYoutubePlayer::is_active()) {
-            return $this->new_youtube_filter($cache, $url);
-        }
-
-        return $this->old_youtube_filter($cache, $url);
+        return $this->youtube_filter($cache, $url);
     }
 
     /**
@@ -49,7 +43,7 @@ class YouTubeHandler
      *
      * @return mixed
      */
-    private function new_youtube_filter($cache, string $url)
+    private function youtube_filter($cache, string $url)
     {
         if (is_admin() || (defined('REST_REQUEST') && REST_REQUEST)) {
             return $cache;
@@ -63,33 +57,6 @@ class YouTubeHandler
 
                 return '<lite-youtube style="' . $style . '" videoid="' . $youtube_id
                     . '" params="' . $query_string . '"></lite-youtube>';
-            }
-        }
-
-        return $cache;
-    }
-
-    /**
-     * Filter function for embed_oembed_html.
-     * Transform youtube embeds to youtube-nocookie.
-     *
-     * @see https://developer.wordpress.org/reference/hooks/embed_oembed_html/
-     *
-     * @param mixed  $cache The cached HTML result, stored in post meta.
-     * @param string $url The attempted embed URL.
-     *
-     * @return mixed
-     */
-    private function old_youtube_filter($cache, string $url)
-    {
-        if (!empty($url)) {
-            if (strpos($url, 'youtube.com') !== false || strpos($url, 'youtu.be') !== false) {
-                $replacements = [
-                    'youtube.com' => 'youtube-nocookie.com',
-                    'feature=oembed' => 'feature=oembed&rel=0',
-                ];
-
-                $cache = str_replace(array_keys($replacements), array_values($replacements), $cache);
             }
         }
 
