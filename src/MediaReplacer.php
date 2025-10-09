@@ -21,6 +21,7 @@ class MediaReplacer
     private const TRANSIENT = [
         'file' => 'file_replacement_notice',
         'cache' => 'purge_cache_notice',
+        'param' => 'add_url_param'
     ];
     private const GC_STORAGE_URL = 'https://storage.googleapis.com/';
     private const P4_SLACK_CHANNEL = 'https://greenpeace.enterprise.slack.com/archives/C014UMRC4AJ';
@@ -300,6 +301,8 @@ class MediaReplacer
             );
 
             $this->purge_cache();
+            $encoded_msg = json_encode($this->replacement_status['success'], JSON_PRETTY_PRINT);
+            set_transient(self::TRANSIENT['param'], $encoded_msg, 3600);
             wp_send_json_success();
         } catch (\LogicException $e) {
             $this->error_handler($e->getMessage());
@@ -389,6 +392,8 @@ class MediaReplacer
             imagedestroy($image);
 
             $this->purge_cache();
+            $encoded_msg = json_encode($this->replacement_status['success'], JSON_PRETTY_PRINT);
+            set_transient(self::TRANSIENT['param'], $encoded_msg, 3600);
             wp_send_json_success();
         } catch (\LogicException $e) {
             $this->error_handler($e->getMessage());

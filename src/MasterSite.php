@@ -89,8 +89,13 @@ class MasterSite extends \Timber\Site
         // Load the editor scripts only enqueuing editor scripts while in context of the editor.
         add_action('enqueue_block_editor_assets', [$this, 'enqueue_editor_assets']);
         // Load main theme assets before any child theme.
+
         add_action('wp_enqueue_scripts', [PublicAssets::class, 'enqueue_css'], 0);
         add_action('wp_enqueue_scripts', [PublicAssets::class, 'enqueue_js']);
+        add_action('wp_enqueue_scripts', [PublicAssets::class, 'enqueue_replacer_extra_param']);
+        add_action('admin_enqueue_scripts', [PublicAssets::class, 'enqueue_replacer_extra_param']);
+        add_action('admin_enqueue_scripts', [AdminAssets::class, 'enqueue_js']);
+
         add_filter('safe_style_css', [$this, 'set_custom_allowed_css_properties']);
         add_filter('wp_kses_allowed_html', [$this, 'set_custom_allowed_attributes_filter'], 10, 2);
         add_filter('wp_insert_post_data', [$this, 'require_post_title'], 10, 1);
@@ -200,9 +205,6 @@ class MasterSite extends \Timber\Site
                 $wp_customize->remove_control('custom_css');
             }
         );
-
-        // Admin scripts.
-        add_action('admin_enqueue_scripts', [AdminAssets::class, 'enqueue_js']);
 
         // Disable the Elastic search sync, if archive posts feature is disable.
         add_filter(
