@@ -58,6 +58,11 @@ class MediaReplacer
 
         $this->bucket_name = $this->stateless->get('sm.bucket');
 
+        $this->cache_purge_status = [
+            'success' => [],
+            'error' => [],
+        ];
+
         // phpcs:disable Generic.Files.LineLength.MaxExceeded
         $this->user_messages = [
             'replace' => __('Replace Media', 'planet4-master-theme-backend'),
