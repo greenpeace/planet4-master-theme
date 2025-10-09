@@ -89,6 +89,30 @@ final class PublicAssets
         self::load_blocks_assets();
     }
 
+    public static function enqueue_replacer_extra_param(): void
+    {
+        if ($status = get_transient('add_url_param')) {
+            $script_id = 'replacer-extra-param';
+            $script_url = '/assets/src/js/media_replacer_extra_param.js';
+
+            wp_enqueue_script(
+                $script_id,
+                get_template_directory_uri() . $script_url,
+                [],
+                Loader::theme_file_ver($script_url),
+                true
+            );
+
+            $status = json_decode($status, true);
+
+            if (!empty($status)) {
+                if (wp_script_is($script_id, 'enqueued')) {
+                    wp_localize_script($script_id, 'purgedUrls', $status);
+                }
+            }
+        }
+    }
+
     /**
      * Load any conditional CSS partials.
      * We can further split partials for other things:

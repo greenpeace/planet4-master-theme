@@ -39,6 +39,7 @@ module.exports = (env, argv) => {
       media_archive_editor_view: './assets/src/js/media_archive_editor_view.js',
       'lite-yt-embed': './node_modules/lite-youtube-embed/src/lite-yt-embed.js',
       menu_editor: './assets/src/js/menu_editor.js',
+      addParameterSrc: './assets/src/js/media_replacer_extra_param.js',
       toggleCommentSubmit: './assets/src/js/toggle_comment_submit.js',
       turnstileRender: './assets/src/js/turnstile_render.js',
       hubspotCookie: './assets/src/js/hubspot_cookie.js',

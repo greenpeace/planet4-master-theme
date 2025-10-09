@@ -43,6 +43,7 @@ class MediaReplacer
     private const TRANSIENT = [
         'file' => 'file_replacement_notice',
         'cache' => 'purge_cache_notice',
+        'param' => 'add_url_param'
     ];
 
     /**
@@ -522,6 +523,8 @@ class MediaReplacer
 
             if ($status) {
                 $this->purge_cache($name);
+                $encoded_msg = json_encode($this->replacement_status['success'], JSON_PRETTY_PRINT);
+                set_transient(self::TRANSIENT['param'], $encoded_msg, DAY_IN_SECONDS);
                 return true;
             }
             return false;
