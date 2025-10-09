@@ -21,7 +21,6 @@ class EnqueueController
         add_action('enqueue_bulk_export_script', [$this, 'enqueue_bulk_export']);
         add_action('enqueue_media_import_button_script', [$this, 'enqueue_media_import_button']);
         add_action('enqueue_filter_block_names_script', [$this, 'enqueue_filter_block_names']);
-        add_action('enqueue_metabox_search_script', [$this, 'enqueue_metabox_search']);
         add_action('enqueue_dismiss_dashboard_notice_script', [$this, 'enqueue_dismiss_dashboard_notice']);
         add_action('enqueue_listing_page_layout_switch_script', [$this, 'enqueue_listing_page_layout_switch']);
         add_action('enqueue_vwo_smart_script', [$this, 'enqueue_vwo_smart_code']);
@@ -229,37 +228,6 @@ class EnqueueController
         $btn_label = 'var ' . $script['id'] . ' = "' . $label . '";';
 
         wp_add_inline_script($script['name'], $btn_label);
-    }
-
-    /**
-     * Enqueues the metabox search script.
-     *
-     * This method registers and enqueues the JavaScript file used to manage
-     * the functionality of setting the metabox weight based on the parent page.
-     *
-     * @param array $data The data to be passed to the script.
-     */
-    public function enqueue_metabox_search(array $data): void
-    {
-        $script = [
-            'id' => 'metaboxSearchData',
-            'name' => 'metabox-search-script',
-            'path' => '/assets/build/metaboxSearch.js',
-        ];
-
-        $this->enqueue_script(
-            $script['name'],
-            $script['path'],
-            [],
-            $this->get_file_version($script['path']),
-            true
-        );
-
-        if (!wp_script_is($script['name'], 'enqueued')) {
-            return;
-        }
-
-        wp_localize_script($script['name'], $script['id'], $data);
     }
 
     /**
