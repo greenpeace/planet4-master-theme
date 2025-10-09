@@ -12,8 +12,8 @@ class YouTubeHandler
      */
     public function __construct()
     {
-        add_filter('embed_oembed_html', [$this, 'filter_youtube_oembed_nocookie'], 10, 2);
-        add_filter('oembed_result', [$this, 'filter_youtube_oembed_nocookie'], 10, 2);
+        add_filter('embed_oembed_html', [$this, 'youtube_filter'], 10, 2);
+        add_filter('oembed_result', [$this, 'youtube_filter'], 10, 2);
     }
 
     /**
@@ -27,23 +27,7 @@ class YouTubeHandler
      *
      * @return mixed
      */
-    public function filter_youtube_oembed_nocookie($cache, string $url)
-    {
-        return $this->youtube_filter($cache, $url);
-    }
-
-    /**
-     * Filter function for embed_oembed_html.
-     * Transform youtube embeds to youtube-nocookie.
-     *
-     * @see https://developer.wordpress.org/reference/hooks/embed_oembed_html/
-     *
-     * @param mixed  $cache The cached HTML result, stored in post meta.
-     * @param string $url The attempted embed URL.
-     *
-     * @return mixed
-     */
-    private function youtube_filter($cache, string $url)
+    public function youtube_filter($cache, string $url)
     {
         if (is_admin() || (defined('REST_REQUEST') && REST_REQUEST)) {
             return $cache;
