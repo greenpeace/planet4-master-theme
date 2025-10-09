@@ -15,6 +15,27 @@ class ImageHandler
      */
     public const CREDIT_META_FIELD = '_credit_text';
 
+    public const IMAGE_MIME_TYPES = [
+        IMAGETYPE_JPEG => [
+            'mime' => 'image/jpeg',
+            'create' => 'imagecreatefromjpeg',
+            'save' => 'imagejpeg',
+            'extension' => 'jpg',
+        ],
+        IMAGETYPE_PNG => [
+            'mime' => 'image/png',
+            'create' => 'imagecreatefrompng',
+            'save' => 'imagepng',
+            'extension' => 'png',
+        ],
+        IMAGETYPE_GIF => [
+            'mime' => 'image/gif',
+            'create' => 'imagecreatefromgif',
+            'save' => 'imagegif',
+            'extension' => 'gif',
+        ],
+    ];
+
     /**
      * ImageHandler constructor.
      */
@@ -183,5 +204,56 @@ class ImageHandler
         }
 
         return $args;
+    }
+
+    /**
+     * Resize an image.
+     *
+     * @param object $image The GD image resource.
+     * @param int $new_image_width The width of the new image.
+     * @param int $new_image_height The height of the new image.
+     * @param int $old_image_width The width of the old image.
+     * @param int $old_image_height The height of the old image.
+     * @return mixed The generated image, or false in case of error.
+     */
+    public static function resize_image(
+        object $image,
+        int $new_image_width,
+        int $new_image_height,
+        int $old_image_width,
+        int $old_image_height
+    ): mixed {
+        // Determine cropping dimensions
+        $src_aspect = $new_image_width / $new_image_height;
+        $dst_aspect = $old_image_width / $old_image_height;
+
+        if ($src_aspect > $dst_aspect) {
+            $src_height = $new_image_height;
+            $src_width = (int) ($new_image_height * $dst_aspect);
+            $src_x = (int) (($new_image_width - $src_width) / 2);
+            $src_y = 0;
+        } else {
+            $src_width = $new_image_width;
+            $src_height = (int) ($new_image_width / $dst_aspect);
+            $src_x = 0;
+            $src_y = (int) (($new_image_height - $src_height) / 2);
+        }
+
+        $thumb = imagecreatetruecolor($old_image_width, $old_image_height);
+
+        imagecopyresampled(
+            $thumb,
+            $image,
+            0,
+            0,
+            $src_x,
+            $src_y,
+            $old_image_width,
+            $old_image_height,
+            $src_width,
+            $src_height
+        );
+
+        return $thumb;
     }
 }

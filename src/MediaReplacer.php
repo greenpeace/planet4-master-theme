@@ -19,27 +19,6 @@ class MediaReplacer
     private string $bucket_name;
     private mixed $stateless;
 
-    private const IMAGE_MIME_TYPES = [
-        IMAGETYPE_JPEG => [
-            'mime' => 'image/jpeg',
-            'create' => 'imagecreatefromjpeg',
-            'save' => 'imagejpeg',
-            'extension' => 'jpg',
-        ],
-        IMAGETYPE_PNG => [
-            'mime' => 'image/png',
-            'create' => 'imagecreatefrompng',
-            'save' => 'imagepng',
-            'extension' => 'png',
-        ],
-        IMAGETYPE_GIF => [
-            'mime' => 'image/gif',
-            'create' => 'imagecreatefromgif',
-            'save' => 'imagegif',
-            'extension' => 'gif',
-        ],
-    ];
-
     private const TRANSIENT = [
         'file' => 'file_replacement_notice',
         'cache' => 'purge_cache_notice',
@@ -60,10 +39,6 @@ class MediaReplacer
             return;
         }
 
-        $this->cf = new CloudflarePurger();
-
-        $this->gc_storage_url = 'https://storage.googleapis.com/';
-
         /** @disregard P1010 Undefined function 'P4\MasterTheme\ud_get_stateless_media' */
         $this->stateless = ud_get_stateless_media();
 
@@ -71,6 +46,16 @@ class MediaReplacer
         if ($this->stateless->get('sm.mode') === 'disabled') {
             return;
         }
+
+        $this->set_variables();
+        $this->set_hooks();
+    }
+
+    private function set_variables(): void
+    {
+        $this->cf = new CloudflarePurger();
+
+        $this->gc_storage_url = 'https://storage.googleapis.com/';
 
         $this->bucket_name = $this->stateless->get('sm.bucket');
 
@@ -99,7 +84,10 @@ class MediaReplacer
             'cf_error' => __('There was an issue purging the cache for these files:', 'planet4-master-theme-backend'),
         ];
         // phpcs:enable Generic.Files.LineLength.MaxExceeded
+    }
 
+    private function set_hooks(): void
+    {
         add_action('admin_enqueue_scripts', [$this, 'enqueue_media_modal_script']);
         add_filter('attachment_fields_to_edit', [$this, 'add_replace_media_button'], 10, 2);
         add_action('add_meta_boxes', [$this, 'add_replace_media_metabox']);
@@ -224,7 +212,7 @@ class MediaReplacer
             $file_mime_type = mime_content_type($file['tmp_name']);
 
             // Determine if the file is an image based on its MIME type
-            $image_type = array_search($file_mime_type, array_column(self::IMAGE_MIME_TYPES, 'mime'));
+            $image_type = array_search($file_mime_type, array_column(ImageHandler::IMAGE_MIME_TYPES, 'mime'));
 
             if ($image_type !== false) {
                 $this->replace_images($file, $attachment_id);
@@ -295,12 +283,12 @@ class MediaReplacer
             $new_image_type = $new_image_info[2];
 
             // Validate image type against allowed MIME types
-            if (!isset(self::IMAGE_MIME_TYPES[$new_image_type])) {
+            if (!isset(ImageHandler::IMAGE_MIME_TYPES[$new_image_type])) {
                 throw new \LogicException($this->user_messages['image']);
             }
 
             // Load the image dynamically
-            $image_data = self::IMAGE_MIME_TYPES[$new_image_type];
+            $image_data = ImageHandler::IMAGE_MIME_TYPES[$new_image_type];
             $image = call_user_func($image_data['create'], $new_image_path);
             if (!$image) {
                 throw new \LogicException($this->user_messages['image']);
@@ -408,7 +396,7 @@ class MediaReplacer
             ];
 
             // Create thumbnail.
-            $thumb = $this->create_image_thumbnail(
+            $thumb = ImageHandler::resize_image(
                 $image,
                 $new_image_width,
                 $new_image_height,
@@ -430,60 +418,6 @@ class MediaReplacer
 
             // Free memory
             imagedestroy($thumb);
-        }
-    }
-
-    /**
-     * Creates an image thumbnail.
-     *
-     * @param object $image The GD image resource.
-     * @param int $new_image_width The width of the new image.
-     * @param int $new_image_height The height of the new image.
-     * @param int $old_image_width The width of the thumbnail.
-     * @param int $old_image_height The height of the thumbnail.
-     * @return mixed The generated thumbnail image, or null in case of error.
-     */
-    private function create_image_thumbnail(
-        object $image,
-        int $new_image_width,
-        int $new_image_height,
-        int $old_image_width,
-        int $old_image_height
-    ): mixed {
-        try {
-            // Determine cropping dimensions
-            $src_aspect = $new_image_width / $new_image_height;
-            $dst_aspect = $old_image_width / $old_image_height;
-
-            if ($src_aspect > $dst_aspect) {
-                $src_height = $new_image_height;
-                $src_width = (int) ($new_image_height * $dst_aspect);
-                $src_x = (int) (($new_image_width - $src_width) / 2);
-                $src_y = 0;
-            } else {
-                $src_width = $new_image_width;
-                $src_height = (int) ($new_image_width / $dst_aspect);
-                $src_x = 0;
-                $src_y = (int) (($new_image_height - $src_height) / 2);
-            }
-
-            $thumb = imagecreatetruecolor($old_image_width, $old_image_height);
-            imagecopyresampled(
-                $thumb,
-                $image,
-                0,
-                0,
-                $src_x,
-                $src_y,
-                $old_image_width,
-                $old_image_height,
-                $src_width,
-                $src_height
-            );
-            return $thumb;
-        } catch (\LogicException $e) {
-            $this->error_handler($e->getMessage());
-            return null;
         }
     }
 
@@ -518,7 +452,8 @@ class MediaReplacer
             $status = $this->stateless->get_client()->add_media($image_args);
 
             $this->replacement_status[$status ? 'success' : 'error'][] = $name;
-            $this->transient_handler(self::TRANSIENT['file'], $this->replacement_status);
+            $encoded_msg = json_encode($this->replacement_status, JSON_PRETTY_PRINT);
+            set_transient(self::TRANSIENT['file'], $encoded_msg, 5);
 
             if ($status) {
                 $this->purge_cache($name);
@@ -564,19 +499,8 @@ class MediaReplacer
         foreach ($this->cf->purge([$stateless_url]) as [$response, $chunk]) {
             $this->cache_purge_status[(bool) $response ? 'success' : 'error'][] = $file_name;
         }
-        $this->transient_handler(self::TRANSIENT['cache'], $this->cache_purge_status);
-    }
-
-    /**
-     * Manages transient messages.
-     *
-     * @param string $transient The transient key.
-     * @param array $messages The messages to store.
-     */
-    private function transient_handler(string $transient, array $messages): void
-    {
-        $encoded_msg = json_encode($messages, JSON_PRETTY_PRINT);
-        set_transient($transient, $encoded_msg, 5);
+        $encoded_msg = json_encode($this->cache_purge_status, JSON_PRETTY_PRINT);
+        set_transient(self::TRANSIENT['cache'], $encoded_msg, 5);
     }
 
     /**
