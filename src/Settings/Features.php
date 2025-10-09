@@ -7,7 +7,6 @@ use P4\MasterTheme\Features\Dev\AllowAllBlocks;
 use P4\MasterTheme\Features\Dev\BetaBlocks;
 use P4\MasterTheme\Features\Dev\CoreBlockPatterns;
 use P4\MasterTheme\Features\Dev\DisableDataSync;
-use P4\MasterTheme\Features\LazyYoutubePlayer;
 use P4\MasterTheme\Features\Planet4Blocks;
 use P4\MasterTheme\Features\OldPostsArchiveNotice;
 use P4\MasterTheme\Features\ActionsTaskType;
@@ -97,7 +96,6 @@ class Features
         // That way controlling whether the feature is live is in one place.
         return [
             CloudflareDeployPurge::class,
-            LazyYoutubePlayer::class,
             Planet4Blocks::class,
             OldPostsArchiveNotice::class,
             ActionsTaskType::class,
