@@ -38,12 +38,6 @@ class ElasticSearch
             return $properties;
         });
 
-        // Apply weighting decay function of time
-        // Only works if feature "Weighting by date" is active
-        add_filter('epwr_decay', static fn() => planet4_get_option('epwr_decay', 0.5));
-        add_filter('epwr_scale', static fn() => planet4_get_option('epwr_scale', '28d'));
-        add_filter('epwr_offset', static fn() => planet4_get_option('epwr_offset', '365d'));
-
         // Disable match fuzziness to avoid irrelevant results
         // Cf. https://elasticpress.zendesk.com/hc/en-us/articles/25809934420109-How-to-disable-fuzziness
         add_filter('ep_post_match_fuzziness', fn() => 0);

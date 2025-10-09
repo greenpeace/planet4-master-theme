@@ -553,7 +553,7 @@ class Settings
         if ($is_elasticpress) {
             $search_content = array(
                 'planet4_settings_search_content' => [
-                    'title' => 'Search content',
+                    'title' => 'Search',
                     'fields' => [
                         [
                             'name' => __('Include archived content in search for', 'planet4-master-theme-backend'),
@@ -569,30 +569,6 @@ class Settings
                                 'logged_in' => __('Logged in users', 'planet4-master-theme-backend'),
                                 'all' => __('All users', 'planet4-master-theme-backend'),
                             ],
-                        ],
-                        [
-                            'name' => __('Search content decay', 'planet4-master-theme-backend'),
-                            'desc' => __('Amount of lowering of the relevancy score for older results. Between 0 and 1. The lower this number is, the lower older content will be ranked. See image. <br>We use the exponential function (exp, green curve).<br/> <img style="max-width:350px" alt="ElasticSearch decay function graph" src="https://www.elastic.co/guide/en/elasticsearch/reference/current/images/decay_2d.png">', 'planet4-master-theme-backend'),
-                            'id' => 'epwr_decay',
-                            'type' => 'text',
-                        ],
-                        [
-                            'name' => __('Search content decay scale', 'planet4-master-theme-backend'),
-                            'desc' => __(
-                                'Timescale for lowering the relevance of older results. See image above.',
-                                'planet4-master-theme-backend'
-                            ),
-                            'id' => 'epwr_scale',
-                            'type' => 'text',
-                        ],
-                        [
-                            'name' => __('Search content decay offset', 'planet4-master-theme-backend'),
-                            'desc' => __(
-                                'How old should a post be before relevance is lowered. See image above.',
-                                'planet4-master-theme-backend'
-                            ),
-                            'id' => 'epwr_offset',
-                            'type' => 'text',
                         ],
                     ],
                 ],
