@@ -38,7 +38,6 @@ class CustomTaxonomy
         add_action('created_term', [$this, 'trigger_rewrite_rules'], 10, 3);
         add_action('edited_term', [$this, 'trigger_rewrite_rules'], 10, 3);
         add_action('delete_term', [$this, 'trigger_rewrite_rules'], 10, 3);
-        add_action('save_post', [$this, 'save_taxonomy_page_type'], 10, 2);
         add_filter('available_permalink_structure_tags', [$this, 'add_taxonomy_as_permalink_structure'], 10, 1);
 
         // Rewrites the permalink to a post belonging to this taxonomy.
@@ -87,10 +86,10 @@ class CustomTaxonomy
     {
         $attached_type = get_the_terms($post, self::TAXONOMY);
         $current_type = (is_array($attached_type)) ? $attached_type[0]->term_id : -1;
-        $all_types = $this->get_terms();
+        $all_types = self::get_terms();
         if (-1 === $current_type) {
             // Assign default p4-pagetype for new POST.
-            $planet4_default_post_type = $this->get_planet4_default_post_type();
+            $planet4_default_post_type = self::get_planet4_default_post_type();
 
             $current_type = (isset($planet4_default_post_type) && isset($planet4_default_post_type->slug))
                 ? $planet4_default_post_type->slug
@@ -98,7 +97,7 @@ class CustomTaxonomy
         }
 
         wp_nonce_field('p4-save-page-type', 'p4-page-type-nonce');
-?>
+        ?>
         <select name="<?php echo esc_attr(self::TAXONOMY); ?>">
             <?php foreach ($all_types as $term) : ?>
                 <option <?php selected($current_type, $term->term_id); ?> value="<?php echo esc_attr($term->term_id); ?>">
@@ -106,7 +105,7 @@ class CustomTaxonomy
                 </option>
             <?php endforeach; ?>
         </select>
-    <?php
+        <?php
     }
     // phpcs:enable Generic.WhiteSpace.ScopeIndent
     // phpcs:enable Generic.Files.LineLength
@@ -129,7 +128,7 @@ class CustomTaxonomy
 
         // Get post's taxonomy terms.
         $terms = wp_get_object_terms($post->ID, self::TAXONOMY);
-        $all_terms = $this->get_terms();
+        $all_terms = self::get_terms();
 
         // Assign story slug if the taxonomy does not have any terms.
         $taxonomy_slug = 'story';
@@ -149,7 +148,7 @@ class CustomTaxonomy
      *
      * @return array|int|WP_Error
      */
-    public function get_terms()
+    public static function get_terms()
     {
         // Get planet4 page type taxonomy terms.
         return get_terms(
@@ -172,7 +171,7 @@ class CustomTaxonomy
         if (function_exists('is_plugin_active') && is_plugin_active('sitepress-multilingual-cms/sitepress.php')) {
             return $this->get_multilingual_terms();
         }
-        return $this->get_terms();
+        return self::get_terms();
     }
 
     /**
@@ -212,13 +211,13 @@ class CustomTaxonomy
      *
      * @return WP_term|int|WP_Error
      */
-    public function get_planet4_default_post_type()
+    public static function get_planet4_default_post_type()
     {
         $planet4_default_post_type = DefaultPostType::get_option() ?? 0;
 
         if (0 === $planet4_default_post_type) {
             // If default p4-pagetype setting not found, use taxonomy's first term.
-            $all_terms = $this->get_terms();
+            $all_terms = self::get_terms();
             $planet4_default_post_type = $all_terms[0] ?? 0;
         } else {
             $planet4_default_post_type = get_term($planet4_default_post_type, self::TAXONOMY);
@@ -389,67 +388,6 @@ class CustomTaxonomy
     // phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter
 
     /**
-     * Add first term of the taxonomy to the post if the post has not any taxonomy's terms assigned to it.
-     * Assign only the first term, if more than one terms are assigned to the post.
-     *
-     * @param int     $post_id Id of the saved post.
-     * @param WP_Post $post    Post object.
-     */
-    public function save_taxonomy_page_type(int $post_id, WP_Post $post): void
-    {
-
-        // Ignore autosave.
-        if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
-            return;
-        }
-
-        // Check user's capabilities.
-        if (!current_user_can('edit_post', $post_id)) {
-            return;
-        }
-
-        // Allow p4-page-type to be set from edit post and quick edit pages.
-        // Make sure there's input.
-        // phpcs:disable WordPress.Security.NonceVerification.Missing
-        if (
-            isset($_POST[self::TAXONOMY]) && 'post' === $post->post_type &&
-            filter_var(wp_unslash($_POST[self::TAXONOMY]), FILTER_VALIDATE_INT)
-        ) {
-            $selected = get_term_by('id', intval($_POST[self::TAXONOMY]), self::TAXONOMY);
-            // phpcs:enable
-            if (false !== $selected && !is_wp_error($selected)) {
-                // Save post type.
-                wp_set_post_terms($post_id, [$selected->term_id], self::TAXONOMY);
-            }
-        }
-
-        // Check if post type is POST.
-        // Check if post has a p4 page type term assigned to it and if none if assigned,
-        // assign the default p4 page type term.
-        if ('post' !== $post->post_type) {
-            return;
-        }
-
-        // Check if post has an assigned term to it.
-        $terms = wp_get_object_terms($post_id, self::TAXONOMY);
-        if (is_wp_error($terms)) {
-            return;
-        }
-
-        $planet4_default_post_type = $this->get_planet4_default_post_type();
-
-        // Assign default p4-pagetype, if no term is assigned to post.
-        if (empty($terms)) {
-            if ($planet4_default_post_type instanceof \WP_Term) {
-                wp_set_post_terms($post_id, [$planet4_default_post_type->term_id], self::TAXONOMY);
-            }
-            // Assign the first term, if more than one terms are assigned.
-        } elseif (count($terms) > 1 && $terms[0] instanceof \WP_Term) {
-            wp_set_post_terms($post_id, [$terms[0]->term_id], self::TAXONOMY);
-        }
-    }
-
-    /**
      * Adds a filter element to the posts list that allows filtering by the custom taxonomy terms.
      * Action for restrict_manage_posts.
      *
@@ -468,8 +406,12 @@ class CustomTaxonomy
         $terms = get_terms(self::TAXONOMY);
 
         // Display filter HTML.
-    ?>
-        <select name="<?php echo esc_attr(self::TAXONOMY); ?>" id="<?php echo esc_attr(self::TAXONOMY); ?>" class="postform">
+        ?>
+        <select
+            name="<?php echo esc_attr(self::TAXONOMY); ?>"
+            id="<?php echo esc_attr(self::TAXONOMY); ?>"
+            class="postform"
+        >
             <option value=""><?php echo esc_html__('All Post Types', 'planet4-master-theme-backend'); ?></option>
 
             <?php
@@ -477,13 +419,15 @@ class CustomTaxonomy
                 printf(
                     '<option value="%1$s" %2$s>%3$s</option>',
                     esc_html($term->slug),
-                    ((isset($_GET[self::TAXONOMY]) && ($_GET[self::TAXONOMY] === $term->slug)) ? ' selected="selected"' : ''), // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+                    // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+                    ((isset($_GET[self::TAXONOMY]) && ($_GET[self::TAXONOMY] === $term->slug)) ?
+                        ' selected="selected"' : ''),
                     esc_html($term->name)
                 );
             }
             ?>
         </select>
-<?php
+        <?php
     }
     // phpcs:enable Generic.Files.LineLength.MaxExceeded
     // phpcs:enable Generic.WhiteSpace.ScopeIndent
