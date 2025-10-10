@@ -12,7 +12,6 @@ use WP_Post;
 class MediaReplacer
 {
     private CloudflarePurger $cf;
-    private string $gc_storage_url;
     private array $replacement_status;
     private array $cache_purge_status;
     private array $user_messages;
@@ -23,6 +22,8 @@ class MediaReplacer
         'file' => 'file_replacement_notice',
         'cache' => 'purge_cache_notice',
     ];
+    private const GC_STORAGE_URL = 'https://storage.googleapis.com/';
+    private const P4_SLACK_CHANNEL = 'https://greenpeace.enterprise.slack.com/archives/C014UMRC4AJ';
 
     /**
      * MediaReplacer constructor.
@@ -55,19 +56,7 @@ class MediaReplacer
     {
         $this->cf = new CloudflarePurger();
 
-        $this->gc_storage_url = 'https://storage.googleapis.com/';
-
         $this->bucket_name = $this->stateless->get('sm.bucket');
-
-        $this->replacement_status = [
-            'success' => [],
-            'error' => [],
-        ];
-
-        $this->cache_purge_status = [
-            'success' => [],
-            'error' => [],
-        ];
 
         // phpcs:disable Generic.Files.LineLength.MaxExceeded
         $this->user_messages = [
@@ -100,11 +89,14 @@ class MediaReplacer
      */
     public function enqueue_media_modal_script(): void
     {
+        $id = 'custom-media-replacer';
+        $path = '/admin/js/media_replacer.js';
+
         wp_enqueue_script(
-            'custom-media-replacer',
-            get_template_directory_uri() . '/admin/js/media_replacer.js',
+            $id,
+            get_template_directory_uri() . $path,
             [],
-            Loader::theme_file_ver("admin/js/media_replacer.js"),
+            Loader::theme_file_ver($path),
             true
         );
     }
@@ -494,7 +486,7 @@ class MediaReplacer
      */
     private function purge_cache(string $file_name): void
     {
-        $stateless_url = $this->gc_storage_url . $this->bucket_name . "/" . $file_name;
+        $stateless_url = self::GC_STORAGE_URL . $this->bucket_name . "/" . $file_name;
 
         foreach ($this->cf->purge([$stateless_url]) as [$response, $chunk]) {
             $this->cache_purge_status[(bool) $response ? 'success' : 'error'][] = $file_name;
@@ -558,7 +550,7 @@ class MediaReplacer
             }
 
             echo "</ul>";
-            echo "<p><a target='_blank' href='https://greenpeace.enterprise.slack.com/archives/C014UMRC4AJ'>";
+            echo "<p><a target='_blank' href='" . self::P4_SLACK_CHANNEL . "'>";
             echo "Click here to receive support on Slack >>>";
             echo "</a></p>";
             echo "</div>";
