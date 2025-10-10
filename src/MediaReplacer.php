@@ -14,6 +14,7 @@ class MediaReplacer
     private CloudflarePurger $cf;
     private string $gc_storage_url;
     private array $replacement_status;
+    private array $cache_purge_status;
     private array $user_messages;
     private string $bucket_name;
     private mixed $stateless;
@@ -41,6 +42,7 @@ class MediaReplacer
 
     private const TRANSIENT = [
         'file' => 'file_replacement_notice',
+        'cache' => 'purge_cache_notice',
     ];
 
     /**
@@ -77,19 +79,24 @@ class MediaReplacer
             'error' => [],
         ];
 
+        $this->cache_purge_status = [
+            'success' => [],
+            'error' => [],
+        ];
+
         // phpcs:disable Generic.Files.LineLength.MaxExceeded
         $this->user_messages = [
             'replace' => __('Replace Media', 'planet4-master-theme-backend'),
             'metabox' => __('Use this to replace the current file without changing the file URL.', 'planet4-master-theme-backend'),
             'attach' => __('Attachment ID is missing.', 'planet4-master-theme-backend'),
             'file' => __('File is missing.', 'planet4-master-theme-backend'),
-            'media' => __('Media could not be replaced.', 'planet4-master-theme-backend'),
+            'media' => __('Media Replacer failed:', 'planet4-master-theme-backend'),
             'gd' => __('GD library is missing.', 'planet4-master-theme-backend'),
             'image' => __('Error processing image.', 'planet4-master-theme-backend'),
-            'success' => __('File was succesfully replaced!', 'planet4-master-theme-backend'),
-            'error' => __('There was a problem and the file could not be replaced:', 'planet4-master-theme-backend'),
-            'cf_success' => __('URLs were successfully purged from cache:', 'planet4-master-theme-backend'),
-            'cf_error' => __('There was an error purging these URLs from cache:', 'planet4-master-theme-backend'),
+            'success' => __('These files were successfully replaced:', 'planet4-master-theme-backend'),
+            'error' => __('There was an issue replacing these files:', 'planet4-master-theme-backend'),
+            'cf_success' => __('The cache was successfully purged for these files:', 'planet4-master-theme-backend'),
+            'cf_error' => __('There was an issue purging the cache for these files:', 'planet4-master-theme-backend'),
         ];
         // phpcs:enable Generic.Files.LineLength.MaxExceeded
 
@@ -246,7 +253,7 @@ class MediaReplacer
             $filename = $file_meta['_wp_attached_file'][0];
             $sm_cloud_data = unserialize($file_meta['sm_cloud'][0]);
 
-            $status = $this->upload_file(
+            $this->upload_file(
                 $sm_cloud_data['name'],
                 $file['tmp_name'],
                 $file_mime_type,
@@ -257,10 +264,6 @@ class MediaReplacer
                     'file-hash' => md5($filename), //NOSONAR
                 ]
             );
-
-            if (!$status) {
-                throw new \LogicException($this->user_messages['error']);
-            }
 
             wp_send_json_success();
         } catch (\LogicException $e) {
@@ -329,7 +332,7 @@ class MediaReplacer
             call_user_func($image_data['save'], $image, $temporary_file_path);
 
             // Replace the main image.
-            $status = $this->upload_file(
+            $this->upload_file(
                 $old_image_meta['name'],
                 $temporary_file_path,
                 $image_data['mime'],
@@ -349,10 +352,6 @@ class MediaReplacer
 
             // Free memory
             imagedestroy($image);
-
-            if (!$status) {
-                throw new \LogicException($this->user_messages['error']);
-            }
 
             wp_send_json_success();
         } catch (\LogicException $e) {
@@ -518,11 +517,14 @@ class MediaReplacer
             // Upload the file to Google Cloud Storage.
             $status = $this->stateless->get_client()->add_media($image_args);
 
+            $this->replacement_status[$status ? 'success' : 'error'][] = $name;
+            $this->transient_handler(self::TRANSIENT['file'], $this->replacement_status);
+
             if ($status) {
-                $this->success_handler($this->user_messages['success'], $name);
+                $this->purge_cache($name);
                 return true;
             }
-            throw new \LogicException($this->user_messages['error']);
+            return false;
         } catch (\LogicException $e) {
             $this->error_handler($e->getMessage());
             return false;
@@ -537,11 +539,16 @@ class MediaReplacer
      */
     private function error_handler(string $message): void
     {
+        $msg = $this->user_messages['media'] . $message;
+
+        if (function_exists('\Sentry\captureMessage')) {
+            \Sentry\captureMessage($msg);
+        }
+
         //phpcs:ignore Squiz.PHP.DiscouragedFunctions.Discouraged
-        error_log($message);
-        array_push($this->replacement_status['error'], $message);
-        $this->transient_handler(self::TRANSIENT['file'], $this->replacement_status);
-        wp_send_json_error($message);
+        error_log($msg);
+        array_push($this->replacement_status['error'], $msg);
+        wp_send_json_error($msg);
     }
 
     /**
@@ -550,13 +557,14 @@ class MediaReplacer
      *
      * @param string $message The success message.
      */
-    private function success_handler(string $message, string $file_name): void
+    private function purge_cache(string $file_name): void
     {
         $stateless_url = $this->gc_storage_url . $this->bucket_name . "/" . $file_name;
-        $this->cf->purge([$stateless_url]);
 
-        array_push($this->replacement_status['success'], $message);
-        $this->transient_handler(self::TRANSIENT['file'], $this->replacement_status);
+        foreach ($this->cf->purge([$stateless_url]) as [$response, $chunk]) {
+            $this->cache_purge_status[(bool) $response ? 'success' : 'error'][] = $file_name;
+        }
+        $this->transient_handler(self::TRANSIENT['cache'], $this->cache_purge_status);
     }
 
     /**
@@ -579,7 +587,12 @@ class MediaReplacer
         $this->render_notice(
             'file',
             $this->user_messages['success'],
-            $this->user_messages['error'],
+            $this->user_messages['error']
+        );
+        $this->render_notice(
+            'cache',
+            $this->user_messages['cf_success'],
+            $this->user_messages['cf_error']
         );
     }
 
@@ -599,18 +612,32 @@ class MediaReplacer
         $status = json_decode($status, true);
 
         if (!empty($status['success'])) {
-            printf(
-                "<div class='notice notice-success is-dismissible'><p>%s</p></div>",
-                esc_html($success_message),
-            );
+            echo "<div class='notice notice-success is-dismissible'>";
+            echo "<p><strong>" . $success_message . "</strong></p>";
+            echo "<ul>";
+
+            foreach ($status['success'] as $item) {
+                echo '<li>' . esc_html($item) . '</li>';
+            }
+
+            echo "</ul>";
+            echo "</div>";
         }
 
         if (!empty($status['error'])) {
-            printf(
-                "<div class='notice notice-error is-dismissible'><p>%s</p><li>%s</li></div>",
-                esc_html($error_message),
-                implode("</li><li>", array_map('esc_html', $status['error']))
-            );
+            echo "<div class='notice notice-error is-dismissible'>";
+            echo "<p><strong>" . $error_message . "</strong></p>";
+            echo "<ul>";
+
+            foreach ($status['error'] as $item) {
+                echo '<li>' . esc_html($item) . '</li>';
+            }
+
+            echo "</ul>";
+            echo "<p><a target='_blank' href='https://greenpeace.enterprise.slack.com/archives/C014UMRC4AJ'>";
+            echo "Click here to receive support on Slack >>>";
+            echo "</a></p>";
+            echo "</div>";
         }
 
         delete_transient(self::TRANSIENT[$transient_key]);
