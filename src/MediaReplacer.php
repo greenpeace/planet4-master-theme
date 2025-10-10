@@ -250,6 +250,7 @@ class MediaReplacer
                 ]
             );
 
+            $this->purge_cache();
             wp_send_json_success();
         } catch (\LogicException $e) {
             $this->error_handler($e->getMessage());
@@ -338,6 +339,7 @@ class MediaReplacer
             // Free memory
             imagedestroy($image);
 
+            $this->purge_cache();
             wp_send_json_success();
         } catch (\LogicException $e) {
             $this->error_handler($e->getMessage());
@@ -432,7 +434,7 @@ class MediaReplacer
         string $absolute_path,
         string $mime,
         array $metadata
-    ): bool {
+    ): void {
         try {
             // Prepare the upload arguments
             $image_args = [
@@ -451,15 +453,8 @@ class MediaReplacer
             $this->replacement_status[$status ? 'success' : 'error'][] = $name;
             $encoded_msg = json_encode($this->replacement_status, JSON_PRETTY_PRINT);
             set_transient(self::TRANSIENT['file'], $encoded_msg, 5);
-
-            if ($status) {
-                $this->purge_cache($name);
-                return true;
-            }
-            return false;
         } catch (\LogicException $e) {
             $this->error_handler($e->getMessage());
-            return false;
         }
     }
 
@@ -484,18 +479,49 @@ class MediaReplacer
     }
 
     /**
-     * Handles successful replacements.
-     * Sets successful messages.
+     * Purges cached files from the CDN and stores the purge result in a transient.
      *
-     * @param string $message The success message.
      */
-    private function purge_cache(string $file_name): void
+    private function purge_cache(): void
     {
-        $stateless_url = self::GC_STORAGE_URL . $this->bucket_name . "/" . $file_name;
-
-        foreach ($this->cf->purge([$stateless_url]) as [$response, $chunk]) {
-            $this->cache_purge_status[(bool) $response ? 'success' : 'error'][] = $file_name;
+        // Get all the files that were replaced (successfuly or not).
+        if (!$status = get_transient(self::TRANSIENT['file'])) {
+            return;
         }
+
+        $status = json_decode($status, true);
+
+        // If there are no succesfuly replaced files, abort.
+        if (empty($status['success'])) {
+            return;
+        }
+
+        $urls_to_purge = [];
+
+        // Loop through the files and generate the "stateless" URLs.
+        // For example:
+        // Regular URL: https://www.greenpeace.org/static/bucket-name/2025/10/filename.jpg
+        // Stateless URL: https://storage.googleapis.com/bucket-name/2025/10/filename.jpg
+        foreach ($status['success'] as $url) {
+            $url = ltrim($url, '/');
+            $stateless_url = rtrim(self::GC_STORAGE_URL, '/') . '/' . trim($this->bucket_name, '/') . '/' . $url;
+            $urls_to_purge[] = $stateless_url;
+        }
+
+        if (empty($urls_to_purge)) {
+            return;
+        }
+
+        // Purge the URLs.
+        $purge_status = $this->cf->purge($urls_to_purge);
+
+        // Store the result of the purging.
+        foreach ($purge_status as $entry) {
+            [$response, $chunk] = array_values($entry);
+            $this->cache_purge_status[(bool) $response ? 'success' : 'error'][] = $chunk;
+        }
+
+        // Pass the result of the purging to a transient.
         $encoded_msg = json_encode($this->cache_purge_status, JSON_PRETTY_PRINT);
         set_transient(self::TRANSIENT['cache'], $encoded_msg, 5);
     }
@@ -531,6 +557,16 @@ class MediaReplacer
         }
 
         $status = json_decode($status, true);
+
+        // Flatten nested arrays safely, even if empty
+        $status['success'] = array_merge(...array_map(
+            fn($v) => (array) $v,
+            $status['success'] ?? []
+        ));
+        $status['error'] = array_merge(...array_map(
+            fn($v) => (array) $v,
+            $status['error'] ?? []
+        ));
 
         if (!empty($status['success'])) {
             echo "<div class='notice notice-success is-dismissible'>";
