@@ -1,46 +1,33 @@
 import {expect, test} from '../tools/lib/test-utils.js';
 import {publishPostAndVisit, createPostWithFeaturedImage} from '../tools/lib/post.js';
-import {searchAndInsertBlock, searchAndInsertPattern, closeBlockInserter} from '../tools/lib/editor.js';
+import {
+  searchAndInsertBlock,
+  searchAndInsertPattern,
+  closeBlockInserter,
+  addHeadingOrParagraph,
+} from '../tools/lib/editor.js';
+
+const NAV_LINK_CLASS = '.secondary-navigation-link';
 
 const PARAGRAPH_CONTENT = `Nulla in odio et augue aliquet dictum ac sit amet dolor.
   Aenean sed orci ac lectus dignissim commodo. Mauris fermentum orci sed faucibus feugiat.
   Curabitur sed eros et ex sodales lobortis sodales et est. Maecenas sit amet iaculis libero.
-  Duis laoreet nisi lorem, eget convallis magna tristique nec. Nunc eu est risus.
-  Mauris lorem mi, imperdiet in velit vitae, ullamcorper ullamcorper nulla. Aenean fringilla sodales turpis.
-  Duis convallis dui et scelerisque commodo.`;
+  Duis laoreet nisi lorem, eget convallis magna tristique nec. Nunc eu est risus.`;
 
 const HEADINGS = [
   'Lorem ipsum dolor sit amet',
-  'Fusce pretium elit fermentum, semper massa nec, convallis ipsum',
   'Suspendisse',
-  'Nulla feugiat nibh et arcu commodo, sed aliquam tellus rhoncus',
-  'Vivamus suscipit mattis elit vel hendrerit',
-  'Praesent ullamcorper libero eget libero scelerisque porttitor',
-  'Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos',
+  'Nulla feugiat nibh',
+  'Vivamus suscipit mattis',
+  'Praesent ullamcorper libero',
   'Quisque accumsan',
-  'Suspendisse pellentesque tellus lacus, varius gravida massa posuere ut',
-  'Donec tristique nibh vel vestibulum condimentum',
+  'Donec tristique',
 ];
-
-/**
- * @param {{Page}} page
- * @param {string} blockName
- * @param {string} blockTag
- * @param {number} number
- * @param {string} text
- */
-const addHeadingOrParagraph = async ({page}, blockName, blockTag, number, text) => {
-  await searchAndInsertBlock({page}, blockName, blockName.toLowerCase());
-  const newBlock = await page.getByRole('region', {name: 'Editor content'}).locator(blockTag).nth(number);
-  await expect(newBlock).toBeVisible();
-  await closeBlockInserter({page});
-  await newBlock.fill(text);
-};
 
 test.useAdminLoggedIn();
 
 test('Test Secondary Navigation block', async ({page, admin, editor}) => {
-  await createPostWithFeaturedImage({page, admin, editor}, {title: 'Test Counter', postType: 'page'});
+  await createPostWithFeaturedImage({page, admin, editor}, {title: 'Test Secondary Navigation', postType: 'page'});
 
   // Add Page Header block.
   await searchAndInsertPattern({page}, 'p4/page-header-img-right');
@@ -70,7 +57,7 @@ test('Test Secondary Navigation block', async ({page, admin, editor}) => {
 
   // The links in the block match all h2 elements present in the page content.
   for (let index = 0; index < HEADINGS.length; index++) {
-    await expect(secondaryNavigationBlock.locator('.secondary-navigation-link').nth(index)).toHaveText(HEADINGS[index]);
+    await expect(secondaryNavigationBlock.locator(NAV_LINK_CLASS).nth(index)).toHaveText(HEADINGS[index]);
   };
 
   // The Secondary Navigation block should have navigation arrows present for left or right scrolling.
@@ -82,6 +69,13 @@ test('Test Secondary Navigation block', async ({page, admin, editor}) => {
   await rightArrow.click();
   await rightArrow.click();
   await expect(leftArrow).toBeVisible();
+
+  // Make sure that the page navigates to the corrent anchor on click.
+  const testLink = page.locator(NAV_LINK_CLASS, {hasText: HEADINGS[2]});
+  const anchor = await testLink.getAttribute('href');
+  await testLink.click();
+  const targetId = anchor.replace('#', '');
+  await expect(page.locator(`[id="${targetId}"]`)).toBeInViewport();
 
   // On scroll down, the block should become sticky.
   await page.getByRole('heading', {name: HEADINGS.at(-1)}).scrollIntoViewIfNeeded();
