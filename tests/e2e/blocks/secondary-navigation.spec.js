@@ -1,6 +1,6 @@
 import {expect, test} from '../tools/lib/test-utils.js';
 import {publishPostAndVisit, createPostWithFeaturedImage} from '../tools/lib/post.js';
-import {searchAndInsertBlock, searchAndInsertPattern, closeBlockInserter} from '../tools/lib/editor.js';
+import {searchAndInsertBlock, searchAndInsertPattern, closeBlockInserter, addHeadingOrParagraph} from '../tools/lib/editor.js';
 
 const PARAGRAPH_CONTENT = `Nulla in odio et augue aliquet dictum ac sit amet dolor.
   Aenean sed orci ac lectus dignissim commodo. Mauris fermentum orci sed faucibus feugiat.
@@ -22,25 +22,10 @@ const HEADINGS = [
   'Donec tristique nibh vel vestibulum condimentum',
 ];
 
-/**
- * @param {{Page}} page
- * @param {string} blockName
- * @param {string} blockTag
- * @param {number} number
- * @param {string} text
- */
-const addHeadingOrParagraph = async ({page}, blockName, blockTag, number, text) => {
-  await searchAndInsertBlock({page}, blockName, blockName.toLowerCase());
-  const newBlock = await page.getByRole('region', {name: 'Editor content'}).locator(blockTag).nth(number);
-  await expect(newBlock).toBeVisible();
-  await closeBlockInserter({page});
-  await newBlock.fill(text);
-};
-
 test.useAdminLoggedIn();
 
 test('Test Secondary Navigation block', async ({page, admin, editor}) => {
-  await createPostWithFeaturedImage({page, admin, editor}, {title: 'Test Counter', postType: 'page'});
+  await createPostWithFeaturedImage({page, admin, editor}, {title: 'Test Secondary Navigation', postType: 'page'});
 
   // Add Page Header block.
   await searchAndInsertPattern({page}, 'p4/page-header-img-right');
@@ -90,6 +75,9 @@ test('Test Secondary Navigation block', async ({page, admin, editor}) => {
   // Make sure that the block remains sticky on scroll up.
   await page.getByRole('heading', {name: HEADINGS.at(-3)}).scrollIntoViewIfNeeded();
   await expect(secondaryNavigationBlock).toHaveCSS('position', 'sticky');
+
+  // Make sure that the correct anchor is added to the URL on click.
+
 
   // On mobile, the block should be a dropdown menu.
   await page.setViewportSize({width: 320, height: 500});
