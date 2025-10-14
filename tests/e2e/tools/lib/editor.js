@@ -64,4 +64,19 @@ const searchAndInsertPattern = async ({page}, id) => {
   await page.locator(`[id="${id}"]`).click();
 };
 
-export {openComponentPanel, searchAndInsertBlock, searchAndInsertPattern, closeBlockInserter};
+/**
+ * @param {{Page}} page
+ * @param {string} blockName
+ * @param {string} blockTag
+ * @param {number} number
+ * @param {string} text
+ */
+const addHeadingOrParagraph = async ({page}, blockName, blockTag, number, text) => {
+  await searchAndInsertBlock({page}, blockName, blockName.toLowerCase());
+  const newBlock = await page.getByRole('region', {name: 'Editor content'}).locator(blockTag).nth(number);
+  await expect(newBlock).toBeVisible();
+  await closeBlockInserter({page});
+  await newBlock.fill(text);
+};
+
+export {openComponentPanel, searchAndInsertBlock, searchAndInsertPattern, closeBlockInserter, addHeadingOrParagraph};
