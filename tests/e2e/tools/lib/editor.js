@@ -29,7 +29,7 @@ async function openComponentPanel({page, editor}, panelTitle) {
 const closeBlockInserter = async ({page}) => {
   const closeSidebar = await page.getByRole('button', {name: 'Close block inserter'});
   if (await closeSidebar.isVisible()) {
-    await closeSidebar.click();
+    await closeSidebar.click({force: true});
     await expect(closeSidebar).toBeHidden();
   }
 };
@@ -40,16 +40,22 @@ const closeBlockInserter = async ({page}) => {
  * @param {{Page}} page
  * @param {string} blockName - The name of the block.
  * @param {string} namespace - The namespace to search if it is needed.
+ *
+ * @return {Promise<void>}   - Playwright Locator
  */
 const searchAndInsertBlock = async ({page}, blockName, namespace = '') => {
-  await page.getByRole('button', {name: 'Block Inserter', exact: true}).click();
+  const openSidebar = await page.getByRole('button', {name: 'Block Inserter', exact: true});
+  if (await openSidebar.getAttribute('aria-expanded') === 'false') {
+    await openSidebar.click({force: true});
+    await expect(openSidebar).toHaveAttribute('aria-expanded', 'true');
+  }
   await page.getByPlaceholder('Search').fill(blockName);
 
   if (namespace !== '') {
-    await page.locator(`button.editor-block-list-item-${namespace.toLowerCase()}[role="option"]`).click();
+    return await page.locator(`button.editor-block-list-item-${namespace.toLowerCase()}[role="option"]`).click({force: true});
   }
 
-  await page.getByRole('option', {name: blockName}).click();
+  return await page.getByRole('option', {name: blockName}).click({force: true});
 };
 
 /**
@@ -59,9 +65,24 @@ const searchAndInsertBlock = async ({page}, blockName, namespace = '') => {
  * @param {string} id   - The id of the pattern.
  */
 const searchAndInsertPattern = async ({page}, id) => {
-  await page.getByRole('button', {name: 'Block Inserter', exact: true}).click();
+  await page.getByRole('button', {name: 'Block Inserter', exact: true}).click({force: true});
   await page.getByPlaceholder('Search').fill(id);
   await page.locator(`[id="${id}"]`).click();
 };
 
-export {openComponentPanel, searchAndInsertBlock, searchAndInsertPattern, closeBlockInserter};
+/**
+ * @param {{Page}} page
+ * @param {string} blockName
+ * @param {string} blockTag
+ * @param {number} number
+ * @param {string} text
+ */
+const addHeadingOrParagraph = async ({page}, blockName, blockTag, number, text) => {
+  await searchAndInsertBlock({page}, blockName, blockName.toLowerCase());
+  const newBlock = page.getByRole('region', {name: 'Editor content'}).locator(blockTag).nth(number);
+  await expect(newBlock).toBeVisible();
+  await closeBlockInserter({page});
+  await newBlock.fill(text);
+};
+
+export {openComponentPanel, searchAndInsertBlock, searchAndInsertPattern, closeBlockInserter, addHeadingOrParagraph};
