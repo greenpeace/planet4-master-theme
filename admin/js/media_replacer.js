@@ -13,8 +13,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     e.preventDefault();
 
-    const attachmentId = e.target.dataset.attachmentId;
-    const fileInput = e.target.nextElementSibling;
+    // Store a reference to the specific button that was clicked
+    const clickedButton = e.target;
+    const attachmentId = clickedButton.dataset.attachmentId;
+    const fileInput = clickedButton.nextElementSibling;
 
     // Show the file input
     fileInput.click();
@@ -31,11 +33,9 @@ document.addEventListener('DOMContentLoaded', () => {
       formData.append('attachment_id', attachmentId);
       formData.append('file', file);
 
-      const replaceMediaButton = document.querySelector(`.${replaceButtonClass}`);
-      if (replaceMediaButton) {
-        replaceMediaButton.disabled = true;
-        replaceMediaButton.innerText = 'Replacing media, please wait...';
-      }
+      // Use the specific button reference to disable/change text
+      clickedButton.disabled = true;
+      clickedButton.innerText = 'Replacing media, please wait...';
 
       // Send AJAX request to replace the media
       fetch(ajaxurl, {
@@ -45,6 +45,9 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(response => response.json())
         .then(response => {
           if (!response.success) {
+            // Re-enable and reset text only for the failed button
+            clickedButton.disabled = false;
+            clickedButton.innerText = 'Replace Media';
             alert('Error: ' + response.data); // eslint-disable-line no-alert
             return;
           }
@@ -53,10 +56,8 @@ document.addEventListener('DOMContentLoaded', () => {
           location.replace(location.href);
         })
         .catch(error => {
-          if (replaceMediaButton) {
-            replaceMediaButton.disabled = false;
-            replaceMediaButton.innerText = 'Replace Media';
-          }
+          clickedButton.disabled = false;
+          clickedButton.innerText = 'Replace Media';
           alert('Error: ' + error); // eslint-disable-line no-alert
         });
     }, {once: true}); // Use the 'once' option to ensure the event is only handled once

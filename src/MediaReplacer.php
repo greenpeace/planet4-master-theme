@@ -82,8 +82,9 @@ class MediaReplacer
 
     private function set_hooks(): void
     {
-        add_action('admin_enqueue_scripts', [$this, 'enqueue_media_modal_script']);
         add_filter('attachment_fields_to_edit', [$this, 'add_replace_media_button'], 10, 2);
+        add_filter('media_row_actions', [$this, 'add_replacer_to_row_action'], 10, 2);
+        add_action('admin_enqueue_scripts', [$this, 'enqueue_media_modal_script']);
         add_action('add_meta_boxes', [$this, 'add_replace_media_metabox']);
         add_action('wp_ajax_replace_media', [$this, 'ajax_replace_media']);
         add_action('admin_notices', [$this, 'display_admin_notices']);
@@ -161,6 +162,42 @@ class MediaReplacer
     }
 
     /**
+     * Adds the Replace Media link to the row action of the Media Library.
+     *
+     * @param array $actions The list of actions.
+     * @param WP_Post $post The attachment post object.
+     * @return array The updated list of actions.
+     */
+    public function add_replacer_to_row_action(array $actions, WP_Post $post): array
+    {
+        if (current_user_can('edit_post', $post->ID)) {
+            $actions['replace-media'] = $this->get_replace_link_html($post);
+        }
+        return $actions;
+    }
+
+    /**
+     * Generates the HTML for the Replace Media link in the row action.
+     *
+     * @param WP_Post $post The attachment post object.
+     * @return string The HTML for the replace link.
+     */
+    private function get_replace_link_html(WP_Post $post): string
+    {
+        $link = '<a
+            style="cursor: pointer"
+            class="media-replacer-button"
+            data-attachment-id="' . esc_attr($post->ID) . '"
+            data-mime-type="' . esc_attr($post->post_mime_type) . '"
+        >
+        ' . $this->user_messages['replace'] . '
+        </a>
+        ';
+
+        return $link . $this->get_replace_input_html($post);
+    }
+
+    /**
      * Generates the HTML for the Replace Media button.
      *
      * @param WP_Post $post The attachment post object.
@@ -168,16 +205,28 @@ class MediaReplacer
      */
     private function get_replace_button_html(WP_Post $post): string
     {
-        return
-        '<button
+        $button = '<button
             type="button"
             class="button media-replacer-button"
             data-attachment-id="' . esc_attr($post->ID) . '"
             data-mime-type="' . esc_attr($post->post_mime_type) . '"
         >
         ' . $this->user_messages['replace'] . '
-        </button>
-        <input
+        </button>';
+
+        return $button . $this->get_replace_input_html($post);
+    }
+
+    /**
+     * Generates the HTML for the Replace Media hidden input.
+     *
+     * @param WP_Post $post The attachment post object.
+     * @return string The HTML for the input.
+     */
+    private function get_replace_input_html(WP_Post $post): string
+    {
+        return
+        '<input
             type="file"
             class="replace-media-file"
             style="display: none;"
