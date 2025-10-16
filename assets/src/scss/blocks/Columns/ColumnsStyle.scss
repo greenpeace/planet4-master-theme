@@ -56,14 +56,6 @@
 
       h3 {
         margin-bottom: $sp-2;
-
-        @include medium-and-up {
-          width: 80%;
-        }
-
-        @include large-and-up {
-          width: 75%;
-        }
       }
 
       p {
@@ -76,14 +68,6 @@
         @include medium-and-up {
           width: auto;
           margin-bottom: $sp-4;
-        }
-
-        @include large-and-up {
-          width: 82%;
-        }
-
-        @include x-large-and-up {
-          width: 76%;
         }
       }
 
