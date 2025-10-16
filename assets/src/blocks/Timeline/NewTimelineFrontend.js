@@ -30,8 +30,11 @@ export const NewTimelineFrontend = ({attributes}) => {
         fetch(url)
           .then(response => response.text())
           .then(data => {
-            // Remove additional text and extract only JSON
-            const jsonData = JSON.parse(data.substring(47).slice(0, -2));
+            // Remove additional text and extract only JSON data.
+            const startIndex = data.indexOf('{');
+            const endIndex = data.lastIndexOf('}');
+            const jsonString = data.substring(startIndex, endIndex + 1);
+            const jsonData = JSON.parse(jsonString);
 
             const headings = [];
             // Get headings.
