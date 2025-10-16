@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2023-01-11T19:56:21+00:00\n"
-"PO-Revision-Date: 2025-02-19 13:00+0000\n"
+"PO-Revision-Date: 2025-10-16 11:19+0000\n"
 "X-Generator: Loco https://localise.biz/\n"
 "X-Domain: gravityforms\n"
 "Language: sl_SI\n"
@@ -6204,7 +6204,7 @@ msgstr ""
 
 #: form_display.php:3214
 msgid "max characters"
-msgstr ""
+msgstr "največ dovoljenih znakov"
 
 #. translators: %s is replaced with a numeric string representing the maximum file size
 #: includes/fields/class-gf-field-fileupload.php:270
@@ -7035,7 +7035,7 @@ msgstr ""
 
 #: form_display.php:3214 form_display.php:3869
 msgid "of"
-msgstr ""
+msgstr "od"
 
 #: common.php:5279
 msgid "of the following match:"
