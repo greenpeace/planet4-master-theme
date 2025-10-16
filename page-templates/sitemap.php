@@ -33,6 +33,7 @@ if (!empty(planet4_get_option('new_ia'))) {
             'category' => $cat->term_id,
             'orderby' => 'title',
             'order' => 'ASC',
+            'numberposts' => -1,
         ]);
     }
 } else {
