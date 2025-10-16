@@ -460,20 +460,6 @@ add_filter(
     }
 );
 
-// Action to filter P4 settings menu.
-add_action(
-    'admin_head',
-    function (): void {
-        global $submenu;
-
-        if (!isset($submenu['planet4_settings_navigation'])) {
-            return;
-        }
-
-        uasort($submenu['planet4_settings_navigation'], fn ($a, $b) => $a[0] <=> $b[0]);
-    }
-);
-
 // This filter replaces the default Canonical URL with what is set in the Sidebar Options.
 // If no URL is set for the Canonical link, the default WP url is used.
 add_filter(
