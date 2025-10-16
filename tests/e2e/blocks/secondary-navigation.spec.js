@@ -1,6 +1,13 @@
 import {expect, test} from '../tools/lib/test-utils.js';
 import {publishPostAndVisit, createPostWithFeaturedImage} from '../tools/lib/post.js';
-import {searchAndInsertBlock, searchAndInsertPattern, closeBlockInserter, addHeadingOrParagraph} from '../tools/lib/editor.js';
+import {
+  searchAndInsertBlock,
+  searchAndInsertPattern,
+  closeBlockInserter,
+  addHeadingOrParagraph,
+} from '../tools/lib/editor.js';
+
+const NAV_LINK_CLASS = '.secondary-navigation-link';
 
 const PARAGRAPH_CONTENT = `Nulla in odio et augue aliquet dictum ac sit amet dolor.
   Aenean sed orci ac lectus dignissim commodo. Mauris fermentum orci sed faucibus feugiat.
@@ -55,7 +62,7 @@ test('Test Secondary Navigation block', async ({page, admin, editor}) => {
 
   // The links in the block match all h2 elements present in the page content.
   for (let index = 0; index < HEADINGS.length; index++) {
-    await expect(secondaryNavigationBlock.locator('.secondary-navigation-link').nth(index)).toHaveText(HEADINGS[index]);
+    await expect(secondaryNavigationBlock.locator(NAV_LINK_CLASS).nth(index)).toHaveText(HEADINGS[index]);
   };
 
   // The Secondary Navigation block should have navigation arrows present for left or right scrolling.
@@ -68,6 +75,13 @@ test('Test Secondary Navigation block', async ({page, admin, editor}) => {
   await rightArrow.click();
   await expect(leftArrow).toBeVisible();
 
+  // Make sure that the correct anchor is added to the URL on click.
+  const pageUrl = page.url();
+  const testLink = page.locator(NAV_LINK_CLASS, {hasText: HEADINGS[1]});
+  const anchor = await testLink.getAttribute('href');
+  await testLink.click();
+  await expect(page).toHaveURL(pageUrl + anchor);
+
   // On scroll down, the block should become sticky.
   await page.getByRole('heading', {name: HEADINGS.at(-1)}).scrollIntoViewIfNeeded();
   await expect(secondaryNavigationBlock).toHaveCSS('position', 'sticky');
@@ -75,9 +89,6 @@ test('Test Secondary Navigation block', async ({page, admin, editor}) => {
   // Make sure that the block remains sticky on scroll up.
   await page.getByRole('heading', {name: HEADINGS.at(-3)}).scrollIntoViewIfNeeded();
   await expect(secondaryNavigationBlock).toHaveCSS('position', 'sticky');
-
-  // Make sure that the correct anchor is added to the URL on click.
-
 
   // On mobile, the block should be a dropdown menu.
   await page.setViewportSize({width: 320, height: 500});

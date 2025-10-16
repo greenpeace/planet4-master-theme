@@ -40,16 +40,19 @@ const closeBlockInserter = async ({page}) => {
  * @param {{Page}} page
  * @param {string} blockName - The name of the block.
  * @param {string} namespace - The namespace to search if it is needed.
+ *
+ * @return {Promise<void>}   - Playwright Locator
  */
 const searchAndInsertBlock = async ({page}, blockName, namespace = '') => {
   await page.getByRole('button', {name: 'Block Inserter', exact: true}).click();
   await page.getByPlaceholder('Search').fill(blockName);
+  await page.waitForTimeout(500); // wait for option to show up
 
   if (namespace !== '') {
-    await page.locator(`button.editor-block-list-item-${namespace.toLowerCase()}[role="option"]`).click();
+    return await page.locator(`button.editor-block-list-item-${namespace.toLowerCase()}[role="option"]`).click();
   }
 
-  await page.getByRole('option', {name: blockName}).click();
+  return await page.getByRole('option', {name: blockName}).click();
 };
 
 /**
@@ -73,7 +76,7 @@ const searchAndInsertPattern = async ({page}, id) => {
  */
 const addHeadingOrParagraph = async ({page}, blockName, blockTag, number, text) => {
   await searchAndInsertBlock({page}, blockName, blockName.toLowerCase());
-  const newBlock = await page.getByRole('region', {name: 'Editor content'}).locator(blockTag).nth(number);
+  const newBlock = page.getByRole('region', {name: 'Editor content'}).locator(blockTag).nth(number);
   await expect(newBlock).toBeVisible();
   await closeBlockInserter({page});
   await newBlock.fill(text);
