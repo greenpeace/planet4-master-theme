@@ -44,9 +44,12 @@ class Post extends \Timber\Post
      */
     public array $data_layer;
 
+    public array $post_meta = [];
+
     public static function build(\WP_Post $wp_post): self
     {
         $post = parent::build($wp_post);
+        $post->post_meta = get_post_meta($wp_post->ID);
         $post->set_page_types();
         $post->set_author();
 
@@ -257,7 +260,7 @@ class Post extends \Timber\Post
      */
     public function get_og_title(): string
     {
-        return get_post_meta($this->id, 'p4_og_title', true);
+        return $this->post_meta['p4_og_title'][0] ?? '';
     }
 
     /**
@@ -266,7 +269,7 @@ class Post extends \Timber\Post
      */
     public function get_og_description(): string
     {
-        $og_desc = get_post_meta($this->id, 'p4_og_description', true);
+        $og_desc = array_key_exists('p4_og_description', $this->post_meta) ? $this->post_meta['p4_og_description'][0] : '';
 
         if ('' === $og_desc) {
             return $this->post_excerpt;
@@ -281,7 +284,7 @@ class Post extends \Timber\Post
      */
     public function get_og_image(): array
     {
-        $meta = get_post_meta($this->id);
+        $meta = $this->post_meta;
         $image_id = null;
         $image_metas = ['p4_og_image_id', '_thumbnail_id', 'background_image_id'];
         foreach ($image_metas as $image_meta) {
@@ -313,8 +316,9 @@ class Post extends \Timber\Post
      */
     public function share_meta(): array
     {
-        $og_title = get_post_meta($this->id, 'p4_og_title', true);
-        $og_description = get_post_meta($this->id, 'p4_og_description', true);
+        $og_title = $this->post_meta['p4_og_title'][0];
+        $og_description = $this->post_meta['p4_og_description'][0];
+
         $link = get_permalink($this->id);
 
         if (('' === $og_title) && '' !== $this->post_title) {
@@ -352,7 +356,8 @@ class Post extends \Timber\Post
      */
     public function get_author_override(): bool
     {
-        return !empty(get_post_meta($this->id, 'p4_author_override', true));
+        $author_override = $this->post_meta['p4_author_override'][0];
+        return !empty($author_override);
     }
 
     /**
@@ -360,7 +365,8 @@ class Post extends \Timber\Post
      */
     public function set_author(): void
     {
-        $author_override = get_post_meta($this->id, 'p4_author_override', true);
+        $author_override = array_key_exists('p4_author_override', $this->post_meta) ? $this->post_meta['p4_author_override'][0] : '';
+
         if ('' !== $author_override) {
             $fake_user = Timber::get_user(false); // Create fake User.
             $fake_user->display_name = $author_override;
