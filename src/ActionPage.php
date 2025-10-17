@@ -30,12 +30,15 @@ class ActionPage
         'p4_department',
     ];
 
+    public mixed $terms;
+
     /**
      * The constructor.
      */
     public function __construct()
     {
         $this->hooks();
+        $this->terms = wp_get_object_terms(get_queried_object_id(), self::TAXONOMY);
     }
 
     /**
@@ -521,7 +524,7 @@ class ActionPage
 
         // Check if Action has a action type term assigned to it and if none assigned,
         // assign the default p4 action type term.
-        $terms = wp_get_object_terms($post->ID, self::TAXONOMY);
+        $terms = $this->terms;
         if (is_wp_error($terms)) {
             return;
         }
@@ -666,7 +669,7 @@ class ActionPage
         }
 
         // Get action's taxonomy terms.
-        $terms = wp_get_object_terms($post->ID, self::TAXONOMY);
+        $terms = $this->terms;
 
         if (! is_wp_error($terms) && ! empty($terms) && is_object($terms[0])) {
             $taxonomy_slug = $terms[0]->slug;

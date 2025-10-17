@@ -14,18 +14,27 @@ class CustomTaxonomy
     public const TAXONOMY = 'p4-page-type';
     public const TAXONOMY_PARAMETER = 'p4_page_type';
     public const TAXONOMY_SLUG = 'page-type';
-
-    /**
-     * Reading time option field name
-     *
-     */
     public const READING_TIME_FIELD = 'reading_time';
+
+    public mixed $terms;
+    public mixed $object_terms;
 
     /**
      * CustomTaxonomy constructor.
      */
     public function __construct()
     {
+        $this->terms = get_terms(
+            [
+                'fields' => 'all',
+                'hide_empty' => false,
+                'taxonomy' => self::TAXONOMY,
+            ]
+        );
+        $this->object_terms = wp_get_object_terms(
+            get_queried_object_id(),
+            self::TAXONOMY
+        );
         $this->hooks();
     }
 
@@ -87,7 +96,7 @@ class CustomTaxonomy
     {
         $attached_type = get_the_terms($post, self::TAXONOMY);
         $current_type = (is_array($attached_type)) ? $attached_type[0]->term_id : -1;
-        $all_types = $this->get_terms();
+        $all_types = $this->terms;
         if (-1 === $current_type) {
             // Assign default p4-pagetype for new POST.
             $planet4_default_post_type = $this->get_planet4_default_post_type();
@@ -128,8 +137,8 @@ class CustomTaxonomy
         }
 
         // Get post's taxonomy terms.
-        $terms = wp_get_object_terms($post->ID, self::TAXONOMY);
-        $all_terms = $this->get_terms();
+        $terms = $this->object_terms;
+        $all_terms = $this->terms;
 
         // Assign story slug if the taxonomy does not have any terms.
         $taxonomy_slug = 'story';
@@ -145,23 +154,6 @@ class CustomTaxonomy
     }
 
     /**
-     * Get taxonomy's terms.
-     *
-     * @return array|int|WP_Error
-     */
-    public function get_terms()
-    {
-        // Get planet4 page type taxonomy terms.
-        return get_terms(
-            [
-                'fields' => 'all',
-                'hide_empty' => false,
-                'taxonomy' => self::TAXONOMY,
-            ]
-        );
-    }
-
-    /**
      * Get all taxonomy's terms, despite if wpml plugin is activated.
      *
      * @return array|int|WP_Error
@@ -172,7 +164,7 @@ class CustomTaxonomy
         if (function_exists('is_plugin_active') && is_plugin_active('sitepress-multilingual-cms/sitepress.php')) {
             return $this->get_multilingual_terms();
         }
-        return $this->get_terms();
+        return $this->terms;
     }
 
     /**
@@ -188,13 +180,7 @@ class CustomTaxonomy
 
         foreach ($available_languages as $lang) {
             do_action('wpml_switch_language', $lang['language_code']);
-            $terms = get_terms(
-                [
-                    'fields' => 'all',
-                    'hide_empty' => false,
-                    'taxonomy' => self::TAXONOMY,
-                ]
-            );
+            $terms = $this->terms;
             if (is_wp_error($terms) || empty($terms)) {
                 continue;
             }
@@ -218,7 +204,7 @@ class CustomTaxonomy
 
         if (0 === $planet4_default_post_type) {
             // If default p4-pagetype setting not found, use taxonomy's first term.
-            $all_terms = $this->get_terms();
+            $all_terms = $this->terms;
             $planet4_default_post_type = $all_terms[0] ?? 0;
         } else {
             $planet4_default_post_type = get_term($planet4_default_post_type, self::TAXONOMY);
@@ -431,7 +417,7 @@ class CustomTaxonomy
         }
 
         // Check if post has an assigned term to it.
-        $terms = wp_get_object_terms($post_id, self::TAXONOMY);
+        $terms = $this->object_terms;
         if (is_wp_error($terms)) {
             return;
         }
