@@ -12,4 +12,6 @@ assets/build/*
 /e2e-report/
 /playwright/.cache/
 /playwright/.auth/
+tests/e2e/*.spec.js-snapshots/
+tests/e2e/tools/setup/sitemap.json
 .env
