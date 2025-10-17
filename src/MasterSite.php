@@ -500,6 +500,8 @@ class MasterSite extends \Timber\Site
     {
         global $wp;
 
+        $this->add_nav_menus_to_context($context);
+
         $context['cookies'] = [
             'text' => planet4_get_option('cookies_field'),
             'enable_analytical_cookies' => planet4_get_option('enable_analytical_cookies'),
@@ -524,29 +526,6 @@ class MasterSite extends \Timber\Site
         ];
         $context['domain'] = 'planet4-master-theme';
         $context['foo'] = 'bar'; // For unit test purposes.
-
-        if (has_nav_menu('navigation-bar-menu')) {
-            $menu = Timber::get_menu('navigation-bar-menu');
-            $menu_items = $menu->get_items();
-            $context['navbar_menu'] = $menu;
-            $context['navbar_menu_items'] = array_filter(
-                $menu_items,
-                function ($item) {
-                    return !in_array('wpml-ls-item', $item->classes ?? [], true);
-                }
-            );
-        }
-
-        // Check if the menu has been created.
-        if (has_nav_menu('donate-menu')) {
-            $donate_menu = Timber::get_menu('donate-menu');
-
-            // Check if it has at least 1 item added into the menu.
-            if (!empty($donate_menu->get_items())) {
-                $context['donate_menu_items'] = $donate_menu->get_items();
-            }
-        }
-
 
         $languages = function_exists('icl_get_languages') ? icl_get_languages() : [];
         $context['site_languages'] = $languages;
@@ -612,27 +591,6 @@ class MasterSite extends \Timber\Site
         $context['copyright_text_line1'] = $options['copyright_line1'] ?? '';
         $context['copyright_text_line2'] = $options['copyright_line2'] ?? '';
 
-        if (has_nav_menu('footer-social-menu')) {
-            $footer_social_menu = Timber::get_menu('footer-social-menu');
-            $context['footer_social_menu'] = wp_get_nav_menu_items($footer_social_menu->id);
-        } else {
-            $context['footer_social_menu'] = wp_get_nav_menu_items('Footer Social');
-        }
-
-        if (has_nav_menu('footer-primary-menu')) {
-            $footer_primary_menu = Timber::get_menu('footer-primary-menu');
-            $context['footer_primary_menu'] = wp_get_nav_menu_items($footer_primary_menu->id);
-        } else {
-            $context['footer_primary_menu'] = wp_get_nav_menu_items('Footer Primary');
-        }
-
-        if (has_nav_menu('footer-secondary-menu')) {
-            $footer_secondary_menu = Timber::get_menu('footer-secondary-menu');
-            $context['footer_secondary_menu'] = wp_get_nav_menu_items($footer_secondary_menu->id);
-        } else {
-            $context['footer_secondary_menu'] = wp_get_nav_menu_items('Footer Secondary');
-        }
-
         // Default depth level set to 1 if not selected from admin.
         $context['p4_comments_depth'] = get_option('thread_comments_depth') ?? 1;
 
@@ -669,6 +627,43 @@ class MasterSite extends \Timber\Site
         }
 
         return $context;
+    }
+
+    private function add_nav_menus_to_context(&$context)
+    {
+        if (has_nav_menu('navigation-bar-menu')) {
+            $menu = Timber::get_menu('navigation-bar-menu');
+            $menu_items = $menu->get_items();
+            $context['navbar_menu'] = $menu;
+            $context['navbar_menu_items'] = array_filter(
+                $menu_items,
+                function ($item) {
+                    return !in_array('wpml-ls-item', $item->classes ?? [], true);
+                }
+            );
+        }
+
+        $nav_locations = get_nav_menu_locations();
+
+        $context['donate_menu_items'] =
+            array_key_exists('donate-menu', $nav_locations) ?
+            Timber::get_menu('donate-menu')->get_items() :
+            Timber::get_menu('Donate Menu')->get_items();
+
+        $context['footer_primary_menu'] =
+            array_key_exists('footer-primary-menu', $nav_locations) ?
+            Timber::get_menu('footer-primary-menu')->get_items() :
+            Timber::get_menu('Footer Primary')->get_items();
+
+        $context['footer_secondary_menu'] =
+            array_key_exists('footer-secondary-menu', $nav_locations) ?
+            Timber::get_menu('footer-secondary-menu')->get_items() :
+            Timber::get_menu('Footer Secondary')->get_items();
+
+        $context['footer_social_menu'] =
+            array_key_exists('footer-social-menu', $nav_locations) ?
+            Timber::get_menu('footer-social-menu')->get_items() :
+            Timber::get_menu('Footer Social')->get_items();
     }
 
     /**
