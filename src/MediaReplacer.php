@@ -82,7 +82,6 @@ class MediaReplacer
 
     private function set_hooks(): void
     {
-        add_action('admin_enqueue_scripts', [$this, 'enqueue_media_modal_script']);
         add_filter('attachment_fields_to_edit', [$this, 'add_replace_media_button'], 10, 2);
         add_filter('media_row_actions', [$this, 'add_replacer_to_row_action'], 10, 2);
         add_action('admin_enqueue_scripts', [$this, 'enqueue_media_modal_script']);
