@@ -1,9 +1,13 @@
 import {renderToString} from 'react-dom/server';
-import {frontendRendered} from '../../functions/frontendRendered';
 import {TimelineEditor} from './TimelineEditorScript';
+import {NewTimelineEditor} from './NewTimelineEditorScript';
 import {TimelineFrontend} from './TimelineFrontend';
+import {NewTimelineFrontend} from './NewTimelineFrontend';
+import {frontendRendered} from '../../functions/frontendRendered';
 
 const BLOCK_NAME = 'planet4-blocks/timeline';
+
+const isNewTimelineEnabled = Boolean(window.p4_vars.features.new_timeline_block);
 
 const attributes = {
   timeline_title: {
@@ -52,19 +56,34 @@ export const registerTimelineBlock = () => {
       html: false, // Disable "Edit as HTMl" block option.
     },
     attributes,
-    edit: TimelineEditor,
+    edit: isNewTimelineEnabled ? NewTimelineEditor : TimelineEditor,
     save: props => {
       const markup = renderToString(
         <div
           data-hydrate={BLOCK_NAME}
           data-attributes={JSON.stringify(props.attributes)}
         >
-          <TimelineFrontend {...props} />
+          {isNewTimelineEnabled ? <NewTimelineFrontend {...props} /> : <TimelineFrontend {...props} />}
         </div>
       );
       return <RawHTML>{markup}</RawHTML>;
     },
     deprecated: [
+      isNewTimelineEnabled ? {
+        attributes,
+        edit: TimelineEditor,
+        save: props => {
+          const markup = renderToString(
+            <div
+              data-hydrate={BLOCK_NAME}
+              data-attributes={JSON.stringify(props.attributes)}
+            >
+              <TimelineFrontend {...props} />
+            </div>
+          );
+          return <RawHTML>{markup}</RawHTML>;
+        },
+      } : {},
       {
         attributes,
         save: frontendRendered(BLOCK_NAME),

@@ -551,4 +551,17 @@ add_filter(
     10,
     2
 );
-// phpcs:enable Generic.Files.LineLength.MaxExceeded
+
+// Remove the user email from the notification email sent to editors
+// when a new comment is added to a post.
+// phpcs:disable SlevomatCodingStandard.Functions.UnusedParameter
+add_filter(
+    'comment_moderation_text',
+    function (string $notify_message, int $comment_id): string {
+        $notify_message = preg_replace('/^(E-?mail:).*[\r\n]+/mi', '', $notify_message);
+        return $notify_message;
+    },
+    10,
+    2
+);
+// phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter, Generic.Files.LineLength.MaxExceeded
