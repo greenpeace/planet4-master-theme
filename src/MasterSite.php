@@ -552,6 +552,11 @@ class MasterSite extends TimberSite
 
 
         $languages = function_exists('icl_get_languages') ? icl_get_languages() : [];
+
+        $news_and_stories_page = (int) get_option('page_for_posts');
+        $current_page_id = get_queried_object_id();
+        $is_listing_page = (is_archive() || is_search() || $news_and_stories_page === $current_page_id);
+
         $context['site_languages'] = $languages;
         $context['languages'] = count($languages); // Keep this variable name as long as NRO themes use it.
 
@@ -581,6 +586,7 @@ class MasterSite extends TimberSite
         $context['facebook_page_id'] = $options['facebook_page_id'] ?? '';
         $context['preconnect_domains'] = [];
         $context['vwo_account_id'] = $options['vwo_account_id'] ?? null;
+        $context['is_listing_page'] = $is_listing_page;
 
         if (!empty($options['preconnect_domains'])) {
             $preconnect_domains = explode("\n", $options['preconnect_domains']);
