@@ -1,4 +1,4 @@
-{% if ( post.author.name and post.author.description ) %}
+{% if ( post.author.name and post.author.description and not post.get_author_override ) %}
     <div class="container narrow-container clearfix">
         <div class="author-block" itemscope itemtype="http://schema.org/Person">
             {% if ( post.author.avatar ) %}
