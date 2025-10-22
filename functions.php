@@ -488,31 +488,6 @@ add_filter(
     2
 );
 
-if (class_exists('\\Sentry\\Options')) {
-    add_filter('wp_sentry_options', function (\Sentry\Options $options) {
-        // Only sample 50% of the events
-        $options->setSampleRate(0.50);
-
-        // Set server_name tag
-        $podname = gethostname() ?: 'unknown'; // Fallback to 'unknown' if gethostname() fails
-        $parts = explode('-', $podname);
-
-        if (count($parts) === 1) {
-            // Local development
-            $server_name = $podname;
-        } elseif ($parts[1] === 'test') {
-            // Test instances
-            $server_name = $parts[2];
-        } else {
-            // Production/Development instances
-            $server_name = $parts[1];
-        }
-        $options->setServerName($server_name);
-
-        return $options;
-    });
-}
-
 // Enable Hide Page title by default when Pattern Layout is used
 add_action(
     'transition_post_status',

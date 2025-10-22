@@ -92,6 +92,7 @@ final class Loader
             DashboardNotice::class,
             ImageHandler::class,
             CloudflareTurnstileHandler::class,
+            Sentry::class,
         ];
 
         if (is_admin()) {
