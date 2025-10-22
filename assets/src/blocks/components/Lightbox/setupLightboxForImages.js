@@ -24,9 +24,12 @@ const setupImageAndCaption = (lightBoxNode, imageSelector = 'img', captionSelect
     if (caption) {
       item.title = caption.innerHTML;
     }
-    const rootElement = createRoot(lightBoxNode);
 
-    imageBlock.querySelector('img').addEventListener('click', () => rootElement.render(<Lightbox isOpen={true} index={index} items={[item]} />));
+    if (!lightBoxNode._reactRoot) {
+      lightBoxNode._reactRoot = createRoot(lightBoxNode);
+    }
+
+    imageBlock.querySelector('img').addEventListener('click', () => lightBoxNode._reactRoot.render(<Lightbox isOpen={true} index={index} items={[item]} />));
   };
 };
 
