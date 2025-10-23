@@ -25,6 +25,9 @@ class CloudflareTurnstileHandler
             return;
         }
 
+        // Prevent Akismet from firing before Turnstile.
+        remove_filter('preprocess_comment', 'akismet_auto_check_comment', 1);
+
         add_action('wp_enqueue_scripts', [$this, 'enqueue_scripts']);
         add_filter('preprocess_comment', [$this, 'validate_token']);
     }
@@ -80,6 +83,10 @@ class CloudflareTurnstileHandler
         $validation = $this->validate_turnstile($token, $secret_key, $remoteip);
 
         if ($validation['success']) {
+            // If Turnstile passes, let Akismet analyze comment for spam.
+            if (function_exists('akismet_auto_check_comment')) {
+                $commentdata = akismet_auto_check_comment($commentdata);
+            }
             return $commentdata;
         }
 
