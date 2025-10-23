@@ -7,7 +7,6 @@ use Timber\Timber;
 use Twig\Extension\StringLoaderExtension;
 use Twig\Markup;
 use WP_Error;
-use WP_Post;
 
 /**
  * Class MasterSite.
@@ -94,14 +93,10 @@ class MasterSite extends \Timber\Site
         add_filter('safe_style_css', [$this, 'set_custom_allowed_css_properties']);
         add_filter('wp_kses_allowed_html', [$this, 'set_custom_allowed_attributes_filter'], 10, 2);
         add_filter('wp_insert_post_data', [$this, 'require_post_title'], 10, 1);
-        // Save "p4_global_project_tracking_id" on post save.
-        add_action('save_post', [$this, 'save_global_project_id'], 10, 1);
-        add_action('post_updated', [$this, 'clean_post_cache'], 10, 3);
         add_action('init', [$this, 'p4_master_theme_setup']);
         add_action('pre_insert_term', [$this, 'disallow_insert_term'], 1, 2);
         add_filter('wp_dropdown_users_args', [$this, 'filter_authors'], 10, 1);
         add_filter('http_request_timeout', fn () => 10);
-        add_action('save_post', [$this, 'p4_auto_generate_excerpt'], 10, 2);
 
         add_action('admin_head', [$this, 'add_help_sidebar']);
 
@@ -396,77 +391,6 @@ class MasterSite extends \Timber\Site
         }
 
         return $metadata;
-    }
-
-    /**
-     * Sets as featured image of the post the first image found attached in the post's content (if any).
-     *
-     * @param int     $post_id The ID of the current Post.
-     * @param WP_Post $post_after The current Post.
-     * @param WP_Post $post_before Whether this is an existing post being updated or not.
-     */
-    public function clean_post_cache(int $post_id, WP_Post $post_after, WP_Post $post_before): void
-    {
-
-        // Ignore autosave.
-        if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
-            return;
-        }
-
-        $this->clean_boxout_posts_cache($post_id, $post_after, $post_before);
-
-        clean_post_cache($post_id);
-    }
-
-    /**
-     * Flush Take Action Boxout(TAB) posts cache, if the TAB act page status changes.
-     *
-     * @param int     $post_id The ID of the current Post.
-     * @param WP_Post $post_after The current Post.
-     * @param WP_Post $post_before Whether this is an existing post being updated or not.
-     */
-    private function clean_boxout_posts_cache(int $post_id, WP_Post $post_after, WP_Post $post_before): void
-    {
-        $parent_act_id = (int) planet4_get_option('act_page', -1);
-        if ('page' !== $post_after->post_type || $parent_act_id !== $post_after->post_parent) {
-            return;
-        }
-
-        // Flush cache only when a page status changes from publish to any non-public status & vice versa.
-        if (
-            ($post_before->post_status === $post_after->post_status) ||
-            ('publish' !== $post_before->post_status && 'publish' !== $post_after->post_status)
-        ) {
-            return;
-        }
-
-        global $wpdb, $nginx_purger;
-
-        // Search for those posts, who use TAB($post_id) from "Take Action Page Selector" dropdown.
-        // phpcs:disable
-        $sql          = 'SELECT post_id FROM %1$s WHERE meta_key = \'p4_take_action_page\' AND meta_value = %2$d';
-        $prepared_sql = $wpdb->prepare($sql, $wpdb->postmeta, $post_id);
-        $boxout_posts = $wpdb->get_col($prepared_sql);
-        // phpcs:enable
-
-        // Search for those posts, who use TAB($post_id) as a block inside block editor.
-        $take_action_boxout_block = '%<!-- wp:planet4-blocks/take-action-boxout {"take_action_page":'
-            . $post_id . '} /-->%';
-        // phpcs:disable
-        $sql          = 'SELECT ID FROM %1$s WHERE post_type = \'post\' AND post_status = \'publish\' AND post_content LIKE \'%2$s\'';
-        $prepared_sql = $wpdb->prepare($sql, $wpdb->posts, $take_action_boxout_block);
-        $result       = $wpdb->get_col($prepared_sql);
-        // phpcs:enable
-
-        $boxout_posts = array_merge($boxout_posts, $result);
-
-        // Flush TAB posts cache.
-        $boxout_posts = array_unique($boxout_posts);
-        foreach ($boxout_posts as $tab_post_id) {
-            clean_post_cache($tab_post_id);
-            $tab_post_url = get_permalink($tab_post_id);
-            $nginx_purger->purge_url(user_trailingslashit($tab_post_url));
-        }
     }
 
     /**
@@ -939,45 +863,6 @@ class MasterSite extends \Timber\Site
     }
 
     /**
-     * Auto generate excerpt for post.
-     *
-     * @param int     $post_id Id of the saved post.
-     * @param WP_Post $post Post object.
-     */
-    public function p4_auto_generate_excerpt(int $post_id, WP_Post $post): void
-    {
-        if ('' !== $post->post_excerpt || 'post' !== $post->post_type) {
-            return;
-        }
-
-        // Unhook save_post function so it doesn't loop infinitely.
-        remove_action('save_post', [$this, 'p4_auto_generate_excerpt'], 10);
-
-        // Generate excerpt text.
-        $post_excerpt = strip_shortcodes($post->post_content);
-
-        preg_match('/<p>(.*?)<\/p>/', $post_excerpt, $match_paragraph);
-
-        $post_excerpt = $match_paragraph[1] ?? $post_excerpt;
-        $post_excerpt = apply_filters('the_content', $post_excerpt);
-        $post_excerpt = str_replace(']]>', ']]&gt;', $post_excerpt);
-        $excerpt_length = apply_filters('excerpt_length', 30);
-        $excerpt_more = apply_filters('excerpt_more', '&hellip;');
-        $post_excerpt = wp_trim_words($post_excerpt, $excerpt_length, $excerpt_more);
-
-        // Update the post, which calls save_post again.
-        wp_update_post(
-            [
-                'ID' => $post_id,
-                'post_excerpt' => $post_excerpt,
-            ]
-        );
-
-        // re-hook save_post function.
-        add_action('save_post', [$this, 'p4_auto_generate_excerpt'], 10, 2);
-    }
-
-    /**
      * Restrict creation of tags from all roles besides administrator.
      *
      * @param string $term The term to be added.
@@ -987,7 +872,6 @@ class MasterSite extends \Timber\Site
      */
     public function disallow_insert_term(string $term, string $taxonomy)
     {
-
         $user = wp_get_current_user();
 
         if ('post_tag' === $taxonomy && !in_array('administrator', (array) $user->roles, true)) {
@@ -1055,29 +939,5 @@ class MasterSite extends \Timber\Site
         $args['sort'] = true;
         $args['args'] = ['orderby' => 'term_order'];
         return $args;
-    }
-
-    /**
-     * Look up the ID of the global campaign and save it on the Post/Page.
-     *
-     * @param int     $post_id The ID of the current Post.
-     */
-    public function save_global_project_id(int $post_id): void
-    {
-        // Ignore autosave.
-        if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
-            return;
-        }
-        // Check user's capabilities.
-        if (!current_user_can('edit_post', $post_id)) {
-            return;
-        }
-        $p4_campaign_name = get_post_meta($post_id, 'p4_campaign_name', true);
-        $old_project_id = get_post_meta($post_id, 'p4_global_project_tracking_id', true);
-        $project_id = AnalyticsValues::from_cache_or_api_or_hardcoded()->get_id_for_global_project($p4_campaign_name);
-        // phpcs:ignore SlevomatCodingStandard.ControlStructures.EarlyExit.EarlyExitNotUsed
-        if ('not set' !== $project_id && $old_project_id !== $project_id) {
-            update_post_meta($post_id, 'p4_global_project_tracking_id', $project_id);
-        }
     }
 }
