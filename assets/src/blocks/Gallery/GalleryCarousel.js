@@ -1,11 +1,9 @@
-import Hammer from 'hammerjs';
 import {IMAGE_SIZES} from './imageSizes';
 import {getCaptionWithCredits} from './getCaptionWithCredits.js';
+import {useHammerSwipe} from '../components/HammerSwipe/HammerSwipe.js';
 
 const {__} = wp.i18n;
 const {useState, useEffect, useRef} = wp.element;
-
-const isRTL = document.querySelector('html').dir === 'rtl';
 
 // This will trigger the browser to synchronously calculate the style and layout
 // You can find a list of examples here: https://gist.github.com/paulirish/5d52fb081b3570c81e3a
@@ -70,27 +68,7 @@ export const GalleryCarousel = ({images, onImageClick, isEditing}) => {
   }, [currentSlide, images]);
 
   // Set up swiping on mobile
-  useEffect(() => {
-    if (isEditing || !containerRef.current) {
-      return;
-    }
-
-    const carouselElement = containerRef.current;
-    const carouselHammer = new Hammer(carouselElement, {recognizers: []});
-    const hammer = new Hammer.Manager(carouselHammer.element);
-    const swipe = new Hammer.Swipe();
-    // Only allow horizontal swiping (not vertical swiping)
-    swipe.set({direction: Hammer.DIRECTION_HORIZONTAL});
-    hammer.add(swipe);
-
-    hammer.on('swipeleft', isRTL ? goToPrevSlide : goToNextSlide);
-    hammer.on('swiperight', isRTL ? goToNextSlide : goToPrevSlide);
-
-    return () => {
-      hammer.off('swipeleft', isRTL ? goToPrevSlide : goToNextSlide);
-      hammer.off('swiperight', isRTL ? goToNextSlide : goToPrevSlide);
-    };
-  }, [currentSlide]);
+  useHammerSwipe(containerRef, goToNextSlide, goToPrevSlide, isEditing);
 
   return (
     <div className="carousel slide" ref={containerRef}>
