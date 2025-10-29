@@ -4,7 +4,7 @@
  * Blocks Usage class
  */
 
-namespace P4\MasterTheme\Controllers\Menu;
+namespace P4\MasterTheme\Controllers;
 
 use P4\MasterTheme\SqlParameters;
 use P4\MasterTheme\BlockReportSearch\Block\BlockUsage;
