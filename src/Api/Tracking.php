@@ -40,6 +40,7 @@ class Tracking
                     return [
                         'logins' => self::get_logins($params),
                         'content_created' => self::get_content_created($params),
+                        'replaced_files' => self::get_replaced_files($params),
                     ];
                 },
                 'permission_callback' => function (WP_REST_Request $request) {
@@ -163,5 +164,55 @@ class Tracking
         }
 
         return $data;
+    }
+
+    /**
+     * Retrieves the total number of replaced files in the last X days.
+     *
+     * @param array $params refers to request params
+     * @return array Get tracking data.
+    */
+    private static function get_replaced_files(array $params): array
+    {
+        global $wpdb;
+
+        // If the plugin is not active, abort.
+        if (function_exists('is_plugin_active') && !is_plugin_active('wp-stateless/wp-stateless-media.php')) {
+            return [];
+        }
+
+        // If the stateless_media function does not exist, abort.
+        if (!function_exists('ud_get_stateless_media')) {
+            return [];
+        }
+
+        $sql_params = new SqlParameters();
+        $sql = 'SELECT *
+        FROM ' . $sql_params->identifier($wpdb->posts) . '
+        WHERE post_type = "attachment"
+        AND post_modified >= NOW() - INTERVAL ' . $params['last_days'] . ' DAY';
+        $results = $wpdb->get_results(
+            // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+            $wpdb->prepare($sql, $sql_params->get_values()),
+            \OBJECT
+        );
+
+        $replaced_files = 0;
+        $replaced_pdf_files = 0;
+        foreach ($results as $file) {
+            $metadata = get_post_meta($file->ID);
+            if (!isset($metadata['_replaced']) || $metadata['_replaced'][0] !== '1') {
+                continue;
+            }
+            if ($file->post_mime_type === 'application/pdf') {
+                $replaced_pdf_files++;
+            }
+            $replaced_files++;
+        }
+
+        return [
+            'total' => $replaced_files,
+            'pdf' => $replaced_pdf_files,
+        ];
     }
 }
