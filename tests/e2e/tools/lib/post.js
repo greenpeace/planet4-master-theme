@@ -19,7 +19,7 @@ async function publishPost({page, editor}) {
 
   const urlString = await page
     .getByRole('region', {name: 'Editor publish'})
-    .getByRole('textbox', {name: 'address'})
+    .getByRole('textbox', {name: 'Post address'})
     .inputValue();
 
   return urlString;
