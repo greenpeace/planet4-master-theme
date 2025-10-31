@@ -4,7 +4,7 @@
  * Reusable Blocks class
  */
 
-namespace P4\MasterTheme\Controllers\Menu;
+namespace P4\MasterTheme\Controllers;
 
 /**
  * Class Reusable_Blocks_Controller

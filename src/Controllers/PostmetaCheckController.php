@@ -4,7 +4,7 @@
  * Post meta duplicate records check class
  */
 
-namespace P4\MasterTheme\Controllers\Menu;
+namespace P4\MasterTheme\Controllers;
 
 use P4\MasterTheme\Commands\DuplicatedPostmeta;
 

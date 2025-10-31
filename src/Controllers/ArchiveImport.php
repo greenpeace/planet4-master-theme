@@ -4,7 +4,7 @@
  * An importer for archived content from an XML file.
  */
 
- namespace P4\MasterTheme\Controllers\Menu;
+ namespace P4\MasterTheme\Controllers;
 
 use WP_Query;
 

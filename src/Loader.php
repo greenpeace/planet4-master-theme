@@ -129,7 +129,7 @@ final class Loader
                 $this->default_services[] = Importer::class;
             }
 
-            (new Controllers\Menu\ArchiveImport(new View()))->load();
+            (new Controllers\ArchiveImport(new View()))->load();
         }
 
         // Run Activator after theme switched to planet4-master-theme or a planet4 child theme.
@@ -171,10 +171,10 @@ final class Loader
         }
 
         $services = [];
-        $services[] = Controllers\Menu\BlocksReportController::class;
-        $services[] = Controllers\Menu\BlocksUsageController::class;
-        $services[] = Controllers\Menu\ReusableBlocksController::class;
-        $services[] = Controllers\Menu\PostmetaCheckController::class;
+        $services[] = Controllers\BlocksReportController::class;
+        $services[] = Controllers\BlocksUsageController::class;
+        $services[] = Controllers\ReusableBlocksController::class;
+        $services[] = Controllers\PostmetaCheckController::class;
         $services[] = Admin\Rest::class;
 
         foreach ($services as $service) {
