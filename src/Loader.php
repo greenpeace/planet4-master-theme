@@ -93,6 +93,7 @@ final class Loader
             ImageHandler::class,
             CloudflareTurnstileHandler::class,
             Sentry::class,
+            PostFunctionsHandler::class,
         ];
 
         if (is_admin()) {

@@ -94,7 +94,7 @@ class CategoryPageTest extends P4TestCase
 
         // Test page type markup.
         // Should assert true, every post gets a p4 page type term assigned to it.
-        $this->assertContainsSelector('a.page-type', $output, 'Did not find an image in the page body.');
+        $this->assertContainsSelector('a.page-type', $output, 'Did not find a P4 page type.');
     }
 
     /**
