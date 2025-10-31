@@ -77,6 +77,7 @@ final class Loader
             DevReport::class,
             TimberSettings::class,
             MasterSite::class,
+            HeadManager::class,
             AttachmentsController::class,
             HttpHeaders::class,
             ActionPage::class,
