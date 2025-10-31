@@ -1,12 +1,10 @@
 /* global bulkExportText */
 
 document.addEventListener('DOMContentLoaded', () => {
-  jQuery(() => {
-    jQuery('select[name=\'action\'], select[name=\'action2\']').each(function () {
-      jQuery('<option>')
-        .val('export')
-        .text(bulkExportText)
-        .appendTo(this);
-    });
+  document.querySelectorAll('select[name="action"], select[name="action2"]').forEach(select => {
+    const opt = document.createElement('option');
+    opt.value = 'export';
+    opt.textContent = bulkExportText;
+    select.appendChild(opt);
   });
 });
