@@ -1,11 +1,19 @@
-import PhotoSwipe from '../../../../../node_modules/photoswipe/dist/photoswipe.js';
-import PhotoSwipeUI_Default from '../../../../../node_modules/photoswipe/dist/photoswipe-ui-default.js';
-
 const {useEffect, useRef, useState} = wp.element;
 
-// `items` should be an array of object with this shape:
-// [{ src, w, h, title }, ...]
-// See: https://photoswipe.com/documentation/getting-started.html
+/**
+ * Lightbox component for displaying images using PhotoSwipe.
+ * Dynamically imports PhotoSwipe and PhotoSwipeUI_Default only when needed.
+ *
+ * @param {Object}        props           - Component props.
+ * @param {number}        [props.index=0] - The initial index of the image to open.
+ * @param {boolean}       props.isOpen    - Whether the lightbox is currently open.
+ * @param {Array<Object>} props.items     - Array of image objects to display.
+ * @param {Function}      [props.onClose] - Callback invoked when the lightbox closes.
+ *
+ * @return {JSX.Element|null} The PhotoSwipe lightbox portal.
+ *
+ * @see https://photoswipe.com/documentation/getting-started.html
+ */
 export const Lightbox = ({index, isOpen, items, onClose = () => {}}) => {
   let photoSwipeElement = useRef(null);
 
@@ -21,11 +29,14 @@ export const Lightbox = ({index, isOpen, items, onClose = () => {}}) => {
 
   const [currentIndex, setCurrentIndex] = useState(photoSwipeOptions.index);
 
-  useEffect(() => {
-    if (!isOpen) {
-      return;
-    }
-
+  /**
+   * Initializes and launches a PhotoSwipe instance.
+   *
+   * @param {typeof import('photoswipe/dist/photoswipe.js').default}            PhotoSwipe           - The PhotoSwipe class.
+   * @param {typeof import('photoswipe/dist/photoswipe-ui-default.js').default} PhotoSwipeUI_Default - The default PhotoSwipe UI.
+   * @return {void}
+   */
+  const launchPhotoSwipe = (PhotoSwipe, PhotoSwipeUI_Default) => {
     const photoSwipe = new PhotoSwipe(photoSwipeElement, PhotoSwipeUI_Default, items, photoSwipeOptions);
 
     // eslint-disable-next-line no-shadow
@@ -54,6 +65,17 @@ export const Lightbox = ({index, isOpen, items, onClose = () => {}}) => {
     });
 
     photoSwipe.init();
+  };
+
+  useEffect(() => {
+    if (!isOpen) {
+      return;
+    }
+    (async () => {
+      const {default: PhotoSwipe} = await import('photoswipe/dist/photoswipe.js');
+      const {default: PhotoSwipeUI_Default} = await import('photoswipe/dist/photoswipe-ui-default.js');
+      launchPhotoSwipe(PhotoSwipe, PhotoSwipeUI_Default);
+    })();
   }, [items, isOpen, index]);
 
   return wp.element.createPortal(
@@ -115,4 +137,3 @@ export const Lightbox = ({index, isOpen, items, onClose = () => {}}) => {
     document.body
   );
 };
-
