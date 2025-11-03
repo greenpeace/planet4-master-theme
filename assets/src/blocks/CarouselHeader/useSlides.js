@@ -1,4 +1,5 @@
-import Hammer from 'hammerjs';
+import {useHammerSwipe} from '../components/HammerSwipe/HammerSwipe.js';
+
 const {useEffect, useState, useCallback, useRef} = wp.element;
 
 const activeClass = 'active';
@@ -37,8 +38,6 @@ export const useSlides = (slidesRef, totalSlides, containerRef, carousel_autopla
   const [sliding, setSliding] = useState(false);
   // Set up the autoplay for the slides
   const timerRef = useRef(null);
-
-  const isRTL = document.querySelector('html').dir === 'rtl';
 
   const handleAutoplay = useCallback(() => {
     setAutoplay(!autoplay);
@@ -129,27 +128,7 @@ export const useSlides = (slidesRef, totalSlides, containerRef, carousel_autopla
     goToSlide((currentSlide + 1 >= totalSlides) ? 0 : currentSlide + 1);
   }, [currentSlide, totalSlides, goToSlide]);
 
-  useEffect(() => {
-    if (!containerRef || !containerRef.current) {
-      return;
-    }
-
-    const carouselElement = containerRef.current;
-    const carouselHeadHammer = new Hammer(carouselElement, {recognizers: []});
-    const hammer = new Hammer.Manager(carouselHeadHammer.element);
-    const swipe = new Hammer.Swipe();
-    // Only allow horizontal swiping (not vertical swiping)
-    swipe.set({direction: Hammer.DIRECTION_HORIZONTAL});
-    hammer.add(swipe);
-
-    hammer.on('swipeleft', isRTL ? goToPrevSlide : goToNextSlide);
-    hammer.on('swiperight', isRTL ? goToNextSlide : goToPrevSlide);
-
-    return () => {
-      hammer.off('swipeleft', isRTL ? goToPrevSlide : goToNextSlide);
-      hammer.off('swiperight', isRTL ? goToNextSlide : goToPrevSlide);
-    };
-  }, [containerRef, currentSlide, goToNextSlide, goToPrevSlide, isRTL]);
+  useHammerSwipe(containerRef, goToNextSlide, goToPrevSlide);
 
   useEffect(() => {
     if (!containerRef || !containerRef.current) {
