@@ -61,11 +61,17 @@ class DevReport
      */
     public function admin_page_display(): void
     {
-        echo '<h2>P4 Dev report</h2>' . "\n";
+        echo '<h2>Development report</h2>' . "\n";
         $gp_packages = get_option('greenpeace_packages');
 
         if (!$gp_packages) {
             return;
+        }
+
+        if (defined('WP_SENTRY_VERSION') && WP_SENTRY_VERSION !== 'unknown') {
+            echo "<h3>P4 version</h3>" . "\n";
+            echo "<p><a href='https://github.com/greenpeace/planet4-base/commits/"
+            . esc_html(WP_SENTRY_VERSION) . "'>" . esc_html(WP_SENTRY_VERSION) . "</a></p>\n";
         }
 
         foreach ($gp_packages as $gp_package) {
