@@ -176,16 +176,6 @@ class Tracking
     {
         global $wpdb;
 
-        // If the plugin is not active, abort.
-        if (function_exists('is_plugin_active') && !is_plugin_active('wp-stateless/wp-stateless-media.php')) {
-            return [];
-        }
-
-        // If the stateless_media function does not exist, abort.
-        if (!function_exists('ud_get_stateless_media')) {
-            return [];
-        }
-
         $sql_params = new SqlParameters();
         $sql = 'SELECT *
         FROM ' . $sql_params->identifier($wpdb->posts) . '

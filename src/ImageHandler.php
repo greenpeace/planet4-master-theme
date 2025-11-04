@@ -13,12 +13,6 @@ class ImageHandler
      */
     public const CREDIT_META_FIELD = '_credit_text';
 
-    /**
-     * Replaced meta field key
-     *
-     */
-    public const REPLACED_META_FIELD = '_replaced';
-
     public const IMAGE_MIME_TYPES = [
         IMAGETYPE_JPEG => [
             'mime' => 'image/jpeg',
@@ -103,17 +97,6 @@ class ImageHandler
             [
                 'show_in_rest' => true,
                 'type' => 'string',
-                'single' => true,
-            ]
-        );
-
-        // Whether or not the file has been replaced before.
-        register_post_meta(
-            'attachment',
-            self::REPLACED_META_FIELD,
-            [
-                'show_in_rest' => true,
-                'type' => 'bool',
                 'single' => true,
             ]
         );
