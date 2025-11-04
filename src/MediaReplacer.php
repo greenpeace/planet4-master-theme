@@ -24,6 +24,7 @@ class MediaReplacer
     ];
     private const GC_STORAGE_URL = 'https://storage.googleapis.com/';
     private const P4_SLACK_CHANNEL = 'https://greenpeace.enterprise.slack.com/archives/C014UMRC4AJ';
+    private const REPLACED_META_KEY = '_replaced';
 
     /**
      * MediaReplacer constructor.
@@ -287,9 +288,6 @@ class MediaReplacer
             $filename = $file_meta['_wp_attached_file'][0];
             $sm_cloud_data = unserialize($file_meta['sm_cloud'][0]);
 
-            // Save in the metadata that the attachment has been replaced.
-            update_post_meta($old_file_id, '_replaced', true);
-
             $this->upload_file(
                 $sm_cloud_data['name'],
                 $file['tmp_name'],
@@ -301,6 +299,9 @@ class MediaReplacer
                     'file-hash' => md5($filename), //NOSONAR
                 ]
             );
+
+            // Save in the metadata that the attachment has been replaced.
+            update_post_meta($old_file_id, self::REPLACED_META_KEY, true);
 
             $this->purge_cache();
             wp_send_json_success();
@@ -355,9 +356,6 @@ class MediaReplacer
             $old_image_filename = pathinfo($old_image_meta['name'], PATHINFO_FILENAME);
             $image_name = $old_image_dirname . '/' . $old_image_filename;
 
-            // Save in the metadata that the attachment has been replaced.
-            update_post_meta($id, '_replaced', true);
-
             // Create metadata for uploading the main image.
             $metadata = [
                 'width' => $new_image_width,
@@ -379,6 +377,9 @@ class MediaReplacer
                 $image_data['mime'],
                 $metadata
             );
+
+            // Save in the metadata that the attachment has been replaced.
+            update_post_meta($id, self::REPLACED_META_KEY, true);
 
             $this->upload_thumbnails(
                 $id,
