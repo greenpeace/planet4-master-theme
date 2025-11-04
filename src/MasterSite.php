@@ -98,14 +98,6 @@ class MasterSite extends \Timber\Site
         add_filter('wp_dropdown_users_args', [$this, 'filter_authors'], 10, 1);
         add_filter('http_request_timeout', fn () => 10);
 
-        add_action('admin_head', [$this, 'add_help_sidebar']);
-
-        remove_action('wp_head', 'print_emoji_detection_script', 7);
-        remove_action('wp_head', 'wp_generator');
-        if (has_action('wp_print_styles', 'print_emoji_styles')) {
-            remove_action('wp_print_styles', 'print_emoji_styles');
-        }
-
         register_nav_menus(
             [
                 'navigation-bar-menu' => __('Navigation Bar Menu', 'planet4-master-theme-backend'),
@@ -242,27 +234,6 @@ class MasterSite extends \Timber\Site
             }
         );
 
-        // Add noindex meta tag on pages that are excluded from search
-        add_action(
-            'wp_head',
-            function (): void {
-                if (!is_singular()) {
-                    return;
-                }
-
-                global $post;
-
-                $exclude_from_search = get_post_meta($post->ID, 'ep_exclude_from_search', true);
-
-                if (!$exclude_from_search) {
-                    return;
-                }
-
-                echo '<meta name="robots" content="noindex">' . PHP_EOL;
-            },
-            10
-        );
-
         // Fix WPML-related RTL issue.
         $remove_rtl_fix = function (): void {
             global $sitepress;
@@ -277,34 +248,6 @@ class MasterSite extends \Timber\Site
 
         $remove_rtl_fix();
         add_action('wpml_after_startup', $remove_rtl_fix, 10, 0);
-
-        // Add VWO Anti Flicker script
-        add_action(
-            'wp_head',
-            function (): void {
-                $enable_vwo = planet4_get_option('vwo_account_id') ?? null;
-
-                if (!$enable_vwo) {
-                    return;
-                }
-
-                echo '
-                    <script>
-                        window.vwo_$ = window.vwo_$ || function() {
-                            (window._vwoQueue = window._vwoQueue || []).push(arguments);
-                            return {
-                            vwoCss: function() {}
-                            };
-                        };
-                    </script>
-
-                    <script>
-                        vwo_$("body").vwoCss({"visibility":"visible !important"});
-                    </script>
-                ';
-            },
-            10
-        );
 
         AuthorPage::hooks();
         BreakpointsImageSizes::hooks();
@@ -882,23 +825,6 @@ class MasterSite extends \Timber\Site
         }
 
         return $term;
-    }
-
-    /**
-     * Add a help link to the Help sidebars.
-     */
-    public function add_help_sidebar(): void
-    {
-        if (!get_current_screen()) {
-            return;
-        }
-
-        $screen = get_current_screen();
-        $sidebar = $screen->get_help_sidebar();
-
-        $sidebar .= '<p><a target="_blank" href="https://planet4.greenpeace.org/">Planet 4 Handbook</a></p>';
-
-        $screen->set_help_sidebar($sidebar);
     }
 
     /**
