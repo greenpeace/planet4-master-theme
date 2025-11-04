@@ -4,7 +4,7 @@
  * Blocks report Settings Controller
  */
 
-namespace P4\MasterTheme\Controllers\Menu;
+namespace P4\MasterTheme\Controllers;
 
 /**
  * Class BlocksReportController
