@@ -29,7 +29,7 @@ async function openComponentPanel({page, editor}, panelTitle) {
 const closeBlockInserter = async ({page}) => {
   const closeSidebar = await page.getByRole('button', {name: 'Close block inserter'});
   if (await closeSidebar.isVisible()) {
-    await closeSidebar.click();
+    await closeSidebar.click({force: true});
     await expect(closeSidebar).toBeHidden();
   }
 };
@@ -44,15 +44,15 @@ const closeBlockInserter = async ({page}) => {
  * @return {Promise<void>}   - Playwright Locator
  */
 const searchAndInsertBlock = async ({page}, blockName, namespace = '') => {
-  await page.getByRole('button', {name: 'Block Inserter', exact: true}).click();
+  await page.getByRole('button', {name: 'Block Inserter', exact: true}).click({force: true});
   await page.getByPlaceholder('Search').fill(blockName);
   await page.waitForTimeout(500); // wait for option to show up
 
   if (namespace !== '') {
-    return await page.locator(`button.editor-block-list-item-${namespace.toLowerCase()}[role="option"]`).click();
+    return await page.locator(`button.editor-block-list-item-${namespace.toLowerCase()}[role="option"]`).click({force: true});
   }
 
-  return await page.getByRole('option', {name: blockName}).click();
+  return await page.getByRole('option', {name: blockName}).click({force: true});
 };
 
 /**
@@ -62,7 +62,7 @@ const searchAndInsertBlock = async ({page}, blockName, namespace = '') => {
  * @param {string} id   - The id of the pattern.
  */
 const searchAndInsertPattern = async ({page}, id) => {
-  await page.getByRole('button', {name: 'Block Inserter', exact: true}).click();
+  await page.getByRole('button', {name: 'Block Inserter', exact: true}).click({force: true});
   await page.getByPlaceholder('Search').fill(id);
   await page.locator(`[id="${id}"]`).click();
 };
