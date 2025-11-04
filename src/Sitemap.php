@@ -157,4 +157,44 @@ class Sitemap
 
         return $article_types_data;
     }
+
+    /**
+     * Retrieves all top-level pages that do not have any category assigned,
+     * and attaches their direct child pages to each parent.
+     *
+     * @return WP_Post[] Array of top-level page objects.
+     *                   Each object includes a 'children' property (array of WP_Post).
+     */
+    public function get_top_level_pages_without_category(): array
+    {
+        $args = [
+            'post_type' => 'page',
+            'posts_per_page' => -1,
+            'post_parent' => 0,
+            'orderby' => 'title',
+            'order' => 'ASC',
+            'tax_query' => [
+                [
+                    'taxonomy' => 'category',
+                    'operator' => 'NOT EXISTS',
+                ],
+            ],
+        ];
+
+        $parents = get_posts($args);
+
+        // Attach children for each parent
+        foreach ($parents as $p_index => $parent) {
+            $children = get_posts([
+                'post_type' => 'page',
+                'posts_per_page' => -1,
+                'post_parent' => $parent->ID,
+                'orderby' => 'title',
+                'order' => 'ASC',
+            ]);
+            $parents[$p_index]->children = $children;
+        }
+
+        return $parents;
+    }
 }
