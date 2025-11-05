@@ -297,11 +297,9 @@ class MediaReplacer
                     'object-id' => $old_file_id,
                     'source-id' => md5($filename . $this->bucket_name), //NOSONAR
                     'file-hash' => md5($filename), //NOSONAR
-                ]
+                ],
+                $old_file_id
             );
-
-            // Save in the metadata that the attachment has been replaced.
-            update_post_meta($old_file_id, self::REPLACED_META_KEY, true);
 
             $this->purge_cache();
             wp_send_json_success();
@@ -375,11 +373,9 @@ class MediaReplacer
                 $old_image_meta['name'],
                 $temporary_file_path,
                 $image_data['mime'],
-                $metadata
+                $metadata,
+                $id
             );
-
-            // Save in the metadata that the attachment has been replaced.
-            update_post_meta($id, self::REPLACED_META_KEY, true);
 
             $this->upload_thumbnails(
                 $id,
@@ -489,13 +485,14 @@ class MediaReplacer
      * @param string $absolute_path The absolute path to the file.
      * @param string $mime The MIME type of the file.
      * @param array $metadata Metadata for the file upload.
-     * @return bool True if the upload was successful, false otherwise.
+     * @param int|null $id (Optional) The file id.
      */
     private function upload_file(
         string $name,
         string $absolute_path,
         string $mime,
-        array $metadata
+        array $metadata,
+        int $id = null
     ): void {
         try {
             // Prepare the upload arguments
@@ -511,6 +508,11 @@ class MediaReplacer
 
             // Upload the file to Google Cloud Storage.
             $status = $this->stateless->get_client()->add_media($image_args);
+
+            // Save in the metadata that the attachment has been replaced.
+            if ($status && $id) {
+                update_post_meta($id, self::REPLACED_META_KEY, true);
+            }
 
             $this->replacement_status[$status ? 'success' : 'error'][] = $name;
             $encoded_msg = json_encode($this->replacement_status, JSON_PRETTY_PRINT);
