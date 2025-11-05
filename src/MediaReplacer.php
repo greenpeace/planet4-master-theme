@@ -511,7 +511,8 @@ class MediaReplacer
 
             // Save in the metadata that the attachment has been replaced.
             if ($status && $id) {
-                update_post_meta($id, self::REPLACED_META_KEY, true);
+                $previous_replacements = get_post_meta($id, self::REPLACED_META_KEY, true) ?: 0;
+                update_post_meta($id, self::REPLACED_META_KEY, $previous_replacements + 1);
             }
 
             $this->replacement_status[$status ? 'success' : 'error'][] = $name;

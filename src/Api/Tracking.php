@@ -190,14 +190,14 @@ class Tracking
         $replaced_files = 0;
         $replaced_pdf_files = 0;
         foreach ($results as $file) {
-            $replaced = get_post_meta($file->ID, '_replaced', true);
-            if ($replaced !== '1') {
+            $replaced = (int) get_post_meta($file->ID, '_replaced', true);
+            if (!$replaced) {
                 continue;
             }
             if ($file->post_mime_type === 'application/pdf') {
-                $replaced_pdf_files++;
+                $replaced_pdf_files += $replaced;
             }
-            $replaced_files++;
+            $replaced_files += $replaced;
         }
 
         return [
