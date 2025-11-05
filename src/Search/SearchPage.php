@@ -324,10 +324,6 @@ class SearchPage
         $this->set_context_aggregation();
         $this->set_context_title();
 
-        if ($this->context['found_posts'] <= 0) {
-            add_filter('wp_robots', 'wp_robots_no_robots');
-        }
-
         do_action('enqueue_google_tag_manager_script', $this->context);
 
         Timber::render(
