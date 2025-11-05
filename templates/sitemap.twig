@@ -63,6 +63,31 @@
                     {% endif %}
                     {% endfor %}
                 {% endif %}
+                {% if no_cat_pages  %}
+                    {% for no_cat_page in no_cat_pages %}
+                        {% if no_cat_page.children is not empty %}
+                            <div class="col-md-5 order-md-2 order-lg-3 col-lg-3">
+                                <h5 class="mb-3 mt-5 mt-lg-0">
+                                    <a href="{{ function('get_permalink', no_cat_page.ID) }}">{{ no_cat_page.post_title|e('wp_kses_post')|raw }}</a>
+                                </h5>
+                                <ul>
+                                    {% for post in no_cat_page.children %}
+                                        <li><a href="{{ function('get_permalink', post.ID) }}">{{ post.post_title|e('wp_kses_post')|raw }}</a></li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                    <div class="col-md-5 order-md-2 order-lg-3 col-lg-3">
+                        <ul>
+                            {% for post in no_cat_pages %}
+                                {% if post.children is empty %}
+                                <li><a href="{{ function('get_permalink', post.ID) }}">{{ post.post_title|e('wp_kses_post')|raw }}</a></li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
             </div>
         </div>
     </div>

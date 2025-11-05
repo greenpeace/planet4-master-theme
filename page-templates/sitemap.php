@@ -33,8 +33,11 @@ if (!empty(planet4_get_option('new_ia'))) {
             'category' => $cat->term_id,
             'orderby' => 'title',
             'order' => 'ASC',
+            'numberposts' => -1,
         ]);
     }
+    $sitemap = new Sitemap();
+    $context['no_cat_pages'] = $sitemap->get_top_level_pages_without_category();
 } else {
     $sitemap = new Sitemap();
 
