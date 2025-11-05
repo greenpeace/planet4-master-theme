@@ -177,7 +177,7 @@ class Tracking
         global $wpdb;
 
         $sql_params = new SqlParameters();
-        $sql = 'SELECT *
+        $sql = 'SELECT ID, post_mime_type
         FROM ' . $sql_params->identifier($wpdb->posts) . '
         WHERE post_type = "attachment"
         AND post_modified >= NOW() - INTERVAL ' . $params['last_days'] . ' DAY';
@@ -190,8 +190,8 @@ class Tracking
         $replaced_files = 0;
         $replaced_pdf_files = 0;
         foreach ($results as $file) {
-            $metadata = get_post_meta($file->ID);
-            if (!isset($metadata['_replaced']) || $metadata['_replaced'][0] !== '1') {
+            $replaced = get_post_meta($file->ID, '_replaced', true);
+            if ($replaced !== '1') {
                 continue;
             }
             if ($file->post_mime_type === 'application/pdf') {

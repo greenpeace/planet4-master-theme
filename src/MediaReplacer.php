@@ -492,7 +492,7 @@ class MediaReplacer
         string $absolute_path,
         string $mime,
         array $metadata,
-        int $id = null
+        int|null $id = null
     ): void {
         try {
             // Prepare the upload arguments
