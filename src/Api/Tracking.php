@@ -81,9 +81,6 @@ class Tracking
         global $wpdb;
 
         $response = [];
-        $last_days = (60 * 60 * 24 * $params['last_days']);
-        $now = time();
-
         $query = $wpdb->get_results(
             $wpdb->prepare(
                 "SELECT u.display_name, m.meta_value
@@ -102,7 +99,7 @@ class Tracking
             $key = array_keys($unserialized)[0];
             $login_date = $unserialized[$key]['login'];
 
-            if (($now - $login_date) >= $last_days) {
+            if (!self::is_date_in_last_days($login_date, $params['last_days'])) {
                 continue;
             }
 
@@ -190,19 +187,39 @@ class Tracking
         $replaced_files = 0;
         $replaced_pdf_files = 0;
         foreach ($results as $file) {
-            $replaced = (int) get_post_meta($file->ID, '_replaced', true);
-            if (!$replaced) {
+            $replacement_dates = get_post_meta($file->ID, '_replaced', true);
+            if (!$replacement_dates) {
                 continue;
             }
-            if ($file->post_mime_type === 'application/pdf') {
-                $replaced_pdf_files += $replaced;
+            foreach ($replacement_dates as $date) {
+                if (!self::is_date_in_last_days($date, $params['last_days'])) {
+                    continue;
+                }
+                if ($file->post_mime_type === 'application/pdf') {
+                    $replaced_pdf_files += 1;
+                }
+                $replaced_files += 1;
             }
-            $replaced_files += $replaced;
         }
 
         return [
             'total' => $replaced_files,
             'pdf' => $replaced_pdf_files,
         ];
+    }
+
+    /**
+     * Checks if the given date is in the last X days or not.
+     *
+     * @param int $date - The date to be checked.
+     * @param int $last_days - The amount of last days (default is 30).
+     *
+     * @return bool Whether the date is in the last X days or not.
+    */
+    private static function is_date_in_last_days(int $date, int $last_days): bool
+    {
+        $now = time();
+        $last_days_timestamp = (60 * 60 * 24 * $last_days);
+        return ($now - $date) < $last_days_timestamp;
     }
 }

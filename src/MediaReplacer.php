@@ -509,10 +509,10 @@ class MediaReplacer
             // Upload the file to Google Cloud Storage.
             $status = $this->stateless->get_client()->add_media($image_args);
 
-            // Save in the metadata that the attachment has been replaced.
+            // Save in the metadata that the file has been replaced at the current timestamp.
             if ($status && $id) {
-                $previous_replacements = get_post_meta($id, self::REPLACED_META_KEY, true) ?: 0;
-                update_post_meta($id, self::REPLACED_META_KEY, $previous_replacements + 1);
+                $previous_replacements = get_post_meta($id, self::REPLACED_META_KEY, true) ?: [];
+                update_post_meta($id, self::REPLACED_META_KEY, array_merge($previous_replacements, [time()]));
             }
 
             $this->replacement_status[$status ? 'success' : 'error'][] = $name;
