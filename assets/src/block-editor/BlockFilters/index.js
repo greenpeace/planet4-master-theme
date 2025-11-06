@@ -47,15 +47,15 @@ const addImageBlockFilter = () => addFilter('editor.BlockEdit', 'core/image/edit
     attributes.height = parseInt(size);
   }
 
+  // Determine whether the image credit has the © symbol
+  // at the beginning or the end.
+  const credit = String(image_credits || '');
+  const iconClass = credit.endsWith('©') ? 'credit-icon-right' : 'credit-icon-left';
+
   return (<>
     <BlockEdit {...props} />
     {block_id && image_credits && (
-      captionText ?
-        <style dangerouslySetInnerHTML={{
-          __html: `#${block_id} figcaption::after { content: " ${image_credits}"; }`,
-        }}>
-        </style> :
-        <figcaption style={{marginTop: -24}}>{image_credits}</figcaption>
+      <figcaption className={iconClass} style={{marginTop: -24}}>{image_credits}</figcaption>
     )}
   </>);
 });
