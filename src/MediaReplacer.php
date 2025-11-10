@@ -434,11 +434,17 @@ class MediaReplacer
                 $old_image_height = (int) $matches[2];
             }
 
+            // Remove the substring "-scaled" from the image file name.
+            // The substring is added by WordPress automatically to big images.
+            // See: https://make.wordpress.org/core/2019/10/09/introducing-handling-of-big-images-in-wordpress-5-3/
+            $img_name = str_replace('-scaled', '', $image_name);
+            $img_name = $img_name . '-' . $old_image_width . 'x' . $old_image_height;
+
             // Create metadata for the thumbnails.
             $metadata = [
                 'width' => $new_image_width,
                 'height' => $new_image_height,
-                'file-hash' => md5($image_name . '-' . $old_image_width . 'x' . $old_image_height), //NOSONAR
+                'file-hash' => md5($img_name), //NOSONAR
                 'size' => $size,
                 'child-of' => $id,
             ];
@@ -458,7 +464,7 @@ class MediaReplacer
 
             // Replace thumbnail in Google Cloud Storage.
             $this->upload_file(
-                $image_name . '-' . $old_image_width . 'x' . $old_image_height . '.' . $old_image_extension,
+                $img_name . '.' . $old_image_extension,
                 $temporary_file_path,
                 $image_data['mime'],
                 $metadata
