@@ -176,8 +176,7 @@ class Tracking
         $sql_params = new SqlParameters();
         $sql = 'SELECT ID, post_mime_type
         FROM ' . $sql_params->identifier($wpdb->posts) . '
-        WHERE post_type = "attachment"
-        AND post_modified >= NOW() - INTERVAL ' . $params['last_days'] . ' DAY';
+        WHERE post_type = "attachment"';
         $results = $wpdb->get_results(
             // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
             $wpdb->prepare($sql, $sql_params->get_values()),
@@ -187,10 +186,7 @@ class Tracking
         $replaced_files = 0;
         $replaced_pdf_files = 0;
         foreach ($results as $file) {
-            $replacement_dates = get_post_meta($file->ID, '_replaced', true);
-            if (!$replacement_dates) {
-                continue;
-            }
+            $replacement_dates = (array) get_post_meta($file->ID, '_replaced', true);
             foreach ($replacement_dates as $date) {
                 if (!self::is_date_in_last_days($date, $params['last_days'])) {
                     continue;
