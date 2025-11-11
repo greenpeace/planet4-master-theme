@@ -1,0 +1,27 @@
+.pswp__top-bar .pswp__counter {
+  color: white !important;
+  text-shadow: none !important;
+  font-family: var(--font-family-tertiary) !important;
+  opacity: 1 !important;
+  font-size: 14px;
+}
+
+.pswp__custom-caption {
+  font-family: var(--font-family-tertiary) !important;
+  background: white;
+  font-size: 14px;
+  color: var(--color-text-image_caption);
+  width: 100%;
+  max-width: none;
+  padding: 15px;
+  border-radius: 0;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  text-align: center;
+}
+
+.hidden-caption-content {
+  display: none;
+}
