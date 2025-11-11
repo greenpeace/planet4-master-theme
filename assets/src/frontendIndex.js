@@ -34,8 +34,10 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
       const attributes = JSON.parse(blockNode.dataset.attributes);
-      const rootElement = createRoot(blockNode);
-      rootElement.render(<BlockFrontend {...attributes.attributes} />);
+      if (!blockNode._reactRoot) {
+        blockNode._reactRoot = createRoot(blockNode);
+      }
+      blockNode._reactRoot.render(<BlockFrontend {...attributes.attributes} />);
     }
   );
 
