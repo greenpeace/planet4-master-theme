@@ -66,13 +66,10 @@ class Context
         $context['cf_basket_name'] = $meta['p4_basket_name'] ?? '';
         $context['cf_department'] = $meta['p4_department'] ?? '';
         $context['cf_project_id'] = $meta['p4_global_project_tracking_id'] ?? 'not set';
+        $context['cf_local_project'] = $meta['p4_local_project'] ?? 'not set';
 
-        if (!empty($meta['p4_local_project'])) {
-            $context['cf_local_project'] = $meta['p4_local_project'];
-        } elseif (!empty($meta['p4_campaign_name'])) {
+        if ('not set' === $context['cf_local_project'] && !empty($meta['p4_campaign_name'])) {
             $context['cf_local_project'] = $meta['p4_campaign_name'];
-        } else {
-            $context['cf_local_project'] = 'not set';
         }
 
         $context['cf_scope'] = self::get_campaign_scope($context['cf_campaign_name']);
