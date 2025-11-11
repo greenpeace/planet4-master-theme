@@ -121,8 +121,11 @@ class Timeline extends BaseBlock
     public static function enqueue_frontend_script(): void
     {
         $deps = ['planet4-blocks-theme-script'];
-        $deps = wp_script_is(self::TIMELINE_JS_SCRIPT, 'enqueued') ?
-            array_push($deps, self::TIMELINE_JS_SCRIPT) : $deps;
+
+        if (wp_script_is(self::TIMELINE_JS_SCRIPT, 'registered')) {
+            wp_enqueue_script(self::TIMELINE_JS_SCRIPT);
+            $deps[] = self::TIMELINE_JS_SCRIPT;
+        }
 
         wp_enqueue_script(
             static::get_full_block_name() . '-script',
