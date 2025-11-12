@@ -14,7 +14,14 @@ const {__} = wp.i18n;
   // Function to clear localStorage after a set time
   const clearLocalStorage = () => {
     setTimeout(() => {
-      localStorage.removeItem('layout');
+      try {
+        localStorage.removeItem('layout');
+      } catch (e) {
+        if (typeof Sentry !== 'undefined') {
+          // eslint-disable-next-line no-undef
+          Sentry.captureException('localStorage.removeItem failed:', e);
+        }
+      }
     }, clearStorageAfter);
   };
 
@@ -27,7 +34,15 @@ const {__} = wp.i18n;
     listingPageContent.classList.remove('wp-block-query--grid', 'wp-block-query--list');
     listingPageContent.classList.add(`wp-block-query--${layout}`);
 
-    localStorage.setItem('layout', layout);
+    try {
+      localStorage.setItem('layout', layout);
+    } catch (e) {
+      if (typeof Sentry !== 'undefined') {
+        // eslint-disable-next-line no-undef
+        Sentry.captureException('localStorage.setItem failed:', e);
+      }
+    }
+
     clearLocalStorage();
 
     if (layout === 'list') {
@@ -52,7 +67,15 @@ const {__} = wp.i18n;
   }
 
   const initLayout = () => {
-    const layout = localStorage.getItem('layout') || '';
+    let layout = '';
+    try {
+      layout = localStorage.getItem('layout') || '';
+    } catch (e) {
+      if (typeof Sentry !== 'undefined') {
+        // eslint-disable-next-line no-undef
+        Sentry.captureException('localStorage.getItem failed:', e);
+      }
+    }
 
     if (layout && toggleButton) {
       switchViews(layout);
@@ -94,4 +117,3 @@ const {__} = wp.i18n;
     listingPageContent.appendChild(noPostsFound);
   }
 })();
-
