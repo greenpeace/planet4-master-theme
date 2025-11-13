@@ -24,6 +24,7 @@ class MediaReplacer
     ];
     private const GC_STORAGE_URL = 'https://storage.googleapis.com/';
     private const P4_SLACK_CHANNEL = 'https://greenpeace.enterprise.slack.com/archives/C014UMRC4AJ';
+    private const REPLACED_META_KEY = '_replaced';
 
     /**
      * MediaReplacer constructor.
@@ -296,7 +297,8 @@ class MediaReplacer
                     'object-id' => $old_file_id,
                     'source-id' => md5($filename . $this->bucket_name), //NOSONAR
                     'file-hash' => md5($filename), //NOSONAR
-                ]
+                ],
+                $old_file_id
             );
 
             $this->purge_cache();
@@ -371,7 +373,8 @@ class MediaReplacer
                 $old_image_meta['name'],
                 $temporary_file_path,
                 $image_data['mime'],
-                $metadata
+                $metadata,
+                $id
             );
 
             $this->upload_thumbnails(
@@ -482,13 +485,14 @@ class MediaReplacer
      * @param string $absolute_path The absolute path to the file.
      * @param string $mime The MIME type of the file.
      * @param array $metadata Metadata for the file upload.
-     * @return bool True if the upload was successful, false otherwise.
+     * @param int|null $id (Optional) The file id.
      */
     private function upload_file(
         string $name,
         string $absolute_path,
         string $mime,
-        array $metadata
+        array $metadata,
+        int|null $id = null
     ): void {
         try {
             // Prepare the upload arguments
@@ -504,6 +508,12 @@ class MediaReplacer
 
             // Upload the file to Google Cloud Storage.
             $status = $this->stateless->get_client()->add_media($image_args);
+
+            // Save in the metadata that the file has been replaced at the current timestamp.
+            if ($status && $id) {
+                $previous_replacements = get_post_meta($id, self::REPLACED_META_KEY, true) ?: [];
+                update_post_meta($id, self::REPLACED_META_KEY, array_merge($previous_replacements, [time()]));
+            }
 
             $this->replacement_status[$status ? 'success' : 'error'][] = $name;
             $encoded_msg = json_encode($this->replacement_status, JSON_PRETTY_PRINT);

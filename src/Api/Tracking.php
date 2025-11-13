@@ -40,6 +40,7 @@ class Tracking
                     return [
                         'logins' => self::get_logins($params),
                         'content_created' => self::get_content_created($params),
+                        'replaced_files' => self::get_replaced_files($params),
                     ];
                 },
                 'permission_callback' => function (WP_REST_Request $request) {
@@ -80,9 +81,6 @@ class Tracking
         global $wpdb;
 
         $response = [];
-        $last_days = (60 * 60 * 24 * $params['last_days']);
-        $now = time();
-
         $query = $wpdb->get_results(
             $wpdb->prepare(
                 "SELECT u.display_name, m.meta_value
@@ -101,7 +99,7 @@ class Tracking
             $key = array_keys($unserialized)[0];
             $login_date = $unserialized[$key]['login'];
 
-            if (($now - $login_date) >= $last_days) {
+            if (!self::is_date_in_last_days($login_date, $params['last_days'])) {
                 continue;
             }
 
@@ -163,5 +161,61 @@ class Tracking
         }
 
         return $data;
+    }
+
+    /**
+     * Retrieves the total number of replaced files in the last X days.
+     *
+     * @param array $params refers to request params
+     * @return array Get tracking data.
+    */
+    private static function get_replaced_files(array $params): array
+    {
+        global $wpdb;
+
+        $sql_params = new SqlParameters();
+        $sql = 'SELECT ID, post_mime_type
+        FROM ' . $sql_params->identifier($wpdb->posts) . '
+        WHERE post_type = "attachment"';
+        $results = $wpdb->get_results(
+            // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+            $wpdb->prepare($sql, $sql_params->get_values()),
+            \OBJECT
+        );
+
+        $replaced_files = 0;
+        $replaced_pdf_files = 0;
+        foreach ($results as $file) {
+            $replacement_dates = (array) get_post_meta($file->ID, '_replaced', true);
+            foreach ($replacement_dates as $date) {
+                if (!self::is_date_in_last_days((int) $date, $params['last_days'])) {
+                    continue;
+                }
+                if ($file->post_mime_type === 'application/pdf') {
+                    $replaced_pdf_files += 1;
+                }
+                $replaced_files += 1;
+            }
+        }
+
+        return [
+            'total' => $replaced_files,
+            'pdf' => $replaced_pdf_files,
+        ];
+    }
+
+    /**
+     * Checks if the given date is in the last X days or not.
+     *
+     * @param int $date - The date to be checked.
+     * @param int $last_days - The amount of last days (default is 30).
+     *
+     * @return bool Whether the date is in the last X days or not.
+    */
+    private static function is_date_in_last_days(int $date, int $last_days): bool
+    {
+        $now = time();
+        $last_days_timestamp = (60 * 60 * 24 * $last_days);
+        return ($now - $date) < $last_days_timestamp;
     }
 }
