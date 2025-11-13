@@ -188,7 +188,7 @@ class Tracking
         foreach ($results as $file) {
             $replacement_dates = (array) get_post_meta($file->ID, '_replaced', true);
             foreach ($replacement_dates as $date) {
-                if (!self::is_date_in_last_days($date, $params['last_days'])) {
+                if (!self::is_date_in_last_days((int) $date, $params['last_days'])) {
                     continue;
                 }
                 if ($file->post_mime_type === 'application/pdf') {
