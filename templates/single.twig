@@ -132,7 +132,7 @@
             </section>
         {% endif %}
         {% if ( show_comments ) %}
-            {% include "comments_section.twig" with {comments:post.get_comments()} %}
+            {% include "comments_section.twig" with {comments:post.comments} %}
         {% endif %}
     </main>
 {% endblock %}
