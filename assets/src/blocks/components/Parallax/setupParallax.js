@@ -1,11 +1,5 @@
-import Rellax from 'rellax';
-
-export const setupParallax = () => {
-  const parallaxImages = document.querySelectorAll('.is-style-parallax img');
-
-  if (!parallaxImages.length) {
-    return;
-  }
+export const setupParallax = async parallaxImages => {
+  const loadRellax = () => import('rellax').then(module => module.default || module);
 
   let mobileSpeedAllSetup = false;
   parallaxImages.forEach((image, index) => {
@@ -16,6 +10,7 @@ export const setupParallax = () => {
   });
 
   if (mobileSpeedAllSetup) {
+    const Rellax = await loadRellax(); // lazy import
     return new Rellax('.is-style-parallax img', {center: true}); // eslint-disable-line no-undef
   }
 };
