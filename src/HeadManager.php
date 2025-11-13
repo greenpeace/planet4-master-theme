@@ -16,7 +16,7 @@ class HeadManager
      */
     public function __construct()
     {
-        add_action('wp_head', [$this, 'add_noindex_metatag'], 10);
+        add_action('init', [$this, 'add_robots_metatag']);
         add_action('wp_head', [$this, 'enable_vwo_anti_flicker'], 10);
         add_action('admin_head', [$this, 'filter_p4_settings_menu']);
         add_action('admin_head', [$this, 'add_help_sidebar']);
@@ -64,24 +64,36 @@ class HeadManager
     }
 
     /**
-     * Adds a "noindex" meta tag to the head of singular posts that are excluded from search.
+     * Adds the "robots" metatag to the head.
      *
      */
-    public function add_noindex_metatag(): void
+    public function add_robots_metatag(): void
     {
-        if (!is_singular()) {
-            return;
-        }
+        add_filter('wp_robots', function (array $robots): array {
+            global $post;
 
-        global $post;
+            $robots['max-snippet'] = -1;
+            $robots['max-video-preview'] = -1;
+            $robots['max-image-preview'] = 'large';
 
-        $exclude_from_search = get_post_meta($post->ID, 'ep_exclude_from_search', true);
+            // Return if search engines are discouraged from indexing the website
+            // See "Search engine visibility" in wp-admin > Settings > Reading
+            if (!get_option('blog_public')) {
+                return $robots;
+            }
 
-        if (!$exclude_from_search) {
-            return;
-        }
+            $is_exclude_from_search = $post ? get_post_meta($post->ID, 'ep_exclude_from_search', true) : false;
+            $is_listing_page = is_archive() || is_search() || (int) get_option('page_for_posts') === ($post->ID ?? 0);
 
-        echo '<meta name="robots" content="noindex">' . PHP_EOL;
+            if (is_singular() && $is_exclude_from_search) { // Single page/post excluded from search
+                $robots['noindex'] = true;
+            } elseif (is_paged() && $is_listing_page) { // Listing page, except the first page
+                $robots['noindex'] = true;
+                $robots['follow'] = true;
+            }
+
+            return $robots;
+        });
     }
 
     /**
