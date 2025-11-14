@@ -42,13 +42,63 @@ final class PublicAssets
         );
         wp_localize_script('main', 'localizations', $localized_variables);
         wp_enqueue_script('main');
-        wp_enqueue_script(
-            'youtube',
-            $theme_dir . '/assets/build/lite-yt-embed.js',
-            [],
-            1,
-            true
-        );
+
+        // It is a traditional page, post. Not an archive, catgeory, etc.
+        if (is_singular()) {
+            $post = get_post();
+            $includes_youtube = false;
+
+            if (function_exists('parse_blocks')) {
+                $blocks = parse_blocks($post->post_content ?? '');
+
+                $iterate_blocks = function (array $blocks) use (&$iterate_blocks, &$includes_youtube): void {
+                    foreach ($blocks as $block) {
+                        $name = $block['blockName'] ?? '';
+                        $attrs = $block['attrs'] ?? [];
+
+                        // core/embed with providerNameSlug attribute
+                        if ($name === 'core/embed' && ! empty($attrs['providerNameSlug'])
+                            && in_array(strtolower($attrs['providerNameSlug']), ['youtube'], true)
+                        ) {
+                            $includes_youtube = true;
+                            return;
+                        }
+
+                        // Only when youtube embed is inside a block
+                        if ($name === 'core-embed/youtube' || $name === 'embed') {
+                            $includes_youtube = true;
+                            return;
+                        }
+
+                        if (! empty($block['innerBlocks'])) {
+                            $iterate_blocks($block['innerBlocks']);
+                            if ($includes_youtube) {
+                                return;
+                            }
+                        }
+                    }
+                };
+
+                $iterate_blocks($blocks);
+            } else {
+                // Check for provider name from wp:embed
+                if (isset($post->post_content) && preg_match('/"providerNameSlug"\s*:\s*"(?:youtube)"/i', $post->post_content)) {
+                    $includes_youtube = true;
+                }
+            }
+
+            if ($includes_youtube) {
+                wp_enqueue_script(
+                    'youtube',
+                    $theme_dir . '/assets/build/lite-yt-embed.js',
+                    [],
+                    file_exists(get_template_directory() . '/assets/build/lite-yt-embed.js')
+                        ? filectime(get_template_directory() . '/assets/build/lite-yt-embed.js')
+                        : 1,
+                    true
+                );
+            }
+        }
 
         // Sets translated strings for a JS script.
         wp_set_script_translations('main', 'planet4-master-theme', get_template_directory() . '/languages');
