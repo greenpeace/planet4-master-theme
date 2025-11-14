@@ -17,10 +17,11 @@ async function publishPost({page, editor}) {
   }
   await editor.publishPost();
 
-  const urlString = await page
-    .getByRole('region', {name: 'Editor publish'})
-    .getByRole('textbox', {name: 'address'})
-    .inputValue();
+  // Wait for View Post link to be visible at bottom of page
+  await page.waitForSelector('.components-snackbar__content a', {state: 'visible'});
+
+  // Get the href value
+  const urlString = await page.getAttribute('.components-snackbar__content a', 'href');
 
   return urlString;
 }
