@@ -40,5 +40,10 @@ document.addEventListener('DOMContentLoaded', () => {
   );
 
   setupLightboxForImages();
-  setupParallax();
+
+  // lazy-load rellax only when needed
+  const parallaxImages = document.querySelectorAll('.is-style-parallax img');
+  if(parallaxImages.length) {
+    setupParallax(parallaxImages);
+  }
 });
