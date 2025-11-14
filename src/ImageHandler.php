@@ -142,11 +142,16 @@ class ImageHandler
             return $content;
         }
 
+        // Determine whether the image credit has the copyright icon
+        // at the beginning or the end.
+        $icon_class = str_ends_with($image_credit, '©') ? 'icon-right' : 'icon-left';
+        $credit_div = '<div class="credit ' . $icon_class . '">' . esc_attr($image_credit) . '</div>';
+
         return str_replace(
             empty($caption) ? '</figure>' : $caption,
             empty($caption) ?
-                '<figcaption>' . esc_attr($image_credit) . '</figcaption></figure>' :
-                $caption . esc_attr($image_credit),
+                '<figcaption>' . $credit_div . '</figcaption></figure>' :
+                $caption . $credit_div,
             $content
         );
     }
