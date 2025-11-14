@@ -437,3 +437,16 @@ input.describe[type=text][data-setting=caption] {
 #cmb2-metabox-p4_metabox_post .cmb-th {
   font-weight: 500;
 }
+
+html[dir="rtl"] {
+  figcaption {
+    &.credit-icon-left {
+      direction: ltr;
+    }
+
+    &.credit-icon-right {
+      direction: rtl;
+      unicode-bidi: embed;
+    }
+  }
+}

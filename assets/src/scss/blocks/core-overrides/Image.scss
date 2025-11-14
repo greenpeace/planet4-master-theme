@@ -102,6 +102,19 @@
     text-align: right;
   }
 
+  html[dir="rtl"] & {
+    figcaption {
+      .credit.icon-left {
+        direction: ltr;
+      }
+
+      .credit.icon-right {
+        direction: rtl;
+        unicode-bidi: embed;
+      }
+    }
+  }
+
   // Mimics the behavior of WP's native '.is-resized' CSS class
   .editor-rich-text.block-editor-rich-text {
     display: table-caption;
