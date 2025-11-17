@@ -4,7 +4,6 @@ import {setupCookies} from './cookies';
 import {setupHeader} from './header';
 import {setupPDFIcon} from './pdf_icon';
 import {setupExternalLinks} from './external_links';
-import {setupQueryLoopCarousel} from './query_loop_carousel';
 import {setupClickableActionsListCards} from './actions_list_clickable_cards';
 import {removeNoPostText} from './query-no-posts';
 import {removeRelatedPostsSection} from './remove_related_section_no_posts';
@@ -21,7 +20,6 @@ document.addEventListener('DOMContentLoaded', () => {
   setupHeader();
   setupPDFIcon();
   setupExternalLinks();
-  setupQueryLoopCarousel();
   removeNoPostText();
   removeRelatedPostsSection();
   setupClickableActionsListCards();
@@ -30,6 +28,12 @@ document.addEventListener('DOMContentLoaded', () => {
   if(!!document.querySelector('body.search')) {
     import('./search').then(({setupSearch}) => {
       setupSearch();
+    });
+  }
+
+  if(document.querySelectorAll('[class*="is-custom-layout-"]').length > 0) {
+    import('./query_loop_carousel').then(({setupQueryLoopCarousel}) => {
+      setupQueryLoopCarousel();
     });
   }
 
