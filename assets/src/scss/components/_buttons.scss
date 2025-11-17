@@ -187,13 +187,6 @@
   cursor: pointer;
 }
 
-button.load-more-mt {
-  &.hide-load-more {
-    opacity: 0;
-    transition: opacity 400ms;
-  }
-}
-
 .post-tag-button {
   _-- {
     font-weight: var(--font-weight-regular);
