@@ -11,7 +11,6 @@ import {setupClickableActionsListCards} from './actions_list_clickable_cards';
 import {removeNoPostText} from './query-no-posts';
 import {removeRelatedPostsSection} from './remove_related_section_no_posts';
 import {setupCountrySelector} from './country_selector';
-import {setupActionsListLoadMore} from './actions_list_load_more';
 
 function requireAll(r) {
   r.keys().forEach(r);
@@ -31,7 +30,11 @@ document.addEventListener('DOMContentLoaded', () => {
   removeRelatedPostsSection();
   setupClickableActionsListCards();
   setupCountrySelector();
-  setupActionsListLoadMore();
 
-  window.addEventListener('resize', setupActionsListLoadMore);
+  if(document.querySelectorAll('.actions-list.is-custom-layout-grid').length > 0) {
+    import('./actions_list_load_more').then(({setupActionsListLoadMore}) => {
+      setupActionsListLoadMore();
+      window.addEventListener('resize', setupActionsListLoadMore);
+    });
+  }
 });
