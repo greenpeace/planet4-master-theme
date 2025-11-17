@@ -3,7 +3,6 @@ import 'bootstrap';
 import {setupCookies} from './cookies';
 import {setupHeader} from './header';
 import {setupPDFIcon} from './pdf_icon';
-import {setupSearch} from './search';
 import {setupExternalLinks} from './external_links';
 import {setupQueryLoopCarousel} from './query_loop_carousel';
 import {setupClickableActionsListCards} from './actions_list_clickable_cards';
@@ -21,13 +20,18 @@ document.addEventListener('DOMContentLoaded', () => {
   setupCookies();
   setupHeader();
   setupPDFIcon();
-  setupSearch();
   setupExternalLinks();
   setupQueryLoopCarousel();
   removeNoPostText();
   removeRelatedPostsSection();
   setupClickableActionsListCards();
   setupCountrySelector();
+
+  if(!!document.querySelector('body.search')) {
+    import('./search').then(({setupSearch}) => {
+      setupSearch();
+    });
+  }
 
   if(document.querySelectorAll('.actions-list.is-custom-layout-grid').length > 0) {
     import('./actions_list_load_more').then(({setupActionsListLoadMore}) => {
