@@ -43,49 +43,44 @@ final class PublicAssets
         wp_localize_script('main', 'localizations', $localized_variables);
         wp_enqueue_script('main');
 
-        // It is a traditional page, post. Not an archive, catgeory, etc.
+        // It is a traditional page, post. Not an archive, category, etc.
         if (is_singular()) {
             $post = get_post();
+            $blocks = parse_blocks($post->post_content ?? '');
             $includes_youtube = false;
 
-            if (function_exists('parse_blocks')) {
-                $blocks = parse_blocks($post->post_content ?? '');
+            $iterate_blocks = function (array $blocks) use (&$iterate_blocks, &$includes_youtube): void {
+                foreach ($blocks as $block) {
+                    $name = $block['blockName'] ?? '';
+                    $attrs = $block['attrs'] ?? [];
 
-                $iterate_blocks = function (array $blocks) use (&$iterate_blocks, &$includes_youtube): void {
-                    foreach ($blocks as $block) {
-                        $name = $block['blockName'] ?? '';
-                        $attrs = $block['attrs'] ?? [];
-
-                        // core/embed with providerNameSlug attribute
-                        if ($name === 'core/embed' && ! empty($attrs['providerNameSlug'])
-                            && in_array(strtolower($attrs['providerNameSlug']), ['youtube'], true)
-                        ) {
-                            $includes_youtube = true;
-                            return;
-                        }
-
-                        // Only when youtube embed is inside a block
-                        if ($name === 'core-embed/youtube' || $name === 'embed') {
-                            $includes_youtube = true;
-                            return;
-                        }
-
-                        if (! empty($block['innerBlocks'])) {
-                            $iterate_blocks($block['innerBlocks']);
-                            if ($includes_youtube) {
-                                return;
-                            }
-                        }
+                    // core/embed with providerNameSlug attribute
+                    if (
+                        $name === 'core/embed' && ! empty($attrs['providerNameSlug'])
+                        && in_array(strtolower($attrs['providerNameSlug']), ['youtube'], true)
+                    ) {
+                        $includes_youtube = true;
+                        return;
                     }
-                };
 
-                $iterate_blocks($blocks);
-            } else {
-                // Check for provider name from wp:embed
-                if (isset($post->post_content) && preg_match('/"providerNameSlug"\s*:\s*"(?:youtube)"/i', $post->post_content)) {
-                    $includes_youtube = true;
+                    // Only when youtube embed is inside a block
+                    if ($name === 'core-embed/youtube' || $name === 'embed') {
+                        $includes_youtube = true;
+                        return;
+                    }
+
+                    if (empty($block['innerBlocks'])) {
+                        continue;
+                    }
+
+                    $iterate_blocks($block['innerBlocks']);
+                    if ($includes_youtube) {
+                        return;
+                    }
                 }
-            }
+            };
+
+            $iterate_blocks($blocks);
 
             if ($includes_youtube) {
                 wp_enqueue_script(

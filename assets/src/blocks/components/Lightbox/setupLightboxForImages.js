@@ -74,22 +74,20 @@ const setupImageAndCaption = (imageSelector = 'img', captionSelector = null) => 
  * @return {void}
  */
 export const setupLightboxForImages = function () {
-  const imageBlocks = [...document.querySelectorAll('.wp-block-image:not(.force-no-lightbox)')];
-  const imageBlocksWithoutLinks = imageBlocks.filter(imageBlock => {
-    const image = imageBlock.querySelector('img');
-    return image && image.parentElement.tagName !== 'A';
-  });
+  const imageBlocksWithoutLinks = [...document.querySelectorAll('.wp-block-image:not(.force-no-lightbox)')]
+    .filter(imageBlock => {
+      const image = imageBlock.querySelector('img');
+      return image && image.parentElement.tagName !== 'A';
+    });
 
   imageBlocksWithoutLinks.forEach(setupImageAndCaption('img', 'figcaption'));
 
-  const imagesWithCaptions = document.querySelectorAll('.post-content .wp-caption, .page-content .wp-caption');
-  imagesWithCaptions.forEach(setupImageAndCaption('img', '.wp-caption-text'));
+  document.querySelectorAll('.post-content .wp-caption, .page-content .wp-caption')
+    .forEach(setupImageAndCaption('img', '.wp-caption-text'));
 
-  const imagesInParagraphs = document.querySelectorAll(
+  document.querySelectorAll(
     '.post-content p:not(.wp-caption):not(.force-no-lightbox), .page-content p:not(.wp-caption):not(.force-no-lightbox)'
-  );
-  imagesInParagraphs.forEach(setupImageAndCaption('img'));
+  ).forEach(setupImageAndCaption('img'));
 
-  const mediaAndTextImages = document.querySelectorAll('.wp-block-media-text:not(.force-no-lightbox)');
-  mediaAndTextImages.forEach(setupImageAndCaption());
+  document.querySelectorAll('.wp-block-media-text:not(.force-no-lightbox)').forEach(setupImageAndCaption());
 };

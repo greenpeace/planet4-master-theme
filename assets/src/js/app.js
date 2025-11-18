@@ -31,13 +31,13 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  if(document.querySelectorAll('[class*="is-custom-layout-"]').length > 0) {
+  if(document.querySelectorAll('[class*="is-custom-layout-"]').length) {
     import('./query_loop_carousel').then(({setupQueryLoopCarousel}) => {
       setupQueryLoopCarousel();
     });
   }
 
-  if(document.querySelectorAll('.actions-list.is-custom-layout-grid').length > 0) {
+  if(document.querySelectorAll('.actions-list.is-custom-layout-grid').length) {
     import('./actions_list_load_more').then(({setupActionsListLoadMore}) => {
       setupActionsListLoadMore();
       window.addEventListener('resize', setupActionsListLoadMore);
