@@ -88,14 +88,16 @@ class Context
     }
 
     /**
-     * Parse the utm_campaign param. It's not needed to add if the value is equal to `not set`.
+     * Parse the utm_campaign param.
+     * Pass the value in lowercase and transform empty spaces into hyphens.
+     * It's not needed to add if the value is equal to `not set`.
      *
      * @param string $cf_local_project It comes from meta p4_global_project_tracking_id value.
      */
     public static function parse_utm_campaign_param(string $cf_local_project): string
     {
         if ('not set' !== $cf_local_project) {
-            return '&utm_campaign=' . $cf_local_project;
+            return '&utm_campaign=' . strtolower(str_replace(' ', '-', $cf_local_project));
         }
         return '';
     }
