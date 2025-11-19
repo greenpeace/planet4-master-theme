@@ -37,11 +37,6 @@ const addSelectedFiltersToForm = (isModal, idToRemove) => {
 
 // Search page.
 export const setupSearch = () => {
-  const isSearch = !!document.querySelector('body.search');
-  if (!isSearch) {
-    return;
-  }
-
   // Needed form and inputs
   const searchForm = document.getElementById('search_form');
   const orderInput = document.getElementById('orderby');
