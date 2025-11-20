@@ -18,11 +18,7 @@
 
     <link rel="pingback" href="{{ site.pingback_url }}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    {% if is_listing_page %}
-        <meta name="robots" content="noindex, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
-    {% else %}
-        <meta name="robots" content="max-snippet:-1, max-image-preview:large, max-video-preview:-1">
-    {% endif %}
+
     {% include 'blocks/favicon.twig' %}
     {% include 'head/google_fonts.twig' %}
 
