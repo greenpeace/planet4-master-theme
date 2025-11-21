@@ -23,7 +23,7 @@ const {sprintf, __} = wp.i18n;
  * @param {Function} props.setAttributes - Function to update block attributes.
  * @return {JSX.Element}                  - The Topic Link Editor component.
  */
-export const TopicLinkEditor = ({
+const TopicLinkEditor = ({
   attributes,
   isSelected,
   setAttributes,
@@ -236,3 +236,5 @@ export const TopicLinkEditor = ({
     </>
   );
 };
+
+export default TopicLinkEditor;
