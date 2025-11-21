@@ -1,4 +1,10 @@
 const {useState, useEffect} = wp.element;
+const {__} = wp.i18n;
+
+const getMonthName = monthNumber => {
+  return new Intl.DateTimeFormat('en', {month: 'long'})
+    .format(new Date(2000, monthNumber - 1));
+};
 
 export const NewTimelineFrontend = ({attributes}) => {
   const {
@@ -10,6 +16,32 @@ export const NewTimelineFrontend = ({attributes}) => {
   } = attributes;
   const [loading, setLoading] = useState(false);
   const [sheetData, setSheetData] = useState(null);
+  const [processedSheetData, setProcessedSheetData] = useState(null);
+
+
+  const TimelineEvent = ({event}) => {
+    const [expanded, setExpanded] = useState(false);
+
+    return (
+      <li className="timeline-block-event">
+        <p className="timeline-block-event-day">{getMonthName(event.Month)} {event.Day}</p>
+        <p className="timeline-block-event-title">{event.Headline}</p>
+        <div className="timeline-description-wrapper">
+          <p
+            className={`timeline-block-event-description ${expanded ? 'expanded' : 'clamped'}`}
+            dangerouslySetInnerHTML={{__html: event.Text}}
+          />
+          <button
+            className="timeline-description-toggle"
+            onClick={() => setExpanded(!expanded)}
+          >
+            {expanded ? __('Show less', 'planet4-master-theme-backend') : __('Show more', 'planet4-master-theme-backend')}
+          </button>
+        </div>
+      </li>
+    );
+  };
+
 
   const extractSheetID = urlParam => {
     const matches = urlParam.match(/\/d\/(.+)\//);
@@ -61,9 +93,30 @@ export const NewTimelineFrontend = ({attributes}) => {
     })();
   }, [google_sheets_url]);
 
-  if (loading) {
-    return null;
-  }
+  // Format sheetData for frontend rendering
+  useEffect(() => {
+    document.body.classList.add('new-timeline-block'); // hack to load new styles for new timeline block
+    if (!sheetData) {return;}
+
+    const grouped = sheetData.reduce((acc, item) => {
+      const year = item.Year;
+
+      if (!acc[year]) {
+        acc[year] = [];
+      }
+
+      acc[year].push(item);
+      return acc;
+    }, {});
+
+    const result = Object.entries(grouped)
+      .map(([year, list]) => ({
+        year,
+        list,
+      }));
+
+    setProcessedSheetData(result);
+  }, [sheetData]);
 
   return (
     <section className={`block timeline-block ${className ?? ''}`}>
@@ -75,14 +128,25 @@ export const NewTimelineFrontend = ({attributes}) => {
       {!!description && !isEditing &&
         <p className="page-section-description" dangerouslySetInnerHTML={{__html: description}} />
       }
-      {sheetData && (
-        <ul>
-          {sheetData.map((row, rowIndex) => (
-            <li key={`row-${rowIndex}`}>
-              {Object.keys(row).map(key => `${key}: ${row[key]}`).join(', ')}
-            </li>
+
+      {loading && <p className="text-center">Loading…</p>}
+
+      {!loading && processedSheetData && (
+        <>
+          {processedSheetData.map(({year, list}) => (
+            <>
+              <p className="timeline-block-year">{year}</p>
+              <ul className="timeline-block-events">
+                {list.map((event, index) => (
+                  <TimelineEvent
+                    key={`row-${event.Day}-${index}`}
+                    event={event}
+                  />
+                ))}
+              </ul>
+            </>
           ))}
-        </ul>
+        </>
       )}
     </section>
   );
