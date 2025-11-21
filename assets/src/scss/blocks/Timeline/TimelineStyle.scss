@@ -328,3 +328,97 @@
     }
   }
 }
+
+// New Styles for Timeline block
+.new-timeline-block .timeline-block {
+  height: auto;
+  background-color: var(--beige-100);
+
+  .page-section-header {
+    text-align: center;
+  }
+
+  &-year,
+  &-event-title {
+    font-family: var(--font-family-primary);
+    font-size: var(--font-size-m--font-family-primary);
+    line-height: var(--line-height-m--font-family-tertiary);
+  }
+
+  &-year {
+    text-align: center;
+    width: 78px;
+    border-radius: $sp-x;
+    background-color: var(--white);
+    margin: 50px auto;
+    padding: 7px;
+    box-shadow: 0 $sp-x $sp-1x rgba(0, 0, 0, 0.15);
+  }
+
+  &-event-day,
+  &-event-description,
+  .timeline-description-toggle {
+    font-family: var(--font-family-tertiary);
+  }
+
+  &-events {
+    padding: 0;
+  }
+
+  &-event {
+    list-style: none;
+
+    border: 1px solid var(--grey-500);
+    width: 328px;
+    margin: 0 auto $sp-2;
+    border-radius: $sp-1;
+    background-color: var(--white);
+    padding: $sp-2;
+
+    &-day {
+      display: inline-block;
+      border: 1px solid var(--grey-500);
+      border-radius: $sp-x;
+      text-align: center;
+      font-size: var(--font-size-s--font-family-tertiary);
+      line-height: var(--line-height-s--font-family-tertiary);
+      padding: $sp-x;
+      color: var(--grey-600);
+    }
+  }
+
+  &-event-description {
+    font-size: var(--font-size-m--font-family-tertiary);
+    line-height: var(--line-height-m--font-family-tertiary);
+  }
+
+  &-event-description.clamped {
+    @include clamp-text(3);
+  }
+
+  &-event-description.expanded {
+    display: block;
+  }
+
+  .timeline-description-toggle {
+    color: var(--gp-green-800);
+    background: none;
+    outline: none;
+    border: none;
+    padding: 0;
+    display: block;
+    font-size: var(--font-size-s--font-family-tertiary);
+    font-weight: var(--font-weight-semibold);
+  }
+
+  .timeline-sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    white-space: nowrap;
+    border: 0;
+  }
+}
