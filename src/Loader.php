@@ -6,6 +6,7 @@ use P4\MasterTheme\Settings\Features;
 use P4\MasterTheme\Features\Planet4Blocks;
 use P4\MasterTheme\Patterns\BlockPattern;
 use P4\MasterTheme\View\View;
+use P4\MasterTheme\Blocks\BaseBlock;
 use RuntimeException;
 
 /**
@@ -215,8 +216,12 @@ final class Loader
         new Blocks\TableOfContents();//NOSONAR
         new Blocks\TakeActionBoxout();//NOSONAR
         new Blocks\Timeline();//NOSONAR
-        new Blocks\TopicLink();//NOSONAR
         new Blocks\SecondaryNavigation();//NOSONAR
+        Blocks\Register::registerFromAssets('TopicLink', [
+            'render_callback' => function ($attributes) {
+                return BaseBlock::render_frontend($attributes, 'planet4-blocks/topic-link');
+            },
+        ]);
 
         $pattern_categories = [
             'page-headers' => 'Page Headers',
