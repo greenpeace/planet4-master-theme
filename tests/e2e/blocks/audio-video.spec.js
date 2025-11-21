@@ -1,6 +1,6 @@
 import {test, expect} from '../tools/lib/test-utils.js';
 import {publishPostAndVisit, createPostWithFeaturedImage} from '../tools/lib/post.js';
-import {searchAndInsertBlock} from '../tools/lib/editor.js';
+import {searchAndInsertBlock, closeBlockInserter} from '../tools/lib/editor.js';
 
 const TEST_MEDIA = [
   {
@@ -50,11 +50,7 @@ const addVideoOrAudioBlock = async ({page}, mediaType, mediaLink) => {
   await expect(insertUrl).toBeVisible();
 
   // We should close the sidebar before editing the block.
-  const closeSidebar = await page.getByRole('button', {name: 'Close block inserter'});
-  if (await closeSidebar.isVisible()) {
-    await closeSidebar.click();
-    await expect(closeSidebar).toBeHidden();
-  }
+  await closeBlockInserter({page});
 
   // Add the media URL.
   await insertUrl.click();
