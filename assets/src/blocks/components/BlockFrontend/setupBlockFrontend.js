@@ -3,7 +3,6 @@ import {createRoot} from 'react-dom/client';
 import {TableOfContentsFrontend} from '../../TableOfContents/TableOfContentsFrontend.js';
 import {HappyPointFrontend} from '../../HappyPoint/HappyPointFrontend.js';
 import {ColumnsFrontend} from '../../Columns/ColumnsFrontend.js';
-import {TopicLinkFrontend} from '../../TopicLink/TopicLinkFrontend.js';
 import {SecondaryNavigationFrontend} from '../../SecondaryNavigation/SecondaryNavigationFrontend.js';
 
 // Render React components
@@ -11,7 +10,6 @@ const COMPONENTS = {
   'planet4-blocks/submenu': TableOfContentsFrontend,
   'planet4-blocks/happypoint': HappyPointFrontend,
   'planet4-blocks/columns': ColumnsFrontend,
-  'planet4-blocks/topic-link': TopicLinkFrontend,
   'planet4-blocks/secondary-navigation': SecondaryNavigationFrontend,
 };
 

@@ -1,9 +1,11 @@
 const {useSelect} = wp.data;
+const {useEffect} = wp.element;
 const {
   BlockControls,
   MediaUpload,
   MediaUploadCheck,
   InspectorControls,
+  useBlockProps,
 } = wp.blockEditor;
 const {
   SelectControl,
@@ -23,7 +25,7 @@ const {sprintf, __} = wp.i18n;
  * @param {Function} props.setAttributes - Function to update block attributes.
  * @return {JSX.Element}                  - The Topic Link Editor component.
  */
-export const TopicLinkEditor = ({
+const TopicLinkEditor = ({
   attributes,
   isSelected,
   setAttributes,
@@ -65,14 +67,13 @@ export const TopicLinkEditor = ({
     };
   }, [customImageId, customImageUrl]);
 
-  if (!categoriesList.length) {
-    return __('Populating block\'s fields…', 'planet4-blocks-backend');
-  }
-
   /**
    * Sets the block's category based on available categories or current post categories.
    */
   const setBlockCategory = () => {
+    if (!categoriesList.length) {
+      return;
+    }
     const postCategory = categoriesList.find(category => category.id === currentPostCategories[0]);
     const blockCategory = categoriesList.find(category => category.id === categoryId);
 
@@ -84,10 +85,20 @@ export const TopicLinkEditor = ({
       categoryData = postCategory;
     }
 
-    setAttributes({categoryId: parseInt(categoryData.id)});
+    setAttributes({categoryId: Number.parseInt(categoryData.id)});
     setAttributes({categoryLink: categoryData?.link || ''});
     setAttributes({categoryName: categoryData?.name || ''});
   };
+
+  useEffect(() => {
+    setBlockCategory();
+
+    // Update attributes with image data for frontend
+    setAttributes({
+      imageUrl: imageUrl || '',
+      imageAlt: imageAlt || '',
+    });
+  }, [categoriesList]);
 
   /**
    * Sets the object's focal position as a CSS-compatible value.
@@ -99,8 +110,8 @@ export const TopicLinkEditor = ({
     if (!focalPoints) {
       return '50% 50%';
     }
-    const floatX = parseFloat(focalPoints.x).toFixed(2);
-    const floatY = parseFloat(focalPoints.y).toFixed(2);
+    const floatX = Number.parseFloat(focalPoints.x).toFixed(2);
+    const floatY = Number.parseFloat(focalPoints.y).toFixed(2);
     setAttributes({focal_points: `${floatX * 100}% ${floatY * 100}%`});
   };
 
@@ -111,17 +122,9 @@ export const TopicLinkEditor = ({
    * @return {Object}            - An object with x and y properties as decimal values.
    */
   const getFocalPoint = focalPoints => {
-    const [x, y] = focalPoints.split(' ').map(value => parseFloat(value) / 100);
+    const [x, y] = focalPoints.split(' ').map(value => Number.parseFloat(value) / 100);
     return {x, y};
   };
-
-  setBlockCategory();
-
-  // Update attributes with image data for frontend
-  setAttributes({
-    imageUrl: imageUrl || '',
-    imageAlt: imageAlt || '',
-  });
 
   /**
    * Renders the block preview in the editor.
@@ -161,8 +164,8 @@ export const TopicLinkEditor = ({
           __next40pxDefaultSize
           label={__('Select Category:', 'planet4-blocks-backend')}
           value={categoryId}
-          options={[...categoriesList.map(category => ({label: category.name, value: category.id}))]}
-          onChange={id => setAttributes({categoryId: parseInt(id)})}
+          options={categoriesList.map(category => ({label: category.name, value: category.id}))}
+          onChange={id => setAttributes({categoryId: Number.parseInt(id)})}
         />
         {imageUrl && (
           <div className="wp-block-master-theme-gallery__FocalPointPicker">
@@ -229,10 +232,12 @@ export const TopicLinkEditor = ({
   );
 
   return (
-    <>
+    <div {...useBlockProps()}>
       {isSelected && addInspectorControls()}
       {isSelected && addBlockControls()}
       {renderEditInPlace()}
-    </>
+    </div>
   );
 };
+
+export default TopicLinkEditor;

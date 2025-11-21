@@ -215,8 +215,8 @@ final class Loader
         new Blocks\TableOfContents();//NOSONAR
         new Blocks\TakeActionBoxout();//NOSONAR
         new Blocks\Timeline();//NOSONAR
-        new Blocks\TopicLink();//NOSONAR
         new Blocks\SecondaryNavigation();//NOSONAR
+        Blocks\Register::registerFromAssets('TopicLink');
 
         $pattern_categories = [
             'page-headers' => 'Page Headers',

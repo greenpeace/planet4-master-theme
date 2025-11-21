@@ -9,7 +9,6 @@ import {registerSocialMediaBlock} from './blocks/SocialMedia/SocialMediaBlock';
 import {registerBlockTemplates} from './block-templates/register';
 import {registerTimelineBlock} from './blocks/Timeline/TimelineBlock';
 import {registerColumnsBlock} from './blocks/Columns/ColumnsBlock';
-import {registerTopicLinkBlock} from './blocks/TopicLink/TopicLinkBlock';
 import {registerBlockStyles} from './block-styles';
 import {registerBlockVariations} from './block-variations';
 import {registerActionButtonTextBlock} from './blocks/ActionCustomButtonText';
@@ -31,7 +30,6 @@ wp.domReady(() => {
   registerSocialMediaBlock();
   registerTimelineBlock();
   registerPostsListBlock();
-  registerTopicLinkBlock();
   registerActionButtonTextBlock();
   registerActionsListBlock();
   registerSecondaryNavigationBlock();

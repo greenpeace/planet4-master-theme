@@ -5,6 +5,9 @@ const SpriteLoaderPlugin = require('svg-sprite-loader/plugin');
 const dashDash = require('@greenpeace/dashdash');
 const defaultConfig = require('@wordpress/scripts/config/webpack.config');
 const {BundleAnalyzerPlugin} = require('webpack-bundle-analyzer');
+const {getWebpackEntryPoints} = require('@wordpress/scripts/utils');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const {basename} = require('node:path');
 
 const mediaQueryAliases = {
   '(max-width: 576px)': 'mobile-only',
@@ -13,6 +16,13 @@ const mediaQueryAliases = {
   '(min-width: 992px)': 'large-and-up',
   '(min-width: 1200px)': 'x-large-and-up',
   '(min-width: 1600px)': 'xx-large-and-up',
+};
+
+const relAssetsDir = './assets/src/';
+const scriptFields = ['viewScript', 'editorScript', 'style'];
+const getBlocksEntries = () => {
+  process.env.WP_SRC_DIRECTORY = relAssetsDir;
+  return getWebpackEntryPoints();
 };
 
 module.exports = (env, argv) => {
@@ -74,6 +84,7 @@ module.exports = (env, argv) => {
       TimelineEditorScript: './assets/src/blocks/Timeline/TimelineEditorScript.js',
       TimelineStyle: './assets/src/scss/blocks/Timeline/TimelineStyle.scss',
       TimelineEditorStyle: './assets/src/scss/blocks/Timeline/TimelineEditorStyle.scss',
+      ...getBlocksEntries(),
     },
     output: {
       filename: '[name].js',
@@ -82,7 +93,7 @@ module.exports = (env, argv) => {
     module: {
       rules: [
         {
-          test: /\.(j|t)sx?$/,
+          test: /\.([jt])sx?$/,
           exclude: /node_modules/,
           use: [
             {
@@ -149,6 +160,38 @@ module.exports = (env, argv) => {
     },
     plugins: [
       ...defaultConfig.plugins,
+      // build our blocks via block.json files
+      new CopyWebpackPlugin({
+        patterns: [
+          {
+            from: '**/block.json',
+            context: relAssetsDir,
+            noErrorOnMissing: true,
+            transform(content, absoluteFrom) {
+              const convertExtension = path => {
+                return path.replace(/\.([jt])sx?$/, '.js');
+              };
+
+              if (basename(absoluteFrom) !== 'block.json') {
+                return content;
+              }
+
+              const blockJson = JSON.parse(content.toString());
+              scriptFields.forEach(
+                key => {
+                  if (Array.isArray(blockJson[key])) {
+                    blockJson[key] = blockJson[key].map(convertExtension);
+                  } else if (typeof blockJson[key] === 'string') {
+                    blockJson[key] = convertExtension(blockJson[key]);
+                  }
+                }
+              );
+
+              return JSON.stringify(blockJson, null, 2);
+            },
+          },
+        ],
+      }),
       // extract css into dedicated file
       new MiniCssExtractPlugin({
         chunkFilename: '[id].css',
