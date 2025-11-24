@@ -191,18 +191,6 @@ class MasterSite extends \Timber\Site
         // Admin scripts.
         add_action('admin_enqueue_scripts', [AdminAssets::class, 'enqueue_js']);
 
-        // Disable the Elastic search sync, if archive posts feature is disable.
-        add_filter(
-            'ep_indexable_post_types',
-            function ($post_types) {
-                $setting = planet4_get_option('include_archive_content_for');
-                if (isset($post_types['archive']) && 'nobody' === $setting) {
-                    unset($post_types['archive']);
-                }
-                return $post_types;
-            }
-        );
-
         // Disable Background updates check in Site health.
         add_filter(
             'site_status_tests',

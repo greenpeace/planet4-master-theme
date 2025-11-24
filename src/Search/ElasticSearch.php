@@ -32,6 +32,23 @@ class ElasticSearch
             SearchPage::$query_time = $response['took'] ?? null;
         }, 1, 10);
 
+        // Dequeue Elastic search styles.
+        add_action('wp_enqueue_scripts', function (): void {
+            wp_dequeue_style('elasticpress-facets');
+        }, 999);
+
+        // Disable the Elastic search sync, if archive posts feature is disable.
+        add_filter(
+            'ep_indexable_post_types',
+            function ($post_types) {
+                $setting = planet4_get_option('include_archive_content_for');
+                if (isset($post_types['archive']) && 'nobody' === $setting) {
+                    unset($post_types['archive']);
+                }
+                return $post_types;
+            }
+        );
+
         // Return more post fields
         add_filter('ep_search_post_return_args', static function ($properties): array {
             $properties[] = 'guid';
