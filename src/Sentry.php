@@ -37,6 +37,44 @@ class Sentry
             $context['tags']['server_name'] = $this->server_name();
             return $context;
         });
+
+        add_action('wp_enqueue_scripts', function (): void {
+            global $wp_scripts;
+
+            $localized = null;
+            if (isset($wp_scripts->registered['wp-sentry-browser']->extra['data'])) {
+                $localized = $wp_scripts->registered['wp-sentry-browser']->extra['data'];
+            }
+
+            wp_dequeue_script('wp-sentry-browser');
+            wp_deregister_script('wp-sentry-browser');
+
+            $src = plugins_url(
+                'public/wp-sentry-browser.min.js',
+                WP_PLUGIN_DIR . '/wp-sentry-integration/wp-sentry-integration.php'
+            );
+
+            wp_register_script(
+                'wp-sentry-browser-async',
+                $src,
+                [],
+                null,
+                true
+            );
+
+            if ($localized) {
+                $wp_scripts->registered['wp-sentry-browser-async']->extra['data'] = $localized;
+            }
+
+            add_filter('script_loader_tag', function ($tag, $handle) {
+                if ('wp-sentry-browser-async' === $handle) {
+                    return str_replace('<script ', '<script async ', $tag);
+                }
+                return $tag;
+            }, 10, 2);
+
+            wp_enqueue_script('wp-sentry-browser-async');
+        }, 50);
     }
 
     /**
