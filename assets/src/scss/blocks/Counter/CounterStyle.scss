@@ -1,7 +1,5 @@
 .counter-block {
-  _-- {
-    font-family: var(--font-family-primary);
-  }
+  font-family: var(--font-family-primary);
   text-align: center;
   margin-top: $sp-6;
   margin-bottom: $sp-6;
@@ -27,17 +25,15 @@
   }
 
   .counter-target {
-    _-- {
-      color: var(--gp-green-800);
-      font-size: inherit;
-      margin-bottom: $sp-4;
-    }
+    color: var(--gp-green-800);
+    font-size: inherit;
+    margin-bottom: $sp-4;
     display: inline-block;
     line-height: 1;
   }
 
   &.counter-style-1 {
-    .counter-target _-- {
+    .counter-target {
       font-size: 3rem;
       font-weight: bold;
       margin-bottom: $sp-4;
@@ -45,27 +41,21 @@
   }
 
   .progress-container {
-    _-- {
-      background: var(--grey-200);
-      height: 30px;
-      margin-bottom: $sp-4;
-    }
+    background: var(--grey-200);
+    height: 30px;
+    margin-bottom: $sp-4;
     overflow: hidden;
     border-radius: 4px;
   }
 
   .progress-bar {
-    _-- {
-      background: var(--gp-green-500);
-    }
+    background: var(--gp-green-500);
     height: 100%;
     margin-left: -10px;
   }
 
   .counter-text {
-    _-- {
-      font-size: 1rem;
-    }
+    font-size: 1rem;
     margin-bottom: 0;
   }
 

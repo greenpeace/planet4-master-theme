@@ -1,10 +1,8 @@
 .site-footer {
-  _-- {
-    font-family: var(--font-family-paragraph-secondary);
-    background: var(--color-background-footer);
-    color: var(--white);
-    line-height: 0;
-  }
+  font-family: var(--font-family-paragraph-secondary);
+  background: var(--color-background-footer);
+  color: var(--white);
+  line-height: 0;
   content-visibility: auto;
   position: relative;
   z-index: 2;
@@ -13,7 +11,7 @@
   padding-top: 24px;
   clear: both;
 
-  a _-- {
+  a {
     color: var(--white);
 
     &:visited {
@@ -29,7 +27,7 @@
     }
   }
 
-  .icon _-- {
+  .icon {
     color: inherit;
 
     &:hover {
@@ -62,11 +60,9 @@
   }
 
   li {
-    _-- {
-      font-size: var(--font-size-m--font-family-tertiary);
-      font-weight: var(--font-weight-semibold);
-      line-height: var(--line-height-m--font-family-tertiary);
-    }
+    font-size: var(--font-size-m--font-family-tertiary);
+    font-weight: var(--font-weight-semibold);
+    line-height: var(--line-height-m--font-family-tertiary);
 
     &:not(:last-child) {
       margin-bottom: 24px;
@@ -87,15 +83,12 @@
   text-align: left;
 
   .icon {
-    _-- {
-      color: inherit;
-    }
-
+    color: inherit;
     margin-right: 4px;
     vertical-align: initial;
   }
 
-  a _-- {
+  a {
     color: var(--grey-200);
 
     &:hover {
@@ -104,10 +97,8 @@
   }
 
   span {
-    _-- {
-      font-size: var(--font-size-xs--font-family-tertiary);
-      line-height: var(--line-height-xs--font-family-tertiary);
-    }
+    font-size: var(--font-size-xs--font-family-tertiary);
+    line-height: var(--line-height-xs--font-family-tertiary);
     word-break: keep-all;
     width: auto;
     margin-bottom: 12px;

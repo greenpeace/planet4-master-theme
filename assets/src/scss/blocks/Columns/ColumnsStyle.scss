@@ -1,9 +1,7 @@
 .columns-block {
   a {
     &:not(.btn) {
-      _-- {
-        font-weight: var(--font-weight-regular, inherit);
-      }
+      font-weight: var(--font-weight-regular, inherit);
     }
 
     &.btn-secondary {
@@ -203,7 +201,7 @@
       }
 
       .step-info {
-        h5 > a _-- {
+        h5 > a {
           color: var(--color-text-body);
         }
 
@@ -400,16 +398,12 @@
         }
 
         a {
-          _-- {
-            font-family: var(--body--font-family);
-          }
+          font-family: var(--body--font-family);
         }
       }
 
       a {
-        _-- {
-          font-family: var(--font-family-primary);
-        }
+        font-family: var(--font-family-primary);
       }
 
       .attachment-container {

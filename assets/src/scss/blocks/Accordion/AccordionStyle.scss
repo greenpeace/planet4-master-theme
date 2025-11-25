@@ -120,9 +120,7 @@
 }
 
 .accordion-block {
-  _-- {
-    font-family: var(--font-family-primary);
-  }
+  font-family: var(--font-family-primary);
 
   .accordion-content {
     display: flex;
@@ -165,9 +163,7 @@
 .wp-block-details {
   &[class^="p4-details--"],
   &[class*=" p4-details--"] {
-    _-- {
-      font-family: var(--font-family-primary);
-    }
+    font-family: var(--font-family-primary);
 
     &[open] {
       summary::after {

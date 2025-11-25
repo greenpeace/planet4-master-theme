@@ -82,11 +82,9 @@
   }
 
   .boxout-heading {
-    _-- {
-      font-family: var(--font-family-heading);
-      font-weight: var(--font-weight-regular);
-      color: var(--color-text-body);
-    }
+    font-family: var(--font-family-heading);
+    font-weight: var(--font-weight-regular);
+    color: var(--color-text-body);
     margin-bottom: $sp-1;
     word-break: break-word;
     @include clamp-text(2);
@@ -119,20 +117,14 @@
   }
 
   .btn {
-    _-- {
-      font-size: var(--font-size-xxxs--font-family-primary);
-    }
-
+    font-size: var(--font-size-xxxs--font-family-primary);
     white-space: nowrap;
   }
 
   .boxout-excerpt {
-    _-- {
-      font-family: var(--font-family-paragraph-secondary);
-      font-size: var(--font-size-s--font-family-tertiary);
-      line-height: var(--line-height-m--font-family-tertiary);
-    }
-
+    font-family: var(--font-family-paragraph-secondary);
+    font-size: var(--font-size-s--font-family-tertiary);
+    line-height: var(--line-height-m--font-family-tertiary);
     color: var(--color-text-body);
     margin: 0;
     @include clamp-text(2);

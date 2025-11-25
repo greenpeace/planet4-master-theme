@@ -4,12 +4,10 @@ div[data-render="planet4-blocks/submenu"] {
 }
 
 .table-of-contents-block {
-  _-- {
-    border-radius: 4px;
-    box-shadow: 0 3px 8px 0 rgba(28, 28, 28, 0.2);
-    background-color: var(--white);
-    padding: $sp-5 $sp-6 $sp-6 $sp-6;
-  }
+  border-radius: 4px;
+  box-shadow: 0 3px 8px 0 rgba(28, 28, 28, 0.2);
+  background-color: var(--white);
+  padding: $sp-5 $sp-6 $sp-6 $sp-6;
 
   h1,
   h2 {

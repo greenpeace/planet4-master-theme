@@ -1,14 +1,12 @@
 
 #country-selector {
-  _-- {
-    color: inherit;
-    font-size: var(--font-size-m--font-family-tertiary);
-  }
+  color: inherit;
+  font-size: var(--font-size-m--font-family-tertiary);
   margin-bottom: 24px;
   text-align: start;
   width: 100%;
 
-  a _-- {
+  a {
     color: inherit;
   }
 
@@ -123,10 +121,8 @@
   }
 
   .lang-list {
-    _-- {
-      font-weight: 400;
-      line-height: 24px;
-    }
+    font-weight: 400;
+    line-height: 24px;
     list-style: none;
     padding: $sp-x 0 0 0;
 
@@ -136,9 +132,7 @@
   }
 
   .lang-list > li {
-    _-- {
-      line-height: 24px;
-    }
+    line-height: 24px;
     font-size: var(--font-size-s--font-family-tertiary);
     display: inline-block;
   }
@@ -146,11 +140,9 @@
 
 .country-group {
   .initial {
-    _-- {
-      font-size: $font-size-xxxs;
-      font-weight: 700;
-      line-height: 20px;
-    }
+    font-size: $font-size-xxxs;
+    font-weight: 700;
+    line-height: 20px;
     color: inherit;
     margin-inline-start: -$sp-4;
     opacity: 0.5;
@@ -166,9 +158,7 @@
   }
 
   > ul > li {
-    _-- {
-      line-height: 20px;
-    }
+    line-height: 20px;
     display: inline-block;
     padding-bottom: 16px;
     width: 100%;

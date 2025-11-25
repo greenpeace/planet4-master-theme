@@ -2,20 +2,10 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const TerserJSPlugin = require('terser-webpack-plugin');
 const SpriteLoaderPlugin = require('svg-sprite-loader/plugin');
-const dashDash = require('@greenpeace/dashdash');
 const defaultConfig = require('@wordpress/scripts/config/webpack.config');
 const {BundleAnalyzerPlugin} = require('webpack-bundle-analyzer');
 const {getWebpackEntryPoints} = require('@wordpress/scripts/utils');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-
-const mediaQueryAliases = {
-  '(max-width: 576px)': 'mobile-only',
-  '(min-width: 576px)': 'small-and-up',
-  '(min-width: 768px)': 'medium-and-up',
-  '(min-width: 992px)': 'large-and-up',
-  '(min-width: 1200px)': 'x-large-and-up',
-  '(min-width: 1600px)': 'xx-large-and-up',
-};
 
 const srcDir = './assets/src/';
 const getBlocksEntries = () => {
@@ -124,7 +114,6 @@ module.exports = (env, argv) => {
                 postcssOptions: {
                   ident: 'postcss',
                   plugins: [
-                    dashDash({mediaQueryAliases, mediaQueryAtStart: false}),
                     require.resolve('autoprefixer'),
                   ],
                 },
