@@ -68,9 +68,7 @@
 .btn-small,
 .gfield button:not(.add_list_item):not(.delete_list_item):not([id^="mceu"]),
 .gform_button_select_files {
-  _-- {
-    font-size: $font-size-xxs;
-  }
+  font-size: $font-size-xxs;
   padding: $sp-1 $sp-3;
 }
 
@@ -188,12 +186,10 @@
 }
 
 .post-tag-button {
-  _-- {
-    font-weight: var(--font-weight-regular);
-    border-color: var(--gp-green-100);
-    color: var(--grey-900);
-    background-color: var(--color-background-tag_button--passive);
-  }
+  font-weight: var(--font-weight-regular);
+  border-color: var(--gp-green-100);
+  color: var(--grey-900);
+  background-color: var(--color-background-tag_button--passive);
   margin-inline-end: $sp-2;
   margin-bottom: $sp-2;
   transition-duration: 100ms;

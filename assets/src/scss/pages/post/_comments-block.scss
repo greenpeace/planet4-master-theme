@@ -62,10 +62,8 @@
 @include medium-and-up {
   .single-comment-meta {
     .comment-reply-link {
-      _-- {
-        font-family: var(--font-family-primary);
-        font-weight: var(--font-weight-regular);
-      }
+      font-family: var(--font-family-primary);
+      font-weight: var(--font-weight-regular);
       float: right;
       margin-top: 0;
 

@@ -1,24 +1,17 @@
 .cookies-block {
   .custom-control-description,
   .custom-control input[type="checkbox"] ~ .custom-control-description {
-    _-- {
-      font-size: var(--font-size-xl--font-family-primary);
-      font-family: var(--font-family-primary);
-    }
+    font-size: var(--font-size-xl--font-family-primary);
+    font-family: var(--font-family-primary);
 
     @include x-large-and-up {
-      _-- {
-        font-size: var(--font-size-2xl--font-family-primary);
-      }
+      font-size: var(--font-size-2xl--font-family-primary);
     }
   }
 
   .always-enabled {
-    _-- {
-      font-size: var(--font-size-xxs--font-family-tertiary);
-      font-weight: var(--font-weight-bold);
-    }
-
+    font-size: var(--font-size-xxs--font-family-tertiary);
+    font-weight: var(--font-weight-bold);
     font-family: var(--font-family-tertiary);
     background: var(--grey-900);
     color: white;
