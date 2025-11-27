@@ -1,5 +1,4 @@
 import metadata from './block.json';
-import deprecated from './deprecated';
 import edit from './edit';
 import save from './save';
 import './style.css';
@@ -10,5 +9,9 @@ registerBlockType(metadata, {
   category: 'planet4-blocks',
   edit,
   save,
-  deprecated,
+  deprecated: [{
+    save() {
+      return null;
+    },
+  }],
 });
