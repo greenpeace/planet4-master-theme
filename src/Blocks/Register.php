@@ -12,7 +12,7 @@ class Register
         string $blockDirName,
         array $properties = []
     ): void {
-        register_block_type_from_metadata(
+        register_block_type(
             get_template_directory() . '/assets/build/blocks/' . $blockDirName,
             $properties
         );
