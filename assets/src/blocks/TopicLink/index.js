@@ -7,12 +7,7 @@ import './style.css';
 const {registerBlockType} = wp.blocks;
 
 registerBlockType(metadata, {
-  title: metadata.title,
-  icon: metadata.icon,
   category: 'planet4-blocks',
-  supports: {
-    html: false, // Disable "Edit as HTML" block option.
-  },
   edit,
   save,
   deprecated,
