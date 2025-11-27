@@ -36,8 +36,7 @@
     }
   },
   "supports": {
-    "html": false,
-    "multiple": false
+    "html": false
   },
   "viewScript": "file:./viewScript.js",
   "editorScript": "file:./index.js",

@@ -12,7 +12,6 @@ registerBlockType(metadata, {
   category: 'planet4-blocks',
   supports: {
     html: false, // Disable "Edit as HTML" block option.
-    multiple: false, // Use the block just once per post.
   },
   edit,
   save,
