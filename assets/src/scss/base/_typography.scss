@@ -7,15 +7,12 @@ html {
 p,
 li {
   hyphens: none;
+  font-size: var(--font-size-m--font-family-secondary);
+  line-height: var(--line-height-m--font-family-secondary);
 
-  --text-- {
-    font-size: var(--font-size-m--font-family-secondary);
-    line-height: var(--line-height-m--font-family-secondary);
-
-    @include x-large-and-up {
-      font-size: var(--font-size-xl--font-family-secondary);
-      line-height: var(--line-height-xl--font-family-secondary);
-    }
+  @include x-large-and-up {
+    font-size: var(--font-size-xl--font-family-secondary);
+    line-height: var(--line-height-xl--font-family-secondary);
   }
 }
 
@@ -44,16 +41,12 @@ h6 {
 }
 
 h1 {
-  _-- {
-    line-height: 1.225;
-    font-size: $font-size-xxl;
-  }
+  line-height: 1.225;
+  font-size: $font-size-xxl;
   margin-bottom: 30px;
 
   @include medium-and-up {
-    _-- {
-      font-size: $font-size-xxxxl;
-    }
+    font-size: $font-size-xxxxl;
   }
 
   @include large-and-up {
@@ -62,16 +55,12 @@ h1 {
 }
 
 h2 {
-  _-- {
-    line-height: 1.38;
-    font-size: $font-size-xl;
-  }
+  line-height: 1.38;
+  font-size: $font-size-xl;
   margin-bottom: 5px;
 
   @include medium-and-up {
-    _-- {
-      font-size: $font-size-xxl;
-    }
+    font-size: $font-size-xxl;
   }
 
   @include x-large-and-up {
@@ -80,45 +69,31 @@ h2 {
 }
 
 h3 {
-  _-- {
-    font-size: $font-size-lg;
-  }
+  font-size: $font-size-lg;
 
   @include medium-and-up {
-    _-- {
-      font-size: $font-size-xl;
-    }
+    font-size: $font-size-xl;
   }
 }
 
 h4 {
-  _-- {
-    font-size: $font-size-md;
-  }
+  font-size: $font-size-md;
 
   @include medium-and-up {
-    _-- {
-      font-size: $font-size-lg;
-    }
+    font-size: $font-size-lg;
   }
 }
 
 h5 {
-  _-- {
-    font-size: $font-size-sm;
-  }
+  font-size: $font-size-sm;
 
   @include medium-and-up {
-    _-- {
-      font-size: $font-size-md;
-    }
+    font-size: $font-size-md;
   }
 }
 
 h6 {
-  _-- {
-    font-size: $font-size-sm;
-  }
+  font-size: $font-size-sm;
 }
 
 .white-text {
