@@ -126,7 +126,7 @@ const renderView = (attributes, setAttributes) => {
 
   return (
     <section className={`block ${GALLERY_BLOCK_CLASSES[layout]} ${className ?? ''}`}>
-      <header className="articles-title-container">
+      <header>
         <RichText
           tagName="h2"
           className="page-section-header"

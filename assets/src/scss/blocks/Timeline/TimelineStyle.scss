@@ -330,52 +330,50 @@
 }
 
 // New Styles for Timeline block
-.new-timeline-block .timeline-block {
+.new-timeline-block {
   height: auto;
   background-color: var(--beige-100);
+  padding: $sp-3x $sp-2;
 
-  .page-section-header {
-    text-align: center;
-  }
-
-  &-year,
-  &-event-title {
+  .timeline-block-year,
+  .timeline-block-event-title {
     font-family: var(--font-family-primary);
     font-size: var(--font-size-m--font-family-primary);
     line-height: var(--line-height-m--font-family-tertiary);
   }
 
-  &-year {
+  .timeline-block-year {
     text-align: center;
     width: 78px;
     border-radius: $sp-x;
     background-color: var(--white);
-    margin: 50px auto;
-    padding: 7px;
+    margin: $sp-6 auto;
+    padding: $sp-1;
     box-shadow: 0 $sp-x $sp-1x rgba(0, 0, 0, 0.15);
   }
 
-  &-event-day,
-  &-event-description,
-  .timeline-description-toggle {
+  .timeline-block-event-day,
+  .timeline-block-event-description,
+  .timeline-description-toggle,
+  .page-section-description {
     font-family: var(--font-family-tertiary);
   }
 
-  &-events {
+  .timeline-block-events {
     padding: 0;
   }
 
-  &-event {
+  .timeline-block-event {
     list-style: none;
 
     border: 1px solid var(--grey-500);
-    width: 328px;
+    max-width: 340px;
     margin: 0 auto $sp-2;
     border-radius: $sp-1;
     background-color: var(--white);
     padding: $sp-2;
 
-    &-day {
+    .timeline-block-event-day {
       display: inline-block;
       border: 1px solid var(--grey-500);
       border-radius: $sp-x;
@@ -383,20 +381,20 @@
       font-size: var(--font-size-s--font-family-tertiary);
       line-height: var(--line-height-s--font-family-tertiary);
       padding: $sp-x;
-      color: var(--grey-600);
+      color: var(--grey-800);
     }
   }
 
-  &-event-description {
+  .timeline-block-event-description {
     font-size: var(--font-size-m--font-family-tertiary);
     line-height: var(--line-height-m--font-family-tertiary);
   }
 
-  &-event-description.clamped {
+  .timeline-block-event-description.clamped {
     @include clamp-text(3);
   }
 
-  &-event-description.expanded {
+  .timeline-block-event-description.expanded {
     display: block;
   }
 
@@ -409,16 +407,30 @@
     display: block;
     font-size: var(--font-size-s--font-family-tertiary);
     font-weight: var(--font-weight-semibold);
+
+    &:hover {
+      text-decoration: underline;
+    }
   }
 
-  .timeline-sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    white-space: nowrap;
-    border: 0;
+  .page-section-header {
+    padding: $sp-2 $sp-2 0;
+    line-height: var(--line-height-xl--font-family-primary);
+  }
+
+  .page-section-description {
+    padding: 0 $sp-2;
+    font-size: var(--font-size-xs--font-family-primary);
+    line-height: var(--line-height-m--font-family-tertiary);
+    width: 80%;
+    margin: $sp-2x auto $sp-5;
+
+    @include medium-and-less {
+      width: 100%;
+    }
+  }
+
+  & .timeline-group > div:first-child .timeline-block-year {
+    margin-top: 0;
   }
 }

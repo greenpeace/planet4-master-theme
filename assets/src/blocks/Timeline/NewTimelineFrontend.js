@@ -1,9 +1,21 @@
 const {useState, useEffect} = wp.element;
-const {__} = wp.i18n;
+const {__, sprintf} = wp.i18n;
 
 const getMonthName = monthNumber => {
-  return new Intl.DateTimeFormat('en', {month: 'long'})
+  const locale = document.documentElement.lang || 'en';
+  return new Intl.DateTimeFormat(locale, {month: 'long'})
     .format(new Date(2000, monthNumber - 1));
+};
+
+const getLocalizedDate = (day, month) => {
+  const locale = document.documentElement.lang || 'en';
+
+  const date = new Date(2000, month - 1, day);
+
+  return new Intl.DateTimeFormat(locale, {
+    day: 'numeric',
+    month: 'long',
+  }).format(date);
 };
 
 export const NewTimelineFrontend = ({attributes}) => {
@@ -27,9 +39,9 @@ export const NewTimelineFrontend = ({attributes}) => {
       <li className="timeline-block-event">
         <p
           className="timeline-block-event-day"
-          aria-label={`${getMonthName(event.Month)} ${event.Day}`}
+          aria-label={`${getLocalizedDate(event.Day, event.Month)}`}
         >
-          {getMonthName(event.Month)} {event.Day}
+          {getLocalizedDate(event.Day, event.Month)}
         </p>
         <h3 className="timeline-block-event-title">{event.Headline}</h3>
         <div className="timeline-description-wrapper">
@@ -44,7 +56,7 @@ export const NewTimelineFrontend = ({attributes}) => {
             aria-controls={contentId}
             onClick={() => setExpanded(!expanded)}
           >
-            {expanded ? __('Show less', 'planet4-master-theme-backend') : __('Show more', 'planet4-master-theme-backend')}
+            {expanded ? __('Show less', 'planet4-blocks') : __('Show more', 'planet4-blocks')}
           </button>
         </div>
       </li>
@@ -104,7 +116,6 @@ export const NewTimelineFrontend = ({attributes}) => {
 
   // Format sheetData for frontend rendering
   useEffect(() => {
-    document.body.classList.add('new-timeline-block'); // hack to load new styles for new timeline block
     if (!sheetData) {return;}
 
     const grouped = sheetData.reduce((acc, item) => {
@@ -130,7 +141,6 @@ export const NewTimelineFrontend = ({attributes}) => {
   let total = 0;
   let firstDate = '';
   let lastDate = '';
-  const summaryId = 'timeline-summary';
 
   if (processedSheetData) {
     const allEvents = processedSheetData.flatMap(y => y.list);
@@ -145,28 +155,27 @@ export const NewTimelineFrontend = ({attributes}) => {
     }
   }
 
+  const summaryText = sprintf(
+  /* translators: 1: timeline title, 2: total items, 3: first date, 4: last date */
+    __('%1$s, %2$d items from %3$s to %4$s.', 'planet4-blocks'),
+    timeline_title,
+    total,
+    firstDate,
+    lastDate
+  );
+
   return (
-    <section
-      className={`block timeline-block ${className ?? ''}`}
-      aria-labelledby="timeline-title"
-      aria-describedby={processedSheetData ? summaryId : ''}
-    >
+    <section className={`block timeline-block new-timeline-block ${className ?? ''}`} aria-label={summaryText}>
       {!!timeline_title && !isEditing &&
-        <header>
-          <h2 id="timeline-title" className="page-section-header">{timeline_title}</h2>
-        </header>
+        <h2 className="page-section-header text-center">
+          {timeline_title}
+        </h2>
       }
       {!!description && !isEditing &&
-        <p className="page-section-description" dangerouslySetInnerHTML={{__html: description}} />
+        <p className="page-section-description text-center" dangerouslySetInnerHTML={{__html: description}} />
       }
 
-      {loading && <p className="text-center">Loading…</p>}
-
-      {!loading && processedSheetData && (
-        <p id={summaryId} className="timeline-sr-only">
-          {`${timeline_title}, ${total} items from ${firstDate} to ${lastDate}.`}
-        </p>
-      )}
+      {loading && <p className="text-center">{__('Loading…', 'planet4-blocks')}</p>}
 
       {!loading && processedSheetData && (
         <fieldset className="timeline-group">
