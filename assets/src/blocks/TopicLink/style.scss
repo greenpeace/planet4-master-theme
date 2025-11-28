@@ -52,7 +52,7 @@
         display: inline-block;
         transition: transform 300ms linear;
         transform: rotate(0deg);
-        mask-image: url("/images/chevron.svg");
+        mask-image: url("../../../src/images/icons/chevron.svg");
         mask-repeat: no-repeat;
         mask-size: contain;
         background-repeat: no-repeat;
