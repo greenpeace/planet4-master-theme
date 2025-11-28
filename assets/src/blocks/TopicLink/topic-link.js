@@ -1,5 +1,4 @@
 const {sprintf, __} = wp.i18n;
-import './style.css';
 
 /**
  * TopicLink component for rendering the Topic Link block on the frontend.

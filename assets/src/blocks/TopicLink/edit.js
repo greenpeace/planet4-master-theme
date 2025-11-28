@@ -5,7 +5,6 @@ const {
   MediaUpload,
   MediaUploadCheck,
   InspectorControls,
-  useBlockProps,
 } = wp.blockEditor;
 const {
   SelectControl,
@@ -23,7 +22,7 @@ const {sprintf, __} = wp.i18n;
  * @param {Object}   props.attributes    - Block attributes.
  * @param {boolean}  props.isSelected    - Indicates if the block is selected.
  * @param {Function} props.setAttributes - Function to update block attributes.
- * @return {JSX.Element}                  - The Topic Link Editor component.
+ * @return {JSX.Element}                 - The Topic Link Editor component.
  */
 const TopicLinkEditor = ({
   attributes,
@@ -232,11 +231,11 @@ const TopicLinkEditor = ({
   );
 
   return (
-    <div {...useBlockProps()}>
+    <>
       {isSelected && addInspectorControls()}
       {isSelected && addBlockControls()}
       {renderEditInPlace()}
-    </div>
+    </>
   );
 };
 

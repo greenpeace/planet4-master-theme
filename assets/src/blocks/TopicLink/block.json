@@ -38,7 +38,7 @@
   "supports": {
     "html": false
   },
-  "viewScript": "file:./viewScript.js",
-  "editorScript": "file:./index.js",
-  "style": "file:./style.css"
+  "viewScript": "file:view-script.js",
+  "editorScript": "file:index.js",
+  "style": "file:index.css"
 }
