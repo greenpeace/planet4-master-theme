@@ -1,18 +1,18 @@
-const {useSelect} = wp.data;
-const {useEffect} = wp.element;
-const {
+import {useSelect} from '@wordpress/data';
+import {useEffect} from '@wordpress/element';
+import {
   BlockControls,
   MediaUpload,
   MediaUploadCheck,
   InspectorControls,
-} = wp.blockEditor;
-const {
+} from '@wordpress/block-editor';
+import {
   SelectControl,
   PanelBody,
   ToolbarGroup,
   ToolbarButton,
   FocalPointPicker,
-} = wp.components;
+} from '@wordpress/components';
 const {sprintf, __} = wp.i18n;
 
 /**
