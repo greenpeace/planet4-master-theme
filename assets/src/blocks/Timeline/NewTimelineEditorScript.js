@@ -40,7 +40,7 @@ const renderEdit = (
 );
 
 const renderView = (attributes, toAttribute) => (
-  <section className={`block timeline-block ${attributes.className ?? ''}`}>
+  <section className={`block timeline-block new-timeline-block ${attributes.className ?? ''}`}>
     <Tooltip text={__('Edit text', 'planet4-blocks-backend')}>
       <header className="articles-title-container">
         <RichText
