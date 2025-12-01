@@ -158,17 +158,11 @@
     font-weight: var(--font-weight-regular);
 
     a.nav-link {
-      --submenu-nav-link-- {
-        color: var(--color-text-nav_link);
-        font-family: var(--font-family-tertiary);
-        font-size: $font-size-sm;
-        font-weight: var(--font-weight-semibold);
-        line-height: 19px;
-
-        &:hover {
-          color: var(--color-text-nav_link);
-        }
-      }
+      color: var(--color-text-nav_link);
+      font-family: var(--font-family-tertiary);
+      font-size: $font-size-sm;
+      font-weight: var(--font-weight-semibold);
+      line-height: 19px;
       text-decoration: none;
       height: 100%;
       display: flex;
@@ -176,6 +170,7 @@
       padding: 14px $sp-3;
 
       &:hover {
+        color: var(--color-text-nav_link);
         background: var(--grey-200);
         border-radius: 0;
       }

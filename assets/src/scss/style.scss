@@ -115,9 +115,8 @@ body.transparent-nav {
         --color-text-nav_link: var(--white);
       }
 
-      .nav-submenu {
-        --submenu-nav-link--color: var(--grey-900);
-        --submenu-nav-link--hover--color: var(--submenu-nav-link--color);
+      .nav-submenu .nav-item a.nav-link {
+        color: var(--grey-900);
       }
 
       #search_form {
