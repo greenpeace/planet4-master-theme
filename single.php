@@ -22,6 +22,15 @@ $context = Timber::context();
 $timber_post = Timber::get_post($post->ID);
 $context['post'] = $timber_post;
 
+if (empty($timber_post->author)) {
+    $author_id = $timber_post->post_author ?? 0;
+    $display_name = $author_id ? get_the_author_meta('display_name', $author_id) : '';
+    $timber_post->author = (object) [
+        'ID' => $author_id,
+        'display_name' => $display_name ?: '',
+    ];
+}
+
 // Set Navigation Issues links.
 $timber_post->set_issues_links();
 
