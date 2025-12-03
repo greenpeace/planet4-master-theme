@@ -225,8 +225,8 @@ function register_more_blocks(): void
                 $post_author_id = get_post_field('post_author', $block->context['postId']);
 
                 $is_override = ! empty($author_override);
+                $name = $author_override ?: (get_the_author_meta('display_name', $post_author_id) ?? '');
 
-                $name = $is_override ? $author_override : get_the_author_meta('display_name', $post_author_id);
                 $link = $is_override ? '#' : get_author_posts_url($post_author_id);
 
                 $block_content = $author_override ? $name : "<a href='$link'>$name</a>";
