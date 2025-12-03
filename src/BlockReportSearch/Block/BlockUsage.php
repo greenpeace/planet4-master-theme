@@ -47,7 +47,13 @@ class BlockUsage
      */
     public function get_blocks(Parameters $params): array
     {
-        $this->posts_ids = $this->search->get_posts($params);
+        $this->posts_ids = wp_cache_get('block_report_post_ids', 'planet4_master_theme');
+
+        if ($this->posts_ids === false) {
+            $this->posts_ids = $this->search->get_posts($params);
+            // Cache the data for next 24 hrs.
+            wp_cache_set('block_report_post_ids', $this->posts_ids, 'planet4_master_theme', 86400);
+        }
 
         return $this->get_filtered_blocks($this->posts_ids, $params);
     }
@@ -85,6 +91,11 @@ class BlockUsage
      */
     private function fetch_blocks(array $posts_ids, Parameters $params): void
     {
+        if (count($posts_ids) > 3500) {
+            // Limit the number of posts for the get_posts() function to 3.5k to reduce memory load.
+            $posts_ids = array_slice($posts_ids, 0, 3500);
+        }
+
         $posts_args = [
             'include' => $posts_ids,
             'orderby' => empty($params->order()) ? null : array_fill_keys($params->order(), 'ASC'),
