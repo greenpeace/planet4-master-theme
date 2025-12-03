@@ -41,13 +41,31 @@ class Sentry
         add_action('wp_enqueue_scripts', function (): void {
             global $wp_scripts;
 
-            $localized = null;
-            if (isset($wp_scripts->registered['wp-sentry-browser']->extra['data'])) {
-                $localized = $wp_scripts->registered['wp-sentry-browser']->extra['data'];
+            $sentry_handles = [];
+            foreach ($wp_scripts->registered as $handle => $data) {
+                if (strpos($handle, 'wp-sentry-browser') !== 0) {
+                    continue;
+                }
+
+                $sentry_handles[] = $handle;
             }
 
-            wp_dequeue_script('wp-sentry-browser');
-            wp_deregister_script('wp-sentry-browser');
+            $localized = null;
+            foreach ($sentry_handles as $handle) {
+                if (isset($wp_scripts->registered[$handle]->extra['data'])) {
+                    $localized = $wp_scripts->registered[$handle]->extra['data'];
+                    break;
+                }
+            }
+
+
+            foreach ($sentry_handles as $handle) {
+                wp_dequeue_script($handle);
+                wp_deregister_script($handle);
+            }
+
+
+            $async_handle = 'wp-sentry-browser-async';
 
             $src = plugins_url(
                 'public/wp-sentry-browser.min.js',
@@ -55,7 +73,7 @@ class Sentry
             );
 
             wp_register_script(
-                'wp-sentry-browser-async',
+                $async_handle,
                 $src,
                 [],
                 null,
@@ -63,18 +81,18 @@ class Sentry
             );
 
             if ($localized) {
-                $wp_scripts->registered['wp-sentry-browser-async']->extra['data'] = $localized;
+                $wp_scripts->registered[$async_handle]->extra['data'] = $localized;
             }
 
-            add_filter('script_loader_tag', function ($tag, $handle) {
-                if ('wp-sentry-browser-async' === $handle) {
+            add_filter('script_loader_tag', function ($tag, $handle) use ($async_handle) {
+                if ($handle === $async_handle) {
                     return str_replace('<script ', '<script async ', $tag);
                 }
                 return $tag;
             }, 10, 2);
 
-            wp_enqueue_script('wp-sentry-browser-async');
-        }, 50);
+            wp_enqueue_script($async_handle);
+        }, 10);
     }
 
     /**
