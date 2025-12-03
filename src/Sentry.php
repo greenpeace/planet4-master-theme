@@ -42,12 +42,15 @@ class Sentry
             global $wp_scripts;
 
             $localized = null;
-            if (isset($wp_scripts->registered['wp-sentry-browser']->extra['data'])) {
-                $localized = $wp_scripts->registered['wp-sentry-browser']->extra['data'];
+            $sentry_browser = 'wp-sentry-browser';
+            $sentry_async = 'wp-sentry-browser-async';
+
+            if (isset($wp_scripts->registered[$sentry_browser]->extra['data'])) {
+                $localized = $wp_scripts->registered[$sentry_browser]->extra['data'];
             }
 
-            wp_dequeue_script('wp-sentry-browser');
-            wp_deregister_script('wp-sentry-browser');
+            wp_dequeue_script($sentry_browser);
+            wp_deregister_script($sentry_browser);
 
             $src = plugins_url(
                 'public/wp-sentry-browser.min.js',
@@ -55,7 +58,7 @@ class Sentry
             );
 
             wp_register_script(
-                'wp-sentry-browser-async',
+                $sentry_async,
                 $src,
                 [],
                 null,
@@ -63,7 +66,7 @@ class Sentry
             );
 
             if ($localized) {
-                $wp_scripts->registered['wp-sentry-browser-async']->extra['data'] = $localized;
+                $wp_scripts->registered[$sentry_async]->extra['data'] = $localized;
             }
 
             add_filter('script_loader_tag', function ($tag, $handle) {
@@ -73,8 +76,8 @@ class Sentry
                 return $tag;
             }, 10, 2);
 
-            wp_enqueue_script('wp-sentry-browser-async');
-        }, 50);
+            wp_enqueue_script($sentry_async);
+        }, 10);
     }
 
     /**
