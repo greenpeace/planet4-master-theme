@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Planet4 Master Theme backend\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-24 09:39+0000\n"
+"POT-Creation-Date: 2025-12-03 10:48+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -14,24 +14,20 @@ msgstr ""
 "X-Generator: Loco https://localise.biz/\n"
 "Language: "
 
-#: assets/src/js/menu_editor.js:291
+#. 1: menu name, 2: max item count, 3: current item count
+#: assets/src/js/menu_editor.js:310
 #, javascript-format
 msgid ""
 "%1$s should not contain more than %2$s items at this level (currently %3$s)."
 msgstr ""
 
 #. %s = year of the post in four digits.
-#: tests/test-custom-permalinks.php:19
+#: tests/test-custom-permalinks.php:22
 #, php-format
 msgid "%s (The year of the post, four digits, for example 2004.)"
 msgstr ""
 
-#: src/Settings.php:456
-msgid ""
-"(Coming Soon) The webhook of the Slack channel to send notifications to."
-msgstr ""
-
-#: src/MetaboxRegister.php:300
+#: src/AnalyticsValues.php:353
 msgid "- Select Basket -"
 msgstr ""
 
@@ -39,262 +35,395 @@ msgstr ""
 msgid "- Select Global Project -"
 msgstr ""
 
-#: src/AnalyticsValues.php:320
+#: src/AnalyticsValues.php:333
 msgid "- Select Local Project -"
 msgstr ""
 
-#: src/Settings.php:376
+#: src/Settings.php:465
 msgid "404 Background Image"
 msgstr ""
 
-#: src/Settings.php:392
+#: src/Settings.php:484
 msgid "404 Page text"
 msgstr ""
 
-#: src/Settings.php:199
+#: src/Settings.php:560
 msgid ""
 "<b>Important:</b> On change of Include archive content setting, Please kindly"
 msgstr ""
 
-#: src/MetaboxRegister.php:387
+#: src/AnalyticsValues.php:413
 msgid "[DEPRECATED] "
 msgstr ""
 
-#: src/Settings.php:426
-msgid "AB Hide Selector"
-msgstr ""
-
-#: src/ActionPage.php:49
+#: src/ActionPage.php:107
 msgctxt "action"
 msgid "Add New"
 msgstr ""
 
-#: src/Features/ActionPostType.php:24
-msgid "Action post type"
+#: src/ActionPage.php:266
+msgid "Action post type slug"
 msgstr ""
 
-#: src/ActionPage.php:113
+#: src/ActionPage.php:172
 msgid "Action Type"
 msgstr ""
 
-#: src/Features/EngagingNetworks.php:30
-msgid ""
-"Activate the EN Form block, as well as the \"Progress Bar inside EN Form\" "
-"Counter block style."
+#: src/Features/ActionsDeadline.php:25
+msgid "Actions Deadline"
 msgstr ""
 
-#: src/Settings.php:383
+#: templates/posts_report.twig:43
+msgid "Actions List"
+msgstr ""
+
+#: src/Settings.php:148
+msgid "Actions List default button text"
+msgstr ""
+
+#: src/Features/ActionsTaskType.php:25
+msgid "Actions Task Type"
+msgstr ""
+
+#: src/Features/ActionsUserPersonalization.php:25
+msgid "Actions User Personalization"
+msgstr ""
+
+#: src/Features/Planet4Blocks.php:33
+msgid ""
+"Activates all <a href=\"https://planet4.greenpeace.org/content/blocks/\" "
+"target=\"_blank\">Planet 4 blocks</a>"
+msgstr ""
+
+#: src/Settings.php:472
 msgid "Add 404 Page Background Image"
 msgstr ""
 
-#: src/Settings.php:399
+#: src/Settings.php:491
 msgid "Add 404 page text"
 msgstr ""
 
-#: src/Settings.php:363
+#: src/Settings.php:431
 msgid ""
-"Add a list of third-party URLs to \"preconnect\" (e.g.: https://in.hotjar."
-"com). Look for \"preconnect\" in the P4 Handbook for details."
+"Add a list of frequently used third-party services to \"preconnect\" (e.g.: "
+"https://in.hotjar.com)."
 msgstr ""
 
-#: src/MetaboxRegister.php:133
-msgid "Add Background Image"
+#: src/ActionPage.php:108
+msgid "Add Action"
 msgstr ""
 
-#: src/Settings.php:135
+#: src/ActionPage.php:170
+msgid "Add Action Type"
+msgstr ""
+
+#: src/PostArchive.php:41
+msgid "Add Archive"
+msgstr ""
+
+#: src/PostCampaign.php:130
+msgid "Add Campaign"
+msgstr ""
+
+#: src/Settings.php:154
 msgid ""
-"Add default button text which appears on <b>Take Action</b> card of <b>Take "
-"Action Covers</b> block. <br>Also it would be used for Take Action Cards "
+"Add default button text which appears on <b>Take Action</b> card of <b>"
+"Actions List</b> block. <br>Also it would be used for Take Action Cards "
 "inside Posts and Take Action Cards in search results"
 msgstr ""
 
-#: src/Settings.php:158
+#: src/Settings.php:166
 msgid "Add Default Happy Point Background Image"
 msgstr ""
 
-#: src/MetaboxRegister.php:326
-msgid "Add Department"
-msgstr ""
-
-#: src/MetaboxRegister.php:196 src/MetaboxRegister.php:245
+#: src/MetaboxRegister.php:74
 msgid "Add Image"
 msgstr ""
 
-#: src/ActionPage.php:50
-msgid "Add New Action"
+#: assets/src/js/Components/ArchivePicker/SingleSidebar.js:153
+msgid "Add image to Post"
 msgstr ""
 
-#: src/ActionPage.php:111
-msgid "Add new Action Type"
-msgstr ""
-
-#: src/PostArchive.php:38
-msgid "Add New archive"
-msgstr ""
-
-#: src/PostCampaign.php:129
-msgid "Add New Campaign"
-msgstr ""
-
-#: src/ActionPage.php:48
+#: src/ActionPage.php:106
 msgctxt "add new on admin bar"
 msgid "Actions"
 msgstr ""
 
-#: src/PostArchive.php:36
+#: src/PostArchive.php:39
 msgctxt "add new on admin bar"
 msgid "Archive"
 msgstr ""
 
-#: src/PostCampaign.php:127
+#: src/PostCampaign.php:128
 msgctxt "add new on admin bar"
 msgid "Campaign"
 msgstr ""
 
-#: src/CustomTaxonomy.php:232
-msgid "Add new Post Type"
+#: src/Campaigns.php:128
+msgid "Add new tag"
 msgstr ""
 
-#: src/Settings.php:317
+#: src/CustomTaxonomy.php:245
+msgid "Add Post Type"
+msgstr ""
+
+#: src/Settings.php:322
 msgid "Add the \"Reject all\" option in the Cookies box"
 msgstr ""
 
-#: src/ActionPage.php:47
+#: src/GravityFormsExtensions.php:406
+msgid "Add the Counter Name from counter.greenpeace.org"
+msgstr ""
+
+#: assets/src/js/Components/ArchivePicker/SingleSidebar.js:68
+msgid "Added to Library"
+msgstr ""
+
+#: assets/src/js/Components/ArchivePicker/ArchivePickerList.js:139
+msgid "Added to Media Library"
+msgstr ""
+
+#: assets/src/js/Components/ArchivePicker/ArchivePickerList.js:137
+msgid "Added to Media Library & Post"
+msgstr ""
+
+#: assets/src/js/Components/ArchivePicker/SingleSidebar.js:74
+msgid "Added!"
+msgstr ""
+
+#: src/Settings/CloudflareTurnstile.php:47
+msgid ""
+"Additional anti-spam mechanism for comments. It will show a verification "
+"option on some users."
+msgstr ""
+
+#: src/Settings.php:539
+msgid ""
+"Adds a Content Security Policy exception for VWO and enables its anti-"
+"flicker mechanism."
+msgstr ""
+
+#: src/Features/ActionsDeadline.php:33
+msgid ""
+"Adds option for showing a countdown on Actions List block. This feature only "
+"works on Actions that use the Resistance Hub template."
+msgstr ""
+
+#: src/Features/ActionsTaskType.php:33
+msgid ""
+"Adds option for showing whether an Action is either Online or Offline on "
+"Actions List block. This feature only works on Actions that use the "
+"Resistance Hub template."
+msgstr ""
+
+#: src/ActionPage.php:105
 msgctxt "admin menu"
 msgid "Actions"
 msgstr ""
 
-#: src/PostArchive.php:35
+#: src/PostArchive.php:38
 msgctxt "admin menu"
 msgid "Archive"
 msgstr ""
 
-#: src/PostCampaign.php:126
+#: src/PostCampaign.php:127
 msgctxt "admin menu"
 msgid "Campaigns"
 msgstr ""
 
-#: src/ActionPage.php:105
+#: src/ActionPage.php:164 src/ActionPage.php:617
 msgid "All Action Types"
 msgstr ""
 
-#: src/ActionPage.php:54
+#: src/ActionPage.php:112
 msgid "All Actions"
 msgstr ""
 
-#: src/PostArchive.php:42
+#: src/PostArchive.php:45
 msgid "All archived posts"
 msgstr ""
 
-#: src/Features/Dev/AllowAllBlocks.php:23
+#: src/Features/Dev/AllowAllBlocks.php:25
 msgid "All blocks"
 msgstr ""
 
-#: src/PostCampaign.php:133
+#: src/PostCampaign.php:134
 msgid "All Campaigns"
 msgstr ""
 
-#: src/CustomTaxonomy.php:226 src/CustomTaxonomy.php:435
+#: src/CustomTaxonomy.php:239 src/CustomTaxonomy.php:415
 msgid "All Post Types"
 msgstr ""
 
-#: src/Settings.php:209
+#: src/Settings.php:570
 msgid "All users"
 msgstr ""
 
-#: src/Settings.php:359
-msgid ""
-"Alternatively you could also add FB App ID and App Secret in place of App "
-"Access Token."
-msgstr ""
-
-#: src/Settings.php:214
-msgid ""
-"Amount of lowering of the relevancy score for older results. Between 0 and 1."
-" The lower this number is, the lower older content will be ranked. See image."
-" <br>We use the exponential function (exp, green curve).<br/> <img "
-"style=\"max-width:350px\" alt=\"ElasticSearch decay function graph\" "
-"src=\"https://www.elastic."
-"co/guide/en/elasticsearch/reference/current/images/decay_2d.png\">"
-msgstr ""
-
-#: src/Settings.php:267
+#: src/Settings.php:295
 msgid "Analytical Cookies description"
 msgstr ""
 
-#: src/Settings.php:262
+#: src/Settings.php:289
 msgid "Analytical Cookies label"
 msgstr ""
 
-#: src/MetaboxRegister.php:266
-msgid "Analytics & Tracking"
+#: src/Settings.php:448
+msgid "Apply social sharing options"
 msgstr ""
 
-#: src/MediaArchive/UiIntegration.php:83 src/MediaArchive/UiIntegration.php:84
-msgid "API info"
-msgstr ""
-
-#: src/PostArchive.php:48
+#: src/PostArchive.php:51
 msgid "Archive"
 msgstr ""
 
-#: src/PostArchive.php:37
+#: src/PostArchive.php:40
 msgctxt "archive"
 msgid "Add New"
 msgstr ""
 
-#: src/ControlPanel.php:64
+#: src/ControlPanel.php:71
 msgid "Are you sure you want to delete all Object Cache keys?"
 msgstr ""
 
-#: src/Campaigns.php:163 src/Campaigns.php:221
+#: src/Campaigns.php:110 src/Campaigns.php:124
 msgid "Associate this tag with an image."
 msgstr ""
 
-#: src/MetaboxRegister.php:167
+#: src/LoginHandler.php:333
+msgid "at least one number"
+msgstr ""
+
+#: src/LoginHandler.php:330
+msgid "at least one uppercase letter"
+msgstr ""
+
+#: src/MediaReplacer.php:71
+msgid "Attachment ID is missing."
+msgstr ""
+
+#: src/MetaboxRegister.php:42
 msgid "Author Override"
 msgstr ""
 
-#: src/Settings.php:146
+#: src/Settings/ReadingTime.php:45
 msgid "Average reading words per minute (usually between 220 and 320)."
 msgstr ""
 
-#: assets/src/js/menu_editor.js:77
+#: assets/src/js/menu_editor.js:81
 msgid ""
 "Avoid using more than 5 items in the navigation menu, and limit the number "
 "of items when dealing with long text labels."
 msgstr ""
 
-#: src/MetaboxRegister.php:188
+#: src/MetaboxRegister.php:63
 msgid "Background Image Override"
 msgstr ""
 
-#: src/MetaboxRegister.php:124
-msgid "Background override"
-msgstr ""
-
-#: src/MetaboxRegister.php:313
+#: assets/src/block-editor/Sidebar/AnalyticsTrackingSidebar.js:43
 msgid "Basket Name"
 msgstr ""
 
-#: src/Features/Dev/BetaBlocks.php:23
+#: src/Features/Dev/BetaBlocks.php:25
 msgid "Beta blocks"
 msgstr ""
 
-#: src/ControlPanel.php:59
+#: assets/src/block-templates/action/block.json:1
+msgctxt "block title"
+msgid "Action"
+msgstr ""
+
+#: assets/src/block-templates/campaign/block.json:1
+msgctxt "block title"
+msgid "Campaign"
+msgstr ""
+
+#: assets/src/block-templates/deep-dive/block.json:1
+msgctxt "block title"
+msgid "Deep Dive"
+msgstr ""
+
+#: assets/src/block-templates/deep-dive-topic/block.json:1
+msgctxt "block title"
+msgid "Deep Dive Topic"
+msgstr ""
+
+#: assets/src/block-templates/get-informed/block.json:1
+msgctxt "block title"
+msgid "Get Informed"
+msgstr ""
+
+#: assets/src/block-templates/high-level-topic/block.json:1
+msgctxt "block title"
+msgid "High-Level Topic"
+msgstr ""
+
+#: assets/src/block-templates/highlighted-cta/block.json:1
+msgctxt "block title"
+msgid "Highlighted CTA"
+msgstr ""
+
+#: assets/src/block-templates/homepage/block.json:1
+msgctxt "block title"
+msgid "Homepage"
+msgstr ""
+
+#: assets/src/block-templates/issues/block.json:1
+msgctxt "block title"
+msgid "Issues"
+msgstr ""
+
+#: assets/src/block-templates/page-header/block.json:1
+msgctxt "block title"
+msgid "Page Header"
+msgstr ""
+
+#: assets/src/block-templates/quick-links/block.json:1
+msgctxt "block title"
+msgid "Quick Links"
+msgstr ""
+
+#: assets/src/block-templates/reality-check/block.json:1
+msgctxt "block title"
+msgid "Reality Check"
+msgstr ""
+
+#: assets/src/block-templates/side-image-with-text-and-cta/block.json:1
+msgctxt "block title"
+msgid "Side image with text and CTA"
+msgstr ""
+
+#: assets/src/block-templates/take-action/block.json:1
+msgctxt "block title"
+msgid "Take Action"
+msgstr ""
+
+#: assets/src/js/Components/ArchivePicker/ArchivePickerToolbar.js:56
+msgid "Bulk Select"
+msgstr ""
+
+#: assets/src/js/Components/ArchivePicker/ArchivePickerToolbar.js:50
+msgid "Bulk Upload"
+msgstr ""
+
+#: src/GravityFormsExtensions.php:563
+msgid ""
+"By default, share buttons will share the URL of the page that the form was "
+"submitted on. Use this field to override with a different URL."
+msgstr ""
+
+#: src/ControlPanel.php:66
 msgid "Cache"
 msgstr ""
 
-#: src/PostCampaign.php:128
+#: src/PostCampaign.php:129
 msgctxt "campaign"
 msgid "Add New"
 msgstr ""
 
-#: src/Role/Campaigner.php:76
+#: src/Role/Campaigner.php:75
 msgid "Campaigner"
 msgstr ""
 
-#: src/PostCampaign.php:142
+#: src/PostCampaign.php:143
 msgid "Campaigns"
 msgstr ""
 
@@ -302,908 +431,967 @@ msgstr ""
 msgid "Campaigns List"
 msgstr ""
 
-#: assets/src/js/Components/archivePicker/SingleSidebar.js:67
+#: assets/src/js/Components/ArchivePicker/ArchivePickerToolbar.js:37
+msgid "Cancel"
+msgstr ""
+
+#: assets/src/js/Components/ArchivePicker/SingleSidebar.js:188
 msgid "Caption"
 msgstr ""
 
-#: src/Features/PostPageCategoryLinks.php:25
-msgid "Category links on Posts"
+#: src/Settings.php:141
+msgid "Category (default)"
 msgstr ""
 
-#: src/ControlPanel.php:100
+#: src/ControlPanel.php:101
 msgid "Check Elasticsearch"
 msgstr ""
 
-#: src/ControlPanel.php:81
-msgid "Check Engaging Networks"
-msgstr ""
-
-#: src/ControlPanel.php:67
+#: src/ControlPanel.php:77
 msgid "Check Object Cache"
 msgstr ""
 
-#: src/Campaigns.php:179
-msgid "Choose a background image for the Subscribe block."
+#: src/Settings.php:442
+msgid "Choose social sharing options"
 msgstr ""
 
-#: src/Campaigns.php:135
+#: src/Settings.php:145
+msgid "Choose which taxonomy to display on Post breadcrumbs"
+msgstr ""
+
+#: assets/src/js/Components/ArchivePicker/MultiSearchOption.js:111
+msgid "Clear all"
+msgstr ""
+
+#: assets/src/js/Components/ArchivePicker/SingleSidebar.js:81
+msgid "Close"
+msgstr ""
+
+#: assets/src/blocks/SecondaryNavigation/SecondaryNavigationFrontend.js:264
+msgid "Close secondary navigation dropdown menu"
+msgstr ""
+
+#: src/Settings/CloudflareTurnstile.php:29
+msgid "Cloudflare Turnstile"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Action Yellow"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Beige 100"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Blue 800"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Blue Green 800"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Dark Green 800"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "GP Green 800"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Green 400"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Green 500"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Green 800"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Grey 100"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Grey 200"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Grey 600"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Grey 800"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Grey 900"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Red 500"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "White"
+msgstr ""
+
+#: src/Campaigns.php:83
 msgid ""
 "Column block: Choose which Page Types will populate the content of the "
 "Column block. If no box is checked Publications will appear by default."
 msgstr ""
 
-#: src/Features/GdprCheckbox.php:24
+#: src/Settings/CommentsGdpr.php:29
 msgid "Comments opt-in checkbox"
 msgstr ""
 
-#: src/Settings.php:236
+#: src/Settings.php:208
+msgid ""
+"Condition to determine when to show the notice, in years.<br>Any Post older "
+"than that will have the notice displayed on the top."
+msgstr ""
+
+#: src/Settings.php:375
+msgid "Consent default: ad_personalization"
+msgstr ""
+
+#: src/Settings.php:347
+msgid "Consent default: ad_storage"
+msgstr ""
+
+#: src/Settings.php:361
+msgid "Consent default: ad_user_data"
+msgstr ""
+
+#: src/Settings.php:333
+msgid "Consent default: analytics_storage"
+msgstr ""
+
+#: src/Settings.php:389
+msgid "Consent default: url_passthrough"
+msgstr ""
+
+#: src/Settings.php:234
 msgid "Cookies Box General Text"
 msgstr ""
 
-#: src/Settings.php:327
+#: src/Settings.php:108
 msgid "Copyright Text Line 1"
 msgstr ""
 
-#: src/Settings.php:337
+#: src/Settings.php:117
 msgid "Copyright Text Line 2"
 msgstr ""
 
-#: src/Features/Dev/CoreBlockPatterns.php:23
+#: src/Features/Dev/CoreBlockPatterns.php:25
 msgid "Core block patterns"
 msgstr ""
 
-#: src/MasterSite.php:1371
-#: assets/src/js/Components/archivePicker/SingleSidebar.js:71
-msgid "Credit"
+#: src/Settings.php:103
+msgid "Country Selector text"
 msgstr ""
 
-#: src/Settings.php:475
-msgid "Dark"
+#: src/AttachmentsController.php:164
+#: assets/src/js/Components/ArchivePicker/SingleSidebar.js:192
+msgid "Credit"
 msgstr ""
 
 #: templates/posts_report.twig:7
 msgid "Date From"
 msgstr ""
 
-#: src/Settings.php:151
+#: src/ActionPage.php:313
+msgid "Default Action Type"
+msgstr ""
+
+#: src/Settings.php:159
 msgid "Default Happy Point Background Image"
 msgstr ""
 
-#: src/Settings.php:167
+#: src/Settings.php:178
 msgid "Default Happy Point Form"
 msgstr ""
 
-#: src/Settings.php:123
+#: src/Settings/DefaultPostType.php:29
 msgid "Default P4 Post Type"
 msgstr ""
 
-#: src/MetaboxRegister.php:322
+#: src/Settings.php:342 src/Settings.php:356 src/Settings.php:370
+#: src/Settings.php:384
+msgid "Denied"
+msgstr ""
+
+#: assets/src/block-editor/Sidebar/AnalyticsTrackingSidebar.js:47
 msgid "Department"
 msgstr ""
 
-#: src/MetaboxRegister.php:228
-msgid "Description"
-msgstr ""
-
-#: src/PostCampaign.php:279
-msgid "Design settings moved to a new sidebar."
-msgstr ""
-
-#: assets/src/js/Components/archivePicker/SingleSidebar.js:59
+#: assets/src/js/Components/ArchivePicker/SingleSidebar.js:180
 msgid "Dimensions"
 msgstr ""
 
-#: src/Features/Dev/DisableDataSync.php:23
+#: src/Features/Dev/DisableDataSync.php:25
 msgid "Disable automatic data sync"
 msgstr ""
 
-#: src/Features/GdprCheckbox.php:31
+#: src/Settings/CommentsGdpr.php:47
 msgid ""
 "Display a mandatory opt-in checkbox in the Comments form (GDPR requirement)."
 msgstr ""
 
-#: src/Features/MobileTabsMenu.php:31
-msgid "Display a sticky tabs menu visible on screen width smaller than 992px."
-msgstr ""
-
-#: src/CustomTaxonomy.php:505
+#: src/CustomTaxonomy.php:496
 msgid "Display an estimated reading time on this content."
 msgstr ""
 
-#: src/Features/DropdownMenu.php:31
+#: src/Features/OldPostsArchiveNotice.php:33
 msgid ""
-"Display menu subitems on <a href=\"https://p4-designsystem.greenpeace."
-"org/05f6e9516/p/106cdb-navigation-bar\" target=\"_blank\">top navigation "
-"bar</a>."
+"Displays a notice on top of old Posts.<br>Adjust its behavior and text "
+"through <a href=\"/wp-admin/admin.php?"
+"page=planet4_settings_defaults_content\" href=\"_self\">Defaults content "
+"settings.</a>"
 msgstr ""
 
-#: src/Features/Dev/ListingPageGridView.php:30
-msgid "Display the list of posts as a grid view on paginated listing page"
-msgstr ""
-
-#: src/Features/RedirectRedirectPages.php:30
-msgid ""
-"Do a HTTP Redirect from Tags redirect pages to the tag URL, to avoid "
-"duplicate content."
-msgstr ""
-
-#: src/MasterSite.php:180
+#: src/MasterSite.php:104
 msgid "Donate Button"
 msgstr ""
 
-#: src/Settings.php:101
-msgid "Donate button link"
-msgstr ""
-
-#: src/Settings.php:110
-msgid "Donate button text"
-msgstr ""
-
-#: src/Features/MediaArchive.php:33
-msgid ""
-"Drop-in replacement for the GPI Media Library plugin. If enabled, the plugin "
-"can be disabled."
-msgstr ""
-
-#: src/Features/DropdownMenu.php:24
-msgid "Dropdown navigation menus"
-msgstr ""
-
-#. Tag redirect page name.
-#: src/Campaigns.php:116
-#, php-format
-msgid "Edit \"%s\" page"
-msgstr ""
-
-#: src/ActionPage.php:52
+#: src/ActionPage.php:110
 msgid "Edit Action"
 msgstr ""
 
-#: src/ActionPage.php:109
+#: src/ActionPage.php:168
 msgid "Edit Action Type"
 msgstr ""
 
-#: src/PostArchive.php:40
-msgid "Edit archive"
+#: src/PostArchive.php:43
+msgid "Edit Archive"
 msgstr ""
 
-#: src/PostCampaign.php:131
+#: src/PostCampaign.php:132
 msgid "Edit Campaign"
 msgstr ""
 
-#: src/CustomTaxonomy.php:230
+#: assets/src/js/Components/ArchivePicker/SingleSidebar.js:214
+msgid "Edit image"
+msgstr ""
+
+#: src/CustomTaxonomy.php:243
 msgid "Edit Post Type"
 msgstr ""
 
-#: src/Settings.php:172
+#: src/Settings.php:183
 msgid "Embed code (HubSpot)"
 msgstr ""
 
-#: src/Features/ActionPostType.php:31
-msgid ""
-"Enable <a href=\"https://jira.greenpeace.org/browse/PLANET-6515\" "
-"target=\"_blank\">Action post type</a> and Action Type taxonomy. Actions "
-"will also be selectable in Take Action Boxout and Covers blocks."
-msgstr ""
-
-#: src/Features/Dev/AllowAllBlocks.php:30
+#: src/Features/Dev/AllowAllBlocks.php:33
 msgid "Enable all blocks in the editor for all post types."
 msgstr ""
 
-#: src/Settings.php:309
+#: src/Settings.php:279
 msgid "Enable Analytical Cookies"
 msgstr ""
 
-#: src/Features/Dev/ThemeEditor.php:30
-msgid "Enable CSS variables based theme editor for logged in users."
-msgstr ""
-
-#: src/Features/Dev/CoreBlockPatterns.php:30
+#: src/Features/Dev/CoreBlockPatterns.php:33
 msgid "Enable default block patterns that come with WordPress."
 msgstr ""
 
-#: src/Features/Dev/BetaBlocks.php:30
+#: src/Features/Dev/BetaBlocks.php:33
 msgid ""
 "Enable early or unstable versions of blocks in the editor (grouped under "
 "\"Planet 4 Blocks - BETA\" category)."
 msgstr ""
 
-#: src/Settings.php:441
+#: src/Settings.php:327
 msgid "Enable Google Consent Mode"
 msgstr ""
 
-#: src/Settings.php:310
+#: src/Settings.php:280
 msgid "Enable the Analytical cookies option in Cookies block and box"
 msgstr ""
 
-#: src/Features/Dev/WPTemplateEditor.php:30
-msgid "Enable the WordPress \"template editor\" to allow Full Site Editiong."
+#: src/Settings.php:126
+msgid "Enable Transparent Navigation"
 msgstr ""
 
-#: src/Features/NewDesignCountrySelector.php:30
+#: src/Settings.php:98
 msgid ""
-"Enables the new Country selector design as described in the <a href=\"https:"
-"//p4-designsystem.greenpeace.org/05f6e9516/v/0/p/16a899-footer\" "
-"target=\"_blank\">design system</a>.<br>This might need changes in your "
-"child theme code."
+"Enables all features supporting new IA and navigation functionality (<a "
+"href=\"https://planet4.greenpeace.org/manage/information-architecture/\" "
+"target=\"_blank\">read more</a>)<br>(eg. Actions post type, listing pages "
+"pagination, mobile tabs, etc)."
 msgstr ""
 
-#: src/Features/NewDesignNavigationBar.php:30
-msgid ""
-"Enables the new Navigation bar design as described in the <a href=\"https:"
-"//p4-designsystem.greenpeace.org/05f6e9516/p/106cdb-navigation-bar\" "
-"target=\"_blank\">design system</a>.<br>This might need changes in your "
-"child theme code."
-msgstr ""
-
-#: src/Settings.php:442
+#: src/Settings.php:328
 msgid ""
 "Enabling the Consent Mode will affect your setup in Google Tag Manager. The "
 "Consent Mode will prevent tags with built-in consent checks (eg. Google "
 "Analytics) from running before the user's consent is granted."
 msgstr ""
 
-#: src/Settings.php:297
+#: src/Settings.php:309
 msgid "Enforce Cookies Policy"
 msgstr ""
 
-#: src/ControlPanel.php:78
-msgid "Engaging Networks"
-msgstr ""
-
-#: src/Features/EngagingNetworks.php:23
-msgid "Engaging Networks integration"
-msgstr ""
-
-#: src/MetaboxRegister.php:168
+#: src/MetaboxRegister.php:43
 msgid "Enter author name if you want to override the author"
 msgstr ""
 
-#: src/MetaboxRegister.php:229
-msgid "Enter description if you want to override the open graph description"
+#: assets/src/js/Components/ArchivePicker/SingleSidebar.js:75
+msgid "Error Adding Image to Post!!!"
 msgstr ""
 
-#: src/MetaboxRegister.php:220
-msgid "Enter title if you want to override the open graph title"
+#: src/MediaReplacer.php:75
+msgid "Error processing image."
 msgstr ""
 
-#: src/MediaArchive/Image.php:211
+#: src/MediaArchive/Image.php:219
 msgid "Error while inserting attachment. Message: "
 msgstr ""
 
 #. Name of the template
+#: page-templates/evergreen.php:5
 msgid "Evergreen Page"
 msgstr ""
 
-#: src/Settings.php:407
-msgid "Exclude campaign styles when importing"
-msgstr ""
-
-#: src/Exporter.php:42 src/Exporter.php:89 src/Exporter.php:89
+#: src/Exporter.php:47 src/Exporter.php:94 src/Exporter.php:95
 msgid "Export"
 msgstr ""
 
-#: src/Settings.php:356
+#: src/Settings.php:418
 msgid "Facebook App Access Token"
 msgstr ""
 
-#: src/Settings.php:351
+#: src/Settings.php:408
 msgid "Facebook Page ID"
 msgstr ""
 
-#: src/Settings.php:359
-msgid ""
-"FB App Access Token is used to fetch FB & IG oembed in Social Media block."
+#: src/Settings.php:399
+msgid "False"
+msgstr ""
+
+#: src/MediaReplacer.php:72
+msgid "File is missing."
 msgstr ""
 
 #: templates/posts_report.twig:6
 msgid "Filters:"
 msgstr ""
 
-#: src/ControlPanel.php:62
+#: src/ControlPanel.php:69
 msgid "Flush Object Cache"
 msgstr ""
 
-#: src/PostCampaign.php:348
+#: src/PostCampaign.php:317
 msgid "Footer icon name"
 msgstr ""
 
-#: src/PostCampaign.php:206
+#: src/PostCampaign.php:201
 msgid "Footer item 1"
 msgstr ""
 
-#: src/PostCampaign.php:214
+#: src/PostCampaign.php:209
 msgid "Footer item 2"
 msgstr ""
 
-#: src/PostCampaign.php:222
+#: src/PostCampaign.php:217
 msgid "Footer item 3"
 msgstr ""
 
-#: src/PostCampaign.php:230
+#: src/PostCampaign.php:225
 msgid "Footer item 4"
 msgstr ""
 
-#: src/PostCampaign.php:238
+#: src/PostCampaign.php:233
 msgid "Footer item 5"
 msgstr ""
 
-#: src/PostCampaign.php:321
+#: src/PostCampaign.php:290
 msgid "Footer item link"
 msgstr ""
 
-#: src/GravityFormsExtensions.php:89
+#: src/MasterSite.php:105
+msgid "Footer Primary Menu"
+msgstr ""
+
+#: src/MasterSite.php:106
+msgid "Footer Secondary Menu"
+msgstr ""
+
+#: src/MasterSite.php:107
+msgid "Footer Social Menu"
+msgstr ""
+
+#: src/GravityFormsExtensions.php:392
 msgid "Form Type"
 msgstr ""
 
-#: src/Settings.php:298
+#: src/MediaReplacer.php:74
+msgid "GD library is missing."
+msgstr ""
+
+#: src/Settings.php:310
 msgid ""
 "GDPR related setting. By enabling this option specific content will be "
 "blocked and will require user consent to be shown.<br>\n"
-"\t\t\t\t\t\t\t<b>WARNING:</b> If the setting is checked this will prevent "
-"Google Tag Manager container from being fired unless the user has accepted "
-"the cookies policy (giving consent in the cookies bar).<br>\n"
-"\t\t\t\t\t\t\tThis might affect the data collected with Google Analytics. "
-"For more information please see the documentation in the  <a href=\"https:"
-"//planet4.greenpeace.org/handbook/block-cookies/\">Planet 4 Handbook</a>."
+"                            <b>WARNING:</b> If the setting is checked this "
+"will prevent Google Tag Manager container from being fired unless the user "
+"has accepted the cookies policy (giving consent in the cookies bar).<br>\n"
+"                            This might affect the data collected with Google "
+"Analytics. For more information please see the documentation in the  <a "
+"href=\"https://planet4.greenpeace.org/handbook/block-cookies/\">Planet 4 "
+"Handbook</a>."
 msgstr ""
 
-#: src/MetaboxRegister.php:279
+#: src/GravityFormsExtensions.php:405
+msgid "Global Counter ID"
+msgstr ""
+
+#: assets/src/block-editor/Sidebar/AnalyticsTrackingSidebar.js:35
 msgid "Global Project"
 msgstr ""
 
-#: src/Settings.php:421
+#: src/Settings.php:499
 msgid "Google Tag Manager Container"
 msgstr ""
 
-#: src/Settings.php:184
-msgid "Happy Point HubSpot embed code"
+#: src/Settings.php:504
+msgid "Google Tag Manager Custom Domain"
 msgstr ""
 
-#: src/Campaigns.php:186
-msgid "Happy Point Opacity"
-msgstr ""
-
-#: src/Settings.php:178
-msgid "Happy point Subscribe Form URL"
-msgstr ""
-
-#: src/MetaboxRegister.php:104
-msgid "Header Button Link"
-msgstr ""
-
-#: src/MetaboxRegister.php:105
-msgid "Header button link comes here"
-msgstr ""
-
-#: src/MetaboxRegister.php:94
-msgid "Header Button Title"
-msgstr ""
-
-#: src/MetaboxRegister.php:95
-msgid "Header button title comes here"
-msgstr ""
-
-#: src/MetaboxRegister.php:80
-msgid "Header Description"
-msgstr ""
-
-#: src/MetaboxRegister.php:81
-msgid "Header description comes here"
-msgstr ""
-
-#: src/MetaboxRegister.php:70
-msgid "Header Subtitle"
-msgstr ""
-
-#: src/MetaboxRegister.php:71
-msgid "Header subtitle comes here"
-msgstr ""
-
-#: src/MetaboxRegister.php:60
-msgid "Header Title"
-msgstr ""
-
-#: src/MetaboxRegister.php:61
-msgid "Header title comes here"
-msgstr ""
-
-#: src/MetaboxRegister.php:144
-msgid "Hide page title"
-msgstr ""
-
-#: src/MetaboxRegister.php:145
-msgid "Hide page title on frontend page."
-msgstr ""
-
-#: src/Settings.php:226
-msgid "How old should a post be before relevance is lowered. See image above."
-msgstr ""
-
-#: src/Campaigns.php:155 src/Campaigns.php:215 src/Campaigns.php:294
-msgid "Image"
+#: src/Settings.php:343 src/Settings.php:357 src/Settings.php:371
+#: src/Settings.php:385
+msgid "Granted"
 msgstr ""
 
 #: src/MediaArchive/UiIntegration.php:59 src/MediaArchive/UiIntegration.php:60
-#: src/MediaArchive/UiIntegration.php:70
-msgid "Media Archive"
+#: assets/src/js/media_archive_editor_view.js:22
+#: assets/src/js/media_archive_editor_view.js:36
+#: assets/src/js/Components/ArchivePicker/ArchivePickerToolbar.js:23
+msgid "Greenpeace Media"
 msgstr ""
 
-#: src/MetaboxRegister.php:237
-msgid "Image Override"
+#: src/MediaArchive/UiIntegration.php:77 src/MediaArchive/UiIntegration.php:78
+msgid "Greenpeace Media Settings"
 msgstr ""
 
-#: src/Campaigns.php:171
-msgid "Image Subscribe"
+#: src/Settings.php:195
+msgid "Happy Point HubSpot embed code"
 msgstr ""
 
-#: assets/src/js/Components/archivePicker/MultiSidebar.js:8
+#: src/Settings.php:189
+msgid "Happy Point Subscribe Form URL"
+msgstr ""
+
+#: src/Settings.php:584
+msgid "Hubspot tracking code"
+msgstr ""
+
+#: src/Campaigns.php:102 src/Campaigns.php:118 src/Campaigns.php:172
+msgid "Image"
+msgstr ""
+
+#: assets/src/js/Components/ArchivePicker/MultiSidebar.js:12
 msgid "images selected"
 msgstr ""
 
-#: src/Exporter.php:104
-msgid "Import"
+#: src/Exporter.php:106
+msgid "Import Greenpeace Media"
 msgstr ""
 
-#: src/PostCampaign.php:365
+#: assets/src/js/Components/ArchivePicker/SingleSidebar.js:112
+msgid "Import to Library"
+msgstr ""
+
+#: assets/src/js/Components/ArchivePicker/SingleSidebar.js:143
+msgid "Import to Library & Post"
+msgstr ""
+
+#: assets/src/js/Components/ArchivePicker/SingleSidebar.js:134
+msgid "Import to Library & Set Featured Image"
+msgstr ""
+
+#: src/PostCampaign.php:334
 msgid ""
 "In the “Footer icon name” field add the name of the icon you want from the"
 msgstr ""
 
-#: src/Settings.php:198
+#: src/Settings.php:559
 msgid "Include archived content in search for"
 msgstr ""
 
-#: src/MetaboxRegister.php:176
-msgid "Include Articles In Post"
+#: src/MetaboxRegister.php:51
+msgid "Include Related Posts"
 msgstr ""
 
-#: assets/src/js/Components/archivePicker/SingleSidebar.js:49
-msgid "Include in WP"
+#. %s: Category name
+#: assets/src/blocks/TopicLink/TopicLinkFrontend.js:36
+#: assets/src/blocks/TopicLink/TopicLinkEditor.js:145
+#, javascript-format
+msgid "Learn more about %s"
 msgstr ""
 
-#: src/Features/LazyYoutubePlayer.php:23
-msgid "Lazy YouTube player"
-msgstr ""
-
-#: src/Campaigns.php:125 src/Campaigns.php:207
-msgid ""
-"Leave this field blank if you want to use the default Tag page. Otherwise "
-"select a page to redirect this Tag to."
-msgstr ""
-
-#: src/MediaArchive/UiIntegration.php:71
-msgid "Library"
-msgstr ""
-
-#: src/Settings.php:476
-msgid "Light"
-msgstr ""
-
-#: src/PostCampaign.php:365
+#: src/PostCampaign.php:334
 msgid "list of icons in the CSS styleguide"
 msgstr ""
 
-#: src/Features/Dev/ListingPageGridView.php:23
-msgid "Listing page grid view"
-msgstr ""
-
-#: src/Features/ListingPagePagination.php:24
-msgid "Listing page pagination"
-msgstr ""
-
-#: src/Features/HideListingPagesBackground.php:25
-msgid "Listing pages background"
-msgstr ""
-
-#: assets/src/js/Components/ArchivePicker.js:74
-msgid "Loading..."
-msgstr ""
-
-#: src/MetaboxRegister.php:292
+#: assets/src/block-editor/Sidebar/AnalyticsTrackingSidebar.js:39
 msgid "Local Projects"
 msgstr ""
 
-#: src/Settings.php:435
+#: src/Settings.php:513
 msgid "Local Projects Google Sheet ID"
 msgstr ""
 
-#: src/Settings.php:208
+#: src/Settings.php:569
 msgid "Logged in users"
 msgstr ""
 
-#: assets/src/js/menu_editor.js:142
+#: assets/src/js/menu_editor.js:150
 msgid "Main menu"
 msgstr ""
 
-#: src/Settings.php:284
+#: src/Settings.php:266
 msgid "Marketing Cookies description"
 msgstr ""
 
-#: src/Settings.php:279
+#: src/Settings.php:261
 msgid "Marketing Cookies label"
 msgstr ""
 
-#: assets/src/js/menu_editor.js:332
+#: src/MasterSite.php:732
+msgid "Maximum number of revisions to store for each post."
+msgstr ""
+
+#: src/MediaReplacer.php:73
+msgid "Media Replacer failed:"
+msgstr ""
+
+#: assets/src/js/menu_editor.js:351
 msgid "Menu configuration issues:"
 msgstr ""
 
-#: src/Notifications/Slack.php:35
-msgid "Message"
+#. 1: item title, 2: item depth
+#: assets/src/js/menu_editor.js:289
+#, javascript-format
+msgid ""
+"Menus should have a depth of maximum 1 (currently item \"%1$s\" is at depth "
+"%2$s and therefore will not be displayed)."
 msgstr ""
 
-#: src/Settings.php:163 src/Settings.php:388
+#: src/Settings.php:174 src/Settings.php:480
 msgid "Minimum image width should be 1920px"
-msgstr ""
-
-#: src/Features/MobileTabsMenu.php:24
-msgid "Mobile tabs menu"
 msgstr ""
 
 #: underscore_templates/posts_reports.tpl.php:17
 #: underscore_templates/posts_reports.tpl.php:32
 #: underscore_templates/posts_reports.tpl.php:47
+#: underscore_templates/posts_reports.tpl.php:62
 msgid "Modified at"
 msgstr ""
 
-#: src/MasterSite.php:179
+#: src/MasterSite.php:103
 msgid "Navigation Bar Menu"
 msgstr ""
 
-#: src/Settings.php:250
+#: src/Settings.php:248
 msgid "Necessary Cookies description"
 msgstr ""
 
-#: src/Settings.php:245
+#: src/Settings.php:243
 msgid "Necessary Cookies label"
 msgstr ""
 
-#: src/ActionPage.php:51
+#: src/ActionPage.php:109
 msgid "New Action"
 msgstr ""
 
-#: src/ActionPage.php:112
+#: src/ActionPage.php:171
 msgid "New Action Type"
 msgstr ""
 
-#: src/PostArchive.php:39
-msgid "New archive"
+#: src/PostArchive.php:42
+msgid "New Archive"
 msgstr ""
 
-#: src/PostCampaign.php:130
+#: src/PostCampaign.php:131
 msgid "New Campaign"
 msgstr ""
 
-#: src/Features/NewDesignCountrySelector.php:23
-msgid "New Country selector design"
+#: src/Settings.php:97
+msgid "New Information Architecture"
 msgstr ""
 
-#: src/Features/MediaArchive.php:23
-msgid "New Media Archive (Beta)"
-msgstr ""
-
-#: src/Features/NewDesignNavigationBar.php:23
-msgid "New Navigation bar design"
-msgstr ""
-
-#: src/CustomTaxonomy.php:233
+#: src/CustomTaxonomy.php:246
 msgid "New Post Type"
 msgstr ""
 
-#: src/MetaboxRegister.php:114
-msgid "New Tab"
+#: src/Features/Dev/NewTimelineBlock.php:25
+msgid "New Timeline block"
 msgstr ""
 
-#: src/CustomTaxonomy.php:476
+#: src/CustomTaxonomy.php:465
 msgid "No"
 msgstr ""
 
-#: src/ActionPage.php:58
+#: src/ActionPage.php:116
 msgid "No actions found in Trash."
 msgstr ""
 
-#: src/ActionPage.php:57
+#: src/ActionPage.php:115
 msgid "No actions found."
 msgstr ""
 
-#: src/PostArchive.php:46
+#: src/PostArchive.php:49
 msgid "No archives found in Trash."
 msgstr ""
 
-#: src/PostArchive.php:45
+#: src/PostArchive.php:48
 msgid "No archives found."
 msgstr ""
 
-#: src/PostCampaign.php:137
+#: src/PostCampaign.php:138
 msgid "No campaigns found in Trash."
 msgstr ""
 
-#: src/PostCampaign.php:136
+#: src/PostCampaign.php:137
 msgid "No campaigns found."
 msgstr ""
 
-#: src/Settings.php:207
+#: src/Settings.php:568
 msgid "Nobody"
 msgstr ""
 
-#: src/Settings.php:74
-msgid "NRO Selector Title"
-msgstr ""
-
-#: src/ControlPanel.php:151
+#: src/ControlPanel.php:157
 msgid "Object Cache did not flush"
 msgstr ""
 
-#: src/ControlPanel.php:148
+#: src/ControlPanel.php:154
 msgid "Object Cache flushed"
 msgstr ""
 
-#: src/Features/PostPageCategoryLinks.php:32
-msgid ""
-"On Posts, link to the catagories, instead of issue pages. (<a href=\"https:"
-"//jira.greenpeace.org/browse/PLANET-6747\" target=\"_blank\">details</a>)"
+#: src/Settings.php:224
+msgid "Old Posts Archive button text"
 msgstr ""
 
-#: src/Features/LazyYoutubePlayer.php:30
-msgid ""
-"Only load the YouTube player after clicking on a video (<a href=\"https:"
-"//jira.greenpeace.org/browse/PLANET-5959\" target=\"_blank\">details</a>)."
-"<br>Disabling it will have a big performance impact."
+#: src/Features/OldPostsArchiveNotice.php:25
+msgid "Old Posts Archive notice"
 msgstr ""
 
-#: src/MetaboxRegister.php:211
-msgid "Open Graph/Social Fields"
+#: src/Settings.php:205
+msgid "Old Posts Archive notice cutoff years"
 msgstr ""
 
-#: src/MetaboxRegister.php:115
-msgid "Open header button link in new tab"
+#: src/Settings.php:218
+msgid "Old Posts Archive notice description"
 msgstr ""
 
-#: assets/src/js/Components/archivePicker/SingleSidebar.js:79
+#: src/Settings.php:212
+msgid "Old Posts Archive notice title"
+msgstr ""
+
+#: assets/src/blocks/SecondaryNavigation/SecondaryNavigationFrontend.js:264
+msgid "Open secondary navigation dropdown menu"
+msgstr ""
+
+#: assets/src/js/Components/ArchivePicker/SingleSidebar.js:200
 msgid "Original language description"
 msgstr ""
 
-#: assets/src/js/Components/archivePicker/SingleSidebar.js:75
+#: assets/src/js/Components/ArchivePicker/SingleSidebar.js:196
 msgid "Original language title"
 msgstr ""
 
-#: src/CustomTaxonomy.php:72
+#: src/GravityFormsExtensions.php:562
+msgid "Override share URL"
+msgstr ""
+
+#: src/CustomTaxonomy.php:73
 msgid "P4 page type (A p4 page type term.)"
 msgstr ""
 
-#: src/PostCampaign.php:187
+#: src/PostCampaign.php:189
 msgid "Page Design"
-msgstr ""
-
-#: src/MetaboxRegister.php:52
-msgid "Page Header Fields"
 msgstr ""
 
 #: templates/posts_report.twig:26
 msgid "Pages List"
 msgstr ""
 
-#: src/ActionPage.php:56
+#: src/ActionPage.php:114
 msgid "Parent Action:"
 msgstr ""
 
-#: src/PostArchive.php:44
+#: src/PostArchive.php:47
 msgid "Parent archive:"
 msgstr ""
 
-#: src/PostCampaign.php:135
+#: src/PostCampaign.php:136
 msgid "Parent Campaign:"
 msgstr ""
 
-#: src/Settings.php:65
+#: src/MediaArchive/UiIntegration.php:106
+msgid "Password"
+msgstr ""
+
+#: src/LoginHandler.php:317
+msgid "Password cannot be empty."
+msgstr ""
+
+#: src/LoginHandler.php:323
+msgid "Password must be at least 10 characters long."
+msgstr ""
+
+#. %s is a list of password requirements, e.g. "an uppercase letter and a number"
+#: src/LoginHandler.php:341
+#, php-format
+msgid "Password must contain %s if it is less than 15 characters."
+msgstr ""
+
+#: src/Settings.php:585
+msgid "Paste here the tracking code from your Hubspot account."
+msgstr ""
+
+#: src/Settings.php:67
 msgid "Planet 4"
 msgstr ""
 
-#: src/ControlPanel.php:44
+#: src/Features/Planet4Blocks.php:25
+msgid "Planet 4 Blocks"
+msgstr ""
+
+#: src/ControlPanel.php:47
 msgid "Planet 4 Control Panel"
 msgstr ""
 
-#: src/ControlPanel.php:188
+#: src/ControlPanel.php:197
 msgid "Planet 4 is connected to Redis."
 msgstr ""
 
-#: src/GravityFormsExtensions.php:79
+#: src/GravityFormsExtensions.php:382
 msgid "Planet 4 Options"
 msgstr ""
 
-#: src/ControlPanel.php:261
+#: src/ControlPanel.php:231
 msgid "Planet4 is connected to Elasticsearch"
 msgstr ""
 
-#: src/ControlPanel.php:223
-msgid "Planet4 is connected to EngagingNetworks"
-msgstr ""
-
-#: src/ControlPanel.php:264
+#: src/ControlPanel.php:234
 msgid "Planet4 is not connected to Elasticsearch"
 msgstr ""
 
-#: src/ControlPanel.php:226
+#: src/MediaArchive/UiIntegration.php:84
 msgid ""
-"Planet4 is not connected to EngagingNetworks. Please, make sure you have "
-"registered your IP address for the ENS API key you have supplied in plugin "
-"settings page."
+"Please enter your Greenpeace Media username and password. Please note that "
+"you will need to ask from the Greenpeace Media administrators to enable API "
+"access for your account."
 msgstr ""
 
-#: src/ControlPanel.php:230
-msgid "Please check your EngagingNetworks plugin settings"
+#: src/GravityFormsExtensions.php:393
+msgid ""
+"Please select a form type below so you can track and analyze each form type "
+"separately"
 msgstr ""
 
-#: src/MetaboxRegister.php:160
+#: src/MetaboxRegister.php:35
 msgid "Post Articles Element Fields"
 msgstr ""
 
-#: src/ActionPage.php:45
+#: src/MasterSite.php:720
+msgid "Post revisions"
+msgstr ""
+
+#: src/Settings.php:142
+msgid "Post Type"
+msgstr ""
+
+#: src/ActionPage.php:103
 msgctxt "post type general name"
 msgid "Actions"
 msgstr ""
 
-#: src/PostArchive.php:33
+#: src/PostArchive.php:36
 msgctxt "post type general name"
-msgid "Archive"
-msgstr ""
-
-#: src/PostCampaign.php:124
-msgctxt "post type general name"
-msgid "Campaigns"
-msgstr ""
-
-#: src/ActionPage.php:46
-msgctxt "post type singular name"
-msgid "Action"
-msgstr ""
-
-#: src/PostArchive.php:34
-msgctxt "post type singular name"
 msgid "Archive"
 msgstr ""
 
 #: src/PostCampaign.php:125
+msgctxt "post type general name"
+msgid "Campaigns"
+msgstr ""
+
+#: src/ActionPage.php:104
+msgctxt "post type singular name"
+msgid "Action"
+msgstr ""
+
+#: src/PostArchive.php:37
+msgctxt "post type singular name"
+msgid "Archive"
+msgstr ""
+
+#: src/PostCampaign.php:126
 msgctxt "post type singular name"
 msgid "Campaign"
 msgstr ""
 
-#: src/CustomTaxonomy.php:234
+#: src/CustomTaxonomy.php:247
 msgid "Post Types"
+msgstr ""
+
+#: src/Settings.php:452
+msgid "Posts"
+msgstr ""
+
+#: src/Settings.php:453
+msgid "Posts & Forms"
 msgstr ""
 
 #: templates/posts_report.twig:18
 msgid "Posts List"
 msgstr ""
 
-#: src/PostReportController.php:61 src/PostReportController.php:62
+#: src/PostReportController.php:71 src/PostReportController.php:72
 #: templates/posts_report.twig:3
 msgid "Posts Report"
 msgstr ""
 
-#: src/Settings.php:362
+#: src/Settings.php:430
 msgid "Preconnect Domains"
+msgstr ""
+
+#. images count
+#: assets/src/js/Components/ArchivePicker/ArchivePickerToolbar.js:27
+msgid "Processing %d images"
+msgstr ""
+
+#: assets/src/js/Components/ArchivePicker/SingleSidebar.js:67
+#: assets/src/js/Components/ArchivePicker/SingleSidebar.js:73
+msgid "Processing…"
 msgstr ""
 
 #: underscore_templates/posts_reports.tpl.php:15
 #: underscore_templates/posts_reports.tpl.php:30
 #: underscore_templates/posts_reports.tpl.php:45
+#: underscore_templates/posts_reports.tpl.php:60
 msgid "Publish Status"
 msgstr ""
 
 #: underscore_templates/posts_reports.tpl.php:16
 #: underscore_templates/posts_reports.tpl.php:31
 #: underscore_templates/posts_reports.tpl.php:46
+#: underscore_templates/posts_reports.tpl.php:61
 msgid "Published at"
 msgstr ""
 
-#: src/Features/CloudflareDeployPurge.php:23
+#: src/Features/CloudflareDeployPurge.php:25
 msgid "Purge Cloudflare HTML cache on deploy"
 msgstr ""
 
-#: src/Features/PurgeOnFeatureChanges.php:23
-msgid "Purge Cloudflare HTML cache on feature changes"
-msgstr ""
-
-#: src/Features/CloudflareDeployPurge.php:30
+#: src/Features/CloudflareDeployPurge.php:33
 msgid ""
 "Purges all pages from Cloudflare cache on deploy.<br>Only enable on "
 "production (in consultation with P4 team)."
 msgstr ""
 
-#: src/Features/PurgeOnFeatureChanges.php:30
-msgid ""
-"Purges all pages from Cloudflare cache on feature changes.<br>Only enable on "
-"production (in consultation with P4 team)."
-msgstr ""
-
-#: src/Settings.php:359
-msgid "Read more"
-msgstr ""
-
-#: src/CustomTaxonomy.php:459 src/CustomTaxonomy.php:504
+#: src/CustomTaxonomy.php:443 src/CustomTaxonomy.php:495
 msgid "Reading time"
 msgstr ""
 
-#: src/Settings.php:139
+#: src/Settings/ReadingTime.php:31
 msgid "Reading time: words per minute"
-msgstr ""
-
-#: src/Campaigns.php:105 src/Campaigns.php:203
-msgid "Redirect Page"
-msgstr ""
-
-#: src/Campaigns.php:296
-msgid "Redirect page"
-msgstr ""
-
-#: src/Features/RedirectRedirectPages.php:23
-msgid "Redirect Tags redirect pages"
 msgstr ""
 
 #: underscore_templates/posts_reports.tpl.php:22
 #: underscore_templates/posts_reports.tpl.php:37
 #: underscore_templates/posts_reports.tpl.php:52
+#: underscore_templates/posts_reports.tpl.php:67
 msgid "Refresh"
 msgstr ""
 
-#: src/Settings.php:316
+#: src/Settings.php:321
 msgid "Reject all cookies"
 msgstr ""
 
-#: src/Features/HideListingPagesBackground.php:32
-msgid "Remove background image and skewed overlay on all listing pages."
+#: src/MediaReplacer.php:69
+msgid "Replace Media"
 msgstr ""
 
-#: src/Role/Reviewer.php:17
+#. Name of the template
+#: single-p4_action-resistance_hub.php:3
+msgid "Resistance Hub Campaign"
+msgstr ""
+
+#: src/AttachmentsController.php:174
+#: assets/src/js/Components/ArchivePicker/SingleSidebar.js:204
+msgid "Restrictions"
+msgstr ""
+
+#: src/Role/Reviewer.php:19
 msgid "Reviewer"
 msgstr ""
 
-#: src/ControlPanel.php:92 assets/src/js/Components/ArchivePicker.js:71
+#: src/ControlPanel.php:91
+#: assets/src/js/Components/ArchivePicker/MultiSearchOption.js:87
+#: assets/src/js/Components/ArchivePicker/MultiSearchOption.js:118
 msgid "Search"
 msgstr ""
 
-#: src/ActionPage.php:55
+#: src/ActionPage.php:113
 msgid "Search Actions"
 msgstr ""
 
-#: src/PostArchive.php:43
+#: src/PostArchive.php:46
 msgid "Search archives"
 msgstr ""
 
-#: src/PostCampaign.php:134
+#: src/PostCampaign.php:135
 msgid "Search Campaigns"
 msgstr ""
 
-#: src/Settings.php:213
-msgid "Search content decay"
-msgstr ""
-
-#: src/Settings.php:225
-msgid "Search content decay offset"
-msgstr ""
-
-#: src/Settings.php:219
-msgid "Search content decay scale"
-msgstr ""
-
-#: src/ActionPage.php:104
+#: src/ActionPage.php:163
 msgid "Search in Action Type"
 msgstr ""
 
-#: src/CustomTaxonomy.php:225
+#: src/CustomTaxonomy.php:238
 msgid "Search in Post Type"
 msgstr ""
 
-#: src/Settings.php:470
-msgid "Select a style"
+#: src/Settings.php:533
+msgid "Select \"About Us\" page"
+msgstr ""
+
+#: src/Settings.php:523
+msgid "Select \"Get Informed\" page"
+msgstr ""
+
+#: src/Settings.php:528
+msgid "Select \"Take Action\" page"
 msgstr ""
 
 #: src/Settings.php:79
 msgid "Select Act Page"
 msgstr ""
 
-#: src/Settings.php:592
+#: src/Settings.php:710
 msgid "Select Category"
 msgstr ""
 
@@ -1211,7 +1399,7 @@ msgstr ""
 msgid "Select Explore Page"
 msgstr ""
 
-#: src/Campaigns.php:37
+#: src/Campaigns.php:34
 msgid "Select Image"
 msgstr ""
 
@@ -1219,111 +1407,233 @@ msgstr ""
 msgid "Select Issues Parent Category"
 msgstr ""
 
-#: src/Settings.php:555 src/Settings.php:573
+#: src/Settings.php:689
 msgid "Select Page"
 msgstr ""
 
-#: src/Settings.php:612
-msgid "Select Posttype"
+#: src/Settings/DefaultPostType.php:39
+msgid "Select Post Type"
 msgstr ""
 
-#: src/Campaigns.php:161 src/Campaigns.php:177 src/Campaigns.php:219
+#: src/Campaigns.php:108 src/Campaigns.php:122
 msgid "Select/Upload Image"
 msgstr ""
 
-#: src/Settings.php:540
+#: assets/src/js/Components/ArchivePicker/SingleSidebar.js:125
+msgid "Set Featured Image"
+msgstr ""
+
+#: src/Settings.php:671
 msgid "Settings saved."
 msgstr ""
 
+#: src/GravityFormsExtensions.php:534
+msgid "Share buttons"
+msgstr ""
+
+#: src/GravityFormsExtensions.php:555
+msgid "Share text"
+msgstr ""
+
+#: src/GravityFormsExtensions.php:547
+msgid "Show share buttons below message"
+msgstr ""
+
+#: src/Features/ActionsUserPersonalization.php:33
+msgid ""
+"Shows Actions as completed if the user has visited them already. This "
+"feature only works on Actions that use the Resistance Hub template."
+msgstr ""
+
 #. Name of the template
+#: page-templates/sitemap.php:3
 msgid "Sitemap Page"
 msgstr ""
 
-#: src/Settings.php:455
-msgid "Slack webhook URL"
-msgstr ""
-
-#: assets/src/js/menu_editor.js:161
+#. %s: sub menu title
+#: assets/src/js/menu_editor.js:170
 #, javascript-format
 msgid "Sub menu \"%s\""
 msgstr ""
 
-#: src/ControlPanel.php:95
+#: src/Features/Dev/NewTimelineBlock.php:33
+msgid ""
+"Switches existing Timeline blocks to the <a href=\"https://www.figma."
+"com/design/9NtbY8n3at8uOEJTsLrETb/P4-Design-System?node-id=9010-"
+"18014&t=9M5kqEc7IljnyUMo-0\" target=\"_blank\">new implementation</a>."
+msgstr ""
+
+#: src/ControlPanel.php:94
 msgid "Sync Elasticsearch"
 msgstr ""
 
-#: src/MasterSite.php:1072
-msgid "Tags"
+#: src/Settings.php:137
+msgid "Taxonomy breadcrumbs"
 msgstr ""
 
-#: src/Settings.php:129
-msgid "Take Action Covers default button text"
-msgstr ""
-
-#: src/ActionPage.php:102
+#: src/ActionPage.php:161
 msgctxt "taxonomy general name"
 msgid "Action Type"
 msgstr ""
 
-#: src/CustomTaxonomy.php:223
+#: src/CustomTaxonomy.php:236
 msgctxt "taxonomy general name"
 msgid "Post Types"
 msgstr ""
 
-#: src/ActionPage.php:103
+#: src/ActionPage.php:162
 msgctxt "taxonomy singular name"
 msgid "Action Type"
 msgstr ""
 
-#: src/CustomTaxonomy.php:224
+#: src/CustomTaxonomy.php:237
 msgctxt "taxonomy singular name"
 msgid "Post Type"
 msgstr ""
 
-#: src/PostReportController.php:78
+#: assets/src/js/Components/ArchivePicker/ArchivePicker.js:546
+#: assets/src/js/Components/ArchivePicker/ArchivePicker.js:589
+msgid ""
+"The <strong>Greenpeace Media</strong> pulls images from <a target=\"_blank\" "
+"href=\"https://media.greenpeace.org/\">media.greenpeace.org</a>. You can "
+"import these images into your Wordpress Media Library and Post/Page. If you "
+"have further questions, you can visit the <a target=\"_blank\" href=\"https:"
+"//planet4.greenpeace.org/manage/administer/media-archive/\">Greenpeace Media "
+"Page</a> in the Handbook."
+msgstr ""
+
+#: src/MediaReplacer.php:78
+msgid "The cache was successfully purged for these files:"
+msgstr ""
+
+#: src/PostReportController.php:89
 msgid "The date query column."
 msgstr ""
 
-#: src/Settings.php:436
+#: src/ActionPage.php:281
+msgid "The default Action post type slug is \"action\"."
+msgstr ""
+
+#: src/Settings.php:376
+msgid ""
+"The default value for ad_personalization consent before visitors make their "
+"choice in the cookies box (Google Consent Mode V2)."
+msgstr ""
+
+#: src/Settings.php:348
+msgid ""
+"The default value for ad_storage consent before visitors make their choice "
+"in the cookies box (Google Consent Mode V2)."
+msgstr ""
+
+#: src/Settings.php:362
+msgid ""
+"The default value for ad_user_data consent before visitors make their choice "
+"in the cookies box (Google Consent Mode V2)."
+msgstr ""
+
+#: src/Settings.php:334
+msgid ""
+"The default value for analytics_storage consent before visitors make their "
+"choice in the cookies box (Google Consent Mode V2)."
+msgstr ""
+
+#: src/Settings.php:390
+msgid ""
+"The default value for url_passthrough.<br>Allows information about ad clicks "
+"to be passed through URL parameters without cookies when consent is granted "
+"outside the landing page (Google Consent Mode V2)."
+msgstr ""
+
+#: src/Settings.php:514
 msgid ""
 "The Google Sheet that is used to get analytics values from local(NRO) "
 "spreadsheet."
 msgstr ""
 
-#: src/MasterSite.php:1374
+#: src/AttachmentsController.php:167
 msgid "The owner of the image."
 msgstr ""
 
-#: src/PostCampaign.php:64
+#: src/PostCampaign.php:62
 msgid "Theme"
 msgstr ""
 
-#: src/Features/Dev/ThemeEditor.php:23
-msgid "Theme editor (experimental)"
+#: src/MediaReplacer.php:79
+msgid "There was an issue purging the cache for these files:"
 msgstr ""
 
-#: assets/src/js/menu_editor.js:171
+#: src/MediaReplacer.php:77
+msgid "There was an issue replacing these files:"
+msgstr ""
+
+#: src/MediaReplacer.php:76
+msgid "These files were successfully replaced:"
+msgstr ""
+
+#: src/Settings.php:127
+msgid "This enables the transparent navigation on the homepage only."
+msgstr ""
+
+#: src/Settings.php:456
+msgid ""
+"This is determining where the options above will be applied<br>\n"
+"                        If only Posts is selected, you can still customize "
+"sharing options for each form on its Confirmation settings."
+msgstr ""
+
+#: src/GravityFormsExtensions.php:556
+msgid ""
+"This is the text that will be shared when a user clicks a share button (if "
+"the platform supports share text)"
+msgstr ""
+
+#: src/Settings.php:411
+msgid ""
+"This is used by Facebook Insights to provide analytics for traffic to your "
+"site from Facebook.<br>\n"
+"                            Find the app ID in your <a href=\"https:"
+"//business.facebook.com/business/loginpage/\" target=\"_blank\">App "
+"Dashboard</a>."
+msgstr ""
+
+#: src/Settings.php:421
+msgid ""
+"This is used by the Meta block to fetch Facebook & Instagram embed "
+"information.<br>\n"
+"                            Alternatively you can use your own, if you have "
+"created a Business Facebook App\n"
+"                            (<a href=\"https://developers.facebook."
+"com/docs/facebook-login/guides/access-tokens/#apptokens\" target=\"_blank\">"
+"Read more</a>).<br>\n"
+"                            You could add App ID and App Secret separated by "
+"a | character, instead of a Token (eg. {your-app_id}|{your-app_secret})."
+msgstr ""
+
+#. 1: item label, 2: max char count, 3: current char count
+#: assets/src/js/menu_editor.js:181
 #, javascript-format
 msgid ""
 "This item label \"%1$s\" should not be longer than %2$s characters "
 "(currently %3$s)."
 msgstr ""
 
-#: src/Features/Dev/DisableDataSync.php:30
+#: src/Features/Dev/DisableDataSync.php:33
 msgid ""
 "This will prevent the automated monthly data sync from production to take "
 "place."
 msgstr ""
 
-#: src/Settings.php:220
-msgid "Timescale for lowering the relevance of older results. See image above."
-msgstr ""
-
 #: underscore_templates/posts_reports.tpl.php:14
 #: underscore_templates/posts_reports.tpl.php:29
-#: underscore_templates/posts_reports.tpl.php:44 src/MetaboxRegister.php:219
-#: assets/src/js/Components/archivePicker/SingleSidebar.js:63
+#: underscore_templates/posts_reports.tpl.php:44
+#: underscore_templates/posts_reports.tpl.php:59
+#: assets/src/js/Components/ArchivePicker/SingleSidebar.js:184
 msgid "Title"
+msgstr ""
+
+#: src/MasterSite.php:278
+msgid "Title is a required field."
 msgstr ""
 
 #: templates/posts_report.twig:9
@@ -1334,106 +1644,98 @@ msgstr ""
 msgid "To add a sub-item, drag it slightly to the side."
 msgstr ""
 
-#: src/ActionPage.php:110
+#: src/LoginHandler.php:126
+msgid "Too many failed login attempts. Please try again in 15 minutes."
+msgstr ""
+
+#: src/Settings.php:398
+msgid "True"
+msgstr ""
+
+#: src/ActionPage.php:169
 msgid "Update Action Type"
 msgstr ""
 
-#: src/CustomTaxonomy.php:231
+#: src/CustomTaxonomy.php:244
 msgid "Update Post Type"
 msgstr ""
 
-#: src/MetaboxRegister.php:125
-msgid "Upload an image"
-msgstr ""
-
-#: src/MetaboxRegister.php:189
+#: src/MetaboxRegister.php:64
 msgid ""
 "Upload an image or select one from the media library to override the "
 "background image"
 msgstr ""
 
-#: src/MetaboxRegister.php:238
-msgid ""
-"Upload an image or select one from the media library to override the open "
-"graph image"
-msgstr ""
-
-#: assets/src/js/Components/archivePicker/SingleSidebar.js:55
+#: assets/src/js/Components/ArchivePicker/SingleSidebar.js:176
 msgid "URL"
 msgstr ""
 
-#: src/Settings.php:171
+#: src/Settings.php:182
 msgid "URL (for iframe)"
 msgstr ""
 
-#: src/ActionPage.php:63
+#: src/Settings.php:505
+msgid ""
+"Use a custom domain from which Tag Manager scripts are loaded. A Google Tag "
+"Manager Web Container must be set up in server-side Tag Manager on the same "
+"domain. Leave empty for the default."
+msgstr ""
+
+#: src/ActionPage.php:121
 msgid ""
 "Use Actions to inspire your website's users to take action on issues and "
 "campaigns they care about!"
 msgstr ""
 
-#: src/Features/ListingPagePagination.php:31
-msgid "Use the new paginated tag, category, author & post type listing pages."
+#: assets/src/js/Components/ArchivePicker/ArchivePicker.js:610
+msgid "Use Media Library Tab for this Block!"
 msgstr ""
 
-#: src/ActionPage.php:53
+#: src/MediaReplacer.php:70
+msgid "Use this to replace the current file without changing the file URL."
+msgstr ""
+
+#: src/MediaArchive/UiIntegration.php:98
+msgid "Username"
+msgstr ""
+
+#: src/ActionPage.php:111
 msgid "View Action"
 msgstr ""
 
-#: src/PostArchive.php:41
-msgid "View archive"
+#: src/PostArchive.php:44
+msgid "View Archive"
 msgstr ""
 
-#: src/PostCampaign.php:132
+#: src/PostCampaign.php:133
 msgid "View Campaign"
 msgstr ""
 
-#: src/Campaigns.php:190
-msgid ""
-"We use an overlay to fade the image back. Use a number between 1 and 100, "
-"the higher the number, the more faded the image will look. If you leave this "
-"empty, the default of 30 will be used."
+#: src/Settings.php:538
+msgid "VWO Account ID"
 msgstr ""
 
-#: src/Settings.php:469
-msgid "Website Navigation Style"
+#. 1: image ID
+#: assets/src/js/Components/ArchivePicker/SingleSidebar.js:103
+#: assets/src/js/Components/ArchivePicker/SingleSidebar.js:170
+#, javascript-format
+msgid "Wordpress image #%s"
 msgstr ""
 
-#: src/MasterSite.php:901
-msgid "Weight"
-msgstr ""
-
-#: src/Settings.php:427
-msgid ""
-"When running an AB test it is possible that the original is shown for a "
-"short while (called flicker). If this happens you can enter a CSS selector "
-"here and matching elements will be hidden until the test is fully loaded."
-msgstr ""
-
-#: src/Settings.php:408
-msgid ""
-"Whether to exclude campaign theme and style settings when importing a "
-"campaign."
-msgstr ""
-
-#: src/Features/Dev/WPTemplateEditor.php:23
-msgid "WordPress template editor"
-msgstr ""
-
-#: src/CustomTaxonomy.php:475
+#: src/CustomTaxonomy.php:464
 msgid "Yes"
 msgstr ""
 
-#: src/MasterSite.php:983
+#: src/LoginHandler.php:227
 msgid ""
 "You are trying to login with a Greenpeace email. Please use the Google login "
 "button instead."
 msgstr ""
 
-#: src/CustomTaxonomy.php:506
+#: src/CustomTaxonomy.php:497
 msgid "You can configure the estimated reading speed in"
 msgstr ""
 
-#: src/MasterSite.php:1132
+#: src/MasterSite.php:806
 msgid "Your role does not have permission to add terms to this taxonomy"
 msgstr ""
