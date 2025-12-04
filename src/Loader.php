@@ -219,7 +219,7 @@ final class Loader
         new Blocks\SecondaryNavigation();//NOSONAR
         Blocks\Register::registerFromAssets('TopicLink', [
             'render_callback' => function ($attributes) {
-                return BaseBlock::render_frontend($attributes, 'planet4-blocks/topic-link');
+                return BaseBlock::render_frontend_from_blockname($attributes, 'planet4-blocks/topic-link');
             },
         ]);
 
