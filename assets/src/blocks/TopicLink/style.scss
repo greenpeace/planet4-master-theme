@@ -1,3 +1,7 @@
+@import "../../scss/base/tokens";
+@import "../../scss/base/variables";
+@import "../../scss/base/mixins";
+
 .topic-link-block {
   a, .topic-link-block_editor-container {
     width: 100%;
@@ -48,7 +52,7 @@
         display: inline-block;
         transition: transform 300ms linear;
         transform: rotate(0deg);
-        mask-image: url("../../images/chevron.svg");
+        mask-image: url("../../../../images/chevron.svg");
         mask-repeat: no-repeat;
         mask-size: contain;
         background-repeat: no-repeat;

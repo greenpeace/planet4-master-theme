@@ -1,0 +1,44 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "planet4-blocks/topic-link",
+  "category": "planet4-blocks",
+  "description": "The Topic Link block allows editors to manually link to a category page, which redirects users to relevant topic content.",
+  "title": "Topic Link",
+  "icon": "migrate",
+  "textdomain": "planet4-blocks-backend",
+  "attributes": {
+    "categoryId": {
+      "type": "number"
+    },
+    "categoryLink": {
+      "type": "string",
+      "default": ""
+    },
+    "categoryName": {
+      "type": "string",
+      "default": ""
+    },
+    "imageId": {
+      "type": "number"
+    },
+    "imageUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "imageAlt": {
+      "type": "string",
+      "default": ""
+    },
+    "focal_points": {
+      "type": "string",
+      "default": "50% 50%"
+    }
+  },
+  "supports": {
+    "html": false
+  },
+  "viewScript": "file:view-script.js",
+  "editorScript": "file:index.js",
+  "style": "file:index.css"
+}
