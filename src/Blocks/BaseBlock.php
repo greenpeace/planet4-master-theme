@@ -67,18 +67,34 @@ abstract class BaseBlock
 
     /**
      * Renders a `div` with the block's attributes in a `data-` attribute to be handled in the frontend.
+     * Gets the block name from the get_full_block_name function.
      *
      * @param array $attributes  The block's attributes.
-     * @param string|null $block_name (Optional) The block's name.
      *
      * @return string.
      */
-    public static function render_frontend(array $attributes, string|null $block_name = null): string
+    public static function render_frontend(array $attributes): string
     {
         $json = wp_json_encode([ 'attributes' => $attributes ]);
-        $block_name_to_use = $block_name ?? self::get_full_block_name();
 
-        return '<div data-render="' . $block_name_to_use . '" data-attributes="' . htmlspecialchars($json) . '"></div>';
+        return '<div data-render="' . self::get_full_block_name() . '" data-attributes="'
+            . htmlspecialchars($json) . '"></div>';
+    }
+
+    /**
+     * Renders a `div` with the block's attributes in a `data-` attribute to be handled in the frontend.
+     * Takes the block name as parameter.
+     *
+     * @param array $attributes  The block's attributes.
+     * @param string $block_name  The block's name.
+     *
+     * @return string.
+     */
+    public static function render_frontend_from_blockname(array $attributes, string $block_name): string
+    {
+        $json = wp_json_encode([ 'attributes' => $attributes ]);
+
+        return '<div data-render="' . $block_name . '" data-attributes="' . htmlspecialchars($json) . '"></div>';
     }
 
     /**
