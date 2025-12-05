@@ -1,0 +1,15 @@
+<button class="nav-search-toggle {{ show_for_medium ? 'medium-and-less' : '' }}"
+    type="button"
+    aria-label="{{ data_nav_bar.navbar_search_toggle }}"
+    aria-expanded="false"
+    data-bs-toggle="open"
+    data-bs-target="#search_form"
+    data-ga-category="Menu Navigation"
+    data-ga-action="Open Search"
+    data-ga-label="{{ page_category }}"
+>
+        {{ search_icon|replace({'<svg': "<svg " ~ data_ga_attrs })|raw }}
+        <span class="visually-hidden">
+            {{ __( 'Toggle search form', 'planet4-master-theme' ) }}
+        </span>
+</button>

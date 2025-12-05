@@ -9,10 +9,16 @@ const updateGaAction = (element, elementName) => {
  */
 export const setSearchToggles = expanded => {
   const toggles = document.querySelectorAll('.nav-search-toggle');
+  const searchInput = document.getElementById('search_input');
+
   toggles.forEach(toggle => {
     toggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
     updateGaAction(toggle, 'search');
     toggle.classList.toggle('open', expanded);
+
+    if (expanded && searchInput) {
+      searchInput.focus();
+    }
   });
 };
 
