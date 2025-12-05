@@ -37,16 +37,14 @@
     align-items: center;
   }
 
-  input::placeholder _-- {
+  input::placeholder {
     color: var(--grey-600);
     opacity: 0.5;
   }
 
   button {
     .icon {
-      _-- {
-        fill: var(--grey-900, inherit);
-      }
+      fill: var(--grey-900, inherit);
       height: 24px;
       top: 0;
       width: 24px;
@@ -54,19 +52,16 @@
   }
 
   .btn-donate {
-    _-- {
-      border: none;
-      min-width: 116px;
-      padding: 2px 17px;
-
-      &:hover {
-        border: none;
-      }
-    }
-
+    border: none;
+    min-width: 116px;
+    padding: 2px 17px;
     height: 44px;
     font-size: 17px;
     line-height: 40px;
+
+    &:hover {
+      border: none;
+    }
 
     @include large-and-up {
       &.dropdown {
@@ -163,17 +158,11 @@
     font-weight: var(--font-weight-regular);
 
     a.nav-link {
-      --submenu-nav-link-- {
-        color: var(--color-text-nav_link);
-        font-family: var(--font-family-tertiary);
-        font-size: $font-size-sm;
-        font-weight: var(--font-weight-semibold);
-        line-height: 19px;
-
-        &:hover {
-          color: var(--color-text-nav_link);
-        }
-      }
+      color: var(--color-text-nav_link);
+      font-family: var(--font-family-tertiary);
+      font-size: $font-size-sm;
+      font-weight: var(--font-weight-semibold);
+      line-height: 19px;
       text-decoration: none;
       height: 100%;
       display: flex;
@@ -181,6 +170,7 @@
       padding: 14px $sp-3;
 
       &:hover {
+        color: var(--color-text-nav_link);
         background: var(--grey-200);
         border-radius: 0;
       }
@@ -319,10 +309,8 @@ a.nav-link:hover:before,
 
 .nav-item,
 .nav-donate {
-  _-- {
-    font-size: $font-size-sm;
-    font-weight: var(--font-weight-regular);
-  }
+  font-size: $font-size-sm;
+  font-weight: var(--font-weight-regular);
   color: inherit;
   position: relative;
 
