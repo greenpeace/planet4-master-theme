@@ -31,6 +31,7 @@ class Counter extends BaseBlock
         register_block_type(
             self::get_full_block_name(),
             [ // - Register the block for the editor
+                'api_version' => 3,
                 'editor_script' => 'planet4-blocks', // in the PHP side.
                 'attributes' => [
                     'title' => [

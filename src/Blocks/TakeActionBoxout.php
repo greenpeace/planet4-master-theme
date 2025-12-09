@@ -39,6 +39,7 @@ class TakeActionBoxout extends BaseBlock
         register_block_type(
             self::get_full_block_name(),
             [
+                'api_version' => 3,
                 'editor_script' => 'planet4-blocks',
                 'render_callback' => [ $this, 'render' ],
                 'attributes' => [
