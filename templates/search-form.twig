@@ -24,11 +24,7 @@
            value="{{ data_nav_bar.search_query|e('wp_kses_post')|raw }}"
            aria-label="{{ __( 'Search input', 'planet4-master-theme' ) }}"/>
     <input id="orderby" type="hidden" name="orderby" value="{{ selected_sort ?? default_sort }}"/>
-    <button class="nav-search-clear"
-            aria-label="{{ __( 'Clear search', 'planet4-master-theme' ) }}"
-            type="button"
-            onclick="document.getElementById('{{ search_input_id }}').value=null;"
-    >
+    <button class="nav-search-clear" aria-label="{{ __( 'Clear search', 'planet4-master-theme' ) }}" type="button">
         <span class="visually-hidden">{{ __( 'Clear search', 'planet4-master-theme' ) }}</span>
     </button>
 </form>
