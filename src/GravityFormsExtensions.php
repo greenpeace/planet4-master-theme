@@ -165,40 +165,77 @@ class GravityFormsExtensions
      */
     private function gravity_form_exists_in_blocks(array $blocks): bool
     {
-
         foreach ($blocks as $block) {
-            // Gravity Forms block
-            if (isset($block['blockName']) && $block['blockName'] === 'gravityforms/form') {
+            if ($this->is_gravity_forms_block($block)) {
                 return true;
             }
 
-            // If block contains inner blocks, inspect them
-            if (! empty($block['innerBlocks'])) {
-                if (self::gravity_form_exists_in_blocks($block['innerBlocks'])) {
-                    return true;
-                }
+            if (
+                $this->has_inner_blocks($block) &&
+                $this->gravity_form_exists_in_blocks($block['innerBlocks'])
+            ) {
+                return true;
             }
 
-            // If it's a reusable block, load its content and parse again
-            if ($block['blockName'] !== 'core/block' || empty($block['attrs']['ref'])) {
+            if (!$this->is_reusable_block($block)) {
                 continue;
             }
 
-            $ref_id = $block['attrs']['ref'];
-            $reusable = get_post($ref_id);
-
-            if (!$reusable) {
-                continue;
-            }
-
-            $reusable_blocks = parse_blocks($reusable->post_content);
-
-            if (self::gravity_form_exists_in_blocks($reusable_blocks)) {
+            $reusable_blocks = $this->get_reusable_block_blocks($block);
+            if (
+                !empty($reusable_blocks) &&
+                $this->gravity_form_exists_in_blocks($reusable_blocks)
+            ) {
                 return true;
             }
         }
 
         return false;
+    }
+
+    /**
+     * Detect Gravity Forms block.
+     */
+    private function is_gravity_forms_block(array $block): bool
+    {
+        return isset($block['blockName']) &&
+            $block['blockName'] === 'gravityforms/form';
+    }
+
+    /**
+     * Whether block has inner blocks.
+     */
+    private function has_inner_blocks(array $block): bool
+    {
+        return !empty($block['innerBlocks']);
+    }
+
+    /**
+     * Determine whether block is a reusable block.
+     */
+    private function is_reusable_block(array $block): bool
+    {
+        return isset($block['blockName'], $block['attrs']['ref']) &&
+            $block['blockName'] === 'core/block' &&
+            !empty($block['attrs']['ref']);
+    }
+
+    /**
+     * Extract and parse reusable block content.
+     */
+    private function get_reusable_block_blocks(array $block): array
+    {
+        $ref_id = $block['attrs']['ref'] ?? null;
+        if (!$ref_id) {
+            return [];
+        }
+
+        $post = get_post($ref_id);
+        if (!$post) {
+            return [];
+        }
+
+        return parse_blocks($post->post_content);
     }
 
     /**
