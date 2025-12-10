@@ -1,4 +1,3 @@
-import {ArrowIcon} from './ArrowIcon';
 import {HighlightMatches} from './HighlightMatches';
 import {fetchJson} from '../../functions/fetchJson';
 import {addQueryArgs} from '../../functions/addQueryArgs';
@@ -171,7 +170,7 @@ export const SpreadsheetFrontend = ({
                     title={cell}>
                     <button>
                       {cell}
-                      <ArrowIcon />
+                      <div className="arrow-icon" />
                     </button>
                   </th>
                 ))
