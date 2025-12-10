@@ -125,6 +125,80 @@ class GravityFormsExtensions
         add_action('gform_post_payment_action', [ $this, 'check_stripe_payment_status' ], 10, 2);
         add_action('gform_pre_render', [$this, 'enqueue_share_buttons'], 10, 2);
         add_action('admin_enqueue_scripts', [$this, 'enqueue_gf_custom_scripts']);
+        add_action('wp_enqueue_scripts', [$this, 'dequeue_gf_scripts'], 999);
+    }
+
+    /**
+     * Dequeue styles and scripts for pages that don't use GF forms.
+     *
+     */
+    public function dequeue_gf_scripts(): void
+    {
+        if (self::page_contains_gravity_form()) {
+            return;
+        }
+
+        wp_dequeue_style('gravity-forms-style');
+    }
+
+    /**
+     * Detect whether a post/page contains a Gravity Forms form.
+     */
+    private function page_contains_gravity_form(): bool
+    {
+        $content = get_post_field('post_content', get_the_ID());
+
+        if (
+            has_shortcode($content, 'gravityform') ||
+            has_shortcode($content, 'gravityforms')
+        ) {
+            return true;
+        }
+
+        $blocks = parse_blocks($content);
+
+        return self::gravity_form_exists_in_blocks($blocks);
+    }
+
+    /**
+     * Recursively inspect blocks for Gravity Forms.
+     */
+    private function gravity_form_exists_in_blocks(array $blocks): bool
+    {
+
+        foreach ($blocks as $block) {
+            // Gravity Forms block
+            if (isset($block['blockName']) && $block['blockName'] === 'gravityforms/form') {
+                return true;
+            }
+
+            // If block contains inner blocks, inspect them
+            if (! empty($block['innerBlocks'])) {
+                if (self::gravity_form_exists_in_blocks($block['innerBlocks'])) {
+                    return true;
+                }
+            }
+
+            // If it's a reusable block, load its content and parse again
+            if ($block['blockName'] !== 'core/block' || empty($block['attrs']['ref'])) {
+                continue;
+            }
+
+            $ref_id = $block['attrs']['ref'];
+            $reusable = get_post($ref_id);
+
+            if (!$reusable) {
+                continue;
+            }
+
+            $reusable_blocks = parse_blocks($reusable->post_content);
+
+            if (self::gravity_form_exists_in_blocks($reusable_blocks)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
