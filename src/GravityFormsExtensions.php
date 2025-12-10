@@ -125,16 +125,22 @@ class GravityFormsExtensions
         add_action('gform_post_payment_action', [ $this, 'check_stripe_payment_status' ], 10, 2);
         add_action('gform_pre_render', [$this, 'enqueue_share_buttons'], 10, 2);
         add_action('admin_enqueue_scripts', [$this, 'enqueue_gf_custom_scripts']);
-        add_action('wp_enqueue_scripts', [$this, 'dequeue_gf_cripts'], 999);
+        add_action('wp_enqueue_scripts', [$this, 'dequeue_gf_scripts'], 999);
     }
 
     /**
      * Dequeue styles and scripts for pages that don't use GF forms.
      *
      */
-    public function dequeue_gf_cripts(): void
+    public function dequeue_gf_scripts(): void
     {
-        if (self::page_contains_gravity_form()) {
+        $content = get_post_field('post_content', get_the_ID());
+
+        if (
+            has_block('gravityforms/form') ||
+            has_shortcode($content, 'gravityform') ||
+            has_shortcode($content, 'gravityforms')
+        ) {
             return;
         }
 
@@ -946,6 +952,75 @@ class GravityFormsExtensions
     }
 
     /**
+     * Find all posts that contain a form.
+     *
+     * @param int $form_id The ID of the form to look for
+     * @param array $post_types Post types that are searched
+     *
+     */
+    private function get_posts_by_gf_id(int $form_id, array $post_types = [ 'post', 'page' ]): array
+    {
+        $args = [
+            's' => '<!-- wp:gravityforms/form ',
+            "numberposts" => - 1,
+            'post_type' => $post_types,
+            'post_status' => [ 'publish', 'private' ],
+        ];
+
+        $posts = get_posts($args);
+
+        $post_ids = [];
+
+        foreach ($posts as $post) {
+            $blocks = parse_blocks(get_the_content(null, null, $post));
+
+            $gf_blocks = $this->find_nested_blocks('gravityforms/form', $blocks);
+
+            foreach ($gf_blocks as $gf_block) {
+                if (intval($gf_block['attrs']['formId']) === $form_id) {
+                    $post_ids[] = $post->ID;
+
+                    break;
+                }
+            }
+        }
+
+        return $post_ids;
+    }
+
+    /**
+     * Recursively search blocks array for block with $block_name and return as flat array.
+     *
+     * @param string $block_name Block name to find
+     * @param array $blocks Blocks to search for nested blocks
+     *
+     */
+    private function find_nested_blocks(string $block_name, array $blocks): array
+    {
+        $matching_blocks = [];
+
+        foreach ($blocks as $block) {
+            if (isset($block['blockName']) && $block['blockName'] === $block_name) {
+                $matching_blocks[] = $block;
+            }
+
+            if (!is_array($block['innerBlocks'])) {
+                continue;
+            }
+
+            $inner_blocks = $this->find_nested_blocks($block_name, $block['innerBlocks']);
+
+            if (count($inner_blocks) <= 0) {
+                continue;
+            }
+
+            $matching_blocks = array_merge($matching_blocks, $inner_blocks);
+        }
+
+        return $matching_blocks;
+    }
+
+    /**
      * Redirect using Javascript after form submission instead of sending a header.
      * Makes it possible to send tag manager events before redirecting.
      *
@@ -1100,150 +1175,5 @@ class GravityFormsExtensions
         }
 
         return $hs_form;
-    }
-
-    /**
-     * Check whether a page or post contains a GF form by its ID.
-     *
-     * @param int|null $post_id - The post or page ID.
-     *
-     */
-    public function page_contains_gravity_form(?int $post_id = null): bool
-    {
-        $post_id = $post_id ?: get_the_ID();
-        if (!$post_id) {
-            return false;
-        }
-
-        $content = get_post_field('post_content', $post_id);
-
-        if (count($this->extract_shortcode_form_ids($content)) > 0) {
-            return true;
-        }
-
-        $blocks = parse_blocks($content);
-
-        return $this->walk_blocks_recursively($blocks, function ($block) {
-            return isset($block['blockName']) && $block['blockName'] === 'gravityforms/form';
-        });
-    }
-
-    /**
-     * Get all pages or posts using a specific GF form.
-     *
-     * @param int $form_id - The form ID.
-     * @param array $post_types - The post types to check.
-     *
-     */
-    private function get_posts_by_gf_id(int $form_id, array $post_types = ['post', 'page']): array
-    {
-        $args = [
-            'numberposts' => -1,
-            'post_type' => $post_types,
-            'post_status' => ['publish', 'private'],
-        ];
-
-        $posts = get_posts($args);
-        $matching = [];
-
-        foreach ($posts as $post) {
-            if (!$this->page_contains_form_id($post->ID, $form_id)) {
-                continue;
-            }
-
-            $matching[] = $post->ID;
-        }
-
-        return $matching;
-    }
-
-    /**
-     * Check whether a page or post uses a specific GF form.
-     *
-     * @param int $post_id - The post ID.
-     * @param int $form_id - The form ID.
-     *
-     */
-    private function page_contains_form_id(int $post_id, int $form_id): bool
-    {
-        $content = get_post_field('post_content', $post_id);
-
-        if (in_array($form_id, $this->extract_shortcode_form_ids($content), true)) {
-            return true;
-        }
-
-        $blocks = parse_blocks($content);
-
-        return $this->walk_blocks_recursively($blocks, function ($block) use ($form_id) {
-            return
-                isset($block['blockName']) &&
-                $block['blockName'] === 'gravityforms/form' &&
-                isset($block['attrs']['formId']) &&
-                intval($block['attrs']['formId']) === $form_id
-            ;
-        });
-    }
-
-    /**
-     * Get the form ID from the GF shortcode.
-     *
-     * @param string $content - The post content.
-     *
-     */
-    private function extract_shortcode_form_ids(string $content): array
-    {
-        $form_ids = [];
-
-        if (strpos($content, '[gravityform') === false) {
-            return $form_ids;
-        }
-
-        preg_match_all('/\[gravityform[^\]]*id="(\d+)"[^\]]*\]/', $content, $matches);
-
-        foreach ($matches[1] as $id) {
-            $form_ids[] = intval($id);
-        }
-
-        return $form_ids;
-    }
-
-    /**
-     * Recursively walks blocks and executes a callback on each block.
-     *
-     * @param array $blocks - The list of blocks.
-     * @param callable $callback - The callback function to execute.
-     *
-     */
-    private function walk_blocks_recursively(array $blocks, callable $callback): bool
-    {
-        foreach ($blocks as $block) {
-            if ($callback($block)) {
-                return true;
-            }
-
-            // Handle reusable blocks (core/block)
-            if ($block['blockName'] === 'core/block' && !empty($block['attrs']['ref'])) {
-                $ref_post = get_post($block['attrs']['ref']);
-
-                if ($ref_post) {
-                    $ref_blocks = parse_blocks($ref_post->post_content);
-
-                    if ($this->walk_blocks_recursively($ref_blocks, $callback)) {
-                        return true;
-                    }
-                }
-            }
-
-            // Walk inner blocks
-            if (empty($block['innerBlocks'])) {
-                continue;
-            }
-
-            if ($this->walk_blocks_recursively($block['innerBlocks'], $callback)) {
-                return true;
-            }
-        }
-
-        return false;
     }
 }
