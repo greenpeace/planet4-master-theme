@@ -4,7 +4,7 @@ const dotenv = require('dotenv');
 const testDir = './tests/e2e';
 const envFile = process.env.CI ? `${testDir}/env/.env.ci` : `${testDir}/env/.env.default`;
 dotenv.config({path: envFile});
-dotenv.config({override: true});// prioritize .env file if exists
+dotenv.config({override: true}); // prioritize .env file if exists
 
 /**
  * @see https://playwright.dev/docs/test-configuration
@@ -113,6 +113,7 @@ const config = {
   //   command: 'npm run start',
   //   port: 3000,
   // },
+  globalSetup: require.resolve('./tests/e2e/tools/setup/global-setup'),
 };
 
 module.exports = config;
