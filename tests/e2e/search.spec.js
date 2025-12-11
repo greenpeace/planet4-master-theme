@@ -33,7 +33,7 @@ test('check search works', async ({page, requestUtils}) => {
   const performSearchAndCheckResults = async () => {
     await page.goto('./');
 
-    const searchBox = page.getByPlaceholder('Search');
+    const searchBox = page.getByRole('searchbox', {name: 'Search input'});
     await searchBox.click();
     await searchBox.fill(testId);
     await page.keyboard.press('Enter');
