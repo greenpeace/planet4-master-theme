@@ -37,10 +37,43 @@ class Tracking
 
                     $params['full'] = filter_var($params['full'], FILTER_VALIDATE_BOOLEAN);
 
+                    $logins = wp_cache_get('logins', 'p4-cahce-api-tracking');
+                    if ($logins === false) {
+                        $logins = self::get_logins($params);
+                        wp_cache_set(
+                            'logins',
+                            $logins,
+                            'p4-cache-api-tracking',
+                            86400
+                        );
+                    }
+
+                    $content_created = wp_cache_get('content_created', 'p4-cache-api-tracking');
+                    if ($content_created === false) {
+                        $content_created = self::get_content_created($params);
+                        wp_cache_set(
+                            'content_created',
+                            $content_created,
+                            'p4-cahce-api-tracking',
+                            86400
+                        );
+                    }
+
+                    $replaced_files = wp_cache_get('replaced_files', 'p4-cache-api-tracking');
+                    if ($replaced_files === false) {
+                        $replaced_files = self::get_replaced_files($params);
+                        wp_cache_set(
+                            'replaced_files',
+                            $replaced_files,
+                            'p4-cache-api-tracking',
+                            86400
+                        );
+                    }
+
                     return [
-                        'logins' => self::get_logins($params),
-                        'content_created' => self::get_content_created($params),
-                        'replaced_files' => self::get_replaced_files($params),
+                        'logins' => $logins,
+                        'content_created' => $content_created,
+                        'replaced_files' => $replaced_files,
                     ];
                 },
                 'permission_callback' => function (WP_REST_Request $request) {
