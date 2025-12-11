@@ -20,10 +20,8 @@
 
     & ~ .custom-control-description,
     & ~ label {
-      _-- {
-        font-size: $font-size-sm;
-        line-height: 1.25rem;
-      }
+      font-size: $font-size-sm;
+      line-height: 1.25rem;
       font-family: var(--font-family-paragraph-secondary);
       position: relative;
       cursor: pointer;
