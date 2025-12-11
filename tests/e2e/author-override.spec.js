@@ -20,7 +20,7 @@ test('Test Author override', async ({page, requestUtils}) => {
   const editUrl = `./wp-admin/post.php?post=${newPost.id}&action=edit`;
   const postUrl = newPost.link;
 
-  await page.goto(editUrl);
+  await page.goto(editUrl, {waitUntil: 'domcontentloaded'}); // Default is waituntil: 'load' but that doesn't work for Webkit
 
   const overrideControl = page.locator('.edit-post-layout__metaboxes').locator('#p4_author_override');
   await expect(overrideControl).toBeVisible();
