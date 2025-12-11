@@ -1,12 +1,9 @@
-// import {test, expect} from '../tools/lib/test-utils.js';
 import {test, expect} from './tools/lib/test-utils.js';
 import {updatePost} from './tools/lib/post.js';
 
 const AUTHOR_NAME = 'Alternative Author';
 
 test.useAdminLoggedIn();
-
-// test.skip(({browserName}) => browserName === 'webkit', 'Skip on WebKit due to unsupported setting');
 
 test('Test Author override', async ({page, requestUtils}) => {
   const newPost = await requestUtils.rest({
