@@ -35,9 +35,26 @@ class LoginHandler
          */
         add_action('login_footer', function (): void {
             $html = ob_get_clean();
+
+            $dom = new \DOMDocument();
+            $dom->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'));
+
+            foreach ($dom->getElementsByTagName('a') as $a) {
+                $href = $a->getAttribute('href');
+                if (
+                    $href !== '' && stripos($href, 'accounts.google.com') !== false
+                    && in_array(parse_url($href, PHP_URL_SCHEME), ['http', 'https'], true)
+                ) {
+                    wp_redirect(esc_url_raw($href));
+                    exit;
+                }
+            }
+
+            // Clean up the HTML by removing the "Remember Me" checkbox
             $html = preg_replace('/<p[^>]*class=["\']forgetmenot["\'][^>]*>.*?<\/p>/is', '', $html);
             echo $html;
         });
+
 
         /**
          * Disable the "Remember Me" functionality server-side.
