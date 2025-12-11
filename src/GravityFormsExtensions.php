@@ -162,13 +162,13 @@ class GravityFormsExtensions
 
         wp_enqueue_style(
             'gravity-forms-admin-css',
-            get_stylesheet_directory_uri() . '/admin/css/gravity-forms-admin.css',
+            get_template_directory_uri() . '/admin/css/gravity-forms-admin.css',
             [],
             Loader::theme_file_ver('admin/css/gravity-forms-admin.css')
         );
         wp_enqueue_script(
             'gravity-forms-admin-js',
-            get_stylesheet_directory_uri() . '/admin/js/gravity-forms-admin.js',
+            get_template_directory_uri() . '/admin/js/gravity-forms-admin.js',
             [],
             Loader::theme_file_ver('admin/js/gravity-forms-admin.js')
         );
