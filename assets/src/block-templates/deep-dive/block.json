@@ -5,7 +5,7 @@
   "title": "Deep Dive",
   "category": "planet4-block-templates",
   "icon": "editor-table",
-  "textdomain": "planet4-blocks-backend",
+  "textdomain": "planet4-master-theme-backend",
   "attributes": {
     "title": { "type": "string" },
     "backgroundColor": { "type": "string" }

@@ -42,11 +42,11 @@ export const ACTIONS_LIST_BLOCK_ATTRIBUTES = {
   },
 };
 
-export const getActionsListBlockTemplate = (title = __('', 'planet4-blocks-backend')) => ([
-  ['core/heading', {lock: {move: true}, content: title, placeholder: __('Enter title', 'planet4-blocks-backend')}],
+export const getActionsListBlockTemplate = (title = __('', 'planet4-master-theme-backend')) => ([
+  ['core/heading', {lock: {move: true}, content: title, placeholder: __('Enter title', 'planet4-master-theme-backend')}],
   ['core/paragraph', {
     lock: {move: true},
-    placeholder: __('Enter description', 'planet4-blocks-backend'),
+    placeholder: __('Enter description', 'planet4-master-theme-backend'),
     style: {
       spacing: {
         margin: {
