@@ -9,20 +9,20 @@ const template = () => (
     ['core/group', {}, [
       ['planet4-blocks/carousel-header'],
       ['planet4-block-templates/issues', {
-        title: __('The issues we work on', 'planet4-blocks'),
+        title: __('The issues we work on', 'planet4-master-theme'),
       }],
       ['core/spacer', {height: '88px'}],
       ['core/query',
         POSTS_LIST_BLOCK_ATTRIBUTES,
-        getPostListBlockTemplate(__('Read our Stories', 'planet4-blocks')),
+        getPostListBlockTemplate(__('Read our Stories', 'planet4-master-theme')),
       ],
       ['core/spacer', {height: '56px'}],
       ['planet4-block-templates/side-image-with-text-and-cta', {
-        title: __('Get to know us', 'planet4-blocks'),
+        title: __('Get to know us', 'planet4-master-theme'),
       }],
       ['core/spacer', {height: '30px'}],
       ['planet4-block-templates/side-image-with-text-and-cta', {
-        title: __('We win campaigns', 'planet4-blocks'),
+        title: __('We win campaigns', 'planet4-master-theme'),
         mediaPosition: 'right',
       }],
       ['core/spacer', {height: '56px'}],

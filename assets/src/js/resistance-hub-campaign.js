@@ -43,7 +43,7 @@ const markActionsAsCompleted = () => {
       const checkmark = document.createElement('span');
       completedElement.appendChild(checkmark);
       const text = document.createElement('span');
-      text.textContent = __('Completed', 'planet4-blocks');
+      text.textContent = __('Completed', 'planet4-master-theme');
       completedElement.appendChild(text);
       completedElement.classList.add('completed-message');
       const figure = action.querySelector('.wp-block-post-featured-image'); // For Actions List blocks.
@@ -141,10 +141,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         switch (taskType) {
         case 'online':
-          chipTaskType.innerHTML = __('Do it Online', 'planet4-blocks');
+          chipTaskType.innerHTML = __('Do it Online', 'planet4-master-theme');
           break;
         case 'irl':
-          chipTaskType.innerHTML = __('Do it Offline', 'planet4-blocks');
+          chipTaskType.innerHTML = __('Do it Offline', 'planet4-master-theme');
           break;
         }
 

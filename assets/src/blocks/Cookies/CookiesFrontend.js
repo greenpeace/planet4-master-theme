@@ -128,7 +128,7 @@ export const CookiesFrontend = props => {
               <span className="custom-control-description cookies-header-text">
                 {getFieldValue('necessary_cookies_name')}
               </span>
-              <span className="always-enabled">{__('Always enabled', 'planet4-blocks')}</span>
+              <span className="always-enabled">{__('Always enabled', 'planet4-master-theme')}</span>
             </div>
             <p className="cookies-checkbox-description">
               {getFieldValue('necessary_cookies_description')}

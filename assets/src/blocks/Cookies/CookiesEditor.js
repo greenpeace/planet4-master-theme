@@ -70,7 +70,7 @@ export const CookiesEditor = ({setAttributes, attributes, isSelected}) => {
             allowedFormats={[]}
             editable
           />
-          <span className="always-enabled">{__('Always enabled', 'planet4-blocks')}</span>
+          <span className="always-enabled">{__('Always enabled', 'planet4-master-theme')}</span>
           <CookiesFieldResetButton
             fieldName="necessary_cookies_name"
             currentValue={necessary_cookies_name}
