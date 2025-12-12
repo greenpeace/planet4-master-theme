@@ -120,7 +120,7 @@ export const SpreadsheetFrontend = ({
       <tr>
         <td colSpan="99999">
           <div className="spreadsheet-empty-message">
-            { __('No data matching your search.', 'planet4-blocks') }
+            { __('No data matching your search.', 'planet4-master-theme') }
           </div>
         </td>
       </tr> :
@@ -150,7 +150,7 @@ export const SpreadsheetFrontend = ({
         type="text"
         value={searchText}
         onChange={event => setSearchText(event.target.value)}
-        placeholder={__('Search data', 'planet4-blocks')}
+        placeholder={__('Search data', 'planet4-master-theme')}
       />
       <div className="table-wrapper">
         <table className={`spreadsheet-table is-color-${color ?? 'grey'}`}>
@@ -182,7 +182,7 @@ export const SpreadsheetFrontend = ({
             {loading ?
               <tr>
                 <td colSpan="99999">
-                  <div className="spreadsheet-loading">{__('Loading spreadsheet data…', 'planet4-blocks')}</div>
+                  <div className="spreadsheet-loading">{__('Loading spreadsheet data…', 'planet4-master-theme')}</div>
                 </td>
               </tr> :
               renderRows()
