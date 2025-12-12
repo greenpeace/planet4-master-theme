@@ -50,48 +50,35 @@ class Sentry
                 $sentry_handles[] = $handle;
             }
 
-            $localized = null;
-            foreach ($sentry_handles as $handle) {
-                if (isset($wp_scripts->registered[$handle]->extra['data'])) {
-                    $localized = $wp_scripts->registered[$handle]->extra['data'];
-                    break;
-                }
+            if (empty($sentry_handles)) {
+                return;
             }
 
-
             foreach ($sentry_handles as $handle) {
-                wp_dequeue_script($handle);
+                $localized = $wp_scripts->registered[$handle]->extra['data'] ?? '';
+
                 wp_deregister_script($handle);
-            }
 
+                $async_handle = $handle . '-async';
 
-            $async_handle = 'wp-sentry-browser-async';
+                $src = $wp_scripts->registered[$handle]->src ?? '';
 
-            $src = plugins_url(
-                'public/wp-sentry-browser.min.js',
-                WP_PLUGIN_DIR . '/wp-sentry-integration/wp-sentry-integration.php'
-            );
+                wp_register_script(
+                    $async_handle,
+                    $src,
+                    [],
+                    null,
+                    true
+                );
 
-            wp_register_script(
-                $async_handle,
-                $src,
-                [],
-                null,
-                true
-            );
+                wp_script_add_data($async_handle, 'strategy', 'async');
 
-            if ($localized) {
-                $wp_scripts->registered[$async_handle]->extra['data'] = $localized;
-            }
-
-            add_filter('script_loader_tag', function ($tag, $handle) use ($async_handle) {
-                if ($handle === $async_handle) {
-                    return str_replace('<script ', '<script async ', $tag);
+                if ($localized) {
+                    wp_add_inline_script($async_handle, $localized, 'before');
                 }
-                return $tag;
-            }, 10, 2);
 
-            wp_enqueue_script($async_handle);
+                wp_enqueue_script($async_handle);
+            }
         }, 10);
     }
 
