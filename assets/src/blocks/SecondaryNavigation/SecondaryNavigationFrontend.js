@@ -266,7 +266,7 @@ export const SecondaryNavigationFrontend = ({levels}) => {
             ref={toggleRef}
           >
             <p className="current-active-class">{currentHeaderLink}</p>
-            <p className={`dropdown-btn ${isDropdownOpen ? 'active' : ''}`}/>
+            <p className={`dropdown-btn${isDropdownOpen ? ' active' : ''}`}/>
           </div>
           <div
             className={`block secondary-navigation-block ${isDropdownOpen ? 'show' : ''}`}
