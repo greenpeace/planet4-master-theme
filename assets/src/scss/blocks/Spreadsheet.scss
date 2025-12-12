@@ -58,29 +58,33 @@ table.spreadsheet-table {
 
   th {
     background-color: var(--grey-800);
-
-    button {
-      background-color: inherit;
-      color: inherit;
-      border: none;
-      display: flex;
-    }
-
     color: var(--white);
     cursor: pointer;
     font-size: var(--font-size-xxs--font-family-primary);
     position: sticky;
     top: 0;
 
-    svg {
-      width: $sp-2;
-      margin-left: $sp-1;
+    button {
+      background-color: inherit;
+      color: inherit;
+      border: none;
+      display: flex;
+      align-items: center;
     }
 
-    &.sort-desc {
-      svg {
-        transform: rotate(180deg);
-      }
+    .arrow-icon {
+      width: 16px;
+      height: 16px;
+      margin-left: $sp-1;
+      mask-image: url("../../images/spreadsheet-arrow.svg");
+      mask-repeat: no-repeat;
+      mask-size: contain;
+      background-repeat: no-repeat;
+      background-color: currentcolor;
+    }
+
+    &.sort-desc .arrow-icon {
+      transform: rotate(180deg);
     }
   }
 }

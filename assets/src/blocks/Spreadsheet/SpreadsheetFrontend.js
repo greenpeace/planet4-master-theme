@@ -1,4 +1,3 @@
-import {ArrowIcon} from './ArrowIcon';
 import {HighlightMatches} from './HighlightMatches';
 import {fetchJson} from '../../functions/fetchJson';
 import {addQueryArgs} from '../../functions/addQueryArgs';
@@ -146,7 +145,9 @@ export const SpreadsheetFrontend = ({
 
   return (
     <section className={`block block-spreadsheet ${className ?? ''}`}>
-      <input className="spreadsheet-search form-control"
+      <input
+        name="spreadsheet-search"
+        className="spreadsheet-search form-control"
         type="text"
         value={searchText}
         onChange={event => setSearchText(event.target.value)}
@@ -171,7 +172,7 @@ export const SpreadsheetFrontend = ({
                     title={cell}>
                     <button>
                       {cell}
-                      <ArrowIcon />
+                      <div className="arrow-icon" />
                     </button>
                   </th>
                 ))
