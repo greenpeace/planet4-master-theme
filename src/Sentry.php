@@ -38,61 +38,7 @@ class Sentry
             return $context;
         });
 
-        add_action('wp_enqueue_scripts', function (): void {
-            global $wp_scripts;
-
-            $sentry_handles = [];
-            foreach ($wp_scripts->registered as $handle => $data) {
-                if (strpos($handle, 'wp-sentry-browser') !== 0) {
-                    continue;
-                }
-
-                $sentry_handles[] = $handle;
-            }
-
-            $localized = null;
-            foreach ($sentry_handles as $handle) {
-                if (isset($wp_scripts->registered[$handle]->extra['data'])) {
-                    $localized = $wp_scripts->registered[$handle]->extra['data'];
-                    break;
-                }
-            }
-
-
-            foreach ($sentry_handles as $handle) {
-                wp_dequeue_script($handle);
-                wp_deregister_script($handle);
-            }
-
-
-            $async_handle = 'wp-sentry-browser-async';
-
-            $src = plugins_url(
-                'public/wp-sentry-browser.min.js',
-                WP_PLUGIN_DIR . '/wp-sentry-integration/wp-sentry-integration.php'
-            );
-
-            wp_register_script(
-                $async_handle,
-                $src,
-                [],
-                null,
-                true
-            );
-
-            if ($localized) {
-                $wp_scripts->registered[$async_handle]->extra['data'] = $localized;
-            }
-
-            add_filter('script_loader_tag', function ($tag, $handle) use ($async_handle) {
-                if ($handle === $async_handle) {
-                    return str_replace('<script ', '<script async ', $tag);
-                }
-                return $tag;
-            }, 10, 2);
-
-            wp_enqueue_script($async_handle);
-        }, 10);
+        add_action('wp_enqueue_scripts', [$this, 'enqueue_async_sentry_sdk'], 10);
     }
 
     /**
@@ -116,5 +62,56 @@ class Sentry
 
         // Production/Development instances
         return $parts[1];
+    }
+
+    /**
+     * Enqueues the Sentry Browser SDK asynchronously, preserving dependencies,
+     * version, and inline/localized data.
+     *
+     * Only targets scripts whose `src` ends with `wp-sentry-browser.min.js`.
+     *
+     */
+    public function enqueue_async_sentry_sdk(): void
+    {
+        global $wp_scripts;
+
+        if (empty($wp_scripts->registered)) {
+            return;
+        }
+
+        foreach ($wp_scripts->registered as $handle => $script) {
+            $src = $script->src ?? '';
+
+            // Only target the Sentry browser SDK file
+            if (! $src || ! str_ends_with($src, 'wp-sentry-browser.min.js')) {
+                continue;
+            }
+
+            // Script metadata
+            $localized = $script->extra['data'] ?? '';
+            $deps = $script->deps ?? [];
+            $ver = $script->ver ?? null;
+
+            wp_deregister_script($handle);
+
+            $async_handle = $handle . '-async';
+
+            wp_register_script(
+                $async_handle,
+                $src,
+                $deps,
+                $ver,
+                [
+                    'strategy' => 'async',
+                    'in_footer' => true,
+                ]
+            );
+
+            if ($localized) {
+                wp_add_inline_script($async_handle, $localized, 'before');
+            }
+
+            wp_enqueue_script($async_handle);
+        }
     }
 }
