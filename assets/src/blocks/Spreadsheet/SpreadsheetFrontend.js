@@ -145,7 +145,9 @@ export const SpreadsheetFrontend = ({
 
   return (
     <section className={`block block-spreadsheet ${className ?? ''}`}>
-      <input className="spreadsheet-search form-control"
+      <input
+        name="spreadsheet-search"
+        className="spreadsheet-search form-control"
         type="text"
         value={searchText}
         onChange={event => setSearchText(event.target.value)}
