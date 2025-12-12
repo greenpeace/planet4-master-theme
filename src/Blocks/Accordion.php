@@ -39,6 +39,7 @@ class Accordion extends BaseBlock
         register_block_type(
             self::get_full_block_name(),
             [
+                'api_version' => 3,
                 'attributes' => [
                     'title' => [
                         'type' => 'string',

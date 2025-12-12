@@ -39,6 +39,7 @@ class SecondaryNavigation extends BaseBlock
         register_block_type(
             self::get_full_block_name(),
             [
+                'api_version' => 3,
                 'render_callback' => [ self::class, 'render_frontend' ],
                 'attributes' => [
                     'levels' => [
