@@ -18,7 +18,7 @@ const newsPageLink = window.p4_vars.news_page_link;
 
 const seeAllLink = ['core/navigation-link', {...!newsPageLink ? {className: 'd-none'} : {
   url: newsPageLink,
-  label: __('See all posts', 'planet4-blocks'),
+  label: __('See all posts', 'planet4-master-theme'),
   className: 'see-all-link',
 }}];
 

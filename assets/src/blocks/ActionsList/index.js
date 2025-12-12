@@ -81,7 +81,7 @@ export const getActionsListBlockTemplate = (title = __('', 'planet4-blocks-backe
     ['core/button',
       {
         className: 'is-style-secondary',
-        text: __('Load more', 'planet4-blocks'),
+        text: __('Load more', 'planet4-master-theme'),
         tagName: 'button',
         type: 'button',
       },

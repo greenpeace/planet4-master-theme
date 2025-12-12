@@ -13,13 +13,13 @@ export const CarouselControls = ({
 }) => useMemo(() => (
   <>
     {/* Arrows */}
-    <button className="carousel-control-prev" onClick={goToPrevSlide} aria-label={__('Go to previous slide', 'planet4-blocks')}>
+    <button className="carousel-control-prev" onClick={goToPrevSlide} aria-label={__('Go to previous slide', 'planet4-master-theme')}>
       <span className="carousel-control-prev-icon" aria-hidden="true"><i></i></span>
-      <span className="visually-hidden">{__('Previous', 'planet4-blocks')}</span>
+      <span className="visually-hidden">{__('Previous', 'planet4-master-theme')}</span>
     </button>
-    <button className="carousel-control-next" onClick={goToNextSlide} aria-label={__('Go to next slide', 'planet4-blocks')}>
+    <button className="carousel-control-next" onClick={goToNextSlide} aria-label={__('Go to next slide', 'planet4-master-theme')}>
       <span className="carousel-control-next-icon" aria-hidden="true"><i></i></span>
-      <span className="visually-hidden">{__('Next', 'planet4-blocks')}</span>
+      <span className="visually-hidden">{__('Next', 'planet4-master-theme')}</span>
     </button>
     {/* Indicators */}
     <div className="carousel-indicators-wrapper">
@@ -47,7 +47,7 @@ export const CarouselControls = ({
                     }
                   }}
                   // translators: %s: slide index
-                  aria-label={sprintf(__('Go to slide %s', 'planet4-blocks'), index + 1)}
+                  aria-label={sprintf(__('Go to slide %s', 'planet4-master-theme'), index + 1)}
                   aria-current={index === currentSlide ? 'true' : undefined}
                 />
               </li>
@@ -56,7 +56,7 @@ export const CarouselControls = ({
         </ol>
         {disableControls && (
           <button
-            aria-label={autoplay ? __('Stop Slider', 'planet4-blocks') : __('Play Slider', 'planet4-blocks')}
+            aria-label={autoplay ? __('Stop Slider', 'planet4-master-theme') : __('Play Slider', 'planet4-master-theme')}
             className={`carousel-autoplay-control ${autoplay ? 'stop' : 'play'}`}
             onClick={handleAutoplay}
           />
