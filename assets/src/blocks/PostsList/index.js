@@ -30,7 +30,7 @@ export const carouselButtons = ['core/buttons', {
   ['core/button',
     {
       className: 'carousel-control-prev',
-      text: __('Previous Carousel Slide', 'planet4-blocks-backend'),
+      text: __('Previous Carousel Slide', 'planet4-master-theme-backend'),
       tagName: 'button',
       type: 'button',
     },
@@ -38,7 +38,7 @@ export const carouselButtons = ['core/buttons', {
   ['core/button',
     {
       className: 'carousel-control-next',
-      text: __('Next Carousel Slide', 'planet4-blocks-backend'),
+      text: __('Next Carousel Slide', 'planet4-master-theme-backend'),
       tagName: 'button',
       type: 'button',
     },
@@ -69,14 +69,14 @@ export const POSTS_LIST_BLOCK_ATTRIBUTES = {
   },
 };
 
-export const getPostListBlockTemplate = (title = __('Related Posts', 'planet4-blocks-backend')) => ([
+export const getPostListBlockTemplate = (title = __('Related Posts', 'planet4-master-theme-backend')) => ([
   ['core/group', {layout: {type: 'flex', justifyContent: 'space-between'}}, [
     ['core/heading', {lock: {move: true}, content: title}],
     seeAllLink,
   ]],
   ['core/paragraph', {
     lock: {move: true},
-    placeholder: __('Enter description', 'planet4-blocks-backend'),
+    placeholder: __('Enter description', 'planet4-master-theme-backend'),
     style: {
       spacing: {
         margin: {
@@ -87,7 +87,7 @@ export const getPostListBlockTemplate = (title = __('Related Posts', 'planet4-bl
     },
   }],
   ['core/query-no-results', {}, [
-    ['core/paragraph', {content: __('No posts found. (This default text can be edited)', 'planet4-blocks-backend')}],
+    ['core/paragraph', {content: __('No posts found. (This default text can be edited)', 'planet4-master-theme-backend')}],
   ]],
   ['core/post-template', {lock: {move: true, remove: true}}, [
     ['core/columns', {}, [
@@ -123,7 +123,7 @@ export const registerPostsListBlock = () => {
     name: POSTS_LIST_BLOCK_NAME,
     title: 'Posts List',
     icon: 'list-view',
-    description: __('Insert a list or grid of the latest articles, press releases, and/or publications, organized by publication date. ', 'planet4-blocks-backend'),
+    description: __('Insert a list or grid of the latest articles, press releases, and/or publications, organized by publication date. ', 'planet4-master-theme-backend'),
     category: 'planet4-blocks',
     scope: ['inserter'],
     allowedControls: ['taxQuery', 'pages', 'offset'],

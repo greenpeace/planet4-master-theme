@@ -63,7 +63,7 @@ export const HappyPointEditor = ({attributes, setAttributes, isSelected}) => {
           <Button
             onClick={openEvent}
             className="button">
-            + {__('Select Background Image', 'planet4-blocks-backend')}
+            + {__('Select Background Image', 'planet4-master-theme-backend')}
           </Button>
         </div>
       );
@@ -99,23 +99,23 @@ export const HappyPointEditor = ({attributes, setAttributes, isSelected}) => {
       {isSelected && (
         <div>
           <InspectorControls>
-            <PanelBody title={__('Settings', 'planet4-blocks-backend')}>
+            <PanelBody title={__('Settings', 'planet4-master-theme-backend')}>
               <div className="wp-block-master-theme-happypoint__RangeControl">
                 <RangeControl
                   __next40pxDefaultSize
                   __nextHasNoMarginBottom
-                  label={__('Opacity', 'planet4-blocks-backend')}
+                  label={__('Opacity', 'planet4-master-theme-backend')}
                   value={opacity}
                   onChange={toAttribute('opacity')}
                   min={1}
                   max={100}
                   initialPosition={opacity}
-                  help={__('We use an overlay to fade the image back. Use a number between 1 and 100, the higher the number, the more faded the image will look. If you leave this empty, the default of 30 will be used.', 'planet4-blocks-backend')}
+                  help={__('We use an overlay to fade the image back. Use a number between 1 and 100, the higher the number, the more faded the image will look. If you leave this empty, the default of 30 will be used.', 'planet4-master-theme-backend')}
                 />
               </div>
               <CheckboxControl
                 __nextHasNoMarginBottom
-                label={__('Override default form', 'planet4-blocks-backend')}
+                label={__('Override default form', 'planet4-master-theme-backend')}
                 value={override_default_content}
                 checked={override_default_content}
                 onChange={checked => {
@@ -145,8 +145,8 @@ export const HappyPointEditor = ({attributes, setAttributes, isSelected}) => {
                       <TextControl
                         __nextHasNoMarginBottom
                         __next40pxDefaultSize
-                        label={__('Iframe URL', 'planet4-blocks-backend')}
-                        placeholder={__('Enter iframe URL', 'planet4-blocks-backend')}
+                        label={__('Iframe URL', 'planet4-master-theme-backend')}
+                        placeholder={__('Enter iframe URL', 'planet4-master-theme-backend')}
                         value={iframeUrl}
                         onChange={url => {
                           setIframeUrl(url);
@@ -155,7 +155,7 @@ export const HappyPointEditor = ({attributes, setAttributes, isSelected}) => {
                         help={__(
                           'By default this block uses the "Happy Point Subscribe Form URL" in Planet 4 Settings - Default content. ' +
                           'If a URL is set here, it will override this setting.',
-                          'planet4-blocks-backend'
+                          'planet4-master-theme-backend'
                         )}
                       />
                     </div>
@@ -164,7 +164,7 @@ export const HappyPointEditor = ({attributes, setAttributes, isSelected}) => {
                     <div>
                       <TextareaControl
                         __nextHasNoMarginBottom
-                        label={__('HubSpot embed code', 'planet4-blocks-backend')}
+                        label={__('HubSpot embed code', 'planet4-master-theme-backend')}
                         value={embedCode}
                         onChange={code => {
                           setEmbedCode(code);
@@ -173,7 +173,7 @@ export const HappyPointEditor = ({attributes, setAttributes, isSelected}) => {
                         help={__(
                           'By default this block uses the "Happy Point HubSpot embed code" in Planet 4 Settings - Default content. ' +
                           'If an embed code is set here, it will override this setting.',
-                          'planet4-blocks-backend'
+                          'planet4-master-theme-backend'
                         )}
                       />
                     </div>
@@ -183,10 +183,10 @@ export const HappyPointEditor = ({attributes, setAttributes, isSelected}) => {
               {id && 0 < id &&
                 <div className="wp-block-master-theme-happypoint__FocalPointPicker">
                   <strong className="components-base-control__help">
-                    {__('Select image focal point', 'planet4-blocks-backend')}
+                    {__('Select image focal point', 'planet4-master-theme-backend')}
                   </strong>
                   <p className="components-base-control__help">
-                    {__('Drag the mouse to the focal area or input the position with numbers for more precision.', 'planet4-blocks-backend')}
+                    {__('Drag the mouse to the focal area or input the position with numbers for more precision.', 'planet4-master-theme-backend')}
                   </p>
                   <FocalPointPicker
                     __nextHasNoMarginBottom
@@ -196,13 +196,13 @@ export const HappyPointEditor = ({attributes, setAttributes, isSelected}) => {
                     onChange={onFocalPointChange}
                     help={__(
                       'Drag "left" to move across the horizontal axis and slide "top" upwards to move through the vertical axis.',
-                      'planet4-blocks-backend'
+                      'planet4-master-theme-backend'
                     )}
                   />
                 </div>
               }
             </PanelBody>
-            <PanelBody title={__('Learn more about this block ', 'planet4-blocks-backend')} initialOpen={false}>
+            <PanelBody title={__('Learn more about this block ', 'planet4-master-theme-backend')} initialOpen={false}>
               <p className="components-base-control__help">
                 <a target="_blank" href="https://planet4.greenpeace.org/content/blocks/happy-point/" rel="noreferrer">
                   P4 Handbook Happy Point
@@ -223,7 +223,7 @@ export const HappyPointEditor = ({attributes, setAttributes, isSelected}) => {
                     render={({open}) => (
                       <ToolbarButton
                         className="components-icon-button components-toolbar__control"
-                        label={__('Edit Image', 'planet4-blocks-backend')}
+                        label={__('Edit Image', 'planet4-master-theme-backend')}
                         onClick={open}
                         icon="edit"
                       />
@@ -232,7 +232,7 @@ export const HappyPointEditor = ({attributes, setAttributes, isSelected}) => {
                 </MediaUploadCheck>
                 <ToolbarButton
                   className="components-icon-button components-toolbar__control"
-                  label={__('Remove Image', 'planet4-blocks-backend')}
+                  label={__('Remove Image', 'planet4-master-theme-backend')}
                   onClick={onRemoveImages}
                   icon="trash"
                 />
@@ -243,7 +243,7 @@ export const HappyPointEditor = ({attributes, setAttributes, isSelected}) => {
       )}
       <MediaUploadCheck>
         <MediaUpload
-          title={__('Select Background Image', 'planet4-blocks-backend')}
+          title={__('Select Background Image', 'planet4-master-theme-backend')}
           type="image"
           onSelect={selectImage}
           value={id}

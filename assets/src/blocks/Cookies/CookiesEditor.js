@@ -40,7 +40,7 @@ export const CookiesEditor = ({setAttributes, attributes, isSelected}) => {
         <FrontendRichText
           tagName="h2"
           className="page-section-header cookies-title"
-          placeholder={__('Enter title', 'planet4-blocks-backend')}
+          placeholder={__('Enter title', 'planet4-master-theme-backend')}
           value={title}
           onChange={toAttribute('title')}
           withoutInteractiveFormatting
@@ -51,7 +51,7 @@ export const CookiesEditor = ({setAttributes, attributes, isSelected}) => {
       <FrontendRichText
         tagName="p"
         className="page-section-description cookies-description"
-        placeholder={__('Enter description', 'planet4-blocks-backend')}
+        placeholder={__('Enter description', 'planet4-master-theme-backend')}
         value={description}
         onChange={toAttribute('description')}
         withoutInteractiveFormatting
@@ -63,7 +63,7 @@ export const CookiesEditor = ({setAttributes, attributes, isSelected}) => {
           <FrontendRichText
             tagName="span"
             className="custom-control-description cookies-header-text"
-            placeholder={__('Enter necessary cookies name', 'planet4-blocks-backend')}
+            placeholder={__('Enter necessary cookies name', 'planet4-master-theme-backend')}
             value={getFieldValue('necessary_cookies_name')}
             onChange={toAttribute('necessary_cookies_name')}
             withoutInteractiveFormatting
@@ -81,7 +81,7 @@ export const CookiesEditor = ({setAttributes, attributes, isSelected}) => {
           <FrontendRichText
             tagName="p"
             className="cookies-checkbox-description"
-            placeholder={__('Enter necessary cookies description', 'planet4-blocks-backend')}
+            placeholder={__('Enter necessary cookies description', 'planet4-master-theme-backend')}
             value={getFieldValue('necessary_cookies_description')}
             onChange={toAttribute('necessary_cookies_description')}
             withoutInteractiveFormatting
@@ -109,7 +109,7 @@ export const CookiesEditor = ({setAttributes, attributes, isSelected}) => {
               <FrontendRichText
                 tagName="span"
                 className="custom-control-description cookies-header-text"
-                placeholder={__('Enter analytical cookies name', 'planet4-blocks-backend')}
+                placeholder={__('Enter analytical cookies name', 'planet4-master-theme-backend')}
                 value={getFieldValue('analytical_cookies_name')}
                 onChange={toAttribute('analytical_cookies_name')}
                 withoutInteractiveFormatting
@@ -127,7 +127,7 @@ export const CookiesEditor = ({setAttributes, attributes, isSelected}) => {
             <FrontendRichText
               tagName="p"
               className="cookies-checkbox-description"
-              placeholder={__('Enter analytical cookies description', 'planet4-blocks-backend')}
+              placeholder={__('Enter analytical cookies description', 'planet4-master-theme-backend')}
               value={getFieldValue('analytical_cookies_description')}
               onChange={toAttribute('analytical_cookies_description')}
               withoutInteractiveFormatting
@@ -154,7 +154,7 @@ export const CookiesEditor = ({setAttributes, attributes, isSelected}) => {
             <FrontendRichText
               tagName="span"
               className="custom-control-description cookies-header-text"
-              placeholder={__('Enter all cookies name', 'planet4-blocks-backend')}
+              placeholder={__('Enter all cookies name', 'planet4-master-theme-backend')}
               value={getFieldValue('all_cookies_name')}
               onChange={toAttribute('all_cookies_name')}
               withoutInteractiveFormatting
@@ -171,7 +171,7 @@ export const CookiesEditor = ({setAttributes, attributes, isSelected}) => {
           <FrontendRichText
             tagName="p"
             className="cookies-checkbox-description"
-            placeholder={__('Enter all cookies description', 'planet4-blocks-backend')}
+            placeholder={__('Enter all cookies description', 'planet4-master-theme-backend')}
             value={getFieldValue('all_cookies_description')}
             onChange={toAttribute('all_cookies_description')}
             withoutInteractiveFormatting
@@ -190,7 +190,7 @@ export const CookiesEditor = ({setAttributes, attributes, isSelected}) => {
   const renderEdit = () => (
     <>
       <InspectorControls>
-        <PanelBody title={__('Learn more about this block ', 'planet4-blocks-backend')} initialOpen={false}>
+        <PanelBody title={__('Learn more about this block ', 'planet4-master-theme-backend')} initialOpen={false}>
           <p className="components-base-control__help">
             <a target="_blank" href="https://planet4.greenpeace.org/content/blocks/cookies/" rel="noreferrer">
             P4 Handbook Cookies

@@ -4,7 +4,7 @@
   "name": "planet4-block-templates/page-header",
   "title": "Page Header",
   "category": "planet4-block-templates",
-  "textdomain": "planet4-blocks-backend",
+  "textdomain": "planet4-master-theme-backend",
   "attributes": {
     "imageFill": { "type": "boolean" },
     "mediaPosition": { "type": "string" },
