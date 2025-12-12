@@ -34,7 +34,7 @@ const renderView = ({title, description, tabs, className}, setAttributes, isSele
         <RichText
           tagName="h2"
           className="page-section-header"
-          placeholder={__('Enter title', 'planet4-blocks-backend')}
+          placeholder={__('Enter title', 'planet4-master-theme-backend')}
           value={title}
           onChange={toAttribute('title')}
           withoutInteractiveFormatting
@@ -44,7 +44,7 @@ const renderView = ({title, description, tabs, className}, setAttributes, isSele
       <RichText
         tagName="p"
         className="page-section-description"
-        placeholder={__('Enter description', 'planet4-blocks-backend')}
+        placeholder={__('Enter description', 'planet4-master-theme-backend')}
         value={description}
         onChange={toAttribute('description')}
         withoutInteractiveFormatting
@@ -55,7 +55,7 @@ const renderView = ({title, description, tabs, className}, setAttributes, isSele
           <RichText
             tagName="h4"
             className={`accordion-headline ${isSelected ? 'open' : ''}`}
-            placeholder={__('Enter headline', 'planet4-blocks-backend')}
+            placeholder={__('Enter headline', 'planet4-master-theme-backend')}
             value={tab.headline}
             onChange={updateTabAttribute('headline', index)}
             withoutInteractiveFormatting
@@ -65,7 +65,7 @@ const renderView = ({title, description, tabs, className}, setAttributes, isSele
             <RichText
               tagName="p"
               className="accordion-text"
-              placeholder={__('Enter text', 'planet4-blocks-backend')}
+              placeholder={__('Enter text', 'planet4-master-theme-backend')}
               value={tab.text}
               onChange={updateTabAttribute('text', index)}
               allowedFormats={['core/bold', 'core/italic', 'core/link']}
@@ -75,7 +75,7 @@ const renderView = ({title, description, tabs, className}, setAttributes, isSele
                 <RichText
                   tagName="div"
                   className="btn btn-secondary accordion-btn"
-                  placeholder={__('Button text', 'planet4-blocks-backend')}
+                  placeholder={__('Button text', 'planet4-master-theme-backend')}
                   value={tab.button.button_text}
                   onChange={updateTabAttribute('button_text', index)}
                   withoutInteractiveFormatting
@@ -89,7 +89,7 @@ const renderView = ({title, description, tabs, className}, setAttributes, isSele
               </div> :
               <div onClick={() => addButton(index)} className="add-button" role="presentation">
                 <span className="plus">+</span>
-                {__('Add button', 'planet4-blocks-backend')}
+                {__('Add button', 'planet4-master-theme-backend')}
               </div>
             }
           </div>
