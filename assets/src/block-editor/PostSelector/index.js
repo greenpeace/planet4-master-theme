@@ -115,13 +115,13 @@ export const PostSelector = attributes => {
     <FormTokenField
       __nextHasNoMarginBottom
       __next40pxDefaultSize
-      label={label || __('Select posts', 'planet4-blocks-backend')}
+      label={label || __('Select posts', 'planet4-master-theme-backend')}
       value={getValue() || null}
       suggestions={options.map(post => post.title || '<empty title>')}
       onChange={value => {
         setPostsIdsFromTitles(value);
       }}
-      placeholder={placeholder || __('Select posts', 'planet4-blocks-backend')}
+      placeholder={placeholder || __('Select posts', 'planet4-master-theme-backend')}
       maxLength={maxLength}
       maxSuggestions={maxSuggestions || 50}
     />

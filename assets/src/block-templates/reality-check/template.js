@@ -12,11 +12,11 @@ const column = ['core/column', {}, [
     ['core/heading', {
       style: {typography: {fontSize: '4rem'}},
       textAlign: 'center',
-      placeholder: __('Enter title', 'planet4-blocks-backend'),
+      placeholder: __('Enter title', 'planet4-master-theme-backend'),
     }],
     ['core/paragraph', {
       align: 'center',
-      placeholder: __('Enter description', 'planet4-blocks-backend'),
+      placeholder: __('Enter description', 'planet4-master-theme-backend'),
     }],
     ['core/spacer', {height: '16px'}],
   ]],

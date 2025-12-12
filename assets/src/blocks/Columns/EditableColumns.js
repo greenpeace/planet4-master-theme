@@ -32,7 +32,7 @@ export const EditableColumns = ({
         isPrimary
         className="tasks-image-button"
       >
-        {__('Add image', 'planet4-blocks-backend')}
+        {__('Add image', 'planet4-master-theme-backend')}
       </Button>;
     }
 
@@ -48,7 +48,7 @@ export const EditableColumns = ({
         className="image-placeholder-button"
       >
         {/* For the Icons style we only show the button icon */}
-        {columns_block_style !== LAYOUT_ICONS ? __('Add image', 'planet4-blocks-backend') : ''}
+        {columns_block_style !== LAYOUT_ICONS ? __('Add image', 'planet4-master-theme-backend') : ''}
       </Button>
     </div>;
   };
@@ -76,14 +76,14 @@ export const EditableColumns = ({
                 </MediaUploadCheck>
                 {columns_block_style === LAYOUT_ICONS && column.attachment > 0 && typeof columnImages[column.attachment] !== 'undefined' && !columnImages[column.attachment].endsWith('.png') &&
                   <div className="column-image-error">
-                    {__('Please select another image for this column, as the current image is not an icon and you have chosen columns style icons. ', 'planet4-blocks-backend')}
+                    {__('Please select another image for this column, as the current image is not an icon and you have chosen columns style icons. ', 'planet4-master-theme-backend')}
                   </div>
                 }
               </div>
             )}
             <RichText
               tagName={columns_block_style === LAYOUT_TASKS ? 'h5' : 'h3'}
-              placeholder={__('Enter column header', 'planet4-blocks-backend')}
+              placeholder={__('Enter column header', 'planet4-master-theme-backend')}
               value={column.title}
               onChange={toAttribute('title', index)}
               withoutInteractiveFormatting
@@ -91,7 +91,7 @@ export const EditableColumns = ({
             />
             <RichText
               tagName="p"
-              placeholder={__('Enter column description', 'planet4-blocks-backend')}
+              placeholder={__('Enter column description', 'planet4-master-theme-backend')}
               value={column.description}
               onChange={toAttribute('description', index)}
               withoutInteractiveFormatting
@@ -114,8 +114,8 @@ export const EditableColumns = ({
                 `btn btn-${isCampaign ? 'primary' : 'secondary'} ${columns_block_style === LAYOUT_TASKS ? 'btn-small' : ''}` :
                 'standalone-link'}
               placeholder={[LAYOUT_NO_IMAGE, LAYOUT_TASKS].includes(columns_block_style) ?
-                __('Enter column button text', 'planet4-blocks-backend') :
-                __('Enter column link text', 'planet4-blocks-backend')}
+                __('Enter column button text', 'planet4-master-theme-backend') :
+                __('Enter column link text', 'planet4-master-theme-backend')}
               value={column.cta_text}
               onChange={toAttribute('cta_text', index)}
               withoutInteractiveFormatting

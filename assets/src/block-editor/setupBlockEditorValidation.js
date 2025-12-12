@@ -167,11 +167,11 @@ const PrePublishCheckList = () => {
 
   return (
     <PluginPrePublishPanel
-      title={__('Publish Checklist', 'planet4-blocks-backend')}
+      title={__('Publish Checklist', 'planet4-master-theme-backend')}
       initialOpen="true"
       className={!canPublish ? 'p4-plugin-pre-publish-panel-error' : ''}
       icon="none">
-      {!!canPublish && <p>{ __('All good.', 'planet4-blocks-backend') }</p>}
+      {!!canPublish && <p>{ __('All good.', 'planet4-master-theme-backend') }</p>}
       {!canPublish && <ul>
         { messages.map(msg =>
           <li key={msg}><p>{ msg }</p></li>

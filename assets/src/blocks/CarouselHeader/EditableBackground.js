@@ -49,7 +49,7 @@ export const EditableBackground = ({
                 icon="edit"
                 onClick={onToggle}
               >
-                {__('Edit', 'planet4-blocks-backend')}
+                {__('Edit', 'planet4-master-theme-backend')}
               </Button>
             )}
             renderContent={({onToggle}) => (
@@ -63,8 +63,8 @@ export const EditableBackground = ({
                   }}
                 >
                   {image_url ?
-                    __('Change image', 'planet4-blocks-backend') :
-                    __('Add image', 'planet4-blocks-backend')
+                    __('Change image', 'planet4-master-theme-backend') :
+                    __('Add image', 'planet4-master-theme-backend')
                   }
                 </Button>
                 {image_url && (
@@ -75,7 +75,7 @@ export const EditableBackground = ({
                       onToggle();
                     }}
                   >
-                    {__('Remove image', 'planet4-blocks-backend')}
+                    {__('Remove image', 'planet4-master-theme-backend')}
                   </Button>
                 )}
                 {slides.length < 4 && (
@@ -86,7 +86,7 @@ export const EditableBackground = ({
                       onToggle();
                     }}
                   >
-                    {__('Add slide', 'planet4-blocks-backend')}
+                    {__('Add slide', 'planet4-master-theme-backend')}
                   </Button>
                 )}
                 {slides.length > 1 &&
@@ -97,7 +97,7 @@ export const EditableBackground = ({
                       onToggle();
                     }}
                   >
-                    {__('Remove slide', 'planet4-blocks-backend')}
+                    {__('Remove slide', 'planet4-master-theme-backend')}
                   </Button>
                 }
               </div>

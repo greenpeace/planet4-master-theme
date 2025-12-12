@@ -160,11 +160,11 @@ const TopicLinkEditor = ({
    */
   const addInspectorControls = () => (
     <InspectorControls>
-      <PanelBody title={__('Settings', 'planet4-blocks-backend')}>
+      <PanelBody title={__('Settings', 'planet4-master-theme-backend')}>
         <SelectControl
           __nextHasNoMarginBottom
           __next40pxDefaultSize
-          label={__('Select Category:', 'planet4-blocks-backend')}
+          label={__('Select Category:', 'planet4-master-theme-backend')}
           value={categoryId}
           options={categoriesList.map(category => ({label: category.name, value: category.id}))}
           onChange={id => setAttributes({categoryId: Number.parseInt(id)})}
@@ -172,10 +172,10 @@ const TopicLinkEditor = ({
         {imageUrl && (
           <div className="wp-block-master-theme-gallery__FocalPointPicker">
             <strong className="components-base-control__help">
-              {__('Select image focal point', 'planet4-blocks-backend')}
+              {__('Select image focal point', 'planet4-master-theme-backend')}
             </strong>
             <p className="components-base-control__help">
-              {__('Adjust the “Left” and “Top” fields to position the focal point of the image in percentage, where 0% is the top/left edge and 100% is the bottom/right edge.', 'planet4-blocks-backend')}
+              {__('Adjust the “Left” and “Top” fields to position the focal point of the image in percentage, where 0% is the top/left edge and 100% is the bottom/right edge.', 'planet4-master-theme-backend')}
             </p>
             <FocalPointPicker
               __nextHasNoMarginBottom
@@ -187,7 +187,7 @@ const TopicLinkEditor = ({
           </div>
         )}
       </PanelBody>
-      <PanelBody title={__('Learn more about this block ', 'planet4-blocks-backend')} initialOpen={false}>
+      <PanelBody title={__('Learn more about this block ', 'planet4-master-theme-backend')} initialOpen={false}>
         <p className="components-base-control__help">
           <a target="_blank" href="https://planet4.greenpeace.org/content/blocks/topic-link/" rel="noreferrer">
             P4 Handbook Topic Link
@@ -214,7 +214,7 @@ const TopicLinkEditor = ({
             render={({open}) => (
               <ToolbarButton
                 className="components-icon-button components-toolbar__control"
-                label={imageId ? __('Change Background Image', 'planet4-blocks-backend') : __('Select Background Image', 'planet4-blocks-backend')}
+                label={imageId ? __('Change Background Image', 'planet4-master-theme-backend') : __('Select Background Image', 'planet4-master-theme-backend')}
                 onClick={open}
                 icon={imageId ? 'edit' : 'upload'}
               />
@@ -224,7 +224,7 @@ const TopicLinkEditor = ({
         {imageId && (
           <ToolbarButton
             className="components-icon-button components-toolbar__control"
-            label={__('Remove Image', 'planet4-blocks-backend')}
+            label={__('Remove Image', 'planet4-master-theme-backend')}
             onClick={() => setAttributes({imageId: null})}
             icon="trash"
           />

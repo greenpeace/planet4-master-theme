@@ -50,10 +50,10 @@ const renderEdit = (
 ) => {
   return (
     <InspectorControls>
-      <PanelBody title={__('Settings', 'planet4-blocks-backend')}>
+      <PanelBody title={__('Settings', 'planet4-master-theme-backend')}>
         <URLInput
-          label={__('Google Sheets URL', 'planet4-blocks-backend')}
-          placeholder={__('Enter URL', 'planet4-blocks-backend')}
+          label={__('Google Sheets URL', 'planet4-master-theme-backend')}
+          placeholder={__('Enter URL', 'planet4-master-theme-backend')}
           value={sheetURL}
           onChange={value => {
             setSheetURL(value);
@@ -66,7 +66,7 @@ const renderEdit = (
         <SelectControl
           __nextHasNoMarginBottom
           __next40pxDefaultSize
-          label={__('Language', 'planet4-blocks-backend')}
+          label={__('Language', 'planet4-master-theme-backend')}
           value={language}
           options={languages}
           onChange={toAttribute('language')}
@@ -75,7 +75,7 @@ const renderEdit = (
         <SelectControl
           __nextHasNoMarginBottom
           __next40pxDefaultSize
-          label={__('Timeline navigation position', 'planet4-blocks-backend')}
+          label={__('Timeline navigation position', 'planet4-master-theme-backend')}
           value={timenav_position}
           options={positions}
           onChange={toAttribute('timenav_position')}
@@ -83,15 +83,15 @@ const renderEdit = (
 
         <CheckboxControl
           __nextHasNoMarginBottom
-          label={__('Start at end', 'planet4-blocks-backend')}
-          help={__('Begin at the end of the timeline', 'planet4-blocks-backend')}
+          label={__('Start at end', 'planet4-master-theme-backend')}
+          help={__('Begin at the end of the timeline', 'planet4-master-theme-backend')}
           value={start_at_end}
           checked={start_at_end}
           onChange={toAttribute('start_at_end')}
         />
 
       </PanelBody>
-      <PanelBody title={__('Learn more about this block', 'planet4-blocks-backend')} initialOpen={false}>
+      <PanelBody title={__('Learn more about this block', 'planet4-master-theme-backend')} initialOpen={false}>
         <p className="components-base-control__help">
           <a target="_blank" href="https://planet4.greenpeace.org/content/blocks/timeline/" rel="noreferrer">
             P4 Handbook Timeline
@@ -106,12 +106,12 @@ const renderEdit = (
 const renderView = (attributes, toAttribute, scriptLoaded, stylesLoaded) => {
   return (
     <section className={`block timeline-block ${attributes.className ?? ''}`}>
-      <Tooltip text={__('Edit text', 'planet4-blocks-backend')}>
+      <Tooltip text={__('Edit text', 'planet4-master-theme-backend')}>
         <header>
           <RichText
             tagName="h2"
             className="page-section-header"
-            placeholder={__('Enter title', 'planet4-blocks-backend')}
+            placeholder={__('Enter title', 'planet4-master-theme-backend')}
             value={attributes.timeline_title}
             onChange={toAttribute('timeline_title')}
             withoutInteractiveFormatting
@@ -123,7 +123,7 @@ const renderView = (attributes, toAttribute, scriptLoaded, stylesLoaded) => {
       <RichText
         tagName="p"
         className="page-section-description"
-        placeholder={__('Enter description', 'planet4-blocks-backend')}
+        placeholder={__('Enter description', 'planet4-master-theme-backend')}
         value={attributes.description}
         onChange={toAttribute('description')}
         withoutInteractiveFormatting
@@ -132,7 +132,7 @@ const renderView = (attributes, toAttribute, scriptLoaded, stylesLoaded) => {
       />
       {!attributes.google_sheets_url &&
         <div className="block-edit-mode-warning components-notice is-warning">
-          { __('Please include a Sheet URL.', 'planet4-blocks-backend') }
+          { __('Please include a Sheet URL.', 'planet4-master-theme-backend') }
         </div>
       }
       {attributes.google_sheets_url && scriptLoaded && stylesLoaded &&

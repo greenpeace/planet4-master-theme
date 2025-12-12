@@ -78,7 +78,7 @@ const addQuoteBlockExtraDescription = () => addFilter('blocks.registerBlockType'
   }
 
   const {description} = settings;
-  settings.description = `${description}. ${__('Try to keep your Quote short and concise, so that it stands out effectively.', 'planet4-blocks-backend')}`;
+  settings.description = `${description}. ${__('Try to keep your Quote short and concise, so that it stands out effectively.', 'planet4-master-theme-backend')}`;
 
   return settings;
 });

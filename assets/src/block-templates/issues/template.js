@@ -25,7 +25,7 @@ const item = ['core/group', {
   ['core/image', {
     className: 'force-no-lightbox force-no-caption my-0 square-40',
     url: `${mainThemeUrl}/images/placeholders/placeholder-40x40.jpg`,
-    alt: __('Enter text', 'planet4-blocks-backend'),
+    alt: __('Enter text', 'planet4-master-theme-backend'),
   }],
   ['core/heading', {
     level: 5,
@@ -37,7 +37,7 @@ const item = ['core/group', {
       },
     },
     textAlign: 'left',
-    placeholder: __('Enter text', 'planet4-blocks-backend'),
+    placeholder: __('Enter text', 'planet4-master-theme-backend'),
   }],
 ]];
 
@@ -65,7 +65,7 @@ const template = ({
       ['core/heading', {
         level: 2,
         content: title,
-        placeholder: __('Enter title', 'planet4-blocks-backend'),
+        placeholder: __('Enter title', 'planet4-master-theme-backend'),
         style: {
           spacing: {
             margin: {
@@ -78,7 +78,7 @@ const template = ({
       ],
       ['core/paragraph', {
         className: 'my-0',
-        placeholder: __('Enter description', 'planet4-blocks-backend'),
+        placeholder: __('Enter description', 'planet4-master-theme-backend'),
         align: 'center',
       },
       ],
@@ -105,7 +105,7 @@ const template = ({
           justifyContent: 'center',
         },
       }, [
-        ['core/button', {placeholder: __('Enter text', 'planet4-blocks-backend')}]]],
+        ['core/button', {placeholder: __('Enter text', 'planet4-master-theme-backend')}]]],
     ],
     ],
   ],

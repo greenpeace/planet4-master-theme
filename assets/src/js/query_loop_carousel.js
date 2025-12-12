@@ -65,7 +65,7 @@ export const setupQueryLoopCarousel = () => {
 
       const backToList = document.createElement('a');
       backToList.href = `#${uniqueId}`;
-      backToList.textContent = __('Back to List', 'planet4-blocks-backend');
+      backToList.textContent = __('Back to List', 'planet4-master-theme-backend');
       backToList.classList.add('carousel-skip-link');
       backToList.setAttribute('role', 'link');
 

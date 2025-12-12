@@ -224,12 +224,12 @@ export const setupQueryLoopBlockExtension = () => {
             <InspectorControls>
               {attributes.layout && (
                 <PanelBody
-                  title={__('Layout view', 'planet4-blocks-backend')}
+                  title={__('Layout view', 'planet4-master-theme-backend')}
                   initialOpen={true}
                 >
                   <RadioControl
-                    label={__('Display as', 'planet4-blocks-backend')}
-                    help={__('The layout of the action|post list', 'planet4-blocks-backend')}
+                    label={__('Display as', 'planet4-master-theme-backend')}
+                    help={__('The layout of the action|post list', 'planet4-master-theme-backend')}
                     selected={attributes.layout.type}
                     options={layoutTypes}
                     onChange={updateLayoutType}
@@ -237,21 +237,21 @@ export const setupQueryLoopBlockExtension = () => {
                 </PanelBody>
               )}
               {
-                <PanelBody title={__('Manual override', 'planet4-blocks-backend')} initialOpen={query.postIn.length > 0}>
+                <PanelBody title={__('Manual override', 'planet4-master-theme-backend')} initialOpen={query.postIn.length > 0}>
                   <PostSelector
-                    label={__('CAUTION: Adding posts individually will override the automatic functionality of this block. For good user experience, please include at least 3 articles in list view, 4 articles in grid view, and 9 articles in carousel view, so that spacing and alignment of the design remains intact.', 'planet4-blocks-backend')}
+                    label={__('CAUTION: Adding posts individually will override the automatic functionality of this block. For good user experience, please include at least 3 articles in list view, 4 articles in grid view, and 9 articles in carousel view, so that spacing and alignment of the design remains intact.', 'planet4-master-theme-backend')}
                     selected={query.postIn || []}
                     onChange={updateQuery}
                     postType={query.postType || 'post'}
                     postParent={query?.postParent || null}
-                    placeholder={__('Select articles', 'planet4-blocks-backend')}
+                    placeholder={__('Select articles', 'planet4-master-theme-backend')}
                     maxLength={maxLength}
                     maxSuggestions={20}
                   />
                 </PanelBody>
               }
               {
-                <PanelBody title={__('Learn more about this block ', 'planet4-blocks-backend')} initialOpen={false}>
+                <PanelBody title={__('Learn more about this block ', 'planet4-master-theme-backend')} initialOpen={false}>
                   <p className="components-base-control__help">
                     {isActionsList && (
                       <>

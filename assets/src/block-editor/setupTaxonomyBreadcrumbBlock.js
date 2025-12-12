@@ -9,7 +9,7 @@ export const setupTaxonomyBreadcrumbBlock = () => {
     TAX_BREADCRUMB_BLOCK_NAME,
     {
       apiVersion: 2,
-      title: __('Taxonomy Breadcrumb', 'planet4-blocks-backend'),
+      title: __('Taxonomy Breadcrumb', 'planet4-master-theme-backend'),
       icon: 'tag',
       category: 'widgets',
       attributes: {

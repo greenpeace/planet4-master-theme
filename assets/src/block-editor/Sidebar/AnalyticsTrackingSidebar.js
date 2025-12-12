@@ -29,7 +29,7 @@ export const AnalyticsTrackingSidebar = {
     return options && (
       <PluginDocumentSettingPanel
         name="analytics-panel"
-        title={__('Analytics & Tracking', 'planet4-blocks-backend')}
+        title={__('Analytics & Tracking', 'planet4-master-theme-backend')}
       >
         <SelectSidebarField
           label={__('Global Project', 'planet4-master-theme-backend')}

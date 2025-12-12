@@ -7,7 +7,7 @@ const {__} = wp.i18n;
 
 const renderEdit = () =>  (
   <InspectorControls>
-    <PanelBody title={__('Learn more about this block', 'planet4-blocks-backend')} initialOpen={false}>
+    <PanelBody title={__('Learn more about this block', 'planet4-master-theme-backend')} initialOpen={false}>
       <p className="components-base-control__help">
         <a target="_blank" href="https://planet4.greenpeace.org/content/blocks/secondary-navigation/" rel="noreferrer">
             P4 Handbook - P4 Secondary Navigation Menu
@@ -40,7 +40,7 @@ const renderView = ({levels}) => {
           </ul>
         </div> :
         <div className="EmptyMessage">
-          {__('There are not any pre-established headings that this block can display in the form of a secondary navigation menu. Please add headings to your page.', 'planet4-blocks-backend')}
+          {__('There are not any pre-established headings that this block can display in the form of a secondary navigation menu. Please add headings to your page.', 'planet4-master-theme-backend')}
         </div>
       }
     </section>

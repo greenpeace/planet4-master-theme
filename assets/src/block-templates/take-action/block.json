@@ -4,7 +4,7 @@
   "name": "planet4-block-templates/take-action",
   "title": "Take Action",
   "category": "planet4-block-templates",
-  "textdomain": "planet4-blocks-backend",
+  "textdomain": "planet4-master-theme-backend",
   "attributes": {
     "backgroundColor": { "type": "string" }
   }
