@@ -22,7 +22,7 @@ export class URLValidationMessage extends Component {
     }
 
     return (
-      <span className="input_error">{ __('The URL must start with "https://"', 'planet4-blocks-backend') }</span>
+      <span className="input_error">{ __('The URL must start with "https://"', 'planet4-master-theme-backend') }</span>
     );
   }
 }

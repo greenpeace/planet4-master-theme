@@ -6,7 +6,7 @@ const {__} = wp.i18n;
 const template = () => ([
   ['core/group', {className: 'block'}, [
     ['planet4-block-templates/page-header', {
-      titlePlaceholder: __('Page header title', 'planet4-blocks-backend'),
+      titlePlaceholder: __('Page header title', 'planet4-master-theme-backend'),
     }],
     ['core/spacer', {height: '64px'}],
     ['planet4-block-templates/side-image-with-text-and-cta', {

@@ -19,10 +19,10 @@ const gravityFormWithText = backgroundColor => (
           ['core/heading', {
             level: 2,
             style: {typography: {fontSize: '40px'}},
-            placeholder: __('Enter title', 'planet4-blocks-backend'),
+            placeholder: __('Enter title', 'planet4-master-theme-backend'),
           }],
           ['core/paragraph', {
-            placeholder: __('Enter description', 'planet4-blocks-backend'),
+            placeholder: __('Enter description', 'planet4-master-theme-backend'),
           }],
         ]],
         ['core/column', {}, [

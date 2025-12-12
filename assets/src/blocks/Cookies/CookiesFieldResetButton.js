@@ -12,7 +12,7 @@ export const CookiesFieldResetButton = ({fieldName, toAttribute, currentValue}) 
 
   return (
     <div className="field-reset-button">
-      <Tooltip text={__('This value is defined in the settings, in Planet 4 > Cookies', 'planet4-blocks-backend')}>
+      <Tooltip text={__('This value is defined in the settings, in Planet 4 > Cookies', 'planet4-master-theme-backend')}>
         <span className="info">i</span>
       </Tooltip>
       <span
@@ -20,7 +20,7 @@ export const CookiesFieldResetButton = ({fieldName, toAttribute, currentValue}) 
         onClick={() => toAttribute(fieldName)(undefined)}
         role="presentation"
       >
-        {__('Use default value', 'planet4-blocks-backend')}
+        {__('Use default value', 'planet4-master-theme-backend')}
       </span>
     </div>
   );

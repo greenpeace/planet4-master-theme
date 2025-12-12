@@ -61,8 +61,8 @@ const renderEdit = (attributes, setAttributes, isSelected) => {
           <MediaPlaceholder
             addToGallery={hasImages}
             labels={{
-              title: __('Select Gallery Images', 'planet4-blocks-backend'),
-              instructions: __('Upload an JPEG image or select one from the media library.', 'planet4-blocks-backend'),
+              title: __('Select Gallery Images', 'planet4-master-theme-backend'),
+              instructions: __('Upload an JPEG image or select one from the media library.', 'planet4-master-theme-backend'),
             }}
             onSelect={onSelectImage}
             allowedTypes={['image']}
@@ -74,13 +74,13 @@ const renderEdit = (attributes, setAttributes, isSelected) => {
       }
       {hasImages && (
         <InspectorControls>
-          <PanelBody title={__('Settings', 'planet4-blocks-backend')}>
+          <PanelBody title={__('Settings', 'planet4-master-theme-backend')}>
             <div className="wp-block-master-theme-gallery__FocalPointPicker">
               <strong className="components-base-control__help">
-                {__('Select gallery image focal point', 'planet4-blocks-backend')}
+                {__('Select gallery image focal point', 'planet4-master-theme-backend')}
               </strong>
               <p className="components-base-control__help">
-                {__('Adjust the “Left” and “Top” fields to position the focal point of the image in percentage, where 0% is the top/left edge and 100% is the bottom/right edge.', 'planet4-blocks-backend')}
+                {__('Adjust the “Left” and “Top” fields to position the focal point of the image in percentage, where 0% is the top/left edge and 100% is the bottom/right edge.', 'planet4-master-theme-backend')}
               </p>
               <ul className="p-0">
                 {focalPointImages.map((item, index) => (
@@ -130,7 +130,7 @@ const renderView = (attributes, setAttributes) => {
         <RichText
           tagName="h2"
           className="page-section-header"
-          placeholder={__('Enter title', 'planet4-blocks-backend')}
+          placeholder={__('Enter title', 'planet4-master-theme-backend')}
           value={gallery_block_title}
           onChange={toAttribute('gallery_block_title')}
           withoutInteractiveFormatting
@@ -140,7 +140,7 @@ const renderView = (attributes, setAttributes) => {
       <RichText
         tagName="p"
         className="page-section-description"
-        placeholder={__('Enter description', 'planet4-blocks-backend')}
+        placeholder={__('Enter description', 'planet4-master-theme-backend')}
         value={gallery_block_description}
         onChange={toAttribute('gallery_block_description')}
         withoutInteractiveFormatting

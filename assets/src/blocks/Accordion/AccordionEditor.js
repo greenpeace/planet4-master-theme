@@ -34,7 +34,7 @@ const renderView = ({title, description, tabs, className}, setAttributes, isSele
         <RichText
           tagName="h2"
           className="page-section-header"
-          placeholder={__('Enter title', 'planet4-blocks-backend')}
+          placeholder={__('Enter title', 'planet4-master-theme-backend')}
           value={title}
           onChange={toAttribute('title')}
           withoutInteractiveFormatting
@@ -44,7 +44,7 @@ const renderView = ({title, description, tabs, className}, setAttributes, isSele
       <RichText
         tagName="p"
         className="page-section-description"
-        placeholder={__('Enter description', 'planet4-blocks-backend')}
+        placeholder={__('Enter description', 'planet4-master-theme-backend')}
         value={description}
         onChange={toAttribute('description')}
         withoutInteractiveFormatting
@@ -55,7 +55,7 @@ const renderView = ({title, description, tabs, className}, setAttributes, isSele
           <RichText
             tagName="h4"
             className={`accordion-headline ${isSelected ? 'open' : ''}`}
-            placeholder={__('Enter headline', 'planet4-blocks-backend')}
+            placeholder={__('Enter headline', 'planet4-master-theme-backend')}
             value={tab.headline}
             onChange={updateTabAttribute('headline', index)}
             withoutInteractiveFormatting
@@ -65,7 +65,7 @@ const renderView = ({title, description, tabs, className}, setAttributes, isSele
             <RichText
               tagName="p"
               className="accordion-text"
-              placeholder={__('Enter text', 'planet4-blocks-backend')}
+              placeholder={__('Enter text', 'planet4-master-theme-backend')}
               value={tab.text}
               onChange={updateTabAttribute('text', index)}
               allowedFormats={['core/bold', 'core/italic', 'core/link']}
@@ -75,7 +75,7 @@ const renderView = ({title, description, tabs, className}, setAttributes, isSele
                 <RichText
                   tagName="div"
                   className="btn btn-secondary accordion-btn"
-                  placeholder={__('Button text', 'planet4-blocks-backend')}
+                  placeholder={__('Button text', 'planet4-master-theme-backend')}
                   value={tab.button.button_text}
                   onChange={updateTabAttribute('button_text', index)}
                   withoutInteractiveFormatting
@@ -89,7 +89,7 @@ const renderView = ({title, description, tabs, className}, setAttributes, isSele
               </div> :
               <div onClick={() => addButton(index)} className="add-button" role="presentation">
                 <span className="plus">+</span>
-                {__('Add button', 'planet4-blocks-backend')}
+                {__('Add button', 'planet4-master-theme-backend')}
               </div>
             }
           </div>
@@ -113,7 +113,7 @@ const renderEdit = ({tabs}, setAttributes, updateTabAttribute) => {
 
   return (
     <InspectorControls>
-      <PanelBody title={__('Settings', 'planet4-blocks-backend')}>
+      <PanelBody title={__('Settings', 'planet4-master-theme-backend')}>
         {tabs.map((tab, index) => {
           const {button} = tab;
           if (!button) {
@@ -122,9 +122,9 @@ const renderEdit = ({tabs}, setAttributes, updateTabAttribute) => {
 
           return (
             <div key={`tab-${index}`}>
-              <p>{__('Item', 'planet4-blocks-backend')} {index + 1}</p>
+              <p>{__('Item', 'planet4-master-theme-backend')} {index + 1}</p>
               <URLInput
-                label={__('Button link', 'planet4-blocks-backend')}
+                label={__('Button link', 'planet4-master-theme-backend')}
                 value={buttonUrl[index] ? buttonUrl[index].value : button.button_url}
                 onChange={url => {
                   setButtonUrl({[index]: url, ...buttonUrl});
@@ -133,7 +133,7 @@ const renderEdit = ({tabs}, setAttributes, updateTabAttribute) => {
               />
               <CheckboxControl
                 __nextHasNoMarginBottom
-                label={__('Open in a new tab', 'planet4-blocks-backend')}
+                label={__('Open in a new tab', 'planet4-master-theme-backend')}
                 value={button.button_new_tab}
                 checked={button.button_new_tab}
                 onChange={updateTabAttribute('button_new_tab', index)}
@@ -146,17 +146,17 @@ const renderEdit = ({tabs}, setAttributes, updateTabAttribute) => {
           onClick={addTab}
           style={{marginRight: 10}}
         >
-          {__('Add item', 'planet4-blocks-backend')}
+          {__('Add item', 'planet4-master-theme-backend')}
         </Button>
         <Button
           variant="secondary"
           disabled={tabs.length <= 1}
           onClick={removeTab}
         >
-          {__('Remove item', 'planet4-blocks-backend')}
+          {__('Remove item', 'planet4-master-theme-backend')}
         </Button>
       </PanelBody>
-      <PanelBody title={__('Learn more about this block ', 'planet4-blocks-backend')} initialOpen={false}>
+      <PanelBody title={__('Learn more about this block ', 'planet4-master-theme-backend')} initialOpen={false}>
         <p className="components-base-control__help">
           <a target="_blank" href="https://planet4.greenpeace.org/content/blocks/accordion/" rel="noreferrer">
             P4 Handbook Accordion

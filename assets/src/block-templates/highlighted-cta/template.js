@@ -3,7 +3,7 @@ import mainThemeUrl from '../main-theme-url';
 const {__} = wp.i18n;
 
 const template = ({
-  titlePlaceholder = __('Enter text', 'planet4-blocks-backend'),
+  titlePlaceholder = __('Enter text', 'planet4-master-theme-backend'),
 }) => [
   [
     'core/group',

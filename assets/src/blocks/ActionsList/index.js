@@ -42,11 +42,11 @@ export const ACTIONS_LIST_BLOCK_ATTRIBUTES = {
   },
 };
 
-export const getActionsListBlockTemplate = (title = __('', 'planet4-blocks-backend')) => ([
-  ['core/heading', {lock: {move: true}, content: title, placeholder: __('Enter title', 'planet4-blocks-backend')}],
+export const getActionsListBlockTemplate = (title = __('', 'planet4-master-theme-backend')) => ([
+  ['core/heading', {lock: {move: true}, content: title, placeholder: __('Enter title', 'planet4-master-theme-backend')}],
   ['core/paragraph', {
     lock: {move: true},
-    placeholder: __('Enter description', 'planet4-blocks-backend'),
+    placeholder: __('Enter description', 'planet4-master-theme-backend'),
     style: {
       spacing: {
         margin: {
@@ -57,7 +57,7 @@ export const getActionsListBlockTemplate = (title = __('', 'planet4-blocks-backe
     },
   }],
   ['core/query-no-results', {}, [
-    ['core/paragraph', {content: __('No posts found. (This default text can be edited)', 'planet4-blocks-backend')}],
+    ['core/paragraph', {content: __('No posts found. (This default text can be edited)', 'planet4-master-theme-backend')}],
   ]],
   ['core/post-template', {lock: {move: true, remove: true}}, [
     ['core/post-featured-image', {isLink: true}],
@@ -94,7 +94,7 @@ export const registerActionsListBlock = () => {
   registerBlockVariation('core/query', {
     name: ACTIONS_LIST_BLOCK_NAME,
     title: 'Actions List',
-    description: __('Integrate images and text cards to automatically display tags, take action pages, or Posts in a three or four column layout displayed in a grid or carousel.', 'planet4-blocks-backend'),
+    description: __('Integrate images and text cards to automatically display tags, take action pages, or Posts in a three or four column layout displayed in a grid or carousel.', 'planet4-master-theme-backend'),
     icon: 'list-view',
     scope: ['inserter'],
     allowedControls: ['taxQuery', 'pages', 'offset'],

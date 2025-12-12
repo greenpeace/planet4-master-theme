@@ -16,7 +16,7 @@ const topic = ['core/column', {}, [
       textAlign: 'center',
       style: {typography: {fontSize: '1rem'}},
       className: 'is-style-chevron',
-      placeholder: __('Enter topic', 'planet4-blocks-backend'),
+      placeholder: __('Enter topic', 'planet4-master-theme-backend'),
     }],
     ['core/spacer', {height: '16px'}],
   ]],
@@ -29,7 +29,7 @@ const innerBlocks = ({
     ['core/spacer', {height: '24px'}],
     ['core/heading', {
       textAlign: 'center',
-      placeholder: __('Enter title', 'planet4-blocks-backend'),
+      placeholder: __('Enter title', 'planet4-master-theme-backend'),
       content: title,
     }],
     ['core/columns', {}, [...Array(4).keys()].map(() => topic)],
