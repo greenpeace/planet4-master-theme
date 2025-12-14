@@ -201,11 +201,11 @@ class M049MigrateCoversBlockToActionsListBlock extends MigrationScript
             [
                 Utils\Functions::create_block_single_button(
                     ['className' => 'carousel-control-prev'],
-                    __('Prev', 'planet4-blocks'),
+                    __('Prev', 'planet4-master-theme'),
                 ),
                 Utils\Functions::create_block_single_button(
                     ['className' => 'carousel-control-next'],
-                    __('Next', 'planet4-blocks'),
+                    __('Next', 'planet4-master-theme'),
                 ),
             ]
         );
@@ -265,8 +265,8 @@ class M049MigrateCoversBlockToActionsListBlock extends MigrationScript
         return Utils\Functions::create_block_query_no_results(
             [
                 Utils\Functions::create_block_paragraph(
-                    ['placeholder' => __('No posts found. (This default text can be edited)', 'planet4-blocks')],
-                    __('No posts found.', 'planet4-blocks'),
+                    ['placeholder' => __('No posts found. (This default text can be edited)', 'planet4-master-theme')],
+                    __('No posts found.', 'planet4-master-theme'),
                 ),
             ],
             [],
@@ -283,7 +283,7 @@ class M049MigrateCoversBlockToActionsListBlock extends MigrationScript
                 'lock' => [
                     'move' => true,
                 ],
-                'placeholder' => __('Enter description', 'planet4-blocks'),
+                'placeholder' => __('Enter description', 'planet4-master-theme'),
                 'style' => [
                     'spacing' => [
                         'margin' => [

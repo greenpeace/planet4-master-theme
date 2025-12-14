@@ -81,7 +81,7 @@ class ActionButtonText extends BaseBlock
         } elseif ($has_default_text) {
             $button_text = $options['take_action_covers_button_text'];
         } else {
-            $button_text = __('Take action', 'planet4-blocks');
+            $button_text = __('Take action', 'planet4-master-theme');
         }
 
         if ($has_button_acc_text) {
@@ -91,7 +91,7 @@ class ActionButtonText extends BaseBlock
         } elseif ($has_default_text) {
             $button_acc_text = $options['take_action_covers_button_text'];
         } else {
-            $button_acc_text = __('Take action', 'planet4-blocks');
+            $button_acc_text = __('Take action', 'planet4-master-theme');
         }
 
         return '<a href="' . $link . '" class="btn btn-primary btn-small" aria-label="' . $button_acc_text . '">' . $button_text . '</a>';

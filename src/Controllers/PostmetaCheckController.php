@@ -25,8 +25,8 @@ class PostmetaCheckController extends Controller
 
         add_submenu_page(
             BlocksReportController::P4BKS_REPORTS_SLUG_NAME,
-            __('Postmeta Check', 'planet4-blocks-backend'),
-            __('Postmeta Check', 'planet4-blocks-backend'),
+            __('Postmeta Check', 'planet4-master-theme-backend'),
+            __('Postmeta Check', 'planet4-master-theme-backend'),
             'manage_options',
             'postmeta_report',
             [ $this, 'postmeta_check' ]
@@ -50,16 +50,16 @@ class PostmetaCheckController extends Controller
         } catch (\Error $e) {
             $data['message'] = $e->getMessage();
         } catch (\Exception $e) {
-            $data['message'] = __('Exception: ', 'planet4-blocks-backend') . $e->getMessage();
+            $data['message'] = __('Exception: ', 'planet4-master-theme-backend') . $e->getMessage();
         }
 
         if ($deleted_rows) {
             // phpcs:disable Generic.Files.LineLength.MaxExceeded
             // translators: %d = The duplicate postmeta count.
-            $data['message'] = sprintf(__('Remove %d duplicate postmeta records successfully.', 'planet4-blocks-backend'), $deleted_rows);
+            $data['message'] = sprintf(__('Remove %d duplicate postmeta records successfully.', 'planet4-master-theme-backend'), $deleted_rows);
             // phpcs:enable Generic.Files.LineLength.MaxExceeded
         } else {
-            $data['message'] = __('No whitelisted duplicate postmeta records found.', 'planet4-blocks-backend');
+            $data['message'] = __('No whitelisted duplicate postmeta records found.', 'planet4-master-theme-backend');
         }
     }
 
