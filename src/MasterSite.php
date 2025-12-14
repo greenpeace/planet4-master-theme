@@ -332,15 +332,12 @@ class MasterSite extends \Timber\Site
         $domains = [
             'planet4-master-theme',
             'planet4-master-theme-backend',
-            'blocks/planet4-blocks',
-            'blocks/planet4-blocks-backend',
         ];
         $locale = is_admin() ? get_user_locale() : get_locale();
 
         foreach ($domains as $domain) {
             $mofile = get_template_directory() . '/languages/' . $domain . '-' . $locale . '.mo';
-            //TODO: Temporary fix.
-            load_textdomain(str_replace('blocks/', '', $domain), $mofile);
+            load_textdomain($domain, $mofile);
         }
     }
 
