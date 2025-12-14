@@ -48,8 +48,8 @@ class ArchiveImport extends Controller
 
         add_submenu_page(
             'edit.php?post_type=archive',
-            __('Archive Import', 'planet4-blocks-backend'),
-            __('Archive Import', 'planet4-blocks-backend'),
+            __('Archive Import', 'planet4-master-theme-backend'),
+            __('Archive Import', 'planet4-master-theme-backend'),
             'edit_posts',
             'archive-import',
             [ $this, 'get_page' ]

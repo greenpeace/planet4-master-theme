@@ -42,7 +42,7 @@ _my-template/block.json_
   "title": "My template",
   "description": "My template",
   "category": "planet4",
-  "textdomain": "planet4-blocks-backend"
+  "textdomain": "planet4-master-theme-backend"
 }
 ```
 
@@ -106,7 +106,7 @@ _my-template/block.json_
   "title": "My template",
   "description": "My template",
   "category": "planet4",
-  "textdomain": "planet4-blocks-backend",
+  "textdomain": "planet4-master-theme-backend",
   "attributes": {
     "title": { "type": "string" },
     "buttonText": { "type": "string" }

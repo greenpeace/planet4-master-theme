@@ -106,7 +106,7 @@ class HappyPoint extends BaseBlock
         $data['default_content_provider'] = $options['happy_point_content_provider'] ?? 'iframe_url';
         $data['engaging_network_id'] = $options['engaging_network_form_id'] ?? '';
         $data['default_image'] = get_template_directory_uri() . '/images/happy-point-block-bg.jpg';
-        $data['background_alt'] = empty($image_alt) ? __('Background image', 'planet4-blocks') : $image_alt;
+        $data['background_alt'] = empty($image_alt) ? __('Background image', 'planet4-master-theme') : $image_alt;
         $data['default_embed_code'] = $options['happy_point_embed_code'] ?? '';
 
         return $data;

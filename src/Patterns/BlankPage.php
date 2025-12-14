@@ -35,7 +35,7 @@ class BlankPage extends BlockPattern
             'blockTypes' => ['core/post-content'],
             'categories' => ['layouts'],
             'content' => '
-                <!-- wp:paragraph {"placeholder":"' . __('Enter text', 'planet4-blocks-backend') . '"} -->
+                <!-- wp:paragraph {"placeholder":"' . __('Enter text', 'planet4-master-theme-backend') . '"} -->
                 <p></p>
                 <!-- /wp:paragraph -->
             ',

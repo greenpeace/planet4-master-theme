@@ -39,7 +39,7 @@ abstract class BaseBlock
         $block_output = \Timber\Timber::compile(static::BLOCK_NAME . '.twig', $data);
 
         // phpcs:ignore WordPress.WP.I18n.NonSingularStringLiteralText
-        $empty_message = defined('static::EMPTY_MESSAGE') ? __(static::EMPTY_MESSAGE, 'planet4-blocks') :
+        $empty_message = defined('static::EMPTY_MESSAGE') ? __(static::EMPTY_MESSAGE, 'planet4-master-theme') :
             "Block content is empty. Check the block's settings or remove it.";
 
         // Return empty string if rendered output contains only whitespace or new lines.

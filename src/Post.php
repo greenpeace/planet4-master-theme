@@ -627,7 +627,7 @@ class Post extends \Timber\Post
         }
 
         $see_all_link_group = !empty($news_stories_url) ?
-            '<!-- wp:navigation-link {"label":"' . __('See all posts', 'planet4-blocks') . '","url":"' . $news_stories_url . '","className":"see-all-link"} /-->'
+            '<!-- wp:navigation-link {"label":"' . __('See all posts', 'planet4-master-theme') . '","url":"' . $news_stories_url . '","className":"see-all-link"} /-->'
         : '';
 
         // Define the HTML output for the block
@@ -636,7 +636,7 @@ class Post extends \Timber\Post
                 <!-- wp:group {"layout":{"type":"flex","justifyContent":"space-between"}} -->
                     <div class="wp-block-group">
                         <!-- wp:heading -->
-                            <h2 class="wp-block-heading">' . __('Related Posts', 'planet4-blocks') . '</h2>
+                            <h2 class="wp-block-heading">' . __('Related Posts', 'planet4-master-theme') . '</h2>
                         <!-- /wp:heading -->
                     </div>
                 <!-- /wp:group -->

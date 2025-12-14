@@ -411,7 +411,7 @@ class BlockUsageTable extends WP_List_Table
         $this->blockns_dropdown();
         $this->blocktype_dropdown();
         submit_button(
-            __('Filter', 'planet4-blocks-backend'),
+            __('Filter', 'planet4-master-theme-backend'),
             '',
             'filter_action',
             false,

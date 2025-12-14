@@ -49,8 +49,8 @@ class ReusableBlocksController extends Controller
 
         add_submenu_page(
             BlocksReportController::P4BKS_REPORTS_SLUG_NAME,
-            __('All Reusable blocks', 'planet4-blocks-backend'),
-            __('All Reusable blocks', 'planet4-blocks-backend'),
+            __('All Reusable blocks', 'planet4-master-theme-backend'),
+            __('All Reusable blocks', 'planet4-master-theme-backend'),
             'edit_posts',
             'edit.php?post_type=' . self::POST_TYPE,
             [ $this, 'admin_page_display' ]
