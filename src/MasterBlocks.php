@@ -138,8 +138,8 @@ class MasterBlocks
         // Sets translated strings for a JS script.
         wp_set_script_translations(
             'planet4-blocks-theme-editor-script',
-            'planet4-blocks-backend',
-            get_template_directory() . '/blocks/languages'
+            'planet4-master-theme-backend',
+            get_template_directory() . '/languages'
         );
     }
 
@@ -172,8 +172,8 @@ class MasterBlocks
         // Sets translated strings for a JS script.
         wp_set_script_translations(
             'planet4-blocks-theme-script',
-            'planet4-blocks',
-            get_template_directory() . '/blocks/languages'
+            'planet4-master-theme',
+            get_template_directory() . '/languages'
         );
     }
 
