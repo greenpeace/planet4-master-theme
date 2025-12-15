@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Planet4 blocks plugin backend\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-03 10:49+0000\n"
+"POT-Creation-Date: 2025-12-15 11:14+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -14,7 +14,7 @@ msgstr ""
 "X-Generator: Loco https://localise.biz/\n"
 "Language: "
 
-#: src/BlockReportSearch/Block/BlockUsage.php:252
+#: src/BlockReportSearch/Block/BlockUsage.php:263
 msgid "(no title)"
 msgstr ""
 
@@ -82,7 +82,7 @@ msgstr ""
 msgid "Add slide"
 msgstr ""
 
-#: assets/src/blocks/TopicLink/TopicLinkEditor.js:173
+#: assets/src/blocks/TopicLink/edit.js:178
 #: assets/src/blocks/Gallery/GalleryEditor.js:83
 msgid ""
 "Adjust the “Left” and “Top” fields to position the focal point of the image "
@@ -133,74 +133,102 @@ msgstr ""
 msgid "Begin at the end of the timeline"
 msgstr ""
 
+#: assets/build/blocks/TopicLink/block.json:1
+#: assets/src/blocks/TopicLink/block.json:1
+msgctxt "block description"
+msgid ""
+"The Topic Link block allows editors to manually link to a category page, "
+"which redirects users to relevant topic content."
+msgstr ""
+
+#: assets/build/block-templates/action/block.json:1
 #: assets/src/block-templates/action/block.json:1
 msgctxt "block title"
 msgid "Action"
 msgstr ""
 
+#: assets/build/block-templates/campaign/block.json:1
 #: assets/src/block-templates/campaign/block.json:1
 msgctxt "block title"
 msgid "Campaign"
 msgstr ""
 
+#: assets/build/block-templates/deep-dive/block.json:1
 #: assets/src/block-templates/deep-dive/block.json:1
 msgctxt "block title"
 msgid "Deep Dive"
 msgstr ""
 
+#: assets/build/block-templates/deep-dive-topic/block.json:1
 #: assets/src/block-templates/deep-dive-topic/block.json:1
 msgctxt "block title"
 msgid "Deep Dive Topic"
 msgstr ""
 
+#: assets/build/block-templates/get-informed/block.json:1
 #: assets/src/block-templates/get-informed/block.json:1
 msgctxt "block title"
 msgid "Get Informed"
 msgstr ""
 
+#: assets/build/block-templates/high-level-topic/block.json:1
 #: assets/src/block-templates/high-level-topic/block.json:1
 msgctxt "block title"
 msgid "High-Level Topic"
 msgstr ""
 
+#: assets/build/block-templates/highlighted-cta/block.json:1
 #: assets/src/block-templates/highlighted-cta/block.json:1
 msgctxt "block title"
 msgid "Highlighted CTA"
 msgstr ""
 
+#: assets/build/block-templates/homepage/block.json:1
 #: assets/src/block-templates/homepage/block.json:1
 msgctxt "block title"
 msgid "Homepage"
 msgstr ""
 
+#: assets/build/block-templates/issues/block.json:1
 #: assets/src/block-templates/issues/block.json:1
 msgctxt "block title"
 msgid "Issues"
 msgstr ""
 
+#: assets/build/block-templates/page-header/block.json:1
 #: assets/src/block-templates/page-header/block.json:1
 msgctxt "block title"
 msgid "Page Header"
 msgstr ""
 
+#: assets/build/block-templates/quick-links/block.json:1
 #: assets/src/block-templates/quick-links/block.json:1
 msgctxt "block title"
 msgid "Quick Links"
 msgstr ""
 
+#: assets/build/block-templates/reality-check/block.json:1
 #: assets/src/block-templates/reality-check/block.json:1
 msgctxt "block title"
 msgid "Reality Check"
 msgstr ""
 
+#: assets/build/block-templates/side-image-with-text-and-cta/block.json:1
 #: assets/src/block-templates/side-image-with-text-and-cta/block.json:1
 msgctxt "block title"
 msgid "Side image with text and CTA"
 msgstr ""
 
+#: assets/build/block-templates/take-action/block.json:1
 #: assets/src/block-templates/take-action/block.json:1
 msgctxt "block title"
 msgid "Take Action"
+msgstr ""
+
+#: assets/build/blocks/TopicLink/block.json:1
+#: assets/src/blocks/TopicLink/block.json:1
+msgctxt "block title"
+msgid "Topic Link"
 msgstr ""
 
 #: src/Controllers/BlocksReportController.php:32
@@ -249,7 +277,7 @@ msgstr ""
 msgid "Center"
 msgstr ""
 
-#: assets/src/blocks/TopicLink/TopicLinkEditor.js:212
+#: assets/src/blocks/TopicLink/edit.js:217
 #: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:255
 msgid "Change Background Image"
 msgstr ""
@@ -740,7 +768,7 @@ msgid "Learn more about this block"
 msgstr ""
 
 #: assets/src/blocks/Spreadsheet/SpreadsheetEditor.js:73
-#: assets/src/blocks/TopicLink/TopicLinkEditor.js:185
+#: assets/src/blocks/TopicLink/edit.js:190
 #: assets/src/blocks/CarouselHeader/Sidebar.js:175
 #: assets/src/blocks/Counter/CounterEditor.js:64
 #: assets/src/blocks/Cookies/CookiesEditor.js:193
@@ -944,7 +972,6 @@ msgid ""
 "icon and you have chosen columns style icons. "
 msgstr ""
 
-#: assets/src/blocks/TopicLink/TopicLinkEditor.js:69
 #: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:114
 msgid "Populating block's fields…"
 msgstr ""
@@ -975,7 +1002,7 @@ msgstr ""
 msgid "Remove %d duplicate postmeta records successfully."
 msgstr ""
 
-#: assets/src/blocks/TopicLink/TopicLinkEditor.js:222
+#: assets/src/blocks/TopicLink/edit.js:227
 #: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:292
 #: assets/src/blocks/HappyPoint/HappyPointEditor.js:235
 msgid "Remove Image"
@@ -1039,7 +1066,7 @@ msgstr ""
 msgid "Select articles"
 msgstr ""
 
-#: assets/src/blocks/TopicLink/TopicLinkEditor.js:212
+#: assets/src/blocks/TopicLink/edit.js:217
 #: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:244
 #: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:255
 #: assets/src/blocks/HappyPoint/HappyPointEditor.js:66
@@ -1047,7 +1074,7 @@ msgstr ""
 msgid "Select Background Image"
 msgstr ""
 
-#: assets/src/blocks/TopicLink/TopicLinkEditor.js:162
+#: assets/src/blocks/TopicLink/edit.js:167
 msgid "Select Category:"
 msgstr ""
 
@@ -1063,7 +1090,7 @@ msgstr ""
 msgid "Select image"
 msgstr ""
 
-#: assets/src/blocks/TopicLink/TopicLinkEditor.js:170
+#: assets/src/blocks/TopicLink/edit.js:175
 #: assets/src/blocks/HappyPoint/HappyPointEditor.js:186
 msgid "Select image focal point"
 msgstr ""
@@ -1092,7 +1119,7 @@ msgid "Set the text for the Actions List Block's Button (e.g., 'Sign Up')"
 msgstr ""
 
 #: assets/src/blocks/Spreadsheet/SpreadsheetEditor.js:36
-#: assets/src/blocks/TopicLink/TopicLinkEditor.js:158
+#: assets/src/blocks/TopicLink/edit.js:163
 #: assets/src/blocks/SocialMedia/SocialMediaEditorScript.js:166
 #: assets/src/blocks/Gallery/GalleryEditor.js:77
 #: assets/src/blocks/CarouselHeader/Sidebar.js:151
@@ -1204,12 +1231,6 @@ msgstr ""
 
 #: assets/src/blocks/Spreadsheet/SpreadsheetEditor.js:96
 msgid "The Spreadsheet URL appears to be invalid."
-msgstr ""
-
-#: assets/src/blocks/TopicLink/TopicLinkBlock.js:11
-msgid ""
-"The Topic Link block allows editors to manually link to a category page, "
-"which redirects users to relevant topic content."
 msgstr ""
 
 #: assets/src/block-editor/URLValidationMessage/URLValidationMessage.js:25
