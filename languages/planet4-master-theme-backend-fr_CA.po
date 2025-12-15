@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-06-08 09:59+0000\n"
-"PO-Revision-Date: 2021-04-16 12:18+0000\n"
+"PO-Revision-Date: 2025-12-15 08:52+0000\n"
 "Last-Translator: Lilian Reyes <lilian.reyes@greenpeace.org>\n"
 "Language-Team: French (Canada)\n"
 "MIME-Version: 1.0\n"
@@ -22,463 +22,1756 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
-#: classes/class-p4-settings.php:167
+#. 1: menu name, 2: max item count, 3: current item count
+#: assets/src/js/menu_editor.js:310
+#, javascript-format
+msgid ""
+"%1$s should not contain more than %2$s items at this level (currently %3$s)."
+msgstr ""
+
+#. %s = year of the post in four digits.
+#: tests/test-custom-permalinks.php:22
+#, php-format
+msgid "%s (The year of the post, four digits, for example 2004.)"
+msgstr ""
+
+#: src/AnalyticsValues.php:353
+msgid "- Select Basket -"
+msgstr ""
+
+#: src/AnalyticsValues.php:299
+msgid "- Select Global Project -"
+msgstr ""
+
+#: src/AnalyticsValues.php:333
+msgid "- Select Local Project -"
+msgstr ""
+
+#: src/Settings.php:465
 msgid "404 Background Image"
 msgstr ""
 
-#: classes/class-p4-settings.php:183
+#: src/Settings.php:484
 msgid "404 Page text"
 msgstr ""
 
-#: classes/class-p4-settings.php:174
+#: src/Settings.php:560
+msgid ""
+"<b>Important:</b> On change of Include archive content setting, Please kindly"
+msgstr ""
+
+#: src/AnalyticsValues.php:413
+msgid "[DEPRECATED] "
+msgstr ""
+
+#: src/ActionPage.php:107
+msgctxt "action"
+msgid "Add New"
+msgstr ""
+
+#: src/ActionPage.php:266
+msgid "Action post type slug"
+msgstr ""
+
+#: src/ActionPage.php:172
+msgid "Action Type"
+msgstr ""
+
+#: src/Features/ActionsDeadline.php:25
+msgid "Actions Deadline"
+msgstr ""
+
+#: templates/posts_report.twig:43
+msgid "Actions List"
+msgstr ""
+
+#: src/Settings.php:148
+msgid "Actions List default button text"
+msgstr ""
+
+#: src/Features/ActionsTaskType.php:25
+msgid "Actions Task Type"
+msgstr ""
+
+#: src/Features/ActionsUserPersonalization.php:25
+msgid "Actions User Personalization"
+msgstr ""
+
+#: src/Features/Planet4Blocks.php:33
+msgid ""
+"Activates all <a href=\"https://planet4.greenpeace.org/content/blocks/\" "
+"target=\"_blank\">Planet 4 blocks</a>"
+msgstr ""
+
+#: src/Settings.php:472
 msgid "Add 404 Page Background Image"
 msgstr ""
 
-#: classes/class-p4-settings.php:190
+#: src/Settings.php:491
 msgid "Add 404 page text"
 msgstr ""
 
-#: functions.php:698
-msgid "Add Background Image"
+#: src/Settings.php:431
+msgid ""
+"Add a list of frequently used third-party services to \"preconnect\" (e.g.: "
+"https://in.hotjar.com)."
 msgstr ""
 
-#: classes/class-p4-settings.php:144
+#: src/ActionPage.php:108
+msgid "Add Action"
+msgstr ""
+
+#: src/ActionPage.php:170
+msgid "Add Action Type"
+msgstr ""
+
+#: src/PostArchive.php:41
+msgid "Add Archive"
+msgstr ""
+
+#: src/PostCampaign.php:130
+msgid "Add Campaign"
+msgstr ""
+
+#: src/Settings.php:154
 msgid ""
-"Add default button text which appears on <b>Take Action</b> card of <b>Take "
-"Action Covers</b> block. <br>\n"
-"\t\t\t\t\t                     Also it would be used for Take Action Cards "
+"Add default button text which appears on <b>Take Action</b> card of <b>"
+"Actions List</b> block. <br>Also it would be used for Take Action Cards "
 "inside Posts and Take Action Cards in search results"
 msgstr ""
 
-#: classes/class-p4-settings.php:207
+#: src/Settings.php:166
 msgid "Add Default Happy Point Background Image"
 msgstr ""
 
-#: functions.php:748 functions.php:787
+#: src/MetaboxRegister.php:74
 msgid "Add Image"
 msgstr ""
 
-#: classes/class-p4-custom-taxonomy.php:157
-msgid "Add new Post Type"
+#: assets/src/js/Components/ArchivePicker/SingleSidebar.js:153
+msgid "Add image to Post"
 msgstr ""
 
-#: functions.php:835
-msgid "Add Page Element"
+#: src/ActionPage.php:106
+msgctxt "add new on admin bar"
+msgid "Actions"
 msgstr ""
 
-#: classes/class-p4-custom-taxonomy.php:151
+#: src/PostArchive.php:39
+msgctxt "add new on admin bar"
+msgid "Archive"
+msgstr ""
+
+#: src/PostCampaign.php:128
+msgctxt "add new on admin bar"
+msgid "Campaign"
+msgstr ""
+
+#: src/Campaigns.php:128
+msgid "Add new tag"
+msgstr ""
+
+#: src/CustomTaxonomy.php:245
+msgid "Add Post Type"
+msgstr ""
+
+#: src/Settings.php:322
+msgid "Add the \"Reject all\" option in the Cookies box"
+msgstr ""
+
+#: src/GravityFormsExtensions.php:412
+msgid "Add the Counter Name from counter.greenpeace.org"
+msgstr ""
+
+#: assets/src/js/Components/ArchivePicker/SingleSidebar.js:68
+msgid "Added to Library"
+msgstr ""
+
+#: assets/src/js/Components/ArchivePicker/ArchivePickerList.js:139
+msgid "Added to Media Library"
+msgstr ""
+
+#: assets/src/js/Components/ArchivePicker/ArchivePickerList.js:137
+msgid "Added to Media Library & Post"
+msgstr ""
+
+#: assets/src/js/Components/ArchivePicker/SingleSidebar.js:74
+msgid "Added!"
+msgstr ""
+
+#: src/Settings/CloudflareTurnstile.php:47
+msgid ""
+"Additional anti-spam mechanism for comments. It will show a verification "
+"option on some users."
+msgstr ""
+
+#: src/Settings.php:539
+msgid ""
+"Adds a Content Security Policy exception for VWO and enables its anti-"
+"flicker mechanism."
+msgstr ""
+
+#: src/Features/ActionsDeadline.php:33
+msgid ""
+"Adds option for showing a countdown on Actions List block. This feature only "
+"works on Actions that use the Resistance Hub template."
+msgstr ""
+
+#: src/Features/ActionsTaskType.php:33
+msgid ""
+"Adds option for showing whether an Action is either Online or Offline on "
+"Actions List block. This feature only works on Actions that use the "
+"Resistance Hub template."
+msgstr ""
+
+#: src/ActionPage.php:105
+msgctxt "admin menu"
+msgid "Actions"
+msgstr ""
+
+#: src/PostArchive.php:38
+msgctxt "admin menu"
+msgid "Archive"
+msgstr ""
+
+#: src/PostCampaign.php:127
+msgctxt "admin menu"
+msgid "Campaigns"
+msgstr ""
+
+#: src/ActionPage.php:164 src/ActionPage.php:617
+msgid "All Action Types"
+msgstr ""
+
+#: src/ActionPage.php:112
+msgid "All Actions"
+msgstr ""
+
+#: src/PostArchive.php:45
+msgid "All archived posts"
+msgstr ""
+
+#: src/Features/Dev/AllowAllBlocks.php:25
+msgid "All blocks"
+msgstr ""
+
+#: src/PostCampaign.php:134
+msgid "All Campaigns"
+msgstr ""
+
+#: src/CustomTaxonomy.php:239 src/CustomTaxonomy.php:415
 msgid "All Post Types"
 msgstr ""
 
-#: classes/class-p4-control-panel.php:61
+#: src/Settings.php:570
+msgid "All users"
+msgstr ""
+
+#: src/Settings.php:295
+msgid "Analytical Cookies description"
+msgstr ""
+
+#: src/Settings.php:289
+msgid "Analytical Cookies label"
+msgstr ""
+
+#: src/Settings.php:448
+msgid "Apply social sharing options"
+msgstr ""
+
+#: src/PostArchive.php:51
+msgid "Archive"
+msgstr ""
+
+#: src/PostArchive.php:40
+msgctxt "archive"
+msgid "Add New"
+msgstr ""
+
+#: src/ControlPanel.php:71
 msgid "Are you sure you want to delete all Object Cache keys?"
 msgstr ""
 
-#: classes/class-p4-campaigns.php:101 classes/class-p4-campaigns.php:138
+#: src/Campaigns.php:110 src/Campaigns.php:124
 msgid "Associate this tag with an image."
 msgstr ""
 
-#: functions.php:714
+#: src/LoginHandler.php:333
+msgid "at least one number"
+msgstr ""
+
+#: src/LoginHandler.php:330
+msgid "at least one uppercase letter"
+msgstr ""
+
+#: src/MediaReplacer.php:71
+msgid "Attachment ID is missing."
+msgstr ""
+
+#: src/MetaboxRegister.php:42
 msgid "Author Override"
 msgstr ""
 
-#: functions.php:740
+#: src/Settings/ReadingTime.php:45
+msgid "Average reading words per minute (usually between 220 and 320)."
+msgstr ""
+
+#: assets/src/js/menu_editor.js:81
+msgid ""
+"Avoid using more than 5 items in the navigation menu, and limit the number "
+"of items when dealing with long text labels."
+msgstr ""
+
+#: src/MetaboxRegister.php:63
 msgid "Background Image Override"
 msgstr ""
 
-#: functions.php:689
-msgid "Background overide"
+#: assets/src/block-editor/Sidebar/AnalyticsTrackingSidebar.js:43
+msgid "Basket Name"
 msgstr ""
 
-#: classes/class-p4-control-panel.php:56
+#: src/Features/Dev/BetaBlocks.php:25
+msgid "Beta blocks"
+msgstr ""
+
+#: assets/build/blocks/TopicLink/block.json:1
+#: assets/src/blocks/TopicLink/block.json:1
+msgctxt "block description"
+msgid ""
+"The Topic Link block allows editors to manually link to a category page, "
+"which redirects users to relevant topic content."
+msgstr ""
+
+#: assets/build/block-templates/action/block.json:1
+#: assets/src/block-templates/action/block.json:1
+msgctxt "block title"
+msgid "Action"
+msgstr ""
+
+#: assets/build/block-templates/campaign/block.json:1
+#: assets/src/block-templates/campaign/block.json:1
+msgctxt "block title"
+msgid "Campaign"
+msgstr ""
+
+#: assets/build/block-templates/deep-dive/block.json:1
+#: assets/src/block-templates/deep-dive/block.json:1
+msgctxt "block title"
+msgid "Deep Dive"
+msgstr ""
+
+#: assets/build/block-templates/deep-dive-topic/block.json:1
+#: assets/src/block-templates/deep-dive-topic/block.json:1
+msgctxt "block title"
+msgid "Deep Dive Topic"
+msgstr ""
+
+#: assets/build/block-templates/get-informed/block.json:1
+#: assets/src/block-templates/get-informed/block.json:1
+msgctxt "block title"
+msgid "Get Informed"
+msgstr ""
+
+#: assets/build/block-templates/high-level-topic/block.json:1
+#: assets/src/block-templates/high-level-topic/block.json:1
+msgctxt "block title"
+msgid "High-Level Topic"
+msgstr ""
+
+#: assets/build/block-templates/highlighted-cta/block.json:1
+#: assets/src/block-templates/highlighted-cta/block.json:1
+msgctxt "block title"
+msgid "Highlighted CTA"
+msgstr ""
+
+#: assets/build/block-templates/homepage/block.json:1
+#: assets/src/block-templates/homepage/block.json:1
+msgctxt "block title"
+msgid "Homepage"
+msgstr ""
+
+#: assets/build/block-templates/issues/block.json:1
+#: assets/src/block-templates/issues/block.json:1
+msgctxt "block title"
+msgid "Issues"
+msgstr ""
+
+#: assets/build/block-templates/page-header/block.json:1
+#: assets/src/block-templates/page-header/block.json:1
+msgctxt "block title"
+msgid "Page Header"
+msgstr ""
+
+#: assets/build/block-templates/quick-links/block.json:1
+#: assets/src/block-templates/quick-links/block.json:1
+msgctxt "block title"
+msgid "Quick Links"
+msgstr ""
+
+#: assets/build/block-templates/reality-check/block.json:1
+#: assets/src/block-templates/reality-check/block.json:1
+msgctxt "block title"
+msgid "Reality Check"
+msgstr ""
+
+#: assets/build/block-templates/side-image-with-text-and-cta/block.json:1
+#: assets/src/block-templates/side-image-with-text-and-cta/block.json:1
+msgctxt "block title"
+msgid "Side image with text and CTA"
+msgstr ""
+
+#: assets/build/block-templates/take-action/block.json:1
+#: assets/src/block-templates/take-action/block.json:1
+msgctxt "block title"
+msgid "Take Action"
+msgstr ""
+
+#: assets/build/blocks/TopicLink/block.json:1
+#: assets/src/blocks/TopicLink/block.json:1
+msgctxt "block title"
+msgid "Topic Link"
+msgstr ""
+
+#: assets/src/js/Components/ArchivePicker/ArchivePickerToolbar.js:56
+msgid "Bulk Select"
+msgstr ""
+
+#: assets/src/js/Components/ArchivePicker/ArchivePickerToolbar.js:50
+msgid "Bulk Upload"
+msgstr ""
+
+#: src/GravityFormsExtensions.php:569
+msgid ""
+"By default, share buttons will share the URL of the page that the form was "
+"submitted on. Use this field to override with a different URL."
+msgstr ""
+
+#: src/ControlPanel.php:66
 msgid "Cache"
 msgstr ""
 
-#: classes/class-p4-control-panel.php:76
-msgid "Check Engaging Networks"
+#: src/PostCampaign.php:129
+msgctxt "campaign"
+msgid "Add New"
 msgstr ""
 
-#: classes/class-p4-control-panel.php:64
+#: src/Role/Campaigner.php:75
+msgid "Campaigner"
+msgstr ""
+
+#: src/PostCampaign.php:143
+msgid "Campaigns"
+msgstr ""
+
+#: templates/posts_report.twig:34
+msgid "Campaigns List"
+msgstr ""
+
+#: assets/src/js/Components/ArchivePicker/ArchivePickerToolbar.js:37
+msgid "Cancel"
+msgstr ""
+
+#: assets/src/js/Components/ArchivePicker/SingleSidebar.js:188
+msgid "Caption"
+msgstr ""
+
+#: src/Settings.php:141
+msgid "Category (default)"
+msgstr ""
+
+#: src/ControlPanel.php:101
+msgid "Check Elasticsearch"
+msgstr ""
+
+#: src/ControlPanel.php:77
 msgid "Check Object Cache"
 msgstr ""
 
-#: classes/class-p4-control-panel.php:86
-msgid "Check Search Indexer"
+#: src/Settings.php:442
+msgid "Choose social sharing options"
 msgstr ""
 
-#: classes/class-p4-campaigns.php:116
-msgid "Choose a background image for the Subscribe block."
+#: src/Settings.php:145
+msgid "Choose which taxonomy to display on Post breadcrumbs"
 msgstr ""
 
-#: classes/class-p4-campaigns.php:74
+#: assets/src/js/Components/ArchivePicker/MultiSearchOption.js:111
+msgid "Clear all"
+msgstr ""
+
+#: assets/src/js/Components/ArchivePicker/SingleSidebar.js:81
+msgid "Close"
+msgstr ""
+
+#: assets/src/blocks/SecondaryNavigation/SecondaryNavigationFrontend.js:264
+msgid "Close secondary navigation dropdown menu"
+msgstr ""
+
+#: src/Settings/CloudflareTurnstile.php:29
+msgid "Cloudflare Turnstile"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Action Yellow"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Beige 100"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Blue 800"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Blue Green 800"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Dark Green 800"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "GP Green 800"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Green 400"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Green 500"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Green 800"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Grey 100"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Grey 200"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Grey 600"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Grey 800"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Grey 900"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Red 500"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "White"
+msgstr ""
+
+#: src/Campaigns.php:83
 msgid ""
 "Column block: Choose which Page Types will populate the content of the "
 "Column block. If no box is checked Publications will appear by default."
 msgstr ""
 
-#: classes/class-p4-settings.php:104
-msgid "Cookies Text"
+#: src/Settings/CommentsGdpr.php:29
+msgid "Comments opt-in checkbox"
 msgstr ""
 
-#: classes/class-p4-settings.php:66
+#: src/Settings.php:208
+msgid ""
+"Condition to determine when to show the notice, in years.<br>Any Post older "
+"than that will have the notice displayed on the top."
+msgstr ""
+
+#: src/Settings.php:375
+msgid "Consent default: ad_personalization"
+msgstr ""
+
+#: src/Settings.php:347
+msgid "Consent default: ad_storage"
+msgstr ""
+
+#: src/Settings.php:361
+msgid "Consent default: ad_user_data"
+msgstr ""
+
+#: src/Settings.php:333
+msgid "Consent default: analytics_storage"
+msgstr ""
+
+#: src/Settings.php:389
+msgid "Consent default: url_passthrough"
+msgstr ""
+
+#: src/Settings.php:234
+msgid "Cookies Box General Text"
+msgstr ""
+
+#: src/Settings.php:108
 msgid "Copyright Text Line 1"
 msgstr ""
 
-#: classes/class-p4-settings.php:76
+#: src/Settings.php:117
 msgid "Copyright Text Line 2"
 msgstr ""
 
-#: classes/class-p4-settings.php:121
-msgid "Default button title for related articles block"
+#: src/Features/Dev/CoreBlockPatterns.php:25
+msgid "Core block patterns"
 msgstr ""
 
-#: classes/class-p4-settings.php:200
+#: src/Settings.php:103
+msgid "Country Selector text"
+msgstr ""
+
+#: src/AttachmentsController.php:164
+#: assets/src/js/Components/ArchivePicker/SingleSidebar.js:192
+msgid "Credit"
+msgstr ""
+
+#: templates/posts_report.twig:7
+msgid "Date From"
+msgstr ""
+
+#: src/ActionPage.php:313
+msgid "Default Action Type"
+msgstr ""
+
+#: src/Settings.php:159
 msgid "Default Happy Point Background Image"
 msgstr ""
 
-#: classes/class-p4-settings.php:128
-msgid "Default Number Of Related Articles"
+#: src/Settings.php:178
+msgid "Default Happy Point Form"
 msgstr ""
 
-#: classes/class-p4-settings.php:194
+#: src/Settings/DefaultPostType.php:29
 msgid "Default P4 Post Type"
 msgstr ""
 
-#: classes/class-p4-settings.php:114
-msgid "Default title for related articles block"
+#: src/Settings.php:342 src/Settings.php:356 src/Settings.php:370
+#: src/Settings.php:384
+msgid "Denied"
 msgstr ""
 
-#: functions.php:768
-msgid "Description"
+#: assets/src/block-editor/Sidebar/AnalyticsTrackingSidebar.js:47
+msgid "Department"
 msgstr ""
 
-#: classes/class-p4-settings.php:149
-msgid "Donate button link"
+#: assets/src/js/Components/ArchivePicker/SingleSidebar.js:180
+msgid "Dimensions"
 msgstr ""
 
-#: classes/class-p4-settings.php:158
-msgid "Donate button text"
+#: src/Features/Dev/DisableDataSync.php:25
+msgid "Disable automatic data sync"
 msgstr ""
 
-#: classes/class-p4-custom-taxonomy.php:155
+#: src/Settings/CommentsGdpr.php:47
+msgid ""
+"Display a mandatory opt-in checkbox in the Comments form (GDPR requirement)."
+msgstr ""
+
+#: src/CustomTaxonomy.php:496
+msgid "Display an estimated reading time on this content."
+msgstr ""
+
+#: src/Features/OldPostsArchiveNotice.php:33
+msgid ""
+"Displays a notice on top of old Posts.<br>Adjust its behavior and text "
+"through <a href=\"/wp-admin/admin.php?"
+"page=planet4_settings_defaults_content\" href=\"_self\">Defaults content "
+"settings.</a>"
+msgstr ""
+
+#: src/MasterSite.php:104
+msgid "Donate Button"
+msgstr ""
+
+#: src/ActionPage.php:110
+msgid "Edit Action"
+msgstr ""
+
+#: src/ActionPage.php:168
+msgid "Edit Action Type"
+msgstr ""
+
+#: src/PostArchive.php:43
+msgid "Edit Archive"
+msgstr ""
+
+#: src/PostCampaign.php:132
+msgid "Edit Campaign"
+msgstr ""
+
+#: assets/src/js/Components/ArchivePicker/SingleSidebar.js:214
+msgid "Edit image"
+msgstr ""
+
+#: src/CustomTaxonomy.php:243
 msgid "Edit Post Type"
 msgstr ""
 
-#: classes/class-p4-settings.php:215
+#: src/Settings.php:183
+msgid "Embed code (HubSpot)"
+msgstr ""
+
+#: src/Features/Dev/AllowAllBlocks.php:33
+msgid "Enable all blocks in the editor for all post types."
+msgstr ""
+
+#: src/Settings.php:279
+msgid "Enable Analytical Cookies"
+msgstr ""
+
+#: src/Features/Dev/CoreBlockPatterns.php:33
+msgid "Enable default block patterns that come with WordPress."
+msgstr ""
+
+#: src/Features/Dev/BetaBlocks.php:33
+msgid ""
+"Enable early or unstable versions of blocks in the editor (grouped under "
+"\"Planet 4 Blocks - BETA\" category)."
+msgstr ""
+
+#: src/Settings.php:327
+msgid "Enable Google Consent Mode"
+msgstr ""
+
+#: src/Settings.php:280
+msgid "Enable the Analytical cookies option in Cookies block and box"
+msgstr ""
+
+#: src/Settings.php:126
+msgid "Enable Transparent Navigation"
+msgstr ""
+
+#: src/Settings.php:98
+msgid ""
+"Enables all features supporting new IA and navigation functionality (<a "
+"href=\"https://planet4.greenpeace.org/manage/information-architecture/\" "
+"target=\"_blank\">read more</a>)<br>(eg. Actions post type, listing pages "
+"pagination, mobile tabs, etc)."
+msgstr ""
+
+#: src/Settings.php:328
+msgid ""
+"Enabling the Consent Mode will affect your setup in Google Tag Manager. The "
+"Consent Mode will prevent tags with built-in consent checks (eg. Google "
+"Analytics) from running before the user's consent is granted."
+msgstr ""
+
+#: src/Settings.php:309
 msgid "Enforce Cookies Policy"
 msgstr ""
 
-#: classes/class-p4-control-panel.php:73
-msgid "Engaging Networks"
-msgstr ""
-
-#: classes/class-p4-settings.php:92
-msgid "Engaging Networks Subscribe Form URL"
-msgstr ""
-
-#: functions.php:715
+#: src/MetaboxRegister.php:43
 msgid "Enter author name if you want to override the author"
 msgstr ""
 
-#: functions.php:769
-msgid "Enter description if you want to override the open graph description"
+#: assets/src/js/Components/ArchivePicker/SingleSidebar.js:75
+msgid "Error Adding Image to Post!!!"
 msgstr ""
 
-#: functions.php:762
-msgid "Enter title if you want to override the open graph title"
+#: src/MediaReplacer.php:75
+msgid "Error processing image."
+msgstr ""
+
+#: src/MediaArchive/Image.php:219
+msgid "Error while inserting attachment. Message: "
 msgstr ""
 
 #. Name of the template
+#: page-templates/evergreen.php:5
 msgid "Evergreen Page"
 msgstr ""
 
-#: classes/class-p4-settings.php:98
+#: src/Exporter.php:47 src/Exporter.php:94 src/Exporter.php:95
+msgid "Export"
+msgstr ""
+
+#: src/Settings.php:418
+msgid "Facebook App Access Token"
+msgstr ""
+
+#: src/Settings.php:408
 msgid "Facebook Page ID"
 msgstr ""
 
-#: classes/class-p4-control-panel.php:59
+#: src/Settings.php:399
+msgid "False"
+msgstr ""
+
+#: src/MediaReplacer.php:72
+msgid "File is missing."
+msgstr ""
+
+#: templates/posts_report.twig:6
+msgid "Filters:"
+msgstr ""
+
+#: src/ControlPanel.php:69
 msgid "Flush Object Cache"
 msgstr ""
 
-#: classes/class-p4-settings.php:216
-msgid ""
-"GDPR related setting. By enabling this option specific content will be "
-"blocked and will require user consent to be shown."
+#: src/PostCampaign.php:317
+msgid "Footer icon name"
 msgstr ""
 
-#: classes/class-p4-settings.php:86
+#: src/PostCampaign.php:201
+msgid "Footer item 1"
+msgstr ""
+
+#: src/PostCampaign.php:209
+msgid "Footer item 2"
+msgstr ""
+
+#: src/PostCampaign.php:217
+msgid "Footer item 3"
+msgstr ""
+
+#: src/PostCampaign.php:225
+msgid "Footer item 4"
+msgstr ""
+
+#: src/PostCampaign.php:233
+msgid "Footer item 5"
+msgstr ""
+
+#: src/PostCampaign.php:290
+msgid "Footer item link"
+msgstr ""
+
+#: src/MasterSite.php:105
+msgid "Footer Primary Menu"
+msgstr ""
+
+#: src/MasterSite.php:106
+msgid "Footer Secondary Menu"
+msgstr ""
+
+#: src/MasterSite.php:107
+msgid "Footer Social Menu"
+msgstr ""
+
+#: src/GravityFormsExtensions.php:398
+msgid "Form Type"
+msgstr ""
+
+#: src/MediaReplacer.php:74
+msgid "GD library is missing."
+msgstr ""
+
+#: src/Settings.php:310
+msgid ""
+"GDPR related setting. By enabling this option specific content will be "
+"blocked and will require user consent to be shown.<br>\n"
+"                            <b>WARNING:</b> If the setting is checked this "
+"will prevent Google Tag Manager container from being fired unless the user "
+"has accepted the cookies policy (giving consent in the cookies bar).<br>\n"
+"                            This might affect the data collected with Google "
+"Analytics. For more information please see the documentation in the  <a "
+"href=\"https://planet4.greenpeace.org/handbook/block-cookies/\">Planet 4 "
+"Handbook</a>."
+msgstr ""
+
+#: src/GravityFormsExtensions.php:411
+msgid "Global Counter ID"
+msgstr ""
+
+#: assets/src/block-editor/Sidebar/AnalyticsTrackingSidebar.js:35
+msgid "Global Project"
+msgstr ""
+
+#: src/Settings.php:499
 msgid "Google Tag Manager Container"
 msgstr ""
 
-#: classes/class-p4-campaigns.php:123
-msgid "Happy Point Opacity"
+#: src/Settings.php:504
+msgid "Google Tag Manager Custom Domain"
 msgstr ""
 
-#: functions.php:680
-msgid "Header Button Link"
+#: src/Settings.php:343 src/Settings.php:357 src/Settings.php:371
+#: src/Settings.php:385
+msgid "Granted"
 msgstr ""
 
-#: functions.php:681
-msgid "Header button link comes here"
+#: src/MediaArchive/UiIntegration.php:59 src/MediaArchive/UiIntegration.php:60
+#: assets/src/js/media_archive_editor_view.js:22
+#: assets/src/js/media_archive_editor_view.js:36
+#: assets/src/js/Components/ArchivePicker/ArchivePickerToolbar.js:23
+msgid "Greenpeace Media"
 msgstr ""
 
-#: functions.php:671
-msgid "Header Button Title"
+#: src/MediaArchive/UiIntegration.php:77 src/MediaArchive/UiIntegration.php:78
+msgid "Greenpeace Media Settings"
 msgstr ""
 
-#: functions.php:672
-msgid "Header button title comes here"
+#: src/Settings.php:195
+msgid "Happy Point HubSpot embed code"
 msgstr ""
 
-#: functions.php:658
-msgid "Header Description"
+#: src/Settings.php:189
+msgid "Happy Point Subscribe Form URL"
 msgstr ""
 
-#: functions.php:659
-msgid "Header description comes here"
+#: src/Settings.php:584
+msgid "Hubspot tracking code"
 msgstr ""
 
-#: functions.php:649
-msgid "Header Subtitle"
-msgstr ""
-
-#: functions.php:650
-msgid "Header subtitle comes here"
-msgstr ""
-
-#: functions.php:641
-msgid "Header Title"
-msgstr ""
-
-#: functions.php:642
-msgid "Header title comes here"
-msgstr ""
-
-#: classes/class-p4-settings.php:124
-msgid ""
-"If no button title set for <b>Article Block</b>, the default button title "
-"will appear."
-msgstr ""
-
-#: classes/class-p4-settings.php:134
-msgid ""
-"If no number of Related Articles set for <b>Article Block</b>, the default "
-"number of Related Articles will appear."
-msgstr ""
-
-#: classes/class-p4-settings.php:117
-msgid ""
-"If no title set for <b>Article Block</b>, the default title will appear."
-msgstr ""
-
-#: classes/class-p4-campaigns.php:93 classes/class-p4-campaigns.php:132
-#: classes/class-p4-campaigns.php:194
+#: src/Campaigns.php:102 src/Campaigns.php:118 src/Campaigns.php:172
 msgid "Image"
 msgstr ""
 
-#: functions.php:779
-msgid "Image Override"
+#: assets/src/js/Components/ArchivePicker/MultiSidebar.js:12
+msgid "images selected"
 msgstr ""
 
-#: classes/class-p4-campaigns.php:108
-msgid "Image Subscribe"
+#: src/Exporter.php:106
+msgid "Import Greenpeace Media"
 msgstr ""
 
-#: functions.php:730
-msgid "Include Articles In Post"
+#: assets/src/js/Components/ArchivePicker/SingleSidebar.js:112
+msgid "Import to Library"
 msgstr ""
 
-#: classes/class-p4-control-panel.php:251
-msgid "Indexer has stalled"
+#: assets/src/js/Components/ArchivePicker/SingleSidebar.js:143
+msgid "Import to Library & Post"
 msgstr ""
 
-#: classes/class-p4-control-panel.php:254
-msgid "Indexer is awake"
+#: assets/src/js/Components/ArchivePicker/SingleSidebar.js:134
+msgid "Import to Library & Set Featured Image"
 msgstr ""
 
-#: classes/class-p4-settings.php:179 classes/class-p4-settings.php:212
+#: src/PostCampaign.php:334
+msgid ""
+"In the “Footer icon name” field add the name of the icon you want from the"
+msgstr ""
+
+#: src/Settings.php:559
+msgid "Include archived content in search for"
+msgstr ""
+
+#: src/MetaboxRegister.php:51
+msgid "Include Related Posts"
+msgstr ""
+
+#. %s: Category name
+#: assets/src/blocks/TopicLink/edit.js:150
+#: assets/src/blocks/TopicLink/topic-link.js:35
+#, javascript-format
+msgid "Learn more about %s"
+msgstr ""
+
+#: src/PostCampaign.php:334
+msgid "list of icons in the CSS styleguide"
+msgstr ""
+
+#: assets/src/block-editor/Sidebar/AnalyticsTrackingSidebar.js:39
+msgid "Local Projects"
+msgstr ""
+
+#: src/Settings.php:513
+msgid "Local Projects Google Sheet ID"
+msgstr ""
+
+#: src/Settings.php:569
+msgid "Logged in users"
+msgstr ""
+
+#: assets/src/js/menu_editor.js:150
+msgid "Main menu"
+msgstr ""
+
+#: src/Settings.php:266
+msgid "Marketing Cookies description"
+msgstr ""
+
+#: src/Settings.php:261
+msgid "Marketing Cookies label"
+msgstr ""
+
+#: src/MasterSite.php:732
+msgid "Maximum number of revisions to store for each post."
+msgstr ""
+
+#: src/MediaReplacer.php:73
+msgid "Media Replacer failed:"
+msgstr ""
+
+#: assets/src/js/menu_editor.js:351
+msgid "Menu configuration issues:"
+msgstr ""
+
+#. 1: item title, 2: item depth
+#: assets/src/js/menu_editor.js:289
+#, javascript-format
+msgid ""
+"Menus should have a depth of maximum 1 (currently item \"%1$s\" is at depth "
+"%2$s and therefore will not be displayed)."
+msgstr ""
+
+#: src/Settings.php:174 src/Settings.php:480
 msgid "Minimum image width should be 1920px"
 msgstr ""
 
-#: functions.php:144
+#: underscore_templates/posts_reports.tpl.php:17
+#: underscore_templates/posts_reports.tpl.php:32
+#: underscore_templates/posts_reports.tpl.php:47
+#: underscore_templates/posts_reports.tpl.php:62
+msgid "Modified at"
+msgstr ""
+
+#: src/MasterSite.php:103
 msgid "Navigation Bar Menu"
 msgstr ""
 
-#: classes/class-p4-custom-taxonomy.php:158
+#: src/Settings.php:248
+msgid "Necessary Cookies description"
+msgstr ""
+
+#: src/Settings.php:243
+msgid "Necessary Cookies label"
+msgstr ""
+
+#: src/ActionPage.php:109
+msgid "New Action"
+msgstr ""
+
+#: src/ActionPage.php:171
+msgid "New Action Type"
+msgstr ""
+
+#: src/PostArchive.php:42
+msgid "New Archive"
+msgstr ""
+
+#: src/PostCampaign.php:131
+msgid "New Campaign"
+msgstr ""
+
+#: src/Settings.php:97
+msgid "New Information Architecture"
+msgstr ""
+
+#: src/CustomTaxonomy.php:246
 msgid "New Post Type"
 msgstr ""
 
-#: functions.php:682
-msgid "New Tab"
+#: src/Features/Dev/NewTimelineBlock.php:25
+msgid "New Timeline block"
 msgstr ""
 
-#: classes/class-p4-control-panel.php:133
+#: src/CustomTaxonomy.php:465
+msgid "No"
+msgstr ""
+
+#: src/ActionPage.php:116
+msgid "No actions found in Trash."
+msgstr ""
+
+#: src/ActionPage.php:115
+msgid "No actions found."
+msgstr ""
+
+#: src/PostArchive.php:49
+msgid "No archives found in Trash."
+msgstr ""
+
+#: src/PostArchive.php:48
+msgid "No archives found."
+msgstr ""
+
+#: src/PostCampaign.php:138
+msgid "No campaigns found in Trash."
+msgstr ""
+
+#: src/PostCampaign.php:137
+msgid "No campaigns found."
+msgstr ""
+
+#: src/Settings.php:568
+msgid "Nobody"
+msgstr ""
+
+#: src/ControlPanel.php:157
 msgid "Object Cache did not flush"
 msgstr ""
 
-#: classes/class-p4-control-panel.php:130
+#: src/ControlPanel.php:154
 msgid "Object Cache flushed"
 msgstr ""
 
-#: functions.php:755
-msgid "Open Graph/Social Fields"
+#: src/Settings.php:224
+msgid "Old Posts Archive button text"
 msgstr ""
 
-#: functions.php:683
-msgid "Open header button link in new tab"
+#: src/Features/OldPostsArchiveNotice.php:25
+msgid "Old Posts Archive notice"
 msgstr ""
 
-#: classes/class-p4-custom-taxonomy.php:42
+#: src/Settings.php:205
+msgid "Old Posts Archive notice cutoff years"
+msgstr ""
+
+#: src/Settings.php:218
+msgid "Old Posts Archive notice description"
+msgstr ""
+
+#: src/Settings.php:212
+msgid "Old Posts Archive notice title"
+msgstr ""
+
+#: assets/src/blocks/SecondaryNavigation/SecondaryNavigationFrontend.js:264
+msgid "Open secondary navigation dropdown menu"
+msgstr ""
+
+#: assets/src/js/Components/ArchivePicker/SingleSidebar.js:200
+msgid "Original language description"
+msgstr ""
+
+#: assets/src/js/Components/ArchivePicker/SingleSidebar.js:196
+msgid "Original language title"
+msgstr ""
+
+#: src/GravityFormsExtensions.php:568
+msgid "Override share URL"
+msgstr ""
+
+#: src/CustomTaxonomy.php:73
 msgid "P4 page type (A p4 page type term.)"
 msgstr ""
 
-#: functions.php:636
-msgid "Page Header Fields"
+#: src/PostCampaign.php:189
+msgid "Page Design"
 msgstr ""
 
-#: classes/class-p4-control-panel.php:43
+#: templates/posts_report.twig:26
+msgid "Pages List"
+msgstr ""
+
+#: src/ActionPage.php:114
+msgid "Parent Action:"
+msgstr ""
+
+#: src/PostArchive.php:47
+msgid "Parent archive:"
+msgstr ""
+
+#: src/PostCampaign.php:136
+msgid "Parent Campaign:"
+msgstr ""
+
+#: src/MediaArchive/UiIntegration.php:106
+msgid "Password"
+msgstr ""
+
+#: src/LoginHandler.php:317
+msgid "Password cannot be empty."
+msgstr ""
+
+#: src/LoginHandler.php:323
+msgid "Password must be at least 10 characters long."
+msgstr ""
+
+#. %s is a list of password requirements, e.g. "an uppercase letter and a number"
+#: src/LoginHandler.php:341
+#, php-format
+msgid "Password must contain %s if it is less than 15 characters."
+msgstr ""
+
+#: src/Settings.php:585
+msgid "Paste here the tracking code from your Hubspot account."
+msgstr ""
+
+#: src/Settings.php:67
+msgid "Planet 4"
+msgstr ""
+
+#: src/Features/Planet4Blocks.php:25
+msgid "Planet 4 Blocks"
+msgstr ""
+
+#: src/ControlPanel.php:47
 msgid "Planet 4 Control Panel"
 msgstr ""
 
-#: classes/class-p4-control-panel.php:168
+#: src/ControlPanel.php:197
 msgid "Planet 4 is connected to Redis."
 msgstr ""
 
-#: classes/class-p4-settings.php:39
-msgid "Planet4"
+#: src/GravityFormsExtensions.php:388
+msgid "Planet 4 Options"
 msgstr ""
 
-#: functions.php:709
+#: src/ControlPanel.php:231
+msgid "Planet4 is connected to Elasticsearch"
+msgstr ""
+
+#: src/ControlPanel.php:234
+msgid "Planet4 is not connected to Elasticsearch"
+msgstr ""
+
+#: src/MediaArchive/UiIntegration.php:84
+msgid ""
+"Please enter your Greenpeace Media username and password. Please note that "
+"you will need to ask from the Greenpeace Media administrators to enable API "
+"access for your account."
+msgstr ""
+
+#: src/GravityFormsExtensions.php:399
+msgid ""
+"Please select a form type below so you can track and analyze each form type "
+"separately"
+msgstr ""
+
+#: src/MetaboxRegister.php:35
 msgid "Post Articles Element Fields"
 msgstr ""
 
-#: classes/class-p4-custom-taxonomy.php:159
+#: src/MasterSite.php:720
+msgid "Post revisions"
+msgstr ""
+
+#: src/Settings.php:142
+msgid "Post Type"
+msgstr ""
+
+#: src/ActionPage.php:103
+msgctxt "post type general name"
+msgid "Actions"
+msgstr ""
+
+#: src/PostArchive.php:36
+msgctxt "post type general name"
+msgid "Archive"
+msgstr ""
+
+#: src/PostCampaign.php:125
+msgctxt "post type general name"
+msgid "Campaigns"
+msgstr ""
+
+#: src/ActionPage.php:104
+msgctxt "post type singular name"
+msgid "Action"
+msgstr ""
+
+#: src/PostArchive.php:37
+msgctxt "post type singular name"
+msgid "Archive"
+msgstr ""
+
+#: src/PostCampaign.php:126
+msgctxt "post type singular name"
+msgid "Campaign"
+msgstr ""
+
+#: src/CustomTaxonomy.php:247
 msgid "Post Types"
 msgstr ""
 
-#: classes/class-p4-post-report-controller.php:59
-#: classes/class-p4-post-report-controller.php:60
+#: src/Settings.php:452
+msgid "Posts"
+msgstr ""
+
+#: src/Settings.php:453
+msgid "Posts & Forms"
+msgstr ""
+
+#: templates/posts_report.twig:18
+msgid "Posts List"
+msgstr ""
+
+#: src/PostReportController.php:71 src/PostReportController.php:72
+#: templates/posts_report.twig:3
 msgid "Posts Report"
 msgstr ""
 
-#: classes/class-p4-control-panel.php:83
-msgid "Search"
-msgstr "Rechercher"
-
-#: classes/class-p4-custom-taxonomy.php:150
-msgid "Search in Post Type"
+#: src/Settings.php:430
+msgid "Preconnect Domains"
 msgstr ""
 
-#: functions.php:722
-msgid "Select a Take Action Page to populate take action boxout block"
+#. images count
+#: assets/src/js/Components/ArchivePicker/ArchivePickerToolbar.js:27
+msgid "Processing %d images"
 msgstr ""
 
-#: classes/class-p4-settings.php:48
-msgid "Select Act Page"
+#: assets/src/js/Components/ArchivePicker/SingleSidebar.js:67
+#: assets/src/js/Components/ArchivePicker/SingleSidebar.js:73
+msgid "Processing…"
 msgstr ""
 
-#: classes/class-p4-settings.php:289
-msgid "Select Category"
+#: underscore_templates/posts_reports.tpl.php:15
+#: underscore_templates/posts_reports.tpl.php:30
+#: underscore_templates/posts_reports.tpl.php:45
+#: underscore_templates/posts_reports.tpl.php:60
+msgid "Publish Status"
 msgstr ""
 
-#: classes/class-p4-settings.php:54
-msgid "Select Explore Page"
+#: underscore_templates/posts_reports.tpl.php:16
+#: underscore_templates/posts_reports.tpl.php:31
+#: underscore_templates/posts_reports.tpl.php:46
+#: underscore_templates/posts_reports.tpl.php:61
+msgid "Published at"
 msgstr ""
 
-#: classes/class-p4-campaigns.php:21
-msgid "Select Image"
+#: src/Features/CloudflareDeployPurge.php:25
+msgid "Purge Cloudflare HTML cache on deploy"
 msgstr ""
 
-#: classes/class-p4-settings.php:60
-msgid "Select Issues Parent Category"
+#: src/Features/CloudflareDeployPurge.php:33
+msgid ""
+"Purges all pages from Cloudflare cache on deploy.<br>Only enable on "
+"production (in consultation with P4 team)."
 msgstr ""
 
-#: classes/class-p4-settings.php:260 classes/class-p4-settings.php:274
-msgid "Select Page"
+#: src/CustomTaxonomy.php:443 src/CustomTaxonomy.php:495
+msgid "Reading time"
 msgstr ""
 
-#: classes/class-p4-settings.php:308
-msgid "Select Posttype"
+#: src/Settings/ReadingTime.php:31
+msgid "Reading time: words per minute"
 msgstr ""
 
-#: classes/class-p4-campaigns.php:99 classes/class-p4-campaigns.php:114
-#: classes/class-p4-campaigns.php:136
-msgid "Select/Upload Image"
+#: underscore_templates/posts_reports.tpl.php:22
+#: underscore_templates/posts_reports.tpl.php:37
+#: underscore_templates/posts_reports.tpl.php:52
+#: underscore_templates/posts_reports.tpl.php:67
+msgid "Refresh"
+msgstr ""
+
+#: src/Settings.php:321
+msgid "Reject all cookies"
+msgstr ""
+
+#: src/MediaReplacer.php:69
+msgid "Replace Media"
 msgstr ""
 
 #. Name of the template
+#: single-p4_action-resistance_hub.php:3
+msgid "Resistance Hub Campaign"
+msgstr ""
+
+#: src/AttachmentsController.php:174
+#: assets/src/js/Components/ArchivePicker/SingleSidebar.js:204
+msgid "Restrictions"
+msgstr ""
+
+#: src/Role/Reviewer.php:19
+msgid "Reviewer"
+msgstr ""
+
+#: src/ControlPanel.php:91
+#: assets/src/js/Components/ArchivePicker/MultiSearchOption.js:87
+#: assets/src/js/Components/ArchivePicker/MultiSearchOption.js:118
+msgid "Search"
+msgstr "Rechercher"
+
+#: src/ActionPage.php:113
+msgid "Search Actions"
+msgstr ""
+
+#: src/PostArchive.php:46
+msgid "Search archives"
+msgstr ""
+
+#: src/PostCampaign.php:135
+msgid "Search Campaigns"
+msgstr ""
+
+#: src/ActionPage.php:163
+msgid "Search in Action Type"
+msgstr ""
+
+#: src/CustomTaxonomy.php:238
+msgid "Search in Post Type"
+msgstr ""
+
+#: src/Settings.php:533
+msgid "Select \"About Us\" page"
+msgstr ""
+
+#: src/Settings.php:523
+msgid "Select \"Get Informed\" page"
+msgstr ""
+
+#: src/Settings.php:528
+msgid "Select \"Take Action\" page"
+msgstr ""
+
+#: src/Settings.php:79
+msgid "Select Act Page"
+msgstr ""
+
+#: src/Settings.php:710
+msgid "Select Category"
+msgstr ""
+
+#: src/Settings.php:85
+msgid "Select Explore Page"
+msgstr ""
+
+#: src/Campaigns.php:34
+msgid "Select Image"
+msgstr ""
+
+#: src/Settings.php:91
+msgid "Select Issues Parent Category"
+msgstr ""
+
+#: src/Settings.php:689
+msgid "Select Page"
+msgstr ""
+
+#: src/Settings/DefaultPostType.php:39
+msgid "Select Post Type"
+msgstr ""
+
+#: src/Campaigns.php:108 src/Campaigns.php:122
+msgid "Select/Upload Image"
+msgstr ""
+
+#: assets/src/js/Components/ArchivePicker/SingleSidebar.js:125
+msgid "Set Featured Image"
+msgstr ""
+
+#: src/Settings.php:671
+msgid "Settings saved."
+msgstr ""
+
+#: src/GravityFormsExtensions.php:540
+msgid "Share buttons"
+msgstr ""
+
+#: src/GravityFormsExtensions.php:561
+msgid "Share text"
+msgstr ""
+
+#: src/GravityFormsExtensions.php:553
+msgid "Show share buttons below message"
+msgstr ""
+
+#: src/Features/ActionsUserPersonalization.php:33
+msgid ""
+"Shows Actions as completed if the user has visited them already. This "
+"feature only works on Actions that use the Resistance Hub template."
+msgstr ""
+
+#. Name of the template
+#: page-templates/sitemap.php:3
 msgid "Sitemap Page"
 msgstr ""
 
-#: classes/class-p4-control-panel.php:204
-msgid "Success"
+#. %s: sub menu title
+#: assets/src/js/menu_editor.js:170
+#, javascript-format
+msgid "Sub menu \"%s\""
 msgstr ""
 
-#: functions.php:806
-msgid "Tags"
+#: src/Features/Dev/NewTimelineBlock.php:33
+msgid ""
+"Switches existing Timeline blocks to the <a href=\"https://www.figma."
+"com/design/9NtbY8n3at8uOEJTsLrETb/P4-Design-System?node-id=9010-"
+"18014&t=9M5kqEc7IljnyUMo-0\" target=\"_blank\">new implementation</a>."
 msgstr ""
 
-#: classes/class-p4-settings.php:138
-msgid "Take Action Covers default button text"
+#: src/ControlPanel.php:94
+msgid "Sync Elasticsearch"
 msgstr ""
 
-#: functions.php:721
-msgid "Take Action Page Selector"
+#: src/Settings.php:137
+msgid "Taxonomy breadcrumbs"
 msgstr ""
 
-#: classes/class-p4-custom-taxonomy.php:148
+#: src/ActionPage.php:161
+msgctxt "taxonomy general name"
+msgid "Action Type"
+msgstr ""
+
+#: src/CustomTaxonomy.php:236
 msgctxt "taxonomy general name"
 msgid "Post Types"
 msgstr ""
 
-#: classes/class-p4-custom-taxonomy.php:149
+#: src/ActionPage.php:162
+msgctxt "taxonomy singular name"
+msgid "Action Type"
+msgstr ""
+
+#: src/CustomTaxonomy.php:237
 msgctxt "taxonomy singular name"
 msgid "Post Type"
 msgstr ""
 
-#: classes/class-p4-post-report-controller.php:76
+#: assets/src/js/Components/ArchivePicker/ArchivePicker.js:546
+#: assets/src/js/Components/ArchivePicker/ArchivePicker.js:589
+msgid ""
+"The <strong>Greenpeace Media</strong> pulls images from <a target=\"_blank\" "
+"href=\"https://media.greenpeace.org/\">media.greenpeace.org</a>. You can "
+"import these images into your Wordpress Media Library and Post/Page. If you "
+"have further questions, you can visit the <a target=\"_blank\" href=\"https:"
+"//planet4.greenpeace.org/manage/administer/media-archive/\">Greenpeace Media "
+"Page</a> in the Handbook."
+msgstr ""
+
+#: src/MediaReplacer.php:78
+msgid "The cache was successfully purged for these files:"
+msgstr ""
+
+#: src/PostReportController.php:89
 msgid "The date query column."
 msgstr ""
 
-#: functions.php:761
+#: src/ActionPage.php:281
+msgid "The default Action post type slug is \"action\"."
+msgstr ""
+
+#: src/Settings.php:376
+msgid ""
+"The default value for ad_personalization consent before visitors make their "
+"choice in the cookies box (Google Consent Mode V2)."
+msgstr ""
+
+#: src/Settings.php:348
+msgid ""
+"The default value for ad_storage consent before visitors make their choice "
+"in the cookies box (Google Consent Mode V2)."
+msgstr ""
+
+#: src/Settings.php:362
+msgid ""
+"The default value for ad_user_data consent before visitors make their choice "
+"in the cookies box (Google Consent Mode V2)."
+msgstr ""
+
+#: src/Settings.php:334
+msgid ""
+"The default value for analytics_storage consent before visitors make their "
+"choice in the cookies box (Google Consent Mode V2)."
+msgstr ""
+
+#: src/Settings.php:390
+msgid ""
+"The default value for url_passthrough.<br>Allows information about ad clicks "
+"to be passed through URL parameters without cookies when consent is granted "
+"outside the landing page (Google Consent Mode V2)."
+msgstr ""
+
+#: src/Settings.php:514
+msgid ""
+"The Google Sheet that is used to get analytics values from local(NRO) "
+"spreadsheet."
+msgstr ""
+
+#: src/AttachmentsController.php:167
+msgid "The owner of the image."
+msgstr ""
+
+#: src/PostCampaign.php:62
+msgid "Theme"
+msgstr ""
+
+#: src/MediaReplacer.php:79
+msgid "There was an issue purging the cache for these files:"
+msgstr ""
+
+#: src/MediaReplacer.php:77
+msgid "There was an issue replacing these files:"
+msgstr ""
+
+#: src/MediaReplacer.php:76
+msgid "These files were successfully replaced:"
+msgstr ""
+
+#: src/Settings.php:127
+msgid "This enables the transparent navigation on the homepage only."
+msgstr ""
+
+#: src/Settings.php:456
+msgid ""
+"This is determining where the options above will be applied<br>\n"
+"                        If only Posts is selected, you can still customize "
+"sharing options for each form on its Confirmation settings."
+msgstr ""
+
+#: src/GravityFormsExtensions.php:562
+msgid ""
+"This is the text that will be shared when a user clicks a share button (if "
+"the platform supports share text)"
+msgstr ""
+
+#: src/Settings.php:411
+msgid ""
+"This is used by Facebook Insights to provide analytics for traffic to your "
+"site from Facebook.<br>\n"
+"                            Find the app ID in your <a href=\"https:"
+"//business.facebook.com/business/loginpage/\" target=\"_blank\">App "
+"Dashboard</a>."
+msgstr ""
+
+#: src/Settings.php:421
+msgid ""
+"This is used by the Meta block to fetch Facebook & Instagram embed "
+"information.<br>\n"
+"                            Alternatively you can use your own, if you have "
+"created a Business Facebook App\n"
+"                            (<a href=\"https://developers.facebook."
+"com/docs/facebook-login/guides/access-tokens/#apptokens\" target=\"_blank\">"
+"Read more</a>).<br>\n"
+"                            You could add App ID and App Secret separated by "
+"a | character, instead of a Token (eg. {your-app_id}|{your-app_secret})."
+msgstr ""
+
+#. 1: item label, 2: max char count, 3: current char count
+#: assets/src/js/menu_editor.js:181
+#, javascript-format
+msgid ""
+"This item label \"%1$s\" should not be longer than %2$s characters "
+"(currently %3$s)."
+msgstr ""
+
+#: src/Features/Dev/DisableDataSync.php:33
+msgid ""
+"This will prevent the automated monthly data sync from production to take "
+"place."
+msgstr ""
+
+#: underscore_templates/posts_reports.tpl.php:14
+#: underscore_templates/posts_reports.tpl.php:29
+#: underscore_templates/posts_reports.tpl.php:44
+#: underscore_templates/posts_reports.tpl.php:59
+#: assets/src/js/Components/ArchivePicker/SingleSidebar.js:184
 msgid "Title"
 msgstr ""
 
-#: classes/class-p4-custom-taxonomy.php:156
+#: src/MasterSite.php:278
+msgid "Title is a required field."
+msgstr ""
+
+#: templates/posts_report.twig:9
+msgid "to"
+msgstr ""
+
+#: assets/src/js/menu_editor.js:40
+msgid "To add a sub-item, drag it slightly to the side."
+msgstr ""
+
+#: src/LoginHandler.php:126
+msgid "Too many failed login attempts. Please try again in 15 minutes."
+msgstr ""
+
+#: src/Settings.php:398
+msgid "True"
+msgstr ""
+
+#: src/ActionPage.php:169
+msgid "Update Action Type"
+msgstr ""
+
+#: src/CustomTaxonomy.php:244
 msgid "Update Post Type"
 msgstr ""
 
-#: functions.php:690
-msgid "Upload an image"
-msgstr ""
-
-#: functions.php:741
+#: src/MetaboxRegister.php:64
 msgid ""
 "Upload an image or select one from the media library to override the "
 "background image"
 msgstr ""
 
-#: functions.php:780
+#: assets/src/js/Components/ArchivePicker/SingleSidebar.js:176
+msgid "URL"
+msgstr ""
+
+#: src/Settings.php:182
+msgid "URL (for iframe)"
+msgstr ""
+
+#: src/Settings.php:505
 msgid ""
-"Upload an image or select one from the media library to override the open "
-"graph image"
+"Use a custom domain from which Tag Manager scripts are loaded. A Google Tag "
+"Manager Web Container must be set up in server-side Tag Manager on the same "
+"domain. Leave empty for the default."
 msgstr ""
 
-#: classes/class-p4-campaigns.php:127
+#: src/ActionPage.php:121
 msgid ""
-"We use an overlay to fade the image back. Use a number between 1 and 100, "
-"the higher the number, the more faded the image will look. If you leave this "
-"empty, the default of 30 will be used."
+"Use Actions to inspire your website's users to take action on issues and "
+"campaigns they care about!"
 msgstr ""
 
-#: classes/class-p4-settings.php:43
-msgid "Website Navigation Title"
+#: assets/src/js/Components/ArchivePicker/ArchivePicker.js:610
+msgid "Use Media Library Tab for this Block!"
 msgstr ""
 
-#: functions.php:439
-msgid "Weight (1-30)"
+#: src/MediaReplacer.php:70
+msgid "Use this to replace the current file without changing the file URL."
 msgstr ""
 
-#: functions.php:893
+#: src/MediaArchive/UiIntegration.php:98
+msgid "Username"
+msgstr ""
+
+#: src/ActionPage.php:111
+msgid "View Action"
+msgstr ""
+
+#: src/PostArchive.php:44
+msgid "View Archive"
+msgstr ""
+
+#: src/PostCampaign.php:133
+msgid "View Campaign"
+msgstr ""
+
+#: src/Settings.php:538
+msgid "VWO Account ID"
+msgstr ""
+
+#. 1: image ID
+#: assets/src/js/Components/ArchivePicker/SingleSidebar.js:103
+#: assets/src/js/Components/ArchivePicker/SingleSidebar.js:170
+#, javascript-format
+msgid "Wordpress image #%s"
+msgstr ""
+
+#: src/CustomTaxonomy.php:464
+msgid "Yes"
+msgstr ""
+
+#: src/LoginHandler.php:227
+msgid ""
+"You are trying to login with a Greenpeace email. Please use the Google login "
+"button instead."
+msgstr ""
+
+#: src/CustomTaxonomy.php:497
+msgid "You can configure the estimated reading speed in"
+msgstr ""
+
+#: src/MasterSite.php:806
 msgid "Your role does not have permission to add terms to this taxonomy"
 msgstr ""
