@@ -1,0 +1,3 @@
+<?php
+return ['project-id-version'=>'Planet4 blocks plugin backend','report-msgid-bugs-to'=>'','pot-creation-date'=>'2018-06-07 10:10+0000','po-revision-date'=>'2025-12-15 11:23+0000','last-translator'=>'Sagar Deshmuk <sdeshmuk@greenpeace.org>','language-team'=>'Greek','language'=>'el','plural-forms'=>'nplurals=2; plural=n != 1;','mime-version'=>'1.0','content-type'=>'text/plain; charset=UTF-8','content-transfer-encoding'=>'8bit','x-generator'=>'Loco https://localise.biz/','x-loco-version'=>'2.3.0; wp-5.2.2
+','messages'=>['Description'=>'Περιγραφή','Enter title'=>'Δώσε τίτλο','None'=>'Κανένα','Select image'=>'Διάλεξε εικόνα','Settings'=>'Ρυθμίσεις','Title'=>'Τίτλος']];

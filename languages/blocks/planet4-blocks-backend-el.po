@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Planet4 blocks plugin backend\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-06-07 10:10+0000\n"
-"PO-Revision-Date: 2020-11-11 15:27+0200\n"
+"PO-Revision-Date: 2025-12-15 11:23+0000\n"
 "Last-Translator: Sagar Deshmuk <sdeshmuk@greenpeace.org>\n"
 "Language-Team: Greek\n"
 "Language: el\n"
@@ -11,849 +11,1348 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.4.1\n"
+"X-Generator: Loco https://localise.biz/\n"
 "X-Loco-Version: 2.3.0; wp-5.2.2\n"
 
-#: classes/class-loader.php:90
-msgid "Requirements Error(s)"
+#: src/BlockReportSearch/Block/BlockUsage.php:263
+msgid "(no title)"
 msgstr ""
 
-#: classes/class-loader.php:93
-msgid "plugin needs to be installed and activated."
-msgstr "το plugin χρειάζεται να εγκατασταθεί και να ενεργοποιηθεί."
-
-#: classes/class-loader.php:97
-msgid "Minimum version "
-msgstr "Ελάχιστη έκδοση "
-
-#: classes/class-loader.php:98
-msgid "Current version "
-msgstr "Τρέχουσα έκδοση "
-
-#: classes/class-loader.php:113
-msgid "PHP Requirements Error"
+#: src/BlockReportSearch/Pattern/PatternUsageTable.php:171
+msgid "- All patterns -"
 msgstr ""
 
-#: classes/class-loader.php:113
-msgid " requires a newer version of PHP."
-msgstr " απαιτεί νεότερη έκδοση της PHP."
-
-#: classes/class-loader.php:114
-msgid "Minimum required version of PHP: "
-msgstr "Η ελάχιστη έκδοση της PHP που απαιτείται είναι: "
-
-#: classes/class-loader.php:115
-msgid "Running version of PHP: "
-msgstr "Η τρέχουσα έκδοση της PHP είναι: "
-
-#: classes/class-loader.php:200
-msgid "Conflict Error"
+#: assets/src/block-editor/Sidebar/ActionSidebar.js:39
+msgid "- Select Task Type -"
 msgstr ""
 
-#: classes/class-loader.php:200
-msgid "Class P4BKS_Loader already exists."
-msgstr ""
-
-#: classes/controller/blocks/class-cookies-controller.php:32
-msgid "Cookies title"
-msgstr ""
-
-#: classes/controller/blocks/class-cookies-controller.php:33
-msgid "Main title for cookies block"
-msgstr ""
-
-#: classes/controller/blocks/class-cookies-controller.php:38
-msgid "Cookies general description"
-msgstr ""
-
-#: classes/controller/blocks/class-cookies-controller.php:39
-msgid "Main description for cookies block"
-msgstr ""
-
-#: classes/controller/blocks/class-cookies-controller.php:44
-msgid "Necessary Cookies Name"
-msgstr ""
-
-#: classes/controller/blocks/class-cookies-controller.php:45
-msgid "Label for the 'necessary cookies' checkbox"
-msgstr ""
-
-#: classes/controller/blocks/class-cookies-controller.php:50
-msgid "Necessary Cookies Description"
-msgstr ""
-
-#: classes/controller/blocks/class-cookies-controller.php:51
-msgid "Description for the 'necessary cookies' paragraph"
-msgstr ""
-
-#: classes/controller/blocks/class-cookies-controller.php:56
-msgid "All Cookies Name"
-msgstr ""
-
-#: classes/controller/blocks/class-cookies-controller.php:57
-msgid "Label for the 'all cookies' checkbox"
-msgstr ""
-
-#: classes/controller/blocks/class-cookies-controller.php:62
-msgid "All Cookies Description"
-msgstr ""
-
-#: classes/controller/blocks/class-cookies-controller.php:63
-msgid "Description for the 'all cookies' paragraph"
-msgstr ""
-
-#: classes/controller/blocks/class-cookies-controller.php:71
-msgid "Cookies"
-msgstr ""
-
-#: classes/controller/blocks/class-mediablock-controller.php:30
-msgid "Select Image for the media block"
-msgstr "Διάλεξε εικόνα για το media block"
-
-#: classes/controller/blocks/class-mediablock-controller.php:34
-#: classes/controller/blocks/class-mediablock-controller.php:35
-#: classes/controller/blocks/class-tasks-controller.php:86
-#: classes/controller/blocks/class-tasks-controller.php:87
-#: classes/controller/blocks/class-staticfourcolumn-controller.php:47
-#: classes/controller/blocks/class-staticfourcolumn-controller.php:48
-#: classes/controller/blocks/class-carouselheader-controller.php:39
-#: classes/controller/blocks/class-carouselheader-controller.php:40
-msgid "Select Image"
-msgstr "Διάλεξε εικόνα"
-
-#. A block that displays an image that supports transparency and blends with the background.
-#: classes/controller/blocks/class-mediablock-controller.php:42
-msgid "Media block"
-msgstr ""
-
-#: classes/controller/blocks/class-mediavideo-controller.php:27
-msgid "Video Title"
-msgstr "Τίτλος βίντεο"
-
-#: classes/controller/blocks/class-mediavideo-controller.php:31
-msgid "Enter video title"
-msgstr "Δώσε τίτλο στο βίντεο"
-
-#: classes/controller/blocks/class-mediavideo-controller.php:35
-msgid "Youtube ID"
-msgstr ""
-
-#: classes/controller/blocks/class-mediavideo-controller.php:39
-msgid "Enter youtube video id"
-msgstr ""
-
-#: classes/controller/blocks/class-mediavideo-controller.php:46
-msgid "Youtube Video"
-msgstr "Youtube βίντεο"
-
-#: classes/controller/blocks/class-contentthreecolumn-controller.php:27
-#: classes/controller/blocks/class-covers-controllers.php:25
-#: classes/controller/blocks/class-campaignthumbnail-controller.php:25
-#: classes/controller/blocks/class-carousel-controller.php:71
-#: classes/controller/blocks/class-staticfourcolumn-controller.php:32
-#: classes/controller/blocks/class-staticfourcolumn-controller.php:51
-#: classes/controller/blocks/class-subheader-controller.php:24
-#: classes/controller/blocks/class-twocolumn-controller.php:44
-#: classes/controller/blocks/class-twocolumn-controller.php:81
-msgid "Title"
-msgstr "Τίτλος"
-
-#: classes/controller/blocks/class-contentthreecolumn-controller.php:31
-#: classes/controller/blocks/class-covers-controllers.php:29
-#: classes/controller/blocks/class-campaignthumbnail-controller.php:29
-#: classes/controller/blocks/class-splittwocolumns-controller.php:89
-#: classes/controller/blocks/class-carousel-controller.php:75
-msgid "Enter title"
-msgstr "Δώσε τίτλο"
-
-#: classes/controller/blocks/class-contentthreecolumn-controller.php:35
-#: classes/controller/blocks/class-covers-controllers.php:34
-#: classes/controller/blocks/class-staticfourcolumn-controller.php:61
-#: classes/controller/blocks/class-carouselheader-controller.php:81
-#: classes/controller/blocks/class-subheader-controller.php:29
-#: classes/controller/blocks/class-twocolumn-controller.php:53
-#: classes/controller/blocks/class-twocolumn-controller.php:89
-msgid "Description"
-msgstr "Περιγραφή"
-
-#: classes/controller/blocks/class-contentthreecolumn-controller.php:39
-#: classes/controller/blocks/class-covers-controllers.php:38
-#: classes/controller/blocks/class-splittwocolumns-controller.php:99
-#: classes/controller/blocks/class-splittwocolumns-controller.php:151
-msgid "Enter description"
-msgstr ""
-
-#: classes/controller/blocks/class-contentthreecolumn-controller.php:43
-msgid "Image 1"
-msgstr "Εικόνα 1"
-
-#: classes/controller/blocks/class-contentthreecolumn-controller.php:47
-#: classes/controller/blocks/class-contentthreecolumn-controller.php:48
-msgid "Select First Image"
-msgstr ""
-
-#: classes/controller/blocks/class-contentthreecolumn-controller.php:51
-msgid "Image 2"
-msgstr "Εικόνα 2"
-
-#: classes/controller/blocks/class-contentthreecolumn-controller.php:55
-#: classes/controller/blocks/class-contentthreecolumn-controller.php:56
-msgid "Select Second Image"
-msgstr ""
-
-#: classes/controller/blocks/class-contentthreecolumn-controller.php:59
-msgid "Image 3"
-msgstr "Εικόνα 3"
-
-#: classes/controller/blocks/class-contentthreecolumn-controller.php:63
-#: classes/controller/blocks/class-contentthreecolumn-controller.php:64
-msgid "Select Third Image"
-msgstr ""
-
-#: classes/controller/blocks/class-contentthreecolumn-controller.php:70
-msgid "Three Columns"
-msgstr ""
-
-#: classes/controller/blocks/class-covers-controllers.php:44
-msgid "Select Tags"
-msgstr ""
-
-#: classes/controller/blocks/class-covers-controllers.php:45
-msgid "Associate this block with Actions that have specific Tags"
-msgstr ""
-
-#: classes/controller/blocks/class-covers-controllers.php:51
-msgid "Number of covers displayed"
-msgstr ""
-
-#: classes/controller/blocks/class-covers-controllers.php:52
+#: assets/src/blocks/CarouselHeader/CarouselHeaderBlock.js:48
 msgid ""
-"Show 1 Row: Displays 3 Covers on desktop and 2 Covers on mobile.<br> \n"
-"\t\t\t\t\t\t\t\t\t\tShow 2 Rows: Displays 6 Covers on desktop and 4 covers "
-"on mobile.<br>\n"
-"\t\t\t\t\t\t\t\t\t\t(Another Row will be revealed each time the Load more "
-"button is clicked)<br>\n"
-"\t\t\t\t\t\t\t\t\t\tShow All Covers: Displays all available Covers on "
-"desktop and 4 Covers on mobile."
+"A gallery block that features a scrolling collection of images and media "
+"content, typically found at the top of the Homepage."
 msgstr ""
 
-#. placeholder is a number.
-#: classes/controller/blocks/class-covers-controllers.php:63
-#: classes/controller/blocks/class-contentfourcolumn-controller.php:87
-msgid "Show 1 Row"
-msgstr ""
-
-#. placeholder is a number.
-#: classes/controller/blocks/class-covers-controllers.php:68
-#: classes/controller/blocks/class-contentfourcolumn-controller.php:91
-msgid "Show 2 Rows"
-msgstr ""
-
-#: classes/controller/blocks/class-covers-controllers.php:72
-msgid "Show All Covers"
-msgstr ""
-
-#: classes/controller/blocks/class-covers-controllers.php:85
-msgid "Take action Covers"
-msgstr ""
-
-#: classes/controller/blocks/class-campaignthumbnail-controller.php:36
-msgid "Campaign Thumbnail"
-msgstr ""
-
-#: classes/controller/blocks/class-tasks-controller.php:30
-msgid "Tasks Title"
-msgstr ""
-
-#: classes/controller/blocks/class-tasks-controller.php:34
-msgid "Enter tasks title"
-msgstr ""
-
-#: classes/controller/blocks/class-tasks-controller.php:39
-msgid "Tasks Description"
-msgstr ""
-
-#: classes/controller/blocks/class-tasks-controller.php:43
-msgid "Enter tasks description"
-msgstr ""
-
-#. placeholder needs to represent the ordinal of the task/column, eg. 1st, 2nd etc.
-#: classes/controller/blocks/class-tasks-controller.php:55
-#, php-format
+#: assets/src/blocks/Timeline/TimelineBlock.js:52
 msgid ""
-"Task %s: Title <br> \n"
-"\t\t\t\t\t\t\t\t\t<i>Title is mandatory. In order for the task to be "
-"appeared title has to be filled.</i>"
+"A type of graphic that arranges a chain of events, activities, and "
+"milestones in chronological order."
 msgstr ""
 
-#. placeholder needs to represent the ordinal of the task/column, eg. 1st, 2nd etc.
-#: classes/controller/blocks/class-tasks-controller.php:61
-#, php-format
-msgid "Enter title of %s task/column"
-msgstr ""
-
-#. placeholder needs to represent the ordinal of the task/column, eg. 1st, 2nd etc.
-#: classes/controller/blocks/class-tasks-controller.php:69
-#, php-format
-msgid "Task %s: Description"
-msgstr ""
-
-#. placeholder needs to represent the ordinal of the task/column, eg. 1st, 2nd etc.
-#: classes/controller/blocks/class-tasks-controller.php:74
-#, php-format
-msgid "Enter description of %s task/column"
-msgstr ""
-
-#. placeholder needs to represent the ordinal of the task/column, eg. 1st, 2nd etc.
-#: classes/controller/blocks/class-tasks-controller.php:82
-#, php-format
-msgid "Select Image for %s task/column"
-msgstr ""
-
-#. placeholder needs to represent the ordinal of the task/column, eg. 1st, 2nd etc.
-#: classes/controller/blocks/class-tasks-controller.php:93
-#, php-format
-msgid "Task %s: Button Text"
-msgstr ""
-
-#. placeholder needs to represent the ordinal of the task/column, eg. 1st, 2nd etc.
-#: classes/controller/blocks/class-tasks-controller.php:98
-#, php-format
-msgid "Enter button text of %s task/column"
-msgstr ""
-
-#. placeholder needs to represent the ordinal of the task/column, eg. 1st, 2nd etc.
-#: classes/controller/blocks/class-tasks-controller.php:106
-#, php-format
-msgid "Task %s: Button Link"
-msgstr ""
-
-#. placeholder needs to represent the ordinal of the task/column, eg. 1st, 2nd etc.
-#: classes/controller/blocks/class-tasks-controller.php:111
-#, php-format
-msgid "Enter button link of %s task/column"
-msgstr ""
-
-#. A block that contains different columns each one with title and description and an image.
-#: classes/controller/blocks/class-tasks-controller.php:120
-msgid "Take action tasks"
-msgstr ""
-
-#: classes/controller/blocks/class-splittwocolumns-controller.php:24
-#: classes/controller/blocks/class-carouselheader-controller.php:48
-#: classes/controller/blocks/class-happypoint-controller.php:38
-msgid "1 - Top Left"
-msgstr "1 - Πάνω αριστερά"
-
-#: classes/controller/blocks/class-splittwocolumns-controller.php:25
-#: classes/controller/blocks/class-carouselheader-controller.php:49
-#: classes/controller/blocks/class-happypoint-controller.php:42
-msgid "2 - Top Center"
-msgstr "2 - Πάνω κέντρο"
-
-#: classes/controller/blocks/class-splittwocolumns-controller.php:26
-#: classes/controller/blocks/class-carouselheader-controller.php:50
-#: classes/controller/blocks/class-happypoint-controller.php:46
-msgid "3 - Top Right"
-msgstr "3 - Πάνω δεξιά"
-
-#: classes/controller/blocks/class-splittwocolumns-controller.php:27
-#: classes/controller/blocks/class-carouselheader-controller.php:51
-#: classes/controller/blocks/class-happypoint-controller.php:50
-msgid "4 - Middle Left"
-msgstr "4 - Μέση αριστερά"
-
-#: classes/controller/blocks/class-splittwocolumns-controller.php:28
-#: classes/controller/blocks/class-carouselheader-controller.php:52
-#: classes/controller/blocks/class-happypoint-controller.php:54
-msgid "5 - Middle Center"
-msgstr "5 - Μέση κέντρο"
-
-#: classes/controller/blocks/class-splittwocolumns-controller.php:29
-#: classes/controller/blocks/class-carouselheader-controller.php:53
-#: classes/controller/blocks/class-happypoint-controller.php:58
-msgid "6 - Middle Right"
-msgstr "6 - Μέση δεξιά"
-
-#: classes/controller/blocks/class-splittwocolumns-controller.php:30
-#: classes/controller/blocks/class-carouselheader-controller.php:54
-#: classes/controller/blocks/class-happypoint-controller.php:62
-msgid "7 - Bottom Left"
-msgstr "7 - Κάτω αριστερά"
-
-#: classes/controller/blocks/class-splittwocolumns-controller.php:31
-#: classes/controller/blocks/class-carouselheader-controller.php:55
-#: classes/controller/blocks/class-happypoint-controller.php:66
-msgid "8 - Bottom Center"
-msgstr "8 - Κάτω μέση"
-
-#: classes/controller/blocks/class-splittwocolumns-controller.php:32
-#: classes/controller/blocks/class-carouselheader-controller.php:56
-#: classes/controller/blocks/class-happypoint-controller.php:70
-msgid "9 - Bottom Right"
-msgstr "9 - Κάτω δεξιά"
-
-#: classes/controller/blocks/class-splittwocolumns-controller.php:68
-msgid "Issue fields (Column 1 - Left side)"
-msgstr ""
-
-#: classes/controller/blocks/class-splittwocolumns-controller.php:69
-msgid "Select an issue"
-msgstr "Διάλεξε μία εκστρατεία"
-
-#: classes/controller/blocks/class-splittwocolumns-controller.php:72
-msgid "Campaign fields (Column 2 - Right side)"
-msgstr ""
-
-#: classes/controller/blocks/class-splittwocolumns-controller.php:73
-msgid "Select a tag"
-msgstr "Διάλεξε ένα θέμα"
-
-#: classes/controller/blocks/class-splittwocolumns-controller.php:80
-msgid "Associate this block to the Issue that it will talk about"
-msgstr ""
-
-#: classes/controller/blocks/class-splittwocolumns-controller.php:85
-msgid "Issue Title"
-msgstr "Τίτλος Εκστρατείας"
-
-#: classes/controller/blocks/class-splittwocolumns-controller.php:92
-msgid "(Optional) Fill this only if you need to override issue title."
-msgstr ""
-
-#: classes/controller/blocks/class-splittwocolumns-controller.php:95
-msgid "Issue Description"
-msgstr "Περιγραφή Εκστρατείας"
-
-#: classes/controller/blocks/class-splittwocolumns-controller.php:101
-msgid "(Optional) Fill this only if you need to override issue description."
-msgstr "."
-
-#: classes/controller/blocks/class-splittwocolumns-controller.php:104
-msgid "Issue link text"
-msgstr ""
-
-#: classes/controller/blocks/class-splittwocolumns-controller.php:108
-msgid "Enter link text"
-msgstr ""
-
-#: classes/controller/blocks/class-splittwocolumns-controller.php:110
-#: classes/controller/blocks/class-splittwocolumns-controller.php:119
-#: classes/controller/blocks/class-splittwocolumns-controller.php:128
-#: classes/controller/blocks/class-splittwocolumns-controller.php:136
-#: classes/controller/blocks/class-splittwocolumns-controller.php:153
-#: classes/controller/blocks/class-splittwocolumns-controller.php:162
-#: classes/controller/blocks/class-splittwocolumns-controller.php:171
-#: classes/controller/blocks/class-splittwocolumns-controller.php:180
-msgid "(Optional)"
-msgstr "(Προαιρετικό)"
-
-#: classes/controller/blocks/class-splittwocolumns-controller.php:113
-msgid "Issue link path"
-msgstr ""
-
-#: classes/controller/blocks/class-splittwocolumns-controller.php:117
-msgid "Enter link path"
-msgstr ""
-
-#: classes/controller/blocks/class-splittwocolumns-controller.php:122
-msgid "Issue Image"
-msgstr "Εικόνα Εκστρατείας"
-
-#: classes/controller/blocks/class-splittwocolumns-controller.php:126
-#: classes/controller/blocks/class-splittwocolumns-controller.php:127
-msgid "Select Image for Issue"
-msgstr ""
-
-#: classes/controller/blocks/class-splittwocolumns-controller.php:131
-msgid "Select focus point for issue image"
-msgstr ""
-
-#: classes/controller/blocks/class-splittwocolumns-controller.php:141
-msgid "Associate the selected Issue with a Tag"
-msgstr ""
-
-#: classes/controller/blocks/class-splittwocolumns-controller.php:147
-msgid "Campaign Description"
-msgstr ""
-
-#: classes/controller/blocks/class-splittwocolumns-controller.php:156
-msgid "Campaign button text"
-msgstr ""
-
-#: classes/controller/blocks/class-splittwocolumns-controller.php:160
-msgid "Enter button text"
-msgstr ""
-
-#: classes/controller/blocks/class-splittwocolumns-controller.php:165
-msgid "Campaign button link"
-msgstr ""
-
-#: classes/controller/blocks/class-splittwocolumns-controller.php:169
-msgid "Enter button link"
-msgstr ""
-
-#: classes/controller/blocks/class-splittwocolumns-controller.php:174
-msgid "Campaign Image"
-msgstr ""
-
-#: classes/controller/blocks/class-splittwocolumns-controller.php:178
-#: classes/controller/blocks/class-splittwocolumns-controller.php:179
-msgid "Select Image for Campaign"
-msgstr ""
-
-#: classes/controller/blocks/class-splittwocolumns-controller.php:183
-msgid "Select focus point for campaign image"
-msgstr ""
-
-#: classes/controller/blocks/class-splittwocolumns-controller.php:200
-msgid "Split Two Columns"
-msgstr ""
-
-#: classes/controller/blocks/class-takeactionboxout-controller.php:57
-msgid "Select a Take action Page"
-msgstr ""
-
-#: classes/controller/blocks/class-takeactionboxout-controller.php:58
-msgid "Associate this block with a Take action page"
-msgstr ""
-
-#: classes/controller/blocks/class-takeactionboxout-controller.php:66
-msgid "Take action Boxout"
-msgstr ""
-
-#: classes/controller/blocks/class-contentfourcolumn-controller.php:52
+#: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutBlock.js:18
 msgid ""
-"Title. <i>If it is not defined, title will default to 'Publications'</i>"
+"A versatile horizontal card featuring an image, description, and Call to "
+"Action, designed to link to Take Action pages or any custom link such as "
+"external petitions or donation pages."
 msgstr ""
 
-#. placeholder needs to represent the ordinal of the column, eg. 1st, 2nd etc.
-#: classes/controller/blocks/class-contentfourcolumn-controller.php:57
-#: classes/controller/blocks/class-submenu-controller.php:132
-msgid "Enter title for this block"
+#: assets/src/block-editor/Sidebar/ActionSidebar.js:63
+msgid "Action Lists block button text"
 msgstr ""
 
-#: classes/controller/blocks/class-contentfourcolumn-controller.php:63
-msgid "Select a Tag"
+#: assets/src/block-editor/Sidebar/ActionSidebar.js:34
+msgid "Action Options"
 msgstr ""
 
-#: classes/controller/blocks/class-contentfourcolumn-controller.php:64
-#: classes/controller/blocks/class-submenu-controller.php:103
-msgid "Associate this block with Posts that have a specific Tag"
+#: assets/src/blocks/Accordion/AccordionEditor.js:92
+msgid "Add button"
 msgstr ""
 
-#: classes/controller/blocks/class-contentfourcolumn-controller.php:76
-msgid "Number of Posts displayed"
-msgstr ""
-
-#: classes/controller/blocks/class-contentfourcolumn-controller.php:77
+#: assets/src/block-editor/Sidebar/ActionSidebar.js:70
 msgid ""
-"Show 1 Row: Displays 4 Posts on desktop and 3 Posts on mobile.<br> \n"
-"\t\t\t\t\t\t\t\t\tShow 2 Rows: Displays 8 Posts on desktop and 6 Posts on "
-"mobile.<br>\n"
-"\t\t\t\t\t\t\t\t\t(Another Row will be revealed each time the Load more "
-"button is clicked)<br>\n"
-"\t\t\t\t\t\t\t\t\tShow All Rows: Displays all available Posts on desktop and "
-"4 Posts on mobile."
+"Add descriptive text for screen readers (e.g., 'Sign Up to Stop Meat and "
+"Dairy')."
 msgstr ""
 
-#: classes/controller/blocks/class-contentfourcolumn-controller.php:95
-msgid "Show All Posts"
+#: assets/src/blocks/CarouselHeader/EditableBackground.js:67
+#: assets/src/blocks/Columns/EditableColumns.js:35
+#: assets/src/blocks/Columns/EditableColumns.js:51
+#: assets/src/block-editor/ImageHoverControls/index.js:19
+msgid "Add image"
 msgstr ""
 
-#: classes/controller/blocks/class-contentfourcolumn-controller.php:102
-msgid "Content Four Column"
+#: assets/src/blocks/Accordion/AccordionEditor.js:149
+msgid "Add item"
 msgstr ""
 
-#: classes/controller/blocks/class-carousel-controller.php:79
-msgid "Select Carousel Images"
-msgstr "Διάλεξε εικόνες για το Carousel"
-
-#: classes/controller/blocks/class-carousel-controller.php:91
-msgid "Carousel"
+#: assets/src/blocks/TableOfContents/TableOfContentsEditor.js:73
+msgid "Add level"
 msgstr ""
 
-#: classes/controller/blocks/class-carouselsplit-controller.php:28
-msgid "Images"
-msgstr "Εικόνες"
-
-#: classes/controller/blocks/class-carouselsplit-controller.php:33
-#: classes/controller/blocks/class-carouselsplit-controller.php:34
-msgid "Select Images for Carousel"
+#: assets/src/blocks/CarouselHeader/EditableBackground.js:89
+msgid "Add slide"
 msgstr ""
 
-#. A block that contains a carousel with split images.
-#: classes/controller/blocks/class-carouselsplit-controller.php:41
-msgid "Carousel Split"
-msgstr ""
-
-#. placeholder needs to represent the ordinal of the column, eg. 1st, 2nd etc.
-#: classes/controller/blocks/class-staticfourcolumn-controller.php:43
-#, php-format
-msgid "Select Image for %s column"
-msgstr "Διάλεξε εικόνα για την στήλη %s"
-
-#. placeholder needs to represent the ordinal of the column, eg. 1st, 2nd etc.
-#: classes/controller/blocks/class-staticfourcolumn-controller.php:56
-#, php-format
-msgid "Enter title of %s column"
-msgstr ""
-
-#. placeholder needs to represent the ordinal of the column, eg. 1st, 2nd etc.
-#: classes/controller/blocks/class-staticfourcolumn-controller.php:66
-#, php-format
-msgid "Enter description of %s column"
-msgstr ""
-
-#: classes/controller/blocks/class-staticfourcolumn-controller.php:71
-#: classes/controller/blocks/class-carouselheader-controller.php:91
-msgid "Text for link"
-msgstr ""
-
-#. placeholder needs to represent the ordinal of the column, eg. 1st, 2nd etc.
-#: classes/controller/blocks/class-staticfourcolumn-controller.php:76
-#, php-format
-msgid "Enter %s link text"
-msgstr ""
-
-#: classes/controller/blocks/class-staticfourcolumn-controller.php:81
-#: classes/controller/blocks/class-carouselheader-controller.php:101
-msgid "Url for link"
-msgstr ""
-
-#. placeholder needs to represent the ordinal of the column, eg. 1st, 2nd etc.
-#: classes/controller/blocks/class-staticfourcolumn-controller.php:86
-#, php-format
-msgid "Enter %s link url"
-msgstr ""
-
-#. A block that contains 4 different columns each one with title and description.
-#: classes/controller/blocks/class-staticfourcolumn-controller.php:97
-msgid "Static Four Column"
-msgstr ""
-
-#: classes/controller/blocks/class-controller.php:74
-msgid "Shortcode UI plugin must be active for Planet4 - Blocks plugin to work."
-msgstr ""
-
-#. placeholder needs to represent the ordinal of the image, eg. 1st, 2nd etc.
-#: classes/controller/blocks/class-carouselheader-controller.php:35
-#, php-format
-msgid "Select file for %s image"
-msgstr ""
-
-#. placeholder needs to represent the ordinal of the image, eg. 1st, 2nd etc.
-#: classes/controller/blocks/class-carouselheader-controller.php:44
-#, php-format
-msgid "Select focus point for image %s"
-msgstr ""
-
-#: classes/controller/blocks/class-carouselheader-controller.php:60
-msgid "Header"
-msgstr ""
-
-#. placeholder needs to represent the ordinal of the image, eg. 1st, 2nd etc.
-#: classes/controller/blocks/class-carouselheader-controller.php:65
-#, php-format
-msgid "Enter header of %s image"
-msgstr ""
-
-#: classes/controller/blocks/class-carouselheader-controller.php:71
-#: classes/controller/blocks/class-subheader-controller.php:37
-msgid "Subheader"
-msgstr ""
-
-#. placeholder needs to represent the ordinal of the image, eg. 1st, 2nd etc.
-#: classes/controller/blocks/class-carouselheader-controller.php:76
-#, php-format
-msgid "Enter subheader of %s image"
-msgstr ""
-
-#. placeholder needs to represent the ordinal of the image, eg. 1st, 2nd etc.
-#: classes/controller/blocks/class-carouselheader-controller.php:86
-#, php-format
-msgid "Enter description of %s image"
-msgstr ""
-
-#. placeholder needs to represent the ordinal of the image, eg. 1st, 2nd etc.
-#: classes/controller/blocks/class-carouselheader-controller.php:96
-#, php-format
-msgid "Enter link text for %s image"
-msgstr ""
-
-#. placeholder needs to represent the ordinal of the image, eg. 1st, 2nd etc.
-#: classes/controller/blocks/class-carouselheader-controller.php:106
-#, php-format
-msgid "Enter link url for %s image"
-msgstr ""
-
-#. A block that contains 4 different columns each one with title and description.
-#: classes/controller/blocks/class-carouselheader-controller.php:117
-msgid "Carousel Header"
-msgstr ""
-
-#: classes/controller/blocks/class-happypoint-controller.php:24
-msgid "Background"
-msgstr ""
-
-#: classes/controller/blocks/class-happypoint-controller.php:28
-#: classes/controller/blocks/class-happypoint-controller.php:29
-msgid "Select Background Image"
-msgstr ""
-
-#: classes/controller/blocks/class-happypoint-controller.php:32
-msgid "Select focus point for background image"
-msgstr ""
-
-#: classes/controller/blocks/class-happypoint-controller.php:75
+#: assets/src/blocks/TopicLink/edit.js:178
+#: assets/src/blocks/Gallery/GalleryEditor.js:83
 msgid ""
-"<i>We use an overlay to fade the image back. Use a number between 1 and 100,"
-"<br /> the higher the number, the more faded the image will look. If you "
-"leave this <br/> empty, the default of 30 will be used.</i>"
+"Adjust the “Left” and “Top” fields to position the focal point of the image "
+"in percentage, where 0% is the top/left edge and 100% is the bottom/right "
+"edge."
 msgstr ""
 
-#: classes/controller/blocks/class-happypoint-controller.php:81
-msgid "Use mailing list iframe"
+#: assets/src/blocks/SocialMedia/SocialMediaEditorScript.js:205
+msgid "Alignment"
 msgstr ""
 
-#: classes/controller/blocks/class-happypoint-controller.php:86
-msgid "Iframe url"
+#: assets/src/block-editor/setupBlockEditorValidation.js:174
+msgid "All good."
 msgstr ""
 
-#: classes/controller/blocks/class-happypoint-controller.php:93
-msgid "Enter iframe url"
+#: src/Controllers/ReusableBlocksController.php:52
+#: src/Controllers/ReusableBlocksController.php:53
+msgid "All Reusable blocks"
 msgstr ""
 
-#: classes/controller/blocks/class-happypoint-controller.php:100
-msgid "Happy Point"
-msgstr ""
-
-#: classes/controller/blocks/class-submenu-controller.php:86
-msgid "None"
-msgstr "Κανένα"
-
-#: classes/controller/blocks/class-submenu-controller.php:92
-msgid "Heading"
-msgstr ""
-
-#: classes/controller/blocks/class-submenu-controller.php:98
-msgid "Anchor Link Submenu"
-msgstr ""
-
-#: classes/controller/blocks/class-submenu-controller.php:99
+#: assets/src/blocks/SocialMedia/SocialMediaBlock.js:20
 msgid ""
-"An in-page table of contents to help users have a sense of what's on\n"
-"\t\t\t\t\t\t\t\t\t\t\t\tthe page and let them jump to a topic they are "
-"interested in."
+"An embed-style block, customized to display and align content from Facebook "
+"and Instagram by inputting the URL."
 msgstr ""
 
-#: classes/controller/blocks/class-submenu-controller.php:102
-msgid "What style of menu do you need?"
+#: assets/src/block-editor/Sidebar/AnalyticsTrackingSidebar.js:32
+msgid "Analytics & Tracking"
 msgstr ""
 
-#: classes/controller/blocks/class-submenu-controller.php:108
-msgid "Long full-width"
+#: assets/src/blocks/Counter/CounterEditor.js:30
+msgid "API URL for Goal Reached"
 msgstr ""
 
-#: classes/controller/blocks/class-submenu-controller.php:114
-msgid "Short full-width"
+#: assets/src/blocks/Counter/CounterEditor.js:31
+msgid "API URL for the total amount e.g. of signatures"
 msgstr ""
 
-#: classes/controller/blocks/class-submenu-controller.php:120
-msgid "Short sidebar"
+#: src/Controllers/ArchiveImport.php:51 src/Controllers/ArchiveImport.php:52
+msgid "Archive Import"
 msgstr ""
 
-#: classes/controller/blocks/class-submenu-controller.php:127
-msgid "<h3>Submenu title</h3>"
+#: assets/src/js/query_loop_carousel.js:68
+msgid "Back to List"
 msgstr ""
 
-#: classes/controller/blocks/class-submenu-controller.php:164
-msgid "Submenu"
+#: assets/src/blocks/Timeline/TimelineEditorScript.js:87
+msgid "Begin at the end of the timeline"
 msgstr ""
 
-#: classes/controller/blocks/class-twocolumn-controller.php:48
-msgid "Enter title of first column"
+#: assets/build/blocks/TopicLink/block.json:1
+#: assets/src/blocks/TopicLink/block.json:1
+msgctxt "block description"
+msgid ""
+"The Topic Link block allows editors to manually link to a category page, "
+"which redirects users to relevant topic content."
 msgstr ""
 
-#: classes/controller/blocks/class-twocolumn-controller.php:57
-msgid "Enter description of first column"
-msgstr "Δώσε περιγραφή της πρώτης στήλης"
-
-#: classes/controller/blocks/class-twocolumn-controller.php:62
-#: classes/controller/blocks/class-twocolumn-controller.php:97
-msgid "Button text"
+#: assets/build/block-templates/action/block.json:1
+#: assets/src/block-templates/action/block.json:1
+msgctxt "block title"
+msgid "Action"
 msgstr ""
 
-#: classes/controller/blocks/class-twocolumn-controller.php:70
-#: classes/controller/blocks/class-twocolumn-controller.php:105
-msgid "Button link"
+#: assets/build/block-templates/campaign/block.json:1
+#: assets/src/block-templates/campaign/block.json:1
+msgctxt "block title"
+msgid "Campaign"
 msgstr ""
 
-#: classes/controller/blocks/class-twocolumn-controller.php:74
-msgid "Enter button link of first column"
+#: assets/build/block-templates/deep-dive/block.json:1
+#: assets/src/block-templates/deep-dive/block.json:1
+msgctxt "block title"
+msgid "Deep Dive"
 msgstr ""
 
-#: classes/controller/blocks/class-twocolumn-controller.php:85
-msgid "Enter title of second column"
+#: assets/build/block-templates/deep-dive-topic/block.json:1
+#: assets/src/block-templates/deep-dive-topic/block.json:1
+msgctxt "block title"
+msgid "Deep Dive Topic"
 msgstr ""
 
-#: classes/controller/blocks/class-twocolumn-controller.php:93
-msgid "Enter description of second column"
+#: assets/build/block-templates/get-informed/block.json:1
+#: assets/src/block-templates/get-informed/block.json:1
+msgctxt "block title"
+msgid "Get Informed"
 msgstr ""
 
-#: classes/controller/blocks/class-twocolumn-controller.php:109
-msgid "Enter button link of second column"
+#: assets/build/block-templates/high-level-topic/block.json:1
+#: assets/src/block-templates/high-level-topic/block.json:1
+msgctxt "block title"
+msgid "High-Level Topic"
 msgstr ""
 
-#: classes/controller/blocks/class-twocolumn-controller.php:123
-msgid "Two Columns"
+#: assets/build/block-templates/highlighted-cta/block.json:1
+#: assets/src/block-templates/highlighted-cta/block.json:1
+msgctxt "block title"
+msgid "Highlighted CTA"
 msgstr ""
 
-#: classes/controller/blocks/class-articles-controller.php:58
-msgid "Article Heading"
-msgstr "Επικεφαλίδα άρθρου"
-
-#: classes/controller/blocks/class-articles-controller.php:62
-msgid "Enter article heading"
-msgstr "Δώσε επικεφαλίδα άρθρου"
-
-#: classes/controller/blocks/class-articles-controller.php:66
-msgid "Article Count"
-msgstr "Αριθμός άρθρων"
-
-#: classes/controller/blocks/class-articles-controller.php:70
-msgid "Enter articles count"
-msgstr "Δώσε αριθμό άρθρων"
-
-#: classes/controller/blocks/class-articles-controller.php:74
-msgid "Read More Text"
+#: assets/build/block-templates/homepage/block.json:1
+#: assets/src/block-templates/homepage/block.json:1
+msgctxt "block title"
+msgid "Homepage"
 msgstr ""
 
-#: classes/controller/blocks/class-articles-controller.php:78
-msgid "Add read more button text"
+#: assets/build/block-templates/issues/block.json:1
+#: assets/src/block-templates/issues/block.json:1
+msgctxt "block title"
+msgid "Issues"
 msgstr ""
 
-#: classes/controller/blocks/class-articles-controller.php:82
-msgid "Read More Link"
+#: assets/build/block-templates/page-header/block.json:1
+#: assets/src/block-templates/page-header/block.json:1
+msgctxt "block title"
+msgid "Page Header"
 msgstr ""
 
-#: classes/controller/blocks/class-articles-controller.php:86
-msgid "Add read more button link"
+#: assets/build/block-templates/quick-links/block.json:1
+#: assets/src/block-templates/quick-links/block.json:1
+msgctxt "block title"
+msgid "Quick Links"
 msgstr ""
 
-#: classes/controller/blocks/class-articles-controller.php:97
-msgid "Articles"
-msgstr "Άρθρα"
+#: assets/build/block-templates/reality-check/block.json:1
+#: assets/src/block-templates/reality-check/block.json:1
+msgctxt "block title"
+msgid "Reality Check"
+msgstr ""
 
-#: classes/controller/menu/class-settings-controller.php:21
-#: classes/controller/menu/class-settings-controller.php:22
+#: assets/build/block-templates/side-image-with-text-and-cta/block.json:1
+#: assets/src/block-templates/side-image-with-text-and-cta/block.json:1
+msgctxt "block title"
+msgid "Side image with text and CTA"
+msgstr ""
+
+#: assets/build/block-templates/take-action/block.json:1
+#: assets/src/block-templates/take-action/block.json:1
+msgctxt "block title"
+msgid "Take Action"
+msgstr ""
+
+#: assets/build/blocks/TopicLink/block.json:1
+#: assets/src/blocks/TopicLink/block.json:1
+msgctxt "block title"
+msgid "Topic Link"
+msgstr ""
+
+#: src/Controllers/BlocksReportController.php:32
+#: src/Controllers/BlocksReportController.php:33
 msgid "Blocks"
 msgstr ""
 
-#: includes/settings.twig:4
+#: assets/src/blocks/TableOfContents/TableOfContentsLevel.js:54
+msgid "Bullet"
+msgstr ""
+
+#: assets/src/blocks/Accordion/AccordionEditor.js:127
+msgid "Button link"
+msgstr ""
+
+#: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:175
+#: assets/src/blocks/Accordion/AccordionEditor.js:78
+msgid "Button text"
+msgstr ""
+
+#: assets/src/blocks/HappyPoint/OverrideFormHelp.js:6
+msgid "By default this block uses the \"Default Happy Point Form\" in "
+msgstr ""
+
+#: assets/src/block-editor/Sidebar/SearchEngineOptimizationsSidebar.js:21
+msgid "Canonical link"
+msgstr ""
+
+#: assets/src/blocks/CarouselHeader/Sidebar.js:154
+msgid "Carousel Autoplay"
+msgstr ""
+
+#: assets/src/block-templates/quick-links/template.js:19
+msgid "Category"
+msgstr ""
+
+#: assets/src/block-editor/QueryLoopBlockExtension/index.js:242
+msgid ""
+"CAUTION: Adding posts individually will override the automatic functionality "
+"of this block. For good user experience, please include at least 3 articles "
+"in list view, 4 articles in grid view, and 9 articles in carousel view, so "
+"that spacing and alignment of the design remains intact."
+msgstr ""
+
+#: assets/src/blocks/SocialMedia/SocialMediaEditorScript.js:210
+msgid "Center"
+msgstr ""
+
+#: assets/src/blocks/TopicLink/edit.js:217
+#: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:255
+msgid "Change Background Image"
+msgstr ""
+
+#: assets/src/blocks/CarouselHeader/EditableBackground.js:66
+msgid "Change image"
+msgstr ""
+
+#: assets/src/block-styles/index.js:53
+msgid "Chevron"
+msgstr ""
+
+#: assets/src/blocks/TableOfContents/TableOfContentsEditor.js:54
+msgid "Choose the headings to be displayed in the table of contents."
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Action Yellow"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Beige 100"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Blue 800"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Blue Green 800"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Dark Green 800"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "GP Green 800"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Green 400"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Green 500"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Green 800"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Grey 100"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Grey 200"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Grey 600"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Grey 800"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Grey 900"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Red 500"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "White"
+msgstr ""
+
+#: assets/src/blocks/Columns/ColumnsEditor.js:62
+#, javascript-format
+msgid "Column %s link"
+msgstr ""
+
+#: assets/src/blocks/Columns/ColumnsEditor.js:44
+msgid "Columns"
+msgstr ""
+
+#: assets/src/blocks/Timeline/URLDescriptionHelp.js:16
+msgid "Copy this, add your own timeline data, and publish to the web."
+msgstr ""
+
+#: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:222
+msgid "Custom link"
+msgstr ""
+
+#: assets/src/block-editor/Sidebar/ActionSidebar.js:48
+msgid "Deadline Date"
+msgstr ""
+
+#: assets/src/block-editor/Sidebar/OpenGraphSidebar.js:29
+msgid "Description"
+msgstr "Περιγραφή"
+
+#: assets/src/block-editor/QueryLoopBlockExtension/index.js:231
+msgid "Display as"
+msgstr ""
+
+#: assets/src/blocks/Counter/CounterBlock.js:46
+msgid "Display real time signatures being collected worldwide on petitions."
+msgstr ""
+
+#: assets/src/blocks/Cookies/CookiesBlock.js:9
+msgid ""
+"Displays the cookies settings and control panel within P4 for editors to "
+"control their level of compliance regarding data collection."
+msgstr ""
+
+#: assets/src/blocks/HappyPoint/HappyPointEditor.js:197
+msgid ""
+"Drag \"left\" to move across the horizontal axis and slide \"top\" upwards "
+"to move through the vertical axis."
+msgstr ""
+
+#: assets/src/blocks/HappyPoint/HappyPointEditor.js:189
+msgid ""
+"Drag the mouse to the focal area or input the position with numbers for more "
+"precision."
+msgstr ""
+
+#: templates/duplicate-postmeta-report.twig:27
+msgid "Duplicate count"
+msgstr ""
+
+#: templates/duplicate-postmeta-report.twig:4
+msgid "Duplicate Postmeta"
+msgstr ""
+
+#: templates/duplicate-postmeta-report.twig:22
+msgid "Duplicate postmeta report"
+msgstr ""
+
+#: assets/src/blocks/Counter/CounterEditor.js:54
+msgid "e.g. \"signatures collected of %target%\""
+msgstr ""
+
+#: assets/src/blocks/Counter/CounterEditor.js:20
+msgid "e.g. Signatures at this moment"
+msgstr ""
+
+#: assets/src/blocks/Counter/CounterEditor.js:42
+msgid "e.g. Total amount of signatures"
+msgstr ""
+
+#: assets/src/blocks/CarouselHeader/EditableBackground.js:52
+#: assets/src/block-editor/ImageHoverControls/index.js:28
+msgid "Edit"
+msgstr ""
+
+#: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:283
+#: assets/src/blocks/HappyPoint/HappyPointEditor.js:226
+msgid "Edit Image"
+msgstr ""
+
+#: assets/src/blocks/Timeline/NewTimelineEditorScript.js:44
+#: assets/src/blocks/Timeline/TimelineEditorScript.js:109
+msgid "Edit text"
+msgstr ""
+
+#: assets/src/blocks/Spreadsheet/SpreadsheetBlock.js:31
+msgid ""
+"Embed a Google Spreadsheet directly into your website by copying the "
+"spreadsheet URL and customize the table appearance by choosing from a "
+"selection of four predefined colors."
+msgstr ""
+
+#: assets/src/blocks/SocialMedia/SocialMediaEditorScript.js:168
+msgid "Embed type"
+msgstr ""
+
+#: assets/src/blocks/Cookies/CookiesEditor.js:174
+msgid "Enter all cookies description"
+msgstr ""
+
+#: assets/src/blocks/Cookies/CookiesEditor.js:157
+msgid "Enter all cookies name"
+msgstr ""
+
+#: assets/src/blocks/Cookies/CookiesEditor.js:130
+msgid "Enter analytical cookies description"
+msgstr ""
+
+#: assets/src/blocks/Cookies/CookiesEditor.js:112
+msgid "Enter analytical cookies name"
+msgstr ""
+
+#: assets/src/blocks/Columns/EditableColumns.js:117
+msgid "Enter column button text"
+msgstr ""
+
+#: assets/src/blocks/Columns/EditableColumns.js:94
+msgid "Enter column description"
+msgstr ""
+
+#: assets/src/blocks/Columns/EditableColumns.js:86
+msgid "Enter column header"
+msgstr ""
+
+#: assets/src/blocks/Columns/EditableColumns.js:118
+msgid "Enter column link text"
+msgstr ""
+
+#: assets/src/blocks/CarouselHeader/Caption.js:33
+msgid "Enter CTA text"
+msgstr ""
+
+#: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:223
+msgid "Enter custom link"
+msgstr ""
+
+#: assets/src/block-templates/reality-check/template.js:19
+#: assets/src/block-templates/page-header/template.js:30
+#: assets/src/block-templates/templates/gravity-form-with-text.js:25
+#: assets/src/block-templates/issues/template.js:81
+#: assets/src/block-templates/side-image-with-text-and-cta/template.js:20
+#: assets/src/blocks/SocialMedia/SocialMediaEditorScript.js:155
+#: assets/src/blocks/Gallery/GalleryEditor.js:143
+#: assets/src/blocks/CarouselHeader/Caption.js:21
+#: assets/src/blocks/Counter/CounterEditor.js:93
+#: assets/src/blocks/Cookies/CookiesEditor.js:54
+#: assets/src/blocks/PostsList/index.js:79
+#: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:165
+#: assets/src/blocks/Accordion/AccordionEditor.js:47
+#: assets/src/blocks/ActionsList/index.js:49
+#: assets/src/blocks/Columns/ColumnsEditor.js:173
+#: assets/src/blocks/Timeline/NewTimelineEditorScript.js:61
+#: assets/src/blocks/Timeline/TimelineEditorScript.js:126
+msgid "Enter description"
+msgstr ""
+
+#: assets/src/blocks/Spreadsheet/SpreadsheetEditor.js:47
+msgid "Enter Google Spreadsheet URL"
+msgstr ""
+
+#: assets/src/blocks/Accordion/AccordionEditor.js:58
+msgid "Enter headline"
+msgstr ""
+
+#: assets/src/blocks/HappyPoint/HappyPointEditor.js:149
+msgid "Enter iframe URL"
+msgstr ""
+
+#. %s: column index
+#: assets/src/blocks/Columns/ColumnsEditor.js:64
+#, javascript-format
+msgid "Enter link for column %s"
+msgstr ""
+
+#: assets/src/blocks/Cookies/CookiesEditor.js:84
+msgid "Enter necessary cookies description"
+msgstr ""
+
+#: assets/src/blocks/Cookies/CookiesEditor.js:66
+msgid "Enter necessary cookies name"
+msgstr ""
+
+#: src/Patterns/BlankPage.php:38
+#: assets/src/block-templates/highlighted-cta/template.js:6
+#: assets/src/block-templates/issues/template.js:28
+#: assets/src/block-templates/issues/template.js:40
+#: assets/src/block-templates/issues/template.js:108
+#: assets/src/blocks/Accordion/AccordionEditor.js:68
+msgid "Enter text"
+msgstr ""
+
+#: assets/src/blocks/Timeline/URLDescriptionHelp.js:6
+msgid ""
+"Enter the URL of the Google Sheets spreadsheet containing your timeline data."
+msgstr ""
+
+#: assets/src/block-templates/deep-dive/template.js:32
+#: assets/src/block-templates/reality-check/template.js:15
+#: assets/src/block-templates/quick-links/template.js:35
+#: assets/src/block-templates/page-header/template.js:8
+#: assets/src/block-templates/templates/gravity-form-with-text.js:22
+#: assets/src/block-templates/issues/template.js:68
+#: assets/src/block-templates/side-image-with-text-and-cta/template.js:19
+#: assets/src/blocks/SocialMedia/SocialMediaEditorScript.js:145
+#: assets/src/blocks/Gallery/GalleryEditor.js:133
+#: assets/src/blocks/CarouselHeader/Caption.js:13
+#: assets/src/blocks/TableOfContents/TableOfContentsEditor.js:116
+#: assets/src/blocks/Counter/CounterEditor.js:83
+#: assets/src/blocks/Cookies/CookiesEditor.js:43
+#: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:155
+#: assets/src/blocks/Accordion/AccordionEditor.js:37
+#: assets/src/blocks/ActionsList/index.js:46
+#: assets/src/blocks/Columns/ColumnsEditor.js:161
+#: assets/src/blocks/Timeline/NewTimelineEditorScript.js:49
+#: assets/src/blocks/Timeline/TimelineEditorScript.js:114
+msgid "Enter title"
+msgstr "Δώσε τίτλο"
+
+#: assets/src/block-templates/deep-dive/template.js:19
+msgid "Enter topic"
+msgstr ""
+
+#: assets/src/blocks/SocialMedia/SocialMediaEditorScript.js:198
+#: assets/src/blocks/Timeline/NewTimelineEditorScript.js:20
+#: assets/src/blocks/Timeline/TimelineEditorScript.js:56
+msgid "Enter URL"
+msgstr ""
+
+#: assets/src/blocks/SocialMedia/SocialMediaEditorScript.js:189
+msgid "Events"
+msgstr ""
+
+#. Name of the template
+#: page-templates/evergreen.php:5
+msgid "Evergreen Page"
+msgstr ""
+
+#: src/Controllers/PostmetaCheckController.php:53
+msgid "Exception: "
+msgstr ""
+
+#: assets/src/blocks/SocialMedia/SocialMediaEditorScript.js:171
+msgid "Facebook page"
+msgstr ""
+
+#: src/BlockReportSearch/Pattern/PatternUsageTable.php:195
+#: src/BlockReportSearch/Block/BlockUsageTable.php:414
+msgid "Filter"
+msgstr ""
+
+#: assets/src/blocks/Columns/ColumnsBlock.js:92
+msgid ""
+"For more static content, this display has an icon, header, description and "
+"text link."
+msgstr ""
+
+#: assets/src/blocks/Columns/ColumnsBlock.js:102
+msgid ""
+"For more static content, this display has an image, header, description and "
+"text link."
+msgstr ""
+
+#: assets/src/blocks/Counter/CounterEditor.js:41
+msgid "Goal"
+msgstr ""
+
+#: assets/src/blocks/Timeline/NewTimelineEditorScript.js:19
+#: assets/src/blocks/Timeline/TimelineEditorScript.js:55
+msgid "Google Sheets URL"
+msgstr ""
+
+#: src/BlockReportSearch/Pattern/PatternUsageTable.php:289
+msgid "Group by pattern name"
+msgstr ""
+
+#: src/BlockReportSearch/Pattern/PatternUsageTable.php:299
+msgid "Group by post ID"
+msgstr ""
+
+#: src/BlockReportSearch/Pattern/PatternUsageTable.php:294
+msgid "Group by post title"
+msgstr ""
+
+#: assets/src/blocks/TableOfContents/TableOfContentsLevel.js:6
+msgid "Heading 2"
+msgstr ""
+
+#: assets/src/blocks/TableOfContents/TableOfContentsLevel.js:7
+msgid "Heading 3"
+msgstr ""
+
+#: assets/src/blocks/TableOfContents/TableOfContentsLevel.js:8
+msgid "Heading 4"
+msgstr ""
+
+#: assets/src/blocks/TableOfContents/TableOfContentsLevel.js:9
+msgid "Heading 5"
+msgstr ""
+
+#: assets/src/blocks/TableOfContents/TableOfContentsLevel.js:10
+msgid "Heading 6"
+msgstr ""
+
+#: assets/src/block-editor/Sidebar/PageHeaderSidebar.js:23
+#: assets/src/block-editor/Sidebar/ActionSidebar.js:59
+msgid "Hide page title"
+msgstr ""
+
+#: assets/src/blocks/HappyPoint/HappyPointEditor.js:167
+msgid "HubSpot embed code"
+msgstr ""
+
+#: assets/src/blocks/HappyPoint/HappyPointEditor.js:155
+msgid "If a URL is set here, it will override this setting."
+msgstr ""
+
+#: assets/src/blocks/HappyPoint/HappyPointEditor.js:173
+msgid "If an embed code is set here, it will override this setting."
+msgstr ""
+
+#: assets/src/block-editor/Sidebar/SearchEngineOptimizationsSidebar.js:24
+msgid "If emtpy a self-reference canonical link will be used"
+msgstr ""
+
+#: assets/src/blocks/HappyPoint/OverrideFormHelp.js:16
+msgid ""
+"If this box is checked, it will override this setting with the form "
+"specified below."
+msgstr ""
+
+#: assets/src/blocks/HappyPoint/HappyPointEditor.js:148
+msgid "Iframe URL"
+msgstr ""
+
+#: assets/src/blocks/CarouselHeader/SidebarSlide.js:117
+msgid "Image focal point"
+msgstr ""
+
+#: assets/src/block-editor/Sidebar/OpenGraphSidebar.js:30
+msgid "Image override"
+msgstr ""
+
+#: assets/src/blocks/PostsList/index.js:126
+msgid ""
+"Insert a list or grid of the latest articles, press releases, and/or "
+"publications, organized by publication date. "
+msgstr ""
+
+#: assets/src/blocks/TableOfContents/TableOfContentsBlock.js:14
+msgid ""
+"Insert text, media, and other content in an ordered list of clickable "
+"headings corresponding to the content sections on the page."
+msgstr ""
+
+#: assets/src/blocks/SecondaryNavigation/SecondaryNavigationBlock.js:12
+msgid ""
+"Inserts a secondary navigation menu to the page that leads to different "
+"sections of the same page."
+msgstr ""
+
+#: assets/src/blocks/ActionsList/index.js:97
+msgid ""
+"Integrate images and text cards to automatically display tags, take action "
+"pages, or Posts in a three or four column layout displayed in a grid or "
+"carousel."
+msgstr ""
+
+#: assets/src/blocks/Accordion/AccordionEditor.js:125
+msgid "Item"
+msgstr ""
+
+#: assets/src/blocks/Timeline/TimelineEditorScript.js:69
+msgid "Language"
+msgstr ""
+
+#: assets/src/block-editor/QueryLoopBlockExtension/index.js:227
+msgid "Layout view"
+msgstr ""
+
+#: assets/src/blocks/SocialMedia/SocialMediaEditorScript.js:216
+#: assets/src/blocks/TableOfContents/TableOfContentsEditor.js:83
+#: assets/src/blocks/SecondaryNavigation/SecondaryNavigationEditor.js:10
+#: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:262
+#: assets/src/blocks/Timeline/NewTimelineEditorScript.js:31
+#: assets/src/blocks/Timeline/TimelineEditorScript.js:94
+msgid "Learn more about this block"
+msgstr ""
+
+#: assets/src/blocks/Spreadsheet/SpreadsheetEditor.js:73
+#: assets/src/blocks/TopicLink/edit.js:190
+#: assets/src/blocks/CarouselHeader/Sidebar.js:175
+#: assets/src/blocks/Counter/CounterEditor.js:64
+#: assets/src/blocks/Cookies/CookiesEditor.js:193
+#: assets/src/blocks/Accordion/AccordionEditor.js:159
+#: assets/src/blocks/HappyPoint/HappyPointEditor.js:205
+#: assets/src/blocks/Columns/ColumnsEditor.js:79
+#: assets/src/block-editor/QueryLoopBlockExtension/index.js:254
+msgid "Learn more about this block "
+msgstr ""
+
+#: assets/src/blocks/SocialMedia/SocialMediaEditorScript.js:209
+msgid "Left"
+msgstr ""
+
+#: assets/src/blocks/TableOfContents/TableOfContentsLevel.js:28
+msgid "Level"
+msgstr ""
+
+#: assets/src/blocks/TableOfContents/TableOfContentsLevel.js:40
+msgid "Link"
+msgstr ""
+
+#: assets/src/blocks/TableOfContents/TableOfContentsLevel.js:50
+msgid "List style"
+msgstr ""
+
+#: assets/src/blocks/TableOfContents/TableOfContentsBlock.js:46
+msgid "Long full-width"
+msgstr ""
+
+#: assets/src/block-editor/NavigationType/NavigationType.js:11
+msgid "Main website navigation"
+msgstr ""
+
+#: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:193
+msgid "Make block stick to the bottom of the page on mobile"
+msgstr ""
+
+#: assets/src/block-variations/index.js:14
+msgid "Make the entire block contents clickable, using the first link inside."
+msgstr ""
+
+#: assets/src/block-editor/QueryLoopBlockExtension/index.js:240
+msgid "Manual override"
+msgstr ""
+
+#: assets/src/blocks/SocialMedia/SocialMediaEditorScript.js:190
+msgid "Messages"
+msgstr ""
+
+#: templates/duplicate-postmeta-report.twig:26
+msgid "meta_key"
+msgstr ""
+
+#: assets/src/block-editor/NavigationType/NavigationType.js:15
+msgid "Minimal Navigation"
+msgstr ""
+
+#: assets/src/block-styles/index.js:46
+msgid "Mobile carousel"
+msgstr ""
+
+#: assets/src/block-editor/Sidebar/ActionSidebar.js:76
+#: assets/src/block-editor/Sidebar/CampaignSidebar.js:20
+msgid "Navigation"
+msgstr ""
+
+#: assets/src/block-editor/NavigationType/NavigationType.js:22
+msgid "Navigation type"
+msgstr ""
+
+#: assets/src/block-editor/TermSelector/index.js:344
+msgid "New tags can only be created by an administrator"
+msgstr ""
+
+#: assets/src/blocks/PostsList/index.js:41
+msgid "Next Carousel Slide"
+msgstr ""
+
+#: templates/duplicate-postmeta-report.twig:42
+msgid "No duplicate postmeta records found."
+msgstr ""
+
+#: assets/src/blocks/CarouselHeader/ImagePlaceholder.js:9
+msgid "No image selected."
+msgstr ""
+
+#: assets/src/blocks/PostsList/index.js:90
+#: assets/src/blocks/ActionsList/index.js:60
+msgid "No posts found. (This default text can be edited)"
+msgstr ""
+
+#: assets/src/blocks/CarouselHeader/SidebarSlide.js:85
+msgid "No title"
+msgstr ""
+
+#: assets/src/blocks/Spreadsheet/SpreadsheetEditor.js:89
+msgid ""
+"No URL has been specified. Please edit the block and provide a Spreadsheet "
+"URL using the sidebar."
+msgstr ""
+
+#: src/Controllers/PostmetaCheckController.php:62
+msgid "No whitelisted duplicate postmeta records found."
+msgstr ""
+
+#: templates/duplicate-postmeta-report.twig:25
+msgid "No."
+msgstr ""
+
+#: assets/src/blocks/SocialMedia/SocialMediaEditorScript.js:208
+#: assets/src/blocks/TableOfContents/TableOfContentsLevel.js:53
+msgid "None"
+msgstr "Κανένα"
+
+#: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:209
+msgid "None (custom)"
+msgstr ""
+
+#: assets/src/blocks/TableOfContents/TableOfContentsLevel.js:55
+msgid "Number"
+msgstr ""
+
+#: assets/src/blocks/Counter/CounterEditor.js:19
+msgid "Number of Items Collected"
+msgstr ""
+
+#: assets/src/blocks/SocialMedia/SocialMediaEditorScript.js:170
+msgid "oEmbed"
+msgstr ""
+
+#: assets/src/blocks/Accordion/AccordionEditorScript.js:41
+msgid ""
+"Offers collapsible sections with a title, a description, a link or a call to "
+"action button."
+msgstr ""
+
+#: assets/src/blocks/Timeline/URLDescriptionHelp.js:21
+msgid ""
+"Once you have done so, use the URL from your address bar (not the one "
+"provided in Google's 'publish to web' dialog)."
+msgstr ""
+
+#: assets/src/blocks/HappyPoint/HappyPointEditor.js:107
+msgid "Opacity"
+msgstr ""
+
+#: assets/src/block-editor/Sidebar/OpenGraphSidebar.js:26
+msgid "Open Graph/Social Fields"
+msgstr ""
+
+#: assets/src/blocks/CarouselHeader/SidebarSlide.js:105
+#: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:234
+#: assets/src/blocks/Accordion/AccordionEditor.js:136
+msgid "Open in a new tab"
+msgstr ""
+
+#: assets/src/blocks/Columns/ColumnsEditor.js:70
+msgid "Open link in new tab"
+msgstr ""
+
+#: assets/src/blocks/Columns/ColumnsBlock.js:74
+msgid "Optional headers, description text and buttons in a column display."
+msgstr ""
+
+#: assets/src/blocks/HappyPoint/HappyPointEditor.js:118
+msgid "Override default form"
+msgstr ""
+
+#: assets/src/block-editor/Sidebar/PageHeaderSidebar.js:21
+#: assets/src/block-editor/Sidebar/ActionSidebar.js:57
+msgid "Page header"
+msgstr ""
+
+#: assets/src/block-templates/campaign/template.js:9
+#: assets/src/block-templates/high-level-topic/template.js:10
+msgid "Page header title"
+msgstr ""
+
+#: assets/src/block-styles/index.js:76
+msgid "Parallax - add a parallax effect to the image when scrolling the page"
+msgstr ""
+
+#: src/Controllers/BlocksUsageController.php:144
+#: src/Controllers/BlocksUsageController.php:145
+msgid "Pattern Report"
+msgstr ""
+
+#: assets/src/blocks/HappyPoint/OverrideFormHelp.js:11
+msgid "Planet 4 Settings - Default content"
+msgstr ""
+
+#: assets/src/blocks/Timeline/NewTimelineEditorScript.js:70
+#: assets/src/blocks/Timeline/TimelineEditorScript.js:135
+msgid "Please include a Sheet URL."
+msgstr ""
+
+#: assets/src/blocks/Columns/EditableColumns.js:79
+msgid ""
+"Please select another image for this column, as the current image is not an "
+"icon and you have chosen columns style icons. "
+msgstr ""
+
+#: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:114
+msgid "Populating block's fields…"
+msgstr ""
+
+#: src/Controllers/PostmetaCheckController.php:28
+#: src/Controllers/PostmetaCheckController.php:29
+msgid "Postmeta Check"
+msgstr ""
+
+#: assets/src/blocks/PostsList/index.js:33
+msgid "Previous Carousel Slide"
+msgstr ""
+
+#: assets/src/block-styles/index.js:23
+msgid "Primary"
+msgstr ""
+
+#: assets/src/block-editor/setupBlockEditorValidation.js:170
+msgid "Publish Checklist"
+msgstr ""
+
+#: assets/src/blocks/PostsList/index.js:72
+msgid "Related Posts"
+msgstr ""
+
+#. %d = The duplicate postmeta count.
+#: src/Controllers/PostmetaCheckController.php:59
+msgid "Remove %d duplicate postmeta records successfully."
+msgstr ""
+
+#: assets/src/blocks/TopicLink/edit.js:227
+#: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:292
+#: assets/src/blocks/HappyPoint/HappyPointEditor.js:235
+msgid "Remove Image"
+msgstr ""
+
+#: assets/src/blocks/CarouselHeader/EditableBackground.js:78
+msgid "Remove image"
+msgstr ""
+
+#: assets/src/blocks/Accordion/AccordionEditor.js:156
+msgid "Remove item"
+msgstr ""
+
+#: assets/src/blocks/TableOfContents/TableOfContentsEditor.js:80
+msgid "Remove level"
+msgstr ""
+
+#: assets/src/blocks/CarouselHeader/EditableBackground.js:100
+msgid "Remove slide"
+msgstr ""
+
+#: src/Controllers/BlocksUsageController.php:135
+#: src/Controllers/BlocksUsageController.php:136
+msgid "Report"
+msgstr ""
+
+#: assets/src/block-styles/index.js:39
+msgid "Reset margin"
+msgstr ""
+
+#. Name of the template
+#: single-p4_action-resistance_hub.php:3
+msgid "Resistance Hub Campaign"
+msgstr ""
+
+#: assets/src/blocks/SocialMedia/SocialMediaEditorScript.js:211
+msgid "Right"
+msgstr ""
+
+#: assets/src/block-styles/index.js:64
+msgid "Rounded 180x180"
+msgstr ""
+
+#: assets/src/block-styles/index.js:68
+msgid "Rounded 90x90"
+msgstr ""
+
+#: assets/src/block-editor/Sidebar/SearchEngineOptimizationsSidebar.js:18
+msgid "Search Engine Optimizations"
+msgstr ""
+
+#: assets/src/block-styles/index.js:18
+msgid "Secondary"
+msgstr ""
+
+#: assets/src/blocks/Timeline/URLDescriptionHelp.js:11
+msgid "See the TimelineJS website for a template GSheet."
+msgstr ""
+
+#: assets/src/block-editor/QueryLoopBlockExtension/index.js:247
+msgid "Select articles"
+msgstr ""
+
+#: assets/src/blocks/TopicLink/edit.js:217
+#: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:244
+#: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:255
+#: assets/src/blocks/HappyPoint/HappyPointEditor.js:66
+#: assets/src/blocks/HappyPoint/HappyPointEditor.js:246
+msgid "Select Background Image"
+msgstr ""
+
+#: assets/src/blocks/TopicLink/edit.js:167
+msgid "Select Category:"
+msgstr ""
+
+#: assets/src/blocks/Gallery/GalleryEditor.js:80
+msgid "Select gallery image focal point"
+msgstr ""
+
+#: assets/src/blocks/Gallery/GalleryEditor.js:64
+msgid "Select Gallery Images"
+msgstr ""
+
+#: assets/src/block-editor/SidebarFields/ImageSidebarField.js:31
+#, fuzzy
+#| msgid "Select Image"
+msgid "Select image"
+msgstr "Διάλεξε εικόνα"
+
+#: assets/src/blocks/TopicLink/edit.js:175
+#: assets/src/blocks/HappyPoint/HappyPointEditor.js:186
+msgid "Select image focal point"
+msgstr ""
+
+#: assets/src/blocks/SocialMedia/SocialMediaEditorScript.js:137
+msgid ""
+"Select oEmbed for the following types of social media<br>- Facebook: post, "
+"activity, photo, video, media, question, note<br>- Instagram: image"
+msgstr ""
+
+#: assets/src/block-editor/PostSelector/index.js:118
+#: assets/src/block-editor/PostSelector/index.js:124
+msgid "Select posts"
+msgstr ""
+
+#: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:206
+msgid "Select Take Action Page:"
+msgstr ""
+
+#: assets/src/blocks/CarouselHeader/Sidebar.js:155
+msgid "Select to trigger images autoslide"
+msgstr ""
+
+#: assets/src/block-editor/Sidebar/ActionSidebar.js:66
+msgid "Set the text for the Actions List Block's Button (e.g., 'Sign Up')"
+msgstr ""
+
+#: assets/src/blocks/Spreadsheet/SpreadsheetEditor.js:36
+#: assets/src/blocks/TopicLink/edit.js:163
+#: assets/src/blocks/SocialMedia/SocialMediaEditorScript.js:166
+#: assets/src/blocks/Gallery/GalleryEditor.js:77
+#: assets/src/blocks/CarouselHeader/Sidebar.js:151
+#: assets/src/blocks/TableOfContents/TableOfContentsEditor.js:52
+#: assets/src/blocks/Counter/CounterEditor.js:14
+#: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:202
+#: assets/src/blocks/Accordion/AccordionEditor.js:116
+#: assets/src/blocks/HappyPoint/HappyPointEditor.js:102
+#: assets/src/blocks/Columns/ColumnsEditor.js:40
+#: assets/src/blocks/Timeline/NewTimelineEditorScript.js:17
+#: assets/src/blocks/Timeline/TimelineEditorScript.js:53
 msgid "Settings"
 msgstr "Ρυθμίσεις"
 
-#: includes/settings.twig:20
-msgid "Select Language"
-msgstr "Διάλεξε γλώσσα"
+#: assets/src/blocks/TableOfContents/TableOfContentsBlock.js:54
+msgid "Short full-width"
+msgstr ""
+
+#: assets/src/blocks/TableOfContents/TableOfContentsBlock.js:61
+msgid "Short sidebar"
+msgstr ""
+
+#. Name of the template
+#: page-templates/sitemap.php:3
+msgid "Sitemap Page"
+msgstr ""
+
+#: assets/src/block-styles/index.js:35
+msgid "Space evenly"
+msgstr ""
+
+#: assets/src/blocks/Spreadsheet/SpreadsheetEditor.js:46
+msgid "Spreadsheet URL"
+msgstr ""
+
+#: assets/src/blocks/Timeline/TimelineEditorScript.js:86
+msgid "Start at end"
+msgstr ""
+
+#: assets/src/block-variations/index.js:13
+msgid "Stretched Link"
+msgstr ""
+
+#: assets/src/block-editor/Sidebar/PostParentLink.js:10
+msgid "Style and analytics settings from the parent page will be used."
+msgstr ""
+
+#: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:189
+msgid "Styles"
+msgstr ""
+
+#: assets/src/blocks/Spreadsheet/SpreadsheetEditor.js:38
+msgid "Table Color"
+msgstr ""
+
+#: assets/src/blocks/TableOfContents/TableOfContentsLevel.js:32
+msgid "Table of Contents item"
+msgstr ""
+
+#: assets/src/block-editor/Sidebar/ActionSidebar.js:37
+msgid "Task Type"
+msgstr ""
+
+#: assets/src/block-editor/setupTaxonomyBreadcrumbBlock.js:12
+msgid "Taxonomy Breadcrumb"
+msgstr ""
+
+#: assets/src/blocks/Counter/CounterEditor.js:53
+msgid "Text"
+msgstr ""
+
+#: templates/duplicate-postmeta-report.twig:51
+msgid "The * indicates whitelisted metakey's for delete operation."
+msgstr ""
+
+#: assets/src/blocks/Gallery/GalleryBlock.js:82
+msgid ""
+"The 3 columns image display is great for accentuating text, and telling a "
+"visual story."
+msgstr ""
+
+#: assets/src/blocks/Columns/ColumnsBlock.js:20
+msgid ""
+"The columns block comes in four styles and groups static content in an "
+"aligned, responsive and styled column."
+msgstr ""
+
+#: assets/src/blocks/Gallery/GalleryBlock.js:89
+msgid ""
+"The grid shows thumbnails of lots of images. Good to use when showing lots "
+"of activity."
+msgstr ""
+
+#: assets/src/blocks/HappyPoint/HappyPointBlock.js:11
+msgid ""
+"The Happy Point block embeds (via iFrame) a “Subscribe” or engagement form "
+"on top of a full-width background image."
+msgstr ""
+
+#: assets/src/block-editor/QueryLoopBlockExtension/index.js:232
+msgid "The layout of the action|post list"
+msgstr ""
+
+#: assets/src/blocks/Gallery/GalleryBlock.js:74
+msgid ""
+"The slider is a carousel of images. For more than 5 images, consider using a "
+"grid."
+msgstr ""
+
+#: assets/src/blocks/Spreadsheet/SpreadsheetEditor.js:96
+msgid "The Spreadsheet URL appears to be invalid."
+msgstr ""
+
+#: assets/src/block-editor/URLValidationMessage/URLValidationMessage.js:25
+msgid "The URL must start with \"https://\""
+msgstr ""
+
+#: assets/src/blocks/SecondaryNavigation/SecondaryNavigationEditor.js:43
+msgid ""
+"There are not any pre-established headings that this block can display in "
+"the form of a secondary navigation menu. Please add headings to your page."
+msgstr ""
+
+#: assets/src/blocks/TableOfContents/TableOfContentsEditor.js:125
+msgid ""
+"There are not any pre-established headings that this block can display in "
+"the form of a table of content. Please add headings to your page or choose "
+"another heading size."
+msgstr ""
+
+#: assets/src/block-editor/Sidebar/PostParentLink.js:5
+msgid "This is a sub-page of"
+msgstr ""
+
+#: assets/src/blocks/Cookies/CookiesFieldResetButton.js:15
+msgid "This value is defined in the settings, in Planet 4 > Cookies"
+msgstr ""
+
+#: assets/src/blocks/SocialMedia/SocialMediaEditorScript.js:188
+msgid "Timeline"
+msgstr ""
+
+#: assets/src/blocks/Timeline/TimelineEditorScript.js:78
+msgid "Timeline navigation position"
+msgstr ""
+
+#: assets/src/block-editor/Sidebar/OpenGraphSidebar.js:28
+msgid "Title"
+msgstr "Τίτλος"
+
+#: templates/duplicate-postmeta-report.twig:47
+msgid "Total"
+msgstr ""
+
+#: assets/src/block-styles/index.js:27
+msgid "Transparent"
+msgstr ""
+
+#: assets/src/block-editor/BlockFilters/index.js:81
+msgid ""
+"Try to keep your Quote short and concise, so that it stands out effectively."
+msgstr ""
+
+#: assets/src/blocks/Gallery/GalleryEditor.js:65
+msgid "Upload an JPEG image or select one from the media library."
+msgstr ""
+
+#: assets/src/blocks/SocialMedia/SocialMediaEditorScript.js:197
+msgid "URL"
+msgstr ""
+
+#: assets/src/blocks/CarouselHeader/SidebarSlide.js:95
+msgid "Url for link"
+msgstr ""
+
+#: assets/src/blocks/Cookies/CookiesFieldResetButton.js:23
+msgid "Use default value"
+msgstr ""
+
+#: assets/src/blocks/Counter/CounterEditor.js:60
+msgid ""
+"Use the following placeholders within the text to showcase the real numbers "
+"when using an API URL: "
+msgstr ""
+
+#: assets/src/blocks/TableOfContents/TableOfContentsBlock.js:47
+msgid ""
+"Use: on long pages (more than 5 screens) when list items are long (+ 10 "
+"words). No max items recommended."
+msgstr ""
+
+#: assets/src/blocks/TableOfContents/TableOfContentsBlock.js:62
+msgid ""
+"Use: on long pages (more than 5 screens) when list items are short (up to 10 "
+"words). Max items recommended: 9"
+msgstr ""
+
+#: assets/src/blocks/TableOfContents/TableOfContentsBlock.js:55
+msgid ""
+"Use: on long pages (more than 5 screens) when list items are short (up to 5 "
+"words). No max items recommended."
+msgstr ""
+
+#: assets/src/blocks/Columns/ColumnsBlock.js:82
+msgid ""
+"Used on Take Action pages, this display has ordered tasks, and call to "
+"action buttons."
+msgstr ""
+
+#: assets/src/blocks/HappyPoint/HappyPointEditor.js:113
+msgid ""
+"We use an overlay to fade the image back. Use a number between 1 and 100, "
+"the higher the number, the more faded the image will look. If you leave this "
+"empty, the default of 30 will be used."
+msgstr ""
+
+#: assets/src/blocks/SocialMedia/SocialMediaEditorScript.js:180
+msgid "What Facebook page content would you like to display?"
+msgstr ""
+
+#: templates/duplicate-postmeta-report.twig:6
+msgid "Whitelisted meta_key's for delete operation"
+msgstr ""
+
+#: assets/src/block-editor/addButtonLinkPasteWarning.js:15
+msgid ""
+"You are pasting a link into the button text. Please ensure your clipboard "
+"only has text in it. Alternatively you can press control/command + SHIFT + V "
+"to paste only the text in your clipboard."
+msgstr ""
+
+#: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:198
+msgid "You can only have one sticky boxout per post"
+msgstr ""
