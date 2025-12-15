@@ -35,8 +35,93 @@ class Context
      */
     public static function add_to_context(array $context)
     {
+        self::set_general_data($context);
+        self::set_sort($context);
+        self::set_languages($context);
+        self::set_users_data($context);
+        self::set_hubspot($context);
+        self::set_options($context);
+        self::set_cookies($context);
+        self::set_consent($context);
+        self::set_navs($context);
+
+        return $context;
+    }
+
+    private static function set_general_data(array &$context): void
+    {
         global $wp;
 
+        $context['theme_uri'] = get_template_directory_uri();
+        $context['domain'] = 'planet4-master-theme';
+        $context['foo'] = 'bar'; // For unit test purposes.
+        $context['site'] = self::$master_site_context;
+        $context['current_url'] = trailingslashit(home_url($wp->request));
+        $context['preconnect_domains'] = [];
+
+        $context['data_nav_bar'] = [
+            'images' => get_template_directory_uri() . '/images/',
+            'home_url' => home_url('/'),
+            'search_query' => trim(get_search_query()),
+            'country_dropdown_toggle' => __('Toggle worldwide site selection menu', 'planet4-master-theme'),
+            'navbar_search_toggle' => __('Toggle search box', 'planet4-master-theme'),
+        ];
+
+        // Default depth level set to 1 if not selected from admin.
+        $context['p4_comments_depth'] = get_option('thread_comments_depth') ?? 1;
+
+        $context['countries_by_initials'] = json_decode(
+            file_get_contents(get_template_directory() . '/templates/countries.json'),
+            true,
+            512,
+            \JSON_OBJECT_AS_ARRAY
+        );
+
+        // Dummy thumbnail.
+        $context['dummy_thumbnail'] = get_template_directory_uri() . '/images/dummy-thumbnail.png';
+
+        // IA: Tabs menu on mobile.
+        $context['mobile_tabs_menu'] = (bool) planet4_get_option('new_ia');
+
+        // hreflang metadata.
+        if (!is_front_page()) {
+            return;
+        }
+
+        $context['hreflang'] = self::generate_hreflang_meta();
+    }
+
+    private static function set_languages(array &$context): void
+    {
+        $languages = function_exists('icl_get_languages') ? icl_get_languages() : [];
+
+        $context['site_languages'] = $languages;
+        $context['languages'] = count($languages); // Keep this variable name as long as NRO themes use it.
+    }
+
+    private static function set_users_data(array &$context): void
+    {
+        $current_user = wp_get_current_user();
+
+        if ($current_user->ID) {
+            $context['p4_signedin_status'] = 'true';
+            $context['p4_visitor_type'] = $current_user->roles[0] ?? '';
+        } else {
+            $context['p4_signedin_status'] = 'false';
+            $context['p4_visitor_type'] = 'guest';
+        }
+
+        // Default avatar.
+        if (defined('WP_DEBUG') && WP_DEBUG === true) {
+            // Gravatar throws an error for local dev default_avatar URL, so the default value is used.
+            $context['default_avatar'] = 'mm'; //Mystery Man
+        } else {
+            $context['default_avatar'] = get_template_directory_uri() . '/images/p4-avatar.jpg';
+        }
+    }
+
+    private static function set_cookies(array &$context): void
+    {
         $context['cookies'] = [
             'text' => planet4_get_option('cookies_field'),
             'enable_analytical_cookies' => planet4_get_option('enable_analytical_cookies'),
@@ -51,17 +136,10 @@ class Context
                 'all_cookies_description' => planet4_get_option('all_cookies_description', ''),
             ],
         ];
-        $context['theme_uri'] = get_template_directory_uri();
-        $context['data_nav_bar'] = [
-            'images' => get_template_directory_uri() . '/images/',
-            'home_url' => home_url('/'),
-            'search_query' => trim(get_search_query()),
-            'country_dropdown_toggle' => __('Toggle worldwide site selection menu', 'planet4-master-theme'),
-            'navbar_search_toggle' => __('Toggle search box', 'planet4-master-theme'),
-        ];
-        $context['domain'] = 'planet4-master-theme';
-        $context['foo'] = 'bar'; // For unit test purposes.
+    }
 
+    private static function set_navs(array &$context): void
+    {
         if (has_nav_menu('navigation-bar-menu')) {
             $menu = Timber::get_menu('navigation-bar-menu');
             $menu_items = $menu->get_items();
@@ -73,8 +151,6 @@ class Context
                 }
             );
         }
-
-        // Check if the menu has been created.
         if (has_nav_menu('donate-menu')) {
             $donate_menu = Timber::get_menu('donate-menu');
 
@@ -83,86 +159,6 @@ class Context
                 $context['donate_menu_items'] = $donate_menu->get_items();
             }
         }
-
-
-        $languages = function_exists('icl_get_languages') ? icl_get_languages() : [];
-
-        $context['site_languages'] = $languages;
-        $context['languages'] = count($languages); // Keep this variable name as long as NRO themes use it.
-
-        $context['site'] = self::$master_site_context;
-        $context['current_url'] = trailingslashit(home_url($wp->request));
-        $context['sort_options'] = [
-            '_score' => [
-                'name' => 'Most relevant',
-                'order' => 'DESC',
-            ],
-            'post_date' => [
-                'name' => 'Newest',
-                'order' => 'DESC',
-            ],
-            'post_date_asc' => [
-                'name' => 'Oldest',
-                'order' => 'ASC',
-            ],
-        ];
-        $context['default_sort'] = Search\SearchPage::DEFAULT_SORT;
-
-        $options = get_option('planet4_options');
-
-        // Do not embed google tag manager js if 'greenpeace' cookie is not set
-        // or enforce_cookies_policy setting is not enabled.
-        $context['enforce_cookies_policy'] = isset($options['enforce_cookies_policy']) ? true : false;
-        $context['google_tag_value'] = $options['google_tag_manager_identifier'] ?? '';
-        $context['google_tag_domain'] = !empty($options['google_tag_manager_domain']) ?
-            $options['google_tag_manager_domain'] : 'www.googletagmanager.com';
-        $context['consent_default_analytics_storage'] =
-            planet4_get_option('consent_default_analytics_storage') ?? 'denied';
-        $context['consent_default_ad_storage'] =
-            planet4_get_option('consent_default_ad_storage') ?? 'denied';
-        $context['consent_default_ad_user_data'] =
-            planet4_get_option('consent_default_ad_user_data') ?? 'denied';
-        $context['consent_default_ad_personalization'] =
-            planet4_get_option('consent_default_ad_personalization') ?? 'denied';
-        $context['consent_default_url_passthrough'] =
-            planet4_get_option('consent_default_url_passthrough') ?? false;
-        $context['facebook_page_id'] = $options['facebook_page_id'] ?? '';
-        $context['preconnect_domains'] = [];
-        $context['vwo_account_id'] = $options['vwo_account_id'] ?? null;
-
-        if (!empty($options['preconnect_domains'])) {
-            $preconnect_domains = explode("\n", $options['preconnect_domains']);
-            $preconnect_domains = array_map('trim', $preconnect_domains);
-            $preconnect_domains = array_filter($preconnect_domains);
-
-            $context['preconnect_domains'] = $preconnect_domains;
-        }
-
-        // hreflang metadata.
-        if (is_front_page()) {
-            $context['hreflang'] = self::generate_hreflang_meta();
-        }
-
-        // Datalayer feed.
-        $current_user = wp_get_current_user();
-        if ($current_user->ID) {
-            $context['p4_signedin_status'] = 'true';
-            $context['p4_visitor_type'] = $current_user->roles[0] ?? '';
-        } else {
-            $context['p4_signedin_status'] = 'false';
-            $context['p4_visitor_type'] = 'guest';
-        }
-
-        $context['website_navbar_title'] = $options['website_navigation_title']
-            ?? __('International (English)', 'planet4-master-theme');
-
-        $context['act_page_id'] = $options['act_page'] ?? '';
-        $context['explore_page_id'] = $options['explore_page'] ?? '';
-
-        // Footer context.
-        $context['copyright_text_line1'] = $options['copyright_line1'] ?? '';
-        $context['copyright_text_line2'] = $options['copyright_line2'] ?? '';
-
         if (has_nav_menu('footer-social-menu')) {
             $footer_social_menu = Timber::get_menu('footer-social-menu');
             $context['footer_social_menu'] = wp_get_nav_menu_items($footer_social_menu->id);
@@ -183,43 +179,88 @@ class Context
         } else {
             $context['footer_secondary_menu'] = wp_get_nav_menu_items('Footer Secondary');
         }
+    }
 
-        // Default depth level set to 1 if not selected from admin.
-        $context['p4_comments_depth'] = get_option('thread_comments_depth') ?? 1;
+    private static function set_options(array &$context): void
+    {
+        $options = get_option('planet4_options');
 
-        $context['countries_by_initials'] = json_decode(
-            file_get_contents(get_template_directory() . '/templates/countries.json'),
-            true,
-            512,
-            \JSON_OBJECT_AS_ARRAY
-        );
-        // HubSpot.
+        // Do not embed google tag manager js if 'greenpeace' cookie is not set
+        // or enforce_cookies_policy setting is not enabled.
+        $context['enforce_cookies_policy'] = isset($options['enforce_cookies_policy']) ? true : false;
+        $context['google_tag_value'] = $options['google_tag_manager_identifier'] ?? '';
+        $context['google_tag_domain'] = !empty($options['google_tag_manager_domain']) ?
+            $options['google_tag_manager_domain'] : 'www.googletagmanager.com';
+        $context['facebook_page_id'] = $options['facebook_page_id'] ?? '';
+        $context['vwo_account_id'] = $options['vwo_account_id'] ?? null;
+        $context['website_navbar_title'] = $options['website_navigation_title']
+            ?? __('International (English)', 'planet4-master-theme');
+
+        $context['act_page_id'] = $options['act_page'] ?? '';
+        $context['explore_page_id'] = $options['explore_page'] ?? '';
+
+        // Footer context.
+        $context['copyright_text_line1'] = $options['copyright_line1'] ?? '';
+        $context['copyright_text_line2'] = $options['copyright_line2'] ?? '';
+
+        if (empty($options['preconnect_domains'])) {
+            return;
+        }
+
+        $preconnect_domains = explode("\n", $options['preconnect_domains']);
+        $preconnect_domains = array_map('trim', $preconnect_domains);
+        $preconnect_domains = array_filter($preconnect_domains);
+        $context['preconnect_domains'] = $preconnect_domains;
+    }
+
+    private static function set_hubspot(array &$context): void
+    {
         $context['hubspot_active'] = is_plugin_active('gravityformshubspot/hubspot.php');
         // The Hubspot Tracking Code snippet will add only if the user has accepted "Marketing" cookies.
         if (
-            $context['hubspot_active']
-            && !isset($_COOKIE['no_track']) && isset($_COOKIE['active_consent_choice'])
-            && $_COOKIE['active_consent_choice'] && isset($_COOKIE['greenpeace'])
-            && in_array($_COOKIE['greenpeace'], [2, 4])
+            !$context['hubspot_active']
+            || isset($_COOKIE['no_track']) || !isset($_COOKIE['active_consent_choice'])
+            || !$_COOKIE['active_consent_choice'] || !isset($_COOKIE['greenpeace'])
+            || !in_array($_COOKIE['greenpeace'], [2, 4])
         ) {
-            $context['hubspot_tracking_code'] = $options['hubspot_tracking_code'] ?? '';
+            return;
         }
 
-        // Dummy thumbnail.
-        $context['dummy_thumbnail'] = get_template_directory_uri() . '/images/dummy-thumbnail.png';
+        $context['hubspot_tracking_code'] = $options['hubspot_tracking_code'] ?? '';
+    }
 
-        // IA: Tabs menu on mobile.
-        $context['mobile_tabs_menu'] = (bool) planet4_get_option('new_ia');
+    private static function set_consent(array &$context): void
+    {
+        $context['consent_default_analytics_storage'] =
+            planet4_get_option('consent_default_analytics_storage') ?? 'denied';
+        $context['consent_default_ad_storage'] =
+            planet4_get_option('consent_default_ad_storage') ?? 'denied';
+        $context['consent_default_ad_user_data'] =
+            planet4_get_option('consent_default_ad_user_data') ?? 'denied';
+        $context['consent_default_ad_personalization'] =
+            planet4_get_option('consent_default_ad_personalization') ?? 'denied';
+        $context['consent_default_url_passthrough'] =
+            planet4_get_option('consent_default_url_passthrough') ?? false;
+    }
 
-        // Default avatar.
-        if (defined('WP_DEBUG') && WP_DEBUG === true) {
-            // Gravatar throws an error for local dev default_avatar URL, so the default value is used.
-            $context['default_avatar'] = 'mm'; //Mystery Man
-        } else {
-            $context['default_avatar'] = get_template_directory_uri() . '/images/p4-avatar.jpg';
-        }
+    private static function set_sort(array &$context): void
+    {
+        $context['sort_options'] = [
+            '_score' => [
+                'name' => 'Most relevant',
+                'order' => 'DESC',
+            ],
+            'post_date' => [
+                'name' => 'Newest',
+                'order' => 'DESC',
+            ],
+            'post_date_asc' => [
+                'name' => 'Oldest',
+                'order' => 'ASC',
+            ],
+        ];
 
-        return $context;
+        $context['default_sort'] = Search\SearchPage::DEFAULT_SORT;
     }
 
     /**
