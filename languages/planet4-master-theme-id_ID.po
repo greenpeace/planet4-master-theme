@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2021-04-16 10:40+0000\n"
+"PO-Revision-Date: 2025-12-15 06:39+0000\n"
 "Language-Team: Indonesian\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,93 +23,231 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
-#. %1$d = Number of results.
-#: src/Search.php:716
+#. %1$d: Number of results. %2$s: Search terms.
+#: src/Search/SearchPage.php:264
 #, php-format
 msgid "%1$d result for '%2$s'"
 msgid_plural "%1$d results for '%2$s'"
 msgstr[0] "%1$d hasil untuk '%2$s'"
-msgstr[1] ""
 
-#. %d = Number of results.
-#: src/Search.php:722
-#, php-format
+#. reading time in min.
+#. %d = Number of minutes for reading time.
+#: src/Post.php:517 src/Post/ReadingTimeCalculator.php:135
+#: templates/tease-taxonomy-action.twig:53
+#: templates/tease-taxonomy-post.twig:63 templates/tease-author.twig:54
+#: templates/single.twig:69
+msgid "%d min read"
+msgstr ""
+
+#. %d: Number of results.
+#: src/Search/SearchPage.php:256
 msgid "%d result"
 msgid_plural "%d results"
 msgstr[0] "%d hasil"
-msgstr[1] ""
 
-#: assets/src/js/country_select.js:47
-msgid "."
-msgstr ""
-
-#: 404.php:18
+#: 404.php:23
 msgid "404 Page"
 msgstr "Halaman Tidak Ditemukan"
 
-#: page-templates/sitemap.php:25
+#: page-templates/sitemap.php:46
 msgid "About Greenpeace"
 msgstr "Tentang Greenpeace"
 
-#: templates/blocks/author_profile.twig:5
-msgid "about the author"
+#: templates/blocks/author_profile.twig:14
+#, fuzzy
+#| msgid "about the author"
+msgid "About the author"
 msgstr "tentang penulis"
 
-#: page-templates/sitemap.php:23
+#: templates/cookies.twig:26
+msgid "Accept all cookies"
+msgstr ""
+
+#: page-templates/sitemap.php:44
 msgid "Act"
 msgstr "Beraksi"
 
-#: src/Search.php:954 src/Post.php:264
+#: src/Post.php:231
 msgid "ACTION"
 msgstr "AKSI"
 
-#: src/Search.php:792
+#: src/Search/Filters/ContentTypes.php:126
 msgid "Action"
 msgstr "Aksi"
 
-#: templates/search.twig:210
+#: templates/search/action_types.twig:7
+msgid "Action Type"
+msgstr ""
+
+#: templates/search.twig:102
 msgid "ACTIVE FILTERS"
 msgstr "FILTER AKTIF"
 
-#: templates/search.twig:200
+#: templates/all-actions.twig:7 templates/taxonomy.twig:36
+msgid "All actions"
+msgstr ""
+
+#: templates/listing-page.twig:11 templates/taxonomy.twig:37
+msgid "All articles"
+msgstr ""
+
+#: templates/author.twig:23
+msgid "All articles by "
+msgstr ""
+
+#: templates/listing-page-filters.twig:41
+msgid "All keywords"
+msgstr ""
+
+#: templates/listing-page-filters.twig:7
+msgid "All posts"
+msgstr ""
+
+#: templates/listing-page-filters.twig:24
+msgid "All topics"
+msgstr ""
+
+#: templates/cookies/cookies_settings.twig:55
+msgid "Allow all"
+msgstr ""
+
+#: templates/cookies/cookies_settings.twig:16
+msgid "Always enabled"
+msgstr ""
+
+#: templates/listing-page-filters.twig:54
+msgid "Apply"
+msgstr ""
+
+#: templates/search.twig:92
 msgid "Apply filters"
 msgstr "Pakai filter"
 
-#: src/Search.php:813 src/Search.php:974 templates/tease-search.twig:38
-#: templates/tease-search.twig:120
+#: src/Search/Filters/ContentTypes.php:121 templates/tease-search.twig:46
+#: templates/tease-search.twig:126
 msgid "Archive"
 msgstr "Arsip"
 
-#: src/PostArchive.php:77
+#: src/PostArchive.php:80
 msgid "Archive URL"
 msgstr ""
 
-#: page-templates/sitemap.php:26
+#: page-templates/sitemap.php:47
 msgid "Articles"
 msgstr "Artikel"
 
-#: src/Search.php:962 templates/search.twig:172
-msgid "CAMPAIGN"
-msgstr "KAMPANYE"
+#: assets/build/blocks/TopicLink/block.json:1
+#: assets/src/blocks/TopicLink/block.json:1
+msgctxt "block description"
+msgid ""
+"The Topic Link block allows editors to manually link to a category page, "
+"which redirects users to relevant topic content."
+msgstr ""
 
-#: src/Search.php:796 templates/search.twig:253 templates/tease-search.twig:36
-#: templates/tease-search.twig:118
+#: assets/build/block-templates/action/block.json:1
+#: assets/src/block-templates/action/block.json:1
+msgctxt "block title"
+msgid "Action"
+msgstr ""
+
+#: assets/build/block-templates/campaign/block.json:1
+#: assets/src/block-templates/campaign/block.json:1
+msgctxt "block title"
+msgid "Campaign"
+msgstr ""
+
+#: assets/build/block-templates/deep-dive/block.json:1
+#: assets/src/block-templates/deep-dive/block.json:1
+msgctxt "block title"
+msgid "Deep Dive"
+msgstr ""
+
+#: assets/build/block-templates/deep-dive-topic/block.json:1
+#: assets/src/block-templates/deep-dive-topic/block.json:1
+msgctxt "block title"
+msgid "Deep Dive Topic"
+msgstr ""
+
+#: assets/build/block-templates/get-informed/block.json:1
+#: assets/src/block-templates/get-informed/block.json:1
+msgctxt "block title"
+msgid "Get Informed"
+msgstr ""
+
+#: assets/build/block-templates/high-level-topic/block.json:1
+#: assets/src/block-templates/high-level-topic/block.json:1
+msgctxt "block title"
+msgid "High-Level Topic"
+msgstr ""
+
+#: assets/build/block-templates/highlighted-cta/block.json:1
+#: assets/src/block-templates/highlighted-cta/block.json:1
+msgctxt "block title"
+msgid "Highlighted CTA"
+msgstr ""
+
+#: assets/build/block-templates/homepage/block.json:1
+#: assets/src/block-templates/homepage/block.json:1
+msgctxt "block title"
+msgid "Homepage"
+msgstr ""
+
+#: assets/build/block-templates/issues/block.json:1
+#: assets/src/block-templates/issues/block.json:1
+msgctxt "block title"
+msgid "Issues"
+msgstr ""
+
+#: assets/build/block-templates/page-header/block.json:1
+#: assets/src/block-templates/page-header/block.json:1
+msgctxt "block title"
+msgid "Page Header"
+msgstr ""
+
+#: assets/build/block-templates/quick-links/block.json:1
+#: assets/src/block-templates/quick-links/block.json:1
+msgctxt "block title"
+msgid "Quick Links"
+msgstr ""
+
+#: assets/build/block-templates/reality-check/block.json:1
+#: assets/src/block-templates/reality-check/block.json:1
+msgctxt "block title"
+msgid "Reality Check"
+msgstr ""
+
+#: assets/build/block-templates/side-image-with-text-and-cta/block.json:1
+#: assets/src/block-templates/side-image-with-text-and-cta/block.json:1
+msgctxt "block title"
+msgid "Side image with text and CTA"
+msgstr ""
+
+#: assets/build/block-templates/take-action/block.json:1
+#: assets/src/block-templates/take-action/block.json:1
+msgctxt "block title"
+msgid "Take Action"
+msgstr ""
+
+#: assets/build/blocks/TopicLink/block.json:1
+#: assets/src/blocks/TopicLink/block.json:1
+msgctxt "block title"
+msgid "Topic Link"
+msgstr ""
+
+#: src/Search/Filters/ContentTypes.php:116 templates/tease-search.twig:44
+#: templates/tease-search.twig:124
 msgid "Campaign"
 msgstr "Kampanye"
 
-#: templates/search.twig:199
+#: templates/search.twig:91
 msgid "Cancel"
 msgstr "Batalkan"
 
-#: templates/search.twig:111
-msgid "CATEGORY"
-msgstr "KATEGORI"
-
-#: templates/search.twig:279
+#: templates/listing-page-filters.twig:21 templates/search/categories.twig:7
 msgid "Category"
 msgstr "Kategori"
 
-#: templates/navigation-bar.twig:45
+#: templates/footer_country_selector.twig:11
 msgid "Change Country"
 msgstr "Ubah Negara"
 
@@ -117,73 +255,196 @@ msgstr "Ubah Negara"
 msgid "Check for typos, and try your search again"
 msgstr "Cek kesalahan dalam penulisan, dan coba pencarian lagi"
 
-#: templates/search.twig:219
+#: templates/search.twig:115
 msgid "Clear all"
 msgstr "Hapus Semua"
 
-#: templates/navigation-bar.twig:32
-msgid "Close Menu"
-msgstr "Tutup Menu"
+#: templates/search.twig:38 templates/search-form.twig:28
+msgid "Clear search"
+msgstr ""
 
-#: templates/comment_form/comment_field.twig:2
-msgid "Comment"
-msgstr "Komentar"
+#: templates/burger-menu.twig:67
+msgid "Close navigation mobile menu"
+msgstr ""
 
-#: templates/single.twig:75 templates/comments_section.twig:2
+#: theme.json:1
+msgctxt "Color name"
+msgid "Action Yellow"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Beige 100"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Blue 800"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Blue Green 800"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Dark Green 800"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "GP Green 800"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Green 400"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Green 500"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Green 800"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Grey 100"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Grey 200"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Grey 600"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Grey 800"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Grey 900"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Red 500"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "White"
+msgstr ""
+
+#: templates/comment_form/comment_field.twig:3
+msgid "Comment (required)"
+msgstr ""
+
+#: templates/single.twig:76 templates/comments_section.twig:2
 msgid "Comments"
 msgstr "Komentar"
 
-#: templates/search.twig:306
+#: templates/search/content_types.twig:7
+#, fuzzy
+#| msgid "CONTENT TYPES"
+msgid "Content Type"
+msgstr "TIPE KONTEN"
+
+#: templates/listing-page-filters.twig:4
 msgid "Content type"
 msgstr "Tipe konten"
 
-#: templates/search.twig:140
-msgid "CONTENT TYPES"
-msgstr "TIPE KONTEN"
-
-#: templates/comments_section.twig:8
+#: templates/comments_section.twig:9
 msgid "Discussion"
 msgstr "Diskusi"
 
-#: src/Search.php:966 src/Post.php:270
+#: src/Post.php:237
 msgid "DOCUMENT"
 msgstr "DOKUMEN"
 
-#: src/Search.php:800
+#: src/Search/Filters/ContentTypes.php:101
 msgid "Document"
 msgstr "Dokumen"
 
-#: src/MasterSite.php:482
-msgid "Donate"
-msgstr "DONASI"
-
-#: templates/tease-search.twig:113
+#: templates/tease-search.twig:119
 msgid "Download"
 msgstr "Unduh"
 
-#: templates/comment_form/email_field.twig:2
-msgid "Email"
-msgstr "Email"
+#: templates/comment_form/email_field.twig:4
+msgid "Email (required)"
+msgstr ""
 
-#: 404.php:17
+#: 404.php:22
 msgid "Enter your search term below"
 msgstr "Masukkan pencarian di bawah"
 
 #. Name of the template
+#: page-templates/evergreen.php:5
 msgid "Evergreen Page"
 msgstr "Halaman Statis"
 
-#: page-templates/sitemap.php:24
+#: page-templates/sitemap.php:45
 msgid "Explore"
 msgstr "Jelajahi"
 
-#: templates/search.twig:59
+#: templates/search/action_types.twig:16
+#, php-format
+msgid "Filter results by action type %s, %d results were found"
+msgstr ""
+
+#: templates/search/action_types.twig:14
+#, php-format
+msgid "Filter results by action type %s, 1 result was found"
+msgstr ""
+
+#: templates/search/categories.twig:16
+#, php-format
+msgid "Filter results by category %s, %d results were found"
+msgstr ""
+
+#: templates/search/categories.twig:14
+#, php-format
+msgid "Filter results by category %s, 1 result was found"
+msgstr ""
+
+#: templates/search/content_types.twig:16
+#, php-format
+msgid "Filter results by content type %s, %d results were found"
+msgstr ""
+
+#: templates/search/content_types.twig:14
+#, php-format
+msgid "Filter results by content type %s, 1 result was found"
+msgstr ""
+
+#: templates/search/post_types.twig:16
+#, php-format
+msgid "Filter results by post type %s, %d results were found"
+msgstr ""
+
+#: templates/search/post_types.twig:14
+#, php-format
+msgid "Filter results by post type %s, 1 result was found"
+msgstr ""
+
+#: templates/search.twig:63
 msgid "Filters"
 msgstr "Filter"
 
-#: templates/cookies.twig:6
-msgid "Got it!"
-msgstr "YA, SAYA MENGERTI!"
+#: templates/footer_social_media.twig:2
+msgid "Follow us"
+msgstr ""
 
 #. Author of the theme
 msgid "Greenpeace International"
@@ -193,6 +454,18 @@ msgstr "Greenpeace Internasional"
 msgid "Greenpeace Planet 4 Master Theme"
 msgstr "Tema Utama Planet 4 Greenpeace"
 
+#: assets/src/js/listing_pages.js:49
+msgid "Grid View"
+msgstr ""
+
+#: functions.php:445
+msgid "here"
+msgstr ""
+
+#: templates/burger-menu.twig:30
+msgid "Home"
+msgstr ""
+
 #. Author URI of the theme
 msgid "https://github.com/greenpeace"
 msgstr "https://github.com/greenpeace"
@@ -201,215 +474,280 @@ msgstr "https://github.com/greenpeace"
 msgid "https://github.com/greenpeace/planet4-master-theme"
 msgstr "https://github.com/greenpeace/planet4-master-theme"
 
-#: src/MasterSite.php:483
+#: single.php:128
+msgid ""
+"I agree on providing my name, email and content so that my comment can be "
+"stored and displayed in the website."
+msgstr ""
+
+#: src/MasterSite.php:462
 msgid "International (English)"
 msgstr "Internasional (Bahasa Inggris)"
 
-#: templates/search.twig:82
-msgid "ISSUE"
-msgstr "ISU"
+#: templates/single-password.twig:18 templates/single-page.twig:15
+msgid "Invalid password, please try again"
+msgstr ""
 
-#: templates/search.twig:226
-msgid "Issue"
-msgstr "Isu"
+#: src/LoginHandler.php:133
+msgid "Invalid username or password"
+msgstr ""
 
-#: single.php:110
+#: templates/listing-page-filters.twig:38
+msgid "Keywords"
+msgstr ""
+
+#: single.php:137
 msgid "Leave your reply"
 msgstr "Tinggalkan Balasan Kamu"
 
-#: templates/taxonomy.twig:42 templates/author.twig:56
-msgid "Load More"
-msgstr "Selengkapnya"
+#: assets/src/js/listing_pages.js:57
+msgid "List View"
+msgstr ""
 
-#: templates/tease-search.twig:148
+#: templates/tease-search.twig:159
 msgid "Manage"
+msgstr ""
+
+#: templates/cookies/cookies_settings.twig:11
+msgid "Manage your cookies preferences"
 msgstr ""
 
 #. Description of the theme
 msgid "Master theme for the Planet 4 Wordpress project"
 msgstr "Tema utama untuk proyek Wordrpress Planet 4"
 
-#: templates/navigation-bar.twig:18
+#: templates/navigation-bar.twig:17
 msgid "Menu"
 msgstr "Menu"
 
-#: src/MasterSite.php:82 src/Search.php:700
+#: src/Search/SearchPage.php:62
 msgid "Most relevant"
 msgstr "Paling relevan"
 
-#: templates/comment_form/author_field.twig:2
-msgid "Name"
-msgstr "Nama"
+#: templates/comment_form/author_field.twig:4
+msgid "Name (required)"
+msgstr ""
 
-#: src/MasterSite.php:86 src/Search.php:704
+#: src/Search/SearchPage.php:66
 msgid "Newest"
 msgstr ""
 
-#: src/MasterSite.php:90 src/Search.php:708
+#: templates/tag.twig:13 templates/taxonomy.twig:13
+msgid "News & stories"
+msgstr ""
+
+#: assets/src/js/listing_pages.js:116
+msgid "No posts found!"
+msgstr ""
+
+#: src/Search/SearchPage.php:70
 msgid "Oldest"
 msgstr ""
 
-#: src/Search.php:957 src/Post.php:266
+#: src/Post.php:233
 msgid "PAGE"
 msgstr "HALAMAN"
 
-#: src/Search.php:804
+#: src/Search/Filters/ContentTypes.php:106
 msgid "Page"
 msgstr "Halaman"
 
-#: src/Search.php:970 src/Post.php:273
+#: templates/cookies/cookies_settings.twig:12
+msgid "Please select which cookies you are willing to store."
+msgstr ""
+
+#: src/Post.php:240
 msgid "POST"
 msgstr "UNGGAHAN"
 
-#: src/Search.php:808
+#: src/Search/Filters/ContentTypes.php:111
 msgid "Post"
 msgstr "Unggahan"
 
-#: templates/comment_form/submit_button.twig:1
+#: templates/comment_form/submit_button.twig:11
 msgid "Post comment"
 msgstr "Tampilkan Komentar"
 
-#: templates/author.twig:32
-msgid "Posts by "
-msgstr "Post oleh"
-
-#: tag.php:91
-msgid "Publications"
+#: templates/search/post_types.twig:7
+msgid "Post Type"
 msgstr ""
 
-#: templates/blocks/author_profile.twig:11
-msgid "Read More"
-msgstr ""
-
-#: templates/search.twig:68 templates/search.twig:207
+#: templates/search.twig:72 templates/search.twig:99
 msgid "Refine your search"
 msgstr "Perbaiki pencarianmu"
 
-#: tag.php:118
-msgid "Related Campaigns"
-msgstr "Kampanye Yang Terkait"
+#: templates/cookies/cookies_settings.twig:47
+msgid "Reject all"
+msgstr ""
 
-#: templates/taxonomy.twig:18
-msgid "Results"
-msgstr "Hasil"
+#: templates/cookies.twig:35
+msgid "Reject all cookies"
+msgstr ""
 
-#: templates/navigation-bar.twig:7 templates/search.twig:8
-#: templates/search.twig:45 templates/404.twig:17
+#. Name of the template
+#: single-p4_action-resistance_hub.php:3
+msgid "Resistance Hub Campaign"
+msgstr ""
+
+#: templates/cookies/cookies_settings.twig:63
+msgid "Save preferences"
+msgstr ""
+
+#: templates/404.twig:16 templates/search.twig:48 templates/search-form.twig:2
 msgid "Search"
 msgstr "Cari"
 
-#: templates/navigation-bar.twig:44
+#: templates/search.twig:8
+msgid "Search by name, keyword, or topic"
+msgstr ""
+
+#: templates/footer_country_selector.twig:11
 msgid "Selected"
 msgstr "Terpilih"
 
-#: templates/blocks/share_buttons.twig:7 templates/blocks/share_buttons.twig:14
-#: templates/blocks/share_buttons.twig:21
+#: templates/cookies.twig:18
+msgid "Settings"
+msgstr ""
+
+#: templates/blocks/share_buttons.twig:13
+#: templates/blocks/share_buttons.twig:22
+#: templates/blocks/share_buttons.twig:31
 msgid "Share on"
 msgstr "Bagikan di"
 
-#: templates/blocks/share_buttons.twig:28
+#: templates/blocks/share_buttons.twig:50
+#, php-format
+msgid "Share on %s"
+msgstr ""
+
+#: templates/blocks/share_buttons.twig:40
+#: templates/blocks/share_buttons.twig:60
 msgid "Share via"
 msgstr "Bagikan melalui"
 
 #. %s = number of results per page.
-#: src/Search.php:1079
+#: src/Search/SearchPage.php:78
 #, fuzzy, php-format
 #| msgid "SHOW %s MORE RESULTS"
 msgid "Show %s more results"
 msgstr "TUNJUKKAN %s LEBIH BANYAK PENCARIAN"
 
+#: templates/blocks/author_profile.twig:45
+msgid "Show less"
+msgstr ""
+
+#: templates/blocks/author_profile.twig:44
+msgid "Show more"
+msgstr ""
+
 #. Name of the template
+#: page-templates/sitemap.php:3
 msgid "Sitemap Page"
 msgstr "Halaman Peta Situs"
 
-#: templates/base.twig:11
+#: templates/base.twig:25
 msgid "Skip to Content"
 msgstr "Langsung Ke Konten"
 
-#: templates/base.twig:12
+#: templates/base.twig:26
 msgid "Skip to Footer"
 msgstr "Langsung Ke Footer"
 
-#: templates/base.twig:10
+#: templates/base.twig:24
 msgid "Skip to Navigation"
 msgstr "Langsung Ke Navigasi"
 
-#: 404.php:16
+#: templates/search.twig:56
+msgid "Skip to search results"
+msgstr ""
+
+#: 404.php:21
 msgid "Sorry, we can't find that page!"
 msgstr "Maaf, kami tidak bisa menemukan halaman tersebut!"
 
-#: templates/search.twig:337
+#: templates/search.twig:130
 msgid "Sort by"
 msgstr "Urut berdasarkan"
 
-#: templates/single-page.twig:15 templates/single-password.twig:20
+#: templates/single-password.twig:22 templates/single-page.twig:19
 msgid "Submit"
 msgstr ""
 
-#: templates/search.twig:385
-msgid "Suggested search terms"
-msgstr "Istilah pencarian yang disarankan"
+#: assets/src/js/listing_pages.js:53
+msgid "Switch to grid view"
+msgstr ""
 
-#: templates/tease-search.twig:142
+#: assets/src/js/listing_pages.js:61
+msgid "Switch to list view"
+msgstr ""
+
+#: templates/featured-action.twig:12
+msgid "Take Action"
+msgstr ""
+
+#: src/ActionPage.php:209 src/ActionPage.php:218 src/Search/SearchPage.php:140
 msgid "Take action"
 msgstr "ikut beraksi"
 
-#: tag.php:73 src/Campaigns.php:252
-msgid "Things you can do"
-msgstr "Hal yang bisa kamu lakukan"
+#. %s = Redirection url variable.
+#: src/GravityFormsExtensions.php:1042
+#, php-format
+msgid ""
+"Thank you! Please <a href=\"%s\">click here</a> if you are not redirected "
+"within a few seconds."
+msgstr ""
 
-#: tag.php:119
-msgid "This Campaign is not assigned to an Issue"
-msgstr "Kampanye ini tidak berkaitan dengan sebuah isu"
+#: functions.php:444
+msgid ""
+"The content on this page is hidden because this page is being used as your "
+"\\\"All Posts\\\" listing page. You can disable this by un-setting the "
+"\\\"Posts page\\\""
+msgstr ""
 
-#: templates/single-page.twig:12 templates/single-password.twig:17
+#. 1: URL domain
+#: assets/src/js/external_links.js:28
+#, javascript-format
+msgid "This link will lead you to %1$s"
+msgstr ""
+
+#: assets/src/js/pdf_icon.js:20
+msgid "This link will open a PDF file"
+msgstr ""
+
+#: templates/single-password.twig:15 templates/single-page.twig:12
 msgid "To see the content of this page, please enter your password  below"
 msgstr ""
 
-#: templates/navigation-bar.twig:6
-msgid "Toggle navigation menu"
-msgstr "Menu Navigasi Toggle"
-
-#: src/MasterSite.php:436
+#: src/MasterSite.php:378
 msgid "Toggle search box"
 msgstr "Kotak Pencarian Toggle"
 
-#: templates/navigation-bar.twig:97
+#: templates/navigation-search-btn.twig:13
 msgid "Toggle search form"
 msgstr "Formulir pencarian Toggle"
 
-#: src/MasterSite.php:435
+#: src/MasterSite.php:377
 msgid "Toggle worldwide site selection menu"
 msgstr "Menu Pilihan Situs Dunia Toggle"
 
 #: templates/search.twig:22
-msgid "Try searching for somthing else"
+#, fuzzy
+#| msgid "Try searching for somthing else"
+msgid "Try searching for something else"
 msgstr "Coba lakukan pencarian lain"
-
-#: templates/search.twig:26
-msgid "We also included results for "
-msgstr "Kami juga menyertakan pencarian untuk"
-
-#: tag.php:74 src/Campaigns.php:253
-msgid "We want you to take action because together we're strong."
-msgstr "Kami ingin kamu beraksi karena kita kuat jika bersama"
 
 #: templates/search.twig:19
 msgid "We're sorry we couldn't find any matches for your search term."
 msgstr "Maaf, kami tidak dapat menemukan apa yang kamu cari."
 
-#: assets/src/js/country_select.js:30
-msgid "Worldwide site list"
-msgstr ""
-
-#: templates/comment_form/comment_field.twig:3
+#: templates/comment_form/comment_field.twig:2
 msgid "Your Comment"
 msgstr "Komentar Anda"
 
-#: templates/comment_form/email_field.twig:3
+#: templates/comment_form/email_field.twig:2
 msgid "Your Email"
 msgstr "Email Anda"
 
-#: templates/comment_form/author_field.twig:3
+#: templates/comment_form/author_field.twig:2
 msgid "Your Name"
 msgstr "Nama Anda"
