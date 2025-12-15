@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2022-01-17 12:47+0000\n"
+"PO-Revision-Date: 2025-12-15 06:30+0000\n"
 "Last-Translator: Nikos Roussos\n"
 "Language-Team: Greek\n"
 "Language: el\n"
@@ -14,37 +14,35 @@ msgstr ""
 "X-Generator: Loco https://localise.biz/\n"
 "X-Loco-Version: 2.4.0; wp-5.4.1\n"
 
-#. %1$d = Number of results.
-#: src/Search.php:708
+#. %1$d: Number of results. %2$s: Search terms.
+#: src/Search/SearchPage.php:264
 #, php-format
 msgid "%1$d result for '%2$s'"
 msgid_plural "%1$d results for '%2$s'"
 msgstr[0] "%1$d αποτέλεσμα για '%2$s' "
 msgstr[1] "%1$d αποτελέσματα για '%2$s'"
 
+#. reading time in min.
 #. %d = Number of minutes for reading time.
-#: src/Post/ReadingTimeCalculator.php:132 templates/single.twig:83
-#, php-format
+#: src/Post.php:517 src/Post/ReadingTimeCalculator.php:135
+#: templates/tease-taxonomy-action.twig:53
+#: templates/tease-taxonomy-post.twig:63 templates/tease-author.twig:54
+#: templates/single.twig:69
 msgid "%d min read"
 msgstr ""
 
-#. %d = Number of results.
-#: src/Search.php:714
-#, php-format
+#. %d: Number of results.
+#: src/Search/SearchPage.php:256
 msgid "%d result"
 msgid_plural "%d results"
 msgstr[0] "%d αποτέλεσμα"
 msgstr[1] "%d αποτελέσματα"
 
-#: assets/src/js/country_select.js:47
-msgid "."
-msgstr ""
-
-#: 404.php:18
+#: 404.php:23
 msgid "404 Page"
 msgstr "404 Σελίδα"
 
-#: page-templates/sitemap.php:25
+#: page-templates/sitemap.php:46
 msgid "About Greenpeace"
 msgstr ""
 
@@ -53,61 +51,195 @@ msgstr ""
 msgid "About the author"
 msgstr "Βιογραφικό"
 
-#: page-templates/sitemap.php:23
+#: templates/cookies.twig:26
+msgid "Accept all cookies"
+msgstr ""
+
+#: page-templates/sitemap.php:44
 msgid "Act"
 msgstr ""
 
-#: src/Post.php:263 src/Search.php:946
+#: src/Post.php:231
 msgid "ACTION"
 msgstr "ΔΡΑΣΗ"
 
-#: src/Search.php:784
+#: src/Search/Filters/ContentTypes.php:126
 msgid "Action"
 msgstr "Δράση"
 
-#: templates/search.twig:210
+#: templates/search/action_types.twig:7
+msgid "Action Type"
+msgstr ""
+
+#: templates/search.twig:102
 msgid "ACTIVE FILTERS"
 msgstr "ΕΝΕΡΓΑ ΦΙΛΤΡΑ"
 
-#: templates/search.twig:200
+#: templates/all-actions.twig:7 templates/taxonomy.twig:36
+msgid "All actions"
+msgstr ""
+
+#: templates/listing-page.twig:11 templates/taxonomy.twig:37
+msgid "All articles"
+msgstr ""
+
+#: templates/author.twig:23
+msgid "All articles by "
+msgstr ""
+
+#: templates/listing-page-filters.twig:41
+msgid "All keywords"
+msgstr ""
+
+#: templates/listing-page-filters.twig:7
+msgid "All posts"
+msgstr ""
+
+#: templates/listing-page-filters.twig:24
+msgid "All topics"
+msgstr ""
+
+#: templates/cookies/cookies_settings.twig:55
+msgid "Allow all"
+msgstr ""
+
+#: templates/cookies/cookies_settings.twig:16
+msgid "Always enabled"
+msgstr ""
+
+#: templates/listing-page-filters.twig:54
+msgid "Apply"
+msgstr ""
+
+#: templates/search.twig:92
 msgid "Apply filters"
 msgstr "Ενεργοποίησε φίλτρα αναζήτησης"
 
-#: src/Search.php:805 src/Search.php:966 templates/tease-search.twig:43
-#: templates/tease-search.twig:129
+#: src/Search/Filters/ContentTypes.php:121 templates/tease-search.twig:46
+#: templates/tease-search.twig:126
 msgid "Archive"
 msgstr "Αρχείο"
 
-#: src/PostArchive.php:77
+#: src/PostArchive.php:80
 msgid "Archive URL"
 msgstr ""
 
-#: page-templates/sitemap.php:26
+#: page-templates/sitemap.php:47
 msgid "Articles"
 msgstr "Άρθρα"
 
-#: src/Search.php:954 templates/search.twig:172
-msgid "CAMPAIGN"
-msgstr "ΘΕΜΑ"
+#: assets/build/blocks/TopicLink/block.json:1
+#: assets/src/blocks/TopicLink/block.json:1
+msgctxt "block description"
+msgid ""
+"The Topic Link block allows editors to manually link to a category page, "
+"which redirects users to relevant topic content."
+msgstr ""
 
-#: src/Search.php:788 templates/search.twig:253 templates/tease-search.twig:41
-#: templates/tease-search.twig:127
+#: assets/build/block-templates/action/block.json:1
+#: assets/src/block-templates/action/block.json:1
+msgctxt "block title"
+msgid "Action"
+msgstr ""
+
+#: assets/build/block-templates/campaign/block.json:1
+#: assets/src/block-templates/campaign/block.json:1
+msgctxt "block title"
+msgid "Campaign"
+msgstr ""
+
+#: assets/build/block-templates/deep-dive/block.json:1
+#: assets/src/block-templates/deep-dive/block.json:1
+msgctxt "block title"
+msgid "Deep Dive"
+msgstr ""
+
+#: assets/build/block-templates/deep-dive-topic/block.json:1
+#: assets/src/block-templates/deep-dive-topic/block.json:1
+msgctxt "block title"
+msgid "Deep Dive Topic"
+msgstr ""
+
+#: assets/build/block-templates/get-informed/block.json:1
+#: assets/src/block-templates/get-informed/block.json:1
+msgctxt "block title"
+msgid "Get Informed"
+msgstr ""
+
+#: assets/build/block-templates/high-level-topic/block.json:1
+#: assets/src/block-templates/high-level-topic/block.json:1
+msgctxt "block title"
+msgid "High-Level Topic"
+msgstr ""
+
+#: assets/build/block-templates/highlighted-cta/block.json:1
+#: assets/src/block-templates/highlighted-cta/block.json:1
+msgctxt "block title"
+msgid "Highlighted CTA"
+msgstr ""
+
+#: assets/build/block-templates/homepage/block.json:1
+#: assets/src/block-templates/homepage/block.json:1
+msgctxt "block title"
+msgid "Homepage"
+msgstr ""
+
+#: assets/build/block-templates/issues/block.json:1
+#: assets/src/block-templates/issues/block.json:1
+msgctxt "block title"
+msgid "Issues"
+msgstr ""
+
+#: assets/build/block-templates/page-header/block.json:1
+#: assets/src/block-templates/page-header/block.json:1
+msgctxt "block title"
+msgid "Page Header"
+msgstr ""
+
+#: assets/build/block-templates/quick-links/block.json:1
+#: assets/src/block-templates/quick-links/block.json:1
+msgctxt "block title"
+msgid "Quick Links"
+msgstr ""
+
+#: assets/build/block-templates/reality-check/block.json:1
+#: assets/src/block-templates/reality-check/block.json:1
+msgctxt "block title"
+msgid "Reality Check"
+msgstr ""
+
+#: assets/build/block-templates/side-image-with-text-and-cta/block.json:1
+#: assets/src/block-templates/side-image-with-text-and-cta/block.json:1
+msgctxt "block title"
+msgid "Side image with text and CTA"
+msgstr ""
+
+#: assets/build/block-templates/take-action/block.json:1
+#: assets/src/block-templates/take-action/block.json:1
+msgctxt "block title"
+msgid "Take Action"
+msgstr ""
+
+#: assets/build/blocks/TopicLink/block.json:1
+#: assets/src/blocks/TopicLink/block.json:1
+msgctxt "block title"
+msgid "Topic Link"
+msgstr ""
+
+#: src/Search/Filters/ContentTypes.php:116 templates/tease-search.twig:44
+#: templates/tease-search.twig:124
 msgid "Campaign"
 msgstr "Θέμα"
 
-#: templates/search.twig:199
+#: templates/search.twig:91
 msgid "Cancel"
 msgstr "Ακύρωση"
 
-#: templates/search.twig:111
-msgid "CATEGORY"
-msgstr "ΚΑΤΗΓΟΡΙΑ"
-
-#: templates/search.twig:279
+#: templates/listing-page-filters.twig:21 templates/search/categories.twig:7
 msgid "Category"
 msgstr "Κατηγορία"
 
-#: templates/footer_country_selector.twig:11 templates/navigation-bar.twig:46
+#: templates/footer_country_selector.twig:11
 msgid "Change Country"
 msgstr "Άλλαξε χώρα"
 
@@ -115,76 +247,190 @@ msgstr "Άλλαξε χώρα"
 msgid "Check for typos, and try your search again"
 msgstr "Δοκίμασε την τύχη σου ξανά με το να ψάξεις παρακάτω αυτό που θες"
 
-#: templates/search.twig:219
+#: templates/search.twig:115
 msgid "Clear all"
 msgstr "Εκκαθάριση"
 
-#: templates/navigation-bar-new.twig:102
+#: templates/search.twig:38 templates/search-form.twig:28
 msgid "Clear search"
 msgstr ""
 
-#: templates/navigation-bar.twig:33
-msgid "Close Menu"
-msgstr "Κλείσε το μενού"
-
-#: templates/navigation-bar-new.twig:130
-msgid "Close navigation menu"
+#: templates/burger-menu.twig:67
+msgid "Close navigation mobile menu"
 msgstr ""
 
-#: templates/comment_form/comment_field.twig:4
-msgid "Comment"
-msgstr "Σχόλιο"
+#: theme.json:1
+msgctxt "Color name"
+msgid "Action Yellow"
+msgstr ""
 
-#: templates/comments_section.twig:2 templates/single.twig:90
+#: theme.json:1
+msgctxt "Color name"
+msgid "Beige 100"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Blue 800"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Blue Green 800"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Dark Green 800"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "GP Green 800"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Green 400"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Green 500"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Green 800"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Grey 100"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Grey 200"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Grey 600"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Grey 800"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Grey 900"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Red 500"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "White"
+msgstr ""
+
+#: templates/comment_form/comment_field.twig:3
+msgid "Comment (required)"
+msgstr ""
+
+#: templates/single.twig:76 templates/comments_section.twig:2
 msgid "Comments"
 msgstr "Σχόλια"
 
-#: templates/search.twig:306
+#: templates/search/content_types.twig:7
+#, fuzzy
+#| msgid "CONTENT TYPES"
+msgid "Content Type"
+msgstr "ΤΥΠΟΣ ΠΕΡΙΕΧΟΜΕΝΟΥ"
+
+#: templates/listing-page-filters.twig:4
 msgid "Content type"
 msgstr "Τύπος περιεχομένου"
-
-#: templates/search.twig:140
-msgid "CONTENT TYPES"
-msgstr "ΤΥΠΟΣ ΠΕΡΙΕΧΟΜΕΝΟΥ"
 
 #: templates/comments_section.twig:9
 msgid "Discussion"
 msgstr "Συζήτηση"
 
-#: src/Post.php:269 src/Search.php:958
+#: src/Post.php:237
 msgid "DOCUMENT"
 msgstr "ΕΓΓΡΑΦΟ"
 
-#: src/Search.php:792
+#: src/Search/Filters/ContentTypes.php:101
 msgid "Document"
 msgstr "Έγγραφο"
 
-#: src/MasterSite.php:557
-#| msgid "DONATE"
-msgid "Donate"
-msgstr "Υποστήριξε μας"
-
-#: templates/tease-search.twig:122
+#: templates/tease-search.twig:119
 msgid "Download"
 msgstr "Κατέβασε"
 
-#: templates/comment_form/email_field.twig:13
-msgid "Email"
-msgstr "Email"
+#: templates/comment_form/email_field.twig:4
+msgid "Email (required)"
+msgstr ""
 
-#: 404.php:17
+#: 404.php:22
 msgid "Enter your search term below"
 msgstr "Κάνε αναζήτηση στη σελίδα"
 
 #. Name of the template
+#: page-templates/evergreen.php:5
 msgid "Evergreen Page"
 msgstr ""
 
-#: page-templates/sitemap.php:24
+#: page-templates/sitemap.php:45
 msgid "Explore"
 msgstr ""
 
-#: templates/search.twig:59
+#: templates/search/action_types.twig:16
+#, php-format
+msgid "Filter results by action type %s, %d results were found"
+msgstr ""
+
+#: templates/search/action_types.twig:14
+#, php-format
+msgid "Filter results by action type %s, 1 result was found"
+msgstr ""
+
+#: templates/search/categories.twig:16
+#, php-format
+msgid "Filter results by category %s, %d results were found"
+msgstr ""
+
+#: templates/search/categories.twig:14
+#, php-format
+msgid "Filter results by category %s, 1 result was found"
+msgstr ""
+
+#: templates/search/content_types.twig:16
+#, php-format
+msgid "Filter results by content type %s, %d results were found"
+msgstr ""
+
+#: templates/search/content_types.twig:14
+#, php-format
+msgid "Filter results by content type %s, 1 result was found"
+msgstr ""
+
+#: templates/search/post_types.twig:16
+#, php-format
+msgid "Filter results by post type %s, %d results were found"
+msgstr ""
+
+#: templates/search/post_types.twig:14
+#, php-format
+msgid "Filter results by post type %s, 1 result was found"
+msgstr ""
+
+#: templates/search.twig:63
 msgid "Filters"
 msgstr "Φίλτρα αναζήτησης"
 
@@ -192,16 +438,24 @@ msgstr "Φίλτρα αναζήτησης"
 msgid "Follow us"
 msgstr ""
 
-#: templates/cookies.twig:6
-msgid "Got it!"
-msgstr "Οk!"
-
 #. Author of the theme
 msgid "Greenpeace International"
 msgstr ""
 
 #. Name of the theme
 msgid "Greenpeace Planet 4 Master Theme"
+msgstr ""
+
+#: assets/src/js/listing_pages.js:49
+msgid "Grid View"
+msgstr ""
+
+#: functions.php:445
+msgid "here"
+msgstr ""
+
+#: templates/burger-menu.twig:30
+msgid "Home"
 msgstr ""
 
 #. Author URI of the theme
@@ -212,118 +466,159 @@ msgstr ""
 msgid "https://github.com/greenpeace/planet4-master-theme"
 msgstr ""
 
-#: src/MasterSite.php:558
+#: single.php:128
+msgid ""
+"I agree on providing my name, email and content so that my comment can be "
+"stored and displayed in the website."
+msgstr ""
+
+#: src/MasterSite.php:462
 msgid "International (English)"
 msgstr ""
 
-#: templates/single-page.twig:15 templates/single-password.twig:18
+#: templates/single-password.twig:18 templates/single-page.twig:15
 msgid "Invalid password, please try again"
 msgstr ""
 
-#: templates/search.twig:82
-msgid "ISSUE"
-msgstr "ΕΚΣΤΡΑΤΕΙΑ"
+#: src/LoginHandler.php:133
+msgid "Invalid username or password"
+msgstr ""
 
-#: templates/search.twig:226
-msgid "Issue"
-msgstr "Εκστρατεία"
+#: templates/listing-page-filters.twig:38
+msgid "Keywords"
+msgstr ""
 
-#: single.php:96
+#: single.php:137
 msgid "Leave your reply"
 msgstr "Πρόσθεσε σχόλιο"
 
-#: templates/author.twig:56 templates/taxonomy.twig:42
-msgid "Load More"
+#: assets/src/js/listing_pages.js:57
+msgid "List View"
 msgstr ""
 
-#: templates/tease-search.twig:157
+#: templates/tease-search.twig:159
 msgid "Manage"
+msgstr ""
+
+#: templates/cookies/cookies_settings.twig:11
+msgid "Manage your cookies preferences"
 msgstr ""
 
 #. Description of the theme
 msgid "Master theme for the Planet 4 Wordpress project"
 msgstr ""
 
-#: templates/navigation-bar.twig:18 templates/navigation-bar-new.twig:13
+#: templates/navigation-bar.twig:17
 msgid "Menu"
 msgstr "Μενού"
 
-#: src/Search.php:692 src/MasterSite.php:89
+#: src/Search/SearchPage.php:62
 msgid "Most relevant"
 msgstr "Πιο σχετικά"
 
-#: templates/comment_form/author_field.twig:13
-msgid "Name"
+#: templates/comment_form/author_field.twig:4
+msgid "Name (required)"
 msgstr ""
 
-#: src/Search.php:696 src/MasterSite.php:93
+#: src/Search/SearchPage.php:66
 msgid "Newest"
 msgstr ""
 
-#: src/Search.php:700 src/MasterSite.php:97
+#: templates/tag.twig:13 templates/taxonomy.twig:13
+msgid "News & stories"
+msgstr ""
+
+#: assets/src/js/listing_pages.js:116
+msgid "No posts found!"
+msgstr ""
+
+#: src/Search/SearchPage.php:70
 msgid "Oldest"
 msgstr ""
 
-#: src/Post.php:265 src/Search.php:949
+#: src/Post.php:233
 msgid "PAGE"
 msgstr "ΣΕΛΙΔΑ"
 
-#: src/Search.php:796
+#: src/Search/Filters/ContentTypes.php:106
 msgid "Page"
 msgstr "Σελίδα"
 
-#: src/Post.php:272 src/Search.php:962
+#: templates/cookies/cookies_settings.twig:12
+msgid "Please select which cookies you are willing to store."
+msgstr ""
+
+#: src/Post.php:240
 msgid "POST"
 msgstr "ΔΗΜΟΣΙΕΥΣΗ"
 
-#: src/Search.php:800
+#: src/Search/Filters/ContentTypes.php:111
 msgid "Post"
 msgstr "Δημοσίευση"
 
-#: templates/comment_form/submit_button.twig:1
+#: templates/comment_form/submit_button.twig:11
 msgid "Post comment"
 msgstr ""
 
-#: templates/author.twig:32
-msgid "Posts by "
-msgstr "Άρθρα από"
-
-#: tag.php:90
-msgid "Publications"
+#: templates/search/post_types.twig:7
+msgid "Post Type"
 msgstr ""
 
-#: templates/search.twig:68 templates/search.twig:207
+#: templates/search.twig:72 templates/search.twig:99
 msgid "Refine your search"
 msgstr "Χρησιμοποίησε τα φίλτρα αναζήτησης"
 
-#: tag.php:117
-msgid "Related Campaigns"
-msgstr "Σχετικά θέματα"
+#: templates/cookies/cookies_settings.twig:47
+msgid "Reject all"
+msgstr ""
 
-#: templates/taxonomy.twig:18
-msgid "Results"
-msgstr "Αποτελέσματα"
+#: templates/cookies.twig:35
+msgid "Reject all cookies"
+msgstr ""
 
-#: templates/404.twig:17 templates/search.twig:8 templates/search.twig:45
-#: templates/navigation-bar.twig:7 templates/navigation-bar-new.twig:72
+#. Name of the template
+#: single-p4_action-resistance_hub.php:3
+msgid "Resistance Hub Campaign"
+msgstr ""
+
+#: templates/cookies/cookies_settings.twig:63
+msgid "Save preferences"
+msgstr ""
+
+#: templates/404.twig:16 templates/search.twig:48 templates/search-form.twig:2
 msgid "Search"
 msgstr "Αναζήτηση"
 
-#: templates/footer_country_selector.twig:11 templates/navigation-bar.twig:45
+#: templates/search.twig:8
+msgid "Search by name, keyword, or topic"
+msgstr ""
+
+#: templates/footer_country_selector.twig:11
 msgid "Selected"
 msgstr "Επιλεγμένο"
 
-#: templates/blocks/share_buttons.twig:8 templates/blocks/share_buttons.twig:15
+#: templates/cookies.twig:18
+msgid "Settings"
+msgstr ""
+
+#: templates/blocks/share_buttons.twig:13
 #: templates/blocks/share_buttons.twig:22
+#: templates/blocks/share_buttons.twig:31
 msgid "Share on"
 msgstr ""
 
-#: templates/blocks/share_buttons.twig:29
+#: templates/blocks/share_buttons.twig:50
+#, php-format
+msgid "Share on %s"
+msgstr ""
+
+#: templates/blocks/share_buttons.twig:40
+#: templates/blocks/share_buttons.twig:60
 msgid "Share via"
 msgstr ""
 
 #. %s = number of results per page.
-#: src/Search.php:1049
+#: src/Search/SearchPage.php:78
 #, php-format
 #| msgid "SHOW %s MORE RESULTS"
 msgid "Show %s more results"
@@ -338,90 +633,104 @@ msgid "Show more"
 msgstr ""
 
 #. Name of the template
+#: page-templates/sitemap.php:3
 msgid "Sitemap Page"
 msgstr ""
 
-#: templates/base.twig:18
+#: templates/base.twig:25
 msgid "Skip to Content"
 msgstr ""
 
-#: templates/base.twig:19
+#: templates/base.twig:26
 msgid "Skip to Footer"
 msgstr ""
 
-#: templates/base.twig:17
+#: templates/base.twig:24
 msgid "Skip to Navigation"
 msgstr ""
 
-#: 404.php:16
+#: templates/search.twig:56
+msgid "Skip to search results"
+msgstr ""
+
+#: 404.php:21
 msgid "Sorry, we can't find that page!"
 msgstr "Ουπς, κάτι πήγε στραβά!"
 
-#: templates/search.twig:337
+#: templates/search.twig:130
 msgid "Sort by"
 msgstr "Ταξινόμηση"
 
-#: templates/single-page.twig:19 templates/single-password.twig:22
+#: templates/single-password.twig:22 templates/single-page.twig:19
 msgid "Submit"
 msgstr ""
 
-#: templates/tease-search.twig:151
+#: assets/src/js/listing_pages.js:53
+msgid "Switch to grid view"
+msgstr ""
+
+#: assets/src/js/listing_pages.js:61
+msgid "Switch to list view"
+msgstr ""
+
+#: templates/featured-action.twig:12
+msgid "Take Action"
+msgstr ""
+
+#: src/ActionPage.php:209 src/ActionPage.php:218 src/Search/SearchPage.php:140
 msgid "Take action"
 msgstr "Πάτα εδώ"
 
-#: tag.php:72 src/Campaigns.php:252
-msgid "Things you can do"
-msgstr "Τι μπορείς να κάνεις"
+#. %s = Redirection url variable.
+#: src/GravityFormsExtensions.php:1042
+#, php-format
+msgid ""
+"Thank you! Please <a href=\"%s\">click here</a> if you are not redirected "
+"within a few seconds."
+msgstr ""
 
-#: tag.php:118
-msgid "This Campaign is not assigned to an Issue"
+#: functions.php:444
+msgid ""
+"The content on this page is hidden because this page is being used as your "
+"\\\"All Posts\\\" listing page. You can disable this by un-setting the "
+"\\\"Posts page\\\""
+msgstr ""
+
+#. 1: URL domain
+#: assets/src/js/external_links.js:28
+#, javascript-format
+msgid "This link will lead you to %1$s"
 msgstr ""
 
 #: assets/src/js/pdf_icon.js:20
 msgid "This link will open a PDF file"
 msgstr ""
 
-#: templates/single-page.twig:12 templates/single-password.twig:15
+#: templates/single-password.twig:15 templates/single-page.twig:12
 msgid "To see the content of this page, please enter your password  below"
 msgstr ""
 
-#: templates/navigation-bar.twig:6
-msgid "Toggle navigation menu"
-msgstr ""
-
-#: src/MasterSite.php:498
+#: src/MasterSite.php:378
 msgid "Toggle search box"
 msgstr ""
 
-#: templates/navigation-bar.twig:99 templates/navigation-bar-new.twig:67
-#: templates/navigation-bar-new.twig:145
+#: templates/navigation-search-btn.twig:13
 msgid "Toggle search form"
 msgstr ""
 
-#: src/MasterSite.php:497
+#: src/MasterSite.php:377
 msgid "Toggle worldwide site selection menu"
 msgstr ""
 
 #: templates/search.twig:22
-msgid "Try searching for somthing else"
+#, fuzzy
+#| msgid "Try searching for somthing else"
+msgid "Try searching for something else"
 msgstr "Δοκίμασε να αναζητήσεις κάτι διαφορετικό"
-
-#: templates/search.twig:26
-msgid "We also included results for "
-msgstr "Συμπεριλάβαμε αποτελέσματα και για "
-
-#: tag.php:73 src/Campaigns.php:253
-msgid "We want you to take action because together we're strong."
-msgstr ""
-"Χρειαζόμαστε ανθρώπους σαν και εσένα για να προστατεύσουμε τον πλανήτη μας."
 
 #: templates/search.twig:19
 msgid "We're sorry we couldn't find any matches for your search term."
 msgstr "Δεν βρέθηκαν αποτελέσματα."
-
-#: assets/src/js/country_select.js:30
-msgid "Worldwide site list"
-msgstr ""
 
 #: templates/comment_form/comment_field.twig:2
 msgid "Your Comment"
