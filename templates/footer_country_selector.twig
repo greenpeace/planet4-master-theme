@@ -21,7 +21,10 @@
         aria-expanded="false"
         aria-label="{{ __( 'Close country selector', 'planet4-master-theme' ) }}"
     ></button>
-    <ul class="countries" aria-label="{{ __('Worldwide site list', 'planet4-master-theme') }}">
+    <h2 id="country-list-heading" class="visually-hidden">
+        {{ __('Worldwide site list', 'planet4-master-theme') }}
+    </h2>
+    <ul class="countries" aria-labelledby="country-list-heading">
         <li class="international"><a href="{{ international.url }}">{{ international.name }}</a></li>
         {% for initial, countries in countries_by_initials[1:] %}
         <li class="country-group">
