@@ -4,7 +4,7 @@ msgstr ""
 "n%10<=4 &&(n%100<10||n%100 >= 20)? 1 : 2;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2025-08-25 07:58+0000\n"
+"PO-Revision-Date: 2025-12-15 06:11+0000\n"
 "Language-Team: Croatian\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -35,10 +35,10 @@ msgstr[2] ""
 
 #. reading time in min.
 #. %d = Number of minutes for reading time.
-#: src/Post.php:518 src/Post/ReadingTimeCalculator.php:135
-#: templates/tease-author.twig:54 templates/single.twig:69
+#: src/Post.php:517 src/Post/ReadingTimeCalculator.php:135
 #: templates/tease-taxonomy-action.twig:53
-#: templates/tease-taxonomy-post.twig:63
+#: templates/tease-taxonomy-post.twig:63 templates/tease-author.twig:54
+#: templates/single.twig:69
 msgid "%d min read"
 msgstr ""
 
@@ -54,7 +54,7 @@ msgstr[2] ""
 msgid "404 Page"
 msgstr "Stranica 404"
 
-#: page-templates/sitemap.php:44
+#: page-templates/sitemap.php:46
 msgid "About Greenpeace"
 msgstr "O Greenpeaceu"
 
@@ -67,11 +67,11 @@ msgstr "o autoru"
 msgid "Accept all cookies"
 msgstr "Prihvati sve kolačiće"
 
-#: page-templates/sitemap.php:42
+#: page-templates/sitemap.php:44
 msgid "Act"
 msgstr "Aktiviraj se"
 
-#: src/Post.php:236
+#: src/Post.php:231
 msgid "ACTION"
 msgstr "UKLJUČI SE"
 
@@ -127,8 +127,8 @@ msgstr ""
 msgid "Apply filters"
 msgstr "primjeni filtere"
 
-#: src/Search/Filters/ContentTypes.php:121 templates/tease-search.twig:43
-#: templates/tease-search.twig:123
+#: src/Search/Filters/ContentTypes.php:121 templates/tease-search.twig:46
+#: templates/tease-search.twig:126
 msgid "Archive"
 msgstr "Arhiva"
 
@@ -136,82 +136,110 @@ msgstr "Arhiva"
 msgid "Archive URL"
 msgstr "Arhivirani URL"
 
-#: page-templates/sitemap.php:45
+#: page-templates/sitemap.php:47
 msgid "Articles"
 msgstr "Članci"
 
+#: assets/build/blocks/TopicLink/block.json:1
+#: assets/src/blocks/TopicLink/block.json:1
+msgctxt "block description"
+msgid ""
+"The Topic Link block allows editors to manually link to a category page, "
+"which redirects users to relevant topic content."
+msgstr ""
+
+#: assets/build/block-templates/action/block.json:1
 #: assets/src/block-templates/action/block.json:1
 msgctxt "block title"
 msgid "Action"
 msgstr ""
 
+#: assets/build/block-templates/campaign/block.json:1
 #: assets/src/block-templates/campaign/block.json:1
 msgctxt "block title"
 msgid "Campaign"
 msgstr ""
 
+#: assets/build/block-templates/deep-dive/block.json:1
 #: assets/src/block-templates/deep-dive/block.json:1
 msgctxt "block title"
 msgid "Deep Dive"
 msgstr ""
 
+#: assets/build/block-templates/deep-dive-topic/block.json:1
 #: assets/src/block-templates/deep-dive-topic/block.json:1
 msgctxt "block title"
 msgid "Deep Dive Topic"
 msgstr ""
 
+#: assets/build/block-templates/get-informed/block.json:1
 #: assets/src/block-templates/get-informed/block.json:1
 msgctxt "block title"
 msgid "Get Informed"
 msgstr ""
 
+#: assets/build/block-templates/high-level-topic/block.json:1
 #: assets/src/block-templates/high-level-topic/block.json:1
 msgctxt "block title"
 msgid "High-Level Topic"
 msgstr ""
 
+#: assets/build/block-templates/highlighted-cta/block.json:1
 #: assets/src/block-templates/highlighted-cta/block.json:1
 msgctxt "block title"
 msgid "Highlighted CTA"
 msgstr ""
 
+#: assets/build/block-templates/homepage/block.json:1
 #: assets/src/block-templates/homepage/block.json:1
 msgctxt "block title"
 msgid "Homepage"
 msgstr ""
 
+#: assets/build/block-templates/issues/block.json:1
 #: assets/src/block-templates/issues/block.json:1
 msgctxt "block title"
 msgid "Issues"
 msgstr ""
 
+#: assets/build/block-templates/page-header/block.json:1
 #: assets/src/block-templates/page-header/block.json:1
 msgctxt "block title"
 msgid "Page Header"
 msgstr ""
 
+#: assets/build/block-templates/quick-links/block.json:1
 #: assets/src/block-templates/quick-links/block.json:1
 msgctxt "block title"
 msgid "Quick Links"
 msgstr ""
 
+#: assets/build/block-templates/reality-check/block.json:1
 #: assets/src/block-templates/reality-check/block.json:1
 msgctxt "block title"
 msgid "Reality Check"
 msgstr ""
 
+#: assets/build/block-templates/side-image-with-text-and-cta/block.json:1
 #: assets/src/block-templates/side-image-with-text-and-cta/block.json:1
 msgctxt "block title"
 msgid "Side image with text and CTA"
 msgstr ""
 
+#: assets/build/block-templates/take-action/block.json:1
 #: assets/src/block-templates/take-action/block.json:1
 msgctxt "block title"
 msgid "Take Action"
 msgstr ""
 
-#: src/Search/Filters/ContentTypes.php:116 templates/tease-search.twig:41
-#: templates/tease-search.twig:121
+#: assets/build/blocks/TopicLink/block.json:1
+#: assets/src/blocks/TopicLink/block.json:1
+msgctxt "block title"
+msgid "Topic Link"
+msgstr ""
+
+#: src/Search/Filters/ContentTypes.php:116 templates/tease-search.twig:44
+#: templates/tease-search.twig:124
 msgid "Campaign"
 msgstr "Kampanja"
 
@@ -235,7 +263,7 @@ msgstr "Provjeri tipfelere, zatim pokušaj ponovo"
 msgid "Clear all"
 msgstr "Očisti sve"
 
-#: templates/search-form.twig:32 templates/search.twig:38
+#: templates/search.twig:38 templates/search-form.twig:28
 msgid "Clear search"
 msgstr ""
 
@@ -327,7 +355,7 @@ msgstr ""
 msgid "Comment (required)"
 msgstr "Komentar (obavezno)"
 
-#: templates/comments_section.twig:2 templates/single.twig:76
+#: templates/single.twig:76 templates/comments_section.twig:2
 msgid "Comments"
 msgstr "Komentari"
 
@@ -344,7 +372,7 @@ msgstr "vrsta sadržaja"
 msgid "Discussion"
 msgstr "Diskusija"
 
-#: src/Post.php:242
+#: src/Post.php:237
 msgid "DOCUMENT"
 msgstr "DOKUMENT"
 
@@ -352,7 +380,7 @@ msgstr "DOKUMENT"
 msgid "Document"
 msgstr "Dokument"
 
-#: templates/tease-search.twig:116
+#: templates/tease-search.twig:119
 msgid "Download"
 msgstr "Preuzmi"
 
@@ -369,7 +397,7 @@ msgstr "U nastavku unesi pojam za pretraživanje"
 msgid "Evergreen Page"
 msgstr "Vjerodostojna stranica"
 
-#: page-templates/sitemap.php:43
+#: page-templates/sitemap.php:45
 msgid "Explore"
 msgstr "Istraži"
 
@@ -429,11 +457,11 @@ msgstr "Greenpeace International"
 msgid "Greenpeace Planet 4 Master Theme"
 msgstr "Greenpeace Planet 4 Glavna tema"
 
-#: assets/src/js/listing_pages.js:34
+#: assets/src/js/listing_pages.js:49
 msgid "Grid View"
 msgstr ""
 
-#: functions.php:456
+#: functions.php:445
 msgid "here"
 msgstr ""
 
@@ -449,7 +477,7 @@ msgstr "https://github.com/greenpeace"
 msgid "https://github.com/greenpeace/planet4-master-theme"
 msgstr "https://github.com/greenpeace/planet4-master-theme"
 
-#: single.php:119
+#: single.php:128
 msgid ""
 "I agree on providing my name, email and content so that my comment can be "
 "stored and displayed in the website."
@@ -457,7 +485,7 @@ msgstr ""
 "Slažem se s pružanjem svog imena, e-maila i sadržaja kako bi se moj komentar "
 "mogao pohraniti i prikazati na web stranici."
 
-#: src/MasterSite.php:785
+#: src/MasterSite.php:462
 msgid "International (English)"
 msgstr "International (engleski)"
 
@@ -465,19 +493,23 @@ msgstr "International (engleski)"
 msgid "Invalid password, please try again"
 msgstr ""
 
+#: src/LoginHandler.php:133
+msgid "Invalid username or password"
+msgstr ""
+
 #: templates/listing-page-filters.twig:38
 msgid "Keywords"
 msgstr "ključne riječi"
 
-#: single.php:126
+#: single.php:137
 msgid "Leave your reply"
 msgstr "Ostavi svoj komentar"
 
-#: assets/src/js/listing_pages.js:42
+#: assets/src/js/listing_pages.js:57
 msgid "List View"
 msgstr ""
 
-#: templates/tease-search.twig:156
+#: templates/tease-search.twig:159
 msgid "Manage"
 msgstr "Upravljaj"
 
@@ -509,7 +541,7 @@ msgstr "Najnovije"
 msgid "News & stories"
 msgstr ""
 
-#: assets/src/js/listing_pages.js:93
+#: assets/src/js/listing_pages.js:116
 msgid "No posts found!"
 msgstr ""
 
@@ -517,7 +549,7 @@ msgstr ""
 msgid "Oldest"
 msgstr "Najstarije"
 
-#: src/Post.php:238
+#: src/Post.php:233
 msgid "PAGE"
 msgstr "STRANICA"
 
@@ -529,7 +561,7 @@ msgstr "Stranica"
 msgid "Please select which cookies you are willing to store."
 msgstr "Molimo odaberite koje kolačiće želite pohraniti."
 
-#: src/Post.php:245
+#: src/Post.php:240
 msgid "POST"
 msgstr "ČLANAK"
 
@@ -537,7 +569,7 @@ msgstr "ČLANAK"
 msgid "Post"
 msgstr "Članak"
 
-#: templates/comment_form/submit_button.twig:9
+#: templates/comment_form/submit_button.twig:11
 msgid "Post comment"
 msgstr "Objavi komentar"
 
@@ -566,7 +598,7 @@ msgstr ""
 msgid "Save preferences"
 msgstr "Spremi postavke"
 
-#: templates/search-form.twig:2 templates/search.twig:48 templates/404.twig:16
+#: templates/404.twig:16 templates/search.twig:48 templates/search-form.twig:2
 msgid "Search"
 msgstr "Traži"
 
@@ -582,19 +614,19 @@ msgstr "Označeno"
 msgid "Settings"
 msgstr "Postavke"
 
-#: templates/blocks/share_buttons.twig:10
-#: templates/blocks/share_buttons.twig:19
-#: templates/blocks/share_buttons.twig:28
+#: templates/blocks/share_buttons.twig:13
+#: templates/blocks/share_buttons.twig:22
+#: templates/blocks/share_buttons.twig:31
 msgid "Share on"
 msgstr "Podijeli na"
 
-#: templates/blocks/share_buttons.twig:47
+#: templates/blocks/share_buttons.twig:50
 #, php-format
 msgid "Share on %s"
 msgstr ""
 
-#: templates/blocks/share_buttons.twig:37
-#: templates/blocks/share_buttons.twig:57
+#: templates/blocks/share_buttons.twig:40
+#: templates/blocks/share_buttons.twig:60
 msgid "Share via"
 msgstr "Podijeli putem"
 
@@ -646,11 +678,11 @@ msgstr "Sortiraj po"
 msgid "Submit"
 msgstr "Predaj"
 
-#: assets/src/js/listing_pages.js:38
+#: assets/src/js/listing_pages.js:53
 msgid "Switch to grid view"
 msgstr ""
 
-#: assets/src/js/listing_pages.js:46
+#: assets/src/js/listing_pages.js:61
 msgid "Switch to list view"
 msgstr ""
 
@@ -663,14 +695,14 @@ msgid "Take action"
 msgstr "aktiviraj se"
 
 #. %s = Redirection url variable.
-#: src/GravityFormsExtensions.php:995
+#: src/GravityFormsExtensions.php:1042
 #, php-format
 msgid ""
 "Thank you! Please <a href=\"%s\">click here</a> if you are not redirected "
 "within a few seconds."
 msgstr ""
 
-#: functions.php:455
+#: functions.php:444
 msgid ""
 "The content on this page is hidden because this page is being used as your "
 "\\\"All Posts\\\" listing page. You can disable this by un-setting the "
@@ -691,15 +723,15 @@ msgstr ""
 msgid "To see the content of this page, please enter your password  below"
 msgstr "Unesi svoju šifru kako bi pristupio sadržaju stranice"
 
-#: src/MasterSite.php:704
+#: src/MasterSite.php:378
 msgid "Toggle search box"
 msgstr "Uključi pretraživanje"
 
-#: templates/navigation-bar.twig:36 templates/desktop-menu.twig:70
+#: templates/navigation-search-btn.twig:13
 msgid "Toggle search form"
 msgstr "Promijenite obrazac za pretraživanje"
 
-#: src/MasterSite.php:703
+#: src/MasterSite.php:377
 msgid "Toggle worldwide site selection menu"
 msgstr "Uključi selekciju po zemljama svijeta"
 
