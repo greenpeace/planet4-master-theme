@@ -4,7 +4,7 @@ msgstr ""
 "&&(n%100<10||n%100 >= 20)? 1 : 2);\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2025-07-03 14:41+0000\n"
+"PO-Revision-Date: 2025-12-15 06:42+0000\n"
 "Language-Team: Polish\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -35,10 +35,10 @@ msgstr[2] "Liczba wyników dla '%2$s': %1$d"
 
 #. reading time in min.
 #. %d = Number of minutes for reading time.
-#: src/Post.php:518 src/Post/ReadingTimeCalculator.php:135
-#: templates/tease-author.twig:54 templates/single.twig:69
+#: src/Post.php:517 src/Post/ReadingTimeCalculator.php:135
 #: templates/tease-taxonomy-action.twig:53
-#: templates/tease-taxonomy-post.twig:63
+#: templates/tease-taxonomy-post.twig:63 templates/tease-author.twig:54
+#: templates/single.twig:69
 msgid "%d min read"
 msgstr "czas czytania: %d min"
 
@@ -54,7 +54,7 @@ msgstr[2] "Liczba wyników: %d"
 msgid "404 Page"
 msgstr "Strona 404"
 
-#: page-templates/sitemap.php:44
+#: page-templates/sitemap.php:46
 msgid "About Greenpeace"
 msgstr "O Greenpeace"
 
@@ -67,11 +67,11 @@ msgstr "O autorze"
 msgid "Accept all cookies"
 msgstr "Zaakceptuj wszystkie ciasteczka"
 
-#: page-templates/sitemap.php:42
+#: page-templates/sitemap.php:44
 msgid "Act"
 msgstr "Działaj"
 
-#: src/Post.php:236
+#: src/Post.php:231
 msgid "ACTION"
 msgstr "DZIAŁANIE"
 
@@ -99,11 +99,15 @@ msgstr "Wszystkie artykuły"
 msgid "All articles by "
 msgstr "Artykuły autorstwa:"
 
-#: templates/listing-page-filters.twig:18
+#: templates/listing-page-filters.twig:41
+msgid "All keywords"
+msgstr ""
+
+#: templates/listing-page-filters.twig:7
 msgid "All posts"
 msgstr "Wszystkie wpisy"
 
-#: templates/listing-page-filters.twig:6
+#: templates/listing-page-filters.twig:24
 msgid "All topics"
 msgstr "Wszystkie tematy"
 
@@ -115,7 +119,7 @@ msgstr "Zezwól na wszystko"
 msgid "Always enabled"
 msgstr "Zawsze włączone"
 
-#: templates/listing-page-filters.twig:29
+#: templates/listing-page-filters.twig:54
 msgid "Apply"
 msgstr "Zastosuj"
 
@@ -123,8 +127,8 @@ msgstr "Zastosuj"
 msgid "Apply filters"
 msgstr "Filtruj"
 
-#: src/Search/Filters/ContentTypes.php:121 templates/tease-search.twig:43
-#: templates/tease-search.twig:123
+#: src/Search/Filters/ContentTypes.php:121 templates/tease-search.twig:46
+#: templates/tease-search.twig:126
 msgid "Archive"
 msgstr "Archiwum"
 
@@ -132,82 +136,110 @@ msgstr "Archiwum"
 msgid "Archive URL"
 msgstr "Archiwalny URL"
 
-#: page-templates/sitemap.php:45
+#: page-templates/sitemap.php:47
 msgid "Articles"
 msgstr "Artykuły"
 
+#: assets/build/blocks/TopicLink/block.json:1
+#: assets/src/blocks/TopicLink/block.json:1
+msgctxt "block description"
+msgid ""
+"The Topic Link block allows editors to manually link to a category page, "
+"which redirects users to relevant topic content."
+msgstr ""
+
+#: assets/build/block-templates/action/block.json:1
 #: assets/src/block-templates/action/block.json:1
 msgctxt "block title"
 msgid "Action"
 msgstr "Działanie"
 
+#: assets/build/block-templates/campaign/block.json:1
 #: assets/src/block-templates/campaign/block.json:1
 msgctxt "block title"
 msgid "Campaign"
 msgstr "Kampania"
 
+#: assets/build/block-templates/deep-dive/block.json:1
 #: assets/src/block-templates/deep-dive/block.json:1
 msgctxt "block title"
 msgid "Deep Dive"
 msgstr "Głęboki nur"
 
+#: assets/build/block-templates/deep-dive-topic/block.json:1
 #: assets/src/block-templates/deep-dive-topic/block.json:1
 msgctxt "block title"
 msgid "Deep Dive Topic"
 msgstr "Temat głębokiego nura ;)"
 
+#: assets/build/block-templates/get-informed/block.json:1
 #: assets/src/block-templates/get-informed/block.json:1
 msgctxt "block title"
 msgid "Get Informed"
 msgstr "Dowiedz się"
 
+#: assets/build/block-templates/high-level-topic/block.json:1
 #: assets/src/block-templates/high-level-topic/block.json:1
 msgctxt "block title"
 msgid "High-Level Topic"
 msgstr "Ważny temat"
 
+#: assets/build/block-templates/highlighted-cta/block.json:1
 #: assets/src/block-templates/highlighted-cta/block.json:1
 msgctxt "block title"
 msgid "Highlighted CTA"
 msgstr "Wyróżnione CTA"
 
+#: assets/build/block-templates/homepage/block.json:1
 #: assets/src/block-templates/homepage/block.json:1
 msgctxt "block title"
 msgid "Homepage"
 msgstr "Strona główna"
 
+#: assets/build/block-templates/issues/block.json:1
 #: assets/src/block-templates/issues/block.json:1
 msgctxt "block title"
 msgid "Issues"
 msgstr ""
 
+#: assets/build/block-templates/page-header/block.json:1
 #: assets/src/block-templates/page-header/block.json:1
 msgctxt "block title"
 msgid "Page Header"
 msgstr "Nagłówek strony"
 
+#: assets/build/block-templates/quick-links/block.json:1
 #: assets/src/block-templates/quick-links/block.json:1
 msgctxt "block title"
 msgid "Quick Links"
 msgstr "Szybkie linki"
 
+#: assets/build/block-templates/reality-check/block.json:1
 #: assets/src/block-templates/reality-check/block.json:1
 msgctxt "block title"
 msgid "Reality Check"
 msgstr ""
 
+#: assets/build/block-templates/side-image-with-text-and-cta/block.json:1
 #: assets/src/block-templates/side-image-with-text-and-cta/block.json:1
 msgctxt "block title"
 msgid "Side image with text and CTA"
 msgstr "Obrazek z tekstem i CTA"
 
+#: assets/build/block-templates/take-action/block.json:1
 #: assets/src/block-templates/take-action/block.json:1
 msgctxt "block title"
 msgid "Take Action"
 msgstr "Działaj"
 
-#: src/Search/Filters/ContentTypes.php:116 templates/tease-search.twig:41
-#: templates/tease-search.twig:121
+#: assets/build/blocks/TopicLink/block.json:1
+#: assets/src/blocks/TopicLink/block.json:1
+msgctxt "block title"
+msgid "Topic Link"
+msgstr ""
+
+#: src/Search/Filters/ContentTypes.php:116 templates/tease-search.twig:44
+#: templates/tease-search.twig:124
 msgid "Campaign"
 msgstr "Kampania"
 
@@ -215,7 +247,7 @@ msgstr "Kampania"
 msgid "Cancel"
 msgstr "Anuluj"
 
-#: templates/search/categories.twig:7
+#: templates/listing-page-filters.twig:21 templates/search/categories.twig:7
 msgid "Category"
 msgstr "Kategoria"
 
@@ -231,11 +263,11 @@ msgstr "Sprawdź, czy nie ma literówek i wyszukaj ponownie"
 msgid "Clear all"
 msgstr "Wyczyść wszystko"
 
-#: templates/search-form.twig:32 templates/search.twig:38
+#: templates/search.twig:38 templates/search-form.twig:28
 msgid "Clear search"
 msgstr "Wyczyść wyszukiwanie"
 
-#: templates/burger-menu.twig:70
+#: templates/burger-menu.twig:67
 msgid "Close navigation mobile menu"
 msgstr "Zamknij menu mobilne"
 
@@ -323,7 +355,7 @@ msgstr "Biały"
 msgid "Comment (required)"
 msgstr "Komentarz (wymagane)"
 
-#: templates/comments_section.twig:2 templates/single.twig:76
+#: templates/single.twig:76 templates/comments_section.twig:2
 msgid "Comments"
 msgstr "Komentarze"
 
@@ -333,11 +365,15 @@ msgstr "Komentarze"
 msgid "Content Type"
 msgstr "Rodzaj treści"
 
+#: templates/listing-page-filters.twig:4
+msgid "Content type"
+msgstr ""
+
 #: templates/comments_section.twig:9
 msgid "Discussion"
 msgstr "Dyskusja"
 
-#: src/Post.php:242
+#: src/Post.php:237
 msgid "DOCUMENT"
 msgstr "DOKUMENT"
 
@@ -345,7 +381,7 @@ msgstr "DOKUMENT"
 msgid "Document"
 msgstr "Dokument"
 
-#: templates/tease-search.twig:116
+#: templates/tease-search.twig:119
 msgid "Download"
 msgstr "Pobierz"
 
@@ -358,17 +394,13 @@ msgid "Enter your search term below"
 msgstr "Wpisz słowo, którego szukasz"
 
 #. Name of the template
-#: page-templates/evergreen.php:3
+#: page-templates/evergreen.php:5
 msgid "Evergreen Page"
 msgstr "Strona statyczna"
 
-#: page-templates/sitemap.php:43
+#: page-templates/sitemap.php:45
 msgid "Explore"
 msgstr "Dowiedz się"
-
-#: templates/listing-page-filters.twig:3
-msgid "Filter by category"
-msgstr "Filtruj po kategorii"
 
 #: templates/search/action_types.twig:16
 #, php-format
@@ -426,11 +458,11 @@ msgstr "Greenpeace International"
 msgid "Greenpeace Planet 4 Master Theme"
 msgstr "Greenpeace Planet 4 Master Theme"
 
-#: assets/src/js/listing_pages.js:34
+#: assets/src/js/listing_pages.js:49
 msgid "Grid View"
 msgstr "Widok Siatki"
 
-#: functions.php:519
+#: functions.php:445
 msgid "here"
 msgstr "tutaj"
 
@@ -446,7 +478,7 @@ msgstr "https://github.com/greenpeace"
 msgid "https://github.com/greenpeace/planet4-master-theme"
 msgstr "https://github.com/greenpeace/planet4-master-theme"
 
-#: single.php:120
+#: single.php:128
 msgid ""
 "I agree on providing my name, email and content so that my comment can be "
 "stored and displayed in the website."
@@ -454,7 +486,7 @@ msgstr ""
 "Zgadzam się udostępnić swoje imię, email i treści, by mój komentarz był "
 "widoczny i przechowywany na stronie."
 
-#: src/MasterSite.php:809
+#: src/MasterSite.php:462
 msgid "International (English)"
 msgstr "International (Angielski)"
 
@@ -462,15 +494,23 @@ msgstr "International (Angielski)"
 msgid "Invalid password, please try again"
 msgstr "Błędne hasło, spróbuj ponownie"
 
-#: single.php:127
+#: src/LoginHandler.php:133
+msgid "Invalid username or password"
+msgstr ""
+
+#: templates/listing-page-filters.twig:38
+msgid "Keywords"
+msgstr ""
+
+#: single.php:137
 msgid "Leave your reply"
 msgstr "Dodaj odpowiedź"
 
-#: assets/src/js/listing_pages.js:42
+#: assets/src/js/listing_pages.js:57
 msgid "List View"
 msgstr "Widok Listy"
 
-#: templates/tease-search.twig:156
+#: templates/tease-search.twig:159
 msgid "Manage"
 msgstr "Zarządzaj"
 
@@ -502,7 +542,7 @@ msgstr "Od najnowszych"
 msgid "News & stories"
 msgstr "Aktualności"
 
-#: assets/src/js/listing_pages.js:93
+#: assets/src/js/listing_pages.js:116
 msgid "No posts found!"
 msgstr "Brak postów!"
 
@@ -510,7 +550,7 @@ msgstr "Brak postów!"
 msgid "Oldest"
 msgstr "Od najstarszych"
 
-#: src/Post.php:238
+#: src/Post.php:233
 msgid "PAGE"
 msgstr "STRONA"
 
@@ -522,7 +562,7 @@ msgstr "Strona"
 msgid "Please select which cookies you are willing to store."
 msgstr "Wybierz, na które ciasteczka się zgadzasz"
 
-#: src/Post.php:245
+#: src/Post.php:240
 msgid "POST"
 msgstr "WPIS"
 
@@ -530,7 +570,7 @@ msgstr "WPIS"
 msgid "Post"
 msgstr "Wpis"
 
-#: templates/comment_form/submit_button.twig:9
+#: templates/comment_form/submit_button.twig:11
 msgid "Post comment"
 msgstr "Opublikuj komentarz"
 
@@ -550,11 +590,16 @@ msgstr "Odrzuć wszystko"
 msgid "Reject all cookies"
 msgstr "Odrzuć wszystkie ciasteczka"
 
+#. Name of the template
+#: single-p4_action-resistance_hub.php:3
+msgid "Resistance Hub Campaign"
+msgstr ""
+
 #: templates/cookies/cookies_settings.twig:63
 msgid "Save preferences"
 msgstr "Zapisz ustawienia"
 
-#: templates/search-form.twig:2 templates/search.twig:48 templates/404.twig:16
+#: templates/404.twig:16 templates/search.twig:48 templates/search-form.twig:2
 msgid "Search"
 msgstr "Szukaj"
 
@@ -570,19 +615,19 @@ msgstr "Wybrane"
 msgid "Settings"
 msgstr "Ustawienia"
 
-#: templates/blocks/share_buttons.twig:10
-#: templates/blocks/share_buttons.twig:19
-#: templates/blocks/share_buttons.twig:28
+#: templates/blocks/share_buttons.twig:13
+#: templates/blocks/share_buttons.twig:22
+#: templates/blocks/share_buttons.twig:31
 msgid "Share on"
 msgstr "Udostępnij w"
 
-#: templates/blocks/share_buttons.twig:47
+#: templates/blocks/share_buttons.twig:50
 #, php-format
 msgid "Share on %s"
 msgstr "Udostępnij w %s"
 
-#: templates/blocks/share_buttons.twig:37
-#: templates/blocks/share_buttons.twig:57
+#: templates/blocks/share_buttons.twig:40
+#: templates/blocks/share_buttons.twig:60
 msgid "Share via"
 msgstr "Udostępnij przez"
 
@@ -636,11 +681,11 @@ msgstr "Sortuj według"
 msgid "Submit"
 msgstr "Prześlij"
 
-#: assets/src/js/listing_pages.js:38
+#: assets/src/js/listing_pages.js:53
 msgid "Switch to grid view"
 msgstr "Przełącz na widok siatki"
 
-#: assets/src/js/listing_pages.js:46
+#: assets/src/js/listing_pages.js:61
 msgid "Switch to list view"
 msgstr "Przełącz na widok listy"
 
@@ -653,7 +698,7 @@ msgid "Take action"
 msgstr "działaj"
 
 #. %s = Redirection url variable.
-#: src/GravityFormsExtensions.php:989
+#: src/GravityFormsExtensions.php:1042
 #, php-format
 msgid ""
 "Thank you! Please <a href=\"%s\">click here</a> if you are not redirected "
@@ -662,7 +707,7 @@ msgstr ""
 "Dziękujemy! <a href=\"%s\">Kliknij tutaj</a>, jeśli nie przekierowanie nie "
 "zadziała w ciągu kilku sekund"
 
-#: functions.php:518
+#: functions.php:444
 msgid ""
 "The content on this page is hidden because this page is being used as your "
 "\\\"All Posts\\\" listing page. You can disable this by un-setting the "
@@ -686,15 +731,15 @@ msgstr "Link otworzy plik PDF"
 msgid "To see the content of this page, please enter your password  below"
 msgstr "Aby zobaczyć zawartość tej strony, podaj hasło:"
 
-#: src/MasterSite.php:728
+#: src/MasterSite.php:378
 msgid "Toggle search box"
 msgstr "Schowaj pole wyszukania"
 
-#: templates/navigation-bar.twig:36 templates/desktop-menu.twig:70
+#: templates/navigation-search-btn.twig:13
 msgid "Toggle search form"
 msgstr "Zwiń pole wyszukiwania"
 
-#: src/MasterSite.php:727
+#: src/MasterSite.php:377
 msgid "Toggle worldwide site selection menu"
 msgstr "Ukryj wybór stron innych biur"
 
