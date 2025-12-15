@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Planet4 Master Theme backend\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-03 10:48+0000\n"
+"POT-Creation-Date: 2025-12-15 07:04+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -171,7 +171,7 @@ msgstr ""
 msgid "Add the \"Reject all\" option in the Cookies box"
 msgstr ""
 
-#: src/GravityFormsExtensions.php:406
+#: src/GravityFormsExtensions.php:412
 msgid "Add the Counter Name from counter.greenpeace.org"
 msgstr ""
 
@@ -326,74 +326,102 @@ msgstr ""
 msgid "Beta blocks"
 msgstr ""
 
+#: assets/build/blocks/TopicLink/block.json:1
+#: assets/src/blocks/TopicLink/block.json:1
+msgctxt "block description"
+msgid ""
+"The Topic Link block allows editors to manually link to a category page, "
+"which redirects users to relevant topic content."
+msgstr ""
+
+#: assets/build/block-templates/action/block.json:1
 #: assets/src/block-templates/action/block.json:1
 msgctxt "block title"
 msgid "Action"
 msgstr ""
 
+#: assets/build/block-templates/campaign/block.json:1
 #: assets/src/block-templates/campaign/block.json:1
 msgctxt "block title"
 msgid "Campaign"
 msgstr ""
 
+#: assets/build/block-templates/deep-dive/block.json:1
 #: assets/src/block-templates/deep-dive/block.json:1
 msgctxt "block title"
 msgid "Deep Dive"
 msgstr ""
 
+#: assets/build/block-templates/deep-dive-topic/block.json:1
 #: assets/src/block-templates/deep-dive-topic/block.json:1
 msgctxt "block title"
 msgid "Deep Dive Topic"
 msgstr ""
 
+#: assets/build/block-templates/get-informed/block.json:1
 #: assets/src/block-templates/get-informed/block.json:1
 msgctxt "block title"
 msgid "Get Informed"
 msgstr ""
 
+#: assets/build/block-templates/high-level-topic/block.json:1
 #: assets/src/block-templates/high-level-topic/block.json:1
 msgctxt "block title"
 msgid "High-Level Topic"
 msgstr ""
 
+#: assets/build/block-templates/highlighted-cta/block.json:1
 #: assets/src/block-templates/highlighted-cta/block.json:1
 msgctxt "block title"
 msgid "Highlighted CTA"
 msgstr ""
 
+#: assets/build/block-templates/homepage/block.json:1
 #: assets/src/block-templates/homepage/block.json:1
 msgctxt "block title"
 msgid "Homepage"
 msgstr ""
 
+#: assets/build/block-templates/issues/block.json:1
 #: assets/src/block-templates/issues/block.json:1
 msgctxt "block title"
 msgid "Issues"
 msgstr ""
 
+#: assets/build/block-templates/page-header/block.json:1
 #: assets/src/block-templates/page-header/block.json:1
 msgctxt "block title"
 msgid "Page Header"
 msgstr ""
 
+#: assets/build/block-templates/quick-links/block.json:1
 #: assets/src/block-templates/quick-links/block.json:1
 msgctxt "block title"
 msgid "Quick Links"
 msgstr ""
 
+#: assets/build/block-templates/reality-check/block.json:1
 #: assets/src/block-templates/reality-check/block.json:1
 msgctxt "block title"
 msgid "Reality Check"
 msgstr ""
 
+#: assets/build/block-templates/side-image-with-text-and-cta/block.json:1
 #: assets/src/block-templates/side-image-with-text-and-cta/block.json:1
 msgctxt "block title"
 msgid "Side image with text and CTA"
 msgstr ""
 
+#: assets/build/block-templates/take-action/block.json:1
 #: assets/src/block-templates/take-action/block.json:1
 msgctxt "block title"
 msgid "Take Action"
+msgstr ""
+
+#: assets/build/blocks/TopicLink/block.json:1
+#: assets/src/blocks/TopicLink/block.json:1
+msgctxt "block title"
+msgid "Topic Link"
 msgstr ""
 
 #: assets/src/js/Components/ArchivePicker/ArchivePickerToolbar.js:56
@@ -404,7 +432,7 @@ msgstr ""
 msgid "Bulk Upload"
 msgstr ""
 
-#: src/GravityFormsExtensions.php:563
+#: src/GravityFormsExtensions.php:569
 msgid ""
 "By default, share buttons will share the URL of the page that the form was "
 "submitted on. Use this field to override with a different URL."
@@ -840,7 +868,7 @@ msgstr ""
 msgid "Footer Social Menu"
 msgstr ""
 
-#: src/GravityFormsExtensions.php:392
+#: src/GravityFormsExtensions.php:398
 msgid "Form Type"
 msgstr ""
 
@@ -861,7 +889,7 @@ msgid ""
 "Handbook</a>."
 msgstr ""
 
-#: src/GravityFormsExtensions.php:405
+#: src/GravityFormsExtensions.php:411
 msgid "Global Counter ID"
 msgstr ""
 
@@ -943,8 +971,8 @@ msgid "Include Related Posts"
 msgstr ""
 
 #. %s: Category name
-#: assets/src/blocks/TopicLink/TopicLinkFrontend.js:36
-#: assets/src/blocks/TopicLink/TopicLinkEditor.js:145
+#: assets/src/blocks/TopicLink/edit.js:150
+#: assets/src/blocks/TopicLink/topic-link.js:35
 #, javascript-format
 msgid "Learn more about %s"
 msgstr ""
@@ -1120,7 +1148,7 @@ msgstr ""
 msgid "Original language title"
 msgstr ""
 
-#: src/GravityFormsExtensions.php:562
+#: src/GravityFormsExtensions.php:568
 msgid "Override share URL"
 msgstr ""
 
@@ -1186,7 +1214,7 @@ msgstr ""
 msgid "Planet 4 is connected to Redis."
 msgstr ""
 
-#: src/GravityFormsExtensions.php:382
+#: src/GravityFormsExtensions.php:388
 msgid "Planet 4 Options"
 msgstr ""
 
@@ -1205,7 +1233,7 @@ msgid ""
 "access for your account."
 msgstr ""
 
-#: src/GravityFormsExtensions.php:393
+#: src/GravityFormsExtensions.php:399
 msgid ""
 "Please select a form type below so you can track and analyze each form type "
 "separately"
@@ -1427,15 +1455,15 @@ msgstr ""
 msgid "Settings saved."
 msgstr ""
 
-#: src/GravityFormsExtensions.php:534
+#: src/GravityFormsExtensions.php:540
 msgid "Share buttons"
 msgstr ""
 
-#: src/GravityFormsExtensions.php:555
+#: src/GravityFormsExtensions.php:561
 msgid "Share text"
 msgstr ""
 
-#: src/GravityFormsExtensions.php:547
+#: src/GravityFormsExtensions.php:553
 msgid "Show share buttons below message"
 msgstr ""
 
@@ -1582,7 +1610,7 @@ msgid ""
 "sharing options for each form on its Confirmation settings."
 msgstr ""
 
-#: src/GravityFormsExtensions.php:556
+#: src/GravityFormsExtensions.php:562
 msgid ""
 "This is the text that will be shared when a user clicks a share button (if "
 "the platform supports share text)"
