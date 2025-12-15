@@ -4,7 +4,7 @@ msgstr ""
 "&& n%100<=10 ? 3 : n%100 >= 11 && n%100<=99 ? 4 : 5;\n"
 "Project-Id-Version: Planet4 - Blocks\n"
 "POT-Creation-Date: 2020-09-09 11:52+0000\n"
-"PO-Revision-Date: 2025-03-07 11:12+0000\n"
+"PO-Revision-Date: 2025-12-15 09:58+0000\n"
 "Last-Translator: \n"
 "Language-Team: Arabic\n"
 "MIME-Version: 1.0\n"
@@ -24,11 +24,6 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
-#. article reading time
-#: assets/src/blocks/Articles/ArticlePreview.js:180
-msgid "%d min read"
-msgstr "قراءة %d دقيقة"
-
 #: assets/src/blocks/Cookies/CookiesFrontend.js:131
 #: assets/src/blocks/Cookies/CookiesEditor.js:73
 msgid "Always enabled"
@@ -38,79 +33,107 @@ msgstr "ممكّن دائمًا"
 msgid "Background image"
 msgstr "صورة الخلفية"
 
-#: assets/src/block-templates/high-level-topic/template.js:18
+#: assets/src/block-templates/high-level-topic/template.js:20
 msgid "Better understand the issues [deep dive topics]"
 msgstr "فهم أفضل للقضايا [الغوص في المواضيع العميقة]"
 
+#: assets/build/blocks/TopicLink/block.json:1
+#: assets/src/blocks/TopicLink/block.json:1
+msgctxt "block description"
+msgid ""
+"The Topic Link block allows editors to manually link to a category page, "
+"which redirects users to relevant topic content."
+msgstr ""
+
+#: assets/build/block-templates/action/block.json:1
 #: assets/src/block-templates/action/block.json:1
 msgctxt "block title"
 msgid "Action"
 msgstr "فعل"
 
+#: assets/build/block-templates/campaign/block.json:1
 #: assets/src/block-templates/campaign/block.json:1
 msgctxt "block title"
 msgid "Campaign"
 msgstr "حملة"
 
+#: assets/build/block-templates/deep-dive/block.json:1
 #: assets/src/block-templates/deep-dive/block.json:1
 msgctxt "block title"
 msgid "Deep Dive"
 msgstr "الغوص العميق"
 
+#: assets/build/block-templates/deep-dive-topic/block.json:1
 #: assets/src/block-templates/deep-dive-topic/block.json:1
 msgctxt "block title"
 msgid "Deep Dive Topic"
 msgstr "موضوع الغوص العميق"
 
+#: assets/build/block-templates/get-informed/block.json:1
 #: assets/src/block-templates/get-informed/block.json:1
 msgctxt "block title"
 msgid "Get Informed"
 msgstr "احصل على اطلاع"
 
+#: assets/build/block-templates/high-level-topic/block.json:1
 #: assets/src/block-templates/high-level-topic/block.json:1
 msgctxt "block title"
 msgid "High-Level Topic"
 msgstr "موضوع رفيع المستوى"
 
+#: assets/build/block-templates/highlighted-cta/block.json:1
 #: assets/src/block-templates/highlighted-cta/block.json:1
 msgctxt "block title"
 msgid "Highlighted CTA"
 msgstr " الدعوة لاتخاذ إجراء البارزة"
 
+#: assets/build/block-templates/homepage/block.json:1
 #: assets/src/block-templates/homepage/block.json:1
 msgctxt "block title"
 msgid "Homepage"
 msgstr "الصفحة الرئيسية"
 
+#: assets/build/block-templates/issues/block.json:1
 #: assets/src/block-templates/issues/block.json:1
 msgctxt "block title"
 msgid "Issues"
 msgstr "مشاكل"
 
+#: assets/build/block-templates/page-header/block.json:1
 #: assets/src/block-templates/page-header/block.json:1
 msgctxt "block title"
 msgid "Page Header"
 msgstr "رأس الصفحة"
 
+#: assets/build/block-templates/quick-links/block.json:1
 #: assets/src/block-templates/quick-links/block.json:1
 msgctxt "block title"
 msgid "Quick Links"
 msgstr "روابط سريعة"
 
+#: assets/build/block-templates/reality-check/block.json:1
 #: assets/src/block-templates/reality-check/block.json:1
 msgctxt "block title"
 msgid "Reality Check"
 msgstr "التحقق من الواقع"
 
+#: assets/build/block-templates/side-image-with-text-and-cta/block.json:1
 #: assets/src/block-templates/side-image-with-text-and-cta/block.json:1
 msgctxt "block title"
 msgid "Side image with text and CTA"
 msgstr "صورة جانبية مع نص ودعوة لاتخاذ إجراء"
 
+#: assets/build/block-templates/take-action/block.json:1
 #: assets/src/block-templates/take-action/block.json:1
 msgctxt "block title"
 msgid "Take Action"
 msgstr "اتخذ إجراءً"
+
+#: assets/build/blocks/TopicLink/block.json:1
+#: assets/src/blocks/TopicLink/block.json:1
+msgctxt "block title"
+msgid "Topic Link"
+msgstr ""
 
 #: theme.json:1
 msgctxt "Color name"
@@ -192,34 +215,58 @@ msgctxt "Color name"
 msgid "White"
 msgstr "أبيض"
 
-#: assets/src/blocks/Covers/ContentCovers.js:47
-msgid "Cover image, link to "
-msgstr "صورة الغلاف، رابط إلى"
+#: assets/src/js/resistance-hub-campaign.js:46
+msgid "Completed"
+msgstr ""
 
-#: assets/src/block-templates/take-action/template.js:13
+#: assets/src/block-templates/take-action/template.js:17
 msgid "Daily actions"
 msgstr "الإجراءات اليومية"
 
-#: assets/src/block-templates/take-action/template.js:42
+#: assets/src/js/resistance-hub-campaign.js:147
+#: assets/src/block-editor/Sidebar/ActionSidebar.js:41
+msgid "Do it Offline"
+msgstr ""
+
+#: assets/src/js/resistance-hub-campaign.js:144
+#: assets/src/block-editor/Sidebar/ActionSidebar.js:40
+msgid "Do it Online"
+msgstr ""
+
+#: assets/src/block-templates/take-action/template.js:49
 msgid "Donate"
 msgstr "تبرع"
 
+#: src/Migrations/M049MigrateCoversBlockToActionsListBlock.php:286
+#: src/Migrations/M037MigrateCoversContentBlockToPostsListBlock.php:385
+#: src/Migrations/M046MigrateArticlesBlockToPostsListBlock.php:326
+msgid "Enter description"
+msgstr ""
+
+#: src/CloudflareTurnstileHandler.php:100
+msgid "Error: Captcha verification failed. Please try again."
+msgstr ""
+
+#: src/CloudflareTurnstileHandler.php:76
+msgid "Error: Please complete the captcha."
+msgstr ""
+
 #. Name of the template
-#: page-templates/evergreen.php:3
+#: page-templates/evergreen.php:5
 msgid "Evergreen Page"
 msgstr "صفحة دائمة الخضرة"
 
-#: assets/src/block-templates/get-informed/template.js:8
-#: assets/src/block-templates/high-level-topic/template.js:41
-#: assets/src/block-templates/action/template.js:32
+#: assets/src/block-templates/get-informed/template.js:9
+#: assets/src/block-templates/high-level-topic/template.js:45
+#: assets/src/block-templates/action/template.js:34
 msgid "Explore by topics"
 msgstr "استكشاف حسب المواضيع"
 
-#: assets/src/block-templates/deep-dive-topic/template.js:28
+#: assets/src/block-templates/deep-dive-topic/template.js:32
 msgid "Explore other topics"
 msgstr "استكشاف مواضيع أخرى"
 
-#: assets/src/block-templates/high-level-topic/template.js:27
+#: assets/src/block-templates/high-level-topic/template.js:29
 msgid "Featured action title"
 msgstr "عنوان العمل المميز"
 
@@ -227,27 +274,41 @@ msgstr "عنوان العمل المميز"
 msgid "Get involved"
 msgstr "شارك"
 
-#: assets/src/block-templates/homepage/template.js:18
+#: assets/src/block-templates/homepage/template.js:21
 msgid "Get to know us"
 msgstr "تعرف علينا"
 
-#: assets/src/block-templates/campaign/template.js:21
-#: assets/src/block-templates/deep-dive-topic/template.js:18
-#: assets/src/block-templates/high-level-topic/template.js:31
+#: assets/src/blocks/CarouselHeader/CarouselControls.js:20
+msgid "Go to next slide"
+msgstr ""
+
+#: assets/src/blocks/CarouselHeader/CarouselControls.js:16
+msgid "Go to previous slide"
+msgstr ""
+
+#. %s: slide index
+#: assets/src/blocks/CarouselHeader/CarouselControls.js:50
+#, javascript-format
+msgid "Go to slide %s"
+msgstr ""
+
+#: assets/src/block-templates/campaign/template.js:23
+#: assets/src/block-templates/high-level-topic/template.js:33
+#: assets/src/block-templates/deep-dive-topic/template.js:22
 msgid "How you can help"
 msgstr "كيف يمكنك المساعدة"
 
-#: assets/src/block-templates/deep-dive-topic/template.js:25
+#: assets/src/block-templates/deep-dive-topic/template.js:29
 msgid "Keep learning about"
 msgstr "استمر في التعلم عن"
 
-#: assets/src/block-templates/high-level-topic/template.js:37
+#: assets/src/block-templates/high-level-topic/template.js:41
 msgid "Latest investigations"
 msgstr "آخر التحقيقات"
 
-#: assets/src/block-templates/get-informed/template.js:31
-#: assets/src/block-templates/deep-dive-topic/template.js:22
-#: assets/src/block-templates/high-level-topic/template.js:34
+#: assets/src/block-templates/get-informed/template.js:34
+#: assets/src/block-templates/high-level-topic/template.js:37
+#: assets/src/block-templates/deep-dive-topic/template.js:26
 msgid "Latest news & stories"
 msgstr "آخر الأخبار والقصص"
 
@@ -255,11 +316,8 @@ msgstr "آخر الأخبار والقصص"
 msgid "Learn more about this issue"
 msgstr "تعرف على المزيد حول هذه المشكلة"
 
-#: src/Blocks/Covers.php:83 src/Blocks/Covers.php:145
-#: src/Blocks/Articles.php:46 src/Blocks/Articles.php:91
-#: assets/src/blocks/Articles/ArticlesBlock.js:37
-#: assets/src/blocks/Covers/CoversConstants.js:63
-#: assets/src/blocks/Covers/deprecated/coversV2.js:57
+#: src/Migrations/M057ActionsListBlockLoadMore.php:84
+#: assets/src/blocks/ActionsList/index.js:84
 msgid "Load more"
 msgstr "تحميل المزيد"
 
@@ -269,9 +327,12 @@ msgid "Loading spreadsheet data…"
 msgstr ""
 "جاري تحميل جدول البيانات…\n"
 
-#: assets/src/blocks/Gallery/GalleryCarousel.js:146
-#: assets/src/blocks/CarouselHeader/CarouselControls.js:18
-#: assets/src/blocks/Covers/CoversCarouselLayout.js:48
+#: src/QueryLoopPagination.php:63
+#: src/Migrations/M049MigrateCoversBlockToActionsListBlock.php:208
+#: src/Migrations/M037MigrateCoversContentBlockToPostsListBlock.php:263
+#: src/Migrations/M046MigrateArticlesBlockToPostsListBlock.php:207
+#: assets/src/blocks/Gallery/GalleryCarousel.js:125
+#: assets/src/blocks/CarouselHeader/CarouselControls.js:22
 msgid "Next"
 msgstr "التالي"
 
@@ -279,116 +340,141 @@ msgstr "التالي"
 msgid "No data matching your search."
 msgstr "لا توجد بيانات تطابق بحثك."
 
-#: assets/src/block-templates/get-informed/template.js:28
+#: src/Migrations/M049MigrateCoversBlockToActionsListBlock.php:269
+#: src/Migrations/M037MigrateCoversContentBlockToPostsListBlock.php:365
+#: src/Migrations/M046MigrateArticlesBlockToPostsListBlock.php:306
+msgid "No posts found."
+msgstr ""
+
+#: src/Migrations/M049MigrateCoversBlockToActionsListBlock.php:268
+#: src/Migrations/M037MigrateCoversContentBlockToPostsListBlock.php:364
+#: src/Migrations/M046MigrateArticlesBlockToPostsListBlock.php:305
+msgid "No posts found. (This default text can be edited)"
+msgstr ""
+
+#: assets/src/block-templates/get-informed/template.js:30
 msgid "Our latest actions around the world"
 msgstr "أحدث تحركاتنا حول العالم"
 
-#: assets/src/block-templates/get-informed/template.js:24
+#: assets/src/block-templates/get-informed/template.js:26
 msgid "Our recent victories"
 msgstr "انتصاراتنا الأخيرة"
 
-#: assets/src/block-templates/deep-dive-topic/template.js:6
-#: assets/src/block-templates/take-action/template.js:8
+#: assets/src/block-templates/take-action/template.js:11
+#: assets/src/block-templates/deep-dive-topic/template.js:9
 msgid "Page header title"
 msgstr "عنوان رأس الصفحة"
 
-#: assets/src/blocks/Covers/CoversCarouselLayout.js:44
+#: assets/src/blocks/CarouselHeader/CarouselControls.js:59
+msgid "Play Slider"
+msgstr ""
+
+#: src/QueryLoopPagination.php:39
+#: src/Migrations/M049MigrateCoversBlockToActionsListBlock.php:204
+#: src/Migrations/M037MigrateCoversContentBlockToPostsListBlock.php:259
+#: src/Migrations/M046MigrateArticlesBlockToPostsListBlock.php:203
 msgid "Prev"
 msgstr "السابق"
 
-#: assets/src/blocks/Gallery/GalleryCarousel.js:112
-#: assets/src/blocks/CarouselHeader/CarouselControls.js:14
+#: assets/src/blocks/Gallery/GalleryCarousel.js:91
+#: assets/src/blocks/CarouselHeader/CarouselControls.js:18
 msgid "Previous"
 msgstr "السابق"
 
-#: assets/src/block-templates/take-action/template.js:38
+#: assets/src/block-templates/take-action/template.js:44
 msgid "Raise awareness in your community"
 msgstr "رفع مستوى الوعي في مجتمعك"
 
-#: assets/src/block-templates/homepage/template.js:14
+#: assets/src/block-templates/homepage/template.js:17
 msgid "Read our Stories"
 msgstr "قراءة قصصنا"
 
-#: src/Blocks/Articles.php:50 src/Blocks/Articles.php:58
-#: assets/src/blocks/Articles/ArticlesBlock.js:13
+#: src/Migrations/M046MigrateArticlesBlockToPostsListBlock.php:114
 msgid "Related Articles"
 msgstr "مقالات ذات صلة"
 
-#: functions.php:331
+#: src/Post.php:639
 msgid "Related Posts"
 msgstr "المدونات ذات الصلة"
+
+#. Name of the template
+#: single-p4_action-resistance_hub.php:3
+msgid "Resistance Hub Campaign"
+msgstr ""
 
 #: assets/src/blocks/Spreadsheet/SpreadsheetFrontend.js:153
 msgid "Search data"
 msgstr "بيانات البحث"
 
-#: functions.php:322
+#: src/Post.php:630 assets/src/blocks/PostsList/index.js:21
 msgid "See all posts"
 msgstr "رؤية جميع المدونات"
+
+#: src/Migrations/M037MigrateCoversContentBlockToPostsListBlock.php:347
+#: src/Migrations/M046MigrateArticlesBlockToPostsListBlock.php:288
+msgid "See all stories"
+msgstr ""
 
 #. Name of the template
 #: page-templates/sitemap.php:3
 msgid "Sitemap Page"
 msgstr "صفحة خريطة الموقع"
 
-#: assets/src/block-templates/take-action/template.js:17
+#: assets/src/blocks/CarouselHeader/CarouselControls.js:59
+msgid "Stop Slider"
+msgstr ""
+
+#: assets/src/block-templates/take-action/template.js:22
 msgid "Support a cause"
 msgstr "دعم قضية"
 
-#: src/Blocks/Covers.php:418 src/Blocks/TakeActionBoxout.php:153
-#: src/Blocks/ActionButtonText.php:76
-#: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:20
+#: src/Blocks/ActionButtonText.php:84 src/Blocks/ActionButtonText.php:94
+#: src/Blocks/TakeActionBoxout.php:158
 #: assets/src/blocks/ActionCustomButtonText/edit.js:4
+#: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:22
 msgid "Take action"
 msgstr "تحرك"
 
-#. cover title
-#: assets/src/blocks/Covers/TakeActionCovers.js:46
-#: assets/src/blocks/Covers/TakeActionCovers.js:54
-#, javascript-format
-msgid "Take action cover, link to %s"
-msgstr "غطاء اتخذ إجراءً، ،رابط إلى %s"
-
-#: assets/src/block-templates/take-action/template.js:34
+#: assets/src/block-templates/take-action/template.js:40
 msgid "Take action with us"
 msgstr "اتخاذ الإجراءات اللازمة معنا"
 
-#: assets/src/block-templates/get-informed/template.js:21
-#: assets/src/block-templates/homepage/template.js:10
+#: assets/src/block-templates/get-informed/template.js:22
+#: assets/src/block-templates/homepage/template.js:12
 msgid "The issues we work on"
 msgstr "القضايا التي نعمل عليها"
 
-#: assets/src/block-templates/campaign/template.js:12
-#: assets/src/block-templates/deep-dive-topic/template.js:11
-#: assets/src/block-templates/high-level-topic/template.js:14
-#: assets/src/block-templates/action/template.js:22
+#: assets/src/block-templates/campaign/template.js:13
+#: assets/src/block-templates/high-level-topic/template.js:16
+#: assets/src/block-templates/action/template.js:23
+#: assets/src/block-templates/deep-dive-topic/template.js:14
 msgid "The problem"
 msgstr "المشكلة"
 
-#: assets/src/block-templates/campaign/template.js:16
+#: assets/src/block-templates/campaign/template.js:17
 msgid "The solution"
 msgstr "الحل"
 
-#: assets/src/block-templates/get-informed/template.js:11
+#: assets/src/block-templates/get-informed/template.js:12
 msgid "Topic 1"
 msgstr "الموضوع 1"
 
-#: assets/src/block-templates/get-informed/template.js:14
+#: assets/src/block-templates/get-informed/template.js:15
 msgid "Topic 2"
 msgstr "الموضوع 2"
 
-#: assets/src/block-templates/get-informed/template.js:18
+#: assets/src/block-templates/get-informed/template.js:19
 msgid "Topic 3"
 msgstr "الموضوع 3"
 
-#: assets/src/block-templates/homepage/template.js:22
+#: assets/src/block-templates/homepage/template.js:25
 msgid "We win campaigns"
 msgstr "نحن نفوز بالحملات"
 
-#: assets/src/block-templates/deep-dive-topic/template.js:14
+#: assets/src/block-templates/deep-dive-topic/template.js:17
 msgid "What can be done"
 msgstr "ما الذي يمكن عمله"
 
-#: assets/src/block-templates/high-level-topic/template.js:22
+#: assets/src/block-templates/high-level-topic/template.js:24
 msgid "What we do"
 msgstr "ماذا نفعل"
