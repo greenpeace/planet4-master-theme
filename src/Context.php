@@ -216,17 +216,19 @@ class Context
     private static function set_hubspot(array &$context): void
     {
         $context['hubspot_active'] = is_plugin_active('gravityformshubspot/hubspot.php');
+
         // The Hubspot Tracking Code snippet will add only if the user has accepted "Marketing" cookies.
-        if (
-            !$context['hubspot_active']
-            || isset($_COOKIE['no_track']) || !isset($_COOKIE['active_consent_choice'])
-            || !$_COOKIE['active_consent_choice'] || !isset($_COOKIE['greenpeace'])
-            || !in_array($_COOKIE['greenpeace'], [2, 4])
-        ) {
+        if (!$context['hubspot_active'] || isset($_COOKIE['no_track'])) {
+            return;
+        }
+        if (!isset($_COOKIE['active_consent_choice']) || !$_COOKIE['active_consent_choice']) {
+            return;
+        }
+        if (!isset($_COOKIE['greenpeace']) || !in_array($_COOKIE['greenpeace'], [2, 4])) {
             return;
         }
 
-        $context['hubspot_tracking_code'] = $options['hubspot_tracking_code'] ?? '';
+        $context['hubspot_tracking_code'] = get_option('planet4_options')['hubspot_tracking_code'] ?? '';
     }
 
     private static function set_consent(array &$context): void
@@ -458,38 +460,68 @@ class Context
      */
     public static function generate_hreflang_meta(): ?array
     {
+        $countries = self::get_countries();
 
-        $countries = wp_cache_get('countries');
-
-        if (false === $countries) {
-            $body = file_get_contents(get_template_directory() . '/templates/countries.json');
-            $countries = json_decode($body, true);
-            if (empty($countries)) {
-                return null;
-            }
-            wp_cache_set('countries', $countries);
+        if (empty($countries)) {
+            return null;
         }
 
+        return self::build_hreflang_metadata($countries);
+    }
+
+    private static function get_countries(): ?array
+    {
+        $countries = wp_cache_get('countries');
+
+        if ($countries !== false) {
+            return $countries;
+        }
+
+        $path = get_template_directory() . '/templates/countries.json';
+        $body = file_get_contents($path);
+
+        $countries = json_decode($body, true);
+
+        if (empty($countries)) {
+            return null;
+        }
+
+        wp_cache_set('countries', $countries);
+
+        return $countries;
+    }
+
+    private static function build_hreflang_metadata(array $countries): array
+    {
         $metadata = [];
 
-        foreach ($countries as $key => $letter) {
-            if (0 === $key) {
+        foreach ($countries as $index => $letters) {
+            if ($index === 0) {
                 continue;
             }
-            foreach ($letter as $country) {
-                $lang = $country['lang'];
-                foreach ($lang as $item) {
-                    if (!isset($item['locale'])) {
-                        continue;
-                    }
 
-                    foreach ($item['locale'] as $code) {
-                        $metadata[$code] = $item['url'];
-                    }
-                }
+            foreach ($letters as $country) {
+                self::extract_country_locales($country, $metadata);
             }
         }
 
         return $metadata;
+    }
+
+    private static function extract_country_locales(array $country, array &$metadata): void
+    {
+        if (empty($country['lang'])) {
+            return;
+        }
+
+        foreach ($country['lang'] as $language) {
+            if (empty($language['locale']) || empty($language['url'])) {
+                continue;
+            }
+
+            foreach ($language['locale'] as $code) {
+                $metadata[$code] = $language['url'];
+            }
+        }
     }
 }
