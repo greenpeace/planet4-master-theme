@@ -19,7 +19,7 @@ test('Test Related Posts block', async ({page, requestUtils}) => {
   const postUrl = newPost.link;
 
   // Related posts enabled
-  await page.goto(editUrl);
+  await page.goto(editUrl, {waitUntil: 'domcontentloaded'}); // Default is waituntil: 'load' but that doesn't work for Webkit
   await page.locator('.edit-post-layout__metaboxes').getByRole('combobox', {name: 'Include Related Posts'}).selectOption('Yes');
   await page.waitForTimeout(1000); // letting metabox post query finish
   await updatePost({page});
