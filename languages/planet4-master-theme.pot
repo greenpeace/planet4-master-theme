@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
-"POT-Creation-Date: 2025-12-03 10:46+0000\n"
+"POT-Creation-Date: 2025-12-15 06:08+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -135,74 +135,102 @@ msgstr ""
 msgid "Articles"
 msgstr ""
 
+#: assets/build/blocks/TopicLink/block.json:1
+#: assets/src/blocks/TopicLink/block.json:1
+msgctxt "block description"
+msgid ""
+"The Topic Link block allows editors to manually link to a category page, "
+"which redirects users to relevant topic content."
+msgstr ""
+
+#: assets/build/block-templates/action/block.json:1
 #: assets/src/block-templates/action/block.json:1
 msgctxt "block title"
 msgid "Action"
 msgstr ""
 
+#: assets/build/block-templates/campaign/block.json:1
 #: assets/src/block-templates/campaign/block.json:1
 msgctxt "block title"
 msgid "Campaign"
 msgstr ""
 
+#: assets/build/block-templates/deep-dive/block.json:1
 #: assets/src/block-templates/deep-dive/block.json:1
 msgctxt "block title"
 msgid "Deep Dive"
 msgstr ""
 
+#: assets/build/block-templates/deep-dive-topic/block.json:1
 #: assets/src/block-templates/deep-dive-topic/block.json:1
 msgctxt "block title"
 msgid "Deep Dive Topic"
 msgstr ""
 
+#: assets/build/block-templates/get-informed/block.json:1
 #: assets/src/block-templates/get-informed/block.json:1
 msgctxt "block title"
 msgid "Get Informed"
 msgstr ""
 
+#: assets/build/block-templates/high-level-topic/block.json:1
 #: assets/src/block-templates/high-level-topic/block.json:1
 msgctxt "block title"
 msgid "High-Level Topic"
 msgstr ""
 
+#: assets/build/block-templates/highlighted-cta/block.json:1
 #: assets/src/block-templates/highlighted-cta/block.json:1
 msgctxt "block title"
 msgid "Highlighted CTA"
 msgstr ""
 
+#: assets/build/block-templates/homepage/block.json:1
 #: assets/src/block-templates/homepage/block.json:1
 msgctxt "block title"
 msgid "Homepage"
 msgstr ""
 
+#: assets/build/block-templates/issues/block.json:1
 #: assets/src/block-templates/issues/block.json:1
 msgctxt "block title"
 msgid "Issues"
 msgstr ""
 
+#: assets/build/block-templates/page-header/block.json:1
 #: assets/src/block-templates/page-header/block.json:1
 msgctxt "block title"
 msgid "Page Header"
 msgstr ""
 
+#: assets/build/block-templates/quick-links/block.json:1
 #: assets/src/block-templates/quick-links/block.json:1
 msgctxt "block title"
 msgid "Quick Links"
 msgstr ""
 
+#: assets/build/block-templates/reality-check/block.json:1
 #: assets/src/block-templates/reality-check/block.json:1
 msgctxt "block title"
 msgid "Reality Check"
 msgstr ""
 
+#: assets/build/block-templates/side-image-with-text-and-cta/block.json:1
 #: assets/src/block-templates/side-image-with-text-and-cta/block.json:1
 msgctxt "block title"
 msgid "Side image with text and CTA"
 msgstr ""
 
+#: assets/build/block-templates/take-action/block.json:1
 #: assets/src/block-templates/take-action/block.json:1
 msgctxt "block title"
 msgid "Take Action"
+msgstr ""
+
+#: assets/build/blocks/TopicLink/block.json:1
+#: assets/src/blocks/TopicLink/block.json:1
+msgctxt "block title"
+msgid "Topic Link"
 msgstr ""
 
 #: src/Search/Filters/ContentTypes.php:116 templates/tease-search.twig:44
@@ -230,7 +258,7 @@ msgstr ""
 msgid "Clear all"
 msgstr ""
 
-#: templates/search.twig:38 templates/search-form.twig:32
+#: templates/search.twig:38 templates/search-form.twig:28
 msgid "Clear search"
 msgstr ""
 
@@ -443,7 +471,7 @@ msgstr ""
 msgid "https://github.com/greenpeace/planet4-master-theme"
 msgstr ""
 
-#: single.php:119
+#: single.php:128
 msgid ""
 "I agree on providing my name, email and content so that my comment can be "
 "stored and displayed in the website."
@@ -465,7 +493,7 @@ msgstr ""
 msgid "Keywords"
 msgstr ""
 
-#: single.php:128
+#: single.php:137
 msgid "Leave your reply"
 msgstr ""
 
@@ -658,7 +686,7 @@ msgid "Take action"
 msgstr ""
 
 #. %s = Redirection url variable.
-#: src/GravityFormsExtensions.php:967
+#: src/GravityFormsExtensions.php:1042
 #, php-format
 msgid ""
 "Thank you! Please <a href=\"%s\">click here</a> if you are not redirected "
@@ -690,7 +718,7 @@ msgstr ""
 msgid "Toggle search box"
 msgstr ""
 
-#: templates/desktop-menu.twig:70 templates/navigation-bar.twig:36
+#: templates/navigation-search-btn.twig:13
 msgid "Toggle search form"
 msgstr ""
 
