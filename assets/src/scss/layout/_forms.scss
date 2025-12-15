@@ -68,10 +68,8 @@
 .gfield input:not([type="file"]),
 .gfield textarea,
 .ginput_container_multiselect select {
-  --form-elements-- {
-    font-family: var(--font-family-tertiary);
-    font-size: var(--font-size-m--font-family-tertiary);
-  }
+  font-family: var(--font-family-tertiary);
+  font-size: var(--font-size-m--font-family-tertiary);
   background-clip: border-box;
   border-radius: 4px;
   background-color: var(--white);

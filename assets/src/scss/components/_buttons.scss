@@ -203,15 +203,13 @@
 }
 
 .wp-block-button.is-style-transparent a {
-  --transparent-button-- {
-    border-color: var(--white);
-    color: var(--color-text-button-inverse);
-    background: transparent;
+  border-color: var(--white);
+  color: var(--color-text-button-inverse);
+  background: transparent;
 
-    &:hover,
-    &:active {
-      background: var(--white);
-      color: var(--color-text-button--secondary);
-    }
+  &:hover,
+  &:active {
+    background: var(--white);
+    color: var(--color-text-button--secondary);
   }
 }
