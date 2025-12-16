@@ -37,18 +37,18 @@ class LoginHandler
         add_action('login_footer', function (): void {
             $html = ob_get_clean();
 
-            if (!EnforceSingleSignOn::is_active()) {
-                // Clean up the HTML by removing the "Remember Me" checkbox
-                $html = preg_replace('/<p[^>]*class=["\']forgetmenot["\'][^>]*>.*?<\/p>/is', '', $html);
-
+            if (EnforceSingleSignOn::is_active()) {
                 // Also clean up the HTML by removing the login form itself
                 $html = preg_replace('/<form[^>]*id=["\']loginform["\'][^>]*>.*?<\/form>/is', '', $html);
 
-                echo $html;
+                // Redirect to Google SSO login
+                wp_redirect(esc_url_raw(add_query_arg('gaautologin', 'true', '')));
             }
 
-            // Redirect to Google SSO login
-            wp_redirect(esc_url_raw(add_query_arg('gaautologin', 'true', '')));
+            // Clean up the HTML by removing the "Remember Me" checkbox
+            $html = preg_replace('/<p[^>]*class=["\']forgetmenot["\'][^>]*>.*?<\/p>/is', '', $html);
+
+            echo $html;
         });
 
 
