@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
-"POT-Creation-Date: 2025-12-15 06:08+0000\n"
+"POT-Creation-Date: 2025-12-16 16:38+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -33,9 +33,8 @@ msgstr[1] ""
 #. reading time in min.
 #. %d = Number of minutes for reading time.
 #: src/Post.php:517 src/Post/ReadingTimeCalculator.php:135
-#: templates/tease-taxonomy-action.twig:53
-#: templates/tease-taxonomy-post.twig:63 templates/tease-author.twig:54
-#: templates/single.twig:69
+#: templates/tease-author.twig:54 templates/tease-taxonomy-post.twig:63
+#: templates/single.twig:69 templates/tease-taxonomy-action.twig:53
 msgid "%d min read"
 msgstr ""
 
@@ -82,7 +81,7 @@ msgstr ""
 msgid "ACTIVE FILTERS"
 msgstr ""
 
-#: templates/all-actions.twig:7 templates/taxonomy.twig:36
+#: templates/taxonomy.twig:36 templates/all-actions.twig:7
 msgid "All actions"
 msgstr ""
 
@@ -111,6 +110,8 @@ msgid "Allow all"
 msgstr ""
 
 #: templates/cookies/cookies_settings.twig:16
+#: assets/src/blocks/Cookies/CookiesEditor.js:73
+#: assets/src/blocks/Cookies/CookiesFrontend.js:131
 msgid "Always enabled"
 msgstr ""
 
@@ -135,7 +136,14 @@ msgstr ""
 msgid "Articles"
 msgstr ""
 
-#: assets/build/blocks/TopicLink/block.json:1
+#: src/Blocks/HappyPoint.php:109
+msgid "Background image"
+msgstr ""
+
+#: assets/src/block-templates/high-level-topic/template.js:20
+msgid "Better understand the issues [deep dive topics]"
+msgstr ""
+
 #: assets/src/blocks/TopicLink/block.json:1
 msgctxt "block description"
 msgid ""
@@ -143,91 +151,76 @@ msgid ""
 "which redirects users to relevant topic content."
 msgstr ""
 
-#: assets/build/block-templates/action/block.json:1
 #: assets/src/block-templates/action/block.json:1
 msgctxt "block title"
 msgid "Action"
 msgstr ""
 
-#: assets/build/block-templates/campaign/block.json:1
 #: assets/src/block-templates/campaign/block.json:1
 msgctxt "block title"
 msgid "Campaign"
 msgstr ""
 
-#: assets/build/block-templates/deep-dive/block.json:1
 #: assets/src/block-templates/deep-dive/block.json:1
 msgctxt "block title"
 msgid "Deep Dive"
 msgstr ""
 
-#: assets/build/block-templates/deep-dive-topic/block.json:1
 #: assets/src/block-templates/deep-dive-topic/block.json:1
 msgctxt "block title"
 msgid "Deep Dive Topic"
 msgstr ""
 
-#: assets/build/block-templates/get-informed/block.json:1
 #: assets/src/block-templates/get-informed/block.json:1
 msgctxt "block title"
 msgid "Get Informed"
 msgstr ""
 
-#: assets/build/block-templates/high-level-topic/block.json:1
 #: assets/src/block-templates/high-level-topic/block.json:1
 msgctxt "block title"
 msgid "High-Level Topic"
 msgstr ""
 
-#: assets/build/block-templates/highlighted-cta/block.json:1
 #: assets/src/block-templates/highlighted-cta/block.json:1
 msgctxt "block title"
 msgid "Highlighted CTA"
 msgstr ""
 
-#: assets/build/block-templates/homepage/block.json:1
 #: assets/src/block-templates/homepage/block.json:1
 msgctxt "block title"
 msgid "Homepage"
 msgstr ""
 
-#: assets/build/block-templates/issues/block.json:1
 #: assets/src/block-templates/issues/block.json:1
 msgctxt "block title"
 msgid "Issues"
 msgstr ""
 
-#: assets/build/block-templates/page-header/block.json:1
 #: assets/src/block-templates/page-header/block.json:1
 msgctxt "block title"
 msgid "Page Header"
 msgstr ""
 
-#: assets/build/block-templates/quick-links/block.json:1
 #: assets/src/block-templates/quick-links/block.json:1
 msgctxt "block title"
 msgid "Quick Links"
 msgstr ""
 
-#: assets/build/block-templates/reality-check/block.json:1
 #: assets/src/block-templates/reality-check/block.json:1
 msgctxt "block title"
 msgid "Reality Check"
 msgstr ""
 
-#: assets/build/block-templates/side-image-with-text-and-cta/block.json:1
 #: assets/src/block-templates/side-image-with-text-and-cta/block.json:1
 msgctxt "block title"
 msgid "Side image with text and CTA"
 msgstr ""
 
-#: assets/build/block-templates/take-action/block.json:1
 #: assets/src/block-templates/take-action/block.json:1
 msgctxt "block title"
 msgid "Take Action"
 msgstr ""
 
-#: assets/build/blocks/TopicLink/block.json:1
 #: assets/src/blocks/TopicLink/block.json:1
 msgctxt "block title"
 msgid "Topic Link"
@@ -258,7 +251,7 @@ msgstr ""
 msgid "Clear all"
 msgstr ""
 
-#: templates/search.twig:38 templates/search-form.twig:28
+#: templates/search-form.twig:28 templates/search.twig:38
 msgid "Clear search"
 msgstr ""
 
@@ -350,8 +343,12 @@ msgstr ""
 msgid "Comment (required)"
 msgstr ""
 
-#: templates/single.twig:76 templates/comments_section.twig:2
+#: templates/comments_section.twig:2 templates/single.twig:76
 msgid "Comments"
+msgstr ""
+
+#: assets/src/js/resistance-hub-campaign.js:46
+msgid "Completed"
 msgstr ""
 
 #: templates/search/content_types.twig:7
@@ -362,8 +359,22 @@ msgstr ""
 msgid "Content type"
 msgstr ""
 
+#: assets/src/block-templates/take-action/template.js:17
+msgid "Daily actions"
+msgstr ""
+
 #: templates/comments_section.twig:9
 msgid "Discussion"
+msgstr ""
+
+#: assets/src/js/resistance-hub-campaign.js:147
+#: assets/src/block-editor/Sidebar/ActionSidebar.js:41
+msgid "Do it Offline"
+msgstr ""
+
+#: assets/src/js/resistance-hub-campaign.js:144
+#: assets/src/block-editor/Sidebar/ActionSidebar.js:40
+msgid "Do it Online"
 msgstr ""
 
 #: src/Post.php:237
@@ -374,6 +385,10 @@ msgstr ""
 msgid "Document"
 msgstr ""
 
+#: assets/src/block-templates/take-action/template.js:49
+msgid "Donate"
+msgstr ""
+
 #: templates/tease-search.twig:119
 msgid "Download"
 msgstr ""
@@ -382,8 +397,22 @@ msgstr ""
 msgid "Email (required)"
 msgstr ""
 
+#: src/Migrations/M037MigrateCoversContentBlockToPostsListBlock.php:385
+#: src/Migrations/M046MigrateArticlesBlockToPostsListBlock.php:326
+#: src/Migrations/M049MigrateCoversBlockToActionsListBlock.php:286
+msgid "Enter description"
+msgstr ""
+
 #: 404.php:22
 msgid "Enter your search term below"
+msgstr ""
+
+#: src/CloudflareTurnstileHandler.php:100
+msgid "Error: Captcha verification failed. Please try again."
+msgstr ""
+
+#: src/CloudflareTurnstileHandler.php:76
+msgid "Error: Please complete the captcha."
 msgstr ""
 
 #. Name of the template
@@ -393,6 +422,20 @@ msgstr ""
 
 #: page-templates/sitemap.php:45
 msgid "Explore"
+msgstr ""
+
+#: assets/src/block-templates/high-level-topic/template.js:45
+#: assets/src/block-templates/get-informed/template.js:9
+#: assets/src/block-templates/action/template.js:34
+msgid "Explore by topics"
+msgstr ""
+
+#: assets/src/block-templates/deep-dive-topic/template.js:32
+msgid "Explore other topics"
+msgstr ""
+
+#: assets/src/block-templates/high-level-topic/template.js:29
+msgid "Featured action title"
 msgstr ""
 
 #: templates/search/action_types.twig:16
@@ -443,6 +486,28 @@ msgstr ""
 msgid "Follow us"
 msgstr ""
 
+#: src/Migrations/M032MigrateSplit2ColumnBlock.php:217
+msgid "Get involved"
+msgstr ""
+
+#: assets/src/block-templates/homepage/template.js:21
+msgid "Get to know us"
+msgstr ""
+
+#: assets/src/blocks/CarouselHeader/CarouselControls.js:20
+msgid "Go to next slide"
+msgstr ""
+
+#: assets/src/blocks/CarouselHeader/CarouselControls.js:16
+msgid "Go to previous slide"
+msgstr ""
+
+#. %s: slide index
+#: assets/src/blocks/CarouselHeader/CarouselControls.js:50
+#, javascript-format
+msgid "Go to slide %s"
+msgstr ""
+
 #. Author of the theme
 msgid "Greenpeace International"
 msgstr ""
@@ -463,6 +528,12 @@ msgstr ""
 msgid "Home"
 msgstr ""
 
+#: assets/src/block-templates/high-level-topic/template.js:33
+#: assets/src/block-templates/deep-dive-topic/template.js:22
+#: assets/src/block-templates/campaign/template.js:23
+msgid "How you can help"
+msgstr ""
+
 #. Author URI of the theme
 msgid "https://github.com/greenpeace"
 msgstr ""
@@ -477,11 +548,11 @@ msgid ""
 "stored and displayed in the website."
 msgstr ""
 
-#: src/MasterSite.php:462
+#: src/MasterSite.php:459
 msgid "International (English)"
 msgstr ""
 
-#: templates/single-password.twig:18 templates/single-page.twig:15
+#: templates/single-page.twig:15 templates/single-password.twig:18
 msgid "Invalid password, please try again"
 msgstr ""
 
@@ -489,8 +560,26 @@ msgstr ""
 msgid "Invalid username or password"
 msgstr ""
 
+#: assets/src/block-templates/deep-dive-topic/template.js:29
+msgid "Keep learning about"
+msgstr ""
+
 #: templates/listing-page-filters.twig:38
 msgid "Keywords"
+msgstr ""
+
+#: assets/src/block-templates/high-level-topic/template.js:41
+msgid "Latest investigations"
+msgstr ""
+
+#: assets/src/block-templates/high-level-topic/template.js:37
+#: assets/src/block-templates/get-informed/template.js:34
+#: assets/src/block-templates/deep-dive-topic/template.js:26
+msgid "Latest news & stories"
+msgstr ""
+
+#: src/Migrations/M032MigrateSplit2ColumnBlock.php:201
+msgid "Learn more about this issue"
 msgstr ""
 
 #: single.php:137
@@ -499,6 +588,15 @@ msgstr ""
 
 #: assets/src/js/listing_pages.js:57
 msgid "List View"
+msgstr ""
+
+#: src/Migrations/M057ActionsListBlockLoadMore.php:84
+#: assets/src/blocks/ActionsList/index.js:84
+msgid "Load more"
+msgstr ""
+
+#: assets/src/blocks/Spreadsheet/SpreadsheetFrontend.js:185
+msgid "Loading spreadsheet data…"
 msgstr ""
 
 #: templates/tease-search.twig:159
@@ -529,16 +627,49 @@ msgstr ""
 msgid "Newest"
 msgstr ""
 
-#: templates/tag.twig:13 templates/taxonomy.twig:13
+#: templates/taxonomy.twig:13 templates/tag.twig:13
 msgid "News & stories"
+msgstr ""
+
+#: src/QueryLoopPagination.php:63
+#: src/Migrations/M037MigrateCoversContentBlockToPostsListBlock.php:263
+#: src/Migrations/M046MigrateArticlesBlockToPostsListBlock.php:207
+#: src/Migrations/M049MigrateCoversBlockToActionsListBlock.php:208
+#: assets/src/blocks/Gallery/GalleryCarousel.js:125
+#: assets/src/blocks/CarouselHeader/CarouselControls.js:22
+msgid "Next"
+msgstr ""
+
+#: assets/src/blocks/Spreadsheet/SpreadsheetFrontend.js:123
+msgid "No data matching your search."
 msgstr ""
 
 #: assets/src/js/listing_pages.js:116
 msgid "No posts found!"
 msgstr ""
 
+#: src/Migrations/M037MigrateCoversContentBlockToPostsListBlock.php:365
+#: src/Migrations/M046MigrateArticlesBlockToPostsListBlock.php:306
+#: src/Migrations/M049MigrateCoversBlockToActionsListBlock.php:269
+msgid "No posts found."
+msgstr ""
+
+#: src/Migrations/M037MigrateCoversContentBlockToPostsListBlock.php:364
+#: src/Migrations/M046MigrateArticlesBlockToPostsListBlock.php:305
+#: src/Migrations/M049MigrateCoversBlockToActionsListBlock.php:268
+msgid "No posts found. (This default text can be edited)"
+msgstr ""
+
 #: src/Search/SearchPage.php:70
 msgid "Oldest"
+msgstr ""
+
+#: assets/src/block-templates/get-informed/template.js:30
+msgid "Our latest actions around the world"
+msgstr ""
+
+#: assets/src/block-templates/get-informed/template.js:26
+msgid "Our recent victories"
 msgstr ""
 
 #: src/Post.php:233
@@ -547,6 +678,15 @@ msgstr ""
 
 #: src/Search/Filters/ContentTypes.php:106
 msgid "Page"
+msgstr ""
+
+#: assets/src/block-templates/deep-dive-topic/template.js:9
+#: assets/src/block-templates/take-action/template.js:11
+msgid "Page header title"
+msgstr ""
+
+#: assets/src/blocks/CarouselHeader/CarouselControls.js:59
+msgid "Play Slider"
 msgstr ""
 
 #: templates/cookies/cookies_settings.twig:12
@@ -569,6 +709,26 @@ msgstr ""
 msgid "Post Type"
 msgstr ""
 
+#: src/QueryLoopPagination.php:39
+#: src/Migrations/M037MigrateCoversContentBlockToPostsListBlock.php:259
+#: src/Migrations/M046MigrateArticlesBlockToPostsListBlock.php:203
+#: src/Migrations/M049MigrateCoversBlockToActionsListBlock.php:204
+msgid "Prev"
+msgstr ""
+
+#: assets/src/blocks/Gallery/GalleryCarousel.js:91
+#: assets/src/blocks/CarouselHeader/CarouselControls.js:18
+msgid "Previous"
+msgstr ""
+
+#: assets/src/block-templates/take-action/template.js:44
+msgid "Raise awareness in your community"
+msgstr ""
+
+#: assets/src/block-templates/homepage/template.js:17
+msgid "Read our Stories"
+msgstr ""
+
 #: templates/search.twig:72 templates/search.twig:99
 msgid "Refine your search"
 msgstr ""
@@ -581,6 +741,14 @@ msgstr ""
 msgid "Reject all cookies"
 msgstr ""
 
+#: src/Migrations/M046MigrateArticlesBlockToPostsListBlock.php:114
+msgid "Related Articles"
+msgstr ""
+
+#: src/Post.php:639
+msgid "Related Posts"
+msgstr ""
+
 #. Name of the template
 #: single-p4_action-resistance_hub.php:3
 msgid "Resistance Hub Campaign"
@@ -590,12 +758,25 @@ msgstr ""
 msgid "Save preferences"
 msgstr ""
 
-#: templates/404.twig:16 templates/search.twig:48 templates/search-form.twig:2
+#: templates/search-form.twig:2 templates/search.twig:48 templates/404.twig:16
 msgid "Search"
 msgstr ""
 
 #: templates/search.twig:8
 msgid "Search by name, keyword, or topic"
+msgstr ""
+
+#: assets/src/blocks/Spreadsheet/SpreadsheetFrontend.js:153
+msgid "Search data"
+msgstr ""
+
+#: src/Post.php:630 assets/src/blocks/PostsList/index.js:21
+msgid "See all posts"
+msgstr ""
+
+#: src/Migrations/M037MigrateCoversContentBlockToPostsListBlock.php:347
+#: src/Migrations/M046MigrateArticlesBlockToPostsListBlock.php:288
+msgid "See all stories"
 msgstr ""
 
 #: templates/footer_country_selector.twig:11
@@ -665,8 +846,16 @@ msgstr ""
 msgid "Sort by"
 msgstr ""
 
-#: templates/single-password.twig:22 templates/single-page.twig:19
+#: assets/src/blocks/CarouselHeader/CarouselControls.js:59
+msgid "Stop Slider"
+msgstr ""
+
+#: templates/single-page.twig:19 templates/single-password.twig:22
 msgid "Submit"
+msgstr ""
+
+#: assets/src/block-templates/take-action/template.js:22
+msgid "Support a cause"
 msgstr ""
 
 #: assets/src/js/listing_pages.js:53
@@ -681,8 +870,16 @@ msgstr ""
 msgid "Take Action"
 msgstr ""
 
-#: src/ActionPage.php:209 src/ActionPage.php:218 src/Search/SearchPage.php:140
+#: src/ActionPage.php:209 src/ActionPage.php:218
+#: src/Blocks/TakeActionBoxout.php:159 src/Blocks/ActionButtonText.php:84
+#: src/Blocks/ActionButtonText.php:94 src/Search/SearchPage.php:140
+#: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:22
+#: assets/src/blocks/ActionCustomButtonText/edit.js:4
 msgid "Take action"
+msgstr ""
+
+#: assets/src/block-templates/take-action/template.js:40
+msgid "Take action with us"
 msgstr ""
 
 #. %s = Redirection url variable.
@@ -700,6 +897,22 @@ msgid ""
 "\\\"Posts page\\\""
 msgstr ""
 
+#: assets/src/block-templates/homepage/template.js:12
+#: assets/src/block-templates/get-informed/template.js:22
+msgid "The issues we work on"
+msgstr ""
+
+#: assets/src/block-templates/high-level-topic/template.js:16
+#: assets/src/block-templates/deep-dive-topic/template.js:14
+#: assets/src/block-templates/action/template.js:23
+#: assets/src/block-templates/campaign/template.js:13
+msgid "The problem"
+msgstr ""
+
+#: assets/src/block-templates/campaign/template.js:17
+msgid "The solution"
+msgstr ""
+
 #. 1: URL domain
 #: assets/src/js/external_links.js:28
 #, javascript-format
@@ -710,11 +923,11 @@ msgstr ""
 msgid "This link will open a PDF file"
 msgstr ""
 
-#: templates/single-password.twig:15 templates/single-page.twig:12
+#: templates/single-page.twig:12 templates/single-password.twig:15
 msgid "To see the content of this page, please enter your password  below"
 msgstr ""
 
-#: src/MasterSite.php:378
+#: src/MasterSite.php:375
 msgid "Toggle search box"
 msgstr ""
 
@@ -722,16 +935,40 @@ msgstr ""
 msgid "Toggle search form"
 msgstr ""
 
-#: src/MasterSite.php:377
+#: src/MasterSite.php:374
 msgid "Toggle worldwide site selection menu"
+msgstr ""
+
+#: assets/src/block-templates/get-informed/template.js:12
+msgid "Topic 1"
+msgstr ""
+
+#: assets/src/block-templates/get-informed/template.js:15
+msgid "Topic 2"
+msgstr ""
+
+#: assets/src/block-templates/get-informed/template.js:19
+msgid "Topic 3"
 msgstr ""
 
 #: templates/search.twig:22
 msgid "Try searching for something else"
 msgstr ""
 
+#: assets/src/block-templates/homepage/template.js:25
+msgid "We win campaigns"
+msgstr ""
+
 #: templates/search.twig:19
 msgid "We're sorry we couldn't find any matches for your search term."
+msgstr ""
+
+#: assets/src/block-templates/deep-dive-topic/template.js:17
+msgid "What can be done"
+msgstr ""
+
+#: assets/src/block-templates/high-level-topic/template.js:24
+msgid "What we do"
 msgstr ""
 
 #: templates/comment_form/comment_field.twig:2
