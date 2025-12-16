@@ -1,6 +1,10 @@
 .actions-list {
   margin-bottom: $sp-4;
 
+  .load-more-actions-container {
+    margin-top: $sp-4;
+  }
+
   &.is-custom-layout-carousel {
     @include medium-and-less {
       .wp-block-post {
