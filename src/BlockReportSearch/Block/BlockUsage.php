@@ -47,12 +47,12 @@ class BlockUsage
      */
     public function get_blocks(Parameters $params): array
     {
-        $this->posts_ids = wp_cache_get('block_report_post_ids', 'planet4_master_theme');
+        $this->posts_ids = wp_cache_get('block_report_post_ids', 'p4-cache-blocks-report');
 
         if ($this->posts_ids === false) {
             $this->posts_ids = $this->search->get_posts($params);
             // Cache the data for next 24 hrs.
-            wp_cache_set('block_report_post_ids', $this->posts_ids, 'planet4_master_theme', 86400);
+            wp_cache_set('block_report_post_ids', $this->posts_ids, 'p4-cache-blocks-report', 86400);
         }
 
         return $this->get_filtered_blocks($this->posts_ids, $params);
