@@ -154,7 +154,7 @@ export const ColumnsEditor = ({isSelected, attributes, setAttributes}) => {
     <section className={`block columns-block block-style-${columns_block_style} ${className ?? ''}`}>
       {renderEdit(attributes, toAttribute, setAttributes, isSelected)}
       {!isExample &&
-        <header className="articles-title-container">
+        <header>
           <RichText
             tagName="h2"
             className="page-section-header"

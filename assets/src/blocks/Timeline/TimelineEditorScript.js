@@ -107,7 +107,7 @@ const renderView = (attributes, toAttribute, scriptLoaded, stylesLoaded) => {
   return (
     <section className={`block timeline-block ${attributes.className ?? ''}`}>
       <Tooltip text={__('Edit text', 'planet4-blocks-backend')}>
-        <header className="articles-title-container">
+        <header>
           <RichText
             tagName="h2"
             className="page-section-header"
