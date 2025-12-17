@@ -70,7 +70,7 @@
         top: 0;
         bottom: 0;
         margin: auto;
-        z-index: -1;
+        pointer-events: none;
 
         .wp-block-button {
           overflow: hidden;
@@ -85,6 +85,7 @@
           background-position: center;
           opacity: 1 !important;
           cursor: pointer;
+          pointer-events: auto;
 
           &.carousel-control-prev {
             transform: rotate(180deg);
@@ -115,7 +116,7 @@
       }
     }
 
-    @include x-large-and-up {
+    @include xx-large-and-up {
       .carousel-controls {
         width: calc(100% + calc($sp-8 * 2));
       }
