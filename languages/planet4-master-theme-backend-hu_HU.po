@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Planet4 Master Theme backend\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-06-08 09:59+0000\n"
-"PO-Revision-Date: 2025-12-17 06:26+0000\n"
+"PO-Revision-Date: 2025-12-17 07:12+0000\n"
 "Last-Translator: bdobos <bdobos@greenpeace.org>\n"
 "Language-Team: Hungarian\n"
 "Language: hu_HU\n"
@@ -1065,8 +1065,9 @@ msgid "Enforce Cookies Policy"
 msgstr "Cookie irányelvek kikényszerítése"
 
 #: assets/src/blocks/Cookies/CookiesEditor.js:174
+#| msgid "All Cookies Description"
 msgid "Enter all cookies description"
-msgstr ""
+msgstr "Összes süti leírása"
 
 #: assets/src/blocks/Cookies/CookiesEditor.js:157
 msgid "Enter all cookies name"
@@ -1101,12 +1102,14 @@ msgid "Enter column link text"
 msgstr ""
 
 #: assets/src/blocks/CarouselHeader/Caption.js:33
+#| msgid "Enter link text"
 msgid "Enter CTA text"
-msgstr ""
+msgstr "Add meg a hivatkozásszöveget"
 
 #: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:223
+#| msgid "Enter button link"
 msgid "Enter custom link"
-msgstr ""
+msgstr "Add meg a gombhivatkozást"
 
 #: assets/src/blocks/PostsList/index.js:79
 #: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:165
@@ -1137,8 +1140,9 @@ msgid "Enter headline"
 msgstr ""
 
 #: assets/src/blocks/HappyPoint/HappyPointEditor.js:149
+#| msgid "Enter iframe url"
 msgid "Enter iframe URL"
-msgstr ""
+msgstr "Add meg az Iframe URL-ét"
 
 #. %s: column index
 #: assets/src/blocks/Columns/ColumnsEditor.js:64
@@ -1147,12 +1151,14 @@ msgid "Enter link for column %s"
 msgstr ""
 
 #: assets/src/blocks/Cookies/CookiesEditor.js:84
+#| msgid "Necessary Cookies Description"
 msgid "Enter necessary cookies description"
-msgstr ""
+msgstr "Szükséges sütik leírása"
 
 #: assets/src/blocks/Cookies/CookiesEditor.js:66
+#| msgid "Necessary Cookies Name"
 msgid "Enter necessary cookies name"
-msgstr ""
+msgstr "Szükséges sütik neve"
 
 #: src/Patterns/BlankPage.php:38
 #: assets/src/blocks/Accordion/AccordionEditor.js:68
@@ -1399,8 +1405,9 @@ msgid "Happy Point Subscribe Form URL"
 msgstr ""
 
 #: assets/src/blocks/TableOfContents/TableOfContentsLevel.js:6
+#| msgid "Heading"
 msgid "Heading 2"
-msgstr ""
+msgstr "Főcím"
 
 #: assets/src/blocks/TableOfContents/TableOfContentsLevel.js:7
 msgid "Heading 3"
@@ -1450,8 +1457,9 @@ msgid ""
 msgstr ""
 
 #: assets/src/blocks/HappyPoint/HappyPointEditor.js:148
+#| msgid "Iframe url"
 msgid "Iframe URL"
-msgstr ""
+msgstr "Iframe URL"
 
 #: src/Campaigns.php:102 src/Campaigns.php:118 src/Campaigns.php:172
 msgid "Image"
@@ -2328,8 +2336,9 @@ msgid "Select Image"
 msgstr "Kép kiválasztása"
 
 #: assets/src/block-editor/SidebarFields/ImageSidebarField.js:31
+#| msgid "Select Image"
 msgid "Select image"
-msgstr ""
+msgstr "Kép kiválasztása"
 
 #: assets/src/blocks/TopicLink/edit.js:175
 #: assets/src/blocks/HappyPoint/HappyPointEditor.js:186
@@ -2362,8 +2371,9 @@ msgid "Select posts"
 msgstr ""
 
 #: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:206
+#| msgid "Select a Take action Page"
 msgid "Select Take Action Page:"
-msgstr ""
+msgstr "Válassz Cselekvés-oldalt"
 
 #: assets/src/blocks/CarouselHeader/Sidebar.js:155
 msgid "Select to trigger images autoslide"
@@ -2882,11 +2892,18 @@ msgid "VWO Account ID"
 msgstr ""
 
 #: assets/src/blocks/HappyPoint/HappyPointEditor.js:113
+#| msgid ""
+#| "<i>We use an overlay to fade the image back. Use a number between 1 and "
+#| "100,<br /> the higher the number, the more faded the image will look. If "
+#| "you leave this <br/> empty, the default of 30 will be used.</i>"
 msgid ""
 "We use an overlay to fade the image back. Use a number between 1 and 100, "
 "the higher the number, the more faded the image will look. If you leave this "
 "empty, the default of 30 will be used."
 msgstr ""
+"Fedést használunk a kép halványítására. Írj be egy számot 1 és 100 között: "
+"minél nagyobb a szám, annál halványabb lesz a kép. Ha üresen hagyod, az "
+"alapértelmezett érték (30) lesz használva."
 
 #: assets/src/blocks/SocialMedia/SocialMediaEditorScript.js:180
 msgid "What Facebook page content would you like to display?"
