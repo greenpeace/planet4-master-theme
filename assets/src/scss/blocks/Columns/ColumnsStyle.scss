@@ -117,15 +117,13 @@
           margin-bottom: 0;
         }
 
-        a --block-columns--paragraph-- {
+        a {
           font-family: var(--font-family-secondary);
         }
       }
 
       a {
-        --block-columns--link-- {
-          font-family: var(--font-family-primary);
-        }
+        font-family: var(--font-family-primary);
       }
 
       .attachment-container {
@@ -184,9 +182,7 @@
         }
 
         .step-number-inner {
-          --block-columns--step-number--inner-- {
-            background: var(--gp-green-100);
-          }
+          background: var(--gp-green-100);
           font-family: var(--font-family-primary);
           border-color: var(--white);
           border-width: 2px;
