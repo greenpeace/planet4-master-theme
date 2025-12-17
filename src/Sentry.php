@@ -37,6 +37,27 @@ class Sentry
             $context['tags']['server_name'] = $this->server_name();
             return $context;
         });
+
+        // Defer Sentry SDK scripts to improve page performance
+        add_action('wp_enqueue_scripts', function (): void {
+            global $wp_scripts;
+
+            if (empty($wp_scripts->registered)) {
+                return;
+            }
+
+            foreach ($wp_scripts->registered as $handle => $script) {
+                if (strpos($handle, 'wp-sentry-browser') !== 0) {
+                    continue;
+                }
+
+                wp_script_add_data(
+                    $handle,
+                    'strategy',
+                    'defer',
+                );
+            }
+        }, 10);
     }
 
     /**
