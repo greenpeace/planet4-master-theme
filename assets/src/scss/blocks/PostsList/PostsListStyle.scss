@@ -163,6 +163,10 @@
     }
 
     @include large-and-up {
+      .carousel-indicators {
+        margin-top: -$sp-3;
+      }
+
       .wp-block-heading + .see-all-link {
         display: block;
         visibility: visible;

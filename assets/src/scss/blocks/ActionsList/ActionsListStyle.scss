@@ -56,6 +56,10 @@
     display: none;
   }
 
+  .carousel-indicators {
+    margin-top: $sp-1x;
+  }
+
   & > .wp-block-heading, & > p {
     width: 100%;
   }
