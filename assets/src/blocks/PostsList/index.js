@@ -81,7 +81,7 @@ export const getPostListBlockTemplate = (title = __('Related Posts', 'planet4-bl
       spacing: {
         margin: {
           top: '24px',
-          bottom: '36px',
+          bottom: '32px',
         },
       },
     },
