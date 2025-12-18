@@ -38,7 +38,6 @@
 
         .carousel-item-wrapper {
           display: flex;
-          padding: $sp-x;
 
           .wp-block-post:not(:last-child) {
             margin-inline-end: $sp-1x;
@@ -55,7 +54,6 @@
       .carousel-item-wrapper {
         display: grid;
         column-gap: $sp-3;
-        padding: $sp-1x $sp-1;
       }
 
       .carousel-controls {

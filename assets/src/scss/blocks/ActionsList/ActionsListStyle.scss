@@ -5,6 +5,10 @@
     margin-top: $sp-4;
   }
 
+  .carousel-item-wrapper {
+    padding: $sp-x;
+  }
+
   &.is-custom-layout-carousel {
     @include medium-and-less {
       .wp-block-post {
@@ -15,6 +19,7 @@
     @include large-and-up {
       .carousel-item-wrapper {
         grid-template-columns: repeat(3, 1fr);
+        padding: $sp-1x $sp-1;
       }
     }
 
