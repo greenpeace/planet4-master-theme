@@ -3,7 +3,7 @@
 
   h4 {
     font-size: $font-size-xl;
-    margin-bottom: 48px;
+    margin-bottom: $sp-6;
     font-weight: bold;
   }
 
@@ -17,22 +17,22 @@
       border-top: 0;
       border-left-width: 1px;
       border-right-width: 1px;
-      padding: 11px $sp-4;
+      padding: $sp-1x $sp-4;
       text-decoration: none;
       color: var(--color-text-body);
       font-weight: bold;
       position: relative;
       font-size: $font-size-sm;
-      margin-bottom: 24px;
+      margin-bottom: $sp-3;
 
       @include small-and-up {
-        padding: 13px $sp-4;
+        padding: $sp-1x $sp-4;
         font-size: 1.125rem;
-        margin-bottom: 32px;
+        margin-bottom: $sp-4;
       }
 
       @include large-and-up {
-        padding: 11px $sp-4;
+        padding: $sp-1x $sp-4;
         font-size: $font-size-md;
       }
 
@@ -43,7 +43,7 @@
         right: 0;
         top: 0;
         background-color: transparent;
-        margin: 16px;
+        margin: $sp-2;
 
         html[dir="rtl"] & {
           right: auto;
@@ -107,7 +107,7 @@
     position: absolute;
     top: 0;
     left: 0;
-    margin-top: 29px;
+    margin-top: $sp-4;
     z-index: 2;
 
     html[dir="rtl"] & {
@@ -116,30 +116,28 @@
     }
 
     @include small-and-up {
-      margin-top: -14px;
+      margin-top: -$sp-2;
     }
 
     .btn-filter {
       height: 40px;
-      width: 130px;
       padding: 0 $sp-1;
+      margin-top: -$sp-2;
 
       svg {
-        margin-right: 4px;
+        margin-right: $sp-x;
         vertical-align: baseline;
         transition: none;
       }
 
       .icon-cross {
         font-size: $font-size-md;
-        margin-right: 20px;
+        margin-right: $sp-2x;
       }
 
       @include small-and-up {
         font-size: $font-size-sm;
         height: 48px;
-        width: 150px;
-        line-height: 48px;
       }
     }
   }
@@ -148,13 +146,13 @@
     h5 {
       font-size: $font-size-md;
       color: var(--grey-600);
-      margin-bottom: 20px;
+      margin-bottom: $sp-2x;
     }
 
     .activefilter-list {
-      margin-bottom: 20px;
+      margin-bottom: $sp-2x;
       border-bottom: 1px solid var(--grey-500);
-      padding-bottom: 10px;
+      padding-bottom: $sp-1x;
 
       .activefilter-tag {
         border: none;
@@ -165,12 +163,12 @@
         padding-inline-end: $sp-5;
         padding-inline-start: $sp-2x;
         display: inline-block;
-        margin-bottom: 16px;
+        margin-bottom: $sp-2;
         line-height: 42px;
         text-decoration: none;
         position: relative;
         cursor: pointer;
-        margin-inline-end: 8px;
+        margin-inline-end: $sp-1;
         min-width: 40%;
         text-align: left;
       }
