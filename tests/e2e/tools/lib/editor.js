@@ -50,15 +50,25 @@ const searchAndInsertBlock = async ({page}, blockName, namespace = '') => {
     await openSidebar.dispatchEvent('click');
     await expect(searchInput).toBeVisible();
   }
+
+  await searchInput.fill('');
   await searchInput.fill(blockName);
+
   const blocksList = page.getByRole('listbox', {name: 'Blocks'});
   await expect(blocksList).toBeVisible();
 
-  if (namespace !== '') {
-    return await blocksList.locator(`button.editor-block-list-item-${namespace.toLowerCase()}[role="option"]`).click();
+  let blockOption;
+
+  if (namespace) {
+    blockOption = blocksList.locator(
+      `button.editor-block-list-item-${namespace.toLowerCase()}[role="option"]`
+    );
+  } else {
+    blockOption = blocksList.getByRole('option', {name: blockName});
   }
 
-  return await blocksList.getByRole('option', {name: blockName}).click();
+  await expect(blockOption).toBeVisible();
+  await blockOption.click();
 };
 
 /**
