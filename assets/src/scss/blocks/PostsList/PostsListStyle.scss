@@ -1,4 +1,6 @@
 .posts-list {
+  margin-bottom: $sp-4;
+
   .carousel-controls,
   .carousel-indicators {
     display: none;
@@ -272,6 +274,10 @@
 
   &.is-custom-layout-grid {
     display: block !important;
+
+    .see-all-link {
+      margin-top: -$sp-1;
+    }
 
     // We don't show tags in this layout because they often break the design.
     .taxonomy-post_tag {
