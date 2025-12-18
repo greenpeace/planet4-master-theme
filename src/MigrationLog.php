@@ -72,6 +72,6 @@ class MigrationLog
      */
     public function persist(): void
     {
-        update_option(self::OPTION_KEY, $this->done_migrations);
+        update_option(self::OPTION_KEY, $this->done_migrations, false);
     }
 }
