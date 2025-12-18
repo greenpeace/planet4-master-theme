@@ -9,8 +9,8 @@ const showHiddenRow = row => {
 };
 
 const isModalSearch = () => {
-  return document.getElementById('filtermodal') &&
-    document.getElementById('filtermodal').style.display !== 'none';
+  const modal = document.getElementById('filtermodal');
+  return modal && window.getComputedStyle(modal).display !== 'none';
 };
 
 const getSelectedFilters = isModal => {
@@ -23,6 +23,13 @@ const getSelectedFilters = isModal => {
 const addSelectedFiltersToForm = (isModal, idToRemove) => {
   const searchForm = document.getElementById('search_form');
   let selectedFilters = getSelectedFilters(isModal);
+
+  // Add "sort by" selected option.
+  if (isModal) {
+    const selectedSort = document.querySelector('#filtermodal input[name="sort-by"]:checked');
+    const orderInput = document.getElementById('orderby');
+    orderInput.value = selectedSort.value;
+  }
 
   if (idToRemove) {
     selectedFilters = selectedFilters.filter(selectedFilter => selectedFilter.value !== idToRemove);
