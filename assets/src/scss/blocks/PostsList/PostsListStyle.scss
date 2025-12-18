@@ -129,6 +129,7 @@
   &.is-custom-layout-carousel {
     .carousel-controls + .see-all-link {
       align-self: flex-start;
+      margin-top: -$sp-5;
     }
 
     .carousel-item-wrapper li {
