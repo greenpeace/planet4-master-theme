@@ -21,11 +21,6 @@ msgstr ""
 "Language: uk\n"
 "Report-Msgid-Bugs-To: \n"
 "X-Loco-Version: 2.6.11; wp-6.5.5\n"
-"X-Poedit-SearchPath-0: .\n"
-"X-Poedit-SearchPathExcluded-0: *.js\n"
-"X-Loco-Fallback: en_GB\n"
-"X-Loco-Template: languages/planet4-master-theme-en_GB.po\n"
-"X-Loco-Template-Mode: POT,JSON"
 
 #. %1$d: Number of results. %2$s: Search terms.
 #: src/Search/SearchPage.php:264
