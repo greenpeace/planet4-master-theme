@@ -1,8 +1,6 @@
 .top-page-tags {
-  _-- {
-    font-family: var(--font-family-tertiary);
-    font-size: var(--font-size-m--font-family-tertiary);
-  }
+  font-family: var(--font-family-tertiary);
+  font-size: var(--font-size-m--font-family-tertiary);
   margin-bottom: $sp-1;
 
   .tag-wrap {
@@ -23,15 +21,13 @@
   }
 
   .tag-item {
-    _-- {
-      color: var(--gp-green-800);
-      font-weight: var(--font-weight-semibold);
-
-      &:visited {
-        color: var(--gp-green-800);
-      }
-    }
+    color: var(--gp-green-800);
+    font-weight: var(--font-weight-semibold);
     display: inline-block;
+
+    &:visited {
+      color: var(--gp-green-800);
+    }
 
     &:not(:only-child):not(:last-child):not(.page-type) {
       margin-inline-end: $sp-1;

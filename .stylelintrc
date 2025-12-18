@@ -76,7 +76,7 @@
     "selector-pseudo-element-case": "lower",
     "selector-type-case": "lower",
     "selector-type-no-unknown": [true, {
-	  "ignoreTypes": ["/^--[a-z]\\w*(--?[a-z0-9]+)*--$/", "_--", "lite-youtube"]
+	  "ignoreTypes": ["/^--[a-z]\\w*(--?[a-z0-9]+)*--$/", "lite-youtube"]
     }],
     "selector-max-empty-lines": 0,
 

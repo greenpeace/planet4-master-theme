@@ -2,10 +2,7 @@
 
 // Moved from another repo, for history please see https://github.com/greenpeace/planet4-plugin-gutenberg-blocks/blame/f5c532ed5704738136224cde305e9a0ffe614ceb/assets/src/styles/editorOverrides.scss
 .editor-post-title__block textarea.editor-post-title__input {
-  --headings-- {
-    font-family: var(--font-family-heading);
-  }
-
+  font-family: var(--font-family-heading);
   font-size: $font-size-xl;
   line-height: 1.225;
   margin-bottom: 30px;
@@ -66,11 +63,9 @@
 .wp-block-button.is-style-secondary .wp-block-button__link[role="textbox"],
 [class="wp-block-button"] .wp-block-button__link[role="textbox"],
 .wp-block-file .wp-block-file__button {
-  --button-secondary-- {
-    background: var(--white);
-    border-color: var(--p4-dark-green-800);
-    color: var(--p4-dark-green-800);
-  }
+  background: var(--white);
+  border-color: var(--p4-dark-green-800);
+  color: var(--p4-dark-green-800);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -88,11 +83,9 @@
 }
 
 .wp-block-button.is-style-cta .wp-block-button__link[role="textbox"] {
-  --button-primary-- {
-    background: var(--p4-action-yellow-500);
-    border-color: transparent;
-    color: var(--grey-900);
-  }
+  background: var(--p4-action-yellow-500);
+  border-color: transparent;
+  color: var(--grey-900);
 
   &.has-background {
     border-color: transparent;
@@ -100,11 +93,9 @@
 }
 
 .wp-block-button.is-style-transparent .wp-block-button__link[role="textbox"] {
-  --transparent-button-- {
-    border-color: var(--white);
-    color: var(--white);
-    background: transparent;
-  }
+  border-color: var(--white);
+  color: var(--white);
+  background: transparent;
 }
 
 .editor-styles-wrapper {
@@ -197,9 +188,7 @@
   }
 
   h1, h2, h3, h4, h5 {
-    --headings-- {
-      font-family: var(--font-family-heading);
-    }
+    font-family: var(--font-family-heading);
   }
 }
 

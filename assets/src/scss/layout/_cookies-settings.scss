@@ -43,11 +43,9 @@
 }
 
 .cookies-settings-header h4 {
-  _-- {
-    font-family: var(--font-family-paragraph-secondary);
-    font-size: 16px;
-  }
   margin-bottom: $sp-1;
+  font-family: var(--font-family-paragraph-secondary);
+  font-size: 16px;
 
   @include large-and-up {
     font-size: 20px;

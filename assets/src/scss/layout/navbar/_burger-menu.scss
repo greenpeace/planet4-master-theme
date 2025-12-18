@@ -22,11 +22,6 @@ $transition-duration: .2s;
 }
 
 .burger-menu {
-  _-- {
-    background: var(--white);
-    font-family: var(--font-family-primary);
-  }
-
   position: fixed;
   display: flex;
   flex-direction: column;
@@ -36,6 +31,8 @@ $transition-duration: .2s;
   z-index: 9999999999;
   overflow: hidden;
   height: 100%;
+  background: var(--white);
+  font-family: var(--font-family-primary);
 
   @include slide-from-start;
 

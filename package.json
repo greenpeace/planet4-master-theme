@@ -15,8 +15,7 @@
   },
   "devDependencies": {
     "@commitlint/cli": "^17.7.2",
-    "@greenpeace/dashdash": "^1.2.1",
-    "@playwright/test": "^1.57.0",
+    "@playwright/test": "^1.49.1",
     "@wordpress/e2e-test-utils-playwright": "^1.16.0",
     "@wordpress/eslint-plugin": "^15.1.0",
     "@wordpress/scripts": "^26.19.0",
