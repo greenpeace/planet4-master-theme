@@ -1,0 +1,33 @@
+<div class="modal fade filter-modal" id="filtermodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-9">
+						<h4 class="modal-title">{{ __( 'Refine your search', 'planet4-master-theme' ) }}</h4>
+					</div>
+					<div class="col-3 text-end">
+						<button type="button" class="closebtn" data-bs-dismiss="modal">
+							{{ 'times'|svgicon }}
+						</button>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						<div id="filter-sidebar-options-modal">
+							{% include 'search/filters/sort_by.twig' %}
+							{% include 'search/filters/categories.twig' with {'is_modal': true} %}
+							{% include 'search/filters/post_types.twig' with {'is_modal': true} %}
+							{% include 'search/filters/action_types.twig' with {'is_modal': true} %}
+							{% include 'search/filters/content_types.twig' with {'is_modal': true} %}
+						</div>
+					</div>
+				</div>
+				<div class="btnact">
+					<button type="button" class="btn btn-small btn-secondary" data-bs-dismiss="modal">{{ __( 'Cancel', 'planet4-master-theme' ) }}</button>
+					<button type="button" class="btn btn-primary btn-small applybtn">{{ __( 'Apply filters', 'planet4-master-theme' ) }}</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

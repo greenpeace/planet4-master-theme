@@ -1,0 +1,30 @@
+{% set container_id = 'item-modal-sort-by' %}
+
+<div class="filteritem">
+    <a data-bs-toggle="collapse" href="#{{ container_id }}" class="{{ collapsed }}" aria-expanded="{{ expanded }}">
+        {{ __( 'Sort by', 'planet4-master-theme' ) }} <span></span>
+    </a>
+    <div id="{{ container_id }}" class="collapse {{ show }}" role="tabpanel">
+    <ul class="list-unstyled">
+        {% for key, sort_option in sort_options %}
+        {% set checked = key == selected_sort ? "checked" : "" %}
+            <li>
+                <label class="custom-control">
+                    <input
+                        type="radio"
+                        name="sort-by"
+                        value="{{ key }}"
+                        class="p4-custom-control-input"
+                        data-ga-category="Search Page"
+                        data-ga-action="Sort by Filter"
+                        data-ga-label="{{ sort_option.name|e('wp_kses_post')|raw }}"
+                        aria-label="{{__( 'Sort by %s', 'planet4-master-theme' )|format(sort_option.name)}}"
+                        {{ checked }}
+                    />
+                    <span class="custom-control-description">{{ sort_option.name|e('wp_kses_post')|raw }}</span>
+                </label>
+            </li>
+        {% endfor %}
+    </ul>
+    </div>
+</div>

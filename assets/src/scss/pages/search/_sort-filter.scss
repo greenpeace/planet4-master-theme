@@ -29,64 +29,30 @@ div.search-filter-results {
 }
 
 .sort-filter {
-  width: 50%;
-  float: right;
+  width: 100%;
   text-align: right;
+  float: none;
 
   html[dir="rtl"] & {
-    float: left;
     text-align: left;
   }
 
-  @include small-and-up {
-    width: 100%;
-    float: none;
-
-    html[dir="rtl"] & {
-      float: none;
-    }
+  @include medium-and-less {
+    display: none;
   }
 
   .select-container {
-    margin-top: -7px;
-
-    @include small-and-up {
-      margin-top: -14px;
-    }
+    margin-top: -14px;
   }
 
   label {
-    font-size: 1.125rem;
-    margin-inline-end: 90px;
     font-weight: bold;
-
-    @include small-and-up {
-      margin-inline-end: 0.5rem;
-    }
-
-    @include large-and-up {
-      font-size: 1.625rem;
-    }
-
-    @include large-and-up {
-      font-size: $font-size-xl;
-    }
+    margin-inline-end: 0.5rem;
+    font-size: $font-size-xl;
   }
 
   select {
-    width: 151px;
+    width: 270px;
     display: inline-block;
-
-    @include small-and-up {
-      width: 210px;
-    }
-
-    @include large-and-up {
-      width: 224px;
-    }
-
-    @include large-and-up {
-      width: 270px;
-    }
   }
 }
