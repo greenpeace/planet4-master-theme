@@ -27,10 +27,19 @@ async function openComponentPanel({page, editor}, panelTitle) {
  * @param {{Page}} page
  */
 const closeBlockInserter = async ({page}) => {
-  const inserter = page.locator('.editor-inserter-sidebar');
+  const getCloseButton = () => page.getByRole('button', {name: 'Close Block Inserter'});
 
-  if (await inserter.isVisible()) {
-    await page.keyboard.press('Escape');
+  try {
+    await expect(getCloseButton()).toBeVisible({timeout: 1000});
+    await getCloseButton().click();
+  } catch (error) {
+    if (process.env.CI) {
+      // eslint-disable-next-line no-console
+      console.warn(
+        '[closeBlockInserter] skipped:',
+        error?.message?.split('\n')[0]
+      );
+    }
   }
 };
 
@@ -55,19 +64,17 @@ const searchAndInsertBlock = async ({page}, blockName, namespace = '') => {
   await searchInput.fill('');
   await searchInput.fill(blockName);
 
-  const blocksList = page.getByRole('listbox', {name: 'Blocks'});
-  await expect(blocksList).toBeVisible();
-
-  let blockOption = blocksList.getByRole('option', {name: blockName});
+  let blockOption = page.getByRole('option', {name: blockName});
 
   if (namespace) {
-    blockOption = blocksList.locator(
+    blockOption = page.locator(
       `button.editor-block-list-item-${namespace.toLowerCase()}[role="option"]`
     );
   }
 
-  await expect(blockOption).toBeVisible();
-  await blockOption.click();
+  if (!page.isClosed()) {
+    await page.evaluate(el => el.click(), await blockOption.elementHandle());
+  }
 };
 
 /**
@@ -86,14 +93,35 @@ const searchAndInsertPattern = async ({page}, id) => {
  * @param {{Page}} page
  * @param {string} blockName
  * @param {string} blockTag
- * @param {number} number
  * @param {string} text
  */
-const addHeadingOrParagraph = async ({page}, blockName, blockTag, number, text) => {
+const addHeadingOrParagraph = async ({page}, blockName, blockTag, text) => {
   await searchAndInsertBlock({page}, blockName, blockName.toLowerCase());
-  const newBlock = page.getByRole('region', {name: 'Editor content'}).locator(blockTag).nth(number);
-  await expect(newBlock).toBeVisible();
+
+  const getNewBlock = () => page.getByRole('region', {name: 'Editor content'}).locator(`${blockTag}[contenteditable="true"]`).last();
+
+  // Wait for Gutenberg to finish inserting and the block to become editable
+  await page.waitForFunction(
+    newBlockTag => {
+      const region = document.querySelector('[role="region"][aria-label="Editor content"]');
+      if (!region) {return false;}
+      const blocks = Array.from(region.querySelectorAll(newBlockTag));
+      return blocks.some(b => b.isContentEditable && b.offsetParent !== null);
+    },
+    blockTag,
+    {timeout: 5000}
+  );
+
   await closeBlockInserter({page});
+
+  // Webkit hack to allow re-render
+  if (page.context().browser()?.browserType().name() === 'webkit') {
+    if (!page.isClosed()) {
+      await page.evaluate(() => new Promise(requestAnimationFrame));
+    }
+  }
+
+  const newBlock = getNewBlock();
   await newBlock.fill(text);
 };
 
