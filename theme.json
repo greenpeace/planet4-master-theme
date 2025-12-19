@@ -57,75 +57,110 @@
       "defaultGradients": false,
       "defaultPalette": false,
       "palette": [
+         {
+          "name": "GP Green 100",
+          "slug": "gp-green-100",
+          "color": "var(--gp-green-100)"
+        },
+        {
+          "name": "GP Green 200",
+          "slug": "gp-green-200",
+          "color": "var(--gp-green-200)"
+        },
         {
           "name": "Green 400",
           "slug": "green-400",
-          "color": "#80d643"
+          "color": "var(--gp-green-400)"
         },
         {
           "name": "Green 500",
           "slug": "green-500",
-          "color": "#66cc00"
+          "color": "var(--gp-green-500)"
         },
         {
           "name": "Green 800",
           "slug": "green-800",
-          "color": "#198700"
-        },
-        {
-          "name": "Action Yellow",
-          "slug": "action-yellow",
-          "color": "#ffe100"
+          "color": "var(--gp-green-800)"
         },
         {
           "name": "Dark Green 800",
           "slug": "dark-green-800",
-          "color": "#1f4912"
+          "color": "var(--p4-dark-green-800)"
         },
         {
-          "name": "Beige 100",
-          "slug": "beige-100",
-          "color": "#f6f4ef"
+          "name": "Dark Green 900",
+          "slug": "dark-green-900",
+          "color": "var(--p4-dark-green-900)"
         },
         {
           "name": "Blue Green 800",
           "slug": "blue-green-800",
-          "color": "#167f82"
+          "color": "var(--blue-green-800)"
+        },
+        {
+          "name": "Action Yellow-100",
+          "slug": "action-yellow-100",
+          "color": "var(--p4-action-yellow-100)"
+        },
+        {
+          "name": "Action Yellow-500",
+          "slug": "action-yellow-500",
+          "color": "var(--p4-action-yellow-500)"
+        },
+        {
+          "name": "Action Yellow-600",
+          "slug": "action-yellow-600",
+          "color": "var(--p4-action-yellow-600)"
+        },
+        {
+          "name": "Action Yellow-700",
+          "slug": "action-yellow-700",
+          "color": "var(--p4-action-yellow-700)"
+        },
+        {
+          "name": "Red 100",
+          "slug": "red-100",
+          "color": "var(--red-100)"
         },
         {
           "name": "Red 500",
           "slug": "red-500",
-          "color": "#d43b57"
+          "color": "var(--red-500)"
+        },
+        {
+          "name": "Beige 100",
+          "slug": "beige-100",
+          "color": "var(--beige-100)"
         },
         {
           "name": "White",
           "slug": "white",
-          "color": "#ffffff"
+          "color": "var(--white)"
         },
         {
           "name": "Grey 100",
           "slug": "grey-100",
-          "color": "#f5f7f8"
+          "color": "var(--grey-100)"
         },
         {
           "name": "Grey 200",
           "slug": "grey-200",
-          "color": "#ececec"
+          "color": "var(--grey-200)"
         },
         {
           "name": "Grey 600",
           "slug": "grey-600",
-          "color": "#6f7376"
+          "color": "var(--grey-600)"
         },
         {
           "name": "Grey 800",
           "slug": "grey-800",
-          "color": "#45494c"
+          "color": "var(--grey-800)"
         },
         {
           "name": "Grey 900",
           "slug": "grey-900",
-          "color": "#1c1c1c"
+          "color": "var(--grey-900)"
         }
       ]
     },
