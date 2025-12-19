@@ -2,12 +2,12 @@
 
 namespace P4\MasterTheme;
 
-use CF\Integration\DefaultConfig;
-use CF\Integration\DefaultIntegration;
-use CF\Integration\DefaultLogger;
-use CF\WordPress\DataStore;
-use CF\WordPress\WordPressAPI;
-use CF\WordPress\WordPressClientAPI;
+use Cloudflare\APO\Integration\DefaultConfig;
+use Cloudflare\APO\Integration\DefaultIntegration;
+use Cloudflare\APO\Integration\DefaultLogger;
+use Cloudflare\APO\WordPress\DataStore;
+use Cloudflare\APO\WordPress\WordPressAPI;
+use Cloudflare\APO\WordPress\WordPressClientAPI;
 use Generator;
 
 /**
