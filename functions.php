@@ -285,7 +285,7 @@ function register_more_blocks(): void
     register_block_type(
         'p4/taxonomy-breadcrumb',
         [
-            'api_version' => 2,
+            'api_version' => 3,
             'render_callback' => function ($attributes, $block) {
                 $post_id = $block->context['postId'] ?? get_the_ID();
                 $options = get_option('planet4_options');

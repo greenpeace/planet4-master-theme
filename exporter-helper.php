@@ -155,7 +155,7 @@ function get_campaign_attachments(array $post_ids): array
  */
 function p4_px_single_post_cdata(?string $str): string
 {
-    if (seems_utf8($str) === false) {
+    if (wp_is_valid_utf8($str) === false) {
         $str = mb_convert_encoding($str, 'UTF-8');
     }
     $str = '<![CDATA[' . str_replace(']]>', ']]]]><![CDATA[>', $str) . ']]>';

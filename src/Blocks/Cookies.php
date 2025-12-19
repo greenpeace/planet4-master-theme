@@ -25,6 +25,7 @@ class Cookies extends BaseBlock
             self::get_full_block_name(),
             [
                 // todo: Remove when all content is migrated.
+                'api_version' => 3,
                 'render_callback' => [ self::class, 'render_frontend' ],
                 'attributes' => [
                     'title' => [
