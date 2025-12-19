@@ -46,8 +46,9 @@ const closeBlockInserter = async ({page}) => {
 const searchAndInsertBlock = async ({page}, blockName, namespace = '') => {
   const openSidebar = await page.getByRole('button', {name: 'Block Inserter', exact: true});
   const searchInput = page.getByPlaceholder('Search');
+
   if (await openSidebar.getAttribute('aria-expanded') === 'false') {
-    await openSidebar.dispatchEvent('click');
+    await openSidebar.click();
     await expect(searchInput).toBeVisible();
   }
 
@@ -57,14 +58,12 @@ const searchAndInsertBlock = async ({page}, blockName, namespace = '') => {
   const blocksList = page.getByRole('listbox', {name: 'Blocks'});
   await expect(blocksList).toBeVisible();
 
-  let blockOption;
+  let blockOption = blocksList.getByRole('option', {name: blockName});
 
   if (namespace) {
     blockOption = blocksList.locator(
       `button.editor-block-list-item-${namespace.toLowerCase()}[role="option"]`
     );
-  } else {
-    blockOption = blocksList.getByRole('option', {name: blockName});
   }
 
   await expect(blockOption).toBeVisible();
