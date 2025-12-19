@@ -9,10 +9,6 @@
     flex-direction: column;
     position: relative;
 
-    & > p {
-      margin: 0 0 48px 0 !important;
-    }
-
     .carousel {
       width: 100%;
     }
@@ -42,7 +38,6 @@
 
         .carousel-item-wrapper {
           display: flex;
-          padding: $sp-x;
 
           .wp-block-post:not(:last-child) {
             margin-inline-end: $sp-1x;
@@ -59,7 +54,6 @@
       .carousel-item-wrapper {
         display: grid;
         column-gap: $sp-3;
-        padding: $sp-1x $sp-1;
       }
 
       .carousel-controls {
@@ -70,7 +64,7 @@
         top: 0;
         bottom: 0;
         margin: auto;
-        z-index: -1;
+        pointer-events: none;
 
         .wp-block-button {
           overflow: hidden;
@@ -85,6 +79,7 @@
           background-position: center;
           opacity: 1 !important;
           cursor: pointer;
+          pointer-events: auto;
 
           &.carousel-control-prev {
             transform: rotate(180deg);
@@ -104,7 +99,6 @@
       .carousel-indicators {
         display: flex;
         position: relative;
-        margin-top: 12px;
         list-style: none;
 
         & [data-bs-target] {
@@ -115,7 +109,7 @@
       }
     }
 
-    @include x-large-and-up {
+    @include xx-large-and-up {
       .carousel-controls {
         width: calc(100% + calc($sp-8 * 2));
       }
