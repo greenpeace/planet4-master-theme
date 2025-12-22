@@ -11,7 +11,7 @@
             {% include 'footer_social_media.twig' %}
         {% endif %}
         {% if nav_type != 'minimal' %}
-            <nav class="footer-menu">
+            <nav class="footer-menu" aria-label="{{ __( 'Footer navigation', 'planet4-master-theme' ) }}">
                 <ul class="list-unstyled">
                     {% for primary in footer_primary_menu %}
                         <li>
