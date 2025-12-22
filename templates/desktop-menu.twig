@@ -1,5 +1,5 @@
 <div id="nav-main-desktop" class="d-none d-lg-flex">
-    <nav id="nav-menu" class="nav-menu">
+    <nav id="nav-menu" class="nav-menu" aria-label="{{ __( 'Primary navigation', 'planet4-master-theme' ) }}">
         <ul>
             {% for key,item in navbar_menu_items %}
                 <li class="nav-item {{ item.class }} {{ item == item.current ? 'active' : '' }}">

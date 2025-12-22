@@ -41,7 +41,7 @@
 
     {% if mobile_tabs_menu %}
     <div id="nav-mobile">
-        <nav id="nav-mobile-menu">
+        <nav id="nav-mobile-menu" aria-label="{{ __( 'Primary navigation', 'planet4-master-theme' ) }}">
             <ul>
                 {% for key,item in navbar_menu_items %}
                 <li class="nav-item {{ item.class }} {{ item == item.current ? 'active' : '' }}">
