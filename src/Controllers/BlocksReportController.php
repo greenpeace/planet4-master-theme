@@ -29,8 +29,8 @@ class BlocksReportController extends Controller
         }
 
         add_menu_page(
-            __('Blocks', 'planet4-blocks-backend'),
-            __('Blocks', 'planet4-blocks-backend'),
+            __('Blocks', 'planet4-master-theme-backend'),
+            __('Blocks', 'planet4-master-theme-backend'),
             'edit_posts',
             self::P4BKS_REPORTS_SLUG_NAME,
             null,

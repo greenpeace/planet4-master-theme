@@ -28,7 +28,7 @@ export const ImageSidebarField = ({value, setValue, label}) => (
             onClick={open}
             className="button"
           >
-            {__('Select image', 'planet4-blocks-backend')}
+            {__('Select image', 'planet4-master-theme-backend')}
           </Button>}
       />
     </MediaUploadCheck>

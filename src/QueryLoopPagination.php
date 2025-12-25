@@ -36,7 +36,7 @@ class QueryLoopPagination
             'render_block_core/query-pagination-previous',
             // phpcs:ignore SlevomatCodingStandard.Functions.UnusedParameter -- filter callback
             function ($content, $parsed, $block) {
-                $button_label = __('Prev', 'planet4-blocks');
+                $button_label = __('Prev', 'planet4-master-theme');
 
                 if (!array_key_exists('label', $block->attributes)) {
                     $block->attributes['label'] = $button_label;
@@ -60,7 +60,7 @@ class QueryLoopPagination
             'render_block_core/query-pagination-next',
             // phpcs:ignore SlevomatCodingStandard.Functions.UnusedParameter -- filter callback
             function ($content, $parsed, $block) {
-                $button_label = __('Next', 'planet4-blocks');
+                $button_label = __('Next', 'planet4-master-theme');
 
                 if (!array_key_exists('label', $block->attributes)) {
                     $block->attributes['label'] = $button_label;

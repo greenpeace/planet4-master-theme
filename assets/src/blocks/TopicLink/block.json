@@ -6,7 +6,7 @@
   "description": "The Topic Link block allows editors to manually link to a category page, which redirects users to relevant topic content.",
   "title": "Topic Link",
   "icon": "migrate",
-  "textdomain": "planet4-blocks-backend",
+  "textdomain": "planet4-master-theme-backend",
   "attributes": {
     "categoryId": {
       "type": "number"

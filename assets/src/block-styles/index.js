@@ -15,16 +15,16 @@ export const registerBlockStyles = () => {
   registerBlockStyle('core/button', [
     {
       name: 'secondary',
-      label: __('Secondary', 'planet4-blocks-backend'),
+      label: __('Secondary', 'planet4-master-theme-backend'),
       isDefault: true,
     },
     {
       name: 'cta',
-      label: __('Primary', 'planet4-blocks-backend'),
+      label: __('Primary', 'planet4-master-theme-backend'),
     },
     {
       name: 'transparent',
-      label: __('Transparent', 'planet4-blocks-backend'),
+      label: __('Transparent', 'planet4-master-theme-backend'),
     },
   ]);
 
@@ -32,25 +32,25 @@ export const registerBlockStyles = () => {
     registerBlockStyle(block, [
       {
         name: 'space-evenly',
-        label: __('Space evenly', 'planet4-blocks-backend'),
+        label: __('Space evenly', 'planet4-master-theme-backend'),
       },
       {
         name: 'reset-margin',
-        label: __('Reset margin', 'planet4-blocks-backend'),
+        label: __('Reset margin', 'planet4-master-theme-backend'),
       },
     ]);
   });
 
   registerBlockStyle('core/columns', {
     name: 'mobile-carousel',
-    label: __('Mobile carousel', 'planet4-blocks-backend'),
+    label: __('Mobile carousel', 'planet4-master-theme-backend'),
   });
 
   // Add our custom Heading styles
   registerBlockStyle('core/heading', [
     {
       name: 'chevron',
-      label: __('Chevron', 'planet4-blocks-backend'),
+      label: __('Chevron', 'planet4-master-theme-backend'),
     },
   ]);
 
@@ -61,11 +61,11 @@ export const registerBlockStyles = () => {
   registerBlockStyle('core/image', [
     {
       name: 'rounded-180',
-      label: __('Rounded 180x180', 'planet4-blocks-backend'),
+      label: __('Rounded 180x180', 'planet4-master-theme-backend'),
     },
     {
       name: 'rounded-90',
-      label: __('Rounded 90x90', 'planet4-blocks-backend'),
+      label: __('Rounded 90x90', 'planet4-master-theme-backend'),
     },
   ]);
 
@@ -73,7 +73,7 @@ export const registerBlockStyles = () => {
   registerBlockStyle('core/media-text', [
     {
       name: 'parallax',
-      label: __('Parallax - add a parallax effect to the image when scrolling the page', 'planet4-blocks-backend'),
+      label: __('Parallax - add a parallax effect to the image when scrolling the page', 'planet4-master-theme-backend'),
     },
   ]);
 };

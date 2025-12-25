@@ -37,11 +37,11 @@ const renderEdit = (attributes, toAttribute, setAttributes, isSelected) => {
   return (
     <>
       <InspectorControls>
-        <PanelBody title={__('Settings', 'planet4-blocks-backend')}>
+        <PanelBody title={__('Settings', 'planet4-master-theme-backend')}>
           <RangeControl
             __next40pxDefaultSize
             __nextHasNoMarginBottom
-            label={__('Columns', 'planet4-blocks-backend')}
+            label={__('Columns', 'planet4-master-theme-backend')}
             value={columns.length}
             onChange={value => {
               if (value > columns.length && value <= 4) {
@@ -59,15 +59,15 @@ const renderEdit = (attributes, toAttribute, setAttributes, isSelected) => {
               <div key={`column-${index}`}>
                 <URLInput
                   // translators: %s: column index
-                  label={sprintf(__('Column %s link', 'planet4-blocks-backend'), index + 1)}
+                  label={sprintf(__('Column %s link', 'planet4-master-theme-backend'), index + 1)}
                   // translators: %s: column index
-                  placeholder={sprintf(__('Enter link for column %s', 'planet4-blocks-backend'), index + 1)}
+                  placeholder={sprintf(__('Enter link for column %s', 'planet4-master-theme-backend'), index + 1)}
                   value={cta_link}
                   onChange={toAttribute('cta_link', index)}
                 />
                 <CheckboxControl
                   __nextHasNoMarginBottom
-                  label={__('Open link in new tab', 'planet4-blocks-backend')}
+                  label={__('Open link in new tab', 'planet4-master-theme-backend')}
                   value={link_new_tab}
                   checked={link_new_tab}
                   onChange={toAttribute('link_new_tab', index)}
@@ -76,7 +76,7 @@ const renderEdit = (attributes, toAttribute, setAttributes, isSelected) => {
             );
           })}
         </PanelBody>
-        <PanelBody title={__('Learn more about this block ', 'planet4-blocks-backend')} initialOpen={false}>
+        <PanelBody title={__('Learn more about this block ', 'planet4-master-theme-backend')} initialOpen={false}>
           <p className="components-base-control__help">
             <a target="_blank" href="https://planet4.greenpeace.org/content/blocks/columns/" rel="noreferrer">
               P4 Handbook Columns
@@ -158,7 +158,7 @@ export const ColumnsEditor = ({isSelected, attributes, setAttributes}) => {
           <RichText
             tagName="h2"
             className="page-section-header"
-            placeholder={__('Enter title', 'planet4-blocks-backend')}
+            placeholder={__('Enter title', 'planet4-master-theme-backend')}
             value={columns_title}
             onChange={toAttribute('columns_title')}
             withoutInteractiveFormatting
@@ -170,7 +170,7 @@ export const ColumnsEditor = ({isSelected, attributes, setAttributes}) => {
         <RichText
           tagName="p"
           className="page-section-description"
-          placeholder={__('Enter description', 'planet4-blocks-backend')}
+          placeholder={__('Enter description', 'planet4-master-theme-backend')}
           value={columns_description}
           onChange={toAttribute('columns_description')}
           withoutInteractiveFormatting

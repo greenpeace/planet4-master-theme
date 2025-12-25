@@ -18,9 +18,9 @@ export const PageHeaderSidebar = {
     return (
       <PluginDocumentSettingPanel
         name="page-header-panel"
-        title={__('Page header', 'planet4-blocks-backend')}
+        title={__('Page header', 'planet4-master-theme-backend')}
       >
-        <CheckboxSidebarField label={__('Hide page title', 'planet4-blocks-backend')} {...getParams(HIDE_PAGE_TITLE)} />
+        <CheckboxSidebarField label={__('Hide page title', 'planet4-master-theme-backend')} {...getParams(HIDE_PAGE_TITLE)} />
       </PluginDocumentSettingPanel>
     );
   },

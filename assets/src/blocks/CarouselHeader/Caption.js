@@ -10,7 +10,7 @@ export const Caption = ({slide, index, changeSlideAttribute}) => useMemo(() => (
       <div className="carousel-captions-wrapper">
         <RichText
           tagName="h2"
-          placeholder={__('Enter title', 'planet4-blocks-backend')}
+          placeholder={__('Enter title', 'planet4-master-theme-backend')}
           value={slide.header}
           onChange={changeSlideAttribute('header', index)}
           withoutInteractiveFormatting
@@ -18,7 +18,7 @@ export const Caption = ({slide, index, changeSlideAttribute}) => useMemo(() => (
         />
         <RichText
           tagName="p"
-          placeholder={__('Enter description', 'planet4-blocks-backend')}
+          placeholder={__('Enter description', 'planet4-master-theme-backend')}
           value={slide.description}
           onChange={changeSlideAttribute('description', index)}
           withoutInteractiveFormatting
@@ -30,7 +30,7 @@ export const Caption = ({slide, index, changeSlideAttribute}) => useMemo(() => (
         <RichText
           tagName="div"
           className="btn btn-primary"
-          placeholder={__('Enter CTA text', 'planet4-blocks-backend')}
+          placeholder={__('Enter CTA text', 'planet4-master-theme-backend')}
           value={slide.link_text}
           onChange={changeSlideAttribute('link_text', index)}
           withoutInteractiveFormatting

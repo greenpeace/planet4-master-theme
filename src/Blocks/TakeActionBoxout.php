@@ -155,7 +155,8 @@ class TakeActionBoxout extends BaseBlock
         if (isset($meta['action_button_text']) && $meta['action_button_text'][0]) {
             $cover_button_text = $meta['action_button_text'][0];
         } else {
-            $cover_button_text = $options['take_action_covers_button_text'] ?? __('Take action', 'planet4-blocks');
+            $cover_button_text = $options['take_action_covers_button_text']
+                ?? __('Take action', 'planet4-master-theme');
         }
 
         return [

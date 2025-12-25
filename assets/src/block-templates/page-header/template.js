@@ -5,7 +5,7 @@ const {__} = wp.i18n;
 const template = ({
   mediaPosition = '',
   imageFill = false,
-  titlePlaceholder = __('Enter title', 'planet4-blocks-backend'),
+  titlePlaceholder = __('Enter title', 'planet4-master-theme-backend'),
 }) => ([
   ['core/group', {align: 'full'},
     [
@@ -27,7 +27,7 @@ const template = ({
             }],
           ]],
           ['core/paragraph', {
-            placeholder: __('Enter description', 'planet4-blocks-backend'),
+            placeholder: __('Enter description', 'planet4-master-theme-backend'),
             style: {typography: {fontSize: '1.25rem'}},
           }],
           ['core/buttons', {}, [
