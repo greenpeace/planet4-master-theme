@@ -63,6 +63,14 @@ class Settings
      */
     public function __construct()
     {
+        $this->hooks();
+    }
+
+    /**
+     * Set sub pages.
+     */
+    public function set_sub_pages(): void
+    {
         // Set our title.
         $this->title = __('Planet 4', 'planet4-master-theme-backend');
 
@@ -577,6 +585,7 @@ class Settings
         }
         // This option should be visible only if the GF Hubspot add-on is activated.
         $is_gf_hubspot_addon = function_exists('is_plugin_active') && is_plugin_active('gravityformshubspot/hubspot.php');
+        // phpcs:ignore SlevomatCodingStandard.ControlStructures.EarlyExit.EarlyExitNotUsed
         if ($is_gf_hubspot_addon) {
             array_push(
                 $this->subpages['planet4_settings_analytics']['fields'],
@@ -594,8 +603,6 @@ class Settings
                 ],
             );
         }
-
-        $this->hooks();
     }
 
     /**
@@ -636,6 +643,7 @@ class Settings
      */
     public function add_options_pages(): void
     {
+        $this->set_sub_pages();
         $this->options_page = add_menu_page(
             $this->title,
             $this->title,
