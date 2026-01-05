@@ -1,4 +1,9 @@
 .filter-modal {
+  @include medium-and-up {
+    .modal-dialog {
+      max-width: 90%;
+    }
+  }
   .modal-body {
     padding: $sp-3 $sp-2;
   }
