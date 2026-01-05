@@ -1,23 +1,11 @@
 .filter-modal {
-  .modal-dialog {
-    max-width: 90%;
-  }
-
   .modal-body {
-    padding: $sp-4 15px;
-
-    @include small-and-up {
-      padding: $sp-6x;
-    }
+    padding: $sp-3 $sp-2;
   }
 
   .modal-title {
     font-size: 1.625rem;
-    margin-bottom: 24px;
-
-    @include small-and-up {
-      font-size: 2.125rem;
-    }
+    margin-bottom: $sp-3;
   }
 
   .cancelbtn,
@@ -49,8 +37,7 @@
     border: none;
     margin-top: -5px;
     border-radius: 50%;
-    padding: 8px 12px;
-    margin-right: 0;
+    padding: $sp-1x $sp-1;
     transition: color, border-color, background-color 150ms linear;
 
     &:hover {
@@ -59,10 +46,8 @@
 
     .icon {
       top: 0;
-    }
-
-    .icon-cross {
-      font-size: 0.75rem;
+      height: 24px;
+      width: 24px;
     }
   }
 }
