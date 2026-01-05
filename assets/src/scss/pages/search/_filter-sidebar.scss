@@ -120,24 +120,18 @@
     }
 
     .btn-filter {
-      height: 40px;
-      padding: 0 $sp-1;
+      height: 48px;
+      padding: 0 $sp-3;
       margin-top: -$sp-2;
 
       svg {
-        margin-right: $sp-x;
+        margin-inline-end: $sp-x;
         vertical-align: baseline;
         transition: none;
       }
 
-      .icon-cross {
-        font-size: $font-size-md;
-        margin-right: $sp-2x;
-      }
-
       @include small-and-up {
         font-size: $font-size-sm;
-        height: 48px;
       }
     }
   }
