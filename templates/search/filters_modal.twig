@@ -14,7 +14,10 @@
 				</div>
 				<div class="row">
 					<div class="col-md-6">
-						<div id="filter-sidebar-options-modal">
+                        {% if (filters) %}
+                            {% include 'search/active_filters.twig' %}
+                        {% endif %}
+						<div>
 							{% include 'search/filters/sort_by.twig' %}
 							{% include 'search/filters/categories.twig' with {'is_modal': true} %}
 							{% include 'search/filters/post_types.twig' with {'is_modal': true} %}
