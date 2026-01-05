@@ -1,0 +1,52 @@
+.active-filter {
+  h5 {
+    font-size: $font-size-md;
+    margin-bottom: $sp-2x;
+  }
+
+  .activefilter-list {
+    margin-bottom: $sp-2x;
+    padding-bottom: $sp-1x;
+
+    .activefilter-tag {
+      border: none;
+      background: var(--grey-200);
+      color: var(--grey-900);
+      border-radius: 4px;
+      font-size: 15px;
+      padding-inline-end: $sp-5;
+      padding-inline-start: $sp-2x;
+      display: inline-block;
+      margin-bottom: $sp-2;
+      line-height: 42px;
+      text-decoration: none;
+      position: relative;
+      cursor: pointer;
+      margin-inline-end: $sp-1;
+    }
+
+    .icon-cross {
+      font-size: 0.75rem;
+      position: absolute;
+      right: 0;
+      top: 0;
+      margin-inline-end: $sp-2;
+
+      html[dir="rtl"] & {
+        right: auto;
+        left: 0;
+      }
+    }
+
+    .clearall {
+      display: inline-block;
+      background-color: var(--white);
+      padding: 0;
+      border: 0;
+      color: var(--gp-green-800);
+      font-family: var(--font-family-tertiary);
+      font-weight: var(--font-weight-semibold);
+      font-size: 17px;
+    }
+  }
+}
