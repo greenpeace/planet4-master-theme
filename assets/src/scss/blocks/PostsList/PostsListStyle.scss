@@ -1,4 +1,6 @@
 .posts-list {
+  margin-bottom: $sp-4;
+
   .carousel-controls,
   .carousel-indicators {
     display: none;
@@ -129,6 +131,7 @@
   &.is-custom-layout-carousel {
     .carousel-controls + .see-all-link {
       align-self: flex-start;
+      margin-top: -$sp-5;
     }
 
     .carousel-item-wrapper li {
@@ -163,6 +166,10 @@
     }
 
     @include large-and-up {
+      .carousel-indicators {
+        margin-top: -$sp-3;
+      }
+
       .wp-block-heading + .see-all-link {
         display: block;
         visibility: visible;
