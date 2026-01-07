@@ -98,15 +98,17 @@ class MasterSite extends \Timber\Site
         add_filter('wp_dropdown_users_args', [$this, 'filter_authors'], 10, 1);
         add_filter('http_request_timeout', fn () => 10);
 
-        register_nav_menus(
-            [
-                'navigation-bar-menu' => __('Navigation Bar Menu', 'planet4-master-theme-backend'),
-                'donate-menu' => __('Donate Button', 'planet4-master-theme-backend'),
-                'footer-primary-menu' => __('Footer Primary Menu', 'planet4-master-theme-backend'),
-                'footer-secondary-menu' => __('Footer Secondary Menu', 'planet4-master-theme-backend'),
-                'footer-social-menu' => __('Footer Social Menu', 'planet4-master-theme-backend'),
-            ]
-        );
+        add_action('after_setup_theme', function (): void {
+            register_nav_menus(
+                [
+                    'navigation-bar-menu' => __('Navigation Bar Menu', 'planet4-master-theme-backend'),
+                    'donate-menu' => __('Donate Button', 'planet4-master-theme-backend'),
+                    'footer-primary-menu' => __('Footer Primary Menu', 'planet4-master-theme-backend'),
+                    'footer-secondary-menu' => __('Footer Secondary Menu', 'planet4-master-theme-backend'),
+                    'footer-social-menu' => __('Footer Social Menu', 'planet4-master-theme-backend'),
+                ]
+            );
+        }, 0);
 
         add_filter(
             'editable_roles',
