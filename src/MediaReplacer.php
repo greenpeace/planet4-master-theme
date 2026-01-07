@@ -14,7 +14,6 @@ class MediaReplacer
     private CloudflarePurger $cf;
     private array $replacement_status;
     private array $cache_purge_status;
-    private array $user_messages;
     private string $bucket_name;
     private mixed $stateless;
 
@@ -53,19 +52,10 @@ class MediaReplacer
         $this->set_hooks();
     }
 
-    private function set_variables(): void
+    private function get_user_message(string $user_message): string
     {
-        $this->cf = new CloudflarePurger();
-
-        $this->bucket_name = $this->stateless->get('sm.bucket');
-
-        $this->cache_purge_status = [
-            'success' => [],
-            'error' => [],
-        ];
-
         // phpcs:disable Generic.Files.LineLength.MaxExceeded
-        $this->user_messages = [
+        $user_messages = [
             'replace' => __('Replace Media', 'planet4-master-theme-backend'),
             'metabox' => __('Use this to replace the current file without changing the file URL.', 'planet4-master-theme-backend'),
             'attach' => __('Attachment ID is missing.', 'planet4-master-theme-backend'),
@@ -79,6 +69,20 @@ class MediaReplacer
             'cf_error' => __('There was an issue purging the cache for these files:', 'planet4-master-theme-backend'),
         ];
         // phpcs:enable Generic.Files.LineLength.MaxExceeded
+
+        return $user_messages[$user_message] ?? '';
+    }
+
+    private function set_variables(): void
+    {
+        $this->cf = new CloudflarePurger();
+
+        $this->bucket_name = $this->stateless->get('sm.bucket');
+
+        $this->cache_purge_status = [
+            'success' => [],
+            'error' => [],
+        ];
     }
 
     private function set_hooks(): void
@@ -115,7 +119,7 @@ class MediaReplacer
     {
         add_meta_box(
             'replace_media_metabox',
-            $this->user_messages['replace'],
+            $this->get_user_message('replace'),
             [$this, 'render_replace_media_metabox'],
             'attachment',
             'side',
@@ -130,7 +134,7 @@ class MediaReplacer
      */
     public function render_replace_media_metabox(WP_Post $post): void
     {
-        echo "<p>" . $this->user_messages['metabox'] . "</p>";
+        echo "<p>" . $this->get_user_message('metabox') . "</p>";
         echo $this->get_replace_button_html($post);
     }
 
@@ -191,7 +195,7 @@ class MediaReplacer
             data-attachment-id="' . esc_attr($post->ID) . '"
             data-mime-type="' . esc_attr($post->post_mime_type) . '"
         >
-        ' . $this->user_messages['replace'] . '
+        ' . $this->get_user_message('replace') . '
         </a>
         ';
 
@@ -212,7 +216,7 @@ class MediaReplacer
             data-attachment-id="' . esc_attr($post->ID) . '"
             data-mime-type="' . esc_attr($post->post_mime_type) . '"
         >
-        ' . $this->user_messages['replace'] . '
+        ' . $this->get_user_message('replace') . '
         </button>';
 
         return $button . $this->get_replace_input_html($post);
@@ -246,12 +250,12 @@ class MediaReplacer
         try {
             // Check if the attachment ID is set
             if (!isset($_POST['attachment_id'])) {
-                throw new \LogicException($this->user_messages['attach']);
+                throw new \LogicException($this->get_user_message('attach'));
             }
 
             // Check if the file is set
             if (empty($_FILES['file'])) {
-                throw new \LogicException($this->user_messages['file']);
+                throw new \LogicException($this->get_user_message('file'));
             }
 
             $attachment_id = intval($_POST['attachment_id']);
@@ -322,7 +326,7 @@ class MediaReplacer
             // The GD extension is needed for image manipulation.
             // If it's not loaded, abort.
             if (!extension_loaded('gd')) {
-                throw new \LogicException($this->user_messages['gd']);
+                throw new \LogicException($this->get_user_message('gd'));
             }
 
             $new_image_path = $file['tmp_name'];
@@ -333,20 +337,20 @@ class MediaReplacer
 
             // Validate image type against allowed MIME types
             if (!isset(ImageHandler::IMAGE_MIME_TYPES[$new_image_type])) {
-                throw new \LogicException($this->user_messages['image']);
+                throw new \LogicException($this->get_user_message('image'));
             }
 
             // Load the image dynamically
             $image_data = ImageHandler::IMAGE_MIME_TYPES[$new_image_type];
             $image = call_user_func($image_data['create'], $new_image_path);
             if (!$image) {
-                throw new \LogicException($this->user_messages['image']);
+                throw new \LogicException($this->get_user_message('image'));
             }
 
             // Get the image metadata.
             $old_image_meta = get_post_meta($id, 'sm_cloud')[0];
             if (!$old_image_meta) {
-                throw new \LogicException($this->user_messages['image']);
+                throw new \LogicException($this->get_user_message('image'));
             }
 
             $old_image_extension = pathinfo($old_image_meta['name'], PATHINFO_EXTENSION);
@@ -531,7 +535,7 @@ class MediaReplacer
      */
     private function error_handler(string $message): void
     {
-        $msg = $this->user_messages['media'] . $message;
+        $msg = $this->get_user_message('media') . $message;
 
         if (function_exists('\Sentry\captureMessage')) {
             \Sentry\captureMessage($msg);
@@ -598,13 +602,13 @@ class MediaReplacer
     {
         $this->render_notice(
             'file',
-            $this->user_messages['success'],
-            $this->user_messages['error']
+            $this->get_user_message('success'),
+            $this->get_user_message('error')
         );
         $this->render_notice(
             'cache',
-            $this->user_messages['cf_success'],
-            $this->user_messages['cf_error']
+            $this->get_user_message('cf_success'),
+            $this->get_user_message('cf_error')
         );
     }
 
