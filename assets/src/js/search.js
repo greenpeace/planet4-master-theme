@@ -86,15 +86,15 @@ export const setupSearch = () => {
   });
 
   // Clear all selected filters.
-  const clearAllButton = document.querySelector('.clearall');
-  if (clearAllButton) {
-    clearAllButton.onclick = () => {
+  const clearAllButtons = [...document.querySelectorAll('.clearall')];
+  if (clearAllButtons) {
+    clearAllButtons.forEach(button => button.onclick = () => {
       const selectedFilters = [...document.querySelectorAll('input[name^="f["]:checked')];
       selectedFilters.forEach(selectedFilter => {
         selectedFilter.checked = false;
       });
       searchForm.submit();
-    };
+    });
   }
 
   // Add click event for load more button in blocks.
