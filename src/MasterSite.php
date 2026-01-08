@@ -402,7 +402,6 @@ class MasterSite extends \Timber\Site
             }
         }
 
-
         $languages = function_exists('icl_get_languages') ? icl_get_languages() : [];
 
         $context['site_languages'] = $languages;
