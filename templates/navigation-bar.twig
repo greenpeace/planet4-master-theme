@@ -40,25 +40,23 @@
     {% endif %}
 
     {% if mobile_tabs_menu %}
-    <div id="nav-mobile">
-        <nav id="nav-mobile-menu" aria-label="{{ __( 'Primary navigation', 'planet4-master-theme' ) }}">
-            <ul>
-                {% for key,item in navbar_menu_items %}
-                <li class="nav-item {{ item.class }} {{ item == item.current ? 'active' : '' }}">
-                    <a
-                        class="nav-link"
-                        href="{{ item.link }}"
-                        target="{{ item.target }}"
-                        data-ga-category="Menu Navigation"
-                        data-ga-action="{{ item.title }}"
-                        data-ga-label="{{ page_category }}">
-                            {{ item.title }}
-                    </a>
-                </li>
-                {% endfor %}
-            </ul>
-        </nav>
-    </div>
+    <nav id="nav-mobile" aria-label="{{ __( 'Primary navigation', 'planet4-master-theme' ) }}">
+        <ul>
+            {% for key,item in navbar_menu_items %}
+            <li class="nav-item {{ item.class }} {{ item == item.current ? 'active' : '' }}">
+                <a
+                    class="nav-link"
+                    href="{{ item.link }}"
+                    target="{{ item.target }}"
+                    data-ga-category="Menu Navigation"
+                    data-ga-action="{{ item.title }}"
+                    data-ga-label="{{ page_category }}">
+                        {{ item.title }}
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    </nav>
     {% endif %}
     {% include 'country_selector_banner.twig' ignore missing %}
 </header>
