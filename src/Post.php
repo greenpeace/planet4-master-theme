@@ -756,7 +756,7 @@ class Post extends \Timber\Post
             }
         }
 
-        return '<nav aria-label="' . esc_html__("Pages navigation", "planet4-master-theme") . '" class="container bottom-navigation">' . $output . '</nav>';
+        return '<nav aria-label="' . esc_html__("Pages", "planet4-master-theme") . '" class="container bottom-navigation">' . $output . '</nav>';
     }
 }
 // phpcs:enable Generic.Files.LineLength.MaxExceeded
