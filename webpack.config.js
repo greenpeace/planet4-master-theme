@@ -48,7 +48,6 @@ module.exports = (env, argv) => {
       bulkExport: './assets/src/js/bulk_export.js',
       mediaImportButton: './assets/src/js/media_import_button.js',
       filterBlockNames: './assets/src/js/filter_block_names.js',
-      dismissDashboardNotice: './assets/src/js/dismiss_dashboard_notice.js',
       frontendIndex: './assets/src/frontendIndex.js',
       editorIndex: './assets/src/editorIndex.js',
       GalleryScript: './assets/src/blocks/Gallery/GalleryScript.js',

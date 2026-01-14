@@ -165,38 +165,6 @@ class EnqueueController
     }
 
     /**
-     * Enqueues the dismiss dashboard notice script.
-     *
-     * This method registers and enqueues the JavaScript file used to add
-     * the dismiss button to the dashboard notices.
-     *
-     */
-    public function enqueue_dismiss_dashboard_notice(): void
-    {
-        $script = [
-            'id' => 'dismissDashboardNotice',
-            'name' => 'dismiss-dashboard-notice-script',
-            'path' => '/assets/build/dismissDashboardNotice.js',
-        ];
-
-        $this->enqueue_script(
-            $script['name'],
-            $script['path'],
-            [],
-            $this->get_file_version($script['path']),
-            true
-        );
-
-        if (!wp_script_is($script['name'], 'enqueued')) {
-            return;
-        }
-
-        wp_localize_script($script['name'], $script['id'], array(
-            'ajaxurl' => admin_url('admin-ajax.php'),
-        ));
-    }
-
-    /**
      * Enqueues the media import button script.
      *
      * This method registers and enqueues the JavaScript file used to add
