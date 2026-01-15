@@ -8,16 +8,10 @@ namespace P4\MasterTheme;
 class DashboardNotice
 {
     /**
-     * Key of notice seen by user
+     * API endpoint for retrieving the announcements content
      *
      */
-    private const DASHBOARD_MESSAGE_KEY = 'last_p4_notice';
-
-    /**
-     * Version of notice
-     *
-     */
-    private const DASHBOARD_MESSAGE_VERSION = '0.6';
+    private const ANNOUNCEMENTS_API = 'https://planet4.greenpeace.org/wp-json/planet4/v1/announcements/';
 
     /**
      * Constructor.
@@ -25,11 +19,10 @@ class DashboardNotice
     public function __construct()
     {
         add_action('admin_notices', [$this, 'show_dashboard_notice']);
-        add_action('wp_ajax_dismiss_dashboard_notice', [$this, 'dismiss_dashboard_notice']);
     }
 
     /**
-     * Show P4 team message on dashboard.
+     * Show P4 Announcements notice on dashboard.
      */
     public function show_dashboard_notice(): void
     {
@@ -39,74 +32,64 @@ class DashboardNotice
             return;
         }
 
-        // Don't show a dismissed version.
-        $last_notice = get_user_meta(get_current_user_id(), self::DASHBOARD_MESSAGE_KEY, true);
-        if (version_compare(self::DASHBOARD_MESSAGE_VERSION, $last_notice, '<=')) {
-            return;
-        }
-
         // Don't show an empty message.
-        $message = trim($this->p4_message());
+        $message = trim($this->retrieve_message());
         if (empty($message)) {
             return;
         }
 
-        do_action('enqueue_dismiss_dashboard_notice_script');
-
-        echo '<div id="p4-notice" class="notice notice-info is-dismissible">' . wp_kses_post($message) . '</div>';
+        echo '<div id="p4-notice" class="notice notice-info">' . wp_kses_post($message) . '</div>';
     }
 
     /**
-     * A message from Planet4 team.
-     *
-     * Message title should be a <h2> tag.
-     * Message text should be written into <p> tags.
-     * Return an empty string if no message for this version.
-     *
-     * Version number DASHBOARD_MESSAGE_VERSION has to be incremented
-     * each time we add a new message.
-     *
-     * phpcs:disable Generic.Files.LineLength.MaxExceeded
+     * Get message from cache or API.
      */
-    private function p4_message(): string
+    private function retrieve_message(): string
     {
-        return '<h2>📢 The new Posts List and Actions List blocks are here!</h2>
-            <p>
-                <ul>
-                    <li><span style="margin-right: 3px;">
-                        <a href="https://planet4.greenpeace.org/content/blocks/posts-list/" target="_blank">Posts List</a>:
-                        <span> 📝 It replaces the Articles block and the Covers block Content Style</span>
-                    </li>
-                    <li><span style="margin-right: 3px;">
-                        <a href="https://planet4.greenpeace.org/content/blocks/actions-list/">Actions List</a>:
-                        <span> ✨ It replaces the Covers block Take Action Style</span>
-                    </li>
-                </ul>
-            </p>';
+        $content = wp_cache_get('p4-announcements', 'p4-cache-dashboard-notice');
+
+        if ($content === false) {
+            $content = $this->fetch_announcements();
+            wp_cache_set(
+                'p4-announcements',
+                $content,
+                'p4-cache-dashboard-notice',
+                86400
+            );
+        }
+
+        return $content;
     }
-    // phpcs:enable Generic.Files.LineLength.MaxExceeded
 
     /**
-     * Dismiss P4 notice of dashboard, by saving the last version read in user meta field.
-     *
-     * @uses wp_die()
+     * Fetch announcements from the Handbook API.
      */
-    public function dismiss_dashboard_notice(): void
+    private function fetch_announcements(): string
     {
-        $user_id = get_current_user_id();
-        if (0 === $user_id) {
-            wp_die('User not logged in.', 401);
+        $response = wp_remote_get(self::ANNOUNCEMENTS_API, [
+            'timeout' => 5,
+            'headers' => [
+                'Accept' => 'application/json',
+            ],
+        ]);
+
+        if (is_wp_error($response)) {
+            if (function_exists('\Sentry\captureException')) {
+                \Sentry\captureException($response);
+            }
+            return '';
         }
 
-        $res = update_user_meta(
-            $user_id,
-            self::DASHBOARD_MESSAGE_KEY,
-            self::DASHBOARD_MESSAGE_VERSION
-        );
-        if (false === $res) {
-            wp_die('User meta update failed.', 500);
+        $body = wp_remote_retrieve_body($response);
+        $data = json_decode($body, true);
+
+        if (json_last_error() !== JSON_ERROR_NONE || !is_array($data) || empty($data['content'])) {
+            if (function_exists('\Sentry\captureMessage')) {
+                \Sentry\captureMessage('Failed to decode announcements API response' . date("Y-m-d H:i:s"));
+            }
+            return '';
         }
 
-        wp_die('Notice dismissed.', 200);
+        return $data['content'] ?? '';
     }
 }
