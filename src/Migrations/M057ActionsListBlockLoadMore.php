@@ -81,7 +81,7 @@ class M057ActionsListBlockLoadMore extends MigrationScript
             [
                 Utils\Functions::create_block_single_button(
                     ['className' => 'is-style-secondary', 'tagName' => 'button'],
-                    __('Load more', 'planet4-blocks'),
+                    __('Load more', 'planet4-master-theme'),
                 ),
             ],
         );

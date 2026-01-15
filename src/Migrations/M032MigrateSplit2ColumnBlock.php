@@ -198,7 +198,7 @@ class M032MigrateSplit2ColumnBlock extends MigrationScript
             $block['title'] = !empty($block['title']) ? $block['title'] : $issue_meta_data['p4_title'][0] ?? get_the_title($issue_id);
             $block['issue_description'] = $block['issue_description'] ?? $issue_meta_data['p4_description'][0] ?? '';
             $block['issue_link_path'] = $block['issue_link_path'] ?? get_permalink($issue_id);
-            $block['issue_link_text'] = $block['issue_link_text'] ?? __('Learn more about this issue', 'planet4-blocks');
+            $block['issue_link_text'] = $block['issue_link_text'] ?? __('Learn more about this issue', 'planet4-master-theme');
 
             $block['issue_image_id'] = $block['issue_image_id'] ?? $issue_image_id;
             $block['issue_image_src'] = $block['issue_image_src'] ?? ($issue_image_id ? wp_get_attachment_url($issue_image_id) : '');
@@ -214,7 +214,7 @@ class M032MigrateSplit2ColumnBlock extends MigrationScript
                 $block['tag_image_id'] = $block['tag_image_id'] ?? $tag_image_id;
                 $block['tag_image_src'] = $block['tag_image_src'] ?? ($tag_image_id ? wp_get_attachment_url($tag_image_id) : '');
 
-                $block['button_text'] = $block['button_text'] ?? __('Get involved', 'planet4-blocks');
+                $block['button_text'] = $block['button_text'] ?? __('Get involved', 'planet4-master-theme');
                 $block['button_link'] = $block['button_link'] ?? $block['tag_link'] ?? '';
             }
         }

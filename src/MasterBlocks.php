@@ -116,7 +116,7 @@ class MasterBlocks
 
         $js_creation = filectime(get_template_directory() . '/assets/build/editorIndex.js');
         // Enqueue editor script for all Blocks in this Plugin.
-        wp_enqueue_script(
+        wp_register_script(
             'planet4-blocks-theme-editor-script',
             $theme_dir . '/assets/build/editorIndex.js',
             [
@@ -138,9 +138,11 @@ class MasterBlocks
         // Sets translated strings for a JS script.
         wp_set_script_translations(
             'planet4-blocks-theme-editor-script',
-            'planet4-blocks-backend',
-            get_template_directory() . '/blocks/languages'
+            'planet4-master-theme-backend',
+            get_template_directory() . '/languages'
         );
+
+        wp_enqueue_script('planet4-blocks-theme-editor-script');
     }
 
     /**
@@ -164,7 +166,6 @@ class MasterBlocks
             $js_creation,
             true
         );
-        wp_enqueue_script('planet4-blocks-theme-script');
 
         $reflection_vars = self::reflect_js_variables();
         wp_localize_script('planet4-blocks-theme-script', 'p4_vars', $reflection_vars);
@@ -172,9 +173,10 @@ class MasterBlocks
         // Sets translated strings for a JS script.
         wp_set_script_translations(
             'planet4-blocks-theme-script',
-            'planet4-blocks',
-            get_template_directory() . '/blocks/languages'
+            'planet4-master-theme',
+            get_template_directory() . '/languages'
         );
+        wp_enqueue_script('planet4-blocks-theme-script');
     }
 
     /**

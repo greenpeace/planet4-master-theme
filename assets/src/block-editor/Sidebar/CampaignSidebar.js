@@ -17,7 +17,7 @@ export const CampaignSidebar = {
     return (
       <PluginDocumentSettingPanel
         name="navigation-panel"
-        title={__('Navigation', 'planet4-blocks-backend')}
+        title={__('Navigation', 'planet4-master-theme-backend')}
         className="navigation-panel"
       >
         <NavigationType {...getParams(FIELD_NAVTYPE)} />

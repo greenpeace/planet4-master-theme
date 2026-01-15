@@ -40,7 +40,7 @@ class PageHeader extends BlockPattern
         }
 
         return [
-            'title' => __( static::$title, 'planet4-blocks-backend' ), // phpcs:ignore
+            'title' => __( static::$title, 'planet4-master-theme-backend' ), // phpcs:ignore
             'categories' => [ 'page-headers' ],
             'content' => '
 				<!-- wp:planet4-block-templates/page-header ' . wp_json_encode($params, \JSON_FORCE_OBJECT) . ' /-->
