@@ -6,7 +6,6 @@ use P4\MasterTheme\Settings\Features;
 use P4\MasterTheme\Features\Planet4Blocks;
 use P4\MasterTheme\Patterns\BlockPattern;
 use P4\MasterTheme\View\View;
-use P4\MasterTheme\Blocks\BaseBlock;
 use RuntimeException;
 
 /**
@@ -217,11 +216,12 @@ final class Loader
         new Blocks\TakeActionBoxout();//NOSONAR
         new Blocks\Timeline();//NOSONAR
         new Blocks\SecondaryNavigation();//NOSONAR
-        Blocks\Register::registerFromAssets('TopicLink', [
-            'render_callback' => function ($attributes) {
-                return BaseBlock::render_frontend_from_blockname($attributes, 'planet4-blocks/topic-link');
-            },
-        ]);
+
+        // Register blocks from block.json files.
+        wp_register_block_types_from_metadata_collection(
+            get_template_directory() . '/assets/build/blocks/',
+            get_template_directory() . '/assets/build/blocks-manifest.php'
+        );
 
         $pattern_categories = [
             'page-headers' => 'Page Headers',
