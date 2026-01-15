@@ -40,6 +40,7 @@ class CarouselHeader extends BaseBlock
         register_block_type(
             self::get_full_block_name(),
             [
+                'api_version' => 3,
                 'render_callback' => [ $this, 'front_end_rendered_fallback' ],
                 'attributes' => [
                     'carousel_autoplay' => [

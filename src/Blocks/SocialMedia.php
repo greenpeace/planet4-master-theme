@@ -55,6 +55,7 @@ class SocialMedia extends BaseBlock
         register_block_type(
             self::get_full_block_name(),
             [
+                'api_version' => 3,
                 'editor_script' => 'planet4-blocks-theme-editor-script',
                 'render_callback' => static function ($attributes, $content) {
                     if ('' !== trim($content)) {
