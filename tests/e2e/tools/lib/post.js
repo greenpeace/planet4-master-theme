@@ -51,7 +51,11 @@ async function updatePost({page}) {
 async function publishPostAndVisit({page, editor}) {
   const urlString = await publishPost({page, editor});
 
-  await page.goto(urlString);
+  if (page.isClosed()) {
+    page = await page.context().newPage();
+  }
+
+  await page.goto(urlString, {waitUntil: 'load'});
 }
 
 /**
