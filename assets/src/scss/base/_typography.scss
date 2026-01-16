@@ -100,14 +100,12 @@ h6 {
   color: var(--white);
 }
 
-a --link-- {
-  &:focus {
-    @include focus-styles;
-  }
-}
+a:focus {
+  @include focus-styles;
 
-a:focus:not(:focus-visible) {
-  outline: 0;
+  &:not(:focus-visible) {
+    outline: 0;
+  }
 }
 
 mark {
