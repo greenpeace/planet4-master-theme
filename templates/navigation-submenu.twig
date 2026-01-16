@@ -1,4 +1,4 @@
-<nav class='nav-submenu'>
+<nav class='nav-submenu' aria-label="Sub menu {{ key }}">
     <ul>
     {% for key,item in menu.children %}
         <li class="nav-item {{ item.class }} {{ item == item.current ? 'active' : '' }}">
