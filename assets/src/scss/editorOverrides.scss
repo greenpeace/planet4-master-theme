@@ -106,14 +106,12 @@
   p {
     // Matches https://github.com/greenpeace/planet4-master-theme/blob/ab3ee3a5fd7975fcdb71f633d9ce8704003306e8/assets/src/scss/base/_typography.scss#L11-L19.
     // We need to redeclare with a different selector here, because a core script sets a higher specificity.
-    --text-- {
-      font-size: $font-size-sm;
-      line-height: 1.6rem;
+    font-size: var(--font-size-m--font-family-secondary);
+    line-height: var(--line-height-m--font-family-secondary);
 
-      @include x-large-and-up {
-        font-size: $font-size-md;
-        line-height: 1.75rem;
-      }
+    @include x-large-and-up {
+      font-size: var(--font-size-xl--font-family-secondary);
+      line-height: var(--line-height-xl--font-family-secondary);
     }
 
     > a {
@@ -183,9 +181,7 @@
 .edit-post-visual-editor .editor-block-list__block-edit,
 .edit-post-visual-editor,
 .editor-styles-wrapper {
-  --body-- {
-    font-family: "Noto Serif", serif;
-  }
+  font-family: var(--body--font-family);
 
   h1, h2, h3, h4, h5 {
     font-family: var(--font-family-heading);
