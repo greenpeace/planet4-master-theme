@@ -296,10 +296,6 @@
 
       @include large-and-up {
         grid-template-columns: repeat(4, minmax(0, 1fr));
-
-        li {
-          height: $posts-list-container-height;
-        }
       }
     }
   }
