@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2026-01-19 21:19+0000\n"
+"PO-Revision-Date: 2026-01-19 21:23+0000\n"
 "Last-Translator: Rickson Figueira\n"
 "Language-Team: Portuguese (Brazil)\n"
 "MIME-Version: 1.0\n"
@@ -414,31 +414,36 @@ msgstr ""
 #, php-format
 msgid "Filter results by category %s, %d results were found"
 msgstr ""
+"Resultados do filtro pela categoria %s, %d resultados foram encontrados"
 
 #: templates/search/categories.twig:14
 #, php-format
 msgid "Filter results by category %s, 1 result was found"
-msgstr ""
+msgstr "Resultados do filtro pela categoria %s, 1 resultado foi encontrados"
 
 #: templates/search/content_types.twig:16
 #, php-format
 msgid "Filter results by content type %s, %d results were found"
 msgstr ""
+"Resultados do filtro pelo tipo de conteúdo %s, %d resultados foram "
+"encontrados"
 
 #: templates/search/content_types.twig:14
 #, php-format
 msgid "Filter results by content type %s, 1 result was found"
 msgstr ""
+"Resultados do filtro pelo tipo de conteúdo %s, 1 resultado foi encontrado"
 
 #: templates/search/post_types.twig:16
 #, php-format
 msgid "Filter results by post type %s, %d results were found"
 msgstr ""
+"Resultados do filtro pelo tipo de post %s, %d resultados foram encontrados"
 
 #: templates/search/post_types.twig:14
 #, php-format
 msgid "Filter results by post type %s, 1 result was found"
-msgstr ""
+msgstr "Resultados do filtro pelo tipo de post %s, 1 resultado foi encontrado"
 
 #: templates/search.twig:63
 msgid "Filters"
@@ -494,7 +499,7 @@ msgstr "Senha inválida, tente novamente"
 
 #: src/LoginHandler.php:133
 msgid "Invalid username or password"
-msgstr ""
+msgstr "Senha ou usuário inválido"
 
 #: templates/listing-page-filters.twig:38
 msgid "Keywords"
@@ -506,7 +511,7 @@ msgstr "Deixe um comentário"
 
 #: assets/src/js/listing_pages.js:57
 msgid "List View"
-msgstr ""
+msgstr "Visualização de lista"
 
 #: templates/tease-search.twig:159
 msgid "Manage"
@@ -530,7 +535,7 @@ msgstr "Mais relevantes"
 
 #: templates/comment_form/author_field.twig:4
 msgid "Name (required)"
-msgstr ""
+msgstr "Nome (obrigatório)"
 
 #: src/Search/SearchPage.php:66
 msgid "Newest"
@@ -663,7 +668,7 @@ msgstr "Pular para a navegação"
 
 #: templates/search.twig:56
 msgid "Skip to search results"
-msgstr ""
+msgstr "Pular para os resultados da busca"
 
 #: 404.php:21
 msgid "Sorry, we can't find that page!"
@@ -714,7 +719,7 @@ msgstr ""
 #: assets/src/js/external_links.js:28
 #, javascript-format
 msgid "This link will lead you to %1$s"
-msgstr ""
+msgstr "Este link vai te direcionar para %1$s"
 
 #: assets/src/js/pdf_icon.js:20
 msgid "This link will open a PDF file"
