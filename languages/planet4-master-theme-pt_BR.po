@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2025-12-15 06:43+0000\n"
+"PO-Revision-Date: 2026-01-19 21:19+0000\n"
 "Last-Translator: Rickson Figueira\n"
 "Language-Team: Portuguese (Brazil)\n"
 "MIME-Version: 1.0\n"
@@ -150,13 +150,13 @@ msgstr ""
 #: assets/src/block-templates/action/block.json:1
 msgctxt "block title"
 msgid "Action"
-msgstr ""
+msgstr "Ação"
 
 #: assets/build/block-templates/campaign/block.json:1
 #: assets/src/block-templates/campaign/block.json:1
 msgctxt "block title"
 msgid "Campaign"
-msgstr ""
+msgstr "Campanha"
 
 #: assets/build/block-templates/deep-dive/block.json:1
 #: assets/src/block-templates/deep-dive/block.json:1
@@ -174,7 +174,7 @@ msgstr ""
 #: assets/src/block-templates/get-informed/block.json:1
 msgctxt "block title"
 msgid "Get Informed"
-msgstr ""
+msgstr "Informe-se"
 
 #: assets/build/block-templates/high-level-topic/block.json:1
 #: assets/src/block-templates/high-level-topic/block.json:1
@@ -192,7 +192,7 @@ msgstr ""
 #: assets/src/block-templates/homepage/block.json:1
 msgctxt "block title"
 msgid "Homepage"
-msgstr ""
+msgstr "Página inicial"
 
 #: assets/build/block-templates/issues/block.json:1
 #: assets/src/block-templates/issues/block.json:1
@@ -365,7 +365,7 @@ msgstr "Tipo de conteúdo"
 
 #: templates/listing-page-filters.twig:4
 msgid "Content type"
-msgstr ""
+msgstr "Tipo do conteúdo"
 
 #: templates/comments_section.twig:9
 msgid "Discussion"
@@ -498,7 +498,7 @@ msgstr ""
 
 #: templates/listing-page-filters.twig:38
 msgid "Keywords"
-msgstr ""
+msgstr "Palavras-chave"
 
 #: single.php:137
 msgid "Leave your reply"
