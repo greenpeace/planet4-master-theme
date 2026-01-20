@@ -1139,7 +1139,7 @@ class GravityFormsExtensions
      * form settings in a new selectedExternalOptions field.
      * More info: https://developers.hubspot.com/changelog/changes-to-the-lifecycle-stage-in-forms
      *
-     * phpcs:disable SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint, SlevomatCodingStandard.TypeHints.ReturnTypeHint.MissingAnyTypeHint
+     * phpcs:disable SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint, SlevomatCodingStandard.TypeHints.ReturnTypeHint.MissingNativeTypeHint
      * @phpcs:disable SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter
      * @param array $hs_form hubspot form.
      * @param array $feed_meta     Feed settings.
@@ -1165,15 +1165,17 @@ class GravityFormsExtensions
                 continue;
             }
 
-            if (rgar($external_option, 'objectTypeId') === '0-1') {
+            $object_type_id = rgar($external_option, 'objectTypeId');
+
+            if ($object_type_id === '0-1') {
                 $lifecyclestage_id = rgar($external_option, 'id');
+            } elseif ($object_type_id === '0-2') {
+                $has_deal_lifecycle = true;
             }
 
-            if (rgar($external_option, 'objectTypeId') !== '0-2') {
-                continue;
+            if ($lifecyclestage_id && $has_deal_lifecycle) {
+                break;
             }
-
-            $has_deal_lifecycle = true;
         }
 
         if ($lifecyclestage_id && !$has_deal_lifecycle) {
@@ -1186,5 +1188,5 @@ class GravityFormsExtensions
         }
         return $hs_form;
     }
-    // @phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter, SlevomatCodingStandard.TypeHints.ReturnTypeHint.MissingAnyTypeHint
+    // @phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter, SlevomatCodingStandard.TypeHints.ReturnTypeHint.MissingNativeTypeHint
 }
