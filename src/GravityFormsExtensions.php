@@ -119,7 +119,7 @@ class GravityFormsExtensions
         add_filter('gform_confirmation', [ $this, 'p4_gf_custom_confirmation_redirect' ], 11, 3);
         add_filter('gform_pre_render', [ $this, 'p4_client_side_gravityforms_prefill' ], 10, 1);
         add_filter('gform_form_post_get_meta', [$this, 'p4_gf_enable_default_meta_settings'], 10, 1);
-        add_filter('gform_hubspot_form_object_pre_save_feed', [$this, 'p4_gf_hb_form_object_pre_save_feed'], 10, 1);
+        add_filter('gform_hubspot_form_object_pre_save_feed', [$this, 'p4_gf_hb_form_object_pre_save_feed'], 10, 4);
         add_action('gform_after_submission', [$this, 'p4_send_gp_pixel_counter'], 10, 2);
         add_action('gform_stripe_fulfillment', [ $this, 'record_fulfillment_entry' ], 10, 2);
         add_action('gform_post_payment_action', [ $this, 'check_stripe_payment_status' ], 10, 2);
@@ -1132,48 +1132,61 @@ class GravityFormsExtensions
         return $meta;
     }
 
-    /**
+     /**
      * Changes to the lifecycle stage in forms
      * Changing how the lifecycle stage for CRM records is handled in forms.
      * Instead of being a form field, the lifecycle stage will be included in the
      * form settings in a new selectedExternalOptions field.
      * More info: https://developers.hubspot.com/changelog/changes-to-the-lifecycle-stage-in-forms
      *
-     * phpcs:disable SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingAnyTypeHint
-     * @param mixed $hs_form hubspot form.
-     *
-     * @return mixed $hs_form hubspot form.
+     * phpcs:disable SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint, SlevomatCodingStandard.TypeHints.ReturnTypeHint.MissingNativeTypeHint
+     * @phpcs:disable SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter
+     * @param array $hs_form hubspot form.
+     * @param array $feed_meta     Feed settings.
+     * @param array $form          Gravity Form object.
+     * @param array $existing_form Existing HubSpot form (if updating).
+     * @return array $hs_form hubspot form.
     */
-    public function p4_gf_hb_form_object_pre_save_feed($hs_form)
+    public function p4_gf_hb_form_object_pre_save_feed($hs_form, $feed_meta, $form, $existing_form)
     {
-        if (! empty($hs_form['selectedExternalOptions'])) {
-            $lifecyclestage_id = '';
-            foreach ($hs_form['selectedExternalOptions'] as $key => $external_option) {
-                if (rgar($external_option, 'propertyName') !== 'lifecyclestage') {
-                    continue;
-                }
+        if (empty($hs_form['selectedExternalOptions']) && !empty($existing_form['selectedExternalOptions'])) {
+            $hs_form['selectedExternalOptions'] = $existing_form['selectedExternalOptions'];
+        }
 
-                if (rgar($external_option, 'objectTypeId') === '0-1') {
-                    $lifecyclestage_id = rgar($external_option, 'id');
-                    continue;
-                }
+        if (empty($hs_form['selectedExternalOptions'])) {
+            return $hs_form;
+        }
 
-                if (rgar($external_option, 'objectTypeId') === '0-2') {
-                    $lifecyclestage_id = '';
-                    break;
-                }
+        $lifecyclestage_id = '';
+        $has_deal_lifecycle = false;
+
+        foreach ($hs_form['selectedExternalOptions'] as $external_option) {
+            if (rgar($external_option, 'propertyName') !== 'lifecyclestage') {
+                continue;
             }
 
-            if (! empty($lifecyclestage_id)) {
-                $hs_form['selectedExternalOptions'][] = array(
-                    'referenceType' => 'PIPELINE_STAGE',
-                    'objectTypeId' => '0-2',
-                    'propertyName' => 'lifecyclestage',
-                    'id' => $lifecyclestage_id,
-                );
+            $object_type_id = rgar($external_option, 'objectTypeId');
+
+            if ($object_type_id === '0-1') {
+                $lifecyclestage_id = rgar($external_option, 'id');
+            } elseif ($object_type_id === '0-2') {
+                $has_deal_lifecycle = true;
+            }
+
+            if ($lifecyclestage_id && $has_deal_lifecycle) {
+                break;
             }
         }
 
+        if ($lifecyclestage_id && !$has_deal_lifecycle) {
+            $hs_form['selectedExternalOptions'][] = array(
+                'referenceType' => 'PIPELINE_STAGE',
+                'objectTypeId' => '0-2',
+                'propertyName' => 'lifecyclestage',
+                'id' => $lifecyclestage_id,
+            );
+        }
         return $hs_form;
     }
+    // @phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter, SlevomatCodingStandard.TypeHints.ReturnTypeHint.MissingNativeTypeHint
 }
