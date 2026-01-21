@@ -16,7 +16,7 @@ const category = ['core/column', {}, [
       level: 5,
       style: {typography: {fontSize: '1rem'}},
       textAlign: 'center',
-      placeholder: __('Category', 'planet4-blocks-backend'),
+      placeholder: __('Category', 'planet4-master-theme-backend'),
     }],
   ]],
 ]];
@@ -32,7 +32,7 @@ const template = ({
   }, [
     ['core/group', {className: 'container'}, [
       ['core/spacer', {height: '24px'}],
-      ['core/heading', {level: 4, placeholder: __('Enter title', 'planet4-blocks-backend'), content: title}],
+      ['core/heading', {level: 4, placeholder: __('Enter title', 'planet4-master-theme-backend'), content: title}],
       ['core/columns', {
         isStackedOnMobile: false,
         className: 'is-style-mobile-carousel quick-links',

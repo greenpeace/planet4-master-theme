@@ -260,7 +260,7 @@ class BlockUsage
         return [
             'post_id' => $post->ID,
             'post_title' => $post->post_title
-                ? $post->post_title : __('(no title)', 'planet4-blocks-backend'),
+                ? $post->post_title : __('(no title)', 'planet4-master-theme-backend'),
             'post_status' => $post->post_status,
             'post_type' => $post->post_type,
             'post_date' => $post->post_date,

@@ -4,7 +4,7 @@
   "name": "planet4-block-templates/side-image-with-text-and-cta",
   "title": "Side image with text and CTA",
   "category": "planet4-block-templates",
-  "textdomain": "planet4-blocks-backend",
+  "textdomain": "planet4-master-theme-backend",
   "attributes": {
     "title": { "type": "string" },
     "backgroundColor": { "type": "string" },

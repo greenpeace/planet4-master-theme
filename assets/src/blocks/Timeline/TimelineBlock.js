@@ -49,7 +49,7 @@ export const registerTimelineBlock = () => {
 
   registerBlockType(BLOCK_NAME, {
     title: 'Timeline',
-    description: __('A type of graphic that arranges a chain of events, activities, and milestones in chronological order.', 'planet4-blocks-backend'),
+    description: __('A type of graphic that arranges a chain of events, activities, and milestones in chronological order.', 'planet4-master-theme-backend'),
     icon: 'clock',
     category: 'planet4-blocks',
     supports: {

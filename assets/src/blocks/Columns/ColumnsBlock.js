@@ -17,7 +17,7 @@ export const registerColumnsBlock = () => {
 
   registerBlockType(BLOCK_NAME, {
     title: 'Planet 4 Columns',
-    description: __('The columns block comes in four styles and groups static content in an aligned, responsive and styled column.', 'planet4-blocks-backend'),
+    description: __('The columns block comes in four styles and groups static content in an aligned, responsive and styled column.', 'planet4-master-theme-backend'),
     icon: 'grid-view',
     category: 'planet4-blocks',
     attributes: {
@@ -71,7 +71,7 @@ export const registerColumnsBlock = () => {
         name: LAYOUT_NO_IMAGE,
         label: getStyleLabel(
           'No Image',
-          __('Optional headers, description text and buttons in a column display.', 'planet4-blocks-backend')
+          __('Optional headers, description text and buttons in a column display.', 'planet4-master-theme-backend')
         ),
         isDefault: true,
       },
@@ -81,7 +81,7 @@ export const registerColumnsBlock = () => {
           'Tasks',
           __(
             'Used on Take Action pages, this display has ordered tasks, and call to action buttons.',
-            'planet4-blocks-backend'
+            'planet4-master-theme-backend'
           )
         ),
       },
@@ -91,7 +91,7 @@ export const registerColumnsBlock = () => {
           'Icons',
           __(
             'For more static content, this display has an icon, header, description and text link.',
-            'planet4-blocks-backend'
+            'planet4-master-theme-backend'
           )
         ),
       },
@@ -101,7 +101,7 @@ export const registerColumnsBlock = () => {
           'Images',
           __(
             'For more static content, this display has an image, header, description and text link.',
-            'planet4-blocks-backend'
+            'planet4-master-theme-backend'
           )
         ),
       },

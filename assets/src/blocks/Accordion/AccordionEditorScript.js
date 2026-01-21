@@ -38,7 +38,7 @@ const styles = [
 
 registerBlockType(BLOCK_NAME, {
   title: 'Accordion',
-  description: __('Offers collapsible sections with a title, a description, a link or a call to action button.', 'planet4-blocks-backend'),
+  description: __('Offers collapsible sections with a title, a description, a link or a call to action button.', 'planet4-master-theme-backend'),
   icon: 'menu',
   category: 'planet4-blocks',
   keywords: [

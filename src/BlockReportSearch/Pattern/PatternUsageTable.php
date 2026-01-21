@@ -168,7 +168,7 @@ class PatternUsageTable extends WP_List_Table
 
         echo '<select name="name" id="filter-by-name">';
         echo '<option value="">'
-            . esc_html(__('- All patterns -', 'planet4-blocks-backend'))
+            . esc_html(__('- All patterns -', 'planet4-master-theme-backend'))
             . '</option>';
         foreach ($this->pattern_names as $name) {
             echo sprintf(
@@ -192,7 +192,7 @@ class PatternUsageTable extends WP_List_Table
         echo '<div class="actions">';
         $this->patternname_dropdown();
         submit_button(
-            __('Filter', 'planet4-blocks-backend'),
+            __('Filter', 'planet4-master-theme-backend'),
             '',
             'filter_action',
             false,
@@ -286,17 +286,17 @@ class PatternUsageTable extends WP_List_Table
             'pattern_name' => sprintf(
                 'pattern_name' === $this->group_by ? $active_link_tpl : $link_tpl,
                 add_query_arg('group', 'pattern_name'),
-                __('Group by pattern name', 'planet4-blocks-backend')
+                __('Group by pattern name', 'planet4-master-theme-backend')
             ),
             'post_title' => sprintf(
                 'post_title' === $this->group_by ? $active_link_tpl : $link_tpl,
                 add_query_arg('group', 'post_title'),
-                __('Group by post title', 'planet4-blocks-backend')
+                __('Group by post title', 'planet4-master-theme-backend')
             ),
             'post_id' => sprintf(
                 'post_id' === $this->group_by ? $active_link_tpl : $link_tpl,
                 add_query_arg('group', 'post_id'),
-                __('Group by post ID', 'planet4-blocks-backend')
+                __('Group by post ID', 'planet4-master-theme-backend')
             ),
         ];
     }

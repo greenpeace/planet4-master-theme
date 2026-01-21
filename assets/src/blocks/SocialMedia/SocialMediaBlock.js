@@ -17,7 +17,7 @@ export const registerSocialMediaBlock = () => {
 
   registerBlockType(BLOCK_NAME, {
     title: 'Meta',
-    description: __('An embed-style block, customized to display and align content from Facebook and Instagram by inputting the URL.', 'planet4-blocks-backend'),
+    description: __('An embed-style block, customized to display and align content from Facebook and Instagram by inputting the URL.', 'planet4-master-theme-backend'),
     icon: 'share',
     category: 'planet4-blocks',
     attributes: {

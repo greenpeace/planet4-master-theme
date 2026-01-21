@@ -31,21 +31,21 @@ export const ActionSidebar = {
         {(isTaskTypeEnabled || isDeadlineEnabled) && (
           <PluginDocumentSettingPanel
             name="action-options-panel"
-            title={__('Action Options', 'planet4-blocks-backend')}>
+            title={__('Action Options', 'planet4-master-theme-backend')}>
             {isTaskTypeEnabled && (
               <SelectSidebarField
-                label={__('Task Type', 'planet4-blocks-backend')}
+                label={__('Task Type', 'planet4-master-theme-backend')}
                 options={[
-                  {label: __('- Select Task Type -', 'planet4-blocks-backend'), value: 'not set'},
-                  {label: __('Do it Online', 'planet4-blocks'), value: 'online'},
-                  {label: __('Do it Offline', 'planet4-blocks'), value: 'irl'},
+                  {label: __('- Select Task Type -', 'planet4-master-theme-backend'), value: 'not set'},
+                  {label: __('Do it Online', 'planet4-master-theme'), value: 'online'},
+                  {label: __('Do it Offline', 'planet4-master-theme'), value: 'irl'},
                 ]}
                 {...getParams(TASK_TYPE)}
               />)}
             {isDeadlineEnabled && (
               <DatePickerSidebarField
                 id={DEADLINE}
-                label={__('Deadline Date', 'planet4-blocks-backend')}
+                label={__('Deadline Date', 'planet4-master-theme-backend')}
                 forceEndDate={true}
                 {...getParams(DEADLINE)}
               />
@@ -54,26 +54,26 @@ export const ActionSidebar = {
         )}
         <PluginDocumentSettingPanel
           name="page-header-panel"
-          title={__('Page header', 'planet4-blocks-backend')}
+          title={__('Page header', 'planet4-master-theme-backend')}
         >
-          <CheckboxSidebarField label={__('Hide page title', 'planet4-blocks-backend')} {...getParams(HIDE_PAGE_TITLE)} />
+          <CheckboxSidebarField label={__('Hide page title', 'planet4-master-theme-backend')} {...getParams(HIDE_PAGE_TITLE)} />
         </PluginDocumentSettingPanel>
         <PluginDocumentSettingPanel
           name="button-text-panel"
-          title={__('Action Lists block button text', 'planet4-blocks-backend')}
+          title={__('Action Lists block button text', 'planet4-master-theme-backend')}
         >
           <TextSidebarField
-            label={__('Set the text for the Actions List Block\'s Button (e.g., \'Sign Up\')', 'planet4-blocks-backend')}
+            label={__('Set the text for the Actions List Block\'s Button (e.g., \'Sign Up\')', 'planet4-master-theme-backend')}
             {...getParams(BUTTON_TEXT)}
           />
           <TextSidebarField
-            label={__('Add descriptive text for screen readers (e.g., \'Sign Up to Stop Meat and Dairy\').', 'planet4-blocks-backend')}
+            label={__('Add descriptive text for screen readers (e.g., \'Sign Up to Stop Meat and Dairy\').', 'planet4-master-theme-backend')}
             {...getParams(BUTTON_ACCESSIBILITY_TEXT)}
           />
         </PluginDocumentSettingPanel>
         <PluginDocumentSettingPanel
           name="navigation-panel"
-          title={__('Navigation', 'planet4-blocks-backend')}
+          title={__('Navigation', 'planet4-master-theme-backend')}
           className="navigation-panel"
         >
           <NavigationType {...getParams(FIELD_NAVTYPE)} />

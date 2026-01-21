@@ -148,11 +148,11 @@ export const Sidebar = ({
   }, [dragTarget, draggedSlide]);
 
   return useMemo(() => <InspectorControls>
-    <PanelBody title={__('Settings', 'planet4-blocks-backend')}>
+    <PanelBody title={__('Settings', 'planet4-master-theme-backend')}>
       <CheckboxControl
         __nextHasNoMarginBottom
-        label={__('Carousel Autoplay', 'planet4-blocks-backend')}
-        help={__('Select to trigger images autoslide', 'planet4-blocks-backend')}
+        label={__('Carousel Autoplay', 'planet4-master-theme-backend')}
+        help={__('Select to trigger images autoslide', 'planet4-master-theme-backend')}
         value={carouselAutoplay}
         checked={carouselAutoplay === true}
         onChange={value => setAttributes({carousel_autoplay: value})}
@@ -172,7 +172,7 @@ export const Sidebar = ({
         upOrDownHandler={upOrDownHandler}
       />) }
     </div>
-    <PanelBody title={__('Learn more about this block ', 'planet4-blocks-backend')} initialOpen={false}>
+    <PanelBody title={__('Learn more about this block ', 'planet4-master-theme-backend')} initialOpen={false}>
       <p className="components-base-control__help">
         <a target="_blank" href="https://planet4.greenpeace.org/content/blocks/carousel-header/" rel="noreferrer">
           P4 Handbook Carousel Header

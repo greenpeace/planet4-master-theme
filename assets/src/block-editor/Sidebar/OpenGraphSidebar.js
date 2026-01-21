@@ -23,11 +23,11 @@ export const OpenGraphSidebar = {
     return (
       <PluginDocumentSettingPanel
         name="open-graph-panel"
-        title={__('Open Graph/Social Fields', 'planet4-blocks-backend')}
+        title={__('Open Graph/Social Fields', 'planet4-master-theme-backend')}
       >
-        <TextSidebarField label={__('Title', 'planet4-blocks-backend')} {...getParams(OG_TITLE)} />
-        <TextareaSidebarField label={__('Description', 'planet4-blocks-backend')} {...getParams(OG_DESCRIPTION)} />
-        <ImageSidebarField label={__('Image override', 'planet4-blocks-backend')} {...getImageParams(OG_IMAGE_ID, OG_IMAGE_URL)} />
+        <TextSidebarField label={__('Title', 'planet4-master-theme-backend')} {...getParams(OG_TITLE)} />
+        <TextareaSidebarField label={__('Description', 'planet4-master-theme-backend')} {...getParams(OG_DESCRIPTION)} />
+        <ImageSidebarField label={__('Image override', 'planet4-master-theme-backend')} {...getImageParams(OG_IMAGE_ID, OG_IMAGE_URL)} />
       </PluginDocumentSettingPanel>
     );
   },

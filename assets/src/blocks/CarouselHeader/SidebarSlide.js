@@ -82,7 +82,7 @@ export const SidebarSlide = ({
             srcSet={image_srcset}
             alt={image_alt}
           />
-          <span className="slide-item-text">{ header || <i>{__('No title', 'planet4-blocks-backend')}</i> }</span>
+          <span className="slide-item-text">{ header || <i>{__('No title', 'planet4-master-theme-backend')}</i> }</span>
           <div className="arrow-button" data-type="toggle" />
         </div>}
       >
@@ -92,7 +92,7 @@ export const SidebarSlide = ({
               <div className="row">
                 <div className="col">
                   <URLInput
-                    label={__('Url for link', 'planet4-blocks-backend')}
+                    label={__('Url for link', 'planet4-master-theme-backend')}
                     value={link_url}
                     onChange={changeSlideAttribute('link_url', index)}
                   />
@@ -102,7 +102,7 @@ export const SidebarSlide = ({
                 <div className="col">
                   <CheckboxControl
                     __nextHasNoMarginBottom
-                    label={__('Open in a new tab', 'planet4-blocks-backend')}
+                    label={__('Open in a new tab', 'planet4-master-theme-backend')}
                     value={link_url_new_tab}
                     checked={link_url_new_tab}
                     onChange={changeSlideAttribute('link_url_new_tab', index)}
@@ -114,7 +114,7 @@ export const SidebarSlide = ({
                   <div className="col">
                     <FocalPointPicker
                       __nextHasNoMarginBottom
-                      label={__('Image focal point', 'planet4-blocks-backend')}
+                      label={__('Image focal point', 'planet4-master-theme-backend')}
                       url={image_url}
                       dimensions={{width: 300, height: 100}}
                       value={focal_points?.x && focal_points?.y ? focal_points : {x: .5, y: .5}}

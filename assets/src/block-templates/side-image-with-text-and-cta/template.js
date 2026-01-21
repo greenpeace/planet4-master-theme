@@ -16,8 +16,8 @@ const template = ({
     backgroundColor,
     alignFull,
   }, [
-    ['core/heading', {level: 2, placeholder: __('Enter title', 'planet4-blocks-backend'), content: title}],
-    ['core/paragraph', {placeholder: __('Enter description', 'planet4-blocks-backend')}],
+    ['core/heading', {level: 2, placeholder: __('Enter title', 'planet4-master-theme-backend'), content: title}],
+    ['core/paragraph', {placeholder: __('Enter description', 'planet4-master-theme-backend')}],
     ['core/buttons', {}, [
       ['core/button'],
     ]],

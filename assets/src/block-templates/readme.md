@@ -42,7 +42,7 @@ _my-template/block.json_
   "title": "My template",
   "description": "My template",
   "category": "planet4",
-  "textdomain": "planet4-blocks-backend"
+  "textdomain": "planet4-master-theme-backend"
 }
 ```
 
@@ -106,7 +106,7 @@ _my-template/block.json_
   "title": "My template",
   "description": "My template",
   "category": "planet4",
-  "textdomain": "planet4-blocks-backend",
+  "textdomain": "planet4-master-theme-backend",
   "attributes": {
     "title": { "type": "string" },
     "buttonText": { "type": "string" }
@@ -133,7 +133,7 @@ class MyTemplate extends Block_Pattern {
 
     public static function get_config( $params = [] ): array {
         return [
-            'title'      => __( 'My template', 'planet4-blocks-backend' ),
+            'title'      => __( 'My template', 'planet4-master-theme-backend' ),
             'categories' => [ 'planet4' ],
             'content'    => '<!-- wp:planet4-block-templates/my-template '
                 . wp_json_encode( $params, \JSON_FORCE_OBJECT )

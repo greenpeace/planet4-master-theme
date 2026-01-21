@@ -19,7 +19,7 @@ const {
 const {__} = wp.i18n;
 
 // Planet 4 settings (Planet 4 >> Defaults content >> Actions default button text).
-const DEFAULT_BUTTON_TEXT = window.p4_vars.options.take_action_covers_button_text || __('Take action', 'planet4-blocks');
+const DEFAULT_BUTTON_TEXT = window.p4_vars.options.take_action_covers_button_text || __('Take action', 'planet4-master-theme');
 
 export const TakeActionBoxoutEditor = ({
   attributes,
@@ -111,7 +111,7 @@ export const TakeActionBoxoutEditor = ({
   const takeActionPageSelected = take_action_page && parseInt(take_action_page) > 0;
 
   if (loading || !actPageList.length) {
-    return __('Populating block\'s fields…', 'planet4-blocks-backend');
+    return __('Populating block\'s fields…', 'planet4-master-theme-backend');
   }
 
   const toAttribute = attributeName => value => setAttributes({
@@ -152,7 +152,7 @@ export const TakeActionBoxoutEditor = ({
         <RichText
           tagName="div"
           className={`boxout-heading ${headingFontSize}`}
-          placeholder={__('Enter title', 'planet4-blocks-backend')}
+          placeholder={__('Enter title', 'planet4-master-theme-backend')}
           value={title}
           onChange={toAttribute('title')}
           disabled={true}
@@ -162,7 +162,7 @@ export const TakeActionBoxoutEditor = ({
         <RichText
           tagName="p"
           className="boxout-excerpt"
-          placeholder={__('Enter description', 'planet4-blocks-backend')}
+          placeholder={__('Enter description', 'planet4-master-theme-backend')}
           value={excerpt}
           onChange={toAttribute('excerpt')}
           disabled={takeActionPageSelected}
@@ -172,7 +172,7 @@ export const TakeActionBoxoutEditor = ({
         <RichText
           tagName="div"
           className="btn btn-primary"
-          placeholder={__('Button text', 'planet4-blocks-backend')}
+          placeholder={__('Button text', 'planet4-master-theme-backend')}
           value={linkText}
           onChange={toAttribute('linkText')}
           disabled={takeActionPageSelected}
@@ -186,27 +186,27 @@ export const TakeActionBoxoutEditor = ({
   const renderSidebar = () => (
     <>
       <InspectorControls>
-        <PanelBody title={__('Styles', 'planet4-blocks-backend')}>
+        <PanelBody title={__('Styles', 'planet4-master-theme-backend')}>
           <div className="sticky-boxout-checkbox">
             <ToggleControl
               __nextHasNoMarginBottom
-              label={__('Make block stick to the bottom of the page on mobile', 'planet4-blocks-backend')}
+              label={__('Make block stick to the bottom of the page on mobile', 'planet4-master-theme-backend')}
               value={stickyOnMobile}
               checked={stickyOnMobile}
               onChange={toAttribute('stickyOnMobile')}
               disabled={!stickyOnMobile && postHasStickyBoxoutAlready}
-              help={!stickyOnMobile && postHasStickyBoxoutAlready ? __('You can only have one sticky boxout per post', 'planet4-blocks-backend') : ''}
+              help={!stickyOnMobile && postHasStickyBoxoutAlready ? __('You can only have one sticky boxout per post', 'planet4-master-theme-backend') : ''}
             />
           </div>
         </PanelBody>
-        <PanelBody title={__('Settings', 'planet4-blocks-backend')}>
+        <PanelBody title={__('Settings', 'planet4-master-theme-backend')}>
           <SelectControl
             __nextHasNoMarginBottom
             __next40pxDefaultSize
-            label={__('Select Take Action Page:', 'planet4-blocks-backend')}
+            label={__('Select Take Action Page:', 'planet4-master-theme-backend')}
             value={take_action_page}
             options={[
-              {label: __('None (custom)', 'planet4-blocks-backend'), value: 0},
+              {label: __('None (custom)', 'planet4-master-theme-backend'), value: 0},
               ...actPageOptions,
             ]}
             onChange={page => setAttributes({take_action_page: parseInt(page)})}
@@ -219,8 +219,8 @@ export const TakeActionBoxoutEditor = ({
             disableCustomFontSizes
           />
           {!takeActionPageSelected && <URLInput
-            label={__('Custom link', 'planet4-blocks-backend')}
-            placeholder={__('Enter custom link', 'planet4-blocks-backend')}
+            label={__('Custom link', 'planet4-master-theme-backend')}
+            placeholder={__('Enter custom link', 'planet4-master-theme-backend')}
             value={link}
             onChange={value => {
               if (!take_action_page) {
@@ -231,7 +231,7 @@ export const TakeActionBoxoutEditor = ({
           {!takeActionPageSelected &&
             <CheckboxControl
               __nextHasNoMarginBottom
-              label={__('Open in a new tab', 'planet4-blocks-backend')}
+              label={__('Open in a new tab', 'planet4-master-theme-backend')}
               value={newTab}
               checked={newTab}
               onChange={toAttribute('newTab')}
@@ -241,7 +241,7 @@ export const TakeActionBoxoutEditor = ({
           {!takeActionPageSelected &&
             <MediaUploadCheck>
               <MediaUpload
-                title={__('Select Background Image', 'planet4-blocks-backend')}
+                title={__('Select Background Image', 'planet4-master-theme-backend')}
                 type="image"
                 onSelect={selectImage}
                 value={imageId}
@@ -252,14 +252,14 @@ export const TakeActionBoxoutEditor = ({
                     className="button"
                     disabled={takeActionPageSelected}
                   >
-                    + { imageId ? __('Change Background Image', 'planet4-blocks-backend') : __('Select Background Image', 'planet4-blocks-backend') }
+                    + { imageId ? __('Change Background Image', 'planet4-master-theme-backend') : __('Select Background Image', 'planet4-master-theme-backend') }
                   </Button>
                 )}
               />
             </MediaUploadCheck>
           }
         </PanelBody>
-        <PanelBody title={__('Learn more about this block', 'planet4-blocks-backend')} initialOpen={false}>
+        <PanelBody title={__('Learn more about this block', 'planet4-master-theme-backend')} initialOpen={false}>
           <p className="components-base-control__help">
             <a target="_blank" href="https://planet4.greenpeace.org/content/blocks/take-action-boxout/" rel="noreferrer">
             P4 Handbook Take Action Boxout
@@ -280,7 +280,7 @@ export const TakeActionBoxoutEditor = ({
                 render={({open}) => (
                   <ToolbarButton
                     className="components-icon-button components-toolbar__control"
-                    label={__('Edit Image', 'planet4-blocks-backend')}
+                    label={__('Edit Image', 'planet4-master-theme-backend')}
                     onClick={open}
                     icon="edit"
                   />
@@ -289,7 +289,7 @@ export const TakeActionBoxoutEditor = ({
             </MediaUploadCheck>
             <ToolbarButton
               className="components-icon-button components-toolbar__control"
-              label={__('Remove Image', 'planet4-blocks-backend')}
+              label={__('Remove Image', 'planet4-master-theme-backend')}
               onClick={removeImage}
               icon="trash"
             />

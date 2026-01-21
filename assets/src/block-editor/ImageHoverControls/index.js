@@ -16,7 +16,7 @@ export const ImageHoverControls = props => {
       isPrimary
       className="edit-image"
     >
-      { __('Add image', 'planet4-blocks-backend') }
+      { __('Add image', 'planet4-master-theme-backend') }
     </Button> }
 
     { !isAdd && <Button
@@ -25,7 +25,7 @@ export const ImageHoverControls = props => {
       isPrimary
       className="edit-image"
     >
-      { !isCompact && __('Edit', 'planet4-blocks-backend') }
+      { !isCompact && __('Edit', 'planet4-master-theme-backend') }
     </Button> }
     { !isAdd && <Button
       className="remove-image"

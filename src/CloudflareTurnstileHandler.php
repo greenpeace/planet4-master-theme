@@ -73,7 +73,7 @@ class CloudflareTurnstileHandler
     public function validate_token(array $commentdata): mixed
     {
         if (empty($_POST['cf-turnstile-response'])) {
-            wp_die(__('Error: Please complete the captcha.', 'planet4-blocks'));
+            wp_die(__('Error: Please complete the captcha.', 'planet4-master-theme'));
         }
 
         $secret_key = TURNSTILE_SECRET_KEY;
@@ -97,7 +97,7 @@ class CloudflareTurnstileHandler
             \Sentry\captureMessage($msg);
         }
 
-        wp_die(__('Error: Captcha verification failed. Please try again.', 'planet4-blocks'));
+        wp_die(__('Error: Captcha verification failed. Please try again.', 'planet4-master-theme'));
         return false;
     }
 

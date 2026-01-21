@@ -43,7 +43,7 @@ export const registerCounterBlock = () => {
 
   registerBlockType(BLOCK_NAME, {
     title: 'Counter',
-    description: __('Display real time signatures being collected worldwide on petitions.', 'planet4-blocks-backend'),
+    description: __('Display real time signatures being collected worldwide on petitions.', 'planet4-master-theme-backend'),
     icon: 'dashboard',
     category: 'planet4-blocks',
     attributes,

@@ -341,7 +341,7 @@ export function TermSelector({slug}) {
           { newTermButtonLabel }
         </Button>
       ) }
-      {!isUserAdmin && slug === 'post_tag' && <p>{__('New tags can only be created by an administrator', 'planet4-blocks-backend')}</p>}
+      {!isUserAdmin && slug === 'post_tag' && <p>{__('New tags can only be created by an administrator', 'planet4-master-theme-backend')}</p>}
       { showForm && (
         <form onSubmit={onAddTerm}>
           <TextControl

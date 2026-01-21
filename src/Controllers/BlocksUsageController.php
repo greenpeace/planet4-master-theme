@@ -132,8 +132,8 @@ class BlocksUsageController extends Controller
 
         add_submenu_page(
             BlocksReportController::P4BKS_REPORTS_SLUG_NAME,
-            __('Report', 'planet4-blocks-backend'),
-            __('Report', 'planet4-blocks-backend'),
+            __('Report', 'planet4-master-theme-backend'),
+            __('Report', 'planet4-master-theme-backend'),
             'edit_posts',
             'plugin_blocks_report',
             [ $this, 'plugin_blocks_report' ]
@@ -141,8 +141,8 @@ class BlocksUsageController extends Controller
 
         add_submenu_page(
             BlocksReportController::P4BKS_REPORTS_SLUG_NAME,
-            __('Pattern Report', 'planet4-blocks-backend'),
-            __('Pattern Report', 'planet4-blocks-backend'),
+            __('Pattern Report', 'planet4-master-theme-backend'),
+            __('Pattern Report', 'planet4-master-theme-backend'),
             'edit_posts',
             'plugin_patterns_report',
             [ $this, 'plugin_patterns_report' ]
