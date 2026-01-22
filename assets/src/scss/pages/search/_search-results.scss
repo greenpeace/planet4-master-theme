@@ -152,30 +152,6 @@
   }
 }
 
-.search-result-item-headline {
-  font-size: 1.125rem;
-  color: var(--color-text-body);
-  text-decoration: none;
-  font-weight: 500;
-  display: block;
-  line-height: normal;
-  margin-bottom: 10px;
-
-  @include small-and-up {
-    font-size: $font-size-lg;
-  }
-
-  @include large-and-up {
-    font-size: 1.625rem;
-  }
-
-  &:visited,
-  &:hover,
-  &:active {
-    color: inherit;
-  }
-}
-
 .search-result-item-info {
   color: var(--grey-800);
   line-height: normal;

@@ -22,22 +22,25 @@
     <div class="search-results-load row-hidden" style="display: none;">
 {% endif %}
         <li id="result-row-{{ post.ID }}" class="d-flex search-result-list-item">
-
             <a
                 class="d-flex search-result-item-image"
                 href="{{ post_link }}"
                 data-ga-category="Search Results"
                 data-ga-action="Image"
-                data-ga-label="{{ ga_page_type }}">
+                data-ga-label="{{ ga_page_type }}"
+                tabindex="-1"
+            >
+                {# No need for an alt text here since the image is decorative and not tab accessible #}
                 <img
                     src="{{ post.thumbnail ?: dummy_thumbnail }}"
                     loading="lazy"
-                    alt="{{ fn('esc_attr', post.thumbnail_alt|default( post.post_title ) )|raw }}" />
+                    alt=""
+                    role="presentation"
+                />
             </a>
-
         <div id="tease-{{ post.ID }}" class="search-result-item-body tease tease-{{ post.post_type }}">
             <div class="search-result-item-flex-title">
-                <div>
+                <div class="d-flex flex-column-reverse">
                     {% if ( is_archive or is_campaign ) %}
                         <div class="search-results-alternative-label search-results-alternative-label-mobile">
                             {% if ( is_campaign ) %}
@@ -48,11 +51,44 @@
                         </div>
                     {% endif %}
 
+                    <h4>
+                        {% if ( is_document ) %}
+                            {% set title = post.post_title|e('wp_kses_post') %}
+                            <a
+                                href="{{ post_link }}"
+                                class="search-result-item-headline"
+                                data-ga-category="Search Results"
+                                data-ga-action="Title"
+                                data-ga-label="{{ ga_page_type }}">
+                                    {{ title|raw|length > 30 ? ( title|striptags|slice(0, 30) ~ '...' )|raw  : title|raw }}
+                            </a>
+                        {% elseif ( is_archive ) %}
+                            <a
+                                href="{{ post_link }}"
+                                class="search-result-item-headline"
+                                target="_blank"
+                                data-ga-category="Search Results"
+                                data-ga-action="Title"
+                                data-ga-label="{{ ga_page_type }}">
+                                    {{ post.post_title|e('wp_kses_post')|raw }}
+                            </a>
+                        {% else %}
+                            <a
+                                href="{{ post_link }}"
+                                data-ga-category="Search Results"
+                                class="search-result-item-headline"
+                                data-ga-action="Title"
+                                data-ga-label="{{ ga_page_type }}">
+                                    {{ post.post_title|e('wp_kses_post')|raw }}
+                            </a>
+                        {% endif %}
+                    </h4>
+
                     {% if ( post.p4_page_types or post.tags ) %}
                     <div class="search-result-tags top-page-tags">
                         {% for page_type in post.p4_page_types %}
                             <a
-                                class="search-result-item-head no-btn tag-item tag-item--main page-type"
+                                class="no-btn tag-item tag-item--main page-type"
                                 href="{{ page_type.link }}"
                                 data-ga-category="Search Results"
                                 data-ga-action="Post Type Tag"
@@ -80,37 +116,6 @@
                             </div>
                         {% endif %}
                     </div>
-                    {% endif %}
-
-                    {% if ( is_document ) %}
-                        {% set title = post.post_title|e('wp_kses_post') %}
-                        <a
-                            href="{{ post_link }}"
-                            class="search-result-item-headline"
-                            data-ga-category="Search Results"
-                            data-ga-action="Title"
-                            data-ga-label="{{ ga_page_type }}">
-                                {{ title|raw|length > 30 ? ( title|striptags|slice(0, 30) ~ '...' )|raw  : title|raw }}
-                        </a>
-                    {% elseif ( is_archive ) %}
-                        <a
-                            href="{{ post_link }}"
-                            target="_blank"
-                            class="search-result-item-headline archive"
-                            data-ga-category="Search Results"
-                            data-ga-action="Title"
-                            data-ga-label="{{ ga_page_type }}">
-                                {{ post.post_title|e('wp_kses_post')|raw }}
-                        </a>
-                    {% else %}
-                        <a
-                            href="{{ post_link }}"
-                            class="search-result-item-headline"
-                            data-ga-category="Search Results"
-                            data-ga-action="Title"
-                            data-ga-label="{{ ga_page_type }}">
-                                {{ post.post_title|e('wp_kses_post')|raw }}
-                        </a>
                     {% endif %}
                 </div>
                 <div>
