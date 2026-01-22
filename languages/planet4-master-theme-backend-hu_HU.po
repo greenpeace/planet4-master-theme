@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Planet4 Master Theme backend\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-06-08 09:59+0000\n"
-"PO-Revision-Date: 2025-12-15 09:04+0000\n"
+"PO-Revision-Date: 2025-12-17 07:12+0000\n"
 "Last-Translator: bdobos <bdobos@greenpeace.org>\n"
 "Language-Team: Hungarian\n"
 "Language: hu_HU\n"
@@ -26,6 +26,14 @@ msgstr ""
 msgid "%s (The year of the post, four digits, for example 2004.)"
 msgstr ""
 
+#: src/BlockReportSearch/Block/BlockUsage.php:263
+msgid "(no title)"
+msgstr ""
+
+#: src/BlockReportSearch/Pattern/PatternUsageTable.php:171
+msgid "- All patterns -"
+msgstr ""
+
 #: src/AnalyticsValues.php:353
 msgid "- Select Basket -"
 msgstr ""
@@ -36,6 +44,10 @@ msgstr ""
 
 #: src/AnalyticsValues.php:333
 msgid "- Select Local Project -"
+msgstr ""
+
+#: assets/src/block-editor/Sidebar/ActionSidebar.js:39
+msgid "- Select Task Type -"
 msgstr ""
 
 #: src/Settings.php:465
@@ -55,9 +67,36 @@ msgstr ""
 msgid "[DEPRECATED] "
 msgstr ""
 
+#: assets/src/blocks/CarouselHeader/CarouselHeaderBlock.js:48
+msgid ""
+"A gallery block that features a scrolling collection of images and media "
+"content, typically found at the top of the Homepage."
+msgstr ""
+
+#: assets/src/blocks/Timeline/TimelineBlock.js:52
+msgid ""
+"A type of graphic that arranges a chain of events, activities, and "
+"milestones in chronological order."
+msgstr ""
+
+#: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutBlock.js:18
+msgid ""
+"A versatile horizontal card featuring an image, description, and Call to "
+"Action, designed to link to Take Action pages or any custom link such as "
+"external petitions or donation pages."
+msgstr ""
+
 #: src/ActionPage.php:107
 msgctxt "action"
 msgid "Add New"
+msgstr ""
+
+#: assets/src/block-editor/Sidebar/ActionSidebar.js:63
+msgid "Action Lists block button text"
+msgstr ""
+
+#: assets/src/block-editor/Sidebar/ActionSidebar.js:34
+msgid "Action Options"
 msgstr ""
 
 #: src/ActionPage.php:266
@@ -120,6 +159,10 @@ msgstr ""
 msgid "Add Archive"
 msgstr ""
 
+#: assets/src/blocks/Accordion/AccordionEditor.js:92
+msgid "Add button"
+msgstr ""
+
 #: src/PostCampaign.php:130
 msgid "Add Campaign"
 msgstr ""
@@ -145,12 +188,33 @@ msgstr ""
 msgid "Add Default Happy Point Background Image"
 msgstr "Alapértelmezett háttérkép hozzáadása a feliratkozási dobozokhoz"
 
+#: assets/src/block-editor/Sidebar/ActionSidebar.js:70
+msgid ""
+"Add descriptive text for screen readers (e.g., 'Sign Up to Stop Meat and "
+"Dairy')."
+msgstr ""
+
 #: src/MetaboxRegister.php:74
 msgid "Add Image"
 msgstr "Kép hozzáadása"
 
+#: assets/src/blocks/CarouselHeader/EditableBackground.js:67
+#: assets/src/blocks/Columns/EditableColumns.js:35
+#: assets/src/blocks/Columns/EditableColumns.js:51
+#: assets/src/block-editor/ImageHoverControls/index.js:19
+msgid "Add image"
+msgstr ""
+
 #: assets/src/js/Components/ArchivePicker/SingleSidebar.js:153
 msgid "Add image to Post"
+msgstr ""
+
+#: assets/src/blocks/Accordion/AccordionEditor.js:149
+msgid "Add item"
+msgstr ""
+
+#: assets/src/blocks/TableOfContents/TableOfContentsEditor.js:73
+msgid "Add level"
 msgstr ""
 
 #: src/ActionPage.php:106
@@ -177,6 +241,10 @@ msgstr ""
 #| msgid "Add new Post Type"
 msgid "Add Post Type"
 msgstr "Új oldaltípus hozzáadása"
+
+#: assets/src/blocks/CarouselHeader/EditableBackground.js:89
+msgid "Add slide"
+msgstr ""
 
 #: src/Settings.php:322
 msgid "Add the \"Reject all\" option in the Cookies box"
@@ -227,6 +295,14 @@ msgid ""
 "Resistance Hub template."
 msgstr ""
 
+#: assets/src/blocks/TopicLink/edit.js:178
+#: assets/src/blocks/Gallery/GalleryEditor.js:83
+msgid ""
+"Adjust the “Left” and “Top” fields to position the focal point of the image "
+"in percentage, where 0% is the top/left edge and 100% is the bottom/right "
+"edge."
+msgstr ""
+
 #: src/ActionPage.php:105
 msgctxt "admin menu"
 msgid "Actions"
@@ -240,6 +316,10 @@ msgstr ""
 #: src/PostCampaign.php:127
 msgctxt "admin menu"
 msgid "Campaigns"
+msgstr ""
+
+#: assets/src/blocks/SocialMedia/SocialMediaEditorScript.js:205
+msgid "Alignment"
 msgstr ""
 
 #: src/ActionPage.php:164 src/ActionPage.php:617
@@ -262,14 +342,29 @@ msgstr ""
 msgid "All Campaigns"
 msgstr ""
 
+#: assets/src/block-editor/setupBlockEditorValidation.js:174
+msgid "All good."
+msgstr ""
+
 #: src/CustomTaxonomy.php:239 src/CustomTaxonomy.php:415
 #, fuzzy
 #| msgid "All Page Types"
 msgid "All Post Types"
 msgstr "Összes oldaltípus"
 
+#: src/Controllers/ReusableBlocksController.php:52
+#: src/Controllers/ReusableBlocksController.php:53
+msgid "All Reusable blocks"
+msgstr ""
+
 #: src/Settings.php:570
 msgid "All users"
+msgstr ""
+
+#: assets/src/blocks/SocialMedia/SocialMediaBlock.js:20
+msgid ""
+"An embed-style block, customized to display and align content from Facebook "
+"and Instagram by inputting the URL."
 msgstr ""
 
 #: src/Settings.php:295
@@ -278,6 +373,18 @@ msgstr ""
 
 #: src/Settings.php:289
 msgid "Analytical Cookies label"
+msgstr ""
+
+#: assets/src/block-editor/Sidebar/AnalyticsTrackingSidebar.js:32
+msgid "Analytics & Tracking"
+msgstr ""
+
+#: assets/src/blocks/Counter/CounterEditor.js:30
+msgid "API URL for Goal Reached"
+msgstr ""
+
+#: assets/src/blocks/Counter/CounterEditor.js:31
+msgid "API URL for the total amount e.g. of signatures"
 msgstr ""
 
 #: src/Settings.php:448
@@ -291,6 +398,10 @@ msgstr ""
 #: src/PostArchive.php:40
 msgctxt "archive"
 msgid "Add New"
+msgstr ""
+
+#: src/Controllers/ArchiveImport.php:51 src/Controllers/ArchiveImport.php:52
+msgid "Archive Import"
 msgstr ""
 
 #: src/ControlPanel.php:71
@@ -328,6 +439,10 @@ msgid ""
 "of items when dealing with long text labels."
 msgstr ""
 
+#: assets/src/js/query_loop_carousel.js:68
+msgid "Back to List"
+msgstr ""
+
 #: src/MetaboxRegister.php:63
 msgid "Background Image Override"
 msgstr "Háttérkép felülírása"
@@ -336,11 +451,14 @@ msgstr "Háttérkép felülírása"
 msgid "Basket Name"
 msgstr ""
 
+#: assets/src/blocks/Timeline/TimelineEditorScript.js:87
+msgid "Begin at the end of the timeline"
+msgstr ""
+
 #: src/Features/Dev/BetaBlocks.php:25
 msgid "Beta blocks"
 msgstr ""
 
-#: assets/build/blocks/TopicLink/block.json:1
 #: assets/src/blocks/TopicLink/block.json:1
 msgctxt "block description"
 msgid ""
@@ -348,95 +466,85 @@ msgid ""
 "which redirects users to relevant topic content."
 msgstr ""
 
-#: assets/build/block-templates/action/block.json:1
 #: assets/src/block-templates/action/block.json:1
 msgctxt "block title"
 msgid "Action"
 msgstr ""
 
-#: assets/build/block-templates/campaign/block.json:1
 #: assets/src/block-templates/campaign/block.json:1
 msgctxt "block title"
 msgid "Campaign"
 msgstr ""
 
-#: assets/build/block-templates/deep-dive/block.json:1
 #: assets/src/block-templates/deep-dive/block.json:1
 msgctxt "block title"
 msgid "Deep Dive"
 msgstr ""
 
-#: assets/build/block-templates/deep-dive-topic/block.json:1
 #: assets/src/block-templates/deep-dive-topic/block.json:1
 msgctxt "block title"
 msgid "Deep Dive Topic"
 msgstr ""
 
-#: assets/build/block-templates/get-informed/block.json:1
 #: assets/src/block-templates/get-informed/block.json:1
 msgctxt "block title"
 msgid "Get Informed"
 msgstr ""
 
-#: assets/build/block-templates/high-level-topic/block.json:1
 #: assets/src/block-templates/high-level-topic/block.json:1
 msgctxt "block title"
 msgid "High-Level Topic"
 msgstr ""
 
-#: assets/build/block-templates/highlighted-cta/block.json:1
 #: assets/src/block-templates/highlighted-cta/block.json:1
 msgctxt "block title"
 msgid "Highlighted CTA"
 msgstr ""
 
-#: assets/build/block-templates/homepage/block.json:1
 #: assets/src/block-templates/homepage/block.json:1
 msgctxt "block title"
 msgid "Homepage"
 msgstr ""
 
-#: assets/build/block-templates/issues/block.json:1
 #: assets/src/block-templates/issues/block.json:1
 msgctxt "block title"
 msgid "Issues"
 msgstr ""
 
-#: assets/build/block-templates/page-header/block.json:1
 #: assets/src/block-templates/page-header/block.json:1
 msgctxt "block title"
 msgid "Page Header"
 msgstr ""
 
-#: assets/build/block-templates/quick-links/block.json:1
 #: assets/src/block-templates/quick-links/block.json:1
 msgctxt "block title"
 msgid "Quick Links"
 msgstr ""
 
-#: assets/build/block-templates/reality-check/block.json:1
 #: assets/src/block-templates/reality-check/block.json:1
 msgctxt "block title"
 msgid "Reality Check"
 msgstr ""
 
-#: assets/build/block-templates/side-image-with-text-and-cta/block.json:1
 #: assets/src/block-templates/side-image-with-text-and-cta/block.json:1
 msgctxt "block title"
 msgid "Side image with text and CTA"
 msgstr ""
 
-#: assets/build/block-templates/take-action/block.json:1
 #: assets/src/block-templates/take-action/block.json:1
 msgctxt "block title"
 msgid "Take Action"
 msgstr ""
 
-#: assets/build/blocks/TopicLink/block.json:1
 #: assets/src/blocks/TopicLink/block.json:1
 msgctxt "block title"
 msgid "Topic Link"
 msgstr ""
+
+#: src/Controllers/BlocksReportController.php:32
+#: src/Controllers/BlocksReportController.php:33
+msgid "Blocks"
+msgstr "Blokkok"
 
 #: assets/src/js/Components/ArchivePicker/ArchivePickerToolbar.js:56
 msgid "Bulk Select"
@@ -444,6 +552,23 @@ msgstr ""
 
 #: assets/src/js/Components/ArchivePicker/ArchivePickerToolbar.js:50
 msgid "Bulk Upload"
+msgstr ""
+
+#: assets/src/blocks/TableOfContents/TableOfContentsLevel.js:54
+msgid "Bullet"
+msgstr ""
+
+#: assets/src/blocks/Accordion/AccordionEditor.js:127
+msgid "Button link"
+msgstr "Gombhivatkozás"
+
+#: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:175
+#: assets/src/blocks/Accordion/AccordionEditor.js:78
+msgid "Button text"
+msgstr "Gombfelirat"
+
+#: assets/src/blocks/HappyPoint/OverrideFormHelp.js:6
+msgid "By default this block uses the \"Default Happy Point Form\" in "
 msgstr ""
 
 #: src/GravityFormsExtensions.php:569
@@ -477,12 +602,45 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
+#: assets/src/block-editor/Sidebar/SearchEngineOptimizationsSidebar.js:21
+msgid "Canonical link"
+msgstr ""
+
 #: assets/src/js/Components/ArchivePicker/SingleSidebar.js:188
 msgid "Caption"
 msgstr ""
 
+#: assets/src/blocks/CarouselHeader/Sidebar.js:154
+msgid "Carousel Autoplay"
+msgstr ""
+
+#: assets/src/block-templates/quick-links/template.js:19
+msgid "Category"
+msgstr ""
+
 #: src/Settings.php:141
 msgid "Category (default)"
+msgstr ""
+
+#: assets/src/block-editor/QueryLoopBlockExtension/index.js:242
+msgid ""
+"CAUTION: Adding posts individually will override the automatic functionality "
+"of this block. For good user experience, please include at least 3 articles "
+"in list view, 4 articles in grid view, and 9 articles in carousel view, so "
+"that spacing and alignment of the design remains intact."
+msgstr ""
+
+#: assets/src/blocks/SocialMedia/SocialMediaEditorScript.js:210
+msgid "Center"
+msgstr ""
+
+#: assets/src/blocks/TopicLink/edit.js:217
+#: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:255
+msgid "Change Background Image"
+msgstr ""
+
+#: assets/src/blocks/CarouselHeader/EditableBackground.js:66
+msgid "Change image"
 msgstr ""
 
 #: src/ControlPanel.php:101
@@ -493,8 +651,16 @@ msgstr ""
 msgid "Check Object Cache"
 msgstr "Object Cache ellenőrzése"
 
+#: assets/src/block-styles/index.js:53
+msgid "Chevron"
+msgstr ""
+
 #: src/Settings.php:442
 msgid "Choose social sharing options"
+msgstr ""
+
+#: assets/src/blocks/TableOfContents/TableOfContentsEditor.js:54
+msgid "Choose the headings to be displayed in the table of contents."
 msgstr ""
 
 #: src/Settings.php:145
@@ -597,10 +763,19 @@ msgctxt "Color name"
 msgid "White"
 msgstr ""
 
+#: assets/src/blocks/Columns/ColumnsEditor.js:62
+#, javascript-format
+msgid "Column %s link"
+msgstr ""
+
 #: src/Campaigns.php:83
 msgid ""
 "Column block: Choose which Page Types will populate the content of the "
 "Column block. If no box is checked Publications will appear by default."
+msgstr ""
+
+#: assets/src/blocks/Columns/ColumnsEditor.js:44
+msgid "Columns"
 msgstr ""
 
 #: src/Settings/CommentsGdpr.php:29
@@ -637,6 +812,10 @@ msgstr ""
 msgid "Cookies Box General Text"
 msgstr ""
 
+#: assets/src/blocks/Timeline/URLDescriptionHelp.js:16
+msgid "Copy this, add your own timeline data, and publish to the web."
+msgstr ""
+
 #: src/Settings.php:108
 msgid "Copyright Text Line 1"
 msgstr "Copyright-szöveg 1. sor"
@@ -658,8 +837,16 @@ msgstr ""
 msgid "Credit"
 msgstr ""
 
+#: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:222
+msgid "Custom link"
+msgstr ""
+
 #: templates/posts_report.twig:7
 msgid "Date From"
+msgstr ""
+
+#: assets/src/block-editor/Sidebar/ActionSidebar.js:48
+msgid "Deadline Date"
 msgstr ""
 
 #: src/ActionPage.php:313
@@ -689,6 +876,10 @@ msgstr ""
 msgid "Department"
 msgstr ""
 
+#: assets/src/block-editor/Sidebar/OpenGraphSidebar.js:29
+msgid "Description"
+msgstr "Leírás"
+
 #: assets/src/js/Components/ArchivePicker/SingleSidebar.js:180
 msgid "Dimensions"
 msgstr ""
@@ -706,6 +897,14 @@ msgstr ""
 msgid "Display an estimated reading time on this content."
 msgstr ""
 
+#: assets/src/block-editor/QueryLoopBlockExtension/index.js:231
+msgid "Display as"
+msgstr ""
+
+#: assets/src/blocks/Counter/CounterBlock.js:46
+msgid "Display real time signatures being collected worldwide on petitions."
+msgstr ""
+
 #: src/Features/OldPostsArchiveNotice.php:33
 msgid ""
 "Displays a notice on top of old Posts.<br>Adjust its behavior and text "
@@ -714,8 +913,55 @@ msgid ""
 "settings.</a>"
 msgstr ""
 
+#: assets/src/blocks/Cookies/CookiesBlock.js:9
+msgid ""
+"Displays the cookies settings and control panel within P4 for editors to "
+"control their level of compliance regarding data collection."
+msgstr ""
+
 #: src/MasterSite.php:104
 msgid "Donate Button"
+msgstr ""
+
+#: assets/src/blocks/HappyPoint/HappyPointEditor.js:197
+msgid ""
+"Drag \"left\" to move across the horizontal axis and slide \"top\" upwards "
+"to move through the vertical axis."
+msgstr ""
+
+#: assets/src/blocks/HappyPoint/HappyPointEditor.js:189
+msgid ""
+"Drag the mouse to the focal area or input the position with numbers for more "
+"precision."
+msgstr ""
+
+#: templates/duplicate-postmeta-report.twig:27
+msgid "Duplicate count"
+msgstr ""
+
+#: templates/duplicate-postmeta-report.twig:4
+msgid "Duplicate Postmeta"
+msgstr ""
+
+#: templates/duplicate-postmeta-report.twig:22
+msgid "Duplicate postmeta report"
+msgstr ""
+
+#: assets/src/blocks/Counter/CounterEditor.js:54
+msgid "e.g. \"signatures collected of %target%\""
+msgstr ""
+
+#: assets/src/blocks/Counter/CounterEditor.js:20
+msgid "e.g. Signatures at this moment"
+msgstr ""
+
+#: assets/src/blocks/Counter/CounterEditor.js:42
+msgid "e.g. Total amount of signatures"
+msgstr ""
+
+#: assets/src/blocks/CarouselHeader/EditableBackground.js:52
+#: assets/src/block-editor/ImageHoverControls/index.js:28
+msgid "Edit"
 msgstr ""
 
 #: src/ActionPage.php:110
@@ -734,6 +980,11 @@ msgstr ""
 msgid "Edit Campaign"
 msgstr ""
 
+#: assets/src/blocks/HappyPoint/HappyPointEditor.js:226
+#: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:283
+msgid "Edit Image"
+msgstr ""
+
 #: assets/src/js/Components/ArchivePicker/SingleSidebar.js:214
 msgid "Edit image"
 msgstr ""
@@ -744,8 +995,24 @@ msgstr ""
 msgid "Edit Post Type"
 msgstr "Oldaltípus szerkesztése"
 
+#: assets/src/blocks/Timeline/NewTimelineEditorScript.js:44
+#: assets/src/blocks/Timeline/TimelineEditorScript.js:109
+msgid "Edit text"
+msgstr ""
+
+#: assets/src/blocks/Spreadsheet/SpreadsheetBlock.js:31
+msgid ""
+"Embed a Google Spreadsheet directly into your website by copying the "
+"spreadsheet URL and customize the table appearance by choosing from a "
+"selection of four predefined colors."
+msgstr ""
+
 #: src/Settings.php:183
 msgid "Embed code (HubSpot)"
+msgstr ""
+
+#: assets/src/blocks/SocialMedia/SocialMediaEditorScript.js:168
+msgid "Embed type"
 msgstr ""
 
 #: src/Features/Dev/AllowAllBlocks.php:33
@@ -797,9 +1064,147 @@ msgstr ""
 msgid "Enforce Cookies Policy"
 msgstr "Cookie irányelvek kikényszerítése"
 
+#: assets/src/blocks/Cookies/CookiesEditor.js:174
+#| msgid "All Cookies Description"
+msgid "Enter all cookies description"
+msgstr "Összes süti leírása"
+
+#: assets/src/blocks/Cookies/CookiesEditor.js:157
+msgid "Enter all cookies name"
+msgstr ""
+
+#: assets/src/blocks/Cookies/CookiesEditor.js:130
+msgid "Enter analytical cookies description"
+msgstr ""
+
+#: assets/src/blocks/Cookies/CookiesEditor.js:112
+msgid "Enter analytical cookies name"
+msgstr ""
+
 #: src/MetaboxRegister.php:43
 msgid "Enter author name if you want to override the author"
 msgstr "Add meg a szerző nevét ha szeretnéd felülírni a szerző mezőt"
+
+#: assets/src/blocks/Columns/EditableColumns.js:117
+msgid "Enter column button text"
+msgstr ""
+
+#: assets/src/blocks/Columns/EditableColumns.js:94
+msgid "Enter column description"
+msgstr ""
+
+#: assets/src/blocks/Columns/EditableColumns.js:86
+msgid "Enter column header"
+msgstr ""
+
+#: assets/src/blocks/Columns/EditableColumns.js:118
+msgid "Enter column link text"
+msgstr ""
+
+#: assets/src/blocks/CarouselHeader/Caption.js:33
+#| msgid "Enter link text"
+msgid "Enter CTA text"
+msgstr "Add meg a hivatkozásszöveget"
+
+#: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:223
+#| msgid "Enter button link"
+msgid "Enter custom link"
+msgstr "Add meg a gombhivatkozást"
+
+#: assets/src/blocks/PostsList/index.js:79
+#: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:165
+#: assets/src/blocks/Accordion/AccordionEditor.js:47
+#: assets/src/blocks/Gallery/GalleryEditor.js:143
+#: assets/src/blocks/SocialMedia/SocialMediaEditorScript.js:155
+#: assets/src/blocks/CarouselHeader/Caption.js:21
+#: assets/src/blocks/Columns/ColumnsEditor.js:173
+#: assets/src/blocks/Counter/CounterEditor.js:93
+#: assets/src/blocks/ActionsList/index.js:49
+#: assets/src/blocks/Timeline/NewTimelineEditorScript.js:61
+#: assets/src/blocks/Timeline/TimelineEditorScript.js:126
+#: assets/src/blocks/Cookies/CookiesEditor.js:54
+#: assets/src/block-templates/reality-check/template.js:19
+#: assets/src/block-templates/page-header/template.js:30
+#: assets/src/block-templates/templates/gravity-form-with-text.js:25
+#: assets/src/block-templates/issues/template.js:81
+#: assets/src/block-templates/side-image-with-text-and-cta/template.js:20
+msgid "Enter description"
+msgstr "Add meg a leírást"
+
+#: assets/src/blocks/Spreadsheet/SpreadsheetEditor.js:47
+msgid "Enter Google Spreadsheet URL"
+msgstr ""
+
+#: assets/src/blocks/Accordion/AccordionEditor.js:58
+msgid "Enter headline"
+msgstr ""
+
+#: assets/src/blocks/HappyPoint/HappyPointEditor.js:149
+#| msgid "Enter iframe url"
+msgid "Enter iframe URL"
+msgstr "Add meg az Iframe URL-ét"
+
+#. %s: column index
+#: assets/src/blocks/Columns/ColumnsEditor.js:64
+#, javascript-format
+msgid "Enter link for column %s"
+msgstr ""
+
+#: assets/src/blocks/Cookies/CookiesEditor.js:84
+#| msgid "Necessary Cookies Description"
+msgid "Enter necessary cookies description"
+msgstr "Szükséges sütik leírása"
+
+#: assets/src/blocks/Cookies/CookiesEditor.js:66
+#| msgid "Necessary Cookies Name"
+msgid "Enter necessary cookies name"
+msgstr "Szükséges sütik neve"
+
+#: src/Patterns/BlankPage.php:38
+#: assets/src/blocks/Accordion/AccordionEditor.js:68
+#: assets/src/block-templates/highlighted-cta/template.js:6
+#: assets/src/block-templates/issues/template.js:28
+#: assets/src/block-templates/issues/template.js:40
+#: assets/src/block-templates/issues/template.js:108
+msgid "Enter text"
+msgstr ""
+
+#: assets/src/blocks/Timeline/URLDescriptionHelp.js:6
+msgid ""
+"Enter the URL of the Google Sheets spreadsheet containing your timeline data."
+msgstr ""
+
+#: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:155
+#: assets/src/blocks/Accordion/AccordionEditor.js:37
+#: assets/src/blocks/Gallery/GalleryEditor.js:133
+#: assets/src/blocks/SocialMedia/SocialMediaEditorScript.js:145
+#: assets/src/blocks/CarouselHeader/Caption.js:13
+#: assets/src/blocks/TableOfContents/TableOfContentsEditor.js:116
+#: assets/src/blocks/Columns/ColumnsEditor.js:161
+#: assets/src/blocks/Counter/CounterEditor.js:83
+#: assets/src/blocks/ActionsList/index.js:46
+#: assets/src/blocks/Timeline/NewTimelineEditorScript.js:49
+#: assets/src/blocks/Timeline/TimelineEditorScript.js:114
+#: assets/src/blocks/Cookies/CookiesEditor.js:43
+#: assets/src/block-templates/deep-dive/template.js:32
+#: assets/src/block-templates/reality-check/template.js:15
+#: assets/src/block-templates/quick-links/template.js:35
+#: assets/src/block-templates/page-header/template.js:8
+#: assets/src/block-templates/templates/gravity-form-with-text.js:22
+#: assets/src/block-templates/issues/template.js:68
+#: assets/src/block-templates/side-image-with-text-and-cta/template.js:19
+msgid "Enter title"
+msgstr "Add meg a címet"
+
+#: assets/src/block-templates/deep-dive/template.js:19
+msgid "Enter topic"
+msgstr ""
+
+#: assets/src/blocks/SocialMedia/SocialMediaEditorScript.js:198
+#: assets/src/blocks/Timeline/NewTimelineEditorScript.js:20
+#: assets/src/blocks/Timeline/TimelineEditorScript.js:56
+msgid "Enter URL"
+msgstr ""
 
 #: assets/src/js/Components/ArchivePicker/SingleSidebar.js:75
 msgid "Error Adding Image to Post!!!"
@@ -813,9 +1218,17 @@ msgstr ""
 msgid "Error while inserting attachment. Message: "
 msgstr ""
 
+#: assets/src/blocks/SocialMedia/SocialMediaEditorScript.js:189
+msgid "Events"
+msgstr ""
+
 #. Name of the template
 #: page-templates/evergreen.php:5
 msgid "Evergreen Page"
+msgstr ""
+
+#: src/Controllers/PostmetaCheckController.php:53
+msgid "Exception: "
 msgstr ""
 
 #: src/Exporter.php:47 src/Exporter.php:94 src/Exporter.php:95
@@ -824,6 +1237,10 @@ msgstr ""
 
 #: src/Settings.php:418
 msgid "Facebook App Access Token"
+msgstr ""
+
+#: assets/src/blocks/SocialMedia/SocialMediaEditorScript.js:171
+msgid "Facebook page"
 msgstr ""
 
 #: src/Settings.php:408
@@ -836,6 +1253,11 @@ msgstr ""
 
 #: src/MediaReplacer.php:72
 msgid "File is missing."
+msgstr ""
+
+#: src/BlockReportSearch/Pattern/PatternUsageTable.php:195
+#: src/BlockReportSearch/Block/BlockUsageTable.php:414
+msgid "Filter"
 msgstr ""
 
 #: templates/posts_report.twig:6
@@ -886,6 +1308,18 @@ msgstr ""
 msgid "Footer Social Menu"
 msgstr ""
 
+#: assets/src/blocks/Columns/ColumnsBlock.js:92
+msgid ""
+"For more static content, this display has an icon, header, description and "
+"text link."
+msgstr ""
+
+#: assets/src/blocks/Columns/ColumnsBlock.js:102
+msgid ""
+"For more static content, this display has an image, header, description and "
+"text link."
+msgstr ""
+
 #: src/GravityFormsExtensions.php:398
 msgid "Form Type"
 msgstr ""
@@ -915,6 +1349,15 @@ msgstr ""
 msgid "Global Project"
 msgstr ""
 
+#: assets/src/blocks/Counter/CounterEditor.js:41
+msgid "Goal"
+msgstr ""
+
+#: assets/src/blocks/Timeline/NewTimelineEditorScript.js:19
+#: assets/src/blocks/Timeline/TimelineEditorScript.js:55
+msgid "Google Sheets URL"
+msgstr ""
+
 #: src/Settings.php:499
 #, fuzzy
 #| msgid "Google Tag Manager Identifier"
@@ -941,6 +1384,18 @@ msgstr ""
 msgid "Greenpeace Media Settings"
 msgstr ""
 
+#: src/BlockReportSearch/Pattern/PatternUsageTable.php:289
+msgid "Group by pattern name"
+msgstr ""
+
+#: src/BlockReportSearch/Pattern/PatternUsageTable.php:299
+msgid "Group by post ID"
+msgstr ""
+
+#: src/BlockReportSearch/Pattern/PatternUsageTable.php:294
+msgid "Group by post title"
+msgstr ""
+
 #: src/Settings.php:195
 msgid "Happy Point HubSpot embed code"
 msgstr ""
@@ -949,13 +1404,74 @@ msgstr ""
 msgid "Happy Point Subscribe Form URL"
 msgstr ""
 
+#: assets/src/blocks/TableOfContents/TableOfContentsLevel.js:6
+#| msgid "Heading"
+msgid "Heading 2"
+msgstr "Főcím"
+
+#: assets/src/blocks/TableOfContents/TableOfContentsLevel.js:7
+msgid "Heading 3"
+msgstr ""
+
+#: assets/src/blocks/TableOfContents/TableOfContentsLevel.js:8
+msgid "Heading 4"
+msgstr ""
+
+#: assets/src/blocks/TableOfContents/TableOfContentsLevel.js:9
+msgid "Heading 5"
+msgstr ""
+
+#: assets/src/blocks/TableOfContents/TableOfContentsLevel.js:10
+msgid "Heading 6"
+msgstr ""
+
+#: assets/src/block-editor/Sidebar/ActionSidebar.js:59
+#: assets/src/block-editor/Sidebar/PageHeaderSidebar.js:23
+msgid "Hide page title"
+msgstr ""
+
+#: assets/src/blocks/HappyPoint/HappyPointEditor.js:167
+msgid "HubSpot embed code"
+msgstr ""
+
 #: src/Settings.php:584
 msgid "Hubspot tracking code"
 msgstr ""
 
+#: assets/src/blocks/HappyPoint/HappyPointEditor.js:155
+msgid "If a URL is set here, it will override this setting."
+msgstr ""
+
+#: assets/src/blocks/HappyPoint/HappyPointEditor.js:173
+msgid "If an embed code is set here, it will override this setting."
+msgstr ""
+
+#: assets/src/block-editor/Sidebar/SearchEngineOptimizationsSidebar.js:24
+msgid "If emtpy a self-reference canonical link will be used"
+msgstr ""
+
+#: assets/src/blocks/HappyPoint/OverrideFormHelp.js:16
+msgid ""
+"If this box is checked, it will override this setting with the form "
+"specified below."
+msgstr ""
+
+#: assets/src/blocks/HappyPoint/HappyPointEditor.js:148
+#| msgid "Iframe url"
+msgid "Iframe URL"
+msgstr "Iframe URL"
+
 #: src/Campaigns.php:102 src/Campaigns.php:118 src/Campaigns.php:172
 msgid "Image"
 msgstr "Kép"
+
+#: assets/src/blocks/CarouselHeader/SidebarSlide.js:117
+msgid "Image focal point"
+msgstr ""
+
+#: assets/src/block-editor/Sidebar/OpenGraphSidebar.js:30
+msgid "Image override"
+msgstr ""
 
 #: assets/src/js/Components/ArchivePicker/MultiSidebar.js:12
 msgid "images selected"
@@ -990,6 +1506,43 @@ msgstr ""
 msgid "Include Related Posts"
 msgstr ""
 
+#: assets/src/blocks/PostsList/index.js:126
+msgid ""
+"Insert a list or grid of the latest articles, press releases, and/or "
+"publications, organized by publication date. "
+msgstr ""
+
+#: assets/src/blocks/TableOfContents/TableOfContentsBlock.js:14
+msgid ""
+"Insert text, media, and other content in an ordered list of clickable "
+"headings corresponding to the content sections on the page."
+msgstr ""
+
+#: assets/src/blocks/SecondaryNavigation/SecondaryNavigationBlock.js:12
+msgid ""
+"Inserts a secondary navigation menu to the page that leads to different "
+"sections of the same page."
+msgstr ""
+
+#: assets/src/blocks/ActionsList/index.js:97
+msgid ""
+"Integrate images and text cards to automatically display tags, take action "
+"pages, or Posts in a three or four column layout displayed in a grid or "
+"carousel."
+msgstr ""
+
+#: assets/src/blocks/Accordion/AccordionEditor.js:125
+msgid "Item"
+msgstr ""
+
+#: assets/src/blocks/Timeline/TimelineEditorScript.js:69
+msgid "Language"
+msgstr ""
+
+#: assets/src/block-editor/QueryLoopBlockExtension/index.js:227
+msgid "Layout view"
+msgstr ""
+
 #. %s: Category name
 #: assets/src/blocks/TopicLink/edit.js:150
 #: assets/src/blocks/TopicLink/topic-link.js:35
@@ -997,8 +1550,45 @@ msgstr ""
 msgid "Learn more about %s"
 msgstr ""
 
+#: assets/src/blocks/SecondaryNavigation/SecondaryNavigationEditor.js:10
+#: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:262
+#: assets/src/blocks/SocialMedia/SocialMediaEditorScript.js:216
+#: assets/src/blocks/TableOfContents/TableOfContentsEditor.js:83
+#: assets/src/blocks/Timeline/NewTimelineEditorScript.js:31
+#: assets/src/blocks/Timeline/TimelineEditorScript.js:94
+msgid "Learn more about this block"
+msgstr ""
+
+#: assets/src/blocks/TopicLink/edit.js:190
+#: assets/src/blocks/HappyPoint/HappyPointEditor.js:205
+#: assets/src/blocks/Spreadsheet/SpreadsheetEditor.js:73
+#: assets/src/blocks/Accordion/AccordionEditor.js:159
+#: assets/src/blocks/CarouselHeader/Sidebar.js:175
+#: assets/src/blocks/Columns/ColumnsEditor.js:79
+#: assets/src/blocks/Counter/CounterEditor.js:64
+#: assets/src/blocks/Cookies/CookiesEditor.js:193
+#: assets/src/block-editor/QueryLoopBlockExtension/index.js:254
+msgid "Learn more about this block "
+msgstr ""
+
+#: assets/src/blocks/SocialMedia/SocialMediaEditorScript.js:209
+msgid "Left"
+msgstr ""
+
+#: assets/src/blocks/TableOfContents/TableOfContentsLevel.js:28
+msgid "Level"
+msgstr ""
+
+#: assets/src/blocks/TableOfContents/TableOfContentsLevel.js:40
+msgid "Link"
+msgstr ""
+
 #: src/PostCampaign.php:334
 msgid "list of icons in the CSS styleguide"
+msgstr ""
+
+#: assets/src/blocks/TableOfContents/TableOfContentsLevel.js:50
+msgid "List style"
 msgstr ""
 
 #: assets/src/block-editor/Sidebar/AnalyticsTrackingSidebar.js:39
@@ -1013,8 +1603,28 @@ msgstr ""
 msgid "Logged in users"
 msgstr ""
 
+#: assets/src/blocks/TableOfContents/TableOfContentsBlock.js:46
+msgid "Long full-width"
+msgstr "Hosszú (teljes szélességű)"
+
 #: assets/src/js/menu_editor.js:150
 msgid "Main menu"
+msgstr ""
+
+#: assets/src/block-editor/NavigationType/NavigationType.js:11
+msgid "Main website navigation"
+msgstr ""
+
+#: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:193
+msgid "Make block stick to the bottom of the page on mobile"
+msgstr ""
+
+#: assets/src/block-variations/index.js:14
+msgid "Make the entire block contents clickable, using the first link inside."
+msgstr ""
+
+#: assets/src/block-editor/QueryLoopBlockExtension/index.js:240
+msgid "Manual override"
 msgstr ""
 
 #: src/Settings.php:266
@@ -1025,7 +1635,7 @@ msgstr ""
 msgid "Marketing Cookies label"
 msgstr ""
 
-#: src/MasterSite.php:732
+#: src/MasterSite.php:729
 msgid "Maximum number of revisions to store for each post."
 msgstr ""
 
@@ -1045,9 +1655,25 @@ msgid ""
 "%2$s and therefore will not be displayed)."
 msgstr ""
 
+#: assets/src/blocks/SocialMedia/SocialMediaEditorScript.js:190
+msgid "Messages"
+msgstr ""
+
+#: templates/duplicate-postmeta-report.twig:26
+msgid "meta_key"
+msgstr ""
+
+#: assets/src/block-editor/NavigationType/NavigationType.js:15
+msgid "Minimal Navigation"
+msgstr ""
+
 #: src/Settings.php:174 src/Settings.php:480
 msgid "Minimum image width should be 1920px"
 msgstr "A kép szélessége legalább 1920px legyen"
+
+#: assets/src/block-styles/index.js:46
+msgid "Mobile carousel"
+msgstr ""
 
 #: underscore_templates/posts_reports.tpl.php:17
 #: underscore_templates/posts_reports.tpl.php:32
@@ -1056,9 +1682,18 @@ msgstr "A kép szélessége legalább 1920px legyen"
 msgid "Modified at"
 msgstr ""
 
+#: assets/src/block-editor/Sidebar/ActionSidebar.js:76
+#: assets/src/block-editor/Sidebar/CampaignSidebar.js:20
+msgid "Navigation"
+msgstr ""
+
 #: src/MasterSite.php:103
 msgid "Navigation Bar Menu"
 msgstr "Navigációs sáv menü"
+
+#: assets/src/block-editor/NavigationType/NavigationType.js:22
+msgid "Navigation type"
+msgstr ""
 
 #: src/Settings.php:248
 msgid "Necessary Cookies description"
@@ -1094,8 +1729,16 @@ msgstr ""
 msgid "New Post Type"
 msgstr "Új oldaltípus"
 
+#: assets/src/block-editor/TermSelector/index.js:344
+msgid "New tags can only be created by an administrator"
+msgstr ""
+
 #: src/Features/Dev/NewTimelineBlock.php:25
 msgid "New Timeline block"
+msgstr ""
+
+#: assets/src/blocks/PostsList/index.js:41
+msgid "Next Carousel Slide"
 msgstr ""
 
 #: src/CustomTaxonomy.php:465
@@ -1126,8 +1769,56 @@ msgstr ""
 msgid "No campaigns found."
 msgstr ""
 
+#: templates/duplicate-postmeta-report.twig:42
+msgid "No duplicate postmeta records found."
+msgstr ""
+
+#: assets/src/blocks/CarouselHeader/ImagePlaceholder.js:9
+msgid "No image selected."
+msgstr ""
+
+#: assets/src/blocks/PostsList/index.js:90
+#: assets/src/blocks/ActionsList/index.js:60
+msgid "No posts found. (This default text can be edited)"
+msgstr ""
+
+#: assets/src/blocks/CarouselHeader/SidebarSlide.js:85
+msgid "No title"
+msgstr ""
+
+#: assets/src/blocks/Spreadsheet/SpreadsheetEditor.js:89
+msgid ""
+"No URL has been specified. Please edit the block and provide a Spreadsheet "
+"URL using the sidebar."
+msgstr ""
+
+#: src/Controllers/PostmetaCheckController.php:62
+msgid "No whitelisted duplicate postmeta records found."
+msgstr ""
+
+#: templates/duplicate-postmeta-report.twig:25
+msgid "No."
+msgstr ""
+
 #: src/Settings.php:568
 msgid "Nobody"
+msgstr ""
+
+#: assets/src/blocks/SocialMedia/SocialMediaEditorScript.js:208
+#: assets/src/blocks/TableOfContents/TableOfContentsLevel.js:53
+msgid "None"
+msgstr "Nincs"
+
+#: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:209
+msgid "None (custom)"
+msgstr ""
+
+#: assets/src/blocks/TableOfContents/TableOfContentsLevel.js:55
+msgid "Number"
+msgstr ""
+
+#: assets/src/blocks/Counter/CounterEditor.js:19
+msgid "Number of Items Collected"
 msgstr ""
 
 #: src/ControlPanel.php:157
@@ -1137,6 +1828,16 @@ msgstr "Object Cache kiürítése nem sikerült"
 #: src/ControlPanel.php:154
 msgid "Object Cache flushed"
 msgstr "Object Cache kiürítve"
+
+#: assets/src/blocks/SocialMedia/SocialMediaEditorScript.js:170
+msgid "oEmbed"
+msgstr ""
+
+#: assets/src/blocks/Accordion/AccordionEditorScript.js:41
+msgid ""
+"Offers collapsible sections with a title, a description, a link or a call to "
+"action button."
+msgstr ""
 
 #: src/Settings.php:224
 msgid "Old Posts Archive button text"
@@ -1158,8 +1859,36 @@ msgstr ""
 msgid "Old Posts Archive notice title"
 msgstr ""
 
+#: assets/src/blocks/Timeline/URLDescriptionHelp.js:21
+msgid ""
+"Once you have done so, use the URL from your address bar (not the one "
+"provided in Google's 'publish to web' dialog)."
+msgstr ""
+
+#: assets/src/blocks/HappyPoint/HappyPointEditor.js:107
+msgid "Opacity"
+msgstr ""
+
+#: assets/src/block-editor/Sidebar/OpenGraphSidebar.js:26
+msgid "Open Graph/Social Fields"
+msgstr ""
+
+#: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:234
+#: assets/src/blocks/Accordion/AccordionEditor.js:136
+#: assets/src/blocks/CarouselHeader/SidebarSlide.js:105
+msgid "Open in a new tab"
+msgstr ""
+
+#: assets/src/blocks/Columns/ColumnsEditor.js:70
+msgid "Open link in new tab"
+msgstr ""
+
 #: assets/src/blocks/SecondaryNavigation/SecondaryNavigationFrontend.js:264
 msgid "Open secondary navigation dropdown menu"
+msgstr ""
+
+#: assets/src/blocks/Columns/ColumnsBlock.js:74
+msgid "Optional headers, description text and buttons in a column display."
 msgstr ""
 
 #: assets/src/js/Components/ArchivePicker/SingleSidebar.js:200
@@ -1168,6 +1897,10 @@ msgstr ""
 
 #: assets/src/js/Components/ArchivePicker/SingleSidebar.js:196
 msgid "Original language title"
+msgstr ""
+
+#: assets/src/blocks/HappyPoint/HappyPointEditor.js:118
+msgid "Override default form"
 msgstr ""
 
 #: src/GravityFormsExtensions.php:568
@@ -1182,8 +1915,22 @@ msgstr "P4-oldaltípus"
 msgid "Page Design"
 msgstr ""
 
+#: assets/src/block-editor/Sidebar/ActionSidebar.js:57
+#: assets/src/block-editor/Sidebar/PageHeaderSidebar.js:21
+msgid "Page header"
+msgstr ""
+
+#: assets/src/block-templates/high-level-topic/template.js:10
+#: assets/src/block-templates/campaign/template.js:9
+msgid "Page header title"
+msgstr ""
+
 #: templates/posts_report.twig:26
 msgid "Pages List"
+msgstr ""
+
+#: assets/src/block-styles/index.js:76
+msgid "Parallax - add a parallax effect to the image when scrolling the page"
 msgstr ""
 
 #: src/ActionPage.php:114
@@ -1220,6 +1967,11 @@ msgstr ""
 msgid "Paste here the tracking code from your Hubspot account."
 msgstr ""
 
+#: src/Controllers/BlocksUsageController.php:144
+#: src/Controllers/BlocksUsageController.php:145
+msgid "Pattern Report"
+msgstr ""
+
 #: src/Settings.php:67
 #, fuzzy
 #| msgid "Planet4"
@@ -1242,6 +1994,10 @@ msgstr "a Planet 4 csatlakozott a Redis-hez."
 msgid "Planet 4 Options"
 msgstr ""
 
+#: assets/src/blocks/HappyPoint/OverrideFormHelp.js:11
+msgid "Planet 4 Settings - Default content"
+msgstr ""
+
 #: src/ControlPanel.php:231
 msgid "Planet4 is connected to Elasticsearch"
 msgstr ""
@@ -1257,17 +2013,32 @@ msgid ""
 "access for your account."
 msgstr ""
 
+#: assets/src/blocks/Timeline/NewTimelineEditorScript.js:70
+#: assets/src/blocks/Timeline/TimelineEditorScript.js:135
+msgid "Please include a Sheet URL."
+msgstr ""
+
 #: src/GravityFormsExtensions.php:399
 msgid ""
 "Please select a form type below so you can track and analyze each form type "
 "separately"
 msgstr ""
 
+#: assets/src/blocks/Columns/EditableColumns.js:79
+msgid ""
+"Please select another image for this column, as the current image is not an "
+"icon and you have chosen columns style icons. "
+msgstr ""
+
+#: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:114
+msgid "Populating block's fields…"
+msgstr ""
+
 #: src/MetaboxRegister.php:35
 msgid "Post Articles Element Fields"
 msgstr "Cikk részleteinek mezői"
 
-#: src/MasterSite.php:720
+#: src/MasterSite.php:717
 msgid "Post revisions"
 msgstr ""
 
@@ -1311,6 +2082,11 @@ msgstr ""
 msgid "Post Types"
 msgstr "Oldaltípusok"
 
+#: src/Controllers/PostmetaCheckController.php:28
+#: src/Controllers/PostmetaCheckController.php:29
+msgid "Postmeta Check"
+msgstr ""
+
 #: src/Settings.php:452
 msgid "Posts"
 msgstr ""
@@ -1332,6 +2108,14 @@ msgstr "Bejegyzések jelentés"
 msgid "Preconnect Domains"
 msgstr ""
 
+#: assets/src/blocks/PostsList/index.js:33
+msgid "Previous Carousel Slide"
+msgstr ""
+
+#: assets/src/block-styles/index.js:23
+msgid "Primary"
+msgstr ""
+
 #. images count
 #: assets/src/js/Components/ArchivePicker/ArchivePickerToolbar.js:27
 msgid "Processing %d images"
@@ -1340,6 +2124,10 @@ msgstr ""
 #: assets/src/js/Components/ArchivePicker/SingleSidebar.js:67
 #: assets/src/js/Components/ArchivePicker/SingleSidebar.js:73
 msgid "Processing…"
+msgstr ""
+
+#: assets/src/block-editor/setupBlockEditorValidation.js:170
+msgid "Publish Checklist"
 msgstr ""
 
 #: underscore_templates/posts_reports.tpl.php:15
@@ -1385,8 +2173,48 @@ msgstr ""
 msgid "Reject all cookies"
 msgstr ""
 
+#: assets/src/blocks/PostsList/index.js:72
+msgid "Related Posts"
+msgstr ""
+
+#. %d = The duplicate postmeta count.
+#: src/Controllers/PostmetaCheckController.php:59
+msgid "Remove %d duplicate postmeta records successfully."
+msgstr ""
+
+#: assets/src/blocks/TopicLink/edit.js:227
+#: assets/src/blocks/HappyPoint/HappyPointEditor.js:235
+#: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:292
+msgid "Remove Image"
+msgstr ""
+
+#: assets/src/blocks/CarouselHeader/EditableBackground.js:78
+msgid "Remove image"
+msgstr ""
+
+#: assets/src/blocks/Accordion/AccordionEditor.js:156
+msgid "Remove item"
+msgstr ""
+
+#: assets/src/blocks/TableOfContents/TableOfContentsEditor.js:80
+msgid "Remove level"
+msgstr ""
+
+#: assets/src/blocks/CarouselHeader/EditableBackground.js:100
+msgid "Remove slide"
+msgstr ""
+
 #: src/MediaReplacer.php:69
 msgid "Replace Media"
+msgstr ""
+
+#: src/Controllers/BlocksUsageController.php:135
+#: src/Controllers/BlocksUsageController.php:136
+msgid "Report"
+msgstr ""
+
+#: assets/src/block-styles/index.js:39
+msgid "Reset margin"
 msgstr ""
 
 #. Name of the template
@@ -1401,6 +2229,18 @@ msgstr ""
 
 #: src/Role/Reviewer.php:19
 msgid "Reviewer"
+msgstr ""
+
+#: assets/src/blocks/SocialMedia/SocialMediaEditorScript.js:211
+msgid "Right"
+msgstr ""
+
+#: assets/src/block-styles/index.js:64
+msgid "Rounded 180x180"
+msgstr ""
+
+#: assets/src/block-styles/index.js:68
+msgid "Rounded 90x90"
 msgstr ""
 
 #: src/ControlPanel.php:91
@@ -1421,6 +2261,10 @@ msgstr ""
 msgid "Search Campaigns"
 msgstr ""
 
+#: assets/src/block-editor/Sidebar/SearchEngineOptimizationsSidebar.js:18
+msgid "Search Engine Optimizations"
+msgstr ""
+
 #: src/ActionPage.php:163
 msgid "Search in Action Type"
 msgstr ""
@@ -1430,6 +2274,14 @@ msgstr ""
 #| msgid "Search in Page Type"
 msgid "Search in Post Type"
 msgstr "Keresés az oldaltípusokban"
+
+#: assets/src/block-styles/index.js:18
+msgid "Secondary"
+msgstr ""
+
+#: assets/src/blocks/Timeline/URLDescriptionHelp.js:11
+msgid "See the TimelineJS website for a template GSheet."
+msgstr ""
 
 #: src/Settings.php:533
 msgid "Select \"About Us\" page"
@@ -1447,21 +2299,61 @@ msgstr ""
 msgid "Select Act Page"
 msgstr "Cselekedj-oldal kiválasztása"
 
+#: assets/src/block-editor/QueryLoopBlockExtension/index.js:247
+msgid "Select articles"
+msgstr ""
+
+#: assets/src/blocks/TopicLink/edit.js:217
+#: assets/src/blocks/HappyPoint/HappyPointEditor.js:66
+#: assets/src/blocks/HappyPoint/HappyPointEditor.js:246
+#: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:244
+#: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:255
+msgid "Select Background Image"
+msgstr "Válassz háttérképet"
+
 #: src/Settings.php:710
 msgid "Select Category"
 msgstr "Kategória kiválasztása"
+
+#: assets/src/blocks/TopicLink/edit.js:167
+msgid "Select Category:"
+msgstr ""
 
 #: src/Settings.php:85
 msgid "Select Explore Page"
 msgstr "Fedezd fel-oldal kiválasztása"
 
+#: assets/src/blocks/Gallery/GalleryEditor.js:80
+msgid "Select gallery image focal point"
+msgstr ""
+
+#: assets/src/blocks/Gallery/GalleryEditor.js:64
+msgid "Select Gallery Images"
+msgstr ""
+
 #: src/Campaigns.php:34
 msgid "Select Image"
 msgstr "Kép kiválasztása"
 
+#: assets/src/block-editor/SidebarFields/ImageSidebarField.js:31
+#| msgid "Select Image"
+msgid "Select image"
+msgstr "Kép kiválasztása"
+
+#: assets/src/blocks/TopicLink/edit.js:175
+#: assets/src/blocks/HappyPoint/HappyPointEditor.js:186
+msgid "Select image focal point"
+msgstr ""
+
 #: src/Settings.php:91
 msgid "Select Issues Parent Category"
 msgstr "Válassz Ügyek-szülőkategóriát"
+
+#: assets/src/blocks/SocialMedia/SocialMediaEditorScript.js:137
+msgid ""
+"Select oEmbed for the following types of social media<br>- Facebook: post, "
+"activity, photo, video, media, question, note<br>- Instagram: image"
+msgstr ""
 
 #: src/Settings.php:689
 msgid "Select Page"
@@ -1473,6 +2365,20 @@ msgstr "Oldal kiválasztása"
 msgid "Select Post Type"
 msgstr "Oldaltípus kiválasztása"
 
+#: assets/src/block-editor/PostSelector/index.js:118
+#: assets/src/block-editor/PostSelector/index.js:124
+msgid "Select posts"
+msgstr ""
+
+#: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:206
+#| msgid "Select a Take action Page"
+msgid "Select Take Action Page:"
+msgstr "Válassz Cselekvés-oldalt"
+
+#: assets/src/blocks/CarouselHeader/Sidebar.js:155
+msgid "Select to trigger images autoslide"
+msgstr ""
+
 #: src/Campaigns.php:108 src/Campaigns.php:122
 msgid "Select/Upload Image"
 msgstr "Kép kiválasztása/feltöltése"
@@ -1480,6 +2386,26 @@ msgstr "Kép kiválasztása/feltöltése"
 #: assets/src/js/Components/ArchivePicker/SingleSidebar.js:125
 msgid "Set Featured Image"
 msgstr ""
+
+#: assets/src/block-editor/Sidebar/ActionSidebar.js:66
+msgid "Set the text for the Actions List Block's Button (e.g., 'Sign Up')"
+msgstr ""
+
+#: assets/src/blocks/TopicLink/edit.js:163
+#: assets/src/blocks/HappyPoint/HappyPointEditor.js:102
+#: assets/src/blocks/Spreadsheet/SpreadsheetEditor.js:36
+#: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:202
+#: assets/src/blocks/Accordion/AccordionEditor.js:116
+#: assets/src/blocks/Gallery/GalleryEditor.js:77
+#: assets/src/blocks/SocialMedia/SocialMediaEditorScript.js:166
+#: assets/src/blocks/CarouselHeader/Sidebar.js:151
+#: assets/src/blocks/TableOfContents/TableOfContentsEditor.js:52
+#: assets/src/blocks/Columns/ColumnsEditor.js:40
+#: assets/src/blocks/Counter/CounterEditor.js:14
+#: assets/src/blocks/Timeline/NewTimelineEditorScript.js:17
+#: assets/src/blocks/Timeline/TimelineEditorScript.js:53
+msgid "Settings"
+msgstr "Beállítások"
 
 #: src/Settings.php:671
 msgid "Settings saved."
@@ -1492,6 +2418,14 @@ msgstr ""
 #: src/GravityFormsExtensions.php:561
 msgid "Share text"
 msgstr ""
+
+#: assets/src/blocks/TableOfContents/TableOfContentsBlock.js:54
+msgid "Short full-width"
+msgstr "Rövid (teljes szélességű)"
+
+#: assets/src/blocks/TableOfContents/TableOfContentsBlock.js:61
+msgid "Short sidebar"
+msgstr "Rövid (oldalsáv)"
 
 #: src/GravityFormsExtensions.php:553
 msgid "Show share buttons below message"
@@ -1506,6 +2440,30 @@ msgstr ""
 #. Name of the template
 #: page-templates/sitemap.php:3
 msgid "Sitemap Page"
+msgstr ""
+
+#: assets/src/block-styles/index.js:35
+msgid "Space evenly"
+msgstr ""
+
+#: assets/src/blocks/Spreadsheet/SpreadsheetEditor.js:46
+msgid "Spreadsheet URL"
+msgstr ""
+
+#: assets/src/blocks/Timeline/TimelineEditorScript.js:86
+msgid "Start at end"
+msgstr ""
+
+#: assets/src/block-variations/index.js:13
+msgid "Stretched Link"
+msgstr ""
+
+#: assets/src/block-editor/Sidebar/PostParentLink.js:10
+msgid "Style and analytics settings from the parent page will be used."
+msgstr ""
+
+#: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:189
+msgid "Styles"
 msgstr ""
 
 #. %s: sub menu title
@@ -1523,6 +2481,22 @@ msgstr ""
 
 #: src/ControlPanel.php:94
 msgid "Sync Elasticsearch"
+msgstr ""
+
+#: assets/src/blocks/Spreadsheet/SpreadsheetEditor.js:38
+msgid "Table Color"
+msgstr ""
+
+#: assets/src/blocks/TableOfContents/TableOfContentsLevel.js:32
+msgid "Table of Contents item"
+msgstr ""
+
+#: assets/src/block-editor/Sidebar/ActionSidebar.js:37
+msgid "Task Type"
+msgstr ""
+
+#: assets/src/block-editor/setupTaxonomyBreadcrumbBlock.js:12
+msgid "Taxonomy Breadcrumb"
 msgstr ""
 
 #: src/Settings.php:137
@@ -1553,6 +2527,20 @@ msgctxt "taxonomy singular name"
 msgid "Post Type"
 msgstr "Oldaltípus"
 
+#: assets/src/blocks/Counter/CounterEditor.js:53
+msgid "Text"
+msgstr ""
+
+#: templates/duplicate-postmeta-report.twig:51
+msgid "The * indicates whitelisted metakey's for delete operation."
+msgstr ""
+
+#: assets/src/blocks/Gallery/GalleryBlock.js:82
+msgid ""
+"The 3 columns image display is great for accentuating text, and telling a "
+"visual story."
+msgstr ""
+
 #: assets/src/js/Components/ArchivePicker/ArchivePicker.js:546
 #: assets/src/js/Components/ArchivePicker/ArchivePicker.js:589
 msgid ""
@@ -1566,6 +2554,12 @@ msgstr ""
 
 #: src/MediaReplacer.php:78
 msgid "The cache was successfully purged for these files:"
+msgstr ""
+
+#: assets/src/blocks/Columns/ColumnsBlock.js:20
+msgid ""
+"The columns block comes in four styles and groups static content in an "
+"aligned, responsive and styled column."
 msgstr ""
 
 #: src/PostReportController.php:89
@@ -1613,12 +2607,55 @@ msgid ""
 "spreadsheet."
 msgstr ""
 
+#: assets/src/blocks/Gallery/GalleryBlock.js:89
+msgid ""
+"The grid shows thumbnails of lots of images. Good to use when showing lots "
+"of activity."
+msgstr ""
+
+#: assets/src/blocks/HappyPoint/HappyPointBlock.js:11
+msgid ""
+"The Happy Point block embeds (via iFrame) a “Subscribe” or engagement form "
+"on top of a full-width background image."
+msgstr ""
+
+#: assets/src/block-editor/QueryLoopBlockExtension/index.js:232
+msgid "The layout of the action|post list"
+msgstr ""
+
 #: src/AttachmentsController.php:167
 msgid "The owner of the image."
 msgstr ""
 
+#: assets/src/blocks/Gallery/GalleryBlock.js:74
+msgid ""
+"The slider is a carousel of images. For more than 5 images, consider using a "
+"grid."
+msgstr ""
+
+#: assets/src/blocks/Spreadsheet/SpreadsheetEditor.js:96
+msgid "The Spreadsheet URL appears to be invalid."
+msgstr ""
+
+#: assets/src/block-editor/URLValidationMessage/URLValidationMessage.js:25
+msgid "The URL must start with \"https://\""
+msgstr ""
+
 #: src/PostCampaign.php:62
 msgid "Theme"
+msgstr ""
+
+#: assets/src/blocks/SecondaryNavigation/SecondaryNavigationEditor.js:43
+msgid ""
+"There are not any pre-established headings that this block can display in "
+"the form of a secondary navigation menu. Please add headings to your page."
+msgstr ""
+
+#: assets/src/blocks/TableOfContents/TableOfContentsEditor.js:125
+msgid ""
+"There are not any pre-established headings that this block can display in "
+"the form of a table of content. Please add headings to your page or choose "
+"another heading size."
 msgstr ""
 
 #: src/MediaReplacer.php:79
@@ -1635,6 +2672,10 @@ msgstr ""
 
 #: src/Settings.php:127
 msgid "This enables the transparent navigation on the homepage only."
+msgstr ""
+
+#: assets/src/block-editor/Sidebar/PostParentLink.js:5
+msgid "This is a sub-page of"
 msgstr ""
 
 #: src/Settings.php:456
@@ -1680,19 +2721,32 @@ msgid ""
 "(currently %3$s)."
 msgstr ""
 
+#: assets/src/blocks/Cookies/CookiesFieldResetButton.js:15
+msgid "This value is defined in the settings, in Planet 4 > Cookies"
+msgstr ""
+
 #: src/Features/Dev/DisableDataSync.php:33
 msgid ""
 "This will prevent the automated monthly data sync from production to take "
 "place."
 msgstr ""
 
+#: assets/src/blocks/SocialMedia/SocialMediaEditorScript.js:188
+msgid "Timeline"
+msgstr ""
+
+#: assets/src/blocks/Timeline/TimelineEditorScript.js:78
+msgid "Timeline navigation position"
+msgstr ""
+
 #: underscore_templates/posts_reports.tpl.php:14
 #: underscore_templates/posts_reports.tpl.php:29
 #: underscore_templates/posts_reports.tpl.php:44
 #: underscore_templates/posts_reports.tpl.php:59
+#: assets/src/block-editor/Sidebar/OpenGraphSidebar.js:28
 #: assets/src/js/Components/ArchivePicker/SingleSidebar.js:184
 msgid "Title"
-msgstr ""
+msgstr "Cím"
 
 #: src/MasterSite.php:278
 msgid "Title is a required field."
@@ -1710,8 +2764,21 @@ msgstr ""
 msgid "Too many failed login attempts. Please try again in 15 minutes."
 msgstr ""
 
+#: templates/duplicate-postmeta-report.twig:47
+msgid "Total"
+msgstr ""
+
+#: assets/src/block-styles/index.js:27
+msgid "Transparent"
+msgstr ""
+
 #: src/Settings.php:398
 msgid "True"
+msgstr ""
+
+#: assets/src/block-editor/BlockFilters/index.js:81
+msgid ""
+"Try to keep your Quote short and concise, so that it stands out effectively."
 msgstr ""
 
 #: src/ActionPage.php:169
@@ -1732,6 +2799,11 @@ msgstr ""
 "Tölts fel egy képet vagy válassz egyet a médiakönyvtárból, hogy felülird a "
 "háttérképet."
 
+#: assets/src/blocks/Gallery/GalleryEditor.js:65
+msgid "Upload an JPEG image or select one from the media library."
+msgstr ""
+
+#: assets/src/blocks/SocialMedia/SocialMediaEditorScript.js:197
 #: assets/src/js/Components/ArchivePicker/SingleSidebar.js:176
 msgid "URL"
 msgstr ""
@@ -1739,6 +2811,10 @@ msgstr ""
 #: src/Settings.php:182
 msgid "URL (for iframe)"
 msgstr ""
+
+#: assets/src/blocks/CarouselHeader/SidebarSlide.js:95
+msgid "Url for link"
+msgstr "Hivatkozás URL-e"
 
 #: src/Settings.php:505
 msgid ""
@@ -1753,12 +2829,46 @@ msgid ""
 "campaigns they care about!"
 msgstr ""
 
+#: assets/src/blocks/Cookies/CookiesFieldResetButton.js:23
+msgid "Use default value"
+msgstr ""
+
 #: assets/src/js/Components/ArchivePicker/ArchivePicker.js:610
 msgid "Use Media Library Tab for this Block!"
 msgstr ""
 
+#: assets/src/blocks/Counter/CounterEditor.js:60
+msgid ""
+"Use the following placeholders within the text to showcase the real numbers "
+"when using an API URL: "
+msgstr ""
+
 #: src/MediaReplacer.php:70
 msgid "Use this to replace the current file without changing the file URL."
+msgstr ""
+
+#: assets/src/blocks/TableOfContents/TableOfContentsBlock.js:47
+msgid ""
+"Use: on long pages (more than 5 screens) when list items are long (+ 10 "
+"words). No max items recommended."
+msgstr ""
+
+#: assets/src/blocks/TableOfContents/TableOfContentsBlock.js:62
+msgid ""
+"Use: on long pages (more than 5 screens) when list items are short (up to 10 "
+"words). Max items recommended: 9"
+msgstr ""
+
+#: assets/src/blocks/TableOfContents/TableOfContentsBlock.js:55
+msgid ""
+"Use: on long pages (more than 5 screens) when list items are short (up to 5 "
+"words). No max items recommended."
+msgstr ""
+
+#: assets/src/blocks/Columns/ColumnsBlock.js:82
+msgid ""
+"Used on Take Action pages, this display has ordered tasks, and call to "
+"action buttons."
 msgstr ""
 
 #: src/MediaArchive/UiIntegration.php:98
@@ -1781,6 +2891,28 @@ msgstr ""
 msgid "VWO Account ID"
 msgstr ""
 
+#: assets/src/blocks/HappyPoint/HappyPointEditor.js:113
+#| msgid ""
+#| "<i>We use an overlay to fade the image back. Use a number between 1 and "
+#| "100,<br /> the higher the number, the more faded the image will look. If "
+#| "you leave this <br/> empty, the default of 30 will be used.</i>"
+msgid ""
+"We use an overlay to fade the image back. Use a number between 1 and 100, "
+"the higher the number, the more faded the image will look. If you leave this "
+"empty, the default of 30 will be used."
+msgstr ""
+"Fedést használunk a kép halványítására. Írj be egy számot 1 és 100 között: "
+"minél nagyobb a szám, annál halványabb lesz a kép. Ha üresen hagyod, az "
+"alapértelmezett érték (30) lesz használva."
+
+#: assets/src/blocks/SocialMedia/SocialMediaEditorScript.js:180
+msgid "What Facebook page content would you like to display?"
+msgstr ""
+
+#: templates/duplicate-postmeta-report.twig:6
+msgid "Whitelisted meta_key's for delete operation"
+msgstr ""
+
 #. 1: image ID
 #: assets/src/js/Components/ArchivePicker/SingleSidebar.js:103
 #: assets/src/js/Components/ArchivePicker/SingleSidebar.js:170
@@ -1790,6 +2922,13 @@ msgstr ""
 
 #: src/CustomTaxonomy.php:464
 msgid "Yes"
+msgstr ""
+
+#: assets/src/block-editor/addButtonLinkPasteWarning.js:15
+msgid ""
+"You are pasting a link into the button text. Please ensure your clipboard "
+"only has text in it. Alternatively you can press control/command + SHIFT + V "
+"to paste only the text in your clipboard."
 msgstr ""
 
 #: src/LoginHandler.php:227
@@ -1802,6 +2941,10 @@ msgstr ""
 msgid "You can configure the estimated reading speed in"
 msgstr ""
 
-#: src/MasterSite.php:806
+#: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:198
+msgid "You can only have one sticky boxout per post"
+msgstr ""
+
+#: src/MasterSite.php:803
 msgid "Your role does not have permission to add terms to this taxonomy"
 msgstr ""
