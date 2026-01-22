@@ -1,0 +1,480 @@
+msgid ""
+msgstr ""
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100 >= 3 "
+"&& n%100<=10 ? 3 : n%100 >= 11 && n%100<=99 ? 4 : 5;\n"
+"Project-Id-Version: Planet4 - Blocks\n"
+"POT-Creation-Date: 2020-09-09 11:52+0000\n"
+"PO-Revision-Date: 2025-12-15 09:58+0000\n"
+"Last-Translator: \n"
+"Language-Team: Arabic\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: planet4-blocks.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"Language: ar\n"
+"Report-Msgid-Bugs-To: \n"
+"X-Loco-Version: 2.7.1; wp-6.7.2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: assets/src/blocks/Cookies/CookiesFrontend.js:131
+#: assets/src/blocks/Cookies/CookiesEditor.js:73
+msgid "Always enabled"
+msgstr "ممكّن دائمًا"
+
+#: src/Blocks/HappyPoint.php:109
+msgid "Background image"
+msgstr "صورة الخلفية"
+
+#: assets/src/block-templates/high-level-topic/template.js:20
+msgid "Better understand the issues [deep dive topics]"
+msgstr "فهم أفضل للقضايا [الغوص في المواضيع العميقة]"
+
+#: assets/build/blocks/TopicLink/block.json:1
+#: assets/src/blocks/TopicLink/block.json:1
+msgctxt "block description"
+msgid ""
+"The Topic Link block allows editors to manually link to a category page, "
+"which redirects users to relevant topic content."
+msgstr ""
+
+#: assets/build/block-templates/action/block.json:1
+#: assets/src/block-templates/action/block.json:1
+msgctxt "block title"
+msgid "Action"
+msgstr "فعل"
+
+#: assets/build/block-templates/campaign/block.json:1
+#: assets/src/block-templates/campaign/block.json:1
+msgctxt "block title"
+msgid "Campaign"
+msgstr "حملة"
+
+#: assets/build/block-templates/deep-dive/block.json:1
+#: assets/src/block-templates/deep-dive/block.json:1
+msgctxt "block title"
+msgid "Deep Dive"
+msgstr "الغوص العميق"
+
+#: assets/build/block-templates/deep-dive-topic/block.json:1
+#: assets/src/block-templates/deep-dive-topic/block.json:1
+msgctxt "block title"
+msgid "Deep Dive Topic"
+msgstr "موضوع الغوص العميق"
+
+#: assets/build/block-templates/get-informed/block.json:1
+#: assets/src/block-templates/get-informed/block.json:1
+msgctxt "block title"
+msgid "Get Informed"
+msgstr "احصل على اطلاع"
+
+#: assets/build/block-templates/high-level-topic/block.json:1
+#: assets/src/block-templates/high-level-topic/block.json:1
+msgctxt "block title"
+msgid "High-Level Topic"
+msgstr "موضوع رفيع المستوى"
+
+#: assets/build/block-templates/highlighted-cta/block.json:1
+#: assets/src/block-templates/highlighted-cta/block.json:1
+msgctxt "block title"
+msgid "Highlighted CTA"
+msgstr " الدعوة لاتخاذ إجراء البارزة"
+
+#: assets/build/block-templates/homepage/block.json:1
+#: assets/src/block-templates/homepage/block.json:1
+msgctxt "block title"
+msgid "Homepage"
+msgstr "الصفحة الرئيسية"
+
+#: assets/build/block-templates/issues/block.json:1
+#: assets/src/block-templates/issues/block.json:1
+msgctxt "block title"
+msgid "Issues"
+msgstr "مشاكل"
+
+#: assets/build/block-templates/page-header/block.json:1
+#: assets/src/block-templates/page-header/block.json:1
+msgctxt "block title"
+msgid "Page Header"
+msgstr "رأس الصفحة"
+
+#: assets/build/block-templates/quick-links/block.json:1
+#: assets/src/block-templates/quick-links/block.json:1
+msgctxt "block title"
+msgid "Quick Links"
+msgstr "روابط سريعة"
+
+#: assets/build/block-templates/reality-check/block.json:1
+#: assets/src/block-templates/reality-check/block.json:1
+msgctxt "block title"
+msgid "Reality Check"
+msgstr "التحقق من الواقع"
+
+#: assets/build/block-templates/side-image-with-text-and-cta/block.json:1
+#: assets/src/block-templates/side-image-with-text-and-cta/block.json:1
+msgctxt "block title"
+msgid "Side image with text and CTA"
+msgstr "صورة جانبية مع نص ودعوة لاتخاذ إجراء"
+
+#: assets/build/block-templates/take-action/block.json:1
+#: assets/src/block-templates/take-action/block.json:1
+msgctxt "block title"
+msgid "Take Action"
+msgstr "اتخذ إجراءً"
+
+#: assets/build/blocks/TopicLink/block.json:1
+#: assets/src/blocks/TopicLink/block.json:1
+msgctxt "block title"
+msgid "Topic Link"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Action Yellow"
+msgstr "العمل الأصفر"
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Beige 100"
+msgstr "بيج 100"
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Blue 800"
+msgstr "أزرق 800"
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Blue Green 800"
+msgstr "أزرق أخضر 800"
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Dark Green 800"
+msgstr "أخضر غامق 800"
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "GP Green 800"
+msgstr "أخضر جي بي 800"
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Green 400"
+msgstr "أخضر 400"
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Green 500"
+msgstr "أخضر 500"
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Green 800"
+msgstr "أخضر 800"
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Grey 100"
+msgstr "رمادي 100"
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Grey 200"
+msgstr "رمادي 200"
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Grey 600"
+msgstr "رمادي 600"
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Grey 800"
+msgstr "رمادي 800"
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Grey 900"
+msgstr "رمادي 900"
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Red 500"
+msgstr "الأحمر 500"
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "White"
+msgstr "أبيض"
+
+#: assets/src/js/resistance-hub-campaign.js:46
+msgid "Completed"
+msgstr ""
+
+#: assets/src/block-templates/take-action/template.js:17
+msgid "Daily actions"
+msgstr "الإجراءات اليومية"
+
+#: assets/src/js/resistance-hub-campaign.js:147
+#: assets/src/block-editor/Sidebar/ActionSidebar.js:41
+msgid "Do it Offline"
+msgstr ""
+
+#: assets/src/js/resistance-hub-campaign.js:144
+#: assets/src/block-editor/Sidebar/ActionSidebar.js:40
+msgid "Do it Online"
+msgstr ""
+
+#: assets/src/block-templates/take-action/template.js:49
+msgid "Donate"
+msgstr "تبرع"
+
+#: src/Migrations/M049MigrateCoversBlockToActionsListBlock.php:286
+#: src/Migrations/M037MigrateCoversContentBlockToPostsListBlock.php:385
+#: src/Migrations/M046MigrateArticlesBlockToPostsListBlock.php:326
+msgid "Enter description"
+msgstr ""
+
+#: src/CloudflareTurnstileHandler.php:100
+msgid "Error: Captcha verification failed. Please try again."
+msgstr ""
+
+#: src/CloudflareTurnstileHandler.php:76
+msgid "Error: Please complete the captcha."
+msgstr ""
+
+#. Name of the template
+#: page-templates/evergreen.php:5
+msgid "Evergreen Page"
+msgstr "صفحة دائمة الخضرة"
+
+#: assets/src/block-templates/get-informed/template.js:9
+#: assets/src/block-templates/high-level-topic/template.js:45
+#: assets/src/block-templates/action/template.js:34
+msgid "Explore by topics"
+msgstr "استكشاف حسب المواضيع"
+
+#: assets/src/block-templates/deep-dive-topic/template.js:32
+msgid "Explore other topics"
+msgstr "استكشاف مواضيع أخرى"
+
+#: assets/src/block-templates/high-level-topic/template.js:29
+msgid "Featured action title"
+msgstr "عنوان العمل المميز"
+
+#: src/Migrations/M032MigrateSplit2ColumnBlock.php:217
+msgid "Get involved"
+msgstr "شارك"
+
+#: assets/src/block-templates/homepage/template.js:21
+msgid "Get to know us"
+msgstr "تعرف علينا"
+
+#: assets/src/blocks/CarouselHeader/CarouselControls.js:20
+msgid "Go to next slide"
+msgstr ""
+
+#: assets/src/blocks/CarouselHeader/CarouselControls.js:16
+msgid "Go to previous slide"
+msgstr ""
+
+#. %s: slide index
+#: assets/src/blocks/CarouselHeader/CarouselControls.js:50
+#, javascript-format
+msgid "Go to slide %s"
+msgstr ""
+
+#: assets/src/block-templates/campaign/template.js:23
+#: assets/src/block-templates/high-level-topic/template.js:33
+#: assets/src/block-templates/deep-dive-topic/template.js:22
+msgid "How you can help"
+msgstr "كيف يمكنك المساعدة"
+
+#: assets/src/block-templates/deep-dive-topic/template.js:29
+msgid "Keep learning about"
+msgstr "استمر في التعلم عن"
+
+#: assets/src/block-templates/high-level-topic/template.js:41
+msgid "Latest investigations"
+msgstr "آخر التحقيقات"
+
+#: assets/src/block-templates/get-informed/template.js:34
+#: assets/src/block-templates/high-level-topic/template.js:37
+#: assets/src/block-templates/deep-dive-topic/template.js:26
+msgid "Latest news & stories"
+msgstr "آخر الأخبار والقصص"
+
+#: src/Migrations/M032MigrateSplit2ColumnBlock.php:201
+msgid "Learn more about this issue"
+msgstr "تعرف على المزيد حول هذه المشكلة"
+
+#: src/Migrations/M057ActionsListBlockLoadMore.php:84
+#: assets/src/blocks/ActionsList/index.js:84
+msgid "Load more"
+msgstr "تحميل المزيد"
+
+#: assets/src/blocks/Spreadsheet/SpreadsheetFrontend.js:185
+#| msgid "Loading spreadsheet data..."
+msgid "Loading spreadsheet data…"
+msgstr ""
+"جاري تحميل جدول البيانات…\n"
+
+#: src/QueryLoopPagination.php:63
+#: src/Migrations/M049MigrateCoversBlockToActionsListBlock.php:208
+#: src/Migrations/M037MigrateCoversContentBlockToPostsListBlock.php:263
+#: src/Migrations/M046MigrateArticlesBlockToPostsListBlock.php:207
+#: assets/src/blocks/Gallery/GalleryCarousel.js:125
+#: assets/src/blocks/CarouselHeader/CarouselControls.js:22
+msgid "Next"
+msgstr "التالي"
+
+#: assets/src/blocks/Spreadsheet/SpreadsheetFrontend.js:123
+msgid "No data matching your search."
+msgstr "لا توجد بيانات تطابق بحثك."
+
+#: src/Migrations/M049MigrateCoversBlockToActionsListBlock.php:269
+#: src/Migrations/M037MigrateCoversContentBlockToPostsListBlock.php:365
+#: src/Migrations/M046MigrateArticlesBlockToPostsListBlock.php:306
+msgid "No posts found."
+msgstr ""
+
+#: src/Migrations/M049MigrateCoversBlockToActionsListBlock.php:268
+#: src/Migrations/M037MigrateCoversContentBlockToPostsListBlock.php:364
+#: src/Migrations/M046MigrateArticlesBlockToPostsListBlock.php:305
+msgid "No posts found. (This default text can be edited)"
+msgstr ""
+
+#: assets/src/block-templates/get-informed/template.js:30
+msgid "Our latest actions around the world"
+msgstr "أحدث تحركاتنا حول العالم"
+
+#: assets/src/block-templates/get-informed/template.js:26
+msgid "Our recent victories"
+msgstr "انتصاراتنا الأخيرة"
+
+#: assets/src/block-templates/take-action/template.js:11
+#: assets/src/block-templates/deep-dive-topic/template.js:9
+msgid "Page header title"
+msgstr "عنوان رأس الصفحة"
+
+#: assets/src/blocks/CarouselHeader/CarouselControls.js:59
+msgid "Play Slider"
+msgstr ""
+
+#: src/QueryLoopPagination.php:39
+#: src/Migrations/M049MigrateCoversBlockToActionsListBlock.php:204
+#: src/Migrations/M037MigrateCoversContentBlockToPostsListBlock.php:259
+#: src/Migrations/M046MigrateArticlesBlockToPostsListBlock.php:203
+msgid "Prev"
+msgstr "السابق"
+
+#: assets/src/blocks/Gallery/GalleryCarousel.js:91
+#: assets/src/blocks/CarouselHeader/CarouselControls.js:18
+msgid "Previous"
+msgstr "السابق"
+
+#: assets/src/block-templates/take-action/template.js:44
+msgid "Raise awareness in your community"
+msgstr "رفع مستوى الوعي في مجتمعك"
+
+#: assets/src/block-templates/homepage/template.js:17
+msgid "Read our Stories"
+msgstr "قراءة قصصنا"
+
+#: src/Migrations/M046MigrateArticlesBlockToPostsListBlock.php:114
+msgid "Related Articles"
+msgstr "مقالات ذات صلة"
+
+#: src/Post.php:639
+msgid "Related Posts"
+msgstr "المدونات ذات الصلة"
+
+#. Name of the template
+#: single-p4_action-resistance_hub.php:3
+msgid "Resistance Hub Campaign"
+msgstr ""
+
+#: assets/src/blocks/Spreadsheet/SpreadsheetFrontend.js:153
+msgid "Search data"
+msgstr "بيانات البحث"
+
+#: src/Post.php:630 assets/src/blocks/PostsList/index.js:21
+msgid "See all posts"
+msgstr "رؤية جميع المدونات"
+
+#: src/Migrations/M037MigrateCoversContentBlockToPostsListBlock.php:347
+#: src/Migrations/M046MigrateArticlesBlockToPostsListBlock.php:288
+msgid "See all stories"
+msgstr ""
+
+#. Name of the template
+#: page-templates/sitemap.php:3
+msgid "Sitemap Page"
+msgstr "صفحة خريطة الموقع"
+
+#: assets/src/blocks/CarouselHeader/CarouselControls.js:59
+msgid "Stop Slider"
+msgstr ""
+
+#: assets/src/block-templates/take-action/template.js:22
+msgid "Support a cause"
+msgstr "دعم قضية"
+
+#: src/Blocks/ActionButtonText.php:84 src/Blocks/ActionButtonText.php:94
+#: src/Blocks/TakeActionBoxout.php:158
+#: assets/src/blocks/ActionCustomButtonText/edit.js:4
+#: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:22
+msgid "Take action"
+msgstr "تحرك"
+
+#: assets/src/block-templates/take-action/template.js:40
+msgid "Take action with us"
+msgstr "اتخاذ الإجراءات اللازمة معنا"
+
+#: assets/src/block-templates/get-informed/template.js:22
+#: assets/src/block-templates/homepage/template.js:12
+msgid "The issues we work on"
+msgstr "القضايا التي نعمل عليها"
+
+#: assets/src/block-templates/campaign/template.js:13
+#: assets/src/block-templates/high-level-topic/template.js:16
+#: assets/src/block-templates/action/template.js:23
+#: assets/src/block-templates/deep-dive-topic/template.js:14
+msgid "The problem"
+msgstr "المشكلة"
+
+#: assets/src/block-templates/campaign/template.js:17
+msgid "The solution"
+msgstr "الحل"
+
+#: assets/src/block-templates/get-informed/template.js:12
+msgid "Topic 1"
+msgstr "الموضوع 1"
+
+#: assets/src/block-templates/get-informed/template.js:15
+msgid "Topic 2"
+msgstr "الموضوع 2"
+
+#: assets/src/block-templates/get-informed/template.js:19
+msgid "Topic 3"
+msgstr "الموضوع 3"
+
+#: assets/src/block-templates/homepage/template.js:25
+msgid "We win campaigns"
+msgstr "نحن نفوز بالحملات"
+
+#: assets/src/block-templates/deep-dive-topic/template.js:17
+msgid "What can be done"
+msgstr "ما الذي يمكن عمله"
+
+#: assets/src/block-templates/high-level-topic/template.js:24
+msgid "What we do"
+msgstr "ماذا نفعل"

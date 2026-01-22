@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2025-12-18 10:09+0000\n"
+"PO-Revision-Date: 2025-12-15 06:35+0000\n"
 "Language-Team: Hungarian\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -34,8 +34,9 @@ msgstr[1] "%1$d találat a következőre: '%2$s'"
 #. reading time in min.
 #. %d = Number of minutes for reading time.
 #: src/Post.php:517 src/Post/ReadingTimeCalculator.php:135
-#: templates/tease-author.twig:54 templates/tease-taxonomy-post.twig:63
-#: templates/single.twig:69 templates/tease-taxonomy-action.twig:53
+#: templates/tease-taxonomy-action.twig:53
+#: templates/tease-taxonomy-post.twig:63 templates/tease-author.twig:54
+#: templates/single.twig:69
 msgid "%d min read"
 msgstr "%d perc olvasás"
 
@@ -83,7 +84,7 @@ msgstr ""
 msgid "ACTIVE FILTERS"
 msgstr "AKTÍV SZŰRŐK"
 
-#: templates/taxonomy.twig:36 templates/all-actions.twig:7
+#: templates/all-actions.twig:7 templates/taxonomy.twig:36
 msgid "All actions"
 msgstr ""
 
@@ -112,8 +113,6 @@ msgid "Allow all"
 msgstr "Összes engedélyezése"
 
 #: templates/cookies/cookies_settings.twig:16
-#: assets/src/blocks/Cookies/CookiesEditor.js:73
-#: assets/src/blocks/Cookies/CookiesFrontend.js:131
 msgid "Always enabled"
 msgstr "Mindig engedélyezze"
 
@@ -138,14 +137,7 @@ msgstr "Archív URL"
 msgid "Articles"
 msgstr "Cikkek"
 
-#: src/Blocks/HappyPoint.php:109
-msgid "Background image"
-msgstr "Háttérkép"
-
-#: assets/src/block-templates/high-level-topic/template.js:20
-msgid "Better understand the issues [deep dive topics]"
-msgstr ""
-
+#: assets/build/blocks/TopicLink/block.json:1
 #: assets/src/blocks/TopicLink/block.json:1
 msgctxt "block description"
 msgid ""
@@ -153,76 +145,91 @@ msgid ""
 "which redirects users to relevant topic content."
 msgstr ""
 
+#: assets/build/block-templates/action/block.json:1
 #: assets/src/block-templates/action/block.json:1
 msgctxt "block title"
 msgid "Action"
 msgstr ""
 
+#: assets/build/block-templates/campaign/block.json:1
 #: assets/src/block-templates/campaign/block.json:1
 msgctxt "block title"
 msgid "Campaign"
 msgstr ""
 
+#: assets/build/block-templates/deep-dive/block.json:1
 #: assets/src/block-templates/deep-dive/block.json:1
 msgctxt "block title"
 msgid "Deep Dive"
 msgstr ""
 
+#: assets/build/block-templates/deep-dive-topic/block.json:1
 #: assets/src/block-templates/deep-dive-topic/block.json:1
 msgctxt "block title"
 msgid "Deep Dive Topic"
 msgstr ""
 
+#: assets/build/block-templates/get-informed/block.json:1
 #: assets/src/block-templates/get-informed/block.json:1
 msgctxt "block title"
 msgid "Get Informed"
 msgstr ""
 
+#: assets/build/block-templates/high-level-topic/block.json:1
 #: assets/src/block-templates/high-level-topic/block.json:1
 msgctxt "block title"
 msgid "High-Level Topic"
 msgstr ""
 
+#: assets/build/block-templates/highlighted-cta/block.json:1
 #: assets/src/block-templates/highlighted-cta/block.json:1
 msgctxt "block title"
 msgid "Highlighted CTA"
 msgstr ""
 
+#: assets/build/block-templates/homepage/block.json:1
 #: assets/src/block-templates/homepage/block.json:1
 msgctxt "block title"
 msgid "Homepage"
 msgstr ""
 
+#: assets/build/block-templates/issues/block.json:1
 #: assets/src/block-templates/issues/block.json:1
 msgctxt "block title"
 msgid "Issues"
 msgstr ""
 
+#: assets/build/block-templates/page-header/block.json:1
 #: assets/src/block-templates/page-header/block.json:1
 msgctxt "block title"
 msgid "Page Header"
 msgstr ""
 
+#: assets/build/block-templates/quick-links/block.json:1
 #: assets/src/block-templates/quick-links/block.json:1
 msgctxt "block title"
 msgid "Quick Links"
 msgstr ""
 
+#: assets/build/block-templates/reality-check/block.json:1
 #: assets/src/block-templates/reality-check/block.json:1
 msgctxt "block title"
 msgid "Reality Check"
 msgstr ""
 
+#: assets/build/block-templates/side-image-with-text-and-cta/block.json:1
 #: assets/src/block-templates/side-image-with-text-and-cta/block.json:1
 msgctxt "block title"
 msgid "Side image with text and CTA"
 msgstr ""
 
+#: assets/build/block-templates/take-action/block.json:1
 #: assets/src/block-templates/take-action/block.json:1
 msgctxt "block title"
 msgid "Take Action"
 msgstr ""
 
+#: assets/build/blocks/TopicLink/block.json:1
 #: assets/src/blocks/TopicLink/block.json:1
 msgctxt "block title"
 msgid "Topic Link"
@@ -253,7 +260,7 @@ msgstr "Ellenőrizd a gépelési hibákat, és próbáld újra a keresést"
 msgid "Clear all"
 msgstr "Összes törlése"
 
-#: templates/search-form.twig:28 templates/search.twig:38
+#: templates/search.twig:38 templates/search-form.twig:28
 msgid "Clear search"
 msgstr "Keresés kiürítése"
 
@@ -345,13 +352,9 @@ msgstr ""
 msgid "Comment (required)"
 msgstr ""
 
-#: templates/comments_section.twig:2 templates/single.twig:76
+#: templates/single.twig:76 templates/comments_section.twig:2
 msgid "Comments"
 msgstr "Hozzászólások"
-
-#: assets/src/js/resistance-hub-campaign.js:46
-msgid "Completed"
-msgstr ""
 
 #: templates/search/content_types.twig:7
 #, fuzzy
@@ -363,23 +366,9 @@ msgstr "TARTALOMTÍPUSOK"
 msgid "Content type"
 msgstr "Tartalomtípus"
 
-#: assets/src/block-templates/take-action/template.js:17
-msgid "Daily actions"
-msgstr ""
-
 #: templates/comments_section.twig:9
 msgid "Discussion"
 msgstr "Beszélgetés"
-
-#: assets/src/js/resistance-hub-campaign.js:147
-#: assets/src/block-editor/Sidebar/ActionSidebar.js:41
-msgid "Do it Offline"
-msgstr ""
-
-#: assets/src/js/resistance-hub-campaign.js:144
-#: assets/src/block-editor/Sidebar/ActionSidebar.js:40
-msgid "Do it Online"
-msgstr ""
 
 #: src/Post.php:237
 msgid "DOCUMENT"
@@ -389,10 +378,6 @@ msgstr "DOKUMENTUM"
 msgid "Document"
 msgstr "Dokumentum"
 
-#: assets/src/block-templates/take-action/template.js:49
-msgid "Donate"
-msgstr ""
-
 #: templates/tease-search.twig:119
 msgid "Download"
 msgstr "Letöltés"
@@ -401,23 +386,9 @@ msgstr "Letöltés"
 msgid "Email (required)"
 msgstr ""
 
-#: src/Migrations/M037MigrateCoversContentBlockToPostsListBlock.php:385
-#: src/Migrations/M046MigrateArticlesBlockToPostsListBlock.php:326
-#: src/Migrations/M049MigrateCoversBlockToActionsListBlock.php:286
-msgid "Enter description"
-msgstr ""
-
 #: 404.php:22
 msgid "Enter your search term below"
 msgstr "Add meg a keresési kifejezést"
-
-#: src/CloudflareTurnstileHandler.php:100
-msgid "Error: Captcha verification failed. Please try again."
-msgstr ""
-
-#: src/CloudflareTurnstileHandler.php:76
-msgid "Error: Please complete the captcha."
-msgstr ""
 
 #. Name of the template
 #: page-templates/evergreen.php:5
@@ -427,20 +398,6 @@ msgstr "Örökzöld oldal"
 #: page-templates/sitemap.php:45
 msgid "Explore"
 msgstr "Fedezd fel"
-
-#: assets/src/block-templates/high-level-topic/template.js:45
-#: assets/src/block-templates/get-informed/template.js:9
-#: assets/src/block-templates/action/template.js:34
-msgid "Explore by topics"
-msgstr ""
-
-#: assets/src/block-templates/deep-dive-topic/template.js:32
-msgid "Explore other topics"
-msgstr ""
-
-#: assets/src/block-templates/high-level-topic/template.js:29
-msgid "Featured action title"
-msgstr ""
 
 #: templates/search/action_types.twig:16
 #, php-format
@@ -490,28 +447,6 @@ msgstr "Szűrők"
 msgid "Follow us"
 msgstr "Kövess minket"
 
-#: src/Migrations/M032MigrateSplit2ColumnBlock.php:217
-msgid "Get involved"
-msgstr "Csatlakozz"
-
-#: assets/src/block-templates/homepage/template.js:21
-msgid "Get to know us"
-msgstr ""
-
-#: assets/src/blocks/CarouselHeader/CarouselControls.js:20
-msgid "Go to next slide"
-msgstr ""
-
-#: assets/src/blocks/CarouselHeader/CarouselControls.js:16
-msgid "Go to previous slide"
-msgstr ""
-
-#. %s: slide index
-#: assets/src/blocks/CarouselHeader/CarouselControls.js:50
-#, javascript-format
-msgid "Go to slide %s"
-msgstr ""
-
 #. Author of the theme
 msgid "Greenpeace International"
 msgstr "Greenpeace International"
@@ -532,12 +467,6 @@ msgstr ""
 msgid "Home"
 msgstr "Kezdőlap"
 
-#: assets/src/block-templates/high-level-topic/template.js:33
-#: assets/src/block-templates/deep-dive-topic/template.js:22
-#: assets/src/block-templates/campaign/template.js:23
-msgid "How you can help"
-msgstr ""
-
 #. Author URI of the theme
 msgid "https://github.com/greenpeace"
 msgstr "https://github.com/greenpeace"
@@ -554,11 +483,11 @@ msgstr ""
 "Hozzájárulok nevem, e-mail-címem és a hozzászólás tartalmának kezeléséhez "
 "annak érdekében, hogy a hozzászólásom megjelenjen a weboldalon"
 
-#: src/MasterSite.php:459
+#: src/MasterSite.php:462
 msgid "International (English)"
 msgstr "International (English)"
 
-#: templates/single-page.twig:15 templates/single-password.twig:18
+#: templates/single-password.twig:18 templates/single-page.twig:15
 msgid "Invalid password, please try again"
 msgstr "Helytelen jelszó, próbáld újra"
 
@@ -566,27 +495,9 @@ msgstr "Helytelen jelszó, próbáld újra"
 msgid "Invalid username or password"
 msgstr ""
 
-#: assets/src/block-templates/deep-dive-topic/template.js:29
-msgid "Keep learning about"
-msgstr ""
-
 #: templates/listing-page-filters.twig:38
 msgid "Keywords"
 msgstr ""
-
-#: assets/src/block-templates/high-level-topic/template.js:41
-msgid "Latest investigations"
-msgstr ""
-
-#: assets/src/block-templates/high-level-topic/template.js:37
-#: assets/src/block-templates/get-informed/template.js:34
-#: assets/src/block-templates/deep-dive-topic/template.js:26
-msgid "Latest news & stories"
-msgstr ""
-
-#: src/Migrations/M032MigrateSplit2ColumnBlock.php:201
-msgid "Learn more about this issue"
-msgstr "Tudj meg többet erről az ügyről"
 
 #: single.php:137
 msgid "Leave your reply"
@@ -595,16 +506,6 @@ msgstr "Írd meg a véleményed"
 #: assets/src/js/listing_pages.js:57
 msgid "List View"
 msgstr ""
-
-#: src/Migrations/M057ActionsListBlockLoadMore.php:84
-#: assets/src/blocks/ActionsList/index.js:84
-msgid "Load more"
-msgstr "Többet szeretnék látni"
-
-#: assets/src/blocks/Spreadsheet/SpreadsheetFrontend.js:185
-#| msgid "Loading spreadsheet data..."
-msgid "Loading spreadsheet data…"
-msgstr "Táblázat betöltése..."
 
 #: templates/tease-search.twig:159
 msgid "Manage"
@@ -634,50 +535,17 @@ msgstr ""
 msgid "Newest"
 msgstr "Legújabb"
 
-#: templates/taxonomy.twig:13 templates/tag.twig:13
+#: templates/tag.twig:13 templates/taxonomy.twig:13
 msgid "News & stories"
 msgstr ""
-
-#: src/QueryLoopPagination.php:63
-#: src/Migrations/M037MigrateCoversContentBlockToPostsListBlock.php:263
-#: src/Migrations/M046MigrateArticlesBlockToPostsListBlock.php:207
-#: src/Migrations/M049MigrateCoversBlockToActionsListBlock.php:208
-#: assets/src/blocks/Gallery/GalleryCarousel.js:125
-#: assets/src/blocks/CarouselHeader/CarouselControls.js:22
-msgid "Next"
-msgstr "Következő"
-
-#: assets/src/blocks/Spreadsheet/SpreadsheetFrontend.js:123
-msgid "No data matching your search."
-msgstr "Nincs a keresésnek megfelelő adat."
 
 #: assets/src/js/listing_pages.js:116
 msgid "No posts found!"
 msgstr ""
 
-#: src/Migrations/M037MigrateCoversContentBlockToPostsListBlock.php:365
-#: src/Migrations/M046MigrateArticlesBlockToPostsListBlock.php:306
-#: src/Migrations/M049MigrateCoversBlockToActionsListBlock.php:269
-msgid "No posts found."
-msgstr ""
-
-#: src/Migrations/M037MigrateCoversContentBlockToPostsListBlock.php:364
-#: src/Migrations/M046MigrateArticlesBlockToPostsListBlock.php:305
-#: src/Migrations/M049MigrateCoversBlockToActionsListBlock.php:268
-msgid "No posts found. (This default text can be edited)"
-msgstr ""
-
 #: src/Search/SearchPage.php:70
 msgid "Oldest"
 msgstr "Legrégebbi"
-
-#: assets/src/block-templates/get-informed/template.js:30
-msgid "Our latest actions around the world"
-msgstr ""
-
-#: assets/src/block-templates/get-informed/template.js:26
-msgid "Our recent victories"
-msgstr ""
 
 #: src/Post.php:233
 msgid "PAGE"
@@ -686,15 +554,6 @@ msgstr "OLDAL"
 #: src/Search/Filters/ContentTypes.php:106
 msgid "Page"
 msgstr "Oldal"
-
-#: assets/src/block-templates/deep-dive-topic/template.js:9
-#: assets/src/block-templates/take-action/template.js:11
-msgid "Page header title"
-msgstr ""
-
-#: assets/src/blocks/CarouselHeader/CarouselControls.js:59
-msgid "Play Slider"
-msgstr ""
 
 #: templates/cookies/cookies_settings.twig:12
 msgid "Please select which cookies you are willing to store."
@@ -716,26 +575,6 @@ msgstr "Hozzászólás beküldése"
 msgid "Post Type"
 msgstr ""
 
-#: src/QueryLoopPagination.php:39
-#: src/Migrations/M037MigrateCoversContentBlockToPostsListBlock.php:259
-#: src/Migrations/M046MigrateArticlesBlockToPostsListBlock.php:203
-#: src/Migrations/M049MigrateCoversBlockToActionsListBlock.php:204
-msgid "Prev"
-msgstr "Előző"
-
-#: assets/src/blocks/Gallery/GalleryCarousel.js:91
-#: assets/src/blocks/CarouselHeader/CarouselControls.js:18
-msgid "Previous"
-msgstr "Előző"
-
-#: assets/src/block-templates/take-action/template.js:44
-msgid "Raise awareness in your community"
-msgstr ""
-
-#: assets/src/block-templates/homepage/template.js:17
-msgid "Read our Stories"
-msgstr ""
-
 #: templates/search.twig:72 templates/search.twig:99
 msgid "Refine your search"
 msgstr "Keresés finomítása"
@@ -748,14 +587,6 @@ msgstr "Összes elutasítása"
 msgid "Reject all cookies"
 msgstr "Összes süti elutasítása"
 
-#: src/Migrations/M046MigrateArticlesBlockToPostsListBlock.php:114
-msgid "Related Articles"
-msgstr "Kapcsolódó cikkek"
-
-#: src/Post.php:639
-msgid "Related Posts"
-msgstr "Kapcsolódó cikkek"
-
 #. Name of the template
 #: single-p4_action-resistance_hub.php:3
 msgid "Resistance Hub Campaign"
@@ -765,25 +596,12 @@ msgstr ""
 msgid "Save preferences"
 msgstr "Beállítások mentése"
 
-#: templates/search-form.twig:2 templates/search.twig:48 templates/404.twig:16
+#: templates/404.twig:16 templates/search.twig:48 templates/search-form.twig:2
 msgid "Search"
 msgstr "Keresés"
 
 #: templates/search.twig:8
 msgid "Search by name, keyword, or topic"
-msgstr ""
-
-#: assets/src/blocks/Spreadsheet/SpreadsheetFrontend.js:153
-msgid "Search data"
-msgstr "Keresési adatok"
-
-#: src/Post.php:630 assets/src/blocks/PostsList/index.js:21
-msgid "See all posts"
-msgstr ""
-
-#: src/Migrations/M037MigrateCoversContentBlockToPostsListBlock.php:347
-#: src/Migrations/M046MigrateArticlesBlockToPostsListBlock.php:288
-msgid "See all stories"
 msgstr ""
 
 #: templates/footer_country_selector.twig:11
@@ -854,17 +672,9 @@ msgstr "Elnézést, nem találjuk ezt az oldalt :("
 msgid "Sort by"
 msgstr "Rendezés szempontja"
 
-#: assets/src/blocks/CarouselHeader/CarouselControls.js:59
-msgid "Stop Slider"
-msgstr ""
-
-#: templates/single-page.twig:19 templates/single-password.twig:22
+#: templates/single-password.twig:22 templates/single-page.twig:19
 msgid "Submit"
 msgstr "Beküldés"
-
-#: assets/src/block-templates/take-action/template.js:22
-msgid "Support a cause"
-msgstr ""
 
 #: assets/src/js/listing_pages.js:53
 msgid "Switch to grid view"
@@ -878,17 +688,9 @@ msgstr ""
 msgid "Take Action"
 msgstr ""
 
-#: src/ActionPage.php:209 src/ActionPage.php:218
-#: src/Blocks/TakeActionBoxout.php:159 src/Blocks/ActionButtonText.php:84
-#: src/Blocks/ActionButtonText.php:94 src/Search/SearchPage.php:140
-#: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:22
-#: assets/src/blocks/ActionCustomButtonText/edit.js:4
+#: src/ActionPage.php:209 src/ActionPage.php:218 src/Search/SearchPage.php:140
 msgid "Take action"
 msgstr "cselekedj"
-
-#: assets/src/block-templates/take-action/template.js:40
-msgid "Take action with us"
-msgstr ""
 
 #. %s = Redirection url variable.
 #: src/GravityFormsExtensions.php:1042
@@ -905,22 +707,6 @@ msgid ""
 "\\\"Posts page\\\""
 msgstr ""
 
-#: assets/src/block-templates/homepage/template.js:12
-#: assets/src/block-templates/get-informed/template.js:22
-msgid "The issues we work on"
-msgstr ""
-
-#: assets/src/block-templates/high-level-topic/template.js:16
-#: assets/src/block-templates/deep-dive-topic/template.js:14
-#: assets/src/block-templates/action/template.js:23
-#: assets/src/block-templates/campaign/template.js:13
-msgid "The problem"
-msgstr ""
-
-#: assets/src/block-templates/campaign/template.js:17
-msgid "The solution"
-msgstr ""
-
 #. 1: URL domain
 #: assets/src/js/external_links.js:28
 #, javascript-format
@@ -931,11 +717,11 @@ msgstr ""
 msgid "This link will open a PDF file"
 msgstr "Ez a link egy PDF-fájlt fog megnyitni"
 
-#: templates/single-page.twig:12 templates/single-password.twig:15
+#: templates/single-password.twig:15 templates/single-page.twig:12
 msgid "To see the content of this page, please enter your password  below"
 msgstr "Az oldal tartalmának megtekintéséhez kérjük, írd be a jelszót."
 
-#: src/MasterSite.php:375
+#: src/MasterSite.php:378
 msgid "Toggle search box"
 msgstr "Keresési mező kinyitása/bezárása"
 
@@ -943,21 +729,9 @@ msgstr "Keresési mező kinyitása/bezárása"
 msgid "Toggle search form"
 msgstr "Keresési mező lenyitása"
 
-#: src/MasterSite.php:374
+#: src/MasterSite.php:377
 msgid "Toggle worldwide site selection menu"
 msgstr "Országválasztó kinyitása/bezárása"
-
-#: assets/src/block-templates/get-informed/template.js:12
-msgid "Topic 1"
-msgstr ""
-
-#: assets/src/block-templates/get-informed/template.js:15
-msgid "Topic 2"
-msgstr ""
-
-#: assets/src/block-templates/get-informed/template.js:19
-msgid "Topic 3"
-msgstr ""
 
 #: templates/search.twig:22
 #, fuzzy
@@ -965,21 +739,9 @@ msgstr ""
 msgid "Try searching for something else"
 msgstr "Probálj valami másra keresni"
 
-#: assets/src/block-templates/homepage/template.js:25
-msgid "We win campaigns"
-msgstr ""
-
 #: templates/search.twig:19
 msgid "We're sorry we couldn't find any matches for your search term."
 msgstr "Elnézést, de nem találtunk semmit a megadott keresési kifejezésre :(."
-
-#: assets/src/block-templates/deep-dive-topic/template.js:17
-msgid "What can be done"
-msgstr ""
-
-#: assets/src/block-templates/high-level-topic/template.js:24
-msgid "What we do"
-msgstr ""
 
 #: templates/comment_form/comment_field.twig:2
 msgid "Your Comment"
