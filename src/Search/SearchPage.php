@@ -16,7 +16,7 @@ class SearchPage
     public const DEFAULT_SORT = Search::DEFAULT_SORT;
     public const DEFAULT_CACHE_TTL = 600;
 
-    public const PAGE_TEMPLATES = ['search.twig', 'archive.twig', 'index.twig'];
+    public const PAGE_TEMPLATES = ['search.twig', 'index.twig'];
     public const RESULT_TEMPLATES = ['tease-search.twig'];
     public const DUMMY_THUMBNAIL = '/images/dummy-thumbnail.png';
 

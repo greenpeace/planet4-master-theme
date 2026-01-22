@@ -34,5 +34,5 @@ $context['tag_description'] = isset($tag, $tag->description) ? wpautop($tag->des
 // Temporary fix with rewind, cf. https://github.com/WordPress/gutenberg/issues/53593
 rewind_posts();
 
-$templates = ['tag.twig', 'archive.twig', 'index.twig'];
+$templates = ['tag.twig', 'index.twig'];
 $page = new ListingPage($templates, $context);

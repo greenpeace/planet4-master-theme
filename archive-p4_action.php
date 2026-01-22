@@ -12,7 +12,7 @@
 use Timber\Timber;
 use P4\MasterTheme\ListingPage;
 
-$templates = [ 'all-actions.twig', 'archive.twig', 'index.twig' ];
+$templates = [ 'all-actions.twig', 'index.twig' ];
 
 $context = Timber::context();
 

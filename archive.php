@@ -17,7 +17,7 @@
 
 use Timber\Timber;
 
-$templates = [ 'archive.twig', 'index.twig' ];
+$templates = [ 'index.twig' ];
 
 $context = Timber::context();
 
