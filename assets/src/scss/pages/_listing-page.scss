@@ -197,10 +197,6 @@
           width: calc((100% / 2) - 1.25em + (1.25em / 2)) !important;
         }
 
-        @include medium-and-up {
-          height: $posts-list-container-height;
-        }
-
         @include large-and-up {
           width: calc((100% / 3) - 1.25em + (1.25em / 3)) !important;
         }
