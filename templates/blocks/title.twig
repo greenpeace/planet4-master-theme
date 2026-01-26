@@ -1,11 +1,26 @@
 <title>
+    {# If the current page/post requires password: #}
     {% if post.password_required %}
         {{ site.name }}
         {% set post_tags = '' %}
+
+    {# If the current page is the Search Results page and there is no search term: #}
+    {% elseif not search_query and page_category == 'Search Page' %}
+        {{ __('%d results found', 'planet4-master-theme') | format(found_posts) }}
+
+    {# If the current page is the Search Results page and there is a search term: #}
+    {% elseif search_query and page_category == 'Search Page' %}
+        {{ __('%d search results found for %s', 'planet4-master-theme') | format(found_posts, search_query) }}
+
+    {# If the current page/post contains an OG title: #}
     {% elseif og_title %}
         {{ og_title|e('esc_html')|raw }} - {{ site.name }}
+
+    {# If the current page/post has a title: #}
     {% elseif wp_title %}
         {{ wp_title|e('esc_html')|raw }} - {{ site.name }}
+
+    {# Else: #}
     {% else %}
         {{ site.name }}
     {% endif %}
