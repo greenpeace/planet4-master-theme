@@ -8,7 +8,7 @@ export const setupTaxonomyBreadcrumbBlock = () => {
   wp.blocks.registerBlockType(
     TAX_BREADCRUMB_BLOCK_NAME,
     {
-      apiVersion: 2,
+      apiVersion: 3,
       title: __('Taxonomy Breadcrumb', 'planet4-master-theme-backend'),
       icon: 'tag',
       category: 'widgets',

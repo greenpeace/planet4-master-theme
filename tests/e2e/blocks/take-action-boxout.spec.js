@@ -9,13 +9,17 @@ test.describe('Test Take Action Boxout block', () => {
     await createPostWithFeaturedImage({page, admin, editor}, {title: 'Test Take action boxout'});
 
     // Add Take Action Boxout block.
-    const actionRequest = page.waitForRequest(/.*\/wp-json\/wp\/v2\/p4_action.*/);//NOSONAR
+    const actionRequest = page.waitForResponse(
+      r =>
+        r.url().includes('/wp-json/wp/v2/p4_action') && r.status() === 200
+    );
+
     await searchAndInsertBlock({page}, 'Take Action Boxout');
     await actionRequest;
 
-    await page
-      .getByRole('document', {name: 'Block: Take Action Boxout'})
-      .waitFor();
+    await expect(
+      page.locator('.boxout-heading[contenteditable="true"]')
+    ).toBeVisible();
   });
 
   test('Take Action Boxout with existing page', async ({page, editor}) => {

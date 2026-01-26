@@ -33,6 +33,7 @@ class HappyPoint extends BaseBlock
         register_block_type(
             self::get_full_block_name(),
             [
+                'api_version' => 3,
                 'editor_script' => 'planet4-blocks',
                 // todo: Remove when all content is migrated.
                 'render_callback' => [ self::class, 'render_frontend' ],
