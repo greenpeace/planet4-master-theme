@@ -2,23 +2,6 @@ div.search-filter-results {
   margin-top: 48px;
   z-index: auto;
 
-  .skip-link {
-    background: var(--white);
-    padding: $sp-x;
-    position: absolute;
-    transform: translateX(-100vw);
-    border-radius: 4px;
-    top: -$sp-5;
-    width: fit-content;
-    font-size: var(--font-size-m--font-family-tertiary);
-    font-family: var(--font-family-tertiary);
-  }
-
-  .skip-link:focus {
-    transform: translateX(0%);
-    text-decoration: none;
-  }
-
   @include small-and-up {
     margin-top: 75px;
   }
