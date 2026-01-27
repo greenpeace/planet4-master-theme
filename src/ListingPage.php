@@ -33,7 +33,7 @@ class ListingPage
      * @param array $templates An indexed array with template file names. The first to be found will be used.
      * @param array $context An associative array with all the context needed to render the template found first.
      */
-    public function __construct(array $templates = [ 'archive.twig', 'index.twig' ], array $context = [])
+    public function __construct(array $templates = [ 'index.twig' ], array $context = [])
     {
         $this->templates = $templates;
         $this->context = $context;

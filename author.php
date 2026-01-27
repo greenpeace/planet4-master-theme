@@ -36,5 +36,5 @@ if (isset($wp_query->query_vars['author'])) {
 }
 
 do_action('enqueue_google_tag_manager_script', $context);
-$templates = ['author.twig', 'archive.twig'];
+$templates = ['author.twig', 'index.twig'];
 $page = new ListingPage($templates, $context);
