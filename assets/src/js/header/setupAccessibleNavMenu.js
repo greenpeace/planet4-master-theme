@@ -14,7 +14,7 @@ const NAV_MENU_TOGGLE_CLASS = '.nav-menu-toggle';
  */
 export const setupAccessibleNavMenu = () => {
   const mainNav = document.querySelector('#nav-main-desktop');
-  const mobileNav = document.querySelector('#nav-main');
+  const mobileNav = document.querySelector(MOBILE_NAV_ID);
 
   if (!mainNav && !mobileNav) {
     return;
@@ -131,22 +131,33 @@ export const setupAccessibleNavMenu = () => {
      * Adds event listeners to create a keyboard trap between the buttons.
      */
     const addKeyboardTrap = () => {
-      const donateBtn = mobileNav.querySelector('.btn-donate');
-      const closeBtn = mobileNav.querySelector(NAV_MENU_CLOSE_CLASS);
-      const logo = mobileNav.querySelector(SITE_LOGO_CLASS);
+      const focusableSelectors =
+    'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
-      closeBtn.addEventListener('keydown', event => {
-        if (event.key === 'Tab' && event.shiftKey) {
+      const focusableElements = Array.from(
+        mobileNav.querySelectorAll(focusableSelectors)
+      );
+
+      if (!focusableElements.length) {
+        return;
+      }
+
+      const firstEl = focusableElements[0];
+      const lastEl = focusableElements[focusableElements.length - 1];
+
+      mobileNav.addEventListener('keydown', event => {
+        if (event.key !== 'Tab') {
+          return;
+        }
+
+        if (event.shiftKey && doc.activeElement === firstEl) {
           event.preventDefault();
-          setTimeout(() => donateBtn.focus(), 5);
+          lastEl.focus({preventScroll: true});
         }
-        if (event.key === 'Tab') {
-          setTimeout(() => logo.focus(), 0);
-        }
-      });
-      logo.addEventListener('keydown', event => {
-        if (event.key === 'Tab' && event.shiftKey) {
-          setTimeout(() => closeBtn.focus(), 0);
+
+        if (!event.shiftKey && doc.activeElement === lastEl) {
+          event.preventDefault();
+          firstEl.focus({preventScroll: true});
         }
       });
     };
@@ -167,10 +178,12 @@ export const setupAccessibleNavMenu = () => {
 
         // Wait for CSS class to apply
         requestAnimationFrame(() => {
-          if (isMobileMenuOpen()) {
-            syncMobileNavAria(true);
-            logo.focus();
+          if (!isMobileMenuOpen()) {
+            return;
           }
+
+          syncMobileNavAria(true);
+          logo.focus();
         });
       });
     };
