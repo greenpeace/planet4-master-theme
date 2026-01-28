@@ -52,10 +52,6 @@
     margin-top: $sp-2;
     width: fit-content;
     @include shared-link-styles;
-
-    &:hover {
-      color: var(--grey-900);
-    }
   }
 }
 
