@@ -24,6 +24,16 @@ const HEADINGS = [
   'Donec tristique',
 ];
 
+async function waitForBlock({page, blockType}) {
+  await page.waitForFunction(
+    type => {
+      return !!document.querySelector(`[data-type="${type}"]`);
+    },
+    blockType,
+    {timeout: 40000}
+  );
+}
+
 test.useAdminLoggedIn();
 
 test('Test Secondary Navigation block', async ({page, admin, editor}) => {
@@ -37,15 +47,23 @@ test('Test Secondary Navigation block', async ({page, admin, editor}) => {
   await searchAndInsertBlock({page}, 'Secondary Navigation Menu');
   await closeBlockInserter({page});
 
+  await waitForBlock({
+    page,
+    blockType: 'planet4-blocks/secondary-navigation',
+  });
+
+  const blockRoot = page.locator('[data-type="planet4-blocks/secondary-navigation"]');
+
   // Make sure it displays the empty message at first.
-  await expect(page.locator('.EmptyMessage')).toBeVisible();
+  const emptyMessage = blockRoot.locator('.EmptyMessage');
+  await expect(emptyMessage).toBeVisible();
 
   // Add content (headings and paragraphs).
-  for (let index = 0; index < HEADINGS.length; index++) {
-    await addHeadingOrParagraph({page}, 'Heading', 'h2', index, HEADINGS[index]);
-    // For the paragraphs, we need to use index + 1 because there is a paragraph in the Page Header.
-    await addHeadingOrParagraph({page}, 'Paragraph', 'p', index + 1, PARAGRAPH_CONTENT);
-  };
+  for (const heading of HEADINGS) {
+    await addHeadingOrParagraph({page}, 'Heading', 'h2', heading);
+    await page.waitForTimeout(20);
+    await addHeadingOrParagraph({page}, 'Paragraph', 'p', PARAGRAPH_CONTENT);
+  }
 
   // Publish page.
   await publishPostAndVisit({page, editor});
