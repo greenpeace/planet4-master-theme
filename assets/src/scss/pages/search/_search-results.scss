@@ -19,13 +19,13 @@
   padding-top: 100px;
 
   @include small-and-up {
-    padding-top: 32px;
+    padding-top: $sp-4;
   }
 
   ul {
     li {
-      padding: 0 24px 32px 24px;
-      margin: 0 auto 24px;
+      padding-bottom: $sp-4;
+      margin: 0 auto $sp-3;
       position: relative;
       align-items: flex-start;
       border-bottom: 1px solid var(--grey-300);
@@ -42,7 +42,7 @@
         @include small-and-up {
           width: 25%;
           min-width: 25%;
-          margin-inline-end: 32px;
+          margin-inline-end: $sp-4;
           visibility: visible;
         }
       }
@@ -54,10 +54,10 @@
   }
 
   .more-btn {
-    margin-top: 25px;
+    margin-top: $sp-3;
 
     @include large-and-up {
-      margin-top: 35px;
+      margin-top: $sp-4;
     }
   }
 }
@@ -113,7 +113,7 @@
       display: inline-block;
       height: $sp-4;
       line-height: $sp-4;
-      margin-bottom: 10px;
+      margin-bottom: $sp-1;
 
       @include medium-and-up {
         display: none;
@@ -125,14 +125,14 @@
       display: block;
       width: auto;
       position: relative;
-      top: 5px;
-      margin-left: 12px;
+      top: $sp-x;
+      margin-left: $sp-1x;
     }
 
     i {
       font-size: $font-size-sm;
       font-weight: bold;
-      margin-right: 10px;
+      margin-right: $sp-1;
       float: left;
       line-height: 2.2rem;
     }
@@ -155,7 +155,7 @@
 .search-result-item-info {
   color: var(--grey-800);
   line-height: normal;
-  margin-bottom: 10px;
+  margin-bottom: $sp-1;
   font-size: $font-size-xxs;
 
   @include large-and-up {
@@ -180,8 +180,8 @@
   &:after {
     content: "\2022";
     display: inline-block;
-    padding-left: 5px;
-    padding-right: 5px;
+    padding-left: $sp-x;
+    padding-right: $sp-x;
   }
 
   a {
@@ -196,13 +196,13 @@
     font-weight: bold;
     padding: 2px $sp-1;
     text-decoration: none;
-    margin-right: 10px;
+    margin-inline-end: $sp-1;
     display: inline-block;
   }
 
   .tags {
     @include mobile-only {
-      margin-top: 5px;
+      margin-top: $sp-x;
     }
   }
 

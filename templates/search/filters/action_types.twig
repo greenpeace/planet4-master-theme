@@ -3,7 +3,7 @@
 
 {% if ( action_types|length > 0 ) %}
 <div class="filteritem">
-    <a data-bs-toggle="collapse" href="#{{ container_id }}" class="{{ collapsed }}" aria-expanded="{{ expanded }}">
+    <a data-bs-toggle="collapse" href="#{{ container_id }}" class="{{ collapsed }}" aria-expanded="{{ expanded }}" role="button">
         {{ __( 'Action Type', 'planet4-master-theme' ) }} <span></span>
     </a>
     <div id="{{ container_id }}" class="collapse {{ show }}" role="tabpanel">
