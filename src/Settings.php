@@ -553,35 +553,45 @@ class Settings
                     ],
                 ],
             ],
+            'planet4_settings_search_content' => [
+                'title' => 'Search',
+                'description' => __('Options that affect SEO and in-site search.', 'planet4-master-theme-backend'),
+                'fields' => [
+                    [
+                        'name' => __('Allow indexing of all listing pages', 'planet4-master-theme-backend'),
+                        'desc' => __(
+                            'Allows search engines to index all pages in listings (tags, categories, etc)”. When off, only the first page is being indexed',
+                            'planet4-master-theme-backend'
+                        ),
+                        'id' => 'allow_indexing_of_all_listing_pages',
+                        'type' => 'checkbox',
+                    ],
+                ],
+            ],
             'planet4_settings_features' => Features::get_options_page(),
         ];
 
         // This option should be visible only if the ElasticPress plugin is activated.
         $is_elasticpress = function_exists('is_plugin_active') && is_plugin_active('elasticpress/elasticpress.php');
         if ($is_elasticpress) {
-            $search_content = array(
-                'planet4_settings_search_content' => [
-                    'title' => 'Search',
-                    'fields' => [
-                        [
-                            'name' => __('Include archived content in search for', 'planet4-master-theme-backend'),
-                            'desc' => __(
-                                '<b>Important:</b> On change of Include archive content setting, Please kindly',
-                                'planet4-master-theme-backend'
-                            ) . ' <a href="admin.php?page=elasticpress-sync">Sync Elasticsearch</a>.',
-                            'id' => 'include_archive_content_for',
-                            'type' => 'select',
-                            'default' => 'nobody',
-                            'options' => [
-                                'nobody' => __('Nobody', 'planet4-master-theme-backend'),
-                                'logged_in' => __('Logged in users', 'planet4-master-theme-backend'),
-                                'all' => __('All users', 'planet4-master-theme-backend'),
-                            ],
-                        ],
+            array_unshift(
+                $this->subpages['planet4_settings_search_content']['fields'],
+                [
+                    'name' => __('Include archived content in search for', 'planet4-master-theme-backend'),
+                    'desc' => __(
+                        '<b>Important:</b> On change of Include archive content setting, Please kindly',
+                        'planet4-master-theme-backend'
+                    ) . ' <a href="admin.php?page=elasticpress-sync">Sync Elasticsearch</a>.',
+                    'id' => 'include_archive_content_for',
+                    'type' => 'select',
+                    'default' => 'nobody',
+                    'options' => [
+                        'nobody' => __('Nobody', 'planet4-master-theme-backend'),
+                        'logged_in' => __('Logged in users', 'planet4-master-theme-backend'),
+                        'all' => __('All users', 'planet4-master-theme-backend'),
                     ],
                 ],
             );
-            $this->subpages = array_merge($this->subpages, $search_content);
         }
         // This option should be visible only if the GF Hubspot add-on is activated.
         $is_gf_hubspot_addon = function_exists('is_plugin_active') && is_plugin_active('gravityformshubspot/hubspot.php');

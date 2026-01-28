@@ -84,10 +84,12 @@ class HeadManager
 
             $is_exclude_from_search = $post ? get_post_meta($post->ID, 'ep_exclude_from_search', true) : false;
             $is_listing_page = is_archive() || is_search() || (int) get_option('page_for_posts') === ($post->ID ?? 0);
+            $allow_all_listing_pages_indexing = (bool) planet4_get_option('allow_indexing_of_all_listing_pages');
 
             if (is_singular() && $is_exclude_from_search) { // Single page/post excluded from search
                 $robots['noindex'] = true;
-            } elseif (is_paged() && $is_listing_page) { // Listing page, except the first page
+            // Listing page, except the first page, when the "Allow indexing of all listing pages" setting is off:
+            } elseif (is_paged() && $is_listing_page && !$allow_all_listing_pages_indexing) {
                 $robots['noindex'] = true;
                 $robots['follow'] = true;
             }
