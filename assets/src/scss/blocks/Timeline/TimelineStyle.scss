@@ -342,6 +342,10 @@
     line-height: var(--line-height-m--font-family-tertiary);
   }
 
+  .timeline-block-event-title {
+    @include clamp-text(4);
+  }
+
   .timeline-block-year {
     text-align: center;
     width: 78px;
@@ -350,6 +354,8 @@
     margin: $sp-6 auto;
     padding: $sp-1;
     box-shadow: 0 $sp-x $sp-1x rgba(0, 0, 0, 0.15);
+    position: relative;
+    z-index: 1;
   }
 
   .timeline-block-event-day,
@@ -432,5 +438,129 @@
 
   & .timeline-group > div:first-child .timeline-block-year {
     margin-top: 0;
+  }
+
+  @include large-and-up {
+    .timeline-group {
+      position: relative;
+
+      &::before {
+        content: "";
+        position: absolute;
+        background-color: var(--grey-500);
+        inline-size: 1px;
+        block-size: 100%;
+        inset-block-start: 0;
+        inset-inline-start: 50%;
+      }
+    }
+
+    .timeline-block-events {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      row-gap: $sp-8;
+    }
+
+    .timeline-block-event {
+      max-width: 420px;
+      margin: 0 auto;
+      height: fit-content;
+      position: relative;
+
+      &::after {
+        content: "";
+        position: absolute;
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background-color: var(--gp-green-500);
+        inset-block-start: calc($sp-5 - 6px);
+      }
+
+      &::before {
+        content: "";
+        position: absolute;
+        background-color: var(--grey-500);
+        block-size: 1px;
+        inset-block-start: $sp-5;
+      }
+
+      &:nth-child(even) {
+        margin-top: $sp-7;
+
+        &::before {
+          inline-size: 16px;
+          inset-inline-start: -$sp-2;
+        }
+
+        &::after {
+          inset-inline-start: -31px;
+        }
+      }
+
+      &:nth-child(odd) {
+        &::before {
+          inline-size: 18px;
+          inset-inline-start: 100%;
+        }
+
+        &::after {
+          inset-inline-start: calc(100% + $sp-x);
+          outline: 2px solid var(--beige-100);
+          z-index: 1;
+        }
+      }
+    }
+  }
+
+  @include x-large-and-up {
+    .timeline-block-event {
+      &:nth-child(even) {
+        &::before {
+          inline-size: 62px;
+          inset-inline-start: -62px;
+        }
+
+        &::after {
+          inset-inline-start: -76px;
+        }
+      }
+
+      &:nth-child(odd) {
+        &::after {
+          inset-inline-start: calc(100% + 49px);
+        }
+
+        &::before {
+          inline-size: 62px;
+        }
+      }
+    }
+  }
+
+  @include xx-large-and-up {
+    .timeline-block-event {
+      &:nth-child(even) {
+        &::before {
+          inline-size: 107px;
+          inset-inline-start: -107px;
+        }
+
+        &::after {
+          inset-inline-start: -121px;
+        }
+      }
+
+      &:nth-child(odd) {
+        &::after {
+          inset-inline-start: calc(100% + 94px);
+        }
+
+        &::before {
+          inline-size: 107px;
+        }
+      }
+    }
   }
 }
