@@ -89,7 +89,7 @@ class Spreadsheet extends BaseBlock
             return null;
         }
 
-        $cache_key = "spreadsheet_${sheet_id}";
+        $cache_key = "spreadsheet_{$sheet_id}";
 
         if (! $skip_cache) {
             $from_cache = wp_cache_get($cache_key);
@@ -99,7 +99,7 @@ class Spreadsheet extends BaseBlock
             }
         }
 
-        $url = "https://docs.google.com/spreadsheets/d/e/${sheet_id}/pub?output=csv";
+        $url = "https://docs.google.com/spreadsheets/d/e/{$sheet_id}/pub?output=csv";
 
         $headers = get_headers($url);
 
