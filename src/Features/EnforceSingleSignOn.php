@@ -1,11 +1,15 @@
 <?php
 
-namespace P4\MasterTheme\Features\Dev;
+namespace P4\MasterTheme\Features;
 
 use P4\MasterTheme\Feature;
 
 /**
- * @see description().
+ * Feature to enforce SSO login.
+ * Note: This feature is not exposed in the admin UI (not registered in Features.php).
+ * It can be controlled via environment constants or deployment scripts.
+ *
+ * @see Feature::is_active()
  */
 class EnforceSingleSignOn extends Feature
 {
@@ -31,7 +35,6 @@ class EnforceSingleSignOn extends Feature
     protected static function description(): string
     {
         return __(
-            // phpcs:ignore Generic.Files.LineLength.MaxExceeded
             'Enable Google SSO',
             'planet4-master-theme-backend'
         );

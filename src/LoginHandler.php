@@ -4,7 +4,7 @@ namespace P4\MasterTheme;
 
 use WP_Error;
 use WP_User;
-use P4\MasterTheme\Features\Dev\EnforceSingleSignOn;
+use P4\MasterTheme\Features\EnforceSingleSignOn;
 
 /**
  * Class LoginHandler
