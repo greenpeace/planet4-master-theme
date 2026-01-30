@@ -14,6 +14,11 @@ class DevReport
     private string $key = 'planet4_dev_report';
 
     /**
+     * Page title
+     */
+    private string $title;
+
+    /**
      * Constructor
      */
     public function __construct()
