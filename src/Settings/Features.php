@@ -8,7 +8,6 @@ use P4\MasterTheme\Features\Dev\BetaBlocks;
 use P4\MasterTheme\Features\Dev\CoreBlockPatterns;
 use P4\MasterTheme\Features\Dev\DisableDataSync;
 use P4\MasterTheme\Features\Dev\NewTimelineBlock;
-use P4\MasterTheme\Features\Dev\EnforceSingleSignOn;
 use P4\MasterTheme\Features\Planet4Blocks;
 use P4\MasterTheme\Features\OldPostsArchiveNotice;
 use P4\MasterTheme\Features\ActionsTaskType;
@@ -110,7 +109,6 @@ class Features
             CoreBlockPatterns::class,
             AllowAllBlocks::class,
             NewTimelineBlock::class,
-            EnforceSingleSignOn::class,
         ];
     }
 
