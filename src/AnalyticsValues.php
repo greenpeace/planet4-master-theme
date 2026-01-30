@@ -7,104 +7,16 @@ namespace P4\MasterTheme;
  */
 final class AnalyticsValues
 {
-    private const CACHE_KEY = 'analytics_global_projects';
+    private const CACHE_KEY = 'p4-cache-analytics-projects';
     private const GLOBAL_PROJECT_SHEET_TAB_NAME = 'Global Projects Standards';
 
     /**
-     * Hardcoded list of Global projects, in case of google sheet unavailability.
+     * Hardcoded fallback array for Global projects, in case of google sheet unavailability.
      */
     public const GLOBAL_PROJECTS = [
         [
-            'global_project_name' => 'Aguos con El Clima',
-            'tracking_id' => 'ID000',
-        ],
-        [
-            'global_project_name' => 'Alternative Futures',
-            'tracking_id' => 'ID000',
-        ],
-        [
-            'global_project_name' => 'Amazon',
-            'tracking_id' => 'ID000',
-        ],
-        [
-            'global_project_name' => 'Beyond Seafood',
-            'tracking_id' => 'ID000',
-        ],
-        [
-            'global_project_name' => 'COP27 Project',
-            'tracking_id' => 'ID000',
-        ],
-        [
-            'global_project_name' => 'Climate Justice Liability',
-            'tracking_id' => 'GP25',
-        ],
-        [
-            'global_project_name' => 'Climate and Justice',
-            'tracking_id' => 'ID000',
-        ],
-        [
-            'global_project_name' => 'Collective Climate Action',
-            'tracking_id' => 'GP199',
-        ],
-        [
-            'global_project_name' => 'Common Power',
-            'tracking_id' => 'ID000',
-        ],
-        [
-            'global_project_name' => 'FSO Safer',
-            'tracking_id' => 'ID046',
-        ],
-        [
-            'global_project_name' => 'False Solutions China',
-            'tracking_id' => 'ID000',
-        ],
-        [
-            'global_project_name' => 'Food, Forest and Nature',
-            'tracking_id' => 'ID000',
-        ],
-        [
-            'global_project_name' => 'Fossil Free Revolution',
-            'tracking_id' => 'ID038',
-        ],
-        [
-            'global_project_name' => 'Green Ideas Project',
-            'tracking_id' => 'ID000',
-        ],
-        [
-            'global_project_name' => 'Mobility for All',
-            'tracking_id' => 'ID000',
-        ],
-        [
-            'global_project_name' => 'Money For Change',
-            'tracking_id' => 'ID000',
-        ],
-        [
-            'global_project_name' => 'Plastic Free Future',
-            'tracking_id' => 'GP89',
-        ],
-        [
-            'global_project_name' => 'Protect the Oceans',
-            'tracking_id' => 'GP185',
-        ],
-        [
-            'global_project_name' => 'Say No to Gas',
-            'tracking_id' => 'ID000',
-        ],
-        [
-            'global_project_name' => 'Stolen Fish',
-            'tracking_id' => 'GP05',
-        ],
-        [
-            'global_project_name' => 'Stop Deep Sea Mining',
-            'tracking_id' => 'ID000',
-        ],
-        [
-            'global_project_name' => 'Ummah for Earth',
-            'tracking_id' => 'GP184',
-        ],
-        [
-            'global_project_name' => 'We Are Nature',
-            'tracking_id' => 'ID000',
+            'global_project_name' => 'Not Applicable',
+            'tracking_id' => '989999',
         ],
     ];
 
@@ -121,7 +33,7 @@ final class AnalyticsValues
     /**
      * AnalyticsValues constructor.
      *
-     * @param string[]      $global_projects A list of the global projects.
+     * @param string[] $global_projects A list of the global projects.
      * @param string[]|null $local_projects A list of the local projects.
      */
     private function __construct(array $global_projects, ?array $local_projects = null)
@@ -163,33 +75,34 @@ final class AnalyticsValues
      */
     public static function from_cache_or_api_or_hardcoded(): self
     {
-        $found = false;
-        $cache = wp_cache_get(self::CACHE_KEY, '', false, $found);
 
-        if ($found) {
-            if (null === $cache) {
-                return self::from_hardcoded_values();
-            }
+        $content = wp_cache_get(self::CACHE_KEY);
 
-            return self::from_cache_array($cache);
+        if ($content !== false) {
+            return self::from_cache_array($content);
         }
 
         try {
             $instance = self::using_google();
-            wp_cache_add(
+
+            if (!$instance) {
+                return new self(self::GLOBAL_PROJECTS);
+            }
+
+            wp_cache_set(
                 self::CACHE_KEY,
-                ! $instance ? null : $instance->to_cache_array(),
+                $instance->to_cache_array(),
                 null,
-                300
+                DAY_IN_SECONDS
             );
         } catch (\Throwable $e) {
             if (function_exists('\Sentry\captureException')) {
                 \Sentry\captureException($e);
             }
-            $instance = null;
+            return new self(self::GLOBAL_PROJECTS);
         }
 
-        return $instance ?? self::from_hardcoded_values();
+        return $instance;
     }
 
     /**
@@ -199,23 +112,23 @@ final class AnalyticsValues
      */
     private static function using_google(): ?self
     {
-        if (! defined('GOOGLE_SHEETS_KEY')) {
+        if (!defined('GOOGLE_SHEETS_KEY')) {
             return null;
         }
 
         $google_client = GoogleDocsClient::from_account_config(GOOGLE_SHEETS_KEY);
-        if (! $google_client) {
+        if (!$google_client) {
             return null;
         }
         $global_sheet_id = $_ENV['ANALYTICS_GLOBAL_GOOGLE_SHEET_ID'] ?? '1pDAj0jR7WWzUOzBwviFeMGjV8-ocyrE21HYB75oVfOc';
 
-        if (! $global_sheet_id) {
+        if (!$global_sheet_id) {
             return null;
         }
 
         $global_sheet = $google_client->get_sheet($global_sheet_id, self::GLOBAL_PROJECT_SHEET_TAB_NAME);
 
-        if (! $global_sheet) {
+        if (!$global_sheet) {
             return null;
         }
 
@@ -268,16 +181,6 @@ final class AnalyticsValues
         }
 
         return new self($global_projects, $local_projects);
-    }
-
-    /**
-     * Get data from hardcoded list.
-     *
-     * @return static The instance.
-     */
-    public static function from_hardcoded_values(): self
-    {
-        return new self(self::GLOBAL_PROJECTS);
     }
 
     /**
