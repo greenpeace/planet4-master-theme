@@ -176,7 +176,7 @@
           }
 
           .tl-text-content {
-            margin-bottom: 24px;
+            margin-bottom: $sp-3;
 
             p {
               font-size: .875rem;
@@ -312,7 +312,7 @@
         }
 
         .tl-text-content {
-          margin-bottom: 24px;
+          margin-bottom: $sp-3;
 
           p {
             font-size: .875rem;
@@ -374,7 +374,7 @@
 
     border: 1px solid var(--grey-500);
     max-width: 340px;
-    margin-bottom: $sp-3;
+    margin: 0 auto $sp-3 auto;
     border-radius: $sp-1;
     background-color: var(--white);
     padding: $sp-2;
@@ -463,7 +463,6 @@
 
     .timeline-block-event {
       max-width: 420px;
-      margin: 0 auto;
       height: fit-content;
       position: relative;
 
@@ -497,7 +496,7 @@
         }
 
         &::after {
-          inset-inline-start: -23px;
+          inset-inline-start: -31px;
         }
       }
 
@@ -508,7 +507,7 @@
         }
 
         &::after {
-          inset-inline-start: calc(100% + 11px);
+          inset-inline-start: calc(100% + 19px);
         }
       }
     }
@@ -523,13 +522,13 @@
         }
 
         &::after {
-          inset-inline-start: -68px;
+          inset-inline-start: -76px;
         }
       }
 
       &:nth-child(odd) {
         &::after {
-          inset-inline-start: calc(100% + 56px);
+          inset-inline-start: calc(100% + 64px);
         }
 
         &::before {
@@ -548,13 +547,13 @@
         }
 
         &::after {
-          inset-inline-start: -113px;
+          inset-inline-start: -121px;
         }
       }
 
       &:nth-child(odd) {
         &::after {
-          inset-inline-start: calc(100% + 101px);
+          inset-inline-start: calc(100% + 109px);
         }
 
         &::before {
