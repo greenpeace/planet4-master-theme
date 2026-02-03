@@ -28,7 +28,8 @@
   display: none;
 }
 
-/* Temporarily hide the Stateless Media notices in the admin area. */
-.stateless-admin-notice {
+/* Temporarily hide notices in the admin area. */
+.stateless-admin-notice,
+#admin_banner_about_automatic_media_detection {
   display: none !important;
 }
