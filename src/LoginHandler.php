@@ -39,16 +39,18 @@ class LoginHandler
             $features = get_option('planet4_features', []);
             $enforce_sso = (bool) !empty($features['enforce_sso']) || false;
 
-            if ($enforce_sso) {
-                // Also clean up the HTML by removing the login form itself
-                $html = preg_replace('/<form[^>]*id=["\']loginform["\'][^>]*>.*?<\/form>/is', '', $html);
+            echo "enforce_sso" . $enforce_sso;
 
-                // Redirect to Google SSO login
-                wp_redirect(esc_url_raw(add_query_arg('gaautologin', 'true', '')));
-            }
+            // if ($enforce_sso) {
+            //     // Also clean up the HTML by removing the login form itself
+            //     $html = preg_replace('/<form[^>]*id=["\']loginform["\'][^>]*>.*?<\/form>/is', '', $html);
 
-            // Clean up the HTML by removing the "Remember Me" checkbox
-            $html = preg_replace('/<p[^>]*class=["\']forgetmenot["\'][^>]*>.*?<\/p>/is', '', $html);
+            //     // Redirect to Google SSO login
+            //     wp_redirect(esc_url_raw(add_query_arg('gaautologin', 'true', '')));
+            // }
+
+            // // Clean up the HTML by removing the "Remember Me" checkbox
+            // $html = preg_replace('/<p[^>]*class=["\']forgetmenot["\'][^>]*>.*?<\/p>/is', '', $html);
 
             echo $html;
         });
