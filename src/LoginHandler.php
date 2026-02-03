@@ -4,7 +4,6 @@ namespace P4\MasterTheme;
 
 use WP_Error;
 use WP_User;
-use P4\MasterTheme\Features\EnforceSingleSignOn;
 
 /**
  * Class LoginHandler
@@ -37,7 +36,10 @@ class LoginHandler
         add_action('login_footer', function (): void {
             $html = ob_get_clean();
 
-            if (EnforceSingleSignOn::is_active()) {
+            $features = get_option('planet4_features', []);
+            $enforce_sso = (bool) !empty($features['enforce_sso']) || false;
+
+            if ($enforce_sso) {
                 // Also clean up the HTML by removing the login form itself
                 $html = preg_replace('/<form[^>]*id=["\']loginform["\'][^>]*>.*?<\/form>/is', '', $html);
 
