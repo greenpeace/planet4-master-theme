@@ -394,6 +394,7 @@
   .timeline-block-event-description {
     font-size: var(--font-size-m--font-family-tertiary);
     line-height: var(--line-height-m--font-family-tertiary);
+    margin-bottom: $sp-1;
   }
 
   .timeline-block-event-description.clamped {
