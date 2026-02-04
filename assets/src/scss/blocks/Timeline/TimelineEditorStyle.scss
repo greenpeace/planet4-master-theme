@@ -12,11 +12,4 @@ div[data-type="planet4-blocks/timeline"] {
   .page-section-description {
     text-align: center;
   }
-
-  .timeline-block-event {
-    &::after,
-    &::before {
-      display: none;
-    }
-  }
 }
