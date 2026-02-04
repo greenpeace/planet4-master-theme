@@ -455,9 +455,6 @@ class MasterSite extends \Timber\Site
             $context['p4_visitor_type'] = 'guest';
         }
 
-        $context['website_navbar_title'] = $options['website_navigation_title']
-            ?? __('International (English)', 'planet4-master-theme');
-
         $context['act_page_id'] = $options['act_page'] ?? '';
         $context['explore_page_id'] = $options['explore_page'] ?? '';
 

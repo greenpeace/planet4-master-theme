@@ -108,11 +108,6 @@ class Settings
                         'type' => 'checkbox',
                     ],
                     [
-                        'name' => __('Country Selector text', 'planet4-master-theme-backend'),
-                        'id' => 'website_navigation_title',
-                        'type' => 'text',
-                    ],
-                    [
                         'name' => __('Copyright Text Line 1', 'planet4-master-theme-backend'),
                         'id' => 'copyright_line1',
                         'type' => 'wysiwyg',
