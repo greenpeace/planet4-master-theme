@@ -22,7 +22,7 @@ test.describe('Test Take Action Boxout block', () => {
     ).toBeVisible();
   });
 
-  test.skip('Take Action Boxout with existing page', async ({page, editor}) => {
+  test('Take Action Boxout with existing page', async ({page, editor}) => {
     // Select the first page option.
 
     await page.getByRole('region', {name: 'Editor settings'})
@@ -39,7 +39,7 @@ test.describe('Test Take Action Boxout block', () => {
     expect((await page.innerHTML('.boxout-heading')).trim()).toBe(boxoutTitle);
   });
 
-  test.skip('Take Action Boxout with custom fields', async ({page, editor}) => {
+  test('Take Action Boxout with custom fields', async ({page, editor}) => {
     // Fill in boxout fields.
     await page.locator('.boxout-heading').click();
     await page.locator('.boxout-heading').fill('The boxout title');

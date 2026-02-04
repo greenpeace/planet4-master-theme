@@ -5,7 +5,7 @@ const AUTHOR_NAME = 'Alternative Author';
 
 test.useAdminLoggedIn();
 
-test.skip('Test Author override', async ({page, requestUtils}) => {
+test('Test Author override', async ({page, requestUtils}) => {
   const newPost = await requestUtils.rest({
     path: '/wp/v2/posts',
     method: 'POST',

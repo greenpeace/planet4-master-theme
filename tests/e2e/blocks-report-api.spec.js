@@ -1,6 +1,6 @@
 import {test, expect} from './tools/lib/test-utils.js';
 
-test.skip('Test Blocks report API', async ({page, requestUtils}) => {
+test('Test Blocks report API', async ({page, requestUtils}) => {
   await page.goto('./wp-admin/');
 
   const apiRoute = './wp-json/plugin_blocks/v3/plugin_blocks_report';

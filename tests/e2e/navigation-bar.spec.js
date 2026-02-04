@@ -2,7 +2,7 @@ import {test, expect} from './tools/lib/test-utils.js';
 
 test.useAdminLoggedIn();
 
-test.skip('Test navigation bar menu', async ({page, admin, requestUtils}) => {
+test('Test navigation bar menu', async ({page, admin, requestUtils}) => {
   const testId = Math.floor(Math.random() * 10000); // NOSONAR
   const testPageTitle = `Navbar test ${testId}`;
 

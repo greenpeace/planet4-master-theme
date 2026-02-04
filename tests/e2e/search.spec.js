@@ -3,7 +3,7 @@ import {reSync} from './tools/lib/elasticpress.js';
 
 test.useAdminLoggedIn();
 
-test.skip('check search works', async ({page, requestUtils}) => {
+test('check search works', async ({page, requestUtils}) => {
   const testId = `testsearch-${Math.floor(Math.random() * 10000)}`; //NOSONAR
   const tagName = `Tag ${testId}`;
   const postTitle = `Test Post ${testId}`;

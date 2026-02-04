@@ -1,6 +1,6 @@
 import {test, expect} from './tools/lib/test-utils.js';
 
-test.skip('check the 404 page', async ({page}) => {
+test('check the 404 page', async ({page}) => {
   const response = await page.goto('./thispagereallywillnotexist');
 
   // Check the page status.

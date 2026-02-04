@@ -4,7 +4,7 @@ import {addColumnsBlock, checkColumnsBlock} from '../tools/lib/columns.js';
 
 test.useAdminLoggedIn();
 
-test.skip('Test Columns block with Icons style', async ({page, admin, editor}) => {
+test('Test Columns block with Icons style', async ({page, admin, editor}) => {
   await createPostWithFeaturedImage({page, admin, editor}, {title: 'Test Columns block', postType: 'page'});
 
   // Add Columns block.

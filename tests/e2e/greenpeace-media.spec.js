@@ -10,7 +10,7 @@ const MEDIA_LIBRARY_PAGE = './wp-admin/admin.php?page=media-picker';
 test.useAdminLoggedIn();
 
 test.describe('Greenpeace Media tests', () => {
-  test.skip('import an image to the Library using a search term', async ({page}) => {
+  test('import an image to the Library using a search term', async ({page}) => {
     // Make sure to close any alerts.
     page.on('dialog', dialog => dialog.accept());
 
@@ -37,7 +37,7 @@ test.describe('Greenpeace Media tests', () => {
     await deleteImageFromLibrary(page);
   });
 
-  test.skip('bulk select and upload two images using identifiers', async ({page}) => {
+  test('bulk select and upload two images using identifiers', async ({page}) => {
     // Make sure to close any alerts.
     page.on('dialog', dialog => dialog.accept());
 

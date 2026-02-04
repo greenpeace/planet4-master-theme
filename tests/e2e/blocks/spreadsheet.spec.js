@@ -7,7 +7,7 @@ const TEST_URL = `https://docs.google.com/spreadsheets/d/e/${SHEET_ID}/pubhtml`;
 
 test.useAdminLoggedIn();
 
-test.skip('Test Spreadsheet block', async ({page, admin, editor}) => {
+test('Test Spreadsheet block', async ({page, admin, editor}) => {
   await createPostWithFeaturedImage({page, admin, editor}, {title: 'Test Spreadsheet', postType: 'page'});
 
   // Add Spreadsheet block.

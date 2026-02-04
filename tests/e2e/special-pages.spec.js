@@ -2,7 +2,7 @@ import {test, expect} from './tools/lib/test-utils.js';
 
 test.useAdminLoggedIn();
 
-test.skip('Test special pages (Act and Explore)', async ({page, admin, requestUtils}) => {
+test('Test special pages (Act and Explore)', async ({page, admin, requestUtils}) => {
   // Check if new IA is enabled, in which case the Act and Explore pages have been removed.
   await admin.visitAdminPage('admin.php', 'page=planet4_settings_navigation');
   await page.waitForSelector('#new_ia');

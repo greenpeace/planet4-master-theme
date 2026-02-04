@@ -111,7 +111,7 @@ async function downloadFile(page, url, outputPath) {
   writeFileSync(outputPath, buffer);
 }
 
-test.skip('Replace Media file (PDF) in WordPress', async ({page}, testInfo) => {
+test('Replace Media file (PDF) in WordPress', async ({page}, testInfo) => {
   await ensureStatelessModeEnabled(page, testInfo);
 
   const originalFile = resolve('tests/data/test_media_replacer_pdf_1.pdf');

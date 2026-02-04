@@ -3,7 +3,7 @@ import {updatePost} from './tools/lib/post.js';
 
 test.useAdminLoggedIn();
 
-test.skip('Test Related Posts block', async ({page, requestUtils}) => {
+test('Test Related Posts block', async ({page, requestUtils}) => {
   const newPost = await requestUtils.rest({
     path: '/wp/v2/posts',
     method: 'POST',

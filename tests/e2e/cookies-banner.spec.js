@@ -1,6 +1,6 @@
 import {test, expect} from './tools/lib/test-utils.js';
 
-test.skip('check cookies banner', async ({page}) => {
+test('check cookies banner', async ({page}) => {
   await page.goto('./');
 
   const cookiesText = await page.evaluate('window.p4_vars.options.cookies_field');
