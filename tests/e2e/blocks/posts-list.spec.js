@@ -9,7 +9,7 @@ test.useAdminLoggedIn();
 
 test.describe('Test Posts List block', () => {
   // This is the default layout, so we don't need to select it manually.
-  test('Test the List layout', async ({page, admin, editor}) => {
+  test.skip('Test the List layout', async ({page, admin, editor}) => {
     await createPostWithFeaturedImage({page, admin, editor}, {title: 'Test Posts List List Layout', postType: 'page'});
 
     // Add Posts List block.

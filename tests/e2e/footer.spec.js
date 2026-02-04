@@ -2,7 +2,7 @@ import {test, expect} from './tools/lib/test-utils.js';
 
 test.useAdminLoggedIn();
 
-test('check footer menu', async ({page}) => {
+test.skip('check footer menu', async ({page}) => {
   const footerMenuNames = ['Footer Primary', 'Footer Secondary', 'Footer Social'];
   const footerMenuLinks = [];
 

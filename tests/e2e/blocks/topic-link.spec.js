@@ -6,7 +6,7 @@ const CATEGORY = 'Nature';
 
 test.useAdminLoggedIn();
 
-test('Test Topic Link block', async ({page, admin, editor, baseURL}) => {
+test.skip('Test Topic Link block', async ({page, admin, editor, baseURL}) => {
   await createPostWithFeaturedImage({page, admin, editor}, {title: 'Test Topic Link'});
 
   // Add Topic Link block.

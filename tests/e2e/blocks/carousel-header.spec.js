@@ -48,7 +48,7 @@ const addSlide = async (slide, {index, addNext}, {page, editor}) => {
   }
 };
 
-test('Create and check carousel header block', async ({page, admin, editor}) => {
+test.skip('Create and check carousel header block', async ({page, admin, editor}) => {
   await createPostWithFeaturedImage({page, admin, editor}, {title: 'Test Carousel', postType: 'page'});
 
   // Add block

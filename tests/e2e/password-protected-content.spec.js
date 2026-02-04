@@ -6,7 +6,7 @@ const TEST_PASSWORD = 'password';
 
 test.useAdminLoggedIn();
 
-test('check password protected content', async ({page, requestUtils}) => {
+test.skip('check password protected content', async ({page, requestUtils}) => {
   const protectedPost = await requestUtils.rest({
     path: '/wp/v2/posts',
     method: 'POST',

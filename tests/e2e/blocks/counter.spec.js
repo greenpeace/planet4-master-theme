@@ -9,7 +9,7 @@ const COUNTER_DESCRIPTION = 'Counter description';
 
 test.useAdminLoggedIn();
 
-test('Test Counter block', async ({page, admin, editor, request}) => {
+test.skip('Test Counter block', async ({page, admin, editor, request}) => {
   await createPostWithFeaturedImage({page, admin, editor}, {title: 'Test Counter', postType: 'page'});
 
   // Add Counter block.

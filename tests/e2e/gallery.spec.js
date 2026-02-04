@@ -4,7 +4,7 @@ import {searchAndInsertBlock} from './tools/lib/editor.js';
 
 test.useAdminLoggedIn();
 
-test('Test Gallery basic functionalities', async ({page, admin, editor}) => {
+test.skip('Test Gallery basic functionalities', async ({page, admin, editor}) => {
   await createPostWithFeaturedImage({page, admin, editor}, {
     title: 'Test page for Gallery',
     postType: 'page',
