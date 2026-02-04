@@ -3,6 +3,7 @@ import setupMobileTabsMenuScroll from './header/setupMobileTabsMenuScroll';
 import {setupCloseNavMenuButton, setupDocumentClick, toggleNavElements} from './header/setupNavMenu';
 import {setupTransparentNavHomepage} from './header/setupTransparentNavHomepage';
 import {setupNavInteractions} from './header/setupNavInteractions';
+import {setupSkipLinksFocus} from './header/setupSkipLinksFocus';
 
 export const setupHeader = () => {
   // Set the mobile tabs menu behavior on scroll.
@@ -25,4 +26,7 @@ export const setupHeader = () => {
 
   // Set up other nav interactions and events.
   setupNavInteractions();
+
+  // Set up changing the focused element when a Skip Link is clicked.
+  setupSkipLinksFocus();
 };
