@@ -475,7 +475,7 @@
         height: 12px;
         border-radius: 50%;
         background-color: var(--gp-green-500);
-        inset-block-start: calc($sp-5 - 6px);
+        inset-block-start: 26px;
         z-index: 1;
         outline: 2px solid var(--beige-100);
       }
@@ -485,7 +485,7 @@
         position: absolute;
         background-color: var(--grey-500);
         block-size: 1px;
-        inset-block-start: $sp-5;
+        inset-block-start: 31px;
       }
 
       &:nth-child(even) {
