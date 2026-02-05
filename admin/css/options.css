@@ -81,3 +81,8 @@
 [data-ep-notice] {
   display: none !important;
 }
+
+/* Hide password fields in user profile to prevent confusion with SSO */
+.form-field.form-required.user-pass1-wrap {
+  display: none;
+}

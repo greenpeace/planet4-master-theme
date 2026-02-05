@@ -164,6 +164,21 @@ class MasterSite extends \Timber\Site
         // Disable xmlrpc.
         add_filter('xmlrpc_enabled', '__return_false');
 
+        // Customize new user notification email.
+        add_filter(
+            'wp_new_user_notification_email',
+            function ($email, $user, $blogname) {
+                $email['message'] = "Hi {$user->user_login},\n\n".
+                    "Your account is ready.\n".
+                    "Please sign in using your account at:\n".
+                    wp_login_url();
+
+                return $email;
+            },
+            10,
+            3
+        );
+
         // Anonymize Comment Authors IP address.
         add_filter(
             'pre_comment_user_ip',
