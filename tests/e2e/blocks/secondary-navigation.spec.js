@@ -40,11 +40,15 @@ test('Test Secondary Navigation block', async ({page, admin, editor}) => {
   // Make sure it displays the empty message at first.
   await expect(page.locator('.EmptyMessage')).toBeVisible();
 
+  let i = 0;
+
   // Add content (headings and paragraphs).
   for (let index = 0; index < HEADINGS.length; index++) {
-    await addHeadingOrParagraph({page}, 'Heading', 'h2', index, HEADINGS[index]);
-    // For the paragraphs, we need to use index + 1 because there is a paragraph in the Page Header.
-    await addHeadingOrParagraph({page}, 'Paragraph', 'p', index + 1, PARAGRAPH_CONTENT);
+    await addHeadingOrParagraph({page}, 'Heading', 'h2', i, HEADINGS[index]);
+    // For the paragraphs, we need to use i + 1 because there is a paragraph in the Page Header.
+    await addHeadingOrParagraph({page}, 'Paragraph', 'p', i + 1, PARAGRAPH_CONTENT);
+
+    i++;
   };
 
   // Publish page.
@@ -65,7 +69,6 @@ test('Test Secondary Navigation block', async ({page, admin, editor}) => {
   const leftArrow = secondaryNavigationBlock.locator('.nav-arrow.left');
   await expect(rightArrow).toBeVisible();
   // Click on right arrow a few times to make sure the left arrow shows.
-  await rightArrow.click();
   await rightArrow.click();
   await rightArrow.click();
   await expect(leftArrow).toBeVisible();

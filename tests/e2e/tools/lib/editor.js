@@ -45,27 +45,37 @@ const closeBlockInserter = async ({page}) => {
  */
 const searchAndInsertBlock = async ({page}, blockName, namespace = '') => {
   const openSidebar = await page.getByRole('button', {name: 'Block Inserter', exact: true});
-  const searchInput = page.getByPlaceholder('Search');
+
   if (await openSidebar.getAttribute('aria-expanded') === 'false') {
-    await openSidebar.dispatchEvent('click');
-    await expect(searchInput).toBeVisible();
+    await openSidebar.click();
   }
 
-  await searchInput.fill('');
+  const searchInput = page.getByPlaceholder('Search');
+
+  await expect(searchInput).toBeVisible();
+  await searchInput.clear();
   await searchInput.fill(blockName);
 
   const blocksList = page.getByRole('listbox', {name: 'Blocks'});
   await expect(blocksList).toBeVisible();
 
-  let blockOption;
+  // Get the chosen block.
+  // If the block is Heading or Paragraph, the function getByRole (exact: true) has to be used
+  // as WordPress 6.9 introduced the blocks Stretchy Heading and Stretchy Paragraph
+  // which also adds an unusual character (/) to the CSS selectors of all the 4 blocks.
+  const getBlockOption = () => {
+    if (blockName === 'Heading' || blockName === 'Paragraph') {
+      return blocksList.getByRole('option', {name: blockName, exact: true});
+    }
+    if (namespace) {
+      return blocksList.locator(
+        `button.editor-block-list-item-${namespace.toLowerCase()}[role="option"]`
+      );
+    }
+    return blocksList.getByRole('option', {name: blockName});
+  };
 
-  if (namespace) {
-    blockOption = blocksList.locator(
-      `button.editor-block-list-item-${namespace.toLowerCase()}[role="option"]`
-    );
-  } else {
-    blockOption = blocksList.getByRole('option', {name: blockName});
-  }
+  const blockOption = getBlockOption();
 
   await expect(blockOption).toBeVisible();
   await blockOption.click();
