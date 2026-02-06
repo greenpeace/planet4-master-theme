@@ -39,22 +39,32 @@ class LoginHandler
             $features = get_option('planet4_features', []);
             $enforce_sso = (bool) !empty($features['enforce_sso']) || false;
 
-            echo "enforce_sso" . $enforce_sso;
+            // Clean up the HTML by removing the "Remember Me" checkbox
+            $html = preg_replace('/<p[^>]*class=["\']forgetmenot["\'][^>]*>.*?<\/p>/is', '', $html);
 
-            // if ($enforce_sso) {
-            //     // Also clean up the HTML by removing the login form itself
-            //     $html = preg_replace('/<form[^>]*id=["\']loginform["\'][^>]*>.*?<\/form>/is', '', $html);
+            if ($enforce_sso) {
+                // Look for an element with class "galogin" that contain the href link inside
+                if (
+                    preg_match(
+                        '/<[^>]+class=["\'][^"\']*\\bgalogin\\b[^"\']*["\'][^>]*>.*?<a[^>]+href=["\']([^"\']+)["\']/is',
+                        $html,
+                        $matches
+                    )
+                ) {
+                    $google_link = html_entity_decode($matches[1], ENT_QUOTES | ENT_HTML5);
 
-            //     // Redirect to Google SSO login
-            //     wp_redirect(esc_url_raw(add_query_arg('gaautologin', 'true', '')));
-            // }
+                    if (!empty($google_link)) {
+                        // Clean up the HTML by removing the login form itself
+                        $html = preg_replace('/<form[^>]*id=["\']loginform["\'][^>]*>.*?<\/form>/is', '', $html);
 
-            // // Clean up the HTML by removing the "Remember Me" checkbox
-            // $html = preg_replace('/<p[^>]*class=["\']forgetmenot["\'][^>]*>.*?<\/p>/is', '', $html);
+                        wp_redirect(esc_url_raw($google_link));
+                        exit;
+                    }
+                }
+            }
 
             echo $html;
         });
-
 
         /**
          * Disable the "Remember Me" functionality server-side.
