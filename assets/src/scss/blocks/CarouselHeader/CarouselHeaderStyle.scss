@@ -1,3 +1,5 @@
+@use "../../base/tokens" as tokens;
+
 // $slide-transition-speed should match SLIDE_TRANSITION_SPEED in carousel-header.js
 $slide-transition-speed: .2s;
 $text-slide-offset: 50px;
@@ -527,7 +529,7 @@ $medium-image-height: 600px;
       transition: padding .2s, background-color .2s;
 
       &:hover {
-        background-color: rgba($grey-900, .15);
+        background-color: rgba(tokens.$grey-900, .15);
         padding-inline-end: 5px;
       }
 
@@ -572,7 +574,7 @@ $medium-image-height: 600px;
       transition: padding .2s, background-color .2s;
 
       &:hover {
-        background-color: rgba($grey-900, .15);
+        background-color: rgba(tokens.$grey-900, .15);
         padding-inline-start: 5px;
       }
 
@@ -772,7 +774,7 @@ $medium-image-height: 600px;
 
       @include large-and-less {
         button {
-          background-color: rgba($grey-900, .15);
+          background-color: rgba(tokens.$grey-900, .15);
         }
 
         &.active button {
@@ -782,7 +784,7 @@ $medium-image-height: 600px;
 
       @include large-and-up {
         button {
-          background-color: rgba($white, 0.4);
+          background-color: rgba(tokens.$white, 0.4);
         }
 
         &.active button {

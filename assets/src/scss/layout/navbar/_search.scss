@@ -1,8 +1,10 @@
+@use "../../base/tokens" as tokens;
+
 .nav-search-form {
   background-color: inherit;
   border: none;
   border-top: var(--top-navigation--separation);
-  box-shadow: 0 2px 4px rgba($grey-900, 0.15);
+  box-shadow: 0 2px 4px rgba(tokens.$grey-900, 0.15);
   display: none;
   height: 56px;
   inset-inline-start: 0;

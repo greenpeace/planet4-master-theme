@@ -25,6 +25,7 @@ module.exports = (env, argv) => {
     entry: {
       index: './assets/src/js/app.js',
       style: './assets/src/scss/style.scss',
+      newStyle: './assets/src/scss/new-style.scss',
       post: './assets/src/scss/post.scss',
       'resistance-hub-campaign-styles': './assets/src/scss/pages/_resistance-hub-campaign.scss',
       editorStyle: './assets/src/scss/editorStyle.scss',

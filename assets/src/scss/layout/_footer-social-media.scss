@@ -1,3 +1,5 @@
+@use "../base/tokens" as tokens;
+
 .footer-social-media {
   text-align: left;
   margin-bottom: 24px;
@@ -23,7 +25,7 @@
     flex-direction: row;
     flex-wrap: wrap;
     padding-bottom: 9px;
-    border-bottom: 1px solid rgba($white, 0.5);
+    border-bottom: 1px solid rgba(tokens.$white, 0.5);
 
     @include large-and-up {
       border-bottom: none;
@@ -43,7 +45,7 @@
     transition: color 100ms linear;
 
     &:hover {
-      color: rgba($white, 0.8);
+      color: rgba(tokens.$white, 0.8);
     }
   }
 

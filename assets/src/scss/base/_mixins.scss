@@ -1,3 +1,5 @@
+@use "tokens" as tokens;
+
 // Mobile-only (up to 576px)
 @mixin mobile-only {
   @media (max-width: #{$small-width}) {
@@ -204,7 +206,7 @@
 }
 
 // Skew mixin
-@mixin skew($side: right, $deg: -20deg, $right: -15px, $left: -15px, $width: 30px, $bg: $white) {
+@mixin skew($side: right, $deg: -20deg, $right: -15px, $left: -15px, $width: 30px, $bg: tokens.$white) {
   position: relative;
 
   &:before {
