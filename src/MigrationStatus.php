@@ -13,6 +13,11 @@ class MigrationStatus
      */
     private string $key = 'planet4_migration_status';
 
+    /**
+     * Page title
+     */
+    private string $title;
+
     private array $p4_migrations = [];
 
     /**
