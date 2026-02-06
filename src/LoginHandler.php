@@ -53,7 +53,7 @@ class LoginHandler
                 ) {
                     $google_link = html_entity_decode($matches[1], ENT_QUOTES | ENT_HTML5);
 
-                    if (!empty($google_link) && empty($_GET['loggedout']) || $_GET['loggedout'] !== 'true') {
+                    if (!empty($google_link)) {
                         // Clean up the HTML by removing the login form itself
                         $html = preg_replace('/<form[^>]*id=["\']loginform["\'][^>]*>.*?<\/form>/is', '', $html);
 
