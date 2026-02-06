@@ -50,6 +50,8 @@ test.describe('Gravity Forms tests', () => {
 
     // Disable Gravity Forms rest API.
     await toggleRestAPI({page}, false);
+
+    await page.close();
   });
 
   test('check the confirmation message, text type', async ({page}) => {
