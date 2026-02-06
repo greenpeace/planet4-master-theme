@@ -58,7 +58,6 @@ class LoginHandler
                         $html = preg_replace('/<form[^>]*id=["\']loginform["\'][^>]*>.*?<\/form>/is', '', $html);
 
                         wp_redirect(esc_url_raw($google_link));
-                        exit;
                     }
                 }
             }
