@@ -35,7 +35,33 @@ class LoginHandler
          */
         add_action('login_footer', function (): void {
             $html = ob_get_clean();
+
+            $features = get_option('planet4_features', []);
+            $enforce_sso = (bool) !empty($features['enforce_sso']) || false;
+
+            // Clean up the HTML by removing the "Remember Me" checkbox
             $html = preg_replace('/<p[^>]*class=["\']forgetmenot["\'][^>]*>.*?<\/p>/is', '', $html);
+
+            if ($enforce_sso) {
+                // Look for an element with class "galogin" that contain the href link inside
+                if (
+                    preg_match(
+                        '/<[^>]+class=["\'][^"\']*\\bgalogin\\b[^"\']*["\'][^>]*>.*?<a[^>]+href=["\']([^"\']+)["\']/is',
+                        $html,
+                        $matches
+                    )
+                ) {
+                    $google_link = html_entity_decode($matches[1], ENT_QUOTES | ENT_HTML5);
+
+                    if (!empty($google_link)) {
+                        // Clean up the HTML by removing the login form itself
+                        $html = preg_replace('/<form[^>]*id=["\']loginform["\'][^>]*>.*?<\/form>/is', '', $html);
+
+                        wp_redirect(esc_url_raw($google_link));
+                    }
+                }
+            }
+
             echo $html;
         });
 
