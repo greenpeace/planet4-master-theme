@@ -35,9 +35,26 @@ const addSelectedFiltersToForm = (isModal, idToRemove) => {
   });
 };
 
+const setRestoreFocus = () => {
+  sessionStorage.setItem('restoreFocus', 'skip-to-search-results');
+};
+
+
 // Search page.
 export const setupSearch = () => {
   // Needed form and inputs
+  console.log('Setting up search page'); //eslint-disable-line no-console
+  const focusId = sessionStorage.getItem('restoreFocus');
+  console.log(`Focus ID: ${focusId}`); //eslint-disable-line no-console
+
+  if (focusId) {
+    const target = document.getElementById(focusId);
+    console.log(`Restoring focus to: ${target}`); //eslint-disable-line no-console
+    if (target) {
+      target.focus();
+    }
+    sessionStorage.removeItem('restoreFocus');
+  }
   const searchForm = document.getElementById('search_form');
   const orderInput = document.getElementById('orderby');
 
@@ -47,15 +64,18 @@ export const setupSearch = () => {
     orderSelect.onchange = () => {
       orderInput.value = orderSelect.value;
       addSelectedFiltersToForm(isModalSearch());
+      setRestoreFocus();
       searchForm.submit();
     };
   }
 
   // Submit form on filter click event.
+  // add check here for desktop
   const filterInputs = [...document.querySelectorAll('input[name^="f["]:not(.modal-checkbox)')];
   filterInputs.forEach(filterInput => {
     filterInput.onclick = () => {
       addSelectedFiltersToForm(false);
+      setRestoreFocus();
       searchForm.submit();
     };
   });
@@ -64,6 +84,7 @@ export const setupSearch = () => {
   const applyFiltersButton = document.querySelector('.applybtn');
   applyFiltersButton.onclick = () => {
     addSelectedFiltersToForm(true);
+    setRestoreFocus();
     searchForm.submit();
   };
 
@@ -74,6 +95,7 @@ export const setupSearch = () => {
 
     activeFilterTag.onclick = () => {
       addSelectedFiltersToForm(false, filterId);
+      setRestoreFocus();
       searchForm.submit();
     };
   });
@@ -86,6 +108,7 @@ export const setupSearch = () => {
       selectedFilters.forEach(selectedFilter => {
         selectedFilter.checked = false;
       });
+      // setRestoreFocus();
       searchForm.submit();
     };
   }
