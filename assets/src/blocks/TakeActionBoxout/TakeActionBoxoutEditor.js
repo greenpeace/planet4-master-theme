@@ -4,6 +4,8 @@ import {TakeActionBoxoutFrontend} from './TakeActionBoxoutFrontend';
 import {ImagePlaceholder} from './ImagePlaceholder';
 import {FONT_SIZES} from './HeadingFontSizes';
 import {FontSizePicker} from '@wordpress/components';
+const {apiFetch} = wp;
+const {useState, useEffect} = wp.element;
 
 const {useSelect} = wp.data;
 const {RichText, BlockControls, MediaUpload, MediaUploadCheck, InspectorControls} = wp.blockEditor;
@@ -40,11 +42,32 @@ export const TakeActionBoxoutEditor = ({
   } = attributes;
 
   const {options: p4_options} = window.p4_vars;
+
   const isNewIA = p4_options.new_ia;
+  const parent = p4_options.take_action_page;
+  const postId = wp.data.select('core/editor').getCurrentPostId();
+
+  const [actPageList, setActPageList] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    setLoading(true);
+
+    apiFetch({
+      path: `/planet4/v1/action-pages?exclude=${postId}&parent=${parent}&isNewIA=${isNewIA}`,
+    }).then(data => {
+      if (!isMounted) {return;};
+
+      setActPageList(data);
+      setLoading(false);
+    });
+
+    return () => isMounted = false;
+  }, [postId, isNewIA, parent]);
 
   const {
-    loading,
-    actPageList,
     title,
     excerpt,
     link,
@@ -53,27 +76,7 @@ export const TakeActionBoxoutEditor = ({
     imageUrl,
     imageAlt,
   } = useSelect(select => {
-    const postId = select('core/editor').getCurrentPostId();
-    const args = {
-      per_page: -1,
-      sort_order: 'asc',
-      sort_column: 'post_title',
-      post_status: 'publish',
-    };
 
-    // eslint-disable-next-line no-shadow
-    const actPageList = [].concat(
-      select('core').getEntityRecords('postType', 'page', {
-        ...args,
-        parent: isNewIA ? p4_options.take_action_page : p4_options.act_page,
-      }) || [],
-      ...(isNewIA ? (select('core').getEntityRecords('postType', 'p4_action', args) || []) : [])
-    ).filter(a => parseInt(a.id) !== postId).sort((a, b) => {
-      if (a.title.raw === b.title.raw) {
-        return 0;
-      }
-      return a.title.raw > b.title.raw ? 1 : -1;
-    });
     const actPage = actPageList.find(actPageFound => take_action_page === actPageFound.id);
 
     // Because `useSelect` does an API call to fetch data, the actPageList will be empty the first time it's called.
@@ -86,15 +89,15 @@ export const TakeActionBoxoutEditor = ({
     const customImage = customImageId && select('core').getMedia(customImageId);
     const customImageFromId = customImage?.source_url;
 
-    const title = !take_action_page ? customTitle : actPage.title.raw; // eslint-disable-line no-shadow
-    const excerpt = !take_action_page ? customExcerpt : actPage.excerpt.raw; // eslint-disable-line no-shadow
-    const link = !take_action_page ? customLink : actPage.link; // eslint-disable-line no-shadow
-
-    const linkText = !take_action_page ? customLinkText : actPage?.meta?.action_button_text || DEFAULT_BUTTON_TEXT; // eslint-disable-line no-shadow
-
-    const imageId = !take_action_page ? customImageId : actPageImageId; // eslint-disable-line no-shadow
-    const imageUrl = !take_action_page ? customImageFromId : select('core').getMedia(actPageImageId)?.source_url; // eslint-disable-line no-shadow
-    const imageAlt = !take_action_page ? customImage?.alt_text : ''; // eslint-disable-line no-shadow
+    /* eslint-disable no-shadow */
+    const title = !take_action_page ? customTitle : actPage.title;
+    const excerpt = !take_action_page ? customExcerpt : actPage.excerpt;
+    const link = !take_action_page ? customLink : actPage.link;
+    const linkText = !take_action_page ? customLinkText : actPage?.meta?.action_button_text || DEFAULT_BUTTON_TEXT;
+    const imageId = !take_action_page ? customImageId : actPageImageId;
+    const imageUrl = !take_action_page ? customImageFromId : select('core').getMedia(actPageImageId)?.source_url;
+    const imageAlt = !take_action_page ? customImage?.alt_text : '';
+    /* eslint-enable no-shadow */
 
     return {
       actPageList,
@@ -106,7 +109,7 @@ export const TakeActionBoxoutEditor = ({
       imageUrl,
       imageAlt,
     };
-  }, [take_action_page, customTitle, customExcerpt, customLink, customLinkText, customImageId]);
+  }, [actPageList, take_action_page, customImageId, customTitle, customExcerpt, customLink, customLinkText]);
 
   const takeActionPageSelected = take_action_page && parseInt(take_action_page) > 0;
 
@@ -122,7 +125,7 @@ export const TakeActionBoxoutEditor = ({
 
   const selectImage = ({id}) => setAttributes({imageId: id});
 
-  const actPageOptions = actPageList.map(actPage => ({label: actPage.title.raw, value: actPage.id}));
+  const actPageOptions = actPageList.map(actPage => ({label: actPage.title, value: actPage.id}));
 
   const postHasStickyBoxoutAlready = document.querySelector('#action-card');
 

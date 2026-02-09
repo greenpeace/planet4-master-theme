@@ -9,7 +9,11 @@
 
  namespace P4\MasterTheme\Blocks;
 
-/**
+ use WP_REST_Server;
+ use WP_REST_Request;
+ use WP_Query;
+
+ /**
  * Class TakeActionBoxout
  *
  * @package P4\MasterTheme\Blocks
@@ -88,6 +92,7 @@ class TakeActionBoxout extends BaseBlock
                 ],
             ]
         );
+        add_action('rest_api_init', [ self::class, 'register_endpoint' ]);
     }
 
     /**
@@ -175,5 +180,113 @@ class TakeActionBoxout extends BaseBlock
                 'page_id' => $page_id,
             ],
         ];
+    }
+
+    /**
+     * Endpoint to retrieve the data for the Take Action Boxout block
+     *
+     * @example GET wp-json/planet4/v1/action-pages?&parent=9&isNewIA=true
+     */
+    public static function register_endpoint(): void
+    {
+        $p4_get_action_pages = static function (WP_REST_Request $request) {
+            $exclude = (int) $request->get_param('exclude');
+            $parent = (int) $request->get_param('parent');
+            $is_new_ia = (bool) $request->get_param('isNewIA');
+            $per_page = (int) $request->get_param('per_page');
+
+            $posts = [];
+            $parent_id = (int) $parent;
+
+            // Pages
+            $children = get_children([
+                'post_type' => 'page',
+                'post_parent' => $parent_id,
+                'fields' => 'ids',
+            ]);
+
+            $post_ids = array_merge([$parent_id], $children);
+
+            $query = new WP_Query([
+                'post_type' => 'page',
+                'post__in' => $post_ids,
+                'posts_per_page' => $per_page,
+                'orderby' => 'title',
+                'order' => 'ASC',
+                'post__not_in' => $exclude ? [$exclude] : [],
+                'fields' => 'ids',
+            ]);
+
+            foreach ($query->posts as $id) {
+                $posts[] = [
+                    'id' => $id,
+                    'title' => get_the_title($id),
+                    'type' => 'page',
+                ];
+            }
+
+            // Actions
+            if ($is_new_ia) {
+                $action_query = new WP_Query([
+                    'post_type' => 'p4_action',
+                    'posts_per_page' => $per_page,
+                    'orderby' => 'title',
+                    'order' => 'ASC',
+                    'post__not_in' => $exclude ? [ $exclude ] : [],
+                    'fields' => 'ids',
+                ]);
+
+                foreach ($action_query->posts as $id) {
+                    $posts[] = [
+                        'id' => $id,
+                        'title' => get_the_title($id),
+                        'type' => 'p4_action',
+                         'excerpt' => get_the_excerpt($id),
+                        'link' => get_permalink($id),
+                        'featured_media' => (int) get_post_thumbnail_id($id),
+                        'meta' => [
+                            'action_button_text' => get_post_meta(
+                                $id,
+                                'action_button_text',
+                                true
+                            ),
+                        ],
+                    ];
+                }
+            }
+
+            usort($posts, fn ($a, $b) => strcasecmp($a['title'], $b['title']));
+            return rest_ensure_response($posts);
+        };
+
+        register_rest_route(
+            self::REST_NAMESPACE,
+            '/action-pages',
+            [
+                'methods' => WP_REST_Server::READABLE,
+                'callback' => $p4_get_action_pages,
+                'permission_callback' => static function () {
+                    return true;
+                },
+                'args' => [
+                    'exclude' => [
+                        'type' => 'integer',
+                        'required' => false,
+                    ],
+                    'parent' => [
+                        'type' => 'integer',
+                        'required' => true,
+                    ],
+                    'isNewIA' => [
+                        'type' => 'boolean',
+                        'required' => true,
+                    ],
+                    'per_page' => [
+                        'type' => 'integer',
+                        'default' => 100,
+                    ],
+                ],
+            ]
+        );
     }
 }
