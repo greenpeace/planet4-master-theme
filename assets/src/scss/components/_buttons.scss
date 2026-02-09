@@ -5,7 +5,7 @@
 .gfield button:not(.add_list_item):not(.delete_list_item):not([id^="mceu"]),
 .gform_button_select_files,
 [id^="gform_submit_button"] {
-  font-family: var(--font-family-primary);
+  font-family: var(--font-family-button);
   font-size: $font-size-sm;
   text-align: center;
   font-weight: var(--font-weight-regular);
@@ -73,27 +73,62 @@
 .btn-primary,
 .wp-block-button.is-style-cta a,
 [id^="gform_submit_button"] {
-  background: var(--color-background-button--cta);
-  color: var(--color-text-button--primary);
-  // Adding this here so that the variable exists, though technically not needed.
-  // This allows for the hover variable to be previewed.
   border-color: transparent;
-
-  &:visited {
-    color: var(--color-text-button--cta);
-  }
 
   &:hover,
   &:active {
-    background: var(--color-background-button--cta-hover);
-    color: var(--color-text-button--cta);
     border: 1px solid transparent;
+  }
+}
+
+.btn-primary {
+  background: var(--color-background-button--primary--passive);
+  color: var(--color-text-button--primary);
+
+  &:visited {
+    background: var(--color-background-button--primary--visited);
+    color: var(--color-text-button--primary);
+  }
+
+  &:hover {
+    background: var(--color-background-button--primary--hover);
+    color: var(--color-text-button--primary);
+  }
+
+  &:active {
+    background: var(--color-background-button--primary--active);
+    color: var(--color-text-button--primary);
   }
 
   &:disabled,
   &.disabled,
   &[disabled] {
-    background: var(--p4-action-yellow-500);
+    background: var(--color-background-button--primary--disabled);
+    color: var(--color-text-button--primary);
+  }
+}
+
+.wp-block-button.is-style-cta a,
+[id^="gform_submit_button"] {
+  background: var(--color-background-button--cta--passive);
+  color: var(--color-text-button--cta);
+
+  &:visited {
+    background: var(--color-background-button--cta--visited);
+  }
+
+  &:hover {
+    background: var(--color-background-button--cta--hover);
+  }
+
+  &:active {
+    background: var(--color-background-button--cta--active);
+  }
+
+  &:disabled,
+  &.disabled,
+  &[disabled] {
+    background: var(--color-background-button--cta--disabled);
   }
 }
 
@@ -141,21 +176,21 @@
 }
 
 .btn-donate {
-  background: var(--gp-green-400);
-  color: var(--grey-900);
+  background: var(--color-background-button--donate--passive);
+  color: var(--color-text-button--donate);
   min-width: 180px;
   padding: $sp-x $sp-4;
   border-width: 1px;
   border-color: transparent;
 
   &:hover {
-    background: var(--gp-green-500);
-    color: var(--grey-900);
+    background: var(--color-background-button--donate--hover);
+    color: var(--color-text-button--donate--hover);
     border: 1px solid transparent;
   }
 
   &:visited {
-    color: var(--grey-900);
+    color: var(--color-text-button--donate--visited);
   }
 
   @include large-and-up {
