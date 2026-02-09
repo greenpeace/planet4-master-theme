@@ -2,12 +2,16 @@
 
 namespace P4\MasterTheme;
 
+use WP_Query;
+
 /**
  * Class P4\MasterTheme\PostMeta
  */
 class PostMeta
 {
     public const POST_TYPE = 'post';
+
+    public const EXCLUDE_FROM_SEARCH = 'ep_exclude_from_search';
 
     public const META_FIELDS = [
         'p4_og_title',
@@ -35,6 +39,7 @@ class PostMeta
     private function hooks(): void
     {
         add_action('init', [ $this, 'register_post_meta' ]);
+        add_action('pre_get_posts', [ $this, 'exclude_from_rss' ]);
     }
 
     /**
@@ -51,5 +56,35 @@ class PostMeta
         foreach (self::META_FIELDS as $field) {
             register_post_meta(self::POST_TYPE, $field, $args);
         }
+    }
+
+    /**
+     * Exclude posts from the RSS/Atom feed based on a custom meta value.
+     */
+    public function exclude_from_rss(WP_Query $query): void
+    {
+        if (!$query->is_feed()) {
+            return;
+        }
+
+        $query->set(
+            'meta_query',
+            [
+                'relation' => 'OR',
+
+                // Meta key not set at all (older posts)
+                [
+                    'key' => self::EXCLUDE_FROM_SEARCH,
+                    'compare' => 'NOT EXISTS',
+                ],
+
+                // Meta exists but is empty / false
+                [
+                    'key' => self::EXCLUDE_FROM_SEARCH,
+                    'value' => '',
+                    'compare' => '=',
+                ],
+            ]
+        );
     }
 }
