@@ -134,9 +134,7 @@ export const setupAccessibleNavMenu = () => {
       const focusableSelectors =
     'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
-      const focusableElements = Array.from(
-        mobileNav.querySelectorAll(focusableSelectors)
-      );
+      const focusableElements = [...mobileNav.querySelectorAll(focusableSelectors)];
 
       if (!focusableElements.length) {
         return;
