@@ -56,9 +56,6 @@ class LoginHandler
                 $ga_url = $gal_instance->ga_start_auth_get_url();
 
                 if (!empty($ga_url)) {
-                    // Clean up the HTML by removing the login form itself
-                    $html = preg_replace('/<form[^>]*id=["\']loginform["\'][^>]*>.*?<\/form>/is', '', $html);
-
                     wp_redirect(esc_url_raw($ga_url));
                     exit;
                 }
