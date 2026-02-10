@@ -51,13 +51,18 @@ class LoginHandler
                         $matches
                     )
                 ) {
-                    $google_link = html_entity_decode($matches[1], ENT_QUOTES | ENT_HTML5);
+                    $gal_instance = google_apps_login();
+                    if (!method_exists($gal_instance, 'ga_start_auth_get_url')) {
+                        return;
+                    }
 
-                    if (!empty($google_link)) {
+                    $ga_url = $gal_instance->ga_start_auth_get_url();
+
+                    if (!empty($ga_url)) {
                         // Clean up the HTML by removing the login form itself
                         $html = preg_replace('/<form[^>]*id=["\']loginform["\'][^>]*>.*?<\/form>/is', '', $html);
 
-                        wp_redirect(esc_url_raw($google_link));
+                        wp_redirect(esc_url_raw($ga_url));
                     }
                 }
             }
