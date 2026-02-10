@@ -42,8 +42,8 @@ class LoginHandler
             // Clean up the HTML by removing the "Remember Me" checkbox
             $html = preg_replace('/<p[^>]*class=["\']forgetmenot["\'][^>]*>.*?<\/p>/is', '', $html);
 
-            if ($enforce_sso) {
-                if(isset($_GET['loggedout']) && $_GET['loggedout'] === 'true') {
+            if (!isset($enforce_sso) || $enforce_sso === false) {
+                if (isset($_GET['loggedout']) && $_GET['loggedout'] === 'true') {
                     wp_redirect(home_url());
                     exit;
                 }
