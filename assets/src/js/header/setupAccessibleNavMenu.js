@@ -125,18 +125,12 @@ export const setupAccessibleNavMenu = () => {
 
   if (mobileNav) {
     const doc = mobileNav.ownerDocument;
-    let lastFocusedElement = null;
     const isMobileMenuOpen = () => mobileNav.classList.contains('open');
     /**
      * Adds event listeners to create a keyboard trap between the buttons.
      */
     const addKeyboardTrap = () => {
-      const focusableSelectors =
-    'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
-
-      const focusableElements = Array.from(
-        mobileNav.querySelectorAll(focusableSelectors)
-      );
+      const focusableElements = [...mobileNav.querySelectorAll('a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])')];
 
       if (!focusableElements.length) {
         return;
@@ -174,8 +168,6 @@ export const setupAccessibleNavMenu = () => {
       }
 
       hamburgerBtn.addEventListener('click', () => {
-        lastFocusedElement = doc.activeElement;
-
         // Wait for CSS class to apply
         requestAnimationFrame(() => {
           if (!isMobileMenuOpen()) {
@@ -189,26 +181,35 @@ export const setupAccessibleNavMenu = () => {
     };
 
     /**
-     * Adds event listeners to focus the logo when the menu is closed.
+     * Adds event listeners to focus the main page content when the menu is closed.
      */
-    const focusLogoOnMenuClose = () => {
+    const focusContentOnMenuClose = () => {
       const closeBtn = mobileNav.querySelector(NAV_MENU_CLOSE_CLASS);
-      const toggleBtn = document.querySelector(NAV_MENU_TOGGLE_CLASS);
 
-      if (!closeBtn || !toggleBtn) {
+      if (!closeBtn) {
         return;
       }
 
       closeBtn.addEventListener('click', () => {
         const page = document.querySelector(PAGE_WRAPPER_ID);
+
+        if (!page) {
+          return;
+        }
+
         page.removeAttribute('aria-hidden');
         page.inert = false;
 
+        mobileNav.setAttribute('aria-hidden', 'true');
+
+        const toggleBtn = document.querySelector(NAV_MENU_TOGGLE_CLASS);
+
+        if (toggleBtn) {
+          toggleBtn.setAttribute('aria-expanded', 'false');
+        }
 
         requestAnimationFrame(() => {
-          (lastFocusedElement || toggleBtn).focus();
-          mobileNav.setAttribute('aria-hidden', 'true');
-          toggleBtn.setAttribute('aria-expanded', 'false');
+          toggleBtn.focus({preventScroll: true});
         });
       });
 
@@ -216,7 +217,7 @@ export const setupAccessibleNavMenu = () => {
 
     addKeyboardTrap();
     focusLogoOnMenuOpen();
-    focusLogoOnMenuClose();
+    focusContentOnMenuClose();
   }
 };
 
