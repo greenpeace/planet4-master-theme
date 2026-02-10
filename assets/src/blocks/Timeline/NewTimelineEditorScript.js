@@ -40,39 +40,37 @@ const renderEdit = (
 );
 
 const renderView = (attributes, toAttribute) => (
-  <section className={`block timeline-block new-timeline-block ${attributes.className ?? ''} alignfull`}>
-    <div className="container">
-      <Tooltip text={__('Edit text', 'planet4-master-theme-backend')}>
-        <header>
-          <RichText
-            tagName="h2"
-            className="page-section-header"
-            placeholder={__('Enter title', 'planet4-master-theme-backend')}
-            value={attributes.timeline_title}
-            onChange={toAttribute('timeline_title')}
-            withoutInteractiveFormatting
-            maxLength={40}
-            allowedFormats={[]}
-          />
-        </header>
-      </Tooltip>
-      <RichText
-        tagName="p"
-        className="page-section-description"
-        placeholder={__('Enter description', 'planet4-master-theme-backend')}
-        value={attributes.description}
-        onChange={toAttribute('description')}
-        withoutInteractiveFormatting
-        maxLength={200}
-        allowedFormats={['core/bold', 'core/italic']}
-      />
-      {!attributes.google_sheets_url ?
-        <div className="block-edit-mode-warning components-notice is-warning">
-          { __('Please include a Sheet URL.', 'planet4-master-theme-backend') }
-        </div> :
-        <NewTimelineFrontend attributes={{isEditing: true, ...attributes}} />
-      }
-    </div>
+  <section className={`block timeline-block new-timeline-block ${attributes.className ?? ''}`}>
+    <Tooltip text={__('Edit text', 'planet4-master-theme-backend')}>
+      <header>
+        <RichText
+          tagName="h2"
+          className="page-section-header"
+          placeholder={__('Enter title', 'planet4-master-theme-backend')}
+          value={attributes.timeline_title}
+          onChange={toAttribute('timeline_title')}
+          withoutInteractiveFormatting
+          maxLength={40}
+          allowedFormats={[]}
+        />
+      </header>
+    </Tooltip>
+    <RichText
+      tagName="p"
+      className="page-section-description"
+      placeholder={__('Enter description', 'planet4-master-theme-backend')}
+      value={attributes.description}
+      onChange={toAttribute('description')}
+      withoutInteractiveFormatting
+      maxLength={200}
+      allowedFormats={['core/bold', 'core/italic']}
+    />
+    {!attributes.google_sheets_url ?
+      <div className="block-edit-mode-warning components-notice is-warning">
+        { __('Please include a Sheet URL.', 'planet4-master-theme-backend') }
+      </div> :
+      <NewTimelineFrontend attributes={{isEditing: true, ...attributes}} />
+    }
   </section>
 );
 
