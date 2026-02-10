@@ -43,27 +43,24 @@ class LoginHandler
             $html = preg_replace('/<p[^>]*class=["\']forgetmenot["\'][^>]*>.*?<\/p>/is', '', $html);
 
             if ($enforce_sso) {
-                // Look for an element with class "galogin" that contain the href link inside
-                if (
-                    preg_match(
-                        '/<[^>]+class=["\'][^"\']*\\bgalogin\\b[^"\']*["\'][^>]*>.*?<a[^>]+href=["\']([^"\']+)["\']/is',
-                        $html,
-                        $matches
-                    )
-                ) {
-                    $gal_instance = google_apps_login();
-                    if (!method_exists($gal_instance, 'ga_start_auth_get_url')) {
-                        return;
-                    }
+                if(isset($_GET['loggedout']) && $_GET['loggedout'] === 'true') {
+                    wp_redirect(home_url());
+                    exit;
+                }
 
-                    $ga_url = $gal_instance->ga_start_auth_get_url();
+                $gal_instance = google_apps_login();
+                if (!method_exists($gal_instance, 'ga_start_auth_get_url')) {
+                    return;
+                }
 
-                    if (!empty($ga_url)) {
-                        // Clean up the HTML by removing the login form itself
-                        $html = preg_replace('/<form[^>]*id=["\']loginform["\'][^>]*>.*?<\/form>/is', '', $html);
+                $ga_url = $gal_instance->ga_start_auth_get_url();
 
-                        wp_redirect(esc_url_raw($ga_url));
-                    }
+                if (!empty($ga_url)) {
+                    // Clean up the HTML by removing the login form itself
+                    $html = preg_replace('/<form[^>]*id=["\']loginform["\'][^>]*>.*?<\/form>/is', '', $html);
+
+                    wp_redirect(esc_url_raw($ga_url));
+                    exit;
                 }
             }
 
