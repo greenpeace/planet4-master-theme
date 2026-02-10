@@ -1,3 +1,5 @@
+@use "../../base/tokens" as tokens;
+
 .suggested-search-terms {
   margin: $sp-6x 0 104px;
 
@@ -16,7 +18,7 @@
 }
 
 .suggested-list {
-  background-color: rgba($white, .6);
+  background-color: rgba(tokens.$white, .6);
   padding: 32px 17px;
   margin: 0;
 

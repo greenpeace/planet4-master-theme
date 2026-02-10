@@ -1,6 +1,8 @@
+@use "../../base/tokens" as tokens;
+
 .search-bar {
   width: 100%;
-  background: rgba($white, 0.7);
+  background: rgba(tokens.$white, 0.7);
   padding: 24px 15px;
   border-radius: 4px;
   border: 1px solid var(--grey-300);
