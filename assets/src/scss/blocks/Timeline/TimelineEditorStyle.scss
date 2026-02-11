@@ -6,3 +6,14 @@ div[data-type="planet4-blocks/timeline"] {
     text-align: center;
   }
 }
+
+.new-timeline-block {
+  .page-section-header,
+  .page-section-description {
+    text-align: center;
+  }
+
+  .timeline-block-event {
+    width: auto;
+  }
+}

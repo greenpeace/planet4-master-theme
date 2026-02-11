@@ -165,35 +165,37 @@ export const NewTimelineFrontend = ({attributes}) => {
   );
 
   return (
-    <section className={`block timeline-block new-timeline-block ${className ?? ''}`} aria-label={summaryText}>
-      {!!timeline_title && !isEditing &&
-        <h2 className="page-section-header text-center">
-          {timeline_title}
-        </h2>
-      }
-      {!!description && !isEditing &&
-        <p className="page-section-description text-center" dangerouslySetInnerHTML={{__html: description}} />
-      }
+    <section className={`block timeline-block new-timeline-block ${className ?? ''} alignfull`} aria-label={summaryText}>
+      <div className="container">
+        {!!timeline_title && !isEditing &&
+          <h2 className="page-section-header text-center">
+            {timeline_title}
+          </h2>
+        }
+        {!!description && !isEditing &&
+          <p className="page-section-description text-center" dangerouslySetInnerHTML={{__html: description}} />
+        }
 
-      {loading && <p className="text-center">{__('Loading…', 'planet4-blocks')}</p>}
+        {loading && <p className="text-center">{__('Loading…', 'planet4-blocks')}</p>}
 
-      {!loading && processedSheetData && (
-        <fieldset className="timeline-group">
-          {processedSheetData.map(({year, list}) => (
-            <div key={year}>
-              <p className="timeline-block-year">{year}</p>
-              <ul className="timeline-block-events">
-                {list.map((event, index) => (
-                  <TimelineEvent
-                    key={`row-${event.Day}-${index}`}
-                    event={event}
-                  />
-                ))}
-              </ul>
-            </div>
-          ))}
-        </fieldset>
-      )}
+        {!loading && processedSheetData && (
+          <fieldset className="timeline-group">
+            {processedSheetData.map(({year, list}) => (
+              <div key={year}>
+                <p className="timeline-block-year">{year}</p>
+                <ul className="timeline-block-events">
+                  {list.map((event, index) => (
+                    <TimelineEvent
+                      key={`row-${event.Day}-${index}`}
+                      event={event}
+                    />
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </fieldset>
+        )}
+      </div>
     </section>
   );
 };
