@@ -28,7 +28,7 @@
                         {{ __( 'Skip to search results', 'planet4-master-theme' ) }}
                     </a>
                     <div class="search-bar">
-                        <form id="search_form_inner" role="search" class="form d-md-flex" action="{{ data_nav_bar.home_url }}">
+                        <form id="search_form_inner" method="get" role="search" class="form d-md-flex" action="{{ site.url }}">
                             <div class="search-input-container w-100">
                                 <input type="search" id="search-page-input" class="form-control" placeholder="{{ search_label }}" value="{{ search_query|e('wp_kses_post') }}" name="s" aria-label="Search">
                                 <input type="hidden" name="orderby" value="{{ selected_sort ?? default_sort }}" />
@@ -145,7 +145,30 @@
                                 </select>
                             </div>
                         </div>
-                        <div id="search-results" class="multiple-search-result">
+
+                        {# <form id="search-form" method="get" action="{{ site.url }}">
+                        </form> #}
+
+                        <div
+                            id="search-results-wrapper"
+                            aria-live="polite"
+                            aria-busy="false"
+                        >
+                            <ul id="search-results" class="multiple-search-result">
+                                <ul class="list-unstyled">
+                                    {% for post in paged_posts %}
+                                        {% include ['tease-search.twig', 'tease-'~post.post_type~'.twig', 'tease.twig'] %}
+                                    {% endfor %}
+                                </ul>
+                            </ul>
+                        </div>
+
+                        <div
+                            id="search-controller"
+                            data-rest-url="{{ fn('get_rest_url') }}"
+                        ></div>
+
+                        {# <div id="search-results" class="multiple-search-result">
                             <ul class="list-unstyled">
                                 {% for post in paged_posts %}
                                     {% include ['tease-search.twig', 'tease-'~post.post_type~'.twig', 'tease.twig'] %}
@@ -165,7 +188,7 @@
                                         </button>
                                 </div>
                             {% endif %}
-                        </div>
+                        </div> #}
                     </div>
                 </section>
             </div>
