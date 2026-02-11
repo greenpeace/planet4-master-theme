@@ -145,50 +145,30 @@
                                 </select>
                             </div>
                         </div>
-
-                        {# <form id="search-form" method="get" action="{{ site.url }}">
-                        </form> #}
-
-                        <div
-                            id="search-results-wrapper"
-                            aria-live="polite"
-                            aria-busy="false"
-                        >
+                        <div id="search-results-wrapper">
                             <ul id="search-results" class="multiple-search-result">
                                 <ul class="list-unstyled">
-                                    {% for post in paged_posts %}
-                                        {% include ['tease-search.twig', 'tease-'~post.post_type~'.twig', 'tease.twig'] %}
-                                    {% endfor %}
+                                    {# Here we render the results of the SearchController component #}
                                 </ul>
                             </ul>
                         </div>
-
+                        <div class="col-lg-12 mb-5 load-more-button-div">
+                            <button
+                                class="btn btn-secondary more-btn btn-load-more-click-scroll"
+                                data-current_page="{{ current_page }}"
+                                data-total_posts="{{ found_posts }}"
+                                data-posts_per_load="{{ load_more.posts_per_load }}"
+                                data-ga-category="Search Page"
+                                data-ga-action="Load More Button"
+                                data-ga-label="n/a"
+                            >
+                                    {{ load_more.button_text }}
+                            </button>
+                        </div>
                         <div
                             id="search-controller"
-                            data-rest-url="{{ fn('get_rest_url') }}"
+                            data-rest-url="{{ fn('get_rest_url') }}planet4/v1/search"
                         ></div>
-
-                        {# <div id="search-results" class="multiple-search-result">
-                            <ul class="list-unstyled">
-                                {% for post in paged_posts %}
-                                    {% include ['tease-search.twig', 'tease-'~post.post_type~'.twig', 'tease.twig'] %}
-                                {% endfor %}
-                            </ul>
-                            {% if ( load_more and found_posts > paged_posts|length ) %}
-                                <div class="col-lg-12 mb-5 load-more-button-div">
-                                    <button
-                                        class="btn btn-secondary more-btn btn-load-more-click-scroll"
-                                        data-current_page="{{ current_page }}"
-                                        data-total_posts="{{ found_posts }}"
-                                        data-posts_per_load="{{ load_more.posts_per_load }}"
-                                        data-ga-category="Search Page"
-                                        data-ga-action="Load More Button"
-                                        data-ga-label="n/a">
-                                            {{ load_more.button_text }}
-                                        </button>
-                                </div>
-                            {% endif %}
-                        </div> #}
                     </div>
                 </section>
             </div>
