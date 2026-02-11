@@ -1,8 +1,11 @@
-{% if featured_posts_content is defined %}
-    {{ featured_posts_content|raw }}
-{% endif %}
-
 <main class="page-content container" id="content">
+    {% if not post.password_required %}
+        {% include 'blocks/header.twig' %}
+    {% endif %}
+
+    {% if featured_posts_content is defined %}
+        {{ featured_posts_content|raw }}
+    {% endif %}
     <div class="wp-block-separator is-style-wide listing-page-separator"></div>
     <div class="d-flex align-items-center justify-content-between listing-page-title">
         {% if fn('is_home') %}

@@ -134,6 +134,7 @@
   text-transform: none;
   max-width: 80%;
   margin-bottom: 10px;
+  margin-inline-start: -$sp-2;
 
   @include medium-and-up {
     margin-bottom: 12px;
