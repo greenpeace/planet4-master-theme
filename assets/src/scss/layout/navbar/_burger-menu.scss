@@ -164,8 +164,8 @@ $transition-duration: .2s;
   }
 
   a.nav-link {
-    font-size: 16px;
-    line-height: 19px;
+    font-family: var(--font-family-tertiary);
+    font-size: var(--font-size-m--font-family-tertiary);
     font-weight: 400;
     width: auto;
     padding: $sp-1x 0;
