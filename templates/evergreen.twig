@@ -2,6 +2,10 @@
 
 {% block content %}
     <main class="page-content container" id="content">
+        {% if not post.password_required %}
+            {% include 'blocks/header.twig' %}
+        {% endif %}
+
         {{ post.content|raw }}
     </main>
 {% endblock %}
