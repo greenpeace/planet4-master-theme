@@ -37,7 +37,7 @@ class LoginHandler
             $html = ob_get_clean();
 
             $features = get_option('planet4_features', []);
-            $enforce_sso = (bool) !empty($features['enforce_sso']) || false;
+            $enforce_sso = !empty($features['enforce_sso']);
 
             // Clean up the HTML by removing the "Remember Me" checkbox
             $html = preg_replace('/<p[^>]*class=["\']forgetmenot["\'][^>]*>.*?<\/p>/is', '', $html);
