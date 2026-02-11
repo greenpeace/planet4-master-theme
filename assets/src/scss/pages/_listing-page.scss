@@ -372,7 +372,7 @@
 }
 
 .listing-page-filters {
-  width: 90%;
+  width: 100%;
 
   .listing-page-select {
     width: 100%;
@@ -435,8 +435,5 @@
   display: flex;
   align-self: center;
   justify-self: center;
-
-  @include medium-and-less {
-    width: 100%;
-  }
+  width: 100%;
 }
