@@ -103,7 +103,6 @@
   &:disabled,
   &.disabled,
   &[disabled] {
-    background: var(--color-background-button--primary--disabled);
     color: var(--color-text-button--primary);
   }
 }
