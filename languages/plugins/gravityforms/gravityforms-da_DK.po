@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the RocketGenius - Gravity Forms package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2026-02-11 11:32+0000\n"
+"PO-Revision-Date: 2026-02-12 09:53+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -10,7 +10,11 @@ msgstr ""
 "X-Generator: Loco https://localise.biz/\n"
 "Language: da_DK\n"
 "Project-Id-Version: RocketGenius - Gravity Forms\n"
-"Language-Team: Danish"
+"Language-Team: Danish\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-12 09:53+0000\n"
+"Last-Translator: Svilena Koleva\n"
+"X-Loco-Version: 2.8.1; wp-6.9; php-8.1.2-1ubuntu2.23"
 
 #: entry_detail.php:820
 msgid " Bulk action"
@@ -297,7 +301,7 @@ msgstr "'Annuller' for at stoppe, 'OK' for at nulstille."
 #: forms_model.php:6570 forms_model.php:6578 forms_model.php:6582
 #: form_settings.php:259
 msgid "(Required)"
-msgstr ""
+msgstr "(Obligatorisk)"
 
 #: entry_list.php:48 entry_list.php:62 entry_list.php:1448
 msgid "1 entry"
