@@ -11,7 +11,7 @@ export default function SearchController({restUrl}) {
   const [loading, setLoading] = useState(false);
 
   // Fetch search results from the API:
-  const fetchResults = async (page = 1, append = false) => {
+  const fetchResults = async (page = 1, append = false, filters = {}) => {
     const wrapper = document.getElementById('search-results-wrapper');
     const resultsContainer = document.querySelector('#search-results .list-unstyled');
     const input = document.getElementById('search-page-input');
@@ -24,10 +24,12 @@ export default function SearchController({restUrl}) {
     params.set('s', input.value);
     params.set('paged', page);
 
+    if (Object.keys(filters).length) {
+      params.set(filters.name, filters.value);
+    }
+
     const url = `${restUrl}?${params.toString()}`;
-    const res = await fetch(url, {
-      headers: {'X-Requested-With': 'XMLHttpRequest'},
-    });
+    const res = await fetch(url, {headers: {'X-Requested-With': 'XMLHttpRequest'}});
     const data = await res.json();
 
     const html = data.html.replace(/\n/g, '');
@@ -57,6 +59,22 @@ export default function SearchController({restUrl}) {
     fetchResults(1, false);
   };
 
+  // Populate the search results list when the filters are selected:
+  const onFilter = (e, li) => {
+    // Prevent double toggling if the user clicked the <input> directly
+    if (e.target.tagName === 'INPUT') {return;}
+
+    const checkbox = li.querySelector('input[type="checkbox"]');
+    if (!checkbox) {return;}
+
+    checkbox.checked = !checkbox.checked;
+
+    const name = checkbox.name;
+    const value = checkbox.value;
+
+    fetchResults(1, false, {name, value});
+  };
+
   // Populate the search results list on component mount:
   useEffect(() => {
     fetchResults(1, false);
@@ -72,6 +90,7 @@ export default function SearchController({restUrl}) {
   useEffect(() => {
     const form = document.getElementById('search_form_inner');
     const loadMoreButton = document.querySelector('.btn-load-more-click-scroll');
+    const filters = document.querySelectorAll('#filter-sidebar-options .filteritem li');
 
     if (form) {
       form.addEventListener('submit', onSubmit);
@@ -79,6 +98,11 @@ export default function SearchController({restUrl}) {
     if (loadMoreButton) {
       loadMoreButton.addEventListener('click', onLoadMore);
     };
+    if (filters) {
+      filters.forEach(filter => {
+        filter.addEventListener('click', e => onFilter(e, filter));
+      });
+    }
 
     return () => {
       if (form) {
