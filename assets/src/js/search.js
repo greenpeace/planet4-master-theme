@@ -1,9 +1,10 @@
+const {__} = wp.i18n;
+
 const showHiddenRow = row => {
   if (!row) {
     return;
   }
   row.classList.remove('row-hidden');
-  row.style.display = 'block';
 };
 
 const isModalSearch = () => {
@@ -91,6 +92,7 @@ export const setupSearch = () => {
   // Add click event for load more button in blocks.
   const navSearchInput = document.getElementById('search_input');
   const loadMoreButton = document.querySelector('.more-btn');
+  const announce = document.getElementById('announce');
   if (loadMoreButton) {
     loadMoreButton.onclick = () => {
       const {total_posts, posts_per_load, current_page} = loadMoreButton.dataset;
@@ -115,9 +117,19 @@ export const setupSearch = () => {
           const hiddenRow = document.querySelector('.row-hidden:last-child');
           showHiddenRow(hiddenRow);
 
+          // Indicate to screen reader users that more results have appeared.
+          if (announce) {
+            const message = document.createElement('p');
+            message.textContent = __('More results loaded', 'planet4-master-theme');
+            announce.appendChild(message);
+          }
+
           if (posts_per_load * nextPage > total_posts) {
             loadMoreButton.style.display = 'none';
           }
+
+          // Focus on newly loaded results for tab users.
+          hiddenRow.querySelector('.search-result-item-headline').focus();
         }).catch(error => {
           console.log(error); //eslint-disable-line no-console
         });
