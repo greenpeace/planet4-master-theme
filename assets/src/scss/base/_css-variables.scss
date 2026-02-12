@@ -13,29 +13,20 @@
   --top-navigation--separation: 1px solid var(--grey-300);
 
   // New tokens
-  --color-background-button--primary-green--passive: var(--gp-green-400);
-  --color-background-button--primary-green--hover: var(--gp-green-500);
-  --color-background-button--primary-green--active: var(--gp-green-800);
-  --color-background-button--primary-green--disabled: var(--gp-green-100);
+  --gp-green-600: #55bc00;
 
-  --color-background-button--primary-yellow--passive: var(--p4-action-yellow-500);
-  --color-background-button--primary-yellow--hover: var(--p4-action-yellow-600);
-  --color-background-button--primary-yellow--active: var(--p4-action-yellow-700);
-  --color-background-button--primary-yellow--disabled: var(--p4-action-yellow-100);
-
-  --color-background-button--primary--passive: var(--color-background-button--primary-yellow--passive);
-  --color-background-button--primary--hover: var(--color-background-button--primary-yellow--hover);
-  --color-background-button--primary--active: var(--color-background-button--primary-yellow--active);
-  --color-background-button--primary--disabled: var(--color-background-button--primary-yellow--disabled);
-
-  --color-background-button--donate--passive: var(--color-background-button--primary-green--passive);
-  --color-background-button--donate--hover: var(--color-background-button--primary-green--hover);
-  --color-text-button--donate: var(--grey-900);
-  --color-text-button--donate--hover: var(--grey-900);
-  --color-text-button--donate--visited: var(--grey-900);
+  --color-background-button--primary--passive: var(--p4-action-yellow-500);
+  --color-background-button--primary--hover: var(--p4-action-yellow-600);
+  --color-background-button--primary--active: var(--p4-action-yellow-700);
 
   --color-background-button--cta--passive: var(--p4-action-yellow-500);
   --color-background-button--cta--hover: var(--p4-action-yellow-600);
   --color-background-button--cta--active: var(--p4-action-yellow-700);
-  --color-background-button--cta--disabled: var(--p4-action-yellow-100);
+
+  --color-background-button--donate--passive: var(--gp-green-400);
+  --color-background-button--donate--hover: var(--gp-green-500);
+  --color-background-button--donate--active: var(--gp-green-600);
+  --color-text-button--donate: var(--grey-900);
+  --color-text-button--donate--hover: var(--grey-900);
+  --color-text-button--donate--visited: var(--grey-900);
 }
