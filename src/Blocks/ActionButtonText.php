@@ -68,7 +68,7 @@ class ActionButtonText extends BaseBlock
     */
     public function render_block(array $attributes, string $content, WP_Block $block): string
     {
-        $post_id = $block->context['postId'];
+        $post_id = isset($block->context['postId']) ? $block->context['postId'] : get_the_ID();
         $link = get_permalink($post_id);
         $meta = get_post_meta($post_id);
         $options = get_option('planet4_options');
