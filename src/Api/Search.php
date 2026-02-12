@@ -5,6 +5,7 @@ namespace P4\MasterTheme\Api;
 use WP_Query;
 use WP_REST_Request;
 use WP_REST_Server;
+use P4\MasterTheme\Search\Search as SearchClass;
 use P4\MasterTheme\Search\SearchPage;
 
 class Search
@@ -27,10 +28,15 @@ class Search
                     'methods' => WP_REST_Server::READABLE,
                     'callback' => static function (WP_REST_Request $request) {
 
-                        // Prepare the WP_Query
+                        // Prepare WP_Query
                         $query = new WP_Query();
                         $query->set('ep_integrate', true);
+
+                        // Apply request params
                         $query->query($request->get_params());
+
+                        // Apply your custom filters
+                        SearchClass::validate_filters($query);
 
                         // Initialize SearchPage
                         $page = new SearchPage($query);
