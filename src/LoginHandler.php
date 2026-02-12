@@ -35,7 +35,32 @@ class LoginHandler
          */
         add_action('login_footer', function (): void {
             $html = ob_get_clean();
+
+            $features = get_option('planet4_features', []);
+            $enforce_sso = !empty($features['enforce_sso']);
+
+            // Clean up the HTML by removing the "Remember Me" checkbox
             $html = preg_replace('/<p[^>]*class=["\']forgetmenot["\'][^>]*>.*?<\/p>/is', '', $html);
+
+            if ($enforce_sso) {
+                if (isset($_GET['loggedout']) && $_GET['loggedout'] === 'true') {
+                    wp_redirect(home_url());
+                    exit;
+                }
+
+                $gal_instance = google_apps_login();
+                if (!method_exists($gal_instance, 'ga_start_auth_get_url')) {
+                    return;
+                }
+
+                $ga_url = $gal_instance->ga_start_auth_get_url();
+
+                if (!empty($ga_url)) {
+                    wp_redirect(esc_url_raw($ga_url));
+                    exit;
+                }
+            }
+
             echo $html;
         });
 
