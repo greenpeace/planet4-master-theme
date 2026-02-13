@@ -1,6 +1,5 @@
 import 'bootstrap';
 
-import {setupCookies} from './cookies';
 import {setupHeader} from './header';
 import {setupPDFIcon} from './pdf_icon';
 import {setupExternalLinks} from './external_links';
@@ -16,7 +15,11 @@ function requireAll(r) {
 requireAll(require.context('../images/icons/', true, /\.svg$/));
 
 document.addEventListener('DOMContentLoaded', () => {
-  setupCookies();
+  if (window.p4_vars && typeof window.p4_vars !== 'undefined') {
+    import('./cookies').then(({setupCookies}) => {
+      setupCookies();
+    });
+  }
   setupHeader();
   setupPDFIcon();
   setupExternalLinks();
