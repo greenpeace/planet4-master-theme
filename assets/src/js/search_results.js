@@ -61,8 +61,7 @@ export default function SearchController({restUrl}) {
 
   // Populate the search results list when the filters are selected:
   const onFilter = (e, li) => {
-    // Prevent double toggling if the user clicked the <input> directly
-    if (e.target.tagName === 'INPUT') {return;}
+    if (e.target.tagName === 'INPUT') {return;} // Prevent double toggling if the user clicked the <input> directly
 
     const checkbox = li.querySelector('input[type="checkbox"]');
     if (!checkbox) {return;}
@@ -84,6 +83,15 @@ export default function SearchController({restUrl}) {
   useEffect(() => {
     const title = document.querySelector('.result-statement');
     title.innerHTML = `${foundPosts} results for '${searchTerm}'`;
+  }, [results]);
+
+  // Update the Load More button text:
+  useEffect(() => {
+    const loadMoreButton = document.querySelector('.btn-load-more-click-scroll');
+    const remainingPosts = foundPosts - (currentPage * postsPerLoad);
+    const valueToShow = (remainingPosts < postsPerLoad) ? remainingPosts : postsPerLoad;
+
+    loadMoreButton.innerHTML = `Show ${valueToShow} more results`;
   }, [results]);
 
   // Add and remove listeners:
