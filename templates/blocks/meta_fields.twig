@@ -30,8 +30,8 @@
         {% set title = site.name %}
     {% endif %}
 
-    <meta name="title" content="{{ title|e('html_attr')|raw }}"/>
-    <meta property="og:title" content="{{ title|e('html_attr')|raw }}" />
+    <meta name="title" content="{{ title|raw }}"/>
+    <meta property="og:title" content="{{ title|raw }}" />
     <meta property="og:url" content="{{ current_url }}" />
     {% if (og_type) %}
         <meta property="og:type" content="{{ og_type }}" />
@@ -56,7 +56,7 @@
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="{{ site.name }}" />
-    <meta name="twitter:title" content="{{ title|e('html_attr')|raw }}">
+    <meta name="twitter:title" content="{{ title|raw }}">
     {% if (og_description) %}
         <meta name="twitter:description" content="{{ og_description|e('html_attr')|raw }}">
     {% endif %}
