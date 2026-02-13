@@ -246,12 +246,5 @@ class Search
             '1.0',
             true
         );
-        wp_enqueue_script(
-            'p4-search-results',
-            get_template_directory_uri() . '/assets/build/searchResults.js',
-            ['wp-element'],
-            '1.0',
-            true
-        );
     }
 }

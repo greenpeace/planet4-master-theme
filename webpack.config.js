@@ -48,7 +48,6 @@ module.exports = (env, argv) => {
       listingPages: './assets/src/js/listing_pages.js',
       bulkExport: './assets/src/js/bulk_export.js',
       search: './assets/src/js/search.js',
-      searchResults: './assets/src/js/search_results.js',
       mediaImportButton: './assets/src/js/media_import_button.js',
       filterBlockNames: './assets/src/js/filter_block_names.js',
       frontendIndex: './assets/src/frontendIndex.js',
