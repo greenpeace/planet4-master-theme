@@ -218,7 +218,7 @@ class MasterBlocks
      */
     private function get_p4_features(): array
     {
-        return get_option('planet4_features');
+        return get_option('planet4_features') ?: [];
     }
 
     /**
