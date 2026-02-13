@@ -1,166 +1,141 @@
-// // const showHiddenRow = row => {
-// //   if (!row) {
-// //     return;
-// //   }
-// //   row.classList.remove('row-hidden');
-// //   row.style.display = 'block';
-// // };
+import {createRoot, useEffect, useState} from '@wordpress/element';
 
-// const isModalSearch = () => {
-//   return document.getElementById('filtermodal') &&
-//     document.getElementById('filtermodal').style.display !== 'none';
-// };
+export default function SearchController({restUrl}) {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [results, setResults] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [foundPosts, setFoundPosts] = useState(0);
+  const [postsPerLoad, setPostsPerLoad] = useState(5);
+  const [loading, setLoading] = useState(false);
 
-// const getSelectedFilters = isModal => {
-//   const filters_div_id = isModal ? 'filtermodal' : 'filter-sidebar-options';
-//   return [...document.querySelectorAll(
-//     `#${filters_div_id} input[name^="f["]:checked`
-//   )];
-// };
+  // Fetch search results from the API:
+  const fetchResults = async (page = 1, append = false, filters = {}) => {
+    const wrapper = document.getElementById('search-results-wrapper');
+    const resultsContainer = document.querySelector('#search-results .list-unstyled');
+    const input = document.getElementById('search-page-input');
 
-// const addSelectedFiltersToForm = (isModal, idToRemove) => {
-//   const searchForm = document.getElementById('search_form');
-//   let selectedFilters = getSelectedFilters(isModal);
+    if (!wrapper || !resultsContainer || !input) {return;}
 
-//   if (idToRemove) {
-//     selectedFilters = selectedFilters.filter(selectedFilter => selectedFilter.value !== idToRemove);
-//   }
+    setLoading(true);
 
-//   selectedFilters.forEach(selectedFilter => {
-//     const selectedFilterCopy = selectedFilter.cloneNode(true);
-//     selectedFilterCopy.style.display = 'none';
-//     searchForm.appendChild(selectedFilterCopy);
-//   });
-// };
+    const params = new URLSearchParams();
+    params.set('s', input.value);
+    params.set('paged', page);
 
-// // Search page.
-// export const setupSearch = () => {
-//   // Needed form and inputs
-//   const searchForm = document.getElementById('search_form');
-//   const orderInput = document.getElementById('orderby');
+    if (Object.keys(filters).length) {
+      params.set(filters.name, filters.value);
+    }
 
-//   // Submit form on Sort change event.
-//   const orderSelect = document.getElementById('select_order');
-//   if (orderSelect) {
-//     orderSelect.onchange = () => {
-//       orderInput.value = orderSelect.value;
-//       addSelectedFiltersToForm(isModalSearch());
-//       searchForm.submit();
-//     };
-//   }
+    const url = `${restUrl}?${params.toString()}`;
+    const res = await fetch(url, {headers: {'X-Requested-With': 'XMLHttpRequest'}});
+    const data = await res.json();
 
-//   // Submit form on filter click event.
-//   const filterInputs = [...document.querySelectorAll('input[name^="f["]:not(.modal-checkbox)')];
-//   filterInputs.forEach(filterInput => {
-//     filterInput.onclick = () => {
-//       addSelectedFiltersToForm(false);
-//       searchForm.submit();
-//     };
-//   });
+    const html = data.html.replace(/\n/g, '');
+    resultsContainer.innerHTML = append ? resultsContainer.innerHTML + html : html;
 
-//   // Submit form on Apply filters button click event.
-//   const applyFiltersButton = document.querySelector('.applybtn');
-//   applyFiltersButton.onclick = () => {
-//     addSelectedFiltersToForm(true);
-//     searchForm.submit();
-//   };
+    // Update state
+    setSearchTerm(input.value);
+    setResults(resultsContainer.innerHTML);
+    setCurrentPage(data.current_page);
+    setFoundPosts(data.found_posts);
+    setPostsPerLoad(data.posts_per_load || 5);
 
-//   // Clear single selected filter.
-//   const activeFilterTags = [...document.querySelectorAll('.activefilter-tag')];
-//   activeFilterTags.forEach(activeFilterTag => {
-//     const filterId = activeFilterTag.dataset.id;
+    history.pushState({}, '', `?${params.toString()}`);
+    setLoading(false);
+  };
 
-//     activeFilterTag.onclick = () => {
-//       addSelectedFiltersToForm(false, filterId);
-//       searchForm.submit();
-//     };
-//   });
+  // Show more results when the Load More button is clicked:
+  const onLoadMore = () => {
+    if (loading) {return;}
+    const nextPage = currentPage + 1;
+    fetchResults(nextPage, true);
+  };
 
-//   // Clear all selected filters.
-//   const clearAllButton = document.querySelector('.clearall');
-//   if (clearAllButton) {
-//     clearAllButton.onclick = () => {
-//       const selectedFilters = [...document.querySelectorAll('input[name^="f["]:checked')];
-//       selectedFilters.forEach(selectedFilter => {
-//         selectedFilter.checked = false;
-//       });
-//       searchForm.submit();
-//     };
-//   }
+  // Populate the search results list when the Search button is clicked:
+  const onSubmit = e => {
+    e.preventDefault();
+    fetchResults(1, false);
+  };
 
-//   // Add click event for load more button in blocks.
-//   // const navSearchInput = document.getElementById('search_input');
+  // Populate the search results list when the filters are selected:
+  const onFilter = (e, li) => {
+    if (e.target.tagName === 'INPUT') {return;} // Prevent double toggling if the user clicked the <input> directly
 
-//   // const loadMoreButton = document.querySelector('.btn-load-more-click-scroll');
-//   // if (loadMoreButton) {
-//   //   loadMoreButton.onclick = () => {
-//   //     const {total_posts, posts_per_load, current_page} = loadMoreButton.dataset;
-//   //     const nextPage = parseInt(current_page) + 1;
-//   //     loadMoreButton.dataset.current_page = nextPage;
+    const checkbox = li.querySelector('input[type="checkbox"]');
+    if (!checkbox) {return;}
 
-//   //     const url = new URL(document.documentElement.dataset.base + '/wp-json/planet4/v1/search/');
-//   //     url.searchParams.append('s', navSearchInput.value.trim());
-//   //     url.searchParams.append('paged', nextPage);
-//   //     url.searchParams.append('orderby', orderInput.value);
-//   //     getSelectedFilters(isModalSearch()).forEach(f => {
-//   //       url.searchParams.append(f.name, f.value);
-//   //     });
+    checkbox.checked = !checkbox.checked;
 
-//   //     fetch(url)
-//   //       .then(response => response.text())
-//   //       .then(html => {
-//   //         // Append the response at the bottom of the results and then show it.
-//   //         const searchResults = document.querySelector('.multiple-search-result .list-unstyled');
-//   //         searchResults.innerHTML += html;
+    const name = checkbox.name;
+    const value = checkbox.value;
 
-//   //         const hiddenRow = document.querySelector('.row-hidden:last-child');
-//   //         showHiddenRow(hiddenRow);
+    fetchResults(1, false, {name, value});
+  };
 
-//   //         if (posts_per_load * nextPage > total_posts) {
-//   //           loadMoreButton.style.display = 'none';
-//   //         }
-//   //       }).catch(error => {
-//   //         console.log(error); //eslint-disable-line no-console
-//   //       });
-//   //   };
-//   // }
+  // Populate the search results list on component mount:
+  useEffect(() => {
+    fetchResults(1, false);
+  }, []);
 
-//   // Reveal more results just by scrolling down the first 'show_scroll_times' times.
-//   // let loadMoreCount = 0;
-//   // let loadedMore = false;
-//   // window.onscroll = () => {
-//   //   if (!loadMoreButton) {
-//   //     return;
-//   //   }
+  // Update the title:
+  useEffect(() => {
+    const title = document.querySelector('.result-statement');
+    title.innerHTML = `${foundPosts} results for '${searchTerm}'`;
+  }, [results]);
 
-//   //   const elementTop = loadMoreButton.offsetTop;
-//   //   const elementHeight = loadMoreButton.clientHeight;
-//   //   const windowHeight = window.innerHeight;
-//   //   const windowScroll = window.scrollY;
-//   //   const loadEarlierOffset = 250;
+  // Update the Load More button text:
+  useEffect(() => {
+    const loadMoreButton = document.querySelector('.btn-load-more-click-scroll');
+    const remainingPosts = foundPosts - (currentPage * postsPerLoad);
+    const valueToShow = (remainingPosts < postsPerLoad) ? remainingPosts : postsPerLoad;
 
-//   //   const {posts_per_load, total_posts} = loadMoreButton.dataset;
+    loadMoreButton.innerHTML = `Show ${valueToShow} more results`;
+  }, [results]);
 
-//   //   if (loadMoreCount < localizations.show_scroll_times) {
-//   //     // If next page has not loaded then load next page as soon as scrolling
-//   //     // reaches 'loadEarlierOffset' pixels before the Load more button.
-//   //     if (!loadedMore &&
-//   //       windowScroll > (elementTop + elementHeight - windowHeight - loadEarlierOffset) &&
-//   //       (loadMoreCount + 1) * posts_per_load < total_posts) {
-//   //       loadMoreCount += 1;
-//   //       loadMoreButton.click();
-//   //       loadedMore = true;
+  // Add and remove listeners:
+  useEffect(() => {
+    const form = document.getElementById('search_form_inner');
+    const loadMoreButton = document.querySelector('.btn-load-more-click-scroll');
+    const filters = document.querySelectorAll('#filter-sidebar-options .filteritem li');
 
-//   //       // Add a throttle to avoid multiple scroll events from firing together.
-//   //       setTimeout(() => {
-//   //         loadedMore = false;
-//   //       }, 500);
-//   //     }
-//   //     if (windowScroll > (elementTop + elementHeight - windowHeight)) {
-//   //       const hiddenRows = [...document.querySelectorAll('.row-hidden')];
-//   //       hiddenRows.forEach(showHiddenRow);
-//   //     }
-//   //   }
-//   //   return false;
-//   // };
-// };
+    if (form) {
+      form.addEventListener('submit', onSubmit);
+    }
+    if (loadMoreButton) {
+      loadMoreButton.addEventListener('click', onLoadMore);
+    };
+    if (filters) {
+      filters.forEach(filter => {
+        filter.addEventListener('click', e => onFilter(e, filter));
+      });
+    }
+
+    return () => {
+      if (form) {
+        form.removeEventListener('submit', onSubmit);
+      }
+      if (loadMoreButton) {
+        loadMoreButton.removeEventListener('click', onLoadMore);
+      }
+    };
+  });
+
+  // Hide the Load More button:
+  useEffect(() => {
+    const loadMoreButton = document.querySelector('.btn-load-more-click-scroll');
+    const showMore = currentPage * postsPerLoad < foundPosts;
+
+    loadMoreButton.style.display = showMore ? 'block' : 'none';
+
+  }, [currentPage, foundPosts, postsPerLoad]);
+
+  return null;
+}
+
+// Mount the component
+const el = document.getElementById('search-controller');
+if (el) {
+  createRoot(el).render(
+    <SearchController restUrl={el.dataset.restUrl} />
+  );
+}
