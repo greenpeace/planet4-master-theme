@@ -10,7 +10,7 @@ export const SlideWithRef = ({
     tabIndex={focusable ? 0 : -1}
     ref={ref}
     role="tabpanel"
-    aria-label="Text goes here!"
+    alt=""
   >
     <div className="carousel-item-mask">
       {children}
