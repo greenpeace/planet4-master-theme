@@ -6,6 +6,13 @@ div[data-type="planet4-blocks/carousel-header"] {
   max-width: 100vw !important;
 }
 
+.carousel-header .carousel-caption .carousel-captions-wrapper {
+  h2,
+  p {
+    @include clamp-text(none);
+  }
+}
+
 .visually-hidden {
   position: absolute;
   width: 1px;

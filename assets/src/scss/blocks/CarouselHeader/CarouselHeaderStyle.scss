@@ -346,6 +346,11 @@ $medium-image-height: 600px;
 
       @include large-and-up {
         width: #{320 + ($text-slide-offset * 2)};
+
+        h2,
+        p {
+          @include clamp-text(3);
+        }
       }
 
       @include x-large-and-up {
@@ -391,10 +396,6 @@ $medium-image-height: 600px;
       margin-inline-start: 80px;
     }
 
-    @include x-large-and-up {
-      margin-inline-start: auto;
-    }
-
     h2 {
       width: 100%;
       color: var(--color-text-heading);
@@ -432,7 +433,6 @@ $medium-image-height: 600px;
       font-size: var(--font-size-m--font-family-secondary);
       font-weight: var(--font-weight-regular);
       line-height: var(--line-height-m--font-family-secondary);
-      display: block;
       color: var(--color-text-body);
       width: 100%;
       padding-inline-start: 0;
@@ -453,7 +453,6 @@ $medium-image-height: 600px;
         font-size: var(--font-size-m--font-family-secondary);
         line-height: var(--line-height-m--font-family-secondary);
         margin-bottom: 24px;
-        display: block;
       }
 
       @include large-and-up {
