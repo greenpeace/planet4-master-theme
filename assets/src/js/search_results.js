@@ -78,7 +78,7 @@ function ContentTypesFilter({loading, contentTypes}) {
     <FilterList
       loading={loading}
       items={contentTypes}
-      filterNamespace="ptype"
+      filterNamespace="ctype"
       gaAction="Content Type Filter"
       getKey={item => item.slug}
       getLabel={item => item.slug}
@@ -98,6 +98,21 @@ function PostTypesFilter({loading, postTypes}) {
       getKey={item => item.id}
       getLabel={item => item.name}
       getAriaSubject="post type"
+    />
+  );
+}
+
+// Render the action types filter:
+function ActionTypesFilter({loading, actionTypes}) {
+  return (
+    <FilterList
+      loading={loading}
+      items={actionTypes}
+      filterNamespace="atype"
+      gaAction="Action Type Filter"
+      getKey={item => item.id}
+      getLabel={item => item.name}
+      getAriaSubject="action type"
     />
   );
 }
@@ -135,7 +150,7 @@ function SortFilter({foundPosts}) {
         data-ga-action="Sort By Filter"
         data-ga-label=""
       >
-        <option value="_score" selected="">Most relevant</option>
+        <option value="_score">Most relevant</option>
         <option value="post_date">Newest</option>
         <option value="post_date_asc">Oldest</option>
       </select>
@@ -223,12 +238,13 @@ function SearchController({restUrl}) {
   const [loading, setLoading] = useState(false);
   const [categories, setCategories] = useState([]);
   const [postTypes, setpostTypes] = useState([]);
-  // const [actionTypes, setActionTypes] = useState([]);
+  const [actionTypes, setActionTypes] = useState([]);
   const [contentTypes, setContentTypes] = useState([]);
 
   const categoriesFilterRootRef = useRef(null);
   const contentTypesFilterRootRef = useRef(null);
   const postTypesFilterRootRef = useRef(null);
+  const actionTypesFilterRootRef = useRef(null);
   const loadMoreButtonRef = useRef(null);
   const searchTitleRef = useRef(null);
   const sortFilterRef = useRef(null);
@@ -249,7 +265,7 @@ function SearchController({restUrl}) {
 
     setCategories(data.categories);
     setpostTypes(data.p4_page_type);
-    // setActionTypes([]);
+    setActionTypes(data.action_type);
     setContentTypes(data.post_types);
   };
 
@@ -364,6 +380,18 @@ function SearchController({restUrl}) {
     );
   }, [loading, postTypes]);
 
+  // Render the action types filter component:
+  useEffect(() => {
+    if (!actionTypesFilterRootRef.current) {return;}
+
+    actionTypesFilterRootRef.current.render(
+      <ActionTypesFilter
+        loading={loading}
+        actionTypes={actionTypes}
+      />
+    );
+  }, [loading, actionTypes]);
+
   // Render the load more button component:
   useEffect(() => {
     if (!loadMoreButtonRef.current) {return;}
@@ -421,6 +449,7 @@ function SearchController({restUrl}) {
     const categoriesFilter = document.querySelector('#item-issue');
     const contentTypesFilter = document.querySelector('#item-content');
     const postTypesFilter = document.querySelector('#item-post-types');
+    const actionTypesFilter = document.querySelector('#item-action');
     const searchTitle = document.querySelector('#result-statement');
     const searchForm = document.querySelector('#search-bar');
     const sortFilter = document.querySelector('#sort-filter');
@@ -434,6 +463,9 @@ function SearchController({restUrl}) {
     }
     if (postTypesFilter && !postTypesFilterRootRef.current) {
       postTypesFilterRootRef.current = createRoot(postTypesFilter);
+    }
+    if (actionTypesFilter && !actionTypesFilterRootRef.current) {
+      actionTypesFilterRootRef.current = createRoot(actionTypesFilter);
     }
     if (loadMoreButton && !loadMoreButtonRef.current) {
       loadMoreButtonRef.current = createRoot(loadMoreButton);

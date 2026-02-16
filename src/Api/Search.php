@@ -123,6 +123,7 @@ class Search
                             ),
                             'categories'   => $aggregate($query->posts, 'category'),
                             'p4_page_type' => $aggregate($query->posts, 'p4-page-type'),
+                            'action_type' => $aggregate($query->posts, 'action-type'),
                         ];
                     }
                 ],

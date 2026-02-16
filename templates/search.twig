@@ -2,6 +2,10 @@
 
 {% block content %}
     {% set disabled  = posts ? '' : 'disabled' %}
+    {% set collapsed = posts or (not has_aggregation) ? '' : 'collapsed' %}
+    {% set show      = posts or (not has_aggregation)? 'show' : '' %}
+    {% set expanded  = posts ? true : false %}
+
     <div class="search-block">
         <div class="container">
             <div id="content" class="without-search-result row clearfix">
