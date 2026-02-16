@@ -4,132 +4,101 @@ import {createRoot, useEffect, useState, useRef, useCallback} from '@wordpress/e
    Components
 ---------------------------- */
 
-// Render the categories filter:
-function CategoriesFilter({loading, categories = {}}) {
+// Render the filters:
+function FilterList({
+  loading,
+  items = {},
+  filterNamespace,
+  gaAction,
+  getKey,
+  getLabel,
+  getAriaSubject,
+}) {
   if (loading) {
     return <div className="search-meta">Loading…</div>;
   }
 
-  const categoryList = Object.values(categories);
+  const list = Object.values(items);
 
   return (
     <ul className="list-unstyled">
-      {categoryList.map(category => {
-        const count = category.results ?? category.count ?? 0;
+      {list.map(item => {
+        const count = item.results ?? item.count ?? 0;
+        const label = getLabel(item);
+        const key = getKey(item);
 
         const ariaLabel =
           count === 1 ?
-            `Filter results by category ${category.name}, 1 result was found` :
-            `Filter results by category ${category.name}, ${count} results were found`;
+            `Filter results by ${getAriaSubject} ${label}, 1 result was found` :
+            `Filter results by ${getAriaSubject} ${label}, ${count} results were found`;
 
         return (
-          <li key={category.id}>
+          <li key={key}>
             {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
             <label className="custom-control">
               <input
                 type="checkbox"
-                name={`f[cat][${category.name}]`}
-                value={category.id}
+                name={`f[${filterNamespace}][${label}]`}
+                value={item.id}
                 className="p4-custom-control-input"
                 data-ga-category="Search Page"
-                data-ga-action="Category Filter"
-                data-ga-label={category.name}
+                data-ga-action={gaAction}
+                data-ga-label={label}
                 aria-label={ariaLabel}
               />
               <span className="custom-control-description">
-                {category.name} {count > 0 && `(${count})`}
+                {label} {count > 0 && `(${count})`}
               </span>
             </label>
           </li>
         );
       })}
     </ul>
+  );
+}
+
+// Render the categories filter:
+function CategoriesFilter({loading, categories}) {
+  return (
+    <FilterList
+      loading={loading}
+      items={categories}
+      filterNamespace="cat"
+      gaAction="Category Filter"
+      getKey={item => item.id}
+      getLabel={item => item.name}
+      getAriaSubject="category"
+    />
   );
 }
 
 // Render the content types filter:
-function ContentTypesFilter({loading, contentTypes = {}}) {
-  if (loading) {
-    return <div className="search-meta">Loading…</div>;
-  }
-
-  const contentTypesList = Object.values(contentTypes);
-
+function ContentTypesFilter({loading, contentTypes}) {
   return (
-    <ul className="list-unstyled">
-      {contentTypesList.map(type => {
-        const count = type.results ?? type.count ?? 0;
-
-        const ariaLabel =
-          count === 1 ?
-            `Filter results by content type ${type.slug}, 1 result was found` :
-            `Filter results by content type ${type.slug}, ${count} results were found`;
-
-        return (
-          <li key={type.slug}>
-            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-            <label className="custom-control">
-              <input
-                type="checkbox"
-                name={`f[ptype][${type.slug}]`}
-                value={type.id}
-                className="p4-custom-control-input"
-                data-ga-category="Search Page"
-                data-ga-action="Content Type Filter"
-                data-ga-label={type.slug}
-                aria-label={ariaLabel}
-              />
-              <span className="custom-control-description">
-                {type.slug} {count > 0 && `(${count})`}
-              </span>
-            </label>
-          </li>
-        );
-      })}
-    </ul>
+    <FilterList
+      loading={loading}
+      items={contentTypes}
+      filterNamespace="ptype"
+      gaAction="Content Type Filter"
+      getKey={item => item.slug}
+      getLabel={item => item.slug}
+      getAriaSubject="content type"
+    />
   );
 }
 
 // Render the post types filter:
-function PostTypesFilter({loading, postTypes = {}}) {
-  if (loading) {
-    return <div className="search-meta">Loading…</div>;
-  }
-
-  const postTypesList = Object.values(postTypes);
-
+function PostTypesFilter({loading, postTypes}) {
   return (
-    <ul className="list-unstyled">
-      {postTypesList.map(type => {
-        const count = type.results ?? type.count ?? 0;
-
-        const ariaLabel =
-          count === 1 ?
-            `Filter results by post type ${type.name}, 1 result was found` :
-            `Filter results by post type ${type.name}, ${count} results were found`;
-
-        return (
-          <li key={type.id}>
-            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-            <label className="custom-control">
-              <input
-                type="checkbox"
-                name={`f[ptype][${type.slug}]`}
-                value={type.id}
-                className="p4-custom-control-input"
-                data-ga-category="Search Page"
-                data-ga-action="Content Type Filter"
-                data-ga-label={type.name}
-                aria-label={ariaLabel}
-              />
-              <span className="custom-control-description">
-                {type.name} {count > 0 && `(${count})`}
-              </span>
-            </label>
-          </li>
-        );
-      })}
-    </ul>
+    <FilterList
+      loading={loading}
+      items={postTypes}
+      filterNamespace="ptype"
+      gaAction="Post Type Filter"
+      getKey={item => item.id}
+      getLabel={item => item.name}
+      getAriaSubject="post type"
+    />
   );
 }
 
