@@ -278,16 +278,19 @@ function SearchController({restUrl}) {
 
   // Render the search results:
   const fetchResults = useCallback(
-    async (page = 1, append = false, filters = {}, callback) => {
+    async (page = 1, append = false, filters = {}, callback, explicitSearchTerm = null) => {
       const wrapper = document.getElementById('search-results-wrapper');
       const resultsContainer = document.querySelector('#search-results .list-unstyled');
 
       if (!wrapper || !resultsContainer) {return;}
 
+      const term = explicitSearchTerm ?? searchTerm;
       setLoading(true);
 
       const params = new URLSearchParams();
-      params.set('s', searchTerm);
+      if (term) {
+        params.set('s', term);
+      }
       params.set('paged', page);
 
       if (Object.keys(filters).length) {
@@ -306,7 +309,7 @@ function SearchController({restUrl}) {
         resultsContainer.innerHTML + html :
         html;
 
-      setSearchTerm(searchTerm);
+      setSearchTerm(term);
       setCurrentPage(data.current_page);
       setFoundPosts(data.found_posts);
       setPostsPerLoad(data.posts_per_load || 5);
@@ -441,8 +444,13 @@ function SearchController({restUrl}) {
 
   // Populate the search results list:
   useEffect(() => {
-    fetchResults(1, false);
-    fetchFilters();
+    const params = new URLSearchParams(window.location.search);
+    const searchTermParam = params.get('s') || '';
+
+    setSearchTerm(searchTermParam);
+
+    fetchResults(1, false, {}, null, searchTermParam);
+    fetchFilters(searchTermParam);
   }, []);
 
   return null;
