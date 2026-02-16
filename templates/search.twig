@@ -92,25 +92,8 @@
                 </aside>
                 <section class="col-lg-8">
                     <div class="result-area">
-                        <div class="sort-filter clearfix">
-                            <div class="select-container">
-                                <label for="select_order">{{ __('Sort by', 'planet4-master-theme' ) }}</label>
-                                <select
-                                        id="select_order"
-                                        class="form-select"
-                                        name="select_order"
-                                        data-ga-category="Search Page"
-                                        data-ga-action="Sort By Filter"
-                                        data-ga-label="{% if selected_sort == '_score' %}Most Relevant{% elseif selected_sort == 'post_date' %}Newest{% else %}Oldest{% endif %}">
-                                    {% for key, sort_option in sort_options %}
-                                        {% if key == selected_sort %}
-                                            <option value="{{ key }}" {{ not search_query and key == '_score' ? 'disabled' : 'selected' }}>{{ __( sort_option.name, 'planet4-master-theme' ) }}</option>
-                                        {% else %}
-                                            <option value="{{ key }}" {{ not search_query and key == '_score' ? 'disabled' : '' }}>{{ __( sort_option.name, 'planet4-master-theme' ) }}</option>
-                                        {% endif %}
-                                    {% endfor %}
-                                </select>
-                            </div>
+                        <div id="sort-filter" class="sort-filter clearfix">
+                            {# Here we render the results of the SortFilter component #}
                         </div>
                         <div id="search-meta-root"></div>
                         <div id="search-results-wrapper">

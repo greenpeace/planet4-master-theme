@@ -120,6 +120,29 @@ function LoadMoreButton({foundPosts, currentPage, postsPerLoad, onLoadMore}) {
   );
 }
 
+// Render the sort-by filter:
+function SortFilter({foundPosts}) {
+  if (foundPosts === 0) {return;}
+
+  return (
+    <div className="select-container">
+      <label htmlFor="select_order">Sort by</label>
+      <select
+        id="select_order"
+        className="form-select"
+        name="select_order"
+        data-ga-category="Search Page"
+        data-ga-action="Sort By Filter"
+        data-ga-label=""
+      >
+        <option value="_score" selected="">Most relevant</option>
+        <option value="post_date">Newest</option>
+        <option value="post_date_asc">Oldest</option>
+      </select>
+    </div>
+  );
+}
+
 // Render the search title section:
 function SearchTitle({foundPosts, searchTerm}) {
   return (
@@ -208,6 +231,7 @@ function SearchController({restUrl}) {
   const postTypesFilterRootRef = useRef(null);
   const loadMoreButtonRef = useRef(null);
   const searchTitleRef = useRef(null);
+  const sortFilterRef = useRef(null);
   const searchFormRef = useRef(null);
 
   // Fetch the filters (categories, post types, etc.):
@@ -366,6 +390,15 @@ function SearchController({restUrl}) {
     );
   }, [foundPosts, searchTerm]);
 
+  // Render the sort filter component:
+  useEffect(() => {
+    if (!sortFilterRef.current) {return;}
+
+    sortFilterRef.current.render(
+      <SortFilter foundPosts={foundPosts}/>
+    );
+  }, [foundPosts]);
+
   // Render the search form component:
   useEffect(() => {
     if (!searchFormRef.current) {return;}
@@ -390,6 +423,7 @@ function SearchController({restUrl}) {
     const postTypesFilter = document.querySelector('#item-post-types');
     const searchTitle = document.querySelector('#result-statement');
     const searchForm = document.querySelector('#search-bar');
+    const sortFilter = document.querySelector('#sort-filter');
     const loadMoreButton = document.querySelector('.load-more-button-div');
 
     if (categoriesFilter && !categoriesFilterRootRef.current) {
@@ -406,6 +440,9 @@ function SearchController({restUrl}) {
     }
     if (searchTitle && !searchTitleRef.current) {
       searchTitleRef.current = createRoot(searchTitle);
+    }
+    if (sortFilter && !sortFilterRef.current) {
+      sortFilterRef.current = createRoot(sortFilter);
     }
     if (searchForm && !searchFormRef.current) {
       searchFormRef.current = createRoot(searchForm);
