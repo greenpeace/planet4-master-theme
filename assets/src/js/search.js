@@ -1,19 +1,85 @@
 import {createRoot, useEffect, useState, useRef, useCallback} from '@wordpress/element';
 
-function SearchMeta({loading}) {
+function CategoriesFilter({loading, categories = {}}) {
   if (loading) {
     return <div className="search-meta">Loading…</div>;
   }
 
+  const categoryList = Object.values(categories);
+
   return (
     <ul className="list-unstyled">
-      <li>
-        {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-        <label className="custom-control">
-          <input type="checkbox" name="f[cat][Energy]" value="2" className="p4-custom-control-input " data-ga-category="Search Page" data-ga-action="Category Filter" data-ga-label="Energy" aria-label="Filter results by category Energy, 2 results were found" />
-          <span className="custom-control-description">Energy (2)</span>
-        </label>
-      </li>
+      {categoryList.map(category => {
+        const count = category.results ?? category.count ?? 0;
+
+        const ariaLabel =
+          count === 1 ?
+            `Filter results by category ${category.name}, 1 result was found` :
+            `Filter results by category ${category.name}, ${count} results were found`;
+
+        return (
+          <li key={category.id}>
+            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+            <label className="custom-control">
+              <input
+                type="checkbox"
+                name={`f[cat][${category.name}]`}
+                value={category.id}
+                className="p4-custom-control-input"
+                data-ga-category="Search Page"
+                data-ga-action="Category Filter"
+                data-ga-label={category.name}
+                aria-label={ariaLabel}
+              />
+              <span className="custom-control-description">
+                {category.name} {count > 0 && `(${count})`}
+              </span>
+            </label>
+          </li>
+        );
+      })}
+    </ul>
+  );
+}
+
+function ContentTypesFilter({loading, contentTypes = {}}) {
+  if (loading) {
+    return <div className="search-meta">Loading…</div>;
+  }
+
+  const contentTypesList = Object.values(contentTypes);
+
+  return (
+    <ul className="list-unstyled">
+      {contentTypesList.map(type => {
+        const count = type.results ?? type.count ?? 0;
+
+        const ariaLabel =
+          count === 1 ?
+            `Filter results by post type ${type.slug}, 1 result was found` :
+            `Filter results by post type ${type.slug}, ${count} results were found`;
+
+        return (
+          <li key={type.slug}>
+            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+            <label className="custom-control">
+              <input
+                type="checkbox"
+                name={`f[ptype][${type.slug}]`}
+                value={type.id}
+                className="p4-custom-control-input"
+                data-ga-category="Search Page"
+                data-ga-action="Content Type Filter"
+                data-ga-label={type.slug}
+                aria-label={ariaLabel}
+              />
+              <span className="custom-control-description">
+                {type.slug} {count > 0 && `(${count})`}
+              </span>
+            </label>
+          </li>
+        );
+      })}
     </ul>
   );
 }
@@ -58,16 +124,42 @@ function SearchTitle({foundPosts, searchTerm}) {
 
 function SearchController({restUrl}) {
   const [searchTerm, setSearchTerm] = useState('');
-  // const [results, setResults] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [foundPosts, setFoundPosts] = useState(0);
   const [postsPerLoad, setPostsPerLoad] = useState(5);
-  const [postsData, setPostsData] = useState([]);
+  // const [postsData, setPostsData] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [categories, setCategories] = useState([]);
+  // const [postTypes, setpostTypes] = useState([]);
+  // const [actionTypes, setActionTypes] = useState([]);
+  const [contentTypes, setContentTypes] = useState([]);
 
   const metaRootRef = useRef(null);
+  const contentTypesFilterRootRef = useRef(null);
   const loadMoreButtonRef = useRef(null);
   const searchTitleRef = useRef(null);
+
+  const fetchFilters = async () => {
+    const input = document.getElementById('search-page-input');
+
+    const params = new URLSearchParams();
+    params.set('s', input.value);
+
+    const apiRoute = 'planet4/v1/search-taxonomies';
+    const url = `${restUrl}${apiRoute}?${params.toString()}`;
+    const res = await fetch(url, {
+      headers: {'X-Requested-With': 'XMLHttpRequest'},
+    });
+
+    const data = await res.json();
+
+    // console.log(data);
+
+    setCategories(data.categories);
+    // setpostTypes(data.p4_page_type);
+    // setActionTypes([]);
+    setContentTypes(data.post_types);
+  };
 
   const fetchResults = async (page = 1, append = false, filters = {}) => {
     const wrapper = document.getElementById('search-results-wrapper');
@@ -86,7 +178,8 @@ function SearchController({restUrl}) {
       params.set(filters.name, filters.value);
     }
 
-    const url = `${restUrl}?${params.toString()}`;
+    const apiRoute = 'planet4/v1/search';
+    const url = `${restUrl}${apiRoute}?${params.toString()}`;
     const res = await fetch(url, {
       headers: {'X-Requested-With': 'XMLHttpRequest'},
     });
@@ -98,9 +191,8 @@ function SearchController({restUrl}) {
       resultsContainer.innerHTML + html :
       html;
 
-    setPostsData(data);
+    // setPostsData(data.posts);
     setSearchTerm(input.value);
-    // setResults(resultsContainer.innerHTML);
     setCurrentPage(data.current_page);
     setFoundPosts(data.found_posts);
     setPostsPerLoad(data.posts_per_load || 5);
@@ -109,14 +201,47 @@ function SearchController({restUrl}) {
     setLoading(false);
   };
 
+  // Populate the search results list when the Search button is clicked:
+  const onSubmit = e => {
+    e.preventDefault();
+    fetchResults(1, false);
+    fetchFilters();
+  };
+
+  // Populate the search results list when the filters are selected:
+  const onFilter = (e, li) => {
+    if (e.target.tagName === 'INPUT') {return;} // Prevent double toggling if the user clicked the <input> directly
+
+    const checkbox = li.querySelector('input[type="checkbox"]');
+    if (!checkbox) {return;}
+
+    checkbox.checked = !checkbox.checked;
+
+    const name = checkbox.name;
+    const value = checkbox.value;
+
+    fetchResults(1, false, {name, value});
+  };
+
+  // Show more results when the Load More button is clicked:
+  const onLoadMore = useCallback(() => {
+    if (loading) {return;}
+    const nextPage = currentPage + 1;
+    fetchResults(nextPage, true);
+  }, [loading, currentPage]);
+
   // Create external root once
   useEffect(() => {
-    const metaEl = document.querySelector('#search-meta-root');
-    const loadMoreButton = document.querySelector('.load-more-button-div');
+    const categoriesFilter = document.querySelector('#item-issue');
+    const contentTypesFilter = document.querySelector('#item-content');
     const searchTitle = document.querySelector('#result-statement');
+    const loadMoreButton = document.querySelector('.load-more-button-div');
 
-    if (metaEl && !metaRootRef.current) {
-      metaRootRef.current = createRoot(metaEl);
+    if (categoriesFilter && !metaRootRef.current) {
+      metaRootRef.current = createRoot(categoriesFilter);
+    }
+    if (contentTypesFilter && !contentTypesFilterRootRef.current) {
+      contentTypesFilterRootRef.current = createRoot(contentTypesFilter);
     }
     if (loadMoreButton && !loadMoreButtonRef.current) {
       loadMoreButtonRef.current = createRoot(loadMoreButton);
@@ -126,23 +251,28 @@ function SearchController({restUrl}) {
     }
   }, []);
 
-  // Show more results when the Load More button is clicked:
-  const onLoadMore = useCallback(() => {
-    if (loading) {return;}
-    const nextPage = currentPage + 1;
-    fetchResults(nextPage, true);
-  }, [loading, currentPage]);
-
   // Render external component whenever relevant state changes
   useEffect(() => {
     if (!metaRootRef.current) {return;}
 
     metaRootRef.current.render(
-      <SearchMeta
+      <CategoriesFilter
         loading={loading}
+        categories={categories}
       />
     );
-  }, [searchTerm, foundPosts, loading, postsData]);
+  }, [loading, categories]);
+
+  useEffect(() => {
+    if (!contentTypesFilterRootRef.current) {return;}
+
+    contentTypesFilterRootRef.current.render(
+      <ContentTypesFilter
+        loading={loading}
+        contentTypes={contentTypes}
+      />
+    );
+  }, [loading, contentTypes]);
 
   useEffect(() => {
     if (!loadMoreButtonRef.current) {return;}
@@ -168,30 +298,10 @@ function SearchController({restUrl}) {
     );
   }, [foundPosts, searchTerm]);
 
-  // Populate the search results list when the Search button is clicked:
-  const onSubmit = e => {
-    e.preventDefault();
-    fetchResults(1, false);
-  };
-
-  // Populate the search results list when the filters are selected:
-  const onFilter = (e, li) => {
-    if (e.target.tagName === 'INPUT') {return;} // Prevent double toggling if the user clicked the <input> directly
-
-    const checkbox = li.querySelector('input[type="checkbox"]');
-    if (!checkbox) {return;}
-
-    checkbox.checked = !checkbox.checked;
-
-    const name = checkbox.name;
-    const value = checkbox.value;
-
-    fetchResults(1, false, {name, value});
-  };
-
   // Populate the search results list on component mount:
   useEffect(() => {
     fetchResults(1, false);
+    fetchFilters();
   }, []);
 
   // Add and remove listeners:

@@ -76,5 +76,73 @@ class Search
                 ],
             ],
         );
+
+        register_rest_route(
+            'planet4/v1',
+            'search-taxonomies',
+            [
+                [
+                    'permission_callback' => static fn() => true,
+                    'methods' => WP_REST_Server::READABLE,
+                    'callback' => static function (WP_REST_Request $request) {
+
+                        $args = $request->get_params();
+
+                        $args['posts_per_page'] = -1;
+                        $args['paged'] = 1;
+                        $args['fields'] = 'ids';
+
+                        $query = new WP_Query();
+                        $query->set('ep_integrate', true);
+                        $query->query($args);
+
+                        SearchClass::validate_filters($query);
+
+                        $aggregate = static function (array $post_ids, string $taxonomy): array {
+
+                            $terms = [];
+
+                            foreach ($post_ids as $post_id) {
+                                $post_terms = get_the_terms($post_id, $taxonomy);
+                                if (!$post_terms) {
+                                    continue;
+                                }
+
+                                foreach ($post_terms as $term) {
+                                    if (!isset($terms[$term->term_id])) {
+                                        $terms[$term->term_id] = [
+                                            'id'    => $term->term_id,
+                                            'slug'  => $term->slug,
+                                            'name'  => $term->name,
+                                            'count' => 0,
+                                        ];
+                                    }
+                                    $terms[$term->term_id]['count']++;
+                                }
+                            }
+
+                            return array_values($terms);
+                        };
+
+                        // Post types
+                        $post_types = [];
+                        foreach ($query->posts as $post_id) {
+                            $type = get_post_type($post_id);
+                            $post_types[$type] = ($post_types[$type] ?? 0) + 1;
+                        }
+
+                        return [
+                            'post_types'   => array_map(
+                                fn($slug, $count) => ['slug' => $slug, 'count' => $count],
+                                array_keys($post_types),
+                                $post_types
+                            ),
+                            'categories'   => $aggregate($query->posts, 'category'),
+                            'p4_page_type' => $aggregate($query->posts, 'p4-page-type'),
+                        ];
+                    }
+                ],
+            ]
+        );
     }
 }
