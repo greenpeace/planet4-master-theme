@@ -122,6 +122,50 @@ function SearchTitle({foundPosts, searchTerm}) {
   );
 }
 
+function SearchForm({setSearchTerm, siteUrl, onSubmit, searchTerm}) {
+  return (
+    <form
+      id="search_form_inner"
+      method="get"
+      role="search"
+      className="form d-md-flex"
+      action={siteUrl}
+      onSubmit={onSubmit}
+    >
+      <div className="search-input-container w-100">
+        <input
+          type="search"
+          id="search-page-input"
+          className="form-control"
+          placeholder="Search by name, keyword, or topic"
+          value={searchTerm}
+          onChange={e => setSearchTerm(e.target.value)}
+          name="s"
+          aria-label="Search"
+        />
+        <button
+          className="clear-search"
+          aria-label="Clear search"
+          type="button"
+          onClick={() => setSearchTerm('')}
+        >
+          <span className="visually-hidden">Clear search</span>
+        </button>
+      </div>
+
+      <button
+        type="submit"
+        className="btn btn-primary search-btn btn-block d-flex align-items-center align-content-center mt-2 mt-md-0"
+        data-ga-category="Search Page"
+        data-ga-action="Search Button"
+        data-ga-label="n/a"
+      >
+        Search
+      </button>
+    </form>
+  );
+}
+
 function SearchController({restUrl}) {
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
@@ -134,16 +178,9 @@ function SearchController({restUrl}) {
   // const [actionTypes, setActionTypes] = useState([]);
   const [contentTypes, setContentTypes] = useState([]);
 
-  const metaRootRef = useRef(null);
-  const contentTypesFilterRootRef = useRef(null);
-  const loadMoreButtonRef = useRef(null);
-  const searchTitleRef = useRef(null);
-
   const fetchFilters = async () => {
-    const input = document.getElementById('search-page-input');
-
     const params = new URLSearchParams();
-    params.set('s', input.value);
+    params.set('s', searchTerm);
 
     const apiRoute = 'planet4/v1/search-taxonomies';
     const url = `${restUrl}${apiRoute}?${params.toString()}`;
@@ -161,80 +198,92 @@ function SearchController({restUrl}) {
     setContentTypes(data.post_types);
   };
 
-  const fetchResults = async (page = 1, append = false, filters = {}) => {
-    const wrapper = document.getElementById('search-results-wrapper');
-    const resultsContainer = document.querySelector('#search-results .list-unstyled');
-    const input = document.getElementById('search-page-input');
+  const fetchResults = useCallback(
+    async (page = 1, append = false, filters = {}, callback) => {
+      const wrapper = document.getElementById('search-results-wrapper');
+      const resultsContainer = document.querySelector('#search-results .list-unstyled');
 
-    if (!wrapper || !resultsContainer || !input) {return;}
+      if (!wrapper || !resultsContainer) {return;}
 
-    setLoading(true);
+      setLoading(true);
 
-    const params = new URLSearchParams();
-    params.set('s', input.value);
-    params.set('paged', page);
+      const params = new URLSearchParams();
+      params.set('s', searchTerm);
+      params.set('paged', page);
 
-    if (Object.keys(filters).length) {
-      params.set(filters.name, filters.value);
-    }
+      if (Object.keys(filters).length) {
+        params.set(filters.name, filters.value);
+      }
 
-    const apiRoute = 'planet4/v1/search';
-    const url = `${restUrl}${apiRoute}?${params.toString()}`;
-    const res = await fetch(url, {
-      headers: {'X-Requested-With': 'XMLHttpRequest'},
-    });
+      const apiRoute = 'planet4/v1/search';
+      const url = `${restUrl}${apiRoute}?${params.toString()}`;
+      const res = await fetch(url, {
+        headers: {'X-Requested-With': 'XMLHttpRequest'},
+      });
 
-    const data = await res.json();
-    const html = data.html.replace(/\n/g, '');
+      const data = await res.json();
+      const html = data.html.replace(/\n/g, '');
 
-    resultsContainer.innerHTML = append ?
-      resultsContainer.innerHTML + html :
-      html;
+      resultsContainer.innerHTML = append ?
+        resultsContainer.innerHTML + html :
+        html;
 
-    // setPostsData(data.posts);
-    setSearchTerm(input.value);
-    setCurrentPage(data.current_page);
-    setFoundPosts(data.found_posts);
-    setPostsPerLoad(data.posts_per_load || 5);
+      setSearchTerm(searchTerm);
+      setCurrentPage(data.current_page);
+      setFoundPosts(data.found_posts);
+      setPostsPerLoad(data.posts_per_load || 5);
 
-    history.pushState({}, '', `?${params.toString()}`);
-    setLoading(false);
-  };
+      history.pushState({}, '', `?${params.toString()}`);
+      setLoading(false);
 
-  // Populate the search results list when the Search button is clicked:
-  const onSubmit = e => {
-    e.preventDefault();
-    fetchResults(1, false);
-    fetchFilters();
-  };
+      if (callback && typeof callback === 'function') {
+        callback(data);
+      }
+    },
+    [restUrl, searchTerm]
+  );
 
   // Populate the search results list when the filters are selected:
-  const onFilter = (e, li) => {
-    if (e.target.tagName === 'INPUT') {return;} // Prevent double toggling if the user clicked the <input> directly
+  // const onFilter = (e, li) => {
+  //   if (e.target.tagName === 'INPUT') {return;} // Prevent double toggling if the user clicked the <input> directly
 
-    const checkbox = li.querySelector('input[type="checkbox"]');
-    if (!checkbox) {return;}
+  //   const checkbox = li.querySelector('input[type="checkbox"]');
+  //   if (!checkbox) {return;}
 
-    checkbox.checked = !checkbox.checked;
+  //   checkbox.checked = !checkbox.checked;
 
-    const name = checkbox.name;
-    const value = checkbox.value;
+  //   const name = checkbox.name;
+  //   const value = checkbox.value;
 
-    fetchResults(1, false, {name, value});
-  };
+  //   fetchResults(1, false, {name, value});
+  // };
 
   // Show more results when the Load More button is clicked:
   const onLoadMore = useCallback(() => {
     if (loading) {return;}
     const nextPage = currentPage + 1;
     fetchResults(nextPage, true);
-  }, [loading, currentPage]);
+  }, [loading, currentPage, fetchResults]);
+
+  // Populate the search results list when the Search button is clicked:
+  const onSubmit = useCallback(e => {
+    e.preventDefault();
+    fetchResults(1, false);
+    fetchFilters();
+  });
+
+  const metaRootRef = useRef(null);
+  const contentTypesFilterRootRef = useRef(null);
+  const loadMoreButtonRef = useRef(null);
+  const searchTitleRef = useRef(null);
+  const searchFormRef = useRef(null);
 
   // Create external root once
   useEffect(() => {
     const categoriesFilter = document.querySelector('#item-issue');
     const contentTypesFilter = document.querySelector('#item-content');
     const searchTitle = document.querySelector('#result-statement');
+    const searchForm = document.querySelector('#search-bar');
     const loadMoreButton = document.querySelector('.load-more-button-div');
 
     if (categoriesFilter && !metaRootRef.current) {
@@ -248,6 +297,9 @@ function SearchController({restUrl}) {
     }
     if (searchTitle && !searchTitleRef.current) {
       searchTitleRef.current = createRoot(searchTitle);
+    }
+    if (searchForm && !searchFormRef.current) {
+      searchFormRef.current = createRoot(searchForm);
     }
   }, []);
 
@@ -298,32 +350,35 @@ function SearchController({restUrl}) {
     );
   }, [foundPosts, searchTerm]);
 
+  useEffect(() => {
+    if (!searchFormRef.current) {return;}
+
+    const container = document.getElementById('search-bar');
+    const siteUrl = container.dataset.siteUrl;
+
+    searchFormRef.current.render(
+      <SearchForm
+        searchTerm={searchTerm}
+        setSearchTerm={setSearchTerm}
+        siteUrl={siteUrl}
+        onSubmit={onSubmit}
+      />
+    );
+  }, [onSubmit, searchTerm]);
+
+  useEffect(() => {
+    const queryString = window.location.search;
+    const params = new URLSearchParams(queryString);
+    const searchTermParam = params.get('s');
+
+    setSearchTerm(searchTermParam);
+  }, []);
+
   // Populate the search results list on component mount:
   useEffect(() => {
     fetchResults(1, false);
     fetchFilters();
   }, []);
-
-  // Add and remove listeners:
-  useEffect(() => {
-    const form = document.getElementById('search_form_inner');
-    const filters = document.querySelectorAll('#filter-sidebar-options .filteritem li');
-
-    if (form) {
-      form.addEventListener('submit', onSubmit);
-    }
-    if (filters) {
-      filters.forEach(filter => {
-        filter.addEventListener('click', e => onFilter(e, filter));
-      });
-    }
-
-    return () => {
-      if (form) {
-        form.removeEventListener('submit', onSubmit);
-      }
-    };
-  });
 
   return null;
 }
