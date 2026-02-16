@@ -1,5 +1,21 @@
 import {createRoot, useEffect, useState, useRef, useCallback} from '@wordpress/element';
 
+const API_SEARCH = {
+  posts: 'planet4/v1/search',
+  terms: 'planet4/v1/search-taxonomies',
+};
+
+const ROOT_CONFIG = {
+  categories: '#item-issue',
+  contentTypes: '#item-content',
+  postTypes: '#item-post-types',
+  actionTypes: '#item-action',
+  searchTitle: '#result-statement',
+  searchForm: '#search-bar',
+  sortFilter: '#sort-filter',
+  loadMoreButton: '.load-more-button-div',
+};
+
 /* ---------------------------
    Components
 ---------------------------- */
@@ -230,6 +246,7 @@ function SearchForm({setSearchTerm, siteUrl, onSubmit, searchTerm}) {
 ---------------------------- */
 
 function SearchController({restUrl}) {
+  const rootsRef = useRef({});
 
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
@@ -241,22 +258,12 @@ function SearchController({restUrl}) {
   const [actionTypes, setActionTypes] = useState([]);
   const [contentTypes, setContentTypes] = useState([]);
 
-  const categoriesFilterRootRef = useRef(null);
-  const contentTypesFilterRootRef = useRef(null);
-  const postTypesFilterRootRef = useRef(null);
-  const actionTypesFilterRootRef = useRef(null);
-  const loadMoreButtonRef = useRef(null);
-  const searchTitleRef = useRef(null);
-  const sortFilterRef = useRef(null);
-  const searchFormRef = useRef(null);
-
   // Fetch the filters (categories, post types, etc.):
   const fetchFilters = async () => {
     const params = new URLSearchParams();
     params.set('s', searchTerm);
 
-    const apiRoute = 'planet4/v1/search-taxonomies';
-    const url = `${restUrl}${apiRoute}?${params.toString()}`;
+    const url = `${restUrl}${API_SEARCH.terms}?${params.toString()}`;
     const res = await fetch(url, {
       headers: {'X-Requested-With': 'XMLHttpRequest'},
     });
@@ -287,8 +294,7 @@ function SearchController({restUrl}) {
         params.set(filters.name, filters.value);
       }
 
-      const apiRoute = 'planet4/v1/search';
-      const url = `${restUrl}${apiRoute}?${params.toString()}`;
+      const url = `${restUrl}${API_SEARCH.posts}?${params.toString()}`;
       const res = await fetch(url, {
         headers: {'X-Requested-With': 'XMLHttpRequest'},
       });
@@ -346,57 +352,35 @@ function SearchController({restUrl}) {
 
   // Render the categories filter component:
   useEffect(() => {
-    if (!categoriesFilterRootRef.current) {return;}
-
-    categoriesFilterRootRef.current.render(
-      <CategoriesFilter
-        loading={loading}
-        categories={categories}
-      />
+    rootsRef.current.categories?.render(
+      <CategoriesFilter loading={loading} categories={categories} />
     );
   }, [loading, categories]);
 
   // Render the content types filter component:
   useEffect(() => {
-    if (!contentTypesFilterRootRef.current) {return;}
-
-    contentTypesFilterRootRef.current.render(
-      <ContentTypesFilter
-        loading={loading}
-        contentTypes={contentTypes}
-      />
+    rootsRef.current.contentTypes?.render(
+      <ContentTypesFilter loading={loading} contentTypes={contentTypes} />
     );
   }, [loading, contentTypes]);
 
-  // Render the post types filter component:
+  // // Render the post types filter component:
   useEffect(() => {
-    if (!postTypesFilterRootRef.current) {return;}
-
-    postTypesFilterRootRef.current.render(
-      <PostTypesFilter
-        loading={loading}
-        postTypes={postTypes}
-      />
+    rootsRef.current.postTypes?.render(
+      <PostTypesFilter loading={loading} postTypes={postTypes} />
     );
   }, [loading, postTypes]);
 
-  // Render the action types filter component:
+  // // Render the action types filter component:
   useEffect(() => {
-    if (!actionTypesFilterRootRef.current) {return;}
-
-    actionTypesFilterRootRef.current.render(
-      <ActionTypesFilter
-        loading={loading}
-        actionTypes={actionTypes}
-      />
+    rootsRef.current.actionTypes?.render(
+      <ActionTypesFilter loading={loading} actionTypes={actionTypes} />
     );
   }, [loading, actionTypes]);
 
-  // Render the load more button component:
+  // // Render the load more button component:
   useEffect(() => {
-    if (!loadMoreButtonRef.current) {return;}
-
-    loadMoreButtonRef.current.render(
+    rootsRef.current.loadMoreButton?.render(
       <LoadMoreButton
         foundPosts={foundPosts}
         currentPage={currentPage}
@@ -406,35 +390,26 @@ function SearchController({restUrl}) {
     );
   }, [foundPosts, currentPage, postsPerLoad, onLoadMore]);
 
-  // Render the search title component:
+  // // Render the search title component:
   useEffect(() => {
-    if (!searchTitleRef.current) {return;}
-
-    searchTitleRef.current.render(
-      <SearchTitle
-        foundPosts={foundPosts}
-        searchTerm={searchTerm}
-      />
+    rootsRef.current.searchTitle?.render(
+      <SearchTitle foundPosts={foundPosts} searchTerm={searchTerm} />
     );
   }, [foundPosts, searchTerm]);
 
-  // Render the sort filter component:
+  // // Render the sort filter component:
   useEffect(() => {
-    if (!sortFilterRef.current) {return;}
-
-    sortFilterRef.current.render(
+    rootsRef.current.sortFilter?.render(
       <SortFilter foundPosts={foundPosts}/>
     );
   }, [foundPosts]);
 
-  // Render the search form component:
+  // // Render the search form component:
   useEffect(() => {
-    if (!searchFormRef.current) {return;}
-
     const container = document.getElementById('search-bar');
     const siteUrl = container.dataset.siteUrl;
 
-    searchFormRef.current.render(
+    rootsRef.current.searchForm?.render(
       <SearchForm
         searchTerm={searchTerm}
         setSearchTerm={setSearchTerm}
@@ -446,39 +421,13 @@ function SearchController({restUrl}) {
 
   // Create external roots for the components:
   useEffect(() => {
-    const categoriesFilter = document.querySelector('#item-issue');
-    const contentTypesFilter = document.querySelector('#item-content');
-    const postTypesFilter = document.querySelector('#item-post-types');
-    const actionTypesFilter = document.querySelector('#item-action');
-    const searchTitle = document.querySelector('#result-statement');
-    const searchForm = document.querySelector('#search-bar');
-    const sortFilter = document.querySelector('#sort-filter');
-    const loadMoreButton = document.querySelector('.load-more-button-div');
+    Object.entries(ROOT_CONFIG).forEach(([key, selector]) => {
+      const element = document.querySelector(selector);
 
-    if (categoriesFilter && !categoriesFilterRootRef.current) {
-      categoriesFilterRootRef.current = createRoot(categoriesFilter);
-    }
-    if (contentTypesFilter && !contentTypesFilterRootRef.current) {
-      contentTypesFilterRootRef.current = createRoot(contentTypesFilter);
-    }
-    if (postTypesFilter && !postTypesFilterRootRef.current) {
-      postTypesFilterRootRef.current = createRoot(postTypesFilter);
-    }
-    if (actionTypesFilter && !actionTypesFilterRootRef.current) {
-      actionTypesFilterRootRef.current = createRoot(actionTypesFilter);
-    }
-    if (loadMoreButton && !loadMoreButtonRef.current) {
-      loadMoreButtonRef.current = createRoot(loadMoreButton);
-    }
-    if (searchTitle && !searchTitleRef.current) {
-      searchTitleRef.current = createRoot(searchTitle);
-    }
-    if (sortFilter && !sortFilterRef.current) {
-      sortFilterRef.current = createRoot(sortFilter);
-    }
-    if (searchForm && !searchFormRef.current) {
-      searchFormRef.current = createRoot(searchForm);
-    }
+      if (element && !rootsRef.current[key]) {
+        rootsRef.current[key] = createRoot(element);
+      }
+    });
   }, []);
 
   // Get the search term from the URL parameters:
