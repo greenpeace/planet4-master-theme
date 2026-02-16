@@ -62,8 +62,8 @@ function ContentTypesFilter({loading, contentTypes = {}}) {
 
         const ariaLabel =
           count === 1 ?
-            `Filter results by post type ${type.slug}, 1 result was found` :
-            `Filter results by post type ${type.slug}, ${count} results were found`;
+            `Filter results by content type ${type.slug}, 1 result was found` :
+            `Filter results by content type ${type.slug}, ${count} results were found`;
 
         return (
           <li key={type.slug}>
@@ -81,6 +81,49 @@ function ContentTypesFilter({loading, contentTypes = {}}) {
               />
               <span className="custom-control-description">
                 {type.slug} {count > 0 && `(${count})`}
+              </span>
+            </label>
+          </li>
+        );
+      })}
+    </ul>
+  );
+}
+
+// Render the post types filter:
+function PostTypesFilter({loading, postTypes = {}}) {
+  if (loading) {
+    return <div className="search-meta">Loading…</div>;
+  }
+
+  const postTypesList = Object.values(postTypes);
+
+  return (
+    <ul className="list-unstyled">
+      {postTypesList.map(type => {
+        const count = type.results ?? type.count ?? 0;
+
+        const ariaLabel =
+          count === 1 ?
+            `Filter results by post type ${type.name}, 1 result was found` :
+            `Filter results by post type ${type.name}, ${count} results were found`;
+
+        return (
+          <li key={type.id}>
+            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+            <label className="custom-control">
+              <input
+                type="checkbox"
+                name={`f[ptype][${type.slug}]`}
+                value={type.id}
+                className="p4-custom-control-input"
+                data-ga-category="Search Page"
+                data-ga-action="Content Type Filter"
+                data-ga-label={type.name}
+                aria-label={ariaLabel}
+              />
+              <span className="custom-control-description">
+                {type.name} {count > 0 && `(${count})`}
               </span>
             </label>
           </li>
@@ -187,12 +230,13 @@ function SearchController({restUrl}) {
   const [postsPerLoad, setPostsPerLoad] = useState(5);
   const [loading, setLoading] = useState(false);
   const [categories, setCategories] = useState([]);
-  // const [postTypes, setpostTypes] = useState([]);
+  const [postTypes, setpostTypes] = useState([]);
   // const [actionTypes, setActionTypes] = useState([]);
   const [contentTypes, setContentTypes] = useState([]);
 
-  const metaRootRef = useRef(null);
+  const categoriesFilterRootRef = useRef(null);
   const contentTypesFilterRootRef = useRef(null);
+  const postTypesFilterRootRef = useRef(null);
   const loadMoreButtonRef = useRef(null);
   const searchTitleRef = useRef(null);
   const searchFormRef = useRef(null);
@@ -210,10 +254,8 @@ function SearchController({restUrl}) {
 
     const data = await res.json();
 
-    // console.log(data);
-
     setCategories(data.categories);
-    // setpostTypes(data.p4_page_type);
+    setpostTypes(data.p4_page_type);
     // setActionTypes([]);
     setContentTypes(data.post_types);
   };
@@ -295,9 +337,9 @@ function SearchController({restUrl}) {
 
   // Render the categories filter component:
   useEffect(() => {
-    if (!metaRootRef.current) {return;}
+    if (!categoriesFilterRootRef.current) {return;}
 
-    metaRootRef.current.render(
+    categoriesFilterRootRef.current.render(
       <CategoriesFilter
         loading={loading}
         categories={categories}
@@ -316,6 +358,18 @@ function SearchController({restUrl}) {
       />
     );
   }, [loading, contentTypes]);
+
+  // Render the post types filter component:
+  useEffect(() => {
+    if (!postTypesFilterRootRef.current) {return;}
+
+    postTypesFilterRootRef.current.render(
+      <PostTypesFilter
+        loading={loading}
+        postTypes={postTypes}
+      />
+    );
+  }, [loading, postTypes]);
 
   // Render the load more button component:
   useEffect(() => {
@@ -364,15 +418,19 @@ function SearchController({restUrl}) {
   useEffect(() => {
     const categoriesFilter = document.querySelector('#item-issue');
     const contentTypesFilter = document.querySelector('#item-content');
+    const postTypesFilter = document.querySelector('#item-post-types');
     const searchTitle = document.querySelector('#result-statement');
     const searchForm = document.querySelector('#search-bar');
     const loadMoreButton = document.querySelector('.load-more-button-div');
 
-    if (categoriesFilter && !metaRootRef.current) {
-      metaRootRef.current = createRoot(categoriesFilter);
+    if (categoriesFilter && !categoriesFilterRootRef.current) {
+      categoriesFilterRootRef.current = createRoot(categoriesFilter);
     }
     if (contentTypesFilter && !contentTypesFilterRootRef.current) {
       contentTypesFilterRootRef.current = createRoot(contentTypesFilter);
+    }
+    if (postTypesFilter && !postTypesFilterRootRef.current) {
+      postTypesFilterRootRef.current = createRoot(postTypesFilter);
     }
     if (loadMoreButton && !loadMoreButtonRef.current) {
       loadMoreButtonRef.current = createRoot(loadMoreButton);
