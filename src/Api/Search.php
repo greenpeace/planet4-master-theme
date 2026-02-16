@@ -40,27 +40,11 @@ class Search
                         $html = ob_get_clean();
 
                         $posts = array_map(static function ($post) {
-
-                            $serialize_terms = static function (int $post_id, string $taxonomy): array {
-                                return array_map(
-                                    static fn($term) => [
-                                        'id'   => $term->term_id,
-                                        'name' => $term->name,
-                                        'slug' => $term->slug,
-                                    ],
-                                    get_the_terms($post_id, $taxonomy) ?: []
-                                );
-                            };
-
                             return [
                                 'id'        => $post->ID,
                                 'title'     => get_the_title($post),
                                 'link'      => get_permalink($post),
                                 'post_type' => get_post_type($post),
-
-                                'categories'    => $serialize_terms($post->ID, 'category'),
-                                'tags'          => $serialize_terms($post->ID, 'post_tag'),
-                                'p4_page_type'  => $serialize_terms($post->ID, 'p4-page-type'),
                             ];
 
                         }, $query->posts);

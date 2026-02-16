@@ -1,5 +1,10 @@
 import {createRoot, useEffect, useState, useRef, useCallback} from '@wordpress/element';
 
+/* ---------------------------
+   Components
+---------------------------- */
+
+// Render the categories filter:
 function CategoriesFilter({loading, categories = {}}) {
   if (loading) {
     return <div className="search-meta">Loading…</div>;
@@ -42,6 +47,7 @@ function CategoriesFilter({loading, categories = {}}) {
   );
 }
 
+// Render the content types filter:
 function ContentTypesFilter({loading, contentTypes = {}}) {
   if (loading) {
     return <div className="search-meta">Loading…</div>;
@@ -84,6 +90,7 @@ function ContentTypesFilter({loading, contentTypes = {}}) {
   );
 }
 
+// Render the load more button:
 function LoadMoreButton({foundPosts, currentPage, postsPerLoad, onLoadMore}) {
   const remainingPosts = foundPosts - (currentPage * postsPerLoad);
   const valueToShow = remainingPosts < postsPerLoad ? remainingPosts : postsPerLoad;
@@ -101,6 +108,7 @@ function LoadMoreButton({foundPosts, currentPage, postsPerLoad, onLoadMore}) {
   );
 }
 
+// Render the search title section:
 function SearchTitle({foundPosts, searchTerm}) {
   return (
     <>
@@ -122,6 +130,7 @@ function SearchTitle({foundPosts, searchTerm}) {
   );
 }
 
+// Render the search form:
 function SearchForm({setSearchTerm, siteUrl, onSubmit, searchTerm}) {
   return (
     <form
@@ -166,18 +175,29 @@ function SearchForm({setSearchTerm, siteUrl, onSubmit, searchTerm}) {
   );
 }
 
+/* ---------------------------
+   Main Controller
+---------------------------- */
+
 function SearchController({restUrl}) {
+
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [foundPosts, setFoundPosts] = useState(0);
   const [postsPerLoad, setPostsPerLoad] = useState(5);
-  // const [postsData, setPostsData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [categories, setCategories] = useState([]);
   // const [postTypes, setpostTypes] = useState([]);
   // const [actionTypes, setActionTypes] = useState([]);
   const [contentTypes, setContentTypes] = useState([]);
 
+  const metaRootRef = useRef(null);
+  const contentTypesFilterRootRef = useRef(null);
+  const loadMoreButtonRef = useRef(null);
+  const searchTitleRef = useRef(null);
+  const searchFormRef = useRef(null);
+
+  // Fetch the filters (categories, post types, etc.):
   const fetchFilters = async () => {
     const params = new URLSearchParams();
     params.set('s', searchTerm);
@@ -198,6 +218,7 @@ function SearchController({restUrl}) {
     setContentTypes(data.post_types);
   };
 
+  // Render the search results:
   const fetchResults = useCallback(
     async (page = 1, append = false, filters = {}, callback) => {
       const wrapper = document.getElementById('search-results-wrapper');
@@ -272,13 +293,74 @@ function SearchController({restUrl}) {
     fetchFilters();
   });
 
-  const metaRootRef = useRef(null);
-  const contentTypesFilterRootRef = useRef(null);
-  const loadMoreButtonRef = useRef(null);
-  const searchTitleRef = useRef(null);
-  const searchFormRef = useRef(null);
+  // Render the categories filter component:
+  useEffect(() => {
+    if (!metaRootRef.current) {return;}
 
-  // Create external root once
+    metaRootRef.current.render(
+      <CategoriesFilter
+        loading={loading}
+        categories={categories}
+      />
+    );
+  }, [loading, categories]);
+
+  // Render the content types filter component:
+  useEffect(() => {
+    if (!contentTypesFilterRootRef.current) {return;}
+
+    contentTypesFilterRootRef.current.render(
+      <ContentTypesFilter
+        loading={loading}
+        contentTypes={contentTypes}
+      />
+    );
+  }, [loading, contentTypes]);
+
+  // Render the load more button component:
+  useEffect(() => {
+    if (!loadMoreButtonRef.current) {return;}
+
+    loadMoreButtonRef.current.render(
+      <LoadMoreButton
+        foundPosts={foundPosts}
+        currentPage={currentPage}
+        postsPerLoad={postsPerLoad}
+        onLoadMore={onLoadMore}
+      />
+    );
+  }, [foundPosts, currentPage, postsPerLoad, onLoadMore]);
+
+  // Render the search title component:
+  useEffect(() => {
+    if (!searchTitleRef.current) {return;}
+
+    searchTitleRef.current.render(
+      <SearchTitle
+        foundPosts={foundPosts}
+        searchTerm={searchTerm}
+      />
+    );
+  }, [foundPosts, searchTerm]);
+
+  // Render the search form component:
+  useEffect(() => {
+    if (!searchFormRef.current) {return;}
+
+    const container = document.getElementById('search-bar');
+    const siteUrl = container.dataset.siteUrl;
+
+    searchFormRef.current.render(
+      <SearchForm
+        searchTerm={searchTerm}
+        setSearchTerm={setSearchTerm}
+        siteUrl={siteUrl}
+        onSubmit={onSubmit}
+      />
+    );
+  }, [onSubmit, searchTerm]);
+
+  // Create external roots for the components:
   useEffect(() => {
     const categoriesFilter = document.querySelector('#item-issue');
     const contentTypesFilter = document.querySelector('#item-content');
@@ -303,69 +385,7 @@ function SearchController({restUrl}) {
     }
   }, []);
 
-  // Render external component whenever relevant state changes
-  useEffect(() => {
-    if (!metaRootRef.current) {return;}
-
-    metaRootRef.current.render(
-      <CategoriesFilter
-        loading={loading}
-        categories={categories}
-      />
-    );
-  }, [loading, categories]);
-
-  useEffect(() => {
-    if (!contentTypesFilterRootRef.current) {return;}
-
-    contentTypesFilterRootRef.current.render(
-      <ContentTypesFilter
-        loading={loading}
-        contentTypes={contentTypes}
-      />
-    );
-  }, [loading, contentTypes]);
-
-  useEffect(() => {
-    if (!loadMoreButtonRef.current) {return;}
-
-    loadMoreButtonRef.current.render(
-      <LoadMoreButton
-        foundPosts={foundPosts}
-        currentPage={currentPage}
-        postsPerLoad={postsPerLoad}
-        onLoadMore={onLoadMore}
-      />
-    );
-  }, [foundPosts, currentPage, postsPerLoad, onLoadMore]);
-
-  useEffect(() => {
-    if (!searchTitleRef.current) {return;}
-
-    searchTitleRef.current.render(
-      <SearchTitle
-        foundPosts={foundPosts}
-        searchTerm={searchTerm}
-      />
-    );
-  }, [foundPosts, searchTerm]);
-
-  useEffect(() => {
-    if (!searchFormRef.current) {return;}
-
-    const container = document.getElementById('search-bar');
-    const siteUrl = container.dataset.siteUrl;
-
-    searchFormRef.current.render(
-      <SearchForm
-        searchTerm={searchTerm}
-        setSearchTerm={setSearchTerm}
-        siteUrl={siteUrl}
-        onSubmit={onSubmit}
-      />
-    );
-  }, [onSubmit, searchTerm]);
-
+  // Get the search term from the URL parameters:
   useEffect(() => {
     const queryString = window.location.search;
     const params = new URLSearchParams(queryString);
@@ -374,7 +394,7 @@ function SearchController({restUrl}) {
     setSearchTerm(searchTermParam);
   }, []);
 
-  // Populate the search results list on component mount:
+  // Populate the search results list:
   useEffect(() => {
     fetchResults(1, false);
     fetchFilters();
@@ -383,7 +403,10 @@ function SearchController({restUrl}) {
   return null;
 }
 
-// Mount the component
+/* ---------------------------
+   Render Main Controller
+---------------------------- */
+
 const el = document.getElementById('search-controller');
 if (el) {
   createRoot(el).render(
