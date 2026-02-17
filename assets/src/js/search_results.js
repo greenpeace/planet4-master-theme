@@ -70,6 +70,7 @@ function FilterList({
   getLabel,
   getAriaSubject,
   onFilter,
+  appliedFilters,
 }) {
   if (loading) {
     return <div className="search-meta">Loading…</div>;
@@ -102,6 +103,7 @@ function FilterList({
                 data-ga-action={gaAction}
                 data-ga-label={label}
                 aria-label={ariaLabel}
+                checked={appliedFilters === label}
                 onClick={() => onFilter(filterNamespace, label, item.id)}
               />
               <span className="custom-control-description">
@@ -279,7 +281,7 @@ function SearchController({restUrl}) {
   const [postTypes, setPostTypes] = useState([]);
   const [actionTypes, setActionTypes] = useState([]);
   const [contentTypes, setContentTypes] = useState([]);
-  // const [appliedFilters, setApppliedFilters] = useState([]);
+  const [appliedFilters, setApppliedFilters] = useState([]);
 
   // Helper: fetch JSON from REST endpoint with search params
   const fetchJson = async (endpoint, paramsObj = {}) => {
@@ -345,6 +347,7 @@ function SearchController({restUrl}) {
     const name = `f[${filterNamespace}][${label}]`;
     const value = id;
 
+    setApppliedFilters(label);
     fetchResults(1, {name, value}, null, null, true);
     fetchFilters(null, {name, value});
   };
@@ -388,6 +391,7 @@ function SearchController({restUrl}) {
           getLabel={filter.getLabel}
           getAriaSubject={filter.ariaSubject}
           onFilter={onFilter}
+          appliedFilters={appliedFilters}
         />
       );
     });
