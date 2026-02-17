@@ -35,22 +35,35 @@ class Search
 
                         $page = new SearchPage($query);
 
-                        ob_start();
-                        $page->render_partial();
-                        $html = ob_get_clean();
-
                         $posts = array_map(static function ($post) {
+
+                            setup_postdata($post);
+
+                            $thumbnail_id = get_post_thumbnail_id($post);
+                            $thumbnail_src = $thumbnail_id
+                                ? wp_get_attachment_image_src($thumbnail_id, 'medium')
+                                : null;
+
                             return [
                                 'id'        => $post->ID,
                                 'title'     => get_the_title($post),
                                 'link'      => get_permalink($post),
                                 'post_type' => get_post_type($post),
+                                'excerpt'   => get_the_excerpt($post),
+                                'date' => get_the_date('c', $post),
+                                'featured_image' => $thumbnail_src ? [
+                                    'url'    => $thumbnail_src[0],
+                                    'width'  => $thumbnail_src[1],
+                                    'height' => $thumbnail_src[2],
+                                    'alt'    => get_post_meta($thumbnail_id, '_wp_attachment_image_alt', true),
+                                ] : null,
                             ];
 
                         }, $query->posts);
 
+                        wp_reset_postdata();
+
                         return [
-                            'html' => $html,
                             'posts' => $posts,
                             'current_page' => $page->context['current_page'] ?? 1,
                             'found_posts' => $page->context['found_posts'] ?? 0,

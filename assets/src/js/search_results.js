@@ -11,6 +11,7 @@ const ROOT_CONFIG = {
   postTypes: '#item-post-types',
   actionTypes: '#item-action',
   searchTitle: '#result-statement',
+  searchResult: '#search-results',
   searchForm: '#search-bar',
   sortFilter: '#sort-filter',
   loadMoreButton: '.load-more-button-div',
@@ -196,6 +197,45 @@ function SearchTitle({foundPosts, searchTerm}) {
   );
 }
 
+function SearchResult({posts}) {
+  return (
+    <ul className="list-unstyled">
+      {posts.map(post => {
+        return (
+          <div key={post.id} className="search-results-load">
+            <li id="result-row" className="d-flex search-result-list-item">
+              <a className="d-flex search-result-item-image" href={post.link} data-ga-category="Search Results" data-ga-action="Image" data-ga-label="Post" tabIndex="-1">
+                {post?.featured_image?.url && (<img src={post.featured_image.url} loading="lazy" alt="" role="presentation" />)}
+              </a>
+              <div className="search-result-item-body tease tease-post">
+                <div className="search-result-item-flex-title">
+                  <div className="d-flex flex-column-reverse">
+                    <h4>
+                      <a href={post.link} data-ga-category="Search Results" className="search-result-item-headline" data-ga-action="Title" data-ga-label="Post">
+                        {post.title}
+                      </a>
+                    </h4>
+                  </div>
+                  <div>
+                  </div>
+                </div>
+                <p className="search-result-item-content">
+                  {post.excerpt}
+                </p>
+                <div className="search-result-item-info">
+                  <span className="search-result-item-date">
+                    {post.date}
+                  </span>
+                </div>
+              </div>
+            </li>
+          </div>
+        );
+      })}
+    </ul>
+  );
+}
+
 // Render the search form:
 function SearchForm({setSearchTerm, siteUrl, onSubmit, searchTerm}) {
   return (
@@ -248,6 +288,7 @@ function SearchForm({setSearchTerm, siteUrl, onSubmit, searchTerm}) {
 function SearchController({restUrl}) {
   const rootsRef = useRef({});
 
+  const [posts, setPosts] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [foundPosts, setFoundPosts] = useState(0);
@@ -259,9 +300,13 @@ function SearchController({restUrl}) {
   const [contentTypes, setContentTypes] = useState([]);
 
   // Fetch the filters (categories, post types, etc.):
-  const fetchFilters = async () => {
+  const fetchFilters = async (explicitSearchTerm = null) => {
+    const term = explicitSearchTerm ?? searchTerm;
     const params = new URLSearchParams();
-    params.set('s', searchTerm);
+
+    if (term) {
+      params.set('s', term);
+    }
 
     const url = `${restUrl}${API_SEARCH.terms}?${params.toString()}`;
     const res = await fetch(url, {
@@ -278,7 +323,7 @@ function SearchController({restUrl}) {
 
   // Render the search results:
   const fetchResults = useCallback(
-    async (page = 1, append = false, filters = {}, callback, explicitSearchTerm = null) => {
+    async (page = 1, filters = {}, callback, explicitSearchTerm = null, newSearch = false) => {
       const wrapper = document.getElementById('search-results-wrapper');
       const resultsContainer = document.querySelector('#search-results .list-unstyled');
 
@@ -303,12 +348,8 @@ function SearchController({restUrl}) {
       });
 
       const data = await res.json();
-      const html = data.html.replace(/\n/g, '');
 
-      resultsContainer.innerHTML = append ?
-        resultsContainer.innerHTML + html :
-        html;
-
+      setPosts(newSearch ? data.posts : prev => [...prev, ...data.posts]);
       setSearchTerm(term);
       setCurrentPage(data.current_page);
       setFoundPosts(data.found_posts);
@@ -336,20 +377,20 @@ function SearchController({restUrl}) {
   //   const name = checkbox.name;
   //   const value = checkbox.value;
 
-  //   fetchResults(1, false, {name, value});
+  //   fetchResults(1, {name, value});
   // };
 
   // Show more results when the Load More button is clicked:
   const onLoadMore = useCallback(() => {
     if (loading) {return;}
-    const nextPage = currentPage + 1;
-    fetchResults(nextPage, true);
+
+    fetchResults(currentPage + 1, {}, null, null, false);
   }, [loading, currentPage, fetchResults]);
 
   // Populate the search results list when the Search button is clicked:
   const onSubmit = useCallback(e => {
     e.preventDefault();
-    fetchResults(1, false);
+    fetchResults(1, {}, null, null, true);
     fetchFilters();
   });
 
@@ -367,21 +408,21 @@ function SearchController({restUrl}) {
     );
   }, [loading, contentTypes]);
 
-  // // Render the post types filter component:
+  // Render the post types filter component:
   useEffect(() => {
     rootsRef.current.postTypes?.render(
       <PostTypesFilter loading={loading} postTypes={postTypes} />
     );
   }, [loading, postTypes]);
 
-  // // Render the action types filter component:
+  // Render the action types filter component:
   useEffect(() => {
     rootsRef.current.actionTypes?.render(
       <ActionTypesFilter loading={loading} actionTypes={actionTypes} />
     );
   }, [loading, actionTypes]);
 
-  // // Render the load more button component:
+  // Render the load more button component:
   useEffect(() => {
     rootsRef.current.loadMoreButton?.render(
       <LoadMoreButton
@@ -393,21 +434,28 @@ function SearchController({restUrl}) {
     );
   }, [foundPosts, currentPage, postsPerLoad, onLoadMore]);
 
-  // // Render the search title component:
+  // Render the search title component:
   useEffect(() => {
     rootsRef.current.searchTitle?.render(
       <SearchTitle foundPosts={foundPosts} searchTerm={searchTerm} />
     );
   }, [foundPosts, searchTerm]);
 
-  // // Render the sort filter component:
+  // Render the search title component:
+  useEffect(() => {
+    rootsRef.current.searchResult?.render(
+      <SearchResult posts={posts} />
+    );
+  }, [posts]);
+
+  // Render the sort filter component:
   useEffect(() => {
     rootsRef.current.sortFilter?.render(
       <SortFilter foundPosts={foundPosts}/>
     );
   }, [foundPosts]);
 
-  // // Render the search form component:
+  // Render the search form component:
   useEffect(() => {
     const container = document.getElementById('search-bar');
     const siteUrl = container.dataset.siteUrl;
@@ -449,7 +497,7 @@ function SearchController({restUrl}) {
 
     setSearchTerm(searchTermParam);
 
-    fetchResults(1, false, {}, null, searchTermParam);
+    fetchResults(1, {}, null, searchTermParam, true);
     fetchFilters(searchTermParam);
   }, []);
 
