@@ -88,7 +88,7 @@ function FilterList({
             `Filter results by ${getAriaSubject} ${label}, ${count} results were found`;
 
         return (
-          <li key={item.id}>
+          <li key={label}>
             {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
             <label className="custom-control">
               <input
@@ -156,11 +156,14 @@ function SortFilter({foundPosts}) {
 }
 
 // Render the search title section:
-function SearchTitle({foundPosts, searchTerm}) {
+function SearchTitle({foundPosts}) {
+  const params = new URLSearchParams(window.location.search);
+  const searchTermParam = params.get('s') || '';
+
   return (
     <>
       <h1 className="result-statement">
-        {foundPosts} results for {searchTerm}
+        {foundPosts} results for {searchTermParam}
       </h1>
       {foundPosts === 0 && (
         <p className="search-info">
@@ -433,11 +436,11 @@ function SearchController({restUrl}) {
   // Render the search title component:
   useEffect(() => {
     rootsRef.current.searchTitle?.render(
-      <SearchTitle foundPosts={foundPosts} searchTerm={searchTerm} />
+      <SearchTitle foundPosts={foundPosts} />
     );
   }, [foundPosts, searchTerm]);
 
-  // Render the search title component:
+  // Render the search results component:
   useEffect(() => {
     rootsRef.current.searchResult?.render(
       <SearchResult posts={posts} />
