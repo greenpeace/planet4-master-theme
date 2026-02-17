@@ -17,6 +17,45 @@ const ROOT_CONFIG = {
   loadMoreButton: '.load-more-button-div',
 };
 
+const FILTER_ROOTS = [
+  {
+    rootKey: 'categories',
+    stateKey: 'categories',
+    ariaSubject: 'category',
+    namespace: 'cat',
+    gaAction: 'Category Filter',
+    getKey: item => item.id,
+    getLabel: item => item.name,
+  },
+  {
+    rootKey: 'contentTypes',
+    stateKey: 'contentTypes',
+    ariaSubject: 'content type',
+    namespace: 'ctype',
+    gaAction: 'Content Type Filter',
+    getKey: item => item.slug,
+    getLabel: item => item.slug,
+  },
+  {
+    rootKey: 'postTypes',
+    stateKey: 'postTypes',
+    ariaSubject: 'post type',
+    namespace: 'ptype',
+    gaAction: 'Post Type Filter',
+    getKey: item => item.id,
+    getLabel: item => item.name,
+  },
+  {
+    rootKey: 'actionTypes',
+    stateKey: 'actionTypes',
+    ariaSubject: 'action type',
+    namespace: 'atype',
+    gaAction: 'Action Type Filter',
+    getKey: item => item.id,
+    getLabel: item => item.name,
+  },
+];
+
 /* ---------------------------
    Components
 ---------------------------- */
@@ -30,6 +69,7 @@ function FilterList({
   getKey,
   getLabel,
   getAriaSubject,
+  onFilter,
 }) {
   if (loading) {
     return <div className="search-meta">Loading…</div>;
@@ -62,6 +102,7 @@ function FilterList({
                 data-ga-action={gaAction}
                 data-ga-label={label}
                 aria-label={ariaLabel}
+                onClick={() => onFilter(filterNamespace, label, item.id)}
               />
               <span className="custom-control-description">
                 {label} {count > 0 && `(${count})`}
@@ -71,66 +112,6 @@ function FilterList({
         );
       })}
     </ul>
-  );
-}
-
-// Render the categories filter:
-function CategoriesFilter({loading, categories}) {
-  return (
-    <FilterList
-      loading={loading}
-      items={categories}
-      filterNamespace="cat"
-      gaAction="Category Filter"
-      getKey={item => item.id}
-      getLabel={item => item.name}
-      getAriaSubject="category"
-    />
-  );
-}
-
-// Render the content types filter:
-function ContentTypesFilter({loading, contentTypes}) {
-  return (
-    <FilterList
-      loading={loading}
-      items={contentTypes}
-      filterNamespace="ctype"
-      gaAction="Content Type Filter"
-      getKey={item => item.slug}
-      getLabel={item => item.slug}
-      getAriaSubject="content type"
-    />
-  );
-}
-
-// Render the post types filter:
-function PostTypesFilter({loading, postTypes}) {
-  return (
-    <FilterList
-      loading={loading}
-      items={postTypes}
-      filterNamespace="ptype"
-      gaAction="Post Type Filter"
-      getKey={item => item.id}
-      getLabel={item => item.name}
-      getAriaSubject="post type"
-    />
-  );
-}
-
-// Render the action types filter:
-function ActionTypesFilter({loading, actionTypes}) {
-  return (
-    <FilterList
-      loading={loading}
-      items={actionTypes}
-      filterNamespace="atype"
-      gaAction="Action Type Filter"
-      getKey={item => item.id}
-      getLabel={item => item.name}
-      getAriaSubject="action type"
-    />
   );
 }
 
@@ -295,70 +276,64 @@ function SearchController({restUrl}) {
   const [postsPerLoad, setPostsPerLoad] = useState(5);
   const [loading, setLoading] = useState(false);
   const [categories, setCategories] = useState([]);
-  const [postTypes, setpostTypes] = useState([]);
+  const [postTypes, setPostTypes] = useState([]);
   const [actionTypes, setActionTypes] = useState([]);
   const [contentTypes, setContentTypes] = useState([]);
+  // const [appliedFilters, setApppliedFilters] = useState([]);
 
-  // Fetch the filters (categories, post types, etc.):
-  const fetchFilters = async (explicitSearchTerm = null) => {
-    const term = explicitSearchTerm ?? searchTerm;
-    const params = new URLSearchParams();
+  // Helper: fetch JSON from REST endpoint with search params
+  const fetchJson = async (endpoint, paramsObj = {}) => {
+    const params = new URLSearchParams(paramsObj);
+    const url = `${restUrl}${endpoint}?${params.toString()}`;
 
-    if (term) {
-      params.set('s', term);
-    }
-
-    const url = `${restUrl}${API_SEARCH.terms}?${params.toString()}`;
     const res = await fetch(url, {
       headers: {'X-Requested-With': 'XMLHttpRequest'},
     });
 
-    const data = await res.json();
+    if (!res.ok) {
+      throw new Error(`Request failed: ${res.status}`);
+    }
+
+    return res.json();
+  };
+
+  // Fetch filters (categories, post types, etc.)
+  const fetchFilters = async (explicitSearchTerm = null) => {
+    const term = explicitSearchTerm ?? searchTerm;
+    const params = {};
+
+    if (term) {params.s = term;}
+
+    const data = await fetchJson(API_SEARCH.terms, params);
 
     setCategories(data.categories);
-    setpostTypes(data.p4_page_type);
+    setPostTypes(data.p4_page_type);
     setActionTypes(data.action_type);
     setContentTypes(data.post_types);
   };
 
-  // Render the search results:
+  // Fetch search results
   const fetchResults = useCallback(
     async (page = 1, filters = {}, callback, explicitSearchTerm = null, newSearch = false) => {
-      const wrapper = document.getElementById('search-results-wrapper');
-      const resultsContainer = document.querySelector('#search-results .list-unstyled');
-
-      if (!wrapper || !resultsContainer) {return;}
-
       const term = explicitSearchTerm ?? searchTerm;
       setLoading(true);
 
-      const params = new URLSearchParams();
-      if (term) {
-        params.set('s', term);
-      }
-      params.set('paged', page);
+      const params = {paged: page};
+      if (term) {params.s = term;}
+      if (filters.name && filters.value) {params[filters.name] = filters.value;}
 
-      if (Object.keys(filters).length) {
-        params.set(filters.name, filters.value);
-      }
+      const data = await fetchJson(API_SEARCH.posts, params);
 
-      const url = `${restUrl}${API_SEARCH.posts}?${params.toString()}`;
-      const res = await fetch(url, {
-        headers: {'X-Requested-With': 'XMLHttpRequest'},
-      });
-
-      const data = await res.json();
-
-      setPosts(newSearch ? data.posts : prev => [...prev, ...data.posts]);
+      setPosts(prev => (newSearch ? data.posts : [...prev, ...data.posts]));
       setSearchTerm(term);
       setCurrentPage(data.current_page);
       setFoundPosts(data.found_posts);
       setPostsPerLoad(data.posts_per_load || 5);
 
-      history.pushState({}, '', `?${params.toString()}`);
+      history.pushState({}, '', `?${new URLSearchParams(params).toString()}`);
       setLoading(false);
 
-      if (callback && typeof callback === 'function') {
+      if (typeof callback === 'function') {
         callback(data);
       }
     },
@@ -366,19 +341,13 @@ function SearchController({restUrl}) {
   );
 
   // Populate the search results list when the filters are selected:
-  // const onFilter = (e, li) => {
-  //   if (e.target.tagName === 'INPUT') {return;} // Prevent double toggling if the user clicked the <input> directly
+  const onFilter = (filterNamespace, label, id) => {
+    const name = `f[${filterNamespace}][${label}]`;
+    const value = id;
 
-  //   const checkbox = li.querySelector('input[type="checkbox"]');
-  //   if (!checkbox) {return;}
-
-  //   checkbox.checked = !checkbox.checked;
-
-  //   const name = checkbox.name;
-  //   const value = checkbox.value;
-
-  //   fetchResults(1, {name, value});
-  // };
+    fetchResults(1, {name, value}, null, null, true);
+    fetchFilters(null, {name, value});
+  };
 
   // Show more results when the Load More button is clicked:
   const onLoadMore = useCallback(() => {
@@ -396,31 +365,34 @@ function SearchController({restUrl}) {
 
   // Render the categories filter component:
   useEffect(() => {
-    rootsRef.current.categories?.render(
-      <CategoriesFilter loading={loading} categories={categories} />
-    );
-  }, [loading, categories]);
+    const currentState = {
+      categories,
+      contentTypes,
+      postTypes,
+      actionTypes,
+    };
 
-  // Render the content types filter component:
-  useEffect(() => {
-    rootsRef.current.contentTypes?.render(
-      <ContentTypesFilter loading={loading} contentTypes={contentTypes} />
-    );
-  }, [loading, contentTypes]);
+    FILTER_ROOTS.forEach(filter => {
+      const root = rootsRef.current[filter.rootKey];
+      const items = currentState[filter.stateKey] || [];
 
-  // Render the post types filter component:
-  useEffect(() => {
-    rootsRef.current.postTypes?.render(
-      <PostTypesFilter loading={loading} postTypes={postTypes} />
-    );
-  }, [loading, postTypes]);
+      if (!root) {return;}
 
-  // Render the action types filter component:
-  useEffect(() => {
-    rootsRef.current.actionTypes?.render(
-      <ActionTypesFilter loading={loading} actionTypes={actionTypes} />
-    );
-  }, [loading, actionTypes]);
+      root.render(
+        <FilterList
+          loading={loading}
+          items={items}
+          filterNamespace={filter.namespace}
+          gaAction={filter.gaAction}
+          getKey={filter.getKey}
+          getLabel={filter.getLabel}
+          getAriaSubject={filter.ariaSubject}
+          onFilter={onFilter}
+        />
+      );
+    });
+  }, [loading, categories, contentTypes, postTypes, actionTypes]);
+
 
   // Render the load more button component:
   useEffect(() => {
