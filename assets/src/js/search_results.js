@@ -14,6 +14,10 @@ const ROOT_CONFIG = {
   contentTypes: '#item-content',
   postTypes: '#item-post-types',
   actionTypes: '#item-action',
+  categoriesModal: '#item-modal-issue',
+  contentTypesModal: '#item-modal-content',
+  postTypesModal: '#item-modal-post-types',
+  actionTypesModal: '#item-modal-action',
   searchTitle: '#result-statement',
   searchResult: '#search-results',
   searchForm: '#search-bar',
@@ -21,43 +25,51 @@ const ROOT_CONFIG = {
   loadMoreButton: '.load-more-button-div',
 };
 
+const baseCategoryFilter = {
+  stateKey: 'categories',
+  ariaSubject: 'category',
+  namespace: 'cat',
+  gaAction: 'Category Filter',
+  getKey: item => item.id,
+  getLabel: item => item.name,
+};
+
+const baseContentTypeFilter = {
+  stateKey: 'contentTypes',
+  ariaSubject: 'content type',
+  namespace: 'ctype',
+  gaAction: 'Content Type Filter',
+  getKey: item => item.slug,
+  getLabel: item => item.slug,
+};
+
+const basePostTypeFilter = {
+  stateKey: 'postTypes',
+  ariaSubject: 'post type',
+  namespace: 'ptype',
+  gaAction: 'Post Type Filter',
+  getKey: item => item.id,
+  getLabel: item => item.name,
+};
+
+const baseActionTypeFilter = {
+  stateKey: 'actionTypes',
+  ariaSubject: 'action type',
+  namespace: 'atype',
+  gaAction: 'Action Type Filter',
+  getKey: item => item.id,
+  getLabel: item => item.name,
+};
+
 const FILTER_ROOTS = [
-  {
-    rootKey: 'categories',
-    stateKey: 'categories',
-    ariaSubject: 'category',
-    namespace: 'cat',
-    gaAction: 'Category Filter',
-    getKey: item => item.id,
-    getLabel: item => item.name,
-  },
-  {
-    rootKey: 'contentTypes',
-    stateKey: 'contentTypes',
-    ariaSubject: 'content type',
-    namespace: 'ctype',
-    gaAction: 'Content Type Filter',
-    getKey: item => item.slug,
-    getLabel: item => item.slug,
-  },
-  {
-    rootKey: 'postTypes',
-    stateKey: 'postTypes',
-    ariaSubject: 'post type',
-    namespace: 'ptype',
-    gaAction: 'Post Type Filter',
-    getKey: item => item.id,
-    getLabel: item => item.name,
-  },
-  {
-    rootKey: 'actionTypes',
-    stateKey: 'actionTypes',
-    ariaSubject: 'action type',
-    namespace: 'atype',
-    gaAction: 'Action Type Filter',
-    getKey: item => item.id,
-    getLabel: item => item.name,
-  },
+  {...baseCategoryFilter, rootKey: 'categories'},
+  {...baseCategoryFilter, rootKey: 'categoriesModal'},
+  {...baseContentTypeFilter, rootKey: 'contentTypes'},
+  {...baseContentTypeFilter, rootKey: 'contentTypesModal'},
+  {...basePostTypeFilter, rootKey: 'postTypes'},
+  {...basePostTypeFilter, rootKey: 'postTypesModal'},
+  {...baseActionTypeFilter, rootKey: 'actionTypes'},
+  {...baseActionTypeFilter, rootKey: 'actionTypesModal'},
 ];
 
 /* ---------------------------
