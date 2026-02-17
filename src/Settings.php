@@ -442,6 +442,18 @@ class Settings
                         ],
                     ],
                     [
+                        'name' => __('CSP headers exceptions', 'planet4-master-theme-backend'),
+                        'desc' => __(
+                            'Add the list of resources (one per line) provided by the vendor as required exceptions. All resources should start with https.',
+                            'planet4-master-theme-backend'
+                        ),
+                        'id' => 'csp_headers_exceptions',
+                        'type' => 'textarea',
+                        'attributes' => [
+                            'type' => 'text',
+                        ],
+                    ],
+                    [
                         'name' => __('Choose social sharing options', 'planet4-master-theme-backend'),
                         'id' => 'social_share_options',
                         'type' => 'social_share_checkboxes',
