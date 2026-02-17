@@ -45,20 +45,19 @@ class Search
                                 : null;
 
                             return [
-                                'id'        => $post->ID,
-                                'title'     => get_the_title($post),
-                                'link'      => get_permalink($post),
+                                'id' => $post->ID,
+                                'title' => get_the_title($post),
+                                'link' => get_permalink($post),
                                 'post_type' => get_post_type($post),
-                                'excerpt'   => get_the_excerpt($post),
+                                'excerpt' => get_the_excerpt($post),
                                 'date' => get_the_date('c', $post),
                                 'featured_image' => $thumbnail_src ? [
-                                    'url'    => $thumbnail_src[0],
-                                    'width'  => $thumbnail_src[1],
+                                    'url' => $thumbnail_src[0],
+                                    'width' => $thumbnail_src[1],
                                     'height' => $thumbnail_src[2],
-                                    'alt'    => get_post_meta($thumbnail_id, '_wp_attachment_image_alt', true),
+                                    'alt' => get_post_meta($thumbnail_id, '_wp_attachment_image_alt', true),
                                 ] : null,
                             ];
-
                         }, $query->posts);
 
                         wp_reset_postdata();
@@ -67,9 +66,10 @@ class Search
                             'posts' => $posts,
                             'current_page' => $page->context['current_page'] ?? 1,
                             'found_posts' => $page->context['found_posts'] ?? 0,
-                            'posts_per_load' => $page->context['load_more']['posts_per_load'] ?? SearchPage::POSTS_PER_LOAD,
+                            'posts_per_load' =>
+                                $page->context['load_more']['posts_per_load'] ?? SearchPage::POSTS_PER_LOAD,
                         ];
-                    }
+                    },
                 ],
             ],
         );
@@ -108,9 +108,9 @@ class Search
                                 foreach ($post_terms as $term) {
                                     if (!isset($terms[$term->term_id])) {
                                         $terms[$term->term_id] = [
-                                            'id'    => $term->term_id,
-                                            'slug'  => $term->slug,
-                                            'name'  => $term->name,
+                                            'id' => $term->term_id,
+                                            'slug' => $term->slug,
+                                            'name' => $term->name,
                                             'count' => 0,
                                         ];
                                     }
@@ -129,16 +129,16 @@ class Search
                         }
 
                         return [
-                            'post_types'   => array_map(
+                            'post_types' => array_map(
                                 fn($slug, $count) => ['slug' => $slug, 'count' => $count],
                                 array_keys($post_types),
                                 $post_types
                             ),
-                            'categories'   => $aggregate($query->posts, 'category'),
+                            'categories' => $aggregate($query->posts, 'category'),
                             'p4_page_type' => $aggregate($query->posts, 'p4-page-type'),
                             'action_type' => $aggregate($query->posts, 'action-type'),
                         ];
-                    }
+                    },
                 ],
             ]
         );
