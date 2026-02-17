@@ -66,7 +66,6 @@ function FilterList({
   items = {},
   filterNamespace,
   gaAction,
-  getKey,
   getLabel,
   getAriaSubject,
   onFilter,
@@ -83,7 +82,6 @@ function FilterList({
       {list.map(item => {
         const count = item.results ?? item.count ?? 0;
         const label = getLabel(item);
-        const key = getKey(item);
 
         const ariaLabel =
           count === 1 ?
@@ -91,7 +89,7 @@ function FilterList({
             `Filter results by ${getAriaSubject} ${label}, ${count} results were found`;
 
         return (
-          <li key={key}>
+          <li key={item.id}>
             {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
             <label className="custom-control">
               <input
@@ -103,8 +101,8 @@ function FilterList({
                 data-ga-action={gaAction}
                 data-ga-label={label}
                 aria-label={ariaLabel}
-                checked={appliedFilters === label}
-                onClick={() => onFilter(filterNamespace, label, item.id)}
+                checked={appliedFilters.some(f => f.label === label)}
+                onChange={() => onFilter(filterNamespace, label, item.id)}
               />
               <span className="custom-control-description">
                 {label} {count > 0 && `(${count})`}
@@ -281,10 +279,10 @@ function SearchController({restUrl}) {
   const [postTypes, setPostTypes] = useState([]);
   const [actionTypes, setActionTypes] = useState([]);
   const [contentTypes, setContentTypes] = useState([]);
-  const [appliedFilters, setApppliedFilters] = useState([]);
+  const [appliedFilters, setAppliedFilters] = useState([]);
 
   // Helper: fetch JSON from REST endpoint with search params
-  const fetchJson = async (endpoint, paramsObj = {}) => {
+  const fetchJson = useCallback(async (endpoint, paramsObj = {}) => {
     const params = new URLSearchParams(paramsObj);
     const url = `${restUrl}${endpoint}?${params.toString()}`;
 
@@ -297,7 +295,7 @@ function SearchController({restUrl}) {
     }
 
     return res.json();
-  };
+  });
 
   // Fetch filters (categories, post types, etc.)
   const fetchFilters = async (explicitSearchTerm = null) => {
@@ -316,13 +314,16 @@ function SearchController({restUrl}) {
 
   // Fetch search results
   const fetchResults = useCallback(
-    async (page = 1, filters = {}, callback, explicitSearchTerm = null, newSearch = false) => {
+    async (page = 1, callback, explicitSearchTerm = null, newSearch = false) => {
       const term = explicitSearchTerm ?? searchTerm;
       setLoading(true);
 
       const params = {paged: page};
       if (term) {params.s = term;}
-      if (filters.name && filters.value) {params[filters.name] = filters.value;}
+
+      appliedFilters.forEach(filter => {
+        params[filter.name] = filter.value;
+      });
 
       const data = await fetchJson(API_SEARCH.posts, params);
 
@@ -339,30 +340,38 @@ function SearchController({restUrl}) {
         callback(data);
       }
     },
-    [restUrl, searchTerm]
+    [appliedFilters, fetchJson, searchTerm]
   );
 
-  // Populate the search results list when the filters are selected:
+  // Fetch results when filters are selected:
   const onFilter = (filterNamespace, label, id) => {
-    const name = `f[${filterNamespace}][${label}]`;
-    const value = id;
-
-    setApppliedFilters(label);
-    fetchResults(1, {name, value}, null, null, true);
-    fetchFilters(null, {name, value});
+    const filter = {
+      name: `f[${filterNamespace}][${label}]`,
+      value: id,
+      label,
+    };
+    setAppliedFilters(prev => {
+      const exists = prev.find(item => item.value === filter.value);
+      if (exists) {
+        // Remove the filter
+        return prev.filter(item => item.value !== filter.value);
+      }
+      // Add the filter
+      return [...prev, filter];
+    });
   };
 
-  // Show more results when the Load More button is clicked:
+  // Fetch more results when the Load More button is clicked:
   const onLoadMore = useCallback(() => {
     if (loading) {return;}
 
-    fetchResults(currentPage + 1, {}, null, null, false);
+    fetchResults(currentPage + 1);
   }, [loading, currentPage, fetchResults]);
 
-  // Populate the search results list when the Search button is clicked:
+  // Fetch results when the Search button is clicked:
   const onSubmit = useCallback(e => {
     e.preventDefault();
-    fetchResults(1, {}, null, null, true);
+    fetchResults(1, null, null, true);
     fetchFilters();
   });
 
@@ -396,7 +405,6 @@ function SearchController({restUrl}) {
       );
     });
   }, [loading, categories, contentTypes, postTypes, actionTypes]);
-
 
   // Render the load more button component:
   useEffect(() => {
@@ -466,16 +474,22 @@ function SearchController({restUrl}) {
     setSearchTerm(searchTermParam);
   }, []);
 
-  // Populate the search results list:
+  // Fetch results list on page load:
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const searchTermParam = params.get('s') || '';
 
     setSearchTerm(searchTermParam);
 
-    fetchResults(1, {}, null, searchTermParam, true);
+    fetchResults(1, null, searchTermParam, true);
     fetchFilters(searchTermParam);
   }, []);
+
+  // Fetch results when filters are applied:
+  useEffect(() => {
+    if (appliedFilters.length === 0) {return;}
+    fetchResults(1, null, null, true);
+  }, [appliedFilters]);
 
   return null;
 }
