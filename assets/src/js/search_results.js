@@ -1,5 +1,9 @@
 import {createRoot, useEffect, useState, useRef, useCallback} from '@wordpress/element';
 
+/* ---------------------------
+   Constants
+---------------------------- */
+
 const API_SEARCH = {
   posts: 'planet4/v1/search',
   terms: 'planet4/v1/search-taxonomies',
@@ -62,7 +66,6 @@ const FILTER_ROOTS = [
 
 // Render the filters:
 function FilterList({
-  loading,
   items = {},
   filterNamespace,
   gaAction,
@@ -71,10 +74,6 @@ function FilterList({
   onFilter,
   appliedFilters,
 }) {
-  if (loading) {
-    return <div className="search-meta">Loading…</div>;
-  }
-
   const list = Object.values(items);
 
   return (
@@ -178,6 +177,7 @@ function SearchTitle({foundPosts, searchTerm}) {
   );
 }
 
+// Render the search results:
 function SearchResult({posts}) {
   return (
     <ul className="list-unstyled">
@@ -281,21 +281,26 @@ function SearchController({restUrl}) {
   const [contentTypes, setContentTypes] = useState([]);
   const [appliedFilters, setAppliedFilters] = useState([]);
 
+  /* ---------------------------
+   Main Controller: FUNCTIONS
+  ---------------------------- */
+
   // Helper: fetch JSON from REST endpoint with search params
-  const fetchJson = useCallback(async (endpoint, paramsObj = {}) => {
-    const params = new URLSearchParams(paramsObj);
-    const url = `${restUrl}${endpoint}?${params.toString()}`;
+  const fetchJson = useCallback(
+    async (endpoint, paramsObj = {}) => {
+      const params = new URLSearchParams(paramsObj);
+      const url = `${restUrl}${endpoint}?${params.toString()}`;
 
-    const res = await fetch(url, {
-      headers: {'X-Requested-With': 'XMLHttpRequest'},
+      const res = await fetch(url, {
+        headers: {'X-Requested-With': 'XMLHttpRequest'},
+      });
+
+      if (!res.ok) {
+        throw new Error(`Request failed: ${res.status}`);
+      }
+
+      return res.json();
     });
-
-    if (!res.ok) {
-      throw new Error(`Request failed: ${res.status}`);
-    }
-
-    return res.json();
-  });
 
   // Fetch filters (categories, post types, etc.)
   const fetchFilters = async (explicitSearchTerm = null) => {
@@ -303,6 +308,10 @@ function SearchController({restUrl}) {
     const params = {};
 
     if (term) {params.s = term;}
+
+    appliedFilters.forEach(filter => {
+      params[filter.name] = filter.value;
+    });
 
     const data = await fetchJson(API_SEARCH.terms, params);
 
@@ -371,9 +380,12 @@ function SearchController({restUrl}) {
   // Fetch results when the Search button is clicked:
   const onSubmit = useCallback(e => {
     e.preventDefault();
-    fetchResults(1, null, null, true);
-    fetchFilters();
+    setAppliedFilters([]);
   });
+
+  /* ---------------------------
+   Main Controller: HOOKS
+  ---------------------------- */
 
   // Render the categories filter component:
   useEffect(() => {
@@ -485,10 +497,10 @@ function SearchController({restUrl}) {
     fetchFilters(searchTermParam);
   }, []);
 
-  // Fetch results when filters are applied:
+  // Fetch results and update the active filters when filters are modified:
   useEffect(() => {
-    if (appliedFilters.length === 0) {return;}
     fetchResults(1, null, null, true);
+    fetchFilters();
   }, [appliedFilters]);
 
   return null;
