@@ -31,6 +31,9 @@ export const setupCountrySelector = () => {
     }
   };
 
+  const closeButton = document.querySelector('.country-control-close');
+  const openToggle = document.querySelector('.country-control-toggle');
+
   // Create an observer instance linked to the callback function
   const observer = new MutationObserver(
     // Callback function to execute when mutations are observed
@@ -40,7 +43,16 @@ export const setupCountrySelector = () => {
         if (mutation.attributeName === 'class') {
           if (targetNode.classList.contains('open')) {
             countriesList.style.visibility = 'visible';
+            if (closeButton) {
+              closeButton.setAttribute('tabindex', '0');
+            }
           } else {
+            if (closeButton) {
+              closeButton.setAttribute('tabindex', '-1');
+            }
+            if (openToggle) {
+              openToggle.focus();
+            }
             setTimeout(() => {
               countriesList.style.visibility = 'hidden';
             }, countriesListTransitionDuration);
