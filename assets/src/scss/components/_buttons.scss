@@ -183,6 +183,10 @@
   border-width: 1px;
   border-color: transparent;
 
+  &:active {
+    background: var(--color-background-button--donate--active);
+  }
+
   &:hover {
     background: var(--color-background-button--donate--hover);
     color: var(--color-text-button--donate--hover);
