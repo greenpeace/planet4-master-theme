@@ -78,6 +78,7 @@ const FILTER_ROOTS = [
 
 // Render the filters:
 function FilterList({
+  loading,
   items = {},
   filterNamespace,
   gaAction,
@@ -88,6 +89,11 @@ function FilterList({
 }) {
   const list = Object.values(items);
 
+  if (loading) {
+    return (
+      <div>Loading...</div>
+    );
+  }
   return (
     <ul className="list-unstyled">
       {list.map(item => {
@@ -168,10 +174,15 @@ function SortFilter({foundPosts}) {
 }
 
 // Render the search title section:
-function SearchTitle({foundPosts}) {
+function SearchTitle({foundPosts, loading}) {
   const params = new URLSearchParams(window.location.search);
   const searchTermParam = params.get('s') || '';
 
+  if (loading) {
+    return (
+      <div>Loading...</div>
+    );
+  }
   return (
     <>
       <h1 className="result-statement">
@@ -193,7 +204,12 @@ function SearchTitle({foundPosts}) {
 }
 
 // Render the search results:
-function SearchResult({posts}) {
+function SearchResult({posts, loading}) {
+  if (loading) {
+    return (
+      <div>Loading...</div>
+    );
+  }
   return (
     <ul className="list-unstyled">
       {posts.map(post => {
@@ -448,14 +464,14 @@ function SearchController({restUrl}) {
   // Render the search title component:
   useEffect(() => {
     rootsRef.current.searchTitle?.render(
-      <SearchTitle foundPosts={foundPosts} />
+      <SearchTitle foundPosts={foundPosts} loading={loading} />
     );
   }, [foundPosts, searchTerm]);
 
   // Render the search results component:
   useEffect(() => {
     rootsRef.current.searchResult?.render(
-      <SearchResult posts={posts} />
+      <SearchResult posts={posts} loading={loading} />
     );
   }, [posts]);
 
