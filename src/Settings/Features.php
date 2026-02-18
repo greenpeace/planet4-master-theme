@@ -8,7 +8,6 @@ use P4\MasterTheme\Features\Dev\BetaBlocks;
 use P4\MasterTheme\Features\Dev\CoreBlockPatterns;
 use P4\MasterTheme\Features\Dev\DisableDataSync;
 use P4\MasterTheme\Features\Dev\NewTimelineBlock;
-use P4\MasterTheme\Features\Planet4Blocks;
 use P4\MasterTheme\Features\OldPostsArchiveNotice;
 use P4\MasterTheme\Features\ActionsTaskType;
 use P4\MasterTheme\Features\ActionsDeadline;
@@ -97,7 +96,6 @@ class Features
         // That way controlling whether the feature is live is in one place.
         return [
             CloudflareDeployPurge::class,
-            Planet4Blocks::class,
             OldPostsArchiveNotice::class,
             ActionsTaskType::class,
             ActionsDeadline::class,

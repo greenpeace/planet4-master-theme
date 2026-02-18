@@ -50,6 +50,8 @@ job-references:
             base=$(curl -s https://raw.githubusercontent.com/greenpeace/planet4-base/main/composer.json)
             WP_VERSION=$(jq -r '.extra["wp-version"] // empty' \<<< "${base}")
             bash bin/install-wp-tests.sh wordpress_test root '' 127.0.0.1 $WP_VERSION
+            mkdir -p assets/build/
+            touch assets/build/frontendIndex.js
             vendor/bin/phpunit --log-junit /tmp/test-results/phpunit/$CIRCLE_JOB.xml
       - store_test_results:
           path: /tmp/test-results

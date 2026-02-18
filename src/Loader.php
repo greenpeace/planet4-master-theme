@@ -3,7 +3,6 @@
 namespace P4\MasterTheme;
 
 use P4\MasterTheme\Settings\Features;
-use P4\MasterTheme\Features\Planet4Blocks;
 use P4\MasterTheme\Patterns\BlockPattern;
 use P4\MasterTheme\View\View;
 use P4\MasterTheme\Blocks\BaseBlock;
@@ -158,20 +157,6 @@ final class Loader
      */
     private function load_block_services(): void
     {
-        if (!Planet4Blocks::is_active()) {
-            return;
-        }
-
-        if (!defined('P4_MASTER_THEME_LANGUAGES')) {
-            define(
-                'P4_MASTER_THEME_LANGUAGES',
-                [
-                    'en_US' => 'English',
-                    'el_GR' => 'Ελληνικά',
-                ]
-            );
-        }
-
         $services = [];
         $services[] = Controllers\BlocksReportController::class;
         $services[] = Controllers\BlocksUsageController::class;
@@ -199,10 +184,6 @@ final class Loader
      */
     public static function add_blocks(): void
     {
-        if (!Planet4Blocks::is_active()) {
-            return;
-        }
-
         new MasterBlocks();//NOSONAR
         new Blocks\Accordion();//NOSONAR
         new Blocks\CarouselHeader();//NOSONAR
