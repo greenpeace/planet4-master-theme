@@ -25,6 +25,7 @@ class Search
         add_filter('query_vars', [self::class, 'add_query_vars'], 10, 1);
         add_filter('pre_get_posts', [self::class, 'set_search_params'], 10, 1);
         add_filter('posts_where', [self::class, 'filter_mime_type'], 10, 2);
+        add_action('wp_enqueue_scripts', [self::class, 'enqueue_search_scripts']);
         ElasticSearch::hooks();
     }
 
@@ -231,5 +232,19 @@ class Search
         }
 
         return $types;
+    }
+
+    public static function enqueue_search_scripts(): void
+    {
+        if (!is_search()) {
+            return;
+        }
+        wp_enqueue_script(
+            'p4-search',
+            get_template_directory_uri() . '/assets/build/search.js',
+            ['wp-element'],
+            '1.0',
+            true
+        );
     }
 }

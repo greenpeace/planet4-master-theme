@@ -17,7 +17,6 @@ class SearchPage
     public const DEFAULT_CACHE_TTL = 600;
 
     public const PAGE_TEMPLATES = ['search.twig', 'index.twig'];
-    public const RESULT_TEMPLATES = ['tease-search.twig'];
     public const DUMMY_THUMBNAIL = '/images/dummy-thumbnail.png';
 
     public WP_Query $query;
@@ -290,28 +289,6 @@ class SearchPage
             }
             return $carry;
         }, []);
-    }
-
-    /**
-     * Render only results, in HTML list
-     * Used for "Load more" ajax requests
-     */
-    public function render_partial(): void
-    {
-        $paged_context = $this->context;
-        $paged_context['dummy_thumbnail'] = get_template_directory_uri() . self::DUMMY_THUMBNAIL;
-
-        foreach ($this->context['paged_posts'] as $index => $post) {
-            $paged_context['post'] = $post;
-            $paged_context['first_of_the_page'] = 0 === $index % self::POSTS_PER_LOAD;
-
-            Timber::render(
-                self::RESULT_TEMPLATES,
-                $paged_context,
-                self::DEFAULT_CACHE_TTL,
-                Loader::CACHE_OBJECT
-            );
-        }
     }
 
     /**
