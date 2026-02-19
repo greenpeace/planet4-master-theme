@@ -1,5 +1,7 @@
 #featured-posts {
   background-color: var(--beige-100);
+  margin-inline-start: calc(-50vw + 50%);
+  width: 100vw;
 
   .container {
     padding-top: $sp-4;

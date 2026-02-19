@@ -2,6 +2,9 @@
 
 {% block content %}
     <main class="page-content container {% if hide_page_title or not header_title %}no-page-title{% endif %}" id="content">
+        {% if not post.password_required %}
+            {% include 'blocks/header.twig' %}
+        {% endif %}
         {{ post.content|raw }}
     </main>
     {{ fn('do_blocks', '<!-- wp:p4/bottom-page-navigation-block /-->')|raw }}
