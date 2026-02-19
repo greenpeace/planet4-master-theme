@@ -2,7 +2,6 @@ import 'bootstrap';
 
 import {setupCookies} from './cookies';
 import {setupHeader} from './header';
-import {setupPDFIcon} from './pdf_icon';
 import {setupExternalLinks} from './external_links';
 import {setupClickableActionsListCards} from './actions_list_clickable_cards';
 import {removeNoPostText} from './query-no-posts';
@@ -18,7 +17,6 @@ requireAll(require.context('../images/icons/', true, /\.svg$/));
 document.addEventListener('DOMContentLoaded', () => {
   setupCookies();
   setupHeader();
-  setupPDFIcon();
   setupExternalLinks();
   removeNoPostText();
   removeRelatedPostsSection();
