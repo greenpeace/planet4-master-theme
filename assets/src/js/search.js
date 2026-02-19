@@ -1,11 +1,10 @@
-/* global localizations */
+const {__} = wp.i18n;
 
 const showHiddenRow = row => {
   if (!row) {
     return;
   }
   row.classList.remove('row-hidden');
-  row.style.display = 'block';
 };
 
 const isModalSearch = () => {
@@ -92,7 +91,8 @@ export const setupSearch = () => {
 
   // Add click event for load more button in blocks.
   const navSearchInput = document.getElementById('search_input');
-  const loadMoreButton = document.querySelector('.btn-load-more-click-scroll');
+  const loadMoreButton = document.querySelector('.more-btn');
+  const announce = document.getElementById('announce');
   if (loadMoreButton) {
     loadMoreButton.onclick = () => {
       const {total_posts, posts_per_load, current_page} = loadMoreButton.dataset;
@@ -117,51 +117,22 @@ export const setupSearch = () => {
           const hiddenRow = document.querySelector('.row-hidden:last-child');
           showHiddenRow(hiddenRow);
 
+          // Indicate to screen reader users that more results have appeared.
+          if (announce) {
+            const message = document.createElement('p');
+            message.textContent = __('More results loaded', 'planet4-master-theme');
+            announce.appendChild(message);
+          }
+
           if (posts_per_load * nextPage > total_posts) {
             loadMoreButton.style.display = 'none';
           }
+
+          // Focus on newly loaded results for tab users.
+          hiddenRow.querySelector('.search-result-item-headline').focus();
         }).catch(error => {
           console.log(error); //eslint-disable-line no-console
         });
     };
   }
-
-  // Reveal more results just by scrolling down the first 'show_scroll_times' times.
-  let loadMoreCount = 0;
-  let loadedMore = false;
-  window.onscroll = () => {
-    if (!loadMoreButton) {
-      return;
-    }
-
-    const elementTop = loadMoreButton.offsetTop;
-    const elementHeight = loadMoreButton.clientHeight;
-    const windowHeight = window.innerHeight;
-    const windowScroll = window.scrollY;
-    const loadEarlierOffset = 250;
-
-    const {posts_per_load, total_posts} = loadMoreButton.dataset;
-
-    if (loadMoreCount < localizations.show_scroll_times) {
-      // If next page has not loaded then load next page as soon as scrolling
-      // reaches 'loadEarlierOffset' pixels before the Load more button.
-      if (!loadedMore &&
-        windowScroll > (elementTop + elementHeight - windowHeight - loadEarlierOffset) &&
-        (loadMoreCount + 1) * posts_per_load < total_posts) {
-        loadMoreCount += 1;
-        loadMoreButton.click();
-        loadedMore = true;
-
-        // Add a throttle to avoid multiple scroll events from firing together.
-        setTimeout(() => {
-          loadedMore = false;
-        }, 500);
-      }
-      if (windowScroll > (elementTop + elementHeight - windowHeight)) {
-        const hiddenRows = [...document.querySelectorAll('.row-hidden')];
-        hiddenRows.forEach(showHiddenRow);
-      }
-    }
-    return false;
-  };
 };

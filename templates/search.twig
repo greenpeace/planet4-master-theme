@@ -154,7 +154,7 @@
                             {% if ( load_more and found_posts > paged_posts|length ) %}
                                 <div class="col-lg-12 mb-5 load-more-button-div">
                                     <button
-                                        class="btn btn-secondary more-btn btn-load-more-click-scroll"
+                                        class="btn btn-secondary more-btn"
                                         data-current_page="{{ current_page }}"
                                         data-total_posts="{{ found_posts }}"
                                         data-posts_per_load="{{ load_more.posts_per_load }}"
@@ -165,6 +165,7 @@
                                         </button>
                                 </div>
                             {% endif %}
+                            <div class="visually-hidden" id="announce" aria-live="polite"></div>
                         </div>
                     </div>
                 </section>
