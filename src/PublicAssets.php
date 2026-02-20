@@ -2,6 +2,7 @@
 
 namespace P4\MasterTheme;
 
+use WP_Block_Processor;
 use P4\MasterTheme\Search\SearchPage;
 
 /**
@@ -46,41 +47,34 @@ final class PublicAssets
         // It is a traditional page, post. Not an archive, category, etc.
         if (is_singular()) {
             $post = get_post();
-            $blocks = parse_blocks($post->post_content ?? '');
             $includes_youtube = false;
 
-            $iterate_blocks = function (array $blocks) use (&$iterate_blocks, &$includes_youtube): void {
-                foreach ($blocks as $block) {
-                    $name = $block['blockName'] ?? '';
-                    $attrs = $block['attrs'] ?? [];
+            $processor = new WP_Block_Processor($post->post_content);
 
-                    // core/embed with providerNameSlug attribute
+            while ($processor->next_block()) {
+                if ($processor->is_block_type('embed')) {
+                    $attrs = $processor->extract_full_block_and_advance()['attrs'];
+
                     if (
-                        $name === 'core/embed' && ! empty($attrs['providerNameSlug'])
-                        && in_array(strtolower($attrs['providerNameSlug']), ['youtube'], true)
+                        !empty($attrs['providerNameSlug']) &&
+                        in_array(strtolower($attrs['providerNameSlug']), ['youtube'], true)
                     ) {
                         $includes_youtube = true;
-                        return;
-                    }
-
-                    // Only when youtube embed is inside a block
-                    if ($name === 'core-embed/youtube' || $name === 'embed') {
-                        $includes_youtube = true;
-                        return;
-                    }
-
-                    if (empty($block['innerBlocks'])) {
-                        continue;
-                    }
-
-                    $iterate_blocks($block['innerBlocks']);
-                    if ($includes_youtube) {
-                        return;
+                        break;
                     }
                 }
-            };
+                if (!$processor->is_block_type('html')) {
+                    continue;
+                }
 
-            $iterate_blocks($blocks);
+                $html = $processor->extract_full_block_and_advance()['innerHTML'];
+                $html = htmlspecialchars($html, ENT_QUOTES, 'UTF-8');
+
+                if (!empty($html) && str_contains($html, 'youtube')) {
+                    $includes_youtube = true;
+                    break;
+                }
+            }
 
             if ($includes_youtube) {
                 wp_enqueue_script(
