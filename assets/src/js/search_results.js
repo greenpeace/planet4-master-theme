@@ -249,7 +249,7 @@ function SearchResult({posts, loading}) {
 }
 
 // Render the search form:
-function SearchForm({setSearchTerm, siteUrl, onSubmit, searchTerm}) {
+function SearchForm({setSearchTerm, siteUrl, searchTerm}) {
   return (
     <form
       id="search_form_inner"
@@ -257,7 +257,10 @@ function SearchForm({setSearchTerm, siteUrl, onSubmit, searchTerm}) {
       role="search"
       className="form d-md-flex"
       action={siteUrl}
-      onSubmit={onSubmit}
+      onSubmit={e => {
+        e.preventDefault();
+        setSearchTerm(e.currentTarget.elements.s.value);
+      }}
     >
       <div className="search-input-container w-100">
         <input
@@ -265,8 +268,7 @@ function SearchForm({setSearchTerm, siteUrl, onSubmit, searchTerm}) {
           id="search-page-input"
           className="form-control"
           placeholder="Search by name, keyword, or topic"
-          value={searchTerm}
-          onChange={e => setSearchTerm(e.target.value)}
+          defaultValue={searchTerm}
           name="s"
           aria-label="Search"
         />
@@ -274,7 +276,6 @@ function SearchForm({setSearchTerm, siteUrl, onSubmit, searchTerm}) {
           className="clear-search"
           aria-label="Clear search"
           type="button"
-          onClick={() => setSearchTerm('')}
         >
           <span className="visually-hidden">Clear search</span>
         </button>
@@ -368,7 +369,7 @@ function SearchController({restUrl}) {
       const data = await fetchJson(API_SEARCH.posts, params);
 
       setPosts(prev => (newSearch ? data.posts : [...prev, ...data.posts]));
-      setSearchTerm(term);
+      // setSearchTerm(term);
       setCurrentPage(data.current_page);
       setFoundPosts(data.found_posts);
       setPostsPerLoad(data.posts_per_load || 5);
@@ -407,12 +408,6 @@ function SearchController({restUrl}) {
 
     fetchResults(currentPage + 1);
   }, [loading, currentPage, fetchResults]);
-
-  // Fetch results when the Search button is clicked:
-  const onSubmit = useCallback(e => {
-    e.preventDefault();
-    setAppliedFilters([]);
-  });
 
   /* ---------------------------
    Main Controller: HOOKS
@@ -492,10 +487,9 @@ function SearchController({restUrl}) {
         searchTerm={searchTerm}
         setSearchTerm={setSearchTerm}
         siteUrl={siteUrl}
-        onSubmit={onSubmit}
       />
     );
-  }, [onSubmit, searchTerm]);
+  }, [searchTerm]);
 
   // Create external roots for the components:
   useEffect(() => {
@@ -506,15 +500,6 @@ function SearchController({restUrl}) {
         rootsRef.current[key] = createRoot(element);
       }
     });
-  }, []);
-
-  // Get the search term from the URL parameters:
-  useEffect(() => {
-    const queryString = window.location.search;
-    const params = new URLSearchParams(queryString);
-    const searchTermParam = params.get('s');
-
-    setSearchTerm(searchTermParam);
   }, []);
 
   // Fetch results list on page load:
@@ -532,7 +517,7 @@ function SearchController({restUrl}) {
   useEffect(() => {
     fetchResults(1, null, null, true);
     fetchFilters();
-  }, [appliedFilters]);
+  }, [appliedFilters, searchTerm]);
 
   return null;
 }
