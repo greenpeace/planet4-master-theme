@@ -55,11 +55,18 @@ export const CarouselControls = ({
           }
         </ol>
         {disableControls && (
-          <button
-            aria-label={autoplay ? __('Stop Slider', 'planet4-master-theme') : __('Play Slider', 'planet4-master-theme')}
-            className={`carousel-autoplay-control ${autoplay ? 'stop' : 'play'}`}
-            onClick={handleAutoplay}
-          />
+          <>
+            <button
+              aria-label={__('Autoplay', 'planet4-master-theme')}
+              className={`carousel-autoplay-control ${autoplay ? 'stop' : 'play'}`}
+              onClick={handleAutoplay}
+              aria-pressed={autoplay ? 'true' : 'false'}
+            />
+            {/* This is for screen readers to announce the state of the autoplay */}
+            <div className="visually-hidden" aria-live="polite">
+              {autoplay ? __('Slide resumed', 'planet4-master-theme') : __('Slide paused', 'planet4-master-theme')}
+            </div>
+          </>
         )}
       </div>
     </div>
