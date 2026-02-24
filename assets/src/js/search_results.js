@@ -84,7 +84,7 @@ function FilterList({
   gaAction,
   getLabel,
   getAriaSubject,
-  onFilter,
+  setAppliedFilters,
   appliedFilters,
 }) {
   const list = Object.values(items);
@@ -105,6 +105,12 @@ function FilterList({
             `Filter results by ${getAriaSubject} ${label}, 1 result was found` :
             `Filter results by ${getAriaSubject} ${label}, ${count} results were found`;
 
+        const filter = {
+          name: `f[${filterNamespace}][${label}]`,
+          value: item.id,
+          label,
+        };
+
         return (
           <li key={label}>
             {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
@@ -118,8 +124,15 @@ function FilterList({
                 data-ga-action={gaAction}
                 data-ga-label={label}
                 aria-label={ariaLabel}
-                checked={appliedFilters.some(f => f.label === label)}
-                onChange={() => onFilter(filterNamespace, label, item.id)}
+                defaultChecked={appliedFilters.some(f => f.label === label)}
+                onChange={() =>
+                  setAppliedFilters(prev => {
+                    const exists = prev.find(element => element.value === item.id);
+                    if (exists) {
+                      return prev.filter(element => element.value !== item.id);
+                    }
+                    return [...prev, filter];
+                  })}
               />
               <span className="custom-control-description">
                 {label} {count > 0 && `(${count})`}
@@ -280,7 +293,6 @@ function SearchForm({setSearchTerm, siteUrl, searchTerm}) {
           <span className="visually-hidden">Clear search</span>
         </button>
       </div>
-
       <button
         type="submit"
         className="btn btn-primary search-btn btn-block d-flex align-items-center align-content-center mt-2 mt-md-0"
@@ -384,24 +396,6 @@ function SearchController({restUrl}) {
     [appliedFilters, fetchJson, searchTerm]
   );
 
-  // Fetch results when filters are selected:
-  const onFilter = (filterNamespace, label, id) => {
-    const filter = {
-      name: `f[${filterNamespace}][${label}]`,
-      value: id,
-      label,
-    };
-    setAppliedFilters(prev => {
-      const exists = prev.find(item => item.value === filter.value);
-      if (exists) {
-        // Remove the filter
-        return prev.filter(item => item.value !== filter.value);
-      }
-      // Add the filter
-      return [...prev, filter];
-    });
-  };
-
   // Fetch more results when the Load More button is clicked:
   const onLoadMore = useCallback(() => {
     if (loading) {return;}
@@ -437,12 +431,12 @@ function SearchController({restUrl}) {
           getKey={filter.getKey}
           getLabel={filter.getLabel}
           getAriaSubject={filter.ariaSubject}
-          onFilter={onFilter}
           appliedFilters={appliedFilters}
+          setAppliedFilters={setAppliedFilters}
         />
       );
     });
-  }, [loading, categories, contentTypes, postTypes, actionTypes]);
+  }, [loading, categories, contentTypes, postTypes, actionTypes, appliedFilters]);
 
   // Render the load more button component:
   useEffect(() => {
@@ -461,7 +455,7 @@ function SearchController({restUrl}) {
     rootsRef.current.searchTitle?.render(
       <SearchTitle foundPosts={foundPosts} loading={loading} />
     );
-  }, [foundPosts, searchTerm]);
+  }, [foundPosts]);
 
   // Render the search results component:
   useEffect(() => {
