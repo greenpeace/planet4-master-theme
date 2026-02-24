@@ -7,6 +7,7 @@ use WP_REST_Request;
 use WP_REST_Server;
 use P4\MasterTheme\Search\Search as SearchClass;
 use P4\MasterTheme\Search\SearchPage;
+use P4\MasterTheme\Search\Filters\ContentTypes;
 
 class Search
 {
@@ -85,7 +86,6 @@ class Search
                 ],
             ],
         );
-
         register_rest_route(
             'planet4/v1',
             'search-taxonomies',
@@ -97,6 +97,7 @@ class Search
 
                         $args = $request->get_params();
 
+                        // Force full query with IDs only
                         $args['posts_per_page'] = -1;
                         $args['paged'] = 1;
                         $args['fields'] = 'ids';
@@ -107,22 +108,19 @@ class Search
 
                         SearchClass::validate_filters($query);
 
-                        $aggregate = static function (array $post_ids, string $taxonomy): array {
-
+                        $aggregate_terms = static function (array $post_ids, string $taxonomy): array {
                             $terms = [];
 
                             foreach ($post_ids as $post_id) {
                                 $post_terms = get_the_terms($post_id, $taxonomy);
-                                if (!$post_terms) {
-                                    continue;
-                                }
+                                if (!$post_terms) continue;
 
                                 foreach ($post_terms as $term) {
                                     if (!isset($terms[$term->term_id])) {
                                         $terms[$term->term_id] = [
-                                            'id' => $term->term_id,
-                                            'slug' => $term->slug,
-                                            'name' => $term->name,
+                                            'id'    => $term->term_id,
+                                            'slug'  => $term->slug,
+                                            'name'  => $term->name,
                                             'count' => 0,
                                         ];
                                     }
@@ -133,22 +131,31 @@ class Search
                             return array_values($terms);
                         };
 
-                        // Post types
+                        // Map post type slugs to numeric IDs
+                        $ct_to_id = ContentTypes::get_ids_map();
+
                         $post_types = [];
                         foreach ($query->posts as $post_id) {
-                            $type = get_post_type($post_id);
-                            $post_types[$type] = ($post_types[$type] ?? 0) + 1;
+                            $slug = get_post_type($post_id);
+                            $id   = $ct_to_id[$slug] ?? 0;
+
+                            if (!isset($post_types[$id])) {
+                                $post_types[$id] = [
+                                    'id'    => $id,
+                                    'slug'  => $slug,
+                                    'count' => 0,
+                                ];
+                            }
+
+                            $post_types[$id]['count']++;
                         }
+                        $post_types = array_values($post_types);
 
                         return [
-                            'post_types' => array_map(
-                                fn($slug, $count) => ['slug' => $slug, 'count' => $count],
-                                array_keys($post_types),
-                                $post_types
-                            ),
-                            'categories' => $aggregate($query->posts, 'category'),
-                            'p4_page_type' => $aggregate($query->posts, 'p4-page-type'),
-                            'action_type' => $aggregate($query->posts, 'action-type'),
+                            'post_types'    => $post_types,
+                            'categories'    => $aggregate_terms($query->posts, 'category'),
+                            'p4_page_type'  => $aggregate_terms($query->posts, 'p4-page-type'),
+                            'action_type'   => $aggregate_terms($query->posts, 'action-type'),
                         ];
                     },
                 ],
