@@ -50,6 +50,18 @@ class HttpHeaders
             $directives[0] = $directives[0] . ' blob: *.visualwebsiteoptimizer.com app.vwo.com useruploads.vwo.io';
         }
 
+        // Add CSP exceptions from Social settings.
+        $csp_exceptions = planet4_get_option('csp_headers_exceptions') ?? '';
+        if ($csp_exceptions) {
+            $exceptions = array_filter(
+                array_map('trim', explode("\n", $csp_exceptions)),
+                fn($line) => str_starts_with($line, 'https://')
+            );
+            if ($exceptions) {
+                $directives[0] .= ' ' . implode(' ', $exceptions);
+            }
+        }
+
         $csp_header = implode('; ', $directives);
         $csp_header = preg_replace("/\r|\n/", '', $csp_header);
 
