@@ -113,14 +113,16 @@ class Search
 
                             foreach ($post_ids as $post_id) {
                                 $post_terms = get_the_terms($post_id, $taxonomy);
-                                if (!$post_terms) continue;
+                                if (!$post_terms) {
+                                    continue;
+                                }
 
                                 foreach ($post_terms as $term) {
                                     if (!isset($terms[$term->term_id])) {
                                         $terms[$term->term_id] = [
-                                            'id'    => $term->term_id,
-                                            'slug'  => $term->slug,
-                                            'name'  => $term->name,
+                                            'id' => $term->term_id,
+                                            'slug' => $term->slug,
+                                            'name' => $term->name,
                                             'count' => 0,
                                         ];
                                     }
@@ -137,12 +139,12 @@ class Search
                         $post_types = [];
                         foreach ($query->posts as $post_id) {
                             $slug = get_post_type($post_id);
-                            $id   = $ct_to_id[$slug] ?? 0;
+                            $id = $ct_to_id[$slug] ?? 0;
 
                             if (!isset($post_types[$id])) {
                                 $post_types[$id] = [
-                                    'id'    => $id,
-                                    'slug'  => $slug,
+                                    'id' => $id,
+                                    'slug' => $slug,
                                     'count' => 0,
                                 ];
                             }
@@ -152,10 +154,10 @@ class Search
                         $post_types = array_values($post_types);
 
                         return [
-                            'post_types'    => $post_types,
-                            'categories'    => $aggregate_terms($query->posts, 'category'),
-                            'p4_page_type'  => $aggregate_terms($query->posts, 'p4-page-type'),
-                            'action_type'   => $aggregate_terms($query->posts, 'action-type'),
+                            'post_types' => $post_types,
+                            'categories' => $aggregate_terms($query->posts, 'category'),
+                            'p4_page_type' => $aggregate_terms($query->posts, 'p4-page-type'),
+                            'action_type' => $aggregate_terms($query->posts, 'action-type'),
                         ];
                     },
                 ],
