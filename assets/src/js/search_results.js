@@ -76,7 +76,7 @@ const FILTER_ROOTS = [
    Components
 ---------------------------- */
 
-// Render the filters:
+// Filters List component:
 function FilterList({
   loading,
   items = {},
@@ -145,7 +145,7 @@ function FilterList({
   );
 }
 
-// Render the load more button:
+// Load More button component:
 function LoadMoreButton({foundPosts, currentPage, postsPerLoad, onLoadMore}) {
   const remainingPosts = foundPosts - (currentPage * postsPerLoad);
   const valueToShow = remainingPosts < postsPerLoad ? remainingPosts : postsPerLoad;
@@ -163,8 +163,8 @@ function LoadMoreButton({foundPosts, currentPage, postsPerLoad, onLoadMore}) {
   );
 }
 
-// Render the sort-by filter:
-function SortFilter({foundPosts}) {
+// Sort-by filter component:
+function SortFilter({foundPosts, sortMethod, setSortMethod}) {
   if (foundPosts === 0) {return;}
 
   return (
@@ -176,7 +176,8 @@ function SortFilter({foundPosts}) {
         name="select_order"
         data-ga-category="Search Page"
         data-ga-action="Sort By Filter"
-        data-ga-label=""
+        value={sortMethod}
+        onChange={e => setSortMethod(e.target.value)}
       >
         <option value="_score">Most relevant</option>
         <option value="post_date">Newest</option>
@@ -186,7 +187,7 @@ function SortFilter({foundPosts}) {
   );
 }
 
-// Render the search title section:
+// Search title component:
 function SearchTitle({foundPosts, loading}) {
   const params = new URLSearchParams(window.location.search);
   const searchTermParam = params.get('s') || '';
@@ -216,7 +217,7 @@ function SearchTitle({foundPosts, loading}) {
   );
 }
 
-// Render the search results:
+// Search results component:
 function SearchResult({posts, loading}) {
   if (loading) {
     return (
@@ -261,7 +262,7 @@ function SearchResult({posts, loading}) {
   );
 }
 
-// Render the search form:
+// Search form component:
 function SearchForm({setSearchTerm, siteUrl, searchTerm}) {
   return (
     <form
@@ -324,6 +325,7 @@ function SearchController({restUrl}) {
   const [actionTypes, setActionTypes] = useState([]);
   const [contentTypes, setContentTypes] = useState([]);
   const [appliedFilters, setAppliedFilters] = useState([]);
+  const [sortMethod, setSortMethod] = useState('_score');
 
   /* ---------------------------
    Main Controller: FUNCTIONS
@@ -371,8 +373,13 @@ function SearchController({restUrl}) {
       const term = explicitSearchTerm ?? searchTerm;
       setLoading(true);
 
-      const params = {paged: page};
-      if (term) {params.s = term;}
+      const params = {
+        paged: page,
+        orderby: sortMethod,
+      };
+      if (term) {
+        params.s = term;
+      }
 
       appliedFilters.forEach(filter => {
         params[filter.name] = filter.value;
@@ -393,7 +400,7 @@ function SearchController({restUrl}) {
         callback(data);
       }
     },
-    [appliedFilters, fetchJson, searchTerm]
+    [appliedFilters, fetchJson, searchTerm, sortMethod]
   );
 
   // Fetch more results when the Load More button is clicked:
@@ -467,9 +474,13 @@ function SearchController({restUrl}) {
   // Render the sort filter component:
   useEffect(() => {
     rootsRef.current.sortFilter?.render(
-      <SortFilter foundPosts={foundPosts}/>
+      <SortFilter
+        foundPosts={foundPosts}
+        sortMethod={sortMethod}
+        setSortMethod={setSortMethod}
+      />
     );
-  }, [foundPosts]);
+  }, [foundPosts, sortMethod]);
 
   // Render the search form component:
   useEffect(() => {
@@ -507,11 +518,12 @@ function SearchController({restUrl}) {
     fetchFilters(searchTermParam);
   }, []);
 
-  // Fetch results and update the active filters when filters are modified:
+  // Fetch results and update the active filters when
+  // filters, search terms, or sorting method are modified:
   useEffect(() => {
     fetchResults(1, null, null, true);
     fetchFilters();
-  }, [appliedFilters, searchTerm]);
+  }, [appliedFilters, searchTerm, sortMethod]);
 
   return null;
 }

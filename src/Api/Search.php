@@ -27,9 +27,21 @@ class Search
                     'permission_callback' => static fn() => true,
                     'methods' => WP_REST_Server::READABLE,
                     'callback' => static function (WP_REST_Request $request) {
+                        $params = $request->get_params();
+
+                        $order_map = [
+                            '_score' => ['orderby' => 'relevance', 'order' => 'DESC'],
+                            'post_date' => ['orderby' => 'date', 'order' => 'DESC'],
+                            'post_date_asc' => ['orderby' => 'date', 'order' => 'ASC'],
+                        ];
+
+                        if (isset($params['orderby'], $order_map[$params['orderby']])) {
+                            $params = array_merge($params, $order_map[$params['orderby']]);
+                        }
+
                         $query = new WP_Query();
                         $query->set('ep_integrate', true);
-                        $query->query($request->get_params());
+                        $query->query($params);
 
                         SearchClass::validate_filters($query);
 
