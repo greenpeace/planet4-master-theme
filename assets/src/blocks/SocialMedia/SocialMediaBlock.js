@@ -5,6 +5,7 @@ import {SocialMediaFrontend} from './SocialMediaFrontend.js';
 
 const {registerBlockType, getBlockTypes} = wp.blocks;
 const {__} = wp.i18n;
+const {useBlockProps} = wp.blockEditor;
 
 const BLOCK_NAME = 'planet4-blocks/social-media';
 
@@ -50,7 +51,11 @@ export const registerSocialMediaBlock = () => {
         default: '',
       },
     },
-    edit: SocialMediaEditor,
+    edit: props => (
+      <div {...useBlockProps()}>
+        <SocialMediaEditor {...props} />
+      </div>
+    ),
     save: ({attributes}) => <SocialMediaFrontend {...attributes} />,
     deprecated: [
       socialMediaV1,

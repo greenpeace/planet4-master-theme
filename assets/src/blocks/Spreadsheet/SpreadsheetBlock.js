@@ -25,6 +25,7 @@ export const registerSpreadsheetBlock = () => {
   const {registerBlockType} = wp.blocks;
   const {RawHTML} = wp.element;
   const {__} = wp.i18n;
+  const {useBlockProps} = wp.blockEditor;
 
   registerBlockType(BLOCK_NAME, {
     title: 'Spreadsheet',
@@ -32,7 +33,11 @@ export const registerSpreadsheetBlock = () => {
     icon: 'editor-table',
     category: 'planet4-blocks',
     attributes,
-    edit: SpreadsheetEditor,
+    edit: props => (
+      <div {...useBlockProps()}>
+        <SpreadsheetEditor {...props} />
+      </div>
+    ),
     save: props => {
       const markup = renderToString(<div
         data-hydrate={BLOCK_NAME}

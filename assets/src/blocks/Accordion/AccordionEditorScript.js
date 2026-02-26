@@ -1,7 +1,9 @@
 import {AccordionEditor} from './AccordionEditor';
 import {AccordionFrontend} from './AccordionFrontend';
+
 const {registerBlockType, registerBlockStyle} = wp.blocks;
 const {__} = wp.i18n;
+const {useBlockProps} = wp.blockEditor;
 
 const BLOCK_NAME = 'planet4-blocks/accordion';
 
@@ -50,7 +52,11 @@ registerBlockType(BLOCK_NAME, {
     html: false, // Disable "Edit as HTMl" block option.
   },
   attributes,
-  edit: AccordionEditor,
+  edit: props => (
+    <div {...useBlockProps()}>
+      <AccordionEditor {...props} />
+    </div>
+  ),
   save: ({attributes: saveAttributes}) => {
     if (!saveAttributes) {
       return null;

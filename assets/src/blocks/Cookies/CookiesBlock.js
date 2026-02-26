@@ -3,6 +3,7 @@ import {CookiesEditor} from './CookiesEditor.js';
 export const registerCookiesBlock = () => {
   const {registerBlockType} = wp.blocks;
   const {__} = wp.i18n;
+  const {useBlockProps} = wp.blockEditor;
 
   registerBlockType('planet4-blocks/cookies', {
     title: 'Cookies',
@@ -40,7 +41,11 @@ export const registerCookiesBlock = () => {
         type: 'string',
       },
     },
-    edit: CookiesEditor,
+    edit: props => (
+      <div {...useBlockProps()}>
+        <CookiesEditor {...props} />
+      </div>
+    ),
     save: () => {
       return null;
     },

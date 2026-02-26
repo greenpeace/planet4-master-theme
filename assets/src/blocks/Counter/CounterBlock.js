@@ -40,6 +40,7 @@ export const registerCounterBlock = () => {
   const {registerBlockType, unregisterBlockStyle, registerBlockStyle} = wp.blocks;
   const {RawHTML} = wp.element;
   const {__} = wp.i18n;
+  const {useBlockProps} = wp.blockEditor;
 
   registerBlockType(BLOCK_NAME, {
     title: 'Counter',
@@ -51,7 +52,11 @@ export const registerCounterBlock = () => {
       html: false, // Disable "Edit as HTMl" block option.
     },
     // eslint-disable-next-line no-shadow
-    edit: CounterEditor,
+    edit: props => (
+      <div {...useBlockProps()}>
+        <CounterEditor {...props} />
+      </div>
+    ),
     save: props => {
       const markup = renderToString(
         <div

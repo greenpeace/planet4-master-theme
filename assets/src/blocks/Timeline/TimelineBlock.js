@@ -40,6 +40,7 @@ export const registerTimelineBlock = () => {
   const {registerBlockType, getBlockTypes} = wp.blocks;
   const {__} = wp.i18n;
   const {RawHTML} = wp.element;
+  const {useBlockProps} = wp.blockEditor;
 
   const blockAlreadyExists = getBlockTypes().find(block => block.name === BLOCK_NAME);
 
@@ -56,7 +57,11 @@ export const registerTimelineBlock = () => {
       html: false, // Disable "Edit as HTMl" block option.
     },
     attributes,
-    edit: isNewTimelineEnabled ? NewTimelineEditor : TimelineEditor,
+    edit: props => (
+      <div {...useBlockProps()}>
+        {isNewTimelineEnabled ? <NewTimelineEditor {...props} /> : <TimelineEditor {...props} />}
+      </div>
+    ),
     save: props => {
       const markup = renderToString(
         <div

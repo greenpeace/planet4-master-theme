@@ -7,6 +7,7 @@ import {GalleryFrontend} from './GalleryFrontend';
 const {__} = wp.i18n;
 const {registerBlockType} = wp.blocks;
 const {RawHTML} = wp.element;
+const {useBlockProps} = wp.blockEditor;
 
 const BLOCK_NAME = 'planet4-blocks/gallery';
 
@@ -52,7 +53,11 @@ export const registerGalleryBlock = () => {
     supports: {
       html: false, // Disable "Edit as HTMl" block option.
     },
-    edit: GalleryEditor,
+    edit: props => (
+      <div {...useBlockProps()}>
+        <GalleryEditor {...props} />
+      </div>
+    ),
     save: props => {
       const {attributes: saveAttributes} = props;
       const markup = renderToString(
