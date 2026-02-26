@@ -416,13 +416,12 @@ $medium-image-height: 600px;
         width: 100%;
         color: var(--white);
         margin-bottom: 32px;
-        line-height: 1.2;
+        line-height: 1.3;
         font-size: $font-size-xxl;
       }
 
       @include x-large-and-up {
         font-size: $font-size-xxxl;
-        line-height: 1.1;
         max-width: 100%;
         width: 100%;
       }
