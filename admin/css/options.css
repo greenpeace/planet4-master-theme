@@ -76,13 +76,3 @@
     font-weight: bold;
   }
 }
-
-/* Temporarily hide ElasticPress version mismatch notice */
-[data-ep-notice] {
-  display: none !important;
-}
-
-/* Temporarily hide notices in the admin area. */
-#admin_banner_about_automatic_media_detection {
-  display: none !important;
-}

@@ -1,0 +1,16 @@
+/* Hide plugin notices in the admin area.
+- Stateless
+- Automatic Media Detection
+- Gravity Forms
+- ElasticPress
+- GF plugins recommendation
+- WordPress upgrade */
+
+.stateless-admin-notice,
+#admin_banner_about_automatic_media_detection,
+#gf_dashboard_message,
+[data-ep-notice],
+.otgs-installer-notice-plugin-recommendation,
+.welcome-panel-content {
+  display: none;
+}
