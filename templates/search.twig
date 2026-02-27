@@ -5,52 +5,19 @@
     {% set collapsed = posts or (not has_aggregation) ? '' : 'collapsed' %}
     {% set show      = posts or (not has_aggregation)? 'show' : '' %}
     {% set expanded  = posts ? true : false %}
-    {% set search_label = __( 'Search by name, keyword, or topic', 'planet4-master-theme' ) %}
 
     <div class="search-block">
         <div class="container">
             <div id="content" class="without-search-result row clearfix">
-                <div class="col-md-12">
-                    <h1 class="result-statement">{{ page_title|e('wp_kses_post')|raw }}</h1>
-                    {% if query_time %}
-                    <i> in {{ query_time }} ms</i>
-                    {% endif %}
-                    {% if ( not posts ) %}
-                        <p class="search-info">{{ exception ?? __( 'We\'re sorry we couldn\'t find any matches for your search term.', 'planet4-master-theme' ) }}</p>
-                        <ul class="search-help-info">
-                            <li>{{ __( 'Check for typos, and try your search again', 'planet4-master-theme' ) }}</li>
-                            <li>{{ __( 'Try searching for something else', 'planet4-master-theme' ) }}</li>
-                        </ul>
-                    {% endif %}
+                <div class="col-md-12" id="result-statement">
+                    {# Here we render SearchTitle component #}
                 </div>
                 <div class="col-md-12">
                     <a class="skip-link" href="#search-results">
                         {{ __( 'Skip to search results', 'planet4-master-theme' ) }}
                     </a>
-                    <div class="search-bar">
-                        <form id="search_form_inner" role="search" class="form d-md-flex" action="{{ data_nav_bar.home_url }}">
-                            <div class="search-input-container w-100">
-                                <input type="search" id="search-page-input" class="form-control" placeholder="{{ search_label }}" value="{{ search_query|e('wp_kses_post') }}" name="s" aria-label="Search">
-                                <input type="hidden" name="orderby" value="{{ selected_sort ?? default_sort }}" />
-                                <button
-                                    class="clear-search"
-                                    aria-label="{{ __( 'Clear search', 'planet4-master-theme' ) }}"
-                                    type="button"
-                                    onclick="document.getElementById('search-page-input').value=null;"
-                                >
-                                    <span class="visually-hidden">{{ __( 'Clear search', 'planet4-master-theme' ) }}</span>
-                                </button>
-                            </div>
-                            <button
-                                type="submit"
-                                class="btn btn-primary search-btn btn-block d-flex align-items-center align-content-center mt-2 mt-md-0"
-                                data-ga-category="Search Page"
-                                data-ga-action="Search Button"
-                                data-ga-label="n/a" >
-                                {{ 'search'|svgicon }}
-                                {{ __('Search', 'planet4-master-theme' ) }}
-                            </button>
-                        </form>
+                    <div id="search-bar" class="search-bar" data-site-url="{{ site.url }}">
+                        {# Here we render SearchForm component #}
                     </div>
                 </div>
             </div>
@@ -64,12 +31,14 @@
                             </button>
                         </div>
                         <div class="modal fade filter-modal" id="filtermodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-dialog modal-lg" role="document" style="left: 0; max-width: 50%; margin: 0;">
                                 <div class="modal-content">
                                     <div class="modal-body">
                                         <div class="row">
                                             <div class="col-9">
-                                                <h4 class="modal-title">{{ __( 'Refine your search', 'planet4-master-theme' ) }}</h4>
+                                                <h4 class="modal-title" style="font-size: 1rem;">
+                                                    {{ __( 'Refine your search', 'planet4-master-theme' ) }}
+                                                </h4>
                                             </div>
                                             <div class="col-3 text-end">
                                                 <button type="button" class="closebtn" data-bs-dismiss="modal">
@@ -87,35 +56,12 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="btnact">
-                                            <button type="button" class="btn btn-small btn-secondary" data-bs-dismiss="modal">{{ __( 'Cancel', 'planet4-master-theme' ) }}</button>
-                                            <button type="button" class="btn btn-primary btn-small applybtn" data-bs-dismiss="modal">{{ __( 'Apply filters', 'planet4-master-theme' ) }}</button>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div id="filter-sidebar-options" class="d-none d-lg-block">
                             <h4>{{ __( 'Refine your search', 'planet4-master-theme' ) }}</h4>
-                            {% if ( filters ) %}
-                                <div class="active-filter">
-                                    <h5>{{ __( 'Active filters', 'planet4-master-theme' ) }}</h5>
-                                    <div class="activefilter-list">
-                                        {% for filter_type in filters %}
-                                            {% for filter in filter_type %}
-                                                <button
-                                                    aria-label="{{__('Remove %s filter', 'planet4-master-theme')|format(filter.name)}}"
-                                                    class="activefilter-tag"
-                                                    data-id="{{ filter.id }}"
-                                                >
-                                                    {{ filter.name|e('wp_kses_post')|raw }} <i class="icon-cross">{{ 'times'|svgicon }}</i>
-                                                </button>
-                                            {% endfor %}
-                                        {% endfor %}
-                                        <button class="btn btn-secondary clearall">{{ __( 'Clear all', 'planet4-master-theme' ) }} <i class="icon-cross"></i></button>
-                                    </div>
-                                </div>
-                            {% endif %}
                             {% include 'search/categories.twig' with {'is_modal': false} %}
                             {% include 'search/post_types.twig' with {'is_modal': false} %}
                             {% include 'search/action_types.twig' with {'is_modal': false} %}
@@ -125,48 +71,20 @@
                 </aside>
                 <section class="col-lg-8">
                     <div class="result-area">
-                        <div class="sort-filter clearfix">
-                            <div class="select-container">
-                                <label for="select_order">{{ __('Sort by', 'planet4-master-theme' ) }}</label>
-                                <select
-                                        id="select_order"
-                                        class="form-select"
-                                        name="select_order"
-                                        data-ga-category="Search Page"
-                                        data-ga-action="Sort By Filter"
-                                        data-ga-label="{% if selected_sort == '_score' %}Most Relevant{% elseif selected_sort == 'post_date' %}Newest{% else %}Oldest{% endif %}">
-                                    {% for key, sort_option in sort_options %}
-                                        {% if key == selected_sort %}
-                                            <option value="{{ key }}" {{ not search_query and key == '_score' ? 'disabled' : 'selected' }}>{{ __( sort_option.name, 'planet4-master-theme' ) }}</option>
-                                        {% else %}
-                                            <option value="{{ key }}" {{ not search_query and key == '_score' ? 'disabled' : '' }}>{{ __( sort_option.name, 'planet4-master-theme' ) }}</option>
-                                        {% endif %}
-                                    {% endfor %}
-                                </select>
-                            </div>
+                        <div id="sort-filter" class="sort-filter clearfix">
+                            {# Here we render the results of the SortFilter component #}
                         </div>
-                        <div id="search-results" class="multiple-search-result">
-                            <ul class="list-unstyled">
-                                {% for post in paged_posts %}
-                                    {% include ['tease-search.twig', 'tease-'~post.post_type~'.twig', 'tease.twig'] %}
-                                {% endfor %}
+                        <div id="search-results-wrapper">
+                            <ul id="search-results" class="multiple-search-result">
+                                {# Here we render the results of the SearchController component #}
                             </ul>
-                            {% if ( load_more and found_posts > paged_posts|length ) %}
-                                <div class="col-lg-12 mb-5 load-more-button-div">
-                                    <button
-                                        class="btn btn-secondary more-btn"
-                                        data-current_page="{{ current_page }}"
-                                        data-total_posts="{{ found_posts }}"
-                                        data-posts_per_load="{{ load_more.posts_per_load }}"
-                                        data-ga-category="Search Page"
-                                        data-ga-action="Load More Button"
-                                        data-ga-label="n/a">
-                                            {{ load_more.button_text }}
-                                        </button>
-                                </div>
-                            {% endif %}
                             <div class="visually-hidden" id="announce" aria-live="polite"></div>
                         </div>
+                        <div class="col-lg-12 mb-5 load-more-button-div">
+                            {# Here we render the LoadMoreButton component #}
+                        </div>
+                        <div id="search-controller" data-rest-url="{{ fn('get_rest_url') }}"
+                        ></div>
                     </div>
                 </section>
             </div>

@@ -8,30 +8,7 @@
     </a>
     <div id="{{ container_id }}" class="collapse {{ show }}" role="tabpanel">
         <ul class="list-unstyled">
-            {% for id, action_type in action_types %}
-                {% if (action_type.results > 0) or (not has_aggregation) %}
-                {% if (action_type.results == 1) %}
-                    {% set aria_label = __('Filter results by action type %s, 1 result was found', 'planet4-master-theme')|format(action_type.name) %}
-                {% else %}
-                    {% set aria_label = __('Filter results by action type %s, %d results were found', 'planet4-master-theme')|format(action_type.name, action_type.results) %}
-                {% endif %}
-                <li>
-                    <label class="custom-control">
-                        <input
-                            type="checkbox"
-                            name="f[atype][{{ action_type.name }}]"
-                            value="{{ id }}"
-                            class="p4-custom-control-input {{ input_class }}"
-                            data-ga-category="Search Page"
-                            data-ga-action="Content Filter"
-                            data-ga-label="{{ action_type.name|e('wp_kses_post')|raw }}"
-                            aria-label="{{ aria_label }}"
-                            {{ action_type.checked }} />
-                        <span class="custom-control-description">{{ action_type.name }} {{ action_type.results > 0 ? '('~action_type.results~')' : '' }}</span>
-                    </label>
-                </li>
-                {% endif %}
-            {% endfor %}
+            {# Here we render the ActionTypesFilter component #}
         </ul>
     </div>
 </div>

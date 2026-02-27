@@ -25,12 +25,6 @@ document.addEventListener('DOMContentLoaded', () => {
   setupClickableActionsListCards();
   setupCountrySelector();
 
-  if(!!document.querySelector('body.search')) {
-    import('./search').then(({setupSearch}) => {
-      setupSearch();
-    });
-  }
-
   if(document.querySelectorAll('[class*="is-custom-layout-"]').length) {
     import('./query_loop_carousel').then(({setupQueryLoopCarousel}) => {
       setupQueryLoopCarousel();
