@@ -31,10 +31,6 @@
     {% endif %}
     {% include 'sidebar.twig' with data_nav_bar %}
 
-    {% if not post.password_required %}
-        {% include 'blocks/header.twig' %}
-    {% endif %}
-
     {% block content %}
         Sorry, no content
     {% endblock %}
