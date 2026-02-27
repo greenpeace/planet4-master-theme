@@ -24,6 +24,10 @@
         <li><a href="#footer">{{ __( 'Skip to Footer', 'planet4-master-theme' ) }}</a></li>
     </ul>
 
+    {% block cookies %}
+        {% include 'cookies.twig' %}
+    {% endblock %}
+
     {% if custom_styles.nav_type == 'minimal' %}
         {% include 'navigation-bar_min.twig' with data_nav_bar %}
     {% else %}
@@ -43,10 +47,6 @@
 
     {% block footer %}
         {% include 'footer.twig' with { 'nav_type' : custom_styles.nav_type } %}
-
-        {% block cookies %}
-            {% include 'cookies.twig' %}
-        {% endblock %}
 
         {{ function('wp_footer') }}
         {% include 'hubspot_tracking_code.twig' %}

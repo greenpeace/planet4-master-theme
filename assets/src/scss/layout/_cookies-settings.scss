@@ -19,14 +19,19 @@
 }
 
 .close-cookies-settings {
-  background-color: var(--grey-900);
+  background-color: transparent;
   cursor: pointer;
   height: 16px;
   width: 16px;
-  mask: url("../../images/cross.svg");
   position: absolute;
   top: -$sp-1;
   right: -$sp-1;
+  padding: 0;
+  border: none;
+
+  &:focus {
+    @include focus-styles();
+  }
 
   html[dir="rtl"] & {
     right: auto;
@@ -39,6 +44,13 @@
     html[dir="rtl"] & {
       left: -$sp-2;
     }
+  }
+
+  .close-icon {
+    mask: url("../../images/cross.svg") no-repeat center;
+    background-color: var(--grey-900);
+    height: 100%;
+    width: 100%;
   }
 }
 

@@ -44,14 +44,27 @@ export const CookiesFrontend = props => {
   const marketingCookiesChecked = [NECESSARY_MARKETING, NECESSARY_ANALYTICAL_MARKETING].includes(consentCookie);
   const hasConsent = marketingCookiesChecked || analyticalCookiesChecked;
 
-  const updateNoTrackCookie = () => {
+  useEffect(() => {
+    if (!marketingCookiesChecked && userRevokedMarketingCookies) {
+      const _hsp = window._hsp = window._hsp || [];
+      _hsp.push(['revokeCookieConsent']);
+    }
+  }, [marketingCookiesChecked, userRevokedMarketingCookies]);
+
+  useEffect(() => {
     if (hasConsent) {
       removeCookie(NO_TRACK_COOKIE);
     } else {
       writeCookie(NO_TRACK_COOKIE, '1');
     }
-  };
-  useEffect(updateNoTrackCookie, [userRevokedAnalyticalCookies, userRevokedMarketingCookies]);
+  }, [userRevokedAnalyticalCookies, userRevokedMarketingCookies, hasConsent]);
+
+  useEffect(() => {
+    if (hasConsent) {
+      writeCookie(ACTIVE_CONSENT_COOKIE, '1');
+      hideCookiesBox();
+    }
+  }, [marketingCookiesChecked, analyticalCookiesChecked, hasConsent]);
 
   const updateConsent = (key, granted) => {
     if (!ENABLE_GOOGLE_CONSENT_MODE) {
@@ -82,22 +95,6 @@ export const CookiesFrontend = props => {
     }
     gtag('set', 'ads_data_redaction', ad_storage);
   };
-
-  const toggleHubSpotConsent = () => {
-    if (!marketingCookiesChecked && userRevokedMarketingCookies) {
-      const _hsp = window._hsp = window._hsp || [];
-      _hsp.push(['revokeCookieConsent']);
-    }
-  };
-  useEffect(toggleHubSpotConsent, [marketingCookiesChecked, userRevokedMarketingCookies]);
-
-  const updateActiveConsentChoice = () => {
-    if (hasConsent) {
-      writeCookie(ACTIVE_CONSENT_COOKIE, '1');
-      hideCookiesBox();
-    }
-  };
-  useEffect(updateActiveConsentChoice, [marketingCookiesChecked, analyticalCookiesChecked]);
 
   const getFieldValue = fieldName => {
     if (props[fieldName] === undefined) {
