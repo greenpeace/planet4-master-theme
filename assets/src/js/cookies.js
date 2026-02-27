@@ -115,6 +115,7 @@ export const setupCookies = () => {
     const cookiesIntro = document.querySelector('.cookies-intro');
     cookiesSettings.classList.toggle('d-none');
     cookiesIntro.classList.toggle('d-none');
+    cookiesSettings.focus();
   };
 
   const showCookiesSettingsButton = document.querySelector('#show-cookies-settings');

@@ -5,8 +5,13 @@
 {% set all_cookies_name = cookies.settings_copy.all_cookies_name %}
 {% set all_cookies_description = cookies.settings_copy.all_cookies_description %}
 
-<div class="d-none cookies-settings">
-    <div class="close-cookies-settings"></div>
+<div
+    class="d-none cookies-settings"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby={{__('Cookies Settings', 'planet4-master-theme')}}
+    tabindex="-1"
+>
     <div class="cookies-settings-header">
         <h4>{{__('Manage your cookies preferences', 'planet4-master-theme')}}</h4>
         <p>{{__('Please select which cookies you are willing to store.', 'planet4-master-theme')}}</p>
@@ -63,4 +68,7 @@
             {{ __( 'Save preferences', 'planet4-master-theme' ) }}
         </button>
     </div>
+    <button tabindex="0" class="close-cookies-settings" aria-label="{{__('Close cookies settings', 'planet4-master-theme')}}">
+        <div class="close-icon"></div>
+    </button>
 </div>
