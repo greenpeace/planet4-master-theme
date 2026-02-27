@@ -3,6 +3,7 @@ import {takeActionBoxoutV1} from './deprecated/takeActionBoxoutV1';
 
 const {registerBlockType, getBlockTypes} = wp.blocks;
 const {__} = wp.i18n;
+const {useBlockProps} = wp.blockEditor;
 
 const BLOCK_NAME = 'planet4-blocks/take-action-boxout';
 
@@ -67,7 +68,11 @@ export const registerTakeActionBoxoutBlock = () => {
         default: 'medium',
       },
     },
-    edit: TakeActionBoxoutEditor,
+    edit: props => (
+      <div {...useBlockProps()}>
+        <TakeActionBoxoutEditor {...props} />
+      </div>
+    ),
     save() {
       return null;
     },

@@ -6,6 +6,7 @@ import {getStyleLabel} from '../../functions/getStyleLabel';
 export const registerColumnsBlock = () => {
   const {__} = wp.i18n;
   const {registerBlockType, getBlockTypes} = wp.blocks;
+  const {useBlockProps} = wp.blockEditor;
 
   const BLOCK_NAME = 'planet4-blocks/columns';
 
@@ -62,7 +63,11 @@ export const registerColumnsBlock = () => {
         type: 'array',
       },
     },
-    edit: ColumnsEditor,
+    edit: props => (
+      <div {...useBlockProps()}>
+        <ColumnsEditor {...props} />
+      </div>
+    ),
     save() {
       return null;
     },

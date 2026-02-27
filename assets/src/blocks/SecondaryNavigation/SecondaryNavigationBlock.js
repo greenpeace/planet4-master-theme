@@ -6,6 +6,7 @@ const BLOCK_NAME = 'planet4-blocks/secondary-navigation';
 
 export const registerSecondaryNavigationBlock = () => {
   const {registerBlockType} = wp.blocks;
+  const {useBlockProps} = wp.blockEditor;
 
   registerBlockType(BLOCK_NAME, {
     title: 'Secondary Navigation Menu',
@@ -22,7 +23,11 @@ export const registerSecondaryNavigationBlock = () => {
       multiple: false, // Use the block just once per post.
       html: false,
     },
-    edit: SecondaryNavigationEditor,
+    edit: props => (
+      <div {...useBlockProps()}>
+        <SecondaryNavigationEditor {...props} />
+      </div>
+    ),
     save() {
       return null;
     },

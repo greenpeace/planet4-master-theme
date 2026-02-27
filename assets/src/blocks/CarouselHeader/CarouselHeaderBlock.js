@@ -6,6 +6,7 @@ import {renderToString} from 'react-dom/server';
 const {registerBlockType} = wp.blocks;
 const {RawHTML} = wp.element;
 const {__} = wp.i18n;
+const {useBlockProps} = wp.blockEditor;
 
 const BLOCK_NAME = 'planet4-blocks/carousel-header';
 
@@ -53,7 +54,11 @@ export const registerCarouselHeaderBlock = () =>
       html: false, // Disable "Edit as HTMl" block option.
     },
     attributes,
-    edit: CarouselHeaderEditor,
+    edit: props => (
+      <div {...useBlockProps()}>
+        <CarouselHeaderEditor {...props} />
+      </div>
+    ),
     save: ({attributes: saveAttributes}) => {
       const markup = renderToString(<div
         data-hydrate={'planet4-blocks/carousel-header'}

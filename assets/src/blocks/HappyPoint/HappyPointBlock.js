@@ -3,6 +3,7 @@ import {HappyPointBlock as HappyPointBlockV1} from './deprecated/HappyPointBlock
 
 const {registerBlockType, getBlockType} = wp.blocks;
 const {__} = wp.i18n;
+const {useBlockProps} = wp.blockEditor;
 
 export const registerHappyPointBlock = () => {
   if (!getBlockType('planet4-blocks/happypoint')) {
@@ -50,7 +51,11 @@ export const registerHappyPointBlock = () => {
           default: 'none',
         },
       },
-      edit: HappyPointEditor,
+      edit: props => (
+        <div {...useBlockProps()}>
+          <HappyPointEditor {...props} />
+        </div>
+      ),
       save() {
         return null;
       },

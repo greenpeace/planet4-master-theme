@@ -2,12 +2,12 @@ import {TableOfContentsEditor} from './TableOfContentsEditor';
 import {example} from './example';
 import {getStyleLabel} from '../../functions/getStyleLabel';
 
-const {__} = wp.i18n;
-
 const BLOCK_NAME = 'planet4-blocks/submenu';
 
 export const registerTableOfContentsBlock = () => {
   const {registerBlockType} = wp.blocks;
+  const {useBlockProps} = wp.blockEditor;
+  const {__} = wp.i18n;
 
   registerBlockType(BLOCK_NAME, {
     title: 'Table of Contents',
@@ -63,7 +63,11 @@ export const registerTableOfContentsBlock = () => {
         ),
       },
     ],
-    edit: TableOfContentsEditor,
+    edit: props => (
+      <div {...useBlockProps()}>
+        <TableOfContentsEditor {...props} />
+      </div>
+    ),
     save() {
       return null;
     },
