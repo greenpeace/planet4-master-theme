@@ -257,7 +257,12 @@ class Post extends \Timber\Post
      */
     public function get_og_title(): string
     {
-        return get_post_meta($this->id, 'p4_og_title', true);
+        $og_title = get_post_meta($this->id, 'p4_og_title', true);
+
+        if (empty($og_title)) {
+            $og_title = wp_title('', false) ?? '';
+        }
+        return html_entity_decode($og_title, ENT_QUOTES, 'UTF-8');
     }
 
     /**
