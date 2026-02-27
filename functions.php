@@ -474,6 +474,38 @@ add_filter(
     2
 );
 
+add_filter('wp_template_enhancement_output_buffer', function ($buffer) {
+
+    $processor = new WP_HTML_Tag_Processor($buffer);
+
+    while ( $processor->next_tag('A') ) {
+        $href = $processor->get_attribute('href') ?: '';
+        $classes = $processor->get_attribute('class') ?: '';
+
+        // Skip links that don't contain .pdf
+        if (stripos($href, '.pdf') === false) continue;
+
+        // Skip links already marked
+        if (str_contains($classes, 'pdf-link')) continue;
+
+        // Skip specific classes
+        if (str_contains($classes, 'search-result-item-headline') || str_contains($classes, 'cover-card-heading')) {
+            continue;
+        }
+
+        // Add pdf-link class while keeping existing classes
+        $new_classes = trim($classes . ' pdf-link');
+        $processor->set_attribute('class', $new_classes);
+
+        // Add title attribute
+        $processor->set_attribute('title', __('This link will open a PDF file', 'planet4-master-theme'));
+    }
+
+    return $processor->get_updated_html();
+});
+
+
+
 // Enable Hide Page title by default when Pattern Layout is used
 add_action(
     'transition_post_status',
