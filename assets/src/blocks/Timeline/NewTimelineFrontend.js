@@ -18,6 +18,25 @@ const getLocalizedDate = (day, month) => {
   }).format(date);
 };
 
+/*
+  Check if a string is a valid URL that uses https protocol
+  */
+const isValidHttpsUrl = value => {
+  if (typeof value !== 'string') {return false;}
+
+  try {
+    const url = new URL(value.trim());
+
+    return (
+      url.protocol === 'https:' &&
+      url.hostname.includes('.') &&
+      !url.hostname.startsWith('.')
+    );
+  } catch {
+    return false;
+  }
+};
+
 export const NewTimelineFrontend = ({attributes}) => {
   const {
     timeline_title,
@@ -33,22 +52,22 @@ export const NewTimelineFrontend = ({attributes}) => {
 
   const TimelineEvent = ({event}) => {
     const [expanded, setExpanded] = useState(false);
-    const contentId = `timeline-content-${event.Day}-${event.Month}`;
+    const contentId = `timeline-content-${event.day}-${event.month}`;
 
     return (
       <li className="timeline-block-event">
         <p
           className="timeline-block-event-day"
-          aria-label={`${getLocalizedDate(event.Day, event.Month)}`}
+          aria-label={`${getLocalizedDate(event.day, event.month)}`}
         >
-          {getLocalizedDate(event.Day, event.Month)}
+          {getLocalizedDate(event.day, event.month)}
         </p>
-        <h3 className="timeline-block-event-title">{event.Headline}</h3>
+        <h3 className="timeline-block-event-title">{event.headline}</h3>
         <div className="timeline-description-wrapper">
           <p
             id={contentId}
             className={`timeline-block-event-description ${expanded ? 'expanded' : 'clamped'}`}
-            dangerouslySetInnerHTML={{__html: event.Text}}
+            dangerouslySetInnerHTML={{__html: event.text}}
           />
           <button
             className="timeline-description-toggle"
@@ -58,6 +77,17 @@ export const NewTimelineFrontend = ({attributes}) => {
           >
             {expanded ? __('Show less', 'planet4-blocks') : __('Show more', 'planet4-blocks')}
           </button>
+          {event.external_link && isValidHttpsUrl(event.external_link)  && (
+            <div className="d-flex justify-content-end">
+              <a
+                target="_blank"
+                href={event.external_link} rel="noreferrer"
+                className="timeline-external-link"
+              >
+                {__('Learn more', 'planet4-blocks')}
+              </a>
+            </div>
+          )}
         </div>
       </li>
     );
@@ -70,6 +100,25 @@ export const NewTimelineFrontend = ({attributes}) => {
       return matches[1];
     }
     return false;
+  };
+
+  /*
+  Normalize a string by:
+  - Separate accent from letter.
+  - Remove diacritics.
+  - Lowercase
+  - Remove special chars
+  - Trim edges
+  - Replace spaces with _
+  */
+  const normalizeString = str => {
+    return str
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase()
+      .replace(/[^a-z0-9\s]/g, '')
+      .trim()
+      .replace(/\s+/g, '_');
   };
 
   useEffect(() => {
@@ -93,7 +142,7 @@ export const NewTimelineFrontend = ({attributes}) => {
             // Get headings.
             jsonData?.table?.cols?.forEach(heading => {
               if (heading.label) {
-                headings.push(heading.label);
+                headings.push(normalizeString(heading.label));
               }
             });
 
@@ -119,7 +168,7 @@ export const NewTimelineFrontend = ({attributes}) => {
     if (!sheetData) {return;}
 
     const grouped = sheetData.reduce((acc, item) => {
-      const year = item.Year;
+      const year = item.year;
 
       if (!acc[year]) {
         acc[year] = [];
@@ -150,8 +199,8 @@ export const NewTimelineFrontend = ({attributes}) => {
       const first = allEvents[0];
       const last = allEvents[allEvents.length - 1];
 
-      firstDate = `${getMonthName(first.Month)} ${first.Year}`;
-      lastDate = `${getMonthName(last.Month)} ${last.Year}`;
+      firstDate = `${getMonthName(first.month)} ${first.year}`;
+      lastDate = `${getMonthName(last.month)} ${last.year}`;
     }
   }
 
