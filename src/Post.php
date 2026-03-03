@@ -591,9 +591,30 @@ class Post extends \Timber\Post
             $news_stories_url = get_permalink($news_stories_page);
 
             $post_page_filters = $attributes['query_attributes']['query']['taxQuery'];
-            $tag_id = isset($post_page_filters['post_tag']) ? (int) $post_page_filters['post_tag'][0] : null;
-            $category_id = isset($post_page_filters['category']) ? (int) $post_page_filters['category'][0] : null;
-            $post_type_id = isset($post_page_filters['p4-page-type']) ? (int) $post_page_filters['p4-page-type'][0] : null;
+
+            $tag_id = (
+                isset($post_page_filters['post_tag']) &&
+                is_array($post_page_filters['post_tag']) &&
+                isset($post_page_filters['post_tag'][0])
+            )
+                ? (int) $post_page_filters['post_tag'][0]
+                : null;
+
+            $category_id = (
+                isset($post_page_filters['category']) &&
+                is_array($post_page_filters['category']) &&
+                isset($post_page_filters['category'][0])
+            )
+                ? (int) $post_page_filters['category'][0]
+                : null;
+
+            $post_type_id = (
+                isset($post_page_filters['p4-page-type']) &&
+                is_array($post_page_filters['p4-page-type']) &&
+                isset($post_page_filters['p4-page-type'][0])
+            )
+                ? (int) $post_page_filters['p4-page-type'][0]
+                : null;
 
             $query_args = [];
 
