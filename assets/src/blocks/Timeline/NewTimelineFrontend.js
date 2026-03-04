@@ -155,6 +155,10 @@ export const NewTimelineFrontend = ({attributes}) => {
     }
   }
 
+  if (loading || !processedSheetData) {
+    return null;
+  }
+
   const summaryText = sprintf(
   /* translators: 1: timeline title, 2: total items, 3: first date, 4: last date */
     __('%1$s, %2$d items from %3$s to %4$s.', 'planet4-blocks'),
@@ -176,25 +180,21 @@ export const NewTimelineFrontend = ({attributes}) => {
           <p className="page-section-description text-center" dangerouslySetInnerHTML={{__html: description}} />
         }
 
-        {loading && <p className="text-center">{__('Loading…', 'planet4-blocks')}</p>}
-
-        {!loading && processedSheetData && (
-          <fieldset className="timeline-group">
-            {processedSheetData.map(({year, list}) => (
-              <div key={year}>
-                <p className="timeline-block-year">{year}</p>
-                <ul className="timeline-block-events">
-                  {list.map((event, index) => (
-                    <TimelineEvent
-                      key={`row-${event.Day}-${index}`}
-                      event={event}
-                    />
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </fieldset>
-        )}
+        <fieldset className="timeline-group">
+          {processedSheetData.map(({year, list}) => (
+            <div key={year}>
+              <p className="timeline-block-year">{year}</p>
+              <ul className="timeline-block-events">
+                {list.map((event, index) => (
+                  <TimelineEvent
+                    key={`row-${event.Day}-${index}`}
+                    event={event}
+                  />
+                ))}
+              </ul>
+            </div>
+          ))}
+        </fieldset>
       </div>
     </section>
   );
