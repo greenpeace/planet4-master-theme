@@ -13,6 +13,7 @@ class HttpHeaders
     public function __construct()
     {
         add_action('wp_headers', [ $this, 'send_content_security_policy_header' ], 10, 1);
+        add_action('wp_headers', [ $this, 'send_permissions_policy_header' ], 10, 1);
     }
 
     /**
@@ -71,6 +72,30 @@ class HttpHeaders
         // when no other trusted frame ancestors were added through the filter.
         if ($allowed_frame_ancestors === $default_allowed_frame_ancestors) {
             $headers['X-Frame-Options'] = 'SAMEORIGIN';
+        }
+
+        return $headers;
+    }
+
+    /**
+     * Send Permissions-Policy HTTP header.
+     *
+     * @param string[] $headers Associative array of headers to be sent.
+     */
+    public function send_permissions_policy_header(array $headers): array
+    {
+        $default = 'geolocation=(),sync-xhr=(self),microphone=(self),camera=(self),payment=()';
+
+        /**
+         * Filter hook to override the Permissions-Policy header value.
+         * Return an empty string to disable the header entirely.
+         *
+         * @param string $policy The full Permissions-Policy header value.
+         */
+        $policy = apply_filters('planet4_permissions_policy_header', $default);
+
+        if (is_string($policy) && '' !== $policy) {
+            $headers['Permissions-Policy'] = $policy;
         }
 
         return $headers;
