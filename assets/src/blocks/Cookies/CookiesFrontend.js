@@ -60,10 +60,9 @@ export const CookiesFrontend = props => {
   }, [userRevokedAnalyticalCookies, userRevokedMarketingCookies, hasConsent]);
 
   useEffect(() => {
-    if (hasConsent) {
-      writeCookie(ACTIVE_CONSENT_COOKIE, '1');
-      hideCookiesBox();
-    }
+    if (!hasConsent) {return;}
+    writeCookie(ACTIVE_CONSENT_COOKIE, '1');
+    hideCookiesBox();
   }, [marketingCookiesChecked, analyticalCookiesChecked, hasConsent]);
 
   const updateConsent = (key, granted) => {
