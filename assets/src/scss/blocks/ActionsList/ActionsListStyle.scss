@@ -117,14 +117,18 @@
     }
   }
 
-  .wp-block-post-featured-image img {
-    height: 196px;
-    object-fit: cover;
-    border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
+  .wp-block-post-featured-image {
+    z-index: 1;
 
-    @include large-and-up {
-      height: 220px;
+    img {
+      height: 196px;
+      object-fit: cover;
+      border-top-left-radius: 4px;
+      border-top-right-radius: 4px;
+
+      @include large-and-up {
+        height: 220px;
+      }
     }
   }
 
