@@ -5,13 +5,16 @@ const NAV_DONATE_CLASS = '.nav-donate';
 const NAV_SUBMENU_CLASS = '.nav-submenu';
 const SITE_LOGO_CLASS = '.site-logo';
 const NAV_MENU_CLOSE_CLASS = '.nav-menu-close';
+const MOBILE_NAV_ID = '#nav-main';
+const PAGE_WRAPPER_ID = '#content';
+const NAV_MENU_TOGGLE_CLASS = '.nav-menu-toggle';
 
 /**
  * Function to handle keyboard accessibility in the navigation menu.
  */
 export const setupAccessibleNavMenu = () => {
   const mainNav = document.querySelector('#nav-main-desktop');
-  const mobileNav = document.querySelector('#nav-main');
+  const mobileNav = document.querySelector(MOBILE_NAV_ID);
 
   if (!mainNav && !mobileNav) {
     return;
@@ -121,26 +124,34 @@ export const setupAccessibleNavMenu = () => {
   }
 
   if (mobileNav) {
+    const doc = mobileNav.ownerDocument;
+    const isMobileMenuOpen = () => mobileNav.classList.contains('open');
     /**
      * Adds event listeners to create a keyboard trap between the buttons.
      */
     const addKeyboardTrap = () => {
-      const donateBtn = mobileNav.querySelector('.btn-donate');
-      const closeBtn = mobileNav.querySelector(NAV_MENU_CLOSE_CLASS);
-      const logo = mobileNav.querySelector(SITE_LOGO_CLASS);
+      const focusableElements = [...mobileNav.querySelectorAll('a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])')];
 
-      closeBtn.addEventListener('keydown', event => {
-        if (event.key === 'Tab' && event.shiftKey) {
+      if (!focusableElements.length) {
+        return;
+      }
+
+      const firstEl = focusableElements[0];
+      const lastEl = focusableElements[focusableElements.length - 1];
+
+      mobileNav.addEventListener('keydown', event => {
+        if (event.key !== 'Tab') {
+          return;
+        }
+
+        if (event.shiftKey && doc.activeElement === firstEl) {
           event.preventDefault();
-          setTimeout(() => donateBtn.focus(), 5);
+          lastEl.focus({preventScroll: true});
         }
-        if (event.key === 'Tab') {
-          setTimeout(() => logo.focus(), 0);
-        }
-      });
-      logo.addEventListener('keydown', event => {
-        if (event.key === 'Tab' && event.shiftKey) {
-          setTimeout(() => closeBtn.focus(), 0);
+
+        if (!event.shiftKey && doc.activeElement === lastEl) {
+          event.preventDefault();
+          firstEl.focus({preventScroll: true});
         }
       });
     };
@@ -156,38 +167,57 @@ export const setupAccessibleNavMenu = () => {
         return;
       }
 
-      hamburgerBtn.addEventListener('keydown', event => {
-        if (event.key === 'Enter') {
-          setTimeout(() => logo.focus(), 0);
-        }
+      hamburgerBtn.addEventListener('click', () => {
+        // Wait for CSS class to apply
+        requestAnimationFrame(() => {
+          if (!isMobileMenuOpen()) {
+            return;
+          }
+
+          syncMobileNavAria(true);
+          logo.focus();
+        });
       });
     };
 
     /**
-     * Adds event listeners to focus the logo when the menu is closed.
+     * Adds event listeners to focus the main page content when the menu is closed.
      */
-    const focusLogoOnMenuClose = () => {
+    const focusContentOnMenuClose = () => {
       const closeBtn = mobileNav.querySelector(NAV_MENU_CLOSE_CLASS);
-      const hamburgerLogo = mobileNav.querySelector(SITE_LOGO_CLASS);
-      const mainLogo = document.querySelector(`#header ${SITE_LOGO_CLASS}`);
 
-      if (!mainLogo || !hamburgerLogo || !closeBtn) {
+      if (!closeBtn) {
         return;
       }
 
-      closeBtn.addEventListener('keydown', event => {
-        if (event.key === 'Enter') {
-          setTimeout(() => mainLogo.focus(), 0);
+      closeBtn.addEventListener('click', () => {
+        const page = document.querySelector(PAGE_WRAPPER_ID);
+
+        if (!page) {
+          return;
         }
-        if (event.key === 'Tab' && event.shiftKey) {
-          setTimeout(() => hamburgerLogo.focus(), 0);
+
+        page.removeAttribute('aria-hidden');
+        page.inert = false;
+
+        mobileNav.setAttribute('aria-hidden', 'true');
+
+        const toggleBtn = document.querySelector(NAV_MENU_TOGGLE_CLASS);
+
+        if (toggleBtn) {
+          toggleBtn.setAttribute('aria-expanded', 'false');
         }
+
+        requestAnimationFrame(() => {
+          toggleBtn.focus({preventScroll: true});
+        });
       });
+
     };
 
     addKeyboardTrap();
     focusLogoOnMenuOpen();
-    focusLogoOnMenuClose();
+    focusContentOnMenuClose();
   }
 };
 
@@ -208,4 +238,37 @@ export const updateNavMenuTabIndex = () => {
     ...menu.querySelectorAll('.collapsable-btn'),
   ];
   tabbingItems.forEach(item => item.setAttribute('tabindex', menu.classList.contains('open') ? 0 : -1));
+};
+
+/**
+ * Function to update aria attributes for mobile navigation.
+ * @param {boolean} isOpen - Whether the mobile navigation is open.
+ */
+const syncMobileNavAria = isOpen => {
+  const mobileNav = document.querySelector(MOBILE_NAV_ID);
+  const page = document.querySelector(PAGE_WRAPPER_ID);
+  const toggleBtn = document.querySelector(NAV_MENU_TOGGLE_CLASS);
+
+  if (!mobileNav || !page || !toggleBtn) {
+    return;
+  }
+
+  // Mobile menu
+  if (isOpen) {
+    mobileNav.removeAttribute('aria-hidden');
+  } else {
+    mobileNav.setAttribute('aria-hidden', 'true');
+  }
+
+  // Page behind
+  if (isOpen) {
+    page.setAttribute('aria-hidden', 'true');
+    page.inert = true;
+  } else {
+    page.removeAttribute('aria-hidden');
+    page.inert = false;
+  }
+
+  // Toggle button state
+  toggleBtn.setAttribute('aria-expanded', String(isOpen));
 };
