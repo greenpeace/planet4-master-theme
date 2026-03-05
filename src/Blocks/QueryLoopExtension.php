@@ -29,12 +29,90 @@ class QueryLoopExtension
      */
     public static function register_hooks(): void
     {
+<<<<<<< HEAD
         add_filter('rest_post_query', [self::class, 'register_editor_query'], 10, 2);
         add_filter('rest_page_query', [self::class, 'register_editor_query'], 10, 2);
         add_filter('rest_p4_action_query', [self::class, 'register_editor_query'], 10, 2);
         add_filter('query_loop_block_query_vars', [self::class, 'register_frontend_query'], 10, 2);
         add_filter('render_block_data', [self::class, 'track_posts_list_context'], 10, 1);
         add_filter('render_block', [self::class, 'add_data_attributes'], 10, 2);
+=======
+        add_filter('rest_post_query', [self::class, 'registerEditorQuery'], 10, 2);
+        add_filter('rest_page_query', [self::class, 'registerEditorQuery'], 10, 2);
+        add_filter('rest_p4_action_query', [self::class, 'registerEditorQuery'], 10, 2);
+        add_filter('query_loop_block_query_vars', [self::class, 'registerFrontendQuery'], 10, 2);
+        add_filter('render_block', [self::class, 'addDataAttributes'], 10, 2);
+    }
+
+    /**
+     * Adds data attributes to the action list block.
+     *
+     * @param string $block_content The HTML generated for the block.
+     * @param array  $block         The block.
+     *
+     * @return string The updated block content.
+     */
+
+    public static function addDataAttributes(string $block_content, array $block): string
+    {
+        if ($block['blockName'] !== 'core/query') {
+            return $block_content;
+        }
+
+        // Check if class "actions-list" exists
+        if (
+            empty($block['attrs']['className']) ||
+            strpos($block['attrs']['className'], 'actions-list') === false
+        ) {
+            return $block_content;
+        }
+
+        $shared_data = 'data-ga-category="Actions List" data-ga-label="n/a"';
+
+        // $block_content = preg_replace(
+        //     '/<figure([^>]*)>\s*<a([^>]*)>(.*?)<\/a>\s*<\/figure>/is',
+        //     '<a$2><figure$1>$3</figure></a>',
+        //     $block_content
+        // );
+        // $block_content = preg_replace(
+        //     '/<figure([^>]*)>\s*<a([^>]*)>(.*?)<\/a>\s*<\/figure>/is',
+        //     '<a$2><figure$1>$3</figure></a>',
+        //     $block_content
+        // );
+
+        // $block_content = preg_replace(
+        //     '/<a(?![^>]*data-ga-action)([^>]*)>\s*<figure/',
+        //     '<a data-ga-action="Image" ' . $shared_data . '$1><figure',
+        //     $block_content
+        // );
+
+
+        // $block_content = preg_replace(
+        //     '/(<figure[^>]*>.*?)<a(?![^>]*data-ga-action)\b/',
+        //     '$1<a data-ga-action="Image" ' . $shared_data,
+        //     $block_content
+        // );
+
+        $block_content = preg_replace(
+            '/(<figure[^>]*>.*?)<img(?![^>]*data-ga-action)\b/',
+            '$1<img data-ga-action="Image" ' . $shared_data,
+            $block_content
+        );
+
+        $block_content = preg_replace(
+            '/(<h[1-6][^>]*>.*?)<a(?![^>]*data-ga-action)\b/',
+            '$1<a data-ga-action="Title" ' . $shared_data,
+            $block_content
+        );
+
+        $block_content = preg_replace(
+            '/<a(?![^>]*data-ga-action)\b([^>]*\bclass="[^"]*\bbtn\b[^"]*[^>]*)/',
+            '<a data-ga-action="Call to Action" ' . $shared_data . '$1',
+            $block_content
+        );
+
+        return $block_content;
+>>>>>>> f0a360d5 (PLANET-8138: Add GA4/Mixpanel tracking events)
     }
 
     /**
