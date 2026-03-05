@@ -6,14 +6,28 @@
  */
 
 export const setupClickableActionsListCards = () => {
+  // Add tracking clicks in GA4/Mixpanel
+  const setupAnalytics = (element, action) => {
+    if(element) {
+      element.setAttribute('data-ga-category', 'Actions List');
+      element.setAttribute('data-ga-action', action);
+      element.setAttribute('data-ga-label', 'n/a');
+    }
+  };
+
   const liElements = document.querySelectorAll('.actions-list ul li:not(.carousel-li)');
 
   liElements.forEach(li => {
+    setupAnalytics(li.querySelector('figure'), 'Image');
+    setupAnalytics(li.querySelector('.btn-primary'), 'Call to Action');
+
     const titleLink = li.querySelector('.wp-block-post-title > a');
 
     if (!titleLink) {
       return;
     }
+
+    setupAnalytics(titleLink, 'Title');
 
     // Add overlay to make whole card clickable
     const url = titleLink.getAttribute('href');
