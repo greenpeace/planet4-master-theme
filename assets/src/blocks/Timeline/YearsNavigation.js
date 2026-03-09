@@ -147,7 +147,7 @@ export const YearsNavigation = ({years}) => {
   }, [isRTL]);
 
   return (
-    <div className="years-navigation d-flex">
+    <div className="years-navigation d-flex justify-content-center">
       {showLeftArrow && (
         <button className="nav-arrow left" onClick={() => scrollNav('left')}/>
       )}
