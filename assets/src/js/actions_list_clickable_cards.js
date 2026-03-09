@@ -9,9 +9,9 @@ export const setupClickableActionsListCards = () => {
   // Add tracking clicks in GA4/Mixpanel
   const setupAnalytics = (element, action) => {
     if(element) {
-      element.setAttribute('data-ga-category', 'Actions List');
-      element.setAttribute('data-ga-action', action);
-      element.setAttribute('data-ga-label', 'n/a');
+      element.dataset.gaCategory = 'Actions List';
+      element.dataset.gaAction = action;
+      element.dataset.gaLabel = 'n/a';
     }
   };
 
