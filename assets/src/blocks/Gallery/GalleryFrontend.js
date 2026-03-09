@@ -17,8 +17,6 @@ import {useCallback, useEffect, useMemo, useState} from '@wordpress/element';
 export const GalleryFrontend = ({attributes = {}}) => {
   const [images, setImages] = useState([]);
   const className = attributes.className ?? '';
-  const layout = getGalleryLayout(className, attributes.gallery_block_style ?? '');
-  const postType = document.body.getAttribute('data-post-type');
 
   /**
    * Normalizes and sets the images array when block attributes are updated.
@@ -92,6 +90,13 @@ export const GalleryFrontend = ({attributes = {}}) => {
    */
   const expandOnClick = className.includes('force-no-lightbox') ? null : handleImageClick;
 
+  if (!images.length) {
+    return null;
+  }
+
+  const layout = getGalleryLayout(className, attributes.gallery_block_style ?? '');
+  const postType = document.body.getAttribute('data-post-type');
+
   return (
     <section className={`block ${GALLERY_BLOCK_CLASSES[layout]} ${className}`}>
       {attributes.gallery_block_title && (
@@ -109,19 +114,15 @@ export const GalleryFrontend = ({attributes = {}}) => {
         />
       )}
 
-      {images.length ? (
-        <>
-          {layout === 'slider' && (
-            <GalleryCarousel images={images} onImageClick={expandOnClick} />
-          )}
-          {layout === 'three-columns' && (
-            <GalleryThreeColumns images={images} postType={postType} onImageClick={expandOnClick} />
-          )}
-          {layout === 'grid' && (
-            <GalleryGrid images={images} onImageClick={expandOnClick} />
-          )}
-        </>
-      ) : null}
+      {layout === 'slider' && (
+        <GalleryCarousel images={images} onImageClick={expandOnClick} />
+      )}
+      {layout === 'three-columns' && (
+        <GalleryThreeColumns images={images} postType={postType} onImageClick={expandOnClick} />
+      )}
+      {layout === 'grid' && (
+        <GalleryGrid images={images} onImageClick={expandOnClick} />
+      )}
     </section>
   );
 };
