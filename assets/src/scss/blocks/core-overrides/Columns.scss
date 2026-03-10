@@ -1,3 +1,5 @@
+@use "../../base/mixins" as mixins;
+
 @mixin apply-item-width($gap, $items-count) {
   $gap: 0;
   $total-gap: calc($gap * $items-count);
@@ -11,7 +13,7 @@
 }
 
 .wp-block-columns.is-not-stacked-on-mobile.is-style-mobile-carousel {
-  @include large-and-less {
+  @include mixins.large-and-less {
     flex-wrap: nowrap;
     overflow-x: auto;
     scrollbar-width: none;
@@ -28,8 +30,8 @@
 
   // These styles will be applied to the Quick Links Block only
   &.quick-links {
-    @include mobile-only {
-      @include wide-block;
+    @include mixins.mobile-only {
+      @include mixins.wide-block;
       @include apply-item-width(0, 3);
 
       padding-left: $sp-1x;
@@ -45,7 +47,7 @@
     }
   }
 
-  @include small-and-less {
+  @include mixins.small-and-less {
     gap: $sp-2;
   }
 }

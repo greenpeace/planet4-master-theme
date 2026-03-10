@@ -1,3 +1,5 @@
+@use "../../base/mixins" as mixins;
+
 @mixin rounded-image-size($size) {
   figure,
   img {
@@ -32,11 +34,11 @@
   margin-bottom: $sp-2;
 
   &.is-style-rounded-180 {
-    @include rounded-image-size(180px);
+    @include mixins.rounded-image-size(180px);
   }
 
   &.is-style-rounded-90 {
-    @include rounded-image-size(90px);
+    @include mixins.rounded-image-size(90px);
   }
 
   &:not(.force-no-lightbox) img {
@@ -48,14 +50,14 @@
   }
 
   &.square-40 {
-    @include square-image-size(40px);
+    @include mixins.square-image-size(40px);
   }
 
   &.square-80 {
-    @include square-image-size(80px);
+    @include mixins.square-image-size(80px);
   }
 
-  @include large-and-up {
+  @include mixins.large-and-up {
     margin-top: $sp-2;
     margin-bottom: $sp-4;
   }
@@ -79,7 +81,7 @@
     margin-right: auto;
   }
 
-  @include medium-and-up {
+  @include mixins.medium-and-up {
     .image-credit {
       position: absolute;
       text-align: right;

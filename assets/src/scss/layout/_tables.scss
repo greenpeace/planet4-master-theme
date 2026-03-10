@@ -1,3 +1,5 @@
+@use "../base/mixins" as mixins;
+
 @mixin table {
   .wp-block-table {
     margin-top: $sp-1;
@@ -9,7 +11,7 @@
       }
     }
 
-    @include large-and-up {
+    @include mixins.large-and-up {
       margin-top: $sp-2;
       margin-bottom: $sp-4;
     }
@@ -20,7 +22,7 @@
     margin-bottom: 15px;
     width: 100%;
 
-    @include mobile-only {
+    @include mixins.mobile-only {
       display: block;
       overflow: auto;
     }
@@ -38,7 +40,7 @@
       font-size: $font-size-xs;
       padding: 6px $sp-2x;
       box-sizing: border-box;
-      @include x-large-and-up {
+      @include mixins.x-large-and-up {
         font-size: $font-size-md;
       }
     }
@@ -50,11 +52,11 @@
       vertical-align: top;
       color: var(--color-text-body);
 
-      @include mobile-only {
+      @include mixins.mobile-only {
         min-width: 300px;
       }
 
-      @include x-large-and-up {
+      @include mixins.x-large-and-up {
         font-size: $font-size-md;
       }
     }

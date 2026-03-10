@@ -1,3 +1,5 @@
+@use "../base/mixins" as mixins;
+
 $title-width-l: 660px;
 $text-column-width-l: 320px;
 $text-column-width-xl: 380px;
@@ -8,11 +10,11 @@ $text-column-padding-in: 24px;
   grid-template-columns: 100%;
   width: 100vw;
 
-  @include medium-and-up {
+  @include mixins.medium-and-up {
     padding-bottom: $sp-5;
   }
 
-  @include large-and-up {
+  @include mixins.large-and-up {
     padding: $sp-7 0;
   }
 
@@ -33,7 +35,7 @@ $text-column-padding-in: 24px;
     padding-inline-start: 0;
     z-index: 1;
 
-    @include medium-and-less {
+    @include mixins.medium-and-less {
       padding-inline-end: 0;
 
       html[dir="rtl"] & {
@@ -49,7 +51,7 @@ $text-column-padding-in: 24px;
         width: auto;
       }
 
-      @include medium-and-less {
+      @include mixins.medium-and-less {
         html[dir="rtl"] & {
           margin-left: auto;
         }
@@ -58,19 +60,19 @@ $text-column-padding-in: 24px;
   }
 
   .wp-block-group:first-child {
-    @include clamp-text(5);
+    @include mixins.clamp-text(5);
     overflow: hidden;
     font-size: $font-size-xxl;
     font-weight: 700;
     line-height: initial;
 
-    @include medium-and-less {
+    @include mixins.medium-and-less {
       padding: 0 $sp-1;
       margin: 0 (-$sp-1);
     }
 
-    @include medium-and-up {
-      @include clamp-text(3);
+    @include mixins.medium-and-up {
+      @include mixins.clamp-text(3);
     }
   }
 
@@ -84,12 +86,12 @@ $text-column-padding-in: 24px;
   }
 
   p {
-    @include clamp-text(8);
+    @include mixins.clamp-text(8);
     margin-bottom: $sp-4;
     padding-top: $sp-2;
   }
 
-  @include medium-and-up {
+  @include mixins.medium-and-up {
     .wp-block-media-text__media img {
       max-height: 432px;
     }
@@ -107,7 +109,7 @@ $text-column-padding-in: 24px;
     }
   }
 
-  @include large-and-up {
+  @include mixins.large-and-up {
     width: calc(100% + (100vw - 100%) / 2);
 
     .wp-block-media-text__media img {
@@ -134,7 +136,7 @@ $text-column-padding-in: 24px;
     }
   }
 
-  @include x-large-and-up {
+  @include mixins.x-large-and-up {
     .wp-block-media-text__content {
       > *:nth-child(n+2) {
         max-width: calc(#{$text-column-width-xl} - #{$text-column-padding-in});
@@ -146,7 +148,7 @@ $text-column-padding-in: 24px;
     }
   }
 
-  @include xx-large-and-up {
+  @include mixins.xx-large-and-up {
     .wp-block-media-text__content {
       > *:nth-child(n+2) {
         max-width: calc(#{$text-column-width-xxl} - #{$text-column-padding-in});
@@ -156,7 +158,7 @@ $text-column-padding-in: 24px;
 }
 
 .wp-block-media-text.alignfull.is-pattern-p4-page-header.has-media-on-the-right {
-  @include large-and-up {
+  @include mixins.large-and-up {
     grid-template-columns: $text-column-width-l auto;
     margin-left: 0;
 
@@ -177,7 +179,7 @@ $text-column-padding-in: 24px;
     }
   }
 
-  @include x-large-and-up {
+  @include mixins.x-large-and-up {
     grid-template-columns: $text-column-width-xl auto;
 
     .wp-block-group:first-child {
@@ -187,13 +189,13 @@ $text-column-padding-in: 24px;
     }
   }
 
-  @include xx-large-and-up {
+  @include mixins.xx-large-and-up {
     grid-template-columns: $text-column-width-xxl auto;
   }
 }
 
 .wp-block-media-text.alignfull.is-pattern-p4-page-header:not(.has-media-on-the-right) {
-  @include large-and-up {
+  @include mixins.large-and-up {
     grid-template-columns: auto $text-column-width-l;
 
     html[dir="rtl"] & {
@@ -222,7 +224,7 @@ $text-column-padding-in: 24px;
     }
   }
 
-  @include x-large-and-up {
+  @include mixins.x-large-and-up {
     grid-template-columns: auto $text-column-width-xl;
 
     .wp-block-group:first-child {
@@ -230,7 +232,7 @@ $text-column-padding-in: 24px;
     }
   }
 
-  @include xx-large-and-up {
+  @include mixins.xx-large-and-up {
     grid-template-columns: auto $text-column-width-xxl;
 
     .wp-block-group:first-child {

@@ -15,7 +15,6 @@ Text Domain: planet4-master-theme
 @import "base/variables";
 @import "base/palette";
 @import "base/functions";
-@import "base/mixins";
 @import "base/fonts";
 @import "base/typography";
 @import "base/icons";
@@ -95,7 +94,7 @@ Text Domain: planet4-master-theme
 
 // Override Navbar styles for Homepage only
 body.transparent-nav {
-  @include x-large-and-up {
+  @include mixins.x-large-and-up {
     .page-content {
       padding-top: 0;
     }
@@ -171,6 +170,29 @@ body.transparent-nav {
 .wp-block-button.carousel-control-next,
 .wp-block-button.carousel-control-prev {
   &:focus-within {
-    @include focus-styles();
+    @include mixins.focus-styles();
   }
+}
+
+.is-style-space-evenly {
+  gap: 24px !important;
+
+  & > * {
+    flex-grow: 1;
+    flex-basis: 100%;
+    align-self: stretch;
+
+    @include mixins.medium-and-up {
+      flex-grow: 0;
+      flex-basis: calc(50% - 12px);
+    }
+
+    @include mixins.large-and-up {
+      flex-basis: calc(25% - 18px);
+    }
+  }
+}
+
+.is-style-reset-margin {
+  margin: 0 !important;
 }

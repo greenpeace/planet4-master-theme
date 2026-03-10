@@ -1,3 +1,5 @@
+@use "../base/mixins" as mixins;
+
 .cookie-notice {
   font-family: var(--font-family-paragraph-secondary);
   color: var(--grey-900);
@@ -19,7 +21,7 @@
     visibility: visible;
   }
 
-  @include medium-and-up {
+  @include mixins.medium-and-up {
     width: auto;
     bottom: $sp-2;
     right: $sp-2;
@@ -34,7 +36,7 @@
     }
   }
 
-  @include large-and-up {
+  @include mixins.large-and-up {
     bottom: $sp-3;
     right: $sp-3;
 
@@ -45,7 +47,7 @@
 }
 
 .cookies-intro {
-  @include medium-and-up {
+  @include mixins.medium-and-up {
     width: 308px;
   }
 }
@@ -61,7 +63,7 @@
 .cookies-text,
 .cookies-settings-details {
   a {
-    @include shared-link-styles;
+    @include mixins.shared-link-styles;
     transition-timing-function: cubic-bezier(0.5, 0, 0, 0.5);
   }
 }
@@ -76,7 +78,7 @@
     margin-top: $sp-2;
   }
 
-  @include medium-and-up {
+  @include mixins.medium-and-up {
     display: flex;
     justify-content: space-between;
 

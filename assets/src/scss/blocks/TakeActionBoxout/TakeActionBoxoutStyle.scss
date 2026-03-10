@@ -1,3 +1,5 @@
+@use "../../base/mixins" as mixins;
+
 @mixin boxout-half-and-half {
   height: 222px;
 
@@ -30,7 +32,7 @@
 @mixin boxout-heading-font-size($mobile, $desktop) {
   font-size: $mobile;
 
-  @include large-and-up {
+  @include mixins.large-and-up {
     font-size: $desktop;
   }
 }
@@ -87,7 +89,7 @@
     color: var(--color-text-body);
     margin-bottom: $sp-1;
     word-break: break-word;
-    @include clamp-text(2);
+    @include mixins.clamp-text(2);
     // Medium font size is the default.
     @include boxout-heading-font-size(
       var(--font-size-s--font-family-primary),
@@ -127,11 +129,11 @@
     line-height: var(--line-height-m--font-family-tertiary);
     color: var(--color-text-body);
     margin: 0;
-    @include clamp-text(2);
+    @include mixins.clamp-text(2);
   }
 
   &:not(.sticky-bottom-mobile) {
-    @include small-and-less {
+    @include mixins.small-and-less {
       flex-direction: column-reverse;
 
       .boxout-content {
@@ -151,13 +153,13 @@
       }
     }
 
-    @include medium-and-up {
+    @include mixins.medium-and-up {
       @include boxout-half-and-half;
     }
   }
 
   &.sticky-bottom-mobile {
-    @include medium-and-less {
+    @include mixins.medium-and-less {
       z-index: 9999;
       position: fixed;
       bottom: 0;
@@ -213,14 +215,14 @@
         }
       }
 
-      @include mobile-only {
+      @include mixins.mobile-only {
         .boxout-heading {
           margin-inline-end: $sp-3;
         }
       }
     }
 
-    @include large-and-up {
+    @include mixins.large-and-up {
       @include boxout-half-and-half;
     }
   }

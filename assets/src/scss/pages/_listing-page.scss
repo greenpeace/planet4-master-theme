@@ -1,3 +1,5 @@
+@use "../base/mixins" as mixins;
+
 .query-list-item-image {
   flex-basis: 30%;
 
@@ -12,11 +14,11 @@
       object-fit: cover;
       object-position: 50% 50%;
 
-      @include medium-and-up {
+      @include mixins.medium-and-up {
         height: 200px;
       }
 
-      @include large-and-up {
+      @include mixins.large-and-up {
         height: 210px;
       }
     }
@@ -47,7 +49,7 @@
 
   a {
     color: inherit;
-    @include clamp-text(1);
+    @include mixins.clamp-text(1);
     overflow-wrap: break-word;
     word-break: break-word;
     hyphens: auto;
@@ -68,7 +70,7 @@
 
   .wrapper-post-tag {
     display: flex;
-    @include render-bullet;
+    @include mixins.render-bullet;
 
     .taxonomy-post_tag a {
       margin-inline-end: $sp-x;
@@ -93,14 +95,14 @@
   font-size: $font-size-sm;
   margin-bottom: $sp-1;
   line-height: var(--line-height-m--font-family-secondary);
-  @include clamp-text(4);
+  @include mixins.clamp-text(4);
 }
 
 .query-list-item-headline.wp-block-post-title {
   font-size: $font-size-lg;
 
   a {
-    @include clamp-text(2);
+    @include mixins.clamp-text(2);
   }
 }
 
@@ -115,10 +117,10 @@
 
   .article-list-item-author {
     font-weight: var(--font-weight-semibold);
-    @include clamp-text(1);
+    @include mixins.clamp-text(1);
 
     &:focus-within {
-      @include focus-styles();
+      @include mixins.focus-styles();
     }
   }
 
@@ -132,7 +134,7 @@
 
   .article-list-item-readtime {
     display: flex;
-    @include render-bullet($sp-x);
+    @include mixins.render-bullet($sp-x);
     margin-inline-start: 5px;
   }
 
@@ -162,24 +164,24 @@
       justify-content: space-between;
       margin-top: $sp-4;
 
-      @include medium-and-up {
+      @include mixins.medium-and-up {
         flex-direction: row;
       }
     }
 
     .query-list-item-body {
-      @include medium-and-up {
+      @include mixins.medium-and-up {
         padding-inline-start: $sp-2x;
       }
     }
 
     .query-list-item-content p {
-      @include medium-and-up {
-        @include clamp-text(2);
+      @include mixins.medium-and-up {
+        @include mixins.clamp-text(2);
       }
 
-      @include large-and-up {
-        @include clamp-text(3);
+      @include mixins.large-and-up {
+        @include mixins.clamp-text(3);
       }
     }
   }
@@ -193,23 +195,23 @@
       gap: 1.25em;
 
       li {
-        @include small-and-up {
+        @include mixins.small-and-up {
           width: calc((100% / 2) - 1.25em + (1.25em / 2)) !important;
         }
 
-        @include large-and-up {
+        @include mixins.large-and-up {
           width: calc((100% / 3) - 1.25em + (1.25em / 3)) !important;
         }
 
-        @include x-large-and-up {
+        @include mixins.x-large-and-up {
           width: calc((100% / 4) - 1.25em + (1.25em / 4)) !important;
         }
       }
     }
 
     .query-list-item-headline.wp-block-post-title a {
-      @include large-and-up {
-        @include clamp-text(2);
+      @include mixins.large-and-up {
+        @include mixins.clamp-text(2);
       }
     }
 
@@ -249,7 +251,7 @@
   width: 100%;
   margin-bottom: $sp-6;
 
-  @include large-and-up {
+  @include mixins.large-and-up {
     justify-content: center;
   }
 }
@@ -307,7 +309,7 @@
     border-color: var(--grey-900);
   }
 
-  @include large-and-up {
+  @include mixins.large-and-up {
     margin: 0 $sp-5 0 !important;
   }
 }
@@ -317,7 +319,7 @@
   border-bottom-color: var(--color-border-separator);
   margin: $sp-3 0;
 
-  @include medium-and-up {
+  @include mixins.medium-and-up {
     margin: $sp-5 0;
     padding-bottom: $sp-4;
   }
@@ -330,7 +332,7 @@
     margin-bottom: 0;
   }
 
-  @include medium-and-up {
+  @include mixins.medium-and-up {
     margin-bottom: $sp-7;
   }
 }
@@ -338,7 +340,7 @@
 .layout-button-ctn {
   display: none;
 
-  @include medium-and-up {
+  @include mixins.medium-and-up {
     border-radius: 50%;
     display: inline-block;
     width: 40px;
@@ -350,7 +352,7 @@
 
     &:focus-within {
       background-color: var(--grey-200);
-      @include focus-styles(50%);
+      @include mixins.focus-styles(50%);
     }
   }
 }
@@ -384,7 +386,7 @@
       overflow: hidden;
       text-overflow: ellipsis;
 
-      @include medium-and-up {
+      @include mixins.medium-and-up {
         margin-bottom: 0;
       }
     }
@@ -394,7 +396,7 @@
     width: 100%;
   }
 
-  @include medium-and-up {
+  @include mixins.medium-and-up {
     display: flex;
 
     .listing-page-select {
@@ -407,7 +409,7 @@
     }
   }
 
-  @include small-and-less {
+  @include mixins.small-and-less {
     width: 100%;
   }
 }
@@ -424,7 +426,7 @@
   margin-bottom: $sp-1;
   color: var(--grey-600);
 
-  @include medium-and-up {
+  @include mixins.medium-and-up {
     position: absolute;
     top: -$sp-4;
     left: 0;

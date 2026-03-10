@@ -1,3 +1,5 @@
+@use "../../base/mixins" as mixins;
+
 .wp-block-quote {
   font-style: italic;
   quotes: auto;
@@ -22,11 +24,11 @@
       margin-inline-start: $sp-x;
     }
 
-    @include medium-and-up {
+    @include mixins.medium-and-up {
       font-size: var(--font-size-xl--font-family-primary);
     }
 
-    @include x-large-and-up {
+    @include mixins.x-large-and-up {
       font-size: var(--font-size-xl--font-family-primary);
     }
   }
@@ -35,7 +37,7 @@
     font-style: normal;
 
     a {
-      @include shared-link-styles;
+      @include mixins.shared-link-styles;
     }
   }
 }

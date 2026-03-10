@@ -1,3 +1,5 @@
+@use "../../base/mixins" as mixins;
+
 .posts-list {
   .carousel-controls {
     display: none !important;
@@ -26,7 +28,7 @@
     margin-bottom: $sp-3;
   }
 
-  @include large-and-up {
+  @include mixins.large-and-up {
     .wp-block-post {
       flex-basis: calc(25% - $sp-2);
     }
