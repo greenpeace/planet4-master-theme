@@ -1,4 +1,5 @@
 import {useState, useEffect, useRef} from '@wordpress/element';
+const {sprintf, __} = wp.i18n;
 
 export const YearsNavigation = ({years}) => {
   const [showLeftArrow, setShowLeftArrow] = useState(false);
@@ -147,7 +148,14 @@ export const YearsNavigation = ({years}) => {
   }, [isRTL]);
 
   return (
-    <div className="years-navigation d-flex justify-content-center">
+    <nav
+      className="years-navigation d-flex justify-content-center"
+      aria-label={sprintf(
+      /* translators: 1: amount of years in the timeline */
+        __('Timeline navigation, list with %1$d items', 'planet4-blocks'),
+        years.length
+      )}
+    >
       {showLeftArrow && (
         <button className="nav-arrow left" onClick={() => scrollNav('left')}/>
       )}
@@ -168,6 +176,6 @@ export const YearsNavigation = ({years}) => {
       {showRightArrow && (
         <button className="nav-arrow right" onClick={() => scrollNav('right')}/>
       )}
-    </div>
+    </nav>
   );
 };
