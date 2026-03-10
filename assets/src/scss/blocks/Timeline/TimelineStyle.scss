@@ -643,41 +643,41 @@
 
   .nav-arrow {
     position: absolute;
-    top: 20px;
+    top: 4px;
     background: none;
     border: none;
     color: var(--white);
     font-size: var(--font-size-m--font-family-primary);
     background-image: none;
     mask-image: url("../../images/chevron.svg");
-    mask-size: contain;
+    mask-size: 15px 15px;
     mask-repeat: no-repeat;
     mask-position: center;
     background-color: var(--grey-600);
-    height: 15px;
-    width: 15px;
+    height: 48px;
+    width: 48px;
 
     &.left {
-      left: -$sp-2x;
+      left: -42px;
       transform: rotate(180deg);
     }
 
     &.right {
-      right: -$sp-2x;
+      right: -42px;
     }
 
     @include medium-and-up {
       &.left {
-        left: -$sp-3x;
+        left: -52px;
       }
 
       &.right {
-        right: -$sp-3x;
+        right: -52px;
       }
     }
 
     @include x-large-and-up {
-      top: 24px;
+      top: 8px;
     }
   }
 }
