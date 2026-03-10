@@ -596,7 +596,8 @@
     z-index: 999;
     padding: $sp-1x 0;
     top: 68px;
-    margin-bottom: $sp-2;
+    max-width: 340px;
+    margin: 0 auto $sp-2 auto;
 
     body.admin-bar & {
       top: 100px;
@@ -617,6 +618,14 @@
         top: 156px;
       }
     }
+
+    @include large-and-up {
+      max-width: 916px;
+    }
+
+    @include x-large-and-up {
+      max-width: 986px;
+    }
   }
 
   .years-navigation-items {
@@ -635,7 +644,7 @@
     scrollbar-width: none;  /* Firefox */
 
     li {
-      margin: $sp-x $sp-2x;
+      margin: $sp-x $sp-2;
 
       a {
         font-family: var(--font-family-tertiary);
@@ -684,6 +693,10 @@
       &.right {
         right: -$sp-3x;
       }
+    }
+
+    @include x-large-and-up {
+      top: 24px;
     }
   }
 }
