@@ -1,4 +1,5 @@
 @use "../../base/tokens" as tokens;
+@use "../../base/mixins" as mixins;
 
 .nav-languages-toggle {
   background: transparent;
@@ -9,7 +10,7 @@
   font-weight: 700;
   padding: 0 $sp-2;
 
-  @include large-and-up {
+  @include mixins.large-and-up {
     border-inline-start: var(--top-navigation--separation);
     display: inline-block;
     line-height: var(--navbar-menu-height);
@@ -89,7 +90,7 @@
     display: none;
   }
 
-  @include large-and-up {
+  @include mixins.large-and-up {
     inset-inline-end: 0;
     min-width: 140px;
     position: absolute;

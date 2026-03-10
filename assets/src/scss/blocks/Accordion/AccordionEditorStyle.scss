@@ -1,3 +1,5 @@
+@use "../../base/mixins" as mixins;
+
 .add-button {
   cursor: pointer;
   font-weight: var(--font-weight-regular);
@@ -47,11 +49,11 @@
     }
   }
 
-  @include medium-and-up {
+  @include mixins.medium-and-up {
     width: 40%;
   }
 
-  @include large-and-up {
+  @include mixins.large-and-up {
     width: 25%;
   }
 }

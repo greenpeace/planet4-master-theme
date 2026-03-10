@@ -1,4 +1,6 @@
-@include large-and-up {
+@use "../../base/mixins" as mixins;
+
+@include mixins.large-and-up {
   .narrow-container {
     margin-left: auto;
     margin-right: auto;
@@ -7,7 +9,7 @@
   }
 }
 
-@include x-large-and-up {
+@include mixins.x-large-and-up {
   .narrow-container {
     max-width: 736px;
   }
@@ -95,7 +97,7 @@
       margin-top: $sp-3;
     }
 
-    @include medium-and-up {
+    @include mixins.medium-and-up {
       padding-top: $sp-3;
     }
   }
@@ -110,7 +112,7 @@
   padding: $sp-3;
   margin-top: $sp-3;
 
-  @include medium-and-up {
+  @include mixins.medium-and-up {
     padding: $sp-3 $sp-8;
   }
 

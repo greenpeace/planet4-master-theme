@@ -1,3 +1,5 @@
+@use "../../base/mixins" as mixins;
+
 .search {
   .multiple-search-result .more-btn {
     width: auto;
@@ -8,7 +10,7 @@
 .search-block {
   padding-top: 56px;
 
-  @include small-and-up {
+  @include mixins.small-and-up {
     padding-top: 64px;
   }
 }
@@ -18,15 +20,15 @@
   margin-bottom: 8px;
   line-height: 1.2;
 
-  @include small-and-up {
+  @include mixins.small-and-up {
     font-size: $font-size-xxxl;
   }
 
-  @include large-and-up {
+  @include mixins.large-and-up {
     font-size: 3.5rem;
   }
 
-  @include x-large-and-up {
+  @include mixins.x-large-and-up {
     font-size: 4.125rem;
   }
 }
@@ -35,7 +37,7 @@
 .search-result {
   margin-top: 94px;
 
-  @include x-large-and-up {
+  @include mixins.x-large-and-up {
     margin-top: 120px;
   }
 
@@ -46,18 +48,18 @@
     color: var(--grey-800);
     line-height: 1.8;
 
-    @include small-and-up {
+    @include mixins.small-and-up {
       font-size: 1.125rem;
       margin-bottom: 32px;
       padding-left: 20px;
     }
 
-    @include large-and-up {
+    @include mixins.large-and-up {
       margin-bottom: 45px;
       padding-left: 30px;
     }
 
-    @include x-large-and-up {
+    @include mixins.x-large-and-up {
       font-size: $font-size-lg;
       margin-bottom: 40px;
       padding-left: 50px;

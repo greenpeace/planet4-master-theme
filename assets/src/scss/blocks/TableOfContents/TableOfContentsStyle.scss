@@ -1,3 +1,5 @@
+@use "../../base/mixins" as mixins;
+
 // On outer element as otherwise it will not be clickable when floating on the right.
 div[data-render="planet4-blocks/submenu"] {
   z-index: 4;
@@ -25,7 +27,7 @@ div[data-render="planet4-blocks/submenu"] {
     ul.table-of-contents-item {
       flex-basis: 100%;
 
-      @include large-and-up {
+      @include mixins.large-and-up {
         flex-basis: 50%;
       }
     }
@@ -64,7 +66,7 @@ div[data-render="planet4-blocks/submenu"] {
 
   &.table-of-contents-short {
     .table-of-contents-menu {
-      @include medium-and-up {
+      @include mixins.medium-and-up {
         ul.table-of-contents-item {
           flex-basis: 100%;
           column-count: 3;
@@ -83,7 +85,7 @@ div[data-render="planet4-blocks/submenu"] {
         flex-basis: 100%;
         column-count: 1;
 
-        @include medium-and-up {
+        @include mixins.medium-and-up {
           column-count: 2;
         }
       }
@@ -93,7 +95,7 @@ div[data-render="planet4-blocks/submenu"] {
   &.table-of-contents-sidebar {
     z-index: 4;
 
-    @include medium-and-up {
+    @include mixins.medium-and-up {
       float: right;
       max-width: 350px;
       margin-bottom: $sp-2;
@@ -108,7 +110,7 @@ div[data-render="planet4-blocks/submenu"] {
       ul.table-of-contents-item {
         flex-basis: 100%;
 
-        @include large-and-up {
+        @include mixins.large-and-up {
           flex-basis: 100%;
         }
       }

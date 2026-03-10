@@ -1,3 +1,5 @@
+@use "../../base/mixins" as mixins;
+
 .filter-sidebar {
   position: relative;
 
@@ -25,13 +27,13 @@
       font-size: $font-size-sm;
       margin-bottom: 24px;
 
-      @include small-and-up {
+      @include mixins.small-and-up {
         padding: 13px $sp-4;
         font-size: 1.125rem;
         margin-bottom: 32px;
       }
 
-      @include large-and-up {
+      @include mixins.large-and-up {
         padding: 11px $sp-4;
         font-size: $font-size-md;
       }
@@ -115,7 +117,7 @@
       left: auto;
     }
 
-    @include small-and-up {
+    @include mixins.small-and-up {
       margin-top: -14px;
     }
 
@@ -135,7 +137,7 @@
         margin-right: 20px;
       }
 
-      @include small-and-up {
+      @include mixins.small-and-up {
         font-size: $font-size-sm;
         height: 48px;
         width: 150px;

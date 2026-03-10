@@ -1,5 +1,7 @@
+@use "../../base/mixins" as mixins;
+
 // Adds nesting on comments
-@include comment-level;
+@include mixins.comment-level;
 
 .comments-block {
   h3 {
@@ -25,7 +27,7 @@
   overflow-wrap: break-word;
 
   a {
-    @include shared-link-styles;
+    @include mixins.shared-link-styles;
   }
 }
 
@@ -51,11 +53,11 @@
     font-size: 14px;
     margin-top: $sp-2;
     width: fit-content;
-    @include shared-link-styles;
+    @include mixins.shared-link-styles;
   }
 }
 
-@include medium-and-up {
+@include mixins.medium-and-up {
   .single-comment-meta {
     .comment-reply-link {
       font-family: var(--font-family-primary);
@@ -70,13 +72,13 @@
   }
 }
 
-@include large-and-up {
+@include mixins.large-and-up {
   .comments-block {
     max-width: 696px;
   }
 }
 
-@include x-large-and-up {
+@include mixins.x-large-and-up {
   .comments-block {
     max-width: 736px;
   }

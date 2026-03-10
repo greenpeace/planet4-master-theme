@@ -1,4 +1,5 @@
 @use "../../base/tokens" as tokens;
+@use "../../base/mixins" as mixins;
 
 .nav-search-form {
   background-color: inherit;
@@ -21,7 +22,7 @@
       top: calc(var(--navbar-menu-height--small) + 32px);
     }
 
-    @include large-and-up {
+    @include mixins.large-and-up {
       top: calc(var(--navbar-menu-height) + 32px);
     }
   }
@@ -29,7 +30,7 @@
   &.open {
     display: flex;
 
-    @include medium-and-less {
+    @include mixins.medium-and-less {
       @supports not (inset-inline-start: 0) {
         left: 100%;
         margin: auto;
@@ -46,7 +47,7 @@
       }
     }
 
-    @include small-and-less {
+    @include mixins.small-and-less {
       @supports not (inset-inline-start: 0) {
         left: 100vw;
 
@@ -57,11 +58,11 @@
     }
   }
 
-  @include large-and-up {
+  @include mixins.large-and-up {
     top: var(--navbar-menu-height);
   }
 
-  @include x-large-and-up {
+  @include mixins.x-large-and-up {
     border-inline-start: var(--top-navigation--separation);
     border-top: none;
     box-shadow: none;
@@ -88,7 +89,7 @@
   padding-inline: 12px 8px;
   width: auto;
 
-  @include small-and-less {
+  @include mixins.small-and-less {
     @supports not (padding-inline: 12px 8px) {
       padding-right: 12px;
       padding-left: 8px;
@@ -100,7 +101,7 @@
     }
   }
 
-  @include x-large-and-up {
+  @include mixins.x-large-and-up {
     color: inherit;
     width: calc(100% - 48px);
   }
@@ -141,17 +142,17 @@
     float: right;
   }
 
-  @include x-large-and-up {
+  @include mixins.x-large-and-up {
     display: inline-block;
   }
 
   &:focus {
-    @include focus-styles;
+    @include mixins.focus-styles;
   }
 }
 
 .nav-search-clear {
-  @include clear-input-styles;
+  @include mixins.clear-input-styles;
   float: right;
   margin-inline-end: 36px;
 
@@ -159,11 +160,11 @@
     float: left;
   }
 
-  @include small-and-less {
+  @include mixins.small-and-less {
     margin-inline-end: 16px;
   }
 
-  @include x-large-and-up {
+  @include mixins.x-large-and-up {
     display: inline-block;
   }
 }
@@ -180,7 +181,7 @@
   position: relative;
 
   &:focus {
-    @include focus-styles(50%);
+    @include mixins.focus-styles(50%);
   }
 
   &.open --top-navigation--search-toggle-- {
@@ -190,12 +191,12 @@
   &.medium-and-less {
     display: inline-block;
 
-    @include large-and-up {
+    @include mixins.large-and-up {
       display: none;
     }
   }
 
-  @include large-and-up {
+  @include mixins.large-and-up {
     display: inline-block;
 
     &:before {
@@ -214,7 +215,7 @@
     }
   }
 
-  @include x-large-and-up {
+  @include mixins.x-large-and-up {
     display: none;
   }
 }

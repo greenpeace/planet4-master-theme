@@ -1,3 +1,5 @@
+@use "../base/mixins" as mixins;
+
 .featured-action-section {
   position: relative;
   margin-top: $sp-6x;
@@ -45,7 +47,7 @@
 
 .featured-action-section__content h5,
 .featured-action-section__content p {
-  @include clamp-text(2);
+  @include mixins.clamp-text(2);
 }
 
 .featured-action-section__content p {

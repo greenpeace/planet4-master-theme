@@ -1,3 +1,5 @@
+@use "../base/mixins" as mixins;
+
 .page-content {
   > * {
     position: relative;
@@ -18,32 +20,32 @@
   .wp-block-list a,
   > ul li a,
   > ol li a {
-    @include shared-link-styles;
+    @include mixins.shared-link-styles;
   }
 
   &.no-page-title {
     padding-top: var(--navbar-menu-height--small);
 
-    @include large-and-up {
+    @include mixins.large-and-up {
       padding-top: var(--navbar-menu-height--large);
     }
 
     & > p:first-child {
       padding-top: $sp-1;
 
-      @include small-and-up {
+      @include mixins.small-and-up {
         padding-top: $sp-1x;
       }
 
-      @include medium-and-up {
+      @include mixins.medium-and-up {
         padding-top: $sp-2;
       }
 
-      @include large-and-up {
+      @include mixins.large-and-up {
         padding-top: $sp-4;
       }
 
-      @include x-large-and-up {
+      @include mixins.x-large-and-up {
         padding-top: $sp-6;
       }
     }
@@ -102,7 +104,7 @@
     padding: 15px 14px 8px;
     width: 100%;
 
-    @include medium-and-up {
+    @include mixins.medium-and-up {
       max-width: 400px;
     }
   }
@@ -165,7 +167,7 @@
     text-overflow: ellipsis;
   }
 
-  @include large-and-up {
+  @include mixins.large-and-up {
     height: 116px;
     font-size: var(--font-size-s--font-family-primary);
   }

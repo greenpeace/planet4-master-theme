@@ -1,3 +1,5 @@
+@use "../../base/mixins" as mixins;
+
 @mixin headline {
   border-color: transparent;
   background: var(--p4-dark-green-800);
@@ -52,7 +54,7 @@
     }
   }
 
-  @include medium-and-up {
+  @include mixins.medium-and-up {
     padding-inline-start: $sp-3;
     font-size: var(--font-size-m--font-family-primary);
     margin-bottom: $sp-3;
@@ -100,10 +102,10 @@
   margin: $sp-3 0 0 !important;
   width: 80%;
 
-  @include medium-and-up {
+  @include mixins.medium-and-up {
     width: 40%;
   }
-  @include large-and-up {
+  @include mixins.large-and-up {
     width: 25%;
   }
 }
@@ -114,7 +116,7 @@
   overflow: hidden;
   transition: display 1s, opacity 1s, height 1s ease-in-out;
 
-  @include medium-and-up {
+  @include mixins.medium-and-up {
     padding: 0 $sp-3 $sp-5 $sp-3;
   }
 }

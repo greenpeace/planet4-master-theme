@@ -1,3 +1,5 @@
+@use "../../../base/mixins" as mixins;
+
 .split-three-column {
   .three-column-images {
     min-height: 184px;
@@ -6,13 +8,13 @@
     max-width: 100%;
     margin: auto;
 
-    @include medium-and-up {
+    @include mixins.medium-and-up {
       min-height: 330px;
       margin-left: 0;
       margin-right: 0;
     }
 
-    @include x-large-and-up {
+    @include mixins.x-large-and-up {
       min-height: 430px;
     }
   }
@@ -36,37 +38,37 @@
       object-fit: cover;
       cursor: pointer;
 
-      @include mobile-only {
+      @include mixins.mobile-only {
         width: 260px;
       }
 
-      @include medium-and-up {
+      @include mixins.medium-and-up {
         height: 330px;
         width: 400px;
       }
 
-      @include large-and-up {
+      @include mixins.large-and-up {
         left: -25%;
       }
 
-      @include x-large-and-up {
+      @include mixins.x-large-and-up {
         left: -30%;
         height: 430px;
         width: 530px;
       }
 
-      @include xx-large-and-up {
+      @include mixins.xx-large-and-up {
         width: 620px;
       }
 
       html[dir="rtl"] & {
         right: -25%;
 
-        @include large-and-up {
+        @include mixins.large-and-up {
           right: -15%;
         }
 
-        @include x-large-and-up {
+        @include mixins.x-large-and-up {
           right: -20%;
           height: 430px;
         }
@@ -96,7 +98,7 @@
 
       img {
         transform: skew(25deg);
-        @include mobile-only {
+        @include mixins.mobile-only {
           right: -50px;
         }
       }
@@ -126,22 +128,22 @@
       width: 660px;
       transform: skew(-25deg);
 
-      @include mobile-only {
+      @include mixins.mobile-only {
         width: 280px;
         left: -50px;
       }
 
-      @include small-and-up {
+      @include mixins.small-and-up {
         left: -180px;
       }
 
-      @include medium-and-up {
+      @include mixins.medium-and-up {
         left: -100px;
       }
     }
 
     .img_post {
-      @include small-and-up {
+      @include mixins.small-and-up {
         width: 500px;
         left: -150px;
       }

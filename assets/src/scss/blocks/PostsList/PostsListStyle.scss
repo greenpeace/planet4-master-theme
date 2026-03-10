@@ -1,3 +1,5 @@
+@use "../../base/mixins" as mixins;
+
 .posts-list {
   margin-bottom: $sp-4;
 
@@ -10,7 +12,7 @@
     list-style: none;
 
     a {
-      @include shared-link-styles;
+      @include mixins.shared-link-styles;
       display: inline-block;
       font-family: var(--font-family-heading);
       font-size: 16px;
@@ -35,7 +37,7 @@
       }
     }
 
-    @include medium-and-less {
+    @include mixins.medium-and-less {
       margin-top: $sp-4;
     }
   }
@@ -48,7 +50,7 @@
   }
 
   .taxonomy-post_tag {
-    @include render-bullet();
+    @include mixins.render-bullet();
     margin-inline-start: $sp-1x;
 
     &:before {
@@ -91,11 +93,11 @@
       width: 100% !important;
       object-fit: cover;
 
-      @include medium-and-up {
+      @include mixins.medium-and-up {
         height: 180px;
       }
 
-      @include large-and-up {
+      @include mixins.large-and-up {
         height: 210px;
       }
     }
@@ -107,7 +109,7 @@
     margin-bottom: calc($sp-1x - 2px);
 
     a {
-      @include clamp-text(2);
+      @include mixins.clamp-text(2);
 
       &:hover {
         text-decoration: underline;
@@ -115,11 +117,11 @@
       }
     }
 
-    @include large-and-up {
+    @include mixins.large-and-up {
       font-size: 20px;
     }
 
-    @include x-large-and-up {
+    @include mixins.x-large-and-up {
       margin-bottom: $sp-3;
     }
   }
@@ -149,7 +151,7 @@
       margin-bottom: 0;
     }
 
-    @include medium-and-less {
+    @include mixins.medium-and-less {
       .wp-block-post {
         width: 250px;
       }
@@ -159,13 +161,13 @@
       }
     }
 
-    @include medium-and-up {
+    @include mixins.medium-and-up {
       .wp-block-post {
         width: 276px;
       }
     }
 
-    @include large-and-up {
+    @include mixins.large-and-up {
       .carousel-indicators {
         margin-top: -$sp-3;
       }
@@ -197,10 +199,10 @@
       width: 100%;
       margin-bottom: $sp-1;
       font-size: var(--font-size-m--font-family-secondary);
-      @include clamp-text(3);
+      @include mixins.clamp-text(3);
       word-break: break-word;
 
-      @include large-and-up {
+      @include mixins.large-and-up {
         line-height: 1.5;
       }
     }
@@ -290,11 +292,11 @@
       display: grid;
       gap: $sp-3;
 
-      @include medium-and-up {
+      @include mixins.medium-and-up {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
-      @include large-and-up {
+      @include mixins.large-and-up {
         grid-template-columns: repeat(4, minmax(0, 1fr));
       }
     }
@@ -303,7 +305,7 @@
   &.is-custom-layout-grid,
   &.is-custom-layout-carousel {
     .wp-block-post-terms a {
-      @include clamp-text(1);
+      @include mixins.clamp-text(1);
 
       overflow-wrap: break-word;
       word-break: break-word;
@@ -316,10 +318,10 @@
     line-height: var(--line-height-xs--font-family-tertiary);
 
     .article-list-item-author {
-      @include clamp-text(1);
+      @include mixins.clamp-text(1);
 
       &:focus-within {
-        @include focus-styles();
+        @include mixins.focus-styles();
       }
 
       a:focus {

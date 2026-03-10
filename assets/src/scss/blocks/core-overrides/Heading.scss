@@ -1,3 +1,5 @@
+@use "../../base/mixins" as mixins;
+
 .wp-block-heading {
   &.is-style-chevron::after {
     content: "";
@@ -19,6 +21,6 @@
   }
 
   > a {
-    @include shared-link-styles;
+    @include mixins.shared-link-styles;
   }
 }

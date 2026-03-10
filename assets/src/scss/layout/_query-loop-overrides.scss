@@ -1,4 +1,5 @@
 @use "../base/tokens" as tokens;
+@use "../base/mixins" as mixins;
 
 .p4-query-loop {
   & > .wp-block-group {
@@ -19,7 +20,7 @@
       margin-bottom: 0;
     }
 
-    @include medium-and-less {
+    @include mixins.medium-and-less {
       .carousel {
         overflow: hidden;
         padding: $sp-x $sp-x $sp-x 0;
@@ -48,7 +49,7 @@
       }
     }
 
-    @include large-and-up {
+    @include mixins.large-and-up {
       .carousel-item {
         width: 100%;
       }
@@ -111,7 +112,7 @@
       }
     }
 
-    @include xx-large-and-up {
+    @include mixins.xx-large-and-up {
       .carousel-controls {
         width: calc(100% + calc($sp-8 * 2));
       }

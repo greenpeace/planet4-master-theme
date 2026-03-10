@@ -1,3 +1,5 @@
+@use "../../base/mixins" as mixins;
+
 $transition-duration: .2s;
 
 @mixin slide-from-start() {
@@ -47,7 +49,7 @@ $transition-duration: .2s;
   }
 
   .admin-bar & {
-    @include medium-and-less {
+    @include mixins.medium-and-less {
       top: 46px;
       height: calc(100% - 46px);
     }
@@ -58,11 +60,11 @@ $transition-duration: .2s;
     }
   }
 
-  @include small-and-less {
+  @include mixins.small-and-less {
     width: 100vw;
   }
 
-  @include small-and-up {
+  @include mixins.small-and-up {
     width: 400px;
   }
 }
@@ -107,7 +109,7 @@ $transition-duration: .2s;
     padding: $sp-1x $sp-x 0;
   }
 
-  @include scrollbar-layout;
+  @include mixins.scrollbar-layout;
 }
 
 .burger-menu-footer {
@@ -210,7 +212,7 @@ $transition-duration: .2s;
   &:focus,
   &:focus-within,
   &:focus-visible {
-    @include focus-styles;
+    @include mixins.focus-styles;
   }
 }
 
@@ -233,7 +235,7 @@ $transition-duration: .2s;
 
   &:focus,
   &:focus-visible {
-    @include focus-styles;
+    @include mixins.focus-styles;
   }
 
   @supports not (inset-inline-end: $sp-3) {
