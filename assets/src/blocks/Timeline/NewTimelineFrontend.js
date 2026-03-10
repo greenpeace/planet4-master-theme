@@ -185,7 +185,7 @@ export const NewTimelineFrontend = ({attributes}) => {
         <YearsNavigation years={processedSheetData.map(({year}) => year)} />
         <fieldset className="timeline-group">
           {processedSheetData.map(({year, list}) => (
-            <div id={year} key={year}>
+            <div className="timeline-block-year-group" id={year} key={year}>
               <p className="timeline-block-year">{year}</p>
               <ul className="timeline-block-events">
                 {list.map((event, index) => (
