@@ -5,6 +5,7 @@ import {SlideBackground} from './SlideBackground';
 import {StaticCaption} from './StaticCaption';
 
 const {useRef, useMemo} = wp.element;
+const {__} = wp.i18n;
 
 export const CarouselHeaderFrontend = ({slides, carousel_autoplay, className, decoding}) => {
   const slidesRef = useRef([]);
@@ -23,6 +24,8 @@ export const CarouselHeaderFrontend = ({slides, carousel_autoplay, className, de
     <section
       className={`block block-header alignfull carousel-header ${className ?? ''}`}
       ref={containerRef}
+      aria-label={__('Greenpeace highlights', 'planet4-blocks')}
+      aria-roledescription="carousel"
     >
       <div className="carousel-wrapper-header">
         <ul className="carousel-inner" role="listbox">
