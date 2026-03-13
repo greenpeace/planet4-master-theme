@@ -371,16 +371,16 @@
   .timeline-block-event {
     list-style: none;
 
-    border: 1px solid var(--grey-500);
+    border: 1px solid var(--grey-300);
     max-width: 340px;
     margin: 0 auto $sp-3 auto;
     border-radius: $sp-1;
     background-color: var(--white);
-    padding: $sp-2;
+    padding: $sp-3;
 
     .timeline-block-event-day {
       display: inline-block;
-      border: 1px solid var(--grey-500);
+      border: 1px solid var(--grey-300);
       border-radius: $sp-x;
       text-align: center;
       font-size: var(--font-size-s--font-family-tertiary);
@@ -419,6 +419,29 @@
     }
   }
 
+  .timeline-external-link-container {
+    display: flex;
+    justify-content: end;
+  }
+
+  .timeline-external-link {
+    background: var(--color-background-button--cta);
+    color: var(--color-text-button--primary);
+    font-family: var(--font-family-button);
+    font-weight: var(--font-weight-bold);
+    font-size: var(--font-size-xxxs--font-family-primary);
+    line-height: var(--line-height-s--font-family-primary);
+    letter-spacing: 0%;
+    padding: $sp-1 $sp-3;
+    border-radius: $sp-x;
+    margin-top: $sp-2;
+    text-decoration: none;
+
+    &:hover {
+      background: var(--color-background-button--cta-hover);
+    }
+  }
+
   .page-section-header {
     padding: $sp-2 $sp-2 0;
     line-height: var(--line-height-xl--font-family-primary);
@@ -447,7 +470,7 @@
       &::before {
         content: "";
         position: absolute;
-        background-color: var(--grey-500);
+        background-color: var(--grey-300);
         inline-size: 1px;
         block-size: 100%;
         inset-block-start: 0;
@@ -483,7 +506,7 @@
       &::before {
         content: "";
         position: absolute;
-        background-color: var(--grey-500);
+        background-color: var(--grey-300);
         block-size: 1px;
         inset-block-start: 31px;
       }
