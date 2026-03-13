@@ -1,3 +1,5 @@
+@use "../../base/mixins" as mixins;
+
 .wp-block-quote,
 .wp-block-file,
 .wp-block-button,
@@ -17,7 +19,7 @@
   margin-top: $sp-1;
   margin-bottom: $sp-2;
 
-  @include large-and-up {
+  @include mixins.large-and-up {
     margin-top: $sp-2;
     margin-bottom: $sp-4;
   }
@@ -30,7 +32,7 @@
   margin-top: $sp-1;
   margin-bottom: $sp-1;
 
-  @include large-and-up {
+  @include mixins.large-and-up {
     margin-top: $sp-2;
     margin-bottom: $sp-2;
   }

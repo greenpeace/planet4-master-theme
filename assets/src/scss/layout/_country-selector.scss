@@ -1,4 +1,5 @@
 @use "../base/tokens" as tokens;
+@use "../base/mixins" as mixins;
 
 #country-selector {
   color: inherit;
@@ -16,7 +17,7 @@
   }
 
   button:focus {
-    @include focus-styles;
+    @include mixins.focus-styles;
   }
 
   button:focus:not(:focus-visible) {
@@ -97,7 +98,7 @@
 .countries-list .container {
   padding: 24px 24px $sp-4 16px;
 
-  @include medium-and-up {
+  @include mixins.medium-and-up {
     padding: 24px 0 $sp-4;
   }
 }
@@ -108,7 +109,7 @@
   margin: 0;
   padding-inline-start: $sp-4;
 
-  @include medium-and-up {
+  @include mixins.medium-and-up {
     column-count: 3;
   }
 
@@ -127,7 +128,7 @@
     list-style: none;
     padding: $sp-x 0 0 0;
 
-    @include medium-and-up {
+    @include mixins.medium-and-up {
       margin-inline-end: $sp-4;
     }
   }

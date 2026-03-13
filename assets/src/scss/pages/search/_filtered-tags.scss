@@ -1,3 +1,5 @@
+@use "../../base/mixins" as mixins;
+
 .search-info {
   font-size: $font-size-xxs;
   margin-bottom: 0;
@@ -6,15 +8,15 @@
   color: var(--grey-800);
   line-height: normal;
 
-  @include medium-and-up {
+  @include mixins.medium-and-up {
     font-size: 1.125rem;
   }
 
-  @include large-and-up {
+  @include mixins.large-and-up {
     font-size: $font-size-xl;
   }
 
-  @include x-large-and-up {
+  @include mixins.x-large-and-up {
     font-size: 2rem;
   }
 }

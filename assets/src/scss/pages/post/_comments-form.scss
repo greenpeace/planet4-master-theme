@@ -1,3 +1,5 @@
+@use "../../base/mixins" as mixins;
+
 .comments-block {
   font-family: var(--font-family-paragraph-secondary);
 
@@ -28,7 +30,7 @@
       margin-bottom: 0;
     }
 
-    @include medium-and-up {
+    @include mixins.medium-and-up {
       .comment-author,
       .comment-email {
         width: calc(50% - $sp-1);
@@ -88,7 +90,7 @@
   }
 }
 
-@include medium-and-up {
+@include mixins.medium-and-up {
   .comments-block .form-section .comment-respond {
     padding: $sp-4;
   }

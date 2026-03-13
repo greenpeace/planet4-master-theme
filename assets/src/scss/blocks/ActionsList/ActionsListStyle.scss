@@ -1,3 +1,5 @@
+@use "../../base/mixins" as mixins;
+
 .actions-list {
   margin-bottom: $sp-4;
 
@@ -10,13 +12,13 @@
   }
 
   &.is-custom-layout-carousel {
-    @include medium-and-less {
+    @include mixins.medium-and-less {
       .wp-block-post {
         width: 354px;
       }
     }
 
-    @include large-and-up {
+    @include mixins.large-and-up {
       .carousel-item-wrapper {
         grid-template-columns: repeat(3, 1fr);
         padding: $sp-1x $sp-1;
@@ -40,7 +42,7 @@
       // This padding-top is added only when the figure is not being rendered
       padding-top: calc(196px + $sp-3);
 
-      @include large-and-up {
+      @include mixins.large-and-up {
         padding-top: calc(220px + $sp-3);
       }
     }
@@ -121,7 +123,7 @@
     margin-bottom: $sp-1;
 
     a {
-      @include clamp-text(2);
+      @include mixins.clamp-text(2);
     }
   }
 
@@ -129,9 +131,9 @@
     font-family: var(--font-family-tertiary);
     font-size: var(--font-size-xxs--font-family-primary);
     line-height: var(--line-height-m--font-family-tertiary);
-    @include clamp-text(3);
+    @include mixins.clamp-text(3);
 
-    @include large-and-up {
+    @include mixins.large-and-up {
       line-height: var(--line-height-m--font-family-tertiary);
     }
   }
@@ -140,7 +142,7 @@
     height: 196px;
     object-fit: cover;
 
-    @include large-and-up {
+    @include mixins.large-and-up {
       height: 220px;
     }
   }
@@ -154,7 +156,7 @@
       font-weight: var(--font-weight-bold);
       font-family: var(--font-family-tertiary);
       line-height: var(--line-height-s--font-family-tertiary);
-      @include clamp-text(1);
+      @include mixins.clamp-text(1);
     }
   }
 
@@ -165,28 +167,28 @@
       display: grid;
       gap: $sp-2;
 
-      @include medium-and-up {
+      @include mixins.medium-and-up {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
-      @include large-and-up {
+      @include mixins.large-and-up {
         grid-template-columns: repeat(3, minmax(0, 1fr));
       }
     }
 
-    @include mobile-only {
+    @include mixins.mobile-only {
       .wp-block-post:nth-child(n+4) {
         display: none;
       }
     }
 
-    @include medium-and-less {
+    @include mixins.medium-and-less {
       .wp-block-post:nth-child(n+5) {
         display: none;
       }
     }
 
-    @include large-and-up {
+    @include mixins.large-and-up {
       .wp-block-post:nth-child(n+7) {
         display: none;
       }

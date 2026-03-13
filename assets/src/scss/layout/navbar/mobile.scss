@@ -1,3 +1,5 @@
+@use "../../base/mixins" as mixins;
+
 #nav-mobile {
   display: flex;
   flex: 1 1 100%;
@@ -9,7 +11,7 @@
   transition: height 0.2s linear;
   height: 50px;
 
-  @include large-and-up {
+  @include mixins.large-and-up {
     display: none;
   }
 

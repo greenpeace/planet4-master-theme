@@ -1,4 +1,5 @@
-@import "./base/tokens";
+@use "./base/mixins" as mixins;
+@use "./base/tokens" as tokens;
 
 // Moved from another repo, for history please see https://github.com/greenpeace/planet4-plugin-gutenberg-blocks/blame/f5c532ed5704738136224cde305e9a0ffe614ceb/assets/src/styles/editorOverrides.scss
 .editor-post-title__block textarea.editor-post-title__input {
@@ -7,11 +8,11 @@
   line-height: 1.225;
   margin-bottom: 30px;
 
-  @include large-and-up {
+  @include mixins.large-and-up {
     font-size: $font-size-xxl;
     margin-bottom: 48px;
   }
-  @include x-large-and-up {
+  @include mixins.x-large-and-up {
     font-size: $font-size-xxxl;
   }
 }
@@ -109,20 +110,20 @@
     font-size: var(--font-size-m--font-family-secondary);
     line-height: var(--line-height-m--font-family-secondary);
 
-    @include x-large-and-up {
+    @include mixins.x-large-and-up {
       font-size: var(--font-size-xl--font-family-secondary);
       line-height: var(--line-height-xl--font-family-secondary);
     }
 
     > a {
-      @include shared-link-styles;
+      @include mixins.shared-link-styles;
     }
   }
 
   .wp-block-list a,
   > ul li a,
   > ol li a {
-    @include shared-link-styles;
+    @include mixins.shared-link-styles;
   }
 }
 
@@ -407,7 +408,7 @@ input.describe[type=text][data-setting=caption] {
     }
   }
 
-  @include large-and-up {
+  @include mixins.large-and-up {
     .wp-block-post:not(:last-child) {
       margin-inline-end: $sp-3;
     }
@@ -433,5 +434,53 @@ html[dir="rtl"] {
       direction: rtl;
       unicode-bidi: embed;
     }
+  }
+}
+
+.block-editor-block-list__layout.is-root-container > * {
+  margin-top: $sp-1;
+  margin-bottom: $sp-2;
+
+  @include mixins.large-and-up {
+    margin-top: $sp-2;
+    margin-bottom: $sp-4;
+  }
+}
+
+.block-edit-mode-warning {
+  padding: $sp-2;
+  margin: 0;
+}
+
+.EmptyMessage {
+  font-family: var(--font-family-primary);
+  padding: $sp-4;
+  background: var(--gp-green-200);
+}
+
+.HTMLSidebarHelp {
+  padding-top: $sp-1;
+  padding-bottom: $sp-2;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+// Prevent links being clickable in editor
+.secondary-navigation-link {
+  pointer-events: none;
+  cursor: default;
+}
+
+.secondary-navigation-block:has(.EmptyMessage) {
+  height: unset;
+  padding: unset;
+}
+
+.secondary-navigation-items {
+  width: 90%;
+  margin-inline-start: 7%;
+
+  li:first-child {
+    margin-left: 115px;
   }
 }

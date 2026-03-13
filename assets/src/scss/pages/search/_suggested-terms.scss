@@ -1,4 +1,5 @@
 @use "../../base/tokens" as tokens;
+@use "../../base/mixins" as mixins;
 
 .suggested-search-terms {
   margin: $sp-6x 0 104px;
@@ -7,11 +8,11 @@
     font-size: 1.625rem;
     margin-bottom: 16px;
 
-    @include small-and-up {
+    @include mixins.small-and-up {
       font-size: 2.125rem;
     }
 
-    @include large-and-up {
+    @include mixins.large-and-up {
       font-size: 2.25rem;
     }
   }
@@ -29,7 +30,7 @@
   li {
     text-align: center;
 
-    @include medium-and-up {
+    @include mixins.medium-and-up {
       text-align: left;
     }
 
@@ -38,15 +39,15 @@
       font-size: 1.125rem;
       line-height: 2.3;
 
-      @include medium-and-up {
+      @include mixins.medium-and-up {
         font-size: $font-size-lg;
       }
 
-      @include large-and-up {
+      @include mixins.large-and-up {
         font-size: 1.125rem;
       }
 
-      @include x-large-and-up {
+      @include mixins.x-large-and-up {
         font-size: $font-size-lg;
       }
     }

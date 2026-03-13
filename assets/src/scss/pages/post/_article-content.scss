@@ -1,12 +1,14 @@
+@use "../../base/mixins" as mixins;
+
 .post-content {
   margin: 24px 0;
   z-index: 3;
 
-  @include large-and-up {
+  @include mixins.large-and-up {
     max-width: 776px;
   }
 
-  @include x-large-and-up {
+  @include mixins.x-large-and-up {
     max-width: 736px;
   }
 
@@ -23,7 +25,7 @@
       font-family: var(--font-family-heading);
     }
 
-    @include medium-and-up {
+    @include mixins.medium-and-up {
       min-height: 365px;
       width: 290px;
       float: right;
@@ -34,11 +36,11 @@
       }
     }
 
-    @include large-and-up {
+    @include mixins.large-and-up {
       margin-left: 0;
     }
 
-    @include x-large-and-up {
+    @include mixins.x-large-and-up {
       width: 330px;
       min-height: 415px;
     }
@@ -48,15 +50,15 @@
     margin-bottom: 15px;
     padding-top: 8px;
 
-    @include medium-and-up {
+    @include mixins.medium-and-up {
       padding-top: 10px;
     }
 
-    @include large-and-up {
+    @include mixins.large-and-up {
       margin-bottom: 20px;
     }
 
-    @include x-large-and-up {
+    @include mixins.x-large-and-up {
       padding-top: 20px;
       margin-bottom: 20px;
     }
@@ -67,7 +69,7 @@
     overflow-wrap: break-word;
     word-wrap: break-word;
 
-    @include medium-and-up {
+    @include mixins.medium-and-up {
       margin: 0 0 $sp-2x 0;
     }
 
@@ -80,20 +82,20 @@
       border: none;
       overflow: hidden;
 
-      @include small-and-up {
+      @include mixins.small-and-up {
         height: 290px;
       }
 
-      @include medium-and-up {
+      @include mixins.medium-and-up {
         height: 390px;
         padding: 0;
       }
 
-      @include large-and-up {
+      @include mixins.large-and-up {
         height: 350px;
       }
 
-      @include x-large-and-up {
+      @include mixins.x-large-and-up {
         height: 410px;
       }
     }
@@ -107,7 +109,7 @@
       margin-top: $sp-2;
       margin-bottom: $sp-6;
 
-      @include large-and-up {
+      @include mixins.large-and-up {
         margin-top: $sp-4;
         margin-bottom: $sp-8;
       }
@@ -160,7 +162,7 @@
       float: left;
       margin-top: 0;
 
-      @include mobile-only {
+      @include mixins.mobile-only {
         width: calc(50% - 10px);
       }
 
@@ -206,19 +208,19 @@
       font-family: var(--font-family-heading);
       padding-top: 0;
       padding-bottom: 0;
-      @include clamp-text(2);
+      @include mixins.clamp-text(2);
     }
 
     .article-list-item-content {
       width: 100%;
-      @include clamp-text(3);
+      @include mixins.clamp-text(3);
 
-      @include medium-and-up {
-        @include clamp-text(2);
+      @include mixins.medium-and-up {
+        @include mixins.clamp-text(2);
       }
 
-      @include large-and-up {
-        @include clamp-text(3);
+      @include mixins.large-and-up {
+        @include mixins.clamp-text(3);
       }
     }
 
@@ -228,11 +230,11 @@
     }
 
     .article-list-item-image img {
-      @include medium-and-up {
+      @include mixins.medium-and-up {
         height: 180px;
       }
 
-      @include large-and-up {
+      @include mixins.large-and-up {
         height: 210px;
       }
     }
@@ -263,7 +265,7 @@
   .wp-block-list a,
   > ul li a,
   > ol li a {
-    @include shared-link-styles;
+    @include mixins.shared-link-styles;
   }
 }
 
@@ -278,7 +280,7 @@
     margin-bottom: $sp-6;
     margin-top: $sp-2;
 
-    @include large-and-up {
+    @include mixins.large-and-up {
       margin-bottom: $sp-8;
       margin-top: $sp-4;
     }
@@ -289,7 +291,7 @@
     height: auto;
   }
 
-  @include medium-and-up {
+  @include mixins.medium-and-up {
     .image-credit {
       position: absolute;
       text-align: right;

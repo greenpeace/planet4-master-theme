@@ -1,3 +1,5 @@
+@use "../base/mixins" as mixins;
+
 .btn,
 .wp-block-button a,
 .wp-block-button button,
@@ -16,7 +18,7 @@
   transition-timing-function: linear;
 
   &:focus {
-    @include focus-styles;
+    @include mixins.focus-styles;
   }
 
   display: inline-block;
@@ -197,7 +199,7 @@
     color: var(--color-text-button--donate--visited);
   }
 
-  @include large-and-up {
+  @include mixins.large-and-up {
     font-size: $font-size-md;
   }
 
