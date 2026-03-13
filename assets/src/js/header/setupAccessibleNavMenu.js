@@ -53,18 +53,16 @@ export const setupAccessibleNavMenu = () => {
      * Adds event listeners to handle submenu toggle.
      */
     const handleAccessibleNavLink = () => mainNav.querySelectorAll(ACCESSIBLE_NAV_LINK_CLASS).forEach(button => {
-      button.addEventListener('keydown', event => {
-        if (event.key === 'Enter') {
-          const submenu = button.closest(`${NAV_ITEM_CLASS}, ${NAV_DONATE_CLASS}`)?.querySelector(NAV_SUBMENU_CLASS);
-          if (submenu) {
-            const display = window.getComputedStyle(submenu).display;
-            if (display === 'none' || display === '') {
-              submenu.style.display = 'flex';
-              button.classList.add('rotate');
-            } else {
-              submenu.style.display = 'none';
-              button.classList.remove('rotate');
-            }
+      button.addEventListener('click', () => {
+        const submenu = button.closest(`${NAV_ITEM_CLASS}, ${NAV_DONATE_CLASS}`)?.querySelector(NAV_SUBMENU_CLASS);
+        if (submenu) {
+          const display = window.getComputedStyle(submenu).display;
+          if (display === 'none' || display === '') {
+            submenu.style.display = 'flex';
+            button.classList.add('rotate');
+          } else {
+            submenu.style.display = 'none';
+            button.classList.remove('rotate');
           }
         }
       });
