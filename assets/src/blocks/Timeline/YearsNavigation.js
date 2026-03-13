@@ -27,6 +27,11 @@ export const YearsNavigation = ({years}) => {
     isClicking.current = true;
     setActiveYear(year);
 
+    // Move focus to first element in the list for that year.
+    const yearDiv = document.getElementById(year);
+    const firstElement = yearDiv.querySelector('.timeline-block-event');
+    firstElement.focus();
+
     setTimeout(() => isClicking.current = false, 500);
   };
 
