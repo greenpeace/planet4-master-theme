@@ -13,14 +13,16 @@ export const CarouselControls = ({
 }) => useMemo(() => (
   <>
     {/* Arrows */}
-    <button className="carousel-control-prev" onClick={goToPrevSlide} aria-label={__('Go to previous slide', 'planet4-master-theme')}>
-      <span className="carousel-control-prev-icon" aria-hidden="true"><i></i></span>
-      <span className="visually-hidden">{__('Previous', 'planet4-master-theme')}</span>
-    </button>
-    <button className="carousel-control-next" onClick={goToNextSlide} aria-label={__('Go to next slide', 'planet4-master-theme')}>
-      <span className="carousel-control-next-icon" aria-hidden="true"><i></i></span>
-      <span className="visually-hidden">{__('Next', 'planet4-master-theme')}</span>
-    </button>
+    <nav aria-label={__('Greenpeace highlights carousel controls', 'planet4-master-theme')}>
+      <button className="carousel-control-prev" onClick={goToPrevSlide} aria-label={__('Go to previous slide', 'planet4-master-theme')}>
+        <span className="carousel-control-prev-icon" aria-hidden="true"><i></i></span>
+        <span className="visually-hidden">{__('Previous', 'planet4-master-theme')}</span>
+      </button>
+      <button className="carousel-control-next" onClick={goToNextSlide} aria-label={__('Go to next slide', 'planet4-master-theme')}>
+        <span className="carousel-control-next-icon" aria-hidden="true"><i></i></span>
+        <span className="visually-hidden">{__('Next', 'planet4-master-theme')}</span>
+      </button>
+    </nav>
     {/* Indicators */}
     <div className="carousel-indicators-wrapper">
       <div className="container">
