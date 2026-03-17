@@ -604,6 +604,10 @@
     @include x-large-and-up {
       max-width: 986px;
     }
+
+    @include xx-large-and-up {
+      max-width: 1096px;
+    }
   }
 
   .years-navigation-items {
