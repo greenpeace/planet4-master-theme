@@ -32,7 +32,8 @@ export const YearsNavigation = ({years}) => {
     const firstElement = yearDiv.querySelector('.timeline-block-event');
     firstElement.focus();
 
-    setTimeout(() => isClicking.current = false, 500);
+    // Update isClicking after the scroll to div is over.
+    addEventListener('scrollend', () => isClicking.current = false, {once: true});
   };
 
   const scrollNav = direction => {
