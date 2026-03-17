@@ -657,7 +657,8 @@
         &:hover,
         &.active {
           text-decoration: none;
-          @include shared-link-styles;
+          border-bottom: 3px solid var(--gp-green-500);
+          color: var(--grey-900);
         }
       }
     }
