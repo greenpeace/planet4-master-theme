@@ -10,6 +10,7 @@ export const StaticCaption = forwardRef(({slide, focusable}, ref) => useMemo(() 
     <div className="caption-overlay"></div>
     <div className="container main-header">
       <div className="carousel-captions-wrapper">
+        {/* eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex */}
         <h2 ref={ref} tabIndex={focusable ? 0 : -1}>
           {htmlDecode(slide.header)}
         </h2>

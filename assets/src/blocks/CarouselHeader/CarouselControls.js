@@ -70,4 +70,4 @@ export const CarouselControls = forwardRef(({
       </div>
     </div>
   </>
-), [currentSlide, disableControls, autoplay, slides, goToPrevSlide, goToNextSlide, goToSlide, handleAutoplay]));
+), [currentSlide, disableControls, autoplay, slides, ref, goToPrevSlide, goToNextSlide, goToSlide, handleAutoplay]));

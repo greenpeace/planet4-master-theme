@@ -29,7 +29,15 @@ export const useSlides = (
   carousel_autoplay,
   headingsRef,
   indicatorsRef,
-  options = {
+  options
+) => {
+  const [autoplay, setAutoplay] = useState(carousel_autoplay);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [sliding, setSliding] = useState(false);
+  // Set up the autoplay for the slides
+  const timerRef = useRef(null);
+
+  options = options || {
     // Following Bootstrap's approach for RTL:
     // https://getbootstrap.com/docs/5.0/getting-started/rtl/#approach
     // Note: in non-directional transitions (e.g.: fade out),
@@ -42,12 +50,7 @@ export const useSlides = (
       next: 'exit-to-start',
       prev: 'exit-to-end',
     },
-  }) => {
-  const [autoplay, setAutoplay] = useState(carousel_autoplay);
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [sliding, setSliding] = useState(false);
-  // Set up the autoplay for the slides
-  const timerRef = useRef(null);
+  };
 
   const handleAutoplay = useCallback(() => {
     setAutoplay(!autoplay);
@@ -174,7 +177,7 @@ export const useSlides = (
   }, [totalSlides, autoplay, timerRef, goToNextSlide]);
 
   useEffect(() => {
-    if(!headingsRef || !headingsRef.current || !indicatorsRef || !indicatorsRef.current) {
+    if(!headingsRef?.current || !indicatorsRef?.current) {
       return;
     }
 
