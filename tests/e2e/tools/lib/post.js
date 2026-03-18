@@ -9,6 +9,15 @@ import {expect} from './test-utils';
  *
  * @return {Promise<string>} The URL of the published post.
  */
+
+async function hideWelcomeModal({page}) {
+  const modal = page.getByRole('dialog', {name: 'Welcome to the editor'});
+  if (await modal.isVisible().catch(() => false)) {
+    await modal.getByRole('button', {name: 'Close'}).click({timeout: 15000});
+    await expect(modal).toBeHidden();
+  }
+}
+
 async function publishPost({page, editor}) {
   // We should be able to remove this check once we update Playwright to the latest version.
   const closeSettingsSidebar = await page.getByRole('button', {name: 'Close Settings'});
@@ -95,4 +104,4 @@ async function createPostWithFeaturedImage({page, admin, editor}, params) {
   return newPost;
 }
 
-export {publishPost, publishPostAndVisit, createPostWithFeaturedImage, updatePost};
+export {hideWelcomeModal, publishPost, publishPostAndVisit, createPostWithFeaturedImage, updatePost};

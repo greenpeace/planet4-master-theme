@@ -1,5 +1,5 @@
 import {test, expect} from './tools/lib/test-utils.js';
-import {updatePost} from './tools/lib/post.js';
+import {hideWelcomeModal, updatePost} from './tools/lib/post.js';
 
 const AUTHOR_NAME = 'Alternative Author';
 
@@ -21,6 +21,8 @@ test('Test Author override', async ({page, requestUtils}) => {
   const postUrl = newPost.link;
 
   await page.goto(editUrl, {waitUntil: 'domcontentloaded'}); // Default is waituntil: 'load' but that doesn't work for Webkit
+
+  hideWelcomeModal({page});
 
   const overrideControl = page.locator('.edit-post-layout__metaboxes').locator('#p4_author_override');
   await expect(overrideControl).toBeVisible();
