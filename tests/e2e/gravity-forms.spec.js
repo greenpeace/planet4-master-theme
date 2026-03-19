@@ -54,7 +54,7 @@ test.describe('Gravity Forms tests', () => {
     await page.close();
   });
 
-  test('check the confirmation message, text type', async ({page}) => {
+  test.slow('check the confirmation message, text type', async ({page}) => {
     // Make sure the form uses the Text confirmation type.
     await changeConfirmationType({page}, createdForm.id, 'Text');
 
@@ -78,7 +78,7 @@ test.describe('Gravity Forms tests', () => {
     await checkEntry({page}, createdForm.id);
   });
 
-  test('check the confirmation message, redirect type', async ({page}) => {
+  test.slow('check the confirmation message, redirect type', async ({page}) => {
     // Make sure the form uses the Redirect confirmation type.
     await changeConfirmationType({page}, createdForm.id, 'Redirect');
 
@@ -100,7 +100,7 @@ test.describe('Gravity Forms tests', () => {
     await checkEntry({page}, createdForm.id);
   });
 
-  test('check the confirmation message, page type', async ({page}) => {
+  test.slow('check the confirmation message, page type', async ({page}) => {
     // Make sure the form uses the Page confirmation type.
     await changeConfirmationType({page}, createdForm.id, 'Page');
 
