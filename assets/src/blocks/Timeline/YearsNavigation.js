@@ -165,7 +165,10 @@ export const YearsNavigation = ({years}) => {
       {showLeftArrow && (
         <button className="nav-arrow left" onClick={() => scrollNav('left')}/>
       )}
-      <ul className="years-navigation-items d-flex" ref={yearsListRef}>
+      <ul
+        className={`years-navigation-items d-flex ${showLeftArrow || showRightArrow ? 'with-gradient' : ''}`}
+        ref={yearsListRef}
+      >
         {years.map(year => (
           <li key={year}>
             <a
