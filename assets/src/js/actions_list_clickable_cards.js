@@ -8,8 +8,12 @@
 export const setupClickableActionsListCards = () => {
   const liElements = document.querySelectorAll('.actions-list ul li:not(.carousel-li)');
 
+
   liElements.forEach(li => {
     const titleLink = li.querySelector('.wp-block-post-title > a');
+    li.setAttribute('data-ga-category', 'Actions List');
+    li.setAttribute('data-ga-action', 'Image');
+    li.setAttribute('data-ga-label', 'n/a');
 
     if (!titleLink) {
       return;
@@ -20,6 +24,10 @@ export const setupClickableActionsListCards = () => {
     const anchor = document.createElement('a');
     anchor.setAttribute('href', url);
     anchor.classList.add('actions-list-links');
+
+    anchor.setAttribute('data-ga-category', 'Actions List');
+    anchor.setAttribute('data-ga-action', 'Image');
+    anchor.setAttribute('data-ga-label', 'n/a');
 
     while (li.firstChild) {
       anchor.appendChild(li.firstChild);
