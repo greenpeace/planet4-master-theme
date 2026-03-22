@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2026-03-22 14:32+0000\n"
+"PO-Revision-Date: 2026-03-22 14:35+0000\n"
 "Language-Team: Hebrew\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -441,47 +441,47 @@ msgstr "סקירת נושאים נוספים"
 
 #: assets/src/block-templates/high-level-topic/template.js:29
 msgid "Featured action title"
-msgstr ""
+msgstr "כותרת פעולה מובלטת"
 
 #: templates/search/action_types.twig:16
 #, php-format
 msgid "Filter results by action type %s, %d results were found"
-msgstr ""
+msgstr "סינון תוצאות לפי סוג פעולה %s, %d תוצאות נמצאו"
 
 #: templates/search/action_types.twig:14
 #, php-format
 msgid "Filter results by action type %s, 1 result was found"
-msgstr ""
+msgstr "סינון תוצאות לפי סוג פעולה %s, נמצאה תוצאה אחת"
 
 #: templates/search/categories.twig:16
 #, php-format
 msgid "Filter results by category %s, %d results were found"
-msgstr ""
+msgstr "סינון תוצאות לפי סוג קטגוריה %s, %d תוצאות נמצאו"
 
 #: templates/search/categories.twig:14
 #, php-format
 msgid "Filter results by category %s, 1 result was found"
-msgstr ""
+msgstr "סינון תוצאות לפי סוג קטגוריה %s, נמצאה תוצאה אחת"
 
 #: templates/search/content_types.twig:16
 #, php-format
 msgid "Filter results by content type %s, %d results were found"
-msgstr ""
+msgstr "סינון תוצאות לפי סוג תוכן %s, %d תוצאות נמצאו"
 
 #: templates/search/content_types.twig:14
 #, php-format
 msgid "Filter results by content type %s, 1 result was found"
-msgstr ""
+msgstr "סינון תוצאות לפי סוג תוכן %s, נמצאה תוצאה אחת"
 
 #: templates/search/post_types.twig:16
 #, php-format
 msgid "Filter results by post type %s, %d results were found"
-msgstr ""
+msgstr "סינון תוצאות לפי סוג פרסום %s, %d תוצאות נמצאו"
 
 #: templates/search/post_types.twig:14
 #, php-format
 msgid "Filter results by post type %s, 1 result was found"
-msgstr ""
+msgstr "סינון תוצאות לפי סוג פרסום %s, נמצאה תוצאה אחת"
 
 #: templates/search.twig:63
 msgid "Filters"
@@ -511,7 +511,7 @@ msgstr "לחזור לשקף הקודם"
 #: assets/src/blocks/CarouselHeader/CarouselControls.js:50
 #, javascript-format
 msgid "Go to slide %s"
-msgstr ""
+msgstr "אני רוצה את שקף %s"
 
 #. Author of the theme
 msgid "Greenpeace International"
