@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2025-12-18 09:58+0000\n"
+"PO-Revision-Date: 2026-03-22 14:21+0000\n"
 "Language-Team: Hebrew\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Last-Translator: Elad Aybes\n"
 "Language: he_IL\n"
 "Report-Msgid-Bugs-To: \n"
-"X-Loco-Version: 2.6.6; wp-6.2.3\n"
+"X-Loco-Version: 2.8.3; wp-6.9.4; php-8.3.30\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
@@ -86,7 +86,7 @@ msgstr "מסננים פעילים"
 
 #: templates/taxonomy.twig:36 templates/all-actions.twig:7
 msgid "All actions"
-msgstr ""
+msgstr "כל מה שאפשר לעשות"
 
 #: templates/listing-page.twig:11 templates/taxonomy.twig:37
 msgid "All articles"
@@ -94,19 +94,19 @@ msgstr "כל המאמרים"
 
 #: templates/author.twig:23
 msgid "All articles by "
-msgstr ""
+msgstr "כל המאמרים"
 
 #: templates/listing-page-filters.twig:41
 msgid "All keywords"
-msgstr ""
+msgstr "כל מילות החיפוש"
 
 #: templates/listing-page-filters.twig:7
 msgid "All posts"
-msgstr ""
+msgstr "כל הפרסומים"
 
 #: templates/listing-page-filters.twig:24
 msgid "All topics"
-msgstr ""
+msgstr "כל הנושאים"
 
 #: templates/cookies/cookies_settings.twig:55
 msgid "Allow all"
@@ -120,7 +120,7 @@ msgstr "מופעל תמיד"
 
 #: templates/listing-page-filters.twig:54
 msgid "Apply"
-msgstr ""
+msgstr "יאללה"
 
 #: templates/search.twig:92
 msgid "Apply filters"
@@ -344,7 +344,7 @@ msgstr ""
 
 #: templates/comment_form/comment_field.twig:3
 msgid "Comment (required)"
-msgstr ""
+msgstr "תגובה (חובה)"
 
 #: templates/comments_section.twig:2 templates/single.twig:76
 msgid "Comments"
@@ -352,7 +352,7 @@ msgstr "תגובות"
 
 #: assets/src/js/resistance-hub-campaign.js:46
 msgid "Completed"
-msgstr ""
+msgstr "הושלם"
 
 #: templates/search/content_types.twig:7
 #, fuzzy
@@ -362,7 +362,7 @@ msgstr "סוג תוכן"
 
 #: templates/listing-page-filters.twig:4
 msgid "Content type"
-msgstr ""
+msgstr "סוג התוכן"
 
 #: assets/src/block-templates/take-action/template.js:17
 msgid "Daily actions"
@@ -375,12 +375,12 @@ msgstr "דיון"
 #: assets/src/js/resistance-hub-campaign.js:147
 #: assets/src/block-editor/Sidebar/ActionSidebar.js:41
 msgid "Do it Offline"
-msgstr ""
+msgstr "ביצוע באופליין"
 
 #: assets/src/js/resistance-hub-campaign.js:144
 #: assets/src/block-editor/Sidebar/ActionSidebar.js:40
 msgid "Do it Online"
-msgstr ""
+msgstr "ביצוע באונליין"
 
 #: src/Post.php:237
 msgid "DOCUMENT"
@@ -400,13 +400,13 @@ msgstr "הורדה"
 
 #: templates/comment_form/email_field.twig:4
 msgid "Email (required)"
-msgstr ""
+msgstr "אימייל (חובה)"
 
 #: src/Migrations/M037MigrateCoversContentBlockToPostsListBlock.php:385
 #: src/Migrations/M046MigrateArticlesBlockToPostsListBlock.php:326
 #: src/Migrations/M049MigrateCoversBlockToActionsListBlock.php:286
 msgid "Enter description"
-msgstr ""
+msgstr "הכנסת תיאור"
 
 #: 404.php:22
 msgid "Enter your search term below"
@@ -414,11 +414,11 @@ msgstr "הכנסת מילות חיפוש"
 
 #: src/CloudflareTurnstileHandler.php:100
 msgid "Error: Captcha verification failed. Please try again."
-msgstr ""
+msgstr "שגיאה: האימות נכשל. נא לנסות שוב."
 
 #: src/CloudflareTurnstileHandler.php:76
 msgid "Error: Please complete the captcha."
-msgstr ""
+msgstr "שגיאה: נא להשלים את האימות."
 
 #. Name of the template
 #: page-templates/evergreen.php:5
@@ -433,11 +433,11 @@ msgstr "חקור"
 #: assets/src/block-templates/get-informed/template.js:9
 #: assets/src/block-templates/action/template.js:34
 msgid "Explore by topics"
-msgstr ""
+msgstr "סקירה לפי נושאים"
 
 #: assets/src/block-templates/deep-dive-topic/template.js:32
 msgid "Explore other topics"
-msgstr ""
+msgstr "סקירת נושאים נוספים"
 
 #: assets/src/block-templates/high-level-topic/template.js:29
 msgid "Featured action title"
