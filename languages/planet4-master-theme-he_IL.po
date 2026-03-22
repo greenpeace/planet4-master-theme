@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2026-03-22 14:26+0000\n"
+"PO-Revision-Date: 2026-03-22 14:30+0000\n"
 "Language-Team: Hebrew\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -876,7 +876,7 @@ msgstr ""
 
 #: templates/featured-action.twig:12
 msgid "Take Action"
-msgstr ""
+msgstr "לעשות משהו"
 
 #: src/ActionPage.php:209 src/ActionPage.php:218
 #: src/Blocks/TakeActionBoxout.php:159 src/Blocks/ActionButtonText.php:84
@@ -888,7 +888,7 @@ msgstr "לעשות משהו"
 
 #: assets/src/block-templates/take-action/template.js:40
 msgid "Take action with us"
-msgstr ""
+msgstr "לעשות משהו איתנו"
 
 #. %s = Redirection url variable.
 #: src/GravityFormsExtensions.php:1042
@@ -906,28 +906,30 @@ msgid ""
 "\\\"All Posts\\\" listing page. You can disable this by un-setting the "
 "\\\"Posts page\\\""
 msgstr ""
+"התוכן של העמוד הזה מוסתר בגלל שהעמוד משמש כעמוד הראשי של ״/All Posts/\". "
+"אפשר לבטל את זה על ידי ביטול העמוד ״/\"Posts page/\""
 
 #: assets/src/block-templates/homepage/template.js:12
 #: assets/src/block-templates/get-informed/template.js:22
 msgid "The issues we work on"
-msgstr ""
+msgstr "הנושאים שאנחנו עובדים עליהם"
 
 #: assets/src/block-templates/high-level-topic/template.js:16
 #: assets/src/block-templates/deep-dive-topic/template.js:14
 #: assets/src/block-templates/action/template.js:23
 #: assets/src/block-templates/campaign/template.js:13
 msgid "The problem"
-msgstr ""
+msgstr "הבעיה"
 
 #: assets/src/block-templates/campaign/template.js:17
 msgid "The solution"
-msgstr ""
+msgstr "הפיתרון"
 
 #. 1: URL domain
 #: assets/src/js/external_links.js:28
 #, javascript-format
 msgid "This link will lead you to %1$s"
-msgstr ""
+msgstr "הלינק הזה יקח אותך ל%1$s"
 
 #: assets/src/js/pdf_icon.js:20
 msgid "This link will open a PDF file"
@@ -951,15 +953,15 @@ msgstr "הפעלה/כיבוי של תפריט הבחירה העולמי"
 
 #: assets/src/block-templates/get-informed/template.js:12
 msgid "Topic 1"
-msgstr ""
+msgstr "נושא 1"
 
 #: assets/src/block-templates/get-informed/template.js:15
 msgid "Topic 2"
-msgstr ""
+msgstr "נושא 2"
 
 #: assets/src/block-templates/get-informed/template.js:19
 msgid "Topic 3"
-msgstr ""
+msgstr "נושא 3"
 
 #: templates/search.twig:22
 #, fuzzy
