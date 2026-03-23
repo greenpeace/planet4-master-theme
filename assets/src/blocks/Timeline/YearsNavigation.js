@@ -20,8 +20,6 @@ export const YearsNavigation = ({years}) => {
       if (target) {
         target.scrollIntoView({behavior: 'smooth', block: 'start'});
       }
-      // Ensures dropdown is updated with current year
-      window.history.replaceState(null, null, `#${year}`);
     }
 
     isClicking.current = true;
