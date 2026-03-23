@@ -596,7 +596,6 @@
     z-index: 999;
     padding: $sp-1x 0;
     top: 68px;
-    max-width: 340px;
     margin: 0 auto $sp-2 auto;
 
     body.admin-bar & {
@@ -656,6 +655,14 @@
     li {
       margin: $sp-x $sp-2;
 
+      &:first-child {
+        margin-inline-start: 0;
+      }
+
+      &:last-child {
+        margin-inline-end: 0;
+      }
+
       a {
         font-family: var(--font-family-tertiary);
         color: var(--grey-600);
@@ -688,12 +695,12 @@
     width: 48px;
 
     &.left {
-      left: -42px;
+      left: -24px;
       transform: rotate(180deg);
     }
 
     &.right {
-      right: -42px;
+      right: -24px;
     }
 
     @include medium-and-up {
