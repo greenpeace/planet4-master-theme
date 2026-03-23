@@ -156,7 +156,7 @@ export const YearsNavigation = ({years}) => {
       className="years-navigation d-flex justify-content-center"
       aria-label={sprintf(
       /* translators: 1: amount of years in the timeline */
-        __('Timeline navigation, list with %1$d items', 'planet4-blocks'),
+        __('Timeline, list with %1$d items', 'planet4-blocks'),
         years.length
       )}
     >
