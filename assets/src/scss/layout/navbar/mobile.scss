@@ -2,7 +2,7 @@
   display: flex;
   flex: 1 1 100%;
   flex-grow: 1;
-  justify-content: center;
+  justify-content: start;
   overflow-x: auto;
   overflow-y: hidden;
   scrollbar-width: none;
@@ -24,7 +24,7 @@
     justify-content: center;
     list-style-type: none;
     margin: 0;
-    padding-inline: 1rem 1rem;
+    padding-inline: 0;
   }
 
   .nav-item {
