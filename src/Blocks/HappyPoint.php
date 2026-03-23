@@ -30,47 +30,6 @@ class HappyPoint extends BaseBlock
      */
     public function __construct()
     {
-        register_block_type(
-            self::get_full_block_name(),
-            [
-                'api_version' => 3,
-                'editor_script' => 'planet4-blocks',
-                // todo: Remove when all content is migrated.
-                'render_callback' => [ self::class, 'render_frontend' ],
-                'attributes' => [
-                    'id' => [
-                        'type' => 'integer',
-                    ],
-                    'focus_image' => [
-                        'type' => 'string',
-                    ],
-                    'opacity' => [
-                        'type' => 'integer',
-                        'default' => 30,
-                    ],
-                    'iframe_url' => [
-                        'type' => 'string',
-                        'default' => '',
-                    ],
-                    'use_embed_code' => [
-                        'type' => 'boolean',
-                    ],
-                    'embed_code' => [
-                        'type' => 'string',
-                        'default' => '',
-                    ],
-                    'override_default_content' => [
-                        'type' => 'boolean',
-                        'default' => 'false',
-                    ],
-                    'local_content_provider' => [
-                        'type' => 'string',
-                        'default' => 'none',
-                    ],
-                ],
-            ]
-        );
-
         add_action('rest_api_init', [ self::class, 'register_endpoint' ]);
     }
 

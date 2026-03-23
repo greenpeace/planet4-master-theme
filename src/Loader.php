@@ -191,7 +191,10 @@ final class Loader
         new Blocks\Cookies();//NOSONAR
         new Blocks\Counter();//NOSONAR
         new Blocks\Gallery();//NOSONAR
-        new Blocks\HappyPoint();//NOSONAR
+        new Blocks\HappyPoint(); //NOSONAR REST endpoint registration only
+        Blocks\Register::registerFromAssets('HappyPoint', [
+            'render_callback' => [ Blocks\HappyPoint::class, 'render_frontend' ],
+        ]);
         new Blocks\SocialMedia();//NOSONAR
         new Blocks\Spreadsheet();//NOSONAR
         new Blocks\TableOfContents();//NOSONAR
