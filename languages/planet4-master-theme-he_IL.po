@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2026-03-22 14:35+0000\n"
+"PO-Revision-Date: 2026-03-24 07:43+0000\n"
 "Language-Team: Hebrew\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -86,7 +86,7 @@ msgstr "מסננים פעילים"
 
 #: templates/taxonomy.twig:36 templates/all-actions.twig:7
 msgid "All actions"
-msgstr "כל מה שאפשר לעשות"
+msgstr "כל הפעולות"
 
 #: templates/listing-page.twig:11 templates/taxonomy.twig:37
 msgid "All articles"
@@ -94,7 +94,7 @@ msgstr "כל המאמרים"
 
 #: templates/author.twig:23
 msgid "All articles by "
-msgstr "כל המאמרים"
+msgstr "כל המאמרים לפי"
 
 #: templates/listing-page-filters.twig:41
 msgid "All keywords"
@@ -344,7 +344,7 @@ msgstr ""
 
 #: templates/comment_form/comment_field.twig:3
 msgid "Comment (required)"
-msgstr "תגובה (חובה)"
+msgstr "תגובה (חייבים)"
 
 #: templates/comments_section.twig:2 templates/single.twig:76
 msgid "Comments"
@@ -375,12 +375,12 @@ msgstr "דיון"
 #: assets/src/js/resistance-hub-campaign.js:147
 #: assets/src/block-editor/Sidebar/ActionSidebar.js:41
 msgid "Do it Offline"
-msgstr "ביצוע באופליין"
+msgstr "לעשות את זה באופליין"
 
 #: assets/src/js/resistance-hub-campaign.js:144
 #: assets/src/block-editor/Sidebar/ActionSidebar.js:40
 msgid "Do it Online"
-msgstr "ביצוע באונליין"
+msgstr "לעשות את זה באונליין"
 
 #: src/Post.php:237
 msgid "DOCUMENT"
@@ -400,13 +400,13 @@ msgstr "הורדה"
 
 #: templates/comment_form/email_field.twig:4
 msgid "Email (required)"
-msgstr "אימייל (חובה)"
+msgstr "אימייל (חייבים)"
 
 #: src/Migrations/M037MigrateCoversContentBlockToPostsListBlock.php:385
 #: src/Migrations/M046MigrateArticlesBlockToPostsListBlock.php:326
 #: src/Migrations/M049MigrateCoversBlockToActionsListBlock.php:286
 msgid "Enter description"
-msgstr "הכנסת תיאור"
+msgstr "צריך לכתוב תיאור"
 
 #: 404.php:22
 msgid "Enter your search term below"
@@ -414,11 +414,13 @@ msgstr "הכנסת מילות חיפוש"
 
 #: src/CloudflareTurnstileHandler.php:100
 msgid "Error: Captcha verification failed. Please try again."
-msgstr "שגיאה: האימות נכשל. נא לנסות שוב."
+msgstr ""
+"שגיאה: לא עברת את מבחן האימות לבני אדם. אם אינך רובוט (אנחנו מקווים) אז צריך "
+"לנסות עוד פעם."
 
 #: src/CloudflareTurnstileHandler.php:76
 msgid "Error: Please complete the captcha."
-msgstr "שגיאה: נא להשלים את האימות."
+msgstr "שגיאה: באמאשך צריך למלא את מנגנון האימות לבני אדם."
 
 #. Name of the template
 #: page-templates/evergreen.php:5
@@ -433,55 +435,55 @@ msgstr "חקור"
 #: assets/src/block-templates/get-informed/template.js:9
 #: assets/src/block-templates/action/template.js:34
 msgid "Explore by topics"
-msgstr "סקירה לפי נושאים"
+msgstr "עיון לפי נושאים"
 
 #: assets/src/block-templates/deep-dive-topic/template.js:32
 msgid "Explore other topics"
-msgstr "סקירת נושאים נוספים"
+msgstr "עיון לפי נושאים אחרים"
 
 #: assets/src/block-templates/high-level-topic/template.js:29
 msgid "Featured action title"
-msgstr "כותרת פעולה מובלטת"
+msgstr ""
 
 #: templates/search/action_types.twig:16
 #, php-format
 msgid "Filter results by action type %s, %d results were found"
-msgstr "סינון תוצאות לפי סוג פעולה %s, %d תוצאות נמצאו"
+msgstr ""
 
 #: templates/search/action_types.twig:14
 #, php-format
 msgid "Filter results by action type %s, 1 result was found"
-msgstr "סינון תוצאות לפי סוג פעולה %s, נמצאה תוצאה אחת"
+msgstr ""
 
 #: templates/search/categories.twig:16
 #, php-format
 msgid "Filter results by category %s, %d results were found"
-msgstr "סינון תוצאות לפי סוג קטגוריה %s, %d תוצאות נמצאו"
+msgstr ""
 
 #: templates/search/categories.twig:14
 #, php-format
 msgid "Filter results by category %s, 1 result was found"
-msgstr "סינון תוצאות לפי סוג קטגוריה %s, נמצאה תוצאה אחת"
+msgstr ""
 
 #: templates/search/content_types.twig:16
 #, php-format
 msgid "Filter results by content type %s, %d results were found"
-msgstr "סינון תוצאות לפי סוג תוכן %s, %d תוצאות נמצאו"
+msgstr ""
 
 #: templates/search/content_types.twig:14
 #, php-format
 msgid "Filter results by content type %s, 1 result was found"
-msgstr "סינון תוצאות לפי סוג תוכן %s, נמצאה תוצאה אחת"
+msgstr ""
 
 #: templates/search/post_types.twig:16
 #, php-format
 msgid "Filter results by post type %s, %d results were found"
-msgstr "סינון תוצאות לפי סוג פרסום %s, %d תוצאות נמצאו"
+msgstr ""
 
 #: templates/search/post_types.twig:14
 #, php-format
 msgid "Filter results by post type %s, 1 result was found"
-msgstr "סינון תוצאות לפי סוג פרסום %s, נמצאה תוצאה אחת"
+msgstr ""
 
 #: templates/search.twig:63
 msgid "Filters"
@@ -497,21 +499,21 @@ msgstr "לעשות משהו"
 
 #: assets/src/block-templates/homepage/template.js:21
 msgid "Get to know us"
-msgstr "להכיר אותנו"
+msgstr ""
 
 #: assets/src/blocks/CarouselHeader/CarouselControls.js:20
 msgid "Go to next slide"
-msgstr "להמשיך לשקף הבא"
+msgstr ""
 
 #: assets/src/blocks/CarouselHeader/CarouselControls.js:16
 msgid "Go to previous slide"
-msgstr "לחזור לשקף הקודם"
+msgstr ""
 
 #. %s: slide index
 #: assets/src/blocks/CarouselHeader/CarouselControls.js:50
 #, javascript-format
 msgid "Go to slide %s"
-msgstr "אני רוצה את שקף %s"
+msgstr ""
 
 #. Author of the theme
 msgid "Greenpeace International"
@@ -523,7 +525,7 @@ msgstr ""
 
 #: assets/src/js/listing_pages.js:49
 msgid "Grid View"
-msgstr "תצוגת רשת"
+msgstr ""
 
 #: functions.php:445
 msgid "here"
@@ -537,7 +539,7 @@ msgstr "בית"
 #: assets/src/block-templates/deep-dive-topic/template.js:22
 #: assets/src/block-templates/campaign/template.js:23
 msgid "How you can help"
-msgstr "איך אפשר לעזור"
+msgstr ""
 
 #. Author URI of the theme
 msgid "https://github.com/greenpeace"
@@ -565,25 +567,25 @@ msgstr "סיסמה לא תקינה, נא לנסות שוב"
 
 #: src/LoginHandler.php:133
 msgid "Invalid username or password"
-msgstr "שגיאה בשם משתמש וסיסמה"
+msgstr ""
 
 #: assets/src/block-templates/deep-dive-topic/template.js:29
 msgid "Keep learning about"
-msgstr "להמשיך ללמוד על"
+msgstr ""
 
 #: templates/listing-page-filters.twig:38
 msgid "Keywords"
-msgstr "מילות חיפוש"
+msgstr ""
 
 #: assets/src/block-templates/high-level-topic/template.js:41
 msgid "Latest investigations"
-msgstr "תחקירים אחרונים"
+msgstr ""
 
 #: assets/src/block-templates/high-level-topic/template.js:37
 #: assets/src/block-templates/get-informed/template.js:34
 #: assets/src/block-templates/deep-dive-topic/template.js:26
 msgid "Latest news & stories"
-msgstr "חדשות ומאמרים אחרונים"
+msgstr ""
 
 #: src/Migrations/M032MigrateSplit2ColumnBlock.php:201
 msgid "Learn more about this issue"
@@ -595,7 +597,7 @@ msgstr "השארת תגובה"
 
 #: assets/src/js/listing_pages.js:57
 msgid "List View"
-msgstr "תצוגת רשימה"
+msgstr ""
 
 #: src/Migrations/M057ActionsListBlockLoadMore.php:84
 #: assets/src/blocks/ActionsList/index.js:84
@@ -604,7 +606,7 @@ msgstr "עוד"
 
 #: assets/src/blocks/Spreadsheet/SpreadsheetFrontend.js:185
 msgid "Loading spreadsheet data…"
-msgstr "טוען מידע מהגיליון..."
+msgstr ""
 
 #: templates/tease-search.twig:159
 msgid "Manage"
@@ -628,7 +630,7 @@ msgstr "הכי רלוונטי"
 
 #: templates/comment_form/author_field.twig:4
 msgid "Name (required)"
-msgstr "שם (חובה)"
+msgstr ""
 
 #: src/Search/SearchPage.php:66
 msgid "Newest"
@@ -636,7 +638,7 @@ msgstr "הכי טרי"
 
 #: templates/taxonomy.twig:13 templates/tag.twig:13
 msgid "News & stories"
-msgstr "חדשות ומאמרים"
+msgstr ""
 
 #: src/QueryLoopPagination.php:63
 #: src/Migrations/M037MigrateCoversContentBlockToPostsListBlock.php:263
@@ -649,23 +651,23 @@ msgstr "להמשיך"
 
 #: assets/src/blocks/Spreadsheet/SpreadsheetFrontend.js:123
 msgid "No data matching your search."
-msgstr "וואלה לא מצאנו כלום. באמת שניסינו!"
+msgstr ""
 
 #: assets/src/js/listing_pages.js:116
 msgid "No posts found!"
-msgstr "וואלה לא מצאנו פרסומים. ניסינו. אמיתי!"
+msgstr ""
 
 #: src/Migrations/M037MigrateCoversContentBlockToPostsListBlock.php:365
 #: src/Migrations/M046MigrateArticlesBlockToPostsListBlock.php:306
 #: src/Migrations/M049MigrateCoversBlockToActionsListBlock.php:269
 msgid "No posts found."
-msgstr "וואלה לא מצאנו פרסומים. ניסינו. אמיתי."
+msgstr ""
 
 #: src/Migrations/M037MigrateCoversContentBlockToPostsListBlock.php:364
 #: src/Migrations/M046MigrateArticlesBlockToPostsListBlock.php:305
 #: src/Migrations/M049MigrateCoversBlockToActionsListBlock.php:268
 msgid "No posts found. (This default text can be edited)"
-msgstr "וואלה לא מצאנו פרסומים. ניסינו. אמיתי. (אפשר לערוך את הטקסט)"
+msgstr ""
 
 #: src/Search/SearchPage.php:70
 msgid "Oldest"
@@ -673,11 +675,11 @@ msgstr "ישן יותר"
 
 #: assets/src/block-templates/get-informed/template.js:30
 msgid "Our latest actions around the world"
-msgstr "הפעולות האחרונות שלנו מסביב לעולם"
+msgstr ""
 
 #: assets/src/block-templates/get-informed/template.js:26
 msgid "Our recent victories"
-msgstr "הנצחונות האחרונים שלנו"
+msgstr ""
 
 #: src/Post.php:233
 msgid "PAGE"
@@ -690,11 +692,11 @@ msgstr "עמוד"
 #: assets/src/block-templates/deep-dive-topic/template.js:9
 #: assets/src/block-templates/take-action/template.js:11
 msgid "Page header title"
-msgstr "כותרת עמוד"
+msgstr ""
 
 #: assets/src/blocks/CarouselHeader/CarouselControls.js:59
 msgid "Play Slider"
-msgstr "הפעלת הסליידר"
+msgstr ""
 
 #: templates/cookies/cookies_settings.twig:12
 msgid "Please select which cookies you are willing to store."
@@ -730,7 +732,7 @@ msgstr "לחזור"
 
 #: assets/src/block-templates/take-action/template.js:44
 msgid "Raise awareness in your community"
-msgstr "העלאת המודעות בקהילה שלך"
+msgstr ""
 
 #: assets/src/block-templates/homepage/template.js:17
 msgid "Read our Stories"
@@ -759,7 +761,7 @@ msgstr "כל מה שקשור לזה"
 #. Name of the template
 #: single-p4_action-resistance_hub.php:3
 msgid "Resistance Hub Campaign"
-msgstr "מאבק מטה ההתנגדות"
+msgstr ""
 
 #: templates/cookies/cookies_settings.twig:63
 msgid "Save preferences"
@@ -771,7 +773,7 @@ msgstr "חיפוש"
 
 #: templates/search.twig:8
 msgid "Search by name, keyword, or topic"
-msgstr "חיפוש לפי שם, מילת חיפוש או נושא"
+msgstr ""
 
 #: assets/src/blocks/Spreadsheet/SpreadsheetFrontend.js:153
 msgid "Search data"
@@ -784,7 +786,7 @@ msgstr "כל מה שעלה"
 #: src/Migrations/M037MigrateCoversContentBlockToPostsListBlock.php:347
 #: src/Migrations/M046MigrateArticlesBlockToPostsListBlock.php:288
 msgid "See all stories"
-msgstr "לראות הכל"
+msgstr ""
 
 #: templates/footer_country_selector.twig:11
 msgid "Selected"
@@ -803,7 +805,7 @@ msgstr "שיתוף"
 #: templates/blocks/share_buttons.twig:50
 #, php-format
 msgid "Share on %s"
-msgstr "שיתוף ב%s"
+msgstr ""
 
 #: templates/blocks/share_buttons.twig:40
 #: templates/blocks/share_buttons.twig:60
@@ -844,7 +846,7 @@ msgstr "דלג לניווט"
 
 #: templates/search.twig:56
 msgid "Skip to search results"
-msgstr "דילוג לתוצאות החיפוש"
+msgstr ""
 
 #: 404.php:21
 msgid "Sorry, we can't find that page!"
@@ -856,7 +858,7 @@ msgstr "סדר לפי"
 
 #: assets/src/blocks/CarouselHeader/CarouselControls.js:59
 msgid "Stop Slider"
-msgstr "לעצור את הסליידר"
+msgstr ""
 
 #: templates/single-page.twig:19 templates/single-password.twig:22
 msgid "Submit"
@@ -868,15 +870,15 @@ msgstr "תמיכה במאבק"
 
 #: assets/src/js/listing_pages.js:53
 msgid "Switch to grid view"
-msgstr "להחליף לתצוגת רשת"
+msgstr ""
 
 #: assets/src/js/listing_pages.js:61
 msgid "Switch to list view"
-msgstr "להחליף לתצוגת רשימה"
+msgstr ""
 
 #: templates/featured-action.twig:12
 msgid "Take Action"
-msgstr "לעשות משהו"
+msgstr ""
 
 #: src/ActionPage.php:209 src/ActionPage.php:218
 #: src/Blocks/TakeActionBoxout.php:159 src/Blocks/ActionButtonText.php:84
@@ -888,7 +890,7 @@ msgstr "לעשות משהו"
 
 #: assets/src/block-templates/take-action/template.js:40
 msgid "Take action with us"
-msgstr "לעשות משהו איתנו"
+msgstr ""
 
 #. %s = Redirection url variable.
 #: src/GravityFormsExtensions.php:1042
@@ -906,30 +908,28 @@ msgid ""
 "\\\"All Posts\\\" listing page. You can disable this by un-setting the "
 "\\\"Posts page\\\""
 msgstr ""
-"התוכן של העמוד הזה מוסתר בגלל שהעמוד משמש כעמוד הראשי של ״/All Posts/\". "
-"אפשר לבטל את זה על ידי ביטול העמוד ״/\"Posts page/\""
 
 #: assets/src/block-templates/homepage/template.js:12
 #: assets/src/block-templates/get-informed/template.js:22
 msgid "The issues we work on"
-msgstr "הנושאים שאנחנו עובדים עליהם"
+msgstr ""
 
 #: assets/src/block-templates/high-level-topic/template.js:16
 #: assets/src/block-templates/deep-dive-topic/template.js:14
 #: assets/src/block-templates/action/template.js:23
 #: assets/src/block-templates/campaign/template.js:13
 msgid "The problem"
-msgstr "הבעיה"
+msgstr ""
 
 #: assets/src/block-templates/campaign/template.js:17
 msgid "The solution"
-msgstr "הפיתרון"
+msgstr ""
 
 #. 1: URL domain
 #: assets/src/js/external_links.js:28
 #, javascript-format
 msgid "This link will lead you to %1$s"
-msgstr "הלינק הזה יקח אותך ל%1$s"
+msgstr ""
 
 #: assets/src/js/pdf_icon.js:20
 msgid "This link will open a PDF file"
@@ -953,15 +953,15 @@ msgstr "הפעלה/כיבוי של תפריט הבחירה העולמי"
 
 #: assets/src/block-templates/get-informed/template.js:12
 msgid "Topic 1"
-msgstr "נושא 1"
+msgstr ""
 
 #: assets/src/block-templates/get-informed/template.js:15
 msgid "Topic 2"
-msgstr "נושא 2"
+msgstr ""
 
 #: assets/src/block-templates/get-informed/template.js:19
 msgid "Topic 3"
-msgstr "נושא 3"
+msgstr ""
 
 #: templates/search.twig:22
 #, fuzzy
