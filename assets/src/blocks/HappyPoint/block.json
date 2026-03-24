@@ -23,9 +23,6 @@
     "id": {
       "type": "number"
     },
-    "load_iframe": {
-      "type": "boolean"
-    },
     "use_embed_code": {
       "type": "boolean"
     },
