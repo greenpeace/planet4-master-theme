@@ -1,12 +1,16 @@
 import metadata from './block.json';
-import Edit from './edit';
-import save from './save';
-import deprecated from './deprecated';
+import {HappyPointEditor} from './HappyPointEditor.js';
+import {HappyPointBlock as HappyPointBlockV1} from './deprecated/HappyPointBlockV1.js';
 
 const {registerBlockType} = wp.blocks;
+const {useBlockProps} = wp.blockEditor;
 
 registerBlockType(metadata, {
-  edit: Edit,
-  save,
-  deprecated,
+  edit: props => (
+    <div {...useBlockProps()}>
+      <HappyPointEditor {...props} />
+    </div>
+  ),
+  save: () => null,
+  deprecated: [HappyPointBlockV1],
 });
