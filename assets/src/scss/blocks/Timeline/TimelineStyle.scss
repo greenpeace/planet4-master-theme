@@ -374,8 +374,7 @@
 
   .timeline-block-event {
     list-style: none;
-
-    border: 1px solid var(--grey-500);
+    border: 1px solid var(--grey-300);
     max-width: 340px;
     margin: 0 auto $sp-3 auto;
     border-radius: $sp-1;
@@ -384,7 +383,7 @@
 
     .timeline-block-event-day {
       display: inline-block;
-      border: 1px solid var(--grey-500);
+      border: 1px solid var(--grey-300);
       border-radius: $sp-x;
       text-align: center;
       font-size: var(--font-size-s--font-family-tertiary);
@@ -451,7 +450,7 @@
       &::before {
         content: "";
         position: absolute;
-        background-color: var(--grey-500);
+        background-color: var(--grey-300);
         inline-size: 1px;
         block-size: 100%;
         inset-block-start: 0;
@@ -487,7 +486,7 @@
       &::before {
         content: "";
         position: absolute;
-        background-color: var(--grey-500);
+        background-color: var(--grey-300);
         block-size: 1px;
         inset-block-start: 31px;
       }
@@ -645,6 +644,7 @@
         font-family: var(--font-family-tertiary);
         color: var(--grey-600);
         font-weight: 600;
+        font-size: 17px;
 
         &:hover,
         &.active {
