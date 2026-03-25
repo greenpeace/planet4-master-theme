@@ -28,6 +28,7 @@ export const setupAccessibleNavMenu = () => {
       button.addEventListener('mouseenter', () => {
         const submenu = button.querySelector(NAV_SUBMENU_CLASS);
         if (submenu) {
+          submenu.hidden = false;
           submenu.style.display = 'flex';
         }
 
@@ -39,6 +40,7 @@ export const setupAccessibleNavMenu = () => {
       button.addEventListener('mouseleave', () => {
         const submenu = button.querySelector(NAV_SUBMENU_CLASS);
         if (submenu) {
+          submenu.hidden = true;
           submenu.style.display = 'none';
         }
 
@@ -59,11 +61,11 @@ export const setupAccessibleNavMenu = () => {
           const display = window.getComputedStyle(submenu).display;
           if (display === 'none' || display === '') {
             submenu.style.display = 'flex';
-            submenu.removeAttribute('hidden');
+            submenu.hidden = false;
             button.classList.add('rotate');
           } else {
             submenu.style.display = 'none';
-            submenu.setAttribute('hidden', '');
+            submenu.hidden = true;
             button.classList.remove('rotate');
           }
         }
