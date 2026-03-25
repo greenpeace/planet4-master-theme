@@ -374,7 +374,6 @@
 
   .timeline-block-event {
     list-style: none;
-
     border: 1px solid var(--grey-300);
     max-width: 340px;
     margin: 0 auto $sp-3 auto;
@@ -667,6 +666,7 @@
         font-family: var(--font-family-tertiary);
         color: var(--grey-600);
         font-weight: 600;
+        font-size: 17px;
 
         &:hover,
         &.active {
