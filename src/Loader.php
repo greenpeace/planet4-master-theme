@@ -191,9 +191,11 @@ final class Loader
         new Blocks\Cookies();//NOSONAR
         new Blocks\Counter();//NOSONAR
         new Blocks\Gallery();//NOSONAR
-        new Blocks\HappyPoint(); //NOSONAR REST endpoint registration only
+        (new Blocks\Rest())->load();//NOSONAR
         Blocks\Register::registerFromAssets('HappyPoint', [
-            'render_callback' => [ Blocks\HappyPoint::class, 'render_frontend' ],
+            'render_callback' => function ($attributes) {
+                return BaseBlock::render_frontend_from_blockname($attributes, 'planet4-blocks/happypoint');
+            },
         ]);
         new Blocks\SocialMedia();//NOSONAR
         new Blocks\Spreadsheet();//NOSONAR
