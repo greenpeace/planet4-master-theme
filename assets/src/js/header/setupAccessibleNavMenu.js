@@ -28,6 +28,7 @@ export const setupAccessibleNavMenu = () => {
       button.addEventListener('mouseenter', () => {
         const submenu = button.querySelector(NAV_SUBMENU_CLASS);
         if (submenu) {
+          submenu.hidden = false;
           submenu.style.display = 'flex';
         }
 
@@ -39,6 +40,7 @@ export const setupAccessibleNavMenu = () => {
       button.addEventListener('mouseleave', () => {
         const submenu = button.querySelector(NAV_SUBMENU_CLASS);
         if (submenu) {
+          submenu.hidden = true;
           submenu.style.display = 'none';
         }
 
