@@ -8,12 +8,18 @@
 export const setupClickableActionsListCards = () => {
   const liElements = document.querySelectorAll('.actions-list ul li:not(.carousel-li)');
 
+  const {gaCategory, gaLabel} = {gaCategory: 'Actions List', gaLabel: 'n/a'};
 
   liElements.forEach(li => {
     const titleLink = li.querySelector('.wp-block-post-title > a');
-    li.dataset.gaCategory = 'Actions List';
+    li.dataset.gaCategory = gaCategory;
+    li.dataset.gaLabel = gaLabel;
     li.dataset.gaAction = 'Image';
-    li.dataset.gaLabel = 'n/a';
+
+    const cardTitle = li.querySelector('h2');
+    cardTitle.dataset.gaCategory = gaCategory;
+    cardTitle.dataset.gaLabel = gaLabel;
+    cardTitle.dataset.gaAction = 'Title';
 
     if (!titleLink) {
       return;
@@ -25,9 +31,9 @@ export const setupClickableActionsListCards = () => {
     anchor.setAttribute('href', url);
     anchor.classList.add('actions-list-links');
 
-    anchor.dataset.gaCategory = 'Actions List';
-    anchor.dataset.gaAction = 'Image';
-    anchor.dataset.gaLabel = 'n/a';
+    anchor.dataset.gaCategory = gaCategory;
+    anchor.dataset.gaLabel = gaLabel;
+    anchor.dataset.gaAction = 'Call to Action';
 
     while (li.firstChild) {
       anchor.appendChild(li.firstChild);
