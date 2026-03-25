@@ -610,7 +610,7 @@
 
   .years-navigation-items {
     list-style: none;
-    padding: 0 $sp-2;
+    padding: 0 $sp-3x;
     margin: 0;
     overflow-x: auto;
 
@@ -673,21 +673,21 @@
     width: 48px;
 
     &.left {
-      left: -24px;
+      left: -$sp-3;
       transform: rotate(180deg);
     }
 
     &.right {
-      right: -24px;
+      right: -$sp-3;
     }
 
     @include medium-and-up {
       &.left {
-        left: -52px;
+        left: -$sp-4;
       }
 
       &.right {
-        right: -52px;
+        right: -$sp-4;
       }
     }
 
