@@ -60,7 +60,7 @@ export const getActionsListBlockTemplate = (title = __('', 'planet4-master-theme
     ['core/paragraph', {content: __('No posts found. (This default text can be edited)', 'planet4-master-theme-backend')}],
   ]],
   ['core/post-template', {lock: {move: true, remove: true}}, [
-    ['core/post-featured-image', {isLink: true}],
+    ['core/post-featured-image'],
     ['core/group', {}, [
       [TAX_BREADCRUMB_BLOCK_NAME, {
         taxonomy: LISTS_BREADCRUMBS[0].value,

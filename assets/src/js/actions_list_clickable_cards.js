@@ -28,10 +28,9 @@ export const setupClickableActionsListCards = () => {
     li.appendChild(anchor);
 
     // Remove keyboard access for the image, tag, title, and the card itself.
-    const imageLink = li.querySelector('.wp-block-post-featured-image > a');
     const tagLink = li.querySelector('.taxonomy-post_tag > a');
     const postTerms = li.querySelector('.wp-block-post-terms > a');
-    const NO_KEYBOARD_ACCESS_ELEMENTS = [titleLink, imageLink, tagLink, li, postTerms];
+    const NO_KEYBOARD_ACCESS_ELEMENTS = [titleLink, tagLink, li, postTerms];
 
     NO_KEYBOARD_ACCESS_ELEMENTS.forEach(element => element?.setAttribute('tabindex', -1));
   });
