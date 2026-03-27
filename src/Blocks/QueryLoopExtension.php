@@ -17,6 +17,14 @@ class QueryLoopExtension
     public const POSTS_LIST_BLOCK = 'planet4-blocks/posts-list';
 
     /**
+     * Tracks whether we are currently rendering inside a Posts List block.
+     * Inner blocks (core/post-title etc.) do not carry query context, so a
+     * static flag set before the outer core/query renders is the reliable way
+     * to know we are inside a posts-list.
+     */
+    private static bool $in_posts_list = false;
+
+    /**
      * Register all necessary filters for both REST API and frontend query handling.
      */
     public static function registerHooks(): void
@@ -25,6 +33,8 @@ class QueryLoopExtension
         add_filter('rest_page_query', [self::class, 'registerEditorQuery'], 10, 2);
         add_filter('rest_p4_action_query', [self::class, 'registerEditorQuery'], 10, 2);
         add_filter('query_loop_block_query_vars', [self::class, 'registerFrontendQuery'], 10, 2);
+        add_filter('render_block_data', [self::class, 'trackPostsListContext'], 10, 1);
+        add_filter('render_block', [self::class, 'addDataAttributes'], 10, 2);
     }
 
     /**
@@ -185,5 +195,74 @@ class QueryLoopExtension
         ];
 
         return $query;
+    }
+
+    /**
+     * Sets the static flag when a Posts List core/query block is about to render,
+     * so that inner block renders (which lack query context) can detect it.
+     *
+     * @param array $parsed_block The parsed block data.
+     *
+     * @return array Unmodified parsed block data.
+     */
+    public static function trackPostsListContext(array $parsed_block): array
+    {
+        if (($parsed_block['blockName'] ?? '') === 'core/query') {
+            $namespace = $parsed_block['attrs']['namespace'] ?? '';
+            if ($namespace === self::POSTS_LIST_BLOCK) {
+                self::$in_posts_list = true;
+            }
+        }
+
+        return $parsed_block;
+    }
+
+    /**
+     * Injects GA/Mixpanel tracking data attributes into Posts List block inner block links.
+     *
+     * @param string $content      The rendered block output.
+     * @param array  $parsed_block The parsed block data.
+     *
+     * @return string Modified block output.
+     */
+    public static function addDataAttributes(string $content, array $parsed_block): string
+    {
+        $block_name = $parsed_block['blockName'] ?? '';
+        $attrs = $parsed_block['attrs'] ?? [];
+
+        // Clear the flag once the outer core/query finishes rendering.
+        if (
+            $block_name === 'core/query'
+            && ($attrs['namespace'] ?? '') === self::POSTS_LIST_BLOCK
+        ) {
+            self::$in_posts_list = false;
+            return $content;
+        }
+
+        if (!self::$in_posts_list) {
+            return $content;
+        }
+
+        $ga_action = match (true) {
+            $block_name === 'core/post-title' => 'Title',
+            $block_name === 'core/post-featured-image' => 'Image',
+            $block_name === 'core/post-author-name' => 'Author',
+            $block_name === 'core/post-terms' && ($attrs['term'] ?? '') === 'post_tag' => 'Navigation Tag',
+            $block_name === 'p4/taxonomy-breadcrumb' => 'Post Type Tag',
+            $block_name === 'core/navigation-link'
+                && str_contains($attrs['className'] ?? '', 'see-all-link') => 'Load More Button',
+            default => null,
+        };
+
+        if (null === $ga_action) {
+            return $content;
+        }
+
+        $data_attrs = sprintf(
+            'data-ga-category="Post List" data-ga-action="%s" data-ga-label="n/a"',
+            esc_attr($ga_action)
+        );
+
+        return (string) preg_replace('/<a\b/', '<a ' . $data_attrs, $content);
     }
 }
