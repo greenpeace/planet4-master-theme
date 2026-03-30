@@ -41,7 +41,7 @@ test.describe('Test Posts List block', () => {
     await expect(block).toHaveClass(/is-custom-layout-list/);
     await expect(block.locator('h2.wp-block-heading')).toHaveText(TEST_TITLE);
     await expect(block.locator('.wp-block-post')).toHaveCount(4);
-    for (const category of await block.locator('.taxonomy-category').all()) {
+    for (const category of await block.locator('.wp-block-post-terms').all()) {
       await expect(category).toHaveText(TEST_CATEGORY);
     }
   });

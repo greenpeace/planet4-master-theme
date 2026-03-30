@@ -300,7 +300,9 @@ function register_more_blocks(): void
                 $first = $terms[0];
                 $term_link = get_term_link($first);
 
-                return sprintf('<div class="wp-block-post-terms"><a href="%s">%s</a></div>', esc_url($term_link), esc_html($first->name));
+                return $attributes['isLink'] ?
+                    sprintf('<div class="wp-block-post-terms"><a href="%s">%s</a></div>', esc_url($term_link), esc_html($first->name)) :
+                    sprintf('<div class="wp-block-post-terms">%s</div>', esc_html($first->name));
             },
             'uses_context' => ['postId'],
             'attributes' => [
@@ -311,6 +313,10 @@ function register_more_blocks(): void
                 'post_type' => [
                     'type' => 'string',
                     'default' => 'post',
+                ],
+                'isLink' => [
+                    'type' => 'boolean',
+                    'default' => true,
                 ],
             ],
         ]

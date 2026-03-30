@@ -4,7 +4,6 @@ import {setupCookies} from './cookies';
 import {setupHeader} from './header';
 import {setupPDFIcon} from './pdf_icon';
 import {setupExternalLinks} from './external_links';
-import {setupClickableActionsListCards} from './actions_list_clickable_cards';
 import {removeNoPostText} from './query-no-posts';
 import {removeRelatedPostsSection} from './remove_related_section_no_posts';
 import {setupCountrySelector} from './country_selector';
@@ -22,7 +21,6 @@ document.addEventListener('DOMContentLoaded', () => {
   setupExternalLinks();
   removeNoPostText();
   removeRelatedPostsSection();
-  setupClickableActionsListCards();
   setupCountrySelector();
 
   if(!!document.querySelector('body.search')) {
