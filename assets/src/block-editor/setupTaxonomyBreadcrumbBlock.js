@@ -21,6 +21,10 @@ export const setupTaxonomyBreadcrumbBlock = () => {
           type: 'string',
           default: 'post',
         },
+        isLink: {
+          type: 'boolean',
+          default: true,
+        },
       },
       supports: {html: false},
       usesContext: ['postId'],
@@ -31,7 +35,7 @@ export const setupTaxonomyBreadcrumbBlock = () => {
 };
 
 function editFunction({attributes, context}) {
-  const {post_type} = attributes;
+  const {post_type, isLink} = attributes;
   const postId = context.postId;
   const [term, setTerm] = wp.element.useState(null);
   const TAXONOMY = window.p4_vars.options.taxonomy_breadcrumbs || null;
@@ -52,11 +56,13 @@ function editFunction({attributes, context}) {
     });
   }, [postId, TAXONOMY]);
 
-  const linkAttrs = {href: '', onClick: e => e.preventDefault()};
-  const contentAttrs = {className: 'taxonomy-category wp-block-post-terms'};
-
-  const link = term ? wp.element.createElement('a', linkAttrs, term || 'Loading...') : null;
-  const content = link ? wp.element.createElement('div', contentAttrs, link) : null;
+  const contentAttrs = {className: 'wp-block-post-terms'};
+  let content = wp.element.createElement('div', contentAttrs, term);
+  if (isLink) {
+    const linkAttrs = {href: '', onClick: e => e.preventDefault()};
+    const link = term ? wp.element.createElement('a', linkAttrs, term || 'Loading...') : null;
+    content = link ? wp.element.createElement('div', contentAttrs, link) : null;
+  }
 
   return content;
 }
