@@ -1,7 +1,7 @@
-const {useMemo} = wp.element;
+const {useMemo, forwardRef} = wp.element;
 const {__, sprintf} = wp.i18n;
 
-export const CarouselControls = ({
+export const CarouselControls = forwardRef(({
   goToPrevSlide = () => {},
   goToNextSlide = () => {},
   goToSlide = () => {},
@@ -10,7 +10,7 @@ export const CarouselControls = ({
   slides = null,
   autoplay,
   disableControls,
-}) => useMemo(() => (
+}, ref) => useMemo(() => (
   <>
     {/* Arrows */}
     <nav aria-label={__('Greenpeace highlights carousel controls', 'planet4-master-theme')}>
@@ -26,36 +26,33 @@ export const CarouselControls = ({
     {/* Indicators */}
     <div className="carousel-indicators-wrapper">
       <div className="container">
-        <ol className="carousel-indicators" tabIndex={-1}>
-          {
-            slides.map((_, index) =>
-              <li
-                key={index}
-                {...(index === currentSlide) ? {
-                  className: 'active',
-                } : {}}
-              >
-                <button
-                  onClick={() => {
-                    if (index !== currentSlide) {
-                      goToSlide(index);
-                    }
-                  }}
-                  tabIndex={0}
-                  onKeyDown={e => {
-                    if ((e.key === 'Enter' || e.key === ' ') && index !== currentSlide) {
-                      e.preventDefault();
-                      goToSlide(index);
-                    }
-                  }}
-                  // translators: %s: slide index
-                  aria-label={sprintf(__('Go to slide %s', 'planet4-master-theme'), index + 1)}
-                  aria-current={index === currentSlide ? 'true' : undefined}
-                />
-              </li>
-            )
-          }
+        <ol className="carousel-indicators" tabIndex={-1} ref={ref}>
+          {slides.map((_, index) => (
+            <li
+              key={index}
+              {...(index === currentSlide ? {className: 'active'} : {})}
+            >
+              <button
+                onClick={() => {
+                  if (index !== currentSlide) {
+                    goToSlide({newSlide: index});
+                  }
+                }}
+                tabIndex={0}
+                onKeyDown={e => {
+                  if ((e.key === 'Enter' || e.key === ' ') && index !== currentSlide) {
+                    e.preventDefault();
+                    goToSlide({newSlide: index});
+                  }
+                }}
+                // translators: %s: slide header
+                aria-label={sprintf(__('Go to %s slide', 'planet4-master-theme'), slides[index].header)}
+                aria-current={index === currentSlide ? 'true' : undefined}
+              />
+            </li>
+          ))}
         </ol>
+
         {disableControls && (
           <>
             <button
@@ -73,4 +70,4 @@ export const CarouselControls = ({
       </div>
     </div>
   </>
-), [currentSlide, disableControls, autoplay, slides, goToPrevSlide, goToNextSlide, goToSlide, handleAutoplay]);
+), [currentSlide, disableControls, autoplay, slides, ref, goToPrevSlide, goToNextSlide, goToSlide, handleAutoplay]));
