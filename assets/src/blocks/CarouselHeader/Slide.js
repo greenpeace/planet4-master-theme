@@ -8,8 +8,6 @@ export const SlideWithRef = ({
   <li
     className={`carousel-item ${active ? 'active' : ''}`}
     tabIndex={focusable ? 0 : -1}
-    // eslint-disable-next-line react/no-unknown-property
-    area-hidden={focusable ? 'false' : 'true'}
     ref={ref}
     role="tabpanel"
     alt=""

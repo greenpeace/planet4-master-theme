@@ -10,8 +10,6 @@ const {__} = wp.i18n;
 export const CarouselHeaderFrontend = ({slides, carousel_autoplay, className, decoding}) => {
   const slidesRef = useRef([]);
   const containerRef = useRef(null);
-  const headingsRef = useRef([]);
-  const indicatorsRef = useRef();
   const {
     currentSlide,
     goToSlide,
@@ -20,7 +18,7 @@ export const CarouselHeaderFrontend = ({slides, carousel_autoplay, className, de
     handleAutoplay,
     setAutoplay,
     autoplay,
-  } = useSlides(slidesRef, slides.length, containerRef, carousel_autoplay, headingsRef, indicatorsRef);
+  } = useSlides(slidesRef, slides.length, containerRef, carousel_autoplay);
 
   return useMemo(() => (
     <section
@@ -38,7 +36,7 @@ export const CarouselHeaderFrontend = ({slides, carousel_autoplay, className, de
             ref={element => slidesRef ? slidesRef.current[index] = element : null}
           >
             <SlideBackground decoding={decoding} slide={slide} />
-            <StaticCaption slide={slide} focusable={currentSlide === index} ref={el => (headingsRef.current[index] = el)} />
+            <StaticCaption slide={slide} focusable={currentSlide === index} />
           </Slide>)
           }
         </ul>
@@ -59,7 +57,6 @@ export const CarouselHeaderFrontend = ({slides, carousel_autoplay, className, de
           currentSlide={currentSlide}
           autoplay={autoplay}
           disableControls={carousel_autoplay}
-          ref={indicatorsRef}
         />
       )}
     </section>

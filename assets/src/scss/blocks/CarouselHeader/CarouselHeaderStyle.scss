@@ -425,10 +425,6 @@ $medium-image-height: 600px;
         max-width: 100%;
         width: 100%;
       }
-
-      &:focus {
-        @include focus-styles();
-      }
     }
 
     p {
