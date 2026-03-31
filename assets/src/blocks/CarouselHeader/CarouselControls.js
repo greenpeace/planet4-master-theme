@@ -1,7 +1,7 @@
-const {useMemo} = wp.element;
+const {useMemo, forwardRef} = wp.element;
 const {__, sprintf} = wp.i18n;
 
-export const CarouselControls = ({
+export const CarouselControls = forwardRef(({
   goToPrevSlide = () => {},
   goToNextSlide = () => {},
   goToSlide = () => {},
@@ -10,7 +10,7 @@ export const CarouselControls = ({
   slides = null,
   autoplay,
   disableControls,
-}) => useMemo(() => (
+}, ref) => useMemo(() => (
   <>
     {/* Indicators */}
     <div className="carousel-indicators-wrapper">
@@ -73,4 +73,4 @@ export const CarouselControls = ({
       </button>
     </nav>
   </>
-), [currentSlide, disableControls, autoplay, slides, goToPrevSlide, goToNextSlide, goToSlide, handleAutoplay]);
+), [currentSlide, disableControls, autoplay, slides, ref, goToPrevSlide, goToNextSlide, goToSlide, handleAutoplay]));

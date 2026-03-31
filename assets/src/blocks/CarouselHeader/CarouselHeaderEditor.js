@@ -53,7 +53,7 @@ export const CarouselHeaderEditor = ({setAttributes, attributes}) => {
     setAttributes({slides: newSlides});
     const lastSlide = newSlides.length - 1;
     // There is no callback to setAttributes so we use timeout instead
-    setTimeout(() => goToSlide(lastSlide), 0);
+    setTimeout(() => goToSlide({newSlide: lastSlide}), 0);
   }, [slides, setAttributes, goToSlide]);
 
   const removeSlide = useCallback(() => {
@@ -63,7 +63,7 @@ export const CarouselHeaderEditor = ({setAttributes, attributes}) => {
     ];
     const lastSlide = newSlides.length - 1;
     setAttributes({slides: newSlides});
-    goToSlide(currentSlide > lastSlide ? 0 : currentSlide, true);
+    goToSlide({newSlide: currentSlide > lastSlide ? 0 : currentSlide, forceCurrentSlide: true});
   }, [currentSlide, goToSlide, setAttributes, slides]);
 
   const needsMigration = slides.some(slide => !!slide.image && !slide.image_srcset);
