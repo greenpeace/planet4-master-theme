@@ -119,6 +119,8 @@
   .wp-block-post-featured-image img {
     height: 196px;
     object-fit: cover;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
 
     @include large-and-up {
       height: 220px;
