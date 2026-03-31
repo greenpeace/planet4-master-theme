@@ -320,6 +320,7 @@ add_action(
             }
         </style>';
 
+        // phpcs:disable Generic.Files.LineLength.MaxExceeded
         wp_add_inline_script(
             'wp-notices',
             sprintf(
@@ -328,6 +329,7 @@ add_action(
                 __('here', 'planet4-master-theme')
             )
         );
+        // phpcs:enable Generic.Files.LineLength.MaxExceeded
     },
     100
 );
