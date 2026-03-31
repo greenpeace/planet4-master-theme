@@ -59,11 +59,9 @@ export const setupAccessibleNavMenu = () => {
           const display = window.getComputedStyle(submenu).display;
           if (display === 'none' || display === '') {
             submenu.style.display = 'flex';
-            submenu.removeAttribute('hidden');
             button.classList.add('rotate');
           } else {
             submenu.style.display = 'none';
-            submenu.setAttribute('hidden', '');
             button.classList.remove('rotate');
           }
         }
