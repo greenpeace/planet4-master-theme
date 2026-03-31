@@ -101,11 +101,7 @@ class M062ActionsListStretchedLinkRefactor extends MigrationScript
     private static function remove_featured_image_link(array &$blocks): void
     {
         foreach ($blocks as &$block) {
-            if (
-                !isset($block['blockName']) ||
-                $block['blockName'] !== Utils\Constants::BLOCK_POST_TEMPLATE ||
-                empty($block['innerBlocks'])
-            ) {
+            if (!self::is_valid_post_template_block($block)) {
                 continue;
             }
             foreach ($block['innerBlocks'] as &$innerBlock) {
@@ -129,11 +125,7 @@ class M062ActionsListStretchedLinkRefactor extends MigrationScript
     private static function add_stretched_link(array &$blocks): void
     {
         foreach ($blocks as &$block) {
-            if (
-                !isset($block['blockName']) ||
-                $block['blockName'] !== Utils\Constants::BLOCK_POST_TEMPLATE ||
-                empty($block['innerBlocks'])
-            ) {
+            if (!self::is_valid_post_template_block($block)) {
                 continue;
             }
             foreach ($block['innerBlocks'] as &$innerBlock) {
@@ -181,11 +173,7 @@ class M062ActionsListStretchedLinkRefactor extends MigrationScript
     private static function remove_category_link(array &$blocks): void
     {
         foreach ($blocks as &$block) {
-            if (
-                !isset($block['blockName']) ||
-                $block['blockName'] !== Utils\Constants::BLOCK_POST_TEMPLATE ||
-                empty($block['innerBlocks'])
-            ) {
+            if (!self::is_valid_post_template_block($block)) {
                 continue;
             }
             foreach ($block['innerBlocks'] as &$innerBlock) {
@@ -209,5 +197,17 @@ class M062ActionsListStretchedLinkRefactor extends MigrationScript
                 }
             }
         }
+    }
+
+    /**
+     * Check that the given block is a valid Post Template.
+     *
+     * @param array $block - array of attributes.
+     */
+    private static function is_valid_post_template_block(array $block): bool
+    {
+        return isset($block['blockName']) &&
+            $block['blockName'] === Utils\Constants::BLOCK_POST_TEMPLATE &&
+            !empty($block['innerBlocks']);
     }
 }
