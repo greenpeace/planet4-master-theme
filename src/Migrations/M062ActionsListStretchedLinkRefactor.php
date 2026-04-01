@@ -37,7 +37,8 @@ class M062ActionsListStretchedLinkRefactor extends MigrationScript
     // phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter
 
     /**
-     * Check whether a block is an Actions List block with a link for the featured image.
+     * Check whether a block is an Actions List block with one of the attributes that need to be updated.
+     * Either the featured image or category is a link, or the block doesn't have a stretched link.
      *
      * @param array $block - A block data array.
      */
@@ -66,11 +67,25 @@ class M062ActionsListStretchedLinkRefactor extends MigrationScript
         }
 
         // Check if the featured image block is a link.
-        $featured_image = array_find($post_template['innerBlocks'], function ($innerBlock) {
-            return $innerBlock['blockName'] === Utils\Constants::BLOCK_FEAT_IMAGE;
+        $featured_image_link = array_find($post_template['innerBlocks'], function ($innerBlock) {
+            return $innerBlock['blockName'] === Utils\Constants::BLOCK_FEAT_IMAGE &&
+                isset($innerBlock['attrs']['isLink']) &&
+                $innerBlock['attrs']['isLink'] === true;
         });
 
-        return isset($featured_image['attrs']['isLink']) && $featured_image['attrs']['isLink'] === true;
+        // Check if there is a group block with no classname, that's the one that should become a stretched link.
+        $no_stretched_link = array_find($post_template['innerBlocks'], function ($innerBlock) {
+            return $innerBlock['blockName'] === Utils\Constants::BLOCK_GROUP &&
+                !isset($innerBlock['attrs']['className']);
+        });
+
+        // Check if the category is a link, meaning it doesn't have the new 'isLink' attribute set to false.
+        $category_link = array_find($no_stretched_link['innerBlocks'], function ($innerBlock) {
+            return $innerBlock['blockName'] === Utils\Constants::P4_OTHER_BLOCKS['breadcrumb'] &&
+                !isset($innerBlock['attrs']['isLink']);
+        });
+
+        return $featured_image_link || $no_stretched_link || $category_link;
     }
 
     /**
