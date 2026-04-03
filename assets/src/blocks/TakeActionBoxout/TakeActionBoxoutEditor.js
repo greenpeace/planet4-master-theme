@@ -72,7 +72,9 @@ export const TakeActionBoxoutEditor = ({
     imageAlt,
   } = useSelect(select => {
 
-    const actPage = actPageList.find(actPageFound => take_action_page === actPageFound.id);
+    const actPage = actPageList.length > 0 && take_action_page ?
+      actPageList.find(actPageFound => take_action_page === actPageFound.id) :
+      null;
 
     const actPageImageId = actPage?.featured_media;
 
@@ -80,13 +82,13 @@ export const TakeActionBoxoutEditor = ({
     const customImageFromId = customImage?.source_url;
 
     /* eslint-disable no-shadow */
-    const title = !take_action_page ? customTitle : actPage.title;
-    const excerpt = !take_action_page ? customExcerpt : actPage.excerpt;
-    const link = !take_action_page ? customLink : actPage.link;
-    const linkText = !take_action_page ? customLinkText : actPage?.meta?.action_button_text || DEFAULT_BUTTON_TEXT;
-    const imageId = !take_action_page ? customImageId : actPageImageId;
-    const imageUrl = !take_action_page ? customImageFromId : select('core').getMedia(actPageImageId)?.source_url;
-    const imageAlt = !take_action_page ? customImage?.alt_text : '';
+    const title = !actPage ? customTitle : actPage.title;
+    const excerpt = !actPage ? customExcerpt : actPage.excerpt;
+    const link = !actPage ? customLink : actPage.link;
+    const linkText = !actPage ? customLinkText : actPage?.meta?.action_button_text || DEFAULT_BUTTON_TEXT;
+    const imageId = !actPage ? customImageId : actPageImageId;
+    const imageUrl = !actPage ? customImageFromId : select('core').getMedia(actPageImageId)?.source_url;
+    const imageAlt = !actPage ? customImage?.alt_text : '';
     /* eslint-enable no-shadow */
 
     return {

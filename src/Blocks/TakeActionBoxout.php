@@ -221,6 +221,16 @@ class TakeActionBoxout extends BaseBlock
                         'id' => $id,
                         'title' => get_the_title($id),
                         'type' => 'page',
+                        'excerpt' => get_the_excerpt($id),
+                        'link' => get_permalink($id),
+                        'featured_media' => (int) get_post_thumbnail_id($id),
+                        'meta' => [
+                            'action_button_text' => get_post_meta(
+                                $id,
+                                'action_button_text',
+                                true
+                            ),
+                        ],
                     ];
                 }
             }
@@ -241,7 +251,7 @@ class TakeActionBoxout extends BaseBlock
                         'id' => $id,
                         'title' => get_the_title($id),
                         'type' => 'p4_action',
-                         'excerpt' => get_the_excerpt($id),
+                        'excerpt' => get_the_excerpt($id),
                         'link' => get_permalink($id),
                         'featured_media' => (int) get_post_thumbnail_id($id),
                         'meta' => [
