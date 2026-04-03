@@ -116,13 +116,6 @@ export const TakeActionBoxoutEditor = ({
     return __('Populating block\'s fields…', 'planet4-master-theme-backend');
   }
 
-  if (!actPageList.length) {
-    return __(
-      'You need to update your Navigation settings for this block to load.',
-      'planet4-master-theme-backend'
-    );
-  }
-
   const toAttribute = attributeName => value => setAttributes({
     [attributeName]: value,
   });
