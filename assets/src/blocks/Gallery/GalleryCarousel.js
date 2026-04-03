@@ -3,7 +3,7 @@ import {getCaptionWithCredits} from './getCaptionWithCredits.js';
 import {useHammerSwipe} from '../components/HammerSwipe/HammerSwipe.js';
 
 const {__} = wp.i18n;
-const {useState, useEffect, useRef} = wp.element;
+const {useState, useEffect, useRef, useCallback} = wp.element;
 
 // This will trigger the browser to synchronously calculate the style and layout
 // You can find a list of examples here: https://gist.github.com/paulirish/5d52fb081b3570c81e3a
@@ -17,7 +17,7 @@ export const GalleryCarousel = ({images, onImageClick, isEditing}) => {
   const slidesRef = useRef([]);
   const containerRef = useRef(null);
 
-  const getOrder = newSlide => {
+  const getOrder = useCallback(newSlide => {
     let order = newSlide < currentSlide ? 'prev' : 'next';
     if (newSlide === lastSlide && currentSlide === 0 && order !== 'prev') {
       order = 'prev';
@@ -25,9 +25,9 @@ export const GalleryCarousel = ({images, onImageClick, isEditing}) => {
       order = 'next';
     }
     return order;
-  };
+  }, [currentSlide, lastSlide]);
 
-  const goToSlide = newSlide => {
+  const goToSlide = useCallback(newSlide => {
     const nextElement = slidesRef.current[newSlide];
     const activeElement = slidesRef.current[currentSlide];
     if (newSlide !== currentSlide && nextElement && activeElement && !sliding) {
@@ -51,10 +51,10 @@ export const GalleryCarousel = ({images, onImageClick, isEditing}) => {
         setCurrentSlide(newSlide);
       }, 600);
     }
-  };
+  }, [currentSlide, getOrder, sliding]);
 
-  const goToNextSlide = () => goToSlide(currentSlide === lastSlide ? 0 : currentSlide + 1);
-  const goToPrevSlide = () => goToSlide(currentSlide === 0 ? lastSlide : currentSlide - 1);
+  const goToNextSlide = useCallback(() => goToSlide({newSlide: (currentSlide + 1 > lastSlide) ? 0 : currentSlide + 1}), [currentSlide, lastSlide, goToSlide])  ;
+  const goToPrevSlide = useCallback(() => goToSlide({newSlide: currentSlide === 0 ? lastSlide : currentSlide - 1}), [currentSlide, lastSlide, goToSlide]);
 
   // Set up the autoplay for the slides
   useEffect(() => {
@@ -65,7 +65,7 @@ export const GalleryCarousel = ({images, onImageClick, isEditing}) => {
       timerRef.current = setTimeout(goToNextSlide, 10000);
       return () => clearTimeout(timerRef.current);
     }
-  }, [currentSlide, images]);
+  }, [currentSlide, images, goToNextSlide]);
 
   // Set up swiping on mobile
   useHammerSwipe(containerRef, goToNextSlide, goToPrevSlide, isEditing);
@@ -78,7 +78,7 @@ export const GalleryCarousel = ({images, onImageClick, isEditing}) => {
             {images.map((image, index) =>
               <li
                 key={`indicator-${index}`}
-                onClick={() => goToSlide(index)}
+                onClick={() => goToSlide({newSlide: index})}
                 className={index === currentSlide ? 'active' : ''}
                 role="presentation"
               />
