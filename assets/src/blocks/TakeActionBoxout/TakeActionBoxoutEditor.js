@@ -44,9 +44,8 @@ export const TakeActionBoxoutEditor = ({
   const {options: p4_options} = window.p4_vars;
 
   const isNewIA = p4_options.new_ia;
-  const parent = p4_options.take_action_page;
+  const parent = p4_options.take_action_page || -1;
   const postId = wp.data.select('core/editor').getCurrentPostId();
-
   const [actPageList, setActPageList] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -113,8 +112,15 @@ export const TakeActionBoxoutEditor = ({
 
   const takeActionPageSelected = take_action_page && parseInt(take_action_page) > 0;
 
-  if (loading || !actPageList.length) {
+  if (loading) {
     return __('Populating block\'s fields…', 'planet4-master-theme-backend');
+  }
+
+  if (!actPageList.length) {
+    return __(
+      'You need to update your Navigation settings for this block to load.',
+      'planet4-master-theme-backend'
+    );
   }
 
   const toAttribute = attributeName => value => setAttributes({

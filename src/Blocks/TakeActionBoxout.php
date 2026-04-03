@@ -194,35 +194,35 @@ class TakeActionBoxout extends BaseBlock
             $parent = (int) $request->get_param('parent');
             $is_new_ia = (bool) $request->get_param('isNewIA');
             $per_page = (int) $request->get_param('per_page');
-
             $posts = [];
-            $parent_id = (int) $parent;
 
             // Pages
-            $children = get_children([
-                'post_type' => 'page',
-                'post_parent' => $parent_id,
-                'fields' => 'ids',
-            ]);
+            if ($parent !== -1) {
+                $children = get_children([
+                    'post_type' => 'page',
+                    'post_parent' => $parent,
+                    'fields' => 'ids',
+                ]);
 
-            $post_ids = array_merge([$parent_id], $children);
+                $post_ids = array_merge([$parent], $children);
 
-            $query = new WP_Query([
-                'post_type' => 'page',
-                'post__in' => $post_ids,
-                'posts_per_page' => $per_page,
-                'orderby' => 'title',
-                'order' => 'ASC',
-                'post__not_in' => $exclude ? [$exclude] : [],
-                'fields' => 'ids',
-            ]);
+                $query = new WP_Query([
+                    'post_type' => 'page',
+                    'post__in' => $post_ids,
+                    'posts_per_page' => $per_page,
+                    'orderby' => 'title',
+                    'order' => 'ASC',
+                    'post__not_in' => $exclude ? [$exclude] : [],
+                    'fields' => 'ids',
+                ]);
 
-            foreach ($query->posts as $id) {
-                $posts[] = [
-                    'id' => $id,
-                    'title' => get_the_title($id),
-                    'type' => 'page',
-                ];
+                foreach ($query->posts as $id) {
+                    $posts[] = [
+                        'id' => $id,
+                        'title' => get_the_title($id),
+                        'type' => 'page',
+                    ];
+                }
             }
 
             // Actions
