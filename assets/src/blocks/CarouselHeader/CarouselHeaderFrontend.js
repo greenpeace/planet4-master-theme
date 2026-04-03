@@ -27,20 +27,6 @@ export const CarouselHeaderFrontend = ({slides, carousel_autoplay, className, de
       aria-label={__('Greenpeace highlights', 'planet4-blocks')}
       aria-roledescription="carousel"
     >
-      <div className="carousel-wrapper-header">
-        <ul className="carousel-inner" role="listbox">
-          {slides.map((slide, index) => <Slide
-            key={index}
-            active={currentSlide === index}
-            focusable={currentSlide === index}
-            ref={element => slidesRef ? slidesRef.current[index] = element : null}
-          >
-            <SlideBackground decoding={decoding} slide={slide} />
-            <StaticCaption slide={slide} focusable={currentSlide === index} />
-          </Slide>)
-          }
-        </ul>
-      </div>
       {(slides.length > 1) && (
         <CarouselControls
           goToPrevSlide={() => {
@@ -59,6 +45,20 @@ export const CarouselHeaderFrontend = ({slides, carousel_autoplay, className, de
           disableControls={carousel_autoplay}
         />
       )}
+      <div className="carousel-wrapper-header">
+        <ul className="carousel-inner" role="listbox">
+          {slides.map((slide, index) => <Slide
+            key={index}
+            active={currentSlide === index}
+            focusable={currentSlide === index}
+            ref={element => slidesRef ? slidesRef.current[index] = element : null}
+          >
+            <SlideBackground decoding={decoding} slide={slide} />
+            <StaticCaption slide={slide} focusable={currentSlide === index} />
+          </Slide>)
+          }
+        </ul>
+      </div>
     </section>
   ), [
     className,
