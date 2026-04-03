@@ -259,7 +259,7 @@ class QueryLoopExtension
         }
 
         $data_attrs = sprintf(
-            'data-ga-category="Post List" data-ga-action="%s" data-ga-label="n/a"',
+            'data-ga-category="Posts List" data-ga-action="%s" data-ga-label="n/a"',
             esc_attr($ga_action)
         );
 
