@@ -44,16 +44,12 @@ export const TakeActionBoxoutEditor = ({
   const {options: p4_options} = window.p4_vars;
 
   const isNewIA = p4_options.new_ia;
-  const parent = p4_options.take_action_page;
+  const parent = p4_options.take_action_page || -1;
   const postId = wp.data.select('core/editor').getCurrentPostId();
-
   const [actPageList, setActPageList] = useState([]);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     let isMounted = true;
-
-    setLoading(true);
 
     apiFetch({
       path: `/planet4/v1/action-pages?exclude=${postId}&parent=${parent}&isNewIA=${isNewIA}`,
@@ -61,7 +57,6 @@ export const TakeActionBoxoutEditor = ({
       if (!isMounted) {return;};
 
       setActPageList(data);
-      setLoading(false);
     });
 
     return () => isMounted = false;
@@ -77,26 +72,23 @@ export const TakeActionBoxoutEditor = ({
     imageAlt,
   } = useSelect(select => {
 
-    const actPage = actPageList.find(actPageFound => take_action_page === actPageFound.id);
+    const actPage = actPageList.length > 0 && take_action_page ?
+      actPageList.find(actPageFound => take_action_page === actPageFound.id) :
+      null;
 
-    // Because `useSelect` does an API call to fetch data, the actPageList will be empty the first time it's called.
-    // Or first few times.
-    if (take_action_page && !actPage) {
-      return {loading: true};
-    }
     const actPageImageId = actPage?.featured_media;
 
     const customImage = customImageId && select('core').getMedia(customImageId);
     const customImageFromId = customImage?.source_url;
 
     /* eslint-disable no-shadow */
-    const title = !take_action_page ? customTitle : actPage.title;
-    const excerpt = !take_action_page ? customExcerpt : actPage.excerpt;
-    const link = !take_action_page ? customLink : actPage.link;
-    const linkText = !take_action_page ? customLinkText : actPage?.meta?.action_button_text || DEFAULT_BUTTON_TEXT;
-    const imageId = !take_action_page ? customImageId : actPageImageId;
-    const imageUrl = !take_action_page ? customImageFromId : select('core').getMedia(actPageImageId)?.source_url;
-    const imageAlt = !take_action_page ? customImage?.alt_text : '';
+    const title = !actPage ? customTitle : actPage.title;
+    const excerpt = !actPage ? customExcerpt : actPage.excerpt;
+    const link = !actPage ? customLink : actPage.link;
+    const linkText = !actPage ? customLinkText : actPage?.meta?.action_button_text || DEFAULT_BUTTON_TEXT;
+    const imageId = !actPage ? customImageId : actPageImageId;
+    const imageUrl = !actPage ? customImageFromId : select('core').getMedia(actPageImageId)?.source_url;
+    const imageAlt = !actPage ? customImage?.alt_text : '';
     /* eslint-enable no-shadow */
 
     return {
@@ -112,10 +104,6 @@ export const TakeActionBoxoutEditor = ({
   }, [actPageList, take_action_page, customImageId, customTitle, customExcerpt, customLink, customLinkText]);
 
   const takeActionPageSelected = take_action_page && parseInt(take_action_page) > 0;
-
-  if (loading || !actPageList.length) {
-    return __('Populating block\'s fields…', 'planet4-master-theme-backend');
-  }
 
   const toAttribute = attributeName => value => setAttributes({
     [attributeName]: value,
