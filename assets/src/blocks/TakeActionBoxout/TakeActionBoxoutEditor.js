@@ -47,12 +47,9 @@ export const TakeActionBoxoutEditor = ({
   const parent = p4_options.take_action_page || -1;
   const postId = wp.data.select('core/editor').getCurrentPostId();
   const [actPageList, setActPageList] = useState([]);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     let isMounted = true;
-
-    setLoading(true);
 
     apiFetch({
       path: `/planet4/v1/action-pages?exclude=${postId}&parent=${parent}&isNewIA=${isNewIA}`,
@@ -60,7 +57,6 @@ export const TakeActionBoxoutEditor = ({
       if (!isMounted) {return;};
 
       setActPageList(data);
-      setLoading(false);
     });
 
     return () => isMounted = false;
@@ -78,11 +74,6 @@ export const TakeActionBoxoutEditor = ({
 
     const actPage = actPageList.find(actPageFound => take_action_page === actPageFound.id);
 
-    // Because `useSelect` does an API call to fetch data, the actPageList will be empty the first time it's called.
-    // Or first few times.
-    if (take_action_page && !actPage) {
-      return {loading: true};
-    }
     const actPageImageId = actPage?.featured_media;
 
     const customImage = customImageId && select('core').getMedia(customImageId);
@@ -111,10 +102,6 @@ export const TakeActionBoxoutEditor = ({
   }, [actPageList, take_action_page, customImageId, customTitle, customExcerpt, customLink, customLinkText]);
 
   const takeActionPageSelected = take_action_page && parseInt(take_action_page) > 0;
-
-  if (loading) {
-    return __('Populating block\'s fields…', 'planet4-master-theme-backend');
-  }
 
   const toAttribute = attributeName => value => setAttributes({
     [attributeName]: value,
