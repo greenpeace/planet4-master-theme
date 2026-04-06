@@ -26,11 +26,14 @@
                     type="button"
                     data-bs-toggle="collapse"
                     data-bs-target="#menu-{{ targetId }}"
-                    aria-label="{{ __( 'Nav Link Button', 'planet4-master-theme' ) }}"
                     aria-expanded="false"
                     aria-controls="menu-{{ targetId }}"
                     tabindex="-1"
-                ></button>
+                >
+                    <span class="visually-hidden">
+                        {{ __( item.title ~ ' submenu', 'planet4-master-theme' ) }}
+                    </span>
+                </button>
             {% endif %}
         </div>
 
