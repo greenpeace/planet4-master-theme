@@ -14,6 +14,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function closeItem(item) {
+    if (!item) {return;}
+
     if (item.classList.contains('open')) {
       // Close the tab (toggle arrow)
       item.classList.remove('open');
@@ -25,6 +27,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function openItem(item) {
+    if (!item) {return;}
+
     if (!item.classList.contains('open')) {
       // Open the tab (toggle arrow)
       item.classList.add('open');
@@ -74,7 +78,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const accordionBlocks = [...document.querySelectorAll('.accordion-block')];
   accordionBlocks.forEach(accordion => {
     const accordionItems = [...accordion.children].filter(child => child.classList.contains('accordion-content'));
-    const accordionHeadlines = accordionItems.map(item => [...item.children].find(child => child.classList.contains('accordion-headline')));
+
+    const accordionHeadlines = accordionItems
+      .map(item => [...item.children].find(child => child.classList.contains('accordion-headline')))
+      .filter(Boolean);
+
     accordionHeadlines.forEach(headline => headline.onclick = () => toggleAccordionItem(headline, accordionHeadlines));
   });
 });
