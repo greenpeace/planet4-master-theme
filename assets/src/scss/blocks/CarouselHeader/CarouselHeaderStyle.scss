@@ -621,6 +621,8 @@ $medium-image-height: 600px;
   .carousel-indicators-wrapper {
     width: 100%;
     z-index: 3000;
+    position: absolute;
+    bottom: 0;
 
     > .container {
       display: flex;
@@ -697,12 +699,11 @@ $medium-image-height: 600px;
       }
     }
 
-    @media medium-and-up {
+    @include medium-and-up {
       justify-content: flex-end;
     }
 
     @include large-and-up {
-      position: absolute;
       bottom: $sp-2x;
       left: 0;
       z-index: 9999;

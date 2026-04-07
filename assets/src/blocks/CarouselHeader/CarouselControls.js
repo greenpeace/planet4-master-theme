@@ -12,20 +12,23 @@ export const CarouselControls = ({
   disableControls,
 }) => useMemo(() => (
   <>
-    {/* Arrows */}
-    <nav aria-label={__('Greenpeace highlights carousel controls', 'planet4-master-theme')}>
-      <button className="carousel-control-prev" onClick={goToPrevSlide} aria-label={__('Go to previous slide', 'planet4-master-theme')}>
-        <span className="carousel-control-prev-icon" aria-hidden="true"><i></i></span>
-        <span className="visually-hidden">{__('Previous', 'planet4-master-theme')}</span>
-      </button>
-      <button className="carousel-control-next" onClick={goToNextSlide} aria-label={__('Go to next slide', 'planet4-master-theme')}>
-        <span className="carousel-control-next-icon" aria-hidden="true"><i></i></span>
-        <span className="visually-hidden">{__('Next', 'planet4-master-theme')}</span>
-      </button>
-    </nav>
     {/* Indicators */}
     <div className="carousel-indicators-wrapper">
       <div className="container">
+        {disableControls && (
+          <>
+            <button
+              aria-label={__('Autoplay', 'planet4-master-theme')}
+              className={`carousel-autoplay-control ${autoplay ? 'stop' : 'play'}`}
+              onClick={handleAutoplay}
+              aria-pressed={autoplay ? 'true' : 'false'}
+            />
+            {/* This is for screen readers to announce the state of the autoplay */}
+            <div className="visually-hidden" aria-live="polite">
+              {autoplay ? __('Slide resumed', 'planet4-master-theme') : __('Slide paused', 'planet4-master-theme')}
+            </div>
+          </>
+        )}
         <ol className="carousel-indicators" tabIndex={-1}>
           {
             slides.map((_, index) =>
@@ -56,21 +59,18 @@ export const CarouselControls = ({
             )
           }
         </ol>
-        {disableControls && (
-          <>
-            <button
-              aria-label={__('Autoplay', 'planet4-master-theme')}
-              className={`carousel-autoplay-control ${autoplay ? 'stop' : 'play'}`}
-              onClick={handleAutoplay}
-              aria-pressed={autoplay ? 'true' : 'false'}
-            />
-            {/* This is for screen readers to announce the state of the autoplay */}
-            <div className="visually-hidden" aria-live="polite">
-              {autoplay ? __('Slide resumed', 'planet4-master-theme') : __('Slide paused', 'planet4-master-theme')}
-            </div>
-          </>
-        )}
       </div>
     </div>
+    {/* Arrows */}
+    <nav aria-label={__('Greenpeace highlights carousel controls', 'planet4-master-theme')}>
+      <button className="carousel-control-prev" onClick={goToPrevSlide} aria-label={__('Go to previous slide', 'planet4-master-theme')}>
+        <span className="carousel-control-prev-icon" aria-hidden="true"><i></i></span>
+        <span className="visually-hidden">{__('Previous', 'planet4-master-theme')}</span>
+      </button>
+      <button className="carousel-control-next" onClick={goToNextSlide} aria-label={__('Go to next slide', 'planet4-master-theme')}>
+        <span className="carousel-control-next-icon" aria-hidden="true"><i></i></span>
+        <span className="visually-hidden">{__('Next', 'planet4-master-theme')}</span>
+      </button>
+    </nav>
   </>
 ), [currentSlide, disableControls, autoplay, slides, goToPrevSlide, goToNextSlide, goToSlide, handleAutoplay]);
