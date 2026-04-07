@@ -1,4 +1,5 @@
 const {__} = wp.i18n;
+const {useBlockProps} = wp.blockEditor;
 
 import {LISTS_BREADCRUMBS} from '../blocks/PostsList';
 
@@ -64,7 +65,7 @@ function editFunction({attributes, context}) {
     content = link ? wp.element.createElement('div', contentAttrs, link) : null;
   }
 
-  return content;
+  return <div {...useBlockProps()}>{content}</div>;
 }
 
 function saveFunction() {
