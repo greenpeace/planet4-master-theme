@@ -191,7 +191,7 @@ final class Loader
         new Blocks\Cookies();//NOSONAR
         new Blocks\Counter();//NOSONAR
         new Blocks\Gallery();//NOSONAR
-        (new Blocks\Rest())->load();//NOSONAR
+        self::load_block_rest_service();
         new Blocks\SocialMedia();//NOSONAR
         new Blocks\Spreadsheet();//NOSONAR
         new Blocks\TableOfContents();//NOSONAR
@@ -236,6 +236,14 @@ final class Loader
             10,
             1
         );
+    }
+
+    /**
+     * Load the Blocks REST service.
+     */
+    private static function load_block_rest_service(): void
+    {
+        (new Blocks\Rest())->load();//NOSONAR
     }
 
     /**
