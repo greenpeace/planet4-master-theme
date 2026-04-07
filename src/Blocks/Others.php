@@ -151,8 +151,10 @@ class Others
                     $term_link = get_term_link($first);
 
                     return $attributes['isLink'] ?
-                        sprintf('<div class="wp-block-post-terms"><a href="%s">%s</a></div>',
-                            esc_url($term_link), esc_html($first->name)
+                        sprintf(
+                            '<div class="wp-block-post-terms"><a href="%s">%s</a></div>',
+                            esc_url($term_link),
+                            esc_html($first->name)
                         ) :
                         sprintf('<div class="wp-block-post-terms">%s</div>', esc_html($first->name));
                 },

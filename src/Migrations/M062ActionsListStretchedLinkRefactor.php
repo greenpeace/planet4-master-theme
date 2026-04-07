@@ -80,10 +80,11 @@ class M062ActionsListStretchedLinkRefactor extends MigrationScript
         });
 
         // Check if the category is a link, meaning it doesn't have the new 'isLink' attribute set to false.
-        $category_link = array_find($no_stretched_link['innerBlocks'], function ($innerBlock) {
-            return $innerBlock['blockName'] === Utils\Constants::P4_OTHER_BLOCKS['breadcrumb'] &&
-                !isset($innerBlock['attrs']['isLink']);
-        });
+        $category_link = $no_stretched_link && $no_stretched_link['innerBlocks'] ?
+            array_find($no_stretched_link['innerBlocks'], function ($innerBlock) {
+                return $innerBlock['blockName'] === Utils\Constants::P4_OTHER_BLOCKS['breadcrumb'] &&
+                    !isset($innerBlock['attrs']['isLink']);
+            }) : null;
 
         return $featured_image_link || $no_stretched_link || $category_link;
     }
@@ -100,10 +101,8 @@ class M062ActionsListStretchedLinkRefactor extends MigrationScript
         self::remove_featured_image_link($block['innerBlocks']);
 
         // Add stretched link functionality to group.
+        // Also remove the category link.
         self::add_stretched_link($block['innerBlocks']);
-
-        // Remove category link.
-        self::remove_category_link($block['innerBlocks']);
 
         return $block;
     }
@@ -133,7 +132,7 @@ class M062ActionsListStretchedLinkRefactor extends MigrationScript
     }
 
     /**
-     * Make the group a stretched link, and remove category link.
+     * Add the stretched link and remove category link.
      *
      * @param array $blocks - array of blocks.
      */
@@ -176,30 +175,7 @@ class M062ActionsListStretchedLinkRefactor extends MigrationScript
                     6 => '</div>
                 ',
                 );
-            }
-        }
-    }
-
-    /**
-     * Remove category link.
-     *
-     * @param array $blocks - array of blocks.
-     */
-    private static function remove_category_link(array &$blocks): void
-    {
-        foreach ($blocks as &$block) {
-            if (!self::is_valid_post_template_block($block)) {
-                continue;
-            }
-            foreach ($block['innerBlocks'] as &$innerBlock) {
-                if (
-                    !isset($innerBlock['blockName']) ||
-                    $innerBlock['blockName'] !== Utils\Constants::BLOCK_GROUP ||
-                    !isset($innerBlock['attrs']['className']) ||
-                    $innerBlock['attrs']['className'] !== 'group-stretched-link'
-                ) {
-                    continue;
-                }
+                // Make sure the P4 breadcrumb block is not a link anymore.
                 foreach ($innerBlock['innerBlocks'] as &$inner_innerBlock) {
                     if (
                         !isset($inner_innerBlock['blockName']) ||
