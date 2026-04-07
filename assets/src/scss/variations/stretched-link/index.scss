@@ -17,10 +17,8 @@
     }
   }
 
-  &:hover > {
-    figure[class*="is-style-rounded-"] img {
-      transform: scale(1.3);
-    }
+  &:hover > figure[class*="is-style-rounded-"] img {
+    transform: scale(1.3);
   }
 
   // Ensure it's only applying to the first link.

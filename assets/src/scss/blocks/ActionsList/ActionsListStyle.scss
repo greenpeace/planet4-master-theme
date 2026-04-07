@@ -1,6 +1,10 @@
 .actions-list {
   margin-bottom: $sp-4;
 
+  .group-stretched-link {
+    position: unset;
+  }
+
   .load-more-actions-container {
     margin-top: $sp-4;
   }
@@ -30,30 +34,6 @@
 
   ul li {
     position: relative;
-  }
-
-  .actions-list-links {
-    text-decoration: none;
-    height: 100%;
-
-    & > *:first-child:not(.wp-block-post-featured-image) {
-      // This padding-top is added only when the figure is not being rendered
-      padding-top: calc(196px + $sp-3);
-
-      @include large-and-up {
-        padding-top: calc(220px + $sp-3);
-      }
-    }
-
-    &::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 0;
-    }
   }
 
   .carousel-controls,
@@ -91,6 +71,7 @@
 
       .wp-block-post-title a {
         text-decoration: underline;
+        text-underline-offset: 1px;
       }
     }
 
@@ -139,6 +120,8 @@
   .wp-block-post-featured-image img {
     height: 196px;
     object-fit: cover;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
 
     @include large-and-up {
       height: 220px;
@@ -147,15 +130,12 @@
 
   .wp-block-post-terms {
     margin-bottom: $sp-1;
-
-    a {
-      color: var(--grey-600);
-      font-size: var(--font-size-s--font-family-tertiary);
-      font-weight: var(--font-weight-bold);
-      font-family: var(--font-family-tertiary);
-      line-height: var(--line-height-s--font-family-tertiary);
-      @include clamp-text(1);
-    }
+    color: var(--grey-600);
+    font-size: var(--font-size-s--font-family-tertiary);
+    font-weight: var(--font-weight-bold);
+    font-family: var(--font-family-tertiary);
+    line-height: var(--line-height-s--font-family-tertiary);
+    @include clamp-text(1);
   }
 
   &.is-custom-layout-grid {
