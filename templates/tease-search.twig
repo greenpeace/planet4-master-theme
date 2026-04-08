@@ -143,7 +143,7 @@
 
             {% if ( 'page' != post.post_type ) %}
                 <div class="search-result-item-info">
-                    <span class="search-result-item-date">{{ post.date|date('d/m/Y') }}</span>
+                    <span class="search-result-item-date">{{ post.post_date|date('d/m/Y') }}</span>
                 </div>
             {% endif %}
 

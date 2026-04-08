@@ -57,7 +57,7 @@
                     {% endif %}
                 </span>
             {% endif %}
-            <span class="search-result-item-date">{{ post.date|date }}</span>
+            <span class="search-result-item-date">{{ post.post_date|date }}</span>
             {% set reading_time = post.reading_time_for_display %}
             {% if reading_time %}
                 <span class="single-post-meta-bullet" aria-hidden="true">&#8226;</span>
