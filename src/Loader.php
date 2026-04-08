@@ -191,7 +191,6 @@ final class Loader
         new Blocks\Cookies();//NOSONAR
         new Blocks\Counter();//NOSONAR
         new Blocks\Gallery();//NOSONAR
-        new Blocks\HappyPoint();//NOSONAR
         new Blocks\SocialMedia();//NOSONAR
         new Blocks\Spreadsheet();//NOSONAR
         new Blocks\TableOfContents();//NOSONAR
@@ -199,12 +198,8 @@ final class Loader
         new Blocks\Timeline();//NOSONAR
         new Blocks\SecondaryNavigation();//NOSONAR
         new Blocks\Others();//NOSONAR
-
-        Blocks\Register::registerFromAssets('TopicLink', [
-            'render_callback' => function ($attributes) {
-                return BaseBlock::render_frontend_from_blockname($attributes, 'planet4-blocks/topic-link');
-            },
-        ]);
+        self::add_blocks_from_assets();
+        self::load_block_rest_service();
 
         $pattern_categories = [
             'page-headers' => 'Page Headers',
@@ -241,6 +236,31 @@ final class Loader
             10,
             1
         );
+    }
+
+    /**
+     * Load the Blocks REST service.
+     */
+    private static function load_block_rest_service(): void
+    {
+        (new Blocks\Rest())->load();//NOSONAR
+    }
+
+    /**
+     * Load blocks registered from assets (block.json).
+     */
+    private static function add_blocks_from_assets(): void
+    {
+        Blocks\Register::registerFromAssets('HappyPoint', [
+            'render_callback' => function ($attributes) {
+                return BaseBlock::render_frontend_from_blockname($attributes, 'planet4-blocks/happypoint');
+            },
+        ]);
+        Blocks\Register::registerFromAssets('TopicLink', [
+            'render_callback' => function ($attributes) {
+                return BaseBlock::render_frontend_from_blockname($attributes, 'planet4-blocks/topic-link');
+            },
+        ]);
     }
 
     // phpcs:enable WordPress.Security.NonceVerification.Recommended
