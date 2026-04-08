@@ -191,7 +191,6 @@ final class Loader
         new Blocks\Cookies();//NOSONAR
         new Blocks\Counter();//NOSONAR
         new Blocks\Gallery();//NOSONAR
-        self::load_block_rest_service();
         new Blocks\SocialMedia();//NOSONAR
         new Blocks\Spreadsheet();//NOSONAR
         new Blocks\TableOfContents();//NOSONAR
@@ -200,6 +199,7 @@ final class Loader
         new Blocks\SecondaryNavigation();//NOSONAR
         new Blocks\Others();//NOSONAR
         self::add_blocks_from_assets();
+        self::load_block_rest_service();
 
         $pattern_categories = [
             'page-headers' => 'Page Headers',
