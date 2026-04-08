@@ -250,7 +250,7 @@ class QueryLoopExtension
             $block_name === 'core/post-terms' && ($attrs['term'] ?? '') === 'post_tag' => 'Navigation Tag',
             $block_name === 'p4/taxonomy-breadcrumb' => 'Post Type Tag',
             $block_name === 'core/navigation-link'
-                && str_contains($attrs['className'] ?? '', 'see-all-link') => 'Load More Button',
+                && str_contains($attrs['className'] ?? '', 'see-all-link') => 'See More Link',
             default => null,
         };
 
