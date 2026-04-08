@@ -1,5 +1,6 @@
 import metadata from './block.json';
 import {HappyPointEditor} from './HappyPointEditor.js';
+import './style.scss';
 import {HappyPointBlock as HappyPointBlockV1} from './deprecated/HappyPointBlockV1.js';
 
 const {registerBlockType} = wp.blocks;

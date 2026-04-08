@@ -42,5 +42,7 @@
     "multiple": false,
     "html": false
   },
-  "editorScript": "file:index.js"
+  "viewScript": "file:view-script.js",
+  "editorScript": "file:index.js",
+  "style": "file:index.css"
 }

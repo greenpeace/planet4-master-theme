@@ -1,3 +1,8 @@
+@import "../../scss/base/tokens";
+@import "../../scss/base/variables";
+@import "../../scss/base/mixins";
+@import "../../scss/base/fonts";
+
 .happy-point-block-wrap {
   @include background-before-opacity($beige-100);
   width: 100vw;
