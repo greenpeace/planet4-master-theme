@@ -1,3 +1,5 @@
+import {YearsNavigation} from './YearsNavigation';
+
 const {useState, useEffect} = wp.element;
 const {__, sprintf} = wp.i18n;
 
@@ -229,9 +231,10 @@ export const NewTimelineFrontend = ({attributes}) => {
           <p className="page-section-description text-center" dangerouslySetInnerHTML={{__html: description}} />
         }
 
+        <YearsNavigation years={processedSheetData.map(({year}) => year)} />
         <fieldset className="timeline-group">
           {processedSheetData.map(({year, list}) => (
-            <div key={year}>
+            <div className="timeline-block-year-group" id={year} key={year}>
               <p className="timeline-block-year">{year}</p>
               <ul className="timeline-block-events">
                 {list.map((event, index) => (

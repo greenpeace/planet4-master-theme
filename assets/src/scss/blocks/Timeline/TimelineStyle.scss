@@ -357,6 +357,10 @@
     z-index: 1;
   }
 
+  .timeline-block-year-group {
+    scroll-margin-top: 100px;
+  }
+
   .timeline-block-event-day,
   .timeline-block-event-description,
   .timeline-description-toggle,
@@ -370,7 +374,6 @@
 
   .timeline-block-event {
     list-style: none;
-
     border: 1px solid var(--grey-300);
     max-width: 340px;
     margin: 0 auto $sp-3 auto;
@@ -583,6 +586,135 @@
           inline-size: 107px;
         }
       }
+    }
+  }
+
+  .years-navigation {
+    position: sticky;
+    background-color: var(--beige-100);
+    z-index: 999;
+    padding: $sp-1x 0;
+    top: 68px;
+    margin: 0 auto $sp-2 auto;
+
+    body.admin-bar & {
+      top: 100px;
+    }
+
+    @include medium-and-less {
+      top: 60px;
+
+      body.admin-bar & {
+        top: 104px;
+      }
+
+      body.stuck-open & {
+        top: 110px;
+      }
+
+      body.admin-bar.stuck-open & {
+        top: 156px;
+      }
+    }
+
+    @include large-and-up {
+      max-width: 916px;
+    }
+
+    @include x-large-and-up {
+      max-width: 986px;
+    }
+
+    @include xx-large-and-up {
+      max-width: 1096px;
+    }
+  }
+
+  .years-navigation-items {
+    list-style: none;
+    padding: 0 $sp-3x;
+    margin: 0;
+    overflow-x: auto;
+
+    &.with-gradient {
+      mask-image: linear-gradient(to right, transparent 0, black 30px, black calc(100% - 30px), transparent 100%);
+      mask-repeat: no-repeat;
+      mask-size: 100% 100%;
+    }
+
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    /* Hide scrollbar for IE, Edge and Firefox */
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+
+    li {
+      margin: $sp-x $sp-2;
+
+      &:first-child {
+        margin-inline-start: 0;
+      }
+
+      &:last-child {
+        margin-inline-end: 0;
+      }
+
+      a {
+        font-family: var(--font-family-tertiary);
+        color: var(--grey-600);
+        font-weight: 600;
+        font-size: 17px;
+
+        &:hover,
+        &.active {
+          text-decoration: none;
+          border-bottom: 3px solid var(--gp-green-500);
+          color: var(--grey-900);
+        }
+      }
+    }
+  }
+
+  .nav-arrow {
+    position: absolute;
+    top: 4px;
+    background: none;
+    border: none;
+    color: var(--white);
+    font-size: var(--font-size-m--font-family-primary);
+    background-image: none;
+    mask-image: url("../../images/chevron.svg");
+    mask-size: 15px 15px;
+    mask-repeat: no-repeat;
+    mask-position: center;
+    background-color: var(--grey-600);
+    height: 48px;
+    width: 48px;
+
+    &.left {
+      left: -$sp-3;
+      transform: rotate(180deg);
+    }
+
+    &.right {
+      right: -$sp-3;
+    }
+
+    @include medium-and-up {
+      &.left {
+        left: -$sp-4;
+      }
+
+      &.right {
+        right: -$sp-4;
+      }
+    }
+
+    @include x-large-and-up {
+      top: 8px;
     }
   }
 }

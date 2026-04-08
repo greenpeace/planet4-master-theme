@@ -71,39 +71,35 @@
     border: none;
     color: var(--white);
     font-size: var(--font-size-m--font-family-primary);
+    background-image: none;
+    mask-image: url("../../images/chevron.svg");
+    mask-size: contain;
+    mask-repeat: no-repeat;
+    mask-position: center;
+    background-color: var(--white);
+    height: 15px;
+    width: 15px;
 
     @include large-and-less {
       top: 10px;
     }
-  }
-}
 
-.nav-arrow.left,
-.nav-arrow.right {
-  background-image: none;
-  mask-image: url("../../images/chevron.svg");
-  mask-size: contain;
-  mask-repeat: no-repeat;
-  mask-position: center;
-  background-color: var(--white);
-  height: 15px;
-  width: 15px;
-}
+    &.left {
+      left: -20px;
+      transform: rotate(180deg);
 
-.nav-arrow.left {
-  left: -20px;
-  transform: rotate(180deg);
+      @include large-and-less {
+        left: -15px;
+      }
+    }
 
-  @include large-and-less {
-    left: -15px;
-  }
-}
+    &.right {
+      right: -20px;
 
-.nav-arrow.right {
-  right: -20px;
-
-  @include large-and-less {
-    right: -15px;
+      @include large-and-less {
+        right: -15px;
+      }
+    }
   }
 }
 
