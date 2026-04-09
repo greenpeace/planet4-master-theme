@@ -37,6 +37,7 @@ class QueryLoopPagination
             // phpcs:ignore SlevomatCodingStandard.Functions.UnusedParameter -- filter callback
             function ($content, $parsed, $block) {
                 $button_label = __('Prev', 'planet4-master-theme');
+                $button_class = 'wp-block-query-pagination-previous disabled';
 
                 if (!array_key_exists('label', $block->attributes)) {
                     $block->attributes['label'] = $button_label;
@@ -45,7 +46,8 @@ class QueryLoopPagination
 
                 // Check if the button isn't rendered, then return it.
                 if (empty($content)) {
-                    return '<a href="/" class="wp-block-query-pagination-previous disabled">' . $button_label . '</a>';
+                    return '<a href="#" class="' . $button_class . '" tabindex="-1" aria-hidden="true">'
+                        . $button_label . '</a>';
                 }
 
                 return $content;
@@ -61,6 +63,7 @@ class QueryLoopPagination
             // phpcs:ignore SlevomatCodingStandard.Functions.UnusedParameter -- filter callback
             function ($content, $parsed, $block) {
                 $button_label = __('Next', 'planet4-master-theme');
+                $button_class = 'wp-block-query-pagination-next disabled';
 
                 if (!array_key_exists('label', $block->attributes)) {
                     $block->attributes['label'] = $button_label;
@@ -69,7 +72,8 @@ class QueryLoopPagination
 
                 // Check if the button isn't rendered, then return it.
                 if (empty($content)) {
-                    return '<a href="/" class="wp-block-query-pagination-next disabled">' . $button_label . '</a>';
+                    return '<a href="#" class="' . $button_class . '" tabindex="-1" aria-hidden="true">'
+                        . $button_label . '</a>';
                 }
 
                 return $content;
