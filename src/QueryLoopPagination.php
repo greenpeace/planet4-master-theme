@@ -45,7 +45,8 @@ class QueryLoopPagination
 
                 // Check if the button isn't rendered, then return it.
                 if (empty($content)) {
-                    return '<a href="/" class="wp-block-query-pagination-previous disabled">' . $button_label . '</a>';
+                    return '<a href="/" class="wp-block-query-pagination-previous disabled" tabindex="-1">'
+                        . $button_label . '</a>';
                 }
 
                 return $content;
@@ -69,7 +70,8 @@ class QueryLoopPagination
 
                 // Check if the button isn't rendered, then return it.
                 if (empty($content)) {
-                    return '<a href="/" class="wp-block-query-pagination-next disabled">' . $button_label . '</a>';
+                    return '<a href="/" class="wp-block-query-pagination-next disabled" tabindex="-1">'
+                        . $button_label . '</a>';
                 }
 
                 return $content;
