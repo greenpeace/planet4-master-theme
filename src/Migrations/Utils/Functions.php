@@ -631,30 +631,33 @@ class Functions
      *
      * @param array $inner_blocks - The block's inner blocks.
      * @param array $attrs - The block's attributes.
+     * @param string $aria_label - The block's ARIA label.
      *
      * @return array - The new Group block.
      */
-    public static function create_group_block(array $inner_blocks, array $attrs): array
+    public static function create_group_block(array $inner_blocks, array $attrs, string $aria_label = ''): array
     {
         $classname =
             isset($attrs['className']) ?
             'wp-block-group ' . $attrs['className'] :
             'wp-block-group';
 
+        $tagname = isset($attrs['tagName']) ? $attrs['tagName'] : 'div';
+
         // IMPORTANT: DO NOT MODIFY THIS FORMAT!
         $inner_html =
-        '<div class="' . $classname . '">
+        '<' . $tagname . ' class="' . $classname . '" aria-label="' . $aria_label . '">
 
 
 
 
 
-        </div>';
+        </' . $tagname . '>';
 
         // IMPORTANT: DO NOT MODIFY THIS FORMAT!
         $inner_content = array (
             0 => '
-        <div class="' . $classname . '">',
+        <' . $tagname . ' class="' . $classname . '" aria-label="' . $aria_label . '">',
             1 => null,
             2 => '
         ',
@@ -665,7 +668,7 @@ class Functions
             6 => '
         ',
             7 => null,
-            8 => '</div>
+            8 => '</' . $tagname . '>
         ',
         );
 
