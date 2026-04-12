@@ -16,7 +16,7 @@
     "includeNotices": true
   },
   "urls": [
-    "https://www-dev.greenpeace.org/",
-    "https://www-dev.greenpeace.org/"
+    "http://www.planet4.test/",
+    "http://www.planet4.test/?s="
   ]
 }
