@@ -9,6 +9,7 @@
     <div class="wp-block-separator is-style-wide listing-page-separator"></div>
     <div class="d-flex align-items-center justify-content-between listing-page-title">
         {% if fn('is_home') %}
+            <h2 tabindex="0" class="visually-hidden">{{__( 'Filter posts', 'planet4-master-theme' ) }}</h2>
             {% include 'listing-page-filters.twig' %}
         {% else %}
             <h2>{{ listing_page_title ?? __( 'All articles', 'planet4-master-theme' ) }}</h2>
