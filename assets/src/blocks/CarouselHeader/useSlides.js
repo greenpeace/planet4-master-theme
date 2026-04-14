@@ -52,6 +52,18 @@ export const useSlides = (
     },
   };
 
+  const onScrollHandler = useCallback(() => {
+    if (!containerRef || !containerRef.current) {
+      return;
+    }
+
+    const {top, height} = containerRef.current.getBoundingClientRect();
+
+    if(top < (height * -1) || top > window.innerHeight) {
+      setAutoplay(false);
+    }
+  }, [setAutoplay, containerRef]);
+
   const handleAutoplay = useCallback(() => {
     setAutoplay(!autoplay);
   }, [autoplay]);
@@ -141,12 +153,12 @@ export const useSlides = (
     }
   }, [currentSlide, getOrder, options, sliding, setCarouselHeight, slidesRef]);
 
-  const goToPrevSlide = useCallback(() => {
-    goToSlide({newSlide: (currentSlide - 1 < 0) ? totalSlides - 1 : currentSlide - 1, fromClick: true});
+  const goToPrevSlide = useCallback((fromClick = false) => {
+    goToSlide({newSlide: (currentSlide - 1 < 0) ? totalSlides - 1 : currentSlide - 1, fromClick});
   }, [currentSlide, totalSlides, goToSlide]);
 
-  const goToNextSlide = useCallback(() => {
-    goToSlide({newSlide: (currentSlide + 1 >= totalSlides) ? 0 : currentSlide + 1, fromClick: true});
+  const goToNextSlide = useCallback((fromClick = false) => {
+    goToSlide({newSlide: (currentSlide + 1 >= totalSlides) ? 0 : currentSlide + 1, fromClick});
   }, [currentSlide, totalSlides, goToSlide]);
 
   useHammerSwipe(containerRef, goToNextSlide, goToPrevSlide);
@@ -191,6 +203,16 @@ export const useSlides = (
       });
     }
   }, [headingsRef, indicatorsRef, currentSlide]);
+
+  useEffect(() => {
+    if(carousel_autoplay) {
+      window.addEventListener('scroll', onScrollHandler);
+
+      return () => {
+        window.removeEventListener('scroll', onScrollHandler);
+      };
+    }
+  }, [carousel_autoplay, onScrollHandler]);
 
   return {
     totalSlides,

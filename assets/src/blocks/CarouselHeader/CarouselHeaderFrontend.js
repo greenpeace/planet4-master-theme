@@ -32,12 +32,16 @@ export const CarouselHeaderFrontend = ({slides, carousel_autoplay, className, de
       {(slides.length > 1) && (
         <CarouselControls
           goToPrevSlide={() => {
-            setAutoplay(false);
-            goToPrevSlide();
+            setAutoplay(() => {
+              goToPrevSlide(true);
+              return false;
+            });
           }}
           goToNextSlide={() => {
-            setAutoplay(false);
-            goToNextSlide();
+            setAutoplay(() => {
+              goToNextSlide(true);
+              return false;
+            });
           }}
           goToSlide={goToSlide}
           handleAutoplay={handleAutoplay}
@@ -69,11 +73,11 @@ export const CarouselHeaderFrontend = ({slides, carousel_autoplay, className, de
     decoding,
     autoplay,
     slides,
-    goToSlide,
     setAutoplay,
+    carousel_autoplay,
     handleAutoplay,
+    goToSlide,
     goToPrevSlide,
     goToNextSlide,
-    carousel_autoplay,
   ]);
 };
