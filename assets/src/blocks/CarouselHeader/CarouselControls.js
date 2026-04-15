@@ -29,7 +29,7 @@ export const CarouselControls = forwardRef(({
             </div>
           </>
         )}
-        <ol className="carousel-indicators" tabIndex={-1}>
+        <ol className="carousel-indicators" tabIndex={-1} ref={ref}>
           {
             slides.map((_, index) =>
               <li
@@ -41,18 +41,18 @@ export const CarouselControls = forwardRef(({
                 <button
                   onClick={() => {
                     if (index !== currentSlide) {
-                      goToSlide(index);
+                      goToSlide({newSlide: index});
                     }
                   }}
                   tabIndex={0}
                   onKeyDown={e => {
                     if ((e.key === 'Enter' || e.key === ' ') && index !== currentSlide) {
                       e.preventDefault();
-                      goToSlide(index);
+                      goToSlide({newSlide: index});
                     }
                   }}
-                  // translators: %s: slide index
-                  aria-label={sprintf(__('Go to slide %s', 'planet4-master-theme'), index + 1)}
+                  // translators: %s: slide header
+                  aria-label={sprintf(__('Go to %s slide', 'planet4-master-theme'), slides[index].header)}
                   aria-current={index === currentSlide ? 'true' : undefined}
                 />
               </li>
