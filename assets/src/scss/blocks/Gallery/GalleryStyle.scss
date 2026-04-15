@@ -1,9 +1,9 @@
-@import "../../base/tokens";
-@import "../../base/colors";
-@import "../../base/mixins";
-@import "../../base/variables";
-@import "../../base/fonts";
+@use "../../base/tokens";
+@use "../../base/colors";
+@use "../../base/mixins";
+@use "../../base/variables";
+@use "../../base/fonts";
 
-@import "./styles/GalleryCarousel.scss";
-@import "./styles/GalleryGrid.scss";
-@import "./styles/GalleryThreeColumns.scss";
+@use "styles/GalleryCarousel.scss";
+@use "styles/GalleryGrid.scss";
+@use "styles/GalleryThreeColumns.scss";

@@ -1,3 +1,6 @@
+@use "../../base/mixins";
+@use "../../base/variables";
+
 .posts-list {
   .carousel-controls {
     display: none !important;
@@ -23,12 +26,12 @@
   }
 
   .wp-block-post-title {
-    margin-bottom: $sp-3;
+    margin-bottom: variables.$sp-3;
   }
 
-  @include large-and-up {
+  @include mixins.large-and-up {
     .wp-block-post {
-      flex-basis: calc(25% - $sp-2);
+      flex-basis: calc(25% - variables.$sp-2);
     }
   }
 }

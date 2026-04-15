@@ -1,3 +1,8 @@
+@use "../base/fonts";
+@use "../base/mixins";
+@use "../base/tokens";
+@use "../base/variables";
+
 
 #country-selector {
   color: inherit;
@@ -15,7 +20,7 @@
   }
 
   button:focus {
-    @include focus-styles;
+    @include mixins.focus-styles;
   }
 
   button:focus:not(:focus-visible) {
@@ -39,7 +44,7 @@
 }
 
 .country-selector-toggle-container {
-  border-bottom: 1px solid rgba($white, 0.5);
+  border-bottom: 1px solid rgba(tokens.$white, 0.5);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -69,14 +74,14 @@
 
   &::before {
     height: 20px;
-    margin-inline-end: $sp-1x;
+    margin-inline-end: variables.$sp-1x;
     mask: url("../../images/gp-g-logo.png") 0 0/16px 20px no-repeat;
     vertical-align: middle;
   }
 
   &::after {
     height: 12px;
-    margin-inline-start: $sp-1x;
+    margin-inline-start: variables.$sp-1x;
     mask: url("../../images/chevron.svg") 0 0/16px 12px no-repeat;
     transform: rotate(0.25turn);
     transition: transform 300ms cubic-bezier(.86, 0, .07, 1);
@@ -94,10 +99,10 @@
 }
 
 .countries-list .container {
-  padding: 24px 24px $sp-4 16px;
+  padding: 24px 24px variables.$sp-4 16px;
 
-  @include medium-and-up {
-    padding: 24px 0 $sp-4;
+  @include mixins.medium-and-up {
+    padding: 24px 0 variables.$sp-4;
   }
 }
 
@@ -105,9 +110,9 @@
   column-count: 1;
   list-style: none;
   margin: 0;
-  padding-inline-start: $sp-4;
+  padding-inline-start: variables.$sp-4;
 
-  @include medium-and-up {
+  @include mixins.medium-and-up {
     column-count: 3;
   }
 
@@ -117,17 +122,17 @@
 
   .international {
     margin: 0;
-    padding: 0 0 $sp-4 0;
+    padding: 0 0 variables.$sp-4 0;
   }
 
   .lang-list {
     font-weight: 400;
     line-height: 24px;
     list-style: none;
-    padding: $sp-x 0 0 0;
+    padding: variables.$sp-x 0 0 0;
 
-    @include medium-and-up {
-      margin-inline-end: $sp-4;
+    @include mixins.medium-and-up {
+      margin-inline-end: variables.$sp-4;
     }
   }
 
@@ -140,11 +145,11 @@
 
 .country-group {
   .initial {
-    font-size: $font-size-xxxs;
+    font-size: fonts.$font-size-xxxs;
     font-weight: 700;
     line-height: 20px;
     color: inherit;
-    margin-inline-start: -$sp-4;
+    margin-inline-start: -(variables.$sp-4);
     opacity: 0.5;
     position: absolute;
 
