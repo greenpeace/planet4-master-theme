@@ -1,10 +1,10 @@
-@import "../../scss/base/tokens";
-@import "../../scss/base/variables";
-@import "../../scss/base/mixins";
-@import "../../scss/base/fonts";
+@use "../../scss/base/tokens";
+@use "../../scss/base/variables";
+@use "../../scss/base/mixins";
+@use "../../scss/base/fonts";
 
 .happy-point-block-wrap {
-  @include background-before-opacity($beige-100);
+  @include mixins.background-before-opacity(tokens.$beige-100);
   width: 100vw;
   height: 444px;
   overflow: hidden;
@@ -15,30 +15,30 @@
     width: 100%;
   }
 
-  @include mobile-only {
+  @include mixins.mobile-only {
     height: auto;
     min-height: 544px;
   }
 
-  @include medium-and-up {
+  @include mixins.medium-and-up {
     max-height: 480px;
   }
 
-  @include large-and-up {
+  @include mixins.large-and-up {
     max-height: 500px;
   }
 
-  @include x-large-and-up {
+  @include mixins.x-large-and-up {
     height: 620px;
     width: 100vw;
-    @include background-before-opacity($beige-100);
+    @include mixins.background-before-opacity(tokens.$beige-100);
   }
 
   .container {
     height: inherit;
     width: 100%;
 
-    @include medium-and-up {
+    @include mixins.medium-and-up {
       max-width: none;
     }
 
@@ -50,7 +50,7 @@
   .happy-point {
     height: inherit;
 
-    @include medium-and-up {
+    @include mixins.medium-and-up {
       text-align: center;
       padding-left: 0;
       padding-right: 0;
@@ -63,18 +63,18 @@
       margin-top: calc(var(--iframe-height) / 2 * -1);
       top: 50%;
 
-      @include mobile-only {
+      @include mixins.mobile-only {
         position: absolute;
         width: 100vw;
         bottom: 0;
         --iframe-height: 490px;
       }
 
-      @include medium-and-up {
+      @include mixins.medium-and-up {
         width: 80vw;
       }
 
-      @include large-and-up {
+      @include mixins.large-and-up {
         width: 100%;
       }
     }
@@ -86,33 +86,33 @@
     line-height: 32px;
     margin-bottom: 24px;
 
-    @include medium-and-up {
-      font-size: $font-size-xl;
+    @include mixins.medium-and-up {
+      font-size: fonts.$font-size-xl;
       line-height: 34px;
       margin-bottom: 20px;
     }
 
-    @include large-and-up {
+    @include mixins.large-and-up {
       font-size: 2.125rem;
       margin-bottom: 30px;
     }
 
-    @include x-large-and-up {
+    @include mixins.x-large-and-up {
       font-size: 2.25rem;
       margin-bottom: 42px;
     }
   }
 
   h5 {
-    font-size: $font-size-sm;
+    font-size: fonts.$font-size-sm;
     line-height: 24px;
 
-    @include medium-and-up {
+    @include mixins.medium-and-up {
       font-size: 1.125rem;
       line-height: 28px;
     }
 
-    @include large-and-up {
+    @include mixins.large-and-up {
       line-height: 24px;
     }
   }
@@ -124,11 +124,11 @@
     color: var(--grey-800);
     text-align: left;
 
-    @include medium-and-up {
+    @include mixins.medium-and-up {
       text-align: center;
     }
 
-    @include large-and-up {
+    @include mixins.large-and-up {
       text-align: left;
     }
   }
@@ -144,7 +144,7 @@
         & {
           height: 500px;
 
-          @include mobile-only {
+          @include mixins.mobile-only {
             height: 544px;
           }
         }
@@ -159,7 +159,7 @@
       border-color: transparent;
       margin-bottom: 16px;
 
-      @include medium-and-up {
+      @include mixins.medium-and-up {
         margin-bottom: inherit;
       }
     }
@@ -169,24 +169,24 @@
     margin-top: 0;
     margin-bottom: 16px;
     width: 100%;
-    padding: $sp-1;
+    padding: variables.$sp-1;
     border: 1px solid transparent;
 
     &:hover {
       background-color: var(--gp-green-500);
     }
 
-    @include medium-and-up {
+    @include mixins.medium-and-up {
       margin-top: 16px;
     }
 
-    @include large-and-up {
+    @include mixins.large-and-up {
       margin-top: 0;
       height: 42px;
       line-height: 42px;
     }
 
-    @include x-large-and-up {
+    @include mixins.x-large-and-up {
       margin-bottom: 8px;
     }
   }

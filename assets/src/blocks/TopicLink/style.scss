@@ -1,6 +1,6 @@
-@import "../../scss/base/tokens";
-@import "../../scss/base/variables";
-@import "../../scss/base/mixins";
+@use "../../scss/base/tokens";
+@use "../../scss/base/variables";
+@use "../../scss/base/mixins";
 
 .topic-link-block {
   a, .topic-link-block_editor-container {
@@ -14,7 +14,7 @@
     background-color: var(--grey-900);
     max-width: 46rem;
     height: auto;
-    padding: $sp-6 $sp-3;
+    padding: variables.$sp-6 variables.$sp-3;
 
     &:hover {
       text-decoration: none;
@@ -36,7 +36,7 @@
     p {
       margin: 0;
       width: 90%;
-      @include clamp-text(2);
+      @include mixins.clamp-text(2);
 
       &:after {
         content: "";

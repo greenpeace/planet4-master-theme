@@ -1,3 +1,5 @@
+@use "../../base/mixins";
+
 .wp-block-master-theme-happypoint__FocalPointPicker .components-focal-point-picker_position-display-container {
   display: none;
 }
@@ -7,7 +9,7 @@
 }
 
 .happy-point-block-wrap .happy-point iframe {
-  @include medium-and-up {
+  @include mixins.medium-and-up {
     width: 100%;
   }
 }

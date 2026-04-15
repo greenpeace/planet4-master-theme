@@ -1,3 +1,5 @@
+@use "../base/variables";
+
 .buttons-overlay {
   position: absolute;
   z-index: 2;
@@ -23,7 +25,7 @@
     justify-content: flex-start;
 
     .edit-image {
-      margin-inline-start: $sp-1;
+      margin-inline-start: variables.$sp-1;
 
       .dashicon {
         margin: 0;
@@ -36,7 +38,7 @@
   }
 
   .remove-image {
-    margin-inline-start: $sp-1;
+    margin-inline-start: variables.$sp-1;
     background: var(grey-900);
     color: var(--white);
 
