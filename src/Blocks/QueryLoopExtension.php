@@ -25,6 +25,53 @@ class QueryLoopExtension
         add_filter('rest_page_query', [self::class, 'registerEditorQuery'], 10, 2);
         add_filter('rest_p4_action_query', [self::class, 'registerEditorQuery'], 10, 2);
         add_filter('query_loop_block_query_vars', [self::class, 'registerFrontendQuery'], 10, 2);
+        add_filter('render_block', [self::class, 'addDataAttributes'], 10, 2);
+    }
+
+    /**
+     * Adds data attributes to the action list block.
+     *
+     * @param string $block_content The HTML generated for the block.
+     * @param array  $block         The block.
+     *
+     * @return string The updated block content.
+     */
+
+    public static function addDataAttributes(string $block_content, array $block): string
+    {
+        if ($block['blockName'] !== 'core/query') {
+            return $block_content;
+        }
+
+        // Check if class "actions-list" exists
+        if (
+            empty($block['attrs']['className']) ||
+            strpos($block['attrs']['className'], 'actions-list') === false
+        ) {
+            return $block_content;
+        }
+
+        $shared_data = 'data-category="Actions List" ga-label="n/a"';
+
+        $block_content = preg_replace(
+            '/<figure\b/',
+            '<figure data-action="Image" ' . $shared_data,
+            $block_content
+        );
+
+        $block_content = preg_replace(
+            '/<(h[1-6])\b/',
+            '<$1 data-action="Title" ' . $shared_data,
+            $block_content
+        );
+
+        $block_content = preg_replace(
+            '/<a\b/',
+            '<a data-action="Call to Action" ' . $shared_data,
+            $block_content
+        );
+
+        return $block_content;
     }
 
     /**
