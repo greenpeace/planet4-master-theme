@@ -123,6 +123,7 @@ export const setupAccessibleNavMenu = () => {
     handleAccessibleNavLink();
     handleNavMenuSub();
     handleNavMenuSubItems();
+    makeLanguageMenuAccessible();
   }
 
   if (mobileNav) {
@@ -274,3 +275,27 @@ const syncMobileNavAria = isOpen => {
   // Toggle button state
   toggleBtn.setAttribute('aria-expanded', String(isOpen));
 };
+
+/**
+ * Function to make the language menu accessible.
+ */
+const makeLanguageMenuAccessible = () => {
+  const languageMenuToggle = document.querySelector('.nav-languages-toggle');
+  const languageSubmenu = document.getElementById('nav-languages');
+
+
+  languageMenuToggle.addEventListener('click', () => {
+    const isOpen = languageSubmenu.classList.toggle('is-open');
+    languageMenuToggle.setAttribute('aria-expanded', isOpen);
+  });
+
+  // Close the submenu when pressing Escape.
+  languageMenuToggle.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      languageSubmenu.classList.remove('is-open');
+      languageMenuToggle.setAttribute('aria-expanded', 'false');
+      languageMenuToggle.focus();
+    }
+  });
+};
+
