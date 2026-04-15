@@ -1,31 +1,35 @@
+@use "../../base/mixins";
+@use "../../base/tokens";
+@use "../../base/variables";
+
 // Adds nesting on comments
-@include comment-level;
+@include mixins.comment-level;
 
 .comments-block {
   h3 {
     font-size: 16px;
-    margin-bottom: $sp-2;
+    margin-bottom: variables.$sp-2;
   }
 }
 
 .single-comment {
   font-family: var(--font-family-paragraph-secondary);
-  padding-bottom: $sp-3;
+  padding-bottom: variables.$sp-3;
 
   &:not(:first-of-type) {
-    border-top: 1px solid rgba($grey-500, 0.5);
-    padding-top: $sp-3;
+    border-top: 1px solid rgba(tokens.$grey-500, 0.5);
+    padding-top: variables.$sp-3;
   }
 }
 
 .single-comment-text {
   font-size: 16px;
   line-height: 1.5;
-  margin-bottom: $sp-1;
+  margin-bottom: variables.$sp-1;
   overflow-wrap: break-word;
 
   a {
-    @include shared-link-styles;
+    @include mixins.shared-link-styles;
   }
 }
 
@@ -41,21 +45,21 @@
 
   .author-info::after {
     content: "\2022";
-    padding-inline-start: $sp-1;
-    padding-inline-end: $sp-x;
+    padding-inline-start: variables.$sp-1;
+    padding-inline-end: variables.$sp-x;
   }
 
   .comment-reply-link {
     display: block;
     font-weight: bold;
     font-size: 14px;
-    margin-top: $sp-2;
+    margin-top: variables.$sp-2;
     width: fit-content;
-    @include shared-link-styles;
+    @include mixins.shared-link-styles;
   }
 }
 
-@include medium-and-up {
+@include mixins.medium-and-up {
   .single-comment-meta {
     .comment-reply-link {
       font-family: var(--font-family-primary);
@@ -70,13 +74,13 @@
   }
 }
 
-@include large-and-up {
+@include mixins.large-and-up {
   .comments-block {
     max-width: 696px;
   }
 }
 
-@include x-large-and-up {
+@include mixins.x-large-and-up {
   .comments-block {
     max-width: 736px;
   }

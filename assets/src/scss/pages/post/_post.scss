@@ -1,4 +1,8 @@
-@include large-and-up {
+@use "../../base/mixins";
+@use "../../base/tokens";
+@use "../../base/variables";
+
+@include mixins.large-and-up {
   .narrow-container {
     margin-left: auto;
     margin-right: auto;
@@ -7,7 +11,7 @@
   }
 }
 
-@include x-large-and-up {
+@include mixins.x-large-and-up {
   .narrow-container {
     max-width: 736px;
   }
@@ -25,7 +29,7 @@
   font-family: var(--font-family-tertiary);
   line-height: var(--line-height-m--font-family-tertiary);
   color: var(--color-text-meta_item);
-  border-bottom: 1px solid rgba($grey-500, 0.5);
+  border-bottom: 1px solid rgba(tokens.$grey-500, 0.5);
   padding-bottom: 16px;
   margin-bottom: 16px;
   display: flex;
@@ -85,33 +89,33 @@
 
 .post-articles-block {
   content-visibility: auto;
-  margin-top: $sp-4;
+  margin-top: variables.$sp-4;
 
   .posts-list {
-    padding-top: $sp-2;
-    border-top: 1px solid rgba($grey-500, 0.5);
+    padding-top: variables.$sp-2;
+    border-top: 1px solid rgba(tokens.$grey-500, 0.5);
 
     .wp-block-post-template {
-      margin-top: $sp-3;
+      margin-top: variables.$sp-3;
     }
 
-    @include medium-and-up {
-      padding-top: $sp-3;
+    @include mixins.medium-and-up {
+      padding-top: variables.$sp-3;
     }
   }
 }
 
 .post-tags {
-  margin-bottom: $sp-2;
+  margin-bottom: variables.$sp-2;
 }
 
 .single-post-old-posts-archive-notice {
   background-color: var(--beige-100);
-  padding: $sp-3;
-  margin-top: $sp-3;
+  padding: variables.$sp-3;
+  margin-top: variables.$sp-3;
 
-  @include medium-and-up {
-    padding: $sp-3 $sp-8;
+  @include mixins.medium-and-up {
+    padding: variables.$sp-3 variables.$sp-8;
   }
 
   a {
@@ -128,6 +132,6 @@
   p {
     font-size: var(--font-size-m--font-family-secondary);
     line-height: var(--line-height-m--font-family-secondary);
-    margin: $sp-3 0;
+    margin: variables.$sp-3 0;
   }
 }

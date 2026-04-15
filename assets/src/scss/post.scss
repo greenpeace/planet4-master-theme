@@ -1,13 +1,13 @@
-@import "base/tokens";
-@import "base/colors";
-@import "base/variables";
-@import "base/fonts";
-@import "base/functions";
-@import "base/mixins";
+@use "base/tokens";
+@use "base/colors";
+@use "base/variables";
+@use "base/fonts";
+@use "base/functions";
+@use "base/mixins";
 
 // Posts
-@import "pages/post/post";
-@import "pages/post/article-content";
-@import "pages/post/author-block";
-@import "pages/post/comments-block";
-@import "pages/post/comments-form";
+@use "pages/post/post";
+@use "pages/post/article-content";
+@use "pages/post/author-block";
+@use "pages/post/comments-block";
+@use "pages/post/comments-form";

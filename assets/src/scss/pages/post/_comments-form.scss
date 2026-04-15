@@ -1,3 +1,6 @@
+@use "../../base/mixins";
+@use "../../base/variables";
+
 .comments-block {
   font-family: var(--font-family-paragraph-secondary);
 
@@ -8,11 +11,11 @@
   .form-section .comment-respond {
     background: var(--color-background-comments_block);
     border-radius: 4px;
-    padding: $sp-3 $sp-2;
+    padding: variables.$sp-3 variables.$sp-2;
   }
 
   .comment-respond {
-    margin-bottom: $sp-4;
+    margin-bottom: variables.$sp-4;
 
     input,
     textarea {
@@ -24,20 +27,20 @@
     }
 
     button {
-      margin-top: $sp-1;
+      margin-top: variables.$sp-1;
       margin-bottom: 0;
     }
 
-    @include medium-and-up {
+    @include mixins.medium-and-up {
       .comment-author,
       .comment-email {
-        width: calc(50% - $sp-1);
+        width: calc(50% - variables.$sp-1);
         display: inline-block;
         vertical-align: bottom;
       }
 
       .comment-author {
-        margin-inline-end: $sp-1x;
+        margin-inline-end: variables.$sp-1x;
       }
     }
   }
@@ -47,14 +50,14 @@
   --comments-compliance-- {
     font-family: var(--font-family-primary);
   }
-  margin-bottom: $sp-1;
+  margin-bottom: variables.$sp-1;
 
   #gdpr-comments-checkbox {
     display: inline-block;
-    margin-inline-end: $sp-1;
-    width: $checkbox-size !important;
-    height: $checkbox-size;
-    top: calc($sp-1 - 1px);
+    margin-inline-end: variables.$sp-1;
+    width: variables.$checkbox-size !important;
+    height: variables.$checkbox-size;
+    top: calc(variables.$sp-1 - 1px);
   }
 
   #gdpr-comments-label {
@@ -79,7 +82,7 @@
 }
 
 #cancel-comment-reply-link {
-  margin: 0 $sp-1;
+  margin: 0 variables.$sp-1;
   color: var(--grey-600);
 
   &:hover,
@@ -88,8 +91,8 @@
   }
 }
 
-@include medium-and-up {
+@include mixins.medium-and-up {
   .comments-block .form-section .comment-respond {
-    padding: $sp-4;
+    padding: variables.$sp-4;
   }
 }
