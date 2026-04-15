@@ -53,7 +53,7 @@ export const useSlides = (
   };
 
   const onScrollHandler = useCallback(() => {
-    if (!containerRef || !containerRef.current) {
+    if (!containerRef?.current) {
       return;
     }
 
