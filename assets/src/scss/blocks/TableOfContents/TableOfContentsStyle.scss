@@ -1,3 +1,6 @@
+@use "../../base/mixins";
+@use "../../base/variables";
+
 // On outer element as otherwise it will not be clickable when floating on the right.
 div[data-render="planet4-blocks/submenu"] {
   z-index: 4;
@@ -7,7 +10,7 @@ div[data-render="planet4-blocks/submenu"] {
   border-radius: 4px;
   box-shadow: 0 3px 8px 0 rgba(28, 28, 28, 0.2);
   background-color: var(--white);
-  padding: $sp-5 $sp-6 $sp-6 $sp-6;
+  padding: variables.$sp-5 variables.$sp-6 variables.$sp-6 variables.$sp-6;
 
   h1,
   h2 {
@@ -25,7 +28,7 @@ div[data-render="planet4-blocks/submenu"] {
     ul.table-of-contents-item {
       flex-basis: 100%;
 
-      @include large-and-up {
+      @include mixins.large-and-up {
         flex-basis: 50%;
       }
     }
@@ -48,14 +51,14 @@ div[data-render="planet4-blocks/submenu"] {
       &.list-style-bullet {
         --table-of-contents-block-bullet-item-- {
           margin-inline-end: 0;
-          margin-inline-start: $sp-4;
+          margin-inline-start: variables.$sp-4;
         }
         list-style: disc;
       }
 
       &.list-style-number {
         --table-of-contents-block-number-item-- {
-          margin-inline-start: $sp-4;
+          margin-inline-start: variables.$sp-4;
         }
         list-style: decimal;
       }
@@ -64,7 +67,7 @@ div[data-render="planet4-blocks/submenu"] {
 
   &.table-of-contents-short {
     .table-of-contents-menu {
-      @include medium-and-up {
+      @include mixins.medium-and-up {
         ul.table-of-contents-item {
           flex-basis: 100%;
           column-count: 3;
@@ -83,7 +86,7 @@ div[data-render="planet4-blocks/submenu"] {
         flex-basis: 100%;
         column-count: 1;
 
-        @include medium-and-up {
+        @include mixins.medium-and-up {
           column-count: 2;
         }
       }
@@ -93,11 +96,11 @@ div[data-render="planet4-blocks/submenu"] {
   &.table-of-contents-sidebar {
     z-index: 4;
 
-    @include medium-and-up {
+    @include mixins.medium-and-up {
       float: right;
       max-width: 350px;
-      margin-bottom: $sp-2;
-      margin-inline-start: $sp-2;
+      margin-bottom: variables.$sp-2;
+      margin-inline-start: variables.$sp-2;
 
       html[dir="rtl"] & {
         float: left;
@@ -108,7 +111,7 @@ div[data-render="planet4-blocks/submenu"] {
       ul.table-of-contents-item {
         flex-basis: 100%;
 
-        @include large-and-up {
+        @include mixins.large-and-up {
           flex-basis: 100%;
         }
       }

@@ -1,8 +1,13 @@
+@use "../../base/fonts";
+@use "../../base/mixins";
+@use "../../base/tokens";
+@use "../../base/variables";
+
 .nav-search-form {
   background-color: inherit;
   border: none;
   border-top: var(--top-navigation--separation);
-  box-shadow: 0 2px 4px rgba($grey-900, 0.15);
+  box-shadow: 0 2px 4px rgba(tokens.$grey-900, 0.15);
   display: none;
   height: 56px;
   inset-inline-start: 0;
@@ -19,7 +24,7 @@
       top: calc(var(--navbar-menu-height--small) + 32px);
     }
 
-    @include large-and-up {
+    @include mixins.large-and-up {
       top: calc(var(--navbar-menu-height) + 32px);
     }
   }
@@ -27,7 +32,7 @@
   &.open {
     display: flex;
 
-    @include medium-and-less {
+    @include mixins.medium-and-less {
       @supports not (inset-inline-start: 0) {
         left: 100%;
         margin: auto;
@@ -44,7 +49,7 @@
       }
     }
 
-    @include small-and-less {
+    @include mixins.small-and-less {
       @supports not (inset-inline-start: 0) {
         left: 100vw;
 
@@ -55,11 +60,11 @@
     }
   }
 
-  @include large-and-up {
+  @include mixins.large-and-up {
     top: var(--navbar-menu-height);
   }
 
-  @include x-large-and-up {
+  @include mixins.x-large-and-up {
     border-inline-start: var(--top-navigation--separation);
     border-top: none;
     box-shadow: none;
@@ -81,12 +86,12 @@
   color: var(--grey-900);
   display: inline-block;
   flex-grow: 1;
-  font-size: $font-size-sm;
+  font-size: fonts.$font-size-sm;
   line-height: var(--navbar-menu-height);
   padding-inline: 12px 8px;
   width: auto;
 
-  @include small-and-less {
+  @include mixins.small-and-less {
     @supports not (padding-inline: 12px 8px) {
       padding-right: 12px;
       padding-left: 8px;
@@ -98,7 +103,7 @@
     }
   }
 
-  @include x-large-and-up {
+  @include mixins.x-large-and-up {
     color: inherit;
     width: calc(100% - 48px);
   }
@@ -139,17 +144,17 @@
     float: right;
   }
 
-  @include x-large-and-up {
+  @include mixins.x-large-and-up {
     display: inline-block;
   }
 
   &:focus {
-    @include focus-styles;
+    @include mixins.focus-styles;
   }
 }
 
 .nav-search-clear {
-  @include clear-input-styles;
+  @include mixins.clear-input-styles;
   float: right;
   margin-inline-end: 36px;
 
@@ -157,11 +162,11 @@
     float: left;
   }
 
-  @include small-and-less {
+  @include mixins.small-and-less {
     margin-inline-end: 16px;
   }
 
-  @include x-large-and-up {
+  @include mixins.x-large-and-up {
     display: inline-block;
   }
 }
@@ -173,12 +178,12 @@
   height: 44px;
   width: 44px;
   display: none;
-  padding: $sp-1 $sp-1;
-  margin: auto $sp-1;
+  padding: variables.$sp-1 variables.$sp-1;
+  margin: auto variables.$sp-1;
   position: relative;
 
   &:focus {
-    @include focus-styles(50%);
+    @include mixins.focus-styles(50%);
   }
 
   &.open --top-navigation--search-toggle-- {
@@ -188,12 +193,12 @@
   &.medium-and-less {
     display: inline-block;
 
-    @include large-and-up {
+    @include mixins.large-and-up {
       display: none;
     }
   }
 
-  @include large-and-up {
+  @include mixins.large-and-up {
     display: inline-block;
 
     &:before {
@@ -202,17 +207,17 @@
       height: 100%;
       width: 1px;
       top: 0;
-      left: -$sp-1;
+      left: -(variables.$sp-1);
       border-inline-start: var(--top-navigation--separation);
 
       html[dir="rtl"] & {
         left: inherit;
-        right: -$sp-1;
+        right: -(variables.$sp-1);
       }
     }
   }
 
-  @include x-large-and-up {
+  @include mixins.x-large-and-up {
     display: none;
   }
 }

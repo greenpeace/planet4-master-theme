@@ -1,24 +1,27 @@
+@use "../base/mixins";
+@use "../base/variables";
+
 .page-section-header {
   text-transform: none;
   color: inherit;
   font-weight: var(--font-weight-regular);
   font-family: var(--font-family-heading);
   font-size: var(--font-size-xl--font-family-primary);
-  margin-bottom: $sp-2;
+  margin-bottom: variables.$sp-2;
 
-  @include x-large-and-up {
+  @include mixins.x-large-and-up {
     font-size: var(--font-size-2xl--font-family-primary);
   }
 }
 
 .page-section-description {
-  margin-bottom: $sp-6;
+  margin-bottom: variables.$sp-6;
 
-  @include medium-and-up {
+  @include mixins.medium-and-up {
     width: 100%;
   }
 
-  @include x-large-and-up {
+  @include mixins.x-large-and-up {
     .row & {
       margin-top: 0;
     }

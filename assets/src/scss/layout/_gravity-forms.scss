@@ -1,9 +1,9 @@
-@import "../base/tokens";
-@import "../base/colors";
-@import "../base/variables";
-@import "../base/mixins";
-@import "../base/fonts";
-@import "../base/typography";
+@use "../base/tokens";
+@use "../base/colors";
+@use "../base/variables";
+@use "../base/mixins";
+@use "../base/fonts";
+@use "../base/typography";
 
 .gform_wrapper {
   font-family: var(--font-family-paragraph-secondary);
@@ -20,16 +20,16 @@
     }
   }
 
-  @include large-and-up {
+  @include mixins.large-and-up {
     max-width: 600px;
   }
 
-  @include x-large-and-up {
+  @include mixins.x-large-and-up {
     max-width: 800px;
   }
 
   &.gravity-theme .gform-loader {
-    margin-inline-start: $sp-2 !important;
+    margin-inline-start: variables.$sp-2 !important;
   }
 }
 
@@ -40,10 +40,10 @@
     height: 48px;
     background-repeat: no-repeat;
     background-size: 12px;
-    background-position: right $sp-1 top 50%;
+    background-position: right variables.$sp-1 top 50%;
 
     html[dir="rtl"] & {
-      background-position: left $sp-1 top 50%;
+      background-position: left variables.$sp-1 top 50%;
     }
   }
 
@@ -60,11 +60,11 @@
 
   .gchoice {
     font-family: var(--font-family-paragraph-secondary);
-    margin-bottom: $sp-1;
+    margin-bottom: variables.$sp-1;
     position: relative;
 
     &:has(> input[type="checkbox"]) {
-      @include custom-checkbox;
+      @include mixins.custom-checkbox;
     }
   }
 
@@ -77,7 +77,7 @@
     min-height: 100px;
 
     option {
-      padding: $sp-x;
+      padding: variables.$sp-x;
     }
   }
 
@@ -115,7 +115,7 @@
       color: var(--white);
       border-radius: 4px;
       border-color: var(--color-background-tooltip--error);
-      padding: $sp-1 $sp-2 !important;
+      padding: variables.$sp-1 variables.$sp-2 !important;
       width: fit-content;
       pointer-events: none;
       position: relative;
@@ -130,11 +130,11 @@
         border-bottom-color: var(--color-background-tooltip--error);
         border-width: 5px;
         right: auto;
-        left: $sp-2;
+        left: variables.$sp-2;
 
         html[dir="rtl"] & {
           left: auto;
-          right: $sp-2;
+          right: variables.$sp-2;
         }
       }
     }
@@ -147,11 +147,11 @@
 
 .gform_p4_confirmation {
   .share-buttons {
-    margin-top: $sp-3;
+    margin-top: variables.$sp-3;
   }
 
   hr {
-    margin: $sp-5 0;
+    margin: variables.$sp-5 0;
   }
 }
 
@@ -160,7 +160,7 @@
 }
 
 .gform_delete_file {
-  margin-inline-start: $sp-2;
+  margin-inline-start: variables.$sp-2;
 
   .dashicons-trash {
     vertical-align: text-top;
@@ -168,6 +168,6 @@
 }
 
 .gfield_fileupload_cancel {
-  margin-inline-start: $sp-2;
+  margin-inline-start: variables.$sp-2;
   text-decoration: underline;
 }

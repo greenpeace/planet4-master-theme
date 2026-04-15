@@ -1,7 +1,10 @@
+@use "../../base/mixins";
+@use "../../base/variables";
+
 .wp-block-media-text {
-  @include mobile-only {
+  @include mixins.mobile-only {
     .wp-block-media-text__content {
-      margin-top: $sp-3;
+      margin-top: variables.$sp-3;
     }
   }
 
@@ -25,17 +28,17 @@
     max-width: 440px;
     width: 100%;
 
-    @include x-large-and-up {
+    @include mixins.x-large-and-up {
       max-width: 522px;
     }
 
-    @include xx-large-and-up {
+    @include mixins.xx-large-and-up {
       max-width: 612px;
     }
   }
 
   .wp-block-media-text__content {
-    padding: $sp-2;
+    padding: variables.$sp-2;
   }
 
   .wp-block-button,
@@ -43,13 +46,13 @@
     width: 100%;
   }
 
-  @include x-large-and-up {
+  @include mixins.x-large-and-up {
     &.has-media-on-the-right .wp-block-media-text__content {
-      padding-inline-end: $sp-6;
+      padding-inline-end: variables.$sp-6;
     }
 
     &:not(.has-media-on-the-right) .wp-block-media-text__content {
-      padding-inline-start: $sp-6;
+      padding-inline-start: variables.$sp-6;
     }
   }
 }
