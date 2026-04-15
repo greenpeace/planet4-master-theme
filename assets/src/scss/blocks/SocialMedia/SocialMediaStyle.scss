@@ -1,6 +1,6 @@
-@import "../../base/colors";
-@import "../../base/variables";
-@import "../../base/mixins";
+@use "../../base/colors";
+@use "../../base/variables";
+@use "../../base/mixins";
 
 .social-media-block {
   z-index: 3;
@@ -28,7 +28,7 @@
         width: 240px;
         display: block;
 
-        @include medium-and-up {
+        @include mixins.medium-and-up {
           display: none;
         }
       }
@@ -37,7 +37,7 @@
         width: 500px;
         display: none;
 
-        @include medium-and-up {
+        @include mixins.medium-and-up {
           display: block;
         }
       }

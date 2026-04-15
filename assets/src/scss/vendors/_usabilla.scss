@@ -1,5 +1,7 @@
+@use "../base/mixins";
+
 body div.usabilla_live_button_container {
-  @include medium-and-up {
+  @include mixins.medium-and-up {
     top: auto !important;
     bottom: 25% !important;
   }

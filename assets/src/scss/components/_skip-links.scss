@@ -1,3 +1,5 @@
+@use "../base/variables";
+
 .skip-links {
   margin: 0 !important;
   padding: 0 !important;
@@ -38,6 +40,6 @@
   height: auto;
   background-color: white;
   color: var(--grey-900);
-  border-radius: $sp-x;
+  border-radius: variables.$sp-x;
   padding: 5px 10px;
 }

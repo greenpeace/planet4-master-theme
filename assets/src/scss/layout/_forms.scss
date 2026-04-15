@@ -1,6 +1,10 @@
+@use "../base/fonts";
+@use "../base/mixins";
+@use "../base/variables";
+
 .custom-control {
   &:has(> input[type="checkbox"]) {
-    @include custom-checkbox;
+    @include mixins.custom-checkbox;
   }
 
   input[type="radio"] {
@@ -10,7 +14,7 @@
 
     &:focus:focus-visible ~ label:before,
     &:focus:focus-visible ~ .custom-control-description:before {
-      @include focus-styles;
+      @include mixins.focus-styles;
     }
 
     &:not(:disabled) ~ .custom-control-description:hover:before,
@@ -20,12 +24,12 @@
 
     & ~ .custom-control-description,
     & ~ label {
-      font-size: $font-size-sm;
+      font-size: fonts.$font-size-sm;
       line-height: 1.25rem;
       font-family: var(--font-family-paragraph-secondary);
       position: relative;
       cursor: pointer;
-      padding-inline-start: $sp-4x;
+      padding-inline-start: variables.$sp-4x;
 
       a {
         color: inherit;
@@ -41,7 +45,7 @@
         border-radius: 50%;
         left: 0;
         position: absolute;
-        top: calc((100% - $sp-2x) / 2);
+        top: calc((100% - variables.$sp-2x) / 2);
 
         html[dir="rtl"] & {
           right: 0;
@@ -75,7 +79,7 @@
   background-color: var(--white);
   border: 1px solid var(--grey-500);
   color: var(--color-text-body);
-  padding: 0 $sp-2;
+  padding: 0 variables.$sp-2;
 
   &::placeholder,
   &::-webkit-input-placeholder,
@@ -101,23 +105,23 @@
 
 .ginput_container {
   &:has(> input[type="checkbox"]) {
-    @include custom-checkbox;
+    @include mixins.custom-checkbox;
   }
 
   &.ginput_container_fileupload input:focus {
-    @include focus-styles;
+    @include mixins.focus-styles;
   }
 }
 
 input[type="text"].form-control,
 input[type="email"].form-control {
   height: auto;
-  padding: 11px $sp-2;
+  padding: 11px variables.$sp-2;
 }
 
 .form-select {
-  height: $sp-6;
-  padding-inline-end: $sp-5;
+  height: variables.$sp-6;
+  padding-inline-end: variables.$sp-5;
 
   html[dir="rtl"] & {
     background-position: left 0.75rem center;
@@ -133,7 +137,7 @@ input[type="email"].form-control {
 }
 
 textarea.form-control {
-  padding: $sp-1x $sp-2;
+  padding: variables.$sp-1x variables.$sp-2;
   resize: none;
 }
 
@@ -162,7 +166,7 @@ select {
     background: var(--p4-action-yellow-600);
     color: white;
     border-radius: 4px;
-    padding: 6px $sp-1x;
+    padding: 6px variables.$sp-1x;
     width: fit-content;
     position: relative;
     pointer-events: none;
@@ -178,11 +182,11 @@ select {
       border-bottom-color: var(--p4-action-yellow-600);
       border-width: 5px;
       right: auto;
-      left: $sp-2;
+      left: variables.$sp-2;
 
       html[dir="rtl"] & {
         left: auto;
-        right: $sp-2;
+        right: variables.$sp-2;
       }
     }
   }

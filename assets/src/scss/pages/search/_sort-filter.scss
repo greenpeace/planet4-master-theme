@@ -1,12 +1,15 @@
+@use "../../base/fonts";
+@use "../../base/mixins";
+
 div.search-filter-results {
   margin-top: 48px;
   z-index: auto;
 
-  @include small-and-up {
+  @include mixins.small-and-up {
     margin-top: 75px;
   }
 
-  @include large-and-up {
+  @include mixins.large-and-up {
     margin-top: 100px;
   }
 }
@@ -21,7 +24,7 @@ div.search-filter-results {
     text-align: left;
   }
 
-  @include small-and-up {
+  @include mixins.small-and-up {
     width: 100%;
     float: none;
 
@@ -33,7 +36,7 @@ div.search-filter-results {
   .select-container {
     margin-top: -7px;
 
-    @include small-and-up {
+    @include mixins.small-and-up {
       margin-top: -14px;
     }
   }
@@ -43,16 +46,16 @@ div.search-filter-results {
     margin-inline-end: 90px;
     font-weight: bold;
 
-    @include small-and-up {
+    @include mixins.small-and-up {
       margin-inline-end: 0.5rem;
     }
 
-    @include large-and-up {
+    @include mixins.large-and-up {
       font-size: 1.625rem;
     }
 
-    @include large-and-up {
-      font-size: $font-size-xl;
+    @include mixins.large-and-up {
+      font-size: fonts.$font-size-xl;
     }
   }
 
@@ -60,15 +63,15 @@ div.search-filter-results {
     width: 151px;
     display: inline-block;
 
-    @include small-and-up {
+    @include mixins.small-and-up {
       width: 210px;
     }
 
-    @include large-and-up {
+    @include mixins.large-and-up {
       width: 224px;
     }
 
-    @include large-and-up {
+    @include mixins.large-and-up {
       width: 270px;
     }
   }

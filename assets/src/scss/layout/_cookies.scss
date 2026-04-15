@@ -1,3 +1,6 @@
+@use "../base/mixins";
+@use "../base/variables";
+
 .cookie-notice {
   font-family: var(--font-family-paragraph-secondary);
   color: var(--grey-900);
@@ -5,7 +8,7 @@
   position: fixed;
   width: 100vw;
   background: white;
-  padding: $sp-3;
+  padding: variables.$sp-3;
   visibility: hidden;
   opacity: 0;
   transition: visibility 0.5s, opacity 0.5s linear;
@@ -19,40 +22,40 @@
     visibility: visible;
   }
 
-  @include medium-and-up {
+  @include mixins.medium-and-up {
     width: auto;
-    bottom: $sp-2;
-    right: $sp-2;
+    bottom: variables.$sp-2;
+    right: variables.$sp-2;
     left: auto;
     border-radius: 4px;
-    padding: $sp-3 $sp-4;
+    padding: variables.$sp-3 variables.$sp-4;
     box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
 
     html[dir="rtl"] & {
       right: auto;
-      left: $sp-2;
+      left: variables.$sp-2;
     }
   }
 
-  @include large-and-up {
-    bottom: $sp-3;
-    right: $sp-3;
+  @include mixins.large-and-up {
+    bottom: variables.$sp-3;
+    right: variables.$sp-3;
 
     html[dir="rtl"] & {
-      left: $sp-3;
+      left: variables.$sp-3;
     }
   }
 }
 
 .cookies-intro {
-  @include medium-and-up {
+  @include mixins.medium-and-up {
     width: 308px;
   }
 }
 
 .cookies-text {
   font-size: 14px;
-  margin-bottom: $sp-3;
+  margin-bottom: variables.$sp-3;
   font-weight: 400;
   line-height: 1.5rem;
   width: 100%;
@@ -61,7 +64,7 @@
 .cookies-text,
 .cookies-settings-details {
   a {
-    @include shared-link-styles;
+    @include mixins.shared-link-styles;
     transition-timing-function: cubic-bezier(0.5, 0, 0, 0.5);
   }
 }
@@ -73,10 +76,10 @@
   }
 
   .btn-primary {
-    margin-top: $sp-2;
+    margin-top: variables.$sp-2;
   }
 
-  @include medium-and-up {
+  @include mixins.medium-and-up {
     display: flex;
     justify-content: space-between;
 
@@ -91,7 +94,7 @@
       margin-top: 0;
 
       &:first-child {
-        margin-inline-end: $sp-2;
+        margin-inline-end: variables.$sp-2;
       }
     }
   }
@@ -102,7 +105,7 @@
   background: none;
   border: none;
   color: var(--grey-600);
-  margin: $sp-2 auto 0 auto;
+  margin: variables.$sp-2 auto 0 auto;
   font-size: 14px;
   padding: 0;
 

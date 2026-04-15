@@ -1,15 +1,18 @@
+@use "../base/mixins";
+@use "../base/tokens";
+
 .footer-social-media {
   text-align: left;
   margin-bottom: 24px;
 
-  @include medium-and-up {
+  @include mixins.medium-and-up {
     margin-bottom: 0;
   }
 
   span {
     display: none;
 
-    @include large-and-up {
+    @include mixins.large-and-up {
       margin-bottom: 24px;
       display: block;
       line-height: 1;
@@ -23,9 +26,9 @@
     flex-direction: row;
     flex-wrap: wrap;
     padding-bottom: 9px;
-    border-bottom: 1px solid rgba($white, 0.5);
+    border-bottom: 1px solid rgba(tokens.$white, 0.5);
 
-    @include large-and-up {
+    @include mixins.large-and-up {
       border-bottom: none;
       flex-wrap: nowrap;
     }
@@ -43,7 +46,7 @@
     transition: color 100ms linear;
 
     &:hover {
-      color: rgba($white, 0.8);
+      color: rgba(tokens.$white, 0.8);
     }
   }
 
@@ -66,7 +69,7 @@
     margin-bottom: 0;
     padding-bottom: 0;
 
-    @include x-large-and-up {
+    @include mixins.x-large-and-up {
       justify-content: center;
     }
   }
@@ -75,7 +78,7 @@
     margin-bottom: 0;
   }
 
-  @include medium-and-up {
+  @include mixins.medium-and-up {
     margin-bottom: 24px;
   }
 }

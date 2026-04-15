@@ -1,9 +1,12 @@
+@use "../base/colors";
+@use "../base/fonts";
+
 .share-buttons {
   display: flex;
 
   .share-btn {
     border: none;
-    font-size: $font-size-md;
+    font-size: fonts.$font-size-md;
     opacity: 0.9;
     width: 3rem;
     text-align: center;
@@ -29,15 +32,15 @@
   }
 
   .twitter {
-    color: $twitter;
+    color: colors.$twitter;
   }
 
   .facebook {
-    color: $facebook;
+    color: colors.$facebook;
   }
 
   .bluesky {
-    color: $bluesky;
+    color: colors.$bluesky;
   }
 
   .email {
@@ -49,7 +52,7 @@
   }
 
   .whatsapp {
-    color: $whatsapp;
+    color: colors.$whatsapp;
 
     .icon {
       font-size: 1.5rem;

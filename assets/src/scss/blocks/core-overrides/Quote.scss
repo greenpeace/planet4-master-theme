@@ -1,3 +1,6 @@
+@use "../../base/mixins";
+@use "../../base/variables";
+
 .wp-block-quote {
   font-style: italic;
   quotes: auto;
@@ -12,21 +15,21 @@
       display: block;
       font-weight: bold;
       font-size: 5rem;
-      margin-bottom: -$sp-5;
+      margin-bottom: -(variables.$sp-5);
       font-style: normal;
     }
 
     &::after {
       content: "”";
       font-weight: bold;
-      margin-inline-start: $sp-x;
+      margin-inline-start: variables.$sp-x;
     }
 
-    @include medium-and-up {
+    @include mixins.medium-and-up {
       font-size: var(--font-size-xl--font-family-primary);
     }
 
-    @include x-large-and-up {
+    @include mixins.x-large-and-up {
       font-size: var(--font-size-xl--font-family-primary);
     }
   }
@@ -35,7 +38,7 @@
     font-style: normal;
 
     a {
-      @include shared-link-styles;
+      @include mixins.shared-link-styles;
     }
   }
 }

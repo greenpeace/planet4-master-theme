@@ -1,29 +1,32 @@
+@use "../../base/mixins";
+@use "../../base/variables";
+
 .actions-list {
-  margin-bottom: $sp-4;
+  margin-bottom: variables.$sp-4;
 
   .group-stretched-link {
     position: unset;
   }
 
   .load-more-actions-container {
-    margin-top: $sp-4;
+    margin-top: variables.$sp-4;
   }
 
   .carousel-item-wrapper {
-    padding: $sp-x;
+    padding: variables.$sp-x;
   }
 
   &.is-custom-layout-carousel {
-    @include medium-and-less {
+    @include mixins.medium-and-less {
       .wp-block-post {
         width: 354px;
       }
     }
 
-    @include large-and-up {
+    @include mixins.large-and-up {
       .carousel-item-wrapper {
         grid-template-columns: repeat(3, 1fr);
-        padding: $sp-1x $sp-1;
+        padding: variables.$sp-1x variables.$sp-1;
       }
     }
 
@@ -42,7 +45,7 @@
   }
 
   .carousel-indicators {
-    margin-top: $sp-1x;
+    margin-top: variables.$sp-1x;
   }
 
   & > .wp-block-heading, & > p {
@@ -94,15 +97,15 @@
   }
 
   .wp-block-group.is-layout-flow {
-    padding: $sp-3;
+    padding: variables.$sp-3;
   }
 
   .wp-block-post-title {
     font-size: var(--font-size-m--font-family-primary);
-    margin-bottom: $sp-1;
+    margin-bottom: variables.$sp-1;
 
     a {
-      @include clamp-text(2);
+      @include mixins.clamp-text(2);
     }
   }
 
@@ -110,9 +113,9 @@
     font-family: var(--font-family-tertiary);
     font-size: var(--font-size-xxs--font-family-primary);
     line-height: var(--line-height-m--font-family-tertiary);
-    @include clamp-text(3);
+    @include mixins.clamp-text(3);
 
-    @include large-and-up {
+    @include mixins.large-and-up {
       line-height: var(--line-height-m--font-family-tertiary);
     }
   }
@@ -123,19 +126,19 @@
     border-top-left-radius: 4px;
     border-top-right-radius: 4px;
 
-    @include large-and-up {
+    @include mixins.large-and-up {
       height: 220px;
     }
   }
 
   .wp-block-post-terms {
-    margin-bottom: $sp-1;
+    margin-bottom: variables.$sp-1;
     color: var(--grey-600);
     font-size: var(--font-size-s--font-family-tertiary);
     font-weight: var(--font-weight-bold);
     font-family: var(--font-family-tertiary);
     line-height: var(--line-height-s--font-family-tertiary);
-    @include clamp-text(1);
+    @include mixins.clamp-text(1);
   }
 
   &.is-custom-layout-grid {
@@ -143,30 +146,30 @@
 
     .wp-block-post-template {
       display: grid;
-      gap: $sp-2;
+      gap: variables.$sp-2;
 
-      @include medium-and-up {
+      @include mixins.medium-and-up {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
-      @include large-and-up {
+      @include mixins.large-and-up {
         grid-template-columns: repeat(3, minmax(0, 1fr));
       }
     }
 
-    @include mobile-only {
+    @include mixins.mobile-only {
       .wp-block-post:nth-child(n+4) {
         display: none;
       }
     }
 
-    @include medium-and-less {
+    @include mixins.medium-and-less {
       .wp-block-post:nth-child(n+5) {
         display: none;
       }
     }
 
-    @include large-and-up {
+    @include mixins.large-and-up {
       .wp-block-post:nth-child(n+7) {
         display: none;
       }

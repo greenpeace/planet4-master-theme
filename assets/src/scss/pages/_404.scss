@@ -1,3 +1,5 @@
+@use "../base/mixins";
+
 .page-404-page {
   .page-header {
     min-height: 100vh;
@@ -5,15 +7,15 @@
     .page-header-subtitle {
       margin-top: 150px;
 
-      @include small-and-up {
+      @include mixins.small-and-up {
         margin-top: 30px;
       }
 
-      @include medium-and-up {
+      @include mixins.medium-and-up {
         margin-top: -10px;
       }
 
-      @include large-and-up {
+      @include mixins.large-and-up {
         margin-top: -30px;
       }
     }
@@ -38,7 +40,7 @@
     }
 
     .container > *:not(.row) {
-      @include x-large-and-up {
+      @include mixins.x-large-and-up {
         max-width: 65%;
       }
     }
@@ -52,10 +54,10 @@
     margin-bottom: 30px;
 
     a {
-      @include shared-link-styles;
+      @include mixins.shared-link-styles;
     }
 
-    @include medium-and-up {
+    @include mixins.medium-and-up {
       width: 600px;
     }
   }

@@ -1,32 +1,36 @@
+@use "../../base/fonts";
+@use "../../base/mixins";
+@use "../../base/variables";
+
 .search {
   .multiple-search-result .more-btn {
     width: auto;
-    margin-bottom: $sp-8;
+    margin-bottom: variables.$sp-8;
   }
 }
 
 .search-block {
   padding-top: 56px;
 
-  @include small-and-up {
+  @include mixins.small-and-up {
     padding-top: 64px;
   }
 }
 
 .result-statement {
-  font-size: $font-size-xl;
+  font-size: fonts.$font-size-xl;
   margin-bottom: 8px;
   line-height: 1.2;
 
-  @include small-and-up {
-    font-size: $font-size-xxxl;
+  @include mixins.small-and-up {
+    font-size: fonts.$font-size-xxxl;
   }
 
-  @include large-and-up {
+  @include mixins.large-and-up {
     font-size: 3.5rem;
   }
 
-  @include x-large-and-up {
+  @include mixins.x-large-and-up {
     font-size: 4.125rem;
   }
 }
@@ -35,30 +39,30 @@
 .search-result {
   margin-top: 94px;
 
-  @include x-large-and-up {
+  @include mixins.x-large-and-up {
     margin-top: 120px;
   }
 
   .search-help-info {
-    font-size: $font-size-sm;
+    font-size: fonts.$font-size-sm;
     margin-bottom: 24px;
     padding-left: 20px;
     color: var(--grey-800);
     line-height: 1.8;
 
-    @include small-and-up {
+    @include mixins.small-and-up {
       font-size: 1.125rem;
       margin-bottom: 32px;
       padding-left: 20px;
     }
 
-    @include large-and-up {
+    @include mixins.large-and-up {
       margin-bottom: 45px;
       padding-left: 30px;
     }
 
-    @include x-large-and-up {
-      font-size: $font-size-lg;
+    @include mixins.x-large-and-up {
+      font-size: fonts.$font-size-lg;
       margin-bottom: 40px;
       padding-left: 50px;
     }
@@ -66,11 +70,11 @@
 
   .skip-link {
     background: var(--white);
-    padding: $sp-x;
+    padding: variables.$sp-x;
     position: absolute;
     transform: translateX(-100vw);
     border-radius: 4px;
-    top: -$sp-5;
+    top: -(variables.$sp-5);
     width: fit-content;
     font-size: var(--font-size-m--font-family-tertiary);
     font-family: var(--font-family-tertiary);

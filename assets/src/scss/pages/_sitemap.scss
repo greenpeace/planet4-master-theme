@@ -1,3 +1,5 @@
+@use "../base/mixins";
+
 .page-sitemap {
   margin-bottom: 100px;
 
@@ -23,7 +25,7 @@
   ul {
     list-style: none;
     padding-inline-start: 0;
-    @include small-and-less {
+    @include mixins.small-and-less {
       margin-bottom: 0;
     }
 

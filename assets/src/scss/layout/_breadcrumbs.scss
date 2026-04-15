@@ -1,7 +1,9 @@
+@use "../base/variables";
+
 .top-page-tags {
   font-family: var(--font-family-tertiary);
   font-size: var(--font-size-m--font-family-tertiary);
-  margin-bottom: $sp-1;
+  margin-bottom: variables.$sp-1;
 
   .tag-wrap {
     display: inline;
@@ -12,12 +14,12 @@
   .tag-wrap-bullet {
     pointer-events: none;
     font-weight: 400;
-    margin-inline-end: $sp-1;
+    margin-inline-end: variables.$sp-1;
     color: var(--gp-green-800);
   }
 
   .tag-wrap-bullet {
-    margin-inline-start: $sp-1;
+    margin-inline-start: variables.$sp-1;
   }
 
   .tag-item {
@@ -30,13 +32,13 @@
     }
 
     &:not(:only-child):not(:last-child):not(.page-type) {
-      margin-inline-end: $sp-1;
+      margin-inline-end: variables.$sp-1;
     }
 
     &.back-to-news::before {
       content: "";
       pointer-events: none;
-      margin-inline-end: $sp-1;
+      margin-inline-end: variables.$sp-1;
       height: 12px;
       width: 7px;
       mask-image: url("../../images/chevron.svg");
@@ -56,7 +58,7 @@
 
   .main-tag-chevron {
     pointer-events: none;
-    margin: 0 $sp-1;
+    margin: 0 variables.$sp-1;
     height: 12px;
     width: 7px;
     mask-image: url("../../images/chevron.svg");

@@ -1,62 +1,67 @@
+@use "sass:list";
+@use "functions";
+@use "tokens";
+@use "variables";
+
 // Mobile-only (up to 576px)
 @mixin mobile-only {
-  @media (max-width: #{$small-width}) {
+  @media (max-width: #{variables.$small-width}) {
     @content;
   }
 }
 
 // Mobile & Up (greater than to 576px)
 @mixin small-and-up {
-  @media (min-width: #{$small-width}) {
+  @media (min-width: #{variables.$small-width}) {
     @content;
   }
 }
 
 // Tablet & Up (greater than 768px)
 @mixin medium-and-up {
-  @media (min-width: #{$medium-width}) {
+  @media (min-width: #{variables.$medium-width}) {
     @content;
   }
 }
 
 // Large Tablet & Up (greater than 992px)
 @mixin large-and-up {
-  @media (min-width: #{$large-width}) {
+  @media (min-width: #{variables.$large-width}) {
     @content;
   }
 }
 
 // Large Desktop & Up (greater than 1200px)
 @mixin x-large-and-up {
-  @media (min-width: #{$extra-large-width}) {
+  @media (min-width: #{variables.$extra-large-width}) {
     @content;
   }
 }
 
 // Very large Desktop & Up (greater than 1600px)
 @mixin xx-large-and-up {
-  @media (min-width: #{$extra-extra-large-width}) {
+  @media (min-width: #{variables.$extra-extra-large-width}) {
     @content;
   }
 }
 
 // Mobile, small and medium width (less than 992px)
 @mixin small-and-less {
-  @media (max-width: #{$medium-width - 1}) {
+  @media (max-width: #{variables.$medium-width - 1}) {
     @content;
   }
 }
 
 // Mobile, small and medium width (less than 992px)
 @mixin medium-and-less {
-  @media (max-width: #{$large-width - 1}) {
+  @media (max-width: #{variables.$large-width - 1}) {
     @content;
   }
 }
 
 // Mobile, small, medium and large width (less than 1200px)
 @mixin large-and-less {
-  @media (max-width: #{$extra-large-width - 1}) {
+  @media (max-width: #{variables.$extra-large-width - 1}) {
     @content;
   }
 }
@@ -110,9 +115,9 @@
 
 // Build a linear gradient with a direction and any number of color stops.
 @mixin linear-gradient($direction, $color-stops...) {
-  background: nth(nth($color-stops, 1), 1); /* Old browsers */
-  background: -moz-linear-gradient(legacy-direction($direction), $color-stops); /* FF3.6-15 */
-  background: -webkit-linear-gradient(legacy-direction($direction), $color-stops); /* Chrome10-25,Safari5.1-6 */
+  background: list.nth(list.nth($color-stops, 1), 1); /* Old browsers */
+  background: -moz-linear-gradient(functions.legacy-direction($direction), $color-stops); /* FF3.6-15 */
+  background: -webkit-linear-gradient(functions.legacy-direction($direction), $color-stops); /* Chrome10-25,Safari5.1-6 */
   background: linear-gradient($direction, $color-stops); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 }
 
@@ -204,7 +209,7 @@
 }
 
 // Skew mixin
-@mixin skew($side: right, $deg: -20deg, $right: -15px, $left: -15px, $width: 30px, $bg: $white) {
+@mixin skew($side: right, $deg: -20deg, $right: -15px, $left: -15px, $width: 30px, $bg: tokens.$white) {
   position: relative;
 
   &:before {
@@ -352,15 +357,15 @@ $nested-comment-left-margin: 50px;
   & > input[type="checkbox"] {
     position: absolute;
     pointer-events: none;
-    width: $checkbox-size;
-    height: $checkbox-size;
+    width: variables.$checkbox-size;
+    height: variables.$checkbox-size;
     top: 50% !important;
     transform: translateY(-50%);
     opacity: 0;
 
     & ~ label,
     & ~ .custom-control-description {
-      padding-inline-start: $sp-4x;
+      padding-inline-start: variables.$sp-4x;
       font-family: var(--font-family-tertiary);
       cursor: pointer;
 
@@ -375,8 +380,8 @@ $nested-comment-left-margin: 50px;
     content: "";
     display: block;
     position: absolute;
-    width: $checkbox-size;
-    height: $checkbox-size;
+    width: variables.$checkbox-size;
+    height: variables.$checkbox-size;
     background: var(--white);
     border: 1px solid var(--grey-500);
     border-radius: 2px;
@@ -403,7 +408,7 @@ $nested-comment-left-margin: 50px;
       border-bottom: 2px solid var(--grey-900);
       border-right: 2px solid var(--grey-900);
       height: 8px;
-      margin-inline-start: $sp-x;
+      margin-inline-start: variables.$sp-x;
       top: calc(50% - 5px);
       transform: rotate(-45deg) scaleX(-1);
       width: 12px;
@@ -426,7 +431,7 @@ $nested-comment-left-margin: 50px;
   }
 }
 
-@mixin render-bullet($spacing: $sp-1) {
+@mixin render-bullet($spacing: variables.$sp-1) {
   &:before {
     margin-inline-end: $spacing;
     color: var(--gp-green-800);

@@ -1,8 +1,12 @@
+@use "../../base/fonts";
+@use "../../base/mixins";
+@use "../../base/variables";
+
 .filter-sidebar {
   position: relative;
 
   h4 {
-    font-size: $font-size-xl;
+    font-size: fonts.$font-size-xl;
     margin-bottom: 48px;
     font-weight: bold;
   }
@@ -17,23 +21,23 @@
       border-top: 0;
       border-left-width: 1px;
       border-right-width: 1px;
-      padding: 11px $sp-4;
+      padding: 11px variables.$sp-4;
       text-decoration: none;
       color: var(--color-text-body);
       font-weight: bold;
       position: relative;
-      font-size: $font-size-sm;
+      font-size: fonts.$font-size-sm;
       margin-bottom: 24px;
 
-      @include small-and-up {
-        padding: 13px $sp-4;
+      @include mixins.small-and-up {
+        padding: 13px variables.$sp-4;
         font-size: 1.125rem;
         margin-bottom: 32px;
       }
 
-      @include large-and-up {
-        padding: 11px $sp-4;
-        font-size: $font-size-md;
+      @include mixins.large-and-up {
+        padding: 11px variables.$sp-4;
+        font-size: fonts.$font-size-md;
       }
 
       span {
@@ -99,7 +103,7 @@
     }
 
     .custom-control .custom-control-description {
-      font-size: $font-size-sm;
+      font-size: fonts.$font-size-sm;
     }
   }
 
@@ -115,14 +119,14 @@
       left: auto;
     }
 
-    @include small-and-up {
+    @include mixins.small-and-up {
       margin-top: -14px;
     }
 
     .btn-filter {
       height: 40px;
       width: 130px;
-      padding: 0 $sp-1;
+      padding: 0 variables.$sp-1;
 
       svg {
         margin-right: 4px;
@@ -131,12 +135,12 @@
       }
 
       .icon-cross {
-        font-size: $font-size-md;
+        font-size: fonts.$font-size-md;
         margin-right: 20px;
       }
 
-      @include small-and-up {
-        font-size: $font-size-sm;
+      @include mixins.small-and-up {
+        font-size: fonts.$font-size-sm;
         height: 48px;
         width: 150px;
         line-height: 48px;
@@ -146,7 +150,7 @@
 
   .active-filter {
     h5 {
-      font-size: $font-size-md;
+      font-size: fonts.$font-size-md;
       color: var(--grey-600);
       margin-bottom: 20px;
     }
@@ -162,8 +166,8 @@
         color: var(--grey-900);
         border-radius: 4px;
         font-size: 1.125rem;
-        padding-inline-end: $sp-5;
-        padding-inline-start: $sp-2x;
+        padding-inline-end: variables.$sp-5;
+        padding-inline-start: variables.$sp-2x;
         display: inline-block;
         margin-bottom: 16px;
         line-height: 42px;
@@ -180,7 +184,7 @@
         position: absolute;
         right: 0;
         top: 0;
-        margin-inline-end: $sp-2;
+        margin-inline-end: variables.$sp-2;
 
         html[dir="rtl"] & {
           right: auto;

@@ -1,3 +1,6 @@
+@use "../base/mixins";
+@use "../base/variables";
+
 .cookies-settings {
   position: relative;
 
@@ -7,11 +10,11 @@
     line-height: var(--line-height-s--font-family-tertiary);
   }
 
-  @include medium-and-up {
+  @include mixins.medium-and-up {
     width: 434px;
   }
 
-  @include large-and-up {
+  @include mixins.large-and-up {
     p {
       font-size: var(--font-size-xs--font-family-tertiary);
     }
@@ -24,25 +27,25 @@
   height: 16px;
   width: 16px;
   position: absolute;
-  top: -$sp-1;
-  right: -$sp-1;
+  top: -(variables.$sp-1);
+  right: -(variables.$sp-1);
   padding: 0;
   border: none;
 
   &:focus {
-    @include focus-styles();
+    @include mixins.focus-styles();
   }
 
   html[dir="rtl"] & {
     right: auto;
-    left: -$sp-1;
+    left: -(variables.$sp-1);
   }
 
-  @include medium-and-up {
-    right: -$sp-2;
+  @include mixins.medium-and-up {
+    right: -(variables.$sp-2);
 
     html[dir="rtl"] & {
-      left: -$sp-2;
+      left: -(variables.$sp-2);
     }
   }
 
@@ -55,11 +58,11 @@
 }
 
 .cookies-settings-header h4 {
-  margin-bottom: $sp-1;
+  margin-bottom: variables.$sp-1;
   font-family: var(--font-family-paragraph-secondary);
   font-size: 16px;
 
-  @include large-and-up {
+  @include mixins.large-and-up {
     font-size: 20px;
   }
 }
@@ -68,9 +71,9 @@
   max-height: 40vh;
   overflow-y: scroll;
   overflow-x: hidden;
-  width: calc(100% + 2 * #{$sp-3});
-  margin-inline-start: -$sp-3;
-  padding: $sp-2 $sp-3 0 $sp-3;
+  width: calc(100% + 2 * #{variables.$sp-3});
+  margin-inline-start: -(variables.$sp-3);
+  padding: variables.$sp-2 variables.$sp-3 0 variables.$sp-3;
   border-top: solid 1px var(--grey-200);
   border-bottom: solid 1px var(--grey-200);
 
@@ -78,15 +81,15 @@
   .custom-control input[type="checkbox"] ~ .custom-control-description {
     font-size: var(--font-size-s--font-family-tertiary);
     font-weight: var(--font-weight-bold);
-    margin-bottom: $sp-2;
+    margin-bottom: variables.$sp-2;
   }
 
-  @include medium-and-up {
+  @include mixins.medium-and-up {
     max-height: 300px;
-    width: calc(100% + 2 * #{$sp-4});
-    margin-inline-start: -$sp-4;
-    padding-left: $sp-4;
-    padding-right: $sp-4;
+    width: calc(100% + 2 * #{variables.$sp-4});
+    margin-inline-start: -(variables.$sp-4);
+    padding-left: variables.$sp-4;
+    padding-right: variables.$sp-4;
   }
 }
 
@@ -95,21 +98,21 @@
   color: white;
   font-weight: 700;
   border-radius: 4px;
-  padding: $sp-x;
+  padding: variables.$sp-x;
   font-size: 12px;
-  margin-inline-start: $sp-1;
+  margin-inline-start: variables.$sp-1;
 }
 
 .cookies-settings-buttons {
   display: flex;
   justify-content: space-between;
-  margin-top: $sp-3;
+  margin-top: variables.$sp-3;
 
   .btn {
     width: calc(50% - 8px);
     font-size: 14px;
 
-    @include medium-and-up {
+    @include mixins.medium-and-up {
       width: auto;
     }
   }
@@ -119,15 +122,15 @@
 
     .btn-primary {
       width: 100%;
-      margin-top: $sp-2;
+      margin-top: variables.$sp-2;
     }
 
-    @include medium-and-up {
+    @include mixins.medium-and-up {
       justify-content: flex-start;
       flex-wrap: nowrap;
 
       .btn-secondary {
-        margin-inline-end: $sp-2;
+        margin-inline-end: variables.$sp-2;
       }
 
       .btn-primary {

@@ -1,13 +1,16 @@
+@use "../../base/mixins";
+@use "../../base/variables";
+
 .filter-modal {
   .modal-dialog {
     max-width: 90%;
   }
 
   .modal-body {
-    padding: $sp-4 15px;
+    padding: variables.$sp-4 15px;
 
-    @include small-and-up {
-      padding: $sp-6x;
+    @include mixins.small-and-up {
+      padding: variables.$sp-6x;
     }
   }
 
@@ -15,7 +18,7 @@
     font-size: 1.625rem;
     margin-bottom: 24px;
 
-    @include small-and-up {
+    @include mixins.small-and-up {
       font-size: 2.125rem;
     }
   }

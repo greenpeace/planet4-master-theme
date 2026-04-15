@@ -1,7 +1,9 @@
+@use "../base/mixins";
+
 // .block-wide kept for BC of existing content.
 // Can be removed once no content uses it anymore.
 .alignfull, .block-wide {
-  @include wide-block;
+  @include mixins.wide-block;
 
   .block-editor & {
     width: 100%;

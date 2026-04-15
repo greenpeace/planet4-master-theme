@@ -1,20 +1,23 @@
+@use "../../base/fonts";
+@use "../../base/mixins";
+
 .search-info {
-  font-size: $font-size-xxs;
+  font-size: fonts.$font-size-xxs;
   margin-bottom: 0;
   font-family: var(--font-family-primary);
   font-style: italic;
   color: var(--grey-800);
   line-height: normal;
 
-  @include medium-and-up {
+  @include mixins.medium-and-up {
     font-size: 1.125rem;
   }
 
-  @include large-and-up {
-    font-size: $font-size-xl;
+  @include mixins.large-and-up {
+    font-size: fonts.$font-size-xl;
   }
 
-  @include x-large-and-up {
+  @include mixins.x-large-and-up {
     font-size: 2rem;
   }
 }

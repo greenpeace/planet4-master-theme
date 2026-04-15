@@ -1,10 +1,13 @@
+@use "../base/mixins";
+@use "../base/variables";
+
 .featured-action-section {
   position: relative;
-  margin-top: $sp-6x;
-  margin-bottom: $sp-6x;
+  margin-top: variables.$sp-6x;
+  margin-bottom: variables.$sp-6x;
   display: flex;
-  border-radius: $sp-x;
-  gap: $sp-3;
+  border-radius: variables.$sp-x;
+  gap: variables.$sp-3;
   box-shadow: 0 1px 8px rgba(0, 0, 0, .16);
   transition: box-shadow 0.2s;
 
@@ -33,19 +36,19 @@
   width: 356px;
   height: 210px;
   object-fit: fill;
-  border-top-left-radius: $sp-x;
-  border-bottom-left-radius: $sp-x;
+  border-top-left-radius: variables.$sp-x;
+  border-bottom-left-radius: variables.$sp-x;
 }
 
 .featured-action-section__content {
   width: 100%;
-  padding: $sp-3 $sp-2 $sp-2 0;
+  padding: variables.$sp-3 variables.$sp-2 variables.$sp-2 0;
   position: relative;
 }
 
 .featured-action-section__content h5,
 .featured-action-section__content p {
-  @include clamp-text(2);
+  @include mixins.clamp-text(2);
 }
 
 .featured-action-section__content p {
@@ -55,8 +58,8 @@
 
 .featured-action-section__content-btn {
   position: absolute;
-  right: $sp-2;
-  bottom: $sp-2;
+  right: variables.$sp-2;
+  bottom: variables.$sp-2;
 }
 
 .featured-action-section__content-btn a {
@@ -74,7 +77,7 @@
 
 @media (max-width: 991px) {
   .featured-action-section__image {
-    padding: $sp-2 0 $sp-2 $sp-2;
+    padding: variables.$sp-2 0 variables.$sp-2 variables.$sp-2;
   }
 
   .featured-action-section__image img {
@@ -85,7 +88,7 @@
   }
 
   .featured-action-section__content {
-    padding: $sp-2 $sp-2 $sp-2 0;
+    padding: variables.$sp-2 variables.$sp-2 variables.$sp-2 0;
   }
 
   .featured-action-section__content p {
@@ -95,6 +98,6 @@
 
 @media (max-width: 500px) {
   .featured-action-section {
-    gap: $sp-1;
+    gap: variables.$sp-1;
   }
 }
