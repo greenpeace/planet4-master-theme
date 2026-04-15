@@ -1,4 +1,3 @@
-@use "../base/tokens" as tokens;
 
 #country-selector {
   color: inherit;
@@ -40,7 +39,7 @@
 }
 
 .country-selector-toggle-container {
-  border-bottom: 1px solid rgba(tokens.$white, 0.5);
+  border-bottom: 1px solid rgba($white, 0.5);
   display: flex;
   flex-direction: column;
   justify-content: center;
