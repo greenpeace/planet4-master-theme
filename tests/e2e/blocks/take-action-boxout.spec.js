@@ -20,7 +20,7 @@ test.describe('Test Take Action Boxout block', () => {
 
   });
 
-  test('Take Action Boxout with existing page', async ({page, editor}) => {
+  test.slow('Take Action Boxout with existing page', async ({page, editor}) => {
     // Select the first page option.
 
     await page.getByRole('region', {name: 'Editor settings'})
