@@ -76,9 +76,11 @@ export const TakeActionBoxoutEditor = ({
       actPageList.find(actPageFound => take_action_page === actPageFound.id) :
       null;
 
+    const {getMedia} = select('core');
+
     const actPageImageId = actPage?.featured_media;
 
-    const customImage = customImageId && select('core').getMedia(customImageId);
+    const customImage = customImageId && getMedia(customImageId);
     const customImageFromId = customImage?.source_url;
 
     /* eslint-disable no-shadow */
@@ -87,8 +89,8 @@ export const TakeActionBoxoutEditor = ({
     const link = !actPage ? customLink : actPage.link;
     const linkText = !actPage ? customLinkText : actPage?.meta?.action_button_text || DEFAULT_BUTTON_TEXT;
     const imageId = !actPage ? customImageId : actPageImageId;
-    const imageUrl = !actPage ? customImageFromId : select('core').getMedia(actPageImageId)?.source_url;
-    const imageAlt = !actPage ? customImage?.alt_text : '';
+    const imageUrl = !actPage ? customImageFromId : getMedia(actPageImageId)?.source_url;
+    const imageAlt = !actPage ? customImage?.alt_text : getMedia(actPageImageId)?.alt_text;
     /* eslint-enable no-shadow */
 
     return {
