@@ -1,5 +1,6 @@
-@import "../../base/variables";
-@import "../../base/mixins";
+@use "../../base/colors";
+@use "../../base/variables";
+@use "../../base/mixins";
 
 .timeline-block {
   height: 600px;
@@ -12,11 +13,11 @@
     background: none;
   }
 
-  @include medium-and-up {
+  @include mixins.medium-and-up {
     height: 680px;
   }
 
-  @include large-and-up {
+  @include mixins.large-and-up {
     height: 760px;
   }
 
@@ -33,12 +34,12 @@
       background-size: cover;
       background-position: right;
 
-      @include medium-and-up {
+      @include mixins.medium-and-up {
         width: 25px;
         height: 45px;
       }
 
-      @include large-and-up {
+      @include mixins.large-and-up {
         width: 25px;
         height: 45px;
       }
@@ -51,7 +52,7 @@
       content: "";
       transform: rotate(180deg);
 
-      @include medium-and-up {
+      @include mixins.medium-and-up {
         margin-left: 0;
       }
     }
@@ -69,7 +70,7 @@
       background-image: url("../../images/chevron.svg");
       content: "";
 
-      @include medium-and-up {
+      @include mixins.medium-and-up {
         margin-right: 0;
       }
     }
@@ -117,12 +118,12 @@
         display: flex;
         flex-direction: column-reverse;
 
-        @include medium-and-up {
+        @include mixins.medium-and-up {
           padding-left: 72px !important;
           padding-right: 72px !important;
         }
 
-        @include large-and-up {
+        @include mixins.large-and-up {
           display: table;
           padding-left: 120px !important;
           padding-right: 120px !important;
@@ -133,11 +134,11 @@
           width: auto;
           min-width: 0;
 
-          @include medium-and-up {
+          @include mixins.medium-and-up {
             max-width: 75% !important;
           }
 
-          @include large-and-up {
+          @include mixins.large-and-up {
             float: left;
             width: 100%;
             max-width: 100% !important;
@@ -158,24 +159,24 @@
           margin-top: 0;
           max-width: 100%;
 
-          @include large-and-up {
+          @include mixins.large-and-up {
             padding-left: 28px;
             width: 50%;
           }
 
           h3.tl-headline-date {
             font-size: var(--font-size-xs--font-family-tertiary);
-            margin-bottom: $sp-2;
+            margin-bottom: variables.$sp-2;
           }
 
           h2.tl-headline {
             font-size: 1.5rem;
             line-height: 1.87rem;
-            margin-bottom: $sp-2x;
+            margin-bottom: variables.$sp-2x;
           }
 
           .tl-text-content {
-            margin-bottom: $sp-3;
+            margin-bottom: variables.$sp-3;
 
             p {
               font-size: var(--font-size-xs--font-family-tertiary);
@@ -207,7 +208,7 @@
     h2.tl-headline {
       font-size: 1.5rem;
       line-height: 1.87rem;
-      margin-bottom: $sp-2x;
+      margin-bottom: variables.$sp-2x;
       padding: 0 !important;
     }
 
@@ -215,7 +216,7 @@
       .tl-slidenav-next {
         display: none;
 
-        @include small-and-up {
+        @include mixins.small-and-up {
           display: block;
         }
       }
@@ -223,7 +224,7 @@
       .tl-slidenav-previous {
         display: none;
 
-        @include small-and-up {
+        @include mixins.small-and-up {
           display: block;
         }
       }
@@ -237,12 +238,12 @@
             display: flex;
             flex-direction: column-reverse;
 
-            @include medium-and-up {
+            @include mixins.medium-and-up {
               padding-left: 120px !important;
               padding-right: 120px !important;
             }
 
-            @include large-and-up {
+            @include mixins.large-and-up {
               display: table;
               padding-left: 120px !important;
               padding-right: 120px !important;
@@ -253,18 +254,18 @@
               width: auto;
               min-width: 0;
 
-              @include small-and-up {
-                margin-right: $sp-8;
-                margin-left: $sp-8;
+              @include mixins.small-and-up {
+                margin-right: variables.$sp-8;
+                margin-left: variables.$sp-8;
               }
 
-              @include medium-and-up {
+              @include mixins.medium-and-up {
                 margin-right: 0;
                 margin-left: 0;
                 max-width: 50% !important;
               }
 
-              @include large-and-up {
+              @include mixins.large-and-up {
                 float: left;
                 width: 100%;
                 max-width: 100% !important;
@@ -285,17 +286,17 @@
               margin-top: 0;
               max-width: 100%;
 
-              @include small-and-up {
-                margin-right: $sp-8;
-                margin-left: $sp-8;
+              @include mixins.small-and-up {
+                margin-right: variables.$sp-8;
+                margin-left: variables.$sp-8;
               }
 
-              @include medium-and-up {
+              @include mixins.medium-and-up {
                 margin-right: 0;
                 margin-left: 0;
               }
 
-              @include large-and-up {
+              @include mixins.large-and-up {
                 margin-right: 0;
                 margin-left: 0;
                 padding-left: 28px;
@@ -304,14 +305,14 @@
 
               h3.tl-headline-date {
                 font-size: var(--font-size-xs--font-family-tertiary);
-                margin-bottom: $sp-2;
+                margin-bottom: variables.$sp-2;
               }
             }
           }
         }
 
         .tl-text-content {
-          margin-bottom: $sp-3;
+          margin-bottom: variables.$sp-3;
 
           p {
             font-size: var(--font-size-xs--font-family-tertiary);
@@ -332,7 +333,7 @@
 .new-timeline-block {
   height: auto;
   background-color: var(--beige-100);
-  padding: $sp-7 $sp-2 $sp-3x $sp-2;
+  padding: variables.$sp-7 variables.$sp-2 variables.$sp-3x variables.$sp-2;
 
   .timeline-block-year,
   .timeline-block-event-title {
@@ -342,17 +343,17 @@
   }
 
   .timeline-block-event-title {
-    @include clamp-text(4);
+    @include mixins.clamp-text(4);
   }
 
   .timeline-block-year {
     text-align: center;
     width: 78px;
-    border-radius: $sp-x;
+    border-radius: variables.$sp-x;
     background-color: var(--white);
-    margin: $sp-6 auto;
-    padding: $sp-1;
-    box-shadow: 0 $sp-x $sp-1x rgba(0, 0, 0, 0.15);
+    margin: variables.$sp-6 auto;
+    padding: variables.$sp-1;
+    box-shadow: 0 variables.$sp-x variables.$sp-1x rgba(0, 0, 0, 0.15);
     position: relative;
     z-index: 1;
   }
@@ -376,19 +377,19 @@
     list-style: none;
     border: 1px solid var(--grey-300);
     max-width: 340px;
-    margin: 0 auto $sp-3 auto;
-    border-radius: $sp-1;
+    margin: 0 auto variables.$sp-3 auto;
+    border-radius: variables.$sp-1;
     background-color: var(--white);
-    padding: $sp-3;
+    padding: variables.$sp-3;
 
     .timeline-block-event-day {
       display: inline-block;
       border: 1px solid var(--grey-300);
-      border-radius: $sp-x;
+      border-radius: variables.$sp-x;
       text-align: center;
       font-size: var(--font-size-s--font-family-tertiary);
       line-height: var(--line-height-s--font-family-tertiary);
-      padding: $sp-x;
+      padding: variables.$sp-x;
       color: var(--grey-800);
     }
   }
@@ -396,11 +397,11 @@
   .timeline-block-event-description {
     font-size: var(--font-size-m--font-family-tertiary);
     line-height: var(--line-height-m--font-family-tertiary);
-    margin-bottom: $sp-1;
+    margin-bottom: variables.$sp-1;
   }
 
   .timeline-block-event-description.clamped {
-    @include clamp-text(3);
+    @include mixins.clamp-text(3);
   }
 
   .timeline-block-event-description.expanded {
@@ -422,7 +423,7 @@
     }
 
     &:focus {
-      @include focus-styles();
+      @include mixins.focus-styles();
     }
   }
 
@@ -434,9 +435,9 @@
     font-size: var(--font-size-xxxs--font-family-primary);
     line-height: var(--line-height-s--font-family-primary);
     letter-spacing: 0%;
-    padding: $sp-1 $sp-3;
-    border-radius: $sp-x;
-    margin-top: $sp-2;
+    padding: variables.$sp-1 variables.$sp-3;
+    border-radius: variables.$sp-x;
+    margin-top: variables.$sp-2;
     text-decoration: none;
 
     &:hover {
@@ -445,18 +446,18 @@
   }
 
   .page-section-header {
-    padding: $sp-2 $sp-2 0;
+    padding: variables.$sp-2 variables.$sp-2 0;
     line-height: var(--line-height-xl--font-family-primary);
   }
 
   .page-section-description {
-    padding: 0 $sp-2;
+    padding: 0 variables.$sp-2;
     font-size: var(--font-size-xs--font-family-primary);
     line-height: var(--line-height-m--font-family-tertiary);
     width: 80%;
-    margin: $sp-2x auto $sp-5;
+    margin: variables.$sp-2x auto variables.$sp-5;
 
-    @include medium-and-less {
+    @include mixins.medium-and-less {
       width: 100%;
     }
   }
@@ -465,7 +466,7 @@
     margin-top: 0;
   }
 
-  @include large-and-up {
+  @include mixins.large-and-up {
     .timeline-group {
       position: relative;
 
@@ -483,7 +484,7 @@
     .timeline-block-events {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      row-gap: $sp-8;
+      row-gap: variables.$sp-8;
     }
 
     .timeline-block-event {
@@ -514,7 +515,7 @@
       }
 
       &:nth-child(even) {
-        margin-top: $sp-7;
+        margin-top: variables.$sp-7;
 
         &::before {
           inline-size: 16px;
@@ -539,7 +540,7 @@
     }
   }
 
-  @include x-large-and-up {
+  @include mixins.x-large-and-up {
     .timeline-block-event {
       &:nth-child(even) {
         &::before {
@@ -564,7 +565,7 @@
     }
   }
 
-  @include xx-large-and-up {
+  @include mixins.xx-large-and-up {
     .timeline-block-event {
       &:nth-child(even) {
         &::before {
@@ -593,15 +594,15 @@
     position: sticky;
     background-color: var(--beige-100);
     z-index: 999;
-    padding: $sp-1x 0;
+    padding: variables.$sp-1x 0;
     top: 68px;
-    margin: 0 auto $sp-2 auto;
+    margin: 0 auto variables.$sp-2 auto;
 
     body.admin-bar & {
       top: 100px;
     }
 
-    @include medium-and-less {
+    @include mixins.medium-and-less {
       top: 60px;
 
       body.admin-bar & {
@@ -617,22 +618,22 @@
       }
     }
 
-    @include large-and-up {
+    @include mixins.large-and-up {
       max-width: 916px;
     }
 
-    @include x-large-and-up {
+    @include mixins.x-large-and-up {
       max-width: 986px;
     }
 
-    @include xx-large-and-up {
+    @include mixins.xx-large-and-up {
       max-width: 1096px;
     }
   }
 
   .years-navigation-items {
     list-style: none;
-    padding: 0 $sp-3x;
+    padding: 0 variables.$sp-3x;
     margin: 0;
     overflow-x: auto;
 
@@ -652,7 +653,7 @@
     scrollbar-width: none;  /* Firefox */
 
     li {
-      margin: $sp-x $sp-2;
+      margin: variables.$sp-x variables.$sp-2;
 
       &:first-child {
         margin-inline-start: 0;
@@ -695,25 +696,25 @@
     width: 48px;
 
     &.left {
-      left: -$sp-3;
+      left: -(variables.$sp-3);
       transform: rotate(180deg);
     }
 
     &.right {
-      right: -$sp-3;
+      right: -(variables.$sp-3);
     }
 
-    @include medium-and-up {
+    @include mixins.medium-and-up {
       &.left {
-        left: -$sp-4;
+        left: -(variables.$sp-4);
       }
 
       &.right {
-        right: -$sp-4;
+        right: -(variables.$sp-4);
       }
     }
 
-    @include x-large-and-up {
+    @include mixins.x-large-and-up {
       top: 8px;
     }
   }

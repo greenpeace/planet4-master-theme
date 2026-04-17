@@ -1,7 +1,11 @@
+@use "../base/fonts";
+@use "../base/mixins";
+@use "../base/variables";
+
 @mixin table {
   .wp-block-table {
-    margin-top: $sp-1;
-    margin-bottom: $sp-2;
+    margin-top: variables.$sp-1;
+    margin-bottom: variables.$sp-2;
 
     &.is-style-stripes table {
       &.has-gp-green-background-color tr:nth-child(odd) {
@@ -9,9 +13,9 @@
       }
     }
 
-    @include large-and-up {
-      margin-top: $sp-2;
-      margin-bottom: $sp-4;
+    @include mixins.large-and-up {
+      margin-top: variables.$sp-2;
+      margin-bottom: variables.$sp-4;
     }
   }
 
@@ -20,7 +24,7 @@
     margin-bottom: 15px;
     width: 100%;
 
-    @include mobile-only {
+    @include mixins.mobile-only {
       display: block;
       overflow: auto;
     }
@@ -35,27 +39,27 @@
     th {
       color: var(--white);
       height: 36px;
-      font-size: $font-size-xs;
-      padding: 6px $sp-2x;
+      font-size: fonts.$font-size-xs;
+      padding: 6px variables.$sp-2x;
       box-sizing: border-box;
-      @include x-large-and-up {
-        font-size: $font-size-md;
+      @include mixins.x-large-and-up {
+        font-size: fonts.$font-size-md;
       }
     }
 
     td {
       min-height: 120px;
-      font-size: $font-size-xs;
-      padding: $sp-2x;
+      font-size: fonts.$font-size-xs;
+      padding: variables.$sp-2x;
       vertical-align: top;
       color: var(--color-text-body);
 
-      @include mobile-only {
+      @include mixins.mobile-only {
         min-width: 300px;
       }
 
-      @include x-large-and-up {
-        font-size: $font-size-md;
+      @include mixins.x-large-and-up {
+        font-size: fonts.$font-size-md;
       }
     }
 

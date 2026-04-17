@@ -1,36 +1,37 @@
 // Beta blocks
-@import "blocks/SecondaryNavigation/SecondaryNavigationStyle";
+@use "blocks/SecondaryNavigation/SecondaryNavigationStyle";
 
 // P4 Blocks
-@import "blocks/Accordion/AccordionStyle";
-@import "blocks/CarouselHeader/CarouselHeaderStyle";
-@import "blocks/Columns/ColumnsStyle";
-@import "blocks/Cookies/CookiesStyle";
-@import "blocks/Counter/CounterStyle";
-@import "blocks/ActionsList/ActionsListStyle";
-@import "blocks/PostsList/PostsListStyle";
-@import "blocks/SocialMedia/SocialMediaStyle";
-@import "blocks/Spreadsheet";
-@import "blocks/TableOfContents/TableOfContentsStyle";
-@import "blocks/TakeActionBoxout/TakeActionBoxoutStyle";
-@import "blocks/Timeline/TimelineStyle";
+@use "blocks/Accordion/AccordionStyle";
+@use "blocks/CarouselHeader/CarouselHeaderStyle";
+@use "blocks/Columns/ColumnsStyle";
+@use "blocks/Cookies/CookiesStyle";
+@use "blocks/Counter/CounterStyle";
+@use "blocks/ActionsList/ActionsListStyle";
+@use "blocks/PostsList/PostsListStyle";
+@use "blocks/SocialMedia/SocialMediaStyle";
+@use "blocks/Spreadsheet";
+@use "blocks/TableOfContents/TableOfContentsStyle";
+@use "blocks/TakeActionBoxout/TakeActionBoxoutStyle";
+@use "blocks/Timeline/TimelineStyle";
 
 // Patterns
-@import "blocks/PageHeader";
+@use "blocks/PageHeader";
 
 // Native Blocks
-@import "blocks/core-overrides/BlockSpacing";
-@import "blocks/core-overrides/Columns";
-@import "blocks/core-overrides/Embed";
-@import "blocks/core-overrides/Heading";
-@import "blocks/core-overrides/Image";
-@import "blocks/core-overrides/MediaText";
-@import "blocks/core-overrides/Quote";
-@import "blocks/core-overrides/Separator";
-@import "blocks/core-overrides/Table";
+@use "blocks/core-overrides/BlockSpacing";
+@use "blocks/core-overrides/Columns";
+@use "blocks/core-overrides/Embed";
+@use "blocks/core-overrides/Heading";
+@use "blocks/core-overrides/Image";
+@use "blocks/core-overrides/MediaText";
+@use "blocks/core-overrides/Quote";
+@use "blocks/core-overrides/Separator";
+@use "blocks/core-overrides/Table";
 
 // Other
-@import "blocks/WideBlocks";
+@use "blocks/WideBlocks";
+@use "base/mixins";
 
 .is-style-space-evenly {
   gap: 24px !important;
@@ -40,12 +41,12 @@
     flex-basis: 100%;
     align-self: stretch;
 
-    @include medium-and-up {
+    @include mixins.medium-and-up {
       flex-grow: 0;
       flex-basis: calc(50% - 12px);
     }
 
-    @include large-and-up {
+    @include mixins.large-and-up {
       flex-basis: calc(25% - 18px);
     }
   }

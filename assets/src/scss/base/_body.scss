@@ -1,3 +1,5 @@
+@use "mixins";
+
 html,
 body {
   overflow-x: hidden;
@@ -17,7 +19,7 @@ body {
     clear: initial;
   }
 
-  @include medium-and-less {
+  @include mixins.medium-and-less {
     &.with-mobile-tabs {
       .page-header {
         padding-top: 140px;

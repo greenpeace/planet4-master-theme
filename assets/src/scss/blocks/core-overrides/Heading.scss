@@ -1,8 +1,11 @@
+@use "../../base/mixins";
+@use "../../base/variables";
+
 .wp-block-heading {
   &.is-style-chevron::after {
     content: "";
     pointer-events: none;
-    margin-inline-start: $sp-1;
+    margin-inline-start: variables.$sp-1;
     height: 12px;
     width: 12px;
     display: inline-block;
@@ -19,6 +22,6 @@
   }
 
   > a {
-    @include shared-link-styles;
+    @include mixins.shared-link-styles;
   }
 }

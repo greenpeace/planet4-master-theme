@@ -1,3 +1,6 @@
+@use "../../base/mixins";
+@use "../../base/variables";
+
 @mixin rounded-image-size($size) {
   figure,
   img {
@@ -28,8 +31,8 @@
   position: relative;
   width: auto;
   max-width: 100%;
-  margin-top: $sp-1;
-  margin-bottom: $sp-2;
+  margin-top: variables.$sp-1;
+  margin-bottom: variables.$sp-2;
 
   &.is-style-rounded-180 {
     @include rounded-image-size(180px);
@@ -55,9 +58,9 @@
     @include square-image-size(80px);
   }
 
-  @include large-and-up {
-    margin-top: $sp-2;
-    margin-bottom: $sp-4;
+  @include mixins.large-and-up {
+    margin-top: variables.$sp-2;
+    margin-bottom: variables.$sp-4;
   }
 
   figure {
@@ -66,12 +69,12 @@
 
   &.alignleft {
     float: left;
-    margin-inline-end: $sp-1;
+    margin-inline-end: variables.$sp-1;
   }
 
   &.alignright {
     float: right;
-    margin-inline-start: $sp-1;
+    margin-inline-start: variables.$sp-1;
   }
 
   &.aligncenter {
@@ -79,7 +82,7 @@
     margin-right: auto;
   }
 
-  @include medium-and-up {
+  @include mixins.medium-and-up {
     .image-credit {
       position: absolute;
       text-align: right;

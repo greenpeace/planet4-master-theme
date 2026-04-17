@@ -1,3 +1,6 @@
+@use "../../base/mixins";
+@use "../../base/variables";
+
 .actions-list {
   .wp-block-post-excerpt__more-link {
     display: none;
@@ -7,9 +10,9 @@
     display: none !important;
   }
 
-  @include large-and-up {
+  @include mixins.large-and-up {
     .wp-block-post {
-      flex-basis: calc((100% / 3) - $sp-2);
+      flex-basis: calc((100% / 3) - variables.$sp-2);
     }
   }
 }
