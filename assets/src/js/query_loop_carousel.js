@@ -149,22 +149,32 @@ export const setupQueryLoopCarousel = () => {
 
         const carouselButtons = layout.querySelectorAll(`${BUTTONS_CLASS} ${CONTROLS_CLASS}-next, ${BUTTONS_CLASS} ${CONTROLS_CLASS}-prev`);
 
-        // This resets the focus to the ghost element so users can tab over the new slide.
+        // Moves the focus to the next slide when the carousel arrows are hit.
         carouselButtons.forEach(button => {
           button.addEventListener('click', () => {
-            setTimeout(() => {
-              const resetFocusLink = layout.querySelector('.carousel-ghost-link');
-              const currentSlide = layout.querySelector('.carousel-item.active');
-              if (resetFocusLink) {
-                const match = currentSlide.className.match(/carousel-slide-(\d+)/);
-                const slideIndex = match ? parseInt(match[1], 10) : null;
 
-                // This adds a voice over so the screen reader reads out which Slide you are on.
-                resetFocusLink.removeAttribute('aria-hidden');
-                resetFocusLink.setAttribute('aria-label', `Slide ${slideIndex}`);
-                resetFocusLink.focus();
+            const observer = new MutationObserver(() => {
+              const currentSlide = layout.querySelector('.carousel-item.active');
+
+              if (!currentSlide) {return;}
+
+              const focusTarget = currentSlide.querySelector('a');
+
+              if (focusTarget) {
+                focusTarget.focus();
+              } else {
+                currentSlide.setAttribute('tabindex', '-1');
+                currentSlide.focus();
               }
-            }, 600);
+
+              observer.disconnect();
+            });
+
+            observer.observe(layout, {
+              subtree: true,
+              attributes: true,
+              attributeFilter: ['class'],
+            });
           });
         });
       });
