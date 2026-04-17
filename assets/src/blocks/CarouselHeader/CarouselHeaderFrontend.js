@@ -10,6 +10,8 @@ const {__} = wp.i18n;
 export const CarouselHeaderFrontend = ({slides, carousel_autoplay, className, decoding}) => {
   const slidesRef = useRef([]);
   const containerRef = useRef(null);
+  const headingsRef = useRef([]);
+  const indicatorsRef = useRef();
   const {
     currentSlide,
     goToSlide,
@@ -18,7 +20,7 @@ export const CarouselHeaderFrontend = ({slides, carousel_autoplay, className, de
     handleAutoplay,
     setAutoplay,
     autoplay,
-  } = useSlides(slidesRef, slides.length, containerRef, carousel_autoplay);
+  } = useSlides(slidesRef, slides.length, containerRef, carousel_autoplay, headingsRef, indicatorsRef);
 
   return useMemo(() => (
     <section
@@ -30,12 +32,16 @@ export const CarouselHeaderFrontend = ({slides, carousel_autoplay, className, de
       {(slides.length > 1) && (
         <CarouselControls
           goToPrevSlide={() => {
-            setAutoplay(false);
-            goToPrevSlide();
+            setAutoplay(() => {
+              goToPrevSlide(true);
+              return false;
+            });
           }}
           goToNextSlide={() => {
-            setAutoplay(false);
-            goToNextSlide();
+            setAutoplay(() => {
+              goToNextSlide(true);
+              return false;
+            });
           }}
           goToSlide={goToSlide}
           handleAutoplay={handleAutoplay}
@@ -43,6 +49,7 @@ export const CarouselHeaderFrontend = ({slides, carousel_autoplay, className, de
           currentSlide={currentSlide}
           autoplay={autoplay}
           disableControls={carousel_autoplay}
+          ref={indicatorsRef}
         />
       )}
       <div className="carousel-wrapper-header">
@@ -66,11 +73,11 @@ export const CarouselHeaderFrontend = ({slides, carousel_autoplay, className, de
     decoding,
     autoplay,
     slides,
-    goToSlide,
     setAutoplay,
+    carousel_autoplay,
     handleAutoplay,
+    goToSlide,
     goToPrevSlide,
     goToNextSlide,
-    carousel_autoplay,
   ]);
 };

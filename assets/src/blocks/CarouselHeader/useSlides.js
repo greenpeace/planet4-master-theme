@@ -16,28 +16,53 @@ const activeClass = 'active';
  * @param {*}       totalSlides
  * @param {*}       containerRef
  * @param {boolean} carousel_autoplay
+ * @param {*}       headingsRef
+ * @param {*}       indicatorsRef
  * @param {Object}  options
  * @return {*} functions for the carousel header slides
  */
-export const useSlides = (slidesRef, totalSlides, containerRef, carousel_autoplay, options = {
-  // Following Bootstrap's approach for RTL:
-  // https://getbootstrap.com/docs/5.0/getting-started/rtl/#approach
-  // Note: in non-directional transitions (e.g.: fade out),
-  // these could have the same class for both directions.
-  enterTransitionClasses: {
-    next: 'enter-from-end',
-    prev: 'enter-from-start',
-  },
-  exitTransitionClasses: {
-    next: 'exit-to-start',
-    prev: 'exit-to-end',
-  },
-}) => {
+
+export const useSlides = (
+  slidesRef,
+  totalSlides,
+  containerRef,
+  carousel_autoplay,
+  headingsRef,
+  indicatorsRef,
+  options
+) => {
   const [autoplay, setAutoplay] = useState(carousel_autoplay);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [sliding, setSliding] = useState(false);
   // Set up the autoplay for the slides
   const timerRef = useRef(null);
+
+  options = options || {
+    // Following Bootstrap's approach for RTL:
+    // https://getbootstrap.com/docs/5.0/getting-started/rtl/#approach
+    // Note: in non-directional transitions (e.g.: fade out),
+    // these could have the same class for both directions.
+    enterTransitionClasses: {
+      next: 'enter-from-end',
+      prev: 'enter-from-start',
+    },
+    exitTransitionClasses: {
+      next: 'exit-to-start',
+      prev: 'exit-to-end',
+    },
+  };
+
+  const onScrollHandler = useCallback(() => {
+    if (!containerRef?.current) {
+      return;
+    }
+
+    const {top, height} = containerRef.current.getBoundingClientRect();
+
+    if(top < (height * -1) || top > window.innerHeight) {
+      setAutoplay(false);
+    }
+  }, [setAutoplay, containerRef]);
 
   const handleAutoplay = useCallback(() => {
     setAutoplay(!autoplay);
@@ -77,7 +102,7 @@ export const useSlides = (slidesRef, totalSlides, containerRef, carousel_autopla
     }
   }, [containerRef]);
 
-  const goToSlide = useCallback((newSlide, forceCurrentSlide = false) => {
+  const goToSlide = useCallback(({newSlide, forceCurrentSlide = false, fromClick = false}) => { // newSlide, forceCurrentSlide = false)
     if (!slidesRef.current) {
       return;
     }
@@ -96,6 +121,14 @@ export const useSlides = (slidesRef, totalSlides, containerRef, carousel_autopla
 
       activeElement.classList.add(exitTransitionClass);
       nextElement.classList.add(enterTransitionClass);
+
+      if(fromClick) {
+        // Force to focus heading
+        const heading = nextElement.querySelector('h2');
+        if(heading) {
+          heading.focus();
+        }
+      }
 
       const unsetTransitionClasses = () => {
         activeElement.removeEventListener('transitionend', unsetTransitionClasses);
@@ -120,12 +153,12 @@ export const useSlides = (slidesRef, totalSlides, containerRef, carousel_autopla
     }
   }, [currentSlide, getOrder, options, sliding, setCarouselHeight, slidesRef]);
 
-  const goToPrevSlide = useCallback(() => {
-    goToSlide(currentSlide === 0 ? totalSlides - 1 : currentSlide - 1);
+  const goToPrevSlide = useCallback((fromClick = false) => {
+    goToSlide({newSlide: (currentSlide - 1 < 0) ? totalSlides - 1 : currentSlide - 1, fromClick});
   }, [currentSlide, totalSlides, goToSlide]);
 
-  const goToNextSlide = useCallback(() => {
-    goToSlide((currentSlide + 1 >= totalSlides) ? 0 : currentSlide + 1);
+  const goToNextSlide = useCallback((fromClick = false) => {
+    goToSlide({newSlide: (currentSlide + 1 >= totalSlides) ? 0 : currentSlide + 1, fromClick});
   }, [currentSlide, totalSlides, goToSlide]);
 
   useHammerSwipe(containerRef, goToNextSlide, goToPrevSlide);
@@ -157,6 +190,30 @@ export const useSlides = (slidesRef, totalSlides, containerRef, carousel_autopla
     }
   }, [totalSlides, autoplay, timerRef, goToNextSlide]);
 
+  useEffect(() => {
+    if(!headingsRef?.current || !indicatorsRef?.current) {
+      return;
+    }
+
+    const totalIndicators = indicatorsRef.current.children.length;
+    for (const heading of headingsRef.current) {
+      heading.addEventListener('focusout', () => {
+        const nextIndicator = (currentSlide + 1) < totalIndicators ? (currentSlide + 1) : 0;
+        indicatorsRef.current.children[nextIndicator].querySelector('button').focus();
+      });
+    }
+  }, [headingsRef, indicatorsRef, currentSlide]);
+
+  useEffect(() => {
+    if(carousel_autoplay) {
+      window.addEventListener('scroll', onScrollHandler);
+
+      return () => {
+        window.removeEventListener('scroll', onScrollHandler);
+      };
+    }
+  }, [carousel_autoplay, onScrollHandler]);
+
   return {
     totalSlides,
     currentSlide,
@@ -168,5 +225,7 @@ export const useSlides = (slidesRef, totalSlides, containerRef, carousel_autopla
     setAutoplay,
     setCarouselHeight,
     autoplay,
+    headingsRef,
+    indicatorsRef,
   };
 };
