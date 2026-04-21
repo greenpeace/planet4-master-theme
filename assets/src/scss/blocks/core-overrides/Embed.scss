@@ -1,3 +1,6 @@
+@use "../../base/mixins";
+@use "../../base/variables";
+
 // This combination of height: 0, and padding-bottom: 56.25%
 // is to force the aspect ratio of the video to 16:9, based
 // on the width. See: https://css-tricks.com/fluid-width-video/
@@ -11,16 +14,16 @@
 }
 
 @mixin media-group-one {
-  margin-top: $sp-1;
-  margin-bottom: $sp-2;
+  margin-top: variables.$sp-1;
+  margin-bottom: variables.$sp-2;
 
-  @include large-and-up {
-    margin-top: $sp-2;
-    margin-bottom: $sp-4;
+  @include mixins.large-and-up {
+    margin-top: variables.$sp-2;
+    margin-bottom: variables.$sp-4;
   }
 
   iframe {
-    @include absolute-position;
+    @include mixins.absolute-position;
   }
 
   .wp-block-embed__wrapper {
@@ -29,20 +32,20 @@
 }
 
 @mixin media-group-two {
-  margin-top: $sp-1;
-  margin-bottom: $sp-2;
+  margin-top: variables.$sp-1;
+  margin-bottom: variables.$sp-2;
 
-  @include medium-and-up {
+  @include mixins.medium-and-up {
     width: 510px;
   }
 
-  @include large-and-up {
-    margin-top: $sp-2;
-    margin-bottom: $sp-4;
+  @include mixins.large-and-up {
+    margin-top: variables.$sp-2;
+    margin-bottom: variables.$sp-4;
     width: 610px;
   }
 
-  @include x-large-and-up {
+  @include mixins.x-large-and-up {
     width: 630px;
   }
 
@@ -77,7 +80,7 @@ lite-youtube,
   @include embed-wrapper;
 
   iframe {
-    @include absolute-position;
+    @include mixins.absolute-position;
   }
 }
 
@@ -98,8 +101,8 @@ lite-youtube,
   }
 
   &-soundcloud {
-    margin-top: $sp-1;
-    margin-bottom: $sp-2;
+    margin-top: variables.$sp-1;
+    margin-bottom: variables.$sp-2;
 
     .wp-block-embed__wrapper {
       height: 100%;

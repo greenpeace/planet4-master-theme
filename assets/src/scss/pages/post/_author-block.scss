@@ -1,3 +1,7 @@
+@use "../../base/fonts";
+@use "../../base/mixins";
+@use "../../base/variables";
+
 .author-block {
   background: var(--color-background-author_block);
   overflow: hidden;
@@ -5,7 +9,7 @@
   border-radius: 4px;
   margin-bottom: 24px;
 
-  @include medium-and-up {
+  @include mixins.medium-and-up {
     display: flex;
     padding: 24px;
 
@@ -16,11 +20,11 @@
     }
   }
 
-  @include large-and-up {
+  @include mixins.large-and-up {
     max-width: 776px;
   }
 
-  @include x-large-and-up {
+  @include mixins.x-large-and-up {
     max-width: 736px;
   }
 }
@@ -42,7 +46,7 @@
     object-fit: cover;
   }
 
-  @include small-and-less {
+  @include mixins.small-and-less {
     margin: auto;
   }
 }
@@ -57,7 +61,7 @@
 
 .author-block-info-name,
 .author-block-info-title {
-  @include medium-and-up {
+  @include mixins.medium-and-up {
     text-align: inherit;
     margin: 8px 0;
   }
@@ -65,7 +69,7 @@
 
 .author-bio {
   p {
-    font-size: $font-size-sm;
+    font-size: fonts.$font-size-sm;
     line-height: 1.5;
     margin: 0;
 
@@ -76,7 +80,7 @@
   }
 
   a {
-    @include shared-link-styles;
+    @include mixins.shared-link-styles;
   }
 }
 
@@ -112,7 +116,7 @@
   }
 
   &:focus {
-    @include focus-styles;
+    @include mixins.focus-styles;
   }
 
   &:after {
@@ -127,7 +131,7 @@
     background-repeat: no-repeat;
     background-color: currentcolor;
     transform: rotate(90deg);
-    margin-inline-start: $sp-x;
+    margin-inline-start: variables.$sp-x;
   }
 
   &[aria-expanded="true"] {

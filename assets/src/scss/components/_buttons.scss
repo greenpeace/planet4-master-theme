@@ -1,3 +1,7 @@
+@use "../base/fonts";
+@use "../base/mixins";
+@use "../base/variables";
+
 .btn,
 .wp-block-button a,
 .wp-block-button button,
@@ -6,17 +10,17 @@
 .gform_button_select_files,
 [id^="gform_submit_button"] {
   font-family: var(--font-family-button);
-  font-size: $font-size-sm;
+  font-size: fonts.$font-size-sm;
   text-align: center;
   font-weight: var(--font-weight-regular);
   border-radius: 4px;
-  padding: $sp-1x $sp-3x;
+  padding: variables.$sp-1x variables.$sp-3x;
   transition-property: color, background-color, border-color;
   transition-duration: 150ms;
   transition-timing-function: linear;
 
   &:focus {
-    @include focus-styles;
+    @include mixins.focus-styles;
   }
 
   display: inline-block;
@@ -66,8 +70,8 @@
 .btn-small,
 .gfield button:not(.add_list_item):not(.delete_list_item):not([id^="mceu"]),
 .gform_button_select_files {
-  font-size: $font-size-xxs;
-  padding: $sp-1 $sp-3;
+  font-size: fonts.$font-size-xxs;
+  padding: variables.$sp-1 variables.$sp-3;
 }
 
 .btn-primary,
@@ -179,7 +183,7 @@
   background: var(--color-background-button--donate--passive);
   color: var(--color-text-button--donate);
   min-width: 180px;
-  padding: $sp-x $sp-4;
+  padding: variables.$sp-x variables.$sp-4;
   border-width: 1px;
   border-color: transparent;
 
@@ -197,8 +201,8 @@
     color: var(--color-text-button--donate--visited);
   }
 
-  @include large-and-up {
-    font-size: $font-size-md;
+  @include mixins.large-and-up {
+    font-size: fonts.$font-size-md;
   }
 
   margin: 0;
@@ -206,7 +210,7 @@
 }
 
 .nav-donate.has-children .btn-donate {
-  padding-inline-end: $sp-4;
+  padding-inline-end: variables.$sp-4;
 }
 
 .no-btn {
@@ -221,8 +225,8 @@
   border-color: var(--gp-green-100);
   color: var(--grey-900);
   background-color: var(--color-background-tag_button--passive);
-  margin-inline-end: $sp-2;
-  margin-bottom: $sp-2;
+  margin-inline-end: variables.$sp-2;
+  margin-bottom: variables.$sp-2;
   transition-duration: 100ms;
 
   &:visited {

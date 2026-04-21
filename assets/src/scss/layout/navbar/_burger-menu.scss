@@ -1,3 +1,6 @@
+@use "../../base/mixins";
+@use "../../base/variables";
+
 $transition-duration: .2s;
 
 @mixin slide-from-start() {
@@ -27,7 +30,7 @@ $transition-duration: .2s;
   flex-direction: column;
   justify-content: flex-start;
   top: 0;
-  padding: 18px $sp-3;
+  padding: 18px variables.$sp-3;
   z-index: 9999999999;
   overflow: hidden;
   height: 100%;
@@ -47,7 +50,7 @@ $transition-duration: .2s;
   }
 
   .admin-bar & {
-    @include medium-and-less {
+    @include mixins.medium-and-less {
       top: 46px;
       height: calc(100% - 46px);
     }
@@ -58,11 +61,11 @@ $transition-duration: .2s;
     }
   }
 
-  @include small-and-less {
+  @include mixins.small-and-less {
     width: 100vw;
   }
 
-  @include small-and-up {
+  @include mixins.small-and-up {
     width: 400px;
   }
 }
@@ -72,13 +75,13 @@ $transition-duration: .2s;
   flex-direction: column;
   flex-shrink: 0;
   border-bottom: var(--top-navigation--separation);
-  padding-block-end: $sp-2;
+  padding-block-end: variables.$sp-2;
 
   .site-logo {
     display: block;
     width: fit-content;
     margin-inline-start: 0;
-    margin-bottom: $sp-1x;
+    margin-bottom: variables.$sp-1x;
     line-height: 1;
 
     img {
@@ -88,8 +91,8 @@ $transition-duration: .2s;
 
   .nav-languages {
     width: 100%;
-    margin-top: $sp-1x;
-    margin-bottom: $sp-1x;
+    margin-top: variables.$sp-1x;
+    margin-bottom: variables.$sp-1x;
 
     ul {
       margin-inline: 0;
@@ -104,10 +107,10 @@ $transition-duration: .2s;
 
   .nav-items {
     width: 100%;
-    padding: $sp-1x $sp-x 0;
+    padding: variables.$sp-1x variables.$sp-x 0;
   }
 
-  @include scrollbar-layout;
+  @include mixins.scrollbar-layout;
 }
 
 .burger-menu-footer {
@@ -116,13 +119,13 @@ $transition-duration: .2s;
   flex-shrink: 0;
   margin-top: auto;
   width: 100%;
-  padding: $sp-3 0 0;
+  padding: variables.$sp-3 0 0;
   border-top: var(--top-navigation--separation);
 
   .btn-donate {
     width: 100%;
-    padding-top: $sp-1x;
-    padding-bottom: $sp-1x;
+    padding-top: variables.$sp-1x;
+    padding-bottom: variables.$sp-1x;
   }
 }
 
@@ -130,11 +133,11 @@ $transition-duration: .2s;
   width: 100%;
 
   &:not(:first-child) {
-    margin-block-end: $sp-1x;
+    margin-block-end: variables.$sp-1x;
   }
 
   &:not(:last-child) {
-    margin-block-start: $sp-1x;
+    margin-block-start: variables.$sp-1x;
   }
 
   > a.nav-link, > * > a.nav-link {
@@ -147,9 +150,9 @@ $transition-duration: .2s;
   --burger-menu-subitems-- {
     font-family: var(--font-family-tertiary);
   }
-  padding-inline-start: $sp-2;
-  padding-block-start: $sp-1x;
-  padding-block-end: $sp-1x;
+  padding-inline-start: variables.$sp-2;
+  padding-block-start: variables.$sp-1x;
+  padding-block-end: variables.$sp-1x;
 
   .nav-item.active {
     pointer-events: inherit;
@@ -168,7 +171,7 @@ $transition-duration: .2s;
     font-size: var(--font-size-m--font-family-tertiary);
     font-weight: 400;
     width: auto;
-    padding: $sp-1x 0;
+    padding: variables.$sp-1x 0;
   }
 }
 
@@ -210,14 +213,14 @@ $transition-duration: .2s;
   &:focus,
   &:focus-within,
   &:focus-visible {
-    @include focus-styles;
+    @include mixins.focus-styles;
   }
 }
 
 .nav-menu-close {
   display: block;
   position: absolute;
-  inset-inline-end: $sp-3;
+  inset-inline-end: variables.$sp-3;
   border: none;
   height: 20px;
   width: 20px;
@@ -233,15 +236,15 @@ $transition-duration: .2s;
 
   &:focus,
   &:focus-visible {
-    @include focus-styles;
+    @include mixins.focus-styles;
   }
 
-  @supports not (inset-inline-end: $sp-3) {
-    right: $sp-3;
+  @supports not (inset-inline-end: variables.$sp-3) {
+    right: variables.$sp-3;
     left: auto;
 
     html[dir="rtl"] & {
-      left: $sp-3;
+      left: variables.$sp-3;
       right: auto;
     }
   }

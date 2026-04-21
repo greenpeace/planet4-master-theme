@@ -1,10 +1,13 @@
+@use "../../base/mixins";
+@use "../../base/variables";
+
 .cookies-block {
   .custom-control-description,
   .custom-control input[type="checkbox"] ~ .custom-control-description {
     font-size: var(--font-size-xl--font-family-primary);
     font-family: var(--font-family-primary);
 
-    @include x-large-and-up {
+    @include mixins.x-large-and-up {
       font-size: var(--font-size-2xl--font-family-primary);
     }
   }
@@ -15,9 +18,9 @@
     font-family: var(--font-family-tertiary);
     background: var(--grey-900);
     color: white;
-    border-radius: $sp-x;
-    padding: $sp-x;
-    margin-inline-start: $sp-1;
+    border-radius: variables.$sp-x;
+    padding: variables.$sp-x;
+    margin-inline-start: variables.$sp-1;
   }
 
   .cookies-title,

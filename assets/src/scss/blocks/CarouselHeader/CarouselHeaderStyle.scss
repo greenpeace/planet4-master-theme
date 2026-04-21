@@ -1,4 +1,7 @@
-@use "../../base/tokens" as tokens;
+@use "../../base/fonts";
+@use "../../base/mixins";
+@use "../../base/tokens";
+@use "../../base/variables";
 
 // $slide-transition-speed should match SLIDE_TRANSITION_SPEED in carousel-header.js
 $slide-transition-speed: .2s;
@@ -83,19 +86,19 @@ $medium-image-height: 600px;
     padding-bottom: 0;
     padding-inline-start: 0;
 
-    @include medium-and-up {
+    @include mixins.medium-and-up {
       height: 960px;
     }
 
-    @include large-and-up {
+    @include mixins.large-and-up {
       height: 620px;
     }
 
     .backgrounds-holder {
-      @include fill-container;
+      @include mixins.fill-container;
 
       div {
-        @include fill-container;
+        @include mixins.fill-container;
         z-index: 500;
         display: none;
       }
@@ -115,11 +118,11 @@ $medium-image-height: 600px;
       margin-right: auto;
     }
 
-    @include medium-and-up {
+    @include mixins.medium-and-up {
       height: $medium-image-height;
     }
 
-    @include large-and-up {
+    @include mixins.large-and-up {
       height: 100%;
     }
 
@@ -174,21 +177,21 @@ $medium-image-height: 600px;
         width: 100vw;
       }
 
-      @include medium-and-up {
+      @include mixins.medium-and-up {
         height: $medium-image-height;
       }
 
-      @include large-and-up {
+      @include mixins.large-and-up {
         height: 100%;
       }
 
       // Darken background
       &::after {
-        @include fill-container;
+        @include mixins.fill-container;
         content: "";
         background: none;
 
-        @include large-and-up {
+        @include mixins.large-and-up {
           background: rgba(30, 30, 30, 0.45);
         }
       }
@@ -316,7 +319,7 @@ $medium-image-height: 600px;
     position: relative;
     top: 0;
     left: 0;
-    padding: $sp-2 0 $sp-3 0;
+    padding: variables.$sp-2 0 variables.$sp-3 0;
     background: var(--white);
     height: auto;
     width: 100%;
@@ -325,11 +328,11 @@ $medium-image-height: 600px;
       right: 0;
     }
 
-    @include medium-and-up {
-      padding-top: $sp-4;
+    @include mixins.medium-and-up {
+      padding-top: variables.$sp-4;
     }
 
-    @include large-and-up {
+    @include mixins.large-and-up {
       display: block;
       padding: 0;
       background: none;
@@ -340,20 +343,20 @@ $medium-image-height: 600px;
     .carousel-captions-wrapper {
       overflow: hidden;
 
-      @include medium-and-up {
+      @include mixins.medium-and-up {
         width: #{460 + ($text-slide-offset * 2)};
       }
 
-      @include large-and-up {
+      @include mixins.large-and-up {
         width: #{320 + ($text-slide-offset * 2)};
 
         h2,
         p {
-          @include clamp-text(3);
+          @include mixins.clamp-text(3);
         }
       }
 
-      @include x-large-and-up {
+      @include mixins.x-large-and-up {
         width: #{480 + ($text-slide-offset * 2)};
       }
     }
@@ -373,12 +376,12 @@ $medium-image-height: 600px;
         background-position: bottom left;
       }
 
-      @include large-and-up {
+      @include mixins.large-and-up {
         display: block;
         opacity: 1;
       }
 
-      @include x-large-and-up {
+      @include mixins.x-large-and-up {
         width: 580px;
       }
     }
@@ -390,7 +393,7 @@ $medium-image-height: 600px;
     height: 100%;
     width: 100%;
 
-    @include large-and-up {
+    @include mixins.large-and-up {
       padding-top: 180px;
       padding-bottom: 32px;
       margin-inline-start: 80px;
@@ -406,22 +409,22 @@ $medium-image-height: 600px;
         text-align: right;
       }
 
-      @include medium-and-up {
+      @include mixins.medium-and-up {
         font-size: var(--font-size-xl--font-family-primary);
         line-height: var(--line-height-xl--font-family-primary);
       }
 
-      @include large-and-up {
+      @include mixins.large-and-up {
         max-width: 100%;
         width: 100%;
         color: var(--white);
         margin-bottom: 32px;
         line-height: 1.3;
-        font-size: $font-size-xxl;
+        font-size: fonts.$font-size-xxl;
       }
 
-      @include x-large-and-up {
-        font-size: $font-size-xxxl;
+      @include mixins.x-large-and-up {
+        font-size: fonts.$font-size-xxxl;
         max-width: 100%;
         width: 100%;
       }
@@ -444,23 +447,23 @@ $medium-image-height: 600px;
 
       transform: translateX($text-slide-offset);
 
-      @include small-and-up {
+      @include mixins.small-and-up {
         font-size: var(--font-size-m--font-family-secondary);
       }
 
-      @include medium-and-up {
+      @include mixins.medium-and-up {
         font-size: var(--font-size-m--font-family-secondary);
         line-height: var(--line-height-m--font-family-secondary);
         margin-bottom: 24px;
       }
 
-      @include large-and-up {
+      @include mixins.large-and-up {
         font-size: var(--font-size-xl--font-family-secondary);
         margin-bottom: 36px;
         color: var(--white);
       }
 
-      @include x-large-and-up {
+      @include mixins.x-large-and-up {
         font-size: var(--font-size-xl--font-family-secondary);
         line-height: var(--line-height-xl--font-family-secondary);
       }
@@ -478,13 +481,13 @@ $medium-image-height: 600px;
       padding-left: 0;
       padding-right: 0;
 
-      @include small-and-up {
+      @include mixins.small-and-up {
         width: auto;
         bottom: inherit;
         position: relative;
       }
 
-      @include medium-and-up {
+      @include mixins.medium-and-up {
         text-align: left;
         position: inherit;
         margin-top: 0;
@@ -505,7 +508,7 @@ $medium-image-height: 600px;
         text-overflow: ellipsis;
         margin-bottom: 0;
 
-        @include large-and-up {
+        @include mixins.large-and-up {
           min-width: 240px;
           max-width: 100%;
         }
@@ -518,7 +521,7 @@ $medium-image-height: 600px;
     z-index: 4000;
     margin-inline-start: 0;
 
-    @include large-and-up {
+    @include mixins.large-and-up {
       display: flex;
       top: 50%;
       margin-top: -46px;
@@ -548,7 +551,7 @@ $medium-image-height: 600px;
     background-color: var(--white);
     transform: rotate(180deg);
 
-    @include large-and-up {
+    @include mixins.large-and-up {
       display: block;
       margin: auto;
     }
@@ -563,7 +566,7 @@ $medium-image-height: 600px;
     margin-inline-end: 0;
     z-index: 4000;
 
-    @include large-and-up {
+    @include mixins.large-and-up {
       top: 50%;
       display: flex;
       margin-top: -46px;
@@ -593,7 +596,7 @@ $medium-image-height: 600px;
     mask-size: cover;
     background-color: var(--white);
 
-    @include large-and-up {
+    @include mixins.large-and-up {
       display: block;
       margin: auto;
     }
@@ -605,11 +608,11 @@ $medium-image-height: 600px;
 
   .carousel-control-prev, .carousel-control-next {
     &:focus {
-      @include focus-styles(4px);
+      @include mixins.focus-styles(4px);
     }
 
     &:focus-visible {
-      @include focus-styles(4px);
+      @include mixins.focus-styles(4px);
     }
 
     &:focus:not(:focus-visible) {
@@ -630,14 +633,14 @@ $medium-image-height: 600px;
       justify-content: center;
       height: 24px;
 
-      @include medium-and-up {
+      @include mixins.medium-and-up {
         justify-content: flex-end;
-        margin-bottom: $sp-2x;
+        margin-bottom: variables.$sp-2x;
         padding: 0;
       }
-      @include large-and-up {
+      @include mixins.large-and-up {
         justify-content: flex-start;
-        padding-inline-start: $sp-1x;
+        padding-inline-start: variables.$sp-1x;
       }
     }
 
@@ -659,17 +662,17 @@ $medium-image-height: 600px;
           content: "";
           background-color: var(--grey-900);
 
-          @include large-and-up {
+          @include mixins.large-and-up {
             background-color: var(--white);
           }
         }
 
         &:focus {
-          @include focus-styles(4px);
+          @include mixins.focus-styles(4px);
         }
 
         &:focus-visible {
-          @include focus-styles(4px);
+          @include mixins.focus-styles(4px);
         }
 
         &:focus:not(:focus-visible) {
@@ -699,12 +702,12 @@ $medium-image-height: 600px;
       }
     }
 
-    @include medium-and-up {
+    @include mixins.medium-and-up {
       justify-content: flex-end;
     }
 
-    @include large-and-up {
-      bottom: $sp-2x;
+    @include mixins.large-and-up {
+      bottom: variables.$sp-2x;
       left: 0;
       z-index: 9999;
 
@@ -713,7 +716,7 @@ $medium-image-height: 600px;
       }
     }
 
-    @include x-large-and-up {
+    @include mixins.x-large-and-up {
       > .container {
         margin-inline-start: auto;
       }
@@ -726,7 +729,7 @@ $medium-image-height: 600px;
     margin: 0;
     text-align: center;
 
-    @include medium-and-up {
+    @include mixins.medium-and-up {
       text-align: right;
       width: auto;
 
@@ -735,7 +738,7 @@ $medium-image-height: 600px;
       }
     }
 
-    @include large-and-up {
+    @include mixins.large-and-up {
       text-align: left;
 
       html[dir="rtl"] & {
@@ -758,11 +761,11 @@ $medium-image-height: 600px;
         border: none;
 
         &:focus {
-          @include focus-styles(4px);
+          @include mixins.focus-styles(4px);
         }
 
         &:focus-visible {
-          @include focus-styles(4px);
+          @include mixins.focus-styles(4px);
         }
 
         &:focus:not(:focus-visible) {
@@ -771,7 +774,7 @@ $medium-image-height: 600px;
         }
       }
 
-      @include large-and-less {
+      @include mixins.large-and-less {
         button {
           background-color: rgba(tokens.$grey-900, .15);
         }
@@ -781,7 +784,7 @@ $medium-image-height: 600px;
         }
       }
 
-      @include large-and-up {
+      @include mixins.large-and-up {
         button {
           background-color: rgba(tokens.$white, 0.4);
         }

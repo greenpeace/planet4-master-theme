@@ -1,3 +1,6 @@
+@use "../base/fonts";
+@use "../base/mixins";
+
 .site-footer {
   font-family: var(--font-family-paragraph-secondary);
   background: var(--color-background-footer);
@@ -49,12 +52,12 @@
     text-align: start;
     column-count: 1;
 
-    @include medium-and-up {
-      font-size: $font-size-md;
+    @include mixins.medium-and-up {
+      font-size: fonts.$font-size-md;
       column-count: 3;
     }
 
-    @include large-and-up {
+    @include mixins.large-and-up {
       column-count: 2;
     }
   }
@@ -75,7 +78,7 @@
 }
 
 .site-footer .copyright {
-  font-size: $font-size-xxs;
+  font-size: fonts.$font-size-xxs;
   background: var(--color-background-copyright_block);
   color: var(--white);
   padding-top: 16px;
@@ -107,7 +110,7 @@
       margin-bottom: 0;
     }
 
-    @include x-large-and-up {
+    @include mixins.x-large-and-up {
       margin-bottom: 0;
 
       &:not(:last-of-type):after {
@@ -121,7 +124,7 @@
 
 .site-footer--minimal {
   .copyright .container {
-    @include large-and-up {
+    @include mixins.large-and-up {
       justify-content: center;
     }
   }

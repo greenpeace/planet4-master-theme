@@ -1,3 +1,6 @@
+@use "../../base/mixins";
+@use "../../base/variables";
+
 .secondary-navigation-block {
   margin-left: calc(-50vw + 50%);
   width: 100vw;
@@ -6,7 +9,7 @@
   background: var(--p4-dark-green-800);
   position: relative;
 
-  @include medium-and-less {
+  @include mixins.medium-and-less {
     > .container {
       max-width: 100%;
     }
@@ -33,7 +36,7 @@
     top: 84px !important;
   }
 
-  @include medium-and-less {
+  @include mixins.medium-and-less {
     top: 60px;
 
     body.admin-bar & {
@@ -80,7 +83,7 @@
     height: 15px;
     width: 15px;
 
-    @include large-and-less {
+    @include mixins.large-and-less {
       top: 10px;
     }
 
@@ -88,7 +91,7 @@
       left: -20px;
       transform: rotate(180deg);
 
-      @include large-and-less {
+      @include mixins.large-and-less {
         left: -15px;
       }
     }
@@ -96,7 +99,7 @@
     &.right {
       right: -20px;
 
-      @include large-and-less {
+      @include mixins.large-and-less {
         right: -15px;
       }
     }
@@ -104,7 +107,7 @@
 }
 
 .secondary-nav-scroll-wrapper {
-  @include large-and-up {
+  @include mixins.large-and-up {
     mask-image: linear-gradient(to right, transparent 0, black 30px, black calc(100% - 30px), transparent 100%);
     mask-repeat: no-repeat;
     mask-size: 100% 100%;
@@ -131,17 +134,17 @@
   width: 100vw;
   margin-left: calc(-50vw + 50%);
   background: var(--p4-dark-green-800);
-  margin-bottom: -$sp-1;
+  margin-bottom: -(variables.$sp-1);
   cursor: pointer;
 
-  @include large-and-up {
+  @include mixins.large-and-up {
     display: none;
   }
 
   &:focus,
   &:focus-within,
   &:focus-visible {
-    @include focus-styles;
+    @include mixins.focus-styles;
   }
 }
 
@@ -168,18 +171,18 @@
   list-style: none;
   display: flex;
   overflow-x: auto;
-  padding-inline-start: $sp-3;
-  gap: $sp-6;
+  padding-inline-start: variables.$sp-3;
+  gap: variables.$sp-6;
   scrollbar-width: none;
   margin-top: 2px;
-  padding-inline-end: $sp-3;
+  padding-inline-end: variables.$sp-3;
 
-  @include large-and-less {
-    margin-top: $sp-x;
+  @include mixins.large-and-less {
+    margin-top: variables.$sp-x;
   }
 
   li {
-    padding: $sp-x;
+    padding: variables.$sp-x;
     flex-shrink: 0;
     text-align: center;
     cursor: pointer;
@@ -211,7 +214,7 @@
     display: none;
   }
 
-  @include medium-and-less {
+  @include mixins.medium-and-less {
     flex-direction: column;
     height: auto;
     overflow: hidden;
@@ -226,10 +229,10 @@
       justify-content: flex-start;
       height: 100%;
       position: relative;
-      margin-bottom: -$sp-2;
+      margin-bottom: -(variables.$sp-2);
 
       &:not(:first-child) {
-        margin-top: -$sp-2x;
+        margin-top: -(variables.$sp-2x);
       }
 
       a {
@@ -251,7 +254,7 @@
     }
 
     li:first-child {
-      margin-top: -$sp-2;
+      margin-top: -(variables.$sp-2);
     }
   }
 }
@@ -270,7 +273,7 @@
 }
 
 .secondary-navigation-link {
-  @include medium-and-less {
+  @include mixins.medium-and-less {
     color: var(--grey-700) !important;
     font-weight: var(--font-weight-regular);
     font-size: var(--font-size-s--font-family-tertiary);
@@ -298,7 +301,7 @@
 }
 
 .page-content > h2:first-of-type {
-  @include medium-and-less {
+  @include mixins.medium-and-less {
     margin-top: 30px !important;
   }
 }

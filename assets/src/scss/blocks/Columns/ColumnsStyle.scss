@@ -1,3 +1,7 @@
+@use "../../base/fonts";
+@use "../../base/mixins";
+@use "../../base/variables";
+
 .columns-block {
   a {
     &:not(.btn) {
@@ -5,7 +9,7 @@
     }
 
     &.btn-secondary {
-      @include large-and-up {
+      @include mixins.large-and-up {
         width: 100%;
       }
     }
@@ -15,18 +19,18 @@
     line-height: 1.6rem;
 
     --block-columns--column-heading-- {
-      font-size: $font-size-lg;
+      font-size: fonts.$font-size-lg;
       font-family: var(--font-family-heading);
       font-weight: 700;
       color: var(--color-text-body);
       margin-bottom: .5rem;
       text-transform: none;
 
-      @include medium-and-up {
+      @include mixins.medium-and-up {
         font-size: 1.5rem;
       }
 
-      @include large-and-up {
+      @include mixins.large-and-up {
         font-size: 1.5rem;
       }
     }
@@ -35,9 +39,9 @@
   // Columns block, layout no-image.
   &.block-style-no_image {
     .row {
-      margin-top: -$sp-6;
+      margin-top: -(variables.$sp-6);
 
-      @include large-and-up {
+      @include mixins.large-and-up {
         margin-top: 0;
       }
     }
@@ -46,14 +50,14 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      margin-top: $sp-6;
+      margin-top: variables.$sp-6;
 
-      @include large-and-up {
+      @include mixins.large-and-up {
         margin-top: 0;
       }
 
       h3 {
-        margin-bottom: $sp-2;
+        margin-bottom: variables.$sp-2;
       }
 
       p {
@@ -63,9 +67,9 @@
           margin-bottom: 0;
         }
 
-        @include medium-and-up {
+        @include mixins.medium-and-up {
           width: auto;
-          margin-bottom: $sp-4;
+          margin-bottom: variables.$sp-4;
         }
       }
 
@@ -80,9 +84,9 @@
   &.block-style-icons {
     .row {
       // Compensate for last row margin
-      margin-bottom: -$sp-4;
+      margin-bottom: -(variables.$sp-4);
 
-      @include large-and-up {
+      @include mixins.large-and-up {
         margin-bottom: 0;
       }
     }
@@ -91,9 +95,9 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      margin-bottom: $sp-6;
+      margin-bottom: variables.$sp-6;
 
-      @include large-and-up {
+      @include mixins.large-and-up {
         margin-bottom: 0;
       }
 
@@ -101,7 +105,7 @@
       .icon-container {
         text-align: center;
 
-        @include medium-and-up {
+        @include mixins.medium-and-up {
           text-align: inherit;
         }
       }
@@ -109,8 +113,8 @@
       p {
         flex-grow: 1;
 
-        @include medium-and-up {
-          margin-bottom: $sp-4;
+        @include mixins.medium-and-up {
+          margin-bottom: variables.$sp-4;
         }
 
         &:last-child {
@@ -128,9 +132,9 @@
 
       .attachment-container {
         text-align: center;
-        margin-bottom: $sp-2;
+        margin-bottom: variables.$sp-2;
 
-        @include medium-and-up {
+        @include mixins.medium-and-up {
           text-align: inherit;
         }
       }
@@ -140,11 +144,11 @@
         width: 102px;
         height: 102px;
 
-        @include medium-and-up {
+        @include mixins.medium-and-up {
           text-align: inherit;
         }
 
-        @include x-large-and-up {
+        @include mixins.x-large-and-up {
           margin-bottom: 24px;
         }
       }
@@ -156,8 +160,8 @@
     .can-do-steps {
       position: relative;
 
-      @include x-large-and-up {
-        @include clearfix;
+      @include mixins.x-large-and-up {
+        @include mixins.clearfix;
       }
 
       .step-number {
@@ -168,7 +172,7 @@
         position: relative;
         display: block;
         margin-right: 20px;
-        margin-bottom: $sp-6;
+        margin-bottom: variables.$sp-6;
         width: 126px;
         height: 126px;
         line-height: 114px;
@@ -204,8 +208,8 @@
         p {
           font-family: var(--font-family-tertiary);
 
-          @include x-large-and-up {
-            font-size: $font-size-sm;
+          @include mixins.x-large-and-up {
+            font-size: fonts.$font-size-sm;
           }
         }
 
@@ -214,9 +218,9 @@
           height: 210px;
           object-fit: cover;
           object-position: 10% 10%;
-          margin-bottom: $sp-4;
+          margin-bottom: variables.$sp-4;
 
-          @include x-large-and-up {
+          @include mixins.x-large-and-up {
             height: 250px;
           }
         }
@@ -227,7 +231,7 @@
       width: 100%;
 
       .card-accordion {
-        margin-bottom: -$sp-1x;
+        margin-bottom: -(variables.$sp-1x);
       }
 
       .card {
@@ -238,7 +242,7 @@
         .card-header {
           --block-columns--card-header-- {
             font-weight: 700;
-            font-size: $font-size-xs;
+            font-size: fonts.$font-size-xs;
             font-family: var(--font-family-heading);
           }
           color: var(--white);
@@ -247,8 +251,8 @@
           display: block;
           cursor: pointer;
           text-decoration: none;
-          padding: $sp-1 $sp-1 $sp-x;
-          margin-bottom: $sp-1x;
+          padding: variables.$sp-1 variables.$sp-1 variables.$sp-x;
+          margin-bottom: variables.$sp-1x;
           border: none;
 
           &:hover {
@@ -288,7 +292,7 @@
           .mobile-accordion-info {
             width: 100%;
             margin: 0;
-            font-size: $font-size-xxs;
+            font-size: fonts.$font-size-xxs;
           }
 
           img {
@@ -296,34 +300,34 @@
             height: 190px;
             object-fit: cover;
             object-position: 10% 10%;
-            margin-top: $sp-4;
+            margin-top: variables.$sp-4;
 
-            @include small-and-up {
+            @include mixins.small-and-up {
               width: 100%;
             }
 
-            @include medium-and-up {
+            @include mixins.medium-and-up {
               height: 220px;
             }
 
-            @include large-and-up {
+            @include mixins.large-and-up {
               width: 50%;
             }
           }
 
           a {
-            margin-top: $sp-4;
+            margin-top: variables.$sp-4;
             display: inline-block;
           }
         }
 
         .card-block {
-          padding: $sp-2 $sp-3x $sp-4;
+          padding: variables.$sp-2 variables.$sp-3x variables.$sp-4;
           border-bottom: none;
 
           p {
             color: var(--color-text-body);
-            font-size: $font-size-xxs;
+            font-size: fonts.$font-size-xxs;
             line-height: 22px;
             margin-left: 0;
             margin-bottom: 0;
@@ -333,7 +337,7 @@
 
         .step-number {
           font-family: var(--font-family-primary);
-          font-size: $font-size-sm;
+          font-size: fonts.$font-size-sm;
           font-weight: 900;
           color: var(--white);
           line-height: 1.5;
@@ -351,11 +355,11 @@
     .row .col:nth-last-child(1):first-child {
       h5 {
         line-height: 1.6rem;
-        font-size: $font-size-lg;
+        font-size: fonts.$font-size-lg;
         font-family: var(--font-family-heading);
         font-weight: 700;
 
-        @include large-and-up {
+        @include mixins.large-and-up {
           font-size: 1.5rem;
         }
       }
@@ -367,9 +371,9 @@
     .column-wrap {
       display: flex;
       flex-direction: column;
-      margin-bottom: $sp-4;
+      margin-bottom: variables.$sp-4;
 
-      @include large-and-up {
+      @include mixins.large-and-up {
         margin-bottom: 0;
       }
 
@@ -377,7 +381,7 @@
       .icon-container {
         text-align: center;
 
-        @include medium-and-up {
+        @include mixins.medium-and-up {
           text-align: inherit;
         }
       }
@@ -385,8 +389,8 @@
       p {
         flex-grow: 1;
 
-        @include medium-and-up {
-          margin-bottom: $sp-4;
+        @include mixins.medium-and-up {
+          margin-bottom: variables.$sp-4;
         }
 
         &:last-child {
@@ -404,9 +408,9 @@
 
       .attachment-container {
         text-align: center;
-        margin-bottom: $sp-2;
+        margin-bottom: variables.$sp-2;
 
-        @include medium-and-up {
+        @include mixins.medium-and-up {
           text-align: inherit;
         }
       }

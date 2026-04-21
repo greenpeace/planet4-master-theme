@@ -1,6 +1,7 @@
-@import "../base/tokens";
-@import "../base/mixins";
-@import "../base/variables";
-@import "../base/fonts";
+@use "../base/tokens";
+@use "../base/mixins";
+@use "../base/colors";
+@use "../base/variables";
+@use "../base/fonts";
 
-@import "../layout/country-selector";
+@use "../layout/country-selector";

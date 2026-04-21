@@ -1,23 +1,27 @@
-@import "./base/tokens";
+@use "base/tokens";
+@use "base/fonts";
+@use "base/mixins";
+@use "base/variables";
+@use "layout/tables";
 
 // Moved from another repo, for history please see https://github.com/greenpeace/planet4-plugin-gutenberg-blocks/blame/f5c532ed5704738136224cde305e9a0ffe614ceb/assets/src/styles/editorOverrides.scss
 .editor-post-title__block textarea.editor-post-title__input {
   font-family: var(--font-family-heading);
-  font-size: $font-size-xl;
+  font-size: fonts.$font-size-xl;
   line-height: 1.225;
   margin-bottom: 30px;
 
-  @include large-and-up {
-    font-size: $font-size-xxl;
+  @include mixins.large-and-up {
+    font-size: fonts.$font-size-xxl;
     margin-bottom: 48px;
   }
-  @include x-large-and-up {
-    font-size: $font-size-xxxl;
+  @include mixins.x-large-and-up {
+    font-size: fonts.$font-size-xxxl;
   }
 }
 
 .edit-post-visual-editor {
-  @include table;
+  @include tables.table;
 }
 
 .components-panel__body {
@@ -47,12 +51,12 @@
   border-radius: 4px;
   border: 1px solid transparent;
   cursor: pointer;
-  padding: $sp-1x $sp-4;
+  padding: variables.$sp-1x variables.$sp-4;
   appearance: none;
   transition-property: color, background-color, border-color;
   transition-duration: 150ms;
   transition-timing-function: linear;
-  font-size: $font-size-sm;
+  font-size: fonts.$font-size-sm;
 
   [data-rich-text-placeholder]::after {
     color: inherit;
@@ -109,20 +113,20 @@
     font-size: var(--font-size-m--font-family-secondary);
     line-height: var(--line-height-m--font-family-secondary);
 
-    @include x-large-and-up {
+    @include mixins.x-large-and-up {
       font-size: var(--font-size-xl--font-family-secondary);
       line-height: var(--line-height-xl--font-family-secondary);
     }
 
     > a {
-      @include shared-link-styles;
+      @include mixins.shared-link-styles;
     }
   }
 
   .wp-block-list a,
   > ul li a,
   > ol li a {
-    @include shared-link-styles;
+    @include mixins.shared-link-styles;
   }
 }
 
@@ -232,7 +236,7 @@ input.describe[type=text][data-setting=caption] {
 
 // Adjust CSS Customizer for readability
 .CodeMirror-code {
-  font-size: $font-size-xs;
+  font-size: fonts.$font-size-xs;
   line-height: 1rem;
 }
 
@@ -247,7 +251,7 @@ input.describe[type=text][data-setting=caption] {
   .block-editor-block-patterns-list__item-title {
     color: var(--color-text-body);
     font-weight: bold;
-    margin-bottom: $sp-1;
+    margin-bottom: variables.$sp-1;
   }
 }
 
@@ -351,7 +355,7 @@ input.describe[type=text][data-setting=caption] {
     }
 
     &:hover .tooltip a {
-      color: $black;
+      color: black;
     }
   }
 }
@@ -403,19 +407,19 @@ input.describe[type=text][data-setting=caption] {
     flex-shrink: 0;
 
     &:not(:last-child) {
-      margin-inline-end: $sp-2;
+      margin-inline-end: variables.$sp-2;
     }
   }
 
-  @include large-and-up {
+  @include mixins.large-and-up {
     .wp-block-post:not(:last-child) {
-      margin-inline-end: $sp-3;
+      margin-inline-end: variables.$sp-3;
     }
   }
 }
 
 .components-base-control__field {
-  margin-bottom: $sp-1;
+  margin-bottom: variables.$sp-1;
 }
 
 .edit-post-meta-boxes-area #p4_metabox_post h2.hndle,

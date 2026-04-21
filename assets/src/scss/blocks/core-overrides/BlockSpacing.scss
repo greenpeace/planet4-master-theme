@@ -1,3 +1,6 @@
+@use "../../base/mixins";
+@use "../../base/variables";
+
 .wp-block-quote,
 .wp-block-file,
 .wp-block-button,
@@ -14,12 +17,12 @@
 .post-details > ol > li:last-of-type,
 .post-details > p,
 .post-details > p:first-of-type {
-  margin-top: $sp-1;
-  margin-bottom: $sp-2;
+  margin-top: variables.$sp-1;
+  margin-bottom: variables.$sp-2;
 
-  @include large-and-up {
-    margin-top: $sp-2;
-    margin-bottom: $sp-4;
+  @include mixins.large-and-up {
+    margin-top: variables.$sp-2;
+    margin-bottom: variables.$sp-4;
   }
 }
 
@@ -27,12 +30,12 @@
 .post-details > ul > li,
 .page-content > ol > li,
 .post-details > ol > li {
-  margin-top: $sp-1;
-  margin-bottom: $sp-1;
+  margin-top: variables.$sp-1;
+  margin-bottom: variables.$sp-1;
 
-  @include large-and-up {
-    margin-top: $sp-2;
-    margin-bottom: $sp-2;
+  @include mixins.large-and-up {
+    margin-top: variables.$sp-2;
+    margin-bottom: variables.$sp-2;
   }
 }
 

@@ -1,9 +1,12 @@
-@import "navbar/site-logo";
-@import "navbar/languages";
-@import "navbar/search";
-@import "navbar/mobile";
-@import "navbar/burger-menu";
-@import "navbar/desktop-menu";
+@use "navbar/site-logo";
+@use "navbar/languages";
+@use "navbar/search";
+@use "navbar/mobile";
+@use "navbar/burger-menu";
+@use "navbar/desktop-menu";
+@use "../base/fonts";
+@use "../base/mixins";
+@use "../base/variables";
 
 :root {
   --top-navigation--separation: 1px solid var(--grey-300);
@@ -29,11 +32,11 @@
     top: 46px;
 
     @media (min-width: 783px) {
-      top: $sp-4;
+      top: variables.$sp-4;
     }
   }
 
-  @include large-and-up {
+  @include mixins.large-and-up {
     align-items: center;
   }
 
@@ -63,14 +66,14 @@
       border: none;
     }
 
-    @include large-and-up {
+    @include mixins.large-and-up {
       &.dropdown {
         &::after {
           content: "";
           display: inline-block;
           width: 10px;
           height: 10px;
-          margin-inline-start: $sp-x;
+          margin-inline-start: variables.$sp-x;
           mask: url("../../images/chevron.svg") 0 0/10px 10px;
           transform: rotate(90deg);
           transition: transform 150ms linear;
@@ -101,27 +104,27 @@
   }
 
   & > ul {
-    padding-inline-end: $sp-2;
+    padding-inline-end: variables.$sp-2;
     display: flex;
     justify-content: flex-end;
     align-items: center;
     flex-grow: 1;
 
     & > li:not(:last-child) {
-      margin-inline-start: $sp-2;
-      margin-inline-end: $sp-2;
+      margin-inline-start: variables.$sp-2;
+      margin-inline-end: variables.$sp-2;
 
-      @include xx-large-and-up {
-        margin-inline-end: $sp-3;
+      @include mixins.xx-large-and-up {
+        margin-inline-end: variables.$sp-3;
       }
     }
   }
 
-  @include medium-and-less {
+  @include mixins.medium-and-less {
     overflow-y: auto;
   }
 
-  @include large-and-up {
+  @include mixins.large-and-up {
     display: flex;
     flex-grow: 1;
     height: auto;
@@ -141,14 +144,14 @@
     max-height: 320px;
     display: block;
     flex-direction: column;
-    padding: $sp-2 $sp-x;
+    padding: variables.$sp-2 variables.$sp-x;
     overflow-y: auto;
-    margin-top: $sp-1;
+    margin-top: variables.$sp-1;
     border-radius: 4px;
     background: var(--white);
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
 
-    @include scrollbar-layout;
+    @include mixins.scrollbar-layout;
   }
 
   .nav-item {
@@ -160,14 +163,14 @@
     a.nav-link {
       color: var(--color-text-nav_link);
       font-family: var(--font-family-tertiary);
-      font-size: $font-size-sm;
+      font-size: fonts.$font-size-sm;
       font-weight: var(--font-weight-semibold);
       line-height: 19px;
       text-decoration: none;
       height: 100%;
       display: flex;
       align-items: center;
-      padding: 14px $sp-3;
+      padding: 14px variables.$sp-3;
 
       &:hover {
         color: var(--color-text-nav_link);
@@ -194,13 +197,13 @@ a.nav-link {
   color: var(--color-text-nav_link);
   opacity: 1;
   display: inline-block;
-  padding: $sp-2 0;
+  padding: variables.$sp-2 0;
   position: relative;
   width: 100%;
   text-decoration: none !important;
 
   span {
-    @include clamp-text(2);
+    @include mixins.clamp-text(2);
   }
 
   &:hover {
@@ -215,7 +218,7 @@ a.nav-link {
     color: var(--color-text-nav_link);
   }
 
-  @include large-and-up {
+  @include mixins.large-and-up {
     padding: 0;
   }
 
@@ -248,7 +251,7 @@ a.nav-link:hover:before,
   transition: transform 0.25s;
   z-index: 1;
 
-  @include large-and-up {
+  @include mixins.large-and-up {
     border-bottom-width: 4px;
   }
 }
@@ -276,28 +279,28 @@ a.nav-link:hover:before,
 }
 
 .nav-donate {
-  padding: $sp-2 0;
+  padding: variables.$sp-2 0;
   position: relative;
 
-  @include large-and-up {
+  @include mixins.large-and-up {
     padding: 0;
   }
 
   &.has-children a {
-    padding-inline-end: $sp-4;
+    padding-inline-end: variables.$sp-4;
   }
 
   .accessible-nav-link {
     @include dropdown-icon;
-    right: $sp-2;
+    right: variables.$sp-2;
     left: auto;
 
     &:focus {
-      @include focus-styles;
+      @include mixins.focus-styles;
     }
 
     html[dir="rtl"] & {
-      left: $sp-2;
+      left: variables.$sp-2;
       right: auto;
     }
   }
@@ -309,12 +312,12 @@ a.nav-link:hover:before,
 
 .nav-item,
 .nav-donate {
-  font-size: $font-size-sm;
+  font-size: fonts.$font-size-sm;
   font-weight: var(--font-weight-regular);
   color: inherit;
   position: relative;
 
-  @include large-and-up {
+  @include mixins.large-and-up {
     line-height: var(--navbar-menu-height);
 
     &:hover {
@@ -329,7 +332,7 @@ a.nav-link:hover:before,
 .nav-item {
   .accessible-nav-link {
     @include dropdown-icon;
-    right: -$sp-2;
+    right: -(variables.$sp-2);
     left: auto;
     opacity: 0;
 
@@ -338,23 +341,23 @@ a.nav-link:hover:before,
       width: 10px;
       height: 10px;
       pointer-events: none;
-      @include focus-styles;
+      @include mixins.focus-styles;
     }
 
     html[dir="rtl"] & {
-      left: -$sp-2;
+      left: -(variables.$sp-2);
       right: auto;
     }
   }
 }
 
 .nav-donate .nav-submenu {
-  @include large-and-less {
-    right: $sp-8x;
+  @include mixins.large-and-less {
+    right: variables.$sp-8x;
     left: auto;
 
     html[dir="rtl"] & {
-      left: $sp-8x;
+      left: variables.$sp-8x;
       right: auto;
     }
   }
@@ -364,16 +367,16 @@ a.nav-link:hover:before,
   background: transparent;
   border: none;
   border-radius: 4px;
-  padding: 0 $sp-3;
+  padding: 0 variables.$sp-3;
 
-  @include large-and-up {
+  @include mixins.large-and-up {
     display: none;
   }
 
   &:focus,
   &:focus-within,
   &:focus-visible {
-    @include focus-styles;
+    @include mixins.focus-styles;
   }
 }
 
@@ -381,7 +384,7 @@ a.nav-link:hover:before,
   justify-content: center;
   height: var(--navbar-menu-min-height);
 
-  @include large-and-up {
+  @include mixins.large-and-up {
     justify-content: flex-start;
   }
 }

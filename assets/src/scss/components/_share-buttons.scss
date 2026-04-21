@@ -1,11 +1,12 @@
-@use "../base/social-media-colors" as socialMediaColors;
+@use "../base/colors";
+@use "../base/fonts";
 
 .share-buttons {
   display: flex;
 
   .share-btn {
     border: none;
-    font-size: $font-size-md;
+    font-size: fonts.$font-size-md;
     opacity: 0.9;
     width: 3rem;
     text-align: center;
@@ -31,15 +32,15 @@
   }
 
   .twitter {
-    color: socialMediaColors.$twitter;
+    color: colors.$twitter;
   }
 
   .facebook {
-    color: socialMediaColors.$facebook;
+    color: colors.$facebook;
   }
 
   .bluesky {
-    color: socialMediaColors.$bluesky;
+    color: colors.$bluesky;
   }
 
   .email {
@@ -51,7 +52,7 @@
   }
 
   .whatsapp {
-    color: socialMediaColors.$whatsapp;
+    color: colors.$whatsapp;
 
     .icon {
       font-size: 1.5rem;

@@ -1,15 +1,18 @@
+@use "../../base/mixins";
+@use "../../base/variables";
+
 .add-button {
   cursor: pointer;
   font-weight: var(--font-weight-regular);
   color: var(--p4-dark-green-800);
   width: fit-content;
-  margin-top: $sp-3;
+  margin-top: variables.$sp-3;
 
   .plus {
     border: 1px solid var(--p4-dark-green-800);
     color: var(--p4-dark-green-800);
-    padding: $sp-x $sp-1;
-    margin-inline-end: $sp-1x;
+    padding: variables.$sp-x variables.$sp-1;
+    margin-inline-end: variables.$sp-1x;
     border-radius: 50%;
   }
 
@@ -47,11 +50,11 @@
     }
   }
 
-  @include medium-and-up {
+  @include mixins.medium-and-up {
     width: 40%;
   }
 
-  @include large-and-up {
+  @include mixins.large-and-up {
     width: 25%;
   }
 }

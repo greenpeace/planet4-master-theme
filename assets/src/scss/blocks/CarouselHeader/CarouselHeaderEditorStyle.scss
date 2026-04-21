@@ -1,4 +1,5 @@
-@import "./SidebarSlidesEditor.scss";
+@use "SidebarSlidesEditor.scss";
+@use "../../base/mixins";
 
 // Fix for the block being inside of a wrapper element.
 // We can remove this fix once this block starts using the v2 block registration API.
@@ -9,7 +10,7 @@ div[data-type="planet4-blocks/carousel-header"] {
 .carousel-header .carousel-caption .carousel-captions-wrapper {
   h2,
   p {
-    @include clamp-text(none);
+    @include mixins.clamp-text(none);
   }
 }
 
@@ -118,7 +119,7 @@ div[data-type="planet4-blocks/carousel-header"] {
   }
 }
 
-@include x-large-and-up {
+@include mixins.x-large-and-up {
   .carousel-header .carousel-item .carousel-caption .main-header .row {
     padding-inline-start: 110px;
   }
