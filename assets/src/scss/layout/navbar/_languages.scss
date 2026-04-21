@@ -1,5 +1,19 @@
 @use "../../base/tokens" as tokens;
 
+.nav-languages-wrapper {
+  .nav-languages {
+    display: none;
+  }
+
+  &:hover .nav-languages {
+    display: block;
+  }
+
+  .nav-languages.is-open {
+    display: block;
+  }
+}
+
 .nav-languages-toggle {
   background: transparent;
   border: none;
@@ -27,18 +41,14 @@
       background-repeat: no-repeat;
     }
 
-    .nav-languages {
-      display: none;
-    }
-
     &:hover {
       &::after {
         transform: rotate(-90deg);
       }
+    }
 
-      .nav-languages {
-        display: block;
-      }
+    &[aria-expanded="true"]::after {
+      transform: rotate(-90deg);
     }
   }
 }
