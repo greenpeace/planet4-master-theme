@@ -77,7 +77,6 @@ class MasterSite extends \Timber\Site
             // Disable WP Block Patterns.
             remove_theme_support('core-block-patterns');
         }
-
         add_post_type_support('page', 'excerpt'); // Added excerpt option to pages.
 
         add_filter('timber/context', [$this, 'add_to_context']);
@@ -97,6 +96,7 @@ class MasterSite extends \Timber\Site
         add_action('pre_insert_term', [$this, 'disallow_insert_term'], 1, 2);
         add_filter('wp_dropdown_users_args', [$this, 'filter_authors'], 10, 1);
         add_filter('http_request_timeout', fn () => 10);
+        add_filter('register_block_type_args', [$this, 'set_custom_query_type'], 10, 2);
 
         add_action('after_setup_theme', function (): void {
             register_nav_menus(
@@ -258,6 +258,22 @@ class MasterSite extends \Timber\Site
                 return $classes;
             }
         );
+    }
+
+    /**
+     * Set "Custom" as the default query type for the native Query block.
+     */
+    public function set_custom_query_type(array $args, string $block_type): array
+    {
+        if ($block_type !== 'core/query') {
+            return $args;
+        }
+
+        if (isset($args['attributes']['query']['default']['inherit'])) {
+            $args['attributes']['query']['default']['inherit'] = false;
+        }
+
+        return $args;
     }
 
     /**
