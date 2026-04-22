@@ -8,7 +8,7 @@
       "email": "planet4-group@greenpeace.org"
     }
   ],
-  "license": "MIT",
+  "license": "GPL-3.0-or-later",
   "repositories": [
     {
       "type": "composer",
