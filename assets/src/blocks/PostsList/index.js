@@ -107,7 +107,16 @@ export const getPostListBlockTemplate = (title = __('Related Posts', 'planet4-ma
         ['core/post-excerpt'],
         ['core/group', {className: 'posts-list-meta'}, [
           ['core/post-author-name', {isLink: true}],
-          ['core/post-date'],
+          ['core/post-date', {
+            metadata: {
+              bindings: {
+                datetime: {
+                  source: 'core/post-data',
+                  args: {field: 'date'},
+                },
+              },
+            },
+          }],
         ]],
       ]],
     ]],
