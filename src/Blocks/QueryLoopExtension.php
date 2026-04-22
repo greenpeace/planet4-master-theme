@@ -53,30 +53,6 @@ class QueryLoopExtension
 
         $shared_data = 'data-ga-category="Actions List" data-ga-label="n/a"';
 
-        // $block_content = preg_replace(
-        //     '/<figure([^>]*)>\s*<a([^>]*)>(.*?)<\/a>\s*<\/figure>/is',
-        //     '<a$2><figure$1>$3</figure></a>',
-        //     $block_content
-        // );
-        // $block_content = preg_replace(
-        //     '/<figure([^>]*)>\s*<a([^>]*)>(.*?)<\/a>\s*<\/figure>/is',
-        //     '<a$2><figure$1>$3</figure></a>',
-        //     $block_content
-        // );
-
-        // $block_content = preg_replace(
-        //     '/<a(?![^>]*data-ga-action)([^>]*)>\s*<figure/',
-        //     '<a data-ga-action="Image" ' . $shared_data . '$1><figure',
-        //     $block_content
-        // );
-
-
-        // $block_content = preg_replace(
-        //     '/(<figure[^>]*>.*?)<a(?![^>]*data-ga-action)\b/',
-        //     '$1<a data-ga-action="Image" ' . $shared_data,
-        //     $block_content
-        // );
-
         $block_content = preg_replace(
             '/(<figure[^>]*>.*?)<img(?![^>]*data-ga-action)\b/',
             '$1<img data-ga-action="Image" ' . $shared_data,
