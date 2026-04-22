@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Block search regex
+ * Block search LIKE pattern
  */
 
 namespace P4\MasterTheme\BlockReportSearch\Block\Sql;
@@ -9,7 +9,7 @@ namespace P4\MasterTheme\BlockReportSearch\Block\Sql;
 use P4\MasterTheme\BlockReportSearch\Block\Query\Parameters;
 
 /**
- * Regular expression used in SQL query
+ * LIKE pattern used in SQL query
  */
 class Like
 {
