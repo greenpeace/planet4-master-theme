@@ -128,9 +128,11 @@ class M063RemoveStaleDatetimeFromPostsListBlock extends MigrationScript
                 }
             }
 
-            if (!empty($block['innerBlocks'])) {
-                $block['innerBlocks'] = self::fix_post_date_blocks($block['innerBlocks']);
+            if (empty($block['innerBlocks'])) {
+                continue;
             }
+
+            $block['innerBlocks'] = self::fix_post_date_blocks($block['innerBlocks']);
         }
 
         return $blocks;
