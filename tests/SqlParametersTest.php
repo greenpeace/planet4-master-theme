@@ -1,16 +1,16 @@
 <?php
 
 /**
- * P4 Test Case Class
+ * SqlParameters Test Class
  *
  * @package P4MT
  */
 
 /**
- * Class SqlParameters.
+ * Class SqlParametersTest.
  */
 // phpcs:ignore PSR1.Classes.ClassDeclaration.MissingNamespace
-class SqlParameters extends \PHPUnit\Framework\TestCase
+class SqlParametersTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * Ensure that in whichever order the sql is constructed, it will add the params in the right place.
