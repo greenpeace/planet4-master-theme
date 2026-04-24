@@ -263,6 +263,14 @@ class QueryLoopExtension
             esc_attr($ga_action)
         );
 
+        if ($block_name === 'core/post-featured-image') {
+            return (string) preg_replace('/<img\b/', '<img ' . $data_attrs, $content);
+        }
+
+        if ($block_name === 'core/navigation-link') {
+            return (string) preg_replace('/<span\b/', '<span ' . $data_attrs, $content);
+        }
+
         return (string) preg_replace('/<a\b/', '<a ' . $data_attrs, $content);
     }
 }
