@@ -29,7 +29,8 @@
 
         &.gform-icon--circle-error::before {
           content: "error";
-          font-family: 'Material Symbols Outlined';
+          /* stylelint-disable-next-line font-family-no-missing-generic-family-keyword */
+          font-family: "Material Symbols Outlined";
           font-size: inherit;
           margin-inline-end: 6px;
         }
