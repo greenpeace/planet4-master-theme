@@ -1234,15 +1234,10 @@ class GravityFormsExtensions
      * @link https://docs.gravityforms.com/gform_field_validation/
      *
      * @param array $result       The validation result to be filtered.
-     * @param string|array $value The field value to be validated.
-     * @param array $form         Current form object.
-     * @param array $field        Current field object.
-     * @param string $context     The context for the current submission.
      */
-    public function p4_gf_update_error_box_layout($result, $value, $form, $field, $context): string
+    public function p4_gf_update_error_box_layout($result): string
     {
         if (!$result['is_valid'] && !str_contains($result['message'], ":")) {
-            $label = $field->label;
             $result['message'] = "<span>{$result['message']}</span>";
         }
         return $result;
