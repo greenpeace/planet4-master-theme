@@ -8,14 +8,62 @@
   font-family: var(--font-family-paragraph-secondary);
 
   &.gform_validation_error .gform_validation_errors {
-    color: var(--p4-action-yellow-600);
-    background: var(--white);
-    border-color: var(--p4-action-yellow-600);
+    padding: 24px 16px !important;
+    background: var(--red-50) !important;
+    border-color: var(--red-500) !important;
+    border-width: 1px;
     box-shadow: none;
     width: fit-content;
 
     > h2 {
-      color: var(--p4-action-yellow-600);
+      color: var(--red-800) !important;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      font-size: var(--font-size-xxs--font-family-primary) !important;
+
+      .gform-icon {
+        height: auto !important;
+        position: relative !important;
+        inset-inline-start: 0 !important;
+
+        &.gform-icon--circle-error::before {
+          content: "error";
+          /* stylelint-disable-next-line font-family-no-missing-generic-family-keyword */
+          font-family: "Material Symbols Outlined";
+          font-size: inherit;
+          margin-inline-end: 6px;
+        }
+      }
+    }
+
+    > h2, > ol li {
+      margin-bottom: 0 !important;
+    }
+
+    > ol {
+      margin-bottom: 0 !important;
+
+      li {
+        text-decoration: underline;
+
+        .gform_validation_error_link {
+          color: var(--red-800) !important;
+          font-size: 14px !important;
+          font-weight: bold;
+
+          span {
+            font-weight: 400;
+          }
+        }
+      }
+    }
+
+    &:focus {
+      // because we cannot include @include focus-styles;
+      outline: 2px solid #99c3ff !important;
+      outline-offset: 1px !important;
+      border-radius: 4px !important;
     }
   }
 
@@ -27,8 +75,14 @@
     max-width: 800px;
   }
 
-  &.gravity-theme .gform-loader {
-    margin-inline-start: $sp-2 !important;
+  &.gravity-theme {
+    .gform-loader {
+      margin-inline-start: $sp-2 !important;
+    }
+
+    .gfield_label {
+      font-weight: 400 !important;
+    }
   }
 }
 
@@ -89,6 +143,10 @@
       color: var(--color-text-body);
     }
 
+    & input[aria-invalid="true"] {
+      border-width: 2px !important;
+    }
+
     input:not([type="file"]):not(:disabled),
     textarea[aria-invalid="true"],
     select[aria-invalid="true"] {
@@ -106,10 +164,8 @@
     }
 
     .validation_message.gfield_validation_message {
-      --gfield-validation-message-- {
-        font-size: var(--font-size-xs--font-family-tertiary);
-        font-weight: var(--font-weight-semibold);
-      }
+      font-size: var(--font-size-xs--font-family-tertiary);
+      font-weight: var(--font-weight-semibold);
       background: var(--red-500);
       color: var(--white);
       border-radius: 4px;
