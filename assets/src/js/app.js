@@ -2,10 +2,6 @@ import 'bootstrap';
 
 import {setupCookies} from './cookies';
 import {setupHeader} from './header';
-import {setupPDFIcon} from './pdf_icon';
-import {setupExternalLinks} from './external_links';
-import {removeNoPostText} from './query-no-posts';
-import {removeRelatedPostsSection} from './remove_related_section_no_posts';
 import {setupCountrySelector} from './country_selector';
 
 function requireAll(r) {
@@ -17,10 +13,6 @@ requireAll(require.context('../images/icons/', true, /\.svg$/));
 document.addEventListener('DOMContentLoaded', () => {
   setupCookies();
   setupHeader();
-  setupPDFIcon();
-  setupExternalLinks();
-  removeNoPostText();
-  removeRelatedPostsSection();
   setupCountrySelector();
 
   if(!!document.querySelector('body.search')) {
