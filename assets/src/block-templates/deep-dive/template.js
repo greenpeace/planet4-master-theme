@@ -12,7 +12,7 @@ const topic = ['core/column', {}, [
       width: '180px',
     }],
     ['core/heading', {
-      level: 5,
+      level: 3,
       textAlign: 'center',
       style: {typography: {fontSize: '1rem'}},
       className: 'is-style-chevron',

@@ -28,7 +28,7 @@ const item = ['core/group', {
     alt: __('Enter text', 'planet4-master-theme-backend'),
   }],
   ['core/heading', {
-    level: 5,
+    level: 3,
     className: 'w-auto',
     style: {
       typography: {fontSize: '1rem'},
