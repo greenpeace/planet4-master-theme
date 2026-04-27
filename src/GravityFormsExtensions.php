@@ -128,7 +128,6 @@ class GravityFormsExtensions
         add_action('gform_pre_render', [$this, 'enqueue_share_buttons'], 10, 2);
         add_action('admin_enqueue_scripts', [$this, 'enqueue_gf_custom_scripts']);
         add_action('wp_enqueue_scripts', [$this, 'dequeue_gf_scripts'], 999);
-        add_action('wp_enqueue_scripts', [$this, 'include_material_icons_font'], 999);
     }
 
     /**
@@ -148,25 +147,6 @@ class GravityFormsExtensions
         }
 
         wp_dequeue_style('gravity-forms-style');
-    }
-
-    /**
-     * Include Material Icons font family.
-     *
-     */
-    public function include_material_icons_font(): void
-    {
-        // Check if Gravity Forms is active
-        if (!class_exists('GFForms')) {
-            return;
-        }
-
-        wp_enqueue_style(
-            'material-symbols-outlined',
-            'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0',
-            [],
-            null
-        );
     }
 
     /**

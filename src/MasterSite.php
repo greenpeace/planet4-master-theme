@@ -89,6 +89,7 @@ class MasterSite extends \Timber\Site
         // Load main theme assets before any child theme.
         add_action('wp_enqueue_scripts', [PublicAssets::class, 'enqueue_css'], 0);
         add_action('wp_enqueue_scripts', [PublicAssets::class, 'enqueue_js']);
+        add_action('wp_enqueue_scripts', [$this, 'include_material_icons_font'], 10, 2);
         add_filter('safe_style_css', [$this, 'set_custom_allowed_css_properties']);
         add_filter('wp_kses_allowed_html', [$this, 'set_custom_allowed_attributes_filter'], 10, 2);
         add_filter('wp_insert_post_data', [$this, 'require_post_title'], 10, 1);
@@ -858,5 +859,19 @@ class MasterSite extends \Timber\Site
         $args['sort'] = true;
         $args['args'] = ['orderby' => 'term_order'];
         return $args;
+    }
+
+    /**
+     * Include Material Icons font family.
+     *
+     */
+    public function include_material_icons_font(): void
+    {
+        wp_enqueue_style(
+            'material-symbols-outlined',
+            'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0',
+            [],
+            null
+        );
     }
 }
