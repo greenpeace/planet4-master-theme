@@ -1215,7 +1215,7 @@ class GravityFormsExtensions
      *
      * @param array $result       The validation result to be filtered.
      */
-    public function p4_gf_update_error_box_layout($result): string
+    public function p4_gf_update_error_box_layout($result): array
     {
         if (!$result['is_valid'] && !str_contains($result['message'], ":")) {
             $result['message'] = "<span>{$result['message']}</span>";
