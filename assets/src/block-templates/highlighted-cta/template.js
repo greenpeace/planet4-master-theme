@@ -34,6 +34,7 @@ const template = ({
         level: 2,
         placeholder: titlePlaceholder,
         textColor: 'white',
+        style: {typography: {fontSize: '1.75rem'}},
       }],
       ['core/spacer', {height: '24px'}],
       ['core/buttons', {layout: {type: 'flex', justifyContent: 'center'}}, [

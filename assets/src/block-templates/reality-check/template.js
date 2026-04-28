@@ -11,6 +11,7 @@ const column = ['core/column', {}, [
     }],
     ['core/heading', {
       style: {typography: {fontSize: '4rem'}},
+      level: 3,
       textAlign: 'center',
       placeholder: __('Enter title', 'planet4-master-theme-backend'),
     }],

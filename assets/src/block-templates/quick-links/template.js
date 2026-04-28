@@ -32,7 +32,12 @@ const template = ({
   }, [
     ['core/group', {className: 'container'}, [
       ['core/spacer', {height: '24px'}],
-      ['core/heading', {level: 2, placeholder: __('Enter title', 'planet4-master-theme-backend'), content: title}],
+      ['core/heading', {
+        level: 2,
+        placeholder: __('Enter title', 'planet4-master-theme-backend'),
+        content: title,
+        style: {typography: {fontSize: '1.75rem'}},
+      }],
       ['core/columns', {
         isStackedOnMobile: false,
         className: 'is-style-mobile-carousel quick-links',
