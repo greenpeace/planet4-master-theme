@@ -744,7 +744,6 @@ class Functions
      *
      * @param string $html - The HTML.
      * @param string $classToRemove - The class to be removed.
-     * @return string
      */
     public static function remove_class_from_html(string $html, string $classToRemove): string
     {
