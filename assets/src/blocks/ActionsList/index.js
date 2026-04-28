@@ -35,7 +35,7 @@ const carouselButtons = [
           'core/button',
           {
             className: 'carousel-control-prev',
-            text: __('Previous Carousel Slide', 'planet4-master-theme-backend'),
+            text: __('Previous carousel slide', 'planet4-master-theme-backend'),
             tagName: 'button',
           },
         ],
@@ -43,7 +43,7 @@ const carouselButtons = [
           'core/button',
           {
             className: 'carousel-control-next',
-            text: __('Next Carousel Slide', 'planet4-master-theme-backend'),
+            text: __('Next carousel slide', 'planet4-master-theme-backend'),
             tagName: 'button',
           },
         ],
