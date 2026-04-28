@@ -644,9 +644,11 @@ class Functions
 
         $tagname = isset($attrs['tagName']) ? $attrs['tagName'] : 'div';
 
+        $aria_label_attr = $aria_label !== '' ? ' aria-label="' . $aria_label . '"' : '';
+
         // IMPORTANT: DO NOT MODIFY THIS FORMAT!
         $inner_html =
-        '<' . $tagname . ' class="' . $classname . '" aria-label="' . $aria_label . '">
+        '<' . $tagname . ' class="' . $classname . '"' . $aria_label_attr . '>
 
 
 
@@ -657,7 +659,7 @@ class Functions
         // IMPORTANT: DO NOT MODIFY THIS FORMAT!
         $inner_content = array (
             0 => '
-        <' . $tagname . ' class="' . $classname . '" aria-label="' . $aria_label . '">',
+        <' . $tagname . ' class="' . $classname . '"' . $aria_label_attr . '>',
             1 => null,
             2 => '
         ',
