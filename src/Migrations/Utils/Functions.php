@@ -736,4 +736,30 @@ class Functions
             $content,
         );
     }
+
+    /**
+     * Removes a class from a piece of html.
+     *
+     * @param string $html - The HTML.
+     * @param string $classToRemove - The class to be removed.
+     * @return string
+     */
+    public static function remove_class_from_html(string $html, string $classToRemove): string
+    {
+        return preg_replace_callback(
+            '/class="([^"]*)"/',
+            function ($matches) use ($classToRemove) {
+                $classes = preg_split('/\s+/', trim($matches[1]));
+
+                $classes = array_filter($classes, fn($c) => $c !== $classToRemove);
+
+                if (empty($classes)) {
+                    return '';
+                }
+
+                return 'class="' . implode(' ', $classes) . '"';
+            },
+            $html
+        );
+    }
 }
