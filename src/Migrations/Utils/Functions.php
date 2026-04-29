@@ -631,30 +631,35 @@ class Functions
      *
      * @param array $inner_blocks - The block's inner blocks.
      * @param array $attrs - The block's attributes.
+     * @param string $aria_label - The block's ARIA label.
      *
      * @return array - The new Group block.
      */
-    public static function create_group_block(array $inner_blocks, array $attrs): array
+    public static function create_group_block(array $inner_blocks, array $attrs, string $aria_label = ''): array
     {
         $classname =
             isset($attrs['className']) ?
             'wp-block-group ' . $attrs['className'] :
             'wp-block-group';
 
+        $tagname = isset($attrs['tagName']) ? $attrs['tagName'] : 'div';
+
+        $aria_label_attr = $aria_label !== '' ? ' aria-label="' . $aria_label . '"' : '';
+
         // IMPORTANT: DO NOT MODIFY THIS FORMAT!
         $inner_html =
-        '<div class="' . $classname . '">
+        '<' . $tagname . ' class="' . $classname . '"' . $aria_label_attr . '>
 
 
 
 
 
-        </div>';
+        </' . $tagname . '>';
 
         // IMPORTANT: DO NOT MODIFY THIS FORMAT!
         $inner_content = array (
             0 => '
-        <div class="' . $classname . '">',
+        <' . $tagname . ' class="' . $classname . '"' . $aria_label_attr . '>',
             1 => null,
             2 => '
         ',
@@ -665,7 +670,7 @@ class Functions
             6 => '
         ',
             7 => null,
-            8 => '</div>
+            8 => '</' . $tagname . '>
         ',
         );
 
@@ -731,6 +736,31 @@ class Functions
             $inner_blocks,
             $html,
             $content,
+        );
+    }
+
+    /**
+     * Removes a class from a piece of html.
+     *
+     * @param string $html - The HTML.
+     * @param string $classToRemove - The class to be removed.
+     */
+    public static function remove_class_from_html(string $html, string $classToRemove): string
+    {
+        return preg_replace_callback(
+            '/class="([^"]*)"/',
+            function ($matches) use ($classToRemove) {
+                $classes = preg_split('/\s+/', trim($matches[1]));
+
+                $classes = array_filter($classes, fn($c) => $c !== $classToRemove);
+
+                if (empty($classes)) {
+                    return '';
+                }
+
+                return 'class="' . implode(' ', $classes) . '"';
+            },
+            $html
         );
     }
 }

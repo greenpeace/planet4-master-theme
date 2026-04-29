@@ -10,6 +10,10 @@ const LAYOUTS = {
 };
 const BUTTONS_CLASS = '.wp-block-buttons';
 const CONTROLS_CLASS = `.${LAYOUTS.carousel}-control`;
+const BLOCK_CLASSNAMES = {
+  actionsList: 'actions-list',
+  postsList: 'posts-list',
+};
 
 /**
  * This function removes the arrows, in one of these two cases:
@@ -149,24 +153,57 @@ export const setupQueryLoopCarousel = () => {
 
         const carouselButtons = layout.querySelectorAll(`${BUTTONS_CLASS} ${CONTROLS_CLASS}-next, ${BUTTONS_CLASS} ${CONTROLS_CLASS}-prev`);
 
-        // This resets the focus to the ghost element so users can tab over the new slide.
-        carouselButtons.forEach(button => {
-          button.addEventListener('click', () => {
-            setTimeout(() => {
-              const resetFocusLink = layout.querySelector('.carousel-ghost-link');
-              const currentSlide = layout.querySelector('.carousel-item.active');
-              if (resetFocusLink) {
-                const match = currentSlide.className.match(/carousel-slide-(\d+)/);
-                const slideIndex = match ? parseInt(match[1], 10) : null;
+        if (layout.className.includes(BLOCK_CLASSNAMES.postsList)) {
+          // This resets the focus to the ghost element so users can tab over the new slide.
+          carouselButtons.forEach(button => {
+            button.addEventListener('click', () => {
+              setTimeout(() => {
+                const resetFocusLink = layout.querySelector('.carousel-ghost-link');
+                const currentSlide = layout.querySelector('.carousel-item.active');
+                if (resetFocusLink) {
+                  const match = currentSlide.className.match(/carousel-slide-(\d+)/);
+                  const slideIndex = match ? parseInt(match[1], 10) : null;
 
-                // This adds a voice over so the screen reader reads out which Slide you are on.
-                resetFocusLink.removeAttribute('aria-hidden');
-                resetFocusLink.setAttribute('aria-label', `Slide ${slideIndex}`);
-                resetFocusLink.focus();
-              }
-            }, 600);
+                  // This adds a voice over so the screen reader reads out which Slide you are on.
+                  resetFocusLink.removeAttribute('aria-hidden');
+                  resetFocusLink.setAttribute('aria-label', `Slide ${slideIndex}`);
+                  resetFocusLink.focus();
+                }
+              }, 600);
+            });
           });
-        });
+        }
+
+        if (layout.className.includes(BLOCK_CLASSNAMES.actionsList)) {
+          // Moves the focus to the next slide when the carousel arrows are hit.
+          carouselButtons.forEach(button => {
+            button.addEventListener('click', () => {
+
+              const observer = new MutationObserver(() => {
+                const currentSlide = layout.querySelector('.carousel-item.active');
+
+                if (!currentSlide) {return;}
+
+                const focusTarget = currentSlide.querySelector('a');
+
+                if (focusTarget) {
+                  focusTarget.focus();
+                } else {
+                  currentSlide.setAttribute('tabindex', '-1');
+                  currentSlide.focus();
+                }
+
+                observer.disconnect();
+              });
+
+              observer.observe(layout, {
+                subtree: true,
+                attributes: true,
+                attributeFilter: ['class'],
+              });
+            });
+          });
+        }
       });
     } else {
       // This is for the grid or list layouts, we need to remove the arrows.
