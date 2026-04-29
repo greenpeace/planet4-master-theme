@@ -146,12 +146,11 @@ class ImageHandler
         // at the beginning or the end.
         $icon_class = str_ends_with($image_credit, '©') ? 'icon-right' : 'icon-left';
         $credit_div = '<div class="credit ' . $icon_class . '">' . esc_attr($image_credit) . '</div>';
-
         return str_replace(
-            empty($caption) ? '</figure>' : $caption,
+            empty($caption) ? '</figure>' : $caption . '</figcaption>',
             empty($caption) ?
                 '<figcaption>' . $credit_div . '</figcaption></figure>' :
-                $caption . $credit_div,
+                $caption . $credit_div . '</figcaption>',
             $content
         );
     }
