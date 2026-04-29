@@ -188,7 +188,7 @@ jobs:
   e2e-tests:
     working_directory: /usr/app/
     docker:
-      - image: mcr.microsoft.com/playwright:v1.49.1
+      - image: mcr.microsoft.com/playwright:v1.59.1
         auth:
           <<: *docker_auth
     steps:
@@ -199,7 +199,7 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            npm install @playwright/test@1.49.1 @wordpress/e2e-test-utils-playwright@1.16.0 dotenv
+            npm install @playwright/test@1.59.1 @wordpress/e2e-test-utils-playwright@1.16.0 dotenv
             npx playwright install --with-deps
       - run:
           name: End-to-end tests
