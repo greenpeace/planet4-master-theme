@@ -67,25 +67,12 @@ class QueryLoopExtension
             return $block_content;
         }
 
-        $shared_data = 'data-ga-category="Actions List" data-ga-label="n/a"';
-
-        $block_content = preg_replace(
-            '/(<figure[^>]*>.*?)<img(?![^>]*data-ga-action)\b/',
-            '$1<img data-ga-action="Image" ' . $shared_data,
-            $block_content
-        );
-
-        $block_content = preg_replace(
-            '/(<h[1-6][^>]*>.*?)<a(?![^>]*data-ga-action)\b/',
-            '$1<a data-ga-action="Title" ' . $shared_data,
-            $block_content
-        );
-
-        $block_content = preg_replace(
-            '/<a(?![^>]*data-ga-action)\b([^>]*\bclass="[^"]*\bbtn\b[^"]*[^>]*)/',
-            '<a data-ga-action="Call to Action" ' . $shared_data . '$1',
-            $block_content
-        );
+        // This pattern will find all elements that includes the class "p4_action"
+        $pattern = '/<li(?![^>]*data-ga-action)([^>]*\bclass="[^"]*\bp4_action\b[^"]*"[^>]*)>/ix';
+        // Include the data-ga attrs and also the rest of attributes
+        $replacement = '<li$1 data-ga-action="Call to Action" data-ga-category="Actions List" data-ga-label="n/a">';
+        // Update the block content
+        $block_content = preg_replace($pattern, $replacement, $block_content);
 
         return $block_content;
 >>>>>>> f0a360d5 (PLANET-8138: Add GA4/Mixpanel tracking events)
