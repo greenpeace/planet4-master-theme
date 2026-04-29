@@ -77,6 +77,30 @@ const ValidationNotices = () => {
   const NOTICE_ID = 'pre-publish-validation';
 
   useEffect(() => {
+    const applyTooltip = () => {
+      const publishBtn = document.querySelector('.editor-post-publish-button');
+      if (!publishBtn) {return false;}
+
+      const message = 'Button disabled: ' + buildValidationMessage(state);
+
+      if (message) {
+        publishBtn.title = message;
+      } else {
+        publishBtn.removeAttribute('title');
+      }
+      return true;
+    };
+
+    if (!applyTooltip()) {
+      const observer = new MutationObserver(() => {
+        if (applyTooltip()) {observer.disconnect();}
+      });
+      observer.observe(document.body, {childList: true, subtree: true});
+      return () => observer.disconnect();
+    }
+  }, [state]);
+
+  useEffect(() => {
     const message = buildValidationMessage(state);
 
     if (isValid) {
