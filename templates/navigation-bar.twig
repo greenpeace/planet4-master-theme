@@ -31,12 +31,23 @@
 
     {% if site_languages is not empty and site_languages|length > 1 %}
     {% set current_lang = site_languages|filter(i => i.active)|first %}
-        <button
-            class="nav-languages-toggle"
-            type="button"
-        >{{ current_lang.code|capitalize }}
+        <div class="nav-languages-wrapper">
+            <button
+                class="nav-languages-toggle"
+                type="button"
+                title="{{__(current_lang.native_name, 'planet4-master-theme')}}"
+                aria-label="{{ __('Language Selection', 'planet4-master-theme')}}"
+                aria-expanded="false"
+                aria-controls="nav-languages"
+            >
+                {{ current_lang.code|capitalize }}
+                <span class="visually-hidden">
+                    {{ current_lang.native_name }}
+                </span>
+            </button>
+
             {% include 'language-switcher.twig' %}
-        </button>
+        </div>
     {% endif %}
 
     {% if mobile_tabs_menu %}
