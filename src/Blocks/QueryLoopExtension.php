@@ -45,7 +45,7 @@ class QueryLoopExtension
     }
 
     /**
-     * Adds data attributes to the action list block.
+     * Adds data attributes to the Actions List block.
      *
      * @param string $block_content The HTML generated for the block.
      * @param array  $block         The block.
@@ -67,12 +67,11 @@ class QueryLoopExtension
             return $block_content;
         }
 
-        // This pattern will find all elements that includes the class "p4_action"
-        $pattern = '/<li(?![^>]*data-ga-action)([^>]*\bclass="[^"]*\bp4_action\b[^"]*"[^>]*)>/ix';
-        // Include the data-ga attrs and also the rest of attributes
-        $replacement = '<li$1 data-ga-action="Call to Action" data-ga-category="Actions List" data-ga-label="n/a">';
-        // Update the block content
-        $block_content = preg_replace($pattern, $replacement, $block_content);
+        $block_content = preg_replace(
+            '/<a(?![^>]*data-ga-action)([^>]*)>/i',
+            '<a data-ga-action="Call to Action" data-ga-category="Actions List" data-ga-label="n/a"$1>',
+            $block_content
+        );
 
         return $block_content;
 >>>>>>> f0a360d5 (PLANET-8138: Add GA4/Mixpanel tracking events)
