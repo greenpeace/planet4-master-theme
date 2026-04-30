@@ -1,7 +1,7 @@
 import {v4 as uuid} from 'uuid';
 
 // Constants
-const {__} = wp.i18n;
+const {__, sprintf} = wp.i18n;
 const ARROW_DIRECTIONS = ['prev', 'next'];
 const LAYOUTS = {
   carousel: 'carousel',
@@ -57,6 +57,18 @@ export const setupQueryLoopCarousel = () => {
       const isPostsList = layout.className.includes('posts-list');
       const itemsPerSlide = isPostsList ? 4 : 3;
 
+      // Add some accessibility attributes
+      layout.setAttribute('role', 'region');
+      layout.setAttribute('aria-label', __('Actions List', 'planet4-master-theme'));
+      layout.setAttribute('aria-roledescription', 'carousel');
+
+      // Add an aria-live div to announce slide changes.
+      const announcement = document.createElement('div');
+      announcement.setAttribute('aria-live', 'polite');
+      announcement.classList.add('visually-hidden');
+      announcement.id = `announce-${uniqueId}`;
+      layout.appendChild(announcement);
+
       // Adapt it as bootstrap carousel
       const carousel = document.createElement('div');
       carousel.setAttribute('id', uniqueId);
@@ -69,7 +81,7 @@ export const setupQueryLoopCarousel = () => {
 
       const backToList = document.createElement('a');
       backToList.href = `#${uniqueId}`;
-      backToList.textContent = __('Back to Actions List', 'planet4-master-theme-backend');
+      backToList.textContent = __('Back to Actions List', 'planet4-master-theme');
       backToList.classList.add('carousel-skip-link');
       backToList.setAttribute('role', 'link');
 
@@ -175,12 +187,24 @@ export const setupQueryLoopCarousel = () => {
         }
 
         if (layout.className.includes(BLOCK_CLASSNAMES.actionsList)) {
-          // Moves the focus to the next slide when the carousel arrows are hit.
-          carouselButtons.forEach(button => {
+          // Moves the focus to the next slide when the carousel arrows or indicators are hit.
+          // Also update the aria-live text so that the screen reader announces the slide change.
+          const indicatorButtons = layout.querySelectorAll('.carousel-indicators li');
+          [...carouselButtons, ...indicatorButtons].forEach(button => {
             button.addEventListener('click', () => {
 
               const observer = new MutationObserver(() => {
                 const currentSlide = layout.querySelector('.carousel-item.active');
+                const currentSlideClasses = currentSlide.classList.value.split(' ');
+                const currentSlideNumber = currentSlideClasses.find(c => c.indexOf('carousel-slide-') !== -1).replace('carousel-slide-', '');
+                const slides = layout.querySelectorAll('.carousel-item').length;
+
+                announcement.innerText = sprintf(
+                /* translators: 1: current slide number, 2: total amount of slides */
+                  __('Slide %1$d from %2$d', 'planet4-master-theme'),
+                  Number(currentSlideNumber) + 1,
+                  slides
+                );
 
                 if (!currentSlide) {return;}
 
