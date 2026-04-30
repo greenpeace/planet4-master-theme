@@ -181,7 +181,11 @@ export const setupQueryLoopCarousel = () => {
 
                   // This adds a voice over so the screen reader reads out which Slide you are on.
                   resetFocusLink.removeAttribute('aria-hidden');
-                  resetFocusLink.setAttribute('aria-label', `Slide ${slideIndex}`);
+                  resetFocusLink.setAttribute('aria-label', sprintf(
+                  /* translators: 1: current slide number */
+                    __('Slide %1$d', 'planet4-master-theme'),
+                    slideIndex + 1
+                  ));
                   resetFocusLink.focus();
                 }
               }, 600);
@@ -198,14 +202,14 @@ export const setupQueryLoopCarousel = () => {
 
               const observer = new MutationObserver(() => {
                 const currentSlide = layout.querySelector('.carousel-item.active');
-                const currentSlideClasses = currentSlide.classList.value.split(' ');
-                const currentSlideNumber = currentSlideClasses.find(c => c.indexOf('carousel-slide-') !== -1).replace('carousel-slide-', '');
+                const match = currentSlide.className.match(/carousel-slide-(\d+)/);
+                const slideIndex = match ? parseInt(match[1], 10) : null;
                 const slides = layout.querySelectorAll('.carousel-item').length;
 
                 announcement.innerText = sprintf(
-                /* translators: 1: current slide number, 2: total amount of slides */
+                  /* translators: 1: current slide number, 2: total amount of slides */
                   __('Slide %1$d from %2$d', 'planet4-master-theme'),
-                  Number(currentSlideNumber) + 1,
+                  slideIndex + 1,
                   slides
                 );
 
