@@ -124,15 +124,18 @@ export const setupQueryLoopCarousel = () => {
 
       posts.forEach((post, index) => {
         if (index % itemsPerSlide === 0) {
-          // Reset link that is only accessible via JS
-          slideReset = document.createElement('a');
-          slideReset.classList.add('carousel-ghost-link');
-          slideReset.setAttribute('aria-hidden', 'true');
-          slideReset.setAttribute('tabindex', '-1');
-          slideReset.style.position = 'absolute';
-          slideReset.style.opacity = '0';
-          slideReset.style.pointerEvents = 'none';
-          list.appendChild(slideReset);
+          // Add a reset link that is only accessible via JS.
+          // Only for the Posts List block, not Actions List.
+          if (layout.className.includes(BLOCK_CLASSNAMES.postsList)) {
+            slideReset = document.createElement('a');
+            slideReset.classList.add('carousel-ghost-link');
+            slideReset.setAttribute('aria-hidden', 'true');
+            slideReset.setAttribute('tabindex', '-1');
+            slideReset.style.position = 'absolute';
+            slideReset.style.opacity = '0';
+            slideReset.style.pointerEvents = 'none';
+            list.appendChild(slideReset);
+          }
 
           carouselItem = document.createElement('li');
           carouselItem.classList.add('carousel-item', 'carousel-li', `carousel-slide-${totalCarouselItems}`);
