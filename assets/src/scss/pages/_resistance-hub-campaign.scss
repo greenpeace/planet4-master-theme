@@ -126,6 +126,10 @@
       .wp-block-post-title {
         font-size: 32px;
         line-height: 1.275;
+
+        a {
+          text-underline-offset: 4px;
+        }
       }
 
       .wp-block-post-excerpt p {
@@ -140,7 +144,7 @@
       }
 
       .wp-block-group.is-layout-flow {
-        padding: 0 20px;
+        padding: 20px;
       }
 
       .chip-deadline {
