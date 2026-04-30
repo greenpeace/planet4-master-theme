@@ -34,7 +34,8 @@ class QueryLoopExtension
         add_filter('rest_p4_action_query', [self::class, 'register_editor_query'], 10, 2);
         add_filter('query_loop_block_query_vars', [self::class, 'register_frontend_query'], 10, 2);
         add_filter('render_block_data', [self::class, 'track_posts_list_context'], 10, 1);
-        add_filter('render_block', [self::class, 'add_data_attributes'], 10, 2);
+        add_filter('render_block', [self::class, 'add_data_attributes_to_posts_list_block'], 10, 2);
+        add_filter('render_block', [self::class, 'add_data_attributes_to_actions_list_block'], 10, 2);
     }
 
     /**
@@ -225,7 +226,7 @@ class QueryLoopExtension
      *
      * @return string Modified block output.
      */
-    public static function add_data_attributes(string $content, array $parsed_block): string
+    public static function add_data_attributes_to_posts_list_block(string $content, array $parsed_block): string
     {
         $block_name = $parsed_block['blockName'] ?? '';
         $attrs = $parsed_block['attrs'] ?? [];
@@ -272,5 +273,33 @@ class QueryLoopExtension
         }
 
         return (string) preg_replace('/<a\b/', '<a ' . $data_attrs, $content);
+    }
+
+    /**
+     * Adds data attributes to the Actions List block.
+     *
+     * @param string $block_content The HTML generated for the block.
+     * @param array  $block         The block.
+     *
+     * @return string The updated block content.
+     */
+
+    public static function add_data_attributes_to_actions_list_block(string $block_content, array $block): string
+    {
+        if (
+            $block['blockName'] !== 'core/query' ||
+            empty($block['attrs']['className']) ||
+            strpos($block['attrs']['className'], 'actions-list') === false
+        ) {
+            return $block_content;
+        }
+
+        $block_content = preg_replace(
+            '/<a(?![^>]*data-ga-action)([^>]*)>/i',
+            '<a data-ga-action="Call to Action" data-ga-category="Actions List" data-ga-label="n/a"$1>',
+            $block_content
+        );
+
+        return $block_content;
     }
 }
