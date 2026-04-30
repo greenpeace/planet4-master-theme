@@ -286,12 +286,8 @@ class QueryLoopExtension
 
     public static function add_data_attributes_to_actions_list_block(string $block_content, array $block): string
     {
-        if ($block['blockName'] !== 'core/query') {
-            return $block_content;
-        }
-
-        // Check if class "actions-list" exists
         if (
+            $block['blockName'] !== 'core/query' ||
             empty($block['attrs']['className']) ||
             strpos($block['attrs']['className'], 'actions-list') === false
         ) {
