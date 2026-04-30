@@ -283,6 +283,9 @@ const makeLanguageMenuAccessible = () => {
   const languageMenuToggle = document.querySelector('.nav-languages-toggle');
   const languageSubmenu = document.getElementById('nav-languages');
 
+  if (!languageMenuToggle || !languageSubmenu) {
+    return;
+  }
 
   languageMenuToggle.addEventListener('click', () => {
     const isOpen = languageSubmenu.classList.toggle('is-open');
