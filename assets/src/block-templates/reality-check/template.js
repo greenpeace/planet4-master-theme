@@ -11,6 +11,7 @@ const column = ['core/column', {}, [
     }],
     ['core/heading', {
       style: {typography: {fontSize: '4rem'}},
+      level: 3,
       textAlign: 'center',
       placeholder: __('Enter title', 'planet4-master-theme-backend'),
     }],
@@ -23,6 +24,11 @@ const column = ['core/column', {}, [
 ]];
 
 const template = () => ([
+  ['core/heading', {
+    className: 'visually-hidden',
+    level: 2,
+    content: __('Reality check', 'planet4-master-theme-backend'),
+  }],
   ['core/columns', {
     className: 'block',
   },
