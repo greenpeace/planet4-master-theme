@@ -17,7 +17,7 @@ use P4\MasterTheme\MigrationScript;
  * binding so the editor reads the correct date from post context and won't re-write a stale
  * value on subsequent saves.
  */
-class M063RemoveStaleDatetimeFromPostsListBlock extends MigrationScript
+class M064RemoveStaleDatetimeFromPostsListBlock extends MigrationScript
 {
     /**
      * Perform the actual migration.
