@@ -96,6 +96,31 @@ const ValidationNotices = () => {
   const NOTICE_ID = 'pre-publish-validation';
 
   /**
+   * Disables or enables the Gutenberg publish button based on validation state.
+   */
+  useEffect(() => {
+    const applyDisabled = () => {
+      const publishBtn = document.querySelector('.editor-post-publish-button__button');
+      if (!publishBtn) {return false;}
+      if (isValid) {
+        publishBtn.removeAttribute('disabled');
+        publishBtn.classList.remove('is-disabled');
+      } else {
+        publishBtn.setAttribute('disabled', 'disabled');
+        publishBtn.classList.add('is-disabled');
+      }
+      return true;
+    };
+
+    if (!applyDisabled()) {
+      const observer = new MutationObserver(() => {
+        if (applyDisabled()) {observer.disconnect();}
+      });
+      observer.observe(document.body, {childList: true, subtree: true});
+      return () => observer.disconnect();
+    }
+  }, [isValid]);
+  /**
    * Applies a tooltip to the Gutenberg publish button.
    */
   useEffect(() => {
@@ -106,9 +131,9 @@ const ValidationNotices = () => {
      * @return {boolean} `true` if the button was found and updated; `false` if not yet in the DOM.
      */
     const applyTooltip = () => {
-      const publishBtn = document.querySelector('.editor-post-publish-button');
+      const publishBtn = document.querySelector('.editor-post-publish-button__button');
       if (!publishBtn) {return false;}
-      const message = 'Button disabled: ' + buildValidationMessage(state);
+      const message = buildValidationMessage(state);
       if (message) {
         publishBtn.title = message;
       } else {
@@ -151,7 +176,7 @@ const ValidationNotices = () => {
       id: NOTICE_ID,
       isDismissible: false,
     });
-  }, [state, isValid]);
+  }, [state, isValid, noticesDispatch, editorDispatch]);
 
   return null;
 };
