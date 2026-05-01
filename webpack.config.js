@@ -59,8 +59,6 @@ module.exports = (env, argv) => {
       CarouselHeaderEditorScript: './assets/src/blocks/CarouselHeader/CarouselHeaderEditorScript.js',
       AccordionScript: './assets/src/blocks/Accordion/AccordionScript.js',
       AccordionEditorScript: './assets/src/blocks/Accordion/AccordionEditorScript.js',
-      CookiesScript: './assets/src/blocks/Cookies/CookiesScript.js',
-      CookiesEditorScript: './assets/src/blocks/Cookies/CookiesEditorScript.js',
       CounterScript: './assets/src/blocks/Counter/CounterScript.js',
       CounterEditorScript: './assets/src/blocks/Counter/CounterEditorScript.js',
       SpreadsheetScript: './assets/src/blocks/Spreadsheet/SpreadsheetScript.js',

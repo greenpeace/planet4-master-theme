@@ -1,14 +1,8 @@
 import {FrontendRichText} from '../components/FrontendRichText/FrontendRichText';
-import {CookiesFieldResetButton} from './CookiesFieldResetButton';
 const {InspectorControls} = wp.blockEditor;
-const {PanelBody} = wp.components;
+const {PanelBody, Tooltip} = wp.components;
 
 const {__} = wp.i18n;
-
-const COOKIES_DEFAULT_COPY = window.p4_vars.options.cookies_default_copy || {};
-
-// Planet4 settings(Planet 4 > Cookies > Enable Analytical Cookies).
-const ENABLE_ANALYTICAL_COOKIES = window.p4_vars.options.enable_analytical_cookies;
 
 export const CookiesEditor = ({setAttributes, attributes, isSelected}) => {
   const {
@@ -22,6 +16,34 @@ export const CookiesEditor = ({setAttributes, attributes, isSelected}) => {
     all_cookies_name,
     all_cookies_description,
   } = attributes;
+
+  const COOKIES_DEFAULT_COPY = window.p4_vars?.options?.cookies_default_copy || {};
+
+  // Planet4 settings(Planet 4 > Cookies > Enable Analytical Cookies).
+  const ENABLE_ANALYTICAL_COOKIES = window.p4_vars?.options?.enable_analytical_cookies;
+
+  const CookiesFieldResetButton = ({fieldName, toAttribute, currentValue}) => {
+    const defaultValue = COOKIES_DEFAULT_COPY[fieldName] || '';
+
+    if (!currentValue || !defaultValue || currentValue === defaultValue) {
+      return null;
+    }
+
+    return (
+      <div className="field-reset-button">
+        <Tooltip text={__('This value is defined in the settings, in Planet 4 > Cookies', 'planet4-master-theme-backend')}>
+          <span className="info">i</span>
+        </Tooltip>
+        <span
+          className="cta"
+          onClick={() => toAttribute(fieldName)(undefined)}
+          role="presentation"
+        >
+          {__('Use default value', 'planet4-master-theme-backend')}
+        </span>
+      </div>
+    );
+  };
 
   const getFieldValue = fieldName => {
     if (attributes[fieldName] === undefined) {
