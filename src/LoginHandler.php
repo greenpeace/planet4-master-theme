@@ -36,29 +36,13 @@ class LoginHandler
         add_action('login_footer', function (): void {
             $html = ob_get_clean();
 
-            $features = get_option('planet4_features', []);
-            $enforce_sso = !empty($features['enforce_sso']);
-
             // Clean up the HTML by removing the "Remember Me" checkbox
             $html = preg_replace('/<p[^>]*class=["\']forgetmenot["\'][^>]*>.*?<\/p>/is', '', $html);
 
-            if ($enforce_sso) {
-                if (isset($_GET['loggedout']) && $_GET['loggedout'] === 'true') {
-                    wp_redirect(home_url());
-                    exit;
-                }
-
-                $gal_instance = google_apps_login();
-                if (!method_exists($gal_instance, 'ga_start_auth_get_url')) {
-                    return;
-                }
-
-                $ga_url = $gal_instance->ga_start_auth_get_url();
-
-                if (!empty($ga_url)) {
-                    wp_redirect(esc_url_raw($ga_url));
-                    exit;
-                }
+            // Redirect to the homepage when the user has just logged out.
+            if (isset($_GET['loggedout']) && $_GET['loggedout'] === 'true') {
+                wp_redirect(home_url());
+                exit;
             }
 
             echo $html;
@@ -80,6 +64,7 @@ class LoginHandler
         add_filter('authenticate', [$this, 'enforce_google_signon'], 4, 3);
         add_filter('authenticate', [$this, 'check_google_login_error'], 30, 1);
         add_filter('authenticate', [$this, 'custom_block_login_if_rate_limited'], 30, 3);
+        add_filter('authenticate', [$this, 'disable_credentials_login'], 100, 1);
         add_filter('login_headerurl', [$this, 'add_login_logo_url']);
         add_filter('login_headertext', [$this, 'add_login_logo_url_title']);
         add_action('login_enqueue_scripts', [$this, 'add_login_stylesheet']);
@@ -372,5 +357,34 @@ class LoginHandler
         }
 
         return true;
+    }
+
+    /**
+     * Disables login with username and password when enforce_sso feature is enabled.
+     *
+     * @param WP_User|WP_Error $user The current user logging in.
+     */
+    public function disable_credentials_login(
+        WP_User|WP_Error|null $user
+    ): WP_User|WP_Error|null {
+        $features = get_option('planet4_features', []);
+        $enforce_sso = !empty($features['enforce_sso']);
+
+        if (!$enforce_sso) {
+            return $user;
+        }
+
+        // Block login if it's a POST request, which indicates an attempt to log in with credentials.
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            return new WP_Error(
+                'google_only_login',
+                __(
+                    'Please use the Google login button instead.',
+                    'planet4-master-theme-backend'
+                )
+            );
+        }
+
+        return $user;
     }
 }
