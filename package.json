@@ -3,7 +3,7 @@
   "description": "Master theme for the Planet 4 Wordpress project",
   "repository": "git@github.com:greenpeace/planet4-master-theme.git",
   "author": "Greenpeace International",
-  "license": "GPL-3.0",
+  "license": "GPL-3.0-or-later",
   "scripts": {
     "start": "wp-scripts start --config webpack.config.js --mode=development",
     "build": "wp-scripts build --config webpack.config.js --mode=production",
