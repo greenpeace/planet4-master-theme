@@ -6,7 +6,7 @@ use DOMDocument;
 use DOMXPath;
 
 /**
- * Class OutputBufferManager
+ * Class HtmlPostProcessor
  *
  * Intercepts and transforms the final HTML output of a page before it is sent to the browser.
  *
@@ -128,7 +128,7 @@ class HtmlPostProcessor
     }
 
     /**
-     * Adds the class "pdf-link" to the links connected to PDF files.
+     * Adds the class "external-link" to the external links.
      */
     private function setup_external_links(DOMXPath $xpath): void
     {
