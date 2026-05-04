@@ -31,16 +31,17 @@ class LoginHandler
 
         /**
          * Filter the rendered login page HTML before sending it to the browser.
-         * Uses regex to strip out the "Remember Me" checkbox markup.
+         * Remove "Remember Me" checkbox markup.
+         * Remove all form elements but the Google login button if "enforce_sso" feature is enabled.
          */
         add_action('login_footer', function (): void {
             $html = ob_get_clean();
 
-            $features = get_option('planet4_features', []);
-            $enforce_sso = !empty($features['enforce_sso']);
-
             // Clean up the HTML by removing the "Remember Me" checkbox
             $html = preg_replace('/<p[^>]*class=["\']forgetmenot["\'][^>]*>.*?<\/p>/is', '', $html);
+
+            $features = get_option('planet4_features', []);
+            $enforce_sso = !empty($features['enforce_sso']);
 
             if ($enforce_sso) {
                 if (isset($_GET['loggedout']) && $_GET['loggedout'] === 'true') {
@@ -48,19 +49,22 @@ class LoginHandler
                     exit;
                 }
 
-                $gal_instance = google_apps_login();
-                if (!method_exists($gal_instance, 'ga_start_auth_get_url')) {
-                    return;
-                }
+                // Remove error message, lost password link, back to blog link and language switcher.
+                $html = preg_replace('/<div[^>]*id=["\']login_error["\'][^>]*>.*?<\/div>/is', '', $html);
+                $html = preg_replace('/<a[^>]*class=["\']wp-login-lost-password["\'][^>]*>.*?<\/a>/is', '', $html);
+                $html = preg_replace('/<p[^>]*id=["\']backtoblog["\'][^>]*>.*?<\/p>/is', '', $html);
+                $html = preg_replace('/<div[^>]*class=["\']language-switcher["\'][^>]*>.*?<\/div>/is', '', $html);
 
-                $ga_url = $gal_instance->ga_start_auth_get_url();
+                // Extract the login form from the HTML and replace it with only the Google login button.
+                preg_match('/<form[^>]*id="loginform"[^>]*>(.*?)<\/form>/is', $html, $matches);
+                $form = $matches[0];
 
-                if (!empty($ga_url)) {
-                    wp_redirect(esc_url_raw($ga_url));
-                    exit;
-                }
+                preg_match('/<p[^>]*class="[^"]*galogin[^"]*"[^>]*>.*?<\/p>/is', $form, $btn);
+                $google_button = $btn[0];
+
+                $new_form = '<form id="loginform">' . $google_button . '</form>';
+                $html = str_replace($matches[0], $new_form, $html);
             }
-
             echo $html;
         });
 
