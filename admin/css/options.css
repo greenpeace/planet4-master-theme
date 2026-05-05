@@ -76,3 +76,9 @@
     font-weight: bold;
   }
 }
+
+/* Hide the "Automatically redirect to Google" option. */
+label[for="input_ga_auto_login"],
+input#input_ga_auto_login {
+  display: none;
+}
