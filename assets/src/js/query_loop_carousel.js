@@ -141,7 +141,7 @@ export const setupQueryLoopCarousel = () => {
           carouselItem.classList.add('carousel-item', 'carousel-li', `carousel-slide-${totalCarouselItems}`);
           list.append(carouselItem);
 
-          itemWrapper = document.createElement('div');
+          itemWrapper = document.createElement('ul');
           itemWrapper.classList.add('carousel-item-wrapper');
 
           carouselItem.append(itemWrapper);
