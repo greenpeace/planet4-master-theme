@@ -131,7 +131,7 @@ export const registerActionsListBlock = () => {
   registerBlockVariation('core/query', {
     name: ACTIONS_LIST_BLOCK_NAME,
     title: 'Actions List',
-    description: __('Integrate images and text cards to automatically display tags, take action pages, or Posts in a three or four column layout displayed in a grid or carousel.', 'planet4-master-theme-backend'),
+    description: __('Display your Actions using dynamic cards that can be filtered by Category, Tag, or Action type, and shown in either a grid or carousel view.', 'planet4-master-theme-backend'),
     icon: 'list-view',
     scope: ['inserter'],
     allowedControls: ['taxQuery', 'pages', 'offset'],
