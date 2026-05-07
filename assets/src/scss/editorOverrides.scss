@@ -379,6 +379,39 @@ input.describe[type=text][data-setting=caption] {
 }
 
 // Override Query Loop within editor
+.is-custom-layout-grid {
+
+  &.actions-list.block-editor-block-list__block {
+
+    @include mobile-only {
+      .wp-block-post:nth-child(n+4) {
+        display: block;
+      }
+      .wp-block-post:nth-child(n+5) {
+        display: none;
+      }
+    }
+
+    @include medium-and-less {
+      .wp-block-post:nth-child(n+5) {
+        display: block;
+      }
+      .wp-block-post:nth-child(n+6) {
+        display: none;
+      }
+    }
+
+    @include large-and-up {
+      .wp-block-post:nth-child(n+7) {
+        display: block;
+      }
+      .wp-block-post:nth-child(n+8) {
+        display: none;
+      }
+    }
+  }
+}
+
 .is-custom-layout-carousel {
   flex-direction: column;
 
