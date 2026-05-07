@@ -383,6 +383,10 @@ input.describe[type=text][data-setting=caption] {
 
   &.actions-list.block-editor-block-list__block {
 
+    .load-more-actions-container {
+      display: flex;
+    }
+
     @include mobile-only {
       .wp-block-post:nth-child(n+4) {
         display: block;
