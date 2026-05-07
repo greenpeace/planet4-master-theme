@@ -81,8 +81,15 @@ export const CarouselHeaderEditor = ({setAttributes, attributes}) => {
     if (!image) {
       return slide;
     }
-    const image_srcset = toSrcSet(Object.values(image.media_details.sizes));
-    return ({...slide, image_url: image.source_url, image_srcset, image_alt: image.alt_text});
+    const sizes = image.media_details.sizes;
+    const image_srcset = toSrcSet(Object.values(sizes));
+    // Prefer a registered resized size over the original full-resolution upload.
+    const image_url = sizes['retina-large']?.source_url ||
+      sizes.large?.source_url ||
+      sizes.medium_large?.source_url ||
+      sizes.medium?.source_url ||
+      image.source_url;
+    return ({...slide, image_url, image_srcset, image_alt: image.alt_text});
   }), [needsMigration, slides]);
 
   return useMemo(() => (
