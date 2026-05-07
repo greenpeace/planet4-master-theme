@@ -2,6 +2,8 @@
 
 namespace P4\MasterTheme;
 
+use WP_HTML_Tag_Processor;
+
 /**
  * Class ImageHandler
  */
@@ -45,29 +47,6 @@ class ImageHandler
         add_filter('wp_image_editors', [$this, 'force_image_compression']);
         add_filter('wp_handle_upload_prefilter', [$this, 'image_type_validation']);
         add_filter('jpeg_quality', fn () => 60);
-        add_filter('render_block_core/image', [$this, 'add_figcaption_exception'], 10, 1);
-    }
-
-    /**
-     * Adds an aria-hidden attribute to all figcaption elements in image blocks.
-     *
-     * This ensures that screen readers do not read duplicate content when the image
-     * alt text and caption contain the same information, improving accessibility.
-     *
-     * @param string $block_content The HTML content of the rendered block.
-     *
-     * @return string Modified block HTML with updated figcaption attributes.
-     */
-    public function add_figcaption_exception(string $block_content): string
-    {
-        // Add aria-hidden to figcaption
-        $block_content = preg_replace(
-            '/<figcaption(?![^>]*aria-hidden)/',
-            '<figcaption aria-hidden="true"',
-            $block_content
-        );
-
-        return $block_content;
     }
 
     /**
@@ -127,7 +106,7 @@ class ImageHandler
 
     /**
      * Override the Gutenberg core/image block render method output,
-     * to add credit field in its caption text, alt and title attributes.
+     * to add credit in its caption and also add alt and title attributes.
      *
      * @param array  $attributes    Attributes of the Gutenberg core/image block.
      * @param string $content The image element HTML.
@@ -149,7 +128,7 @@ class ImageHandler
         $credit = $img_post_meta[self::CREDIT_META_FIELD][0] ?? '';
 
         // Replace alt text with image description
-        if ($image_description) {
+        if (trim($image_description)) {
             $content = $this->replace_alt_text_with_description($image_description, $content);
         }
 
@@ -178,12 +157,25 @@ class ImageHandler
         // at the beginning or the end.
         $icon_class = str_ends_with($image_credit, '©') ? 'icon-right' : 'icon-left';
         $credit_div = '<div class="credit ' . $icon_class . '">' . esc_attr($image_credit) . '</div>';
-        return str_replace(
-            empty($caption) ? '</figure>' : $caption . '</figcaption>',
-            empty($caption) ?
-                '<figcaption>' . $credit_div . '</figcaption></figure>' :
-                $caption . $credit_div . '</figcaption>',
-            $content
+
+        if (!empty($caption)) {
+            $content = $this->hide_figcaption_from_screen_readers($content);
+        }
+
+        if (empty($caption)) {
+            return preg_replace(
+                '/<\/figure>/i',
+                '<figcaption>' . $credit_div . '</figcaption></figure>',
+                $content,
+                1
+            );
+        }
+
+        return preg_replace(
+            '/(<figcaption\b[^>]*>)(.*?)(<\/figcaption>)/is',
+            '$1$2' . $credit_div . '$3',
+            $content,
+            1
         );
     }
 
@@ -269,7 +261,7 @@ class ImageHandler
 
         // Replace existing alt attribute in <img>
         return preg_replace(
-            '/(<img[^>]*?)alt=("|\')(.*?)\2/i',
+            '/(<img[^>]*?)alt=(["\'])(.*?)\2/i',
             '$1alt="' . esc_attr($image_description) . '"',
             $content
         );
@@ -291,18 +283,37 @@ class ImageHandler
                 $img = $matches[0];
 
                 // If title already exists, don't overwrite it
-                if (strpos($img, 'title=') !== false) {
+                if (preg_match('/\btitle\s*=/i', $img)) {
                     return $img;
                 }
 
-                return str_replace(
-                    '<img',
+                return preg_replace(
+                    '/<img\b(?![^>]*\btitle\s*=)/i',
                     '<img title="' . esc_attr($title) . '"',
-                    $img
+                    $img,
+                    1
                 );
             },
             $content
         );
+
+        return $content;
+    }
+
+    /**
+     * Add aria-hidden attribute to figcaption.
+     *
+     * @param string $content HTML content.
+     */
+    private function hide_figcaption_from_screen_readers(string $content): string
+    {
+        $processor = new WP_HTML_Tag_Processor($content);
+
+        if ($processor->next_tag('figcaption')) {
+            $processor->set_attribute('aria-hidden', 'true');
+
+            return $processor->get_updated_html();
+        }
 
         return $content;
     }
