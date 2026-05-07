@@ -390,6 +390,12 @@ input.describe[type=text][data-setting=caption] {
     margin-bottom: 0;
   }
 
+  &.actions-list {
+    .wp-block-post-template {
+      width: 100%;
+    }
+  }
+
   .wp-block-post-template {
     display: flex;
     padding: 0 8px 8px 8px !important;
