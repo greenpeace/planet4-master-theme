@@ -102,7 +102,38 @@ export const useSlides = (
     }
   }, [containerRef]);
 
-  const goToSlide = useCallback(({newSlide, forceCurrentSlide = false, fromClick = false}) => { // newSlide, forceCurrentSlide = false)
+  /**
+   * Handle the key press event when navigating through the carousel with keyboard.
+   */
+  const onkeyboardHandler = useCallback(event => {
+    // Only handle tab without shift key
+    if (event.key !== 'Tab' || event.shiftKey) {
+      return;
+    }
+
+    // Check if focus is currently on a CTA button
+    const cta = event.target.closest('.carousel-item.active .action-button a');
+
+    if (!cta) {
+      return;
+    }
+
+    // Find the active indicator
+    const activeIndicator = indicatorsRef.current.querySelector('li.active button');
+    if (!activeIndicator) {
+      return;
+    }
+
+    event.preventDefault();
+
+    // Move focus to the active indicator
+    activeIndicator.focus();
+
+    // Remove listener after first successful use
+    document.removeEventListener('keydown', onkeyboardHandler);
+  }, [indicatorsRef]);
+
+  const goToSlide = useCallback(({newSlide, forceCurrentSlide = false, fromClick = false}) => {
     if (!slidesRef.current) {
       return;
     }
@@ -123,10 +154,12 @@ export const useSlides = (
       nextElement.classList.add(enterTransitionClass);
 
       if(fromClick) {
-        // Force to focus heading
         const heading = nextElement.querySelector('h2');
+
         if(heading) {
           heading.focus();
+
+          document.addEventListener('keydown', onkeyboardHandler);
         }
       }
 
@@ -151,7 +184,7 @@ export const useSlides = (
         unsetTransitionClasses();
       }
     }
-  }, [currentSlide, getOrder, options, sliding, setCarouselHeight, slidesRef]);
+  }, [currentSlide, getOrder, options, sliding, setCarouselHeight, slidesRef, onkeyboardHandler]);
 
   const goToPrevSlide = useCallback((fromClick = false) => {
     goToSlide({newSlide: (currentSlide - 1 < 0) ? totalSlides - 1 : currentSlide - 1, fromClick});
@@ -189,20 +222,6 @@ export const useSlides = (
       clearTimeout(timerRef.current);
     }
   }, [totalSlides, autoplay, timerRef, goToNextSlide]);
-
-  useEffect(() => {
-    if(!headingsRef?.current || !indicatorsRef?.current) {
-      return;
-    }
-
-    const totalIndicators = indicatorsRef.current.children.length;
-    for (const heading of headingsRef.current) {
-      heading.addEventListener('focusout', () => {
-        const nextIndicator = (currentSlide + 1) < totalIndicators ? (currentSlide + 1) : 0;
-        indicatorsRef.current.children[nextIndicator].querySelector('button').focus();
-      });
-    }
-  }, [headingsRef, indicatorsRef, currentSlide]);
 
   useEffect(() => {
     if(carousel_autoplay) {

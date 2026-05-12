@@ -29,7 +29,7 @@ export const CarouselHeaderFrontend = ({slides, carousel_autoplay, className, de
       aria-label={__('Greenpeace highlights', 'planet4-blocks')}
       aria-roledescription="carousel"
     >
-      {(slides.length > 1) && (
+      {(slides.length > 1) ? (
         <CarouselControls
           goToPrevSlide={() => {
             setAutoplay(() => {
@@ -51,7 +51,7 @@ export const CarouselHeaderFrontend = ({slides, carousel_autoplay, className, de
           disableControls={carousel_autoplay}
           ref={indicatorsRef}
         />
-      )}
+      ) : null}
       <div className="carousel-wrapper-header">
         <ul className="carousel-inner" role="listbox">
           {slides.map((slide, index) => <Slide
