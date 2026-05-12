@@ -104,6 +104,8 @@ export const useSlides = (
 
   /**
    * Handle the key press event when navigating through the carousel with keyboard.
+   * If the heading exists but not the CTA then focus the current indicator
+   * If the heading exists and the CTA too, then focus the CTA
    */
   const onkeyboardHandler = useCallback(event => {
     // Only handle tab without shift key
@@ -111,10 +113,15 @@ export const useSlides = (
       return;
     }
 
-    // Check if focus is currently on a CTA button
-    const cta = event.target.closest('.carousel-item.active .action-button a');
+    // Only applied to the carousel item
+    if(!event.target.closest('.carousel-item')) {
+      return;
+    }
 
-    if (!cta) {
+    const headingFocused = event.target.tagName === 'H2';
+    const cta = event.target.closest('.carousel-item').querySelector('.action-button a');
+
+    if(headingFocused && cta) {
       return;
     }
 
@@ -131,7 +138,7 @@ export const useSlides = (
 
     // Remove listener after first successful use
     document.removeEventListener('keydown', onkeyboardHandler);
-  }, [indicatorsRef]);
+  }, [indicatorsRef, event]);
 
   const goToSlide = useCallback(({newSlide, forceCurrentSlide = false, fromClick = false}) => {
     if (!slidesRef.current) {
