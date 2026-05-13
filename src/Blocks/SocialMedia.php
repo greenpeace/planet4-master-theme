@@ -9,8 +9,6 @@
 
 namespace P4\MasterTheme\Blocks;
 
-use WP_REST_Server;
-
 /**
  * Class SocialMedia
  * @package P4\MasterTheme\Blocks
@@ -28,15 +26,6 @@ class SocialMedia extends BaseBlock
         'facebook',
         'instagram',
     ];
-
-    private const FB_API_BASE_URL = 'https://graph.facebook.com/v9.0';
-    private const FB_PAGE_OEMBED = self::FB_API_BASE_URL . '/oembed_page';
-    private const FB_POST_OEMBED = self::FB_API_BASE_URL . '/oembed_post';
-    private const FB_VIDEO_OEMBED = self::FB_API_BASE_URL . '/oembed_video';
-    private const INSTAGRAM_OEMBED = self::FB_API_BASE_URL . '/instagram_oembed';
-    private const FB_CACHE_TTL = 3600; // Time in seconds to cache the response of an FB api call.
-    private const FB_CALL_TIMEOUT = 10; // Seconds after which the api call will timeout if not responded.
-
 
     /**
      * SocialMedia constructor.
@@ -137,19 +126,6 @@ class SocialMedia extends BaseBlock
             'description' => $description,
             'alignment_class' => $alignment_class,
         ];
-
-        if ($url) {
-            if ('oembed' === $embed_type) {
-                // need to remove . so instagr.am becomes instagram.
-                // $provider = preg_replace('#(^www\.)|(\.com$)|(\.)#', '', strtolower(wp_parse_url($url, PHP_URL_HOST)));
-                // if (in_array($provider, self::ALLOWED_OEMBED_PROVIDERS, true)) {
-                //     $data['embed_code'] = $this->get_fb_oembed_html(rawurlencode($url), $provider);
-                // }
-            } elseif ('facebook_page' === $embed_type) {
-                $data['facebook_page_url'] = $url;
-                $data['facebook_page_tab'] = $facebook_page_tab;
-            }
-        }
 
         return $data;
     }

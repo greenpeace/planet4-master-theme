@@ -1,6 +1,6 @@
 import {SocialMediaEditor} from './SocialMediaEditorScript.js';
 import {socialMediaV1} from './deprecated/socialMediaV1';
-import {OEMBED_EMBED_TYPE, FACEBOOK_PAGE_TAB_TIMELINE} from './SocialMediaConstants.js';
+import {FACEBOOK_PAGE_EMBED_TYPE, FACEBOOK_PAGE_TAB_TIMELINE} from './SocialMediaConstants.js';
 import {SocialMediaFrontend} from './SocialMediaFrontend.js';
 
 const {registerBlockType, getBlockTypes} = wp.blocks;
@@ -32,7 +32,7 @@ export const registerSocialMediaBlock = () => {
       },
       embed_type: {
         type: 'string',
-        default: OEMBED_EMBED_TYPE,
+        default: FACEBOOK_PAGE_EMBED_TYPE,
       },
       facebook_page_tab: {
         type: 'string',

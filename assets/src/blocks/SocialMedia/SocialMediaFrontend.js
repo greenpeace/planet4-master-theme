@@ -4,7 +4,6 @@ export const SocialMediaFrontend = ({
   title,
   description,
   embed_code,
-  social_media_url,
   facebook_page_tab,
   alignment_class,
   className,
@@ -22,7 +21,6 @@ export const SocialMediaFrontend = ({
     <SocialMediaEmbed
       embedCode={embed_code}
       facebookPageTab={facebook_page_tab}
-      facebookPageUrl={social_media_url}
       alignmentClass={alignment_class}
       embedType={embed_type}
     />

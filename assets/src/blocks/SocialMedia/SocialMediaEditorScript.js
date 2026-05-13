@@ -2,8 +2,10 @@ import {SocialMediaEmbed} from './SocialMediaEmbed';
 import {URLInput} from '../../block-editor/URLInput/URLInput';
 import {HTMLSidebarHelp} from '../../block-editor/HTMLSidebarHelp/HTMLSidebarHelp';
 import {
-  OEMBED_EMBED_TYPE,
-  FACEBOOK_EMBED_TYPE,
+  INSTAGRAM_JS,
+  INSTAGRAM_EMBED_TYPE,
+  FACEBOOK_PAGE_EMBED_TYPE,
+  FACEBOOK_POST_EMBED_TYPE,
   FACEBOOK_PAGE_TAB_TIMELINE,
   FACEBOOK_PAGE_TAB_EVENTS,
   FACEBOOK_PAGE_TAB_MESSAGES,
@@ -11,7 +13,7 @@ import {
 } from './SocialMediaConstants.js';
 
 const {InspectorControls, RichText} = wp.blockEditor;
-const {RadioControl, SelectControl, PanelBody} = wp.components;
+const {SelectControl, PanelBody} = wp.components;
 const {__} = wp.i18n;
 const {useEffect} = wp.element;
 
@@ -81,11 +83,11 @@ export const SocialMediaEditor = ({
     }
 
     if (provider === 'instagram') {
-      loadScriptAsync('https://www.instagram.com/embed.js');
+      loadScriptAsync(INSTAGRAM_JS);
       setAttributes({embed_type: ''});
 
       setAttributes({
-        embed_type: 'instagramPost',
+        embed_type: INSTAGRAM_EMBED_TYPE,
         embed_code: extractInstagramReelId(social_media_url),
       });
       return;
@@ -95,7 +97,7 @@ export const SocialMediaEditor = ({
     const isFacebookPage = !facebookParts?.postType || !facebookParts?.postId;
 
     setAttributes({
-      embed_type: isFacebookPage ? 'facebookPage' : 'facebookPost',
+      embed_type: isFacebookPage ? FACEBOOK_PAGE_EMBED_TYPE : FACEBOOK_POST_EMBED_TYPE,
       embed_code: social_media_url,
     });
 
@@ -132,17 +134,8 @@ export const SocialMediaEditor = ({
   const renderSidebar = () => (
     <InspectorControls>
       <PanelBody title={__('Settings', 'planet4-master-theme-backend')}>
-        <RadioControl
-          label={__('Embed type', 'planet4-master-theme-backend')}
-          options={[
-            {label: __('oEmbed', 'planet4-master-theme-backend'), value: OEMBED_EMBED_TYPE},
-            {label: __('Facebook page', 'planet4-master-theme-backend'), value: FACEBOOK_EMBED_TYPE},
-          ]}
-          selected={embed_type}
-          onChange={toAttribute('embed_type')}
-        />
         <HTMLSidebarHelp>{embed_type_help}</HTMLSidebarHelp>
-        {embed_type === FACEBOOK_EMBED_TYPE &&
+        {true &&
           <>
             <label htmlFor="render-siderbar__control">
               {__('What Facebook page content would you like to display?', 'planet4-master-theme-backend')}
@@ -199,7 +192,6 @@ export const SocialMediaEditor = ({
       <SocialMediaEmbed
         embedCode={embed_code}
         facebookPageTab={facebook_page_tab}
-        facebookPageUrl={social_media_url}
         alignmentClass={alignment_class}
         embedType={embed_type}
       />
