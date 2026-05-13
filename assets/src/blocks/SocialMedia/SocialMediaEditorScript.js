@@ -60,6 +60,15 @@ export const SocialMediaEditor = ({
     }
   };
 
+  const extractInstagramReelId = url => {
+    try {
+      const {pathname} = new URL(url);
+      const match = pathname.match(/\/reel\/([\w-]+)/);
+      return match ? match[1] : null;
+    } catch {
+      return null;
+    }
+  };
 
   useEffect(() => {
     const provider = ALLOWED_OEMBED_PROVIDERS.find(
@@ -73,12 +82,18 @@ export const SocialMediaEditor = ({
 
     if (provider === 'instagram') {
       loadScriptAsync('https://www.instagram.com/embed.js');
-      setAttributes({embed_type: 'instagramPost'});
+      setAttributes({embed_type: ''});
+
+      setAttributes({
+        embed_type: 'instagramPost',
+        embed_code: extractInstagramReelId(social_media_url),
+      });
       return;
     }
 
     const facebookParts = extractFacebookPostParts(social_media_url);
     const isFacebookPage = !facebookParts?.postType || !facebookParts?.postId;
+
     setAttributes({
       embed_type: isFacebookPage ? 'facebookPage' : 'facebookPost',
       embed_code: social_media_url,

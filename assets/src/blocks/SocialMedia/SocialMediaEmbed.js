@@ -38,7 +38,7 @@ export const SocialMediaEmbed = ({
     return (
       <blockquote className="instagram-media"
         data-instgrm-captioned
-        data-instgrm-permalink="https://www.instagram.com/reel/DYRb3U4ui8A/?utm_source=ig_embed&utm_campaign=loading"
+        data-instgrm-permalink={`https://www.instagram.com/reel/${embedCode}/?utm_source=ig_embed&utm_campaign=loading`}
         data-instgrm-version="14">
       </blockquote>
     );
