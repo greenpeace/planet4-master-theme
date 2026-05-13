@@ -64,7 +64,7 @@ class SocialMedia extends BaseBlock
                     ],
                     'embed_type' => [
                         'type' => 'string',
-                        'default' => 'oembed',
+                        'default' => '',
                     ],
                     'facebook_page_tab' => [
                         'type' => 'string',
