@@ -1,79 +1,80 @@
-@import "~bootstrap/scss/bootstrap-reboot";
-@import "~bootstrap/scss/bootstrap-grid";
-@import "~bootstrap/scss/carousel";
-@import "~bootstrap/scss/tooltip";
-@import "~bootstrap/scss/buttons";
+// @import "~bootstrap/scss/bootstrap-reboot";
+// @import "~bootstrap/scss/bootstrap-grid";
+// @import "~bootstrap/scss/carousel";
+// @import "~bootstrap/scss/tooltip";
+// @import "~bootstrap/scss/buttons";
 
-@import "base/tokens";
-@import "base/variables";
-@import "base/palette";
-@import "base/functions";
-@import "base/mixins";
-@import "base/fonts";
+@use "base/tokens";
+@use "base/colors";
+@use "base/variables";
+@use "base/palette";
+@use "base/functions";
+@use "base/mixins";
+@use "base/fonts";
 
-@import "base/icons";
-@import "components/buttons";
-@import "components/share-buttons";
-@import "components/image-hover-buttons";
-@import "components/character-counter";
-@import "base/typography";
-@import "layout/tables";
-@import "layout/page-header";
-@import "layout/breadcrumbs";
-@import "layout/forms";
-@import "layout/gravity-forms";
-@import "layout/query-loop-overrides";
+@use "base/icons";
+@use "components/buttons";
+@use "components/share-buttons";
+@use "components/image-hover-buttons";
+@use "components/character-counter";
+@use "base/typography";
+@use "layout/tables";
+@use "layout/page-header";
+@use "layout/breadcrumbs";
+@use "layout/forms";
+@use "layout/gravity-forms";
+@use "layout/query-loop-overrides";
 
 // Overrides
-@import "editorOverrides";
+@use "editorOverrides";
 
 // CSS variables
-@import "base/css-variables";
+@use "base/css-variables";
 
 // Blocks
-@import "blocks";
+@use "blocks";
 
 // Blocks editor styles
-@import "blocks/Accordion/AccordionEditorStyle";
-@import "blocks/CarouselHeader/CarouselHeaderEditorStyle";
-@import "blocks/Columns/ColumnsEditorStyle";
-@import "blocks/Cookies/CookiesEditorStyle";
-@import "blocks/HappyPoint/HappyPointEditorStyle";
-@import "blocks/TableOfContents/TableOfContentsEditorStyle";
-@import "blocks/TakeActionBoxout/TakeActionBoxoutEditorStyle";
-@import "blocks/Timeline/TimelineEditorStyle";
+@use "blocks/Accordion/AccordionEditorStyle";
+@use "blocks/CarouselHeader/CarouselHeaderEditorStyle";
+@use "blocks/Columns/ColumnsEditorStyle";
+@use "blocks/Cookies/CookiesEditorStyle";
+@use "blocks/HappyPoint/HappyPointEditorStyle";
+@use "blocks/TableOfContents/TableOfContentsEditorStyle";
+@use "blocks/TakeActionBoxout/TakeActionBoxoutEditorStyle";
+@use "blocks/Timeline/TimelineEditorStyle";
 
 // Beta blocks editor styles
-@import "blocks/PostsList/PostsListEditorStyle";
-@import "blocks/ActionsList/ActionsListEditorStyle";
+@use "blocks/PostsList/PostsListEditorStyle";
+@use "blocks/ActionsList/ActionsListEditorStyle";
 
 // Variations
-@import "variations/stretched-link/edit";
+@use "variations/stretched-link/edit";
 
 .block-editor-block-list__layout.is-root-container > * {
-  margin-top: $sp-1;
-  margin-bottom: $sp-2;
+  margin-top: variables.$sp-1;
+  margin-bottom: variables.$sp-2;
 
-  @include large-and-up {
-    margin-top: $sp-2;
-    margin-bottom: $sp-4;
+  @include mixins.large-and-up {
+    margin-top: variables.$sp-2;
+    margin-bottom: variables.$sp-4;
   }
 }
 
 .block-edit-mode-warning {
-  padding: $sp-2;
+  padding: variables.$sp-2;
   margin: 0;
 }
 
 .EmptyMessage {
   font-family: var(--font-family-primary);
-  padding: $sp-4;
+  padding: variables.$sp-4;
   background: var(--gp-green-200);
 }
 
 .HTMLSidebarHelp {
-  padding-top: $sp-1;
-  padding-bottom: $sp-2;
+  padding-top: variables.$sp-1;
+  padding-bottom: variables.$sp-2;
   font-size: 13px;
   line-height: 1.5;
 }

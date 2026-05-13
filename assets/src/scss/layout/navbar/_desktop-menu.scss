@@ -1,5 +1,7 @@
+@use "../../base/mixins";
+
 #nav-main-desktop {
-  @include large-and-up {
+  @include mixins.large-and-up {
     flex-grow: 1;
     width: auto;
   }

@@ -1,4 +1,6 @@
-@use "../base/tokens" as tokens;
+@use "../base/mixins";
+@use "../base/tokens";
+@use "../base/variables";
 
 .p4-query-loop {
   & > .wp-block-group {
@@ -19,10 +21,10 @@
       margin-bottom: 0;
     }
 
-    @include medium-and-less {
+    @include mixins.medium-and-less {
       .carousel {
         overflow: hidden;
-        padding: $sp-x $sp-x $sp-x 0;
+        padding: variables.$sp-x variables.$sp-x variables.$sp-x 0;
       }
 
       .carousel-inner {
@@ -42,27 +44,27 @@
           display: flex;
 
           .wp-block-post:not(:last-child) {
-            margin-inline-end: $sp-1x;
+            margin-inline-end: variables.$sp-1x;
           }
         }
       }
     }
 
-    @include large-and-up {
+    @include mixins.large-and-up {
       .carousel-item {
         width: 100%;
       }
 
       .carousel-item-wrapper {
         display: grid;
-        column-gap: $sp-3;
+        column-gap: variables.$sp-3;
       }
 
       .carousel-controls {
         display: flex;
         position: absolute;
         height: 48px;
-        width: calc(100% + calc($sp-3 * 2));
+        width: calc(100% + calc(variables.$sp-3 * 2));
         top: 0;
         bottom: 0;
         margin: auto;
@@ -111,9 +113,9 @@
       }
     }
 
-    @include xx-large-and-up {
+    @include mixins.xx-large-and-up {
       .carousel-controls {
-        width: calc(100% + calc($sp-8 * 2));
+        width: calc(100% + calc(variables.$sp-8 * 2));
       }
     }
   }

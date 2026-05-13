@@ -1,4 +1,7 @@
-@use "../../base/tokens" as tokens;
+@use "../../base/fonts";
+@use "../../base/mixins";
+@use "../../base/tokens";
+@use "../../base/variables";
 
 .nav-languages-wrapper {
   .nav-languages {
@@ -19,11 +22,11 @@
   border: none;
   color: inherit;
   display: none;
-  font-size: $font-size-sm;
+  font-size: fonts.$font-size-sm;
   font-weight: 700;
-  padding: 0 $sp-2;
+  padding: 0 variables.$sp-2;
 
-  @include large-and-up {
+  @include mixins.large-and-up {
     border-inline-start: var(--top-navigation--separation);
     display: inline-block;
     line-height: var(--navbar-menu-height);
@@ -33,7 +36,7 @@
       display: inline-block;
       width: 10px;
       height: 10px;
-      margin-inline-start: $sp-x;
+      margin-inline-start: variables.$sp-x;
       mask: url("../../images/chevron.svg") 0 0/10px 10px;
       transform: rotate(90deg);
       transition: transform 150ms linear;
@@ -99,7 +102,7 @@
     display: none;
   }
 
-  @include large-and-up {
+  @include mixins.large-and-up {
     inset-inline-end: 0;
     min-width: 140px;
     position: absolute;

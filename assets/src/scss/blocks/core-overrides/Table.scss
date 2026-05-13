@@ -1,8 +1,9 @@
+@use "../../base/mixins";
 
 // Table background colors (header, footer, odd/even rows)
 .wp-block-table {
   a {
-    @include shared-link-styles;
+    @include mixins.shared-link-styles;
   }
 
   table {

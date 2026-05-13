@@ -1,28 +1,31 @@
+@use "../../base/mixins";
+@use "../../base/variables";
+
 @mixin boxout-half-and-half {
   height: 222px;
 
   .boxout-content {
     width: 50%;
-    padding: 0 $sp-4;
+    padding: 0 variables.$sp-4;
     margin: auto;
   }
 
   .btn {
-    margin-top: $sp-3;
+    margin-top: variables.$sp-3;
     width: 100%;
   }
 
   img,
   .boxout-placeholder {
     width: 50%;
-    border-top-left-radius: $sp-x;
-    border-bottom-left-radius: $sp-x;
+    border-top-left-radius: variables.$sp-x;
+    border-bottom-left-radius: variables.$sp-x;
 
     html[dir="rtl"] & {
       border-top-left-radius: 0;
       border-bottom-left-radius: 0;
-      border-top-right-radius: $sp-x;
-      border-bottom-right-radius: $sp-x;
+      border-top-right-radius: variables.$sp-x;
+      border-bottom-right-radius: variables.$sp-x;
     }
   }
 }
@@ -30,7 +33,7 @@
 @mixin boxout-heading-font-size($mobile, $desktop) {
   font-size: $mobile;
 
-  @include large-and-up {
+  @include mixins.large-and-up {
     font-size: $desktop;
   }
 }
@@ -42,7 +45,7 @@
   box-shadow: 0 1px 8px rgba(0, 0, 0, 0.16);
   transition: box-shadow 0.2s;
   border-radius: 4px;
-  margin-bottom: $sp-3;
+  margin-bottom: variables.$sp-3;
   position: relative;
 
   .not-now {
@@ -85,9 +88,9 @@
     font-family: var(--font-family-heading);
     font-weight: var(--font-weight-regular);
     color: var(--color-text-body);
-    margin-bottom: $sp-1;
+    margin-bottom: variables.$sp-1;
     word-break: break-word;
-    @include clamp-text(2);
+    @include mixins.clamp-text(2);
     // Medium font size is the default.
     @include boxout-heading-font-size(
       var(--font-size-s--font-family-primary),
@@ -127,37 +130,37 @@
     line-height: var(--line-height-m--font-family-tertiary);
     color: var(--color-text-body);
     margin: 0;
-    @include clamp-text(2);
+    @include mixins.clamp-text(2);
   }
 
   &:not(.sticky-bottom-mobile) {
-    @include small-and-less {
+    @include mixins.small-and-less {
       flex-direction: column-reverse;
 
       .boxout-content {
-        padding: $sp-4;
+        padding: variables.$sp-4;
       }
 
       .btn {
-        margin-top: $sp-3;
+        margin-top: variables.$sp-3;
         width: 100%;
       }
 
       img,
       .boxout-placeholder {
         height: 198px;
-        border-bottom-right-radius: $sp-x;
-        border-bottom-left-radius: $sp-x;
+        border-bottom-right-radius: variables.$sp-x;
+        border-bottom-left-radius: variables.$sp-x;
       }
     }
 
-    @include medium-and-up {
+    @include mixins.medium-and-up {
       @include boxout-half-and-half;
     }
   }
 
   &.sticky-bottom-mobile {
-    @include medium-and-less {
+    @include mixins.medium-and-less {
       z-index: 9999;
       position: fixed;
       bottom: 0;
@@ -166,7 +169,7 @@
       height: 128px;
       border-radius: 0;
       transition: all 0.5s;
-      padding: $sp-2;
+      padding: variables.$sp-2;
       margin-bottom: 0;
 
       img,
@@ -176,8 +179,8 @@
       }
 
       .boxout-content {
-        padding-inline-start: $sp-2;
-        padding-top: $sp-1;
+        padding-inline-start: variables.$sp-2;
+        padding-top: variables.$sp-1;
       }
 
       .cover-card-overlay,
@@ -187,12 +190,12 @@
 
       .btn {
         position: absolute;
-        right: $sp-2;
-        bottom: $sp-2;
+        right: variables.$sp-2;
+        bottom: variables.$sp-2;
 
         html[dir="rtl"] & {
           right: auto;
-          left: $sp-2;
+          left: variables.$sp-2;
         }
       }
 
@@ -204,23 +207,23 @@
         position: absolute;
         width: 16px;
         height: 16px;
-        top: $sp-2;
-        right: $sp-2;
+        top: variables.$sp-2;
+        right: variables.$sp-2;
 
         html[dir="rtl"] & {
           right: auto;
-          left: $sp-2;
+          left: variables.$sp-2;
         }
       }
 
-      @include mobile-only {
+      @include mixins.mobile-only {
         .boxout-heading {
-          margin-inline-end: $sp-3;
+          margin-inline-end: variables.$sp-3;
         }
       }
     }
 
-    @include large-and-up {
+    @include mixins.large-and-up {
       @include boxout-half-and-half;
     }
   }
