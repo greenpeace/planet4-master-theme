@@ -45,29 +45,20 @@ export const setupQueryLoopCarousel = () => {
       return;
     }
 
+    // This is for the carousel layout, we need to setup the arrows and indicators.
+    // Or hide them if there are not enough items to scroll.
     if (layout.className.includes(LAYOUTS.carousel)) {
-      // This is for the carousel layout, we need to setup the arrows and indicators.
-      // Or hide them if there are not enough items to scroll.
       const list = layout.querySelector('.wp-block-post-template');
-      if (!list) {
+      const isPostsList = layout.className.includes(BLOCK_CLASSNAMES.postsList);
+      const isActionsList = layout.className.includes(BLOCK_CLASSNAMES.actionsList);
+      if (!list || (!isActionsList && !isPostsList)) {
         return;
       }
+
       let indicators = null;
+      let announcement = null;
       const uniqueId = `${LAYOUTS.carousel}-${uuid()}`;
-      const isPostsList = layout.className.includes('posts-list');
       const itemsPerSlide = isPostsList ? 4 : 3;
-
-      // Add some accessibility attributes
-      layout.setAttribute('role', 'region');
-      layout.setAttribute('aria-label', __('Actions List', 'planet4-master-theme'));
-      layout.setAttribute('aria-roledescription', 'carousel');
-
-      // Add an aria-live div to announce slide changes.
-      const announcement = document.createElement('div');
-      announcement.setAttribute('aria-live', 'polite');
-      announcement.classList.add('visually-hidden');
-      announcement.id = `announce-${uniqueId}`;
-      layout.appendChild(announcement);
 
       // Adapt it as bootstrap carousel
       const carousel = document.createElement('div');
@@ -79,13 +70,12 @@ export const setupQueryLoopCarousel = () => {
       carousel.append(list);
       const posts = list.querySelectorAll('.wp-block-post');
 
-      const backToList = document.createElement('a');
-      backToList.href = `#${uniqueId}`;
-      backToList.textContent = __('Back to Actions List', 'planet4-master-theme');
-      backToList.classList.add('carousel-skip-link');
-      backToList.setAttribute('role', 'link');
-
-      layout.append(backToList);
+      if (isActionsList) {
+        // Add some accessibility attributes
+        layout.setAttribute('role', 'region');
+        layout.setAttribute('aria-label', __('Actions List', 'planet4-master-theme'));
+        layout.setAttribute('aria-roledescription', 'carousel');
+      }
 
       // Only add indicators if there are more items to show
       if (posts.length > itemsPerSlide) {
@@ -111,6 +101,23 @@ export const setupQueryLoopCarousel = () => {
         // Align the controls in the middle
         const controls = layout.querySelector(BUTTONS_CLASS);
         controls.style.top = (list.getBoundingClientRect().height / 2) - (controls.getBoundingClientRect().height / 2);
+
+        if (isActionsList) {
+          // Add an aria-live div to announce slide changes.
+          announcement = document.createElement('div');
+          announcement.setAttribute('aria-live', 'polite');
+          announcement.classList.add('visually-hidden');
+          announcement.id = `announce-${uniqueId}`;
+          layout.appendChild(announcement);
+
+          // Add a hidden link to get back to the list.
+          const backToList = document.createElement('a');
+          backToList.href = `#${uniqueId}`;
+          backToList.textContent = __('Back to Actions List', 'planet4-master-theme');
+          backToList.classList.add('carousel-skip-link');
+          backToList.setAttribute('role', 'link');
+          layout.append(backToList);
+        }
       } else {
         // Remove arrows if they are not needed
         removeArrows(layout);
@@ -168,7 +175,7 @@ export const setupQueryLoopCarousel = () => {
 
         const carouselButtons = layout.querySelectorAll(`${BUTTONS_CLASS} ${CONTROLS_CLASS}-next, ${BUTTONS_CLASS} ${CONTROLS_CLASS}-prev`);
 
-        if (layout.className.includes(BLOCK_CLASSNAMES.postsList)) {
+        if (isPostsList) {
           // This resets the focus to the ghost element so users can tab over the new slide.
           carouselButtons.forEach(button => {
             button.addEventListener('click', () => {
@@ -191,9 +198,7 @@ export const setupQueryLoopCarousel = () => {
               }, 600);
             });
           });
-        }
-
-        if (layout.className.includes(BLOCK_CLASSNAMES.actionsList)) {
+        } else if (isActionsList) {
           // Moves the focus to the next slide when the carousel arrows or indicators are hit.
           // Also update the aria-live text so that the screen reader announces the slide change.
           const indicatorButtons = layout.querySelectorAll('.carousel-indicators li');
