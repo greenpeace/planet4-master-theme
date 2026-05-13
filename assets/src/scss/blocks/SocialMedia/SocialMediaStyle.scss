@@ -22,23 +22,10 @@
       border: none;
       overflow: hidden;
       height: 500px;
+      width: 240px;
 
-      &--small {
-        width: 240px;
-        display: block;
-
-        @include medium-and-up {
-          display: none;
-        }
-      }
-
-      &--large {
-        width: 500px;
-        display: none;
-
-        @include medium-and-up {
-          display: block;
-        }
+      @include medium-and-up {
+          width: 500px;
       }
     }
   }
