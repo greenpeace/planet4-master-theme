@@ -5,46 +5,41 @@ namespace P4\MasterTheme;
 /**
  * Class NavMenuCache
  *
- * Optimizes DB queries triggered by nav menus.
+ * Reduces DB queries triggered by nav menus.
  *
  * Planet4 renders menus through Timber/Twig (no wp_nav_menu() calls), so the
- * cost concentrates in:
- *   1. wp_get_nav_menu_items() — runs a WP_Query for nav_menu_item posts plus
- *      per-item meta and term lookups during wp_setup_nav_menu_item().
- *   2. wp_get_object_terms() — called repeatedly for the same item by both
+ * cost concentrates in two places:
+ *   1. wp_get_nav_menu_items() — runs a WP_Query for nav_menu_item posts and
+ *      per-item meta lookups via wp_setup_nav_menu_item().
+ *   2. wp_get_object_terms() — called repeatedly for the same menu item by
  *      core's setup and Timber's processing.
  *
  * This class implements:
- *   - Cached array result of wp_get_nav_menu_items() (per menu term + version).
- *   - Bulk-priming of post-meta and object-term caches for the items returned,
- *     so Timber's downstream processing reads from the object cache instead of
- *     hitting the DB once per item.
- *   - Per-request memoization of wp_get_object_terms() to dedupe identical
- *     calls within the same request.
- *   - A single integer cache version that's bumped on any menu mutation —
- *     keys embed the version, so old entries become unreachable and Redis
- *     evicts them naturally (no flush storms).
+ *   - Provides NavMenuCache::get_items(), a drop-in replacement for
+ *     wp_get_nav_menu_items() that consults the object cache first. Used by
+ *     MasterSite::add_to_context() for the footer menus.
+ *   - Dedupes wp_get_object_terms() within a single request via in-memory
+ *     memoization.
+ *   - Bumps a cache-version option on every menu mutation; cache keys embed
+ *     the version, so old entries become unreachable and Redis evicts them
+ *     naturally (no flush storms, no manual cleanup).
  */
 class NavMenuCache
 {
     /**
-     * Object cache group used when an external object cache is present.
-     * The numeric suffix is bumped when the cache *format* changes (e.g.
-     * stdClass-vs-WP_Post). Bumping it invalidates every previously-stored
-     * entry without needing a manual flush.
+     * Object cache group.
      */
-    private const CACHE_GROUP = 'p4_nav_menu_v4';
+    private const CACHE_GROUP = 'p4-cache-nav-menu';
 
     /**
      * Option name that stores the integer cache version.
      */
-    private const VERSION_OPTION = 'p4_nav_menu_cache_version';
+    private const VERSION_OPTION = 'p4-nav-menu-cache-version';
 
     /**
-     * Default TTL for cached entries (12 hours). Invalidation is version-based,
-     * so this is a safety ceiling, not the primary lifetime control.
+     * Default TTL for cached entries (24 hours).
      */
-    private const TTL = 12 * HOUR_IN_SECONDS;
+    private const TTL = DAY_IN_SECONDS;
 
     /**
      * In-memory cache of wp_get_nav_menu_items() results for this request.
@@ -70,40 +65,17 @@ class NavMenuCache
      */
     public function __construct()
     {
-        // Bypass everything in admin/customize/preview to keep menu editing fresh.
+        // Bypass cache reads in admin / menu REST endpoints to keep menu editing fresh.
         if (is_admin() || (defined('REST_REQUEST') && REST_REQUEST && $this->is_menu_rest_request())) {
             $this->register_invalidation_hooks();
             return;
         }
 
-        // Layer B is intentionally NOT a wp_get_nav_menu_items filter.
-        // wp_setup_nav_menu_item() runs BEFORE that filter, so any "priming"
-        // we do at filter time is too late — per-item meta has already been
-        // queried. And calling set_transient() on every request fires a
-        // wp_options UPDATE per cached menu, adding queries instead of
-        // saving them. Caching now lives entirely in NavMenuCache::get_items()
-        // (below), used by callers that want to bypass wp_get_nav_menu_items()
-        // on warm cache (the 3 footer menus in MasterSite.php).
-
-        // Layer D — dedupe wp_get_object_terms within a request.
+        // Dedupe wp_get_object_terms() within a single request.
         add_filter('pre_wp_get_object_terms', [$this, 'dedupe_object_terms_pre'], 10, 4);
         add_filter('wp_get_object_terms', [$this, 'dedupe_object_terms_capture'], 999);
 
-        // Note: an earlier "Layer A" hooked pre_wp_nav_menu / wp_nav_menu as
-        // defensive output caching, but P4 doesn't call wp_nav_menu()
-        // and Timber\Menu::__toString() invokes walk_nav_menu_tree() which
-        // triggers those filters in unexpected ways. The hooks are intentionally
-        // omitted so the class only acts on wp_get_nav_menu_items / wp_get_object_terms.
-
         $this->register_invalidation_hooks();
-    }
-
-    /**
-     * Whether a persistent external object cache (Redis) is active.
-     */
-    private static function using_persistent_cache(): bool
-    {
-        return function_exists('wp_using_ext_object_cache') && wp_using_ext_object_cache();
     }
 
     /**
@@ -113,42 +85,23 @@ class NavMenuCache
      */
     private static function cache_get(string $key)
     {
-        if (self::using_persistent_cache()) {
-            $found = false;
-            $value = wp_cache_get($key, self::CACHE_GROUP, false, $found);
-            return $found ? $value : null;
-        }
-        $value = get_transient(self::CACHE_GROUP . '_' . $key);
-        return false === $value ? null : $value;
+        $found = false;
+        $value = wp_cache_get($key, self::CACHE_GROUP, false, $found);
+        return $found ? $value : null;
     }
 
     /**
      * Write a cached value, but only if the key is not already populated.
      *
-     * Without this guard, set_transient() writes wp_options on every request
-     * even when the value is unchanged — turning the cache into a query
-     * amplifier. With the guard, transient writes only happen on cache miss.
-     *
      * @param mixed $value
      */
     private static function cache_set(string $key, $value): bool
     {
-        if (self::using_persistent_cache()) {
-            $found = false;
-            wp_cache_get($key, self::CACHE_GROUP, false, $found);
-            if ($found) {
-                return true;
-            }
-            return (bool) wp_cache_set($key, $value, self::CACHE_GROUP, self::TTL);
-        }
-        if (false !== get_transient(self::CACHE_GROUP . '_' . $key)) {
-            return true;
-        }
-        return (bool) set_transient(self::CACHE_GROUP . '_' . $key, $value, self::TTL);
+        return (bool) wp_cache_add($key, $value, self::CACHE_GROUP, self::TTL);
     }
 
     /**
-     * Current cache version (used as part of every key).
+     * Current cache version (used as part of every cache key).
      */
     private static function cache_version(): int
     {
@@ -168,28 +121,21 @@ class NavMenuCache
         $version = self::cache_version() + 1;
         update_option(self::VERSION_OPTION, $version, false);
 
-        // Drop the per-request cache too so the next call within this request doesn't return stale data.
+        // Drop the per-request cache so the next call in this request doesn't return stale data.
         self::$items_request_cache = [];
         self::$terms_request_cache = [];
         self::$terms_pending_signature = null;
     }
 
-    /* ---------------------------------------------------------------------
-     *  Layer B — cache wp_get_nav_menu_items()
-     * --------------------------------------------------------------------- */
-
     /**
      * Drop-in replacement for wp_get_nav_menu_items() that consults our cache
      * BEFORE running the underlying WP_Query.
      *
-     * On a warm cache:
-     *   - Returns the cached array with zero DB queries beyond resolving the
-     *     menu term object (which is itself cached by core in the `terms` /
-     *     `nav_menu` cache groups).
-     *   - Primes related caches so any subsequent reads stay in object cache.
+     * On a warm cache: returns the cached array, skipping the WP_Query and
+     * per-item meta lookups inside wp_setup_nav_menu_item().
      *
-     * On a cold cache: delegates to wp_get_nav_menu_items(), which then runs
-     * cache_and_prime_items() via the wp_get_nav_menu_items filter.
+     * On a cold cache: delegates to wp_get_nav_menu_items() and stores the
+     * result for next time.
      *
      * @param int|string|\WP_Term $menu_identifier Menu ID, slug, name, or term object.
      * @param array               $args            Same shape as wp_get_nav_menu_items() $args.
@@ -197,8 +143,6 @@ class NavMenuCache
      */
     public static function get_items($menu_identifier, array $args = [])
     {
-        // Resolve the menu term once. wp_get_nav_menu_object is cheap (cached
-        // by core under the `nav_menu` term cache group on warm cache).
         $menu = wp_get_nav_menu_object($menu_identifier);
         if (!$menu || empty($menu->term_id)) {
             return false;
@@ -216,7 +160,6 @@ class NavMenuCache
             return $cached;
         }
 
-        // Cold cache — delegate to core, then store the result.
         $items = wp_get_nav_menu_items($menu, $args);
         if (is_array($items)) {
             self::$items_request_cache[$key] = $items;
@@ -228,16 +171,12 @@ class NavMenuCache
     /**
      * Build the cache key for a given menu lookup.
      *
-     * The key normalizes $args against core's defaults so the same key is
-     * produced whether build_items_key() is called from:
-     *   - get_items() with raw user args, or
-     *   - the wp_get_nav_menu_items filter (where core has merged defaults).
+     * Vary on cache version (global invalidation), menu term_id, normalized
+     * args hash (defaults applied + canonical order), and language.
      *
-     * Vary on:
-     *   - cache version (global invalidation)
-     *   - menu term_id
-     *   - normalized args hash (canonical order, defaults applied)
-     *   - language (WPML — different items per locale)
+     * $args is normalized against the defaults wp_get_nav_menu_items()
+     * applies internally, so build_items_key() produces the same key
+     * regardless of whether the caller passed [] or the merged defaults.
      *
      * @param \WP_Term|object $menu Menu term object (must expose ->term_id).
      * @param array           $args wp_get_nav_menu_items() args.
@@ -253,8 +192,6 @@ class NavMenuCache
             $lang = (string) ICL_LANGUAGE_CODE;
         }
 
-        // Mirror the defaults that wp_get_nav_menu_items() merges internally,
-        // then canonicalize key order so the hash is stable.
         $defaults = [
             'order' => 'ASC',
             'orderby' => 'menu_order',
@@ -269,7 +206,7 @@ class NavMenuCache
         ksort($normalized);
 
         return sprintf(
-            'items_v%d_%d_%s_%s',
+            'items-v%d-%d-%s-%s',
             self::cache_version(),
             $menu_id,
             $lang,
@@ -281,9 +218,9 @@ class NavMenuCache
      * Convert nav menu items to plain stdClass so they survive serialization.
      *
      * WP_Post::__sleep() only serializes the canonical post columns, dropping
-     * properties added at runtime (->url, ->title, ->target, ->classes, etc.).
-     * stdClass has no __sleep, so all properties are preserved.
-     *
+     * properties added at runtime by wp_setup_nav_menu_item() (->url, ->title,
+     * ->target, ->classes, etc.). stdClass has no __sleep, so all properties
+     * are preserved through the cache round-trip.
      */
     private static function items_for_cache(array $items): array
     {
@@ -293,10 +230,6 @@ class NavMenuCache
         }
         return $out;
     }
-
-    /* ---------------------------------------------------------------------
-     *  Layer D — dedupe wp_get_object_terms within a request
-     * --------------------------------------------------------------------- */
 
     /**
      * Pre-filter: serve from in-memory cache, or mark this signature pending.
@@ -334,10 +267,6 @@ class NavMenuCache
         }
         return $terms;
     }
-
-    /* ---------------------------------------------------------------------
-     *  Invalidation
-     * --------------------------------------------------------------------- */
 
     private function register_invalidation_hooks(): void
     {
