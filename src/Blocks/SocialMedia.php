@@ -103,6 +103,20 @@ class SocialMedia extends BaseBlock
     }
 
     /**
+     * Frontend script
+     */
+    public static function enqueue_frontend_script(): void
+    {
+        wp_enqueue_script(
+            'instagram-embed',
+            'https://www.instagram.com/embed.js',
+            [],
+            null,
+            true
+        );
+    }
+
+    /**
      * Required by the `BaseBlock` class.
      *
      * @param array $fields Unused, required by the abstract function.

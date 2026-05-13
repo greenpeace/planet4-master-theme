@@ -13,8 +13,6 @@ import {
 const {InspectorControls, RichText} = wp.blockEditor;
 const {RadioControl, SelectControl, PanelBody} = wp.components;
 const {__} = wp.i18n;
-const {apiFetch} = wp;
-const {addQueryArgs} = wp.url;
 const {useEffect} = wp.element;
 
 const loadScriptAsync = uri => {
@@ -29,33 +27,6 @@ const loadScriptAsync = uri => {
     const body = document.getElementsByTagName('body')[0];
     body.appendChild(tag);
   });
-};
-
-const initializeInstagramEmbeds = () => {
-  setTimeout(() => {
-    if ('undefined' !== window.instgrm) {
-      window.instgrm.Embeds.process();
-    }
-  }, 3000);
-};
-
-const initializeFacebookEmbeds = () => {
-  setTimeout(() => {
-    if ('undefined' !== window.FB) {
-      window.FB.XFBML.parse();
-    }
-  }, 3000);
-};
-
-const PROVIDER_SCRIPT_DATA = {
-  facebook: {
-    script: 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v9.0',
-    initFunction: initializeFacebookEmbeds,
-  },
-  instagram: {
-    script: 'https://www.instagram.com/embed.js',
-    initFunction: initializeInstagramEmbeds,
-  },
 };
 
 export const SocialMediaEditor = ({
@@ -78,61 +49,43 @@ export const SocialMediaEditor = ({
     [attributeName]: value,
   });
 
-  /**
-   * Check if social media corresponding embeds script is loaded and initiliaze it.
-   * Can be used for Facebook and Instagram depending on the parameter.
-   *
-   * @param {Object} provider
-   */
-  const checkProviderScript = async provider => {
-    const providerData = PROVIDER_SCRIPT_DATA[provider];
-    const script = document.querySelector(`body > script[src="${providerData.script}"]`);
-    if (script === null) {
-      await loadScriptAsync(providerData.script);
-    }
-    providerData.initFunction();
-  };
-
-  const updateEmbed = async (url, provider) => {
-    if (!url) {
-      setAttributes({embed_code: ''});
-      return;
-    }
-
-    let embedCode;
+  const extractFacebookPostParts = url => {
     try {
-      if (provider === 'instagram') {
-        const instagramEmbedData = await apiFetch({path: addQueryArgs('planet4/v1/get-instagram-embed', {url})});
-
-        if (instagramEmbedData) {
-          // WordPress automatically adds rel="noopener" to links that have _blank target.
-          // The Instagram embed HTML doesn't, so in order to avoid block validation errors we need to add it ourselves.
-          embedCode = instagramEmbedData.replaceAll('target="_blank"', 'target="_blank" rel="noopener noreferrer"');
-        }
-      }
-    } catch (error) {
-      embedCode = '';
+      const {pathname} = new URL(url);
+      const [, pageId, postType, postId] = pathname.split('/');
+      const facebookParts = {pageId, postType, postId};
+      return facebookParts;
+    } catch {
+      return null;
     }
-    setAttributes({embed_code: embedCode});
   };
+
 
   useEffect(() => {
-    const provider = ALLOWED_OEMBED_PROVIDERS.find(allowedProvider => social_media_url.includes(allowedProvider));
+    const provider = ALLOWED_OEMBED_PROVIDERS.find(
+      allowedProvider => social_media_url.includes(allowedProvider)
+    );
 
     if (!provider) {
       setAttributes({embed_code: ''});
       return;
     }
 
-    (async () => {
-      await checkProviderScript(provider);
+    if (provider === 'instagram') {
+      loadScriptAsync('https://www.instagram.com/embed.js');
+      setAttributes({embed_type: 'instagramPost'});
+      return;
+    }
 
-      // For Facebook we don't need the embed HTML code since we use an iframe
-      if (provider !== 'facebook') {
-        updateEmbed(social_media_url, provider);
-      }
-    })();
+    const facebookParts = extractFacebookPostParts(social_media_url);
+    const isFacebookPage = !facebookParts?.postType || !facebookParts?.postId;
+    setAttributes({
+      embed_type: isFacebookPage ? 'facebookPage' : 'facebookPost',
+      embed_code: social_media_url,
+    });
+
   }, [social_media_url]);
+
 
   const embed_type_help = __('Select oEmbed for the following types of social media<br>- Facebook: post, activity, photo, video, media, question, note<br>- Instagram: image', 'planet4-master-theme-backend');
 
@@ -229,7 +182,7 @@ export const SocialMediaEditor = ({
       {isSelected && renderSidebar()}
       {renderEditInPlace()}
       <SocialMediaEmbed
-        embedCode={embed_code || ''}
+        embedCode={embed_code}
         facebookPageTab={facebook_page_tab}
         facebookPageUrl={social_media_url}
         alignmentClass={alignment_class}
