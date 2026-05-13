@@ -1,6 +1,5 @@
 import {SocialMediaEmbed} from './SocialMediaEmbed';
 import {URLInput} from '../../block-editor/URLInput/URLInput';
-import {HTMLSidebarHelp} from '../../block-editor/HTMLSidebarHelp/HTMLSidebarHelp';
 import {
   INSTAGRAM_JS,
   INSTAGRAM_EMBED_TYPE,
@@ -92,8 +91,6 @@ export const SocialMediaEditor = ({
   }, [social_media_url]);
 
 
-  const embed_type_help = __('Select oEmbed for the following types of social media<br>- Facebook: post, activity, photo, video, media, question, note<br>- Instagram: image', 'planet4-master-theme-backend');
-
   const renderEditInPlace = () => (
     <>
       <header>
@@ -122,8 +119,28 @@ export const SocialMediaEditor = ({
   const renderSidebar = () => (
     <InspectorControls>
       <PanelBody title={__('Settings', 'planet4-master-theme-backend')}>
-        <HTMLSidebarHelp>{embed_type_help}</HTMLSidebarHelp>
-        {true &&
+        <URLInput
+          label={__('URL', 'planet4-master-theme-backend')}
+          placeholder={__('Enter URL', 'planet4-master-theme-backend')}
+          value={social_media_url}
+          onChange={toAttribute('social_media_url')}
+        />
+        {(embed_type === FACEBOOK_PAGE_EMBED_TYPE || embed_type === FACEBOOK_POST_EMBED_TYPE) &&
+          <SelectControl
+            __nextHasNoMarginBottom
+            __next40pxDefaultSize
+            label={__('Alignment', 'planet4-master-theme-backend')}
+            value={alignment_class}
+            options={[
+              {label: __('None', 'planet4-master-theme-backend'), value: ''},
+              {label: __('Left', 'planet4-master-theme-backend'), value: 'alignleft'},
+              {label: __('Center', 'planet4-master-theme-backend'), value: 'aligncenter'},
+              {label: __('Right', 'planet4-master-theme-backend'), value: 'alignright'},
+            ]}
+            onChange={toAttribute('alignment_class')}
+          />
+        }
+        {embed_type === FACEBOOK_PAGE_EMBED_TYPE &&
           <>
             <label htmlFor="render-siderbar__control">
               {__('What Facebook page content would you like to display?', 'planet4-master-theme-backend')}
@@ -142,25 +159,6 @@ export const SocialMediaEditor = ({
             />
           </>
         }
-        <URLInput
-          label={__('URL', 'planet4-master-theme-backend')}
-          placeholder={__('Enter URL', 'planet4-master-theme-backend')}
-          value={social_media_url}
-          onChange={toAttribute('social_media_url')}
-        />
-        <SelectControl
-          __nextHasNoMarginBottom
-          __next40pxDefaultSize
-          label={__('Alignment', 'planet4-master-theme-backend')}
-          value={alignment_class}
-          options={[
-            {label: __('None', 'planet4-master-theme-backend'), value: ''},
-            {label: __('Left', 'planet4-master-theme-backend'), value: 'alignleft'},
-            {label: __('Center', 'planet4-master-theme-backend'), value: 'aligncenter'},
-            {label: __('Right', 'planet4-master-theme-backend'), value: 'alignright'},
-          ]}
-          onChange={toAttribute('alignment_class')}
-        />
       </PanelBody>
       <PanelBody title={__('Learn more about this block', 'planet4-master-theme-backend')} initialOpen={false}>
         <p className="components-base-control__help">
