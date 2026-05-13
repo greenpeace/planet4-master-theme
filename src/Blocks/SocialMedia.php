@@ -116,10 +116,7 @@ class SocialMedia extends BaseBlock
     {
         $title = $fields['title'] ?? '';
         $description = $fields['description'] ?? '';
-        $url = $fields['social_media_url'] ?? '';
-        $embed_type = $fields['embed_type'];
         $alignment_class = $fields['alignment_class'];
-        $facebook_page_tab = $fields['facebook_page_tab'];
 
         $data = [
             'title' => $title,

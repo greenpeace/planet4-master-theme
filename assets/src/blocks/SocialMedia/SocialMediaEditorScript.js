@@ -51,17 +51,6 @@ export const SocialMediaEditor = ({
     [attributeName]: value,
   });
 
-  const extractFacebookPostParts = url => {
-    try {
-      const {pathname} = new URL(url);
-      const [, pageId, postType, postId] = pathname.split('/');
-      const facebookParts = {pageId, postType, postId};
-      return facebookParts;
-    } catch {
-      return null;
-    }
-  };
-
   const extractInstagramReelId = url => {
     try {
       const {pathname} = new URL(url);
@@ -93,11 +82,10 @@ export const SocialMediaEditor = ({
       return;
     }
 
-    const facebookParts = extractFacebookPostParts(social_media_url);
-    const isFacebookPage = !facebookParts?.postType || !facebookParts?.postId;
-
     setAttributes({
-      embed_type: isFacebookPage ? FACEBOOK_PAGE_EMBED_TYPE : FACEBOOK_POST_EMBED_TYPE,
+      embed_type: !social_media_url.includes('/reel/') && !social_media_url.includes('/posts/') ?
+        FACEBOOK_PAGE_EMBED_TYPE :
+        FACEBOOK_POST_EMBED_TYPE,
       embed_code: social_media_url,
     });
 
@@ -190,7 +178,7 @@ export const SocialMediaEditor = ({
       {isSelected && renderSidebar()}
       {renderEditInPlace()}
       <SocialMediaEmbed
-        embedCode={embed_code}
+        itemId={embed_code}
         facebookPageTab={facebook_page_tab}
         alignmentClass={alignment_class}
         embedType={embed_type}

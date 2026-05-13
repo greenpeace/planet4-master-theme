@@ -19,7 +19,7 @@ export const SocialMediaFrontend = ({
       <p className="page-section-description" dangerouslySetInnerHTML={{__html: description}} />
     }
     <SocialMediaEmbed
-      embedCode={embed_code}
+      itemId={embed_code}
       facebookPageTab={facebook_page_tab}
       alignmentClass={alignment_class}
       embedType={embed_type}
