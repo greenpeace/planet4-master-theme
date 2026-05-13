@@ -903,8 +903,13 @@ class GravityFormsExtensions
             return;
         }
 
-        $form['validationSummary'] = true;
-        GFAPI::update_form($form);
+        $saved_form = GFAPI::get_form($form['id']);
+        if (!is_array($saved_form)) {
+            return;
+        }
+
+        $saved_form['validationSummary'] = true;
+        GFAPI::update_form($saved_form);
     }
 
     /**
