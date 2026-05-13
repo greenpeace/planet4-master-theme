@@ -50,16 +50,6 @@ export const SocialMediaEditor = ({
     [attributeName]: value,
   });
 
-  const extractInstagramReelId = url => {
-    try {
-      const {pathname} = new URL(url);
-      const match = pathname.match(/\/reel\/([\w-]+)/);
-      return match ? match[1] : null;
-    } catch {
-      return null;
-    }
-  };
-
   useEffect(() => {
     const provider = ALLOWED_OEMBED_PROVIDERS.find(
       allowedProvider => social_media_url.includes(allowedProvider)
@@ -71,13 +61,22 @@ export const SocialMediaEditor = ({
     }
 
     if (provider === 'instagram') {
-      loadScriptAsync(INSTAGRAM_JS);
-      setAttributes({embed_type: ''});
+      const {pathname} = new URL(social_media_url);
+      const match = pathname.match(/\/(reel|p)\/([\w-]+)/);
+      const mediaId = match ? match[2] : null;
 
       setAttributes({
         embed_type: INSTAGRAM_EMBED_TYPE,
-        embed_code: extractInstagramReelId(social_media_url),
+        embed_code: mediaId,
       });
+
+      if (window.instgrm) {
+        // Script already loaded — just reprocess the new blockquote
+        window.instgrm.Embeds.process();
+      } else {
+        // First time — load the script, it will auto-process on load
+        loadScriptAsync(INSTAGRAM_JS);
+      }
       return;
     }
 
