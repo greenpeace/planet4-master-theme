@@ -393,7 +393,6 @@ $medium-image-height: 600px;
     @include large-and-up {
       padding-top: 180px;
       padding-bottom: 32px;
-      margin-inline-start: 80px;
     }
 
     h2 {
@@ -416,12 +415,11 @@ $medium-image-height: 600px;
         width: 100%;
         color: var(--white);
         margin-bottom: 32px;
-        line-height: 1.3;
+        line-height: $line-height-2xl--font-family-primary;
         font-size: $font-size-xxl;
       }
 
       @include x-large-and-up {
-        font-size: $font-size-xxxl;
         max-width: 100%;
         width: 100%;
       }
@@ -456,7 +454,7 @@ $medium-image-height: 600px;
 
       @include large-and-up {
         font-size: var(--font-size-xl--font-family-secondary);
-        margin-bottom: 36px;
+        margin-bottom: 32px;
         color: var(--white);
       }
 
@@ -707,10 +705,6 @@ $medium-image-height: 600px;
       bottom: $sp-2x;
       left: 0;
       z-index: 9999;
-
-      > .container {
-        margin-inline-start: 80px;
-      }
     }
 
     @include x-large-and-up {
