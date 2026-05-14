@@ -114,12 +114,14 @@ class GravityFormsExtensions
         add_filter('gform_field_css_class', [ $this, 'p4_gf_custom_field_class' ], 10, 3);
         add_filter('gform_form_args', [ $this, 'p4_gf_enforce_ajax' ], 10, 3);
         add_action('gform_after_save_form', [ $this, 'p4_gf_clear_page_caches' ], 10, 2);
+        add_action('gform_after_save_form', [ $this, 'p4_gf_enable_validation_summary' ], 10, 2);
         // Suppress the redirect in forms to use custom redirect handling.
         add_filter('gform_suppress_confirmation_redirect', '__return_true');
         add_filter('gform_confirmation', [ $this, 'p4_gf_custom_confirmation_redirect' ], 11, 3);
         add_filter('gform_pre_render', [ $this, 'p4_client_side_gravityforms_prefill' ], 10, 1);
         add_filter('gform_form_post_get_meta', [$this, 'p4_gf_enable_default_meta_settings'], 10, 1);
         add_filter('gform_hubspot_form_object_pre_save_feed', [$this, 'p4_gf_hb_form_object_pre_save_feed'], 10, 4);
+        add_filter('gform_field_validation', [$this, 'p4_gf_update_error_box_layout'], 10, 4);
         add_action('gform_after_submission', [$this, 'p4_send_gp_pixel_counter'], 10, 2);
         add_action('gform_stripe_fulfillment', [ $this, 'record_fulfillment_entry' ], 10, 2);
         add_action('gform_post_payment_action', [ $this, 'check_stripe_payment_status' ], 10, 2);
@@ -889,6 +891,28 @@ class GravityFormsExtensions
     }
 
     /**
+     * Enable validation summary feature by default and when the user create a new form.
+     *
+     * @param array $form  The new created form.
+     * @param bool $is_new Check if form is new.
+     *
+     */
+    public function p4_gf_enable_validation_summary(array $form, bool $is_new): void
+    {
+        if (!$is_new) {
+            return;
+        }
+
+        $saved_form = GFAPI::get_form($form['id']);
+        if (!is_array($saved_form)) {
+            return;
+        }
+
+        $saved_form['validationSummary'] = true;
+        GFAPI::update_form($saved_form);
+    }
+
+    /**
      * Client side dynamic population of form fields
      *
      * @param array|bool $form The different form fields present
@@ -1187,6 +1211,21 @@ class GravityFormsExtensions
             );
         }
         return $hs_form;
+    }
+
+    /**
+     * Apply the new style to the error box.
+     * This happens when the user submits the form and required fields are empty or invalid.
+     * @link https://docs.gravityforms.com/gform_field_validation/
+     *
+     * @param array $result       The validation result to be filtered.
+     */
+    public function p4_gf_update_error_box_layout($result): array
+    {
+        if (!$result['is_valid'] && !str_contains($result['message'], ":")) {
+            $result['message'] = "<span>{$result['message']}</span>";
+        }
+        return $result;
     }
     // @phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter, SlevomatCodingStandard.TypeHints.ReturnTypeHint.MissingNativeTypeHint
 }
