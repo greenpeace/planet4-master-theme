@@ -52,18 +52,6 @@ export const useSlides = (
     },
   };
 
-  const onScrollHandler = useCallback(() => {
-    if (!containerRef?.current) {
-      return;
-    }
-
-    const {top, height} = containerRef.current.getBoundingClientRect();
-
-    if(top < (height * -1) || top > window.innerHeight) {
-      setAutoplay(false);
-    }
-  }, [setAutoplay, containerRef]);
-
   const handleAutoplay = useCallback(() => {
     setAutoplay(!autoplay);
   }, [autoplay]);
@@ -231,14 +219,26 @@ export const useSlides = (
   }, [totalSlides, autoplay, timerRef, goToNextSlide]);
 
   useEffect(() => {
-    if(carousel_autoplay) {
-      window.addEventListener('scroll', onScrollHandler);
-
-      return () => {
-        window.removeEventListener('scroll', onScrollHandler);
-      };
+    if (!containerRef?.current || !carousel_autoplay) {
+      return;
     }
-  }, [carousel_autoplay, onScrollHandler]);
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setAutoplay(entry.isIntersecting);
+      },
+      {
+        root: null,
+        threshold: 0.10,
+      }
+    );
+
+    observer.observe(containerRef.current);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [carousel_autoplay, containerRef, autoplay]);
 
   return {
     totalSlides,
