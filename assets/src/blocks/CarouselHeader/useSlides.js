@@ -16,28 +16,41 @@ const activeClass = 'active';
  * @param {*}       totalSlides
  * @param {*}       containerRef
  * @param {boolean} carousel_autoplay
+ * @param {*}       headingsRef
+ * @param {*}       indicatorsRef
  * @param {Object}  options
  * @return {*} functions for the carousel header slides
  */
-export const useSlides = (slidesRef, totalSlides, containerRef, carousel_autoplay, options = {
-  // Following Bootstrap's approach for RTL:
-  // https://getbootstrap.com/docs/5.0/getting-started/rtl/#approach
-  // Note: in non-directional transitions (e.g.: fade out),
-  // these could have the same class for both directions.
-  enterTransitionClasses: {
-    next: 'enter-from-end',
-    prev: 'enter-from-start',
-  },
-  exitTransitionClasses: {
-    next: 'exit-to-start',
-    prev: 'exit-to-end',
-  },
-}) => {
+
+export const useSlides = (
+  slidesRef,
+  totalSlides,
+  containerRef,
+  carousel_autoplay,
+  headingsRef,
+  indicatorsRef,
+  options
+) => {
   const [autoplay, setAutoplay] = useState(carousel_autoplay);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [sliding, setSliding] = useState(false);
   // Set up the autoplay for the slides
   const timerRef = useRef(null);
+
+  options = options || {
+    // Following Bootstrap's approach for RTL:
+    // https://getbootstrap.com/docs/5.0/getting-started/rtl/#approach
+    // Note: in non-directional transitions (e.g.: fade out),
+    // these could have the same class for both directions.
+    enterTransitionClasses: {
+      next: 'enter-from-end',
+      prev: 'enter-from-start',
+    },
+    exitTransitionClasses: {
+      next: 'exit-to-start',
+      prev: 'exit-to-end',
+    },
+  };
 
   const handleAutoplay = useCallback(() => {
     setAutoplay(!autoplay);
@@ -77,7 +90,45 @@ export const useSlides = (slidesRef, totalSlides, containerRef, carousel_autopla
     }
   }, [containerRef]);
 
-  const goToSlide = useCallback((newSlide, forceCurrentSlide = false) => {
+  /**
+   * Handle the key press event when navigating through the carousel with keyboard.
+   * If the heading exists but not the CTA then focus the current indicator
+   * If the heading exists and the CTA too, then focus the CTA
+   */
+  const onkeyboardHandler = useCallback(event => {
+    if (event.key !== 'Tab' || event.shiftKey) {
+      return;
+    }
+
+    const carouselItem = event.target.closest('.carousel-item');
+    // Only applied to the carousel item
+    if(!carouselItem) {
+      return;
+    }
+
+    const headingFocused = event.target.tagName === 'H2';
+    const cta = carouselItem.querySelector('.action-button a');
+
+    if(headingFocused && cta) {
+      return;
+    }
+
+    // Find the active indicator
+    const activeIndicator = indicatorsRef.current.querySelector('li.active button');
+    if (!activeIndicator) {
+      return;
+    }
+
+    event.preventDefault();
+
+    // Move focus to the active indicator
+    activeIndicator.focus();
+
+    // Remove listener after first successful use
+    document.removeEventListener('keydown', onkeyboardHandler);
+  }, [indicatorsRef]);
+
+  const goToSlide = useCallback(({newSlide, forceCurrentSlide = false, fromClick = false}) => {
     if (!slidesRef.current) {
       return;
     }
@@ -96,6 +147,16 @@ export const useSlides = (slidesRef, totalSlides, containerRef, carousel_autopla
 
       activeElement.classList.add(exitTransitionClass);
       nextElement.classList.add(enterTransitionClass);
+
+      if(fromClick) {
+        const heading = nextElement.querySelector('h2');
+
+        if(heading) {
+          heading.focus();
+
+          document.addEventListener('keydown', onkeyboardHandler);
+        }
+      }
 
       const unsetTransitionClasses = () => {
         activeElement.removeEventListener('transitionend', unsetTransitionClasses);
@@ -118,14 +179,14 @@ export const useSlides = (slidesRef, totalSlides, containerRef, carousel_autopla
         unsetTransitionClasses();
       }
     }
-  }, [currentSlide, getOrder, options, sliding, setCarouselHeight, slidesRef]);
+  }, [currentSlide, getOrder, options, sliding, setCarouselHeight, slidesRef, onkeyboardHandler]);
 
-  const goToPrevSlide = useCallback(() => {
-    goToSlide(currentSlide === 0 ? totalSlides - 1 : currentSlide - 1);
+  const goToPrevSlide = useCallback((fromClick = false) => {
+    goToSlide({newSlide: (currentSlide - 1 < 0) ? totalSlides - 1 : currentSlide - 1, fromClick});
   }, [currentSlide, totalSlides, goToSlide]);
 
-  const goToNextSlide = useCallback(() => {
-    goToSlide((currentSlide + 1 >= totalSlides) ? 0 : currentSlide + 1);
+  const goToNextSlide = useCallback((fromClick = false) => {
+    goToSlide({newSlide: (currentSlide + 1 >= totalSlides) ? 0 : currentSlide + 1, fromClick});
   }, [currentSlide, totalSlides, goToSlide]);
 
   useHammerSwipe(containerRef, goToNextSlide, goToPrevSlide);
@@ -157,6 +218,28 @@ export const useSlides = (slidesRef, totalSlides, containerRef, carousel_autopla
     }
   }, [totalSlides, autoplay, timerRef, goToNextSlide]);
 
+  useEffect(() => {
+    if (!containerRef?.current || !carousel_autoplay) {
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setAutoplay(entry.isIntersecting);
+      },
+      {
+        root: null,
+        threshold: 0.10,
+      }
+    );
+
+    observer.observe(containerRef.current);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [carousel_autoplay, containerRef, autoplay]);
+
   return {
     totalSlides,
     currentSlide,
@@ -168,5 +251,7 @@ export const useSlides = (slidesRef, totalSlides, containerRef, carousel_autopla
     setAutoplay,
     setCarouselHeight,
     autoplay,
+    headingsRef,
+    indicatorsRef,
   };
 };

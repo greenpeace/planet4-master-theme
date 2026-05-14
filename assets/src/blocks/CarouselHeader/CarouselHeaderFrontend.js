@@ -10,6 +10,8 @@ const {__} = wp.i18n;
 export const CarouselHeaderFrontend = ({slides, carousel_autoplay, className, decoding}) => {
   const slidesRef = useRef([]);
   const containerRef = useRef(null);
+  const headingsRef = useRef([]);
+  const indicatorsRef = useRef();
   const {
     currentSlide,
     goToSlide,
@@ -18,7 +20,7 @@ export const CarouselHeaderFrontend = ({slides, carousel_autoplay, className, de
     handleAutoplay,
     setAutoplay,
     autoplay,
-  } = useSlides(slidesRef, slides.length, containerRef, carousel_autoplay);
+  } = useSlides(slidesRef, slides.length, containerRef, carousel_autoplay, headingsRef, indicatorsRef);
 
   return useMemo(() => (
     <section
@@ -27,15 +29,19 @@ export const CarouselHeaderFrontend = ({slides, carousel_autoplay, className, de
       aria-label={__('Greenpeace highlights', 'planet4-blocks')}
       aria-roledescription="carousel"
     >
-      {(slides.length > 1) && (
+      {(slides.length > 1) ? (
         <CarouselControls
           goToPrevSlide={() => {
-            setAutoplay(false);
-            goToPrevSlide();
+            setAutoplay(() => {
+              goToPrevSlide(true);
+              return false;
+            });
           }}
           goToNextSlide={() => {
-            setAutoplay(false);
-            goToNextSlide();
+            setAutoplay(() => {
+              goToNextSlide(true);
+              return false;
+            });
           }}
           goToSlide={goToSlide}
           handleAutoplay={handleAutoplay}
@@ -43,8 +49,9 @@ export const CarouselHeaderFrontend = ({slides, carousel_autoplay, className, de
           currentSlide={currentSlide}
           autoplay={autoplay}
           disableControls={carousel_autoplay}
+          ref={indicatorsRef}
         />
-      )}
+      ) : null}
       <div className="carousel-wrapper-header">
         <ul className="carousel-inner" role="listbox">
           {slides.map((slide, index) => <Slide
@@ -66,11 +73,11 @@ export const CarouselHeaderFrontend = ({slides, carousel_autoplay, className, de
     decoding,
     autoplay,
     slides,
-    goToSlide,
     setAutoplay,
+    carousel_autoplay,
     handleAutoplay,
+    goToSlide,
     goToPrevSlide,
     goToNextSlide,
-    carousel_autoplay,
   ]);
 };
