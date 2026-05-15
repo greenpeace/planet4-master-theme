@@ -1,9 +1,8 @@
 const {__} = wp.i18n;
 const {Tooltip} = wp.components;
 
-const COOKIES_DEFAULT_COPY = window.p4_vars.options.cookies_default_copy || {};
-
 export const CookiesFieldResetButton = ({fieldName, toAttribute, currentValue}) => {
+  const COOKIES_DEFAULT_COPY = window.p4_vars.options.cookies_default_copy || {};
   const defaultValue = COOKIES_DEFAULT_COPY[fieldName] || '';
 
   if (!currentValue || !defaultValue || currentValue === defaultValue) {
