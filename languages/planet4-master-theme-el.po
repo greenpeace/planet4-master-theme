@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2025-12-18 09:28+0000\n"
+"PO-Revision-Date: 2026-05-15 07:46+0000\n"
 "Last-Translator: Nikos Roussos\n"
 "Language-Team: Greek\n"
 "Language: el\n"
@@ -52,7 +52,7 @@ msgstr "Βιογραφικό"
 
 #: templates/cookies.twig:26
 msgid "Accept all cookies"
-msgstr ""
+msgstr "Αποδοχή όλων"
 
 #: page-templates/sitemap.php:44
 msgid "Act"
@@ -100,13 +100,13 @@ msgstr ""
 
 #: templates/cookies/cookies_settings.twig:55
 msgid "Allow all"
-msgstr ""
+msgstr "Αποδοχή όλων"
 
 #: templates/cookies/cookies_settings.twig:16
 #: assets/src/blocks/Cookies/CookiesEditor.js:73
 #: assets/src/blocks/Cookies/CookiesFrontend.js:131
 msgid "Always enabled"
-msgstr ""
+msgstr "Πάντα ενεργά"
 
 #: templates/listing-page-filters.twig:54
 msgid "Apply"
@@ -600,7 +600,7 @@ msgstr ""
 
 #: templates/cookies/cookies_settings.twig:11
 msgid "Manage your cookies preferences"
-msgstr ""
+msgstr "Διαχείριση ρυθμίσεων cookies"
 
 #. Description of the theme
 msgid "Master theme for the Planet 4 Wordpress project"
@@ -686,7 +686,7 @@ msgstr ""
 
 #: templates/cookies/cookies_settings.twig:12
 msgid "Please select which cookies you are willing to store."
-msgstr ""
+msgstr "Επιλέξτε τα cookies που επιθυμείτε να αποθηκεύσετε"
 
 #: src/Post.php:240
 msgid "POST"
@@ -751,7 +751,7 @@ msgstr ""
 
 #: templates/cookies/cookies_settings.twig:63
 msgid "Save preferences"
-msgstr ""
+msgstr "Αποθήκευση"
 
 #: templates/search-form.twig:2 templates/search.twig:48 templates/404.twig:16
 msgid "Search"
@@ -780,7 +780,7 @@ msgstr "Επιλεγμένο"
 
 #: templates/cookies.twig:18
 msgid "Settings"
-msgstr ""
+msgstr "Ρυθμίσεις"
 
 #: templates/blocks/share_buttons.twig:13
 #: templates/blocks/share_buttons.twig:22
