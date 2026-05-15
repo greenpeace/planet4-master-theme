@@ -2,6 +2,8 @@
 
 namespace P4\MasterTheme;
 
+use WP_HTML_Tag_Processor;
+
 /**
  * Class ImageHandler
  */
@@ -104,26 +106,35 @@ class ImageHandler
 
     /**
      * Override the Gutenberg core/image block render method output,
-     * to add credit field in its caption text & image alt text as title.
+     * to add credit in its caption and also add alt and title attributes.
      *
      * @param array  $attributes    Attributes of the Gutenberg core/image block.
      * @param string $content The image element HTML.
      *
-     * @return string HTML content of image element with credit field in caption and alt text in image title.
+     * @return string HTML content of image element with credit field, alt text and title attributes.
      */
     public function p4_core_image_block_render(array $attributes, string $content): string
     {
         $image_id = isset($attributes['id']) ? trim(str_replace('attachment_', '', $attributes['id'])) : '';
         $img_post_meta = $image_id ? get_post_meta($image_id) : [];
+        $image = $image_id ? get_post($image_id) : null;
+        $image_title = $image->post_title ?? '';
+        $image_description = $image->post_content ?? '';
+
         if (!$img_post_meta) {
             return $content;
         }
 
         $credit = $img_post_meta[self::CREDIT_META_FIELD][0] ?? '';
-        $alt_text = $img_post_meta['_wp_attachment_image_alt'][0] ?? '';
 
-        if ($alt_text) {
-            $content = str_replace(' alt=', ' title="' . esc_attr($alt_text) . '" alt=', $content);
+        // Replace alt text with image description
+        if (trim($image_description)) {
+            $content = $this->replace_alt_text_with_description($image_description, $content);
+        }
+
+        // Add or Replace Image title attribute to match the image title in media library
+        if ($image_title) {
+            $content = $this->update_image_title_with_gp_media($image_title, $content);
         }
 
         $image_credit = ' ' . $credit;
@@ -146,12 +157,25 @@ class ImageHandler
         // at the beginning or the end.
         $icon_class = str_ends_with($image_credit, '©') ? 'icon-right' : 'icon-left';
         $credit_div = '<div class="credit ' . $icon_class . '">' . esc_attr($image_credit) . '</div>';
-        return str_replace(
-            empty($caption) ? '</figure>' : $caption . '</figcaption>',
-            empty($caption) ?
-                '<figcaption>' . $credit_div . '</figcaption></figure>' :
-                $caption . $credit_div . '</figcaption>',
-            $content
+
+        if (!empty($caption)) {
+            $content = $this->hide_figcaption_from_screen_readers($content);
+        }
+
+        if (empty($caption)) {
+            return preg_replace(
+                '/<\/figure>/i',
+                '<figcaption>' . $credit_div . '</figcaption></figure>',
+                $content,
+                1
+            );
+        }
+
+        return preg_replace(
+            '/(<figcaption\b[^>]*>)(.*?)(<\/figcaption>)/is',
+            '$1$2' . $credit_div . '$3',
+            $content,
+            1
         );
     }
 
@@ -220,5 +244,77 @@ class ImageHandler
         );
 
         return $thumb;
+    }
+
+    /**
+     * Replace the alt attribute of an <img> tag with the provided description.
+     *
+     * @param string $description The image description to use as the alt text.
+     * @param string $content     The HTML content containing the <img> tag.
+     *
+     * @return string The updated HTML content with the modified alt attribute.
+     */
+    private function replace_alt_text_with_description(string $description, string $content): string
+    {
+
+        $image_description = trim($description);
+
+        // Replace existing alt attribute in <img>
+        return preg_replace(
+            '/(<img[^>]*?)alt=(["\'])(.*?)\2/i',
+            '$1alt="' . esc_attr($image_description) . '"',
+            $content
+        );
+    }
+
+    /**
+     * Add a title attribute to <img> tags based on the provided title.
+     *
+     * @param string $title   The title to assign to the image element.
+     * @param string $content The HTML content containing the <img> tag.
+     *
+     * @return string The updated HTML content with the title attribute added where applicable.
+     */
+    private function update_image_title_with_gp_media(string $title, string $content): string
+    {
+        $content = preg_replace_callback(
+            '/<img[^>]+>/i',
+            function ($matches) use ($title) {
+                $img = $matches[0];
+
+                // If title already exists, don't overwrite it
+                if (preg_match('/\btitle\s*=/i', $img)) {
+                    return $img;
+                }
+
+                return preg_replace(
+                    '/<img\b(?![^>]*\btitle\s*=)/i',
+                    '<img title="' . esc_attr($title) . '"',
+                    $img,
+                    1
+                );
+            },
+            $content
+        );
+
+        return $content;
+    }
+
+    /**
+     * Add aria-hidden attribute to figcaption.
+     *
+     * @param string $content HTML content.
+     */
+    private function hide_figcaption_from_screen_readers(string $content): string
+    {
+        $processor = new WP_HTML_Tag_Processor($content);
+
+        if ($processor->next_tag('figcaption')) {
+            $processor->set_attribute('aria-hidden', 'true');
+
+            return $processor->get_updated_html();
+        }
+
+        return $content;
     }
 }
