@@ -1,7 +1,7 @@
 import {v4 as uuid} from 'uuid';
 
 // Constants
-const {__} = wp.i18n;
+const {__, sprintf} = wp.i18n;
 const ARROW_DIRECTIONS = ['prev', 'next'];
 const LAYOUTS = {
   carousel: 'carousel',
@@ -45,16 +45,19 @@ export const setupQueryLoopCarousel = () => {
       return;
     }
 
+    // This is for the carousel layout, we need to setup the arrows and indicators.
+    // Or hide them if there are not enough items to scroll.
     if (layout.className.includes(LAYOUTS.carousel)) {
-      // This is for the carousel layout, we need to setup the arrows and indicators.
-      // Or hide them if there are not enough items to scroll.
       const list = layout.querySelector('.wp-block-post-template');
-      if (!list) {
+      const isPostsList = layout.className.includes(BLOCK_CLASSNAMES.postsList);
+      const isActionsList = layout.className.includes(BLOCK_CLASSNAMES.actionsList);
+      if (!list || (!isActionsList && !isPostsList)) {
         return;
       }
+
       let indicators = null;
+      let announcement = null;
       const uniqueId = `${LAYOUTS.carousel}-${uuid()}`;
-      const isPostsList = layout.className.includes('posts-list');
       const itemsPerSlide = isPostsList ? 4 : 3;
 
       // Adapt it as bootstrap carousel
@@ -67,15 +70,14 @@ export const setupQueryLoopCarousel = () => {
       carousel.append(list);
       const posts = list.querySelectorAll('.wp-block-post');
 
-      const backToList = document.createElement('a');
-      backToList.href = `#${uniqueId}`;
-      backToList.textContent = __('Back to Actions List', 'planet4-master-theme-backend');
-      backToList.classList.add('carousel-skip-link');
-      backToList.setAttribute('role', 'link');
+      if (isActionsList) {
+        // Add some accessibility attributes
+        layout.setAttribute('role', 'region');
+        layout.setAttribute('aria-label', __('Actions List', 'planet4-master-theme'));
+        layout.setAttribute('aria-roledescription', 'carousel');
+      }
 
-      layout.append(backToList);
-
-      // Only add indicators if there are more items to show
+      // Only add indicators, aria-live element, and back to list link if there are more items to show
       if (posts.length > itemsPerSlide) {
         indicators = document.createElement('ol');
         indicators.classList.add(`${LAYOUTS.carousel}-indicators`);
@@ -99,6 +101,23 @@ export const setupQueryLoopCarousel = () => {
         // Align the controls in the middle
         const controls = layout.querySelector(BUTTONS_CLASS);
         controls.style.top = (list.getBoundingClientRect().height / 2) - (controls.getBoundingClientRect().height / 2);
+
+        if (isActionsList) {
+          // Add an aria-live div to announce slide changes.
+          announcement = document.createElement('div');
+          announcement.setAttribute('aria-live', 'polite');
+          announcement.classList.add('visually-hidden');
+          announcement.id = `announce-${uniqueId}`;
+          layout.appendChild(announcement);
+
+          // Add a hidden link to get back to the list.
+          const backToList = document.createElement('a');
+          backToList.href = `#${uniqueId}`;
+          backToList.textContent = __('Back to Actions List', 'planet4-master-theme');
+          backToList.classList.add('carousel-skip-link');
+          backToList.setAttribute('role', 'link');
+          layout.append(backToList);
+        }
       } else {
         // Remove arrows if they are not needed
         removeArrows(layout);
@@ -112,21 +131,24 @@ export const setupQueryLoopCarousel = () => {
 
       posts.forEach((post, index) => {
         if (index % itemsPerSlide === 0) {
-          // Reset link that is only accessible via JS
-          slideReset = document.createElement('a');
-          slideReset.classList.add('carousel-ghost-link');
-          slideReset.setAttribute('aria-hidden', 'true');
-          slideReset.setAttribute('tabindex', '-1');
-          slideReset.style.position = 'absolute';
-          slideReset.style.opacity = '0';
-          slideReset.style.pointerEvents = 'none';
-          list.appendChild(slideReset);
+          // Add a reset link that is only accessible via JS.
+          // Only for the Posts List block, not Actions List.
+          if (isPostsList) {
+            slideReset = document.createElement('a');
+            slideReset.classList.add('carousel-ghost-link');
+            slideReset.setAttribute('aria-hidden', 'true');
+            slideReset.setAttribute('tabindex', '-1');
+            slideReset.style.position = 'absolute';
+            slideReset.style.opacity = '0';
+            slideReset.style.pointerEvents = 'none';
+            list.appendChild(slideReset);
+          }
 
           carouselItem = document.createElement('li');
           carouselItem.classList.add('carousel-item', 'carousel-li', `carousel-slide-${totalCarouselItems}`);
           list.append(carouselItem);
 
-          itemWrapper = document.createElement('div');
+          itemWrapper = document.createElement('ul');
           itemWrapper.classList.add('carousel-item-wrapper');
 
           carouselItem.append(itemWrapper);
@@ -153,7 +175,7 @@ export const setupQueryLoopCarousel = () => {
 
         const carouselButtons = layout.querySelectorAll(`${BUTTONS_CLASS} ${CONTROLS_CLASS}-next, ${BUTTONS_CLASS} ${CONTROLS_CLASS}-prev`);
 
-        if (layout.className.includes(BLOCK_CLASSNAMES.postsList)) {
+        if (isPostsList) {
           // This resets the focus to the ghost element so users can tab over the new slide.
           carouselButtons.forEach(button => {
             button.addEventListener('click', () => {
@@ -166,21 +188,37 @@ export const setupQueryLoopCarousel = () => {
 
                   // This adds a voice over so the screen reader reads out which Slide you are on.
                   resetFocusLink.removeAttribute('aria-hidden');
-                  resetFocusLink.setAttribute('aria-label', `Slide ${slideIndex}`);
+                  resetFocusLink.setAttribute('aria-label', sprintf(
+                  /* translators: 1: current slide number */
+                    __('Slide %1$d', 'planet4-master-theme'),
+                    slideIndex + 1
+                  ));
                   resetFocusLink.focus();
                 }
               }, 600);
             });
           });
-        }
-
-        if (layout.className.includes(BLOCK_CLASSNAMES.actionsList)) {
-          // Moves the focus to the next slide when the carousel arrows are hit.
-          carouselButtons.forEach(button => {
+        } else if (isActionsList) {
+          // Moves the focus to the next slide when the carousel arrows or indicators are hit.
+          // Also update the aria-live text so that the screen reader announces the slide change.
+          const indicatorButtons = layout.querySelectorAll('.carousel-indicators li');
+          [...carouselButtons, ...indicatorButtons].forEach(button => {
             button.addEventListener('click', () => {
 
               const observer = new MutationObserver(() => {
                 const currentSlide = layout.querySelector('.carousel-item.active');
+                const match = currentSlide.className.match(/carousel-slide-(\d+)/);
+                const slideIndex = match ? parseInt(match[1], 10) : null;
+                const slides = layout.querySelectorAll('.carousel-item').length;
+
+                if (announcement) {
+                  announcement.innerText = sprintf(
+                    /* translators: 1: current slide number, 2: total amount of slides */
+                    __('Slide %1$d from %2$d', 'planet4-master-theme'),
+                    slideIndex + 1,
+                    slides
+                  );
+                }
 
                 if (!currentSlide) {return;}
 
