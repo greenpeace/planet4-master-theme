@@ -478,25 +478,29 @@ class MasterSite extends \Timber\Site
         $context['copyright_text_line1'] = $options['copyright_line1'] ?? '';
         $context['copyright_text_line2'] = $options['copyright_line2'] ?? '';
 
+        // Use NavMenuCache::get_items() instead of wp_get_nav_menu_items() so warm
+        // requests skip the underlying WP_Query and per-item meta/term lookups.
+        // Falls through to wp_get_nav_menu_items() on cold cache; the result is
+        // then cached (and bulk-cache-primed) by NavMenuCache for next time.
         if (has_nav_menu('footer-social-menu')) {
             $footer_social_menu = Timber::get_menu('footer-social-menu');
-            $context['footer_social_menu'] = wp_get_nav_menu_items($footer_social_menu->id);
+            $context['footer_social_menu'] = NavMenuCache::get_items($footer_social_menu->id);
         } else {
-            $context['footer_social_menu'] = wp_get_nav_menu_items('Footer Social');
+            $context['footer_social_menu'] = NavMenuCache::get_items('Footer Social');
         }
 
         if (has_nav_menu('footer-primary-menu')) {
             $footer_primary_menu = Timber::get_menu('footer-primary-menu');
-            $context['footer_primary_menu'] = wp_get_nav_menu_items($footer_primary_menu->id);
+            $context['footer_primary_menu'] = NavMenuCache::get_items($footer_primary_menu->id);
         } else {
-            $context['footer_primary_menu'] = wp_get_nav_menu_items('Footer Primary');
+            $context['footer_primary_menu'] = NavMenuCache::get_items('Footer Primary');
         }
 
         if (has_nav_menu('footer-secondary-menu')) {
             $footer_secondary_menu = Timber::get_menu('footer-secondary-menu');
-            $context['footer_secondary_menu'] = wp_get_nav_menu_items($footer_secondary_menu->id);
+            $context['footer_secondary_menu'] = NavMenuCache::get_items($footer_secondary_menu->id);
         } else {
-            $context['footer_secondary_menu'] = wp_get_nav_menu_items('Footer Secondary');
+            $context['footer_secondary_menu'] = NavMenuCache::get_items('Footer Secondary');
         }
 
         // Default depth level set to 1 if not selected from admin.
