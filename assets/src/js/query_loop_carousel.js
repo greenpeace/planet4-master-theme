@@ -77,7 +77,7 @@ export const setupQueryLoopCarousel = () => {
         layout.setAttribute('aria-roledescription', 'carousel');
       }
 
-      // Only add indicators if there are more items to show
+      // Only add indicators, aria-live element, and back to list link if there are more items to show
       if (posts.length > itemsPerSlide) {
         indicators = document.createElement('ol');
         indicators.classList.add(`${LAYOUTS.carousel}-indicators`);
@@ -133,7 +133,7 @@ export const setupQueryLoopCarousel = () => {
         if (index % itemsPerSlide === 0) {
           // Add a reset link that is only accessible via JS.
           // Only for the Posts List block, not Actions List.
-          if (layout.className.includes(BLOCK_CLASSNAMES.postsList)) {
+          if (isPostsList) {
             slideReset = document.createElement('a');
             slideReset.classList.add('carousel-ghost-link');
             slideReset.setAttribute('aria-hidden', 'true');
@@ -211,12 +211,14 @@ export const setupQueryLoopCarousel = () => {
                 const slideIndex = match ? parseInt(match[1], 10) : null;
                 const slides = layout.querySelectorAll('.carousel-item').length;
 
-                announcement.innerText = sprintf(
-                  /* translators: 1: current slide number, 2: total amount of slides */
-                  __('Slide %1$d from %2$d', 'planet4-master-theme'),
-                  slideIndex + 1,
-                  slides
-                );
+                if (announcement) {
+                  announcement.innerText = sprintf(
+                    /* translators: 1: current slide number, 2: total amount of slides */
+                    __('Slide %1$d from %2$d', 'planet4-master-theme'),
+                    slideIndex + 1,
+                    slides
+                  );
+                }
 
                 if (!currentSlide) {return;}
 
