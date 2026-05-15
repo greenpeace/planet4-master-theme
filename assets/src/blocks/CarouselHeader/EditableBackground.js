@@ -8,6 +8,28 @@ const {__, sprintf} = wp.i18n;
 // Maximum image file size allowed for carousel header slides (1 MB).
 const MAX_IMAGE_FILESIZE_BYTES = 1024 * 1024;
 
+// MIME types accepted for carousel header slide images. `allowedTypes` on MediaUpload only filters the Media
+// Library grid; drag-and-drop and the "Upload files" tab can still bring in other types, so we re-check here.
+const ALLOWED_MIME_TYPES = ['image/jpeg', 'image/webp'];
+
+// Extract the MIME type from a WordPress media object. Different WP versions
+// expose it as `mime`, `mime_type`, or via `subtype` so we try them in order.
+const getMimeType = image => {
+  if (!image) {
+    return '';
+  }
+  if (image.mime) {
+    return image.mime;
+  }
+  if (image.mime_type) {
+    return image.mime_type;
+  }
+  if (image.subtype) {
+    return `image/${image.subtype}`;
+  }
+  return '';
+};
+
 // Resolve the URL for the largest registered (resized) image, never the original upload.
 // Falls back gracefully if a size is not available.
 const getLargestSizeUrl = image => {
@@ -39,6 +61,19 @@ export const EditableBackground = ({
     <MediaUpload
       onSelect={image => {
         const {id, alt_text, sizes, filesizeInBytes, fileLength} = image;
+        const mimeType = getMimeType(image);
+
+        // Reject anything that is not JPG / WebP. Defends against PNGs and other types that can slip in
+        // via drag-and-drop, the Upload tab, or pre-existing entries in the Media Library.
+        if (!ALLOWED_MIME_TYPES.includes(mimeType)) {
+          // eslint-disable-next-line no-alert
+          window.alert(__(
+            'Only JPG and WebP images are allowed for the carousel header. Please choose a different file.',
+            'planet4-master-theme-backend'
+          ));
+          return;
+        }
+
         const fileSize = filesizeInBytes ?? fileLength ?? 0;
 
         if (fileSize > MAX_IMAGE_FILESIZE_BYTES) {
