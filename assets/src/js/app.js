@@ -30,7 +30,13 @@ document.addEventListener('DOMContentLoaded', () => {
   if(document.querySelectorAll('.actions-list.is-custom-layout-grid').length) {
     import('./actions_list_load_more').then(({setupActionsListLoadMore}) => {
       setupActionsListLoadMore();
-      window.addEventListener('resize', setupActionsListLoadMore);
+
+      let resizeTimer;
+      const handleResize = () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => setupActionsListLoadMore(), 150);
+      };
+      window.addEventListener('resize', handleResize);
     });
   }
 });

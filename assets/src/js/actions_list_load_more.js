@@ -9,6 +9,10 @@ export const setupActionsListLoadMore = () => {
   if (window.innerWidth >= 768 && window.innerWidth < 992) {
     postsPerRow = 2;
   }
+  // For small screens we only show 1 post per row.
+  else if (window.innerWidth < 768) {
+    postsPerRow = 1;
+  }
 
   if (!gridBlocks.length) {
     return;
@@ -24,8 +28,10 @@ export const setupActionsListLoadMore = () => {
     const posts = [...block.querySelectorAll('.wp-block-post')];
     if (posts && posts.length > postsPerRow * 2) {
       loadMoreButtonContainer.classList.add('d-flex');
+      loadMoreButtonContainer.classList.remove('d-none');
     } else {
-      return;
+      loadMoreButtonContainer.classList.remove('d-flex');
+      loadMoreButtonContainer.classList.add('d-none');
     }
 
     const loadMoreButton = loadMoreButtonContainer.querySelector('.wp-element-button');
