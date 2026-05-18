@@ -1,5 +1,5 @@
 import {FrontendRichText} from '../components/FrontendRichText/FrontendRichText';
-import {CookiesFieldResetButton} from '../../block-editor/CookiesFieldResetButton';
+import {CookiesFieldResetButton} from './CookiesFieldResetButton';
 const {InspectorControls} = wp.blockEditor;
 const {PanelBody} = wp.components;
 
