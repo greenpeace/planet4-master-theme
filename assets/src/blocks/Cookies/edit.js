@@ -5,11 +5,6 @@ const {PanelBody} = wp.components;
 
 const {__} = wp.i18n;
 
-const COOKIES_DEFAULT_COPY = window.p4_vars.options.cookies_default_copy || {};
-
-// Planet4 settings(Planet 4 > Cookies > Enable Analytical Cookies).
-const ENABLE_ANALYTICAL_COOKIES = window.p4_vars.options.enable_analytical_cookies;
-
 export const CookiesEditor = ({setAttributes, attributes, isSelected}) => {
   const {
     title,
@@ -22,6 +17,11 @@ export const CookiesEditor = ({setAttributes, attributes, isSelected}) => {
     all_cookies_name,
     all_cookies_description,
   } = attributes;
+
+  const COOKIES_DEFAULT_COPY = window.p4_vars?.options?.cookies_default_copy || {};
+
+  // Planet4 settings(Planet 4 > Cookies > Enable Analytical Cookies).
+  const ENABLE_ANALYTICAL_COOKIES = window.p4_vars?.options?.enable_analytical_cookies;
 
   const getFieldValue = fieldName => {
     if (attributes[fieldName] === undefined) {

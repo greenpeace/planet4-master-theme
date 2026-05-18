@@ -1,0 +1,43 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "planet4-blocks/cookies",
+  "category": "planet4-blocks",
+  "description": "Displays the cookies settings and control panel within P4 for editors to control their level of compliance regarding data collection.",
+  "title": "Cookies",
+  "icon": "welcome-view-site",
+  "attributes": {
+    "title": {
+      "type": "string",
+      "default": ""
+    },
+    "description": {
+      "type": "string",
+      "default": ""
+    },
+    "necessary_cookies_name": {
+      "type": "string"
+    },
+    "necessary_cookies_description": {
+      "type": "string"
+    },
+    "all_cookies_name": {
+      "type": "string"
+    },
+    "all_cookies_description": {
+      "type": "string"
+    },
+    "analytical_cookies_name": {
+      "type": "string"
+    },
+    "analytical_cookies_description": {
+      "type": "string"
+    }
+  },
+  "supports": {
+    "multiple": false
+  },
+  "viewScript": "file:view-script.js",
+  "editorScript": "file:index.js",
+  "style": "file:index.css"
+}

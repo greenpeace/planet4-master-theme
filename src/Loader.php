@@ -189,7 +189,6 @@ final class Loader
         new Blocks\Accordion();//NOSONAR
         new Blocks\CarouselHeader();//NOSONAR
         new Blocks\Columns();//NOSONAR
-        new Blocks\Cookies();//NOSONAR
         new Blocks\Counter();//NOSONAR
         new Blocks\Gallery();//NOSONAR
         new Blocks\SocialMedia();//NOSONAR
@@ -252,6 +251,11 @@ final class Loader
      */
     private static function add_blocks_from_assets(): void
     {
+        Blocks\Register::registerFromAssets('Cookies', [
+            'render_callback' => function ($attributes) {
+                return BaseBlock::render_frontend_from_blockname($attributes, 'planet4-blocks/cookies');
+            },
+        ]);
         Blocks\Register::registerFromAssets('HappyPoint', [
             'render_callback' => function ($attributes) {
                 return BaseBlock::render_frontend_from_blockname($attributes, 'planet4-blocks/happypoint');

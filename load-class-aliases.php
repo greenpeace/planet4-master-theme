@@ -15,7 +15,6 @@ class_alias(\P4\MasterTheme\Role\Campaigner::class, 'P4_Campaigner');
 class_alias(\P4\MasterTheme\Campaigns::class, 'P4_Campaigns');
 class_alias(\P4\MasterTheme\Context::class, 'P4_Context');
 class_alias(\P4\MasterTheme\ControlPanel::class, 'P4_Control_Panel');
-class_alias(\P4\MasterTheme\Cookies::class, 'P4_Cookies');
 class_alias(\P4\MasterTheme\CustomTaxonomy::class, 'P4_Custom_Taxonomy');
 class_alias(\P4\MasterTheme\DevReport::class, 'P4_Dev_Report');
 class_alias(\P4\MasterTheme\ImageCompression::class, 'P4_Image_Compression');
