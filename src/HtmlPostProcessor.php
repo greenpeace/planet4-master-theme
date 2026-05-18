@@ -27,6 +27,17 @@ class HtmlPostProcessor
      */
     public function manage_output_buffer(string $buffer): string
     {
+        // Filter to disable the output buffer processing, if needed.
+        $should_process = apply_filters(
+            'planet4_master_theme_process_buffer',
+            true,
+            $buffer
+        );
+
+        if (!$should_process) {
+            return $buffer;
+        }
+
         // Create a new DOM document to parse and manipulate the HTML.
         $dom = new DOMDocument();
 
