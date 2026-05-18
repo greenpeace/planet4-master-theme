@@ -26,7 +26,8 @@ const HEADINGS = [
 
 test.useAdminLoggedIn();
 
-test.slow('Test Secondary Navigation block', async ({page, admin, editor}) => {
+test('Test Secondary Navigation block', async ({page, admin, editor}) => {
+  test.slow();
   await createPostWithFeaturedImage({page, admin, editor}, {title: 'Test Secondary Navigation', postType: 'page'});
 
   // Add Page Header block.

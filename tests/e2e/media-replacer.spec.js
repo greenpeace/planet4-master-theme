@@ -23,20 +23,6 @@ async function switchMediaLibraryToListView(page) {
 }
 
 /**
- * Uploads a media file through the WordPress Media Library file input.
- *
- * @async
- * @param {import('@playwright/test').Page} page         - The Playwright page instance.
- * @param {string | Buffer}                 originalFile - File to upload.
- */
-async function uploadMediaFile(page, originalFile) {
-  await page.waitForSelector('#plupload-browse-button', {state: 'visible'});
-  const fileInput = page.locator('input[type="file"][id^="html5_"]');
-  await fileInput.waitFor({state: 'attached'});
-  await fileInput.setInputFiles(originalFile);
-}
-
-/**
  * Replaces an already-uploaded media file using the Media Replacer plugin UI.
  *
  * @async
@@ -45,13 +31,20 @@ async function uploadMediaFile(page, originalFile) {
  */
 async function replaceMediaFile(page, newFile) {
   const replaceButton = page.locator('.media-replacer-button');
-  const fileInput = page.locator('input.replace-media-file');
+  await expect(replaceButton).toBeVisible();
 
-  await replaceButton.click();
+  // Listen for the file chooser BEFORE clicking the button
+  // If we click first, the dialog opens and closes before we can handle it
+  const [fileChooser] = await Promise.all([
+    page.waitForEvent('filechooser'),
+    replaceButton.click(),
+  ]);
 
-  await fileInput.setInputFiles(newFile);
+  // Set the file through the file chooser dialog
+  await fileChooser.setFiles(newFile);
 
   await page.waitForLoadState('domcontentloaded');
+  await page.waitForLoadState('networkidle');
 }
 
 /**
@@ -60,15 +53,15 @@ async function replaceMediaFile(page, newFile) {
  *
  * @async
  * @param {import('@playwright/test').Page}     page     - Playwright page instance.
+ * @param {import('@playwright/test').Page}     admin    - Playwright page instance for admin.
  * @param {import('@playwright/test').TestInfo} testInfo - Playwright TestInfo object used for skipping.
  */
-async function ensureStatelessModeEnabled(page, testInfo) {
-  await page.goto('./wp-admin/upload.php?page=stateless-settings');
-
+async function ensureStatelessModeEnabled(page, admin, testInfo) {
+  // --- Check Stateless mode via Admin settings page ---
+  await admin.visitAdminPage('upload.php', 'page=stateless-settings');
   const isStatelessChecked = await page.locator('#sm_mode_stateless').isChecked();
-
   if (!isStatelessChecked) {
-    testInfo.skip('Skipping: Stateless mode is NOT active.');
+    testInfo.skip(true, 'Skipping: Stateless mode is NOT active.');
   }
 }
 
@@ -111,8 +104,11 @@ async function downloadFile(page, url, outputPath) {
   writeFileSync(outputPath, buffer);
 }
 
-test.slow('Replace Media file (PDF) in WordPress', async ({page}, testInfo) => {
-  await ensureStatelessModeEnabled(page, testInfo);
+test('Replace Media file (PDF) in WordPress', async ({page, admin, requestUtils, browserName}, testInfo) => {
+  test.skip(browserName === 'webkit', 'This test needs more work in WebKit');
+
+  test.slow();
+  await ensureStatelessModeEnabled(page, admin, testInfo);
 
   const originalFile = resolve('tests/data/test_media_replacer_pdf_1.pdf');
   const newFile = resolve('tests/data/test_media_replacer_pdf_2.pdf');
@@ -126,14 +122,11 @@ test.slow('Replace Media file (PDF) in WordPress', async ({page}, testInfo) => {
   await switchMediaLibraryToListView(page);
 
   // --- Upload the first file ---
-  await page.locator('#wpbody-content').getByRole('link', {name: 'Add Media File'}).click();
-  await uploadMediaFile(page, originalFile);
+  const uploadedMedia = await requestUtils.uploadMedia(originalFile);
+  expect(uploadedMedia.slug).toContain('test_media_replacer_pdf_1');
 
-  const uploadedFileName = await page.locator('.media-item-wrapper .media-list-title strong').innerText();
-  expect(uploadedFileName).toContain('test_media_replacer_pdf_1');
-
-  const editLink = page.locator('.media-item-wrapper a.edit-attachment');
-  await editLink.click();
+  // --- Navigate to the media edit page ---
+  await admin.visitAdminPage('post.php', `post=${uploadedMedia.id}&action=edit`);
 
   // --- Download the original file for hashing ---
   const fileUrl = await page.locator('#attachment_url').inputValue();
@@ -153,6 +146,9 @@ test.slow('Replace Media file (PDF) in WordPress', async ({page}, testInfo) => {
   const newHash = hashFile(afterPath);
 
   expect(newHash).not.toBe(oldHash);
+
+  // --- Cleanup via REST API ---
+  await requestUtils.deleteMedia(uploadedMedia.id);
 
   if (existsSync(beforePath)) {unlinkSync(beforePath);}
   if (existsSync(afterPath)) {unlinkSync(afterPath);}

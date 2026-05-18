@@ -18,10 +18,9 @@ test.describe('Gravity Forms tests', () => {
   let createdForm;
   let newPost;
 
-  test.beforeAll(async ({browser, requestUtils}) => {
-    const page = await browser.newPage();
+  test.beforeEach(async ({page, admin, requestUtils}) => {
     // Enable Gravity Forms rest API.
-    await toggleRestAPI({page}, true);
+    await toggleRestAPI({page, admin}, true);
 
     // Create a new form.
     createdForm = await createForm({page}, {
@@ -39,29 +38,49 @@ test.describe('Gravity Forms tests', () => {
         featured_media: 357,
       },
     });
-
-    await page.close();
   });
 
-  test.afterAll(async ({browser}) => {
-    const page = await browser.newPage();
+  test.afterEach(async ({page, admin}) => {
     // Delete the form.
     await page.request.delete(`./wp-json/gf/v2/forms/${createdForm.id}?force=1`);
 
     // Disable Gravity Forms rest API.
-    await toggleRestAPI({page}, false);
+    await toggleRestAPI({page, admin}, false);
 
     await page.close();
   });
 
-  test.slow('check the confirmation message, text type', async ({page}) => {
+  test('check the confirmation message, text type', async ({page, admin}) => {
+    test.slow();
+
+    // Navigate to form confirmation settings via admin helper
+    await admin.visitAdminPage(
+      'admin.php',
+      `page=gf_edit_forms&view=settings&subview=confirmation&id=${createdForm.id}`
+    );
+
     // Make sure the form uses the Text confirmation type.
-    await changeConfirmationType({page}, createdForm.id, 'Text');
+    await changeConfirmationType({page, admin}, createdForm.id, 'Text');
 
     // Update the form's default confirmation text.
-    await page.frameLocator('#_gform_setting_message_ifr').locator('#tinymce').fill(CONFIRMATION_MESSAGE);
+    // Wait for TinyMCE to fully initialize before attempting to fill it
+    const tinymceFrame = page.frameLocator('#_gform_setting_message_ifr');
+    const tinymceBody = tinymceFrame.locator('#tinymce');
+    await expect(tinymceBody).toBeVisible();
+
+    await tinymceBody.click();
+    await tinymceBody.fill(CONFIRMATION_MESSAGE);
+
+    // Verify the content is actually in the editor before saving
+    await expect(tinymceBody).toContainText(CONFIRMATION_MESSAGE);
+
     await page.getByRole('button', {name: 'Save Confirmation'}).click();
+
+    // Wait for success notice and then wait for the network to be idle
+    // to ensure the save has fully propagated before navigating away
     await expect(page.locator('.gforms_note_success')).toBeVisible();
+    await page.waitForLoadState('networkidle');
+
 
     // Go to the post which has the form.
     await page.goto(newPost.link);
@@ -75,17 +94,31 @@ test.describe('Gravity Forms tests', () => {
     await expect(confirmationMessage).toContainText(CONFIRMATION_MESSAGE);
 
     // Check that the entry has been registered as expected.
-    await checkEntry({page}, createdForm.id);
+    await checkEntry({page, admin}, createdForm.id);
   });
 
-  test.slow('check the confirmation message, redirect type', async ({page}) => {
+  test('check the confirmation message, redirect type', async ({page, admin}) => {
+    test.slow();
+
+    await admin.visitAdminPage(
+      'admin.php',
+      `page=gf_edit_forms&view=settings&subview=confirmation&id=${createdForm.id}`
+    );
+
     // Make sure the form uses the Redirect confirmation type.
-    await changeConfirmationType({page}, createdForm.id, 'Redirect');
+    await changeConfirmationType({page, admin}, createdForm.id, 'Redirect');
 
     // Set up the redirection.
-    await page.getByLabel('Redirect URL(Required)').fill(TEST_REDIRECT);
+    const redirectInput = page.getByLabel('Redirect URL(Required)');
+    await expect(redirectInput).toBeVisible();
+    await redirectInput.fill(TEST_REDIRECT);
+    await expect(redirectInput).toHaveValue(TEST_REDIRECT);
+
     await page.getByRole('button', {name: 'Save Confirmation'}).click();
     await expect(page.locator('.gforms_note_success')).toBeVisible();
+
+    // Wait for save to fully propagate before navigating away
+    await page.waitForLoadState('networkidle');
 
     // Go to the post which has the form.
     await page.goto(newPost.link);
@@ -97,30 +130,62 @@ test.describe('Gravity Forms tests', () => {
     await expect(page).toHaveURL(TEST_REDIRECT);
 
     // Check that the entry has been registered as expected.
-    await checkEntry({page}, createdForm.id);
+    await checkEntry({page, admin}, createdForm.id);
   });
 
-  test.slow('check the confirmation message, page type', async ({page}) => {
+  test('check the confirmation message, page type', async ({page, admin}) => {
+    test.slow();
+
+    await admin.visitAdminPage(
+      'admin.php',
+      `page=gf_edit_forms&view=settings&subview=confirmation&id=${createdForm.id}`
+    );
+
     // Make sure the form uses the Page confirmation type.
-    await changeConfirmationType({page}, createdForm.id, 'Page');
+    await changeConfirmationType({page, admin}, createdForm.id, 'Page');
 
     // Set up the page redirect.
     const confirmationSettings = page.locator('#gform_setting_page');
+    const selectButton = confirmationSettings.locator('[data-js="gform-dropdown-control"]');
+    const spinner = selectButton.locator('.gform-dropdown__spinner');
+
+    await expect(selectButton).toBeVisible();
+    await expect(selectButton).toBeEnabled();
+
+    await page.waitForTimeout(500);
+    await selectButton.click();
+
     const pagesList = confirmationSettings.locator('.gform-dropdown__list');
-    const spinner = confirmationSettings.locator('.gform-dropdown__spinner');
-    await confirmationSettings.getByRole('button', {name: 'Select a Page'}).click();
+
     await expect(pagesList).toBeVisible();
-    await confirmationSettings.getByPlaceholder('Search all Pages').click();
-    await page.keyboard.type('Home');
-    await expect(spinner).toBeVisible();
-    await expect(spinner).toBeHidden();
-    await pagesList.getByRole('button', {name: 'Home'}).click();
+
+    const searchInput = confirmationSettings.getByPlaceholder('Search all Pages');
+    await expect(searchInput).toBeVisible();
+    await expect(searchInput).toBeEnabled();
+    await searchInput.click();
+
+    // Type keyword slowly
+    await page.keyboard.type('Home', {delay: 50});
+
+    // Wait for the spinner to appear and then disappear to ensure results are loaded
+    await expect(spinner).toBeVisible({timeout: 5000});
+    await expect(spinner).toBeHidden({timeout: 10000});
+
+    // Wait for the expected page to appear in the results and click it
+    const homeButton = pagesList.getByRole('button', {name: 'Home'});
+    await expect(homeButton).toBeVisible();
+    await homeButton.click();
+
     await expect(pagesList).toBeHidden();
+    await expect(selectButton).toContainText('Home');
+
     await page.getByRole('button', {name: 'Save Confirmation'}).click();
     await expect(page.locator('.gforms_note_success')).toBeVisible();
 
     // Go to the post which has the form.
     await page.goto(newPost.link);
+    await page.waitForLoadState('networkidle');
+
 
     // Fill and submit the form.
     await fillAndSubmitForm({page}, createdForm.id);
@@ -129,30 +194,40 @@ test.describe('Gravity Forms tests', () => {
     await expect(page).toHaveURL('./');
 
     // Check that the entry has been registered as expected.
-    await checkEntry({page}, createdForm.id);
+    await checkEntry({page, admin}, createdForm.id);
   });
 
-  test('check the Hubspot feeds', async ({page}) => {
-    // Add a Hubspot feed.
-    await page.goto(`./wp-admin/admin.php?page=gf_edit_forms&view=settings&subview=gravityformshubspot&id=${createdForm.id}`);
-    const createFeedLink = page.getByRole('link', {name: 'create one'});
-    // If the Huspot add-on isn't activated, the page will be empty so this link won't be there.
-    if (await createFeedLink.isVisible()) {
-      await createFeedLink.click();
-      // Set lead status to "new".
-      await page.selectOption('#_hs_customer_hs_lead_status', {label: 'New'});
-      // Map contact fields.
-      await page.selectOption('#_hs_customer_firstname', {label: 'First name'});
-      await page.selectOption('#_hs_customer_lastname', {label: 'Last name'});
-      await page.selectOption('#_hs_customer_email', {label: 'Email'});
-      // Save Hubspot feed.
-      await page.getByRole('button', {name: 'Save Settings'}).click();
-      await expect(page.locator('.gforms_note_success')).toBeVisible();
+  test('check the Hubspot feeds', async ({page, admin}) => {
+    await admin.visitAdminPage(
+      'admin.php',
+      `page=gf_edit_forms&view=settings&subview=gravityformshubspot&id=${createdForm.id}`
+    );
 
-      // Check that the feed is active.
-      await page.goto(`./wp-admin/admin.php?page=gf_edit_forms&view=settings&subview=gravityformshubspot&id=${createdForm.id}`);
-      const hubspotFeed = page.locator('#the-list > tr').first();
-      await expect(hubspotFeed.locator('.gform-status-indicator-status')).toContainText('Active');
+    // Add a Hubspot feed.
+    const createFeedLink = page.getByRole('link', {name: 'create one'});
+
+    // If the HubSpot add-on isn't activated this link won't exist — skip
+    if (!(await createFeedLink.isVisible())) {
+      return;
     }
+
+    await createFeedLink.click();
+    // Set lead status to "new".
+    await page.selectOption('#_hs_customer_hs_lead_status', {label: 'New'});
+    // Map contact fields.
+    await page.selectOption('#_hs_customer_firstname', {label: 'First name'});
+    await page.selectOption('#_hs_customer_lastname', {label: 'Last name'});
+    await page.selectOption('#_hs_customer_email', {label: 'Email'});
+    // Save Hubspot feed.
+    await page.getByRole('button', {name: 'Save Settings'}).click();
+    await expect(page.locator('.gforms_note_success')).toBeVisible();
+
+    // Check that the feed is active.
+    await admin.visitAdminPage(
+      'admin.php',
+      `page=gf_edit_forms&view=settings&subview=gravityformshubspot&id=${createdForm.id}`
+    );
+    const hubspotFeed = page.locator('#the-list > tr').first();
+    await expect(hubspotFeed.locator('.gform-status-indicator-status')).toContainText('Active');
   });
 });

@@ -9,7 +9,8 @@ test.useAdminLoggedIn();
 
 test.describe('Test Actions List block', () => {
   // This is the default layout, so we don't need to select it manually.
-  test.slow('Test the Grid layout', async ({page, admin, editor}) => {
+  test('Test the Grid layout', async ({page, admin, editor}) => {
+    test.slow();
     await createPostWithFeaturedImage({page, admin, editor}, {title: 'Test Actions List Grid Layout', postType: 'page'});
 
     // Add Actions List block.
