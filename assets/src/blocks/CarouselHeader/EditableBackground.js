@@ -14,15 +14,17 @@ const ALLOWED_MIME_TYPES = ['image/jpeg', 'image/webp'];
 
 // Resolve the URL for the largest registered (resized) image, never the original upload.
 // Falls back gracefully if a size is not available.
-const getLargestSizeUrl = image => {
-  const sizes = image?.sizes || {};
+export const getLargestSizeUrl = image => {
+  const sizes = image?.sizes || image?.media_details?.sizes || {};
+  const pickUrl = size => size?.url || size?.source_url;
   return (
-    sizes['retina-large']?.url ||
-    sizes.large?.url ||
-    sizes.medium_large?.url ||
-    sizes.medium?.url ||
+    pickUrl(sizes['retina-large']) ||
+    pickUrl(sizes.large) ||
+    pickUrl(sizes.medium_large) ||
+    pickUrl(sizes.medium) ||
     // As a last resort use the original URL so the slide is not left empty.
-    image?.url
+    image?.url ||
+    image?.source_url
   );
 };
 
