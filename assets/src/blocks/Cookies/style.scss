@@ -1,5 +1,6 @@
-@use "../../base/mixins";
-@use "../../base/variables";
+@use "../../scss/base/mixins";
+@use "../../scss/base/variables";
+@use "../../scss/base/tokens";
 
 .cookies-block {
   .custom-control-description,
@@ -60,7 +61,7 @@
   .field-reset-button {
     display: inline-block;
     color: var(--grey-600);
-    margin-inline-start: $sp-2;
+    margin-inline-start: variables.$sp-2;
     font-family: var(--font-family-tertiary);
     font-size: 13px;
     vertical-align: middle;

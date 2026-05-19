@@ -418,7 +418,7 @@ $medium-image-height: 600px;
         width: 100%;
         color: var(--white);
         margin-bottom: 32px;
-        line-height: $line-height-2xl--font-family-primary;
+        line-height: tokens.$line-height-2xl--font-family-primary;
         font-size: fonts.$font-size-xxl;
       }
 
@@ -428,7 +428,7 @@ $medium-image-height: 600px;
       }
 
       &:focus {
-        @include focus-styles();
+        @include mixins.focus-styles();
       }
     }
 

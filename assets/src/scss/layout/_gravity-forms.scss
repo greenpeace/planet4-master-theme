@@ -40,13 +40,13 @@
           mask-size: contain;
           background-repeat: no-repeat;
           background-color: currentcolor;
-          margin-inline-end: $sp-1;
+          margin-inline-end: variables.$sp-1;
         }
       }
     }
 
     > ol {
-      margin-top: $sp-1;
+      margin-top: variables.$sp-1;
       margin-bottom: 0 !important;
 
       li {
