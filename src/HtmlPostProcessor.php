@@ -28,9 +28,16 @@ class HtmlPostProcessor
     public function manage_output_buffer(string $buffer): string
     {
         // Filter to disable the output buffer processing, if needed.
+        $context = [
+            'template' => get_page_template_slug(),
+            'post_id' => get_the_ID(),
+            'post_type' => get_post_type(),
+        ];
+
         $should_process = apply_filters(
             'planet4_master_theme_process_buffer',
             true,
+            $context,
             $buffer
         );
 
