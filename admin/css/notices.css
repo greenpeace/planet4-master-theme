@@ -11,6 +11,7 @@
 #gf_dashboard_message,
 [data-ep-notice],
 .otgs-installer-notice-plugin-recommendation,
-.welcome-panel-content {
+.welcome-panel-content,
+div.error:has(a[href*="gpavatars_list_options"]) {
   display: none;
 }
