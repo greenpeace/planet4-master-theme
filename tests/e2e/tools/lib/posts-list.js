@@ -84,4 +84,12 @@ async function checkPostsListBlockWithManualOverride(page, postTitles) {
   }
 }
 
-export {addPostsListBlock, addPostsListBlockWithManualOverride, checkPostsListBlock, checkPostsListBlockWithManualOverride};
+async function checkPostsListBlockCarouselLayout(page) {
+  await checkPostsListBlock(page, 'carousel');
+
+  const block = page.locator('.p4-query-loop');
+  await expect(block.locator('.carousel.slide')).toBeVisible();
+  await expect(block.locator('.carousel-item.active')).toBeVisible();
+}
+
+export {addPostsListBlock, addPostsListBlockWithManualOverride, checkPostsListBlock, checkPostsListBlockWithManualOverride, checkPostsListBlockCarouselLayout};

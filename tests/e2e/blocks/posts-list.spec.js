@@ -5,6 +5,7 @@ import {
   addPostsListBlockWithManualOverride,
   checkPostsListBlock,
   checkPostsListBlockWithManualOverride,
+  checkPostsListBlockCarouselLayout,
 } from '../tools/lib/posts-list.js';
 
 test.useAdminLoggedIn();
@@ -22,6 +23,19 @@ test.describe('Test Posts List block', () => {
 
     // Check that the block displays correctly in the frontend.
     await checkPostsListBlock(page, 'list');
+  });
+
+  test('Test the Carousel layout', async ({page, admin, editor}) => {
+    await createPostWithFeaturedImage({page, admin, editor}, {title: 'Test Posts List, Carousel Layout', postType: 'page'});
+
+    // Add a Posts List block with the Carousel layout.
+    await addPostsListBlock(page, 'Carousel');
+
+    // Publish page.
+    await publishPostAndVisit({page, editor});
+
+    // Test that the block is displayed as expected in the frontend.
+    await checkPostsListBlockCarouselLayout(page);
   });
 
   test('Test the Grid layout', async ({page, admin, editor}) => {
