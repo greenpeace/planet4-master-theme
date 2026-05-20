@@ -26,6 +26,7 @@ export const setupActionsListLoadMore = () => {
     }
 
     const posts = [...block.querySelectorAll('.wp-block-post')];
+
     if (posts && posts.length > postsPerRow * 2) {
       loadMoreButtonContainer.classList.add('d-flex');
       loadMoreButtonContainer.classList.remove('d-none');

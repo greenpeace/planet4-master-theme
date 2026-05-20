@@ -3,6 +3,7 @@ import 'bootstrap';
 import {setupCookies} from './cookies';
 import {setupHeader} from './header';
 import {setupCountrySelector} from './country_selector';
+import {setupActionsListLoadMore} from './actions_list_load_more';
 
 function requireAll(r) {
   r.keys().forEach(r);
@@ -14,6 +15,8 @@ document.addEventListener('DOMContentLoaded', () => {
   setupCookies();
   setupHeader();
   setupCountrySelector();
+  setupActionsListLoadMore();
+  window.addEventListener('resize', setupActionsListLoadMore);
 
   if(!!document.querySelector('body.search')) {
     import('./search').then(({setupSearch}) => {
@@ -24,19 +27,6 @@ document.addEventListener('DOMContentLoaded', () => {
   if(document.querySelectorAll('[class*="is-custom-layout-"]').length) {
     import('./query_loop_carousel').then(({setupQueryLoopCarousel}) => {
       setupQueryLoopCarousel();
-    });
-  }
-
-  if(document.querySelectorAll('.actions-list.is-custom-layout-grid').length) {
-    import('./actions_list_load_more').then(({setupActionsListLoadMore}) => {
-      setupActionsListLoadMore();
-
-      let resizeTimer;
-      const handleResize = () => {
-        clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(() => setupActionsListLoadMore(), 150);
-      };
-      window.addEventListener('resize', handleResize);
     });
   }
 });
