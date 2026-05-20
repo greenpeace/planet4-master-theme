@@ -381,6 +381,14 @@
     background-color: var(--white);
     padding: $sp-3;
 
+    img {
+      border-radius: 4px;
+      width: 100%;
+      margin-bottom: $sp-1x;
+      object-fit: cover;
+      height: 200px;
+    }
+
     .timeline-block-event-day {
       display: inline-block;
       border: 1px solid var(--grey-300);
@@ -491,6 +499,10 @@
       width: 420px;
       height: fit-content;
       position: relative;
+
+      img {
+        height: 250px;
+      }
 
       &::after {
         content: "";
