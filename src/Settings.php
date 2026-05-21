@@ -592,6 +592,36 @@ class Settings
         $is_gf_hubspot_addon = function_exists('is_plugin_active') && is_plugin_active('gravityformshubspot/hubspot.php');
         // phpcs:ignore SlevomatCodingStandard.ControlStructures.EarlyExit.EarlyExitNotUsed
         if ($is_gf_hubspot_addon) {
+            $this->subpages['planet4_settings_hubspot'] = [
+                'title'  => 'Hubspot',
+                'fields' => [
+                    [
+                        'name' => __( 'Reverse Proxy', 'planet4-master-theme-backend' ),
+                        'desc' => __( 'Enables reverse proxy for Hubspot hosted content.', 'planet4-master-theme-backend' ),
+                        'id'   => 'hubspot_reverse_proxy',
+                        'type' => 'checkbox',
+                    ],
+                    [
+                        'name' => __('Domain', 'planet4-master-theme-backend'),
+                        'id' => 'hubspot_reverse_proxy_domain',
+                        'type' => 'text',
+                        'attributes' => ['type' => 'text'],
+                    ],
+                    [
+                        'name' => __('P4 Path', 'planet4-master-theme-backend'),
+                        'id' => 'hubspot_reverse_proxy_p4_path',
+                        'type' => 'text',
+                        'attributes' => ['type' => 'text'],
+                    ],
+                    [
+                        'name' => __('Hubspot Path', 'planet4-master-theme-backend'),
+                        'id' => 'hubspot_reverse_proxy_hubspot_path',
+                        'type' => 'text',
+                        'attributes' => ['type' => 'text'],
+                    ],
+                ],
+            ];
+
             array_push(
                 $this->subpages['planet4_settings_analytics']['fields'],
                 [
