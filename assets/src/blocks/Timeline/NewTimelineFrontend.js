@@ -65,7 +65,12 @@ export const NewTimelineFrontend = ({attributes}) => {
           {getLocalizedDate(event.day, event.month)}
         </p>
         {event.media && (
-          <img src={event.media} alt={event.media_caption ?? ''} loading="lazy" />
+          <img
+            src={event.media}
+            alt={event.media_caption ?? ''}
+            loading="lazy"
+            onError={() => console.log('Could not load image')} //eslint-disable-line no-console
+          />
         )}
         <h3 className="timeline-block-event-title">{event.headline}</h3>
         <div className="timeline-description-wrapper">
