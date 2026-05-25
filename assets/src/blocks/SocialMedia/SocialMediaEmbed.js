@@ -6,36 +6,8 @@ export const SocialMediaEmbed = ({
   facebookPageTab,
   embedType,
 }) => {
-  if (embedType === FACEBOOK_PAGE_EMBED_TYPE) {
-    return (
-      <div className={`social-media-embed ${alignmentClass ?? ''}`}>
-        <iframe
-          className="social-media-embed-facebook"
-          src={`https://www.facebook.com/plugins/page.php?href=${itemId}&tabs=${facebookPageTab}&width=500&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true`}
-          scrolling="no"
-          frameBorder="0"
-          allow="encrypted-media"
-          title="Social Media"
-        />
-      </div>
-    );
-  }
-
-  if (embedType === FACEBOOK_POST_EMBED_TYPE) {
-    return (
-      <div className={`social-media-embed ${alignmentClass ?? ''}`}>
-        <iframe
-          className="social-media-embed-facebook"
-          src={`https://www.facebook.com/plugins/post.php?href=${itemId}&show_text=true&width=500&height=500`}
-          width="500"
-          height="500"
-          scrolling="no"
-          frameBorder="0"
-          allow="encrypted-media"
-          title="Social Media"
-        />
-      </div>
-    );
+  if (!itemId) {
+    return null;
   }
 
   if (embedType === INSTAGRAM_EMBED_TYPE) {
@@ -47,6 +19,30 @@ export const SocialMediaEmbed = ({
           data-instgrm-permalink={`https://www.instagram.com/reel/${itemId}/?utm_source=ig_embed&utm_campaign=loading`}
           data-instgrm-version="14">
         </blockquote>
+      </div>
+    );
+  }
+
+  if (embedType === FACEBOOK_PAGE_EMBED_TYPE || embedType === FACEBOOK_POST_EMBED_TYPE) {
+    const facebookUrl = 'https://www.facebook.com/plugins';
+    const facebookSize = 'width=500&height=500';
+
+    const facebookSrc = embedType === FACEBOOK_PAGE_EMBED_TYPE ?
+      `${facebookUrl}/page.php?href=${itemId}&tabs=${facebookPageTab}&${facebookSize}&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true` :
+      `${facebookUrl}/post.php?href=${itemId}&show_text=true&${facebookSize}`;
+
+    return (
+      <div className={`social-media-embed ${alignmentClass ?? ''}`}>
+        <iframe
+          className="social-media-embed-facebook"
+          src={facebookSrc}
+          width="500"
+          height="500"
+          scrolling="no"
+          frameBorder="0"
+          allow="encrypted-media"
+          title="Social Media"
+        />
       </div>
     );
   }
