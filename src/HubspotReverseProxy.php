@@ -7,8 +7,7 @@ use WP;
 /**
  * Class HubspotReverseProxy
  *
- * bla bla bla
- *
+ * Proxies requests matching a configured P4 path to a corresponding HubSpot URL.
  */
 class HubspotReverseProxy
 {
@@ -20,8 +19,13 @@ class HubspotReverseProxy
         add_action( 'parse_request', [$this, 'p4_hubspot_reverse_proxy'] );
     }
 
-    public function p4_hubspot_reverse_proxy( WP $wp ): void {
-
+    /**
+     * Handles the reverse proxy logic on every WordPress request.
+     *
+     * @param WP $wp Current WordPress environment instance.
+     * @return void
+     */
+    public function p4_hubspot_reverse_proxy($wp): void {
         $target_url = $this->get_config_data($wp);
 
         if (!$target_url) {
@@ -42,6 +46,12 @@ class HubspotReverseProxy
         exit;
     }
 
+    /**
+     * Resolves the target HubSpot URL for the current request based on Planet4 options.
+     *
+     * @param WP $wp Current WordPress environment instance.
+     * @return string|null The target URL, or null if the request should not be proxied.
+     */
     private function get_config_data($wp)
     {
         $options = get_option( 'planet4_options', [] );
@@ -75,14 +85,22 @@ class HubspotReverseProxy
         return $target_url;
     }
 
+    /**
+     * Fetches the content of the target URL via an HTTP GET request.
+     *
+     * @param string $target_url The fully-qualified URL to fetch.
+     * @return array|null Associative array with 'body' and 'type' keys, or null on request failure.
+     */
     private function remote_get_content($target_url)
     {
         $query_string = $_SERVER['QUERY_STRING'] ?? '';
+
         if ( $query_string ) {
             $target_url .= '?' . $query_string;
         }
 
         $forward_headers = [];
+
         foreach ( [ 'Accept', 'Accept-Language', 'Accept-Encoding', 'Cookie' ] as $h ) {
             $key = 'HTTP_' . strtoupper( str_replace( '-', '_', $h ) );
             if ( ! empty( $_SERVER[ $key ] ) ) {
@@ -94,7 +112,6 @@ class HubspotReverseProxy
             'timeout'     => 15,
             'redirection' => 5,
             'headers'     => $forward_headers,
-            'user-agent'  => 'Planet4-ReverseProxy/1.0 (+https://planet4.greenpeace.org)',
             'sslverify'   => true,
         ] );
 
@@ -120,7 +137,10 @@ class HubspotReverseProxy
 
     /**
      * Injects a <link rel="canonical"> pointing at the original HubSpot URL.
-     * If a canonical already exists (HubSpot sometimes adds one), replace it.
+     *
+     * @param string $html The HTML content to modify.
+     * @param string $canonical_url The canonical URL to set.
+     * @return string The modified HTML with the canonical tag injected or replaced.
      */
     private function inject_canonical( string $html, string $canonical_url ): string {
         $tag = sprintf( '<link rel="canonical" href="%s">', esc_url( $canonical_url ) );
