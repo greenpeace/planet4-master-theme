@@ -64,7 +64,7 @@ class HubspotReverseProxy
         $hubspot_domain = rtrim($options['hubspot_reverse_proxy_domain'] ?? '', '/');
         $hubspot_path = trim($options['hubspot_reverse_proxy_hubspot_path'] ?? '', '/');
 
-        if (! $p4_path || ! $hubspot_domain || ! $hubspot_path) {
+        if (! $p4_path || ! $hubspot_domain) {
             return null;
         }
 
