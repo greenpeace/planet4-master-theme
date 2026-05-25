@@ -70,7 +70,7 @@ function toggleHubspotReverseProxySaveButton() {
     alertMessage = document.createElement('span');
     alertMessage.id = 'hubspot_reverse_alert';
     alertMessage.classList.add('hidden');
-    alertMessage.innerHTML = 'WARNING: All the fields must be complete to save the changes!';
+    alertMessage.innerHTML = 'WARNING: The "Hubspot Domain" and the "P4 Path" are mandatory!';
     alertMessage.style.marginInlineStart = '10px';
     saveButton.after(alertMessage);
   }
@@ -78,10 +78,7 @@ function toggleHubspotReverseProxySaveButton() {
   // Enable/disable the save button, and show/hide the alert message:
   function toggleSaveButton() {
     const proxyEnabled = reverseProxy.checked;
-    const fieldsEmpty =
-        domain.querySelector('input').value.trim() === '' ||
-        p4Path.querySelector('input').value.trim() === '' ||
-        hubspotPath.querySelector('input').value.trim() === '';
+    const fieldsEmpty = domain.querySelector('input').value.trim() === '' || p4Path.querySelector('input').value.trim() === '';
 
     const shouldDisable = proxyEnabled && fieldsEmpty;
     saveButton.disabled = shouldDisable;
