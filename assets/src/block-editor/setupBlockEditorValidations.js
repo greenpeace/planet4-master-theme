@@ -38,13 +38,15 @@ const getValidationState = select => {
   const hasForm = !skip && hasGravityFormsBlock(allBlocks);
   const globalProject = getEditedPostAttribute('meta')?.p4_campaign_name;
   const validForms = skip || !hasForm || (hasForm && globalProject && globalProject !== 'not set');
+  const imagesAlt = !skip && checkImageBlocksAltText(allBlocks);
 
   return {
     postTitle,
     featuredImage,
     topicLink,
     validForms,
-    isValid: postTitle && featuredImage && topicLink && validForms,
+    imagesAlt,
+    isValid: postTitle && featuredImage && topicLink && validForms && imagesAlt,
   };
 };
 
@@ -73,6 +75,48 @@ const checkTopicLinks = blocks => {
 const hasGravityFormsBlock = blocks => Boolean(blocks.find(block => block.name === 'gravityforms/form'));
 
 /**
+ * Recursively checks whether every `core/image` block in the editor (including
+ * nested image blocks inside Group / Columns / Cover / etc.) has a non-empty
+ * `alt` attribute. Whitespace-only alt text is treated as missing.
+ *
+ * @param {Object[]} blocks - Array of block objects from the block editor.
+ * @return {boolean} `true` if every core/image block has alt text; `false` otherwise.
+ */
+const checkImageBlocksAltText = blocks => {
+  if (!Array.isArray(blocks) || blocks.length === 0) {
+    return true;
+  }
+
+  for (const block of blocks) {
+    if (!block) {
+      continue;
+    }
+
+    if (block.name === 'core/image') {
+      // Only flag image blocks that actually have media selected.
+      // An empty placeholder block (no id/url yet) is not a publish-blocker.
+      const hasMedia = Boolean(
+        (block.attributes && (block.attributes.id || block.attributes.url))
+      );
+      const alt = block.attributes && typeof block.attributes.alt === 'string' ?
+        block.attributes.alt.trim() :
+        '';
+      if (hasMedia && alt === '') {
+        return false;
+      }
+    }
+
+    if (block.innerBlocks && block.innerBlocks.length > 0) {
+      if (!checkImageBlocksAltText(block.innerBlocks)) {
+        return false;
+      }
+    }
+  }
+
+  return true;
+};
+
+/**
  * Builds a combined validation error message string based on the current validation state.
  * Returns `null` if all validations pass.
  *
@@ -81,9 +125,10 @@ const hasGravityFormsBlock = blocks => Boolean(blocks.find(block => block.name =
  * @param {boolean} validationState.featuredImage - Whether the post has a featured image.
  * @param {boolean} validationState.topicLink     - Whether all Topic Link blocks have a background image.
  * @param {boolean} validationState.validForms    - If there is a Gravity Forms block on the page and a set Global Project.
+ * @param {boolean} validationState.imagesAlt     - Whether every core/image block has non-empty alt text.
  * @return {string|null} A space-separated string of error messages, or `null` if there are no errors.
  */
-const buildValidationMessage = ({postTitle, featuredImage, topicLink, validForms}) => {
+const buildValidationMessage = ({postTitle, featuredImage, topicLink, validForms, imagesAlt}) => {
   const errors = [];
   if (!postTitle) {
     errors.push(__('Title is mandatory.', 'planet4-master-theme-backend'));
@@ -104,6 +149,15 @@ const buildValidationMessage = ({postTitle, featuredImage, topicLink, validForms
     errors.push(
       __(
         'You need to select a Global Project in the sidebar (Analytics & Tracking), because you are using a Gravity Forms block.',
+        'planet4-master-theme-backend'
+      )
+    );
+  }
+
+  if (!imagesAlt) {
+    errors.push(
+      __(
+        'Alt text is mandatory for all Image blocks.',
         'planet4-master-theme-backend'
       )
     );
