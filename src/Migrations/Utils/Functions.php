@@ -49,6 +49,12 @@ class Functions
             // that do not have a title, which is common in migrations.
             $GLOBALS['p4_skip_require_post_title'] = true;
 
+            // Same idea for the alt-text requirement on core/image blocks.
+            // Migrations re-save legacy content that may pre-date the alt-text rule,
+            // so we bypass the publish guard here and log any offending image blocks
+            // below (see log_image_blocks_missing_alt()).
+            $GLOBALS['p4_skip_require_image_alt'] = true;
+
             foreach ($posts as $post) {
                 try {
                     if (empty($post->post_content)) {
@@ -65,6 +71,11 @@ class Functions
                     if (!is_array($blocks)) {
                         throw new \Exception("Invalid block structure for post #" . $current_post_id);
                     }
+
+                    // Log (do not modify) any core/image blocks that are missing alt-text.
+                    // We leave the offending blocks unchanged so editors can fix them by hand,
+                    // but record them in the migration log for visibility.
+                    self::log_image_blocks_missing_alt($blocks, $current_post_id, $record);
 
                     // Process blocks recursively.
                     $blocks = self::process_blocks_recursive(
@@ -114,6 +125,8 @@ class Functions
 
             // Remove the global variable to skip the post title requirement.
             unset($GLOBALS['p4_skip_require_post_title']);
+            // Remove the global variable to skip the image alt-text requirement.
+            unset($GLOBALS['p4_skip_require_image_alt']);
         } catch (\Throwable $e) {
             echo "Migration wasn't executed for block: ", $block_name ?? 'unknown', "\n";
             echo $e->getMessage(), "\n";
@@ -166,6 +179,78 @@ class Functions
         unset($block);
 
         return $blocks;
+    }
+
+    /**
+     * Walk a parsed block tree, find every core/image block missing alt-text,
+     * and append a warning line per offender to the migration record.
+     *
+     * @param array $blocks - Parsed blocks (output of WP_Block_Parser::parse()).
+     * @param int $post_id - The ID of the post being migrated (for the log line).
+     * @param MigrationRecord|null $record - Optional migration record to log into.
+     */
+    private static function log_image_blocks_missing_alt(
+        array $blocks,
+        int $post_id,
+        ?MigrationRecord $record
+    ): void {
+        if (!$record) {
+            return;
+        }
+
+        $count = self::count_image_blocks_missing_alt($blocks);
+        if ($count === 0) {
+            return;
+        }
+
+        $record->add_log(
+            sprintf(
+                'PID: %d - Skipped %d core/image block(s) with missing alt-text. ',
+                $post_id,
+                $count
+            )
+        );
+    }
+
+    /**
+     * Recursively count core/image blocks that have media selected but no
+     * non-empty alt attribute (checking both block attrs and innerHTML).
+     *
+     * @param array $blocks - Parsed blocks (output of WP_Block_Parser::parse()).
+     */
+    private static function count_image_blocks_missing_alt(array $blocks): int
+    {
+        $count = 0;
+
+        foreach ($blocks as $block) {
+            if (!is_array($block)) {
+                continue;
+            }
+
+            $block_name = $block['blockName'] ?? null;
+            $attrs = $block['attrs'] ?? [];
+
+            if ($block_name === 'core/image') {
+                $has_media = !empty($attrs['id']) || !empty($attrs['url']);
+                $alt = isset($attrs['alt']) && is_string($attrs['alt']) ? trim($attrs['alt']) : '';
+
+                if ($alt === '' && !empty($block['innerHTML'])) {
+                    if (preg_match('/<img\b[^>]*\balt\s*=\s*"([^"]*)"/i', $block['innerHTML'], $m)) {
+                        $alt = trim($m[1]);
+                    }
+                }
+
+                if ($has_media && $alt === '') {
+                    $count++;
+                }
+            }
+
+            if (!empty($block['innerBlocks']) && is_array($block['innerBlocks'])) {
+                $count += self::count_image_blocks_missing_alt($block['innerBlocks']);
+            }
+        }
+
+        return $count;
     }
 
     /**

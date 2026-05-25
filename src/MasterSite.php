@@ -92,6 +92,7 @@ class MasterSite extends \Timber\Site
         add_filter('safe_style_css', [$this, 'set_custom_allowed_css_properties']);
         add_filter('wp_kses_allowed_html', [$this, 'set_custom_allowed_attributes_filter'], 10, 2);
         add_filter('wp_insert_post_data', [$this, 'require_post_title'], 10, 1);
+        add_filter('wp_insert_post_data', [$this, 'require_image_alt_text'], 10, 1);
         add_action('init', [$this, 'p4_master_theme_setup']);
         add_action('pre_insert_term', [$this, 'disallow_insert_term'], 1, 2);
         add_filter('wp_dropdown_users_args', [$this, 'filter_authors'], 10, 1);
@@ -300,6 +301,114 @@ class MasterSite extends \Timber\Site
         }
 
         return $data;
+    }
+
+    /**
+     * Make alt-text mandatory on publish for every core/image block in the post.
+     * Migrations can bypass this check by setting $GLOBALS['p4_skip_require_image_alt']
+     * before saving (see Migrations\Utils\Functions::execute_block_migration()).
+     */
+    public static function require_image_alt_text(array $data): ?array
+    {
+        // Allow migrations to bypass the alt-text requirement.
+        if (!empty($GLOBALS['p4_skip_require_image_alt'])) {
+            return $data;
+        }
+
+        // Only enforce on publish, on content types we care about, and only when
+        // post_content was supplied (some saves don't include it).
+        if (
+            empty($data['post_status'])
+            || $data['post_status'] !== 'publish'
+            || empty($data['post_content'])
+        ) {
+            return $data;
+        }
+
+        $types = Search\Filters\ContentTypes::get_all();
+        if (!isset($data['post_type']) || !in_array($data['post_type'], array_keys($types), true)) {
+            return $data;
+        }
+
+        // wp_insert_post_data passes slashed data; unslash before parsing blocks.
+        $content = wp_unslash($data['post_content']);
+
+        if (self::content_contains_image_blocks_without_alt($content)) {
+            $err_message = __(
+                'Alt text is required for every Image block before publishing. '
+                . 'Please add a description that conveys each image’s purpose, '
+                . 'then try publishing again.',
+                'planet4-master-theme-backend'
+            );
+
+            defined('WP_CLI') && WP_CLI
+                ? throw new \Exception($err_message)
+                : wp_die(esc_html($err_message));
+        }
+
+        return $data;
+    }
+
+    /**
+     * Returns true when the given block-serialized HTML contains at least one
+     * core/image block (including nested ones) with media selected but no
+     * non-empty alt attribute.
+     *
+     * @param string $content - Post content (serialized blocks).
+     */
+    private static function content_contains_image_blocks_without_alt(string $content): bool
+    {
+        if (!function_exists('parse_blocks') || trim($content) === '') {
+            return false;
+        }
+
+        $blocks = parse_blocks($content);
+        if (empty($blocks)) {
+            return false;
+        }
+
+        return self::blocks_have_image_without_alt($blocks);
+    }
+
+    /**
+     * Walk a parsed block tree and return true on the first core/image block
+     * that has media (id or url) but no non-empty alt attribute.
+     *
+     * @param array $blocks - Parsed blocks (output of parse_blocks()).
+     */
+    private static function blocks_have_image_without_alt(array $blocks): bool
+    {
+        foreach ($blocks as $block) {
+            if (!is_array($block)) {
+                continue;
+            }
+
+            $block_name = $block['blockName'] ?? null;
+            $attrs = $block['attrs'] ?? [];
+
+            if ($block_name === 'core/image') {
+                $has_media = !empty($attrs['id']) || !empty($attrs['url']);
+                $alt = isset($attrs['alt']) && is_string($attrs['alt']) ? trim($attrs['alt']) : '';
+
+                if ($alt === '' && !empty($block['innerHTML'])) {
+                    if (preg_match('/<img\b[^>]*\balt\s*=\s*"([^"]*)"/i', $block['innerHTML'], $m)) {
+                        $alt = trim($m[1]);
+                    }
+                }
+
+                if ($has_media && $alt === '') {
+                    return true;
+                }
+            }
+
+            if (!empty($block['innerBlocks']) && is_array($block['innerBlocks'])) {
+                if (self::blocks_have_image_without_alt($block['innerBlocks'])) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
     /**
