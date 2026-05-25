@@ -605,12 +605,12 @@ class Settings
         // phpcs:ignore SlevomatCodingStandard.ControlStructures.EarlyExit.EarlyExitNotUsed
         if ($is_gf_hubspot_addon) {
             $this->subpages['planet4_settings_hubspot'] = [
-                'title'  => 'Hubspot',
+                'title' => 'Hubspot',
                 'fields' => [
                     [
-                        'name' => __( 'Reverse Proxy', 'planet4-master-theme-backend' ),
-                        'desc' => __( 'Enables reverse proxy for Hubspot hosted content.', 'planet4-master-theme-backend' ),
-                        'id'   => 'hubspot_reverse_proxy',
+                        'name' => __('Reverse Proxy', 'planet4-master-theme-backend'),
+                        'desc' => __('Enables reverse proxy for Hubspot hosted content.', 'planet4-master-theme-backend'),
+                        'id' => 'hubspot_reverse_proxy',
                         'type' => 'checkbox',
                     ],
                     [
@@ -880,33 +880,35 @@ class Settings
         $screen = get_current_screen();
 
         // Check if this is a P4 Settings page:
-        if ($screen && str_starts_with( $screen->base, 'planet-4_page_planet4_' )) {
-            wp_register_style(
-                'options-style',
-                get_template_directory_uri() . '/admin/css/options.css',
-                [],
-                Loader::theme_file_ver('admin/css/options.css')
-            );
-            wp_enqueue_style('options-style');
-
-            /* Load additional styles for production environments. */
-            if (defined('WP_APP_ENV') && in_array(WP_APP_ENV, ['production', 'staging'], true)) {
-                wp_enqueue_style(
-                    'admin-notices-style',
-                    get_template_directory_uri() . '/admin/css/notices.css',
-                    [],
-                    Loader::theme_file_ver('admin/css/notices.css')
-                );
-            }
-
-            wp_enqueue_script(
-                'options-script',
-                get_template_directory_uri() . '/admin/js/options.js',
-                [],
-                Loader::theme_file_ver('admin/js/options.js'),
-                true
-            );
-            wp_enqueue_script('options-script');
+        if (!$screen || !str_starts_with($screen->base, 'planet-4_page_planet4_')) {
+            return;
         }
+
+        wp_register_style(
+            'options-style',
+            get_template_directory_uri() . '/admin/css/options.css',
+            [],
+            Loader::theme_file_ver('admin/css/options.css')
+        );
+        wp_enqueue_style('options-style');
+
+        /* Load additional styles for production environments. */
+        if (defined('WP_APP_ENV') && in_array(WP_APP_ENV, ['production', 'staging'], true)) {
+            wp_enqueue_style(
+                'admin-notices-style',
+                get_template_directory_uri() . '/admin/css/notices.css',
+                [],
+                Loader::theme_file_ver('admin/css/notices.css')
+            );
+        }
+
+        wp_enqueue_script(
+            'options-script',
+            get_template_directory_uri() . '/admin/js/options.js',
+            [],
+            Loader::theme_file_ver('admin/js/options.js'),
+            true
+        );
+        wp_enqueue_script('options-script');
     }
 }
