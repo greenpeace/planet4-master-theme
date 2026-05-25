@@ -72,7 +72,7 @@ function toggleHubspotReverseProxySaveButton() {
     alertMessage.classList.add('hidden');
     alertMessage.innerHTML = 'WARNING: All the fields must be complete to save the changes!';
     alertMessage.style.marginInlineStart = '10px';
-    saveButton.insertAdjacentElement('afterend', alertMessage);
+    saveButton.after(alertMessage);
   }
 
   // Enable/disable the save button, and show/hide the alert message:
