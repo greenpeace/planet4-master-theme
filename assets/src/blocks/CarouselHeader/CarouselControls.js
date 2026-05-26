@@ -6,10 +6,11 @@ export const CarouselControls = forwardRef(({
   goToNextSlide = () => {},
   goToSlide = () => {},
   handleAutoplay = () => {},
+  setAutoplay = () => {},
   currentSlide = null,
   slides = null,
   autoplay,
-  disableControls,
+  autoplayToggle,
 }, ref) => {
   const controlsRef = useRef();
 
@@ -18,7 +19,7 @@ export const CarouselControls = forwardRef(({
       {/* Indicators */}
       <div className="carousel-indicators-wrapper">
         <div className="container">
-          {disableControls && (
+          {autoplayToggle && (
             <>
               <button
                 aria-label={__('Autoplay', 'planet4-master-theme')}
@@ -44,14 +45,16 @@ export const CarouselControls = forwardRef(({
                   <button
                     onClick={() => {
                       if (index !== currentSlide) {
-                        goToSlide({newSlide: index, fromClick: true});
+                        goToSlide({newSlide: index});
+                        setAutoplay(false);
                       }
                     }}
                     tabIndex={0}
                     onKeyDown={e => {
                       if ((e.key === 'Enter' || e.key === ' ') && index !== currentSlide) {
                         e.preventDefault();
-                        goToSlide({newSlide: index, fromClick: true});
+                        goToSlide({newSlide: index, fromTab: true});
+                        setAutoplay(false);
                       }
                     }}
                     // translators: %s: slide header
@@ -66,15 +69,38 @@ export const CarouselControls = forwardRef(({
       </div>
       {/* Arrows */}
       <nav aria-label={__('Greenpeace highlights carousel controls', 'planet4-master-theme')} ref={controlsRef}>
-
-        <button className="carousel-control-prev" onClick={goToPrevSlide}
+        <button
+          className="carousel-control-prev"
+          onClick={() => {
+            goToPrevSlide();
+            setAutoplay(false);
+          }}
+          onKeyDown={e => {
+            if ((e.key === 'Enter' || e.key === ' ')) {
+              e.preventDefault();
+              goToPrevSlide(true);
+              setAutoplay(false);
+            }
+          }}
           // translators: %s: slide header
           aria-label={sprintf(__('Go to previous slide %s', 'planet4-master-theme'), slides[currentSlide - 1] && slides[currentSlide - 1].header ? slides[currentSlide - 1].header : slides[slides.length - 1].header)}
         >
           <span className="carousel-control-prev-icon" aria-hidden="true"><i></i></span>
           <span className="visually-hidden">{__('Previous', 'planet4-master-theme')}</span>
         </button>
-        <button className="carousel-control-next" onClick={goToNextSlide}
+        <button
+          className="carousel-control-next"
+          onClick={() => {
+            goToNextSlide();
+            setAutoplay(false);
+          }}
+          onKeyDown={e => {
+            if ((e.key === 'Enter' || e.key === ' ')) {
+              e.preventDefault();
+              goToNextSlide(true);
+              setAutoplay(false);
+            }
+          }}
           // translators: %s: slide header
           aria-label={sprintf(__('Go to next slide %s', 'planet4-master-theme'), slides[currentSlide + 1] && slides[currentSlide + 1].header ? slides[currentSlide + 1].header : slides[0].header)}
         >
@@ -84,5 +110,17 @@ export const CarouselControls = forwardRef(({
       </nav>
 
     </>
-  ), [currentSlide, disableControls, autoplay, slides, ref, controlsRef, goToPrevSlide, goToNextSlide, goToSlide, handleAutoplay]);
+  ), [
+    currentSlide,
+    setAutoplay,
+    autoplayToggle,
+    autoplay,
+    slides,
+    ref,
+    controlsRef,
+    goToPrevSlide,
+    goToNextSlide,
+    goToSlide,
+    handleAutoplay,
+  ]);
 });

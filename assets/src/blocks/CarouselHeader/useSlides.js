@@ -128,7 +128,7 @@ export const useSlides = (
     document.removeEventListener('keydown', onkeyboardHandler);
   }, [indicatorsRef]);
 
-  const goToSlide = useCallback(({newSlide, forceCurrentSlide = false, fromClick = false}) => {
+  const goToSlide = useCallback(({newSlide, forceCurrentSlide = false, fromTab = false}) => {
     if (!slidesRef.current) {
       return;
     }
@@ -148,10 +148,10 @@ export const useSlides = (
       activeElement.classList.add(exitTransitionClass);
       nextElement.classList.add(enterTransitionClass);
 
-      if(fromClick) {
+      if (fromTab) {
         const heading = nextElement.querySelector('h2');
 
-        if(heading) {
+        if (heading) {
           heading.focus();
 
           document.addEventListener('keydown', onkeyboardHandler);
@@ -181,12 +181,12 @@ export const useSlides = (
     }
   }, [currentSlide, getOrder, options, sliding, setCarouselHeight, slidesRef, onkeyboardHandler]);
 
-  const goToPrevSlide = useCallback((fromClick = false) => {
-    goToSlide({newSlide: (currentSlide - 1 < 0) ? totalSlides - 1 : currentSlide - 1, fromClick});
+  const goToPrevSlide = useCallback((fromTab = false) => {
+    goToSlide({newSlide: (currentSlide - 1 < 0) ? totalSlides - 1 : currentSlide - 1, fromTab});
   }, [currentSlide, totalSlides, goToSlide]);
 
-  const goToNextSlide = useCallback((fromClick = false) => {
-    goToSlide({newSlide: (currentSlide + 1 >= totalSlides) ? 0 : currentSlide + 1, fromClick});
+  const goToNextSlide = useCallback((fromTab = false) => {
+    goToSlide({newSlide: (currentSlide + 1 >= totalSlides) ? 0 : currentSlide + 1, fromTab});
   }, [currentSlide, totalSlides, goToSlide]);
 
   useHammerSwipe(containerRef, goToNextSlide, goToPrevSlide);
