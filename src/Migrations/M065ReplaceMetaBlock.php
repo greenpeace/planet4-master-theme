@@ -53,26 +53,35 @@ class M065ReplaceMetaBlock extends MigrationScript
      */
     private static function transform_block(array $block): array
     {
-        if (isset($block['attrs']['embed_type']) && $block['attrs']['embed_type'] === 'facebook_page') {
-            $facebook_url = $block['attrs']['social_media_url'] ?? '';
-            $facebook_page_tab = $block['attrs']['facebook_page_tab'] ?? 'timeline';
-            $alignment = $block['attrs']['alignment_class'] ?? '';
-            $title = $block['attrs']['title'] ?? '';
-            $description = $block['attrs']['description'] ?? '';
+        $is_facebook_page = isset($block['attrs']['embed_type']) && $block['attrs']['embed_type'] === 'facebook_page';
 
-            $html = '<section class="block social-media-block">' .
-            '<header><h2 class="page-section-header">' . esc_html($title) . '</h2></header>' .
-            '<p class="page-section-description">' . esc_html($description) . '</p>' .
-            '<div class="social-media-embed ' . esc_html($alignment) . '">' .
-            '<iframe class="social-media-embed-facebook" src="https://www.facebook.com/plugins/page.php?href=' . esc_html($facebook_url) . '&amp;tabs=' . esc_html($facebook_page_tab) . '&amp;width=500&amp;height=500&amp;small_header=false&amp;adapt_container_width=true&amp;hide_cover=false&amp;show_facepile=true" width="500" height="500" scrolling="no" frameborder="0" allow="encrypted-media" title="Social Media"></iframe>' .
-            '</div></section>';
+        $fb_plugin = $is_facebook_page ? 'page.php' : 'post.php';
+        $fb_url = $block['attrs']['social_media_url'] ?? '';
+        $fb_src_base = 'https://www.facebook.com/plugins/' . $fb_plugin . '?href=' . esc_html($fb_url);
 
-            $block['attrs']['embed_type'] = 'facebookPage';
-            $block['attrs']['embed_code'] = $facebook_url;
+        $title = $block['attrs']['title'] ?? '';
+        $description = $block['attrs']['description'] ?? '';
+        $alignment = $block['attrs']['alignment_class'] ?? '';
 
-            $block['innerHTML'] = $html;
-            $block['innerContent'][0] = $html;
+        if ($is_facebook_page) {
+            $fb_page_tab = $block['attrs']['facebook_page_tab'] ?? 'timeline';
+            $fb_src = $fb_src_base . '&tabs=' . esc_html($fb_page_tab) . '&width=500&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true';
+        } else {
+            $fb_src = $fb_src_base . '&show_text=true&width=500&height=500';
         }
+
+        $html = '<section class="block social-media-block">' .
+        '<header><h2 class="page-section-header">' . esc_html($title) . '</h2></header>' .
+        '<p class="page-section-description">' . esc_html($description) . '</p>' .
+        '<div class="social-media-embed ' . esc_html($alignment) . '">' .
+        '<iframe class="social-media-embed-facebook" src="' . esc_html($fb_src) . '" width="500" height="500" scrolling="no" frameborder="0" allow="encrypted-media" title="Social Media"></iframe>' .
+        '</div></section>';
+
+        $block['attrs']['embed_type'] = $is_facebook_page ? 'facebookPage' : 'facebookPost';
+        $block['attrs']['embed_code'] = $fb_url;
+
+        $block['innerHTML'] = $html;
+        $block['innerContent'][0] = $html;
 
         var_dump($block);
 
