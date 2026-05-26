@@ -306,9 +306,8 @@ class MasterSite extends \Timber\Site
 
         if (self::content_contains_image_blocks_without_alt($content)) {
             $err_message = __(
-                'Alt text is required for every Image block before publishing. '
-                . 'Please add a description that conveys each image’s purpose, '
-                . 'then try publishing again.',
+                'Alt text is required for every Image block before publishing.
+                Please add a description that conveys each image’s purpose, then try publishing again.',
                 'planet4-master-theme-backend'
             );
 
@@ -372,10 +371,12 @@ class MasterSite extends \Timber\Site
                 }
             }
 
-            if (!empty($block['innerBlocks']) && is_array($block['innerBlocks'])) {
-                if (self::blocks_have_image_without_alt($block['innerBlocks'])) {
-                    return true;
-                }
+            if (empty($block['innerBlocks']) || !is_array($block['innerBlocks'])) {
+                continue;
+            }
+
+            if (self::blocks_have_image_without_alt($block['innerBlocks'])) {
+                return true;
             }
         }
 
