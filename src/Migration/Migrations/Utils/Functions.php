@@ -245,9 +245,11 @@ class Functions
                 }
             }
 
-            if (!empty($block['innerBlocks']) && is_array($block['innerBlocks'])) {
-                $count += self::count_image_blocks_missing_alt($block['innerBlocks']);
+            if (empty($block['innerBlocks']) || !is_array($block['innerBlocks'])) {
+                continue;
             }
+
+            $count += self::count_image_blocks_missing_alt($block['innerBlocks']);
         }
 
         return $count;
