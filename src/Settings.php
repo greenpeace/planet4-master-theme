@@ -418,18 +418,6 @@ class Settings
                         ),
                     ],
                     [
-                        'name' => __('Facebook App Access Token', 'planet4-master-theme-backend'),
-                        'id' => 'fb_app_access_token',
-                        'type' => 'text',
-                        'desc' => __(
-                            'This is used by the Meta block to fetch Facebook & Instagram embed information.<br>
-                            Alternatively you can use your own, if you have created a Business Facebook App
-                            (<a href="https://developers.facebook.com/docs/facebook-login/guides/access-tokens/#apptokens" target="_blank">Read more</a>).<br>
-                            You could add App ID and App Secret separated by a | character, instead of a Token (eg. {your-app_id}|{your-app_secret}).',
-                            'planet4-master-theme-backend'
-                        ),
-                    ],
-                    [
                         'name' => __('Preconnect Domains', 'planet4-master-theme-backend'),
                         'desc' => __(
                             'Add a list of frequently used third-party services to "preconnect" (e.g.: https://in.hotjar.com).',

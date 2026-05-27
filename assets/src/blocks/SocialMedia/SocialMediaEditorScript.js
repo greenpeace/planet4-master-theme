@@ -124,21 +124,19 @@ export const SocialMediaEditor = ({
           value={social_media_url}
           onChange={toAttribute('social_media_url')}
         />
-        {(embed_type === FACEBOOK_PAGE_EMBED_TYPE || embed_type === FACEBOOK_POST_EMBED_TYPE) &&
-          <SelectControl
-            __nextHasNoMarginBottom
-            __next40pxDefaultSize
-            label={__('Alignment', 'planet4-master-theme-backend')}
-            value={alignment_class}
-            options={[
-              {label: __('None', 'planet4-master-theme-backend'), value: ''},
-              {label: __('Left', 'planet4-master-theme-backend'), value: 'alignleft'},
-              {label: __('Center', 'planet4-master-theme-backend'), value: 'aligncenter'},
-              {label: __('Right', 'planet4-master-theme-backend'), value: 'alignright'},
-            ]}
-            onChange={toAttribute('alignment_class')}
-          />
-        }
+        <SelectControl
+          __nextHasNoMarginBottom
+          __next40pxDefaultSize
+          label={__('Alignment', 'planet4-master-theme-backend')}
+          value={alignment_class}
+          options={[
+            {label: __('None', 'planet4-master-theme-backend'), value: ''},
+            {label: __('Left', 'planet4-master-theme-backend'), value: 'alignleft'},
+            {label: __('Center', 'planet4-master-theme-backend'), value: 'aligncenter'},
+            {label: __('Right', 'planet4-master-theme-backend'), value: 'alignright'},
+          ]}
+          onChange={toAttribute('alignment_class')}
+        />
         {embed_type === FACEBOOK_PAGE_EMBED_TYPE &&
           <>
             <label htmlFor="render-siderbar__control">
