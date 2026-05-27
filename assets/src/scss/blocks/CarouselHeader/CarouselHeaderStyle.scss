@@ -424,7 +424,7 @@ $medium-image-height: 600px;
         width: 100%;
       }
 
-      &:focus {
+      &:focus-visible {
         @include focus-styles();
       }
     }
