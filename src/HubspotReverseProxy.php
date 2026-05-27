@@ -26,20 +26,21 @@ class HubspotReverseProxy
      */
     public function p4_hubspot_reverse_proxy(WP $wp): void
     {
-        $target_url = $this->get_config_data($wp);
+        $target_data = $this->get_config_data($wp);
 
-        if (!$target_url) {
+        if (!$target_data) {
             return;
         }
 
-        $content = $this->remote_get_content($target_url);
+        $content = $this->remote_get_content($target_data['target_url']);
 
         if (!$content) {
             return;
         }
 
         if (str_contains($content['type'], 'text/html')) {
-            $content['body'] = $this->inject_canonical($content['body'], $target_url);
+            $content['body'] = $this->inject_canonical($content['body'], $target_data['target_url']);
+            $content['body'] = $this->rewrite_relative_urls($content['body'], $target_data['hubspot_domain']);
         }
 
         echo $content['body']; // phpcs:ignore WordPress.Security.EscapeOutput
@@ -50,9 +51,9 @@ class HubspotReverseProxy
      * Resolves the target HubSpot URL for the current request based on Planet4 options.
      *
      * @param WP $wp Current WordPress environment instance.
-     * @return string|null The target URL, or null if the request should not be proxied.
+     * @return array|null The target URL and Hubspot domain, or null if the request should not be proxied.
      */
-    private function get_config_data(WP $wp): ?string
+    private function get_config_data(WP $wp): ?array
     {
         $options = get_option('planet4_options', []);
 
@@ -82,7 +83,10 @@ class HubspotReverseProxy
         $sub_path = substr($request_path, strlen($p4_path));
         $target_url = $hubspot_domain . '/' . $hubspot_path . $sub_path;
 
-        return $target_url;
+        return [
+            'hubspot_domain' => $hubspot_domain,
+            'target_url' => $target_url,
+        ];
     }
 
     /**
@@ -135,6 +139,25 @@ class HubspotReverseProxy
             'body' => $body,
             'type' => $content_type,
         ];
+    }
+
+    /**
+     * Rewrites root-relative URLs in proxied HTML to point to the HubSpot domain.
+     * The regex matches src="..." and href="..." attributes where the value starts with /
+     *
+     * @param string $html The HTML content to modify.
+     * @param string $hubspot_domain The HubSpot domain (with scheme, no trailing slash).
+     * @return string The modified HTML with rewritten URLs.
+     */
+    private function rewrite_relative_urls(string $html, string $hubspot_domain): string
+    {
+        return preg_replace_callback(
+            '/(\b(?:src|href|action)=")(\\/[^"]*")/',
+            function (array $matches) use ($hubspot_domain): string {
+                return $matches[1] . $hubspot_domain . $matches[2];
+            },
+            $html
+        );
     }
 
     /**
