@@ -72,7 +72,7 @@ export const NewTimelineFrontend = ({attributes}) => {
             src={event.media}
             alt={event.media_caption ?? ''}
             loading="lazy"
-            onError={() => console.log('Could not load image')} //eslint-disable-line no-console
+            onError={e => e.currentTarget.style.display = 'none'} //eslint-disable-line no-console
           />
         )}
         <h3 className="timeline-block-event-title">{event.headline}</h3>
