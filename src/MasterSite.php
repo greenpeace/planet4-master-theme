@@ -3,6 +3,7 @@
 namespace P4\MasterTheme;
 
 use P4\MasterTheme\Features\Dev\CoreBlockPatterns;
+use P4\MasterTheme\Features\MandatoryImageAltText;
 use Timber\Timber;
 use WP_Error;
 
@@ -281,13 +282,17 @@ class MasterSite extends \Timber\Site
      */
     public static function require_image_alt_text(array $data): ?array
     {
+        // Only enforce when the "Enforce images alt-text" feature
+        // is enabled under WP-admin > Planet4 > Features.
+        if (!MandatoryImageAltText::is_active()) {
+            return $data;
+        }
+
         // Allow migrations to bypass the alt-text requirement.
         if (!empty($GLOBALS['p4_skip_require_image_alt'])) {
             return $data;
         }
 
-        // Only enforce on publish, on content types we care about, and only when
-        // post_content was supplied (some saves don't include it).
         if (
             empty($data['post_status'])
             || $data['post_status'] !== 'publish'
