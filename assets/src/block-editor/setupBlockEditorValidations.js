@@ -14,6 +14,17 @@ export const setupBlockEditorValidations = () => {
 };
 
 /**
+ * Check whether the "Enforce images alt-text" feature flag is enabled.
+ *
+ * @return {boolean} `true` when the feature is enabled. If the localized vars are missing entirely,
+ *  it default to NOT enforcing, to avoid blocking the editor unexpectedly.
+ */
+const isAltTextEnforcementEnabled = () => {
+  const features = (window.p4_vars && window.p4_vars.features) || {};
+  return Boolean(features.mandatory_image_alt_text);
+};
+
+/**
  * Retrieves the current validation state from the block and post editor stores.
  * Intended to be used as a selector callback with `useSelect`.
  *
@@ -39,8 +50,11 @@ const getValidationState = select => {
   const hasForm = hasGravityFormsBlock(allBlocks);
   const globalProject = getEditedPostAttribute('meta')?.p4_campaign_name;
   const validForms = !hasForm || (hasForm && globalProject && globalProject !== 'not set');
-  const imagesAlt = checkImageBlocksAltText(allBlocks);
-
+  // When the feature flag is off, treat the alt-text check as passing so it
+  // contributes nothing to `isValid` and produces no notice.
+  const imagesAlt = isAltTextEnforcementEnabled() ?
+    checkImageBlocksAltText(allBlocks) :
+    true;
   return {
     postTitle,
     featuredImage,
