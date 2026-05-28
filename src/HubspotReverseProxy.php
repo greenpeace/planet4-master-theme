@@ -166,13 +166,13 @@ class HubspotReverseProxy
     private function rewrite_relative_urls(string $html, string $hubspot_domain): string
     {
         return preg_replace_callback(
-            '/(\b(?:src|href|action|srcset|data-[\w\-]+)=["\'])(\\/[^"\']*["\'])|(\\bstyle=["\'])([^"\']*url\\(\\/[^)]*\\)[^"\']*["\'])/',
+            '/(\b(?:src|href|action|srcset|data-[\w\-]+)=["\'])(\\/(?!\\/)[^"\']*["\'])|(\\bstyle=["\'])([^"\']*url\\(\\/(?!\\/)[^)]*\\)[^"\']*["\'])/',
             function (array $matches) use ($hubspot_domain): string {
                 if ($matches[1]) {
                     return $matches[1] . $hubspot_domain . $matches[2];
                 }
                 return $matches[3] . preg_replace(
-                    '/url\\((\\/[^)]*\\))/',
+                    '/url\\((\\/(?!\\/)[^)]*\\))/',
                     'url(' . $hubspot_domain . '$1)',
                     $matches[4]
                 );
