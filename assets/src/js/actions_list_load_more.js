@@ -4,18 +4,19 @@
  */
 export const setupActionsListLoadMore = () => {
   const gridBlocks = document.querySelectorAll('.actions-list.is-custom-layout-grid');
-  let postsPerRow = 3;
-  // For medium screens we only show 2 posts per row.
-  if (window.innerWidth >= 768 && window.innerWidth < 992) {
-    postsPerRow = 2;
-  }
-  // For small screens we only show 1 post per row.
-  else if (window.innerWidth < 768) {
-    postsPerRow = 1;
-  }
 
   if (!gridBlocks.length) {
     return;
+  }
+
+  let postsPerRow = 3;
+
+  if (window.innerWidth >= 768 && window.innerWidth < 992) {
+    // For medium screens we only show 2 posts per row.
+    postsPerRow = 2;
+  } else if (window.innerWidth < 768) {
+    // For small screens we only show 1 post per row.
+    postsPerRow = 1;
   }
 
   // Implement "load more" behaviour for grid layouts.
