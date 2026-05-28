@@ -22,6 +22,12 @@ class HubspotReverseProxy
     /**
      * Handles the reverse proxy logic on every WordPress request.
      *
+     * Security notice — trust assumption:
+     * The response body is echoed without escaping (`echo $content['body']`), which is
+     * fundamentally what a reverse proxy does. However, this means any XSS present on
+     * the HubSpot side executes under the P4 origin and has full access to P4 cookies
+     * and localStorage.
+     *
      * @param WP $wp Current WordPress environment instance.
      */
     public function p4_hubspot_reverse_proxy(WP $wp): void
