@@ -34,6 +34,7 @@ export const useSlides = (
   const [autoplay, setAutoplay] = useState(carousel_autoplay);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [sliding, setSliding] = useState(false);
+  const [isIntersecting, setIsIntersecting] = useState(false);
   // Set up the autoplay for the slides
   const timerRef = useRef(null);
 
@@ -53,8 +54,10 @@ export const useSlides = (
   };
 
   const handleAutoplay = useCallback(() => {
-    setAutoplay(!autoplay);
-  }, [autoplay]);
+    if(isIntersecting) {
+      setAutoplay(!autoplay);
+    }
+  }, [autoplay, isIntersecting]);
 
   const getOrder = useCallback(newSlide => {
     let order = newSlide < currentSlide ? 'prev' : 'next';
@@ -207,7 +210,7 @@ export const useSlides = (
   }, [currentSlide, setCarouselHeight, containerRef, slidesRef]);
 
   useEffect(() => {
-    if (autoplay && totalSlides > 1) {
+    if (autoplay && totalSlides > 1 && isIntersecting) {
       if (timerRef.current) {
         clearTimeout(timerRef.current);
       }
@@ -216,7 +219,7 @@ export const useSlides = (
     } else if (timerRef.current) {
       clearTimeout(timerRef.current);
     }
-  }, [totalSlides, autoplay, timerRef, goToNextSlide]);
+  }, [totalSlides, autoplay, timerRef, goToNextSlide, isIntersecting]);
 
   useEffect(() => {
     if (!containerRef?.current || !carousel_autoplay) {
@@ -225,7 +228,7 @@ export const useSlides = (
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        setAutoplay(entry.isIntersecting);
+        setIsIntersecting(entry.isIntersecting);
       },
       {
         root: null,
@@ -253,5 +256,6 @@ export const useSlides = (
     autoplay,
     headingsRef,
     indicatorsRef,
+    isIntersecting,
   };
 };
