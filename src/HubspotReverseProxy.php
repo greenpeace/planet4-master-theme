@@ -65,7 +65,7 @@ class HubspotReverseProxy
         $hubspot_domain = rtrim($options['hubspot_reverse_proxy_domain'] ?? '', '/');
         $hubspot_path = trim($options['hubspot_reverse_proxy_hubspot_path'] ?? '', '/');
 
-        if (! $p4_path || ! $hubspot_domain) {
+        if (!$p4_path || !$hubspot_domain) {
             return null;
         }
 
@@ -107,11 +107,11 @@ class HubspotReverseProxy
 
         foreach ([ 'Accept', 'Accept-Language', 'Accept-Encoding', 'Cookie' ] as $h) {
             $key = 'HTTP_' . strtoupper(str_replace('-', '_', $h));
-            if (empty($_SERVER[ $key ])) {
+            if (empty($_SERVER[$key])) {
                 continue;
             }
 
-            $forward_headers[ $h ] = $_SERVER[ $key ];
+            $forward_headers[$h] = $_SERVER[$key];
         }
 
         $response = wp_remote_get($target_url, [
