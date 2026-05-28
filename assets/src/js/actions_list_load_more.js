@@ -4,14 +4,19 @@
  */
 export const setupActionsListLoadMore = () => {
   const gridBlocks = document.querySelectorAll('.actions-list.is-custom-layout-grid');
-  let postsPerRow = 3;
-  // For medium screens we only show 2 posts per row.
-  if (window.innerWidth >= 768 && window.innerWidth < 992) {
-    postsPerRow = 2;
-  }
 
   if (!gridBlocks.length) {
     return;
+  }
+
+  let postsPerRow = 3;
+
+  if (window.innerWidth >= 768 && window.innerWidth < 992) {
+    // For medium screens we only show 2 posts per row.
+    postsPerRow = 2;
+  } else if (window.innerWidth < 768) {
+    // For small screens we only show 1 post per row.
+    postsPerRow = 1;
   }
 
   // Implement "load more" behaviour for grid layouts.
@@ -22,9 +27,13 @@ export const setupActionsListLoadMore = () => {
     }
 
     const posts = [...block.querySelectorAll('.wp-block-post')];
-    if (!posts || posts.length <= postsPerRow * 2) {
+
+    if (posts && posts.length > postsPerRow * 2) {
+      loadMoreButtonContainer.classList.add('d-flex');
+      loadMoreButtonContainer.classList.remove('d-none');
+    } else {
+      loadMoreButtonContainer.classList.remove('d-flex');
       loadMoreButtonContainer.classList.add('d-none');
-      return;
     }
 
     const loadMoreButton = loadMoreButtonContainer.querySelector('.wp-element-button');

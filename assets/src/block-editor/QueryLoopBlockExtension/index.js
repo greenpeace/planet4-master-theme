@@ -219,6 +219,11 @@ export const setupQueryLoopBlockExtension = () => {
           [attributes.layout.type]
         );
 
+        const manualOverrideLabel =
+          isActionsList ?
+            __('CAUTION: Adding actions individually will override the automatic functionality of this block.', 'planet4-master-theme-backend') :
+            __('CAUTION: Adding posts individually will override the automatic functionality of this block. For good user experience, please include at least 3 articles in list view, 4 articles in grid view, and 9 articles in carousel view, so that spacing and alignment of the design remains intact.', 'planet4-master-theme-backend');
+
         return useMemo(() => (
           <>
             <InspectorControls>
@@ -239,7 +244,7 @@ export const setupQueryLoopBlockExtension = () => {
               {
                 <PanelBody title={__('Manual override', 'planet4-master-theme-backend')} initialOpen={query.postIn.length > 0}>
                   <PostSelector
-                    label={__('CAUTION: Adding posts individually will override the automatic functionality of this block. For good user experience, please include at least 3 articles in list view, 4 articles in grid view, and 9 articles in carousel view, so that spacing and alignment of the design remains intact.', 'planet4-master-theme-backend')}
+                    label={manualOverrideLabel}
                     selected={query.postIn || []}
                     onChange={updateQuery}
                     postType={query.postType || 'post'}
