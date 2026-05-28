@@ -57,7 +57,7 @@ export const NewTimelineFrontend = ({attributes}) => {
     const contentId = `timeline-content-${event.day}-${event.month}`;
 
     // Check if the event has a media, and if that media is an image.
-    const hasImage = event.media && event.media.match(/\.(jpeg|jpg|gif|png)$/i) !== null;
+    const hasImage = event.media && /\.(jpg|jpeg|png|webp|avif|gif|svg)(\?.*)?$/i.test(event.media);
 
     return (
       <li className="timeline-block-event">
