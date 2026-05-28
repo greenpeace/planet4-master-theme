@@ -75,14 +75,14 @@ class HubspotReverseProxy
             return null;
         }
 
-        // Ensure the domain includes a scheme.
-        if (! preg_match('#^https?://#', $hubspot_domain)) {
+        if (!preg_match('#^https?://#', $hubspot_domain)) {
             $hubspot_domain = 'https://' . $hubspot_domain;
         }
 
         $request_path = trim($wp->request, '/');
 
-        if ($request_path !== $p4_path && ! str_starts_with($request_path, $p4_path . '/')) {
+        // Only proxy paths that have content beyond the base segment, but ever the root itself.
+        if (!str_starts_with($request_path, $p4_path . '/')) {
             return null;
         }
 
@@ -166,6 +166,7 @@ class HubspotReverseProxy
     private function rewrite_relative_urls(string $html, string $hubspot_domain): string
     {
         return preg_replace_callback(
+            // phpcs:ignore Generic.Files.LineLength.MaxExceeded
             '/(\b(?:src|href|action|srcset|data-[\w\-]+)=["\'])(\\/(?!\\/)[^"\']*["\'])|(\\bstyle=["\'])([^"\']*url\\(\\/(?!\\/)[^)]*\\)[^"\']*["\'])/',
             function (array $matches) use ($hubspot_domain): string {
                 if ($matches[1]) {
