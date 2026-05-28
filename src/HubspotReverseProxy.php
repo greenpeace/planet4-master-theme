@@ -143,18 +143,33 @@ class HubspotReverseProxy
 
     /**
      * Rewrites root-relative URLs in proxied HTML to point to the HubSpot domain.
-     * The regex matches src="..." and href="..." attributes where the value starts with /
+     * Both single- and double-quoted attribute values are supported.
+     * The regex matches the following patterns where the value starts with '/':
+     *  - src="..."        e.g. src="/images/logo.png"
+     *  - href="..."       e.g. href="/about"
+     *  - action="..."     e.g. action="/submit"
+     *  - srcset="..."     e.g. srcset="/img.png 1x, /img@2x.png 2x"
+     *  - data-*="..."     e.g. data-src="/lazy.jpg", data-bg-url="/hero.jpg"
+     *  - style="..."      e.g. style="background: url(/images/bg.jpg)"
      *
-     * @param string $html The HTML content to modify.
-     * @param string $hubspot_domain The HubSpot domain (with scheme, no trailing slash).
-     * @return string The modified HTML with rewritten URLs.
+     * @param string $html            The raw HTML returned from the HubSpot proxy.
+     * @param string $hubspot_domain  The absolute origin to prepend.
+     *
+     * @return string The HTML with all root-relative URLs rewritten to absolute HubSpot URLs.
      */
     private function rewrite_relative_urls(string $html, string $hubspot_domain): string
     {
         return preg_replace_callback(
-            '/(\b(?:src|href|action)=")(\\/[^"]*")/',
+            '/(\b(?:src|href|action|srcset|data-[\w\-]+)=["\'])(\\/[^"\']*["\'])|(\\bstyle=["\'])([^"\']*url\\(\\/[^)]*\\)[^"\']*["\'])/',
             function (array $matches) use ($hubspot_domain): string {
-                return $matches[1] . $hubspot_domain . $matches[2];
+                if ($matches[1]) {
+                    return $matches[1] . $hubspot_domain . $matches[2];
+                }
+                return $matches[3] . preg_replace(
+                    '/url\\((\\/[^)]*\\))/',
+                    'url(' . $hubspot_domain . '$1)',
+                    $matches[4]
+                );
             },
             $html
         );
