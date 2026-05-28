@@ -54,7 +54,7 @@ export const useSlides = (
   };
 
   const handleAutoplay = useCallback(() => {
-    if(isIntersecting) {
+    if (isIntersecting) {
       setAutoplay(!autoplay);
     }
   }, [autoplay, isIntersecting]);
@@ -105,14 +105,14 @@ export const useSlides = (
 
     const carouselItem = event.target.closest('.carousel-item');
     // Only applied to the carousel item
-    if(!carouselItem) {
+    if (!carouselItem) {
       return;
     }
 
     const headingFocused = event.target.tagName === 'H2';
     const cta = carouselItem.querySelector('.action-button a');
 
-    if(headingFocused && cta) {
+    if (headingFocused && cta) {
       return;
     }
 
