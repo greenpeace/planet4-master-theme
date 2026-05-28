@@ -203,8 +203,7 @@ export const setupQueryLoopCarousel = () => {
           // Also update the aria-live text so that the screen reader announces the slide change.
           const indicatorButtons = layout.querySelectorAll('.carousel-indicators li');
           [...carouselButtons, ...indicatorButtons].forEach(button => {
-            button.addEventListener('click', () => {
-
+            button.addEventListener('click', e => {
               const observer = new MutationObserver(() => {
                 const currentSlide = layout.querySelector('.carousel-item.active');
                 const match = currentSlide.className.match(/carousel-slide-(\d+)/);
@@ -222,13 +221,17 @@ export const setupQueryLoopCarousel = () => {
 
                 if (!currentSlide) {return;}
 
-                const focusTarget = currentSlide.querySelector('a');
+                // This means that it's a tabbing event and not a click,
+                // therefore we need to move the focus to the first item.
+                if (e.target === layout.ownerDocument.activeElement) {
+                  const focusTarget = currentSlide.querySelector('a');
 
-                if (focusTarget) {
-                  focusTarget.focus();
-                } else {
-                  currentSlide.setAttribute('tabindex', '-1');
-                  currentSlide.focus();
+                  if (focusTarget) {
+                    focusTarget.focus();
+                  } else {
+                    currentSlide.setAttribute('tabindex', '-1');
+                    currentSlide.focus();
+                  }
                 }
 
                 observer.disconnect();
