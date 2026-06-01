@@ -53,6 +53,12 @@ export const useSlides = (
     },
   };
 
+  const stopAutoplay = useCallback(() => {
+    if (autoplay) {
+      setAutoplay(false);
+    }
+  }, [autoplay]);
+
   const handleAutoplay = useCallback(() => {
     if (isIntersecting) {
       setAutoplay(!autoplay);
@@ -208,6 +214,25 @@ export const useSlides = (
 
     return () => window.removeEventListener('resize', () => setCarouselHeight(currentSlideRef));
   }, [currentSlide, setCarouselHeight, containerRef, slidesRef]);
+
+  useEffect(() => {
+    if (!containerRef || !containerRef.current) {
+      return;
+    }
+
+    const carouselRef = containerRef.current;
+    const handleUserInteraction = () => stopAutoplay();
+
+    carouselRef.addEventListener('pointerdown', handleUserInteraction);
+    carouselRef.addEventListener('touchstart', handleUserInteraction, {passive: true});
+    carouselRef.addEventListener('focusin', handleUserInteraction);
+
+    return () => {
+      carouselRef.removeEventListener('pointerdown', handleUserInteraction);
+      carouselRef.removeEventListener('touchstart', handleUserInteraction);
+      carouselRef.removeEventListener('focusin', handleUserInteraction);
+    };
+  }, [containerRef, stopAutoplay]);
 
   useEffect(() => {
     if (autoplay && totalSlides > 1 && isIntersecting) {
