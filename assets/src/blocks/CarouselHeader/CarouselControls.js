@@ -43,20 +43,14 @@ export const CarouselControls = forwardRef(({
                   } : {}}
                 >
                   <button
-                    onClick={() => {
+                    onClick={e => {
                       if (index !== currentSlide) {
-                        goToSlide({newSlide: index});
+                        // eslint-disable-next-line @wordpress/no-global-active-element
+                        goToSlide({newSlide: index, fromTab: e.target === document.activeElement});
                         setAutoplay(false);
                       }
                     }}
                     tabIndex={0}
-                    onKeyDown={e => {
-                      if ((e.key === 'Enter' || e.key === ' ') && index !== currentSlide) {
-                        e.preventDefault();
-                        goToSlide({newSlide: index, fromTab: true});
-                        setAutoplay(false);
-                      }
-                    }}
                     // translators: %s: slide header
                     aria-label={sprintf(__('Go to %s slide', 'planet4-master-theme'), slides[index].header)}
                     aria-current={index === currentSlide ? 'true' : undefined}
@@ -71,16 +65,10 @@ export const CarouselControls = forwardRef(({
       <nav aria-label={__('Greenpeace highlights carousel controls', 'planet4-master-theme')} ref={controlsRef}>
         <button
           className="carousel-control-prev"
-          onClick={() => {
-            goToPrevSlide();
+          onClick={e => {
+            // eslint-disable-next-line @wordpress/no-global-active-element
+            goToPrevSlide(e.target === document.activeElement);
             setAutoplay(false);
-          }}
-          onKeyDown={e => {
-            if ((e.key === 'Enter' || e.key === ' ')) {
-              e.preventDefault();
-              goToPrevSlide(true);
-              setAutoplay(false);
-            }
           }}
           // translators: %s: slide header
           aria-label={sprintf(__('Go to previous slide %s', 'planet4-master-theme'), slides[currentSlide - 1] && slides[currentSlide - 1].header ? slides[currentSlide - 1].header : slides[slides.length - 1].header)}
@@ -90,16 +78,10 @@ export const CarouselControls = forwardRef(({
         </button>
         <button
           className="carousel-control-next"
-          onClick={() => {
-            goToNextSlide();
+          onClick={e => {
+            // eslint-disable-next-line @wordpress/no-global-active-element
+            goToNextSlide(e.target === document.activeElement);
             setAutoplay(false);
-          }}
-          onKeyDown={e => {
-            if ((e.key === 'Enter' || e.key === ' ')) {
-              e.preventDefault();
-              goToNextSlide(true);
-              setAutoplay(false);
-            }
           }}
           // translators: %s: slide header
           aria-label={sprintf(__('Go to next slide %s', 'planet4-master-theme'), slides[currentSlide + 1] && slides[currentSlide + 1].header ? slides[currentSlide + 1].header : slides[0].header)}
