@@ -52,7 +52,7 @@ export const EditableBackground = ({
         if (!ALLOWED_MIME_TYPES.includes(mimeType)) {
           // eslint-disable-next-line no-alert
           window.alert(__(
-            'Only JPG and WebP images are allowed for the carousel header. Please choose a different file.',
+            'Only JPG and WebP images are allowed for the Carousel Header. Please choose a different file.',
             'planet4-master-theme-backend'
           ));
           return;
@@ -61,9 +61,9 @@ export const EditableBackground = ({
         if ((filesizeInBytes ?? 0) > MAX_IMAGE_FILESIZE_BYTES) {
           // eslint-disable-next-line no-alert
           window.alert(sprintf(
-            // translators: %s is the maximum allowed image size in megabytes.
-            __('The selected image is too large. Please use an image smaller than %s MB for the carousel header.', 'planet4-master-theme-backend'),
-            (MAX_IMAGE_FILESIZE_BYTES / (1024 * 1024)).toFixed(0)
+            // translators: %d is the maximum allowed image size in megabytes.
+            __('The selected image is too large. Please use an image smaller than %d MB for the Carousel Header.', 'planet4-master-theme-backend'),
+            Math.round(MAX_IMAGE_FILESIZE_BYTES / (1024 * 1024))
           ));
           return;
         }
