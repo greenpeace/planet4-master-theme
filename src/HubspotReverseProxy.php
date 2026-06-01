@@ -22,7 +22,7 @@ class HubspotReverseProxy
     /**
      * Handles the reverse proxy logic on every WordPress request.
      *
-     * Security notice — trust assumption:
+     * Security notice. Trust assumption:
      * The response body is echoed without escaping (`echo $content['body']`), which is
      * fundamentally what a reverse proxy does. However, this means any XSS present on
      * the HubSpot side executes under the P4 origin and has full access to P4 cookies
@@ -111,13 +111,42 @@ class HubspotReverseProxy
 
         $forward_headers = [];
 
-        foreach ([ 'Accept', 'Accept-Language', 'Accept-Encoding', 'Cookie' ] as $h) {
+        // Forward browser hint headers as-is.
+        foreach (['Accept', 'Accept-Language', 'Accept-Encoding'] as $h) {
             $key = 'HTTP_' . strtoupper(str_replace('-', '_', $h));
             if (empty($_SERVER[$key])) {
                 continue;
             }
 
             $forward_headers[$h] = $_SERVER[$key];
+        }
+
+        // Forward only HubSpot-relevant cookies, never P4 session cookies.
+        // https://knowledge.hubspot.com/privacy-and-consent/hubspot-cookie-security-and-privacy
+        $allowed_cookies = [
+            '__cfduid', '__cf_bm', '__cfuvid', ' __hs_opt_out', '_hs_cookie_cat_pref',
+            'laboratory-anonymous-id', 'hs_login_email', 'hsgn', 'ak_bmsc', 'Hubspotapi',
+            'Hubspotapi-csrf', 'Hubspotapi-lax', 'Hubspotapi-prefs', 'Hubspotapi-strict',
+            'hs_langswitcher_choice', 'Hubspotutk', 'gbu9uvfhph6a0mdatwbzomssrlboczvs',
+            'AWSALB', 'AWSALBCORS', 'LiSESSIONID', 'LithiumVisitor', 'cg_uuid', 'messagesUtk',
+            '__hs_cookie_cat_pref', 'hs_high_contrast', '_conv_v', '_ga', '_gid', '__hssc',
+            '__hssrc', '__hstc', 'hs-messages-is-open', '__utma', '_conv_r', '__secure-rollout_token',
+            'YSC', 'VISITOR_INFO1_LIVE', 'VISITOR_PRIVACY_METADATA', '_fbp', '_gtmeec',
+            'FPAU', 'FPID', '__pdst', 'test_cookie', 'IDE',
+        ];
+
+        $filtered_cookies = [];
+        foreach (explode(';', $_SERVER['HTTP_COOKIE'] ?? '') as $cookie) {
+            [$name] = explode('=', trim($cookie), 2);
+            if (!in_array(trim($name), $allowed_cookies, true)) {
+                continue;
+            }
+
+            $filtered_cookies[] = trim($cookie);
+        }
+
+        if ($filtered_cookies) {
+            $forward_headers['Cookie'] = implode('; ', $filtered_cookies);
         }
 
         $response = wp_remote_get($target_url, [
