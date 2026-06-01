@@ -1,4 +1,4 @@
-import {SpreadsheetFrontend} from './SpreadsheetFrontend';
+import {SpreadsheetFrontend} from './spreadsheet';
 import {createRoot} from 'react-dom/client';
 import {hydrateBlock} from '../../functions/hydrateBlock';
 

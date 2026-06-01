@@ -1,5 +1,5 @@
 import ColorPaletteControl from '../../block-editor/ColorPaletteControl/ColorPaletteControl';
-import {SpreadsheetFrontend} from './SpreadsheetFrontend';
+import {SpreadsheetFrontend} from './spreadsheet';
 
 const {InspectorControls} = wp.blockEditor;
 const {TextControl, PanelBody} = wp.components;
