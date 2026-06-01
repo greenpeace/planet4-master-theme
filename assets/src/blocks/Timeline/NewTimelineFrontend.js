@@ -56,6 +56,9 @@ export const NewTimelineFrontend = ({attributes}) => {
     const [expanded, setExpanded] = useState(false);
     const contentId = `timeline-content-${event.day}-${event.month}`;
 
+    // Check if the event has a media, and if that media is an image.
+    const hasImage = event.media && /\.(jpg|jpeg|png|webp|avif|gif|svg)(\?.*)?$/i.test(event.media);
+
     return (
       <li className="timeline-block-event">
         <p
@@ -64,6 +67,14 @@ export const NewTimelineFrontend = ({attributes}) => {
         >
           {getLocalizedDate(event.day, event.month)}
         </p>
+        {hasImage && (
+          <img
+            src={event.media}
+            alt={event.media_caption ?? ''}
+            loading="lazy"
+            onError={e => e.currentTarget.style.display = 'none'}
+          />
+        )}
         <h3 className="timeline-block-event-title">{event.headline}</h3>
         <div className="timeline-description-wrapper">
           <p
