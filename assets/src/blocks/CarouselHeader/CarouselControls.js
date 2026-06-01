@@ -53,7 +53,7 @@ export const CarouselControls = forwardRef(({
                     tabIndex={0}
                     // translators: %s: slide header
                     aria-label={sprintf(__('Go to %s slide', 'planet4-master-theme'), slides[index].header)}
-                    aria-current={index === currentSlide ? 'true' : undefined}
+                    aria-current={index === currentSlide && !autoplay ? 'true' : undefined}
                   />
                 </li>
               )
