@@ -51,8 +51,15 @@ export const CarouselControls = forwardRef(({
                       }
                     }}
                     tabIndex={0}
-                    // translators: %s: slide header
-                    aria-label={sprintf(__('Go to %s slide', 'planet4-master-theme'), slides[index].header)}
+                    onKeyDown={e => {
+                      if ((e.key === 'Enter' || e.key === ' ') && index !== currentSlide) {
+                        e.preventDefault();
+                        goToSlide({newSlide: index, fromTab: true});
+                        setAutoplay(false);
+                      }
+                    }}
+                    // translators: %s: slide header or fallback slide number
+                    aria-label={sprintf(__('Go to %s', 'planet4-master-theme'),slides[index].header || sprintf(__('slide %d', 'planet4-master-theme'), index + 1))}
                     aria-current={index === currentSlide && !autoplay ? 'true' : undefined}
                   />
                 </li>
