@@ -375,6 +375,45 @@ class MasterSite extends \Timber\Site
     }
 
     /**
+     * Read the alt text from a parsed core/image block.
+     *
+     * @param array $block - A parsed block (output of parse_blocks()).
+     */
+    private static function read_image_block_alt(array $block): string
+    {
+        $attrs = $block['attrs'] ?? [];
+
+        if (isset($attrs['alt']) && is_string($attrs['alt'])) {
+            $alt = trim($attrs['alt']);
+            if ($alt !== '') {
+                return $alt;
+            }
+        }
+
+        if (
+            !empty($block['innerHTML'])
+            && preg_match('/<img\b[^>]*\balt\s*=\s*"([^"]*)"/i', $block['innerHTML'], $m)
+        ) {
+            return trim($m[1]);
+        }
+
+        return '';
+    }
+
+    /**
+     * Whether a parsed core/image block has media selected (id or url) but no non-empty alt text.
+     *
+     * @param array $block - A parsed block (output of parse_blocks()).
+     */
+    private static function is_image_block_missing_alt(array $block): bool
+    {
+        $attrs = $block['attrs'] ?? [];
+        $has_media = !empty($attrs['id']) || !empty($attrs['url']);
+
+        return $has_media && self::read_image_block_alt($block) === '';
+    }
+
+    /**
      * Walk a parsed block tree and return true on the first core/image block
      * that has media (id or url) but no non-empty alt attribute.
      *
@@ -387,29 +426,13 @@ class MasterSite extends \Timber\Site
                 continue;
             }
 
-            $block_name = $block['blockName'] ?? null;
-            $attrs = $block['attrs'] ?? [];
-
-            if ($block_name === 'core/image') {
-                $has_media = !empty($attrs['id']) || !empty($attrs['url']);
-                $alt = isset($attrs['alt']) && is_string($attrs['alt']) ? trim($attrs['alt']) : '';
-
-                if ($alt === '' && !empty($block['innerHTML'])) {
-                    if (preg_match('/<img\b[^>]*\balt\s*=\s*"([^"]*)"/i', $block['innerHTML'], $m)) {
-                        $alt = trim($m[1]);
-                    }
-                }
-
-                if ($has_media && $alt === '') {
-                    return true;
-                }
+            $is_image = (($block['blockName'] ?? null) === 'core/image');
+            if ($is_image && self::is_image_block_missing_alt($block)) {
+                return true;
             }
 
-            if (empty($block['innerBlocks']) || !is_array($block['innerBlocks'])) {
-                continue;
-            }
-
-            if (self::blocks_have_image_without_alt($block['innerBlocks'])) {
+            $inner_block = $block['innerBlocks'] ?? null;
+            if (is_array($inner_block) && self::blocks_have_image_without_alt($inner_block)) {
                 return true;
             }
         }
