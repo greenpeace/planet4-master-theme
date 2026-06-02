@@ -90,6 +90,37 @@ const checkTopicLinks = blocks => {
 const hasGravityFormsBlock = blocks => Boolean(blocks.find(block => block.name === 'gravityforms/form'));
 
 /**
+ * Returns the trimmed alt text from a block attributes object, or an empty
+ * string if it's missing or not a string.
+ *
+ * @param {Object} attributes - Block attributes object.
+ * @return {string} The trimmed alt text.
+ */
+const getImageBlockAltText = attributes => {
+  if (!attributes || typeof attributes.alt !== 'string') {
+    return '';
+  }
+  return attributes.alt.trim();
+};
+
+/**
+ * Returns `true` when the given core/image block has media selected (an `id`
+ * or `url`) but no non-empty alt text. Empty placeholder blocks (no media
+ * picked yet) are not publish-blockers.
+ *
+ * @param {Object} block - A core/image block from the editor.
+ * @return {boolean} Whether the block should block publish.
+ */
+const isImageBlockMissingAlt = block => {
+  const attributes = block.attributes || {};
+  const hasMedia = Boolean(attributes.id || attributes.url);
+  if (!hasMedia) {
+    return false;
+  }
+  return getImageBlockAltText(attributes) === '';
+};
+
+/**
  * Recursively checks whether every `core/image` block in the editor (including
  * nested image blocks inside Group / Columns / Cover / etc.) has a non-empty
  * `alt` attribute. Whitespace-only alt text is treated as missing.
@@ -107,24 +138,13 @@ const checkImageBlocksAltText = blocks => {
       continue;
     }
 
-    if (block.name === 'core/image') {
-      // Only flag image blocks that actually have media selected.
-      // An empty placeholder block (no id/url yet) is not a publish-blocker.
-      const hasMedia = Boolean(
-        (block.attributes && (block.attributes.id || block.attributes.url))
-      );
-      const alt = block.attributes && typeof block.attributes.alt === 'string' ?
-        block.attributes.alt.trim() :
-        '';
-      if (hasMedia && alt === '') {
-        return false;
-      }
+    if (block.name === 'core/image' && isImageBlockMissingAlt(block)) {
+      return false;
     }
 
-    if (block.innerBlocks && block.innerBlocks.length > 0) {
-      if (!checkImageBlocksAltText(block.innerBlocks)) {
-        return false;
-      }
+    const hasInnerBlocks = block.innerBlocks && block.innerBlocks.length > 0;
+    if (hasInnerBlocks && !checkImageBlocksAltText(block.innerBlocks)) {
+      return false;
     }
   }
 
