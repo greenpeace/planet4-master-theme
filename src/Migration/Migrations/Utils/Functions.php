@@ -213,6 +213,46 @@ class Functions
     }
 
     /**
+     * Read the alt text from a parsed core/image block.
+     *
+     * @param array $block - A parsed block (output of WP_Block_Parser::parse()).
+     */
+    private static function read_image_block_alt(array $block): string
+    {
+        $attrs = $block['attrs'] ?? [];
+
+        if (isset($attrs['alt']) && is_string($attrs['alt'])) {
+            $alt = trim($attrs['alt']);
+            if ($alt !== '') {
+                return $alt;
+            }
+        }
+
+        if (
+            !empty($block['innerHTML'])
+            && preg_match('/<img\b[^>]*\balt\s*=\s*"([^"]*)"/i', $block['innerHTML'], $m)
+        ) {
+            return trim($m[1]);
+        }
+
+        return '';
+    }
+
+    /**
+     * Whether a parsed core/image block has media selected (id or url) but no
+     * non-empty alt text.
+     *
+     * @param array $block - A parsed block (output of WP_Block_Parser::parse()).
+     */
+    private static function is_image_block_missing_alt(array $block): bool
+    {
+        $attrs = $block['attrs'] ?? [];
+        $has_media = !empty($attrs['id']) || !empty($attrs['url']);
+
+        return $has_media && self::read_image_block_alt($block) === '';
+    }
+
+    /**
      * Recursively count core/image blocks that have media selected but no
      * non-empty alt attribute (checking both block attrs and innerHTML).
      *
@@ -227,29 +267,15 @@ class Functions
                 continue;
             }
 
-            $block_name = $block['blockName'] ?? null;
-            $attrs = $block['attrs'] ?? [];
-
-            if ($block_name === 'core/image') {
-                $has_media = !empty($attrs['id']) || !empty($attrs['url']);
-                $alt = isset($attrs['alt']) && is_string($attrs['alt']) ? trim($attrs['alt']) : '';
-
-                if ($alt === '' && !empty($block['innerHTML'])) {
-                    if (preg_match('/<img\b[^>]*\balt\s*=\s*"([^"]*)"/i', $block['innerHTML'], $m)) {
-                        $alt = trim($m[1]);
-                    }
-                }
-
-                if ($has_media && $alt === '') {
-                    $count++;
-                }
+            $is_image = (($block['blockName'] ?? null) === 'core/image');
+            if ($is_image && self::is_image_block_missing_alt($block)) {
+                $count++;
             }
 
-            if (empty($block['innerBlocks']) || !is_array($block['innerBlocks'])) {
-                continue;
+            $inner = $block['innerBlocks'] ?? null;
+            if (is_array($inner)) {
+                $count += self::count_image_blocks_missing_alt($inner);
             }
-
-            $count += self::count_image_blocks_missing_alt($block['innerBlocks']);
         }
 
         return $count;
