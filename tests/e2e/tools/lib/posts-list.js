@@ -1,95 +1,42 @@
-import {searchAndInsertBlock} from './editor.js';
+import {addListBlock, addListBlockWithManualOverride, checkListBlock} from './query-loop-utils.js';
 import {expect} from './test-utils.js';
 
+const BLOCK_NAME = 'Posts List';
 const TEST_TITLE = 'Related Stories';
 const TEST_CATEGORY = 'Energy';
 const MANUAL_OVERRIDE_TITLE = 'Posts';
 
-async function addPostsListBlock(page, layout) {
-  // Add Posts List block.
-  await searchAndInsertBlock({page}, 'Posts List');
-
-  // Select wanted layout. If none is provided it means we are using the default one which is List.
-  if (layout) {
-    await page.getByRole('radio', {name: layout}).check();
-  }
-
-  // Change amount of posts from 3 to 4.
-  await page.getByRole('spinbutton', {name: 'Items per page'}).fill('4');
-
-  // Filter by "Energy" category.
-  const editorSettings = page.getByRole('region', {name: 'Editor settings'});
-  await editorSettings.getByRole('button', {name: 'Filters options'}).click();
-  await page.getByLabel('Show Taxonomies').click();
-  await editorSettings.getByLabel('Categories').fill(TEST_CATEGORY);
-  await editorSettings.locator(
-    '.components-form-token-field__suggestion', {hasText: TEST_CATEGORY}
-  ).click();
-  await expect(editorSettings.locator(
-    '.components-form-token-field__token-text', {hasText: TEST_CATEGORY})
-  ).toBeVisible();
-
-  // Change the title.
-  await page.getByRole('document', {name: 'Block: Heading'}).fill(TEST_TITLE);
+export async function addPostsListBlock(page, layout) {
+  await addListBlock(page, BLOCK_NAME, 4, {layout, category: TEST_CATEGORY, title: TEST_TITLE});
 }
 
-async function addPostsListBlockWithManualOverride(page, postTitles) {
-  // Add Posts List block (default List layout).
-  await searchAndInsertBlock({page}, 'Posts List');
-
-  // Change amount of posts from 3 to 4.
-  await page.getByRole('spinbutton', {name: 'Items per page'}).fill('4');
-
-  // Expand the "Manual override" panel and select posts.
-  const editorSettings = page.getByRole('region', {name: 'Editor settings'});
-  const manualOverridePanel = editorSettings.getByRole('button', {name: 'Manual override'});
-  if (await manualOverridePanel.getAttribute('aria-expanded') === 'false') {
-    await manualOverridePanel.click();
-  }
-
-  // Select each post via the token field autocomplete.
-  for (const title of postTitles) {
-    await editorSettings.locator('.components-form-token-field__input').fill(title);
-    // Use .first() to guard against duplicate suggestions
-    await editorSettings.locator(
-      '.components-form-token-field__suggestion', {hasText: title}
-    ).first().click();
-    await expect(editorSettings.locator(
-      '.components-form-token-field__token-text', {hasText: title})
-    ).toBeVisible();
-  }
-
-  // Change the block title.
-  await page.getByRole('document', {name: 'Block: Heading'}).fill(MANUAL_OVERRIDE_TITLE);
+export async function addPostsListBlockWithManualOverride(page, postTitles) {
+  await addListBlockWithManualOverride(page, BLOCK_NAME, postTitles, MANUAL_OVERRIDE_TITLE);
 }
 
-async function checkPostsListBlock(page, layout) {
-  // Test that the block is displayed as expected in the frontend.
-  const block = page.locator('.p4-query-loop');
-  await expect(block).toContainClass(`is-custom-layout-${layout}`);
-  await expect(block.locator('h2.wp-block-heading')).toHaveText(TEST_TITLE);
-  await expect(block.locator('.wp-block-post')).toHaveCount(4);
-  for (const category of await block.locator('.wp-block-post-terms:not(.taxonomy-post_tag)').all()) {
-    await expect(category).toHaveText(TEST_CATEGORY);
-  }
+export async function checkPostsListBlock(page, layout) {
+  await checkListBlock(page, {
+    layout,
+    title: TEST_TITLE,
+    count: 4,
+    category: TEST_CATEGORY,
+    categoryLocator: '.wp-block-post-terms:not(.taxonomy-post_tag)',
+  });
 }
 
-async function checkPostsListBlockWithManualOverride(page, postTitles) {
-  const block = page.locator('.p4-query-loop');
-  await expect(block).toContainClass('is-custom-layout-list');
-  await expect(block.locator('h2.wp-block-heading')).toHaveText(MANUAL_OVERRIDE_TITLE);
-  await expect(block.locator('.wp-block-post')).toHaveCount(postTitles.length);
-  for (const title of postTitles) {
-    await expect(block.locator('.wp-block-post-title', {hasText: title})).toBeVisible();
-  }
+export async function checkPostsListBlockWithManualOverride(page, postTitles) {
+  await checkListBlock(page, {
+    layout: 'list',
+    title: MANUAL_OVERRIDE_TITLE,
+    count: postTitles.length,
+    postTitles,
+  });
 }
 
-async function checkPostsListBlockCarouselLayout(page) {
+export async function checkPostsListBlockCarouselLayout(page) {
   await checkPostsListBlock(page, 'carousel');
 
   const block = page.locator('.p4-query-loop');
   await expect(block.locator('.carousel.slide')).toBeVisible();
   await expect(block.locator('.carousel-item.active')).toBeVisible();
 }
-
-export {addPostsListBlock, addPostsListBlockWithManualOverride, checkPostsListBlock, checkPostsListBlockWithManualOverride, checkPostsListBlockCarouselLayout};
