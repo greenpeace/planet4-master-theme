@@ -21,7 +21,10 @@ export const setupBlockEditorValidations = () => {
  * @return {Object} - An object containing individual validation flags and a combined `isValid` flag.
  */
 const getValidationState = select => {
-  const {getEditedPostAttribute} = select('core/editor');
+  const {getEditedPostAttribute, getCurrentPostType} = select('core/editor');
+  if (getCurrentPostType() === 'wp_block') {
+    return {postTitle: true, featuredImage: true, topicLink: true, isValid: true};
+  }
   const {getBlocks} = select('core/block-editor');
   const postTitle = Boolean(getEditedPostAttribute('title'));
   const featuredImage = Boolean(getEditedPostAttribute('featured_media'));
