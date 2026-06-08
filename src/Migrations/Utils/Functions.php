@@ -273,9 +273,11 @@ class Functions
             }
 
             $inner = $block['innerBlocks'] ?? null;
-            if (is_array($inner)) {
-                $count += self::count_image_blocks_missing_alt($inner);
+            if (!is_array($inner)) {
+                continue;
             }
+
+            $count += self::count_image_blocks_missing_alt($inner);
         }
 
         return $count;
