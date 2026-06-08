@@ -142,6 +142,10 @@ export const useSlides = (
       return;
     }
 
+    if(fromTab) {
+      stopAutoplay();
+    }
+
     const nextElement = slidesRef.current[newSlide];
     const activeElement = slidesRef.current[currentSlide];
 
@@ -188,7 +192,7 @@ export const useSlides = (
         unsetTransitionClasses();
       }
     }
-  }, [currentSlide, getOrder, options, sliding, setCarouselHeight, slidesRef, onkeyboardHandler]);
+  }, [currentSlide, getOrder, options, sliding, setCarouselHeight, slidesRef, onkeyboardHandler, stopAutoplay]);
 
   const goToPrevSlide = useCallback((fromTab = false) => {
     goToSlide({newSlide: (currentSlide - 1 < 0) ? totalSlides - 1 : currentSlide - 1, fromTab});
