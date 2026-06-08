@@ -97,7 +97,13 @@ export const CarouselControls = forwardRef(({
           <span className="visually-hidden">{__('Next', 'planet4-master-theme')}</span>
         </button>
       </nav>
-
+      {/* This will help screen readers to announce the current slide */}
+      <div aria-live="polite" aria-atomic="true" className="visually-hidden">
+        {
+          // translators: %s: slide number
+          sprintf(__('Slide %s', 'planet4-master-theme'), currentSlide + 1)
+        }
+      </div>
     </>
   ), [
     currentSlide,
