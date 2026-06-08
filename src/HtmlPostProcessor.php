@@ -46,57 +46,10 @@ class HtmlPostProcessor
         // and target specific nodes within the DOM tree.
         $xpath = new DOMXPath($dom);
 
-        $this->remove_related_section_no_posts($xpath);
-        $this->remove_no_post_text($xpath);
         $this->setup_pdf_icon($xpath);
         $this->setup_external_links($xpath);
 
         return $dom->saveHTML();
-    }
-
-    /**
-     * Removes the "Related Posts" section when it contains no posts.
-     */
-    private function remove_related_section_no_posts(DOMXPath $xpath): void
-    {
-        $sections = $xpath->query("//section[contains(@class, 'post-articles-block')]");
-
-        foreach ($sections as $section) {
-            $has_post_template = $xpath->query(".//*[contains(@class, 'wp-block-post-template')]", $section);
-
-            if ($has_post_template->length !== 0) {
-                continue;
-            }
-
-            $section->parentNode->removeChild($section);
-        }
-    }
-
-    /**
-     * Removes the "No Results" inner block from a Post List or an Actions List block
-     * when the title and the description of the block are empty.
-     */
-    private function remove_no_post_text(DOMXPath $xpath): void
-    {
-        $no_results =
-            $xpath->query("//*[contains(@class, 'p4-query-loop')]//*[contains(@class, 'wp-block-query-no-results')]");
-
-        foreach ($no_results as $no_results_block) {
-            $query_loop = $no_results_block->parentNode;
-
-            $post_title = $xpath->query(".//*[contains(@class, 'wp-block-heading')]", $query_loop);
-            $post_description = $xpath->query(".//p", $query_loop);
-
-            $title_is_empty = $post_title->length === 0 || trim($post_title->item(0)->textContent) === '';
-            $description_is_empty =
-                $post_description->length === 0 || trim($post_description->item(0)->textContent) === '';
-
-            if (!$title_is_empty || !$description_is_empty) {
-                continue;
-            }
-
-            $no_results_block->parentNode->removeChild($no_results_block);
-        }
     }
 
     /**
