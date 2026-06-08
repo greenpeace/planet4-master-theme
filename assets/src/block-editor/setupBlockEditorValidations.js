@@ -41,7 +41,6 @@ const getValidationState = select => {
     return {postTitle: true, featuredImage: true, topicLink: true, isValid: true, validForms: true};
   }
   const {getBlocks} = select('core/block-editor');
-
   const allBlocks = getBlocks();
   const postTitle = Boolean(getEditedPostAttribute('title'));
   const featuredImage = Boolean(getEditedPostAttribute('featured_media'));
@@ -55,6 +54,7 @@ const getValidationState = select => {
   const imagesAlt = isAltTextEnforcementEnabled() ?
     checkImageBlocksAltText(allBlocks) :
     true;
+
   return {
     postTitle,
     featuredImage,
