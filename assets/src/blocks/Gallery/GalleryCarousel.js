@@ -27,7 +27,7 @@ export const GalleryCarousel = ({images, onImageClick, isEditing}) => {
     return order;
   }, [currentSlide, lastSlide]);
 
-  const goToSlide = useCallback(newSlide => {
+  const goToSlide = useCallback(({newSlide}) => {
     const nextElement = slidesRef.current[newSlide];
     const activeElement = slidesRef.current[currentSlide];
     if (newSlide !== currentSlide && nextElement && activeElement && !sliding) {
