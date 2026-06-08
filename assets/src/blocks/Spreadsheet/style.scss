@@ -1,3 +1,7 @@
+@import "../../scss/base/tokens";
+@import "../../scss/base/variables";
+@import "../../scss/base/mixins";
+
 .block-spreadsheet {
   display: inline-block;
   margin-top: $sp-1;
@@ -76,7 +80,7 @@ table.spreadsheet-table {
       width: 16px;
       height: 16px;
       margin-left: $sp-1;
-      mask-image: url("../../images/spreadsheet-arrow.svg");
+      mask-image: url("../../../../images/spreadsheet-arrow.svg");
       mask-repeat: no-repeat;
       mask-size: contain;
       background-repeat: no-repeat;

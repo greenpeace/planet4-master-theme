@@ -192,7 +192,6 @@ final class Loader
         new Blocks\Counter();//NOSONAR
         new Blocks\Gallery();//NOSONAR
         new Blocks\SocialMedia();//NOSONAR
-        new Blocks\Spreadsheet();//NOSONAR
         new Blocks\TableOfContents();//NOSONAR
         new Blocks\TakeActionBoxout();//NOSONAR
         new Blocks\Timeline();//NOSONAR
@@ -261,6 +260,7 @@ final class Loader
                 return BaseBlock::render_frontend_from_blockname($attributes, 'planet4-blocks/happypoint');
             },
         ]);
+        Blocks\Register::registerFromAssets('Spreadsheet');
         Blocks\Register::registerFromAssets('TopicLink', [
             'render_callback' => function ($attributes) {
                 return BaseBlock::render_frontend_from_blockname($attributes, 'planet4-blocks/topic-link');

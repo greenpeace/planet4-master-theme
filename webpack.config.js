@@ -61,8 +61,6 @@ module.exports = (env, argv) => {
       AccordionEditorScript: './assets/src/blocks/Accordion/AccordionEditorScript.js',
       CounterScript: './assets/src/blocks/Counter/CounterScript.js',
       CounterEditorScript: './assets/src/blocks/Counter/CounterEditorScript.js',
-      SpreadsheetScript: './assets/src/blocks/Spreadsheet/SpreadsheetScript.js',
-      SpreadsheetEditorScript: './assets/src/blocks/Spreadsheet/SpreadsheetEditorScript.js',
       SocialMediaEditorScript: './assets/src/blocks/SocialMedia/SocialMediaEditorScript.js',
       SocialMediaStyle: './assets/src/scss/blocks/SocialMedia/SocialMediaStyle.scss',
       SocialMediaEditorStyle: './assets/src/scss/blocks/SocialMedia/SocialMediaEditorStyle.scss',

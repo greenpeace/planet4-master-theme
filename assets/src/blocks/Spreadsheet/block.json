@@ -1,0 +1,22 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "planet4-blocks/spreadsheet",
+  "category": "planet4-blocks",
+  "description": "Embed a Google Spreadsheet directly into your website by copying the spreadsheet URL and customize the table appearance by choosing from a selection of four predefined colors.",
+  "title": "Spreadsheet",
+  "icon": "editor-table",
+  "attributes": {
+    "url": {
+      "type": "string",
+      "default": ""
+    },
+    "color": {
+      "type": "string",
+      "default": "grey"
+    }
+  },
+  "viewScript": "file:view-script.js",
+  "editorScript": "file:index.js",
+  "style": "file:index.css"
+}
