@@ -2,7 +2,6 @@
 
 namespace P4\MasterTheme;
 
-use DOMDocument;
 use DOMXPath;
 
 /**
@@ -25,33 +24,10 @@ class HtmlPostProcessor
      * Processes the page output buffer by parsing it as HTML, applying various
      * DOM transformations, and returning the modified HTML string.
      */
-    public function manage_output_buffer(string $buffer): string
+    public function manage_output_buffer(string $buffer): void
     {
-        // Create a new DOM document to parse and manipulate the HTML.
-        $dom = new DOMDocument();
-
-        // Suppress XML/HTML parsing warnings.
-        libxml_use_internal_errors(true);
-
-        // Load the buffer as HTML into the DOM.
-        $dom->loadHTML(
-            mb_encode_numericentity($buffer, [0x80, 0x10FFFF, 0, 0x1FFFFF], 'UTF-8'),
-            LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD
-        );
-
-        // Discard any parsing errors accumulated above.
-        libxml_clear_errors();
-
-        // Create an XPath evaluator to allow the helper methods below to query
-        // and target specific nodes within the DOM tree.
-        $xpath = new DOMXPath($dom);
-
-        $this->remove_related_section_no_posts($xpath);
-        $this->remove_no_post_text($xpath);
-        $this->setup_pdf_icon($xpath);
-        $this->setup_external_links($xpath);
-
-        return $dom->saveHTML();
+        $buffer = $this->setup_pdf_icon($buffer);
+        $buffer = $this->setup_external_links($buffer);
     }
 
     /**
@@ -99,109 +75,87 @@ class HtmlPostProcessor
         }
     }
 
-    /**
-     * Adds the class "pdf-link" to the links connected to PDF files.
-     */
-    private function setup_pdf_icon(DOMXPath $xpath): void
+    private function setup_pdf_icon(string $buffer): string
     {
-        $links =
-            $xpath->query("
-                //a[contains(@href, '.pdf')
-                and not(contains(@class, 'search-result-item-headline'))
-                and not(contains(@class, 'cover-card-heading'))
-                and not(contains(@class, 'pdf-link'))]");
+        $processor = new \WP_HTML_Tag_Processor($buffer);
 
-        foreach ($links as $link) {
-            $parent_tag = $link->parentNode->nodeName;
-            $has_image = $xpath->query(".//img", $link)->length > 0;
-            $text = trim($link->textContent);
+        while ($processor->next_tag('a')) {
+            $href = $processor->get_attribute('href');
 
-            // Skip headings, image links, and empty links
-            if (in_array(strtoupper($parent_tag), ['H1', 'H2', 'H3', 'H4', 'H5', 'H6']) || $has_image || $text === '') {
+            if (!$href || !str_contains($href, '.pdf')) {
                 continue;
             }
 
-            $classes = $link->getAttribute('class');
-            $link->setAttribute('class', trim($classes . ' pdf-link'));
-            $link->setAttribute('title', __('This link will open a PDF file', 'planet4-master-theme'));
+            $class = $processor->get_attribute('class') ?? '';
+
+            if (
+                str_contains($class, 'search-result-item-headline') ||
+                str_contains($class, 'cover-card-heading') ||
+                str_contains($class, 'pdf-link')
+            ) {
+                continue;
+            }
+
+            $processor->add_class('pdf-link');
+            $processor->set_attribute(
+                'title',
+                __('This link will open a PDF file', 'planet4-master-theme')
+            );
         }
+
+        return $processor->get_updated_html();
     }
 
     /**
      * Adds the class "external-link" to the external links.
      */
-    private function setup_external_links(DOMXPath $xpath): void
+    private function setup_external_links(string $buffer): string
     {
         $excluded_classes = ['btn', 'cover-card-heading', 'wp-block-button__link', 'share-btn'];
-        $containers = [
-            ".//*[contains(@class, 'page-content')]//a",
-            ".//article//a",
-            ".//*[contains(@class, 'author-details')]//a"];
+        $home_host = parse_url(home_url(), PHP_URL_HOST);
 
-        foreach ($containers as $container_query) {
-            $links = $xpath->query($container_query);
+        $processor = new \WP_HTML_Tag_Processor($buffer);
 
-            foreach ($links as $link) {
-                $href = $link->getAttribute('href');
-                $classes = $link->getAttribute('class');
-                $parent_tag = strtoupper($link->parentNode->nodeName);
-                $text = trim($link->textContent);
+        while ($processor->next_tag('a')) {
+            $href = $processor->get_attribute('href');
 
-                // Skip if no href
-                if (empty($href)) {
-                    continue;
-                }
-
-                // Skip excluded classes
-                $has_excluded_class = false;
-                foreach ($excluded_classes as $excluded_class) {
-                    if (str_contains($classes, $excluded_class)) {
-                        $has_excluded_class = true;
-                        break;
-                    }
-                }
-                if ($has_excluded_class) {
-                    continue;
-                }
-
-                // Skip excluded href patterns
-                if (
-                    str_contains($href, parse_url(home_url(), PHP_URL_HOST)) ||
-                    str_contains($href, '.pdf') ||
-                    str_starts_with($href, '/') ||
-                    str_starts_with($href, '#') ||
-                    str_starts_with($href, 'javascript:') ||
-                    str_starts_with($href, 'mailto:') ||
-                    str_starts_with($href, 'tel:')
-                ) {
-                    continue;
-                }
-
-                // Skip links inside .boxout
-                $in_boxout = $xpath->query("ancestor::*[contains(@class, 'boxout')]", $link)->length > 0;
-                if ($in_boxout) {
-                    continue;
-                }
-
-                // Skip headings and empty links
-                if (in_array($parent_tag, ['H1', 'H2', 'H3', 'H4', 'H5', 'H6']) || $text === '') {
-                    continue;
-                }
-
-                // Add external-link class
-                $link->setAttribute('class', trim($classes . ' external-link'));
-
-                // Set title with domain
-                $domain = str_replace('www.', '', parse_url($href, PHP_URL_HOST));
-                $link->setAttribute(
-                    'title',
-                    sprintf(
-                        // translators: 1: URL domain
-                        __('This link will lead you to %1$s', 'planet4-master-theme'),
-                        $domain
-                    )
-                );
+            if (empty($href)) {
+                continue;
             }
+
+            // Skip excluded href patterns
+            if (
+                str_contains($href, $home_host) ||
+                str_contains($href, '.pdf') ||
+                str_starts_with($href, '/') ||
+                str_starts_with($href, '#') ||
+                str_starts_with($href, 'javascript:') ||
+                str_starts_with($href, 'mailto:') ||
+                str_starts_with($href, 'tel:')
+            ) {
+                continue;
+            }
+
+            // Skip excluded classes
+            $class = $processor->get_attribute('class') ?? '';
+            foreach ($excluded_classes as $excluded_class) {
+                if (str_contains($class, $excluded_class)) {
+                    continue 2;
+                }
+            }
+
+            // Add external-link class and title
+            $domain = str_replace('www.', '', parse_url($href, PHP_URL_HOST));
+            $processor->add_class('external-link');
+            $processor->set_attribute(
+                'title',
+                sprintf(
+                    __('This link will lead you to %1$s', 'planet4-master-theme'),
+                    $domain
+                )
+            );
         }
+
+        return $processor->get_updated_html();
     }
 }

@@ -1,0 +1,54 @@
+{% extends "base.twig" %}
+
+{% block content %}
+
+    <div class="clearfix"></div>
+
+    <main id="post-{{ post.ID }}" style="padding: 200px 0;">
+
+        <a href="doc.pdf">I am a PDF icon!</a>
+
+        <input @focus="hideInput = false; startedFilling = true">
+        <button @click="count++; emit('submit', count)"></button>
+        <form @submit.prevent="handleSubmit"></form>
+        <input @keyup.enter="search = query; fetchResults()">
+        <div @mouseover="hovered = true" @mouseleave="hovered = false"></div>
+
+        <a href="http://bblalabla.com" target="_blank">This is an external link!</a>
+
+        <div :class="{ active: isActive, 'has-error': errors.length > 0 }"></div>
+        <input :value="user.name" :disabled="form.locked === true">
+        <a :href="baseUrl + '/path'" :target="isExternal ? '_blank' : '_self'"></a>
+        <img :src="image.url" :alt="image.description || 'fallback'" />
+
+        <input v-model="form.email" type="email">
+        <input v-model.trim="user.name">
+        <input v-model.number="donation.amount">
+        <select v-model="selected"></select>
+
+        <a href="http://www.planet4.test/" target="_blank">This is NOT an external link!</a>
+
+        <a href="blabla-bla.pdf">I am a PDF icon!</a>
+
+        <div v-if="posts.length > 0 && !loading"></div>
+        <p v-else-if="error !== null"></p>
+        <li v-for="(item, index) in items" :key="item.id"></li>
+
+        <input ref="emailInput">
+        <div ref="bkg" class="leads-form__bkg"></div>
+        <Transition ref="modal" name="fade"></Transition>
+
+        <a href="example.pdf">I am a PDF icon!</a>
+
+        <div
+            :class="'leads-form--mounted'"
+            v-if="!success || formType === 'multistep'"
+            @click="step = step + 1; completed[step] = true"
+            ref="formWrapper"
+        ></div>
+
+        <a href="http://abc.com" target="_blank">This is an external link!</a>
+
+    </main>
+
+{% endblock %}

@@ -36,6 +36,19 @@ class QueryLoopExtension
         add_filter('render_block_data', [self::class, 'track_posts_list_context'], 10, 1);
         add_filter('render_block', [self::class, 'add_data_attributes_to_posts_list_block'], 10, 2);
         add_filter('render_block', [self::class, 'add_data_attributes_to_actions_list_block'], 10, 2);
+
+        // add_filter('render_block_core/query', function(string $block_content, array $block): string {
+        //     $has_posts = str_contains($block_content, 'wp-block-post-template');
+        //     $has_no_results = str_contains($block_content, 'wp-block-query-no-results');
+
+        //     if (!$has_posts && $has_no_results) {
+        //         // Check if title and description are empty
+        //         // before deciding to strip the no-results block
+        //         return '';
+        //     }
+
+        //     return $block_content;
+        // }, 10, 2);
     }
 
     /**
