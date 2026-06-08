@@ -1,3 +1,7 @@
+@import "../../scss/base/tokens";
+@import "../../scss/base/variables";
+@import "../../scss/base/mixins";
+
 // On outer element as otherwise it will not be clickable when floating on the right.
 div[data-render="planet4-blocks/submenu"] {
   z-index: 4;
@@ -9,13 +13,9 @@ div[data-render="planet4-blocks/submenu"] {
   background-color: var(--white);
   padding: $sp-5 $sp-6 $sp-6 $sp-6;
 
-  h1,
   h2 {
-    --table-of-contents-block-heading-- {
-      font-family: var(--font-family-primary);
-      color: var(--grey-900);
-      padding-inline-start: 0;
-    }
+    line-height: 1;
+    margin-bottom: $sp-2;
   }
 
   .table-of-contents-menu {
@@ -35,28 +35,22 @@ div[data-render="planet4-blocks/submenu"] {
     }
 
     ul {
-      --table-of-contents-block-menu-- {
-        font-family: var(--font-family-tertiary);
-        color: var(--color-text-body);
-        margin: 0;
-        padding: 0;
-      }
+      font-family: var(--font-family-tertiary);
+      color: var(--color-text-body);
+      margin: 0;
+      padding: 0;
       list-style: none;
     }
 
     li {
       &.list-style-bullet {
-        --table-of-contents-block-bullet-item-- {
-          margin-inline-end: 0;
-          margin-inline-start: $sp-4;
-        }
+        margin-inline-end: 0;
+        margin-inline-start: $sp-2;
         list-style: disc;
       }
 
       &.list-style-number {
-        --table-of-contents-block-number-item-- {
-          margin-inline-start: $sp-4;
-        }
+        margin-inline-start: $sp-2;
         list-style: decimal;
       }
     }
@@ -113,5 +107,28 @@ div[data-render="planet4-blocks/submenu"] {
         }
       }
     }
+  }
+}
+
+// Editor styles
+.editor-styles-wrapper {
+  .table-of-contents-level-link label {
+    margin-bottom: 0;
+  }
+
+  [data-type="planet4-blocks/submenu"] {
+    clear: both;
+  }
+
+  // Links should not be clickable in the editor.
+  .table-of-contents-link {
+    pointer-events: none;
+  }
+
+  // Needed to make it easily selectable in the editor
+  .table-of-contents-sidebar {
+    float: none;
+    margin-inline-end: 0;
+    margin-inline-start: auto;
   }
 }

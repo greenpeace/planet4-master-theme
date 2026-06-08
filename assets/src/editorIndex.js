@@ -1,6 +1,5 @@
 import {registerActionsListBlock} from './blocks/ActionsList';
 import {registerPostsListBlock} from './blocks/PostsList';
-import {registerTableOfContentsBlock} from './blocks/TableOfContents/TableOfContentsBlock';
 import {registerTakeActionBoxoutBlock} from './blocks/TakeActionBoxout/TakeActionBoxoutBlock';
 import {setupCustomSidebar} from './block-editor/setupCustomSidebar';
 import {setupQueryLoopBlockExtension} from './block-editor/QueryLoopBlockExtension';
@@ -22,7 +21,6 @@ import {registerSecondaryNavigationBlock} from './blocks/SecondaryNavigation/Sec
 
 wp.domReady(() => {
   // Blocks
-  registerTableOfContentsBlock();
   registerColumnsBlock();
   registerTakeActionBoxoutBlock();
   registerSocialMediaBlock();
