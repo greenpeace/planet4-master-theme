@@ -44,6 +44,7 @@ export const CarouselControls = forwardRef(({
                 >
                   <button
                     onClick={e => {
+                      setAutoplay(false);
                       if (index !== currentSlide) {
                         // eslint-disable-next-line @wordpress/no-global-active-element
                         goToSlide({newSlide: index, fromTab: e.target === document.activeElement});
@@ -51,6 +52,7 @@ export const CarouselControls = forwardRef(({
                     }}
                     tabIndex={0}
                     onKeyDown={e => {
+                      setAutoplay(false);
                       if ((e.key === 'Enter' || e.key === ' ') && index !== currentSlide) {
                         e.preventDefault();
                         goToSlide({newSlide: index, fromTab: true});

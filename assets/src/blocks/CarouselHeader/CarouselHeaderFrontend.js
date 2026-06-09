@@ -20,6 +20,7 @@ export const CarouselHeaderFrontend = ({slides, carousel_autoplay, className, de
     handleAutoplay,
     setAutoplay,
     autoplay,
+    handleUserInteraction,
   } = useSlides(slidesRef, slides.length, containerRef, carousel_autoplay, headingsRef, indicatorsRef);
 
   return useMemo(() => (
@@ -50,6 +51,7 @@ export const CarouselHeaderFrontend = ({slides, carousel_autoplay, className, de
             active={currentSlide === index}
             focusable={currentSlide === index}
             ref={element => slidesRef ? slidesRef.current[index] = element : null}
+            handleUserInteraction={handleUserInteraction}
           >
             <SlideBackground decoding={decoding} slide={slide} />
             <StaticCaption slide={slide} focusable={currentSlide === index} />
@@ -70,5 +72,6 @@ export const CarouselHeaderFrontend = ({slides, carousel_autoplay, className, de
     goToSlide,
     goToPrevSlide,
     goToNextSlide,
+    handleUserInteraction,
   ]);
 };
