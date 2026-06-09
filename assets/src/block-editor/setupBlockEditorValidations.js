@@ -30,14 +30,21 @@ const getValidationState = select => {
     return {postTitle: true, featuredImage: true, topicLink: true, isValid: true};
   }
   const {getBlocks} = select('core/block-editor');
+  const allBlocks = getBlocks();
   const postTitle = Boolean(getEditedPostAttribute('title'));
   const featuredImage = Boolean(getEditedPostAttribute('featured_media'));
-  const topicLink = checkTopicLinks(getBlocks());
+  const topicLink = checkTopicLinks(allBlocks);
+  // If there is a Gravity Forms block, we want to enforce setting the Global Project.
+  const hasForm = hasGravityFormsBlock(allBlocks);
+  const globalProject = getEditedPostAttribute('meta')?.p4_campaign_name;
+  const validForms = !hasForm || (hasForm && globalProject && globalProject !== 'not set');
+
   return {
     postTitle,
     featuredImage,
     topicLink,
-    isValid: postTitle && featuredImage && topicLink,
+    validForms,
+    isValid: postTitle && featuredImage && topicLink && validForms,
   };
 };
 
@@ -58,6 +65,14 @@ const checkTopicLinks = blocks => {
 };
 
 /**
+ * Checks whether there is a Gravity Forms block.
+ *
+ * @param {Object[]} blocks - Array of block objects from the block editor.
+ * @return {boolean} `true` when there is a Gravity Forms block, `false` otherwise.
+ */
+const hasGravityFormsBlock = blocks => Boolean(blocks.find(block => block.name === 'gravityforms/form'));
+
+/**
  * Builds a combined validation error message string based on the current validation state.
  * Returns `null` if all validations pass.
  *
@@ -65,9 +80,10 @@ const checkTopicLinks = blocks => {
  * @param {boolean} validationState.postTitle     - Whether the post has a title.
  * @param {boolean} validationState.featuredImage - Whether the post has a featured image.
  * @param {boolean} validationState.topicLink     - Whether all Topic Link blocks have a background image.
+ * @param {boolean} validationState.validForms    - If there is a Gravity Forms block on the page and a set Global Project.
  * @return {string|null} A space-separated string of error messages, or `null` if there are no errors.
  */
-const buildValidationMessage = ({postTitle, featuredImage, topicLink}) => {
+const buildValidationMessage = ({postTitle, featuredImage, topicLink, validForms}) => {
   const errors = [];
   if (!postTitle) {
     errors.push(__('Title is mandatory.', 'planet4-master-theme-backend'));
@@ -83,6 +99,16 @@ const buildValidationMessage = ({postTitle, featuredImage, topicLink}) => {
       )
     );
   }
+
+  if (!validForms) {
+    errors.push(
+      __(
+        'You need to select a Global Project in the sidebar (Analytics & Tracking), because you are using a Gravity Forms block.',
+        'planet4-master-theme-backend'
+      )
+    );
+  }
+
   if (errors.length === 0) {
     return null;
   }
