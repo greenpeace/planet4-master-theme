@@ -22,4 +22,26 @@
       element.value = value;
     }
   });
+
+  document.addEventListener('click', evt => {
+    const link = evt.target.closest('.gform_validation_error_link');
+
+    if (!link) {
+      return;
+    }
+
+    const targetId = link.getAttribute('href');
+
+    if (!targetId?.startsWith('#')) {
+      return;
+    }
+
+    const field = document.querySelector(targetId);
+
+    if (field) {
+      setTimeout(() => {
+        field.focus();
+      }, 0);
+    }
+  });
 })();
