@@ -6,7 +6,8 @@ const TEST_PASSWORD = 'password';
 
 test.useAdminLoggedIn();
 
-test.slow('check password protected content', async ({page, requestUtils}) => {
+test('check password protected content', async ({page, requestUtils}) => {
+  test.slow();
   const protectedPost = await requestUtils.rest({
     path: '/wp/v2/posts',
     method: 'POST',

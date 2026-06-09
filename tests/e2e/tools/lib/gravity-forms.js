@@ -8,12 +8,13 @@ const TEST_EMAIL = 'jon.snow@gmail.com';
  * Toggle the Gravity Forms rest API to use it for tests.
  * It is disabled by default.
  *
- * @param {Object}  params      - Parameters for publishing the post.
- * @param {Object}  params.page - The page object for interacting with the browser.
- * @param {boolean} enabled     - Whether it should be enabled or disabled.
+ * @param {Object}  params       - Parameters for publishing the post.
+ * @param {Object}  params.page  - The page object for interacting with the browser.
+ * @param {Object}  params.admin - The admin object for interacting with the admin panel.
+ * @param {boolean} enabled      - Whether it should be enabled or disabled.
  */
-const toggleRestAPI = async ({page}, enabled) => {
-  await page.goto('./wp-admin/admin.php?page=gf_settings&subview=gravityformswebapi');
+const toggleRestAPI = async ({page, admin}, enabled) => {
+  await admin.visitAdminPage('admin.php', 'page=gf_settings&subview=gravityformswebapi');
   await page.getByRole('checkbox', {label: 'Enabled'}).setChecked(enabled);
   const authSettings = page.locator('#gform-settings-section-gform_section_authentication_v2');
   if (enabled) {
@@ -62,6 +63,7 @@ const createForm = async ({page}, {title}) => {
   });
 
   const createdForm = await response.json();
+
   return createdForm;
 };
 
@@ -84,12 +86,13 @@ const fillAndSubmitForm = async ({page}, formId) => {
 /**
  * Check the latest entry for a Gravity Forms form.
  *
- * @param {Object} params      - Parameters for publishing the post.
- * @param {Object} params.page - The page object for interacting with the browser.
- * @param {number} formId      - The form id.
+ * @param {Object} params       - Parameters for publishing the post.
+ * @param {Object} params.page  - The page object for interacting with the browser.
+ * @param {Object} params.admin - The admin object for interacting with the admin panel.
+ * @param {number} formId       - The form id.
  */
-const checkEntry = async ({page}, formId) => {
-  await page.goto(`./wp-admin/admin.php?page=gf_entries&id=${formId}`);
+const checkEntry = async ({page, admin}, formId) => {
+  await admin.visitAdminPage('admin.php', `page=gf_entries&id=${formId}`);
   const latestEntry = page.locator('#the-list > tr.entry_row').first();
   await expect(latestEntry).toBeVisible();
   await expect(latestEntry.locator('td[data-colname="First name"]')).toContainText(TEST_FIRST_NAME);
@@ -100,16 +103,25 @@ const checkEntry = async ({page}, formId) => {
 /**
  * Change the confirmation type for a Gravity Forms form.
  *
- * @param {Object} params      - Parameters for publishing the post.
- * @param {Object} params.page - The page object for interacting with the browser.
- * @param {number} formId      - The form id.
- * @param {string} label       - The confirmation type label.
+ * @param {Object} params       - Parameters for publishing the post.
+ * @param {Object} params.page  - The page object for interacting with the browser.
+ * @param {Object} params.admin - The admin object for interacting with the admin panel.
+ * @param {number} formId       - The form id.
+ * @param {string} label        - The confirmation type label.
  */
-const changeConfirmationType = async ({page}, formId, label) => {
-  await page.goto(`./wp-admin/admin.php?page=gf_edit_forms&view=settings&subview=confirmation&id=${formId}`);
+const changeConfirmationType = async ({page, admin}, formId, label) => {
+  await admin.visitAdminPage(
+    'admin.php',
+    `page=gf_edit_forms&view=settings&subview=confirmation&id=${formId}`
+  );
   await page.locator('#the-list > tr:first-child').hover();
   await page.getByRole('link', {name: 'Edit', exact: true}).click();
-  await page.getByLabel(label, {exact: true}).check();
+
+  const typeRadio = page.getByLabel(label, {exact: true});
+  await expect(typeRadio).toBeVisible();
+
+  // Click the radio button and wait for the UI to update
+  await typeRadio.click();
 };
 
 export {toggleRestAPI, createForm, fillAndSubmitForm, checkEntry, changeConfirmationType};

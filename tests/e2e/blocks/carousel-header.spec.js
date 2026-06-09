@@ -17,14 +17,9 @@ const slides = [
  * @param {{Page, Editor}} options - Page and Editor object
  */
 const addSlide = async (slide, {index, addNext}, {page, editor}) => {
-  await page.getByRole('textbox', {name: 'Enter title'}).nth(index)
-    .fill(`My test Header ${index + 1}`);
-
-  await page.getByRole('textbox', {name: 'Enter description'}).nth(index)
-    .fill(`Testing carousel description ${index + 1}`);
-
-  await page.getByRole('textbox', {name: 'Enter CTA text'}).nth(index)
-    .fill(`Read more ${index + 1}`);
+  await page.locator('[aria-label="Enter title"][contenteditable="true"]').nth(index).fill(`My test Header ${index + 1}`);
+  await page.locator('[aria-label="Enter description"][contenteditable="true"]').nth(index).fill(`Testing carousel description ${index + 1}`);
+  await page.locator('[aria-label="Enter CTA text"][contenteditable="true"]').nth(index).fill(`Read more ${index + 1}`);
 
   // Check if sidebar is not visible
   await editor.openDocumentSettingsSidebar();
@@ -35,20 +30,27 @@ const addSlide = async (slide, {index, addNext}, {page, editor}) => {
     await page.getByLabel('Open in a new tab').check();
   }
 
-  await page.getByRole('button', {name: 'Edit'}).nth(index).click();
+  // Close sidebar before interacting with the carousel item
+  await page.getByRole('button', {name: 'Close Settings'}).click();
+
+  await page.locator('.carousel-item.active .components-button.is-primary').click();
   await page.getByRole('button', {name: 'Add image'}).click();
   await page.getByRole('tab', {name: 'Media Library'}).click();
   await page.getByRole('checkbox', {name: slide.image}).click();
   await page.getByRole('button', {name: 'Select', exact: true}).click();
 
+  // Wait for modal to fully close before proceeding
+  await page.waitForSelector('[role="dialog"]', {state: 'hidden'});
+
   // Next Slide
   if (addNext) {
-    await page.getByRole('button', {name: 'Edit'}).click();
+    await page.locator('.carousel-item.active .components-button.is-primary').click();
     await page.getByRole('button', {name: 'Add slide'}).click();
   }
 };
 
-test.slow('Create and check carousel header block', async ({page, admin, editor}) => {
+test('Create and check carousel header block', async ({page, admin, editor}) => {
+  test.slow();
   await createPostWithFeaturedImage({page, admin, editor}, {title: 'Test Carousel', postType: 'page'});
 
   // Add block

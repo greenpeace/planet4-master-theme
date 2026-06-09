@@ -2,7 +2,8 @@ import {test, expect} from './tools/lib/test-utils.js';
 
 test.useAdminLoggedIn();
 
-test.slow('check footer menu', async ({page}) => {
+test('check footer menu', async ({page}) => {
+  test.slow();
   const footerMenuNames = ['Footer Primary', 'Footer Secondary', 'Footer Social'];
   const footerMenuLinks = [];
 
