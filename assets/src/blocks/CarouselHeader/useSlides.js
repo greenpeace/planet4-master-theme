@@ -204,26 +204,10 @@ export const useSlides = (
     const currentSlideRef = slidesRef.current[currentSlide];
     if (currentSlideRef) {
       setCarouselHeight(currentSlideRef);
-
       window.addEventListener('resize', () => setCarouselHeight(currentSlideRef));
     }
-
     return () => window.removeEventListener('resize', () => setCarouselHeight(currentSlideRef));
   }, [currentSlide, setCarouselHeight, containerRef, slidesRef]);
-
-  useEffect(() => {
-    if (!containerRef || !containerRef.current) {
-      return;
-    }
-
-    const carouselRef = containerRef.current;
-
-    carouselRef.addEventListener('touchstart', handleUserInteraction, {passive: true});
-
-    return () => {
-      carouselRef.removeEventListener('touchstart', handleUserInteraction);
-    };
-  }, [containerRef, handleUserInteraction]);
 
   useEffect(() => {
     if (autoplay && totalSlides > 1) {
