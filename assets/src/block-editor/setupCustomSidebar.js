@@ -44,6 +44,7 @@ const sidebarsForPostType = postType => {
 
 export const setupCustomSidebar = () => {
   let currentPostType = null;
+  let registeredSidebars = [];
   // Only subscribing after DOMContentLoaded avoids the troubles originating from wp.data emitting null values before that point.
   document.addEventListener('DOMContentLoaded', () => {
     wp.data.subscribe(() => {
@@ -53,11 +54,18 @@ export const setupCustomSidebar = () => {
       }
 
       currentPostType = newPostType;
+
+      // Unregister sidebars from the previous post type so they don't render
+      // (and crash) when their expected meta fields are absent (e.g. wp_template).
+      registeredSidebars.forEach(sidebar => wp.plugins.unregisterPlugin(sidebar.getId()));
+      registeredSidebars = [];
+
       const sidebars = sidebarsForPostType(newPostType);
       if (!sidebars) {
         return;
       }
 
+      registeredSidebars = sidebars;
       sidebars.forEach(sidebar => registerPlugin(sidebar.getId(), {
         icon: sidebar.getIcon ? sidebar.getIcon() : '',
         render: sidebar.render,
