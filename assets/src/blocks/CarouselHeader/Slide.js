@@ -4,6 +4,7 @@ export const SlideWithRef = ({
   children,
   active,
   focusable,
+  handleUserInteraction,
 }, ref) => useMemo(() => (
   <li
     className={`carousel-item ${active ? 'active' : ''}`}
@@ -13,11 +14,16 @@ export const SlideWithRef = ({
     ref={ref}
     role="tabpanel"
     alt=""
+    onFocus={evt => {
+      evt.preventDefault();
+      evt.stopPropagation();
+      handleUserInteraction();
+    }}
   >
     <div className="carousel-item-mask">
       {children}
     </div>
   </li>
-), [children, active, focusable, ref]);
+), [children, active, focusable, handleUserInteraction, ref]);
 
 export const Slide = forwardRef(SlideWithRef);

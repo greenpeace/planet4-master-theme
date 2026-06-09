@@ -34,7 +34,7 @@ export const useSlides = (
   const [autoplay, setAutoplay] = useState(carousel_autoplay);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [sliding, setSliding] = useState(false);
-  const [isIntersecting, setIsIntersecting] = useState(false);
+  const [isIntersecting, setIsIntersecting] = useState();
   // Set up the autoplay for the slides
   const timerRef = useRef(null);
 
@@ -53,17 +53,13 @@ export const useSlides = (
     },
   };
 
-  const stopAutoplay = useCallback(() => {
-    if (autoplay) {
-      setAutoplay(false);
-    }
+  const handleAutoplay = useCallback(() => {
+    setAutoplay(!autoplay);
   }, [autoplay]);
 
-  const handleAutoplay = useCallback(() => {
-    if (isIntersecting) {
-      setAutoplay(!autoplay);
-    }
-  }, [autoplay, isIntersecting]);
+  const handleUserInteraction = useCallback(() => {
+    setAutoplay(false);
+  }, []);
 
   const getOrder = useCallback(newSlide => {
     let order = newSlide < currentSlide ? 'prev' : 'next';
@@ -138,12 +134,8 @@ export const useSlides = (
   }, [indicatorsRef]);
 
   const goToSlide = useCallback(({newSlide, forceCurrentSlide = false, fromTab = false}) => {
-    if (!slidesRef.current) {
+    if (!slidesRef.current || !isIntersecting) {
       return;
-    }
-
-    if(fromTab) {
-      stopAutoplay();
     }
 
     const nextElement = slidesRef.current[newSlide];
@@ -192,7 +184,7 @@ export const useSlides = (
         unsetTransitionClasses();
       }
     }
-  }, [currentSlide, getOrder, options, sliding, setCarouselHeight, slidesRef, onkeyboardHandler, stopAutoplay]);
+  }, [currentSlide, getOrder, options, sliding, setCarouselHeight, slidesRef, onkeyboardHandler, isIntersecting]);
 
   const goToPrevSlide = useCallback((fromTab = false) => {
     goToSlide({newSlide: (currentSlide - 1 < 0) ? totalSlides - 1 : currentSlide - 1, fromTab});
@@ -225,21 +217,16 @@ export const useSlides = (
     }
 
     const carouselRef = containerRef.current;
-    const handleUserInteraction = () => stopAutoplay();
 
-    carouselRef.addEventListener('pointerdown', handleUserInteraction);
     carouselRef.addEventListener('touchstart', handleUserInteraction, {passive: true});
-    carouselRef.addEventListener('focusin', handleUserInteraction);
 
     return () => {
-      carouselRef.removeEventListener('pointerdown', handleUserInteraction);
       carouselRef.removeEventListener('touchstart', handleUserInteraction);
-      carouselRef.removeEventListener('focusin', handleUserInteraction);
     };
-  }, [containerRef, stopAutoplay]);
+  }, [containerRef, handleUserInteraction]);
 
   useEffect(() => {
-    if (autoplay && totalSlides > 1 && isIntersecting) {
+    if (autoplay && totalSlides > 1) {
       if (timerRef.current) {
         clearTimeout(timerRef.current);
       }
@@ -248,7 +235,7 @@ export const useSlides = (
     } else if (timerRef.current) {
       clearTimeout(timerRef.current);
     }
-  }, [totalSlides, autoplay, timerRef, goToNextSlide, isIntersecting]);
+  }, [totalSlides, autoplay, timerRef, goToNextSlide]);
 
   useEffect(() => {
     if (!containerRef?.current || !carousel_autoplay) {
@@ -286,5 +273,6 @@ export const useSlides = (
     headingsRef,
     indicatorsRef,
     isIntersecting,
+    handleUserInteraction,
   };
 };
