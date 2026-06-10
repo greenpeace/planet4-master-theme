@@ -24,10 +24,10 @@ const getValidationState = select => {
   const {getEditedPostAttribute, getCurrentPostType} = select('core/editor');
   // Reusable blocks / synced patterns are stored as the 'wp_block' post type.
   // They're design artifacts, not editorial content, so the post-level
-  // requirements (title, featured image, topic link) don't apply. Returning a
+  // requirements (title, featured image, topic link, valid forms) don't apply. Returning a
   // fully-valid state stops these checks from blocking pattern create/edit.
   if (getCurrentPostType() === 'wp_block') {
-    return {postTitle: true, featuredImage: true, topicLink: true, isValid: true};
+    return {postTitle: true, featuredImage: true, topicLink: true, isValid: true, validForms: true};
   }
   const {getBlocks} = select('core/block-editor');
   const allBlocks = getBlocks();
