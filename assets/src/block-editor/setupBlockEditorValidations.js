@@ -25,20 +25,19 @@ const ALLOWED_POST_TYPES = ['post', 'page', 'p4_action', 'campaign'];
 
 const getValidationState = select => {
   const {getEditedPostAttribute, getCurrentPostType} = select('core/editor');
-  // Skip validation for post types not in the whitelist (e.g. synced patterns,
-  // templates, template parts) they are design artifacts, not editorial content.
-  if (!ALLOWED_POST_TYPES.includes(getCurrentPostType())) {
-    return {postTitle: true, featuredImage: true, topicLink: true, isValid: true, validForms: true};
-  }
   const {getBlocks} = select('core/block-editor');
+  // skip=true for post types not in the whitelist (e.g. synced patterns, templates,
+  // template parts) They are design artifacts, not editorial content, so all checks
+  // short-circuit to valid. New checks added below automatically respect this flag.
+  const skip = !ALLOWED_POST_TYPES.includes(getCurrentPostType());
   const allBlocks = getBlocks();
-  const postTitle = Boolean(getEditedPostAttribute('title'));
-  const featuredImage = Boolean(getEditedPostAttribute('featured_media'));
-  const topicLink = checkTopicLinks(allBlocks);
+  const postTitle = skip || Boolean(getEditedPostAttribute('title'));
+  const featuredImage = skip || Boolean(getEditedPostAttribute('featured_media'));
+  const topicLink = skip || checkTopicLinks(allBlocks);
   // If there is a Gravity Forms block, we want to enforce setting the Global Project.
-  const hasForm = hasGravityFormsBlock(allBlocks);
+  const hasForm = !skip && hasGravityFormsBlock(allBlocks);
   const globalProject = getEditedPostAttribute('meta')?.p4_campaign_name;
-  const validForms = !hasForm || (hasForm && globalProject && globalProject !== 'not set');
+  const validForms = skip || !hasForm || (hasForm && globalProject && globalProject !== 'not set');
 
   return {
     postTitle,

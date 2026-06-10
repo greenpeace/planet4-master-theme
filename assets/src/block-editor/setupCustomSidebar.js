@@ -55,8 +55,12 @@ export const setupCustomSidebar = () => {
 
       currentPostType = newPostType;
 
-      // Unregister sidebars from the previous post type so they don't render
-      // (and crash) when their expected meta fields are absent (e.g. wp_template).
+      // Unregister all sidebars registered for the previous post type before registering
+      // new ones. This is necessary because sidebars are registered globally via wp.plugins
+      // and persist across post type changes. Without this cleanup, sidebars built for
+      // editorial post types (post, page, p4_action, campaign) would remain active when
+      // switching to design-artifact post types like wp_template or wp_template_part,
+      // where their expected meta fields are absent causing editor crashes.
       registeredSidebars.forEach(sidebar => wp.plugins.unregisterPlugin(sidebar.getId()));
       registeredSidebars = [];
 
