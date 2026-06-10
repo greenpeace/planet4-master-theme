@@ -20,13 +20,14 @@ export const setupBlockEditorValidations = () => {
  * @param {Function} select - The WordPress data `select` function used to access store selectors.
  * @return {Object} - An object containing individual validation flags and a combined `isValid` flag.
  */
+// Post types for which publish validation (title, featured image, topic link) is enforced.
+const ALLOWED_POST_TYPES = ['post', 'page', 'p4_action', 'campaign'];
+
 const getValidationState = select => {
   const {getEditedPostAttribute, getCurrentPostType} = select('core/editor');
-  // Reusable blocks / synced patterns ('wp_block'), custom templates ('wp_template'),
-  // and template parts ('wp_template_part') are design artifacts, not editorial content,
-  // so the post-level requirements (title, featured image, topic link, valid forms) don't apply.
-  // Returning a fully-valid state stops these checks from blocking their create/edit.
-  if (['wp_block', 'wp_template', 'wp_template_part'].includes(getCurrentPostType())) {
+  // Skip validation for post types not in the whitelist (e.g. synced patterns,
+  // templates, template parts) they are design artifacts, not editorial content.
+  if (!ALLOWED_POST_TYPES.includes(getCurrentPostType())) {
     return {postTitle: true, featuredImage: true, topicLink: true, isValid: true, validForms: true};
   }
   const {getBlocks} = select('core/block-editor');
