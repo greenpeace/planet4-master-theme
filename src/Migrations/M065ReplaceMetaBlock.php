@@ -89,13 +89,13 @@ class M065ReplaceMetaBlock extends MigrationScript
         if ($is_facebook_page) {
             $fb_page_tab = $block['attrs']['facebook_page_tab'] ?? 'timeline';
             // phpcs:ignore Generic.Files.LineLength.MaxExceeded
-            $fb_src = $fb_src_base . '&tabs=' . esc_html($fb_page_tab) . '&width=500&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true';
+            $fb_src = $fb_src_base . '&tabs=' . esc_html($fb_page_tab) . '&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true';
         } else {
-            $fb_src = $fb_src_base . '&show_text=true&width=500&height=500';
+            $fb_src = $fb_src_base . '&show_text=true&height=500';
         }
 
         // phpcs:ignore Generic.Files.LineLength.MaxExceeded
-        $iframe = '<iframe class="social-media-embed-facebook" src="' . esc_html($fb_src) . '" width="500" height="500" scrolling="no" frameborder="0" allow="encrypted-media" title="Social Media"></iframe>';
+        $iframe = '<iframe class="social-media-embed-facebook" src="' . esc_html($fb_src) . '" height="500" scrolling="no" frameborder="0" allow="encrypted-media" title="Social Media"></iframe>';
 
         return [
             'embed_type' => $is_facebook_page ? 'facebookPage' : 'facebookPost',

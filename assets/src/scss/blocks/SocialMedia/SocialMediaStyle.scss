@@ -22,11 +22,15 @@
       border: none;
       overflow: hidden;
       height: 500px;
-      width: 240px;
+      width: 100%;
 
       @include medium-and-up {
         width: 500px;
       }
+    }
+
+    .instagram-media {
+      max-width: 100%;
     }
   }
 }
