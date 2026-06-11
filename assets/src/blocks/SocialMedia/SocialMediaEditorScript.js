@@ -1,5 +1,6 @@
 import {SocialMediaEmbed} from './SocialMediaEmbed';
 import {URLInput} from '../../block-editor/URLInput/URLInput';
+import {HTMLSidebarHelp} from '../../block-editor/HTMLSidebarHelp/HTMLSidebarHelp';
 import {
   INSTAGRAM_JS,
   INSTAGRAM_EMBED_TYPE,
@@ -120,9 +121,12 @@ export const SocialMediaEditor = ({
     </>
   );
 
+  const embed_type_help = __('The following types of social media are supported: Instagram posts, Facebook pages, Facebook posts, Facebook photos, Facebook videos.', 'planet4-master-theme-backend');
+
   const renderSidebar = () => (
     <InspectorControls>
       <PanelBody title={__('Settings', 'planet4-master-theme-backend')}>
+        <HTMLSidebarHelp>{embed_type_help}</HTMLSidebarHelp>
         <URLInput
           label={__('URL', 'planet4-master-theme-backend')}
           placeholder={__('Enter URL', 'planet4-master-theme-backend')}
