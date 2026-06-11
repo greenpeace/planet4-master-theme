@@ -30,7 +30,8 @@ a.standalone-link {
   }
 }
 
-a.pdf-link {
+// Do no apply the icon to links within headings:
+a.pdf-link:not(h1 > a, h2 > a, h3 > a, h4 > a, h5 > a, h6 > a) {
   &::after {
     content: "";
     display: inline-block;
@@ -46,18 +47,23 @@ a.pdf-link {
   }
 }
 
-a.external-link {
-  &::after {
-    content: "";
-    display: inline-block;
-    background-color: currentcolor;
-    height: .7rem;
-    width: .7rem;
-    margin-inline-start: .2rem;
-    margin-inline-end: .1rem;
-    mask-image: url("../../images/external-link.svg");
-    mask-size: contain;
-    mask-repeat: no-repeat;
-    mask-position: center;
+// Do not apply the icon to external links that are not part of article, .page-content, or .author-details:
+article,
+.page-content,
+.author-details {
+  a.external-link {
+    &::after {
+      content: "";
+      display: inline-block;
+      background-color: currentcolor;
+      height: .7rem;
+      width: .7rem;
+      margin-inline-start: .2rem;
+      margin-inline-end: .1rem;
+      mask-image: url("../../images/external-link.svg");
+      mask-size: contain;
+      mask-repeat: no-repeat;
+      mask-position: center;
+    }
   }
 }
