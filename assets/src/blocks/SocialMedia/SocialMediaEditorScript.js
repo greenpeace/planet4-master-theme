@@ -61,21 +61,26 @@ export const SocialMediaEditor = ({
     }
 
     if (provider === 'instagram') {
-      const {pathname} = new URL(social_media_url);
-      const match = pathname.match(/\/(reel|p)\/([\w-]+)/);
-      const mediaId = match ? match[2] : null;
+      let mediaId = null;
+      try {
+        const {pathname} = new URL(social_media_url);
+        const match = pathname.match(/\/(reel|p)\/([\w-]+)/);
+        mediaId = match ? match[2] : null;
+      } catch {
+        // Not a valid URL yet, user is still typing...
+      }
 
       setAttributes({
         embed_type: INSTAGRAM_EMBED_TYPE,
-        embed_code: mediaId,
+        embed_code: mediaId ?? '',
       });
 
-      if (window.instgrm) {
-        // Script already loaded — just reprocess the new blockquote
-        window.instgrm.Embeds.process();
-      } else {
-        // First time — load the script, it will auto-process on load
-        loadScriptAsync(INSTAGRAM_JS);
+      if (mediaId) {
+        if (window.instgrm) {
+          window.instgrm.Embeds.process();
+        } else {
+          loadScriptAsync(INSTAGRAM_JS);
+        }
       }
       return;
     }
