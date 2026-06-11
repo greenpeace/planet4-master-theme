@@ -96,7 +96,6 @@ final class Loader
             Sentry::class,
             PostFunctionsHandler::class,
             HtmlPostProcessor::class,
-            NavMenuCache::class,
         ];
 
         if (is_admin()) {
