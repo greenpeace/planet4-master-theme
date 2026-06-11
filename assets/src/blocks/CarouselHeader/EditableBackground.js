@@ -3,10 +3,7 @@ import {toSrcSet} from './CarouselHeaderEditor';
 
 const {MediaUpload, MediaUploadCheck} = wp.blockEditor;
 const {Button, Dropdown} = wp.components;
-const {__, sprintf} = wp.i18n;
-
-// Maximum image file size allowed for carousel header slides (1 MB).
-const MAX_IMAGE_FILESIZE_BYTES = 1024 * 1024;
+const {__} = wp.i18n;
 
 // MIME types accepted for carousel header slide images. `allowedTypes` on MediaUpload only filters the Media
 // Library grid; drag-and-drop and the "Upload files" tab can still bring in other types, so we re-check here.
@@ -44,7 +41,7 @@ export const EditableBackground = ({
   <MediaUploadCheck>
     <MediaUpload
       onSelect={image => {
-        const {id, alt_text, sizes, filesizeInBytes} = image;
+        const {id, alt_text, sizes} = image;
         const mimeType = image?.mime ?? image?.mime_type ?? (image?.subtype && `image/${image.subtype}`) ?? '';
 
         // Reject anything that is not JPG / WebP. Defends against PNGs and other types that can slip in
@@ -58,23 +55,13 @@ export const EditableBackground = ({
           return;
         }
 
-        if ((filesizeInBytes ?? 0) > MAX_IMAGE_FILESIZE_BYTES) {
-          // eslint-disable-next-line no-alert
-          window.alert(sprintf(
-            // translators: %d is the maximum allowed image size in megabytes.
-            __('The selected image is too large. Please use an image smaller than %d MB for the Carousel Header.', 'planet4-master-theme-backend'),
-            Math.round(MAX_IMAGE_FILESIZE_BYTES / (1024 * 1024))
-          ));
-          return;
-        }
-
         // Use the largest registered size instead of the original image so we never serve a multi-MB upload to the front end.
         const resizedUrl = getLargestSizeUrl(image);
         changeSlideImage(index, id, resizedUrl, alt_text, toSrcSet(Object.values(sizes)));
       }}
       allowedTypes={ALLOWED_MIME_TYPES}
       value={image_id}
-      title={__('Select or Upload Photo (only jpg/webp, max 1 MB)', 'planet4-master-theme-backend')}
+      title={__('Select or Upload Photo (jpg/webp only)', 'planet4-master-theme-backend')}
       render={mediaUploadInstance => (
         <>
           <div className="background-holder">
