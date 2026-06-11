@@ -12,13 +12,13 @@ export const SocialMediaEmbed = ({
 
   if (embedType === INSTAGRAM_EMBED_TYPE) {
     return (
-      <div className={`social-media-embed ${alignmentClass ?? ''}`}>
+      <div key={itemId} className={`social-media-embed ${alignmentClass ?? ''}`}>
         <blockquote
           className="instagram-media"
           data-instgrm-captioned
           data-instgrm-permalink={`https://www.instagram.com/reel/${itemId}/?utm_source=ig_embed&utm_campaign=loading`}
-          data-instgrm-version="14">
-        </blockquote>
+          data-instgrm-version="14"
+        />
       </div>
     );
   }
@@ -31,7 +31,7 @@ export const SocialMediaEmbed = ({
       `${facebookUrl}/post.php?href=${itemId}&show_text=true&height=500`;
 
     return (
-      <div className={`social-media-embed ${alignmentClass ?? ''}`}>
+      <div key={itemId} className={`social-media-embed ${alignmentClass ?? ''}`}>
         <iframe
           className="social-media-embed-facebook"
           src={facebookSrc}

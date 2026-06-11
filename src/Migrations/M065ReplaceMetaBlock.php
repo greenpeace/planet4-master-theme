@@ -68,7 +68,8 @@ class M065ReplaceMetaBlock extends MigrationScript
             '<div class="social-media-embed ' . esc_html($block['attrs']['alignment_class'] ?? '') . '">' .
             $block_data['iframe'] . '</div></section>';
 
-            $block['attrs']['embed_type'] = $block_data['embed_type'];
+            // phpcs:ignore Generic.Files.LineLength.MaxExceeded
+            $block['attrs']['embed_type'] = $block_data['embed_type'] === 'facebook_page' ? 'facebookPage' : $block_data['embed_type'];
             $block['attrs']['embed_code'] = $block_data['embed_code'];
 
             $block['innerHTML'] = $html;

@@ -76,13 +76,6 @@ export const SocialMediaEditor = ({
         embed_code: mediaId ?? '',
       });
 
-      if (mediaId) {
-        if (window.instgrm) {
-          window.instgrm.Embeds.process();
-        } else {
-          loadScriptAsync(INSTAGRAM_JS);
-        }
-      }
       return;
     }
 
@@ -95,6 +88,21 @@ export const SocialMediaEditor = ({
 
   }, [social_media_url]);
 
+  useEffect(() => {
+    if (embed_type !== INSTAGRAM_EMBED_TYPE || !embed_code) {
+      return;
+    }
+
+    const timer = setTimeout(() => {
+      if (window.instgrm) {
+        window.instgrm.Embeds.process();
+      } else {
+        loadScriptAsync(INSTAGRAM_JS);
+      }
+    }, 0);
+
+    return () => clearTimeout(timer);
+  }, [embed_code]);
 
   const renderEditInPlace = () => (
     <>
