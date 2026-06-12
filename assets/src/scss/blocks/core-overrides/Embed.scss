@@ -67,10 +67,14 @@
 }
 
 lite-youtube,
-.video-embed-container,
-.instagram-media {
+.video-embed-container {
   width: 100% !important;
   max-width: 100% !important;
+}
+
+.instagram-media {
+  width: 500px;
+  max-width: 500px;
 }
 
 .embed-container {

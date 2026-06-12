@@ -65,6 +65,7 @@ use P4\MasterTheme\Migrations\M061RemovePlanet4BlocksFeature;
 use P4\MasterTheme\Migrations\M062ActionsListStretchedLinkRefactor;
 use P4\MasterTheme\Migrations\M063ActionsListCarouselAccessibility;
 use P4\MasterTheme\Migrations\M064RemoveStaleDatetimeFromPostsListBlock;
+use P4\MasterTheme\Migrations\M065ReplaceMetaBlock;
 
 /**
  * Run any new migration scripts and record results in the log.
@@ -147,6 +148,7 @@ class Migrator
             M062ActionsListStretchedLinkRefactor::class,
             M063ActionsListCarouselAccessibility::class,
             M064RemoveStaleDatetimeFromPostsListBlock::class,
+            M065ReplaceMetaBlock::class,
         ];
 
         // Loop migrations and run those that haven't run yet.
