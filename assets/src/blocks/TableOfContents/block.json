@@ -1,0 +1,37 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "planet4-blocks/submenu",
+  "category": "planet4-blocks",
+  "description": "Insert text, media, and other content in an ordered list of clickable headings corresponding to the content sections on the page.",
+  "title": "Table of Contents",
+  "icon": "welcome-widgets-menus",
+  "attributes": {
+    "title": {
+      "type": "string",
+      "default": ""
+    },
+    "submenu_style": {
+      "type": "integer",
+      "default": 0
+    },
+    "levels": {
+      "type": "array",
+      "default": [{"heading": 2, "link": true, "style": "none"}]
+    },
+    "isExample": {
+      "type": "boolean",
+      "default": false
+    },
+    "exampleMenuItems": {
+      "type": "array"
+    }
+  },
+  "supports": {
+    "multiple": false,
+    "html": false
+  },
+  "viewScript": "file:view-script.js",
+  "editorScript": "file:index.js",
+  "style": "file:index.css"
+}
