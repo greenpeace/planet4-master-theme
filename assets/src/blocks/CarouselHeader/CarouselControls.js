@@ -44,16 +44,22 @@ export const CarouselControls = forwardRef(({
                 >
                   <button
                     onClick={e => {
+                      setAutoplay(false);
                       if (index !== currentSlide) {
                         // eslint-disable-next-line @wordpress/no-global-active-element
                         goToSlide({newSlide: index, fromTab: e.target === document.activeElement});
-                        setAutoplay(false);
                       }
                     }}
                     tabIndex={0}
-                    // translators: %s: slide header
-                    aria-label={sprintf(__('Go to %s slide', 'planet4-master-theme'), slides[index].header)}
-                    aria-current={index === currentSlide ? 'true' : undefined}
+                    onKeyDown={e => {
+                      setAutoplay(false);
+                      if ((e.key === 'Enter' || e.key === ' ') && index !== currentSlide) {
+                        e.preventDefault();
+                        goToSlide({newSlide: index, fromTab: true});
+                      }
+                    }}
+                    // translators: %s: slide header or fallback slide number
+                    aria-label={sprintf(__('Go to %s', 'planet4-master-theme'),slides[index].header || sprintf(__('slide %d', 'planet4-master-theme'), index + 1))}
                   />
                 </li>
               )
@@ -91,6 +97,15 @@ export const CarouselControls = forwardRef(({
         </button>
       </nav>
 
+      {/* This will help screen readers to announce the current slide */}
+      {!autoplay && (
+        <div aria-live="polite" aria-atomic="true" className="visually-hidden">
+          {
+            // translators: %s: slide number
+            sprintf(__('Slide %s', 'planet4-master-theme'), currentSlide + 1)
+          }
+        </div>
+      )}
     </>
   ), [
     currentSlide,
