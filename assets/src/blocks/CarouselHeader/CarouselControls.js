@@ -98,7 +98,7 @@ export const CarouselControls = forwardRef(({
       </nav>
 
       {/* This will help screen readers to announce the current slide */}
-      {autoplay && (
+      {!autoplay && (
         <div aria-live="polite" aria-atomic="true" className="visually-hidden">
           {
             // translators: %s: slide number
