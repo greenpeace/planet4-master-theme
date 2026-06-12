@@ -1,11 +1,15 @@
-const spamButtons = document.querySelectorAll('.checkforspam');
 
-spamButtons.forEach(box => {
-  box.remove();
-});
+
+function removeSpamButtonsBox () {
+  const spamButtons = document.querySelectorAll('.checkforspam');
+
+  spamButtons.forEach(box => {
+    box.remove();
+  });
+}
 
 // Show/hide old special pages when enabling or disabling the new IA.
-document.addEventListener('DOMContentLoaded', () => {
+function toggleNewIaPages() {
   const newIASetting = document.querySelector('#new_ia');
   const analyticalCookiesCheckbox = document.querySelector('#enable_analytical_cookies');
 
@@ -45,4 +49,70 @@ document.addEventListener('DOMContentLoaded', () => {
       descriptionTextField.classList.toggle('hidden', !checked);
     });
   }
+}
+
+// Control the elements of the Hubspot Reverse Proxy form.
+function toggleHubspotReverseProxySaveButton() {
+  const reverseProxy = document.querySelector('#hubspot_reverse_proxy');
+  const saveButton = document.querySelector('#option_metabox input[type=submit]');
+  const domain = document.querySelector('.cmb2-id-hubspot-reverse-proxy-domain');
+  const p4Path = document.querySelector('.cmb2-id-hubspot-reverse-proxy-p4-path');
+  const hubspotPath = document.querySelector('.cmb2-id-hubspot-reverse-proxy-hubspot-path');
+
+  if (!reverseProxy || !saveButton || !domain || !p4Path || !hubspotPath) {
+    return;
+  }
+
+  // Create and insert an alert message:
+  let alertMessage = document.querySelector('#hubspot_reverse_alert');
+
+  if (!alertMessage) {
+    alertMessage = document.createElement('span');
+    alertMessage.id = 'hubspot_reverse_alert';
+    alertMessage.classList.add('hidden');
+    alertMessage.innerHTML = 'WARNING: The "Hubspot Domain" and the "P4 Path" are mandatory!';
+    alertMessage.style.marginInlineStart = '10px';
+    saveButton.after(alertMessage);
+  }
+
+  // Enable/disable the save button, and show/hide the alert message:
+  function toggleSaveButton() {
+    const proxyEnabled = reverseProxy.checked;
+    const fieldsEmpty = domain.querySelector('input').value.trim() === '' || p4Path.querySelector('input').value.trim() === '';
+
+    const shouldDisable = proxyEnabled && fieldsEmpty;
+    saveButton.disabled = shouldDisable;
+    alertMessage.classList.toggle('hidden', !shouldDisable);
+  }
+
+  // Show/hide the form fields:
+  function toggleTextFields() {
+    if (reverseProxy.checked) {
+      domain.classList.remove('hidden');
+      p4Path.classList.remove('hidden');
+      hubspotPath.classList.remove('hidden');
+    } else {
+      domain.classList.add('hidden');
+      p4Path.classList.add('hidden');
+      hubspotPath.classList.add('hidden');
+    }
+  }
+
+  toggleSaveButton();
+  toggleTextFields();
+
+  reverseProxy.addEventListener('change', () => {
+    toggleTextFields();
+    toggleSaveButton();
+  });
+
+  domain.querySelector('input').addEventListener('input', toggleSaveButton);
+  p4Path.querySelector('input').addEventListener('input', toggleSaveButton);
+  hubspotPath.querySelector('input').addEventListener('input', toggleSaveButton);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  removeSpamButtonsBox();
+  toggleNewIaPages();
+  toggleHubspotReverseProxySaveButton();
 });

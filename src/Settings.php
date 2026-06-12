@@ -604,21 +604,48 @@ class Settings
         $is_gf_hubspot_addon = function_exists('is_plugin_active') && is_plugin_active('gravityformshubspot/hubspot.php');
         // phpcs:ignore SlevomatCodingStandard.ControlStructures.EarlyExit.EarlyExitNotUsed
         if ($is_gf_hubspot_addon) {
-            array_push(
-                $this->subpages['planet4_settings_analytics']['fields'],
-                [
-                    'name' => __('Hubspot tracking code', 'planet4-master-theme-backend'),
-                    'desc' => __(
-                        'Paste here the tracking code from your Hubspot account.',
-                        'planet4-master-theme-backend'
-                    ),
-                    'id' => 'hubspot_tracking_code',
-                    'type' => 'textarea',
-                    'attributes' => [
+            $this->subpages['planet4_settings_hubspot'] = [
+                'title' => 'Hubspot',
+                'fields' => [
+                    [
+                        'name' => __('Reverse Proxy', 'planet4-master-theme-backend'),
+                        'desc' => __('Enables reverse proxy for Hubspot hosted content.', 'planet4-master-theme-backend'),
+                        'id' => 'hubspot_reverse_proxy',
+                        'type' => 'checkbox',
+                    ],
+                    [
+                        'name' => __('Hubspot Domain', 'planet4-master-theme-backend'),
+                        'id' => 'hubspot_reverse_proxy_domain',
                         'type' => 'text',
+                        'attributes' => ['type' => 'text'],
+                        'classes' => 'hidden',
+                        'description' => __('Landing pages domain from Hubspot Settings > Tools > Content > Domain & URLs.', 'planet4-master-theme-backend'),
+                    ],
+                    [
+                        'name' => __('Hubspot Path', 'planet4-master-theme-backend'),
+                        'id' => 'hubspot_reverse_proxy_hubspot_path',
+                        'type' => 'text',
+                        'attributes' => ['type' => 'text'],
+                        'classes' => 'hidden',
+                        'description' => __('Path slug your Hubspot landing pages use. Usually empty or language specific.', 'planet4-master-theme-backend'),
+                    ],
+                    [
+                        'name' => __('P4 Path', 'planet4-master-theme-backend'),
+                        'id' => 'hubspot_reverse_proxy_p4_path',
+                        'type' => 'text',
+                        'attributes' => ['type' => 'text'],
+                        'classes' => 'hidden',
+                        'description' => __('Path slug to use for serving the landing pages.', 'planet4-master-theme-backend'),
+                    ],
+                    [
+                        'name' => __('Hubspot tracking code', 'planet4-master-theme-backend'),
+                        'desc' => __('Paste here the tracking code from your Hubspot account.', 'planet4-master-theme-backend'),
+                        'id' => 'hubspot_tracking_code',
+                        'type' => 'textarea',
+                        'attributes' => ['type' => 'text'],
                     ],
                 ],
-            );
+            ];
         }
     }
 
@@ -844,6 +871,13 @@ class Settings
      */
     public function enqueue_admin_assets(): void
     {
+        $screen = get_current_screen();
+
+        // Check if this is a P4 Settings page:
+        if (!$screen || !str_starts_with($screen->base, 'planet-4_page_planet4_')) {
+            return;
+        }
+
         wp_register_style(
             'options-style',
             get_template_directory_uri() . '/admin/css/options.css',
