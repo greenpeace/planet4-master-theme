@@ -6,7 +6,7 @@ import {CarouselControls} from './CarouselControls';
 
 // Carousel Header Editor
 import {Sidebar} from './Sidebar';
-import {EditableBackground} from './EditableBackground';
+import {EditableBackground, getLargestSizeUrl} from './EditableBackground';
 
 const {useSelect} = wp.data;
 const {useCallback, useMemo, useRef} = wp.element;
@@ -82,7 +82,9 @@ export const CarouselHeaderEditor = ({setAttributes, attributes}) => {
       return slide;
     }
     const image_srcset = toSrcSet(Object.values(image.media_details.sizes));
-    return ({...slide, image_url: image.source_url, image_srcset, image_alt: image.alt_text});
+    // Prefer a registered resized size over the original full-resolution upload.
+    const image_url = getLargestSizeUrl(image);
+    return ({...slide, image_url, image_srcset, image_alt: image.alt_text});
   }), [needsMigration, slides]);
 
   return useMemo(() => (
