@@ -34,7 +34,7 @@ export const useSlides = (
   const [autoplay, setAutoplay] = useState(carousel_autoplay);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [sliding, setSliding] = useState(false);
-  const [isIntersecting, setIsIntersecting] = useState();
+  const [isIntersecting, setIsIntersecting] = useState(true);
   // Set up the autoplay for the slides
   const timerRef = useRef(null);
 

@@ -19,7 +19,7 @@ export const CarouselHeaderEditor = ({setAttributes, attributes}) => {
   const {carousel_autoplay, slides, className} = attributes;
   const slidesRef = useRef([]);
 
-  const {currentSlide, goToSlide, goToNextSlide, goToPrevSlide, autoplay} = useSlides(slidesRef, slides.length);
+  const {currentSlide, goToSlide, goToNextSlide, goToPrevSlide, autoplay, setAutoplay, handleAutoplay, indicatorsRef} = useSlides(slidesRef, slides.length);
 
   const changeSlideAttribute = useCallback((slideAttributeName, index) => value => {
     const newSlides = JSON.parse(JSON.stringify(slides));
@@ -130,13 +130,16 @@ export const CarouselHeaderEditor = ({setAttributes, attributes}) => {
           ))}
           {(slides.length > 1) && (
             <CarouselControls
-              goToPrevSlide={() => goToPrevSlide(autoplay)}
-              goToNextSlide={() => goToNextSlide(autoplay)}
+              goToPrevSlide={goToPrevSlide}
+              goToNextSlide={goToNextSlide}
+              setAutoplay={setAutoplay}
               goToSlide={goToSlide}
+              handleAutoplay={handleAutoplay}
               slides={slides}
               currentSlide={currentSlide}
               autoplay={autoplay}
-              disableControls={carousel_autoplay}
+              autoplayToggle={carousel_autoplay}
+              ref={indicatorsRef}
             />
           )}
         </ul>
@@ -159,5 +162,8 @@ export const CarouselHeaderEditor = ({setAttributes, attributes}) => {
     changeSlideImage,
     removeSlide,
     updateCurrentImageIndex,
+    setAutoplay,
+    indicatorsRef,
+    handleAutoplay,
   ]);
 };
