@@ -110,6 +110,17 @@ class MasterSite extends \Timber\Site
             );
         }, 0);
 
+        // Bust footer-menu transients on menu edits.
+        $invalidate_footer_menus = static function (): void {
+            delete_transient('p4_footer_social_menu');
+            delete_transient('p4_footer_primary_menu');
+            delete_transient('p4_footer_secondary_menu');
+        };
+        add_action('wp_update_nav_menu', $invalidate_footer_menus);
+        add_action('wp_update_nav_menu_item', $invalidate_footer_menus);
+        add_action('wp_delete_nav_menu', $invalidate_footer_menus);
+        add_action('customize_save_after', $invalidate_footer_menus);
+
         add_filter(
             'editable_roles',
             function ($roles) {
@@ -303,6 +314,32 @@ class MasterSite extends \Timber\Site
     }
 
     /**
+     * Fetch a footer menu's items as a cache-safe array.
+     *
+     * Casts each item to stdClass so the dynamic props added by
+     * wp_setup_nav_menu_item() (url, title, target, classes) survive
+     * serialize() - WP_Post::__sleep() would otherwise drop them.
+     */
+    private static function resolve_footer_menu_items(string $location, string $fallback): array
+    {
+        if (has_nav_menu($location)) {
+            $menu = Timber::get_menu($location);
+            $items = $menu ? wp_get_nav_menu_items($menu->id) : [];
+        } else {
+            $items = wp_get_nav_menu_items($fallback);
+        }
+
+        if (!is_array($items)) {
+            return [];
+        }
+
+        return array_map(
+            static fn($item) => is_object($item) ? (object) get_object_vars($item) : $item,
+            $items
+        );
+    }
+
+    /**
      * Generates hreflang metadata from countries.json template.
      */
     public static function generate_hreflang_meta(): ?array
@@ -478,26 +515,24 @@ class MasterSite extends \Timber\Site
         $context['copyright_text_line1'] = $options['copyright_line1'] ?? '';
         $context['copyright_text_line2'] = $options['copyright_line2'] ?? '';
 
-        if (has_nav_menu('footer-social-menu')) {
-            $footer_social_menu = Timber::get_menu('footer-social-menu');
-            $context['footer_social_menu'] = wp_get_nav_menu_items($footer_social_menu->id);
-        } else {
-            $context['footer_social_menu'] = wp_get_nav_menu_items('Footer Social');
-        }
+        // Footer menus cached for 24h, transients busted on menu edits.
+        $context['footer_social_menu'] = \Timber\Helper::transient(
+            'p4_footer_social_menu',
+            static fn() => self::resolve_footer_menu_items('footer-social-menu', 'Footer Social'),
+            DAY_IN_SECONDS
+        );
 
-        if (has_nav_menu('footer-primary-menu')) {
-            $footer_primary_menu = Timber::get_menu('footer-primary-menu');
-            $context['footer_primary_menu'] = wp_get_nav_menu_items($footer_primary_menu->id);
-        } else {
-            $context['footer_primary_menu'] = wp_get_nav_menu_items('Footer Primary');
-        }
+        $context['footer_primary_menu'] = \Timber\Helper::transient(
+            'p4_footer_primary_menu',
+            static fn() => self::resolve_footer_menu_items('footer-primary-menu', 'Footer Primary'),
+            DAY_IN_SECONDS
+        );
 
-        if (has_nav_menu('footer-secondary-menu')) {
-            $footer_secondary_menu = Timber::get_menu('footer-secondary-menu');
-            $context['footer_secondary_menu'] = wp_get_nav_menu_items($footer_secondary_menu->id);
-        } else {
-            $context['footer_secondary_menu'] = wp_get_nav_menu_items('Footer Secondary');
-        }
+        $context['footer_secondary_menu'] = \Timber\Helper::transient(
+            'p4_footer_secondary_menu',
+            static fn() => self::resolve_footer_menu_items('footer-secondary-menu', 'Footer Secondary'),
+            DAY_IN_SECONDS
+        );
 
         // Default depth level set to 1 if not selected from admin.
         $context['p4_comments_depth'] = get_option('thread_comments_depth') ?? 1;
