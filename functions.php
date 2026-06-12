@@ -132,8 +132,6 @@ function hide_wp_update_nag(): void
 
 add_action('admin_menu', 'hide_wp_update_nag');
 
-require_once 'load-class-aliases.php';
-
 Loader::get_instance();
 
 // WP core's escaping logic doesn't take the case into account where a gradient is followed by a URL.
