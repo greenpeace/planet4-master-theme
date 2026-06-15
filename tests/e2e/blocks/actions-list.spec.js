@@ -6,6 +6,7 @@ import {
   addActionsListBlockWithManualOverride,
   checkActionsListBlockWithManualOverride,
 } from '../tools/lib/actions-list.js';
+import {isNewIAEnabled} from '../tools/lib/check-new-ia.js';
 
 test.useAdminLoggedIn();
 
@@ -26,13 +27,14 @@ test.describe('Test Actions List block', () => {
   });
 
   test('Test the Manual Override', async ({page, admin, editor, requestUtils}) => {
-    // Fetch the "Take Action" parent page ID
-    const takeActionPages = await requestUtils.rest({
-      path: '/wp/v2/pages',
-      method: 'GET',
-      params: {slug: 'take-action'},
-    });
-    const takeActionPageId = takeActionPages[0].id;
+    const isNewIA = await isNewIAEnabled(admin, page);
+
+    // Get the "Take Action" page ID from the Analytics settings.
+    await admin.visitAdminPage('admin.php', 'page=planet4_settings_analytics');
+    const takeActionPageId = await page.locator('#take_action_page').inputValue();
+
+    // Skip Test if the new IA is not enabled or if the "Take Action" page ID is not available.
+    test.skip(!isNewIA || !takeActionPageId, 'The new IA must be enabled to run this test.');
 
     // Create 2 actions to be selected via the Manual Override.
     const regularActionTitles = [
