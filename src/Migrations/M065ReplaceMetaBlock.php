@@ -5,6 +5,11 @@ namespace P4\MasterTheme\Migrations;
 use P4\MasterTheme\MigrationRecord;
 use P4\MasterTheme\MigrationScript;
 
+/**
+ * This migration script identifies the Meta blocks and transforms them into the new version.
+ * The new version does not rely on Facebook's API, so not only the block attributes
+ * but also its HTML are replaced.
+ */
 class M065ReplaceMetaBlock extends MigrationScript
 {
     /**
@@ -79,6 +84,10 @@ class M065ReplaceMetaBlock extends MigrationScript
         return $block;
     }
 
+    /**
+     * Transform the blocks linked to Facebook.
+     *
+     */
     private static function migrate_facebook(array $block): array
     {
         $is_facebook_page = isset($block['attrs']['embed_type']) && $block['attrs']['embed_type'] === 'facebook_page';
@@ -96,26 +105,30 @@ class M065ReplaceMetaBlock extends MigrationScript
         }
 
         // phpcs:ignore Generic.Files.LineLength.MaxExceeded
-        $iframe = '<iframe class="social-media-embed-facebook" src="' . esc_html($fb_src) . '" height="500" scrolling="no" frameborder="0" allow="encrypted-media" title="Social Media"></iframe>';
+        $html = '<iframe class="social-media-embed-facebook" src="' . esc_html($fb_src) . '" height="500" scrolling="no" frameborder="0" allow="encrypted-media" title="Social Media"></iframe>';
 
         return [
             'embed_type' => $is_facebook_page ? 'facebookPage' : 'facebookPost',
             'embed_code' => $fb_url,
-            'iframe' => $iframe,
+            'iframe' => $html,
         ];
     }
 
+    /**
+     * Transform the blocks linked to Instagram.
+     *
+     */
     private static function migrate_instagram(array $block): array
     {
         $ig_url = $block['attrs']['social_media_url'] ?? '';
         $ig_id = basename(rtrim($ig_url, '/'));
         // phpcs:ignore Generic.Files.LineLength.MaxExceeded
-        $iframe = '<blockquote class="instagram-media" data-instgrm-captioned="true" data-instgrm-permalink="https://www.instagram.com/reel/' . esc_html($ig_id) . '/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14"></blockquote>';
+        $html = '<blockquote class="instagram-media" data-instgrm-captioned="true" data-instgrm-permalink="https://www.instagram.com/reel/' . esc_html($ig_id) . '/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14"></blockquote>';
 
         return [
             'embed_type' => 'instagramPost',
             'embed_code' => $ig_id,
-            'iframe' => $iframe,
+            'iframe' => $html,
         ];
     }
 }
