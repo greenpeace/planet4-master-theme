@@ -31,7 +31,7 @@ class MandatoryImageAltText extends Feature
     protected static function description(): string
     {
         return __(
-            'All images included in a Post would require an alt-text before publishing.',
+            'Blocks publishing when a core Image block is missing alt-text.',
             'planet4-master-theme-backend'
         );
     }
