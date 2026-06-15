@@ -5,53 +5,72 @@ import {searchAndInsertBlock} from '../tools/lib/editor.js';
 test.useAdminLoggedIn();
 
 const slides = [
-  {image: 'NATURE-GP0STOE2U', cta: {url: 'https://google.com'}},
-  {image: 'OCEANS-GP0STOM6C', cta: {url: 'https://yahoo.com', newTab: true}},
+  {
+    image: 357,
+    focal_points: {},
+    header: 'My test Header 1',
+    description: 'Testing carousel description 1',
+    link_text: 'Read more 1',
+    link_url: 'https://google.com',
+    link_url_new_tab: false,
+  },
+  {
+    image: 354,
+    focal_points: {},
+    header: 'My test Header 2',
+    description: 'Testing carousel description 2',
+    link_text: 'Read more 2',
+    link_url: 'https://yahoo.com',
+    link_url_new_tab: true,
+  },
 ];
 
 /**
- * Add new Carousel slide
+ * Resolve an attachment's image URL, alt text, and srcset via wp.data,
+ * mirroring what the block would populate for a selected image.
  *
- * @param {*}              slide   slide data
- * @param {*}              param   slide extra information
- * @param {{Page, Editor}} options - Page and Editor object
+ * @param {{Page}} page    Playwright page object
+ * @param {number} imageId Attachment post ID
  */
-const addSlide = async (slide, {index, addNext}, {page, editor}) => {
-  await editor.canvas.locator('[aria-label="Enter title"][contenteditable="true"]').nth(index).fill(`My test Header ${index + 1}`);
-  await editor.canvas.locator('[aria-label="Enter description"][contenteditable="true"]').nth(index).fill(`Testing carousel description ${index + 1}`);
-  await editor.canvas.locator('[aria-label="Enter CTA text"][contenteditable="true"]').nth(index).fill(`Read more ${index + 1}`);
+const getImageDetails = async (page, imageId) => {
+  return page.evaluate(async id => {
+    const imageRecord = await wp.data.resolveSelect('core').getEntityRecord(
+      'postType',
+      'attachment',
+      id
+    );
 
-  // Check if sidebar is not visible
-  await editor.openDocumentSettingsSidebar();
+    const sizes = imageRecord.media_details?.sizes || {};
+    const image_srcset = Object.values(sizes)
+      .map(size => `${size.source_url} ${size.width}w`)
+      .join(',');
 
-  await page.locator('[data-type="toggle"]').nth(index).click();
-  await page.getByLabel('Url for link').fill(slide.cta.url);
-  if (slide.cta.newTab) {
-    await page.getByLabel('Open in a new tab').check();
-  }
+    return {
+      image_url: imageRecord.source_url,
+      image_alt: imageRecord.alt_text || '',
+      image_srcset,
+    };
+  }, imageId);
+};
 
-  // Close sidebar before interacting with the carousel item
-  await page.getByRole('button', {name: 'Close Settings'}).click();
+/**
+ * Set the Carousel Header block's attributes directly via wp.data,
+ * bypassing the block editor UI entirely.
+ *
+ * @param {{Page}} page       Playwright page object
+ * @param {Object} attributes Block attributes to apply (carousel_autoplay, slides, currentImageIndex)
+ */
+const setCarouselAttributes = async (page, attributes) => {
+  await page.evaluate(attrs => {
+    const blocks = wp.data.select('core/block-editor').getBlocks();
+    const carouselBlock = blocks.find(block => block.name === 'planet4-blocks/carousel-header');
 
-  const activeSlide = editor.canvas.locator('.carousel-item.active');
+    if (!carouselBlock) {
+      throw new Error('Carousel header block not found on the page');
+    }
 
-  const editButton = activeSlide.locator('.carousel-header-editor-controls button');
-
-  await expect(editButton).toBeVisible();
-  await editButton.click();
-  await page.getByRole('button', {name: 'Add image'}).click();
-  await page.getByRole('tab', {name: 'Media Library'}).click();
-  await page.getByRole('checkbox', {name: slide.image}).click();
-  await page.getByRole('button', {name: 'Select', exact: true}).click();
-
-  // Wait for modal to fully close before proceeding
-  await page.waitForSelector('[role="dialog"]', {state: 'hidden'});
-
-  // Next Slide
-  if (addNext) {
-    await editButton.click();
-    await page.getByRole('button', {name: 'Add slide'}).click();
-  }
+    wp.data.dispatch('core/block-editor').updateBlockAttributes(carouselBlock.clientId, attrs);
+  }, attributes);
 };
 
 test('Create and check carousel header block', async ({page, admin, editor}) => {
@@ -59,15 +78,25 @@ test('Create and check carousel header block', async ({page, admin, editor}) => 
   await createPostWithFeaturedImage({page, admin, editor}, {title: 'Test Carousel', postType: 'page'});
 
   // Add block
-  await searchAndInsertBlock({page}, 'Carousel Header');
+  await searchAndInsertBlock({editor, page}, 'planet4-blocks/carousel-header');
 
-  for (const slide in slides) {
-    await addSlide(
-      slides[slide],
-      {index: parseInt(slide), addNext: !!slides[parseInt(slide) + 1]},
-      {page, editor}
-    );
-  }
+  // Resolve each slide's image details (url, alt, srcset) from the attachment record
+  const slideAttributes = await Promise.all(
+    slides.map(async slide => {
+      const imageDetails = await getImageDetails(page, slide.image);
+
+      return {
+        ...slide,
+        ...imageDetails,
+      };
+    })
+  );
+
+  await setCarouselAttributes(page, {
+    carousel_autoplay: false,
+    slides: slideAttributes,
+    currentImageIndex: 0,
+  });
 
   // Publish Page
   await publishPostAndVisit({page, editor});
@@ -77,8 +106,8 @@ test('Create and check carousel header block', async ({page, admin, editor}) => 
   const paragraphDescription1 = await page.innerHTML('.carousel-captions-wrapper p');
   const ctaButton1 = page.locator('.action-button a').first();
 
-  expect(h2Title1).toBe('My test Header 1');
-  expect(paragraphDescription1).toBe('Testing carousel description 1');
+  expect(h2Title1).toBe(slides[0].header);
+  expect(paragraphDescription1).toBe(slides[0].description);
   await expect(ctaButton1).toBeVisible();
 
   await page.locator('button.carousel-control-next').click();
@@ -87,7 +116,7 @@ test('Create and check carousel header block', async ({page, admin, editor}) => 
   const paragraphDescription2 = await page.innerHTML('.carousel-captions-wrapper p>>nth=1');
   const ctaButton2 = page.locator('.action-button a').nth(1);
 
-  expect(h2Title2).toBe('My test Header 2');
-  expect(paragraphDescription2).toBe('Testing carousel description 2');
+  expect(h2Title2).toBe(slides[1].header);
+  expect(paragraphDescription2).toBe(slides[1].description);
   await expect(ctaButton2).toBeVisible();
 });

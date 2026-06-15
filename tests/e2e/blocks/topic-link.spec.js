@@ -10,7 +10,7 @@ test('Test Topic Link block', async ({page, admin, editor, baseURL}) => {
   await createPostWithFeaturedImage({page, admin, editor}, {title: 'Test Topic Link'});
 
   // Add Topic Link block.
-  await searchAndInsertBlock({page}, 'Topic Link');
+  await searchAndInsertBlock({editor, page}, 'planet4-blocks/topic-link');
 
   // Select the Nature category
   await page.getByRole('combobox', {name: 'Select Category:'}).selectOption({label: CATEGORY});
@@ -18,7 +18,16 @@ test('Test Topic Link block', async ({page, admin, editor, baseURL}) => {
   // Add a background image.
   await page.getByRole('button', {name: 'Select Background Image'}).click();
   const imageModal = page.getByRole('dialog', {name: 'Select or Upload Media'});
-  await imageModal.locator('[data-id="357"]').click();
+  await expect(imageModal.locator('[data-id]').first()).toBeVisible();
+  const mediaIds = await imageModal
+    .locator('.attachment')
+    .evaluateAll(items =>
+      items.map(item => item.dataset.id)
+    );
+
+  // Pick the first available media item for the topic link block.
+  const imageId = mediaIds[50];
+  await imageModal.locator(`[data-id="${imageId}"]`).click();
   await page.getByRole('button', {name: 'Select', exact: true}).click();
   await expect(imageModal).toBeHidden();
 

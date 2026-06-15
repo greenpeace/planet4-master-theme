@@ -34,7 +34,11 @@ async function deleteImageFromLibrary(page, imageId) {
 
   // Open image link via the sidebar.
   await expect(sidebar).toBeVisible();
-  await sidebar.locator('.sidebar-action').click();
+  await expect(sidebar.locator('.sidebar-action')).not.toHaveText('Import to Library', {timeout: 60000});
+
+  const sidebarAction = sidebar.locator('.sidebar-action');
+  await expect(sidebarAction).toBeEnabled();
+  await sidebarAction.click();
 
   // Delete the image and wait for confirmation.
   const deleteLink = page.getByText('Delete permanently');

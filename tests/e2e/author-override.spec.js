@@ -38,6 +38,9 @@ test('Test Author override', async ({page, requestUtils}) => {
   await updatePost({page});
   const postUrl = newPost.link;
   await page.goto(postUrl);
+  await page.waitForLoadState('networkidle');
+  await page.waitForLoadState('domcontentloaded');
+
 
   // Make sure the new author name is properly displayed in the frontend.
   const authorLocator = page.locator('.single-post-author');

@@ -20,9 +20,18 @@ export async function addListBlock({page, editor}, blockName, itemsPerPage, conf
 
   if (config.category) {
     const editorSettings = page.getByRole('region', {name: 'Editor settings'});
-    await editorSettings.getByRole('button', {name: 'Filters options'}).click();
-    await page.getByLabel('Show Taxonomies').click();
-    await editorSettings.getByRole('combobox', {name: 'Categories', exact: true}).fill(config.category);
+    const filtersButton = editorSettings.getByRole('button', {name: 'Filters options'});
+    await expect(filtersButton).toBeVisible();
+    await filtersButton.click();
+
+    const showTaxonomies = page.getByLabel('Show Taxonomies');
+    await expect(showTaxonomies).toBeVisible();
+    await showTaxonomies.click();
+
+    const categories = editorSettings.getByRole('combobox', {name: 'Categories', exact: true});
+    await expect(categories).toBeVisible();
+    await categories.fill(config.category);
+
     await editorSettings.locator(
       '.components-form-token-field__suggestion', {hasText: config.category}
     ).click();

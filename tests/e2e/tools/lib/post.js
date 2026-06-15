@@ -1,6 +1,31 @@
 import {expect} from './test-utils';
 
 /**
+ * Waits for the underlying WP REST API save request (POST or PUT to
+ * /wp/v2/<type>/<id> or /wp/v2/<type>) to complete successfully.
+ * This is more reliable than watching for the snackbar, which can
+ * resolve prematurely against a stale snackbar left over from a
+ * previous save in the same session.
+ *
+ * @param {Object}   page   - Playwright page object.
+ * @param {Function} action - Async function that triggers the save (e.g. clicking Save/Publish).
+ */
+async function waitForPostSaveResponse(page, action) {
+  const [response] = await Promise.all([
+    page.waitForResponse(
+      resp =>
+        /\/wp\/v2\/[a-z0-9_-]+(\/\d+)?(\?.*)?$/i.test(resp.url()) &&
+        ['POST', 'PUT'].includes(resp.request().method()) &&
+        resp.status() < 400,
+      {timeout: 15000}
+    ),
+    action(),
+  ]);
+
+  return response;
+}
+
+/**
  * Publishes a post using the provided editor and returns the URL of the published post.
  *
  * @param {Object} params        - Parameters for publishing the post.
@@ -11,34 +36,35 @@ import {expect} from './test-utils';
  */
 async function publishPost({page, editor}) {
   // We should be able to remove this check once we update Playwright to the latest version.
-  const closeSettingsSidebar = await page.getByRole('button', {name: 'Close Settings'});
+  const closeSettingsSidebar = page.getByRole('button', {name: 'Close Settings'});
   if (await closeSettingsSidebar.isVisible()) {
     await closeSettingsSidebar.click();
   }
-  await editor.publishPost();
 
-  // Wait for View Post link to be visible at bottom of page
-  await page.waitForSelector('.components-snackbar__content a', {state: 'visible'});
+  await waitForPostSaveResponse(page, () => editor.publishPost());
 
-  // Get the href value
-  const urlString = await page.getAttribute('.components-snackbar__content a', 'href');
+  // Snackbar confirms the UI has caught up, in addition to the network response above.
+  const snackbarLink = page.locator('.components-snackbar__content a').last();
+  await expect(snackbarLink).toBeVisible();
 
-  return urlString;
+  return snackbarLink.getAttribute('href');
 }
 
 /**
- * Updates a post and waits for the confirmation snackbar.
+ * Updates a post and waits both for the underlying save request to
+ * succeed and for the confirmation snackbar to appear.
  *
  * @param {Object} params      - Parameters for updating the post.
  * @param {Object} params.page - The page object representing the browser page.
  *
- * @return {Promise<void>} - A promise that resolves when the snackbar confirming the update is visible.
+ * @return {Promise<void>} - A promise that resolves when the update is confirmed.
  */
 async function updatePost({page}) {
-  const updateButton = await page.locator('.editor-header__settings').getByRole('button', {name: 'Save'});
-  await updateButton.click();
+  const updateButton = page.locator('.editor-header__settings').getByRole('button', {name: 'Save'});
 
-  return page.waitForSelector('.components-snackbar');
+  await waitForPostSaveResponse(page, () => updateButton.click());
+
+  await expect(page.locator('.components-snackbar').last()).toBeVisible();
 }
 
 /**
@@ -51,7 +77,7 @@ async function updatePost({page}) {
 async function publishPostAndVisit({page, editor}) {
   const urlString = await publishPost({page, editor});
 
-  await page.goto(urlString);
+  await page.goto(urlString, {waitUntil: 'domcontentloaded'});
 }
 
 /**
@@ -71,26 +97,26 @@ async function createPostWithFeaturedImage({page, admin, editor}, params) {
 
   await page.getByRole('button', {name: 'Set featured image'}).click();
 
-  await page.getByRole('dialog', {name: 'Featured image'});
+  await expect(page.getByRole('dialog', {name: 'Featured image'})).toBeVisible();
   await page.locator('button#menu-item-browse').click();
 
-  const mediaSearchInput = await page.locator('#media-search-input');
+  const mediaSearchInput = page.locator('#media-search-input');
   await mediaSearchInput.fill('OCEANS-GP0STOM6C');
   await page.keyboard.press('Enter');
 
-  const thumbnail = await page.locator('li[aria-label="OCEANS-GP0STOM6C"]').nth(0);
-  await page.waitForSelector('li[aria-label="OCEANS-GP0STOM6C"]');
+  const thumbnail = page.locator('li[aria-label="OCEANS-GP0STOM6C"]').first();
+  await expect(thumbnail).toBeVisible();
   await thumbnail.click();
 
-  // Get the file url
+  // Get the file url.
   const fileUrl = await page.locator('#attachment-details-copy-link').inputValue();
-  // Remove the file extension
+  // Remove the file extension.
   const fileName = fileUrl.slice(0, fileUrl.length - 4).split('/');
   await page.getByRole('button', {name: 'Set featured image'}).click();
 
-  // check if the featured image is the correctly assigned
-  expect(await page.locator('.editor-post-featured-image__preview-image').getAttribute('src'))
-    .toContain(fileName[fileName.length - 1]);
+  // Check the featured image is correctly assigned.
+  await expect(page.locator('.editor-post-featured-image__preview-image'))
+    .toHaveAttribute('src', new RegExp(fileName[fileName.length - 1]));
 
   return newPost;
 }

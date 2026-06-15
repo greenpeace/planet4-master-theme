@@ -8,11 +8,9 @@ test('checks if the welcome modal on the editor is present and closed when the b
   const modal = page.getByRole('dialog', {name: 'Choose a pattern'});
   await expect(modal).toBeVisible();
 
-  for (const frame of await modal.getByRole('option', {name: 'Editor canvas'}).all()) {
-    await frame.waitForLoadState('domcontentloaded');
-  }
-  await page.waitForLoadState('domcontentloaded');
+  const closeButton = modal.getByRole('button', {name: 'Close'});
+  await expect(closeButton).toBeEnabled();
+  await closeButton.click();
 
-  await modal.getByRole('button', {name: 'Close'}).click({timeout: 15000});
   await expect(modal).toBeHidden();
 });

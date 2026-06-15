@@ -1,7 +1,7 @@
 import {addListBlock, addListBlockWithManualOverride, checkListBlock} from './query-loop-utils.js';
 import {expect} from './test-utils.js';
 
-const BLOCK_NAME = 'Actions List';
+const BLOCK_NAME = 'planet4-blocks/actions-list';
 const TEST_TITLE = 'Campaigns';
 const TEST_CATEGORY = 'Energy';
 const MANUAL_OVERRIDE_TITLE = 'Actions';

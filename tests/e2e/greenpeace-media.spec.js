@@ -31,7 +31,9 @@ test.describe('Greenpeace Media tests', () => {
     // Import the image.
     await sidebar.getByRole('button', {name: 'Import to Library'}).click();
     await expect(sidebar.getByText('Processing…')).toBeVisible();
-    await expect(sidebar.locator('.sidebar-action')).toBeVisible();
+    await expect(sidebar.getByRole('button', {name: 'Import to Library'})).toBeHidden({timeout: 60000});
+
+    await expect(sidebar.locator('.sidebar-action')).toBeEnabled();
 
     // Delete the image from the library.
     await deleteImageFromLibrary(page);
@@ -56,7 +58,8 @@ test.describe('Greenpeace Media tests', () => {
 
     while (selectedImages.length < 2 && idx < (await imagesList.locator('li').count())) {
       const image = imagesList.locator('li:not(.is-disabled)').nth(idx);
-      if (typeof image.locator('.bulk-select-checkbox') !== 'undefined') {
+      const checkbox = image.locator('.bulk-select-checkbox');
+      if (await checkbox.count() > 0) {
         await image.click();
         selectedImages.push(await image.getAttribute('data-id'));
       }
@@ -69,7 +72,8 @@ test.describe('Greenpeace Media tests', () => {
     // Bulk upload them.
     await page.getByRole('button', {name: 'Bulk Upload'}).click();
     await expect(page.getByText('Processing 2 images')).toBeVisible();
-    await expect(page.getByPlaceholder('Search')).toBeVisible();
+    await expect(page.getByText('Processing 2 images')).toBeHidden({timeout: 60000});
+    await expect(page.getByPlaceholder('Search')).toBeVisible({timeout: 60000});
 
     // Delete the images from the library.
     await deleteImageFromLibrary(page, selectedImages[0]);

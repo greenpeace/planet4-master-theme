@@ -1,6 +1,6 @@
 import {test, expect} from '../tools/lib/test-utils.js';
 import {publishPostAndVisit, createPostWithFeaturedImage} from '../tools/lib/post.js';
-import {searchAndInsertBlock, closeBlockInserter} from '../tools/lib/editor.js';
+import {searchAndInsertBlock} from '../tools/lib/editor.js';
 
 const TEST_MEDIA = [
   {
@@ -43,14 +43,11 @@ const TEST_MEDIA = [
  * @param {string} mediaLink - The media file link (can be YouTube, Vimeo, mp4, mp3, SoundCloud).
  */
 const addVideoOrAudioBlock = async ({page, editor}, mediaType, mediaLink) => {
-  await searchAndInsertBlock({page}, mediaType, mediaType);
+  await searchAndInsertBlock({page, editor}, `core/${mediaType}`);
 
   // Make sure the block has been added.
   const insertUrl = await editor.canvas.getByRole('button', {name: 'Insert from URL'});
   await expect(insertUrl).toBeVisible();
-
-  // We should close the sidebar before editing the block.
-  await closeBlockInserter({page});
 
   // Add the media URL.
   await insertUrl.click();

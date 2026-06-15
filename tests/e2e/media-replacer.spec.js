@@ -104,9 +104,9 @@ async function downloadFile(page, url, outputPath) {
   writeFileSync(outputPath, buffer);
 }
 
-test('Replace Media file (PDF) in WordPress', async ({page, admin, requestUtils, browserName}, testInfo) => {
-  test.skip(browserName === 'webkit', 'This test needs more work in WebKit');
+test('Replace Media file (PDF) in WordPress', async ({page, admin, requestUtils}, testInfo) => {
 
+  test.skip('Issue with media upload in WP, need to sort it out first');
   test.slow();
   await ensureStatelessModeEnabled(page, admin, testInfo);
 

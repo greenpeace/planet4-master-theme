@@ -19,6 +19,8 @@ test('Test adding a Comment to a Post', async ({page, admin, requestUtils}) => {
     },
   });
   await page.goto(newPost.link);
+  await page.waitForLoadState('networkidle');
+  await page.waitForLoadState('domcontentloaded');
 
   await page.getByPlaceholder('Your Comment').fill('Nice Post');
   await page.locator('label#gdpr-comments-label').click();

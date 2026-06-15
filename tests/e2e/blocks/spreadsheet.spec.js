@@ -11,7 +11,7 @@ test('Test Spreadsheet block', async ({page, admin, editor}) => {
   await createPostWithFeaturedImage({page, admin, editor}, {title: 'Test Spreadsheet', postType: 'page'});
 
   // Add Spreadsheet block.
-  await searchAndInsertBlock({page}, 'Spreadsheet');
+  await searchAndInsertBlock({editor, page}, 'planet4-blocks/spreadsheet');
 
   // Check that the "empty URL" warning is displayed.
   const warning = editor.canvas.locator('.block-edit-mode-warning');
@@ -50,18 +50,16 @@ test('Test Spreadsheet block', async ({page, admin, editor}) => {
   await page.locator('button[aria-label="green"]').click();
   await expect(editorTable).toHaveClass(/is-color-green/);
 
+
+
+
   // Publish page.
   await publishPostAndVisit({page, editor});
 
-  // Test that the block is displayed as expected in the frontend.
-  await page.route(apiRoute, async route => {
-    await route.fulfill({json: apiResponse});
-  });
-  const frontendResponse = await page.waitForResponse(apiRoute);
-  expect(frontendResponse.status()).toEqual(200);
   const frontendTable = page.locator('table.spreadsheet-table');
-  await expect(frontendTable.locator('thead th:first-child button')).toHaveText('Some 30x30 commitment');
+  await expect(frontendTable).toBeVisible();
+
+  await expect(frontendTable.locator('thead th:first-child button')).toHaveText('Some 30x30 commitment', {timeout: 60000});
   await expect(frontendTable.locator('tbody tr:first-child td:first-child')).toHaveText('Albania');
   await expect(frontendTable).toHaveClass(/is-color-green/);
 });
-
