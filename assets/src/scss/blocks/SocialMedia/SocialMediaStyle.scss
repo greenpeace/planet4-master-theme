@@ -22,24 +22,15 @@
       border: none;
       overflow: hidden;
       height: 500px;
+      width: 100%;
 
-      &--small {
-        width: 240px;
-        display: block;
-
-        @include medium-and-up {
-          display: none;
-        }
-      }
-
-      &--large {
+      @include medium-and-up {
         width: 500px;
-        display: none;
-
-        @include medium-and-up {
-          display: block;
-        }
       }
+    }
+
+    .instagram-media {
+      max-width: 100%;
     }
   }
 }
