@@ -6,7 +6,14 @@ export const SocialMediaEmbed = ({
   facebookPageTab,
   embedType,
 }) => {
-  if (!itemId) {
+  if (
+    !itemId ||
+    (
+      embedType !== INSTAGRAM_EMBED_TYPE &&
+      embedType !== FACEBOOK_PAGE_EMBED_TYPE &&
+      embedType !== FACEBOOK_POST_EMBED_TYPE
+    )
+  ) {
     return null;
   }
 
@@ -23,25 +30,23 @@ export const SocialMediaEmbed = ({
     );
   }
 
-  if (embedType === FACEBOOK_PAGE_EMBED_TYPE || embedType === FACEBOOK_POST_EMBED_TYPE) {
-    const facebookUrl = 'https://www.facebook.com/plugins';
+  const facebookUrl = 'https://www.facebook.com/plugins';
 
-    const facebookSrc = embedType === FACEBOOK_PAGE_EMBED_TYPE ?
-      `${facebookUrl}/page.php?href=${itemId}&tabs=${facebookPageTab}&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true` :
-      `${facebookUrl}/post.php?href=${itemId}&show_text=true&height=500`;
+  const facebookSrc = embedType === FACEBOOK_PAGE_EMBED_TYPE ?
+    `${facebookUrl}/page.php?href=${itemId}&tabs=${facebookPageTab}&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true` :
+    `${facebookUrl}/post.php?href=${itemId}&show_text=true&height=500`;
 
-    return (
-      <div key={itemId} className={`social-media-embed ${alignmentClass ?? ''}`}>
-        <iframe
-          className="social-media-embed-facebook"
-          src={facebookSrc}
-          height="500"
-          scrolling="no"
-          frameBorder="0"
-          allow="encrypted-media"
-          title="Social Media"
-        />
-      </div>
-    );
-  }
+  return (
+    <div key={itemId} className={`social-media-embed ${alignmentClass ?? ''}`}>
+      <iframe
+        className="social-media-embed-facebook"
+        src={facebookSrc}
+        height="500"
+        scrolling="no"
+        frameBorder="0"
+        allow="encrypted-media"
+        title="Social Media"
+      />
+    </div>
+  );
 };
