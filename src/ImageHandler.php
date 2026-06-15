@@ -34,6 +34,12 @@ class ImageHandler
             'save' => 'imagegif',
             'extension' => 'gif',
         ],
+        IMAGETYPE_WEBP => [
+            'mime' => 'image/webp',
+            'create' => 'imagecreatefromwebp',
+            'save' => 'imagewebp',
+            'extension' => 'webp',
+        ],
     ];
 
     /**
@@ -78,10 +84,10 @@ class ImageHandler
             return $file;
         }
 
-        $allowed_wp_img_ext = array('jpg', 'jpeg', 'png', 'gif', 'ico');
+        $allowed_wp_img_ext = array('jpg', 'jpeg', 'png', 'gif', 'ico', 'webp');
 
         if (!in_array(strtolower($file_type['ext']), $allowed_wp_img_ext)) {
-            $file['error'] = 'Only JPG, PNG, ICO, and GIF images are allowed for upload.';
+            $file['error'] = 'Only JPG, PNG, ICO, GIF, and WebP images are allowed for upload.';
         }
 
         return $file;
