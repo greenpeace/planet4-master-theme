@@ -86,11 +86,8 @@ if ('yes' === $timber_post->include_articles) {
         'posts_per_page' => 3,
         'post__not_in' => [$timber_post->ID],
         'tax_query' => [
-            [
-                'taxonomy' => 'post_tag',
-                'field' => 'term_id',
-                'terms' => $tag_id_array,
-            ],
+            ['taxonomy' => 'post_tag', 'field' => 'term_id', 'terms' => $tag_id_array],
+            ['taxonomy' => 'category', 'field' => 'term_id', 'terms' => $category_id_array],
         ],
     ]);
 
