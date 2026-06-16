@@ -32,20 +32,22 @@ class HtmlPostProcessor
         while ($processor->next_tag('a')) {
             $href = $processor->get_attribute('href') ?? '';
             $classes = $processor->get_attribute('class') ?? '';
+            $class_list = preg_split('/\s+/', trim($classes));
 
-            if (empty($href)) {
+            $is_pdf = $this->is_pdf_link($href, $class_list);
+            $is_external_link = $this->is_external_link($href, $class_list);
+
+            if (empty($href) || (!$is_pdf && !$is_external_link)) {
                 continue;
             }
 
-            $class_list = preg_split('/\s+/', trim($classes));
-
-            if ($this->is_pdf_link($href, $class_list)) {
+            if ($is_pdf) {
                 $processor->add_class('pdf-link');
                 $processor->set_attribute('title', __('This link will open a PDF file', 'planet4-master-theme'));
                 continue;
             }
 
-            if (!$this->is_external_link($href, $class_list)) {
+            if (!$is_external_link) {
                 continue;
             }
 
