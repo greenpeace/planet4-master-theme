@@ -43,24 +43,22 @@ class HtmlPostProcessor
 
             if ($is_pdf) {
                 $processor->add_class('pdf-link');
-                $processor->set_attribute('title', __('This link will open a PDF file', 'planet4-master-theme'));
-                continue;
+                $processor->set_attribute(
+                    'title',
+                    __('This link will open a PDF file', 'planet4-master-theme')
+                );
+            } else {
+                $processor->add_class('external-link');
+                $domain = str_replace('www.', '', parse_url($href, PHP_URL_HOST) ?? '');
+                $processor->set_attribute(
+                    'title',
+                    sprintf(
+                        // translators: 1: URL domain
+                        __('This link will lead you to %1$s', 'planet4-master-theme'),
+                        $domain
+                    )
+                );
             }
-
-            if (!$is_external_link) {
-                continue;
-            }
-
-            $processor->add_class('external-link');
-            $domain = str_replace('www.', '', parse_url($href, PHP_URL_HOST) ?? '');
-            $processor->set_attribute(
-                'title',
-                sprintf(
-                    // translators: 1: URL domain
-                    __('This link will lead you to %1$s', 'planet4-master-theme'),
-                    $domain
-                )
-            );
         }
 
         return $processor->get_updated_html();
