@@ -16,6 +16,12 @@ use WP_Error;
 class MasterSite extends \Timber\Site
 {
     /**
+     * Minimum number of characters required in a core/image block's alt text
+     * before publishing. Whitespace is trimmed before the length is measured.
+     */
+    public const MIN_ALT_TEXT_LENGTH = 10;
+
+    /**
      * Theme directory
      *
      */
@@ -339,10 +345,14 @@ class MasterSite extends \Timber\Site
         $content = wp_unslash($data['post_content']);
 
         if (self::content_contains_image_blocks_without_alt($content)) {
-            $err_message = __(
-                'Alt text is required for every Image block before publishing.
-                Please add a description that conveys each image’s purpose, then try publishing again.',
-                'planet4-master-theme-backend'
+            $err_message = sprintf(
+                // translators: %d is the minimum number of characters required for alt text.
+                __(
+                    // phpcs:ignore Generic.Files.LineLength.MaxExceeded
+                    'Alt text of at least %d characters is required for every Image block before publishing. Please add a description that conveys each image’s purpose, then try publishing again.',
+                    'planet4-master-theme-backend'
+                ),
+                self::MIN_ALT_TEXT_LENGTH
             );
 
             defined('WP_CLI') && WP_CLI
@@ -401,7 +411,8 @@ class MasterSite extends \Timber\Site
     }
 
     /**
-     * Whether a parsed core/image block has media selected (id or url) but no non-empty alt text.
+     * Whether a parsed core/image block has media selected (id or url) but
+     * its alt text is shorter than MIN_ALT_TEXT_LENGTH characters.
      *
      * @param array $block - A parsed block (output of parse_blocks()).
      */
@@ -410,7 +421,7 @@ class MasterSite extends \Timber\Site
         $attrs = $block['attrs'] ?? [];
         $has_media = !empty($attrs['id']) || !empty($attrs['url']);
 
-        return $has_media && self::read_image_block_alt($block) === '';
+        return $has_media && mb_strlen(self::read_image_block_alt($block)) < self::MIN_ALT_TEXT_LENGTH;
     }
 
     /**
