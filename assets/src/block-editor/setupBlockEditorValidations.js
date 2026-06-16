@@ -1,4 +1,4 @@
-const {__} = wp.i18n;
+const {__, sprintf} = wp.i18n;
 const {registerPlugin} = wp.plugins;
 const {useSelect, dispatch} = wp.data;
 const {useEffect, useRef} = wp.element;
@@ -15,6 +15,11 @@ export const setupBlockEditorValidations = () => {
 
 // Check whether the "Enforce images alt-text" feature flag is enabled.
 const isAltTextEnforcementEnabled = Boolean(window.p4_vars.features.mandatory_image_alt_text);
+
+// Minimum number of characters required in a core/image block's alt text
+// before publishing. Whitespace is trimmed before the length is measured.
+// Mirrors MasterSite::MIN_ALT_TEXT_LENGTH on the server side.
+const MIN_ALT_TEXT_LENGTH = 10;
 
 /**
  * Retrieves the current validation state from the block and post editor stores.
@@ -109,7 +114,7 @@ const isImageBlockMissingAlt = block => {
   if (!hasMedia) {
     return false;
   }
-  return getImageBlockAltText(attributes) === '';
+  return getImageBlockAltText(attributes).length < MIN_ALT_TEXT_LENGTH;
 };
 
 /**
@@ -183,9 +188,13 @@ const buildValidationMessage = ({postTitle, featuredImage, topicLink, validForms
 
   if (!imagesAlt) {
     errors.push(
-      __(
-        'Alt text is mandatory for all Image blocks.',
-        'planet4-master-theme-backend'
+      sprintf(
+        // translators: %d is the minimum number of characters required for alt text.
+        __(
+          'Alt text is mandatory for all Image blocks and must be at least %d characters long.',
+          'planet4-master-theme-backend'
+        ),
+        MIN_ALT_TEXT_LENGTH
       )
     );
   }
