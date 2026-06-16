@@ -89,8 +89,8 @@ if ('yes' === $timber_post->include_articles) {
             [
                 'taxonomy' => 'post_tag',
                 'field' => 'term_id',
-                'terms' => $tag_id_array
-            ]
+                'terms' => $tag_id_array,
+            ],
         ],
     ]);
 
