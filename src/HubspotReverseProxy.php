@@ -124,7 +124,7 @@ class HubspotReverseProxy
         // Forward only HubSpot-relevant cookies, never P4 session cookies.
         // https://knowledge.hubspot.com/privacy-and-consent/hubspot-cookie-security-and-privacy
         $allowed_cookies = [
-            '__cfduid', '__cf_bm', '__cfuvid', ' __hs_opt_out', '_hs_cookie_cat_pref',
+            '__cfduid', '__cf_bm', '__cfuvid', '__hs_opt_out', '_hs_cookie_cat_pref',
             'laboratory-anonymous-id', 'hs_login_email', 'hsgn', 'ak_bmsc', 'Hubspotapi',
             'Hubspotapi-csrf', 'Hubspotapi-lax', 'Hubspotapi-prefs', 'Hubspotapi-strict',
             'hs_langswitcher_choice', 'Hubspotutk', 'gbu9uvfhph6a0mdatwbzomssrlboczvs',
