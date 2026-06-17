@@ -20,24 +20,24 @@ export const setupBlockEditorValidations = () => {
  * @param {Function} select - The WordPress data `select` function used to access store selectors.
  * @return {Object} - An object containing individual validation flags and a combined `isValid` flag.
  */
+// Post types for which publish validation (title, featured image, topic link) is enforced.
+const ALLOWED_POST_TYPES = ['post', 'page', 'p4_action', 'campaign'];
+
 const getValidationState = select => {
   const {getEditedPostAttribute, getCurrentPostType} = select('core/editor');
-  // Reusable blocks / synced patterns are stored as the 'wp_block' post type.
-  // They're design artifacts, not editorial content, so the post-level
-  // requirements (title, featured image, topic link, valid forms) don't apply. Returning a
-  // fully-valid state stops these checks from blocking pattern create/edit.
-  if (getCurrentPostType() === 'wp_block') {
-    return {postTitle: true, featuredImage: true, topicLink: true, isValid: true, validForms: true};
-  }
   const {getBlocks} = select('core/block-editor');
+  // skip=true for post types not in the whitelist (e.g. synced patterns, templates,
+  // template parts) They are design artifacts, not editorial content, so all checks
+  // short-circuit to valid. New checks added below automatically respect this flag.
+  const skip = !ALLOWED_POST_TYPES.includes(getCurrentPostType());
   const allBlocks = getBlocks();
-  const postTitle = Boolean(getEditedPostAttribute('title'));
-  const featuredImage = Boolean(getEditedPostAttribute('featured_media'));
-  const topicLink = checkTopicLinks(allBlocks);
+  const postTitle = skip || Boolean(getEditedPostAttribute('title'));
+  const featuredImage = skip || Boolean(getEditedPostAttribute('featured_media'));
+  const topicLink = skip || checkTopicLinks(allBlocks);
   // If there is a Gravity Forms block, we want to enforce setting the Global Project.
-  const hasForm = hasGravityFormsBlock(allBlocks);
+  const hasForm = !skip && hasGravityFormsBlock(allBlocks);
   const globalProject = getEditedPostAttribute('meta')?.p4_campaign_name;
-  const validForms = !hasForm || (hasForm && globalProject && globalProject !== 'not set');
+  const validForms = skip || !hasForm || (hasForm && globalProject && globalProject !== 'not set');
 
   return {
     postTitle,
