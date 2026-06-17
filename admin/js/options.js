@@ -1,4 +1,5 @@
 
+const {__} = wp.i18n;
 
 function removeSpamButtonsBox () {
   const spamButtons = document.querySelectorAll('.checkforspam');
@@ -70,7 +71,7 @@ function toggleHubspotReverseProxySaveButton() {
     alertMessage = document.createElement('span');
     alertMessage.id = 'hubspot_reverse_alert';
     alertMessage.classList.add('hidden');
-    alertMessage.innerHTML = 'WARNING: The "Hubspot Domain" and the "P4 Path" are mandatory!';
+    alertMessage.innerHTML = __('WARNING: The "Hubspot Domain" and the "P4 Path" are mandatory!', 'planet4-master-theme-backend');
     alertMessage.style.marginInlineStart = '10px';
     saveButton.after(alertMessage);
   }
