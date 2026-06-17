@@ -81,7 +81,7 @@ class HubspotReverseProxy
 
         $request_path = trim($wp->request, '/');
 
-        // Only proxy paths that have content beyond the base segment, but ever the root itself.
+        // Only proxy paths that have content beyond the base segment, but never the root itself.
         if (!str_starts_with($request_path, $p4_path . '/')) {
             return null;
         }
