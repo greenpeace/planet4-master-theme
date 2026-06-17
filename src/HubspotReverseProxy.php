@@ -16,6 +16,12 @@ class HubspotReverseProxy
      */
     public function __construct()
     {
+        $hubspot_addon = function_exists('is_plugin_active') && is_plugin_active('gravityformshubspot/hubspot.php');
+
+        if (!$hubspot_addon) {
+            return;
+        }
+
         add_action('parse_request', [$this, 'p4_hubspot_reverse_proxy']);
     }
 
