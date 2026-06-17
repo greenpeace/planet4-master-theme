@@ -45,19 +45,16 @@ export const CarouselControls = forwardRef(({
                   <button
                     onClick={e => {
                       setAutoplay(false);
+                      // eslint-disable-next-line @wordpress/no-global-active-element
+                      if (e.target === document.activeElement) {
+                        e.preventDefault();
+                      }
                       if (index !== currentSlide) {
                         // eslint-disable-next-line @wordpress/no-global-active-element
                         goToSlide({newSlide: index, fromTab: e.target === document.activeElement});
                       }
                     }}
                     tabIndex={0}
-                    onKeyDown={e => {
-                      setAutoplay(false);
-                      if ((e.key === 'Enter' || e.key === ' ') && index !== currentSlide) {
-                        e.preventDefault();
-                        goToSlide({newSlide: index, fromTab: true});
-                      }
-                    }}
                     // translators: %s: slide header or fallback slide number
                     aria-label={sprintf(__('Go to %s', 'planet4-master-theme'),slides[index].header || sprintf(__('slide %d', 'planet4-master-theme'), index + 1))}
                   />
