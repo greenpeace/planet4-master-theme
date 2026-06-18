@@ -309,6 +309,9 @@ class QueryLoopExtension
      * Removes the "No Results" inner block from a Post List or an Actions List block
      * when the title and the description of the block are empty.
      *
+     * Removes the "See all Posts" link from a Post List or an Actions List block
+     * when the block has no posts.
+     *
      * @param string $block_content The HTML generated for the block.
      * @param array  $block         The block.
      *
@@ -330,22 +333,34 @@ class QueryLoopExtension
         libxml_clear_errors();
         $xpath = new DOMXPath($dom);
 
+        $posts_list = $xpath->query("//*[contains(@class, 'wp-block-post-template')]");
         $post_title = $xpath->query("//*[contains(@class, 'wp-block-heading')]");
         $post_description = $xpath->query(
             "//*[contains(@class, 'p4-query-loop')]//p[not(ancestor::*[contains(@class, 'wp-block-query-no-results')])]"
         );
 
+        $list_is_empty = $posts_list->length === 0 || trim($posts_list->item(0)->textContent) === '';
         $title_is_empty = $post_title->length === 0 || trim($post_title->item(0)->textContent) === '';
         $description_is_empty = $post_description->length === 0 || trim($post_description->item(0)->textContent) === '';
 
-        if (!$title_is_empty || !$description_is_empty) {
+        if (!$list_is_empty) {
             return $block_content;
         }
 
-        // Strip only the no-results block, return the rest intact
-        $no_results = $xpath->query("//*[contains(@class, 'wp-block-query-no-results')]");
-        foreach ($no_results as $node) {
-            $node->parentNode->removeChild($node);
+        // Strip the "see all posts" link, keep the rest intact.
+        if ($list_is_empty) {
+            $see_all_link = $xpath->query("//*[contains(@class, 'see-all-link')]");
+            foreach ($see_all_link as $node) {
+                $node->parentNode->removeChild($node);
+            }
+        }
+
+        // Strip the no-results block, keep the rest intact.
+        if ($title_is_empty && $description_is_empty) {
+            $no_results = $xpath->query("//*[contains(@class, 'wp-block-query-no-results')]");
+            foreach ($no_results as $node) {
+                $node->parentNode->removeChild($node);
+            }
         }
 
         return $dom->saveHTML();
