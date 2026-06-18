@@ -1,7 +1,7 @@
 import {useState, useEffect, useRef} from '@wordpress/element';
 const {sprintf, __} = wp.i18n;
 
-export const YearsNavigation = ({years}) => {
+export const YearsNavigation = ({years, isEditing}) => {
   const [showLeftArrow, setShowLeftArrow] = useState(false);
   const [showRightArrow, setShowRightArrow] = useState(false);
   const [activeYear, setActiveYear] = useState('');
@@ -46,8 +46,12 @@ export const YearsNavigation = ({years}) => {
     setTimeout(() => isManualScroll.current = false, 500);
   };
 
-  // This runs to auto update the URL and active year class, works on scroll
+  // This runs to auto update the URL and active year class, works on scroll.
+  // Only in the frontend.
   useEffect(() => {
+    if (isEditing) {
+      return;
+    }
     const observerOptions = {
       root: null,
       rootMargin: '0px',
@@ -108,14 +112,19 @@ export const YearsNavigation = ({years}) => {
   }, [activeYear, years]);
 
   // Make sure that the body has overflow set to "visible", otherwise the "sticky"
-  // position of the navigation won't work.
-  useEffect(() => document.body.classList.add('overflow-visible'), []);
+  // position of the navigation won't work. Only in the frontend.
+  useEffect(() => {
+    if (isEditing) {
+      return;
+    }
+    document.body.classList.add('overflow-visible');
+  });
 
   // This adds arrows to the container to indicate more elements available
-  // It also works for RTL sites
+  // It also works for RTL sites. Only in the frontend.
   useEffect(() => {
     const navEl = yearsListRef.current;
-    if (!navEl) {return;}
+    if (!navEl || isEditing) {return;}
 
     const items = navEl.querySelectorAll('li');
     if (!items.length) {return;}
@@ -153,7 +162,7 @@ export const YearsNavigation = ({years}) => {
 
   return (
     <nav
-      className="years-navigation d-flex justify-content-center"
+      className={`years-navigation d-flex justify-content-center ${isEditing && 'no-scroll'}`}
       aria-label={sprintf(
       /* translators: 1: amount of years in the timeline */
         __('Timeline, list with %1$d items', 'planet4-blocks'),
@@ -173,7 +182,7 @@ export const YearsNavigation = ({years}) => {
               href={`#${year}`}
               onClick={() => handleClick(year)}
               data-target={year}
-              className={`${activeYear === year ? 'active': ''}`}
+              className={`${!isEditing && activeYear === year ? 'active': ''}`}
             >
               {year}
             </a>
