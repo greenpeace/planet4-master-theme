@@ -165,6 +165,7 @@ class ListingPage
             'post_status' => 'publish',
             'fields' => 'ids',
             'posts_per_page' => -1,
+            'no_found_rows' => true,
         ]);
 
         $excluded_post_ids = $featured_query->posts;
@@ -205,6 +206,7 @@ class ListingPage
             'fields' => 'ids',
             'orderby' => 'date',
             'order' => 'DESC',
+            'no_found_rows' => true,
         ]);
 
         if (count($sticky_posts->posts) < self::$STICKY_POSTS_TO_SHOW) {
