@@ -118,7 +118,7 @@ export const YearsNavigation = ({years, isEditing}) => {
       return;
     }
     document.body.classList.add('overflow-visible');
-  });
+  }, []);
 
   // This adds arrows to the container to indicate more elements available
   // It also works for RTL sites. Only in the frontend.
@@ -162,7 +162,7 @@ export const YearsNavigation = ({years, isEditing}) => {
 
   return (
     <nav
-      className={`years-navigation d-flex justify-content-center ${isEditing && 'no-scroll'}`}
+      className={`years-navigation d-flex justify-content-center ${isEditing ? 'no-scroll' : ''}`}
       aria-label={sprintf(
       /* translators: 1: amount of years in the timeline */
         __('Timeline, list with %1$d items', 'planet4-blocks'),
