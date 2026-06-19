@@ -43,7 +43,7 @@ class Tags
         $filters = [];
 
         foreach ($tags as $tag) {
-            $filters[ $tag->term_id ] = [
+            $filters[$tag->term_id] = [
                 'id' => $tag->term_id,
                 'slug' => $tag->slug,
                 'name' => $tag->name,

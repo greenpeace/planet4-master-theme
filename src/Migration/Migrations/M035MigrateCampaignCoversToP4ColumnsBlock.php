@@ -66,7 +66,7 @@ class M035MigrateCampaignCoversToP4ColumnsBlock extends MigrationScript
         // For old cover type(earlier it was numeric).
         if (is_numeric($block['attrs']['cover_type'])) {
             // phpcs:ignore Generic.Files.LineLength.MaxExceeded
-            $block['attrs']['cover_type'] = Utils\Constants::OLD_COVER_TYPES[ $block['attrs']['cover_type'] ];
+            $block['attrs']['cover_type'] = Utils\Constants::OLD_COVER_TYPES[$block['attrs']['cover_type']];
         }
 
         // Skip non campaign cover style blocks.

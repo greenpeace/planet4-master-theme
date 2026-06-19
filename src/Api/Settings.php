@@ -109,7 +109,7 @@ class Settings
         $plugins = get_plugins();
         $list = [];
         foreach ($plugins as $key => &$plugin) {
-            $list[ $key ] = [
+            $list[$key] = [
                 'name' => $plugin['Name'],
                 'version' => $plugin['Version'],
                 'active' => is_plugin_active($key),
@@ -133,7 +133,7 @@ class Settings
         foreach ($themes as $name => $theme) {
             $package_name = 'greenpeace/' . basename($theme->get_stylesheet_directory());
             $package = array_filter($packages, fn($p) => $p[0] === $package_name)[0] ?? null;
-            $list[ $name ] = [
+            $list[$name] = [
                 'name' => $theme->name,
                 'version' => $package ? $package[1] : $theme->version,
                 'dir' => $theme->get_stylesheet_directory(),

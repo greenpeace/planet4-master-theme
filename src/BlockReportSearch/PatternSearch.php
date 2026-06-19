@@ -70,7 +70,7 @@ class PatternSearch
         $block_query = new BlockSqlQuery();
 
         $pattern_names = array_map(fn($p) => $p->name, $pattern_data);
-        $template_names = array_map(fn($n) => $templates[ $n ], $pattern_names);
+        $template_names = array_map(fn($n) => $templates[$n], $pattern_names);
         $template_ns = array_filter(array_unique(array_map(fn($n) => explode('/', $n)[0] ?? null, $template_names)));
 
         $post_ids = [];

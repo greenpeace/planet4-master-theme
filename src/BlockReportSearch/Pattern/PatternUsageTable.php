@@ -114,7 +114,7 @@ class PatternUsageTable extends WP_List_Table
             ->with_post_status(self::DEFAULT_POST_STATUS);
 
         $items = $this->get_items();
-        usort($items, fn ($a, $b) => $a[ $this->group_by ] <=> $b[ $this->group_by ]);
+        usort($items, fn ($a, $b) => $a[$this->group_by] <=> $b[$this->group_by]);
 
         // Pagination handling.
         $total_items = count($items);
@@ -268,7 +268,7 @@ class PatternUsageTable extends WP_List_Table
         ];
 
         $this->columns = array_merge(
-            [ $this->group_by => $default_columns[ $this->group_by ] ],
+            [ $this->group_by => $default_columns[$this->group_by] ],
             $default_columns
         );
 
@@ -368,18 +368,18 @@ class PatternUsageTable extends WP_List_Table
         $colspan = count($cols);
         $first_col = array_key_first($cols);
 
-        if ($this->latest_row !== $item[ $first_col ]) {
+        if ($this->latest_row !== $item[$first_col]) {
             echo '<tr>';
             echo sprintf(
                 '<th colspan="%s"><strong>%s</strong></th>',
                 esc_attr($colspan),
-                esc_html($item[ $first_col ])
+                esc_html($item[$first_col])
             );
             echo '</tr>';
         }
 
-        $this->latest_row = $item[ $first_col ];
-        $item[ $first_col ] = '';
+        $this->latest_row = $item[$first_col];
+        $item[$first_col] = '';
         parent::single_row($item);
     }
 
@@ -394,7 +394,7 @@ class PatternUsageTable extends WP_List_Table
      */
     public function column_default($item, $column_name)
     {
-        return $item[ $column_name ] ?? '';
+        return $item[$column_name] ?? '';
     }
     // phpcs:enable SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
 

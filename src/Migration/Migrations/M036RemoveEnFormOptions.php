@@ -37,7 +37,7 @@ class M036RemoveEnFormOptions extends MigrationScript
 
         // Unset ENForm feature flag.
         $features = get_option('planet4_features');
-        unset($features[ 'feature_engaging_networks' ]);
+        unset($features['feature_engaging_networks']);
         update_option('planet4_features', $features);
 
         // Unset ENForm credentials.

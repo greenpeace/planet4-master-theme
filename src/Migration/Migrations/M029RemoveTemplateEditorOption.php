@@ -22,7 +22,7 @@ class M029RemoveTemplateEditorOption extends MigrationScript
     {
         // Template editor feature flag.
         $features = get_option('planet4_features');
-        unset($features[ 'wp_template_editor' ]);
+        unset($features['wp_template_editor']);
         update_option('planet4_features', $features);
     }
 }

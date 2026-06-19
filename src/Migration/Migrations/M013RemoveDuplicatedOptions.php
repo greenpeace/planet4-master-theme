@@ -26,7 +26,7 @@ class M013RemoveDuplicatedOptions extends MigrationScript
                 continue;
             }
 
-            unset($options[ $feature ]);
+            unset($options[$feature]);
         }
 
         update_option('planet4_options', $options);

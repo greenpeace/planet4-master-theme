@@ -36,7 +36,7 @@ class Categories
                 continue;
             }
 
-            $filters[ $category->term_id ] = [
+            $filters[$category->term_id] = [
                 'id' => $category->term_id,
                 'slug' => $category->slug,
                 'name' => $category->name,

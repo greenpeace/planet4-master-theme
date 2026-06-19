@@ -372,7 +372,7 @@ class ActionPage
             foreach ($rules as $match => $rule) {
                 $new_match = str_replace('%' . self::TAXONOMY_PARAMETER . '%', "($terms_slugs_regex)", $match);
                 $new_rule = str_replace('%' . self::TAXONOMY_PARAMETER . '%', self::TAXONOMY . '=', $rule);
-                $new_rules[ $new_match ] = $new_rule;
+                $new_rules[$new_match] = $new_rule;
             }
 
             return $new_rules;
@@ -398,7 +398,7 @@ class ActionPage
 
         if ($terms_slugs) {
             foreach ($terms_slugs as $slug) {
-                $rules[ $slug . '/?$' ] = 'index.php?' . self::TAXONOMY . '=' . $slug;
+                $rules[$slug . '/?$'] = 'index.php?' . self::TAXONOMY . '=' . $slug;
             }
         }
 
@@ -621,7 +621,7 @@ class ActionPage
                 printf(
                     '<option value="%1$s" %2$s>%3$s</option>',
                     esc_html($term->slug),
-                    ( ( isset($_GET[ self::TAXONOMY ]) && ( $_GET[ self::TAXONOMY ] === $term->slug ) ) ? ' selected="selected"' : '' ), // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+                    ( ( isset($_GET[self::TAXONOMY]) && ( $_GET[self::TAXONOMY] === $term->slug ) ) ? ' selected="selected"' : '' ), // phpcs:ignore WordPress.Security.NonceVerification.Recommended
                     esc_html($term->name)
                 );
             }

@@ -96,13 +96,13 @@ class M009PopulateCookiesFields extends MigrationScript
                     }
 
                     if (in_array($key, $settings_keys['titles'], true)) {
-                        $block_settings[ $key ] = wp_strip_all_tags($value, true);
+                        $block_settings[$key] = wp_strip_all_tags($value, true);
                     }
                     if (!in_array($key, $settings_keys['descriptions'], true)) {
                         continue;
                     }
 
-                    $block_settings[ $key ] = $value;
+                    $block_settings[$key] = $value;
                 }
 
                 // No data, skip this update.

@@ -28,12 +28,12 @@ class M006MoveFeaturesToSeparateOption extends MigrationScript
         foreach ($feature_fields as $field) {
             $id = $field['id'];
 
-            $value = $settings[ $id ] ?? null;
+            $value = $settings[$id] ?? null;
             if (!$value) {
                 continue;
             }
 
-            $feature_values[ $id ] = $value;
+            $feature_values[$id] = $value;
         }
         update_option(Features::OPTIONS_KEY, $feature_values);
         $record->add_log(

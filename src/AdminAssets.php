@@ -34,8 +34,8 @@ class AdminAssets
         $donate_location = 'donate-menu';
 
         if (
-            ! isset($menus[ $navbar_location ])
-            && ! isset($menus[ $donate_location ])
+            !isset($menus[$navbar_location])
+            && !isset($menus[$donate_location])
         ) {
             return;
         }

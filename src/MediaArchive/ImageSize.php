@@ -44,12 +44,12 @@ class ImageSize implements \JsonSerializable
         return array_reduce(
             $keys,
             static function ($carry, $key) use ($data) {
-                if (! empty($data[ $key ]['URI'])) {
+                if (!empty($data[$key]['URI'])) {
                     $size = new self();
 
-                    $size->url = $data[ $key ]['URI'];
-                    $size->width = (int) $data[ $key ]['Width'];
-                    $size->height = (int) $data[ $key ]['Height'];
+                    $size->url = $data[$key]['URI'];
+                    $size->width = (int) $data[$key]['Width'];
+                    $size->height = (int) $data[$key]['Height'];
 
                     $carry[] = $size;
                 }

@@ -50,7 +50,7 @@ class PostTypes
         $filters = [];
 
         foreach ($post_types as $post_type) {
-            $filters[ $post_type->term_id ] = [
+            $filters[$post_type->term_id] = [
                 'id' => $post_type->term_id,
                 'slug' => $post_type->slug,
                 'name' => $post_type->name,

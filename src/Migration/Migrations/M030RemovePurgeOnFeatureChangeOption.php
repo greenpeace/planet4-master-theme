@@ -22,7 +22,7 @@ class M030RemovePurgeOnFeatureChangeOption extends MigrationScript
     {
         // Purge on feature change feature flag.
         $features = get_option('planet4_features');
-        unset($features[ 'purge_on_feature_changes' ]);
+        unset($features['purge_on_feature_changes']);
         update_option('planet4_features', $features);
     }
 }
