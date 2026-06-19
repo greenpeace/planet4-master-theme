@@ -99,7 +99,7 @@ export const CarouselControls = forwardRef(({
         <div aria-live="polite" aria-atomic="true" className="visually-hidden">
           {
             // translators: %s: slide number
-            sprintf(__('Slide %s', 'planet4-master-theme'), currentSlide + 1)
+            sprintf(__('Slide %d', 'planet4-master-theme'), currentSlide + 1)
           }
         </div>
       )}
