@@ -1,0 +1,27 @@
+<?php
+
+namespace P4\MasterTheme\Migration\Migrations;
+
+use P4\MasterTheme\Migration\MigrationRecord;
+use P4\MasterTheme\Migration\MigrationScript;
+use P4\MasterTheme\Settings;
+
+/**
+ * Remove the "enchanced donate button" option from Planet 4 settings.
+ */
+class M007RemoveEnhancedDonateButtonOption extends MigrationScript
+{
+    /**
+     * Perform the actual migration.
+     *
+     * @param MigrationRecord $record Information on the execution, can be used to add logs.
+     * phpcs:disable SlevomatCodingStandard.Functions.UnusedParameter -- interface implementation
+     */
+    protected static function execute(MigrationRecord $record): void
+    {
+        $options = get_option(Settings::KEY);
+        unset($options['donate_btn_visible_on_mobile']);
+        update_option(Settings::KEY, $options);
+    }
+    // phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter
+}
