@@ -96,6 +96,7 @@ final class Loader
             Sentry::class,
             PostFunctionsHandler::class,
             HtmlPostProcessor::class,
+            HubspotReverseProxy::class,
         ];
 
         if (is_admin()) {
