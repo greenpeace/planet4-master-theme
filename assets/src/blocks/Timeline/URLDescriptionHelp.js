@@ -7,19 +7,17 @@ const URLDescriptionHelpTranslation =
     'Enter the URL of the Google Sheets spreadsheet containing your timeline data.',
     'planet4-master-theme-backend'
   ) +
-  '<br><a href="https://timeline.knightlab.com/#make" target="_blank" rel="noopener noreferrer">' +
+  '<br><br>Make a copy from <a href="https://docs.google.com/spreadsheets/d/1JSY5DMFu9axpgjw2nOZMDF7C3ZpzYbM7DoSAR_WWx_k/" target="_blank" rel="noopener noreferrer">' +
   __(
-    'See the TimelineJS website for a template GSheet.',
+    'our template spreadsheet',
     'planet4-master-theme-backend'
   ) +
-  '</a><br>' +
   __(
-    'Copy this, add your own timeline data, and publish to the web.',
+    '</a>. Add your own timeline data and change its sharing permissions to "Anyone with the link" and "Viewer". ',
     'planet4-master-theme-backend'
   ) +
-  '<br>' +
   __(
-    'Once you have done so, use the URL from your address bar (not the one provided in Google\'s \'publish to web\' dialog).',
+    'Once you have done so, use the URL from the address bar.',
     'planet4-master-theme-backend'
   );
 
