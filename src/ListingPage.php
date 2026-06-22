@@ -159,20 +159,34 @@ class ListingPage
             return;
         }
 
-        $featured_query = new \WP_Query([
-            'post__not_in' => $featured_post_ids,
-            'post_type' => 'post',
-            'post_status' => 'publish',
-            'fields' => 'ids',
-            'posts_per_page' => -1,
-            'no_found_rows' => true,
-        ]);
+        // echo "<pre>";
+        // var_dump($featured_post_ids);
+        // echo "</pre>";
 
-        $excluded_post_ids = $featured_query->posts;
+        // $featured_query = new \WP_Query([
+        //     'post__not_in' => $featured_post_ids,
+        //     'post_type' => 'post',
+        //     'post_status' => 'publish',
+        //     'fields' => 'ids',
+        //     'posts_per_page' => -1,
+        //     'no_found_rows' => true,
+        // ]);
 
-        $this->context['featured_post_ids'] = $featured_post_ids;
+        // $excluded_post_ids = $featured_query->posts;
+
+        $posts = [];
+
+        foreach($featured_post_ids as $post) {
+            array_push($posts,
+            [
+                'title' => $post->post_title,
+                'excerpt' => $post->post_excerpt,
+            ]);
+        }
+
+        $this->context['featured_post_ids'] = $posts;
         $this->context['sticky_posts_to_show'] = self::$STICKY_POSTS_TO_SHOW;
-        $this->context['excluded_post_ids'] = $excluded_post_ids;
+        // $this->context['excluded_post_ids'] = $excluded_post_ids;
 
         // Get the featured posts template
         $template_path = get_template_directory() . "/templates/featured-posts.twig";
@@ -203,7 +217,7 @@ class ListingPage
             'posts_per_page' => self::$STICKY_POSTS_TO_SHOW,
             'post_type' => 'post',
             'post_status' => 'publish',
-            'fields' => 'ids',
+            // 'fields' => 'ids',
             'orderby' => 'date',
             'order' => 'DESC',
             'no_found_rows' => true,
