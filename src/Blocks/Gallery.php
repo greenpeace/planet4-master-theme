@@ -161,7 +161,7 @@ class Gallery extends BaseBlock
 
         foreach ($exploded_images as $image_id) {
             $image_size = $fields['gallery_image_size'] ?? (
-                $fields['gallery_block_style'] ? $image_sizes[ $fields['gallery_block_style'] ] : null
+                $fields['gallery_block_style'] ? $image_sizes[$fields['gallery_block_style']] : null
             );
 
             $image_data = [];
@@ -176,7 +176,7 @@ class Gallery extends BaseBlock
             $image_data['image_sizes'] = wp_calculate_image_sizes($image_size, null, null, $image_id);
             $image_data['alt_text'] = get_post_meta($image_id, '_wp_attachment_image_alt', true);
             $image_data['caption'] = wp_get_attachment_caption($image_id);
-            $image_data['focus_image'] = $img_focus_points[ $image_id ] ?? '';
+            $image_data['focus_image'] = $img_focus_points[$image_id] ?? '';
             $attachment_fields = get_post_custom($image_id);
             $image_data['credits'] = '';
             if (isset($attachment_fields['_credit_text'][0]) && ! empty($attachment_fields['_credit_text'][0])) {

@@ -276,7 +276,7 @@ class BlockUsageTable extends WP_List_Table
         ];
 
         $this->columns = array_merge(
-            [ $this->group_by => $default_columns[ $this->group_by ] ],
+            [ $this->group_by => $default_columns[$this->group_by] ],
             $default_columns
         );
 
@@ -350,7 +350,7 @@ class BlockUsageTable extends WP_List_Table
         $views = [];
         echo '<div style="clear: both;"><ul class="subsubsub" style="margin: 0;">';
         foreach ($unique_views as $class => $view) {
-            $views[ $class ] = "\t<li class='$class'>$view";
+            $views[$class] = "\t<li class='$class'>$view";
         }
 		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
         echo implode(" |</li>\n", $views) . "</li>\n";
@@ -442,7 +442,7 @@ class BlockUsageTable extends WP_List_Table
      */
     public function column_default($item, $column_name)
     {
-        return $item[ $column_name ] ?? '';
+        return $item[$column_name] ?? '';
     }
 
     /**
@@ -543,7 +543,7 @@ class BlockUsageTable extends WP_List_Table
         $first_col = array_key_first($cols);
         $block_name = $_GET['name'] ?? null;
 
-        if ($this->latest_row !== $item[ $first_col ]) {
+        if ($this->latest_row !== $item[$first_col]) {
             echo '<tr>';
             echo sprintf(
                 '<th colspan="%s"><strong>%s</strong></th>',
@@ -553,8 +553,8 @@ class BlockUsageTable extends WP_List_Table
             echo '</tr>';
         }
 
-        $this->latest_row = $item[ $first_col ];
-        $item[ $first_col ] = '';
+        $this->latest_row = $item[$first_col];
+        $item[$first_col] = '';
         parent::single_row($item);
     }
 

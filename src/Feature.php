@@ -74,7 +74,7 @@ abstract class Feature
 
         $features = get_option(static::options_key());
         $id = static::id();
-        $active = isset($features[ $id ]) && $features[ $id ];
+        $active = isset($features[$id]) && $features[$id];
 
         // Filter to allow setting a feature from code, to avoid chicken and egg problem when releasing adaptions to a
         // new feature.
@@ -114,7 +114,7 @@ abstract class Feature
     {
         $settings = get_option(static::options_key(), []);
 
-        $settings[ static::id() ] = 'on';
+        $settings[static::id()] = 'on';
         update_option(static::options_key(), $settings);
     }
 }

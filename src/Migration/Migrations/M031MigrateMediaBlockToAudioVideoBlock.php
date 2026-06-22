@@ -274,7 +274,7 @@ class M031MigrateMediaBlockToAudioVideoBlock extends MigrationScript
      */
     private static function transform_block_to_embed(array $block, string $media_url, string $provider): array
     {
-        $type = $provider === self::SOURCE_YOUTUBE or $provider === self::SOURCE_VIMEO ? 'video' : 'rich';
+        $type = $provider === self::SOURCE_YOUTUBE || $provider === self::SOURCE_VIMEO ? 'video' : 'rich';
 
         // IMPORTANT: DO NOT MODIFY THIS FORMAT!
         $html_content = '<figure class="wp-block-embed is-type-' . $type . ' is-provider-' . $provider . ' wp-block-embed-' . $provider . ' wp-embed-aspect-16-9 wp-has-aspect-ratio"><div class="wp-block-embed__wrapper">

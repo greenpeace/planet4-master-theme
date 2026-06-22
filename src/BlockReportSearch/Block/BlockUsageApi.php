@@ -85,13 +85,13 @@ class BlockUsageApi
             $styles = empty($item['block_styles']) ? [ 'n/a' ] : $item['block_styles'];
             foreach ($styles as $style) {
                 $type = $item['block_type'];
-                if (! isset($blocks[ $type ]['styles'][ $style ])) {
-                    $blocks[ $type ]['styles'][ $style ] = 0;
+                if (! isset($blocks[$type]['styles'][$style])) {
+                    $blocks[$type]['styles'][$style] = 0;
                 }
-                $blocks[ $type ]['styles'][ $style ]++;
-                $blocks[ $type ]['total']++;
+                $blocks[$type]['styles'][$style]++;
+                $blocks[$type]['total']++;
             }
-            ksort($blocks[ $type ]['styles']);
+            ksort($blocks[$type]['styles']);
         }
 
         return $blocks;

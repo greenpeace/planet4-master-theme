@@ -44,7 +44,7 @@ class ActionTypes
         $filters = [];
 
         foreach ($types as $type) {
-            $filters[ $type->term_id ] = [
+            $filters[$type->term_id] = [
                 'id' => $type->term_id,
                 'slug' => $type->slug,
                 'name' => $type->name,

@@ -33,10 +33,10 @@ class M034PrePopulateOldPostsArchiveNotice extends MigrationScript
             return;
         }
 
-        $options[ $prefix . 'cutoff' ] = $cutoff;
-        $options[ $prefix . 'title' ] = $title;
-        $options[ $prefix . 'description' ] = $description;
-        $options[ $prefix . 'button' ] = $button;
+        $options[$prefix . 'cutoff'] = $cutoff;
+        $options[$prefix . 'title'] = $title;
+        $options[$prefix . 'description'] = $description;
+        $options[$prefix . 'button'] = $button;
 
         $result = update_option('planet4_options', $options);
 

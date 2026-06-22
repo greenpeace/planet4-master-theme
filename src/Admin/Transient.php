@@ -104,7 +104,7 @@ class Transient
 
         $items = [];
         foreach ($keys as $key) {
-            $items[ $key ] = get_transient($key);
+            $items[$key] = get_transient($key);
         }
 
         return rest_ensure_response(

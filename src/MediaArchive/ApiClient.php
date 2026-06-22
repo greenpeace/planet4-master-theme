@@ -272,7 +272,7 @@ WHERE m.meta_key = "' . Image::ARCHIVE_ID_META_KEY . '"
         // Return as indexed array to make lookups easier.
         $indexed = [];
         foreach ($results as $result) {
-            $indexed[ $result['meta_value'] ] = (int) $result['id'];
+            $indexed[$result['meta_value']] = (int) $result['id'];
         }
 
         return $indexed;

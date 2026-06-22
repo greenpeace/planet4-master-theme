@@ -134,7 +134,7 @@ class Features
     {
         $features = get_option(self::OPTIONS_KEY);
 
-        $active = isset($features[ $name ]) && $features[ $name ];
+        $active = isset($features[$name]) && $features[$name];
 
         // Filter to allow setting a feature from code, to avoid chicken and egg problem when releasing adaptions to a
         // new feature.

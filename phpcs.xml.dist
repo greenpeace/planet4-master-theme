@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
-<ruleset name="Planet4 Coding Standards">
-  <description>Generally-applicable sniffs for Planet4</description>
+<ruleset name="Planet 4 Coding Standards">
+  <description>Generally-applicable sniffs for Planet 4</description>
 
   <!-- Show sniffs, progress -->
   <arg value="sp"/>
@@ -31,15 +31,19 @@
     </properties>
   </rule>
 
+  <!-- Spacing -->
   <rule ref="SlevomatCodingStandard.Whitespaces.DuplicateSpaces">
     <properties>
       <property name="ignoreSpacesInComment" value="true"/>
     </properties>
   </rule>
+  <rule ref="Squiz.Arrays.ArrayBracketSpacing"/>
+  <rule ref="Squiz.Operators.ValidLogicalOperators"/>
+  <rule ref="Squiz.Functions.FunctionDeclarationArgumentSpacing"/>
+  <rule ref="Generic.Functions.FunctionCallArgumentSpacing"/>
 
   <rule ref="Generic.Files.LineLength">
     <properties>
-      <!-- <property name="lineLimit" value="80"/> -->
       <property name="absoluteLineLimit" value="120"/>
     </properties>
   </rule>
@@ -107,10 +111,11 @@
     </properties>
   </rule>
 
-  <!-- exclude vendor dirs -->
+  <!-- exclude vendor and build dirs -->
   <exclude-pattern>*/node_modules/*</exclude-pattern>
   <exclude-pattern>*/vendor/*</exclude-pattern>
   <exclude-pattern>languages/*.php</exclude-pattern>
+  <exclude-pattern>assets/build/*</exclude-pattern>
 
   <!-- @todo: Temporary exclude those rules for php8 job until php8.1 migration -->
   <rule ref="SlevomatCodingStandard.TypeHints.ParameterTypeHint">

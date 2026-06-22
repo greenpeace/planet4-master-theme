@@ -112,7 +112,7 @@ class Image implements JsonSerializable
             $image->original = $size;
         }
 
-        $image->wordpress_id = $images_in_wordpress[ $image->archive_id ] ?? null;
+        $image->wordpress_id = $images_in_wordpress[$image->archive_id] ?? null;
 
         return $image;
     }

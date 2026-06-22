@@ -207,7 +207,7 @@ class BlockSettings
             'p4_action' => $action_block_types,
         ];
 
-        $allowed_p4_block_types = $all_allowed_p4_block_types[ $post_type ] ?? $all_allowed_p4_block_types['page'];
+        $allowed_p4_block_types = $all_allowed_p4_block_types[$post_type] ?? $all_allowed_p4_block_types['page'];
 
         return array_merge(self::WORDPRESS_BLOCKS, $allowed_p4_block_types);
     }

@@ -262,7 +262,7 @@ abstract class BaseBlock
         $start = $matches[0][1][1] + 1;
         $content = substr($content, $start);
         preg_match_all('/<\/div>/', $content, $matches, PREG_OFFSET_CAPTURE);
-        $end = $matches[0][ count($matches[0]) - 2 ][1];
+        $end = $matches[0][count($matches[0]) - 2][1];
         $content = substr($content, 0, $end);
 
         return '<div data-hydrate="' . self::get_full_block_name()

@@ -63,7 +63,7 @@ final class Spreadsheet
         $rows = array_filter(
             $this->rows,
             function ($row) use ($column_index, $expected) {
-                $value = $row['cells'][ $column_index ]['value'];
+                $value = $row['cells'][$column_index]['value'];
 
                 return $value === $expected;
             }
@@ -85,7 +85,7 @@ final class Spreadsheet
         usort(
             $rows,
             function ($row1, $row2) use ($column_index) {
-                return $row1['cells'][ $column_index ] <=> $row2['cells'][ $column_index ];
+                return $row1['cells'][$column_index] <=> $row2['cells'][$column_index];
             }
         );
         return new self($this->columns, $rows);
@@ -102,7 +102,7 @@ final class Spreadsheet
     {
         return array_map(
             function ($row) use ($column_index) {
-                return $row['cells'][ $column_index ]['value'];
+                return $row['cells'][$column_index]['value'];
             },
             $this->rows
         );
@@ -126,9 +126,9 @@ final class Spreadsheet
                     $row['cells'],
                     function ($carry, $cell) use ($columns, &$cell_index) {
                         if (array_key_exists($cell_index, $columns)) {
-                            $export_name = $columns[ $cell_index ];
+                            $export_name = $columns[$cell_index];
 
-                            $carry[ $export_name ] = $cell['value'] ?? null;
+                            $carry[$export_name] = $cell['value'] ?? null;
                         }
                         ++$cell_index;
 

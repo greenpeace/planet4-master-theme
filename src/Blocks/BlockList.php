@@ -72,8 +72,8 @@ class BlockList
 
         $blocks = ( new WP_Block_Parser() )->parse($content);
         $parsed = array_filter($blocks, fn ($b) => ! empty($b['blockName']));
-        if (! isset($seen[ $post_id ])) {
-            $seen[ $post_id ] = [];
+        if (! isset($seen[$post_id])) {
+            $seen[$post_id] = [];
         }
 
         $list = [];
@@ -88,7 +88,7 @@ class BlockList
                 }
 
                 // Block pasted multiple times in same post.
-                if (in_array($ref_id, $seen[ $post_id ], true)) {
+                if (in_array($ref_id, $seen[$post_id], true)) {
                     continue;
                 }
 
@@ -96,10 +96,10 @@ class BlockList
                 // If the synced pattern is the same as the post currently parsed,
                 // or if it has been parsed previously in this process,
                 // this means it eventually loops back to itself.
-                $seen[ $post_id ][] = $ref_id;
+                $seen[$post_id][] = $ref_id;
                 if (
                     $ref_id === $post_id
-                    || isset($seen[ $ref_id ])
+                    || isset($seen[$ref_id])
                 ) {
                     self::report_synced_pattern_loop($ref_id, $post_id, $seen);
                     continue;

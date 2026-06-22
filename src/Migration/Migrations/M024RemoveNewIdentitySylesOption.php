@@ -19,8 +19,8 @@ class M024RemoveNewIdentitySylesOption extends MigrationScript
     protected static function execute(MigrationRecord $record): void
     {
         $options = get_option('planet4_options');
-        unset($options[ 'new_identity_styles' ]);
-        unset($options[ 'website_navigation_style' ]);
+        unset($options['new_identity_styles']);
+        unset($options['website_navigation_style']);
         update_option('planet4_options', $options);
     }
     // phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter

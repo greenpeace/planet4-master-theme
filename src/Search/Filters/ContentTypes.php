@@ -45,7 +45,7 @@ class ContentTypes
         return array_filter(
             $types,
             function ($type) use ($config) {
-                return isset($config[ $type->name ]);
+                return isset($config[$type->name]);
             }
         );
     }
@@ -72,12 +72,12 @@ class ContentTypes
                 continue;
             }
 
-            $type_data = $config[ $type->name ] ?? null;
+            $type_data = $config[$type->name] ?? null;
             if (! $type_data) {
                 continue;
             }
 
-            $filters[ $type_data['id'] ] = [
+            $filters[$type_data['id']] = [
                 'id' => $type_data['id'],
                 'slug' => $type_data['slug'],
                 'name' => $type_data['label'],

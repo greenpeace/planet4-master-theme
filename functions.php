@@ -75,7 +75,7 @@ function planet4_get_option(string $key = '', $default = null)
 {
     $options = get_option('planet4_options');
 
-    return $options[ $key ] ?? $default;
+    return $options[$key] ?? $default;
 }
 
 // Timber loading

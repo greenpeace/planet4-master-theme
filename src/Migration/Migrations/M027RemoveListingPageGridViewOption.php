@@ -19,7 +19,7 @@ class M027RemoveListingPageGridViewOption extends MigrationScript
     protected static function execute(MigrationRecord $record): void
     {
         $options = get_option('planet4_options');
-        unset($options[ 'listing_page_grid_view' ]);
+        unset($options['listing_page_grid_view']);
         update_option('planet4_options', $options);
     }
     // phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter

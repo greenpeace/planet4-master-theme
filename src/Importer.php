@@ -122,7 +122,7 @@ class Importer
                 $new_attachment_id = $attachment_metadata->post_id;
                 $attachment_data = maybe_unserialize($attachment_metadata->meta_value);
                 $old_attachment_id = $attachment_data['image_meta']['imported_attachment_id'];
-                $this->attachment_mapping[ $old_attachment_id ] = $new_attachment_id;
+                $this->attachment_mapping[$old_attachment_id] = $new_attachment_id;
             }
         }
 
@@ -134,11 +134,11 @@ class Importer
                 preg_match_all('#(\d+)#', $new_filter_str, $matches, PREG_SET_ORDER);
 
                 foreach ($matches as $old_id) {
-                    if (!isset($this->attachment_mapping[ $old_id[0] ])) {
+                    if (!isset($this->attachment_mapping[$old_id[0]])) {
                         continue;
                     }
 
-                    $new_filter_str = str_replace($old_id[0], $this->attachment_mapping[ $old_id[0] ], $new_filter_str);
+                    $new_filter_str = str_replace($old_id[0], $this->attachment_mapping[$old_id[0]], $new_filter_str);
                 }
                 $filter_data_mapping[] = [ $filter_str, $new_filter_str ];
             } else {
@@ -166,11 +166,11 @@ class Importer
                     continue;
                 }
 
-                if (!isset($this->attachment_mapping[ $metadata['value'] ])) {
+                if (!isset($this->attachment_mapping[$metadata['value']])) {
                     continue;
                 }
 
-                $post['postmeta'][ $metakey ]['value'] = $this->attachment_mapping[ $metadata['value'] ];
+                $post['postmeta'][$metakey]['value'] = $this->attachment_mapping[$metadata['value']];
             }
             $postmeta = $post['postmeta'];
         }

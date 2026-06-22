@@ -50,7 +50,7 @@ class PatternUsageApi
         ksort($patterns);
 
         foreach ($this->items as $item) {
-            $patterns[ $item['pattern_name'] ]['total']++;
+            $patterns[$item['pattern_name']]['total']++;
         }
 
         return $patterns;

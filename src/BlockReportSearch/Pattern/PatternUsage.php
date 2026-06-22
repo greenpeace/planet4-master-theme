@@ -122,13 +122,13 @@ class PatternUsage
                         }
                     }
 
-                    if (!$opts['use_templates'] || empty($templates[ $pattern->name ])) {
+                    if (!$opts['use_templates'] || empty($templates[$pattern->name])) {
                         continue;
                     }
 
                     $template_occ = substr_count(
                         $post->post_content,
-                        '<!-- wp:' . $templates[ $pattern->name ] . ' '
+                        '<!-- wp:' . $templates[$pattern->name] . ' '
                     );
                     if ($template_occ <= 0) {
                         continue;
@@ -192,7 +192,7 @@ class PatternUsage
                 continue;
             }
 
-            $lookup[ $pattern::get_name() ] = $matches[1];
+            $lookup[$pattern::get_name()] = $matches[1];
         }
 
         return $lookup;
