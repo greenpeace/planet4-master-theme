@@ -11,7 +11,7 @@ use WP_Post;
  */
 class MediaReplacer
 {
-    private CloudflarePurger $cf;
+    private Cloudflare\CloudflarePurger $cf;
     private array $replacement_status;
     private array $cache_purge_status;
     private string $bucket_name;
@@ -75,7 +75,7 @@ class MediaReplacer
 
     private function set_variables(): void
     {
-        $this->cf = new CloudflarePurger();
+        $this->cf = new Cloudflare\CloudflarePurger();
 
         $this->bucket_name = $this->stateless->get('sm.bucket');
 
