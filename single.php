@@ -81,27 +81,39 @@ if ('yes' === $timber_post->include_articles) {
         $category_id_array[] = $category->id;
     }
 
-    $block_attributes = [
-        'query' => [
-            'perPage' => 3,
-            'post_type' => 'post',
-            'taxQuery' => [
-                'post_tag' => $tag_id_array,
-                'category' => $category_id_array,
-            ],
-            'exclude' => [$timber_post->ID],
+    $articles_query = new WP_Query([
+        'post_type' => 'post',
+        'posts_per_page' => 3,
+        'post__not_in' => [$timber_post->ID],
+        'tax_query' => [
+            ['taxonomy' => 'post_tag', 'field' => 'term_id', 'terms' => $tag_id_array],
+            ['taxonomy' => 'category', 'field' => 'term_id', 'terms' => $category_id_array],
         ],
-        'className' => 'posts-list p4-query-loop is-custom-layout-list',
-        'layout' => [
-            'type' => 'default',
-            'columnCount' => 3,
-        ],
-        'namespace' => 'planet4-blocks/posts-list',
-    ];
+    ]);
 
-    $timber_post->articles = '<!-- wp:p4/related-posts {"query_attributes" : '
-        . wp_json_encode($block_attributes) .
-    '} /-->';
+    // Display the "Related Posts" section only when it contains posts.
+    if ($articles_query->have_posts()) {
+        $block_attributes = [
+            'query' => [
+                'perPage' => 3,
+                'post_type' => 'post',
+                'taxQuery' => [
+                    'post_tag' => $tag_id_array,
+                    'category' => $category_id_array,
+                ],
+                'exclude' => [$timber_post->ID],
+            ],
+            'className' => 'posts-list p4-query-loop is-custom-layout-list',
+            'layout' => [
+                'type' => 'default',
+                'columnCount' => 3,
+            ],
+            'namespace' => 'planet4-blocks/posts-list',
+        ];
+        $timber_post->articles = '<!-- wp:p4/related-posts {"query_attributes" : '
+            . wp_json_encode($block_attributes) .
+            '} /-->';
+    }
 }
 
 if (! empty($take_action_page) && ! has_block('planet4-blocks/take-action-boxout')) {

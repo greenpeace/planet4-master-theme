@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace P4\MasterTheme\Blocks;
 
 use WP_Block;
+use DOMDocument;
+use DOMXPath;
 
 /**
  * Enhances the query loop block with custom filtering logic for specific blocks.
@@ -36,6 +38,7 @@ class QueryLoopExtension
         add_filter('render_block_data', [self::class, 'track_posts_list_context'], 10, 1);
         add_filter('render_block', [self::class, 'add_data_attributes_to_posts_list_block'], 10, 2);
         add_filter('render_block', [self::class, 'add_data_attributes_to_actions_list_block'], 10, 2);
+        add_filter('render_block_core/query', [self::class, 'remove_no_post_text'], 10, 2);
     }
 
     /**
@@ -283,7 +286,6 @@ class QueryLoopExtension
      *
      * @return string The updated block content.
      */
-
     public static function add_data_attributes_to_actions_list_block(string $block_content, array $block): string
     {
         if (
@@ -301,5 +303,66 @@ class QueryLoopExtension
         );
 
         return $block_content;
+    }
+
+    /**
+     * Removes the "No Results" inner block from a Post List or an Actions List block
+     * when the title and the description of the block are empty.
+     *
+     * Removes the "See all Posts" link from a Post List or an Actions List block
+     * when the block has no posts.
+     *
+     * @param string $block_content The HTML generated for the block.
+     * @param array  $block         The block.
+     *
+     * @return string The updated block content.
+     */
+    public static function remove_no_post_text(string $block_content, array $block): string
+    {
+        $classes = $block['attrs']['className'] ?? '';
+        if (!str_contains($classes, 'p4-query-loop')) {
+            return $block_content;
+        }
+
+        $dom = new DOMDocument();
+        libxml_use_internal_errors(true);
+        $dom->loadHTML(
+            mb_encode_numericentity($block_content, [0x80, 0x10FFFF, 0, 0x1FFFFF], 'UTF-8'),
+            LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD
+        );
+        libxml_clear_errors();
+        $xpath = new DOMXPath($dom);
+
+        $posts_list = $xpath->query("//*[contains(@class, 'wp-block-post-template')]");
+        $post_title = $xpath->query("//*[contains(@class, 'wp-block-heading')]");
+        $post_description = $xpath->query(
+            "//*[contains(@class, 'p4-query-loop')]//p[not(ancestor::*[contains(@class, 'wp-block-query-no-results')])]"
+        );
+
+        $list_is_empty = $posts_list->length === 0 || trim($posts_list->item(0)->textContent) === '';
+        $title_is_empty = $post_title->length === 0 || trim($post_title->item(0)->textContent) === '';
+        $description_is_empty = $post_description->length === 0 || trim($post_description->item(0)->textContent) === '';
+
+        if (!$list_is_empty) {
+            return $block_content;
+        }
+
+        // Strip the "see all posts" link, keep the rest intact.
+        if ($list_is_empty) {
+            $see_all_link = $xpath->query("//*[contains(@class, 'see-all-link')]");
+            foreach ($see_all_link as $node) {
+                $node->parentNode->removeChild($node);
+            }
+        }
+
+        // Strip the no-results block, keep the rest intact.
+        if ($title_is_empty && $description_is_empty) {
+            $no_results = $xpath->query("//*[contains(@class, 'wp-block-query-no-results')]");
+            foreach ($no_results as $node) {
+                $node->parentNode->removeChild($node);
+            }
+        }
+
+        return $dom->saveHTML();
     }
 }

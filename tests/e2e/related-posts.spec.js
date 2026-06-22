@@ -12,7 +12,8 @@ test('Test Related Posts block', async ({page, requestUtils}) => {
       content: '<p>This is a test post</p>',
       status: 'publish',
       featured_media: 357,
-      categories: [2],
+      tags: [7], // tag: Renewables
+      categories: [2], // category: Energy
     },
   });
   const editUrl = `./wp-admin/post.php?post=${newPost.id}&action=edit`;
