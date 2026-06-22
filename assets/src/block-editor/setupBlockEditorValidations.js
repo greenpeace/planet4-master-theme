@@ -101,20 +101,21 @@ const getImageBlockAltText = attributes => {
 };
 
 /**
- * Returns `true` when the given core/image block has media selected (an `id`
- * or `url`) but no non-empty alt text. Empty placeholder blocks (no media
- * picked yet) are not publish-blockers.
+ * Returns `true` when the given core/image block is OK to publish, either it
+ * has no media selected yet (placeholder), or its alt text is at least
+ * MIN_ALT_TEXT_LENGTH characters.
  *
  * @param {Object} block - A core/image block from the editor.
- * @return {boolean} Whether the block should block publish.
+ * @return {boolean} `true` when the block passes the alt-text rule.
  */
-const isImageBlockMissingAlt = block => {
+const isImageBlockAltValid = block => {
   const attributes = block.attributes || {};
   const hasMedia = Boolean(attributes.id || attributes.url);
+  // Placeholder blocks (no media picked yet) are not publish-blockers, so they pass the check.
   if (!hasMedia) {
-    return false;
+    return true;
   }
-  return getImageBlockAltText(attributes).length < MIN_ALT_TEXT_LENGTH;
+  return getImageBlockAltText(attributes).length >= MIN_ALT_TEXT_LENGTH;
 };
 
 /**
@@ -135,7 +136,7 @@ const checkImageBlocksAltText = blocks => {
       continue;
     }
 
-    if (block.name === 'core/image' && isImageBlockMissingAlt(block)) {
+    if (block.name === 'core/image' && !isImageBlockAltValid(block)) {
       return false;
     }
 

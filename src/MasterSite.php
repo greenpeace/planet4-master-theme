@@ -411,22 +411,31 @@ class MasterSite extends \Timber\Site
     }
 
     /**
-     * Whether a parsed core/image block has media selected (id or url) but
-     * its alt text is shorter than MIN_ALT_TEXT_LENGTH characters.
+     * Whether a parsed core/image block passes the alt-text rule.
+     *
+     * Returns true when either:
+     *  - the block has no media selected yet (a placeholder block), or
+     *  - its alt text is at least MIN_ALT_TEXT_LENGTH characters
      *
      * @param array $block - A parsed block (output of parse_blocks()).
      */
-    private static function is_image_block_missing_alt(array $block): bool
+    private static function is_image_block_alt_valid(array $block): bool
     {
         $attrs = $block['attrs'] ?? [];
         $has_media = !empty($attrs['id']) || !empty($attrs['url']);
 
-        return $has_media && mb_strlen(self::read_image_block_alt($block)) < self::MIN_ALT_TEXT_LENGTH;
+        // Placeholder blocks (no media selected yet) are not publish-blockers, so they pass the check.
+        if (!$has_media) {
+            return true;
+        }
+
+        // mb_strlen counts characters, not bytes, so multi-byte alphabets are measured correctly.
+        return mb_strlen(self::read_image_block_alt($block)) >= self::MIN_ALT_TEXT_LENGTH;
     }
 
     /**
      * Walk a parsed block tree and return true on the first core/image block
-     * that has media (id or url) but no non-empty alt attribute.
+     * whose alt text fails the alt-text rule.
      *
      * @param array $blocks - Parsed blocks (output of parse_blocks()).
      */
@@ -438,7 +447,7 @@ class MasterSite extends \Timber\Site
             }
 
             $is_image = (($block['blockName'] ?? null) === 'core/image');
-            if ($is_image && self::is_image_block_missing_alt($block)) {
+            if ($is_image && !self::is_image_block_alt_valid($block)) {
                 return true;
             }
 
