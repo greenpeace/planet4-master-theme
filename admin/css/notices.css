@@ -4,7 +4,8 @@
 - Gravity Forms
 - ElasticPress
 - GF plugins recommendation
-- WordPress upgrade */
+- WordPress upgrade
+- Google Login plugin */
 
 .stateless-admin-notice,
 #admin_banner_about_automatic_media_detection,
@@ -12,6 +13,7 @@
 [data-ep-notice],
 .otgs-installer-notice-plugin-recommendation,
 .welcome-panel-content,
-div.error:has(a[href*="gpavatars_list_options"]) {
+div.error:has(a[href*="gpavatars_list_options"]),
+div.updated:has(a[href*="wp-glogin.com"]) {
   display: none;
 }

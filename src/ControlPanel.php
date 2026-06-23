@@ -253,6 +253,7 @@ class ControlPanel
 
         $this->load_dashboard_assets();
         $this->load_wpml_assets();
+        $this->load_admin_notices_styles();
     }
 
     /**
@@ -273,6 +274,7 @@ class ControlPanel
             [],
             Loader::theme_file_ver('admin/css/dashboard.css')
         );
+
         wp_enqueue_script(
             'dashboard-script',
             "$theme_uri/admin/js/dashboard.js",
@@ -299,6 +301,23 @@ class ControlPanel
             "$theme_uri/admin/css/wpml.css",
             [],
             Loader::theme_file_ver('admin/css/wpml.css')
+        );
+    }
+
+    /**
+     * Load admin notices styles.
+     */
+    public function load_admin_notices_styles(): void
+    {
+        if (!defined('WP_APP_ENV') || !in_array(WP_APP_ENV, ['production', 'staging'], true)) {
+            return;
+        }
+
+        wp_enqueue_style(
+            'admin-notices-style',
+            get_template_directory_uri() . '/admin/css/notices.css',
+            [],
+            Loader::theme_file_ver('admin/css/notices.css')
         );
     }
 }
