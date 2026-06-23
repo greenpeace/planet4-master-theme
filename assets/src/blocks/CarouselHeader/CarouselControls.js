@@ -98,7 +98,7 @@ export const CarouselControls = forwardRef(({
       {!autoplay && (
         <div aria-live="polite" aria-atomic="true" className="visually-hidden">
           {
-            // translators: %s: slide number
+            // translators: %d: slide number
             sprintf(__('Slide %d', 'planet4-master-theme'), currentSlide + 1)
           }
         </div>
