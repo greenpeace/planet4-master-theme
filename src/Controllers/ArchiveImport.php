@@ -116,7 +116,7 @@ class ArchiveImport extends Controller
                 'post_name' => $url,
                 'guid' => $url,
                 'post_excerpt' => (string) ($item->excerpt ?? self::create_excerpt($item->text)),
-                'post_type' => \P4\MasterTheme\PostArchive::POST_TYPE,
+                'post_type' => \P4\MasterTheme\CustomPostType\PostArchive::POST_TYPE,
                 // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
                 'post_status' => ('1' === (string) $item->isDateMissing || empty($item->date)) ?
                     'draft' : 'publish',

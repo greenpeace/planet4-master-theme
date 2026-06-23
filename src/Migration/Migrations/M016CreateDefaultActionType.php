@@ -4,7 +4,7 @@ namespace P4\MasterTheme\Migration\Migrations;
 
 use P4\MasterTheme\Migration\MigrationRecord;
 use P4\MasterTheme\Migration\MigrationScript;
-use P4\MasterTheme\ActionPage;
+use P4\MasterTheme\CustomPostType\ActionPage;
 
 /**
  * If No Action type added, Create "Petitions" (with slug petitions) Action type and set it as the default.

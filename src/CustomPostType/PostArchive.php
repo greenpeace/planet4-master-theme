@@ -1,6 +1,6 @@
 <?php
 
-namespace P4\MasterTheme;
+namespace P4\MasterTheme\CustomPostType;
 
 /**
  * A custom post type for P3 posts that were archived.

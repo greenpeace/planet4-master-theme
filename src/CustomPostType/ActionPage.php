@@ -1,6 +1,6 @@
 <?php
 
-namespace P4\MasterTheme;
+namespace P4\MasterTheme\CustomPostType;
 
 use WP_Post;
 

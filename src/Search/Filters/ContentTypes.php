@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace P4\MasterTheme\Search\Filters;
 
 use P4\MasterTheme\Search\Search;
-use P4\MasterTheme\ActionPage;
-use P4\MasterTheme\PostArchive;
+use P4\MasterTheme\CustomPostType\ActionPage;
+use P4\MasterTheme\CustomPostType\PostArchive;
 use WP_Query;
 
 /**
