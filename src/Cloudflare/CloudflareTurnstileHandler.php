@@ -1,6 +1,6 @@
 <?php
 
-namespace P4\MasterTheme;
+namespace P4\MasterTheme\Cloudflare;
 
 use P4\MasterTheme\Settings\CloudflareTurnstile;
 

@@ -2,7 +2,7 @@
 
 namespace P4\MasterTheme\Commands;
 
-use P4\MasterTheme\CloudflarePurger;
+use P4\MasterTheme\Cloudflare\CloudflarePurger;
 use P4\MasterTheme\Features;
 use WP_CLI;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace P4\MasterTheme;
+namespace P4\MasterTheme\Cloudflare;
 
 use Cloudflare\APO\Integration\DefaultConfig;
 use Cloudflare\APO\Integration\DefaultIntegration;
