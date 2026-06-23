@@ -55,8 +55,13 @@ export const CarouselControls = forwardRef(({
                       }
                     }}
                     tabIndex={0}
-                    // translators: %s: slide header or fallback slide number
-                    aria-label={sprintf(__('Go to %s', 'planet4-master-theme'),slides[index].header || sprintf(__('slide %d', 'planet4-master-theme'), index + 1))}
+                    aria-label={sprintf(
+                      // translators: %S: slide header
+                      __('Go to %s', 'planet4-master-theme'), slides[index].header ||
+                      sprintf(
+                        // translators: %d: slide number
+                        __('slide %d', 'planet4-master-theme'), index + 1)
+                    )}
                   />
                 </li>
               )
