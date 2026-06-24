@@ -98,29 +98,6 @@ class MasterSite extends \Timber\Site
         add_filter('http_request_timeout', fn () => 10);
         add_filter('register_block_type_args', [$this, 'set_custom_query_type'], 10, 2);
 
-        add_action('after_setup_theme', function (): void {
-            register_nav_menus(
-                [
-                    'navigation-bar-menu' => __('Navigation Bar Menu', 'planet4-master-theme-backend'),
-                    'donate-menu' => __('Donate Button', 'planet4-master-theme-backend'),
-                    'footer-primary-menu' => __('Footer Primary Menu', 'planet4-master-theme-backend'),
-                    'footer-secondary-menu' => __('Footer Secondary Menu', 'planet4-master-theme-backend'),
-                    'footer-social-menu' => __('Footer Social Menu', 'planet4-master-theme-backend'),
-                ]
-            );
-        }, 0);
-
-        // Bust footer-menu transients on menu edits.
-        $invalidate_footer_menus = static function (): void {
-            delete_transient('p4_footer_social_menu');
-            delete_transient('p4_footer_primary_menu');
-            delete_transient('p4_footer_secondary_menu');
-        };
-        add_action('wp_update_nav_menu', $invalidate_footer_menus);
-        add_action('wp_update_nav_menu_item', $invalidate_footer_menus);
-        add_action('wp_delete_nav_menu', $invalidate_footer_menus);
-        add_action('customize_save_after', $invalidate_footer_menus);
-
         add_filter(
             'editable_roles',
             function ($roles) {
@@ -255,20 +232,6 @@ class MasterSite extends \Timber\Site
         QueryLoopPagination::hooks();
         Search\Search::hooks();
         Sendgrid::hooks();
-
-        // Enable Transparent nav for homepage
-        add_filter(
-            'body_class',
-            function ($classes) {
-                $enable_transparent_nav = !empty(planet4_get_option('transparent_nav'));
-
-                if (is_front_page() && $enable_transparent_nav) {
-                    $classes[] = 'transparent-nav';
-                }
-
-                return $classes;
-            }
-        );
     }
 
     /**
@@ -311,32 +274,6 @@ class MasterSite extends \Timber\Site
         }
 
         return $data;
-    }
-
-    /**
-     * Fetch a footer menu's items as a cache-safe array.
-     *
-     * Casts each item to stdClass so the dynamic props added by
-     * wp_setup_nav_menu_item() (url, title, target, classes) survive
-     * serialize() - WP_Post::__sleep() would otherwise drop them.
-     */
-    private static function resolve_footer_menu_items(string $location, string $fallback): array
-    {
-        if (has_nav_menu($location)) {
-            $menu = Timber::get_menu($location);
-            $items = $menu ? wp_get_nav_menu_items($menu->id) : [];
-        } else {
-            $items = wp_get_nav_menu_items($fallback);
-        }
-
-        if (!is_array($items)) {
-            return [];
-        }
-
-        return array_map(
-            static fn($item) => is_object($item) ? (object) get_object_vars($item) : $item,
-            $items
-        );
     }
 
     /**
@@ -515,24 +452,9 @@ class MasterSite extends \Timber\Site
         $context['copyright_text_line1'] = $options['copyright_line1'] ?? '';
         $context['copyright_text_line2'] = $options['copyright_line2'] ?? '';
 
-        // Footer menus cached for 24h, transients busted on menu edits.
-        $context['footer_social_menu'] = \Timber\Helper::transient(
-            'p4_footer_social_menu',
-            static fn() => self::resolve_footer_menu_items('footer-social-menu', 'Footer Social'),
-            DAY_IN_SECONDS
-        );
-
-        $context['footer_primary_menu'] = \Timber\Helper::transient(
-            'p4_footer_primary_menu',
-            static fn() => self::resolve_footer_menu_items('footer-primary-menu', 'Footer Primary'),
-            DAY_IN_SECONDS
-        );
-
-        $context['footer_secondary_menu'] = \Timber\Helper::transient(
-            'p4_footer_secondary_menu',
-            static fn() => self::resolve_footer_menu_items('footer-secondary-menu', 'Footer Secondary'),
-            DAY_IN_SECONDS
-        );
+        $context['footer_social_menu'] = NavMenus::footer_social_menu_items();
+        $context['footer_primary_menu'] = NavMenus::footer_primary_menu_items();
+        $context['footer_secondary_menu'] = NavMenus::footer_secondary_menu_items();
 
         // Default depth level set to 1 if not selected from admin.
         $context['p4_comments_depth'] = get_option('thread_comments_depth') ?? 1;
