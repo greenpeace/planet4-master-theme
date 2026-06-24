@@ -9,21 +9,21 @@ const MANUAL_OVERRIDE_TITLE = 'Posts';
 /**
  * Adds the Posts List block to the page.
  *
- * @param {import('@playwright/test').Page} page   - The Playwright page instance.
- * @param {string}                          layout - The layout of the block.
+ * @param {{Page, Editor}} options - Page and Editor object.
+ * @param {string}         layout  - The layout of the block.
  */
-export async function addPostsListBlock(page, layout) {
-  await addListBlock(page, BLOCK_NAME, 4, {layout, category: TEST_CATEGORY, title: TEST_TITLE});
+export async function addPostsListBlock({page, editor}, layout) {
+  await addListBlock({page, editor}, BLOCK_NAME, 4, {layout, category: TEST_CATEGORY, title: TEST_TITLE});
 }
 
 /**
  * Adds the Posts List block to the page with the Manual Override posts selected.
  *
- * @param {import('@playwright/test').Page} page       - The Playwright page instance.
- * @param {string[]}                        postTitles - The titles of the posts to include in the block to override the default ones.
+ * @param {{Page, Editor}} options    - Page and Editor object
+ * @param {string[]}       postTitles - The titles of the posts to include in the block to override the default ones.
  */
-export async function addPostsListBlockWithManualOverride(page, postTitles) {
-  await addListBlockWithManualOverride(page, BLOCK_NAME, postTitles, MANUAL_OVERRIDE_TITLE);
+export async function addPostsListBlockWithManualOverride({page, editor}, postTitles) {
+  await addListBlockWithManualOverride({page, editor}, BLOCK_NAME, postTitles, MANUAL_OVERRIDE_TITLE);
 }
 
 /**

@@ -16,7 +16,7 @@ test.describe('Test Posts List block', () => {
     await createPostWithFeaturedImage({page, admin, editor}, {title: 'Test Posts List, List Layout', postType: 'page'});
 
     // Add a Posts List block with the wanted attributes.
-    await addPostsListBlock(page);
+    await addPostsListBlock({page, editor});
 
     // Publish page.
     await publishPostAndVisit({page, editor});
@@ -29,7 +29,7 @@ test.describe('Test Posts List block', () => {
     await createPostWithFeaturedImage({page, admin, editor}, {title: 'Test Posts List, Carousel Layout', postType: 'page'});
 
     // Add a Posts List block with the Carousel layout.
-    await addPostsListBlock(page, 'Carousel');
+    await addPostsListBlock({page, editor}, 'Carousel');
 
     // Publish page.
     await publishPostAndVisit({page, editor});
@@ -42,7 +42,7 @@ test.describe('Test Posts List block', () => {
     await createPostWithFeaturedImage({page, admin, editor}, {title: 'Test Posts List, Grid Layout', postType: 'page'});
 
     // Add a Posts List block with the wanted attributes.
-    await addPostsListBlock(page, 'Grid');
+    await addPostsListBlock({page, editor}, 'Grid');
 
     // Publish page.
     await publishPostAndVisit({page, editor});
@@ -72,7 +72,7 @@ test.describe('Test Posts List block', () => {
     await createPostWithFeaturedImage({page, admin, editor}, {title: 'Test Posts List, Manual Override', postType: 'page'});
 
     // Add a Posts List block using the Manual Override to select the 4 posts created above.
-    await addPostsListBlockWithManualOverride(page, postTitles);
+    await addPostsListBlockWithManualOverride({page, editor}, postTitles);
 
     // Publish page.
     await publishPostAndVisit({page, editor});

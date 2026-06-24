@@ -8,7 +8,7 @@ test('Test Columns block with Tasks style', async ({page, admin, editor}) => {
   await createPostWithFeaturedImage({page, admin, editor}, {title: 'Test Columns block', postType: 'page'});
 
   // Add Columns block.
-  await addColumnsBlock(page, 'Tasks');
+  await addColumnsBlock(page, editor, 'Tasks');
 
   // Publish page.
   await publishPostAndVisit({page, editor});
