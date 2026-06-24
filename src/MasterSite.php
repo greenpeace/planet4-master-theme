@@ -349,7 +349,7 @@ class MasterSite extends \Timber\Site
                 // translators: %d is the minimum number of characters required for alt text.
                 __(
                     // phpcs:ignore Generic.Files.LineLength.MaxExceeded
-                    'Alt text of at least %d characters is required for every Image block before publishing. Please add a description that conveys each image’s purpose, then try publishing again.',
+                    'Alt text of at least %d characters is required for all Image blocks. Please add a description to each image before publishing',
                     'planet4-master-theme-backend'
                 ),
                 self::MIN_ALT_TEXT_LENGTH
