@@ -602,12 +602,19 @@
   }
 
   .years-navigation {
-    position: sticky;
     background-color: var(--beige-100);
     z-index: 999;
     padding: $sp-1x 0;
     top: 68px;
     margin: 0 auto $sp-2 auto;
+
+    &:not(.no-scroll) {
+      position: sticky;
+    }
+
+    &.no-scroll li a {
+      pointer-events: none;
+    }
 
     body.admin-bar & {
       top: 100px;

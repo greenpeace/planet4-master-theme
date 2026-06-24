@@ -242,7 +242,7 @@ export const NewTimelineFrontend = ({attributes}) => {
           <p className="page-section-description text-center" dangerouslySetInnerHTML={{__html: description}} />
         }
 
-        <YearsNavigation years={processedSheetData.map(({year}) => year)} />
+        <YearsNavigation isEditing={isEditing} years={processedSheetData.map(({year}) => year)} />
         <fieldset className="timeline-group">
           {processedSheetData.map(({year, list}) => (
             <div className="timeline-block-year-group" id={year} key={year}>
