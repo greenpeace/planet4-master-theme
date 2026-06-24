@@ -17,9 +17,9 @@ const slides = [
  * @param {{Page, Editor}} options - Page and Editor object
  */
 const addSlide = async (slide, {index, addNext}, {page, editor}) => {
-  await page.locator('[aria-label="Enter title"][contenteditable="true"]').nth(index).fill(`My test Header ${index + 1}`);
-  await page.locator('[aria-label="Enter description"][contenteditable="true"]').nth(index).fill(`Testing carousel description ${index + 1}`);
-  await page.locator('[aria-label="Enter CTA text"][contenteditable="true"]').nth(index).fill(`Read more ${index + 1}`);
+  await editor.canvas.locator('[aria-label="Enter title"][contenteditable="true"]').nth(index).fill(`My test Header ${index + 1}`);
+  await editor.canvas.locator('[aria-label="Enter description"][contenteditable="true"]').nth(index).fill(`Testing carousel description ${index + 1}`);
+  await editor.canvas.locator('[aria-label="Enter CTA text"][contenteditable="true"]').nth(index).fill(`Read more ${index + 1}`);
 
   // Check if sidebar is not visible
   await editor.openDocumentSettingsSidebar();
@@ -33,7 +33,7 @@ const addSlide = async (slide, {index, addNext}, {page, editor}) => {
   // Close sidebar before interacting with the carousel item
   await page.getByRole('button', {name: 'Close Settings'}).click();
 
-  const activeSlide = page.locator('.carousel-item.active');
+  const activeSlide = editor.canvas.locator('.carousel-item.active');
 
   const editButton = activeSlide.locator('.carousel-header-editor-controls button');
 

@@ -1,17 +1,11 @@
-import {searchAndInsertBlock} from './editor.js';
+import {searchAndInsertBlock, pickBlockStyle} from './editor.js';
 import {expect} from './test-utils.js';
 
 const TEST_LINKS = ['/act', '/explore', '/'];
 
-async function addColumnsBlock(page, style) {
+async function addColumnsBlock(page, editor, style) {
   // Add Columns block.
   await searchAndInsertBlock({page}, 'Planet 4 Columns', 'planet4-blocks-columns');
-
-  // Select the style if needed.
-  if (style) {
-    const stylePicker = page.locator('.block-editor-block-styles__variants');
-    await stylePicker.locator(`button[aria-label^=${style}]`).click();
-  }
 
   // Fill in the Columns links.
   for (const index in TEST_LINKS) {
@@ -19,8 +13,14 @@ async function addColumnsBlock(page, style) {
       .fill(TEST_LINKS[index]);
   }
 
+  // Select the style if needed.
+  if (style) {
+    await pickBlockStyle({page}, style);
+  }
+
+
   // Fill in the other fields.
-  const backendColumns = await page.locator('.column-wrap').all();
+  const backendColumns = await editor.canvas.locator('.column-wrap').all();
   for (const [index, column] of backendColumns.entries()) {
     await column.locator(style === 'Tasks' ? 'h5' : 'h3').fill(`Column ${index + 1}`);
     await column.locator('p').fill(`Description ${index + 1}`);

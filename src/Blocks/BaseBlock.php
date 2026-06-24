@@ -104,7 +104,6 @@ abstract class BaseBlock
     {
         static::enqueue_editor_script();
         static::enqueue_frontend_style();
-        static::enqueue_editor_style();
     }
 
     /**

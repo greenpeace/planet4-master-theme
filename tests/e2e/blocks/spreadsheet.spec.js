@@ -14,7 +14,7 @@ test('Test Spreadsheet block', async ({page, admin, editor}) => {
   await searchAndInsertBlock({page}, 'Spreadsheet');
 
   // Check that the "empty URL" warning is displayed.
-  const warning = page.locator('.block-edit-mode-warning');
+  const warning = editor.canvas.locator('.block-edit-mode-warning');
   await expect(warning).toBeVisible();
   await expect(warning).toHaveText('No URL has been specified. Please edit the block and provide a Spreadsheet URL using the sidebar.');
 
@@ -42,7 +42,7 @@ test('Test Spreadsheet block', async ({page, admin, editor}) => {
   await expect(warning).toBeHidden();
 
   // Test that the data is properly displayed in the editor.
-  const editorTable = page.locator('table.spreadsheet-table');
+  const editorTable = editor.canvas.locator('table.spreadsheet-table');
   await expect(editorTable.locator('thead th:first-child button')).toHaveText('Some 30x30 commitment');
   await expect(editorTable.locator('tbody tr:first-child td:first-child')).toHaveText('Albania');
 

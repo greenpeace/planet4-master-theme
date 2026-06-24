@@ -100,12 +100,59 @@ const searchAndInsertPattern = async ({page}, id) => {
  * @param {number} number
  * @param {string} text
  */
-const addHeadingOrParagraph = async ({page}, blockName, blockTag, number, text) => {
+const addHeadingOrParagraph = async ({page, editor}, blockName, blockTag, number, text) => {
   await searchAndInsertBlock({page}, blockName, blockName.toLowerCase());
-  const newBlock = page.getByRole('region', {name: 'Editor content'}).locator(blockTag).nth(number);
+  const newBlock = editor.canvas.locator(blockTag).nth(number);
   await expect(newBlock).toBeVisible();
   await closeBlockInserter({page});
   await newBlock.fill(text);
 };
 
-export {openComponentPanel, searchAndInsertBlock, searchAndInsertPattern, closeBlockInserter, addHeadingOrParagraph};
+/**
+ * Pick a specific block style from the sidebar.
+ *
+ * @param {{Page}} page
+ * @param {string} style - The style that needs to be selected.
+ */
+const pickBlockStyle = async ({page}, style) => {
+  await page.getByRole('tab', {name: 'Styles'}).click();
+  const stylePicker = page.locator('.block-editor-block-styles__variants');
+  await stylePicker.locator(`button[aria-label^="${style}"]`).click();
+};
+
+/**
+ * Open the "Meta Boxes" tab at the bottom of the editor if needed.
+ *
+ * @param {{Page}} page
+ */
+const openMetaBoxesTab = async ({page}) => {
+  const metaBoxesTab = page.getByRole('button', {name: 'Meta Boxes'});
+  if (await metaBoxesTab.getAttribute('aria-expanded') === 'false') {
+    await metaBoxesTab.locator('svg').click();
+    await expect(metaBoxesTab).toHaveAttribute('aria-expanded', 'true');
+  }
+};
+
+/**
+ * Close the "Meta Boxes" tab at the bottom of the editor if needed.
+ *
+ * @param {{Page}} page
+ */
+const closeMetaBoxesTab = async ({page}) => {
+  const metaBoxesTab = page.getByRole('button', {name: 'Meta Boxes'});
+  if (await metaBoxesTab.getAttribute('aria-expanded') === 'true') {
+    await metaBoxesTab.locator('svg').click();
+    await expect(metaBoxesTab).toHaveAttribute('aria-expanded', 'false');
+  }
+};
+
+export {
+  openComponentPanel,
+  searchAndInsertBlock,
+  searchAndInsertPattern,
+  closeBlockInserter,
+  addHeadingOrParagraph,
+  pickBlockStyle,
+  openMetaBoxesTab,
+  closeMetaBoxesTab,
+};
