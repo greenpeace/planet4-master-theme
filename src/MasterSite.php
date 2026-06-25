@@ -240,7 +240,7 @@ class MasterSite extends \Timber\Site
         add_action('wpml_after_startup', $remove_rtl_fix, 10, 0);
 
         AuthorPage::hooks();
-        BreakpointsImageSizes::hooks();
+        Images\BreakpointsImageSizes::hooks();
         QueryLoopPagination::hooks();
         Search\Search::hooks();
         Sendgrid::hooks();

@@ -17,7 +17,7 @@ class_alias(\P4\MasterTheme\Context::class, 'P4_Context');
 class_alias(\P4\MasterTheme\ControlPanel::class, 'P4_Control_Panel');
 class_alias(\P4\MasterTheme\CustomTaxonomy::class, 'P4_Custom_Taxonomy');
 class_alias(\P4\MasterTheme\DevReport::class, 'P4_Dev_Report');
-class_alias(\P4\MasterTheme\ImageCompression::class, 'P4_Image_Compression');
+class_alias(\P4\MasterTheme\Images\ImageCompression::class, 'P4_Image_Compression');
 class_alias(\P4\MasterTheme\Loader::class, 'P4_Loader');
 class_alias(\P4\MasterTheme\MetaboxRegister::class, 'P4_Metabox_Register');
 class_alias(\P4\MasterTheme\Post::class, 'P4_Post');
