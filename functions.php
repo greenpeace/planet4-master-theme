@@ -132,6 +132,22 @@ function hide_wp_update_nag(): void
 
 add_action('admin_menu', 'hide_wp_update_nag');
 
+/**
+ * Remove Connectors settings menu page, at least until we are ready to discuss AI in P4.
+ */
+add_action('admin_init', function() {
+    remove_submenu_page('options-general.php', 'options-connectors.php');
+    /**
+     * Redirects the new Settings > Connectors AI screen back to the main
+     * Dashboard so the URL can't be accessed directly.
+     */
+    global $pagenow;
+	if ('options-connectors.php' === $pagenow) {
+		wp_redirect(admin_url('/'), 301);
+		exit;
+	}
+});
+
 require_once 'load-class-aliases.php';
 
 Loader::get_instance();
