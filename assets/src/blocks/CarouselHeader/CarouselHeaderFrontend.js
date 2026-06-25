@@ -48,16 +48,21 @@ export const CarouselHeaderFrontend = ({slides, carousel_autoplay, className, de
       ) : null}
       <div className="carousel-wrapper-header">
         <ul className="carousel-inner" role="listbox">
-          {slides.map((slide, index) => <Slide
-            key={index}
-            active={currentSlide === index}
-            focusable={currentSlide === index}
-            ref={element => slidesRef ? slidesRef.current[index] = element : null}
-            handleUserInteraction={handleUserInteraction}
-          >
-            <SlideBackground decoding={decoding} slide={slide} />
-            <StaticCaption slide={slide} focusable={currentSlide === index} />
-          </Slide>)
+          {slides.map((slide, index) => {
+            const isActive = currentSlide === index;
+
+            return (
+              <Slide
+                key={index}
+                active={isActive}
+                focusable={isActive}
+                ref={element => slidesRef ? slidesRef.current[index] = element : null}
+                handleUserInteraction={handleUserInteraction}
+              >
+                <SlideBackground decoding={decoding} slide={slide} />
+                <StaticCaption slide={slide} focusable={isActive} />
+              </Slide>);
+          })
           }
         </ul>
       </div>
