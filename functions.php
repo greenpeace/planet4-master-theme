@@ -148,6 +148,22 @@ add_action('admin_init', function() {
 	}
 });
 
+/**
+ * Remove Theme Editor menu page.
+ */
+add_action('admin_init', function() {
+    remove_submenu_page('themes.php', 'theme-editor.php');
+    /**
+     * Redirects the Appearance > Theme Editor screen back to the main
+     * Dashboard so the URL can't be accessed directly.
+     */
+    global $pagenow;
+	if ('theme-editor.php' === $pagenow) {
+		wp_redirect(admin_url('/'), 301);
+		exit;
+	}
+});
+
 require_once 'load-class-aliases.php';
 
 Loader::get_instance();
