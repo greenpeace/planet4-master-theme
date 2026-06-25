@@ -3,6 +3,7 @@
 namespace P4\MasterTheme\Cloudflare;
 
 use P4\MasterTheme\Settings\CloudflareTurnstile;
+use P4\MasterTheme\Loader;
 
 /**
  * Handles Cloudflare Turnstile integration for WordPress comment forms.
