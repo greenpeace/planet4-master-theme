@@ -4,8 +4,6 @@ namespace P4\MasterTheme;
 
 use P4\MasterTheme\Features\Dev\CoreBlockPatterns;
 use Timber\Timber;
-use Twig\Extension\StringLoaderExtension;
-use Twig\Markup;
 use WP_Error;
 
 /**
@@ -80,7 +78,6 @@ class MasterSite extends \Timber\Site
         add_post_type_support('page', 'excerpt'); // Added excerpt option to pages.
 
         add_filter('timber/context', [$this, 'add_to_context']);
-        add_filter('timber/twig', [$this, 'add_to_twig']);
         add_action('init', [$this, 'register_taxonomies'], 2);
         add_action('init', [$this, 'register_oembed_provider']);
         add_action('admin_menu', [$this, 'add_post_revisions_setting']);
@@ -535,33 +532,6 @@ class MasterSite extends \Timber\Site
         }
 
         return $context;
-    }
-
-    /**
-     * Add your own functions to Twig.
-     *
-     * @param Twig_ExtensionInterface $twig The Twig object that implements the Twig_ExtensionInterface.
-     *
-     * @return mixed
-     */
-    public function add_to_twig(\Twig\Environment $twig)
-    {
-        $twig->addExtension(new StringLoaderExtension());
-        $twig->addFilter(new \Twig\TwigFilter('svgicon', [$this, 'svgicon']));
-        return $twig;
-    }
-
-    /**
-     * SVG Icon helper
-     *
-     * @param string $name Icon name.
-     */
-    public function svgicon(string $name): Markup
-    {
-        $svg_icon_template = '<svg viewBox="0 0 32 32" class="icon"><use xlink:href="'
-            . $this->theme_dir . '/assets/build/sprite.symbol.svg#'
-            . $name . '"></use></svg>';
-        return new Markup($svg_icon_template, 'UTF-8');
     }
 
     /**
