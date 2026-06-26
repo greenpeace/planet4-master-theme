@@ -52,6 +52,9 @@ async function publishPostAndVisit({page, editor}) {
   const urlString = await publishPost({page, editor});
 
   await page.goto(urlString);
+  await page.waitForLoadState('networkidle');
+  await page.waitForLoadState('domcontentloaded');
+
 }
 
 /**
