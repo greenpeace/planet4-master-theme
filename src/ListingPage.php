@@ -159,19 +159,23 @@ class ListingPage
             return;
         }
 
-        $featured_query = new \WP_Query([
-            'post__not_in' => $featured_post_ids,
-            'post_type' => 'post',
-            'post_status' => 'publish',
-            'fields' => 'ids',
-            'posts_per_page' => -1,
-        ]);
-
-        $excluded_post_ids = $featured_query->posts;
-
-        $this->context['featured_post_ids'] = $featured_post_ids;
+        $this->context['featured_post_ids'] = array_map(
+            fn($post) => [
+                'ID' => $post->ID,
+                'title' => $post->post_title,
+                'excerpt' => $post->post_excerpt,
+                'permalink' => get_permalink($post->ID),
+                'thumbnail' => has_post_thumbnail($post->ID) ? get_the_post_thumbnail($post->ID, 'medium') : null,
+                'terms' => wp_get_post_terms($post->ID, 'category', ['fields' => 'all']),
+                'tags' => wp_get_post_terms($post->ID, 'post_tag', ['fields' => 'all']),
+                'date' => get_the_date('F j, Y', $post->ID),
+                'parsed_date' => get_the_date('c', $post->ID),
+                'author_name' => get_the_author_meta('display_name', $post->post_author),
+                'author_url' => get_author_posts_url($post->post_author),
+            ],
+            $featured_post_ids
+        );
         $this->context['sticky_posts_to_show'] = self::$STICKY_POSTS_TO_SHOW;
-        $this->context['excluded_post_ids'] = $excluded_post_ids;
 
         // Get the featured posts template
         $template_path = get_template_directory() . "/templates/featured-posts.twig";
@@ -202,9 +206,9 @@ class ListingPage
             'posts_per_page' => self::$STICKY_POSTS_TO_SHOW,
             'post_type' => 'post',
             'post_status' => 'publish',
-            'fields' => 'ids',
             'orderby' => 'date',
             'order' => 'DESC',
+            'no_found_rows' => true,
         ]);
 
         if (count($sticky_posts->posts) < self::$STICKY_POSTS_TO_SHOW) {
