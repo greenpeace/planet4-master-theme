@@ -2,7 +2,7 @@
 
 namespace P4\MasterTheme\Search;
 
-use P4\MasterTheme\ActionPage;
+use P4\MasterTheme\ActionPage\ActionPage;
 use P4\MasterTheme\PostArchive;
 use Timber\Timber;
 use Timber\Loader;
