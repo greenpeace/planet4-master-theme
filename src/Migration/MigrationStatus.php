@@ -102,12 +102,12 @@ class MigrationStatus
                     <td>' . $key . '</td>
                     <td>' . str_replace('P4\MasterTheme\Migrations\\', '', $p4_migration['id']) . '</td>
                     <td>
-                        <div class="datetime">' . $p4_migration['start_time']->date . ' ' .
-                $p4_migration['start_time']->timezone . '</div>
+                        <div class="datetime">' . $p4_migration['start_time']->format('Y-m-d H:i:s') . ' ' .
+                $p4_migration['start_time']->getTimezone()->getName() . '</div>
                     </td>
                     <td>
-                        <div class="datetime">' . $p4_migration['end_time']->date . ' ' .
-                $p4_migration['end_time']->timezone . '</div>
+                        <div class="datetime">' . $p4_migration['end_time']->format('Y-m-d H:i:s') . ' ' .
+                $p4_migration['end_time']->getTimezone()->getName() . '</div>
                     </td>
                     <td>' . $this->calculateTimeDiff($p4_migration['start_time'], $p4_migration['end_time']) . '</td>
                     <td class="' . $migration_status_class . '">' . $migration_status . '</td>

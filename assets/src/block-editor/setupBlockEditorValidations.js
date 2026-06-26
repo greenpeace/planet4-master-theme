@@ -1,4 +1,4 @@
-const {__} = wp.i18n;
+const {__, sprintf} = wp.i18n;
 const {registerPlugin} = wp.plugins;
 const {useSelect, dispatch} = wp.data;
 const {useEffect, useRef} = wp.element;
@@ -12,6 +12,14 @@ export const setupBlockEditorValidations = () => {
     render: ValidationNotices,
   });
 };
+
+// Check whether the "Enforce images alt-text" feature flag is enabled.
+const isAltTextEnforcementEnabled = Boolean(window.p4_vars.features.mandatory_image_alt_text);
+
+// Minimum number of characters required in a core/image block's alt text
+// before publishing. Whitespace is trimmed before the length is measured.
+// Mirrors MasterSite::MIN_ALT_TEXT_LENGTH on the server side.
+const MIN_ALT_TEXT_LENGTH = 10;
 
 /**
  * Retrieves the current validation state from the block and post editor stores.
@@ -38,13 +46,19 @@ const getValidationState = select => {
   const hasForm = !skip && hasGravityFormsBlock(allBlocks);
   const globalProject = getEditedPostAttribute('meta')?.p4_campaign_name;
   const validForms = skip || !hasForm || (hasForm && globalProject && globalProject !== 'not set');
+  // When the feature flag is off, treat the alt-text check as passing so it
+  // contributes nothing to `isValid` and produces no notice.
+  const imagesAlt = isAltTextEnforcementEnabled ?
+    skip || checkImageBlocksAltText(allBlocks) :
+    true;
 
   return {
     postTitle,
     featuredImage,
     topicLink,
     validForms,
-    isValid: postTitle && featuredImage && topicLink && validForms,
+    imagesAlt,
+    isValid: postTitle && featuredImage && topicLink && validForms && imagesAlt,
   };
 };
 
@@ -73,6 +87,69 @@ const checkTopicLinks = blocks => {
 const hasGravityFormsBlock = blocks => Boolean(blocks.find(block => block.name === 'gravityforms/form'));
 
 /**
+ * Returns the trimmed alt text from a block attributes object, or an empty
+ * string if it's missing or not a string.
+ *
+ * @param {Object} attributes - Block attributes object.
+ * @return {string} The trimmed alt text.
+ */
+const getImageBlockAltText = attributes => {
+  if (!attributes || !attributes.alt || typeof attributes.alt !== 'string') {
+    return '';
+  }
+  return attributes.alt.trim();
+};
+
+/**
+ * Returns `true` when the given core/image block is OK to publish, either it
+ * has no media selected yet (placeholder), or its alt text is at least
+ * MIN_ALT_TEXT_LENGTH characters.
+ *
+ * @param {Object} block - A core/image block from the editor.
+ * @return {boolean} `true` when the block passes the alt-text rule.
+ */
+const isImageBlockAltValid = block => {
+  const attributes = block.attributes || {};
+  const hasMedia = Boolean(attributes.id || attributes.url);
+  // Placeholder blocks (no media picked yet) are not publish-blockers, so they pass the check.
+  if (!hasMedia) {
+    return true;
+  }
+  return getImageBlockAltText(attributes).length >= MIN_ALT_TEXT_LENGTH;
+};
+
+/**
+ * Recursively checks whether every `core/image` block in the editor (including
+ * nested image blocks inside Group / Columns / Cover / etc.) has a non-empty
+ * `alt` attribute. Whitespace-only alt text is treated as missing.
+ *
+ * @param {Object[]} blocks - Array of block objects from the block editor.
+ * @return {boolean} `true` if every core/image block has alt text; `false` otherwise.
+ */
+const checkImageBlocksAltText = blocks => {
+  if (!Array.isArray(blocks) || blocks.length === 0) {
+    return true;
+  }
+
+  for (const block of blocks) {
+    if (!block) {
+      continue;
+    }
+
+    if (block.name === 'core/image' && !isImageBlockAltValid(block)) {
+      return false;
+    }
+
+    const hasInnerBlocks = block.innerBlocks && block.innerBlocks.length > 0;
+    if (hasInnerBlocks && !checkImageBlocksAltText(block.innerBlocks)) {
+      return false;
+    }
+  }
+
+  return true;
+};
+
+/**
  * Builds a combined validation error message string based on the current validation state.
  * Returns `null` if all validations pass.
  *
@@ -81,9 +158,10 @@ const hasGravityFormsBlock = blocks => Boolean(blocks.find(block => block.name =
  * @param {boolean} validationState.featuredImage - Whether the post has a featured image.
  * @param {boolean} validationState.topicLink     - Whether all Topic Link blocks have a background image.
  * @param {boolean} validationState.validForms    - If there is a Gravity Forms block on the page and a set Global Project.
+ * @param {boolean} validationState.imagesAlt     - Whether every core/image block has non-empty alt text.
  * @return {string|null} A space-separated string of error messages, or `null` if there are no errors.
  */
-const buildValidationMessage = ({postTitle, featuredImage, topicLink, validForms}) => {
+const buildValidationMessage = ({postTitle, featuredImage, topicLink, validForms, imagesAlt}) => {
   const errors = [];
   if (!postTitle) {
     errors.push(__('Title is mandatory.', 'planet4-master-theme-backend'));
@@ -105,6 +183,19 @@ const buildValidationMessage = ({postTitle, featuredImage, topicLink, validForms
       __(
         'You need to select a Global Project in the sidebar (Analytics & Tracking), because you are using a Gravity Forms block.',
         'planet4-master-theme-backend'
+      )
+    );
+  }
+
+  if (!imagesAlt) {
+    errors.push(
+      sprintf(
+        // translators: %d is the minimum number of characters required for alt text.
+        __(
+          'Alt text is mandatory for all Image blocks and must be at least %d characters long.',
+          'planet4-master-theme-backend'
+        ),
+        MIN_ALT_TEXT_LENGTH
       )
     );
   }
