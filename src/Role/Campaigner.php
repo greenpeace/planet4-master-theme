@@ -56,6 +56,7 @@ class Campaigner
             'publish_campaigns',
             'delete_published_campaigns',
             'edit_published_campaigns',
+            Capability::USE_MEDIA_ARCHIVE,
         ],
         'contributor' => [
             'edit_campaign',
