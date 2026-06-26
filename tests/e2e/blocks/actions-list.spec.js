@@ -19,11 +19,11 @@ test.describe('Test Actions List block', () => {
     // Set Actions per page to 2.
     await page.getByRole('spinbutton', {name: 'Items per page'}).fill('2');
 
-    // Filter by "Energy" category.
+    // Filter by category.
     const editorSettings = page.getByRole('region', {name: 'Editor settings'});
     await editorSettings.getByRole('button', {name: 'Filters options'}).click();
     await page.getByLabel('Show Taxonomies').click();
-    await editorSettings.getByLabel('Categories').fill(TEST_CATEGORY);
+    await editorSettings.getByRole('combobox', {name: 'Categories', exact: true}).fill(TEST_CATEGORY);
     await editorSettings.locator(
       '.components-form-token-field__suggestion', {hasText: TEST_CATEGORY}
     ).click();
@@ -32,7 +32,7 @@ test.describe('Test Actions List block', () => {
     ).toBeVisible();
 
     // Change the title.
-    await page.getByRole('document', {name: 'Block: Heading'}).fill(TEST_TITLE);
+    await page.getByRole('document', {name: 'Block: Heading 2'}).fill(TEST_TITLE);
 
     // Publish page.
     await publishPostAndVisit({page, editor});

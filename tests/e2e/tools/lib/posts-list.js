@@ -21,7 +21,7 @@ async function addPostsListBlock(page, layout) {
   const editorSettings = page.getByRole('region', {name: 'Editor settings'});
   await editorSettings.getByRole('button', {name: 'Filters options'}).click();
   await page.getByLabel('Show Taxonomies').click();
-  await editorSettings.getByLabel('Categories').fill(TEST_CATEGORY);
+  await editorSettings.getByRole('combobox', {name: 'Categories', exact: true}).fill(TEST_CATEGORY);
   await editorSettings.locator(
     '.components-form-token-field__suggestion', {hasText: TEST_CATEGORY}
   ).click();
@@ -30,7 +30,7 @@ async function addPostsListBlock(page, layout) {
   ).toBeVisible();
 
   // Change the title.
-  await page.getByRole('document', {name: 'Block: Heading'}).fill(TEST_TITLE);
+  await page.getByRole('document', {name: 'Block: Heading 2'}).fill(TEST_TITLE);
 }
 
 async function addPostsListBlockWithManualOverride(page, postTitles) {
@@ -60,7 +60,7 @@ async function addPostsListBlockWithManualOverride(page, postTitles) {
   }
 
   // Change the block title.
-  await page.getByRole('document', {name: 'Block: Heading'}).fill(MANUAL_OVERRIDE_TITLE);
+  await page.getByRole('document', {name: 'Block: Heading 2'}).fill(MANUAL_OVERRIDE_TITLE);
 }
 
 async function checkPostsListBlock(page, layout) {
