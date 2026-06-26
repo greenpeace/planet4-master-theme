@@ -1,6 +1,6 @@
 <?php
 
-namespace P4\MasterTheme;
+namespace P4\MasterTheme\CustomPostType;
 
 use CMB2_Field;
 use CMB2_Types;
@@ -246,7 +246,7 @@ class PostCampaign
             'cmb-style',
             get_template_directory_uri() . '/admin/css/campaign.css',
             [],
-            Loader::theme_file_ver('admin/css/campaign.css')
+            \P4\MasterTheme\Loader::theme_file_ver('admin/css/campaign.css')
         );
         wp_enqueue_style('cmb-style');
     }

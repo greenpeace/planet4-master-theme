@@ -2,8 +2,8 @@
 
 namespace P4\MasterTheme\Search;
 
-use P4\MasterTheme\ActionPage;
-use P4\MasterTheme\PostArchive;
+use P4\MasterTheme\CustomPostType\ActionPage;
+use P4\MasterTheme\CustomPostType\PostArchive;
 use Timber\Timber;
 use Timber\Loader;
 use WP_Post;
