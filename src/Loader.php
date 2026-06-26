@@ -80,7 +80,7 @@ final class Loader
             HeadManager::class,
             AttachmentsController::class,
             HttpHeaders::class,
-            ActionPage::class,
+            ActionPage\ActionPage::class,
             PageMeta::class,
             PostMeta::class,
             GravityFormsExtensions::class,

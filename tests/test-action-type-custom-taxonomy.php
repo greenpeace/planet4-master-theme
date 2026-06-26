@@ -16,7 +16,7 @@ class ActionTypeCustomTaxonomyTest extends P4TestCase
     /**
      * Test that a Action(Custom post type) has always a action-type term assigned to it.
      *
-     * @covers P4\MasterTheme\ActionPage::save_taxonomy_action_type
+     * @covers P4\MasterTheme\ActionPage\ActionPage::save_taxonomy_action_type
      */
     public function test_action_has_a_actiontype_term_assigned(): void
     {
@@ -48,7 +48,7 @@ class ActionTypeCustomTaxonomyTest extends P4TestCase
     /**
      * Test that a Action(Custom post type) has always a single action-type term assigned to it.
      *
-     * @covers P4\MasterTheme\ActionPage::save_taxonomy_action_type
+     * @covers P4\MasterTheme\ActionPageActionPage::save_taxonomy_action_type
      */
     public function test_action_has_a_single_action_type_assigned(): void
     {
