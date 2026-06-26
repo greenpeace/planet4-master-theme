@@ -3,6 +3,7 @@
 namespace P4\MasterTheme;
 
 use WP_Post;
+use P4\MasterTheme\Images\ImageHandler;
 
 /**
  * Class MediaReplacer.
