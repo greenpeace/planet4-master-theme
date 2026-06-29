@@ -597,7 +597,10 @@ class Settings
                 'fields' => [
                     [
                         'name' => __('Reverse Proxy', 'planet4-master-theme-backend'),
-                        'desc' => __('Enables reverse proxy for Hubspot hosted content.', 'planet4-master-theme-backend'),
+                        'desc' => __(
+                            'Enables reverse proxy for Hubspot hosted content. (<a href="https://planet4.greenpeace.org/manage/form-builder/hubspot-pages-under-planet-4/" target="_blank">read more</a>)',
+                            'planet4-master-theme-backend'
+                        ),
                         'id' => 'hubspot_reverse_proxy',
                         'type' => 'checkbox',
                     ],
