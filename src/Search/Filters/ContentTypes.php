@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace P4\MasterTheme\Search\Filters;
 
 use P4\MasterTheme\Search\Search;
-use P4\MasterTheme\ActionPage;
+use P4\MasterTheme\ActionPage\ActionPage;
 use P4\MasterTheme\PostArchive;
 use WP_Query;
 

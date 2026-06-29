@@ -1,11 +1,11 @@
 <?php
 
-namespace P4\MasterTheme;
+namespace P4\MasterTheme\ActionPage;
 
 use WP_Post;
 
 /**
- * Class P4\MasterTheme\ActionPage
+ * Class P4\MasterTheme\ActionPage\ActionPage
  */
 class ActionPage
 {
@@ -36,6 +36,7 @@ class ActionPage
     public function __construct()
     {
         $this->hooks();
+        $this->import_action = new ImportAction();
     }
 
     /**
