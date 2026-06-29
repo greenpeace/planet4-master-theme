@@ -33,8 +33,8 @@ test.describe('Test Actions List block', () => {
     await admin.visitAdminPage('admin.php', 'page=planet4_settings_analytics');
     const takeActionPageId = await page.locator('#take_action_page').inputValue();
 
-    // Skip Test if the new IA is not enabled or if the "Take Action" page ID is not available.
-    test.skip(!isNewIA || !takeActionPageId, 'The new IA must be enabled to run this test.');
+    // Skip Test if the new IA is not enabled or if the "Take Action" page ID is not available or gotten from the Analytics settings.
+    test.skip(!isNewIA || !takeActionPageId, 'The new IA must be enabled or the "Take Action" page ID must be available to run this test.');
 
     // Create 2 actions to be selected via the Manual Override.
     const regularActionTitles = [
@@ -64,13 +64,13 @@ test.describe('Test Actions List block', () => {
       });
     }
 
-    // Combine all action titles if needed downstream.
+    // Combine all action titles.
     const actionTitles = [...regularActionTitles, ...childActionTitles];
 
     // Create a page to hold the Actions List block.
     await createPostWithFeaturedImage({page, admin, editor}, {title: 'Test Actions List, Manual Override', postType: 'page'});
 
-    // Add a Actions List block using the Manual Override to select the 2 actions created above.
+    // Add a Actions List block using the Manual Override to select the actions created above.
     await addActionsListBlockWithManualOverride(page, actionTitles);
 
     // Publish page.
