@@ -92,7 +92,7 @@ class Post extends \Timber\Post
      */
     public function is_campaign_page(): bool
     {
-        return PostCampaign::POST_TYPE === $this->post_type;
+        return CustomPostType\PostCampaign::POST_TYPE === $this->post_type;
     }
 
     /**

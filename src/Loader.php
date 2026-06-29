@@ -68,8 +68,9 @@ final class Loader
     {
         $this->default_services = [
             CustomTaxonomy::class,
-            PostCampaign::class,
-            PostArchive::class,
+            CustomPostType\PostCampaign::class,
+            CustomPostType\PostArchive::class,
+            CustomPostType\ActionPage::class,
             Settings::class,
             Features::class,
             PostReportController::class,
@@ -81,7 +82,6 @@ final class Loader
             HeadManager::class,
             AttachmentsController::class,
             HttpHeaders::class,
-            ActionPage::class,
             PageMeta::class,
             PostMeta::class,
             GravityFormsExtensions::class,
