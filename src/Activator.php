@@ -32,6 +32,6 @@ class Activator
         Role\Campaigner::register_role_and_add_capabilities();
         Role\Reviewer::register_role();
         Role\GravityForms::add_capabilities_to_user_roles();
-        Migration\Migrator::migrate();
+        Migrator::migrate();
     }
 }

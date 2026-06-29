@@ -34,8 +34,8 @@ class Commands
         \WP_CLI::add_command(
             'p4-update-missing-media-path',
             function (): void {
-                $record = Migration\MigrationRecord::start(static::class);
-                Migration\Migrations\M004UpdateMissingMediaPath::execute($record);
+                $record = MigrationRecord::start(static::class);
+                Migrations\M004UpdateMissingMediaPath::execute($record);
             },
             [ 'shortdesc' => 'Updates missing media path after WPML activation.' ]
         );
