@@ -23,15 +23,15 @@
     <meta name="description" content="{{ meta_description }}">
 
     {% if og_title %}
-        {% set title = og_title|raw~' - '~site.name %}
+        {% set title = og_title|decode_entities~' - '~site.name %}
     {% elseif wp_title %}
-        {% set title = wp_title|raw~' - '~site.name %}
+        {% set title = wp_title|decode_entities~' - '~site.name %}
     {% else %}
         {% set title = site.name %}
     {% endif %}
 
-    <meta name="title" content="{{ title|e('html_attr')|raw }}"/>
-    <meta property="og:title" content="{{ title|e('html_attr')|raw }}" />
+    <meta name="title" content="{{ title }}"/>
+    <meta property="og:title" content="{{ title }}" />
     <meta property="og:url" content="{{ current_url }}" />
     {% if (og_type) %}
         <meta property="og:type" content="{{ og_type }}" />
@@ -48,6 +48,7 @@
         <meta property="og:image:width" content="{{ og_image_data['width'] }}" />
         <meta property="og:image:height" content="{{ og_image_data['height'] }}" />
     {% endif %}
+
     <meta property="og:site_name" content="{{ site.name }}" />
 
     {% if facebook_page_id %}
@@ -56,9 +57,10 @@
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="{{ site.name }}" />
-    <meta name="twitter:title" content="{{ title|e('html_attr')|raw }}">
+    <meta name="twitter:title" content="{{ title }}">
+
     {% if (og_description) %}
-        <meta name="twitter:description" content="{{ og_description|e('html_attr')|raw }}">
+        <meta name="twitter:description" content="{{ og_description|striptags }}">
     {% endif %}
 
     {% if (meta_twitter_creator is defined) %}
