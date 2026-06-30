@@ -1,13 +1,12 @@
 import {test, expect} from './tools/lib/test-utils.js';
+import {isNewIAEnabled} from './tools/lib/check-new-ia.js';
 
 test.useAdminLoggedIn();
 
 test('Test special pages (Act and Explore)', async ({page, admin, requestUtils}) => {
   // Check if new IA is enabled, in which case the Act and Explore pages have been removed.
-  await admin.visitAdminPage('admin.php', 'page=planet4_settings_navigation');
-  await page.waitForSelector('#new_ia');
-  const isNewIAEnabled = await page.locator('#new_ia').isChecked();
-  if (isNewIAEnabled) {
+  const isNewIA = await isNewIAEnabled(admin, page);
+  if (isNewIA) {
     await expect(page.locator('#act_page')).toBeHidden();
     await expect(page.locator('#explore_page')).toBeHidden();
   } else {

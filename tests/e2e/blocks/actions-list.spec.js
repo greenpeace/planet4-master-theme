@@ -1,9 +1,12 @@
-import {test, expect} from '../tools/lib/test-utils.js';
+import {test} from '../tools/lib/test-utils.js';
 import {publishPostAndVisit, createPostWithFeaturedImage} from '../tools/lib/post.js';
-import {searchAndInsertBlock} from '../tools/lib/editor';
-
-const TEST_TITLE = 'Campaigns';
-const TEST_CATEGORY = 'Energy';
+import {
+  addActionsListBlock,
+  checkActionsListBlock,
+  addActionsListBlockWithManualOverride,
+  checkActionsListBlockWithManualOverride,
+} from '../tools/lib/actions-list.js';
+import {isNewIAEnabled} from '../tools/lib/check-new-ia.js';
 
 test.useAdminLoggedIn();
 
@@ -14,36 +17,66 @@ test.describe('Test Actions List block', () => {
     await createPostWithFeaturedImage({page, admin, editor}, {title: 'Test Actions List Grid Layout', postType: 'page'});
 
     // Add Actions List block.
-    await searchAndInsertBlock({page}, 'Actions List');
-
-    // Set Actions per page to 2.
-    await page.getByRole('spinbutton', {name: 'Items per page'}).fill('2');
-
-    // Filter by "Energy" category.
-    const editorSettings = page.getByRole('region', {name: 'Editor settings'});
-    await editorSettings.getByRole('button', {name: 'Filters options'}).click();
-    await page.getByLabel('Show Taxonomies').click();
-    await editorSettings.getByLabel('Categories').fill(TEST_CATEGORY);
-    await editorSettings.locator(
-      '.components-form-token-field__suggestion', {hasText: TEST_CATEGORY}
-    ).click();
-    await expect(editorSettings.locator(
-      '.components-form-token-field__token-text', {hasText: TEST_CATEGORY})
-    ).toBeVisible();
-
-    // Change the title.
-    await page.getByRole('document', {name: 'Block: Heading'}).fill(TEST_TITLE);
+    await addActionsListBlock(page);
 
     // Publish page.
     await publishPostAndVisit({page, editor});
 
-    // Test that the block is displayed as expected in the frontend.
-    const block = page.locator('.p4-query-loop');
-    await expect(block).toHaveClass(/is-custom-layout-grid/);
-    await expect(block.locator('h2.wp-block-heading')).toHaveText(TEST_TITLE);
-    await expect(block.locator('.wp-block-post')).toHaveCount(2);
-    for (const category of await block.locator('.wp-block-post-terms').all()) {
-      await expect(category).toHaveText(TEST_CATEGORY);
+    // Check the Actions List block.
+    await checkActionsListBlock(page);
+  });
+
+  test('Test the Manual Override', async ({page, admin, editor, requestUtils}) => {
+    const isNewIA = await isNewIAEnabled(admin, page);
+
+    // Get the "Take Action" page ID from the Analytics settings.
+    await admin.visitAdminPage('admin.php', 'page=planet4_settings_analytics');
+    const takeActionPageId = await page.locator('#take_action_page').inputValue();
+
+    // Skip Test if the new IA is not enabled or if the "Take Action" page ID is not available or gotten from the Analytics settings.
+    test.skip(!isNewIA || !takeActionPageId, 'The new IA must be enabled or the "Take Action" page ID must be available to run this test.');
+
+    // Create 2 actions to be selected via the Manual Override.
+    const regularActionTitles = [
+      'Test Actions List Manual Override Action 1',
+      'Test Actions List Manual Override Action 2',
+    ];
+
+    for (const title of regularActionTitles) {
+      await requestUtils.rest({
+        path: '/wp/v2/p4_action',
+        method: 'POST',
+        data: {title, status: 'publish'},
+      });
     }
+
+    // Create 2 actions as children of the "Take Action" page.
+    const childActionTitles = [
+      'Test Actions List Manual Override Child Action 1',
+      'Test Actions List Manual Override Child Action 2',
+    ];
+
+    for (const title of childActionTitles) {
+      await requestUtils.rest({
+        path: '/wp/v2/p4_action',
+        method: 'POST',
+        data: {title, status: 'publish', parent: takeActionPageId},
+      });
+    }
+
+    // Combine all action titles.
+    const actionTitles = [...regularActionTitles, ...childActionTitles];
+
+    // Create a page to hold the Actions List block.
+    await createPostWithFeaturedImage({page, admin, editor}, {title: 'Test Actions List, Manual Override', postType: 'page'});
+
+    // Add a Actions List block using the Manual Override to select the actions created above.
+    await addActionsListBlockWithManualOverride(page, actionTitles);
+
+    // Publish page.
+    await publishPostAndVisit({page, editor});
+
+    // Check that the block displays correctly in the frontend.
+    await checkActionsListBlockWithManualOverride(page, actionTitles);
   });
 });
