@@ -320,7 +320,8 @@ class QueryLoopExtension
     public static function remove_no_post_text(string $block_content, array $block): string
     {
         $classes = $block['attrs']['className'] ?? '';
-        if (!str_contains($classes, 'p4-query-loop')) {
+
+        if (!str_contains($classes, 'p4-query-loop') || trim($block_content) === '') {
             return $block_content;
         }
 
