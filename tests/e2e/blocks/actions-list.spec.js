@@ -5,6 +5,7 @@ import {
   checkActionsListBlock,
   addActionsListBlockWithManualOverride,
   checkActionsListBlockWithManualOverride,
+  checkActionsListBlockCarouselLayout,
 } from '../tools/lib/actions-list.js';
 import {isNewIAEnabled} from '../tools/lib/check-new-ia.js';
 
@@ -78,5 +79,18 @@ test.describe('Test Actions List block', () => {
 
     // Check that the block displays correctly in the frontend.
     await checkActionsListBlockWithManualOverride(page, actionTitles);
+  });
+
+  test('Test the Carousel layout', async ({page, admin, editor}) => {
+    await createPostWithFeaturedImage({page, admin, editor}, {title: 'Test Actions List, Carousel Layout', postType: 'page'});
+
+    // Add a Actions List block with the Carousel layout.
+    await addActionsListBlock(page, 'Carousel');
+
+    // Publish page.
+    await publishPostAndVisit({page, editor});
+
+    // Test that the block is displayed as expected in the frontend.
+    await checkActionsListBlockCarouselLayout(page);
   });
 });
