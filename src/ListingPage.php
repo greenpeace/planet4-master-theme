@@ -22,8 +22,11 @@ class ListingPage
     /** @static int */
     public static int $STICKY_POSTS_TO_SHOW = 4;
 
-    /** @var array|null $STICKY_POSTS_CACHE used to run sticky posts twice or more. */
+    /** @var array|null $STICKY_POSTS_CACHE used to avoid running sticky posts more than one time. */
     protected static ?array $STICKY_POSTS_CACHE = null;
+
+    /** @var int $news_page_id used to get the news page ID */
+    protected int $news_page_id = 0;
 
     /**
      * Templates
