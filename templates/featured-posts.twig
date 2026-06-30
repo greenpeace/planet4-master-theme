@@ -7,9 +7,7 @@
                 {% for post in featured_posts %}
                     <li class="wp-block-post post-{{ post.ID }} post type-post status-publish format-standard has-post-thumbnail sticky hentry category-energy tag-renewables p4-page-type-press">
                         <div class="query-list-item-image query-list-item-image-max-width is-layout-flow wp-block-post-template-is-layout-flow">
-                            <a href="{{ post.permalink }}" target="_self">
-                                <img width="2500" height="1281" src="{{ post.thumbnail }}" class="attachment- size- wp-post-image" alt="" sizes="(min-width: 1600px) 389px, (min-width: 1200px) 335px, (min-width: 1000px) 281px, (min-width: 780px) 209px, (min-width: 580px) 516px, calc(100vw - 24px)" decoding="async" fetchpriority="high" srcset="{{ post.thumbnail }} 2500w, {{ post.thumbnail }}-300x154.jpg 300w, {{ post.thumbnail }}-768x394.jpg 768w, {{ post.thumbnail }}-1024x525.jpg 1024w, {{ post.thumbnail }}-2048x1049.jpg 2048w, {{ post.thumbnail }}-510x261.jpg 510w">
-                            </a>
+                            <a href="{{ post.permalink }}" target="_self"><img width="2500" height="1281" src="{{ post.thumbnail }}" class="attachment-size wp-post-image" alt="" sizes="(min-width: 1600px) 389px, (min-width: 1200px) 335px, (min-width: 1000px) 281px, (min-width: 780px) 209px, (min-width: 580px) 516px, calc(100vw - 24px)" decoding="async" fetchpriority="high" srcset="{{ post.thumbnail }} 2500w, {{ post.thumbnail }}-300x154.jpg 300w, {{ post.thumbnail }}-768x394.jpg 768w, {{ post.thumbnail }}-1024x525.jpg 1024w, {{ post.thumbnail }}-2048x1049.jpg 2048w, {{ post.thumbnail }}-510x261.jpg 510w" /></a>
                         </div>
                         <div class="query-list-item-body">
                             <div class="query-list-item-post-terms">
