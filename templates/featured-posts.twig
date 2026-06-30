@@ -1,11 +1,38 @@
-{% if true %}
-    <section id="featured-posts">
-        <div class="container">
-            {% for post in featured_post_ids %}
-                <div class="pedro">
-                    {{ post.title }}
+{% if featured_posts|length == sticky_posts_to_show %}
+<section id="featured-posts">
+    <div class="container">
+        <!-- wp:query {"query":{"inherit":false,"postIn":{{ featured_posts|json_encode }}}} -->
+        <div id="featured-posts-content" class="wp-block-query wp-block-query--list">
+            <!-- wp:post-template -->
+                <div class="query-list-item-image query-list-item-image-max-width">
+                    <!-- wp:p4/post-featured-image /-->
                 </div>
-            {% endfor %}
+                <div class="query-list-item-body">
+                    <div class="query-list-item-post-terms">
+                        <div class="wrapper-post-term">
+                            <!-- wp:post-terms {"term":"p4-page-type"} /-->
+                        </div>
+                        <div class="wrapper-post-tag">
+                            <!-- wp:post-terms {"term":"post_tag","separator":" "} /-->
+                        </div>
+                    </div>
+
+                    <header>
+                        <!-- wp:post-title {"isLink":true, "level":4, "className": "query-list-item-headline"} /-->
+                    </header>
+                    <!-- wp:post-excerpt {"className": "query-list-item-content"} /-->
+
+                    <div class="query-list-item-meta d-flex flex-wrap">
+                        <!-- wp:p4/post-author-name /-->
+                       <div class="query-list-meta-date-reading-time">
+                            <!-- wp:post-date /-->
+                            <!-- wp:p4/reading-time /-->
+                       </div>
+                    </div>
+                </div>
+            <!-- /wp:post-template -->
         </div>
-    </section>
+        <!-- /wp:query -->
+    </div>
+</section>
 {% endif %}

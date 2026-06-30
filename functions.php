@@ -283,17 +283,7 @@ add_action(
             return;
         }
 
-        $ids = [];
-
-        foreach(ListingPage::get_sticky_posts() as $post) {
-            array_push($ids, $post->ID);
-        }
-
-        // echo "<pre>";
-        // var_dump($ids);
-        // echo "</pre>";
-
-        $query->set('post__not_in', $ids);
+        $query->set('post__not_in', ListingPage::get_sticky_posts());
         $query->set('category__in', ListingPage::get_selected_categories());
         $query->set('tax_query', ListingPage::get_selected_post_types());
     }
