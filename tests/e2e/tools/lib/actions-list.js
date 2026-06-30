@@ -1,4 +1,5 @@
 import {addListBlock, addListBlockWithManualOverride, checkListBlock} from './query-loop-utils.js';
+import {expect} from './test-utils.js';
 
 const BLOCK_NAME = 'Actions List';
 const TEST_TITLE = 'Campaigns';
@@ -8,8 +9,8 @@ const MANUAL_OVERRIDE_TITLE = 'Actions';
 /**
  * Adds the Actions List block to the page.
  *
- * @param {import('@playwright/test').Page} page   - The Playwright page instance.
- * @param {string}                          layout - The layout of the block.
+ * @param {{Page}} page   - The Playwright page instance.
+ * @param {string} layout - The layout of the block.
  */
 export async function addActionsListBlock(page, layout) {
   await addListBlock(page, BLOCK_NAME, 2, {layout, category: TEST_CATEGORY, title: TEST_TITLE});
@@ -18,8 +19,8 @@ export async function addActionsListBlock(page, layout) {
 /**
  * Adds the Actions List block to the page with the Manual Override posts selected.
  *
- * @param {import('@playwright/test').Page} page         - The Playwright page instance.
- * @param {string[]}                        actionTitles - The titles of the actions to include in the block to override the default ones.
+ * @param {{Page}}   page         - The Playwright page instance.
+ * @param {string[]} actionTitles - The titles of the actions to include in the block to override the default ones.
  */
 export async function addActionsListBlockWithManualOverride(page, actionTitles) {
   await addListBlockWithManualOverride(page, BLOCK_NAME, actionTitles, MANUAL_OVERRIDE_TITLE);
@@ -29,11 +30,12 @@ export async function addActionsListBlockWithManualOverride(page, actionTitles) 
 /**
  * Validate the Actions List block tests.
  *
- * @param {import('@playwright/test').Page} page - The Playwright page instance.
+ * @param {{Page}} page   - The Playwright page instance.
+ * @param {string} layout - The layout of the block.
  */
-export async function checkActionsListBlock(page) {
+export async function checkActionsListBlock(page, layout) {
   await checkListBlock(page, {
-    layout: 'grid',
+    layout,
     title: TEST_TITLE,
     count: 2,
     category: TEST_CATEGORY,
@@ -43,8 +45,8 @@ export async function checkActionsListBlock(page) {
 /**
  * Validate the Actions List block tests with manual override.
  *
- * @param {import('@playwright/test').Page} page         - The Playwright page instance.
- * @param {string[]}                        actionTitles - The titles of the actions to include in the block to override the default ones.
+ * @param {{Page}}   page         - The Playwright page instance.
+ * @param {string[]} actionTitles - The titles of the actions to include in the block to override the default ones.
  */
 export async function checkActionsListBlockWithManualOverride(page, actionTitles) {
   await checkListBlock(page, {
@@ -53,4 +55,17 @@ export async function checkActionsListBlockWithManualOverride(page, actionTitles
     count: actionTitles.length,
     postTitles: actionTitles,
   });
+}
+
+/**
+ * Validate the Actions List block tests with carousel layout.
+ *
+ * @param {{Page}} page - The Playwright page instance.
+ */
+export async function checkActionsListBlockCarouselLayout(page) {
+  await checkActionsListBlock(page, 'carousel');
+
+  const block = page.locator('.p4-query-loop');
+  await expect(block.locator('.carousel.slide')).toBeVisible();
+  await expect(block.locator('.carousel-item.active')).toBeVisible();
 }
