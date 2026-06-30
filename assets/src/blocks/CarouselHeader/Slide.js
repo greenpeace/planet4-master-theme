@@ -9,7 +9,8 @@ export const SlideWithRef = ({
   <li
     className={`carousel-item ${active ? 'active' : ''}`}
     tabIndex={focusable ? 0 : -1}
-    aria-hidden={focusable ? 'false' : 'true'}
+    aria-hidden={focusable ? undefined : true}
+    inert={focusable ? undefined : true}
     ref={ref}
     role="tabpanel"
     alt=""

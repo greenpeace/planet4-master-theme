@@ -33,7 +33,12 @@ const addSlide = async (slide, {index, addNext}, {page, editor}) => {
   // Close sidebar before interacting with the carousel item
   await page.getByRole('button', {name: 'Close Settings'}).click();
 
-  await page.locator('.carousel-item.active .components-button.is-primary').click();
+  const activeSlide = page.locator('.carousel-item.active');
+
+  const editButton = activeSlide.locator('.carousel-header-editor-controls button');
+
+  await expect(editButton).toBeVisible();
+  await editButton.click();
   await page.getByRole('button', {name: 'Add image'}).click();
   await page.getByRole('tab', {name: 'Media Library'}).click();
   await page.getByRole('checkbox', {name: slide.image}).click();
@@ -44,7 +49,7 @@ const addSlide = async (slide, {index, addNext}, {page, editor}) => {
 
   // Next Slide
   if (addNext) {
-    await page.locator('.carousel-item.active .components-button.is-primary').click();
+    await editButton.click();
     await page.getByRole('button', {name: 'Add slide'}).click();
   }
 };
