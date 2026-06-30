@@ -165,22 +165,7 @@ class ListingPage
             return;
         }
 
-        $this->context['featured_posts'] = array_map(
-            fn($post) => [
-                'ID' => $post->ID,
-                'title' => $post->post_title,
-                'excerpt' => $post->post_excerpt,
-                'permalink' => get_permalink($post->ID),
-                'thumbnail' => get_the_post_thumbnail($post, 'medium') ?: null,
-                'terms' => get_the_terms($post, 'category') ?: [],
-                'tags' => get_the_terms($post->ID, 'post_tag') ?: [],
-                'date' => get_the_date('F j, Y', $post->ID),
-                'parsed_date' => get_the_date('c', $post->ID),
-                'author_name' => get_the_author_meta('display_name', $post->post_author),
-                'author_url' => get_author_posts_url($post->post_author),
-            ],
-            $featured_posts
-        );
+        $this->context['featured_posts'] = $featured_posts;
         $this->context['sticky_posts_to_show'] = self::$STICKY_POSTS_TO_SHOW;
 
         // Get the featured posts template
@@ -219,6 +204,7 @@ class ListingPage
             'orderby' => 'date',
             'order' => 'DESC',
             'no_found_rows' => true,
+            'fields' => 'ids',
         ]);
 
         if (count($sticky_posts->posts) < self::$STICKY_POSTS_TO_SHOW) {

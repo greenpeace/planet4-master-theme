@@ -283,10 +283,7 @@ add_action(
             return;
         }
 
-        $query->set('post__not_in', array_map(
-            fn($post) => $post->ID,
-            ListingPage::get_sticky_posts()
-        ));
+        $query->set('post__not_in', ListingPage::get_sticky_posts());
         $query->set('category__in', ListingPage::get_selected_categories());
         $query->set('tax_query', ListingPage::get_selected_post_types());
     }
