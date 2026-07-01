@@ -1,5 +1,6 @@
 import {test, expect} from './tools/lib/test-utils.js';
 import {updatePost} from './tools/lib/post.js';
+import {openMetaBoxesTab, closeMetaBoxesTab} from './tools/lib/editor.js';
 
 test.useAdminLoggedIn();
 
@@ -19,24 +20,30 @@ test('Test Related Posts block', async ({page, requestUtils}) => {
   const editUrl = `./wp-admin/post.php?post=${newPost.id}&action=edit`;
   const postUrl = newPost.link;
 
-  // Related posts enabled
+  // Related posts enabled.
   await page.goto(editUrl, {waitUntil: 'domcontentloaded'}); // Default is waituntil: 'load' but that doesn't work for Webkit
+  await openMetaBoxesTab({page});
   await page.locator('.edit-post-layout__metaboxes').getByRole('combobox', {name: 'Include Related Posts'}).selectOption('Yes');
   await page.waitForTimeout(1000); // letting metabox post query finish
+  await closeMetaBoxesTab({page});
   await updatePost({page});
 
+  // Check the frontend.
   await page.goto(postUrl);
   const relatedSection = page.locator('.p4-query-loop');
   await relatedSection.scrollIntoViewIfNeeded();
   relatedSection.locator('.wp-block-post-template');
   await expect(relatedSection.locator('.wp-block-post-template')).not.toHaveCount(0);
 
-  // Related posts disabled
+  // Related posts disabled.
   await page.goto(editUrl);
+  await openMetaBoxesTab({page});
   await page.locator('.edit-post-layout__metaboxes').getByRole('combobox', {name: 'Include Related Posts'}).selectOption('No');
-  await updatePost({page});
   await page.waitForTimeout(1000); // letting metabox post query finish
+  await closeMetaBoxesTab({page});
+  await updatePost({page});
 
+  // Check the frontend.
   await page.goto(postUrl);
   await expect(page.locator('.p4-query-loop')).toHaveCount(0);
 });

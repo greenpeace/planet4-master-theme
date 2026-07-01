@@ -8,21 +8,21 @@ const MANUAL_OVERRIDE_TITLE = 'Actions';
 /**
  * Adds the Actions List block to the page.
  *
- * @param {import('@playwright/test').Page} page   - The Playwright page instance.
- * @param {string}                          layout - The layout of the block.
+ * @param {{Page, Editor}} options - Page and Editor object.
+ * @param {string}         layout  - The layout of the block.
  */
-export async function addActionsListBlock(page, layout) {
-  await addListBlock(page, BLOCK_NAME, 2, {layout, category: TEST_CATEGORY, title: TEST_TITLE});
+export async function addActionsListBlock({page, editor}, layout) {
+  await addListBlock({page, editor}, BLOCK_NAME, 2, {layout, category: TEST_CATEGORY, title: TEST_TITLE});
 }
 
 /**
  * Adds the Actions List block to the page with the Manual Override posts selected.
  *
- * @param {import('@playwright/test').Page} page         - The Playwright page instance.
- * @param {string[]}                        actionTitles - The titles of the actions to include in the block to override the default ones.
+ * @param {{Page, Editor}} options      - Page and Editor object
+ * @param {string[]}       actionTitles - The titles of the actions to include in the block to override the default ones.
  */
-export async function addActionsListBlockWithManualOverride(page, actionTitles) {
-  await addListBlockWithManualOverride(page, BLOCK_NAME, actionTitles, MANUAL_OVERRIDE_TITLE);
+export async function addActionsListBlockWithManualOverride({page, editor}, actionTitles) {
+  await addListBlockWithManualOverride({page, editor}, BLOCK_NAME, actionTitles, MANUAL_OVERRIDE_TITLE);
 }
 
 

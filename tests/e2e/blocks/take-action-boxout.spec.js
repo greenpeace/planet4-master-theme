@@ -15,7 +15,7 @@ test.describe('Test Take Action Boxout block', () => {
       page.waitForResponse(r =>
         r.url().includes('/planet4/v1/action-pages')
       ),
-      page.waitForSelector('.boxout-heading[contenteditable="true"]'),
+      await expect(editor.canvas.locator('.boxout-heading[contenteditable="true"]')).toBeVisible(),
     ]);
 
   });
@@ -23,35 +23,29 @@ test.describe('Test Take Action Boxout block', () => {
   test('Take Action Boxout with existing page', async ({page, editor}) => {
     test.slow();
     // Select the first page option.
-    await page.getByRole('region', {name: 'Editor settings'})
-      .getByRole('combobox', {name: 'Select Take Action Page'})
-      .selectOption({index: 1});
+    await page.getByRole('combobox', {name: 'Select Take Action Page'}).selectOption({index: 1});
 
     // Save boxout data to make sure it shows in the frontend.
-    const boxoutTitle = await page.innerHTML('.boxout-heading');
+    const boxoutTitle = await editor.canvas.locator('.boxout-heading').innerText();
 
     // Publish post.
     await publishPostAndVisit({page, editor});
 
     // Make sure block shows as expected in the frontend.
-    expect((await page.innerHTML('.boxout-heading')).trim()).toBe(boxoutTitle);
+    expect(page.locator('.boxout-heading')).toHaveText(boxoutTitle);
   });
 
   test('Take Action Boxout with custom fields', async ({page, editor}) => {
     // Fill in boxout fields.
-    await page.locator('.boxout-heading').click();
-    await page.locator('.boxout-heading').fill('The boxout title');
-    await page.locator('.boxout-excerpt').click();
-    await page.locator('.boxout-excerpt').fill('The boxout excerpt');
+    await editor.canvas.locator('.boxout-heading').fill('The boxout title');
+    await editor.canvas.locator('.boxout-excerpt').fill('The boxout excerpt');
 
     // Publish post.
     await publishPostAndVisit({page, editor});
 
     // Make sure block shows as expected in the frontend.
-    const boxoutTitle = (await page.innerHTML('.boxout-heading')).trim();
-    const boxoutExcerpt = await page.innerHTML('.boxout-excerpt');
-    expect(boxoutTitle).toBe('The boxout title');
-    expect(boxoutExcerpt).toBe('The boxout excerpt');
+    await expect(page.locator('.boxout-heading')).toHaveText('The boxout title');
+    await expect(page.locator('.boxout-excerpt')).toHaveText('The boxout excerpt');
   });
 });
 
