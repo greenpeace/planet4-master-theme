@@ -1,4 +1,5 @@
 import {addListBlock, addListBlockWithManualOverride, checkListBlock} from './query-loop-utils.js';
+import {expect} from './test-utils.js';
 
 const BLOCK_NAME = 'Actions List';
 const TEST_TITLE = 'Campaigns';
@@ -29,11 +30,12 @@ export async function addActionsListBlockWithManualOverride(page, actionTitles) 
 /**
  * Validate the Actions List block tests.
  *
- * @param {import('@playwright/test').Page} page - The Playwright page instance.
+ * @param {import('@playwright/test').Page} page   - The Playwright page instance.
+ * @param {string}                          layout - The layout of the block.
  */
-export async function checkActionsListBlock(page) {
+export async function checkActionsListBlock(page, layout) {
   await checkListBlock(page, {
-    layout: 'grid',
+    layout,
     title: TEST_TITLE,
     count: 2,
     category: TEST_CATEGORY,
@@ -53,4 +55,17 @@ export async function checkActionsListBlockWithManualOverride(page, actionTitles
     count: actionTitles.length,
     postTitles: actionTitles,
   });
+}
+
+/**
+ * Validate the Actions List block tests with carousel layout.
+ *
+ * @param {import('@playwright/test').Page} page - The Playwright page instance.
+ */
+export async function checkActionsListBlockCarouselLayout(page) {
+  await checkActionsListBlock(page, 'carousel');
+
+  const block = page.locator('.p4-query-loop');
+  await expect(block.locator('.carousel.slide')).toBeVisible();
+  await expect(block.locator('.carousel-item.active')).toBeVisible();
 }
