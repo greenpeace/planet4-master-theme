@@ -2,6 +2,9 @@ import {test, expect} from './tools/lib/test-utils.js';
 
 test('check cookies banner', async ({page}) => {
   await page.goto('./');
+  await page.waitForLoadState('networkidle');
+  await page.waitForLoadState('domcontentloaded');
+
 
   const cookiesText = await page.evaluate('window.p4_vars.options.cookies_field');
   expect(cookiesText).toBeDefined();

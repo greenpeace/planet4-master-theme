@@ -29,6 +29,9 @@ test('Test Author override', async ({page, requestUtils}) => {
   await page.waitForTimeout(1000);
   await updatePost({page});
   await page.goto(postUrl);
+  await page.waitForLoadState('networkidle');
+  await page.waitForLoadState('domcontentloaded');
+
 
   const authorLocator = page.locator('.single-post-author');
   expect(authorLocator).toBeVisible();
