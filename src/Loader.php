@@ -92,7 +92,7 @@ final class Loader
             CommentFormCustomizer::class,
             CronJob::class,
             DashboardNotice::class,
-            ImageHandler::class,
+            Images\ImageHandler::class,
             Cloudflare\CloudflareTurnstileHandler::class,
             Sentry::class,
             PostFunctionsHandler::class,

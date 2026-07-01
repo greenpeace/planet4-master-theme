@@ -1,6 +1,6 @@
 <?php
 
-namespace P4\MasterTheme;
+namespace P4\MasterTheme\Images;
 
 use WP_HTML_Tag_Processor;
 

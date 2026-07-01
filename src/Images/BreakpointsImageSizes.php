@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace P4\MasterTheme;
+namespace P4\MasterTheme\Images;
 
 use WP_Block;
 
