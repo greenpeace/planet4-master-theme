@@ -1,48 +1,38 @@
-
 {% if featured_posts|length == sticky_posts_to_show %}
-    <section id="featured-posts">
-        <div class="container">
-            <div id="featured-posts-content" class="wp-block-query wp-block-query--list is-layout-flow wp-block-query-is-layout-flow">
-                <ul class="wp-block-post-template">
-                {% for post in featured_posts %}
-                    <li class="wp-block-post post-{{ post.ID }} post type-post status-publish format-standard has-post-thumbnail sticky hentry category-energy tag-renewables p4-page-type-press">
-                        <div class="query-list-item-image query-list-item-image-max-width is-layout-flow wp-block-post-template-is-layout-flow">
-                            <a href="{{ post.permalink }}" target="_self"><img width="2500" height="1281" src="{{ post.thumbnail }}" class="attachment-size wp-post-image" alt="" sizes="(min-width: 1600px) 389px, (min-width: 1200px) 335px, (min-width: 1000px) 281px, (min-width: 780px) 209px, (min-width: 580px) 516px, calc(100vw - 24px)" decoding="async" fetchpriority="high" srcset="{{ post.thumbnail }} 2500w, {{ post.thumbnail }}-300x154.jpg 300w, {{ post.thumbnail }}-768x394.jpg 768w, {{ post.thumbnail }}-1024x525.jpg 1024w, {{ post.thumbnail }}-2048x1049.jpg 2048w, {{ post.thumbnail }}-510x261.jpg 510w" /></a>
+<section id="featured-posts">
+    <div class="container">
+        <!-- wp:query {"query":{"inherit":false,"postIn":{{ featured_posts|json_encode }}}} -->
+        <div id="featured-posts-content" class="wp-block-query wp-block-query--list">
+            <!-- wp:post-template -->
+                <div class="query-list-item-image query-list-item-image-max-width">
+                    <!-- wp:p4/post-featured-image /-->
+                </div>
+                <div class="query-list-item-body">
+                    <div class="query-list-item-post-terms">
+                        <div class="wrapper-post-term">
+                            <!-- wp:post-terms {"term":"p4-page-type"} /-->
                         </div>
-                        <div class="query-list-item-body">
-                            <div class="query-list-item-post-terms">
-                                <div class="wrapper-post-term">
-                                {% for term in post.terms %}
-                                    <div class="taxonomy-p4-page-type wp-block-post-terms">
-                                        <a href="{{ term.link }}" rel="tag">{{ term.name }}</a>
-                                    </div>
-                                {% endfor %}
-                                </div>
-                                <div class="wrapper-post-tag">
-                                    {% for tag in post.tags %}
-                                        <div class="taxonomy-post_tag wp-block-post-terms">
-                                            <a href="{{ tag.link }}" rel="tag">{{ tag.name }}</a>
-                                        </div>
-                                    {% endfor %}
-                                </div>
-                            </div>
-
-                            <header>
-                                <h4 class="query-list-item-headline wp-block-post-title"><a href="{{ post.permalink }}" target="_self">{{ post.title }}</a></h4>
-                            </header>
-                            <div class="query-list-item-content wp-block-post-excerpt"><p class="wp-block-post-excerpt__excerpt">{{ post.excerpt }}</p></div>
-
-                            <div class="query-list-item-meta d-flex flex-wrap">
-                                <span class="article-list-item-author"><a href="{{ post.author_url }}" target="_self">{{ post.author_name }}</a></span>
-                            <div class="query-list-meta-date-reading-time">
-                                <div class="wp-block-post-date"><time datetime="{{ post.raw_date }}">{{ post.parsed_date }}</time></div>
-                            </div>
-                            </div>
+                        <div class="wrapper-post-tag">
+                            <!-- wp:post-terms {"term":"post_tag","separator":" "} /-->
                         </div>
-                    </li>
-                {% endfor %}
-                </ul>
-            </div>
-        </div>
-    </section>
+                    </div>
+
+                    <header>
+                        <!-- wp:post-title {"isLink":true, "level":4, "className": "query-list-item-headline"} /-->
+                    </header>
+                    <!-- wp:post-excerpt {"className": "query-list-item-content"} /-->
+
+                    <div class="query-list-item-meta d-flex flex-wrap">
+                        <!-- wp:p4/post-author-name /-->
+                       <div class="query-list-meta-date-reading-time">
+                            <!-- wp:post-date /-->
+                            <!-- wp:p4/reading-time /-->
+                       </div>
+                    </div>
+                </div>
+            <!-- /wp:post-template -->
+</div>
+        <!-- /wp:query -->
+    </div>
+</section>
 {% endif %}
