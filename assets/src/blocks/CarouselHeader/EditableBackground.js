@@ -25,6 +25,18 @@ export const getLargestSizeUrl = image => {
   );
 };
 
+// Check if an image is very large.
+const isValidSize = key =>
+  key !== 'full' &&
+  key !== 'scaled' &&
+  key !== 'original';
+
+// Remove very large images from the SRC set.
+export const getSrcSetSizes = (sizes = {}) =>
+  Object.entries(sizes)
+    .filter(([key, value]) => isValidSize(key) && value?.source_url)
+    .map(([, value]) => value);
+
 export const EditableBackground = ({
   image_url,
   image_alt,
@@ -57,7 +69,7 @@ export const EditableBackground = ({
 
         // Use the largest registered size instead of the original image so we never serve a multi-MB upload to the front end.
         const resizedUrl = getLargestSizeUrl(image);
-        changeSlideImage(index, id, resizedUrl, alt_text, toSrcSet(Object.values(sizes)));
+        changeSlideImage(index, id, resizedUrl, alt_text, toSrcSet(getSrcSetSizes(sizes)));
       }}
       allowedTypes={ALLOWED_MIME_TYPES}
       value={image_id}
