@@ -9,6 +9,11 @@ const getMonthName = monthNumber => {
     .format(new Date(2000, monthNumber - 1));
 };
 
+const uniqueId = () => {
+  const r = Math.floor(Math.random() * 10000);
+  return `timeline-${r}`;
+};
+
 const getLocalizedDate = (day, month) => {
   const locale = document.documentElement.lang || 'en';
 
@@ -50,6 +55,7 @@ export const NewTimelineFrontend = ({attributes}) => {
   const [loading, setLoading] = useState(false);
   const [sheetData, setSheetData] = useState(null);
   const [processedSheetData, setProcessedSheetData] = useState(null);
+  const [timelineId, setTimelineId] = useState('');
 
 
   const TimelineEvent = ({event}) => {
@@ -217,7 +223,9 @@ export const NewTimelineFrontend = ({attributes}) => {
     }
   }
 
-  if (loading || !processedSheetData) {
+  useEffect(() => setTimelineId(uniqueId()), []);
+
+  if (loading || !processedSheetData || !timelineId) {
     return null;
   }
 
@@ -231,7 +239,7 @@ export const NewTimelineFrontend = ({attributes}) => {
   );
 
   return (
-    <section className={`block timeline-block new-timeline-block ${className ?? ''} alignfull`} aria-label={summaryText}>
+    <section id={timelineId} className={`block timeline-block new-timeline-block ${className ?? ''} alignfull`} aria-label={summaryText}>
       <div className="container">
         {!!timeline_title && !isEditing &&
           <h2 className="page-section-header text-center">
@@ -242,15 +250,15 @@ export const NewTimelineFrontend = ({attributes}) => {
           <p className="page-section-description text-center" dangerouslySetInnerHTML={{__html: description}} />
         }
 
-        <YearsNavigation isEditing={isEditing} years={processedSheetData.map(({year}) => year)} />
+        <YearsNavigation isEditing={isEditing} years={processedSheetData.map(({year}) => year)} timelineId={timelineId} />
         <fieldset className="timeline-group">
           {processedSheetData.map(({year, list}) => (
-            <div className="timeline-block-year-group" id={year} key={year}>
+            <div className="timeline-block-year-group" id={`${timelineId}-${year}`} key={`${timelineId}-${year}`}>
               <p className="timeline-block-year">{year}</p>
               <ul className="timeline-block-events">
                 {list.map((event, index) => (
                   <TimelineEvent
-                    key={`row-${event.Day}-${index}`}
+                    key={`${timelineId}-event-${event.Day}-${index}`}
                     event={event}
                   />
                 ))}
