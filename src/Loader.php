@@ -87,6 +87,7 @@ final class Loader
             GravityFormsExtensions::class,
             BlockSettings::class,
             LoginHandler::class,
+            RegistrationHandler::class,
             EnqueueController::class,
             YouTubeHandler::class,
             CommentFormCustomizer::class,
