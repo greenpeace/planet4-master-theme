@@ -72,12 +72,28 @@ class NavMenus
 
     /**
      * Delete all footer-menu transients. Called on any nav-menu mutation.
+     *
+     * On multilingual sites each language has its own cache entry, so we enumerate active language codes and delete
+     * every variant. Also deletes the un-suffixed base keys for safety on sites where the plugin is inactive.
      */
     public static function invalidate_footer_cache(): void
     {
-        delete_transient(self::FOOTER_SOCIAL_KEY);
-        delete_transient(self::FOOTER_PRIMARY_KEY);
-        delete_transient(self::FOOTER_SECONDARY_KEY);
+        $base_keys = [
+            self::FOOTER_SOCIAL_KEY,
+            self::FOOTER_PRIMARY_KEY,
+            self::FOOTER_SECONDARY_KEY,
+        ];
+
+        $suffixes = array_merge([''], array_map(
+            static fn(string $lang): string => '_' . $lang,
+            self::active_language_codes()
+        ));
+
+        foreach ($base_keys as $key) {
+            foreach ($suffixes as $suffix) {
+                delete_transient($key . $suffix);
+            }
+        }
     }
 
     /**
@@ -93,16 +109,47 @@ class NavMenus
 
     /**
      * Get a footer menu's items, served from a 24h transient.
+     *
+     * The cache key is suffixed with the current language code (for WPML) so each language has its own cache entry,
+     * otherwise whichever language warms the cache first would leak into the other languages' rendering.
      */
     private static function cached_items(string $cache_key, string $location, string $fallback): array
     {
+        $lang = self::current_language_code();
+        $key = $lang !== '' ? $cache_key . '_' . $lang : $cache_key;
+
         $items = TimberHelper::transient(
-            $cache_key,
+            $key,
             static fn() => self::resolve_items($location, $fallback),
             DAY_IN_SECONDS
         );
 
         return is_array($items) ? $items : [];
+    }
+
+    /**
+     * Get current language code for cache-key variance. Returns empty string when WPML is not active.
+     */
+    private static function current_language_code(): string
+    {
+        if (defined('ICL_LANGUAGE_CODE')) {
+            return (string) ICL_LANGUAGE_CODE;
+        }
+        return '';
+    }
+
+    /**
+     * Every language code active on the site (with WPML). Empty array when WPML is not active.
+     *
+     * @return string[]
+     */
+    private static function active_language_codes(): array
+    {
+        if (!defined('ICL_LANGUAGE_CODE')) {
+            return [];
+        }
+        $langs = apply_filters('wpml_active_languages', null, 'skip_missing=0');
+        return is_array($langs) ? array_keys($langs) : [];
     }
 
     /**
