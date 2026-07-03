@@ -71,6 +71,7 @@ final class Loader
             CustomPostType\PostCampaign::class,
             CustomPostType\PostArchive::class,
             CustomPostType\ActionPage::class,
+            CustomPostType\ActionImporter::class,
             Settings::class,
             Features::class,
             PostReportController::class,
