@@ -22,6 +22,12 @@ class ListingPage
     /** @static int */
     public static int $STICKY_POSTS_TO_SHOW = 4;
 
+    /** @var array|null $STICKY_POSTS_CACHE used to avoid running sticky posts more than one time. */
+    protected static ?array $STICKY_POSTS_CACHE = null;
+
+    /** @var int $news_page_id used to get the news page ID */
+    protected int $news_page_id = 0;
+
     /**
      * Templates
      */
@@ -37,6 +43,8 @@ class ListingPage
     {
         $this->templates = $templates;
         $this->context = $context;
+
+        $this->news_page_id = (int) get_option('page_for_posts');
 
         $this->update_context();
         $this->view();
@@ -57,10 +65,9 @@ class ListingPage
         $this->context['layout'] = $_GET['layout'] ?? 'list';
 
         // Check if this is the News & Stories page
-        $news_page_id = (int) get_option('page_for_posts');
         $current_page_id = get_queried_object_id();
 
-        if ($news_page_id === $current_page_id) {
+        if ($this->news_page_id === $current_page_id) {
             $this->set_featured_posts();
             $this->set_filters();
         }
@@ -113,12 +120,11 @@ class ListingPage
      */
     private function set_news_page_link(): void
     {
-        $news_page = (int) get_option('page_for_posts');
-        if (!$news_page) {
+        if (!$this->news_page_id) {
             return;
         }
 
-        $news_page_link = get_permalink($news_page);
+        $news_page_link = get_permalink($this->news_page_id);
         $this->context['news_page_link'] = $news_page_link;
     }
 
@@ -153,25 +159,14 @@ class ListingPage
             return;
         }
 
-        $featured_post_ids = self::get_sticky_posts();
+        $featured_posts = self::get_sticky_posts();
 
-        if (empty($featured_post_ids)) {
+        if (empty($featured_posts)) {
             return;
         }
 
-        $featured_query = new \WP_Query([
-            'post__not_in' => $featured_post_ids,
-            'post_type' => 'post',
-            'post_status' => 'publish',
-            'fields' => 'ids',
-            'posts_per_page' => -1,
-        ]);
-
-        $excluded_post_ids = $featured_query->posts;
-
-        $this->context['featured_post_ids'] = $featured_post_ids;
+        $this->context['featured_posts'] = $featured_posts;
         $this->context['sticky_posts_to_show'] = self::$STICKY_POSTS_TO_SHOW;
-        $this->context['excluded_post_ids'] = $excluded_post_ids;
 
         // Get the featured posts template
         $template_path = get_template_directory() . "/templates/featured-posts.twig";
@@ -191,10 +186,14 @@ class ListingPage
 
     public static function get_sticky_posts(): array
     {
+        if (self::$STICKY_POSTS_CACHE !== null) {
+            return self::$STICKY_POSTS_CACHE;
+        }
+
         $sticky_posts = get_option('sticky_posts');
 
         if (empty($sticky_posts)) {
-            return [];
+            return self::$STICKY_POSTS_CACHE = [];
         }
 
         $sticky_posts = new \WP_Query([
@@ -202,16 +201,17 @@ class ListingPage
             'posts_per_page' => self::$STICKY_POSTS_TO_SHOW,
             'post_type' => 'post',
             'post_status' => 'publish',
-            'fields' => 'ids',
             'orderby' => 'date',
             'order' => 'DESC',
+            'no_found_rows' => true,
+            'fields' => 'ids',
         ]);
 
         if (count($sticky_posts->posts) < self::$STICKY_POSTS_TO_SHOW) {
-            return [];
+            return self::$STICKY_POSTS_CACHE = [];
         }
 
-        return array_slice($sticky_posts->posts, 0, self::$STICKY_POSTS_TO_SHOW);
+        return self::$STICKY_POSTS_CACHE = array_slice($sticky_posts->posts, 0, self::$STICKY_POSTS_TO_SHOW);
     }
 
     /**

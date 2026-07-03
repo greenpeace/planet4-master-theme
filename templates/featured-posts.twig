@@ -1,7 +1,7 @@
-{% if  excluded_post_ids is defined and featured_post_ids|length == sticky_posts_to_show %}
+{% if featured_posts|length == sticky_posts_to_show %}
 <section id="featured-posts">
     <div class="container">
-        <!-- wp:query {"query":{"inherit":false,"exclude":{{ excluded_post_ids|json_encode }}}} -->
+        <!-- wp:query {"query":{"inherit":false,"postIn":{{ featured_posts|json_encode }}}} -->
         <div id="featured-posts-content" class="wp-block-query wp-block-query--list">
             <!-- wp:post-template -->
                 <div class="query-list-item-image query-list-item-image-max-width">
@@ -31,7 +31,7 @@
                     </div>
                 </div>
             <!-- /wp:post-template -->
-        </div>
+</div>
         <!-- /wp:query -->
     </div>
 </section>
