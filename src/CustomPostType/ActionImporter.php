@@ -69,29 +69,33 @@ class ActionImporter
      */
     public function init_import(): void
     {
-        $redirect_args = [
-            'post_type' => self::POST_TYPE,
-            'page'      => self::PAGE_NAME,
-        ];
+        try {
+            $redirect_args = [
+                'post_type' => self::POST_TYPE,
+                'page'      => self::PAGE_NAME,
+            ];
 
-        $url = $this->maybe_handle_submission($redirect_args);
+            $url = $this->maybe_handle_submission($redirect_args);
 
-        if ($url === null) {
-            return;
-        }
+            if ($url === null) {
+                return;
+            }
 
-        $post_id = $this->import_from_url($url);
+            $post_id = $this->import_from_url($url);
 
-        if (is_wp_error($post_id)) {
-            $redirect_args[self::REDIRECT_ARG_ERROR] = rawurlencode($post_id->get_error_message());
+            if (is_wp_error($post_id)) {
+                $redirect_args[self::REDIRECT_ARG_ERROR] = rawurlencode($post_id->get_error_message());
+                $this->redirect_back($redirect_args);
+            }
+
+            $this->create_redirection_to_source($post_id, $url);
+            $this->sync_elasticpress($post_id);
+
+            $redirect_args[self::REDIRECT_ARG_SUCCESS] = $post_id;
             $this->redirect_back($redirect_args);
+        } catch (\Throwable $e) {
+            function_exists('\Sentry\captureException') && \Sentry\captureException($e);
         }
-
-        $this->create_redirection_to_source($post_id, $url);
-        $this->sync_elasticpress($post_id);
-
-        $redirect_args[self::REDIRECT_ARG_SUCCESS] = $post_id;
-        $this->redirect_back($redirect_args);
     }
 
     /**
@@ -105,43 +109,48 @@ class ActionImporter
      */
     private function maybe_handle_submission(array $redirect_args): string|null
     {
-        if (empty($_POST[self::FORM_ACTION])) {
+        try {
+            if (empty($_POST[self::FORM_ACTION])) {
+                return null;
+            }
+
+            check_admin_referer(self::NONCE_ACTION);
+
+            if (!current_user_can('manage_options') && !current_user_can('editor')) {
+                wp_die(esc_html__('You are not allowed to do this.', 'planet4-master-theme-backend'));
+            }
+
+            $url = esc_url_raw(wp_unslash($_POST[self::FORM_ACTION]));
+
+            if (!$url || !filter_var($url, FILTER_VALIDATE_URL)) {
+                $redirect_args[self::REDIRECT_ARG_ERROR] = rawurlencode(
+                    __('Please provide a valid URL.', 'planet4-master-theme-backend')
+                );
+                $this->redirect_back($redirect_args);
+            }
+
+            if (wp_parse_url($url, PHP_URL_SCHEME) !== 'https') {
+                $redirect_args[self::REDIRECT_ARG_ERROR] = rawurlencode(
+                    __('Only HTTPS URLs are allowed.', 'planet4-master-theme-backend')
+                );
+                $this->redirect_back($redirect_args);
+            }
+
+            $existing_post_id = $this->find_existing_post_by_url($url);
+
+            if ($existing_post_id) {
+                $redirect_args[self::REDIRECT_ARG_ERROR] = rawurlencode(
+                    __('This URL has already been imported.', 'planet4-master-theme-backend')
+                );
+                $redirect_args[self::REDIRECT_ARG_EXISTING] = $existing_post_id;
+                $this->redirect_back($redirect_args);
+            }
+
+            return $url;
+        } catch (\Throwable $e) {
+            function_exists('\Sentry\captureException') && \Sentry\captureException($e);
             return null;
         }
-
-        check_admin_referer(self::NONCE_ACTION);
-
-        if (!current_user_can('manage_options') && !current_user_can('editor')) {
-            wp_die(esc_html__('You are not allowed to do this.', 'planet4-master-theme-backend'));
-        }
-
-        $url = esc_url_raw(wp_unslash($_POST[self::FORM_ACTION]));
-
-        if (!$url || !filter_var($url, FILTER_VALIDATE_URL)) {
-            $redirect_args[self::REDIRECT_ARG_ERROR] = rawurlencode(
-                __('Please provide a valid URL.', 'planet4-master-theme-backend')
-            );
-            $this->redirect_back($redirect_args);
-        }
-
-        if (wp_parse_url($url, PHP_URL_SCHEME) !== 'https') {
-            $redirect_args[self::REDIRECT_ARG_ERROR] = rawurlencode(
-                __('Only HTTPS URLs are allowed.', 'planet4-master-theme-backend')
-            );
-            $this->redirect_back($redirect_args);
-        }
-
-        $existing_post_id = $this->find_existing_post_by_url($url);
-
-        if ($existing_post_id) {
-            $redirect_args[self::REDIRECT_ARG_ERROR] = rawurlencode(
-                __('This URL has already been imported.', 'planet4-master-theme-backend')
-            );
-            $redirect_args[self::REDIRECT_ARG_EXISTING] = $existing_post_id;
-            $this->redirect_back($redirect_args);
-        }
-
-        return $url;
     }
 
     /**
@@ -163,20 +172,25 @@ class ActionImporter
      */
     private function find_existing_post_by_url(string $url): int
     {
-        $existing = get_posts([
-            'post_type'      => self::POST_TYPE,
-            'post_status'    => 'any',
-            'posts_per_page' => 1,
-            'fields'         => 'ids',
-            'meta_query'     => [ // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
-                [
-                    'key'   => 'action_importer_source_url',
-                    'value' => $url,
+        try {
+            $existing = get_posts([
+                'post_type'      => self::POST_TYPE,
+                'post_status'    => 'any',
+                'posts_per_page' => 1,
+                'fields'         => 'ids',
+                'meta_query'     => [ // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
+                    [
+                        'key'   => 'action_importer_source_url',
+                        'value' => $url,
+                    ],
                 ],
-            ],
-        ]);
+            ]);
 
-        return !empty($existing) ? (int) $existing[0] : 0;
+            return !empty($existing) ? (int) $existing[0] : 0;
+        } catch (\Throwable $e) {
+            function_exists('\Sentry\captureException') && \Sentry\captureException($e);
+            return 0;
+        }
     }
 
     /**
@@ -190,86 +204,96 @@ class ActionImporter
      */
     private function slug_from_url(string $url): string
     {
-        $path = (string) wp_parse_url($url, PHP_URL_PATH);
-        $path = trim($path, '/');
+        try {
+            $path = (string) wp_parse_url($url, PHP_URL_PATH);
+            $path = trim($path, '/');
 
-        if ($path === '') {
+            if ($path === '') {
+                return '';
+            }
+
+            $segments = explode('/', $path);
+            $last     = end($segments);
+
+            return sanitize_title($last);
+        } catch (\Throwable $e) {
+            function_exists('\Sentry\captureException') && \Sentry\captureException($e);
             return '';
         }
-
-        $segments = explode('/', $path);
-        $last     = end($segments);
-
-        return sanitize_title($last);
     }
 
     /**
      * Fetch a URL, parse its Open Graph tags, and create a published post.
-     *
-     * @param string $url External URL to import.
-     * @return int|\WP_Error Post ID on success, WP_Error on failure.
      */
-    private function import_from_url(string $url)
+    private function import_from_url(string $url): int|\WP_Error
     {
-        $response = wp_remote_get($url, [
-            'timeout'    => 12,
-            'user-agent' => 'Planet4 Action Importer',
-        ]);
+        try {
+            $response = wp_remote_get($url, [
+                'timeout'    => 12,
+                'user-agent' => 'Planet4 Action Importer',
+            ]);
 
-        if (is_wp_error($response)) {
-            return $response;
-        }
+            if (is_wp_error($response)) {
+                return $response;
+            }
 
-        $code = wp_remote_retrieve_response_code($response);
-        if ($code < 200 || $code >= 300) {
-            return new \WP_Error(
-                'action_importer_http_error',
-                sprintf(
-                    /* translators: %d is an HTTP status code. */
-                    __('The remote server responded with status %d.', 'planet4-master-theme-backend'),
-                    $code
-                )
-            );
-        }
+            $code = wp_remote_retrieve_response_code($response);
+            if ($code < 200 || $code >= 300) {
+                return new \WP_Error(
+                    'action_importer_http_error',
+                    sprintf(
+                        /* translators: %d is an HTTP status code. */
+                        __('The remote server responded with status %d.', 'planet4-master-theme-backend'),
+                        $code
+                    )
+                );
+            }
 
-        $body = wp_remote_retrieve_body($response);
+            $body = wp_remote_retrieve_body($response);
 
-        if (trim($body) === '') {
-            return new \WP_Error(
-                'action_importer_empty_body',
-                __('The remote page returned no content.', 'planet4-master-theme-backend')
-            );
-        }
+            if (trim($body) === '') {
+                return new \WP_Error(
+                    'action_importer_empty_body',
+                    __('The remote page returned no content.', 'planet4-master-theme-backend')
+                );
+            }
 
-        $og = $this->parse_og_tags($body, $url);
+            $og = $this->parse_og_tags($body, $url);
 
-        if (empty($og['title']) && empty($og['description'])) {
-            return new \WP_Error(
-                'action_importer_no_og_data',
-                __('No Open Graph data could be found on that page.', 'planet4-master-theme-backend')
-            );
-        }
+            if (empty($og['title']) && empty($og['description'])) {
+                return new \WP_Error(
+                    'action_importer_no_og_data',
+                    __('No Open Graph data could be found on that page.', 'planet4-master-theme-backend')
+                );
+            }
 
-        $post_id = wp_insert_post([
-            'post_type'    => self::POST_TYPE,
-            'post_title'   => $og['title'] ?: __('(No title found)', 'planet4-master-theme-backend'),
-            'post_content' => $og['description'],
-            'post_status'  => 'publish',
-            'post_name'    => $this->slug_from_url($url),
-            'meta_input'   => [
-                'action_importer_source_url' => $url,
-            ],
-        ], true);
+            $post_id = wp_insert_post([
+                'post_type'    => self::POST_TYPE,
+                'post_title'   => $og['title'] ?: __('(No title found)', 'planet4-master-theme-backend'),
+                'post_content' => $og['description'],
+                'post_status'  => 'publish',
+                'post_name'    => $this->slug_from_url($url),
+                'meta_input'   => [
+                    'action_importer_source_url' => $url,
+                ],
+            ], true);
 
-        if (is_wp_error($post_id)) {
+            if (is_wp_error($post_id)) {
+                return $post_id;
+            }
+
+            if ($og['image']) {
+                $this->set_featured_image_from_url($post_id, $og['image'], $og['title']);
+            }
+
             return $post_id;
+        } catch (\Throwable $e) {
+            function_exists('\Sentry\captureException') && \Sentry\captureException($e);
+            return new \WP_Error(
+                    'action_importer_catch_error',
+                    __($e, 'planet4-master-theme-backend')
+                );
         }
-
-        if ($og['image']) {
-            $this->set_featured_image_from_url($post_id, $og['image'], $og['title']);
-        }
-
-        return $post_id;
     }
 
     /**
@@ -286,7 +310,7 @@ class ActionImporter
         try {
             $indexable = \ElasticPress\Indexables::factory()->get('post');
             $indexable->sync_manager->add_to_queue($post_id);
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             function_exists('\Sentry\captureException') && \Sentry\captureException($e);
         }
     }
@@ -299,31 +323,36 @@ class ActionImporter
      */
     private function get_or_create_actions_group(): int
     {
-        global $wpdb;
+        try {
+            global $wpdb;
 
-        $group_name = 'Actions';
-        $table      = $wpdb->prefix . 'redirection_groups';
+            $group_name = 'Actions';
+            $table      = $wpdb->prefix . 'redirection_groups';
 
-        $existing = $wpdb->get_var($wpdb->prepare(
-            "SELECT id FROM $table WHERE name = %s", // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
-            $group_name
-        ));
+            $existing = $wpdb->get_var($wpdb->prepare(
+                "SELECT id FROM $table WHERE name = %s", // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+                $group_name
+            ));
 
-        if ($existing) {
-            return (int) $existing;
-        }
+            if ($existing) {
+                return (int) $existing;
+            }
 
-        if (!class_exists('Red_Group')) {
+            if (!class_exists('Red_Group')) {
+                return 1;
+            }
+
+            $group = \Red_Group::create($group_name, 1, true);
+
+            if ($group instanceof \Red_Group) {
+                return (int) $group->get_id();
+            }
+
+            return 1;
+        } catch (\Throwable $e) {
+            function_exists('\Sentry\captureException') && \Sentry\captureException($e);
             return 1;
         }
-
-        $group = \Red_Group::create($group_name, 1, true);
-
-        if ($group instanceof \Red_Group) {
-            return (int) $group->get_id();
-        }
-
-        return 1;
     }
 
     /**
@@ -337,38 +366,42 @@ class ActionImporter
      */
     private function create_redirection_to_source(int $post_id, string $target_url): void
     {
-        if (!class_exists('Red_Item')) {
-            return;
-        }
+        try {
+            if (!class_exists('Red_Item')) {
+                return;
+            }
 
-        $group_id = $this->get_or_create_actions_group();
-        $source   = wp_parse_url(get_permalink($post_id), PHP_URL_PATH);
+            $group_id = $this->get_or_create_actions_group();
+            $source   = wp_parse_url(get_permalink($post_id), PHP_URL_PATH);
 
-        if (!$source) {
-            return;
-        }
+            if (!$source) {
+                return;
+            }
 
-        $redirect = \Red_Item::create([
-            'url'         => $source,
-            'action_type' => 'url',
-            'action_code' => 301,
-            'match_type'  => 'url',
-            'action_data' => [
-                'url' => $target_url,
-            ],
-            'group_id'    => $group_id,
-        ]);
+            $redirect = \Red_Item::create([
+                'url'         => $source,
+                'action_type' => 'url',
+                'action_code' => 301,
+                'match_type'  => 'url',
+                'action_data' => [
+                    'url' => $target_url,
+                ],
+                'group_id'    => $group_id,
+            ]);
 
-        if ($redirect instanceof \Red_Item) {
-            $redirect_id = (int) $redirect->get_id();
-        } else if (is_array($redirect) && !empty($redirect['id'])) {
-            $redirect_id = (int) $redirect['id'];
-        } else {
-            $redirect_id = 0;
-        }
+            if ($redirect instanceof \Red_Item) {
+                $redirect_id = (int) $redirect->get_id();
+            } else if (is_array($redirect) && !empty($redirect['id'])) {
+                $redirect_id = (int) $redirect['id'];
+            } else {
+                $redirect_id = 0;
+            }
 
-        if ($redirect_id) {
-            update_post_meta($post_id, self::REDIRECT_ID_META_KEY, $redirect_id);
+            if ($redirect_id) {
+                update_post_meta($post_id, self::REDIRECT_ID_META_KEY, $redirect_id);
+            }
+        } catch (\Throwable $e) {
+            function_exists('\Sentry\captureException') && \Sentry\captureException($e);
         }
     }
 
@@ -434,7 +467,7 @@ class ActionImporter
             } else if ($action === 'delete') {
                 $item->delete();
             }
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             function_exists('\Sentry\captureException') && \Sentry\captureException($e);
         }
     }
@@ -455,66 +488,71 @@ class ActionImporter
             'url'         => $source_url,
         ];
 
-        // Guard against the PHP 8 ValueError thrown by loadHTML() on an empty string.
-        if (trim($html) === '') {
+        try {
+            // Guard against the PHP 8 ValueError thrown by loadHTML() on an empty string.
+            if (trim($html) === '') {
+                return $og;
+            }
+
+            $dom = new \DOMDocument();
+
+            $previous_setting = libxml_use_internal_errors(true);
+            $loaded            = $dom->loadHTML($html, LIBXML_NOERROR | LIBXML_NOWARNING);
+            libxml_clear_errors();
+            libxml_use_internal_errors($previous_setting);
+
+            if (!$loaded) {
+                return $og;
+            }
+
+            $metas = $dom->getElementsByTagName('meta');
+
+            foreach ($metas as $meta) {
+                /** @var \DOMElement $meta */
+                $property = $meta->getAttribute('property') ?: $meta->getAttribute('name');
+                $content  = $meta->getAttribute('content');
+
+                if (!$property || $content === '') {
+                    continue;
+                }
+
+                switch ($property) {
+                    case 'og:title':
+                        $og['title'] = $content;
+                        break;
+                    case 'og:description':
+                        $og['description'] = $content;
+                        break;
+                    case 'og:image':
+                    case 'og:image:secure_url':
+                        if (empty($og['image'])) {
+                            $og['image'] = $content;
+                        }
+                        break;
+                    case 'og:url':
+                        $og['url'] = $content;
+                        break;
+                }
+            }
+
+            // Fall back to <title> if og:title is missing.
+            if (empty($og['title'])) {
+                $titles = $dom->getElementsByTagName('title');
+                if ($titles->length > 0) {
+                    $og['title'] = $titles->item(0)->textContent;
+                }
+            }
+
+            $og['title']       = sanitize_text_field($og['title']);
+            $og['description'] = sanitize_text_field($og['description']);
+            $og['url']          = esc_url_raw($og['url']);
+            $og['image']        = esc_url_raw($og['image']);
+
+            return $og;
+        } catch (\Throwable $e) {
+            function_exists('\Sentry\captureException') && \Sentry\captureException($e);
             return $og;
         }
-
-        $dom = new \DOMDocument();
-
-        $previous_setting = libxml_use_internal_errors(true);
-        $loaded            = $dom->loadHTML($html, LIBXML_NOERROR | LIBXML_NOWARNING);
-        libxml_clear_errors();
-        libxml_use_internal_errors($previous_setting);
-
-        if (!$loaded) {
-            return $og;
-        }
-
-        $metas = $dom->getElementsByTagName('meta');
-
-        foreach ($metas as $meta) {
-            /** @var \DOMElement $meta */
-            $property = $meta->getAttribute('property') ?: $meta->getAttribute('name');
-            $content  = $meta->getAttribute('content');
-
-            if (!$property || $content === '') {
-                continue;
-            }
-
-            switch ($property) {
-                case 'og:title':
-                    $og['title'] = $content;
-                    break;
-                case 'og:description':
-                    $og['description'] = $content;
-                    break;
-                case 'og:image':
-                case 'og:image:secure_url':
-                    if (empty($og['image'])) {
-                        $og['image'] = $content;
-                    }
-                    break;
-                case 'og:url':
-                    $og['url'] = $content;
-                    break;
-            }
-        }
-
-        // Fall back to <title> if og:title is missing.
-        if (empty($og['title'])) {
-            $titles = $dom->getElementsByTagName('title');
-            if ($titles->length > 0) {
-                $og['title'] = $titles->item(0)->textContent;
-            }
-        }
-
-        $og['title']       = sanitize_text_field($og['title']);
-        $og['description'] = sanitize_text_field($og['description']);
-        $og['url']          = esc_url_raw($og['url']);
-        $og['image']        = esc_url_raw($og['image']);
-
-        return $og;
     }
 
     /**
@@ -526,16 +564,20 @@ class ActionImporter
      */
     private function set_featured_image_from_url(int $post_id, string $image_url, string $desc): void
     {
-        if (!function_exists('media_sideload_image')) {
-            require_once ABSPATH . 'wp-admin/includes/media.php';
-            require_once ABSPATH . 'wp-admin/includes/file.php';
-            require_once ABSPATH . 'wp-admin/includes/image.php';
-        }
+        try {
+            if (!function_exists('media_sideload_image')) {
+                require_once ABSPATH . 'wp-admin/includes/media.php';
+                require_once ABSPATH . 'wp-admin/includes/file.php';
+                require_once ABSPATH . 'wp-admin/includes/image.php';
+            }
 
-        $media_id = media_sideload_image($image_url, $post_id, $desc, 'id');
+            $media_id = media_sideload_image($image_url, $post_id, $desc, 'id');
 
-        if (!is_wp_error($media_id)) {
-            set_post_thumbnail($post_id, $media_id);
+            if (!is_wp_error($media_id)) {
+                set_post_thumbnail($post_id, $media_id);
+            }
+        } catch (\Throwable $e) {
+            function_exists('\Sentry\captureException') && \Sentry\captureException($e);
         }
     }
 
