@@ -32,7 +32,7 @@ class ActionImporter
         }
 
         add_action('admin_menu', [ $this, 'add_options_page' ], 99);
-        add_action('admin_init', [ $this, 'maybe_handle_submission' ]);
+        add_action('admin_init', [ $this, 'init_import' ]);
     }
 
     /**
@@ -50,13 +50,40 @@ class ActionImporter
         );
     }
 
+    public function init_import(): void
+    {
+        $redirect_args = [
+            'post_type' => 'p4_action',
+            'page'      => 'import-action',
+        ];
+
+        $url = $this->maybe_handle_submission($redirect_args);
+
+        if ($url === null) {
+            return;
+        }
+
+        $post_id = $this->import_from_url($url);
+
+        if (is_wp_error($post_id)) {
+            $redirect_args['action_importer_error'] = rawurlencode($post_id->get_error_message());
+            $this->redirect_back($redirect_args);
+        }
+
+        $this->create_redirection_to_source($post_id, $url);
+        $this->sync_elasticpress($post_id);
+
+        $redirect_args['action_importer_success'] = $post_id;
+        $this->redirect_back($redirect_args);
+    }
+
     /**
      * Handle the form submission on admin_init, before any output.
      */
-    public function maybe_handle_submission(): void
+    private function maybe_handle_submission(array $redirect_args): string|null
     {
         if (empty($_POST['import_url'])) {
-            return;
+            return null;
         }
 
         check_admin_referer(self::NONCE_ACTION);
@@ -66,10 +93,6 @@ class ActionImporter
         }
 
         $url = esc_url_raw(wp_unslash($_POST['import_url']));
-        $redirect_args = [
-            'post_type' => 'p4_action',
-            'page'      => 'import-action',
-        ];
 
         if (!$url || !filter_var($url, FILTER_VALIDATE_URL)) {
             $redirect_args['action_importer_error'] = rawurlencode(
@@ -95,15 +118,18 @@ class ActionImporter
             $this->redirect_back($redirect_args);
         }
 
-        $post_id = $this->import_from_url($url);
+        return $url;
+    }
 
-        if (is_wp_error($post_id)) {
-            $redirect_args['action_importer_error'] = rawurlencode($post_id->get_error_message());
-            $this->redirect_back($redirect_args);
-        }
-
-        $redirect_args['action_importer_success'] = $post_id;
-        $this->redirect_back($redirect_args);
+    /**
+     * Redirect back to the import page with status query args, then exit.
+     *
+     * @param array<string,mixed> $args Query args to append.
+     */
+    private function redirect_back(array $args): void
+    {
+        wp_safe_redirect(add_query_arg($args, admin_url('edit.php')));
+        exit;
     }
 
     /**
@@ -219,9 +245,6 @@ class ActionImporter
         if ($og['image']) {
             $this->set_featured_image_from_url($post_id, $og['image'], $og['title']);
         }
-
-        $this->create_redirection_to_source($post_id, $url);
-        $this->sync_elasticpress($post_id);
 
         return $post_id;
     }
@@ -410,17 +433,6 @@ class ActionImporter
         if (!is_wp_error($media_id)) {
             set_post_thumbnail($post_id, $media_id);
         }
-    }
-
-    /**
-     * Redirect back to the import page with status query args, then exit.
-     *
-     * @param array<string,mixed> $args Query args to append.
-     */
-    private function redirect_back(array $args): void
-    {
-        wp_safe_redirect(add_query_arg($args, admin_url('edit.php')));
-        exit;
     }
 
     /**
