@@ -220,7 +220,76 @@ class ActionImporter
             $this->set_featured_image_from_url($post_id, $og['image'], $og['title']);
         }
 
+        $this->create_redirection_to_source($post_id, $url);
+
         return $post_id;
+    }
+
+    /**
+     * Get (or create) the "Actions" redirection group.
+     *
+     * @return int Group ID. Falls back to the default group (1) if the
+     *             Redirection plugin isn't active or group creation fails.
+     */
+    private function get_or_create_actions_group(): int
+    {
+        global $wpdb;
+
+        $group_name = 'Actions';
+        $table      = $wpdb->prefix . 'redirection_groups';
+
+        $existing = $wpdb->get_var($wpdb->prepare(
+            "SELECT id FROM $table WHERE name = %s", // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+            $group_name
+        ));
+
+        if ($existing) {
+            return (int) $existing;
+        }
+
+        if (!class_exists('Red_Group')) {
+            return 1;
+        }
+
+        $group = \Red_Group::create($group_name, 1, true);
+
+        if ($group instanceof \Red_Group) {
+            return (int) $group->get_id();
+        }
+
+        return 1;
+    }
+
+    /**
+     * Create a 301 redirect from the new post's permalink to the original
+     * external URL it was imported from, inside the "Actions" group.
+     *
+     * @param int    $post_id    Newly created post ID.
+     * @param string $target_url Original external URL.
+     */
+    private function create_redirection_to_source(int $post_id, string $target_url): void
+    {
+        if (!class_exists('Red_Item')) {
+            return;
+        }
+
+        $group_id = $this->get_or_create_actions_group();
+        $source   = wp_parse_url(get_permalink($post_id), PHP_URL_PATH);
+
+        if (!$source) {
+            return;
+        }
+
+        \Red_Item::create([
+            'url'         => $source,
+            'action_type' => 'url',
+            'action_code' => 301,
+            'match_type'  => 'url',
+            'action_data' => [
+                'url' => $target_url,
+            ],
+            'group_id'    => $group_id,
+        ]);
     }
 
     /**
