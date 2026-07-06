@@ -359,7 +359,13 @@ class ActionImporter
             'group_id'    => $group_id,
         ]);
 
-        $redirect_id = $this->extract_redirect_id($redirect);
+        if ($redirect instanceof \Red_Item) {
+            $redirect_id = (int) $redirect->get_id();
+        } else if (is_array($redirect) && !empty($redirect['id'])) {
+            $redirect_id = (int) $redirect['id'];
+        } else {
+            $redirect_id = 0;
+        }
 
         if ($redirect_id) {
             update_post_meta($post_id, self::REDIRECT_ID_META_KEY, $redirect_id);
@@ -367,56 +373,36 @@ class ActionImporter
     }
 
     /**
-     * Normalize the return value of Red_Item::create() into a redirect ID.
-     *
-     * Different versions of the Redirection plugin return either a
-     * Red_Item instance or an array from create(); handle both.
-     *
-     * @param mixed $redirect Return value from Red_Item::create().
-     * @return int Redirect ID, or 0 if it couldn't be determined.
-     */
-    private function extract_redirect_id($redirect): int
-    {
-        if ($redirect instanceof \Red_Item) {
-            return (int) $redirect->get_id();
-        }
-
-        if (is_array($redirect) && !empty($redirect['id'])) {
-            return (int) $redirect['id'];
-        }
-
-        return 0;
-    }
-
-    /**
      * Disable the redirection when a p4_action post is moved to Trash.
-     * The redirect itself is preserved (not deleted) so it can be
-     * re-enabled if the post is restored.
-     *
-     * @param int $post_id Post ID being trashed.
      */
     public function disable_redirection_on_trash(int $post_id): void
     {
-        $this->set_redirection_status($post_id, false);
+        $this->set_redirection_status($post_id, 'disable');
     }
 
     /**
      * Re-enable the redirection when a p4_action post is restored from Trash.
-     *
-     * @param int $post_id Post ID being restored.
      */
     public function enable_redirection_on_untrash(int $post_id): void
     {
-        $this->set_redirection_status($post_id, true);
+        $this->set_redirection_status($post_id, 'enable');
+    }
+
+    /**
+     * Remove the redirection associated with a p4_action post when that post is permanently deleted.
+     */
+    public function remove_redirection_on_delete(int $post_id): void
+    {
+        $this->set_redirection_status($post_id, 'delete');
     }
 
     /**
      * Enable or disable the redirection associated with a p4_action post.
      *
      * @param int  $post_id Post ID.
-     * @param bool $enable  True to enable the redirect, false to disable it.
+     * @param string $action The type of action to be executed.
      */
-    private function set_redirection_status(int $post_id, bool $enable): void
+    private function set_redirection_status(int $post_id, string $action): void
     {
         $post = get_post($post_id);
 
@@ -441,44 +427,11 @@ class ActionImporter
                 return;
             }
 
-            if ($enable) {
+            if ($action === 'enable') {
                 $item->enable();
-            } else {
+            } else if ($action === 'disable') {
                 $item->disable();
-            }
-        } catch (\Exception $e) {
-            function_exists('\Sentry\captureException') && \Sentry\captureException($e);
-        }
-    }
-
-    /**
-     * Remove the redirection associated with a p4_action post when that
-     * post is permanently deleted (fires on force-delete or emptying the
-     * trash — not on moving a post to trash).
-     *
-     * @param int      $post_id Post ID being deleted.
-     * @param \WP_Post $post    Post object being deleted.
-     */
-    public function remove_redirection_on_delete(int $post_id, \WP_Post $post): void
-    {
-        if ($post->post_type !== self::POST_TYPE) {
-            return;
-        }
-
-        if (!class_exists('Red_Item')) {
-            return;
-        }
-
-        $redirect_id = (int) get_post_meta($post_id, self::REDIRECT_ID_META_KEY, true);
-
-        if (!$redirect_id) {
-            return;
-        }
-
-        try {
-            $item = \Red_Item::get_by_id($redirect_id);
-
-            if ($item instanceof \Red_Item) {
+            } else if ($action === 'delete') {
                 $item->delete();
             }
         } catch (\Exception $e) {
