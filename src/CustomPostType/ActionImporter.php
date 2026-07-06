@@ -8,11 +8,13 @@ namespace P4\MasterTheme\CustomPostType;
  * Lets an admin/editor paste an external URL. On submit, PHP fetches the
  * page server-side, extracts its Open Graph data, and publishes a
  * p4_action post from it directly (no client-side preview step). URLs
- * that have already been imported are rejected.
+ * that have already been imported are rejected. When an imported post is
+ * permanently deleted, its associated redirection is removed too.
  */
 class ActionImporter
 {
     private const NONCE_ACTION = 'import_action';
+    private const REDIRECT_ID_META_KEY = 'action_importer_redirect_id';
 
     /**
      * Constructor.
@@ -27,6 +29,10 @@ class ActionImporter
      */
     public function hooks(): void
     {
+        add_action('before_delete_post', [ $this, 'remove_redirection_on_delete' ], 10, 2);
+        add_action('wp_trash_post', [ $this, 'disable_redirection_on_trash' ]);
+        add_action('untrashed_post', [ $this, 'enable_redirection_on_untrash' ]);
+
         if (!current_user_can('manage_options') && !current_user_can('editor')) {
             return;
         }
@@ -50,6 +56,11 @@ class ActionImporter
         );
     }
 
+    /**
+     * Orchestrates the import: validate submission, create the post,
+     * wire up its side effects (redirect, search indexing), and redirect
+     * back to the admin screen with a success/error notice.
+     */
     public function init_import(): void
     {
         $redirect_args = [
@@ -78,7 +89,13 @@ class ActionImporter
     }
 
     /**
-     * Handle the form submission on admin_init, before any output.
+     * Validate the form submission on admin_init, before any output.
+     *
+     * @param array<string,mixed> $redirect_args Base redirect query args
+     *                                            (post_type, page) used for
+     *                                            any error redirects.
+     * @return string|null The validated URL, or null if there was no
+     *                      submission to handle.
      */
     private function maybe_handle_submission(array $redirect_args): string|null
     {
@@ -305,7 +322,9 @@ class ActionImporter
 
     /**
      * Create a 301 redirect from the new post's permalink to the original
-     * external URL it was imported from, inside the "Actions" group.
+     * external URL it was imported from, inside the "Actions" group. The
+     * created redirect's ID is stored as post meta so it can be cleaned up
+     * later if the post is deleted.
      *
      * @param int    $post_id    Newly created post ID.
      * @param string $target_url Original external URL.
@@ -323,7 +342,7 @@ class ActionImporter
             return;
         }
 
-        \Red_Item::create([
+        $redirect = \Red_Item::create([
             'url'         => $source,
             'action_type' => 'url',
             'action_code' => 301,
@@ -333,6 +352,132 @@ class ActionImporter
             ],
             'group_id'    => $group_id,
         ]);
+
+        $redirect_id = $this->extract_redirect_id($redirect);
+
+        if ($redirect_id) {
+            update_post_meta($post_id, self::REDIRECT_ID_META_KEY, $redirect_id);
+        }
+    }
+
+    /**
+     * Normalize the return value of Red_Item::create() into a redirect ID.
+     *
+     * Different versions of the Redirection plugin return either a
+     * Red_Item instance or an array from create(); handle both.
+     *
+     * @param mixed $redirect Return value from Red_Item::create().
+     * @return int Redirect ID, or 0 if it couldn't be determined.
+     */
+    private function extract_redirect_id($redirect): int
+    {
+        if ($redirect instanceof \Red_Item) {
+            return (int) $redirect->get_id();
+        }
+
+        if (is_array($redirect) && !empty($redirect['id'])) {
+            return (int) $redirect['id'];
+        }
+
+        return 0;
+    }
+
+    /**
+     * Disable the redirection when a p4_action post is moved to Trash.
+     * The redirect itself is preserved (not deleted) so it can be
+     * re-enabled if the post is restored.
+     *
+     * @param int $post_id Post ID being trashed.
+     */
+    public function disable_redirection_on_trash(int $post_id): void
+    {
+        $this->set_redirection_status($post_id, false);
+    }
+
+    /**
+     * Re-enable the redirection when a p4_action post is restored from Trash.
+     *
+     * @param int $post_id Post ID being restored.
+     */
+    public function enable_redirection_on_untrash(int $post_id): void
+    {
+        $this->set_redirection_status($post_id, true);
+    }
+
+    /**
+     * Enable or disable the redirection associated with a p4_action post.
+     *
+     * @param int  $post_id Post ID.
+     * @param bool $enable  True to enable the redirect, false to disable it.
+     */
+    private function set_redirection_status(int $post_id, bool $enable): void
+    {
+        $post = get_post($post_id);
+
+        if (!$post || $post->post_type !== 'p4_action') {
+            return;
+        }
+
+        if (!class_exists('Red_Item')) {
+            return;
+        }
+
+        $redirect_id = (int) get_post_meta($post_id, self::REDIRECT_ID_META_KEY, true);
+
+        if (!$redirect_id) {
+            return;
+        }
+
+        try {
+            $item = \Red_Item::get_by_id($redirect_id);
+
+            if (!$item instanceof \Red_Item) {
+                return;
+            }
+
+            if ($enable) {
+                $item->enable();
+            } else {
+                $item->disable();
+            }
+        } catch (\Exception $e) {
+            function_exists('\Sentry\captureException') && \Sentry\captureException($e);
+        }
+    }
+
+    /**
+     * Remove the redirection associated with a p4_action post when that
+     * post is permanently deleted (fires on force-delete or emptying the
+     * trash — not on moving a post to trash).
+     *
+     * @param int      $post_id Post ID being deleted.
+     * @param \WP_Post $post    Post object being deleted.
+     */
+    public function remove_redirection_on_delete(int $post_id, \WP_Post $post): void
+    {
+        if ($post->post_type !== 'p4_action') {
+            return;
+        }
+
+        if (!class_exists('Red_Item')) {
+            return;
+        }
+
+        $redirect_id = (int) get_post_meta($post_id, self::REDIRECT_ID_META_KEY, true);
+
+        if (!$redirect_id) {
+            return;
+        }
+
+        try {
+            $item = \Red_Item::get_by_id($redirect_id);
+
+            if ($item instanceof \Red_Item) {
+                $item->delete();
+            }
+        } catch (\Exception $e) {
+            function_exists('\Sentry\captureException') && \Sentry\captureException($e);
+        }
     }
 
     /**
