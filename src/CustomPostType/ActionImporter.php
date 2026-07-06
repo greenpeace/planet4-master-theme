@@ -13,8 +13,14 @@ namespace P4\MasterTheme\CustomPostType;
  */
 class ActionImporter
 {
+    private const POST_TYPE = 'p4_action';
+    private const PAGE_NAME = 'import-action';
     private const NONCE_ACTION = 'import_action';
+    private const FORM_ACTION = 'import_url';
     private const REDIRECT_ID_META_KEY = 'action_importer_redirect_id';
+    private const REDIRECT_ARG_SUCCESS = 'action_importer_success';
+    private const REDIRECT_ARG_ERROR = 'action_importer_error';
+    private const REDIRECT_ARG_EXISTING = 'action_importer_existing';
 
     /**
      * Constructor.
@@ -47,11 +53,11 @@ class ActionImporter
     public function add_options_page(): void
     {
         add_submenu_page(
-            'edit.php?post_type=p4_action',
+            'edit.php?post_type=' . self::POST_TYPE,
             __('Import Action', 'planet4-master-theme-backend'),
             __('Import Action', 'planet4-master-theme-backend'),
             'manage_options',
-            'import-action',
+            self::PAGE_NAME,
             [ $this, 'admin_page_display' ]
         );
     }
@@ -64,8 +70,8 @@ class ActionImporter
     public function init_import(): void
     {
         $redirect_args = [
-            'post_type' => 'p4_action',
-            'page'      => 'import-action',
+            'post_type' => self::POST_TYPE,
+            'page'      => self::PAGE_NAME,
         ];
 
         $url = $this->maybe_handle_submission($redirect_args);
@@ -77,14 +83,14 @@ class ActionImporter
         $post_id = $this->import_from_url($url);
 
         if (is_wp_error($post_id)) {
-            $redirect_args['action_importer_error'] = rawurlencode($post_id->get_error_message());
+            $redirect_args[self::REDIRECT_ARG_ERROR] = rawurlencode($post_id->get_error_message());
             $this->redirect_back($redirect_args);
         }
 
         $this->create_redirection_to_source($post_id, $url);
         $this->sync_elasticpress($post_id);
 
-        $redirect_args['action_importer_success'] = $post_id;
+        $redirect_args[self::REDIRECT_ARG_SUCCESS] = $post_id;
         $this->redirect_back($redirect_args);
     }
 
@@ -99,7 +105,7 @@ class ActionImporter
      */
     private function maybe_handle_submission(array $redirect_args): string|null
     {
-        if (empty($_POST['import_url'])) {
+        if (empty($_POST[self::FORM_ACTION])) {
             return null;
         }
 
@@ -109,17 +115,17 @@ class ActionImporter
             wp_die(esc_html__('You are not allowed to do this.', 'planet4-master-theme-backend'));
         }
 
-        $url = esc_url_raw(wp_unslash($_POST['import_url']));
+        $url = esc_url_raw(wp_unslash($_POST[self::FORM_ACTION]));
 
         if (!$url || !filter_var($url, FILTER_VALIDATE_URL)) {
-            $redirect_args['action_importer_error'] = rawurlencode(
+            $redirect_args[self::REDIRECT_ARG_ERROR] = rawurlencode(
                 __('Please provide a valid URL.', 'planet4-master-theme-backend')
             );
             $this->redirect_back($redirect_args);
         }
 
         if (wp_parse_url($url, PHP_URL_SCHEME) !== 'https') {
-            $redirect_args['action_importer_error'] = rawurlencode(
+            $redirect_args[self::REDIRECT_ARG_ERROR] = rawurlencode(
                 __('Only HTTPS URLs are allowed.', 'planet4-master-theme-backend')
             );
             $this->redirect_back($redirect_args);
@@ -128,10 +134,10 @@ class ActionImporter
         $existing_post_id = $this->find_existing_post_by_url($url);
 
         if ($existing_post_id) {
-            $redirect_args['action_importer_error'] = rawurlencode(
+            $redirect_args[self::REDIRECT_ARG_ERROR] = rawurlencode(
                 __('This URL has already been imported.', 'planet4-master-theme-backend')
             );
-            $redirect_args['action_importer_existing'] = $existing_post_id;
+            $redirect_args[self::REDIRECT_ARG_EXISTING] = $existing_post_id;
             $this->redirect_back($redirect_args);
         }
 
@@ -158,7 +164,7 @@ class ActionImporter
     private function find_existing_post_by_url(string $url): int
     {
         $existing = get_posts([
-            'post_type'      => 'p4_action',
+            'post_type'      => self::POST_TYPE,
             'post_status'    => 'any',
             'posts_per_page' => 1,
             'fields'         => 'ids',
@@ -245,7 +251,7 @@ class ActionImporter
         }
 
         $post_id = wp_insert_post([
-            'post_type'    => 'p4_action',
+            'post_type'    => self::POST_TYPE,
             'post_title'   => $og['title'] ?: __('(No title found)', 'planet4-master-theme-backend'),
             'post_content' => $og['description'],
             'post_status'  => 'publish',
@@ -414,7 +420,7 @@ class ActionImporter
     {
         $post = get_post($post_id);
 
-        if (!$post || $post->post_type !== 'p4_action') {
+        if (!$post || $post->post_type !== self::POST_TYPE) {
             return;
         }
 
@@ -455,7 +461,7 @@ class ActionImporter
      */
     public function remove_redirection_on_delete(int $post_id, \WP_Post $post): void
     {
-        if ($post->post_type !== 'p4_action') {
+        if ($post->post_type !== self::POST_TYPE) {
             return;
         }
 
@@ -599,7 +605,7 @@ class ActionImporter
                         <td>
                             <input
                                 type="url"
-                                name="import_url"
+                                name="<?php echo self::FORM_ACTION; ?>"
                                 class="regular-text"
                                 required
                                 pattern="https://.+"
@@ -626,11 +632,11 @@ class ActionImporter
      */
     private function maybe_render_notice(): void
     {
-        if (!empty($_GET['action_importer_error'])) {
-            $message = sanitize_text_field(wp_unslash($_GET['action_importer_error']));
+        if (!empty($_GET[self::REDIRECT_ARG_ERROR])) {
+            $message = sanitize_text_field(wp_unslash($_GET[self::REDIRECT_ARG_ERROR]));
 
-            if (!empty($_GET['action_importer_existing'])) {
-                $existing_id  = absint($_GET['action_importer_existing']);
+            if (!empty($_GET[self::REDIRECT_ARG_EXISTING])) {
+                $existing_id  = absint($_GET[self::REDIRECT_ARG_EXISTING]);
                 $existing_url = get_edit_post_link($existing_id, 'raw');
                 printf(
                     '<div class="notice notice-error"><p>%s <a href="%s">%s</a></p></div>',
@@ -648,8 +654,8 @@ class ActionImporter
             return;
         }
 
-        if (!empty($_GET['action_importer_success'])) {
-            $post_id   = absint($_GET['action_importer_success']);
+        if (!empty($_GET[self::REDIRECT_ARG_SUCCESS])) {
+            $post_id   = absint($_GET[self::REDIRECT_ARG_SUCCESS]);
             $edit_url  = get_edit_post_link($post_id, 'raw');
             $view_url  = get_permalink($post_id);
             printf(
