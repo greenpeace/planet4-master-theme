@@ -78,6 +78,13 @@ class ActionImporter
             $this->redirect_back($redirect_args);
         }
 
+        if (wp_parse_url($url, PHP_URL_SCHEME) !== 'https') {
+            $redirect_args['action_importer_error'] = rawurlencode(
+                __('Only HTTPS URLs are allowed.', 'planet4-master-theme-backend')
+            );
+            $this->redirect_back($redirect_args);
+        }
+
         $existing_post_id = $this->find_existing_post_by_url($url);
 
         if ($existing_post_id) {
@@ -349,6 +356,8 @@ class ActionImporter
                                 name="import_url"
                                 class="regular-text"
                                 required
+                                pattern="https://.+"
+                                title="<?php echo esc_attr__('Please enter a URL starting with https://', 'planet4-master-theme-backend'); ?>"
                                 placeholder="https://act.greenpeace.org/landing-page"
                             />
                             <p>
