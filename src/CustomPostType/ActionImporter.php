@@ -221,8 +221,28 @@ class ActionImporter
         }
 
         $this->create_redirection_to_source($post_id, $url);
+        $this->sync_elasticpress($post_id);
 
         return $post_id;
+    }
+
+    /**
+     * Queue the newly imported post for ElasticPress indexing.
+     *
+     * @param int $post_id Post ID to sync.
+     */
+    private function sync_elasticpress(int $post_id): void
+    {
+        if (!class_exists('\ElasticPress\Indexables')) {
+            return;
+        }
+
+        try {
+            $indexable = \ElasticPress\Indexables::factory()->get('post');
+            $indexable->sync_manager->add_to_queue($post_id);
+        } catch (\Exception $e) {
+            function_exists('\Sentry\captureException') && \Sentry\captureException($e);
+        }
     }
 
     /**
