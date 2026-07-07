@@ -5,11 +5,8 @@ namespace P4\MasterTheme\CustomPostType;
 /**
  * Class ActionImporter
  *
- * Lets an admin/editor paste an external URL. On submit, PHP fetches the
- * page server-side, extracts its Open Graph data, and publishes a
- * p4_action post from it directly (no client-side preview step). URLs
- * that have already been imported are rejected. When an imported post is
- * permanently deleted, its associated redirection is removed too.
+ * Lets an admin/editor paste an external URL. On submit, PHP fetches the page server-side,
+ * extracts its Open Graph data, and publishes a p4_action post from it directly.
  */
 class ActionImporter
 {
@@ -70,9 +67,7 @@ class ActionImporter
     }
 
     /**
-     * Orchestrates the import: validate submission, create the post,
-     * wire up its side effects (redirect, search indexing), and redirect
-     * back to the admin screen with a success/error notice.
+     * Orchestrates the import.
      */
     public function init_import(): void
     {
@@ -107,12 +102,6 @@ class ActionImporter
 
     /**
      * Validate the form submission on admin_init, before any output.
-     *
-     * @param array<string,mixed> $redirect_args Base redirect query args
-     *                                            (post_type, page) used for
-     *                                            any error redirects.
-     * @return string|null The validated URL, or null if there was no
-     *                      submission to handle.
      */
     private function maybe_handle_submission(array $redirect_args): string|null
     {
@@ -161,9 +150,7 @@ class ActionImporter
     }
 
     /**
-     * Redirect back to the import page with status query args, then exit.
-     *
-     * @param array<string,mixed> $args Query args to append.
+     * Redirect back to the import page with status query args.
      */
     private function redirect_back(array $args): void
     {
@@ -173,9 +160,6 @@ class ActionImporter
 
     /**
      * Look up whether a post has already been imported from a given URL.
-     *
-     * @param string $url URL to check.
-     * @return int Post ID if found, 0 otherwise.
      */
     private function find_existing_post_by_url(string $url): int
     {
@@ -185,7 +169,7 @@ class ActionImporter
                 'post_status' => 'any',
                 'posts_per_page' => 1,
                 'fields' => 'ids',
-                'meta_query' => [ // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
+                'meta_query' => [
                     [
                         'key' => 'action_importer_source_url',
                         'value' => $url,
@@ -202,12 +186,7 @@ class ActionImporter
 
     /**
      * Derive a post slug from the last path segment of a URL.
-     *
-     * e.g. https://act.greenpeace.org.au/stop-big-gas -> "stop-big-gas"
-     *
-     * @param string $url Source URL.
-     * @return string Sanitized slug, or empty string if none could be derived
-     *                (wp_insert_post() will then fall back to the title).
+     * e.g. https://act.greenpeace.org.au/stop-big-gas ---> "stop-big-gas"
      */
     private function slug_from_url(string $url): string
     {
@@ -305,8 +284,6 @@ class ActionImporter
 
     /**
      * Queue the newly imported post for ElasticPress indexing.
-     *
-     * @param int $post_id Post ID to sync.
      */
     private function sync_elasticpress(int $post_id): void
     {
@@ -323,10 +300,7 @@ class ActionImporter
     }
 
     /**
-     * Get (or create) the "Actions" redirection group.
-     *
-     * @return int Group ID. Falls back to the default group (1) if the
-     *             Redirection plugin isn't active or group creation fails.
+     * Get or create the "Actions" redirection group.
      */
     private function get_or_create_actions_group(): int
     {
@@ -364,12 +338,7 @@ class ActionImporter
 
     /**
      * Create a 301 redirect from the new post's permalink to the original
-     * external URL it was imported from, inside the "Actions" group. The
-     * created redirect's ID is stored as post meta so it can be cleaned up
-     * later if the post is deleted.
-     *
-     * @param int    $post_id    Newly created post ID.
-     * @param string $target_url Original external URL.
+     * external URL it was imported from, inside the "Actions" group.
      */
     private function create_redirection_to_source(int $post_id, string $target_url): void
     {
@@ -437,10 +406,7 @@ class ActionImporter
     }
 
     /**
-     * Enable or disable the redirection associated with a p4_action post.
-     *
-     * @param int  $post_id Post ID.
-     * @param string $action The type of action to be executed.
+     * Enable, disable, or delete the redirection associated with a p4_action post.
      */
     private function set_redirection_status(int $post_id, string $action): void
     {
@@ -481,10 +447,6 @@ class ActionImporter
 
     /**
      * Parse Open Graph meta tags out of an HTML string.
-     *
-     * @param string $html       Raw HTML.
-     * @param string $source_url Original URL, used as a fallback for og:url.
-     * @return array{title:string, description:string, image:string, url:string}
      */
     private function parse_og_tags(string $html, string $source_url): array
     {
@@ -496,7 +458,6 @@ class ActionImporter
         ];
 
         try {
-            // Guard against the PHP 8 ValueError thrown by loadHTML() on an empty string.
             if (trim($html) === '') {
                 return $og;
             }
@@ -542,7 +503,6 @@ class ActionImporter
                 }
             }
 
-            // Fall back to <title> if og:title is missing.
             if (empty($og['title'])) {
                 $titles = $dom->getElementsByTagName('title');
                 if ($titles->length > 0) {
@@ -563,11 +523,7 @@ class ActionImporter
     }
 
     /**
-     * Sideload a remote image and set it as the post's featured image.
-     *
-     * @param int    $post_id   Target post ID.
-     * @param string $image_url Remote image URL.
-     * @param string $desc      Image description / alt text.
+     * Load a remote image and set it as the post's featured image.
      */
     private function set_featured_image_from_url(int $post_id, string $image_url, string $desc): void
     {
@@ -589,7 +545,7 @@ class ActionImporter
     }
 
     /**
-     * Render the admin page markup, including any success/error notice.
+     * Render the admin page markup.
      */
     public function admin_page_display(): void
     {
