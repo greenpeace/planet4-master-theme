@@ -45,6 +45,7 @@ class ActionImporter
 
         add_action('admin_menu', [ $this, 'add_options_page' ], 99);
         add_action('admin_init', [ $this, 'init_import' ]);
+        add_action('admin_enqueue_scripts', [ $this, 'enqueue_admin_assets' ]);
     }
 
     /**
@@ -59,6 +60,20 @@ class ActionImporter
             'manage_options',
             self::PAGE_NAME,
             [ $this, 'admin_page_display' ]
+        );
+    }
+
+    /**
+     * Load admin assets.
+     */
+    public function enqueue_admin_assets(): void
+    {
+        wp_enqueue_script(
+            'action-importer-script',
+            get_template_directory_uri() . "/admin/js/action_importer.js",
+            [],
+            \P4\MasterTheme\Loader::theme_file_ver('admin/js/action_importer.js'),
+            true
         );
     }
 
