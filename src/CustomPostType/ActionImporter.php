@@ -27,14 +27,6 @@ class ActionImporter
      */
     public function __construct()
     {
-        $this->hooks();
-    }
-
-    /**
-     * Hooks actions and filters.
-     */
-    public function hooks(): void
-    {
         add_action('before_delete_post', [ $this, 'remove_redirection_on_delete' ], 10, 2);
         add_action('wp_trash_post', [ $this, 'disable_redirection_on_trash' ]);
         add_action('untrashed_post', [ $this, 'enable_redirection_on_untrash' ]);
@@ -87,7 +79,7 @@ class ActionImporter
         try {
             $redirect_args = [
                 'post_type' => self::POST_TYPE,
-                'page'      => self::PAGE_NAME,
+                'page' => self::PAGE_NAME,
             ];
 
             $url = $this->maybe_handle_submission($redirect_args);
@@ -189,13 +181,13 @@ class ActionImporter
     {
         try {
             $existing = get_posts([
-                'post_type'      => self::POST_TYPE,
-                'post_status'    => 'any',
+                'post_type' => self::POST_TYPE,
+                'post_status' => 'any',
                 'posts_per_page' => 1,
-                'fields'         => 'ids',
-                'meta_query'     => [ // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
+                'fields' => 'ids',
+                'meta_query' => [ // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
                     [
-                        'key'   => 'action_importer_source_url',
+                        'key' => 'action_importer_source_url',
                         'value' => $url,
                     ],
                 ],
@@ -228,7 +220,7 @@ class ActionImporter
             }
 
             $segments = explode('/', $path);
-            $last     = end($segments);
+            $last = end($segments);
 
             return sanitize_title($last);
         } catch (\Throwable $e) {
@@ -244,7 +236,7 @@ class ActionImporter
     {
         try {
             $response = wp_remote_get($url, [
-                'timeout'    => 12,
+                'timeout' => 12,
                 'user-agent' => 'Planet4 Action Importer',
             ]);
 
@@ -283,12 +275,12 @@ class ActionImporter
             }
 
             $post_id = wp_insert_post([
-                'post_type'    => self::POST_TYPE,
-                'post_title'   => $og['title'] ?: __('(No title found)', 'planet4-master-theme-backend'),
+                'post_type' => self::POST_TYPE,
+                'post_title' => $og['title'] ?: __('(No title found)', 'planet4-master-theme-backend'),
                 'post_content' => $og['description'],
-                'post_status'  => 'publish',
-                'post_name'    => $this->slug_from_url($url),
-                'meta_input'   => [
+                'post_status' => 'publish',
+                'post_name' => $this->slug_from_url($url),
+                'meta_input' => [
                     'action_importer_source_url' => $url,
                 ],
             ], true);
@@ -305,9 +297,9 @@ class ActionImporter
         } catch (\Throwable $e) {
             function_exists('\Sentry\captureException') && \Sentry\captureException($e);
             return new \WP_Error(
-                    'action_importer_catch_error',
-                    __($e, 'planet4-master-theme-backend')
-                );
+                'action_importer_catch_error',
+                __('There was an error trying to import the remote page data.', 'planet4-master-theme-backend')
+            );
         }
     }
 
@@ -342,10 +334,10 @@ class ActionImporter
             global $wpdb;
 
             $group_name = 'Actions';
-            $table      = $wpdb->prefix . 'redirection_groups';
+            $table = $wpdb->prefix . 'redirection_groups';
 
             $existing = $wpdb->get_var($wpdb->prepare(
-                "SELECT id FROM $table WHERE name = %s", // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+                "SELECT id FROM $table WHERE name = %s",
                 $group_name
             ));
 
@@ -387,26 +379,26 @@ class ActionImporter
             }
 
             $group_id = $this->get_or_create_actions_group();
-            $source   = wp_parse_url(get_permalink($post_id), PHP_URL_PATH);
+            $source = wp_parse_url(get_permalink($post_id), PHP_URL_PATH);
 
             if (!$source) {
                 return;
             }
 
             $redirect = \Red_Item::create([
-                'url'         => $source,
+                'url' => $source,
                 'action_type' => 'url',
                 'action_code' => 301,
-                'match_type'  => 'url',
+                'match_type' => 'url',
                 'action_data' => [
                     'url' => $target_url,
                 ],
-                'group_id'    => $group_id,
+                'group_id' => $group_id,
             ]);
 
             if ($redirect instanceof \Red_Item) {
                 $redirect_id = (int) $redirect->get_id();
-            } else if (is_array($redirect) && !empty($redirect['id'])) {
+            } elseif (is_array($redirect) && !empty($redirect['id'])) {
                 $redirect_id = (int) $redirect['id'];
             } else {
                 $redirect_id = 0;
@@ -477,9 +469,9 @@ class ActionImporter
 
             if ($action === 'enable') {
                 $item->enable();
-            } else if ($action === 'disable') {
+            } elseif ($action === 'disable') {
                 $item->disable();
-            } else if ($action === 'delete') {
+            } elseif ($action === 'delete') {
                 $item->delete();
             }
         } catch (\Throwable $e) {
@@ -497,10 +489,10 @@ class ActionImporter
     private function parse_og_tags(string $html, string $source_url): array
     {
         $og = [
-            'title'       => '',
+            'title' => '',
             'description' => '',
-            'image'       => '',
-            'url'         => $source_url,
+            'image' => '',
+            'url' => $source_url,
         ];
 
         try {
@@ -512,7 +504,7 @@ class ActionImporter
             $dom = new \DOMDocument();
 
             $previous_setting = libxml_use_internal_errors(true);
-            $loaded            = $dom->loadHTML($html, LIBXML_NOERROR | LIBXML_NOWARNING);
+            $loaded = $dom->loadHTML($html, LIBXML_NOERROR | LIBXML_NOWARNING);
             libxml_clear_errors();
             libxml_use_internal_errors($previous_setting);
 
@@ -525,7 +517,7 @@ class ActionImporter
             foreach ($metas as $meta) {
                 /** @var \DOMElement $meta */
                 $property = $meta->getAttribute('property') ?: $meta->getAttribute('name');
-                $content  = $meta->getAttribute('content');
+                $content = $meta->getAttribute('content');
 
                 if (!$property || $content === '') {
                     continue;
@@ -558,10 +550,10 @@ class ActionImporter
                 }
             }
 
-            $og['title']       = sanitize_text_field($og['title']);
+            $og['title'] = sanitize_text_field($og['title']);
             $og['description'] = sanitize_text_field($og['description']);
-            $og['url']          = esc_url_raw($og['url']);
-            $og['image']        = esc_url_raw($og['image']);
+            $og['url'] = esc_url_raw($og['url']);
+            $og['image'] = esc_url_raw($og['image']);
 
             return $og;
         } catch (\Throwable $e) {
@@ -601,7 +593,7 @@ class ActionImporter
      */
     public function admin_page_display(): void
     {
-        ?>
+        // phpcs:disable Generic.Files.LineLength.MaxExceeded ?>
         <div class="wrap">
             <h2><?php echo esc_html__('Import Action', 'planet4-master-theme-backend'); ?></h2>
 
@@ -624,7 +616,8 @@ class ActionImporter
                             />
                             <p>
                                 <?php echo esc_html__(
-                                    'Verify the results on submission. This feature has mostly been tested with Hubspot landing pages.',
+                                    'Verify the results on submission.
+                                    This feature has mostly been tested with Hubspot landing pages.',
                                     'planet4-master-theme-backend'
                                 ); ?>
                             </p>
@@ -634,7 +627,7 @@ class ActionImporter
                 <?php submit_button(__('Import Action', 'planet4-master-theme-backend')); ?>
             </form>
         </div>
-        <?php
+        <?php // phpcs:enable Generic.Files.LineLength.MaxExceeded
     }
 
     /**
@@ -646,7 +639,7 @@ class ActionImporter
             $message = sanitize_text_field(wp_unslash($_GET[self::REDIRECT_ARG_ERROR]));
 
             if (!empty($_GET[self::REDIRECT_ARG_EXISTING])) {
-                $existing_id  = absint($_GET[self::REDIRECT_ARG_EXISTING]);
+                $existing_id = absint($_GET[self::REDIRECT_ARG_EXISTING]);
                 $existing_url = get_edit_post_link($existing_id, 'raw');
                 printf(
                     '<div class="notice notice-error"><p>%s <a href="%s">%s</a></p></div>',
@@ -664,18 +657,20 @@ class ActionImporter
             return;
         }
 
-        if (!empty($_GET[self::REDIRECT_ARG_SUCCESS])) {
-            $post_id   = absint($_GET[self::REDIRECT_ARG_SUCCESS]);
-            $edit_url  = get_edit_post_link($post_id, 'raw');
-            $view_url  = get_permalink($post_id);
-            printf(
-                '<div class="notice notice-success"><p>%s <a href="%s">%s</a> &middot; <a href="%s">%s</a></p></div>',
-                esc_html__('Post published.', 'planet4-master-theme-backend'),
-                esc_url($view_url),
-                esc_html__('View it', 'planet4-master-theme-backend'),
-                esc_url($edit_url),
-                esc_html__('Edit it', 'planet4-master-theme-backend')
-            );
+        if (empty($_GET[self::REDIRECT_ARG_SUCCESS])) {
+            return;
         }
+
+        $post_id = absint($_GET[self::REDIRECT_ARG_SUCCESS]);
+        $edit_url = get_edit_post_link($post_id, 'raw');
+        $view_url = get_permalink($post_id);
+        printf(
+            '<div class="notice notice-success"><p>%s <a href="%s">%s</a> &middot; <a href="%s">%s</a></p></div>',
+            esc_html__('Post published.', 'planet4-master-theme-backend'),
+            esc_url($view_url),
+            esc_html__('View it', 'planet4-master-theme-backend'),
+            esc_url($edit_url),
+            esc_html__('Edit it', 'planet4-master-theme-backend')
+        );
     }
 }
