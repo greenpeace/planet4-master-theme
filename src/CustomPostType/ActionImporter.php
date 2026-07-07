@@ -18,6 +18,8 @@ class ActionImporter
     private const REDIRECT_ARG_SUCCESS = 'action_importer_success';
     private const REDIRECT_ARG_ERROR = 'action_importer_error';
     private const REDIRECT_ARG_EXISTING = 'action_importer_existing';
+    private const REDIRECT_ARG_WARNING = 'action_importer_redirect_warning';
+    private const NOTICE_TRANSIENT_PREFIX = 'action_importer_notice_';
 
     /**
      * Constructor.
@@ -27,6 +29,7 @@ class ActionImporter
         add_action('before_delete_post', [ $this, 'remove_redirection_on_delete' ], 10, 2);
         add_action('wp_trash_post', [ $this, 'disable_redirection_on_trash' ]);
         add_action('untrashed_post', [ $this, 'enable_redirection_on_untrash' ]);
+        add_action('admin_notices', [ $this, 'render_queued_admin_notice' ]);
 
         if (!current_user_can('manage_options') && !current_user_can('editor')) {
             return;
@@ -48,7 +51,8 @@ class ActionImporter
             __('Import Action', 'planet4-master-theme-backend'),
             'manage_options',
             self::PAGE_NAME,
-            [ $this, 'admin_page_display' ]
+            [ $this, 'admin_page_display' ],
+            2
         );
     }
 
@@ -77,7 +81,7 @@ class ActionImporter
                 'page' => self::PAGE_NAME,
             ];
 
-            $url = $this->maybe_handle_submission($redirect_args);
+            $url = $this->handle_submission($redirect_args);
 
             if ($url === null) {
                 return;
@@ -90,10 +94,15 @@ class ActionImporter
                 $this->redirect_back($redirect_args);
             }
 
-            $this->create_redirection_to_source($post_id, $url);
+            $redirect_created = $this->create_redirection_to_source($post_id, $url);
             $this->sync_elasticpress($post_id);
 
             $redirect_args[self::REDIRECT_ARG_SUCCESS] = $post_id;
+
+            if (!$redirect_created) {
+                $redirect_args[self::REDIRECT_ARG_WARNING] = 1;
+            }
+
             $this->redirect_back($redirect_args);
         } catch (\Throwable $e) {
             function_exists('\Sentry\captureException') && \Sentry\captureException($e);
@@ -101,9 +110,9 @@ class ActionImporter
     }
 
     /**
-     * Validate the form submission on admin_init, before any output.
+     * Validate the form submission.
      */
-    private function maybe_handle_submission(array $redirect_args): string|null
+    private function handle_submission(array $redirect_args): mixed
     {
         try {
             if (empty($_POST[self::FORM_ACTION])) {
@@ -145,6 +154,10 @@ class ActionImporter
             return $url;
         } catch (\Throwable $e) {
             function_exists('\Sentry\captureException') && \Sentry\captureException($e);
+            $redirect_args[self::REDIRECT_ARG_ERROR] = rawurlencode(
+                __('Something went wrong validating that URL. Please try again.', 'planet4-master-theme-backend')
+            );
+            $this->redirect_back($redirect_args);
             return null;
         }
     }
@@ -163,25 +176,20 @@ class ActionImporter
      */
     private function find_existing_post_by_url(string $url): int
     {
-        try {
-            $existing = get_posts([
-                'post_type' => self::POST_TYPE,
-                'post_status' => 'any',
-                'posts_per_page' => 1,
-                'fields' => 'ids',
-                'meta_query' => [
-                    [
-                        'key' => 'action_importer_source_url',
-                        'value' => $url,
-                    ],
+        $existing = get_posts([
+            'post_type' => self::POST_TYPE,
+            'post_status' => 'any',
+            'posts_per_page' => 1,
+            'fields' => 'ids',
+            'meta_query' => [
+                [
+                    'key' => 'action_importer_source_url',
+                    'value' => $url,
                 ],
-            ]);
+            ],
+        ]);
 
-            return !empty($existing) ? (int) $existing[0] : 0;
-        } catch (\Throwable $e) {
-            function_exists('\Sentry\captureException') && \Sentry\captureException($e);
-            return 0;
-        }
+        return !empty($existing) ? (int) $existing[0] : 0;
     }
 
     /**
@@ -255,8 +263,9 @@ class ActionImporter
 
             $post_id = wp_insert_post([
                 'post_type' => self::POST_TYPE,
-                'post_title' => $og['title'] ?: __('(No title found)', 'planet4-master-theme-backend'),
+                'post_title' => $og['title'] ?: __('No title found', 'planet4-master-theme-backend'),
                 'post_content' => $og['description'],
+                'post_excerpt' => $og['description'],
                 'post_status' => 'publish',
                 'post_name' => $this->slug_from_url($url),
                 'meta_input' => [
@@ -340,18 +349,18 @@ class ActionImporter
      * Create a 301 redirect from the new post's permalink to the original
      * external URL it was imported from, inside the "Actions" group.
      */
-    private function create_redirection_to_source(int $post_id, string $target_url): void
+    private function create_redirection_to_source(int $post_id, string $target_url): bool
     {
         try {
             if (!class_exists('Red_Item')) {
-                return;
+                return false;
             }
 
             $group_id = $this->get_or_create_actions_group();
             $source = wp_parse_url(get_permalink($post_id), PHP_URL_PATH);
 
             if (!$source) {
-                return;
+                return false;
             }
 
             $redirect = \Red_Item::create([
@@ -373,11 +382,15 @@ class ActionImporter
                 $redirect_id = 0;
             }
 
-            if ($redirect_id) {
-                update_post_meta($post_id, self::REDIRECT_ID_META_KEY, $redirect_id);
+            if (!$redirect_id) {
+                return false;
             }
+
+            update_post_meta($post_id, self::REDIRECT_ID_META_KEY, $redirect_id);
+            return true;
         } catch (\Throwable $e) {
             function_exists('\Sentry\captureException') && \Sentry\captureException($e);
+            return false;
         }
     }
 
@@ -430,6 +443,12 @@ class ActionImporter
             $item = \Red_Item::get_by_id($redirect_id);
 
             if (!$item instanceof \Red_Item) {
+                $this->queue_admin_notice(sprintf(
+                    /* translators: 1: post ID, 2: redirect ID */
+                    __('Could not find redirection #%2$d for post #%1$d.', 'planet4-master-theme-backend'),
+                    $post_id,
+                    $redirect_id
+                ));
                 return;
             }
 
@@ -442,7 +461,40 @@ class ActionImporter
             }
         } catch (\Throwable $e) {
             function_exists('\Sentry\captureException') && \Sentry\captureException($e);
+            $this->queue_admin_notice(sprintf(
+                /* translators: %d is a post ID. */
+                __('Could not update the redirection for post #%d.', 'planet4-master-theme-backend'),
+                $post_id
+            ));
         }
+    }
+
+    /**
+     * Queue a one-time admin notice message for the current user.
+     */
+    private function queue_admin_notice(string $message): void
+    {
+        set_transient(self::NOTICE_TRANSIENT_PREFIX . get_current_user_id(), $message, MINUTE_IN_SECONDS);
+    }
+
+    /**
+     * Render and clear any queued admin notice for the current user.
+     */
+    public function render_queued_admin_notice(): void
+    {
+        $key = self::NOTICE_TRANSIENT_PREFIX . get_current_user_id();
+        $message = get_transient($key);
+
+        if (!$message) {
+            return;
+        }
+
+        delete_transient($key);
+
+        printf(
+            '<div class="notice notice-warning is-dismissible"><p>%s</p></div>',
+            esc_html($message)
+        );
     }
 
     /**
@@ -476,7 +528,6 @@ class ActionImporter
             $metas = $dom->getElementsByTagName('meta');
 
             foreach ($metas as $meta) {
-                /** @var \DOMElement $meta */
                 $property = $meta->getAttribute('property') ?: $meta->getAttribute('name');
                 $content = $meta->getAttribute('content');
 
@@ -559,7 +610,7 @@ class ActionImporter
                 <?php wp_nonce_field(self::NONCE_ACTION); ?>
                 <table class="form-table">
                     <tr>
-                        <th><?php echo esc_html__('URL', 'planet4-master-theme-backend'); ?></th>
+                        <th><?php echo esc_html__('External URL', 'planet4-master-theme-backend'); ?></th>
                         <td>
                             <input
                                 type="url"
@@ -627,6 +678,18 @@ class ActionImporter
             esc_html__('View it', 'planet4-master-theme-backend'),
             esc_url($edit_url),
             esc_html__('Edit it', 'planet4-master-theme-backend')
+        );
+
+        if (empty($_GET[self::REDIRECT_ARG_WARNING])) {
+            return;
+        }
+
+        printf(
+            '<div class="notice notice-warning"><p>%s</p></div>',
+            esc_html__(
+                'Note: the redirect to the original URL could not be created.',
+                'planet4-master-theme-backend'
+            )
         );
     }
 }
