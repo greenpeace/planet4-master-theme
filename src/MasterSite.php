@@ -366,25 +366,13 @@ class MasterSite extends \Timber\Site
         $context['foo'] = 'bar'; // For unit test purposes.
 
         if (has_nav_menu('navigation-bar-menu')) {
-            $menu = Timber::get_menu('navigation-bar-menu');
-            $menu_items = $menu->get_items();
-            $context['navbar_menu'] = $menu;
-            $context['navbar_menu_items'] = array_filter(
-                $menu_items,
-                function ($item) {
-                    return !in_array('wpml-ls-item', $item->classes ?? [], true);
-                }
-            );
+            $context['navbar_menu_items'] = NavMenus::navbar_menu_items();
         }
 
         // Check if the menu has been created.
-        if (has_nav_menu('donate-menu')) {
-            $donate_menu = Timber::get_menu('donate-menu');
-
-            // Check if it has at least 1 item added into the menu.
-            if (!empty($donate_menu->get_items())) {
-                $context['donate_menu_items'] = $donate_menu->get_items();
-            }
+        $donate_menu_items = NavMenus::donate_menu_items();
+        if (!empty($donate_menu_items)) {
+            $context['donate_menu_items'] = $donate_menu_items;
         }
 
         $languages = function_exists('icl_get_languages') ? icl_get_languages() : [];
