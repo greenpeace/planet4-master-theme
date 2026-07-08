@@ -75,31 +75,8 @@ class ActionPage
         // Update action type on add/edit of action.
         add_action('rest_after_insert_' . self::POST_TYPE, [ $this, 'save_taxonomy_action_type_on_edit' ], 10, 1);
 
-        // This hook allows to filtrer properly action pages by slug and name
-        add_action('pre_get_posts', function ($query): void {
-            if (!$query->is_main_query() || is_admin()) {
-                return;
-            }
-
-            add_filter('posts_request', function ($sql) use ($query) {
-                if ($sql && strpos($sql, 'wp_posts.post_type = \'p4_action\'')) {
-                    $sql = "
-                        SELECT wp.*
-                        FROM wp_posts wp
-                        JOIN wp_term_relationships tr
-                        ON wp.ID=tr.object_id
-                        JOIN wp_term_taxonomy tt
-                        ON tr.term_taxonomy_id=tt.term_taxonomy_id
-                        JOIN wp_terms t
-                        ON tt.term_id=t.term_id
-                        WHERE tt.taxonomy='action-type'
-                        AND t.slug='{$query->query_vars['action-type']}'
-                        AND wp.post_name='{$query->query_vars['name']}'
-                    ";
-                }
-                return $sql;
-            });
-        }, 10, 1);
+        // Display the proper action from URL
+        self::display_action_from_url();
     }
 
     /**
@@ -703,5 +680,56 @@ class ActionPage
 
         // Replace the default action slug in permalink, if no action type selected.
         return str_replace('%' . self::TAXONOMY_PARAMETER . '%', $action_type_slug, $permalink);
+    }
+
+    /**
+     * Display the proper action from URL.
+     * Now takes the taxonomy, post type and the slug (or page name)
+     * Also allow to force store an action with a same slug
+     */
+    public static function display_action_from_url(): void
+    {
+        // Force to update the slug since it's now checking by the taxonomy in URL
+        // Ref: https://developer.wordpress.org/reference/hooks/pre_wp_unique_post_slug/
+        add_filter(
+            'pre_wp_unique_post_slug',
+            // phpcs:disable SlevomatCodingStandard.Functions.UnusedParameter -- post_id post_status
+            function ($override_slug, $slug, $post_id, $post_status, $post_type) {
+                if ($post_type === self::POST_TYPE) {
+                    return $slug;
+                }
+
+                return $override_slug;
+            },
+            10,
+            6
+        );
+        // phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter
+
+        // This hook allows to filtrer properly action pages by slug and name
+        add_action('pre_get_posts', function ($query): void {
+            if (!$query->is_main_query() || is_admin()) {
+                return;
+            }
+
+            add_filter('posts_request', function ($sql) use ($query) {
+                if ($sql && strpos($sql, 'wp_posts.post_type = \'p4_action\'')) {
+                    $sql = "
+                        SELECT wp.*
+                        FROM wp_posts wp
+                        JOIN wp_term_relationships tr
+                        ON wp.ID=tr.object_id
+                        JOIN wp_term_taxonomy tt
+                        ON tr.term_taxonomy_id=tt.term_taxonomy_id
+                        JOIN wp_terms t
+                        ON tt.term_id=t.term_id
+                        WHERE tt.taxonomy='action-type'
+                        AND t.slug='{$query->query_vars['action-type']}'
+                        AND wp.post_name='{$query->query_vars['name']}'
+                    ";
+                }
+                return $sql;
+            });
+        }, 10, 1);
     }
 }
