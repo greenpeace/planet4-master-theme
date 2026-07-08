@@ -19,7 +19,6 @@
   color: var(--grey-900);
   fill: var(--white);
   flex-wrap: wrap;
-  justify-content: space-between;
   position: fixed;
   top: 0;
   width: 100%;
@@ -34,6 +33,7 @@
   }
 
   @include large-and-up {
+    justify-content: space-between;
     align-items: center;
   }
 
