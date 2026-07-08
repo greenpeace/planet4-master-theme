@@ -1,3 +1,4 @@
+/* global Sentry */
 import classNames from 'classnames';
 import ArchivePickerList from './ArchivePickerList';
 import SingleSidebar from './SingleSidebar';
@@ -285,9 +286,26 @@ export default function ArchivePicker({view = ADMIN_VIEW}) {
       }});
     } catch (err) {
       if (err.name !== 'AbortError') {
+        const errorMessage = err instanceof Error ? err.message : String(err);
+        const sentryError = err instanceof Error ? err : new Error(`ArchivePicker fetch error: ${errorMessage}`);
+
+        if (typeof Sentry !== 'undefined' && typeof Sentry.captureException === 'function') {
+          Sentry.captureException(sentryError, {
+            tags: {
+              feature: 'archive-picker',
+              action: 'fetch-images',
+            },
+            extra: {
+              pageNumber,
+              searchText,
+              originalError: err,
+            },
+          });
+        }
+
         dispatch({type: 'SET_ERROR', payload: {
           type: ACTIONS.FETCH_IMAGES,
-          error: err.message,
+          error: errorMessage,
         }});
       }
     }
