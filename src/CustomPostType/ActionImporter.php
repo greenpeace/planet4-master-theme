@@ -20,6 +20,7 @@ class ActionImporter
     private const REDIRECT_ARG_EXISTING = 'action_importer_existing';
     private const REDIRECT_ARG_WARNING = 'action_importer_redirect_warning';
     private const NOTICE_TRANSIENT_PREFIX = 'action_importer_notice_';
+    private const SENTRY_EXCEPTION = '\Sentry\captureException';
 
     /**
      * Constructor.
@@ -105,7 +106,7 @@ class ActionImporter
 
             $this->redirect_back($redirect_args);
         } catch (\Throwable $e) {
-            function_exists('\Sentry\captureException') && \Sentry\captureException($e);
+            function_exists(self::SENTRY_EXCEPTION) && \Sentry\captureException($e);
         }
     }
 
@@ -153,7 +154,7 @@ class ActionImporter
 
             return $url;
         } catch (\Throwable $e) {
-            function_exists('\Sentry\captureException') && \Sentry\captureException($e);
+            function_exists(self::SENTRY_EXCEPTION) && \Sentry\captureException($e);
             $redirect_args[self::REDIRECT_ARG_ERROR] = rawurlencode(
                 __('Something went wrong validating that URL. Please try again.', 'planet4-master-theme-backend')
             );
@@ -211,7 +212,7 @@ class ActionImporter
 
             return sanitize_title($last);
         } catch (\Throwable $e) {
-            function_exists('\Sentry\captureException') && \Sentry\captureException($e);
+            function_exists(self::SENTRY_EXCEPTION) && \Sentry\captureException($e);
             return '';
         }
     }
@@ -283,7 +284,7 @@ class ActionImporter
 
             return $post_id;
         } catch (\Throwable $e) {
-            function_exists('\Sentry\captureException') && \Sentry\captureException($e);
+            function_exists(self::SENTRY_EXCEPTION) && \Sentry\captureException($e);
             return new \WP_Error(
                 'action_importer_catch_error',
                 __('There was an error trying to import the remote page data.', 'planet4-master-theme-backend')
@@ -304,7 +305,7 @@ class ActionImporter
             $indexable = \ElasticPress\Indexables::factory()->get('post');
             $indexable->sync_manager->add_to_queue($post_id);
         } catch (\Throwable $e) {
-            function_exists('\Sentry\captureException') && \Sentry\captureException($e);
+            function_exists(self::SENTRY_EXCEPTION) && \Sentry\captureException($e);
         }
     }
 
@@ -340,7 +341,7 @@ class ActionImporter
 
             return 1;
         } catch (\Throwable $e) {
-            function_exists('\Sentry\captureException') && \Sentry\captureException($e);
+            function_exists(self::SENTRY_EXCEPTION) && \Sentry\captureException($e);
             return 1;
         }
     }
@@ -389,7 +390,7 @@ class ActionImporter
             update_post_meta($post_id, self::REDIRECT_ID_META_KEY, $redirect_id);
             return true;
         } catch (\Throwable $e) {
-            function_exists('\Sentry\captureException') && \Sentry\captureException($e);
+            function_exists(self::SENTRY_EXCEPTION) && \Sentry\captureException($e);
             return false;
         }
     }
@@ -460,7 +461,7 @@ class ActionImporter
                 $item->delete();
             }
         } catch (\Throwable $e) {
-            function_exists('\Sentry\captureException') && \Sentry\captureException($e);
+            function_exists(self::SENTRY_EXCEPTION) && \Sentry\captureException($e);
             $this->queue_admin_notice(sprintf(
                 /* translators: %d is a post ID. */
                 __('Could not update the redirection for post #%d.', 'planet4-master-theme-backend'),
@@ -503,74 +504,117 @@ class ActionImporter
     private function parse_og_tags(string $html, string $source_url): array
     {
         $og = [
-            'title' => '',
-            'description' => '',
-            'image' => '',
-            'url' => $source_url,
+           'title' => '',
+           'description' => '',
+           'image' => '',
+           'url' => $source_url,
         ];
 
         try {
-            if (trim($html) === '') {
-                return $og;
+            $dom = $this->load_html_dom($html);
+
+            if ($dom === null) {
+                 return $og;
             }
 
-            $dom = new \DOMDocument();
 
-            $previous_setting = libxml_use_internal_errors(true);
-            $loaded = $dom->loadHTML($html, LIBXML_NOERROR | LIBXML_NOWARNING);
-            libxml_clear_errors();
-            libxml_use_internal_errors($previous_setting);
+            $og = $this->extract_og_from_dom($dom, $og);
+            $og = $this->apply_title_fallback($dom, $og);
 
-            if (!$loaded) {
-                return $og;
-            }
-
-            $metas = $dom->getElementsByTagName('meta');
-
-            foreach ($metas as $meta) {
-                $property = $meta->getAttribute('property') ?: $meta->getAttribute('name');
-                $content = $meta->getAttribute('content');
-
-                if (!$property || $content === '') {
-                    continue;
-                }
-
-                switch ($property) {
-                    case 'og:title':
-                        $og['title'] = $content;
-                        break;
-                    case 'og:description':
-                        $og['description'] = $content;
-                        break;
-                    case 'og:image':
-                    case 'og:image:secure_url':
-                        if (empty($og['image'])) {
-                            $og['image'] = $content;
-                        }
-                        break;
-                    case 'og:url':
-                        $og['url'] = $content;
-                        break;
-                }
-            }
-
-            if (empty($og['title'])) {
-                $titles = $dom->getElementsByTagName('title');
-                if ($titles->length > 0) {
-                    $og['title'] = $titles->item(0)->textContent;
-                }
-            }
-
-            $og['title'] = sanitize_text_field($og['title']);
-            $og['description'] = sanitize_text_field($og['description']);
-            $og['url'] = esc_url_raw($og['url']);
-            $og['image'] = esc_url_raw($og['image']);
-
-            return $og;
+            return $this->sanitize_og_data($og);
         } catch (\Throwable $e) {
             function_exists('\Sentry\captureException') && \Sentry\captureException($e);
             return $og;
         }
+    }
+
+    /**
+     * Load a new DOM Document.
+     */
+    private function load_html_dom(string $html): ?\DOMDocument
+    {
+        if (trim($html) === '') {
+            return null;
+        }
+
+        $dom = new \DOMDocument();
+
+        $previous_setting = libxml_use_internal_errors(true);
+        $loaded = $dom->loadHTML($html, LIBXML_NOERROR | LIBXML_NOWARNING);
+        libxml_clear_errors();
+        libxml_use_internal_errors($previous_setting);
+
+        return $loaded ? $dom : null;
+    }
+
+    /**
+     * Extract the Open Graph meta tags using DOM Document.
+     */
+    private function extract_og_from_dom(\DOMDocument $dom, array $og): array
+    {
+        $metas = $dom->getElementsByTagName('meta');
+
+        foreach ($metas as $meta) {
+            $property = $meta->getAttribute('property') ?: $meta->getAttribute('name');
+            $content = $meta->getAttribute('content');
+
+            if (!$property || $content === '') {
+                continue;
+            }
+
+            switch ($property) {
+                case 'og:title':
+                    $og['title'] = $content;
+                    break;
+                case 'og:description':
+                    $og['description'] = $content;
+                    break;
+                case 'og:image':
+                case 'og:image:secure_url':
+                    if (empty($og['image'])) {
+                        $og['image'] = $content;
+                    }
+                    break;
+                case 'og:url':
+                    $og['url'] = $content;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        return $og;
+    }
+
+    /**
+     * Apply a fallback title if no one was extracted from the Open Graph data.
+     */
+    private function apply_title_fallback(\DOMDocument $dom, array $og): array
+    {
+        if (!empty($og['title'])) {
+            return $og;
+        }
+
+        $titles = $dom->getElementsByTagName('title');
+
+        if ($titles->length > 0) {
+            $og['title'] = $titles->item(0)->textContent;
+        }
+
+        return $og;
+    }
+
+    /**
+     * Sanitize the Open Graph data.
+     */
+    private function sanitize_og_data(array $og): array
+    {
+        $og['title'] = sanitize_text_field($og['title']);
+        $og['description'] = sanitize_text_field($og['description']);
+        $og['url'] = esc_url_raw($og['url']);
+        $og['image'] = esc_url_raw($og['image']);
+
+        return $og;
     }
 
     /**
@@ -591,7 +635,7 @@ class ActionImporter
                 set_post_thumbnail($post_id, $media_id);
             }
         } catch (\Throwable $e) {
-            function_exists('\Sentry\captureException') && \Sentry\captureException($e);
+            function_exists(self::SENTRY_EXCEPTION) && \Sentry\captureException($e);
         }
     }
 

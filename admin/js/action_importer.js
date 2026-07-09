@@ -8,6 +8,6 @@ document.addEventListener('DOMContentLoaded', () => {
     actionImportButton.href = 'edit.php?post_type=p4_action&page=import-action';
     actionImportButton.className = 'add-new-h2';
     actionImportButton.textContent = 'Import Action';
-    pageTitleAction.insertAdjacentElement('afterend', actionImportButton);
+    pageTitleAction.after(actionImportButton);
   }
 });
