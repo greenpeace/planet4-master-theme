@@ -384,20 +384,6 @@ add_action(
     3
 );
 
-// Update Core Post Author block with P4 custom block
-// P4 custom block has author override value
-add_filter(
-    'render_block',
-    function ($block_content, $block): string {
-        if ($block['blockName'] === 'core/post-author-name') {
-            return render_block(['blockName' => 'p4/post-author-name']);
-        }
-        return $block_content;
-    },
-    10,
-    2
-);
-
 // Remove the user email from the notification email sent to editors
 // when a new comment is added to a post.
 // phpcs:disable SlevomatCodingStandard.Functions.UnusedParameter

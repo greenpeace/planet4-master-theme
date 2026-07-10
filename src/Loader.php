@@ -78,6 +78,7 @@ final class Loader
             Cookies::class,
             DevReport::class,
             TimberSettings::class,
+            BlockRenderOverrides::class,
             MasterSite::class,
             NavMenus::class,
             HeadManager::class,
