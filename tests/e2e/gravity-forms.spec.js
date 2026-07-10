@@ -71,7 +71,17 @@ test.describe('Gravity Forms tests', () => {
     await tinymceBody.click();
     await tinymceBody.fill(CONFIRMATION_MESSAGE);
 
-    // Verify the content is actually in the editor before saving
+    // Update the form's default confirmation text in the hidden textarea as well.
+    const confirmationTextarea = page.locator('#_gform_setting_message');
+    if (await confirmationTextarea.count()) {
+      await confirmationTextarea.evaluate((element, value) => {
+        element.value = value;
+        element.dispatchEvent(new Event('input', {bubbles: true}));
+        element.dispatchEvent(new Event('change', {bubbles: true}));
+      }, CONFIRMATION_MESSAGE);
+    }
+
+    // Verify the content is actually in the editor before saving.
     await expect(tinymceBody).toContainText(CONFIRMATION_MESSAGE);
 
     await page.getByRole('button', {name: 'Save Confirmation'}).click();
