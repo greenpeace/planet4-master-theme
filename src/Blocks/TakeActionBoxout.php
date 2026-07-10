@@ -170,7 +170,7 @@ class TakeActionBoxout extends BaseBlock
                 'title' => null === $page ? '' : $page->post_title,
                 'excerpt' => null === $page ? '' : $page->post_excerpt,
                 'link' => null === $page ? '' : get_permalink($page),
-                'new_tab' => false,
+                'new_tab' => $fields['newTab'] ?? false,
                 'link_text' => $cover_button_text,
                 'image' => $image ?? '',
                 'image_alt' => $image_alt ?? '',

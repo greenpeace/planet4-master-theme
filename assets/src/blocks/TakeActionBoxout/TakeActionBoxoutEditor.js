@@ -219,16 +219,13 @@ export const TakeActionBoxoutEditor = ({
               }
             }}
           />}
-          {!takeActionPageSelected &&
-            <CheckboxControl
-              __nextHasNoMarginBottom
-              label={__('Open in a new tab', 'planet4-master-theme-backend')}
-              value={newTab}
-              checked={newTab}
-              onChange={toAttribute('newTab')}
-              disabled={takeActionPageSelected}
-            />
-          }
+          <CheckboxControl
+            __nextHasNoMarginBottom
+            label={__('Open in a new tab', 'planet4-master-theme-backend')}
+            value={newTab}
+            checked={newTab}
+            onChange={toAttribute('newTab')}
+          />
           {!takeActionPageSelected &&
             <MediaUploadCheck>
               <MediaUpload
