@@ -24,8 +24,8 @@ class NavMenus
     private const DONATE_KEY = 'p4_donate_menu_items';
 
     /**
-     * CSS classes that reflect per-request "current page" state on menu items. Stripped from cached entries and re-added
-     * at read time by recompute_current_state() based on the URL being rendered.
+     * CSS classes that reflect per-request "current page" state on menu items. Stripped from cached entries and
+     * re-added at read time by recompute_current_state() based on the URL being rendered.
      */
     private const STALE_CURRENT_CLASSES = [
         'current-menu-item',
@@ -249,9 +249,11 @@ class NavMenus
                 $item->classes = array_values(array_diff($item->classes, self::STALE_CURRENT_CLASSES));
             }
 
-            if (!empty($item->children) && is_array($item->children)) {
-                self::strip_current_state($item->children);
+            if (empty($item->children) || !is_array($item->children)) {
+                continue;
             }
+
+            self::strip_current_state($item->children);
         }
     }
 
@@ -288,9 +290,11 @@ class NavMenus
                     : ['current-menu-item'];
             }
 
-            if (!empty($item->children) && is_array($item->children)) {
-                self::recompute_current_state($item->children);
+            if (empty($item->children) || !is_array($item->children)) {
+                continue;
             }
+
+            self::recompute_current_state($item->children);
         }
     }
 
