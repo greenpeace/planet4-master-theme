@@ -92,8 +92,7 @@ export const updateMediaAndTextAttributes = (image, currentBlock) => {
  * @return {Object} An object containing updated block attributes.
  */
 export const updateCarouselBlockAttributes = (image, currentBlock) => {
-  const slides = currentBlock.attributes.slides;
-  const currentImageIndex = currentBlock.attributes.currentImageIndex;
+  const {slides, currentImageIndex} = currentBlock.attributes;
   const {thumbnail, medium_large, medium, large, full} = image.media_details.sizes;
   const imageSrcSet = `
   ${thumbnail.source_url} ${thumbnail.width}w,
@@ -103,13 +102,23 @@ export const updateCarouselBlockAttributes = (image, currentBlock) => {
   ${full.source_url} ${full.width}w,
   `;
 
-  slides[currentImageIndex].image = image.id;
-  slides[currentImageIndex].image_url = image.source_url;
-  slides[currentImageIndex].image_srcset = imageSrcSet;
+  const updatedSlides = slides.map((slide, index) => {
+    if (index !== currentImageIndex) {
+      return slide;
+    }
+
+    return {
+      ...slide,
+      image: image.id,
+      image_url: image.source_url,
+      image_srcset: imageSrcSet,
+    };
+  });
+
 
   return {
     attributes: {
-      slides,
+      slides: updatedSlides,
     },
   };
 };
@@ -164,6 +173,39 @@ export const updateTopicLinkBlockAttributes = image => {
       imageId: id,
       imageAlt: alt_text,
       imageUrl: source_url,
+    },
+  };
+};
+
+/**
+ * Updates the attributes of the P4 Columns block with new image data at the current slide index.
+ *
+ * This function modifies the `columns` array of the current Columns block, updating the slide
+ * at the `currentImageIndex` with a new image ID.
+ *
+ * @param {Object} image        - The image data object.
+ *
+ * @param {Object} currentBlock - The current carousel block object.
+ *
+ * @return {Object} An object containing updated block attributes.
+ */
+export const updateColumnslBlockAttributes = (image, currentBlock) => {
+  const {columns, currentImageIndex} = currentBlock.attributes;
+
+  const updatedColumns = columns.map((column, index) => {
+    if (index !== currentImageIndex) {
+      return column;
+    }
+
+    return {
+      ...column,
+      attachment: image.id,
+    };
+  });
+
+  return {
+    attributes: {
+      columns: updatedColumns,
     },
   };
 };

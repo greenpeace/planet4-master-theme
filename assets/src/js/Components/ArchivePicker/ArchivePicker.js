@@ -11,6 +11,7 @@ import {
   updateCarouselBlockAttributes,
   updateCoverBlockAttributes,
   updateTopicLinkBlockAttributes,
+  updateColumnslBlockAttributes,
 } from './blockUpdateFunctions';
 
 const {Spinner} = wp.components;
@@ -29,6 +30,7 @@ const acceptedBlockTypes = new Map([
   ['planet4-blocks/carousel-header', updateCarouselBlockAttributes],
   ['core/media-text', updateMediaAndTextAttributes],
   ['planet4-blocks/topic-link', updateTopicLinkBlockAttributes],
+  ['planet4-blocks/columns', updateColumnslBlockAttributes],
 ]);
 
 const acceptedBlockTypesView = [...acceptedBlockTypes.keys(), 'planet4-blocks/happypoint'];
@@ -313,24 +315,11 @@ export default function ArchivePicker({view = ADMIN_VIEW}) {
 
   const currentBlock = wp.data.select('core/block-editor').getSelectedBlock();
 
-  const getImageDetails = useCallback(async id => {
-    try {
-      // On first try wp returns undefined, so need to make call again to get image details.
-      for (let retries = 0; retries < 2; ++retries) {
-        const newImageUploaded = await wp.data.select('core').getMedia(id);
-        if (newImageUploaded) {
-          return newImageUploaded;
-        }
-
-        await timeout(3000);
-      }
-    } catch (err) {
-      dispatch({type: ACTIONS.ADD_IMAGE_TO_POST_ERROR, payload: err});
-    }
-  }, []);
-
   const processImageForBlock = async (imageID, updateAttributeFunction) => {
-    const uploadedImage = await getImageDetails(imageID);
+    const uploadedImage = await wp.data.resolveSelect('core').getMedia(imageID);
+    if (!uploadedImage) {
+      dispatch({type: ACTIONS.ADD_IMAGE_TO_POST_ERROR, payload: 'No image returned from WordPress for the given ID.'});
+    }
     const updatedAttributes = updateAttributeFunction(uploadedImage, currentBlock);
     await wp.data.dispatch('core/block-editor').updateBlock(currentBlock.clientId, updatedAttributes);
   };
