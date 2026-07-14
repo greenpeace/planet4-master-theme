@@ -7,7 +7,7 @@ import {getStyleFromClassName} from '../../functions/getStyleFromClassName';
 const {useSelect} = wp.data;
 const {InspectorControls, RichText} = wp.blockEditor;
 const {CheckboxControl, PanelBody, RangeControl} = wp.components;
-const {useEffect} = wp.element;
+const {useEffect, useCallback} = wp.element;
 const {__, sprintf} = wp.i18n;
 
 const renderEdit = (attributes, toAttribute, setAttributes, isSelected) => {
@@ -99,6 +99,9 @@ export const ColumnsEditor = ({isSelected, attributes, setAttributes}) => {
     isExample,
     exampleColumns,
   } = attributes;
+  const updateCurrentImageIndex = useCallback(index => {
+    setAttributes({currentImageIndex: index});
+  }, [setAttributes]);
 
   // Add className for existing blocks, based on columns_block_style attribute
   useEffect(() => {
@@ -128,9 +131,10 @@ export const ColumnsEditor = ({isSelected, attributes, setAttributes}) => {
     const columnImages = [];
     columns.forEach(column => {
       if (column.attachment && column.attachment > 0) {
-        const media_details = select('core').getMedia(column.attachment);
-        if (media_details) {
-          columnImages[column.attachment] = select('core').getMedia(column.attachment).source_url;
+        const media = select('core').getMedia(column.attachment);
+
+        if (media?.source_url) {
+          columnImages[column.attachment] = media.source_url;
         }
       }
     });
@@ -190,6 +194,7 @@ export const ColumnsEditor = ({isSelected, attributes, setAttributes}) => {
           columns_block_style={columns_block_style}
           toAttribute={toAttribute}
           columnImages={columnImages}
+          updateCurrentImageIndex={updateCurrentImageIndex}
         />
       }
     </section>

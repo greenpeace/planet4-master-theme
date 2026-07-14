@@ -12,12 +12,16 @@ export const EditableColumns = ({
   columns,
   isCampaign,
   columnImages,
+  updateCurrentImageIndex,
 }) => {
   const getImageOrButton = (openMediaModal, index) => {
     if ((0 < columns[index].attachment)) {
       return <div className="columns-image-container">
         <ImageHoverControls
-          onEdit={openMediaModal}
+          onEdit={() => {
+            openMediaModal();
+            updateCurrentImageIndex(index);
+          }}
           onRemove={() => toAttribute('attachment', index)(0)}
           isCompact={columns_block_style === LAYOUT_ICONS}
         />
@@ -27,7 +31,10 @@ export const EditableColumns = ({
 
     if (columns_block_style === LAYOUT_TASKS) {
       return <Button
-        onClick={openMediaModal}
+        onClick={() => {
+          openMediaModal();
+          updateCurrentImageIndex(index);
+        }}
         icon="plus-alt2"
         isPrimary
         className="tasks-image-button"
@@ -42,7 +49,10 @@ export const EditableColumns = ({
         height={columns_block_style !== LAYOUT_ICONS ? 250 : 100}
       />
       <Button
-        onClick={openMediaModal}
+        onClick={() => {
+          openMediaModal();
+          updateCurrentImageIndex(index);
+        }}
         icon="plus-alt2"
         isPrimary
         className="image-placeholder-button"
