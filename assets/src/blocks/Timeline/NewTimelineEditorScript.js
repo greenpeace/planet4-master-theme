@@ -1,11 +1,12 @@
 import {URLInput} from '../../block-editor/URLInput/URLInput';
 import {NewTimelineFrontend} from './NewTimelineFrontend';
 import {URLDescriptionHelp} from './URLDescriptionHelp';
+import {getUniqueId} from '../../functions/getUniqueId';
 
 const {InspectorControls, RichText} = wp.blockEditor;
 const {PanelBody, Tooltip} = wp.components;
 const {debounce} = wp.compose;
-const {useCallback, useState} = wp.element;
+const {useCallback, useState, useEffect} = wp.element;
 const {__} = wp.i18n;
 
 const renderEdit = (
@@ -79,6 +80,15 @@ export const NewTimelineEditor = ({isSelected, attributes, setAttributes}) => {
   // Using a state to prevent the input losing the cursor position, a React issue reported multiple times
   const [sheetURL, setSheetURL] = useState(attributes.google_sheets_url);
   const debounceSheetURLUpdate = useCallback(debounce(toAttribute('google_sheets_url'), 300), []);
+
+  // Set a timeline id in the attributes, if it doesn't exist yet.
+  useEffect(() => {
+    if (attributes.timeline_id) {
+      return;
+    }
+
+    setAttributes({timeline_id: getUniqueId('tl')});
+  }, []);
 
   return (
     <>
