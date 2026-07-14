@@ -108,26 +108,6 @@ class MasterSite extends \Timber\Site
             }
         );
 
-        /**
-         * Apply wpautop to non-block content.
-         *
-         * @link https://wordpress.stackexchange.com/q/321662/26317
-         *
-         * @param string $block_content The HTML generated for the block.
-         * @param array  $block         The block.
-         */
-        add_filter(
-            'render_block',
-            function ($block_content, $block) {
-                if (is_null($block['blockName'])) {
-                    return wpautop($block_content);
-                }
-                return $block_content;
-            },
-            10,
-            2
-        );
-
         // Disable WordPress(WP5.5) Block Directory.
         $this->disable_block_directory();
 
