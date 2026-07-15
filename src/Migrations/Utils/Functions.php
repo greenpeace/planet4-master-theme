@@ -49,6 +49,11 @@ class Functions
             // that do not have a title, which is common in migrations.
             $GLOBALS['p4_skip_require_post_title'] = true;
 
+            // Same idea for the alt-text requirement on core/image blocks.
+            // Migrations re-save legacy content that may pre-date the alt-text rule,
+            // so we bypass the publish guard.
+            $GLOBALS['p4_skip_require_image_alt'] = true;
+
             foreach ($posts as $post) {
                 try {
                     if (empty($post->post_content)) {
@@ -114,6 +119,8 @@ class Functions
 
             // Remove the global variable to skip the post title requirement.
             unset($GLOBALS['p4_skip_require_post_title']);
+            // Remove the global variable to skip the image alt-text requirement.
+            unset($GLOBALS['p4_skip_require_image_alt']);
         } catch (\Throwable $e) {
             echo "Migration wasn't executed for block: ", $block_name ?? 'unknown', "\n";
             echo $e->getMessage(), "\n";
