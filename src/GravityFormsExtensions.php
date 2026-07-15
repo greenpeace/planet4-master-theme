@@ -128,6 +128,7 @@ class GravityFormsExtensions
         add_action('gform_pre_render', [$this, 'enqueue_share_buttons'], 10, 2);
         add_action('admin_enqueue_scripts', [$this, 'enqueue_gf_custom_scripts']);
         add_action('wp_enqueue_scripts', [$this, 'dequeue_gf_scripts'], 999);
+        add_action('wp_enqueue_scripts', [$this, 'enqueue_confirmation_focus_script'], 10);
     }
 
     /**
@@ -1226,6 +1227,36 @@ class GravityFormsExtensions
             $result['message'] = "<span>{$result['message']}</span>";
         }
         return $result;
+    }
+
+    /**
+     * Enqueue a script to focus the confirmation message after form submission.
+     * This is important for accessibility, especially for screen reader users.
+     */
+    public function enqueue_confirmation_focus_script(): void
+    {
+        if (!class_exists('GFForms')) {
+            return;
+        }
+
+        wp_register_script('gform-confirmation-focus', '', ['jquery'], null, true);
+        wp_enqueue_script('gform-confirmation-focus');
+
+        $script = "
+            (function($) {
+                $(document).on('gform_confirmation_loaded', function(event, formId) {
+                    const wrapper = document.querySelector('#gform_confirmation_wrapper_' + formId)
+                        || document.querySelector('.gform_confirmation_wrapper');
+
+                    if (wrapper) {
+                        wrapper.setAttribute('tabindex', '-1');
+                        wrapper.focus();
+                    }
+                });
+            })(jQuery);
+        ";
+
+        wp_add_inline_script('gform-confirmation-focus', $script);
     }
     // @phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter, SlevomatCodingStandard.TypeHints.ReturnTypeHint.MissingNativeTypeHint
 }
