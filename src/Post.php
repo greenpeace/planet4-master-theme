@@ -346,6 +346,15 @@ class Post extends \Timber\Post
     }
 
     /**
+     * Get the Google News option.
+     */
+    public function google_news(): string {
+        return planet4_get_option('google_news') ?
+            get_template_directory_uri() . '/images/google-news.svg' :
+            '';
+    }
+
+    /**
      * Get post's author override status.
      *
      */

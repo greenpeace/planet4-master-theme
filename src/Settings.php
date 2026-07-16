@@ -448,6 +448,15 @@ class Settings
                         'default' => [],
                     ],
                     [
+                        'name' => __('Google News', 'planet4-master-theme-backend'),
+                        'desc' => __(
+                            'Display the "Preferred Source in Google Search" button in posts',
+                            'planet4-master-theme-backend'
+                        ),
+                        'id' => 'google_news',
+                        'type' => 'checkbox',
+                    ],
+                    [
                         'name' => __('Apply social sharing options', 'planet4-master-theme-backend'),
                         'id' => 'apply_social_sharing_options',
                         'type' => 'radio',

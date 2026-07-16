@@ -3,61 +3,68 @@
 {% endif %}
 
 {% set socialLink = (share_url ?? social.link) ~ '?utm_medium=' ~ utm_medium ~ utm_content_param ~ utm_campaign_param %}
-<div class="share-buttons">
-    <!-- Whatsapp -->
-    {% if share_platforms.whatsapp %}
-        <a href="https://wa.me/?text={% if share_text or social.description %}{{ (share_text ?? social.description)|striptags|url_encode }} {% endif %}{{ (socialLink ~ '&utm_source=whatsapp')|url_encode }}"
-            onclick="window.dataLayerPush('Whatsapp');"
-            target="_blank" class="share-btn whatsapp">
-            {{ 'whatsapp'|svgicon }}
-            <span class="visually-hidden">{{ __( 'Share on', 'planet4-master-theme' ) }} Whatsapp</span>
-        </a>
-    {% endif %}
-    <!-- Facebook -->
-    {% if share_platforms.facebook %}
-        <a href="https://www.facebook.com/sharer/sharer.php?u={{ (socialLink ~ '&utm_source=facebook')|url_encode }}"
-            onclick="window.dataLayerPush('Facebook');"
-            target="_blank" class="share-btn facebook">
-            {{ 'facebook-f'|svgicon }}
-            <span class="visually-hidden">{{ __( 'Share on', 'planet4-master-theme' ) }} Facebook</span>
-        </a>
-    {% endif %}
-    <!-- Twitter -->
-    {% if share_platforms.twitter %}
-        <a href="https://x.com/intent/post?related={{ social_accounts.twitter }}&text={{ social.title|url_encode }}{% if share_text or social.description %} - {{ (share_text ?? social.description)|striptags|url_encode }}{% endif %}{% if social_accounts.twitter %}, via @{{ social_accounts.twitter }}{% endif %}&url={{ (socialLink ~ '&utm_source=twitter')|url_encode }}"
-            onclick="window.dataLayerPush('Twitter');"
-            target="_blank" class="share-btn twitter">
-            {{ 'twitter'|svgicon }}
-            <span class="visually-hidden">{{ __( 'Share on', 'planet4-master-theme' ) }} Twitter</span>
-        </a>
-    {% endif %}
-    <!-- Email -->
-    {% if share_platforms.email %}
-        <a href="mailto:?subject={{ social.title|url_encode }}&body={% if share_text or social.description %}{{ (share_text ?? social.description)|striptags|url_encode }} {% endif %}{{ (socialLink ~ '&utm_source=email')|url_encode }}"
-            onclick="window.dataLayerPush('Email');"
-            target="_blank" class="share-btn email">
-            {{ 'envelope'|svgicon }}
-            <span class="visually-hidden">{{ __( 'Share via', 'planet4-master-theme' ) }} Email</span>
-        </a>
-    {% endif %}
-    <!-- Bluesky -->
-    {% if share_platforms.bluesky %}
-        <a href="https://bsky.app/intent/compose?text={{ social.title|url_encode }}{% if share_text or social.description %} - {{ (share_text ?? social.description)|striptags|url_encode }}{% endif %}{% if social_accounts.bluesky %}, via @{{ social_accounts.bluesky }}{% endif %} {{ (socialLink ~ '&utm_source=bluesky')|url_encode }}"
-           onclick="window.dataLayerPush('Bluesky');"
-           target="_blank" class="share-btn bluesky">
-            {{ 'bluesky'|svgicon }}
-            <!-- translators: %s = social share platform. -->
-            <span class="visually-hidden">{{ __( 'Share on %s', 'planet4-master-theme' )|format('Bluesky') }}</span>
-        </a>
-    {% endif %}
-    <!-- Native (Gravity Forms only, for devices that support it) -->
-    {% if share_platforms.native %}
-        <a
-            onclick="window.nativeShare();"
-            target="_blank"
-            class="share-btn native">
-            {{ 'native-share'|svgicon }}
-            <span class="visually-hidden">{{ __( 'Share via', 'planet4-master-theme' ) }} Native</span>
+<div class="d-sm-flex justify-content-between align-items-center">
+    <div class="share-buttons">
+        <!-- Whatsapp -->
+        {% if share_platforms.whatsapp %}
+            <a href="https://wa.me/?text={% if share_text or social.description %}{{ (share_text ?? social.description)|striptags|url_encode }} {% endif %}{{ (socialLink ~ '&utm_source=whatsapp')|url_encode }}"
+                onclick="window.dataLayerPush('Whatsapp');"
+                target="_blank" class="share-btn whatsapp">
+                {{ 'whatsapp'|svgicon }}
+                <span class="visually-hidden">{{ __( 'Share on', 'planet4-master-theme' ) }} Whatsapp</span>
+            </a>
+        {% endif %}
+        <!-- Facebook -->
+        {% if share_platforms.facebook %}
+            <a href="https://www.facebook.com/sharer/sharer.php?u={{ (socialLink ~ '&utm_source=facebook')|url_encode }}"
+                onclick="window.dataLayerPush('Facebook');"
+                target="_blank" class="share-btn facebook">
+                {{ 'facebook-f'|svgicon }}
+                <span class="visually-hidden">{{ __( 'Share on', 'planet4-master-theme' ) }} Facebook</span>
+            </a>
+        {% endif %}
+        <!-- Twitter -->
+        {% if share_platforms.twitter %}
+            <a href="https://x.com/intent/post?related={{ social_accounts.twitter }}&text={{ social.title|url_encode }}{% if share_text or social.description %} - {{ (share_text ?? social.description)|striptags|url_encode }}{% endif %}{% if social_accounts.twitter %}, via @{{ social_accounts.twitter }}{% endif %}&url={{ (socialLink ~ '&utm_source=twitter')|url_encode }}"
+                onclick="window.dataLayerPush('Twitter');"
+                target="_blank" class="share-btn twitter">
+                {{ 'twitter'|svgicon }}
+                <span class="visually-hidden">{{ __( 'Share on', 'planet4-master-theme' ) }} Twitter</span>
+            </a>
+        {% endif %}
+        <!-- Email -->
+        {% if share_platforms.email %}
+            <a href="mailto:?subject={{ social.title|url_encode }}&body={% if share_text or social.description %}{{ (share_text ?? social.description)|striptags|url_encode }} {% endif %}{{ (socialLink ~ '&utm_source=email')|url_encode }}"
+                onclick="window.dataLayerPush('Email');"
+                target="_blank" class="share-btn email">
+                {{ 'envelope'|svgicon }}
+                <span class="visually-hidden">{{ __( 'Share via', 'planet4-master-theme' ) }} Email</span>
+            </a>
+        {% endif %}
+        <!-- Bluesky -->
+        {% if share_platforms.bluesky %}
+            <a href="https://bsky.app/intent/compose?text={{ social.title|url_encode }}{% if share_text or social.description %} - {{ (share_text ?? social.description)|striptags|url_encode }}{% endif %}{% if social_accounts.bluesky %}, via @{{ social_accounts.bluesky }}{% endif %} {{ (socialLink ~ '&utm_source=bluesky')|url_encode }}"
+            onclick="window.dataLayerPush('Bluesky');"
+            target="_blank" class="share-btn bluesky">
+                {{ 'bluesky'|svgicon }}
+                <!-- translators: %s = social share platform. -->
+                <span class="visually-hidden">{{ __( 'Share on %s', 'planet4-master-theme' )|format('Bluesky') }}</span>
+            </a>
+        {% endif %}
+        <!-- Native (Gravity Forms only, for devices that support it) -->
+        {% if share_platforms.native %}
+            <a
+                onclick="window.nativeShare();"
+                target="_blank"
+                class="share-btn native">
+                {{ 'native-share'|svgicon }}
+                <span class="visually-hidden">{{ __( 'Share via', 'planet4-master-theme' ) }} Native</span>
+            </a>
+        {% endif %}
+    </div>
+    {% if google_news is not empty %}
+        <a href="https://google.com/preferences/source?q={{ site.link }}" target="_blank" class="d-inline-block mt-3 mt-sm-0">
+            <img src="{{ google_news }}" alt="Google preferred source" />
         </a>
     {% endif %}
 </div>
