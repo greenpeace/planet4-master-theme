@@ -2,7 +2,11 @@
   line-height: var(--navbar-menu-height--small);
 
   img {
-    height: 26px;
+    height: 22px;
+
+    @include medium-and-up {
+      height: 26px;
+    }
   }
 
   @include large-and-up {

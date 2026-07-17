@@ -53,14 +53,28 @@
 
   .btn-donate {
     border: none;
-    min-width: 116px;
-    padding: 2px 17px;
+    padding: 2px 14px;
     height: 44px;
-    font-size: 17px;
+    font-size: var(--font-size-s--donate-button-nav);
     line-height: 40px;
 
     &:hover {
       border: none;
+    }
+
+    @include mobile-only {
+      min-width: unset;
+      max-width: 106px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    @include medium-and-up {
+      padding-inline-start: 17px;
+      padding-inline-end: 17px;
+      min-width: 116px;
+      font-size: var(--font-size-m--donate-button-nav);
     }
 
     @include large-and-up {
@@ -364,7 +378,12 @@ a.nav-link:hover:before,
   background: transparent;
   border: none;
   border-radius: 4px;
-  padding: 0 $sp-3;
+  padding: 0 $sp-2;
+
+  @include medium-and-up {
+    padding-inline-start: $sp-3;
+    padding-inline-end: $sp-3;
+  }
 
   @include large-and-up {
     display: none;
