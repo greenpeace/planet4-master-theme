@@ -351,7 +351,7 @@ class Post extends \Timber\Post
     public function google_news(): string
     {
         return planet4_get_option('google_news') ?
-            get_template_directory_uri() . '/images/google-news.svg' :
+            get_template_directory_uri() . '/images/google.svg' :
             '';
     }
 

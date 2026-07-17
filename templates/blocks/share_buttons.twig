@@ -63,8 +63,9 @@
         {% endif %}
     </div>
     {% if google_news is not empty %}
-        <a href="https://google.com/preferences/source?q={{ site.link }}" target="_blank" class="d-inline-block mt-3 mt-sm-0">
-            <img src="{{ google_news }}" alt="Google preferred source" />
+        <a class="google-news-link" href="https://google.com/preferences/source?q={{ site.link }}" target="_blank">
+            <img src="{{ post.google_news }}" alt="Google preferred source" />
+            <span>{{ __( 'Add as a preferred source on Google', 'planet4-master-theme' ) }}</span>
         </a>
     {% endif %}
 </div>
