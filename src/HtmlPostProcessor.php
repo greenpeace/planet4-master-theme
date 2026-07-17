@@ -89,17 +89,7 @@ class HtmlPostProcessor
      */
     private function is_google_news_link(string $href, array $class_list): bool
     {
-        if (!str_contains($href, 'google')) {
-            return false;
-        }
-
-        $excluded = ['google_news_link'];
-
-        if (in_array($excluded, $class_list, true)) {
-                return false;
-        }
-
-        return true;
+        return str_contains($href, 'google') && !in_array('google_news_link', $class_list, true);
     }
 
     /**

@@ -108,7 +108,7 @@
 .google-news {
   display: flex;
   flex-direction: column;
-  border: 1px solid #D1D2D3;
+  border: 1px solid #d1d2d3;
   border-radius: $sp-x;
   padding: $sp-3 $sp-2;
   margin-bottom: $sp-5;
@@ -121,7 +121,7 @@
   }
 
   p {
-    font-family: var(--font-family-primary);;
+    font-family: var(--font-family-primary);
     font-weight: 700;
     font-size: var(--font-size-m--font-family-primary);
     line-height: var(--line-height-m--font-family-primary);
