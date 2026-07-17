@@ -128,20 +128,62 @@
     letter-spacing: 0;
     text-align: center;
     margin: 0;
+
+    @include small-and-up {
+      text-align: left;
+    }
   }
 
-  img {
-    width: 152px;
-    height: auto;
-  }
-
-  a {
-    text-align: center;
+  .google-news-link {
     margin: $sp-2 auto 0;
 
     @include small-and-up {
       margin: 0;
     }
+  }
+}
+
+.google-news-link {
+
+  font-family: var(--font-family-tertiary);
+  font-size: var(--font-size-s--font-family-tertiary);
+  line-height: var(--line-height-s--font-family-tertiary);
+  font-weight: 900;
+  border: 1px solid #aeafb1;
+  border-radius: 12px;
+  padding: $sp-1 $sp-2;
+  margin: $sp-2 0 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  text-align: left;
+  width: fit-content;
+
+  @include small-and-up {
+    margin: 0;
+  }
+
+  &:hover {
+    text-decoration: none;
+  }
+
+  span {
+    max-width: 125px;
+
+    @include small-and-less {
+      max-width: 150px;
+    }
+
+    @include mobile-only {
+      max-width: 125px;
+    }
+  }
+
+  img {
+    width: 30px;
+    height: auto;
+    margin-right: $sp-2;
   }
 }
 
