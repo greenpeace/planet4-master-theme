@@ -103,7 +103,7 @@ export const YearsNavigation = ({years, isEditing}) => {
 
     const observer = new IntersectionObserver(observerCallback, observerOptions);
 
-    years.forEach(year => {
+    years.forEach(({year}) => {
       const link = document.getElementById(year);
       if (link) {observer.observe(link);}
     });
@@ -176,7 +176,7 @@ export const YearsNavigation = ({years, isEditing}) => {
         className={`years-navigation-items d-flex ${showLeftArrow || showRightArrow ? 'with-gradient' : ''}`}
         ref={yearsListRef}
       >
-        {years.map(year => (
+        {years.map(({year, displayDate}) => (
           <li key={year}>
             <a
               href={`#${year}`}
@@ -184,7 +184,7 @@ export const YearsNavigation = ({years, isEditing}) => {
               data-target={year}
               className={`${!isEditing && activeYear === year ? 'active': ''}`}
             >
-              {year}
+              {displayDate}
             </a>
           </li>
         ))}
