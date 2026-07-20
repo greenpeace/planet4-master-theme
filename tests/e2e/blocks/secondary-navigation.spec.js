@@ -39,15 +39,15 @@ test('Test Secondary Navigation block', async ({page, admin, editor}) => {
   await closeBlockInserter({page});
 
   // Make sure it displays the empty message at first.
-  await expect(page.locator('.EmptyMessage')).toBeVisible();
+  await expect(editor.canvas.locator('.EmptyMessage')).toBeVisible();
 
   let i = 0;
 
   // Add content (headings and paragraphs).
   for (let index = 0; index < HEADINGS.length; index++) {
-    await addHeadingOrParagraph({page}, 'Heading', 'h2', i, HEADINGS[index]);
+    await addHeadingOrParagraph({page, editor}, 'Heading', 'h2', i, HEADINGS[index]);
     // For the paragraphs, we need to use i + 1 because there is a paragraph in the Page Header.
-    await addHeadingOrParagraph({page}, 'Paragraph', 'p', i + 1, PARAGRAPH_CONTENT);
+    await addHeadingOrParagraph({page, editor}, 'Paragraph', 'p', i + 1, PARAGRAPH_CONTENT);
 
     i++;
   };

@@ -89,7 +89,9 @@ class MasterSite extends \Timber\Site
         add_action('init', [$this, 'register_oembed_provider']);
         add_action('admin_menu', [$this, 'add_post_revisions_setting']);
         // Load the editor scripts only enqueuing editor scripts while in context of the editor.
-        add_action('enqueue_block_editor_assets', [$this, 'enqueue_editor_assets']);
+        if (is_admin()) {
+            add_action('enqueue_block_assets', [$this, 'enqueue_editor_assets']);
+        }
         // Load main theme assets before any child theme.
         add_action('wp_enqueue_scripts', [PublicAssets::class, 'enqueue_css'], 0);
         add_action('wp_enqueue_scripts', [PublicAssets::class, 'enqueue_js']);

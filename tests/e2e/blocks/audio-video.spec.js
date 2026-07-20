@@ -42,11 +42,11 @@ const TEST_MEDIA = [
  * @param {string} mediaType - The type of media added (Audio or Video).
  * @param {string} mediaLink - The media file link (can be YouTube, Vimeo, mp4, mp3, SoundCloud).
  */
-const addVideoOrAudioBlock = async ({page}, mediaType, mediaLink) => {
+const addVideoOrAudioBlock = async ({page, editor}, mediaType, mediaLink) => {
   await searchAndInsertBlock({page}, mediaType, mediaType);
 
   // Make sure the block has been added.
-  const insertUrl = await page.getByRole('button', {name: 'Insert from URL'});
+  const insertUrl = await editor.canvas.getByRole('button', {name: 'Insert from URL'});
   await expect(insertUrl).toBeVisible();
 
   // We should close the sidebar before editing the block.
@@ -64,7 +64,7 @@ test.useAdminLoggedIn();
 TEST_MEDIA.forEach(({type, format, url, selector}) => {
   test(`check the ${type} block with format ${format}`, async ({page, admin, editor}) => {
     await createPostWithFeaturedImage({page, admin, editor}, {title: `Test ${type} block`});
-    await addVideoOrAudioBlock({page}, type, url);
+    await addVideoOrAudioBlock({page, editor}, type, url);
     await publishPostAndVisit({page, editor});
     await expect(page.locator(selector)).toBeVisible();
   });

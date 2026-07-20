@@ -71,7 +71,9 @@ class MasterBlocks
         add_filter('render_block_data', [$this, 'empty_string_to_false_in_link_new_tab_in_columns_blocks']);
 
         // Admin scripts.
-        add_action('enqueue_block_editor_assets', [ $this, 'enqueue_block_editor_script' ]);
+        if (is_admin()) {
+            add_action('enqueue_block_assets', [ $this, 'enqueue_block_editor_script' ]);
+        }
 
         // Frontend scripts.
         add_action('wp_enqueue_scripts', [$this, 'enqueue_block_public_assets']);

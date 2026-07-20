@@ -18,7 +18,7 @@ test.describe('Test Actions List block', () => {
     await createPostWithFeaturedImage({page, admin, editor}, {title: 'Test Actions List Grid Layout', postType: 'page'});
 
     // Add Actions List block.
-    await addActionsListBlock(page);
+    await addActionsListBlock({page, editor});
 
     // Publish page.
     await publishPostAndVisit({page, editor});
@@ -72,7 +72,7 @@ test.describe('Test Actions List block', () => {
     await createPostWithFeaturedImage({page, admin, editor}, {title: 'Test Actions List, Manual Override', postType: 'page'});
 
     // Add a Actions List block using the Manual Override to select the actions created above.
-    await addActionsListBlockWithManualOverride(page, actionTitles);
+    await addActionsListBlockWithManualOverride({page, editor}, actionTitles);
 
     // Publish page.
     await publishPostAndVisit({page, editor});
@@ -85,7 +85,7 @@ test.describe('Test Actions List block', () => {
     await createPostWithFeaturedImage({page, admin, editor}, {title: 'Test Actions List, Carousel Layout', postType: 'page'});
 
     // Add a Actions List block with the Carousel layout.
-    await addActionsListBlock(page, 'Carousel');
+    await addActionsListBlock({page, editor}, 'Carousel');
 
     // Publish page.
     await publishPostAndVisit({page, editor});

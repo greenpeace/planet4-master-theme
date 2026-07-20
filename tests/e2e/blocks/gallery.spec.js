@@ -1,6 +1,6 @@
-import {test, expect} from './tools/lib/test-utils.js';
-import {publishPostAndVisit, createPostWithFeaturedImage} from './tools/lib/post.js';
-import {searchAndInsertBlock} from './tools/lib/editor.js';
+import {test, expect} from '../tools/lib/test-utils.js';
+import {publishPostAndVisit, createPostWithFeaturedImage} from '../tools/lib/post.js';
+import {searchAndInsertBlock} from '../tools/lib/editor.js';
 
 test.useAdminLoggedIn();
 
@@ -21,7 +21,7 @@ test('Test Gallery basic functionalities', async ({page, admin, editor}) => {
     await route.continue();
   });
 
-  await page.getByRole('button', {name: 'Media Library'}).click();
+  await editor.canvas.getByRole('button', {name: 'Media Library'}).click();
 
   const imageModal = page.getByRole('dialog', {name: 'Create gallery'});
   await imageModal.getByRole('tab', {name: 'Media Library'}).click();
