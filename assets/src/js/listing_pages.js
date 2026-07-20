@@ -11,8 +11,10 @@ const {__} = wp.i18n;
     return;
   }
 
+  const listingPageFilters = document.getElementById('listing-page-filters');
+
   createRoot(listingPageContent).render(
-    <ListingPagePosts />
+    <ListingPagePosts filtersContainer={listingPageFilters} />
   );
 
   const toggleButton = document.querySelector('.layout-toggle');
