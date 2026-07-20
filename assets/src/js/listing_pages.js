@@ -93,12 +93,4 @@ const {__} = wp.i18n;
   };
 
   initLayout();
-
-  // Add 'No posts found' text when needed.
-  if (!listingPageContent.querySelector('.wp-block-post-template')) {
-    const noPostsFound = document.createElement('p');
-    noPostsFound.classList.add('listing-page-no-posts-found');
-    noPostsFound.innerHTML = __('No posts found!', 'planet4-master-theme');
-    listingPageContent.appendChild(noPostsFound);
-  }
 })();
