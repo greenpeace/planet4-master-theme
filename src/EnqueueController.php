@@ -128,7 +128,7 @@ class EnqueueController
         $this->enqueue_script(
             'listing-page-layout-switch-script',
             '/assets/build/listingPages.js',
-            ['wp-i18n'],
+            ['wp-i18n', 'wp-element', 'wp-dom-ready'],
             $this->get_file_version('/assets/build/listingPages.js'),
             true
         );
