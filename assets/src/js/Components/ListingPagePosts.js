@@ -4,21 +4,43 @@ import {addQueryArgs} from '../../functions/addQueryArgs';
 import PostItem from './PostItem';
 import ListingPageFilters from './ListingPageFilters';
 import Paginator from './Paginator';
+import ListingPageLayoutToggle from './ListingPageLayoutToggle';
 
 const PER_PAGE = 3;
 
-const ListingPagePosts = ({filtersContainer}) => {
+const LAYOUTS = {
+  STORAGE_NAME: 'layout',
+  GRID: 'grid',
+  LIST: 'list',
+};
+
+const ListingPagePosts = ({filtersContainer, layoutToggleContainer}) => {
   const [posts, setPosts] = useState([]);
   const [postTypes, setPostTypes] = useState([]);
   const [categories, setCategories] = useState([]);
   const [tags, setTags] = useState([]);
+  const [layout, setLayout] = useState(LAYOUTS.LIST);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
   const [filters, setFilters] = useState({
     postType: '',
     category: '',
     tag: '',
   });
-  const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
+
+  const handleToggle = () => {
+    const newLayout = layout === LAYOUTS.GRID ? LAYOUTS.LIST : LAYOUTS.GRID;
+    setLayout(newLayout);
+
+    try {
+      localStorage.setItem(LAYOUTS.STORAGE_NAME, newLayout);
+    } catch (e) {
+      if (typeof Sentry !== 'undefined') {
+        // eslint-disable-next-line no-undef
+        Sentry.captureException(e);
+      }
+    }
+  };
 
   const getTaxonomies = useCallback(async () => {
     try {
@@ -71,6 +93,13 @@ const ListingPagePosts = ({filtersContainer}) => {
     }
   }, [filters, page]);
 
+  // Reset to page 1 whenever filters change, so you don't get stuck on
+  // e.g. page 5 of a filtered set that only has 2 pages.
+  const handleApply = newFilters => {
+    setFilters(newFilters);
+    setPage(1);
+  };
+
   useEffect(() => {
     getTaxonomies();
   }, [getTaxonomies]);
@@ -79,12 +108,19 @@ const ListingPagePosts = ({filtersContainer}) => {
     getPosts();
   }, [getPosts]);
 
-  // Reset to page 1 whenever filters change, so you don't get stuck on
-  // e.g. page 5 of a filtered set that only has 2 pages.
-  const handleApply = newFilters => {
-    setFilters(newFilters);
-    setPage(1);
-  };
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem(LAYOUTS.STORAGE_NAME);
+      if (stored === LAYOUTS.GRID || stored === LAYOUTS.GRID) {
+        setLayout(stored);
+      }
+    } catch (e) {
+      if (typeof Sentry !== 'undefined') {
+        // eslint-disable-next-line no-undef
+        Sentry.captureException(e);
+      }
+    }
+  }, []);
 
   return (
     <>
@@ -100,10 +136,21 @@ const ListingPagePosts = ({filtersContainer}) => {
 				    onApply={handleApply}
 				  />,
 				  filtersContainer
-				) }
+				)
+      }
+
+      { layoutToggleContainer &&
+        createPortal(
+          <ListingPageLayoutToggle
+            layout={layout}
+            onToggle={handleToggle}
+				  />,
+				  layoutToggleContainer
+        )
+      }
 
       { posts.length > 0 && (
-        <div className="wp-block-query is-layout-flow wp-block-query-is-layout-flow wp-block-query--list">
+        <div className={`wp-block-query is-layout-flow wp-block-query-is-layout-flow wp-block-query--${layout}`}>
           <ul className="wp-block-post-template">
             { posts.map(post => (
               <PostItem key={post.id} post={post} />
