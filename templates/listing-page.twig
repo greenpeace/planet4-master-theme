@@ -14,13 +14,7 @@
         {% else %}
             <h2>{{ listing_page_title ?? __( 'All articles', 'planet4-master-theme' ) }}</h2>
         {% endif %}
-        <div class="layout-button-ctn">
-            <button
-                class="layout-toggle layout-toggle-grid"
-                title="{{__( 'Grid layout', 'planet4-master-theme' ) }}"
-                aria-label="{{__( 'Switch to grid view', 'planet4-master-theme' ) }}"
-                data-layout="grid"
-            />
+        <div id="listing-page-layout-toggle" class="layout-button-ctn">
         </div>
     </div>
     <div>
