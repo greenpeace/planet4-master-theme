@@ -94,31 +94,6 @@ const {__} = wp.i18n;
 
   initLayout();
 
-  // Setup filters for the News & Stories page.
-  const filters = document.querySelector('.listing-page-filters');
-  if (!filters) {
-    return;
-  }
-
-  const AVAILABLE_FILTERS = ['category', 'post-type', 'tag'];
-
-  const updateFilters = () => {
-    const newUrl = new URL(window.location.href.replace(/\/page\/\d/, '/'));
-
-    AVAILABLE_FILTERS.forEach(filter => {
-      const {value} = document.getElementById(filter);
-      if (value) {
-        newUrl.searchParams.set(filter, value);
-      } else {
-        newUrl.searchParams.delete(filter);
-      }
-    });
-
-    window.location.href = newUrl.href;
-  };
-
-  document.getElementById('apply-filters').onclick = updateFilters;
-
   // Add 'No posts found' text when needed.
   if (!listingPageContent.querySelector('.wp-block-post-template')) {
     const noPostsFound = document.createElement('p');

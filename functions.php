@@ -307,20 +307,6 @@ add_filter(
     2
 );
 
-// Add filters to the main query on News & Stories page.
-add_action(
-    'pre_get_posts',
-    function ($query): void {
-        if (!$query->is_main_query() || is_admin() || !is_home()) {
-            return;
-        }
-
-        $query->set('post__not_in', ListingPage::get_sticky_posts());
-        $query->set('category__in', ListingPage::get_selected_categories());
-        $query->set('tax_query', ListingPage::get_selected_post_types());
-    }
-);
-
 // This action overrides the WordPress functionality for adding a notice message
 // https://github.com/WordPress/wordpress-develop/blob/trunk/src/wp-admin/edit-form-blocks.php#L303-L305
 // When it's a page for posts.

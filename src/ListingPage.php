@@ -69,7 +69,6 @@ class ListingPage
 
         if ($this->news_page_id === $current_page_id) {
             $this->set_featured_posts();
-            $this->set_filters();
         }
 
         $this->set_featured_action();
@@ -115,28 +114,6 @@ class ListingPage
 
         $news_page_link = get_permalink($this->news_page_id);
         $this->context['news_page_link'] = $news_page_link;
-    }
-
-    /**
-     * Set the 'News & stories' page filters.
-     * For now only the "category" and "post types" are available.
-     */
-    private function set_filters(): void
-    {
-        if (!is_home()) {
-            return;
-        }
-
-        $categories = get_categories();
-        $tags = get_tags();
-
-        $this->context['categories'] = $categories;
-        $this->context['post_types'] = get_terms(['taxonomy' => 'p4-page-type']);
-        $this->context['tags'] = $tags;
-
-        $this->context['current_category'] = $_GET['category'] ?? '';
-        $this->context['current_post_type'] = $_GET['post-type'] ?? '';
-        $this->context['current_tag'] = $_GET['tag'] ?? '';
     }
 
     /**
@@ -201,29 +178,5 @@ class ListingPage
         }
 
         return self::$STICKY_POSTS_CACHE = array_slice($sticky_posts->posts, 0, self::$STICKY_POSTS_TO_SHOW);
-    }
-
-    /**
-     * Add the category filter to News & Stories page.
-     */
-    public static function get_selected_categories(): array
-    {
-        $category_slug = isset($_GET['category']) ? $_GET['category'] : '';
-        $category = get_category_by_slug($category_slug);
-        return $category ? [$category->term_id] : [];
-    }
-
-    /**
-     * Add the post-type filter to News & Stories page.
-     */
-    public static function get_selected_post_types(): array
-    {
-        $post_type_slug = isset($_GET['post-type']) ? $_GET['post-type'] : '';
-        $post_type = get_term_by('slug', $post_type_slug, 'p4-page-type');
-        return !$post_type ? [] : [[
-            'taxonomy' => 'p4-page-type',
-            'field' => 'term_id',
-            'terms' => [$post_type->term_id],
-        ]];
     }
 }
