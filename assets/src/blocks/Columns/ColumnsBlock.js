@@ -5,16 +5,10 @@ import {getStyleLabel} from '../../functions/getStyleLabel';
 
 export const registerColumnsBlock = () => {
   const {__} = wp.i18n;
-  const {registerBlockType, getBlockTypes} = wp.blocks;
+  const {registerBlockType} = wp.blocks;
   const {useBlockProps} = wp.blockEditor;
 
   const BLOCK_NAME = 'planet4-blocks/columns';
-
-  const blockAlreadyExists = getBlockTypes().find(block => block.name === BLOCK_NAME);
-
-  if (blockAlreadyExists) {
-    return;
-  }
 
   registerBlockType(BLOCK_NAME, {
     title: 'Planet 4 Columns',
