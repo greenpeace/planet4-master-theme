@@ -1,11 +1,19 @@
+import {createRoot} from 'react-dom/client';
+import ListingPagePosts from './Components/ListingPagePosts';
+
 const {__} = wp.i18n;
 
 (function() {
   const listingPageContent = document.getElementById('listing-page-content');
+
   // If the current page is not a listing page, we do nothing.
   if (!listingPageContent) {
     return;
   }
+
+  createRoot(listingPageContent).render(
+    <ListingPagePosts />
+  );
 
   const toggleButton = document.querySelector('.layout-toggle');
 
