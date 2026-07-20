@@ -72,19 +72,8 @@ class ListingPage
             $this->set_filters();
         }
 
-        $this->add_listing_page_content();
         $this->set_featured_action();
         $this->set_news_page_link();
-    }
-
-    /**
-     * Add listing page content to the context.
-     */
-    private function add_listing_page_content(): void
-    {
-        $template = file_get_contents(get_template_directory() . "/parts/query-listing-page.html");
-        $content = do_blocks($template);
-        $this->context['listing_page_content'] = $content;
     }
 
     /**
