@@ -1,6 +1,7 @@
 import {useCallback, useState, useEffect, createPortal} from '@wordpress/element';
 import {fetchJson} from '../../functions/fetchJson';
 import {addQueryArgs} from '../../functions/addQueryArgs';
+import PostItem from './PostItem';
 import ListingPageFilters from './ListingPageFilters';
 import Paginator from './Paginator';
 
@@ -18,15 +19,6 @@ const ListingPagePosts = ({filtersContainer}) => {
   });
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-
-  function PostItem({post}) {
-    return (
-      <li>
-        <h3 dangerouslySetInnerHTML={{__html: post.title.rendered}} />
-        <div dangerouslySetInnerHTML={{__html: post.excerpt.rendered}} />
-      </li>
-    );
-  }
 
   const getTaxonomies = useCallback(async () => {
     try {
@@ -52,7 +44,7 @@ const ListingPagePosts = ({filtersContainer}) => {
       const args = {
         per_page: PER_PAGE,
         page,
-        ignore_categories: false,
+        _embed: true,
       };
 
       if (filters.postType) {
@@ -110,11 +102,21 @@ const ListingPagePosts = ({filtersContainer}) => {
 				  filtersContainer
 				) }
 
-      <ul>
-        { posts.map(post => (
-          <PostItem key={post.id} post={post} />
-        )) }
-      </ul>
+      { posts.length > 0 && (
+        <div className="wp-block-query is-layout-flow wp-block-query-is-layout-flow wp-block-query--list">
+          <ul className="wp-block-post-template">
+            { posts.map(post => (
+              <PostItem key={post.id} post={post} />
+            )) }
+          </ul>
+        </div>
+      ) }
+
+      { posts.length === 0 && (
+        <p className="listing-page-no-posts-found">
+          No posts found!
+        </p>
+      ) }
 
       <Paginator currentPage={page} totalPages={totalPages} onPageChange={setPage} />
     </>
