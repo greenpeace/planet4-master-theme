@@ -105,7 +105,7 @@
   margin-bottom: $sp-2;
 }
 
-.google-news {
+.google-preferred-source {
   display: flex;
   flex-direction: column;
   border: 1px solid #d1d2d3;
@@ -134,7 +134,7 @@
     }
   }
 
-  .google-news-link {
+  .google-preferred-source-link {
     margin: $sp-2 auto 0;
 
     @include small-and-up {
@@ -143,8 +143,7 @@
   }
 }
 
-.google-news-link {
-
+.google-preferred-source-link {
   font-family: var(--font-family-tertiary);
   font-size: var(--font-size-s--font-family-tertiary);
   line-height: var(--line-height-s--font-family-tertiary);
