@@ -5,9 +5,15 @@ import {getUniqueId} from '../../functions/getUniqueId';
 
 const {InspectorControls, RichText} = wp.blockEditor;
 const {PanelBody, Tooltip} = wp.components;
+import {select} from '@wordpress/data';
 const {debounce} = wp.compose;
 const {useCallback, useState, useEffect} = wp.element;
 const {__} = wp.i18n;
+
+const isTimelineIdReserved = timelineId => {
+  const timelines = select('core/editor').getBlocks().filter(block => block.name === 'planet4-blocks/timeline');
+  return timelines.some(timeline => timeline.attributes.timeline_id === timelineId);
+};
 
 const renderEdit = (
   sheetURL,
@@ -83,11 +89,9 @@ export const NewTimelineEditor = ({isSelected, attributes, setAttributes}) => {
 
   // Set a timeline id in the attributes, if it doesn't exist yet.
   useEffect(() => {
-    if (attributes.timeline_id) {
-      return;
+    if (!attributes.timeline_id || isTimelineIdReserved(attributes.timeline_id)) {
+      setAttributes({timeline_id: getUniqueId('tl')});
     }
-
-    setAttributes({timeline_id: getUniqueId('tl')});
   }, []);
 
   return (
