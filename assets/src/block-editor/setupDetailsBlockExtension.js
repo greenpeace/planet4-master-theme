@@ -135,6 +135,14 @@ const addStyleVariantsControls = wp.compose.createHigherOrderComponent(BlockEdit
             }
           </ButtonGroup>
         </PanelBody>
+        <PanelBody title={__('Learn more about this block ', 'planet4-master-theme-backend')} initialOpen={false}>
+          <p className="components-base-control__help">
+            <a target="_blank" href="https://planet4.greenpeace.org/content/blocks/details/" rel="noreferrer">
+              P4 Handbook Details block
+            </a>
+            {' '} &#129687;
+          </p>
+        </PanelBody>
       </InspectorControls>
     </>
   );
