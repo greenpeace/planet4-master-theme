@@ -346,13 +346,16 @@ class Post extends \Timber\Post
     }
 
     /**
-     * Get the Google News option.
+     * Get the Google Preferred Source data.
      */
-    public function google_news(): string
+    public function google_preferred_source(): array|null
     {
-        return planet4_get_option('google_news') ?
-            get_template_directory_uri() . '/images/google.svg' :
-            '';
+        return planet4_get_option('google_preferred_source') ?
+            [
+                'image' => get_template_directory_uri() . '/images/google.svg',
+                'domain' => preg_replace('#^www(-\w+)?\.#', '', parse_url(home_url(), PHP_URL_HOST)),
+            ] :
+            null;
     }
 
     /**

@@ -82,7 +82,7 @@
                     social: post.share_meta,
                     utm_medium: 'share',
                     share_platforms: post.social_share_platforms,
-                    google_news: post.google_news,
+                    google_preferred_source: post.google_preferred_source,
                 } %}
 
                 {% if old_posts_archive_notice.show_notice %}
@@ -109,11 +109,11 @@
                     {% endif %}
                 </div>
             </div>
-            {% if ( post.google_news ) %}
-                <div class="google-news">
+            {% if ( post.google_preferred_source ) %}
+                <div class="google-preferred-source">
                     <p>{{ __( 'Want to see more from Greenpeace?', 'planet4-master-theme' ) }}</p>
-                    <a class="google-news-link" href="https://google.com/preferences/source?q={{ site.link }}" target="_blank">
-                        <img src="{{ post.google_news }}" alt="Google preferred source" />
+                    <a class="google-preferred-source-link" href="https://google.com/preferences/source?q={{ post.google_preferred_source.domain }}" target="_blank">
+                        <img src="{{ post.google_preferred_source.image }}" alt="Google preferred source" />
                         <span>{{ __( 'Add as a preferred source on Google', 'planet4-master-theme' ) }}</span>
                     </a>
                 </div>

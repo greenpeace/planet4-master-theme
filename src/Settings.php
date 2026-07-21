@@ -567,7 +567,7 @@ class Settings
                             'Display the "Add as a preferred source on Google" buttons in Posts',
                             'planet4-master-theme-backend'
                         ),
-                        'id' => 'google_news',
+                        'id' => 'google_preferred_source',
                         'type' => 'checkbox',
                     ],
                 ],
