@@ -125,12 +125,28 @@ class EnqueueController
      */
     public function enqueue_dynamic_listing_page(): void
     {
+        $script = [
+            'id' => 'listingPageSettings',
+            'name' => 'dynamic-listing-page',
+            'path' => '/assets/build/listingPages.js',
+        ];
+
         $this->enqueue_script(
-            'dynamic-listing-page',
-            '/assets/build/listingPages.js',
+            $script['name'],
+            $script['path'],
             ['wp-i18n', 'wp-element', 'wp-dom-ready'],
-            $this->get_file_version('/assets/build/listingPages.js'),
+            $this->get_file_version($script['path']),
             true
+        );
+
+        if (!wp_script_is($script['name'], 'enqueued')) {
+            return;
+        }
+
+        wp_localize_script(
+            $script['name'],
+            $script['id'],
+            (int) get_option('posts_per_page', 10)
         );
     }
 
