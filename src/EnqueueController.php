@@ -22,7 +22,7 @@ class EnqueueController
         add_action('enqueue_media_import_button_script', [$this, 'enqueue_media_import_button']);
         add_action('enqueue_filter_block_names_script', [$this, 'enqueue_filter_block_names']);
         add_action('enqueue_dismiss_dashboard_notice_script', [$this, 'enqueue_dismiss_dashboard_notice']);
-        add_action('enqueue_listing_page_layout_switch_script', [$this, 'enqueue_listing_page_layout_switch']);
+        add_action('enqueue_dynamic_listing_page_script', [$this, 'enqueue_dynamic_listing_page']);
         add_action('enqueue_vwo_smart_script', [$this, 'enqueue_vwo_smart_code']);
         add_action('admin_footer', [$this, 'hide_password_checkbox']);
     }
@@ -117,16 +117,16 @@ class EnqueueController
     }
 
     /**
-     * Enqueues Listing pages dynamic switch script.
+     * Enqueues dynamic listing pages script.
      *
      * This method registers and enqueues the JavaScript file for dynamically
-     * switching the listing page layout without refrshing the page.
+     * rendering posts in the listing pages.
      *
      */
-    public function enqueue_listing_page_layout_switch(): void
+    public function enqueue_dynamic_listing_page(): void
     {
         $this->enqueue_script(
-            'listing-page-layout-switch-script',
+            'dynamic-listing-page',
             '/assets/build/listingPages.js',
             ['wp-i18n', 'wp-element', 'wp-dom-ready'],
             $this->get_file_version('/assets/build/listingPages.js'),
