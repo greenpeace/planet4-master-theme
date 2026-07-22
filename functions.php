@@ -3,7 +3,6 @@
 use P4\MasterTheme\Api;
 use P4\MasterTheme\Loader;
 use P4\MasterTheme\MediaArchive\Rest;
-use P4\MasterTheme\ListingPage;
 
 // This theme vendor dir
 if (file_exists(__DIR__ . '/vendor/autoload.php')) {
