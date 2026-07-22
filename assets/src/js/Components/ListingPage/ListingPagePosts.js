@@ -74,6 +74,10 @@ const ListingPagePosts = ({filtersContainer, layoutToggleContainer}) => {
 
   const hasSyncedFromUrl = useRef(false);
 
+  // Tracks the most recently fired getPosts request, so an earlier
+  // request can't overwrite a later correctly filtered result.
+  const requestIdRef = useRef(0);
+
   /**
    * Reads the current template's archive context from the settings localized by PHP.
    *
@@ -153,10 +157,13 @@ const ListingPagePosts = ({filtersContainer, layoutToggleContainer}) => {
 
   /**
    * Fetches posts (or the relevant custom post type) for the current page.
+   * Stamps each call with an incrementing request id and ignores the
+   * response if a newer request has since been fired.
    *
    * @return {Promise<void>}
    */
   const getPosts = useCallback(async () => {
+    const requestId = ++requestIdRef.current;
     setIsLoadingPosts(true);
 
     try {
@@ -207,13 +214,20 @@ const ListingPagePosts = ({filtersContainer, layoutToggleContainer}) => {
         `${baseUrl}/wp-json/wp/v2/${addQueryArgs(endpoint, args)}`
       );
 
+      // Ignore this response if a newer request has been fired.
+      if (requestId !== requestIdRef.current) {
+        return;
+      }
+
       setPosts(Array.isArray(data) ? data : []);
       setTotalPages(pages);
     } catch (e) {
       // eslint-disable-next-line no-console
       console.log(e);
     } finally {
-      setIsLoadingPosts(false);
+      if (requestId === requestIdRef.current) {
+        setIsLoadingPosts(false);
+      }
     }
   }, [filters, page]);
 
@@ -320,27 +334,27 @@ const ListingPagePosts = ({filtersContainer, layoutToggleContainer}) => {
   return (
     <>
       { filtersContainer &&
-				createPortal(
-				  <ListingPageFilters
-				    postTypes={postTypes}
-				    categories={categories}
-				    tags={tags}
-				    currentPostType={filters.postType}
-				    currentCategory={filters.category}
-				    currentTag={filters.tag}
-				    onApply={handleApply}
-				  />,
-				  filtersContainer
-				) }
+        createPortal(
+          <ListingPageFilters
+            postTypes={postTypes}
+            categories={categories}
+            tags={tags}
+            currentPostType={filters.postType}
+            currentCategory={filters.category}
+            currentTag={filters.tag}
+            onApply={handleApply}
+          />,
+          filtersContainer
+        ) }
 
       { layoutToggleContainer &&
-				createPortal(
-				  <ListingPageLayoutToggle
-				    layout={layout}
-				    onToggle={handleToggle}
-				  />,
-				  layoutToggleContainer
-				) }
+        createPortal(
+          <ListingPageLayoutToggle
+            layout={layout}
+            onToggle={handleToggle}
+          />,
+          layoutToggleContainer
+        ) }
 
       { !isLoadingPosts && posts.length > 0 && (
         <div className={`wp-block-query is-layout-flow wp-block-query-is-layout-flow wp-block-query--${layout}`}>
