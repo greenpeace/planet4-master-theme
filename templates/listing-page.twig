@@ -10,7 +10,7 @@
     <div class="d-flex align-items-center justify-content-between listing-page-title">
         {% if fn('is_home') %}
             <h2 tabindex="0" class="visually-hidden">{{__( 'Filter posts', 'planet4-master-theme' ) }}</h2>
-            <div id="listing-page-filters"></div>
+            <div id="listing-page-filters" class="listing-page-filters"></div>
         {% else %}
             <h2>{{ listing_page_title ?? __( 'All articles', 'planet4-master-theme' ) }}</h2>
         {% endif %}
