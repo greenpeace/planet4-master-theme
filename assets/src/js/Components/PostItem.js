@@ -1,10 +1,15 @@
+/**
+ * Renders a single post item within the listing page.
+ *
+ * @param {Object} props      Component props.
+ * @param {Object} props.post WordPress REST API post object.
+ *
+ * @return {JSX.Element} The rendered post list item.
+ */
 function PostItem({post}) {
   const featuredMedia = post._embedded?.['wp:featuredmedia']?.[0];
   const author = post._embedded?.author?.[0];
   const terms = post._embedded?.['wp:term'] || [];
-
-  // wp:term is an array of arrays, one per taxonomy, in the order
-  // registered on the post type (category, post_tag, p4-page-type, etc.)
   const categories = terms.flat().filter(term => term.taxonomy === 'category');
   const tags = terms.flat().filter(term => term.taxonomy === 'post_tag');
 
