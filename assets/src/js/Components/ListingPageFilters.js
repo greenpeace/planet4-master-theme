@@ -1,4 +1,4 @@
-import {useState} from '@wordpress/element';
+import {useState, useEffect} from '@wordpress/element';
 import {__} from '@wordpress/i18n';
 
 function FilterSelect({id, label, allLabel, options = [], value, onChange}) {
@@ -36,6 +36,20 @@ export default function ListingPageFilters({
   const [postType, setPostType] = useState(currentPostType);
   const [category, setCategory] = useState(currentCategory);
   const [tag, setTag] = useState(currentTag);
+
+  // Keep the dropdowns in sync when the parent's filters change from
+  // somewhere other than this component (e.g. read from the URL on load).
+  useEffect(() => {
+    setPostType(currentPostType);
+  }, [currentPostType]);
+
+  useEffect(() => {
+    setCategory(currentCategory);
+  }, [currentCategory]);
+
+  useEffect(() => {
+    setTag(currentTag);
+  }, [currentTag]);
 
   const handleApply = () => {
     onApply({postType, category, tag});

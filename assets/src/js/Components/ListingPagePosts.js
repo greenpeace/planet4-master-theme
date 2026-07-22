@@ -1,4 +1,4 @@
-import {useCallback, useState, useEffect, createPortal} from '@wordpress/element';
+import {useCallback, useState, useEffect, useRef, createPortal} from '@wordpress/element';
 import {fetchJson} from '../../functions/fetchJson';
 import {addQueryArgs} from '../../functions/addQueryArgs';
 import PostItem from './PostItem';
@@ -14,11 +14,28 @@ const LAYOUTS = {
   LIST: 'list',
 };
 
+const URL_PARAMS = {
+  postType: 'post-type',
+  category: 'category',
+  tag: 'tag',
+};
+
+function getIdBySlug(list, slug) {
+  const match = list.find(item => item.slug === slug);
+  return match ? match.id : '';
+}
+
+function getSlugById(list, id) {
+  const match = list.find(item => item.id === id);
+  return match ? match.slug : '';
+}
+
 const ListingPagePosts = ({filtersContainer, layoutToggleContainer}) => {
   const [posts, setPosts] = useState([]);
   const [postTypes, setPostTypes] = useState([]);
   const [categories, setCategories] = useState([]);
   const [tags, setTags] = useState([]);
+  const [taxonomiesLoaded, setTaxonomiesLoaded] = useState(false);
   const [layout, setLayout] = useState(LAYOUTS.LIST);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -27,6 +44,8 @@ const ListingPagePosts = ({filtersContainer, layoutToggleContainer}) => {
     category: '',
     tag: '',
   });
+
+  const hasSyncedFromUrl = useRef(false);
 
   const handleToggle = () => {
     const newLayout = layout === LAYOUTS.GRID ? LAYOUTS.LIST : LAYOUTS.GRID;
@@ -58,6 +77,8 @@ const ListingPagePosts = ({filtersContainer, layoutToggleContainer}) => {
     } catch (e) {
       // eslint-disable-next-line no-console
       console.log(e);
+    } finally {
+      setTaxonomiesLoaded(true);
     }
   }, []);
 
@@ -111,7 +132,7 @@ const ListingPagePosts = ({filtersContainer, layoutToggleContainer}) => {
   useEffect(() => {
     try {
       const stored = localStorage.getItem(LAYOUTS.STORAGE_NAME);
-      if (stored === LAYOUTS.GRID || stored === LAYOUTS.GRID) {
+      if (stored === LAYOUTS.GRID || stored === LAYOUTS.LIST) {
         setLayout(stored);
       }
     } catch (e) {
@@ -121,6 +142,62 @@ const ListingPagePosts = ({filtersContainer, layoutToggleContainer}) => {
       }
     }
   }, []);
+
+  // Read filters from the URL once taxonomies have loaded (slugs in the
+  // URL need to be converted to the numeric IDs the API expects).
+  useEffect(() => {
+    if (hasSyncedFromUrl.current || !taxonomiesLoaded) {
+      return;
+    }
+
+    const params = new URLSearchParams(window.location.search);
+    const postTypeSlug = params.get(URL_PARAMS.postType);
+    const categorySlug = params.get(URL_PARAMS.category);
+    const tagSlug = params.get(URL_PARAMS.tag);
+
+    const urlFilters = {
+      postType: postTypeSlug ? getIdBySlug(postTypes, postTypeSlug) : '',
+      category: categorySlug ? getIdBySlug(categories, categorySlug) : '',
+      tag: tagSlug ? getIdBySlug(tags, tagSlug) : '',
+    };
+
+    if (urlFilters.postType || urlFilters.category || urlFilters.tag) {
+      setFilters(urlFilters);
+    }
+
+    hasSyncedFromUrl.current = true;
+  }, [taxonomiesLoaded, postTypes, categories, tags]);
+
+  // Keep the URL in sync whenever filters change (converting IDs back
+  // to slugs for a readable, shareable URL).
+  useEffect(() => {
+    if (!taxonomiesLoaded) {
+      return;
+    }
+
+    const params = new URLSearchParams(window.location.search);
+
+    const postTypeSlug = filters.postType ? getSlugById(postTypes, filters.postType) : '';
+    const categorySlug = filters.category ? getSlugById(categories, filters.category) : '';
+    const tagSlug = filters.tag ? getSlugById(tags, filters.tag) : '';
+
+    [
+      [URL_PARAMS.postType, postTypeSlug],
+      [URL_PARAMS.category, categorySlug],
+      [URL_PARAMS.tag, tagSlug],
+    ].forEach(([key, value]) => {
+      if (value) {
+        params.set(key, value);
+      } else {
+        params.delete(key);
+      }
+    });
+
+    const queryString = params.toString();
+    const newUrl = `${window.location.pathname}${queryString ? `?${queryString}` : ''}${window.location.hash}`;
+
+    window.history.pushState(null, '', newUrl);
+  }, [filters, taxonomiesLoaded, postTypes, categories, tags]);
 
   return (
     <>
@@ -136,18 +213,16 @@ const ListingPagePosts = ({filtersContainer, layoutToggleContainer}) => {
 				    onApply={handleApply}
 				  />,
 				  filtersContainer
-				)
-      }
+				) }
 
       { layoutToggleContainer &&
-        createPortal(
-          <ListingPageLayoutToggle
-            layout={layout}
-            onToggle={handleToggle}
+				createPortal(
+				  <ListingPageLayoutToggle
+				    layout={layout}
+				    onToggle={handleToggle}
 				  />,
 				  layoutToggleContainer
-        )
-      }
+				) }
 
       { posts.length > 0 && (
         <div className={`wp-block-query is-layout-flow wp-block-query-is-layout-flow wp-block-query--${layout}`}>
@@ -161,7 +236,7 @@ const ListingPagePosts = ({filtersContainer, layoutToggleContainer}) => {
 
       { posts.length === 0 && (
         <p className="listing-page-no-posts-found">
-          No posts found!
+					No posts found!
         </p>
       ) }
 
