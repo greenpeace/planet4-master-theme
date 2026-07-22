@@ -143,10 +143,31 @@ class EnqueueController
             return;
         }
 
+        $settings = [
+            'postsPerPage' => (int) get_option('posts_per_page', 10),
+            'archivePostType' => '',
+            'archiveAuthor' => '',
+            'archiveTag' => '',
+            'archiveTaxonomy' => '',
+            'archiveTerm' => '',
+        ];
+
+        if (is_post_type_archive('p4_action')) {
+            $settings['archivePostType'] = 'p4_action';
+        } elseif (is_author()) {
+            $settings['archiveAuthor'] = get_queried_object_id();
+        } elseif (is_tag()) {
+            $settings['archiveTag'] = get_queried_object()->term_id;
+        } elseif (is_tax() || is_category()) {
+            $queried = get_queried_object();
+            $settings['archiveTaxonomy'] = $queried->taxonomy;
+            $settings['archiveTerm'] = $queried->term_id;
+        }
+
         wp_localize_script(
             $script['name'],
             $script['id'],
-            (int) get_option('posts_per_page', 10)
+            $settings
         );
     }
 
