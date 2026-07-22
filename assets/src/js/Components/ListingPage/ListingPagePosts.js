@@ -207,6 +207,8 @@ const ListingPagePosts = ({filtersContainer, layoutToggleContainer}) => {
 
   /**
    * Fetches posts (or the relevant custom post type) for the current page.
+   * Stamps each call with an incrementing request id and ignores the
+   * response if a newer request has since been fired.
    *
    * @return {Promise<void>}
    */
