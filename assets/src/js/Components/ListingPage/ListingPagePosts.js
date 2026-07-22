@@ -1,3 +1,4 @@
+import {__} from '@wordpress/i18n';
 import {useCallback, useState, useEffect, useRef, createPortal} from '@wordpress/element';
 import {fetchJson} from '../../../functions/fetchJson';
 import {addQueryArgs} from '../../../functions/addQueryArgs';
@@ -32,6 +33,7 @@ function getSlugById(list, id) {
 
 const ListingPagePosts = ({filtersContainer, layoutToggleContainer}) => {
   const [posts, setPosts] = useState([]);
+  const [isLoadingPosts, setIsLoadingPosts] = useState(true);
   const [postTypes, setPostTypes] = useState([]);
   const [categories, setCategories] = useState([]);
   const [tags, setTags] = useState([]);
@@ -101,6 +103,8 @@ const ListingPagePosts = ({filtersContainer, layoutToggleContainer}) => {
   }
 
   const getPosts = useCallback(async () => {
+    setIsLoadingPosts(true);
+
     try {
       const archiveContext = getArchiveContext();
       const endpoint = getEndpoint(archiveContext);
@@ -154,6 +158,8 @@ const ListingPagePosts = ({filtersContainer, layoutToggleContainer}) => {
     } catch (e) {
       // eslint-disable-next-line no-console
       console.log(e);
+    } finally {
+      setIsLoadingPosts(false);
     }
   }, [filters, page]);
 
@@ -188,6 +194,9 @@ const ListingPagePosts = ({filtersContainer, layoutToggleContainer}) => {
 
   // Read filters from the URL once taxonomies have loaded (slugs in the
   // URL need to be converted to the numeric IDs the API expects).
+  // Only applies on the main posts page — other templates (author.php,
+  // tag.php, taxonomy.php, archive-p4_action.php) have their own fixed
+  // archive context and shouldn't be driven by these query params.
   useEffect(() => {
     if (hasSyncedFromUrl.current || !taxonomiesLoaded) {
       return;
@@ -212,7 +221,7 @@ const ListingPagePosts = ({filtersContainer, layoutToggleContainer}) => {
   }, [taxonomiesLoaded, postTypes, categories, tags]);
 
   // Keep the URL in sync whenever filters change (converting IDs back
-  // to slugs for a readable, shareable URL).
+  // to slugs for a readable, shareable URL). Same restriction as above.
   useEffect(() => {
     if (!taxonomiesLoaded) {
       return;
@@ -267,7 +276,7 @@ const ListingPagePosts = ({filtersContainer, layoutToggleContainer}) => {
 				  layoutToggleContainer
 				) }
 
-      { posts.length > 0 && (
+      { !isLoadingPosts && posts.length > 0 && (
         <div className={`wp-block-query is-layout-flow wp-block-query-is-layout-flow wp-block-query--${layout}`}>
           <ul className="wp-block-post-template">
             { posts.map(post => (
@@ -277,9 +286,15 @@ const ListingPagePosts = ({filtersContainer, layoutToggleContainer}) => {
         </div>
       ) }
 
-      { posts.length === 0 && (
+      { !isLoadingPosts && posts.length === 0 && (
         <p className="listing-page-no-posts-found">
-					No posts found!
+          { __('No posts found!', 'planet4-master-theme') }
+        </p>
+      ) }
+
+      { isLoadingPosts && (
+        <p className="listing-page-no-posts-found">
+          { __('Loading posts…', 'planet4-master-theme') }
         </p>
       ) }
 
