@@ -42,7 +42,7 @@ export default function ListingPageFilters({
   };
 
   return (
-    <div className="listing-page-filters">
+    <>
       <FilterSelect
         id="post-type"
         label={__('Content type', 'planet4-master-theme')}
@@ -79,6 +79,6 @@ export default function ListingPageFilters({
           { __('Apply filters', 'planet4-master-theme') }
         </button>
       </div>
-    </div>
+    </>
   );
 }
