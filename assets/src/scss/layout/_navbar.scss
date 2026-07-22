@@ -53,27 +53,21 @@
 
   .btn-donate {
     border: none;
-    padding: 2px 14px;
-    height: 44px;
+    min-width: 116px;
+    padding: 0 $sp-2;
+    height: 40px;
     font-size: var(--font-size-s--donate-button-nav);
-    line-height: 40px;
+    line-height: 24px;
 
     &:hover {
       border: none;
     }
 
-    @include mobile-only {
-      min-width: unset;
-      max-width: 98px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
     @include medium-and-up {
-      padding-inline-start: 17px;
-      padding-inline-end: 17px;
-      min-width: 116px;
+      height: 44px;
+      line-height: 40px;
+      padding-top: 2px;
+      padding-bottom: 2px;
       font-size: var(--font-size-m--donate-button-nav);
     }
 
