@@ -161,7 +161,7 @@ const renderEdit = ({tabs}, setAttributes, updateTabAttribute) => {
           <a target="_blank" href="https://planet4.greenpeace.org/content/blocks/accordion/" rel="noreferrer">
             P4 Handbook Accordion
           </a>
-          {' '} &#11015;&#65039;
+          {' '} &#129687;
         </p>
       </PanelBody>
     </InspectorControls>
