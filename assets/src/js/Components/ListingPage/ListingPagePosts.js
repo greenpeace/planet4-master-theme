@@ -6,7 +6,7 @@ import Paginator from '../Paginator';
 import ListingPageFilters from './ListingPageFilters';
 import ListingPageLayoutToggle from './ListingPageLayoutToggle';
 
-const PER_PAGE = 3;
+const PER_PAGE = window.listingPageSettings || 3;
 
 const LAYOUTS = {
   STORAGE_NAME: 'layout',
