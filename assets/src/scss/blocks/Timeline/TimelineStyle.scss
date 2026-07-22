@@ -347,18 +347,20 @@
 
   .timeline-block-year {
     text-align: center;
-    width: 78px;
-    border-radius: $sp-x;
-    background-color: var(--white);
-    margin: $sp-6 auto;
-    padding: $sp-1;
-    box-shadow: 0 $sp-x $sp-1x rgba(0, 0, 0, 0.15);
     position: relative;
     z-index: 1;
+
+    span {
+      border-radius: $sp-x;
+      background-color: var(--white);
+      margin: $sp-6 auto;
+      padding: $sp-1;
+      box-shadow: 0 $sp-x $sp-1x rgba(0, 0, 0, 0.15);
+    }
   }
 
   .timeline-block-year-group {
-    scroll-margin-top: 100px;
+    scroll-margin-top: 120px;
   }
 
   .timeline-block-event-day,
@@ -672,6 +674,7 @@
 
     li {
       margin: $sp-x $sp-2;
+      flex-shrink: 0;
 
       &:first-child {
         margin-inline-start: 0;
