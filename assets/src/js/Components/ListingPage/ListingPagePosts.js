@@ -21,16 +21,41 @@ const URL_PARAMS = {
   tag: 'tag',
 };
 
+/**
+ * Finds a term's id by its slug within a list of terms.
+ *
+ * @param {Array<{id: number, slug: string}>} list List of terms to search.
+ * @param {string}                            slug The slug to look up.
+ *
+ * @return {number|string} The matching term's id, or `''` if not found.
+ */
 function getIdBySlug(list, slug) {
   const match = list.find(item => item.slug === slug);
   return match ? match.id : '';
 }
 
+/**
+ * Finds a term's slug by its id within a list of terms.
+ *
+ * @param {Array<{id: number, slug: string}>} list List of terms to search.
+ * @param {number}                            id   The id to look up.
+ *
+ * @return {string} The matching term's slug, or `''` if not found.
+ */
 function getSlugById(list, id) {
   const match = list.find(item => item.id === id);
   return match ? match.slug : '';
 }
 
+/**
+ * Renders the dynamic listing page.
+ *
+ * @param {Object}      props                         Component props.
+ * @param {HTMLElement} [props.filtersContainer]      DOM node to portal the filter controls into, if present.
+ * @param {HTMLElement} [props.layoutToggleContainer] DOM node to portal the layout toggle button into, if present.
+ *
+ * @return {JSX.Element} The rendered listing page posts section.
+ */
 const ListingPagePosts = ({filtersContainer, layoutToggleContainer}) => {
   const [posts, setPosts] = useState([]);
   const [isLoadingPosts, setIsLoadingPosts] = useState(true);
@@ -49,6 +74,42 @@ const ListingPagePosts = ({filtersContainer, layoutToggleContainer}) => {
 
   const hasSyncedFromUrl = useRef(false);
 
+  /**
+   * Reads the current template's archive context from the settings localized by PHP.
+   *
+   * @return {{postType: string, author: string, tag: string, taxonomy: string, term: string}}
+   *   The current archive context, with empty strings for any dimension not applicable to this template.
+   */
+  function getArchiveContext() {
+    const settings = window.listingPageSettings || {};
+
+    return {
+      postType: settings.archivePostType || '',
+      author: settings.archiveAuthor ? String(settings.archiveAuthor) : '',
+      tag: settings.archiveTag ? String(settings.archiveTag) : '',
+      taxonomy: settings.archiveTaxonomy || '',
+      term: settings.archiveTerm ? String(settings.archiveTerm) : '',
+    };
+  }
+
+  /**
+   * Determines which REST route to query based on the archive context.
+   *
+   * @param {{postType: string}} archiveContext The current archive context.
+   *
+   * @return {string} The REST base to query.
+   */
+  function getEndpoint(archiveContext) {
+    // archive-p4_action.php queries a different post type, so it needs
+    // that post type's own REST base instead of the generic /posts route.
+    return archiveContext.postType ? archiveContext.postType : 'posts';
+  }
+
+  /**
+   * Toggles the layout between grid and list, persisting the new value to `localStorage`.
+   *
+   * @return {void}
+   */
   const handleToggle = () => {
     const newLayout = layout === LAYOUTS.GRID ? LAYOUTS.LIST : LAYOUTS.GRID;
     setLayout(newLayout);
@@ -63,6 +124,12 @@ const ListingPagePosts = ({filtersContainer, layoutToggleContainer}) => {
     }
   };
 
+  /**
+   * Fetches the available post types, categories, and tags, and marks
+   * taxonomies as loaded once the request is completed.
+   *
+   * @return {Promise<void>}
+   */
   const getTaxonomies = useCallback(async () => {
     try {
       const baseUrl = document.body.dataset.nro;
@@ -84,24 +151,11 @@ const ListingPagePosts = ({filtersContainer, layoutToggleContainer}) => {
     }
   }, []);
 
-  function getArchiveContext() {
-    const settings = window.listingPageSettings || {};
-
-    return {
-      postType: settings.archivePostType || '',
-      author: settings.archiveAuthor ? String(settings.archiveAuthor) : '',
-      tag: settings.archiveTag ? String(settings.archiveTag) : '',
-      taxonomy: settings.archiveTaxonomy || '',
-      term: settings.archiveTerm ? String(settings.archiveTerm) : '',
-    };
-  }
-
-  function getEndpoint(archiveContext) {
-    // archive-p4_action.php queries a different post type, so it needs
-    // that post type's own REST base instead of the generic /posts route.
-    return archiveContext.postType ? archiveContext.postType : 'posts';
-  }
-
+  /**
+   * Fetches posts (or the relevant custom post type) for the current page.
+   *
+   * @return {Promise<void>}
+   */
   const getPosts = useCallback(async () => {
     setIsLoadingPosts(true);
 
@@ -163,21 +217,33 @@ const ListingPagePosts = ({filtersContainer, layoutToggleContainer}) => {
     }
   }, [filters, page]);
 
-  // Reset to page 1 whenever filters change, so you don't get stuck on
-  // e.g. page 5 of a filtered set that only has 2 pages.
+  /**
+   * Reset to page 1 whenever filters change.
+   *
+   * @param {Object} newFilters The new filters.
+   */
   const handleApply = newFilters => {
     setFilters(newFilters);
     setPage(1);
   };
 
+  /**
+   * Triggers the initial fetch of taxonomies used to populate the filter dropdowns.
+   */
   useEffect(() => {
     getTaxonomies();
   }, [getTaxonomies]);
 
+  /**
+   * Re-fetches posts whenever `getPosts` changes identity.
+   */
   useEffect(() => {
     getPosts();
   }, [getPosts]);
 
+  /**
+   * Restores a previously saved layout preference from `localStorage` on mount.
+   */
   useEffect(() => {
     try {
       const stored = localStorage.getItem(LAYOUTS.STORAGE_NAME);
@@ -192,11 +258,10 @@ const ListingPagePosts = ({filtersContainer, layoutToggleContainer}) => {
     }
   }, []);
 
-  // Read filters from the URL once taxonomies have loaded (slugs in the
-  // URL need to be converted to the numeric IDs the API expects).
-  // Only applies on the main posts page — other templates (author.php,
-  // tag.php, taxonomy.php, archive-p4_action.php) have their own fixed
-  // archive context and shouldn't be driven by these query params.
+  /**
+   * Reads filters from the URL once taxonomies have loaded.
+   * Only applies on the main posts page.
+   */
   useEffect(() => {
     if (hasSyncedFromUrl.current || !taxonomiesLoaded) {
       return;
@@ -220,8 +285,9 @@ const ListingPagePosts = ({filtersContainer, layoutToggleContainer}) => {
     hasSyncedFromUrl.current = true;
   }, [taxonomiesLoaded, postTypes, categories, tags]);
 
-  // Keep the URL in sync whenever filters change (converting IDs back
-  // to slugs for a readable, shareable URL). Same restriction as above.
+  /**
+   * Keeps the URL in sync whenever filters change.
+   */
   useEffect(() => {
     if (!taxonomiesLoaded) {
       return;

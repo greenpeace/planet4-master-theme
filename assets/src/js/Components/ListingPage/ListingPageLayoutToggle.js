@@ -1,5 +1,14 @@
 import {__} from '@wordpress/i18n';
 
+/**
+ * Renders a toggle button for switching the listing page between grid and list layouts.
+ *
+ * @param {Object}   props          Component props.
+ * @param {string}   props.layout   The current layout, either `'grid'` or `'list'`.
+ * @param {Function} props.onToggle Callback invoked when the button is clicked, to switch the layout.
+ *
+ * @return {JSX.Element} The rendered layout toggle button.
+ */
 function ListingPageLayoutToggle({layout, onToggle}) {
   const isGrid = layout === 'grid';
 
