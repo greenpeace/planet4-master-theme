@@ -6,7 +6,7 @@ import Paginator from '../Paginator';
 import ListingPageFilters from './ListingPageFilters';
 import ListingPageLayoutToggle from './ListingPageLayoutToggle';
 
-const PER_PAGE = window.listingPageSettings || 3;
+const PER_PAGE = Number(window.listingPageSettings?.postsPerPage) || 12;
 
 const LAYOUTS = {
   STORAGE_NAME: 'layout',
@@ -82,14 +82,57 @@ const ListingPagePosts = ({filtersContainer, layoutToggleContainer}) => {
     }
   }, []);
 
+  function getArchiveContext() {
+    const settings = window.listingPageSettings || {};
+
+    return {
+      postType: settings.archivePostType || '',
+      author: settings.archiveAuthor ? String(settings.archiveAuthor) : '',
+      tag: settings.archiveTag ? String(settings.archiveTag) : '',
+      taxonomy: settings.archiveTaxonomy || '',
+      term: settings.archiveTerm ? String(settings.archiveTerm) : '',
+    };
+  }
+
+  function getEndpoint(archiveContext) {
+    // archive-p4_action.php queries a different post type, so it needs
+    // that post type's own REST base instead of the generic /posts route.
+    return archiveContext.postType ? archiveContext.postType : 'posts';
+  }
+
   const getPosts = useCallback(async () => {
     try {
+      const archiveContext = getArchiveContext();
+      const endpoint = getEndpoint(archiveContext);
+
       const args = {
         per_page: PER_PAGE,
         page,
         _embed: true,
       };
 
+      // Fixed constraint from the current archive (author.php, tag.php,
+      // taxonomy.php) — applies regardless of the user's own filter picks.
+      if (archiveContext.author) {
+        args.author = archiveContext.author;
+      }
+      if (archiveContext.tag) {
+        args.tags = archiveContext.tag;
+      }
+      if (archiveContext.taxonomy === 'category' && archiveContext.term) {
+        args.categories = archiveContext.term;
+      }
+      if (archiveContext.taxonomy === 'p4-page-type' && archiveContext.term) {
+        args['p4-page-type'] = archiveContext.term;
+      }
+      if (archiveContext.taxonomy === 'post_tag' && archiveContext.term) {
+        args.tags = archiveContext.term;
+      }
+
+      // User-selected filters layer on top, further narrowing within
+      // the archive's fixed context. They override the same key if both
+      // happen to target it (e.g. picking a tag filter while already on
+      // a taxonomy.php page for a different taxonomy).
       if (filters.postType) {
         args['p4-page-type'] = filters.postType;
       }
@@ -103,7 +146,7 @@ const ListingPagePosts = ({filtersContainer, layoutToggleContainer}) => {
       const baseUrl = document.body.dataset.nro;
 
       const {data, totalPages: pages} = await fetchJson(
-        `${baseUrl}/wp-json/${addQueryArgs('wp/v2/posts', args)}`
+        `${baseUrl}/wp-json/wp/v2/${addQueryArgs(endpoint, args)}`
       );
 
       setPosts(Array.isArray(data) ? data : []);
