@@ -1,9 +1,9 @@
 import {useCallback, useState, useEffect, useRef, createPortal} from '@wordpress/element';
-import {fetchJson} from '../../functions/fetchJson';
-import {addQueryArgs} from '../../functions/addQueryArgs';
-import PostItem from './PostItem';
+import {fetchJson} from '../../../functions/fetchJson';
+import {addQueryArgs} from '../../../functions/addQueryArgs';
+import PostItem from '../PostItem';
+import Paginator from '../Paginator';
 import ListingPageFilters from './ListingPageFilters';
-import Paginator from './Paginator';
 import ListingPageLayoutToggle from './ListingPageLayoutToggle';
 
 const PER_PAGE = 3;

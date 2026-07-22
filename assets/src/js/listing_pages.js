@@ -1,5 +1,5 @@
 import {createRoot} from 'react-dom/client';
-import ListingPagePosts from './Components/ListingPagePosts';
+import ListingPagePosts from './Components/ListingPage/ListingPagePosts';
 
 (function() {
   const listingPageContent = document.getElementById('listing-page-content');
