@@ -104,9 +104,10 @@ const ListingPagePosts = ({filtersContainer, layoutToggleContainer}) => {
    * @return {string} The REST base to query.
    */
   function getEndpoint(archiveContext) {
-    // archive-p4_action.php queries a different post type, so it needs
-    // that post type's own REST base instead of the generic /posts route.
-    return archiveContext.postType ? archiveContext.postType : 'posts';
+    if (archiveContext.postType || archiveContext.taxonomy === 'action-type') {
+      return 'p4_action';
+    }
+    return 'posts';
   }
 
   /**
@@ -192,6 +193,9 @@ const ListingPagePosts = ({filtersContainer, layoutToggleContainer}) => {
       }
       if (archiveContext.taxonomy === 'post_tag' && archiveContext.term) {
         args.tags = archiveContext.term;
+      }
+      if (archiveContext.taxonomy === 'action-type' && archiveContext.term) {
+        args['action-type'] = archiveContext.term;
       }
 
       // User-selected filters layer on top, further narrowing within
