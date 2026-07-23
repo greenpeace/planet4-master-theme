@@ -121,7 +121,8 @@ const changeConfirmationType = async ({page, admin}, formId, label) => {
   await expect(typeRadio).toBeVisible();
 
   // Click the radio button and wait for the UI to update
-  await typeRadio.click();
+  await typeRadio.check();
+  await expect(typeRadio).toBeChecked();
 };
 
 export {toggleRestAPI, createForm, fillAndSubmitForm, checkEntry, changeConfirmationType};
