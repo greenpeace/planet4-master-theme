@@ -561,6 +561,15 @@ class Settings
                         'id' => 'allow_indexing_of_all_listing_pages',
                         'type' => 'checkbox',
                     ],
+                    [
+                        'name' => __('Google preferred sources', 'planet4-master-theme-backend'),
+                        'desc' => __(
+                            'Display the "Add as a preferred source on Google" buttons in Posts',
+                            'planet4-master-theme-backend'
+                        ),
+                        'id' => 'google_preferred_source',
+                        'type' => 'checkbox',
+                    ],
                 ],
             ],
             'planet4_settings_features' => Features::get_options_page(),

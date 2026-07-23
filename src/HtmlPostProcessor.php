@@ -36,8 +36,9 @@ class HtmlPostProcessor
 
             $is_pdf = $this->is_pdf_link($href, $class_list);
             $is_external_link = $this->is_external_link($href, $class_list);
+            $is_google_news_link = $this->is_google_news_link($href, $class_list);
 
-            if (empty($href) || (!$is_pdf && !$is_external_link)) {
+            if (empty($href) || (!$is_pdf && !$is_external_link || $is_google_news_link)) {
                 continue;
             }
 
@@ -81,6 +82,14 @@ class HtmlPostProcessor
         }
 
         return true;
+    }
+
+    /**
+     * Checks if a link is linked to the "Preferred Source in Google Search" feature.
+     */
+    private function is_google_news_link(string $href, array $class_list): bool
+    {
+        return str_contains($href, 'google') && !in_array('google_news_link', $class_list, true);
     }
 
     /**
