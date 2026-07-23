@@ -120,8 +120,20 @@ const changeConfirmationType = async ({page, admin}, formId, label) => {
   const typeRadio = page.getByLabel(label, {exact: true});
   await expect(typeRadio).toBeVisible();
 
-  // Click the radio button and wait for the UI to update
-  await typeRadio.click();
+  // Scroll into view first — WebKit won't reliably fire events on off-screen elements
+  await typeRadio.scrollIntoViewIfNeeded();
+
+  // Force the click to bypass WebKit's pointer event quirks
+  await typeRadio.click({force: true});
+
+  // Wait for the radio to actually be checked — WebKit can report the click
+  // as complete before the checked state has updated
+  await expect(typeRadio).toBeChecked();
+
+  await typeRadio.click({force: true});
+  await expect(typeRadio).toBeChecked();
+
+  await page.waitForTimeout(500);
 };
 
 export {toggleRestAPI, createForm, fillAndSubmitForm, checkEntry, changeConfirmationType};
