@@ -4,43 +4,44 @@ import {NewTimelineEditor} from './NewTimelineEditorScript';
 import {TimelineFrontend} from './TimelineFrontend';
 import {NewTimelineFrontend} from './NewTimelineFrontend';
 import {frontendRendered} from '../../functions/frontendRendered';
+import {getUniqueId} from '../../functions/getUniqueId';
 
 const BLOCK_NAME = 'planet4-blocks/timeline';
 
-const isNewTimelineEnabled = Boolean(window.p4_vars.features.new_timeline_block);
-
-const attributes = {
-  timeline_title: {
-    type: 'string',
-    default: '',
-  },
-  description: {
-    type: 'string',
-    default: '',
-  },
-  google_sheets_url: {
-    type: 'string',
-    default: '',
-  },
-  language: {
-    type: 'string',
-    default: 'en',
-  },
-  timenav_position: {
-    type: 'string',
-    default: '',
-  },
-  start_at_end: {
-    type: 'boolean',
-    default: false,
-  },
-};
+const newTimelineEnabled = Boolean(window.p4_vars.features.new_timeline_block);
 
 export const registerTimelineBlock = () => {
   const {registerBlockType} = wp.blocks;
   const {__} = wp.i18n;
   const {RawHTML} = wp.element;
   const {useBlockProps} = wp.blockEditor;
+
+  const blockAttributes = {
+    timeline_title: {
+      type: 'string',
+      default: '',
+    },
+    description: {
+      type: 'string',
+      default: '',
+    },
+    google_sheets_url: {
+      type: 'string',
+      default: '',
+    },
+    language: {
+      type: 'string',
+      default: 'en',
+    },
+    timenav_position: {
+      type: 'string',
+      default: '',
+    },
+    start_at_end: {
+      type: 'boolean',
+      default: false,
+    },
+  };
 
   registerBlockType(BLOCK_NAME, {
     title: 'Timeline',
@@ -50,10 +51,13 @@ export const registerTimelineBlock = () => {
     supports: {
       html: false, // Disable "Edit as HTMl" block option.
     },
-    attributes,
+    attributes: newTimelineEnabled ? {
+      ...blockAttributes,
+      timeline_id: {type: 'string', default: ''},
+    } : blockAttributes,
     edit: props => (
       <div {...useBlockProps()}>
-        {isNewTimelineEnabled ? <NewTimelineEditor {...props} /> : <TimelineEditor {...props} />}
+        {newTimelineEnabled ? <NewTimelineEditor {...props} /> : <TimelineEditor {...props} />}
       </div>
     ),
     save: props => {
@@ -62,14 +66,14 @@ export const registerTimelineBlock = () => {
           data-hydrate={BLOCK_NAME}
           data-attributes={JSON.stringify(props.attributes)}
         >
-          {isNewTimelineEnabled ? <NewTimelineFrontend {...props} /> : <TimelineFrontend {...props} />}
+          {newTimelineEnabled ? <NewTimelineFrontend {...props} /> : <TimelineFrontend {...props} />}
         </div>
       );
       return <RawHTML>{markup}</RawHTML>;
     },
     deprecated: [
-      isNewTimelineEnabled ? {
-        attributes,
+      newTimelineEnabled ? {
+        attributes: blockAttributes,
         edit: TimelineEditor,
         save: props => {
           const markup = renderToString(
@@ -82,13 +86,22 @@ export const registerTimelineBlock = () => {
           );
           return <RawHTML>{markup}</RawHTML>;
         },
+        isEligible(attributes) {
+          return !attributes.timeline_id;
+        },
+        migrate(attributes) {
+          return {
+            ...attributes,
+            timeline_id: getUniqueId('tl'),
+          };
+        },
       } : {},
       {
-        attributes,
+        attributes: blockAttributes,
         save: frontendRendered(BLOCK_NAME),
       },
       {
-        attributes,
+        attributes: blockAttributes,
         save() {
           return null;
         },

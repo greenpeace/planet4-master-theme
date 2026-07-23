@@ -1,7 +1,7 @@
 import {useState, useEffect, useRef} from '@wordpress/element';
 const {sprintf, __} = wp.i18n;
 
-export const YearsNavigation = ({years, isEditing}) => {
+export const YearsNavigation = ({years, isEditing, timelineId}) => {
   const [showLeftArrow, setShowLeftArrow] = useState(false);
   const [showRightArrow, setShowRightArrow] = useState(false);
   const [activeYear, setActiveYear] = useState('');
@@ -16,17 +16,17 @@ export const YearsNavigation = ({years, isEditing}) => {
     const isFirefox = navigator.userAgent.toLowerCase().includes('firefox');
 
     if (isFirefox) {
-      const target = document.getElementById(year);
+      const target = document.getElementById(`${timelineId}-${year}`);
       if (target) {
         target.scrollIntoView({behavior: 'smooth', block: 'start'});
       }
     }
 
     isClicking.current = true;
-    setActiveYear(year);
+    setActiveYear(`${timelineId}-${year}`);
 
     // Move focus to first element in the list for that year.
-    const yearDiv = document.getElementById(year);
+    const yearDiv = document.getElementById(`${timelineId}-${year}`);
     const firstElement = yearDiv.querySelector('.timeline-block-event');
     firstElement.focus();
 
@@ -90,7 +90,7 @@ export const YearsNavigation = ({years, isEditing}) => {
 
           // Make active year element visible
           setTimeout(() => {
-            const navItem = document.querySelector('.years-navigation-items a.active');
+            const navItem = document.querySelector(`#${timelineId} .years-navigation-items a.active`);
             navItem?.scrollIntoView({
               behavior: 'smooth',
               inline: 'center',
@@ -104,7 +104,7 @@ export const YearsNavigation = ({years, isEditing}) => {
     const observer = new IntersectionObserver(observerCallback, observerOptions);
 
     years.forEach(year => {
-      const link = document.getElementById(year);
+      const link = document.getElementById(`${timelineId}-${year}`);
       if (link) {observer.observe(link);}
     });
 
@@ -177,12 +177,12 @@ export const YearsNavigation = ({years, isEditing}) => {
         ref={yearsListRef}
       >
         {years.map(year => (
-          <li key={year}>
+          <li key={`nav-${timelineId}-${year}`}>
             <a
-              href={`#${year}`}
+              href={`#${timelineId}-${year}`}
               onClick={() => handleClick(year)}
-              data-target={year}
-              className={`${!isEditing && activeYear === year ? 'active': ''}`}
+              data-target={`${timelineId}-${year}`}
+              className={`${!isEditing && activeYear === `${timelineId}-${year}` ? 'active': ''}`}
             >
               {year}
             </a>

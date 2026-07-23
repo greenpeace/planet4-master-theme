@@ -46,11 +46,11 @@ export const NewTimelineFrontend = ({attributes}) => {
     className,
     google_sheets_url,
     isEditing,
+    timeline_id,
   } = attributes;
   const [loading, setLoading] = useState(false);
   const [sheetData, setSheetData] = useState(null);
   const [processedSheetData, setProcessedSheetData] = useState(null);
-
 
   const TimelineEvent = ({event}) => {
     const [expanded, setExpanded] = useState(false);
@@ -217,7 +217,7 @@ export const NewTimelineFrontend = ({attributes}) => {
     }
   }
 
-  if (loading || !processedSheetData) {
+  if (loading || !processedSheetData || !timeline_id) {
     return null;
   }
 
@@ -231,7 +231,7 @@ export const NewTimelineFrontend = ({attributes}) => {
   );
 
   return (
-    <section className={`block timeline-block new-timeline-block ${className ?? ''} alignfull`} aria-label={summaryText}>
+    <section id={timeline_id} className={`block timeline-block new-timeline-block ${className ?? ''} alignfull`} aria-label={summaryText}>
       <div className="container">
         {!!timeline_title && !isEditing &&
           <h2 className="page-section-header text-center">
@@ -242,15 +242,15 @@ export const NewTimelineFrontend = ({attributes}) => {
           <p className="page-section-description text-center" dangerouslySetInnerHTML={{__html: description}} />
         }
 
-        <YearsNavigation isEditing={isEditing} years={processedSheetData.map(({year}) => year)} />
+        <YearsNavigation isEditing={isEditing} years={processedSheetData.map(({year}) => year)} timelineId={timeline_id} />
         <fieldset className="timeline-group">
           {processedSheetData.map(({year, list}) => (
-            <div className="timeline-block-year-group" id={year} key={year}>
+            <div className="timeline-block-year-group" id={`${timeline_id}-${year}`} key={`${timeline_id}-${year}`}>
               <p className="timeline-block-year">{year}</p>
               <ul className="timeline-block-events">
                 {list.map((event, index) => (
                   <TimelineEvent
-                    key={`row-${event.Day}-${index}`}
+                    key={`${timeline_id}-event-${event.Day}-${index}`}
                     event={event}
                   />
                 ))}
