@@ -139,18 +139,38 @@ const ListingPagePosts = ({filtersContainer, layoutToggleContainer}) => {
     try {
       const baseUrl = document.body.dataset.nro;
 
+      if (!baseUrl && typeof Sentry !== 'undefined') {
+        // eslint-disable-next-line no-undef
+        Sentry.captureMessage('ListingPagePosts: missing document.body.dataset.nro in getTaxonomies');
+      }
+
       const [postTypesRes, categoriesRes, tagsRes] = await Promise.all([
         fetchJson(`${baseUrl}/wp-json/${addQueryArgs('wp/v2/p4-page-type', {per_page: 100, hide_empty: true})}`),
         fetchJson(`${baseUrl}/wp-json/${addQueryArgs('wp/v2/categories', {per_page: 100, hide_empty: true})}`),
         fetchJson(`${baseUrl}/wp-json/${addQueryArgs('wp/v2/tags', {per_page: 100, hide_empty: true})}`),
       ]);
 
+      if (!Array.isArray(postTypesRes.data) && typeof Sentry !== 'undefined') {
+        // eslint-disable-next-line no-undef
+        Sentry.captureMessage('ListingPagePosts: unexpected post-types response', {extra: {response: postTypesRes}});
+      }
+      if (!Array.isArray(categoriesRes.data) && typeof Sentry !== 'undefined') {
+        // eslint-disable-next-line no-undef
+        Sentry.captureMessage('ListingPagePosts: unexpected categories response', {extra: {response: categoriesRes}});
+      }
+      if (!Array.isArray(tagsRes.data) && typeof Sentry !== 'undefined') {
+        // eslint-disable-next-line no-undef
+        Sentry.captureMessage('ListingPagePosts: unexpected tags response', {extra: {response: tagsRes}});
+      }
+
       setPostTypes(Array.isArray(postTypesRes.data) ? postTypesRes.data : []);
       setCategories(Array.isArray(categoriesRes.data) ? categoriesRes.data : []);
       setTags(Array.isArray(tagsRes.data) ? tagsRes.data : []);
     } catch (e) {
-      // eslint-disable-next-line no-console
-      console.log(e);
+      if (typeof Sentry !== 'undefined') {
+        // eslint-disable-next-line no-undef
+        Sentry.captureException(e);
+      }
     } finally {
       setTaxonomiesLoaded(true);
     }
@@ -214,20 +234,40 @@ const ListingPagePosts = ({filtersContainer, layoutToggleContainer}) => {
 
       const baseUrl = document.body.dataset.nro;
 
+      if (!baseUrl && typeof Sentry !== 'undefined') {
+        // eslint-disable-next-line no-undef
+        Sentry.captureMessage('ListingPagePosts: missing document.body.dataset.nro in getPosts');
+      }
+
       const {data, totalPages: pages} = await fetchJson(
         `${baseUrl}/wp-json/wp/v2/${addQueryArgs(endpoint, args)}`
       );
 
       // Ignore this response if a newer request has been fired.
       if (requestId !== requestIdRef.current) {
+        if (typeof Sentry !== 'undefined') {
+          // eslint-disable-next-line no-undef
+          Sentry.captureMessage('Discarded stale getPosts response');
+        }
         return;
+      }
+
+      if (!Array.isArray(data) && typeof Sentry !== 'undefined') {
+        // eslint-disable-next-line no-undef
+        Sentry.captureMessage('ListingPagePosts: unexpected posts response', {extra: {data}});
+      }
+      if ((typeof pages !== 'number' || Number.isNaN(pages)) && typeof Sentry !== 'undefined') {
+        // eslint-disable-next-line no-undef
+        Sentry.captureMessage('ListingPagePosts: unexpected totalPages value', {extra: {pages}});
       }
 
       setPosts(Array.isArray(data) ? data : []);
       setTotalPages(pages);
     } catch (e) {
-      // eslint-disable-next-line no-console
-      console.log(e);
+      if (typeof Sentry !== 'undefined') {
+        // eslint-disable-next-line no-undef
+        Sentry.captureException(e);
+      }
     } finally {
       if (requestId === requestIdRef.current) {
         setIsLoadingPosts(false);
@@ -332,7 +372,14 @@ const ListingPagePosts = ({filtersContainer, layoutToggleContainer}) => {
     const queryString = params.toString();
     const newUrl = `${window.location.pathname}${queryString ? `?${queryString}` : ''}${window.location.hash}`;
 
-    window.history.pushState(null, '', newUrl);
+    try {
+      window.history.pushState(null, '', newUrl);
+    } catch (e) {
+      if (typeof Sentry !== 'undefined') {
+        // eslint-disable-next-line no-undef
+        Sentry.captureException(e);
+      }
+    }
   }, [filters, taxonomiesLoaded, postTypes, categories, tags]);
 
   return (
