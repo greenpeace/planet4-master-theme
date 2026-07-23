@@ -80,6 +80,61 @@ function getEndpoint(archiveContext) {
 }
 
 /**
+ * Builds the REST query args imposed by the current archive's context.
+ *
+ * @param {{author: string, tag: string, taxonomy: string, term: string}} archiveContext The current archive context.
+ *
+ * @return {Object} Partial REST query args derived from the archive context.
+ */
+function buildArchiveArgs(archiveContext) {
+  const args = {};
+
+  if (archiveContext.author) {
+    args.author = archiveContext.author;
+  }
+  if (archiveContext.tag) {
+    args.tags = archiveContext.tag;
+  }
+
+  const taxonomyArgMap = {
+    category: 'categories',
+    'p4-page-type': 'p4-page-type',
+    post_tag: 'tags',
+    'action-type': 'action-type',
+  };
+  const taxonomyArgKey = taxonomyArgMap[archiveContext.taxonomy];
+
+  if (taxonomyArgKey && archiveContext.term) {
+    args[taxonomyArgKey] = archiveContext.term;
+  }
+
+  return args;
+}
+
+/**
+ * Builds the REST query args from the user's own filter selections.
+ *
+ * @param {{postType: string, category: string, tag: string}} filters The current filter selections.
+ *
+ * @return {Object} Partial REST query args derived from the user's filters.
+ */
+function buildFilterArgs(filters) {
+  const args = {};
+
+  if (filters.postType) {
+    args['p4-page-type'] = filters.postType;
+  }
+  if (filters.category) {
+    args.categories = filters.category;
+  }
+  if (filters.tag) {
+    args.tags = filters.tag;
+  }
+
+  return args;
+}
+
+/**
  * Renders the dynamic listing page.
  *
  * @param {Object}      props                         Component props.
@@ -178,8 +233,6 @@ const ListingPagePosts = ({filtersContainer, layoutToggleContainer}) => {
 
   /**
    * Fetches posts (or the relevant custom post type) for the current page.
-   * Stamps each call with an incrementing request id and ignores the
-   * response if a newer request has since been fired.
    *
    * @return {Promise<void>}
    */
@@ -195,47 +248,14 @@ const ListingPagePosts = ({filtersContainer, layoutToggleContainer}) => {
         per_page: PER_PAGE,
         page,
         _embed: true,
+        ...buildArchiveArgs(archiveContext),
+        ...buildFilterArgs(filters),
       };
-
-      // Fixed constraint from the current archive (author.php, tag.php,
-      // taxonomy.php) — applies regardless of the user's own filter picks.
-      if (archiveContext.author) {
-        args.author = archiveContext.author;
-      }
-      if (archiveContext.tag) {
-        args.tags = archiveContext.tag;
-      }
-      if (archiveContext.taxonomy === 'category' && archiveContext.term) {
-        args.categories = archiveContext.term;
-      }
-      if (archiveContext.taxonomy === 'p4-page-type' && archiveContext.term) {
-        args['p4-page-type'] = archiveContext.term;
-      }
-      if (archiveContext.taxonomy === 'post_tag' && archiveContext.term) {
-        args.tags = archiveContext.term;
-      }
-      if (archiveContext.taxonomy === 'action-type' && archiveContext.term) {
-        args['action-type'] = archiveContext.term;
-      }
-
-      // User-selected filters layer on top, further narrowing within
-      // the archive's fixed context. They override the same key if both
-      // happen to target it (e.g. picking a tag filter while already on
-      // a taxonomy.php page for a different taxonomy).
-      if (filters.postType) {
-        args['p4-page-type'] = filters.postType;
-      }
-      if (filters.category) {
-        args.categories = filters.category;
-      }
-      if (filters.tag) {
-        args.tags = filters.tag;
-      }
 
       const baseUrl = document.body.dataset.nro;
 
       if (!baseUrl && typeof Sentry !== 'undefined') {
-        // eslint-disable-next-line no-undef
+      // eslint-disable-next-line no-undef
         Sentry.captureMessage('ListingPagePosts: missing document.body.dataset.nro in getPosts');
       }
 
@@ -246,18 +266,18 @@ const ListingPagePosts = ({filtersContainer, layoutToggleContainer}) => {
       // Ignore this response if a newer request has been fired.
       if (requestId !== requestIdRef.current) {
         if (typeof Sentry !== 'undefined') {
-          // eslint-disable-next-line no-undef
+        // eslint-disable-next-line no-undef
           Sentry.captureMessage('Discarded stale getPosts response');
         }
         return;
       }
 
       if (!Array.isArray(data) && typeof Sentry !== 'undefined') {
-        // eslint-disable-next-line no-undef
+      // eslint-disable-next-line no-undef
         Sentry.captureMessage('ListingPagePosts: unexpected posts response', {extra: {data}});
       }
       if ((typeof pages !== 'number' || Number.isNaN(pages)) && typeof Sentry !== 'undefined') {
-        // eslint-disable-next-line no-undef
+      // eslint-disable-next-line no-undef
         Sentry.captureMessage('ListingPagePosts: unexpected totalPages value', {extra: {pages}});
       }
 
@@ -265,7 +285,7 @@ const ListingPagePosts = ({filtersContainer, layoutToggleContainer}) => {
       setTotalPages(pages);
     } catch (e) {
       if (typeof Sentry !== 'undefined') {
-        // eslint-disable-next-line no-undef
+      // eslint-disable-next-line no-undef
         Sentry.captureException(e);
       }
     } finally {
