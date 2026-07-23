@@ -19,7 +19,6 @@
   color: var(--grey-900);
   fill: var(--white);
   flex-wrap: wrap;
-  justify-content: space-between;
   position: fixed;
   top: 0;
   width: 100%;
@@ -34,6 +33,7 @@
   }
 
   @include large-and-up {
+    justify-content: space-between;
     align-items: center;
   }
 
@@ -54,13 +54,21 @@
   .btn-donate {
     border: none;
     min-width: 116px;
-    padding: 2px 17px;
-    height: 44px;
-    font-size: 17px;
-    line-height: 40px;
+    padding: 0 $sp-2;
+    height: 40px;
+    font-size: var(--font-size-s--donate-button-nav);
+    line-height: 24px;
 
     &:hover {
       border: none;
+    }
+
+    @include medium-and-up {
+      height: 44px;
+      line-height: 40px;
+      padding-top: 2px;
+      padding-bottom: 2px;
+      font-size: var(--font-size-m--donate-button-nav);
     }
 
     @include large-and-up {
@@ -364,7 +372,12 @@ a.nav-link:hover:before,
   background: transparent;
   border: none;
   border-radius: 4px;
-  padding: 0 $sp-3;
+  padding: 0 $sp-2;
+
+  @include medium-and-up {
+    padding-inline-start: $sp-3;
+    padding-inline-end: $sp-3;
+  }
 
   @include large-and-up {
     display: none;

@@ -26,7 +26,23 @@
     </a>
 
     {% include 'desktop-menu.twig' %}
-    {% include 'navigation-search-btn.twig' with { show_for_medium: true } %}
+
+    <div class="d-flex align-items-center ms-auto">
+        <button
+            class="btn btn-donate d-lg-none"
+            onclick="window.location='{{ donate_menu_items[0].link }}';"
+            role="link"
+            target="{{ item.target }}"
+            data-ga-category="Menu Navigation"
+            data-ga-action="Donate"
+            data-ga-label="Mobile Header"
+        >
+            {{ donate_menu_items[0].title }}
+        </button>
+
+        {% include 'navigation-search-btn.twig' with { show_for_medium: true } %}
+    </div>
+
     {% include 'search-form.twig' %}
 
     {% if site_languages is not empty and site_languages|length > 1 %}

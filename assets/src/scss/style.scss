@@ -157,13 +157,8 @@ body.transparent-nav {
     .site-logo {
       img {
         transition: height 0.4s;
-        height: calc(26px + 1 / 2 * calc(1.61803 * 26px - 26px));
       }
     }
-  }
-
-  &.scrolled .site-logo img {
-    height: 26px;
   }
 }
 
