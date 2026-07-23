@@ -48,6 +48,38 @@ function getSlugById(list, id) {
 }
 
 /**
+ * Reads the current template's archive context from the settings localized by PHP.
+ *
+ * @return {{postType: string, author: string, tag: string, taxonomy: string, term: string}}
+ *   The current archive context, with empty strings for any dimension not applicable to this template.
+ */
+function getArchiveContext() {
+  const settings = window.listingPageSettings || {};
+
+  return {
+    postType: settings.archivePostType || '',
+    author: settings.archiveAuthor ? String(settings.archiveAuthor) : '',
+    tag: settings.archiveTag ? String(settings.archiveTag) : '',
+    taxonomy: settings.archiveTaxonomy || '',
+    term: settings.archiveTerm ? String(settings.archiveTerm) : '',
+  };
+}
+
+/**
+ * Determines which REST route to query based on the archive context.
+ *
+ * @param {{postType: string}} archiveContext The current archive context.
+ *
+ * @return {string} The REST base to query.
+ */
+function getEndpoint(archiveContext) {
+  if (archiveContext.postType || archiveContext.taxonomy === 'action-type') {
+    return 'p4_action';
+  }
+  return 'posts';
+}
+
+/**
  * Renders the dynamic listing page.
  *
  * @param {Object}      props                         Component props.
@@ -77,38 +109,6 @@ const ListingPagePosts = ({filtersContainer, layoutToggleContainer}) => {
   // Tracks the most recently fired getPosts request, so an earlier
   // request can't overwrite a later correctly filtered result.
   const requestIdRef = useRef(0);
-
-  /**
-   * Reads the current template's archive context from the settings localized by PHP.
-   *
-   * @return {{postType: string, author: string, tag: string, taxonomy: string, term: string}}
-   *   The current archive context, with empty strings for any dimension not applicable to this template.
-   */
-  function getArchiveContext() {
-    const settings = window.listingPageSettings || {};
-
-    return {
-      postType: settings.archivePostType || '',
-      author: settings.archiveAuthor ? String(settings.archiveAuthor) : '',
-      tag: settings.archiveTag ? String(settings.archiveTag) : '',
-      taxonomy: settings.archiveTaxonomy || '',
-      term: settings.archiveTerm ? String(settings.archiveTerm) : '',
-    };
-  }
-
-  /**
-   * Determines which REST route to query based on the archive context.
-   *
-   * @param {{postType: string}} archiveContext The current archive context.
-   *
-   * @return {string} The REST base to query.
-   */
-  function getEndpoint(archiveContext) {
-    if (archiveContext.postType || archiveContext.taxonomy === 'action-type') {
-      return 'p4_action';
-    }
-    return 'posts';
-  }
 
   /**
    * Toggles the layout between grid and list, persisting the new value to `localStorage`.
