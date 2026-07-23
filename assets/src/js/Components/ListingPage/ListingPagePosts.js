@@ -177,6 +177,11 @@ const ListingPagePosts = ({filtersContainer, layoutToggleContainer}) => {
         logDataInSentry('ListingPagePosts: missing document.body.dataset.nro in getTaxonomies');
       }
 
+      if (!BASE_URL && typeof Sentry !== 'undefined') {
+        // eslint-disable-next-line no-undef
+        Sentry.captureMessage('ListingPagePosts: missing document.body.dataset.nro in getTaxonomies');
+      }
+
       const [postTypesRes, categoriesRes, tagsRes] = await Promise.all([
         fetchJson(`${BASE_URL}/wp-json/${addQueryArgs('wp/v2/p4-page-type', {per_page: 100, hide_empty: true})}`),
         fetchJson(`${BASE_URL}/wp-json/${addQueryArgs('wp/v2/categories', {per_page: 100, hide_empty: true})}`),
@@ -230,6 +235,11 @@ const ListingPagePosts = ({filtersContainer, layoutToggleContainer}) => {
 
       if (!BASE_URL) {
         logDataInSentry('ListingPagePosts: missing document.body.dataset.nro in getPosts');
+      }
+
+      if (!BASE_URL && typeof Sentry !== 'undefined') {
+        // eslint-disable-next-line no-undef
+        Sentry.captureMessage('ListingPagePosts: missing document.body.dataset.nro in getPosts');
       }
 
       const {data, totalPages: pages} = await fetchJson(
