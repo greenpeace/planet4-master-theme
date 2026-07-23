@@ -5,6 +5,7 @@ import {unescape} from './unescape';
 // Then we can also filter those to include them in the menu.
 const blockTypesWithHeadings = [
   {name: 'core/query', fieldName: 'core/heading', level: 4},
+  {name: 'planet4-blocks/timeline', fieldName: 'timeline_title', level: 2},
 ];
 
 // Naive regex to remove html tags. Don't use anywhere else as it's too limited, but for the expected HTML in heading
@@ -98,12 +99,20 @@ export const getHeadingsFromBlocks = (blocks, selectedLevels) => {
       const {fieldName, level} = blockType;
       const levelConfig = selectedLevels.find(selected => selected.heading === level);
 
-      if (!levelConfig) {
+      if (!levelConfig || !block.attributes[fieldName]) {
         return;
       }
+
+      const content = unescape(stripTags(block.attributes[fieldName]));
+      const anchor = block.attributes.anchor || generateAnchor(content, headings.map(h => h.anchor));
+
+
       headings.push({
         level,
-        content: block.attributes[fieldName],
+        content,
+        anchor,
+        style: levelConfig.style,
+        shouldLink: levelConfig.link,
       });
     }
   });
