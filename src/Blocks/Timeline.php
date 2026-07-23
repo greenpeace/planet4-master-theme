@@ -57,6 +57,40 @@ class Timeline extends BaseBlock
      */
     public function register_timeline_block(): void
     {
+        $attributes = [
+            'timeline_title' => [
+                'type' => 'string',
+                'default' => '',
+            ],
+            'description' => [
+                'type' => 'string',
+                'default' => '',
+            ],
+            'google_sheets_url' => [
+                'type' => 'string',
+                'default' => '',
+            ],
+            'language' => [
+                'type' => 'string',
+                'default' => 'en',
+            ],
+            'timenav_position' => [
+                'type' => 'string',
+                'default' => 'bottom',
+            ],
+            'start_at_end' => [
+                'type' => 'boolean',
+                'default' => false,
+            ],
+        ];
+
+        if (NewTimelineBlock::is_active()) {
+            $attributes['timeline_id'] = [
+                'type' => 'string',
+                'default' => '',
+            ];
+        }
+
         // - Register the block for the editor
         // in the PHP side.
         register_block_type(
@@ -66,32 +100,7 @@ class Timeline extends BaseBlock
                 'editor_script' => 'planet4-blocks',
                 // todo: Remove when all content is migrated.
                 'render_callback' => [ self::class, 'hydrate_frontend' ],
-                'attributes' => [
-                    'timeline_title' => [
-                        'type' => 'string',
-                        'default' => '',
-                    ],
-                    'description' => [
-                        'type' => 'string',
-                        'default' => '',
-                    ],
-                    'google_sheets_url' => [
-                        'type' => 'string',
-                        'default' => '',
-                    ],
-                    'language' => [
-                        'type' => 'string',
-                        'default' => 'en',
-                    ],
-                    'timenav_position' => [
-                        'type' => 'string',
-                        'default' => 'bottom',
-                    ],
-                    'start_at_end' => [
-                        'type' => 'boolean',
-                        'default' => false,
-                    ],
-                ],
+                'attributes' => $attributes,
             ]
         );
 
