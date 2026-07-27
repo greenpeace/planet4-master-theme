@@ -55,6 +55,7 @@ class Post extends \Timber\Post
         $post->post_meta = get_post_meta($post->ID);
         $post->set_page_types();
         $post->set_author();
+        $post->post_meta = get_post_meta($post->ID);
 
         return $post;
     }
@@ -245,6 +246,15 @@ class Post extends \Timber\Post
             default:
                 $this->content_type = __('POST', 'planet4-master-theme');
         }
+    }
+
+    public function get_meta(string $key, int|null $index = null): string
+    {
+        if (null !== $index) {
+            return $this->post_meta[$key][$index] ?? '';
+        }
+
+        return $this->post_meta[$key] ?? '';
     }
 
     /**
