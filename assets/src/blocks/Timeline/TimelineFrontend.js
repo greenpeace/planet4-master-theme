@@ -3,12 +3,23 @@ import {YearsNavigation} from './YearsNavigation';
 const {useState, useEffect} = wp.element;
 const {__, sprintf} = wp.i18n;
 
+/**
+ * Get month name based on month number and user locale.
+ *
+ * @param {number} monthNumber - The month number to be formatted.
+ */
 const getMonthName = monthNumber => {
   const locale = document.documentElement.lang || 'en';
   return new Intl.DateTimeFormat(locale, {month: 'long'})
     .format(new Date(2000, monthNumber - 1));
 };
 
+/**
+ * Get event date in correct format based on user locale.
+ *
+ * @param {number} day   - The day of the event.
+ * @param {number} month - The month of the event.
+ */
 const getLocalizedDate = (day, month) => {
   const locale = document.documentElement.lang || 'en';
 
@@ -20,9 +31,11 @@ const getLocalizedDate = (day, month) => {
   }).format(date);
 };
 
-/*
-  Check if a string is a valid URL that uses https protocol
-  */
+/**
+ * Check if a string is a valid URL that uses https protocol.
+ *
+ * @param {string} value - The URL to be checked.
+ */
 const isValidHttpsUrl = value => {
   if (typeof value !== 'string') {return false;}
 
@@ -37,6 +50,40 @@ const isValidHttpsUrl = value => {
   } catch {
     return false;
   }
+};
+
+/**
+ * Get sheet id from the URL.
+ *
+ * @param {string} urlParam - The sheet URL.
+ */
+const extractSheetID = urlParam => {
+  const matches = urlParam.match(/\/d\/(.+)\//);
+  if (matches !== null) {
+    return matches[1];
+  }
+  return false;
+};
+
+/**
+ * Normalize a string by:
+ * - Separate accent from letter.
+ * - Remove diacritics.
+ * - Lowercase
+ * - Remove special chars
+ * - Trim edges
+ * - Replace spaces with _
+ *
+ * @param {string} str - The string to be normalized.
+ */
+const normalizeString = str => {
+  return str
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9\s]/g, '')
+    .trim()
+    .replace(/\s+/g, '_');
 };
 
 export const TimelineFrontend = ({attributes}) => {
@@ -105,34 +152,6 @@ export const TimelineFrontend = ({attributes}) => {
         </div>
       </li>
     );
-  };
-
-
-  const extractSheetID = urlParam => {
-    const matches = urlParam.match(/\/d\/(.+)\//);
-    if (matches !== null) {
-      return matches[1];
-    }
-    return false;
-  };
-
-  /*
-  Normalize a string by:
-  - Separate accent from letter.
-  - Remove diacritics.
-  - Lowercase
-  - Remove special chars
-  - Trim edges
-  - Replace spaces with _
-  */
-  const normalizeString = str => {
-    return str
-      .normalize('NFD')
-      .replace(/[\u0300-\u036f]/g, '')
-      .toLowerCase()
-      .replace(/[^a-z0-9\s]/g, '')
-      .trim()
-      .replace(/\s+/g, '_');
   };
 
   useEffect(() => {
