@@ -9,6 +9,8 @@ import ListingPageLayoutToggle from './ListingPageLayoutToggle';
 
 const PER_PAGE = Number(window.listingPageSettings?.postsPerPage) || 12;
 
+const BASE_URL = document.body.dataset.nro;
+
 const LAYOUTS = {
   STORAGE_NAME: 'layout',
   GRID: 'grid',
@@ -192,17 +194,15 @@ const ListingPagePosts = ({filtersContainer, layoutToggleContainer}) => {
    */
   const getTaxonomies = useCallback(async () => {
     try {
-      const baseUrl = document.body.dataset.nro;
-
-      if (!baseUrl && typeof Sentry !== 'undefined') {
+      if (!BASE_URL && typeof Sentry !== 'undefined') {
         // eslint-disable-next-line no-undef
         Sentry.captureMessage('ListingPagePosts: missing document.body.dataset.nro in getTaxonomies');
       }
 
       const [postTypesRes, categoriesRes, tagsRes] = await Promise.all([
-        fetchJson(`${baseUrl}/wp-json/${addQueryArgs('wp/v2/p4-page-type', {per_page: 100, hide_empty: true})}`),
-        fetchJson(`${baseUrl}/wp-json/${addQueryArgs('wp/v2/categories', {per_page: 100, hide_empty: true})}`),
-        fetchJson(`${baseUrl}/wp-json/${addQueryArgs('wp/v2/tags', {per_page: 100, hide_empty: true})}`),
+        fetchJson(`${BASE_URL}/wp-json/${addQueryArgs('wp/v2/p4-page-type', {per_page: 100, hide_empty: true})}`),
+        fetchJson(`${BASE_URL}/wp-json/${addQueryArgs('wp/v2/categories', {per_page: 100, hide_empty: true})}`),
+        fetchJson(`${BASE_URL}/wp-json/${addQueryArgs('wp/v2/tags', {per_page: 100, hide_empty: true})}`),
       ]);
 
       if (!Array.isArray(postTypesRes.data) && typeof Sentry !== 'undefined') {
@@ -252,15 +252,13 @@ const ListingPagePosts = ({filtersContainer, layoutToggleContainer}) => {
         ...buildFilterArgs(filters),
       };
 
-      const baseUrl = document.body.dataset.nro;
-
-      if (!baseUrl && typeof Sentry !== 'undefined') {
+      if (!BASE_URL && typeof Sentry !== 'undefined') {
       // eslint-disable-next-line no-undef
         Sentry.captureMessage('ListingPagePosts: missing document.body.dataset.nro in getPosts');
       }
 
       const {data, totalPages: pages} = await fetchJson(
-        `${baseUrl}/wp-json/wp/v2/${addQueryArgs(endpoint, args)}`
+        `${BASE_URL}/wp-json/wp/v2/${addQueryArgs(endpoint, args)}`
       );
 
       // Ignore this response if a newer request has been fired.
