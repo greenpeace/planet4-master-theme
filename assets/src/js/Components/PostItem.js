@@ -1,19 +1,3 @@
-// Decodes HTML entities in a string.
-function decodeHtmlEntities(value) {
-  const doc = new DOMParser().parseFromString(value, 'text/html');
-  return doc.documentElement.textContent;
-}
-
-// Picks the smallest registered image size that's still >= targetWidth.
-function getBestSrc(media, targetWidth = 400) {
-  const sizes = Object.values(media.media_details?.sizes || {});
-  const candidates = sizes
-    .filter(size => size.width >= targetWidth)
-    .sort((a, b) => a.width - b.width);
-
-  return candidates[0]?.source_url || media.source_url;
-}
-
 /**
  * Renders a single post item within the listing page.
  *
@@ -26,10 +10,9 @@ function PostItem({post}) {
   const featuredMedia = post._embedded?.['wp:featuredmedia']?.[0];
   const author = post._embedded?.author?.[0];
   const terms = post._embedded?.['wp:term'] || [];
-  const taxonomyBreadcrumb = window.p4_vars.options.taxonomy_breadcrumbs ?? 'category';
-  const categories = terms.flat().filter(term => term.taxonomy === taxonomyBreadcrumb);
+  const categories = terms.flat().filter(term => term.taxonomy === 'category');
   const tags = terms.flat().filter(term => term.taxonomy === 'post_tag');
-  const authorName = post.meta?.p4_author_override || author.name;
+
   const formattedDate = new Date(post.date).toLocaleDateString('en-GB', {
     day: 'numeric',
     month: 'short',
@@ -44,15 +27,13 @@ function PostItem({post}) {
             <img
               width={featuredMedia.media_details?.width}
               height={featuredMedia.media_details?.height}
-              src={getBestSrc(featuredMedia, 400)}
+              src={featuredMedia.source_url}
               className="wp-post-image"
               alt={featuredMedia.alt_text || ''}
               srcSet={Object.values(featuredMedia.media_details?.sizes || {})
                 .map(size => `${size.source_url} ${size.width}w`)
                 .join(', ')}
-              sizes="(max-width: 768px) 100vw, 400px"
               decoding="async"
-              loading="lazy"
             />
           </a>
         </div>
@@ -88,7 +69,7 @@ function PostItem({post}) {
         <header>
           <h4 className="query-list-item-headline wp-block-post-title">
             <a href={post.link} target="_self">
-              {decodeHtmlEntities(post.title.rendered)}
+              { post.title.rendered }
             </a>
           </h4>
         </header>
@@ -101,11 +82,7 @@ function PostItem({post}) {
         <div className="query-list-item-meta d-flex flex-wrap">
           { author && (
             <span className="article-list-item-author">
-              {post.meta?.p4_author_override ? (
-                authorName
-              ) : (
-                <a href={author.link}>{authorName}</a>
-              )}
+              <a href={author.link}>{ author.name }</a>
             </span>
           ) }
           <div className="query-list-meta-date-reading-time">
