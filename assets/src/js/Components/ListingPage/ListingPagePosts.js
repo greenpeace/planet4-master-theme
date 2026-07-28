@@ -137,6 +137,29 @@ function buildFilterArgs(filters) {
 }
 
 /**
+ * Logs data to Sentry
+ *
+ * @param {Error|string} message        The error to report, or a string message to log.
+ * @param {Object|null}  [extraMessage] Optional extra context.
+ *
+ * @return {void}
+ */
+/* eslint-disable no-undef */
+function logDataInSentry(message, extraMessage = null)
+{
+  if (typeof Sentry === 'undefined') {
+    return;
+  }
+
+  if (typeof message === 'string') {
+    Sentry.captureMessage(message, extraMessage);
+  } else {
+    Sentry.captureException(message, extraMessage);
+  }
+}
+/* eslint-enable no-undef */
+
+/**
  * Renders the dynamic listing page.
  *
  * @param {Object}      props                         Component props.
@@ -179,10 +202,7 @@ const ListingPagePosts = ({filtersContainer, layoutToggleContainer}) => {
     try {
       localStorage.setItem(LAYOUTS.STORAGE_NAME, newLayout);
     } catch (e) {
-      if (typeof Sentry !== 'undefined') {
-        // eslint-disable-next-line no-undef
-        Sentry.captureException(e);
-      }
+      logDataInSentry(e);
     }
   };
 
@@ -194,9 +214,8 @@ const ListingPagePosts = ({filtersContainer, layoutToggleContainer}) => {
    */
   const getTaxonomies = useCallback(async () => {
     try {
-      if (!BASE_URL && typeof Sentry !== 'undefined') {
-        // eslint-disable-next-line no-undef
-        Sentry.captureMessage('ListingPagePosts: missing document.body.dataset.nro in getTaxonomies');
+      if (!BASE_URL) {
+        logDataInSentry('ListingPagePosts: missing document.body.dataset.nro in getTaxonomies');
       }
 
       const [postTypesRes, categoriesRes, tagsRes] = await Promise.all([
@@ -205,27 +224,21 @@ const ListingPagePosts = ({filtersContainer, layoutToggleContainer}) => {
         fetchJson(`${BASE_URL}/wp-json/${addQueryArgs('wp/v2/tags', {per_page: 100, hide_empty: true})}`),
       ]);
 
-      if (!Array.isArray(postTypesRes.data) && typeof Sentry !== 'undefined') {
-        // eslint-disable-next-line no-undef
-        Sentry.captureMessage('ListingPagePosts: unexpected post-types response', {extra: {response: postTypesRes}});
+      if (!Array.isArray(postTypesRes.data)) {
+        logDataInSentry('ListingPagePosts: unexpected post-types response', {extra: {response: postTypesRes}});
       }
-      if (!Array.isArray(categoriesRes.data) && typeof Sentry !== 'undefined') {
-        // eslint-disable-next-line no-undef
-        Sentry.captureMessage('ListingPagePosts: unexpected categories response', {extra: {response: categoriesRes}});
+      if (!Array.isArray(categoriesRes.data)) {
+        logDataInSentry('ListingPagePosts: unexpected categories response', {extra: {response: categoriesRes}});
       }
-      if (!Array.isArray(tagsRes.data) && typeof Sentry !== 'undefined') {
-        // eslint-disable-next-line no-undef
-        Sentry.captureMessage('ListingPagePosts: unexpected tags response', {extra: {response: tagsRes}});
+      if (!Array.isArray(tagsRes.data)) {
+        logDataInSentry('ListingPagePosts: unexpected tags response', {extra: {response: tagsRes}});
       }
 
       setPostTypes(Array.isArray(postTypesRes.data) ? postTypesRes.data : []);
       setCategories(Array.isArray(categoriesRes.data) ? categoriesRes.data : []);
       setTags(Array.isArray(tagsRes.data) ? tagsRes.data : []);
     } catch (e) {
-      if (typeof Sentry !== 'undefined') {
-        // eslint-disable-next-line no-undef
-        Sentry.captureException(e);
-      }
+      logDataInSentry(e);
     } finally {
       setTaxonomiesLoaded(true);
     }
@@ -252,9 +265,8 @@ const ListingPagePosts = ({filtersContainer, layoutToggleContainer}) => {
         ...buildFilterArgs(filters),
       };
 
-      if (!BASE_URL && typeof Sentry !== 'undefined') {
-      // eslint-disable-next-line no-undef
-        Sentry.captureMessage('ListingPagePosts: missing document.body.dataset.nro in getPosts');
+      if (!BASE_URL) {
+        logDataInSentry('ListingPagePosts: missing document.body.dataset.nro in getPosts');
       }
 
       const {data, totalPages: pages} = await fetchJson(
@@ -263,29 +275,21 @@ const ListingPagePosts = ({filtersContainer, layoutToggleContainer}) => {
 
       // Ignore this response if a newer request has been fired.
       if (requestId !== requestIdRef.current) {
-        if (typeof Sentry !== 'undefined') {
-        // eslint-disable-next-line no-undef
-          Sentry.captureMessage('Discarded stale getPosts response');
-        }
+        logDataInSentry('Discarded stale getPosts response');
         return;
       }
 
-      if (!Array.isArray(data) && typeof Sentry !== 'undefined') {
-      // eslint-disable-next-line no-undef
-        Sentry.captureMessage('ListingPagePosts: unexpected posts response', {extra: {data}});
+      if (!Array.isArray(data)) {
+        logDataInSentry('ListingPagePosts: unexpected posts response', {extra: {data}});
       }
-      if ((typeof pages !== 'number' || Number.isNaN(pages)) && typeof Sentry !== 'undefined') {
-      // eslint-disable-next-line no-undef
-        Sentry.captureMessage('ListingPagePosts: unexpected totalPages value', {extra: {pages}});
+      if ((typeof pages !== 'number' || Number.isNaN(pages))) {
+        logDataInSentry('ListingPagePosts: unexpected totalPages value', {extra: {pages}});
       }
 
       setPosts(Array.isArray(data) ? data : []);
       setTotalPages(pages);
     } catch (e) {
-      if (typeof Sentry !== 'undefined') {
-      // eslint-disable-next-line no-undef
-        Sentry.captureException(e);
-      }
+      logDataInSentry(e);
     } finally {
       if (requestId === requestIdRef.current) {
         setIsLoadingPosts(false);
@@ -327,10 +331,7 @@ const ListingPagePosts = ({filtersContainer, layoutToggleContainer}) => {
         setLayout(stored);
       }
     } catch (e) {
-      if (typeof Sentry !== 'undefined') {
-        // eslint-disable-next-line no-undef
-        Sentry.captureException(e);
-      }
+      logDataInSentry(e);
     }
   }, []);
 
@@ -393,10 +394,7 @@ const ListingPagePosts = ({filtersContainer, layoutToggleContainer}) => {
     try {
       window.history.pushState(null, '', newUrl);
     } catch (e) {
-      if (typeof Sentry !== 'undefined') {
-        // eslint-disable-next-line no-undef
-        Sentry.captureException(e);
-      }
+      logDataInSentry(e);
     }
   }, [filters, taxonomiesLoaded, postTypes, categories, tags]);
 
