@@ -171,9 +171,6 @@ function logDataInSentry(message, extraMessage = null)
 const ListingPagePosts = ({filtersContainer, layoutToggleContainer}) => {
   const [posts, setPosts] = useState([]);
   const [isLoadingPosts, setIsLoadingPosts] = useState(true);
-  const [postTypes, setPostTypes] = useState([]);
-  const [categories, setCategories] = useState([]);
-  const [tags, setTags] = useState([]);
   const [taxonomiesLoaded, setTaxonomiesLoaded] = useState(false);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -182,6 +179,12 @@ const ListingPagePosts = ({filtersContainer, layoutToggleContainer}) => {
     postType: '',
     category: '',
     tag: '',
+  });
+
+  const [taxonomies, setTaxonomies] = useState({
+    postTypes: [],
+    categories: [],
+    tags: [],
   });
 
   const [layout, setLayout] = useState(() => {
@@ -244,9 +247,11 @@ const ListingPagePosts = ({filtersContainer, layoutToggleContainer}) => {
         logDataInSentry('ListingPagePosts: unexpected tags response', {extra: {response: tagsRes}});
       }
 
-      setPostTypes(Array.isArray(postTypesRes.data) ? postTypesRes.data : []);
-      setCategories(Array.isArray(categoriesRes.data) ? categoriesRes.data : []);
-      setTags(Array.isArray(tagsRes.data) ? tagsRes.data : []);
+      setTaxonomies({
+        postTypes: Array.isArray(postTypesRes.data) ? postTypesRes.data : [],
+        categories: Array.isArray(categoriesRes.data) ? categoriesRes.data : [],
+        tags: Array.isArray(tagsRes.data) ? tagsRes.data : [],
+      });
     } catch (e) {
       logDataInSentry(e);
     } finally {
@@ -346,9 +351,9 @@ const ListingPagePosts = ({filtersContainer, layoutToggleContainer}) => {
     const tagSlug = params.get(URL_PARAMS.tag);
 
     const urlFilters = {
-      postType: postTypeSlug ? getIdBySlug(postTypes, postTypeSlug) : '',
-      category: categorySlug ? getIdBySlug(categories, categorySlug) : '',
-      tag: tagSlug ? getIdBySlug(tags, tagSlug) : '',
+      postType: postTypeSlug ? getIdBySlug(taxonomies.postTypes, postTypeSlug) : '',
+      category: categorySlug ? getIdBySlug(taxonomies.categories, categorySlug) : '',
+      tag: tagSlug ? getIdBySlug(taxonomies.tags, tagSlug) : '',
     };
 
     if (urlFilters.postType || urlFilters.category || urlFilters.tag) {
@@ -356,7 +361,7 @@ const ListingPagePosts = ({filtersContainer, layoutToggleContainer}) => {
     }
 
     hasSyncedFromUrl.current = true;
-  }, [taxonomiesLoaded, postTypes, categories, tags]);
+  }, [taxonomiesLoaded, taxonomies]);
 
   /**
    * Keeps the URL in sync whenever filters change.
@@ -368,9 +373,9 @@ const ListingPagePosts = ({filtersContainer, layoutToggleContainer}) => {
 
     const params = new URLSearchParams(window.location.search);
 
-    const postTypeSlug = filters.postType ? getSlugById(postTypes, filters.postType) : '';
-    const categorySlug = filters.category ? getSlugById(categories, filters.category) : '';
-    const tagSlug = filters.tag ? getSlugById(tags, filters.tag) : '';
+    const postTypeSlug = filters.postType ? getSlugById(taxonomies.postTypes, filters.postType) : '';
+    const categorySlug = filters.category ? getSlugById(taxonomies.categories, filters.category) : '';
+    const tagSlug = filters.tag ? getSlugById(taxonomies.tags, filters.tag) : '';
 
     [
       [URL_PARAMS.postType, postTypeSlug],
@@ -392,32 +397,32 @@ const ListingPagePosts = ({filtersContainer, layoutToggleContainer}) => {
     } catch (e) {
       logDataInSentry(e);
     }
-  }, [filters, taxonomiesLoaded, postTypes, categories, tags]);
+  }, [filters, taxonomiesLoaded, taxonomies]);
 
   return (
     <>
       { filtersContainer &&
-        createPortal(
-          <ListingPageFilters
-            postTypes={postTypes}
-            categories={categories}
-            tags={tags}
-            currentPostType={filters.postType}
-            currentCategory={filters.category}
-            currentTag={filters.tag}
-            onApply={handleApply}
-          />,
-          filtersContainer
-        ) }
+          createPortal(
+            <ListingPageFilters
+              postTypes={taxonomies.postTypes}
+              categories={taxonomies.categories}
+              tags={taxonomies.tags}
+              currentPostType={filters.postType}
+              currentCategory={filters.category}
+              currentTag={filters.tag}
+              onApply={handleApply}
+            />,
+            filtersContainer
+          ) }
 
       { layoutToggleContainer &&
-        createPortal(
-          <ListingPageLayoutToggle
-            layout={layout}
-            onToggle={handleToggle}
-          />,
-          layoutToggleContainer
-        ) }
+          createPortal(
+            <ListingPageLayoutToggle
+              layout={layout}
+              onToggle={handleToggle}
+            />,
+            layoutToggleContainer
+          ) }
 
       { !isLoadingPosts && posts.length > 0 && (
         <div className={`wp-block-query is-layout-flow wp-block-query-is-layout-flow wp-block-query--${layout}`}>
