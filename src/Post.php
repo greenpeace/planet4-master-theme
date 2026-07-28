@@ -248,15 +248,6 @@ class Post extends \Timber\Post
         }
     }
 
-    public function get_meta(string $key, int|null $index = null): string
-    {
-        if (null !== $index) {
-            return $this->post_meta[$key][$index] ?? '';
-        }
-
-        return $this->post_meta[$key] ?? '';
-    }
-
     /**
      * Get post/page custom planet4 type.
      * ACTION, DOCUMENT, PAGE, POST
