@@ -2,6 +2,7 @@ const {__, sprintf} = wp.i18n;
 const {registerPlugin} = wp.plugins;
 const {useSelect, dispatch} = wp.data;
 const {useEffect, useRef} = wp.element;
+import {getAllBlocks} from '../functions/getAllBlocks';
 
 /**
  * Setup the block editor validation.
@@ -38,7 +39,7 @@ const getValidationState = select => {
   // template parts) They are design artifacts, not editorial content, so all checks
   // short-circuit to valid. New checks added below automatically respect this flag.
   const skip = !ALLOWED_POST_TYPES.includes(getCurrentPostType());
-  const allBlocks = getBlocks();
+  const allBlocks = getAllBlocks(getBlocks());
   const postTitle = skip || Boolean(getEditedPostAttribute('title'));
   const featuredImage = skip || Boolean(getEditedPostAttribute('featured_media'));
   const topicLink = skip || checkTopicLinks(allBlocks);
