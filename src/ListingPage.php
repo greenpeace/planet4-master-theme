@@ -69,22 +69,10 @@ class ListingPage
 
         if ($this->news_page_id === $current_page_id) {
             $this->set_featured_posts();
-            $this->set_filters();
         }
 
-        $this->add_listing_page_content();
         $this->set_featured_action();
         $this->set_news_page_link();
-    }
-
-    /**
-     * Add listing page content to the context.
-     */
-    private function add_listing_page_content(): void
-    {
-        $template = file_get_contents(get_template_directory() . "/parts/query-listing-page.html");
-        $content = do_blocks($template);
-        $this->context['listing_page_content'] = $content;
     }
 
     /**
@@ -129,28 +117,6 @@ class ListingPage
     }
 
     /**
-     * Set the 'News & stories' page filters.
-     * For now only the "category" and "post types" are available.
-     */
-    private function set_filters(): void
-    {
-        if (!is_home()) {
-            return;
-        }
-
-        $categories = get_categories();
-        $tags = get_tags();
-
-        $this->context['categories'] = $categories;
-        $this->context['post_types'] = get_terms(['taxonomy' => 'p4-page-type']);
-        $this->context['tags'] = $tags;
-
-        $this->context['current_category'] = $_GET['category'] ?? '';
-        $this->context['current_post_type'] = $_GET['post-type'] ?? '';
-        $this->context['current_tag'] = $_GET['tag'] ?? '';
-    }
-
-    /**
      * Add featured posts to the context for the News & Stories page.
      */
     private function set_featured_posts(): void
@@ -179,7 +145,7 @@ class ListingPage
      */
     public function view(): void
     {
-        do_action('enqueue_listing_page_layout_switch_script');
+        do_action('enqueue_dynamic_listing_page_script');
         do_action('enqueue_google_tag_manager_script', $this->context);
         Timber::render($this->templates, $this->context);
     }
@@ -212,29 +178,5 @@ class ListingPage
         }
 
         return self::$STICKY_POSTS_CACHE = array_slice($sticky_posts->posts, 0, self::$STICKY_POSTS_TO_SHOW);
-    }
-
-    /**
-     * Add the category filter to News & Stories page.
-     */
-    public static function get_selected_categories(): array
-    {
-        $category_slug = isset($_GET['category']) ? $_GET['category'] : '';
-        $category = get_category_by_slug($category_slug);
-        return $category ? [$category->term_id] : [];
-    }
-
-    /**
-     * Add the post-type filter to News & Stories page.
-     */
-    public static function get_selected_post_types(): array
-    {
-        $post_type_slug = isset($_GET['post-type']) ? $_GET['post-type'] : '';
-        $post_type = get_term_by('slug', $post_type_slug, 'p4-page-type');
-        return !$post_type ? [] : [[
-            'taxonomy' => 'p4-page-type',
-            'field' => 'term_id',
-            'terms' => [$post_type->term_id],
-        ]];
     }
 }
