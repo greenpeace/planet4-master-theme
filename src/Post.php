@@ -241,15 +241,6 @@ class Post extends \Timber\Post
         }
     }
 
-    public function get_meta(string $key, int|null $index = null): string
-    {
-        if (null !== $index) {
-            return $this->post_meta[$key][$index] ?? '';
-        }
-
-        return $this->post_meta[$key] ?? '';
-    }
-
     /**
      * Get post/page custom planet4 type.
      * ACTION, DOCUMENT, PAGE, POST
@@ -266,7 +257,7 @@ class Post extends \Timber\Post
      */
     public function get_og_title(): string
     {
-        return $this->get_meta('p4_og_title', 0);
+        return $this->post_meta['p4_og_title'][0] ?? '';
     }
 
     /**
@@ -275,7 +266,7 @@ class Post extends \Timber\Post
      */
     public function get_og_description(): string
     {
-        $og_desc = $this->get_meta('p4_og_description', 0);
+        $og_desc = $this->post_meta['p4_og_description'][0] ?? '';
 
         if ('' === $og_desc) {
             return $this->post_excerpt;
@@ -293,7 +284,7 @@ class Post extends \Timber\Post
         $image_id = null;
         $image_metas = ['p4_og_image_id', '_thumbnail_id', 'background_image_id'];
         foreach ($image_metas as $image_meta) {
-            $image_meta_id = $this->get_meta($image_meta, 0);
+            $image_meta_id = $this->post_meta[$image_meta][0] ?? '';
             if (!empty($image_meta_id)) {
                 $image_id = $image_meta_id;
                 break;
@@ -361,7 +352,7 @@ class Post extends \Timber\Post
      */
     public function get_author_override(): bool
     {
-        return (bool) $this->get_meta('p4_author_override', 0);
+        return (bool) $this->post_meta['p4_author_override'][0] ?? false;
     }
 
     /**
