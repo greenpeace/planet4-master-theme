@@ -2,6 +2,7 @@ import {URLInput} from '../../block-editor/URLInput/URLInput';
 import {TimelineFrontend} from './TimelineFrontend';
 import {URLDescriptionHelp} from './URLDescriptionHelp';
 import {getUniqueId} from '../../functions/getUniqueId';
+import {getAllBlocks} from '../../functions/getAllBlocks';
 
 const {InspectorControls, RichText} = wp.blockEditor;
 const {PanelBody, Tooltip} = wp.components;
@@ -9,15 +10,6 @@ import {select} from '@wordpress/data';
 const {debounce} = wp.compose;
 const {useCallback, useState, useEffect} = wp.element;
 const {__} = wp.i18n;
-
-/**
- * Get all blocks and inner blocks from a page.
- *
- * @param {Array} blocks - an array of blocks.
- *
- * @return {Array} All blocks from the page.
- */
-const flattenBlocks = blocks => blocks.flatMap(block => [block, ...flattenBlocks(block.innerBlocks || [])]);
 
 /**
  * Check if the given timeline id already exists on this page.
@@ -28,7 +20,7 @@ const flattenBlocks = blocks => blocks.flatMap(block => [block, ...flattenBlocks
  * @return {boolean} Whether the timeline id is already given or not.
  */
 const isTimelineIdReserved = timelineId => {
-  const allBlocks = flattenBlocks(select('core/editor').getBlocks());
+  const allBlocks = getAllBlocks(select('core/editor').getBlocks());
   return allBlocks.some(
     block => block.name === 'planet4-blocks/timeline' && block.attributes.timeline_id === timelineId
   );
