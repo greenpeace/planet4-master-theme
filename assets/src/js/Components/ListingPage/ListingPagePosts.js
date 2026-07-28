@@ -177,22 +177,26 @@ const ListingPagePosts = ({filtersContainer, layoutToggleContainer}) => {
         logDataInSentry('ListingPagePosts: missing document.body.dataset.nro in getTaxonomies');
       }
 
-      const {data} = await fetchJson(`${BASE_URL}/wp-json/planet4/v1/listing-filters`);
+      const [postTypesRes, categoriesRes, tagsRes] = await Promise.all([
+        fetchJson(`${BASE_URL}/wp-json/${addQueryArgs('wp/v2/p4-page-type', {per_page: 100, hide_empty: true})}`),
+        fetchJson(`${BASE_URL}/wp-json/${addQueryArgs('wp/v2/categories', {per_page: 100, hide_empty: true})}`),
+        fetchJson(`${BASE_URL}/wp-json/${addQueryArgs('wp/v2/tags', {per_page: 100, hide_empty: true})}`),
+      ]);
 
-      if (!Array.isArray(data.post_types)) {
-        logDataInSentry('ListingPagePosts: unexpected post-types response');
+      if (!Array.isArray(postTypesRes.data)) {
+        logDataInSentry('ListingPagePosts: unexpected post-types response', {extra: {response: postTypesRes}});
       }
-      if (!Array.isArray(data.categories)) {
-        logDataInSentry('ListingPagePosts: unexpected categories response');
+      if (!Array.isArray(categoriesRes.data)) {
+        logDataInSentry('ListingPagePosts: unexpected categories response', {extra: {response: categoriesRes}});
       }
-      if (!Array.isArray(data.tags)) {
-        logDataInSentry('ListingPagePosts: unexpected tags response');
+      if (!Array.isArray(tagsRes.data)) {
+        logDataInSentry('ListingPagePosts: unexpected tags response', {extra: {response: tagsRes}});
       }
 
       setTaxonomies({
-        postTypes: Array.isArray(data.post_types) ? data.post_types : [],
-        categories: Array.isArray(data.categories) ? data.categories : [],
-        tags: Array.isArray(data.tags) ? data.tags : [],
+        postTypes: Array.isArray(postTypesRes.data) ? postTypesRes.data : [],
+        categories: Array.isArray(categoriesRes.data) ? categoriesRes.data : [],
+        tags: Array.isArray(tagsRes.data) ? tagsRes.data : [],
       });
     } catch (e) {
       logDataInSentry(e);
@@ -206,17 +210,6 @@ const ListingPagePosts = ({filtersContainer, layoutToggleContainer}) => {
    *
    * @return {Promise<void>}
    */
-  const POST_FIELDS = [
-    'id',
-    'link',
-    'date',
-    'title',
-    'excerpt',
-    'meta',
-    '_links',
-    '_embedded',
-  ].join(',');
-
   const getPosts = useCallback(async () => {
     const requestId = ++requestIdRef.current;
     setIsLoadingPosts(true);
@@ -228,8 +221,7 @@ const ListingPagePosts = ({filtersContainer, layoutToggleContainer}) => {
       const args = {
         per_page: PER_PAGE,
         page,
-        _embed: 'wp:featuredmedia,author,wp:term',
-        _fields: POST_FIELDS,
+        _embed: true,
         ...buildArchiveArgs(archiveContext),
         ...buildFilterArgs(filters),
       };
@@ -280,8 +272,8 @@ const ListingPagePosts = ({filtersContainer, layoutToggleContainer}) => {
    * Triggers the initial fetch of taxonomies used to populate the filter dropdowns.
    */
   useEffect(() => {
-    if (filtersContainer) {getTaxonomies();}
-  }, [filtersContainer, getTaxonomies]);
+    getTaxonomies();
+  }, [getTaxonomies]);
 
   /**
    * Re-fetches posts whenever `getPosts` changes identity.
