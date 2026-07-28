@@ -2,10 +2,12 @@ import {__} from '@wordpress/i18n';
 import {useCallback, useState, useEffect, useRef, createPortal} from '@wordpress/element';
 import {fetchJson} from '../../../functions/fetchJson';
 import {addQueryArgs} from '../../../functions/addQueryArgs';
+import {logDataInSentry} from '../../../functions/logDataInSentry';
 import PostItem from '../PostItem';
 import Paginator from '../Paginator';
 import ListingPageFilters from './ListingPageFilters';
 import ListingPageLayoutToggle from './ListingPageLayoutToggle';
+import listingPageFilterUrlSync from './listingPageFilterUrlSync';
 
 const PER_PAGE = Number(window.listingPageSettings?.postsPerPage) || 12;
 
@@ -16,38 +18,6 @@ const LAYOUTS = {
   GRID: 'grid',
   LIST: 'list',
 };
-
-const URL_PARAMS = {
-  postType: 'post-type',
-  category: 'category',
-  tag: 'tag',
-};
-
-/**
- * Finds a term's id by its slug within a list of terms.
- *
- * @param {Array<{id: number, slug: string}>} list List of terms to search.
- * @param {string}                            slug The slug to look up.
- *
- * @return {number|string} The matching term's id, or `''` if not found.
- */
-function getIdBySlug(list, slug) {
-  const match = list.find(item => item.slug === slug);
-  return match ? match.id : '';
-}
-
-/**
- * Finds a term's slug by its id within a list of terms.
- *
- * @param {Array<{id: number, slug: string}>} list List of terms to search.
- * @param {number}                            id   The id to look up.
- *
- * @return {string} The matching term's slug, or `''` if not found.
- */
-function getSlugById(list, id) {
-  const match = list.find(item => item.id === id);
-  return match ? match.slug : '';
-}
 
 /**
  * Reads the current template's archive context from the settings localized by PHP.
@@ -137,29 +107,6 @@ function buildFilterArgs(filters) {
 }
 
 /**
- * Logs data to Sentry
- *
- * @param {Error|string} message        The error to report, or a string message to log.
- * @param {Object|null}  [extraMessage] Optional extra context.
- *
- * @return {void}
- */
-/* eslint-disable no-undef */
-function logDataInSentry(message, extraMessage = null)
-{
-  if (typeof Sentry === 'undefined') {
-    return;
-  }
-
-  if (typeof message === 'string') {
-    Sentry.captureMessage(message, extraMessage);
-  } else {
-    Sentry.captureException(message, extraMessage);
-  }
-}
-/* eslint-enable no-undef */
-
-/**
  * Renders the dynamic listing page.
  *
  * @param {Object}      props                         Component props.
@@ -175,16 +122,17 @@ const ListingPagePosts = ({filtersContainer, layoutToggleContainer}) => {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
-  const [filters, setFilters] = useState({
-    postType: '',
-    category: '',
-    tag: '',
-  });
-
   const [taxonomies, setTaxonomies] = useState({
     postTypes: [],
     categories: [],
     tags: [],
+  });
+
+  const [filters, setFilters] = listingPageFilterUrlSync({
+    postTypes: taxonomies.postTypes,
+    categories: taxonomies.categories,
+    tags: taxonomies.tags,
+    loaded: taxonomiesLoaded,
   });
 
   const [layout, setLayout] = useState(() => {
@@ -196,8 +144,6 @@ const ListingPagePosts = ({filtersContainer, layoutToggleContainer}) => {
       return LAYOUTS.LIST;
     }
   });
-
-  const hasSyncedFromUrl = useRef(false);
 
   // Tracks the most recently fired getPosts request, so an earlier
   // request can't overwrite a later correctly filtered result.
@@ -335,69 +281,6 @@ const ListingPagePosts = ({filtersContainer, layoutToggleContainer}) => {
   useEffect(() => {
     getPosts();
   }, [getPosts]);
-
-  /**
-   * Reads filters from the URL once taxonomies have loaded.
-   * Only applies on the main posts page.
-   */
-  useEffect(() => {
-    if (hasSyncedFromUrl.current || !taxonomiesLoaded) {
-      return;
-    }
-
-    const params = new URLSearchParams(window.location.search);
-    const postTypeSlug = params.get(URL_PARAMS.postType);
-    const categorySlug = params.get(URL_PARAMS.category);
-    const tagSlug = params.get(URL_PARAMS.tag);
-
-    const urlFilters = {
-      postType: postTypeSlug ? getIdBySlug(taxonomies.postTypes, postTypeSlug) : '',
-      category: categorySlug ? getIdBySlug(taxonomies.categories, categorySlug) : '',
-      tag: tagSlug ? getIdBySlug(taxonomies.tags, tagSlug) : '',
-    };
-
-    if (urlFilters.postType || urlFilters.category || urlFilters.tag) {
-      setFilters(urlFilters);
-    }
-
-    hasSyncedFromUrl.current = true;
-  }, [taxonomiesLoaded, taxonomies]);
-
-  /**
-   * Keeps the URL in sync whenever filters change.
-   */
-  useEffect(() => {
-    if (!taxonomiesLoaded) {
-      return;
-    }
-
-    const params = new URLSearchParams(window.location.search);
-
-    const postTypeSlug = filters.postType ? getSlugById(taxonomies.postTypes, filters.postType) : '';
-    const categorySlug = filters.category ? getSlugById(taxonomies.categories, filters.category) : '';
-    const tagSlug = filters.tag ? getSlugById(taxonomies.tags, filters.tag) : '';
-
-    [
-      [URL_PARAMS.postType, postTypeSlug],
-      [URL_PARAMS.category, categorySlug],
-      [URL_PARAMS.tag, tagSlug],
-    ].forEach(([key, value]) => {
-      if (value) {
-        params.set(key, value);
-      } else {
-        params.delete(key);
-      }
-    });
-
-    const queryString = params.toString();
-    const newUrl = `${window.location.pathname}${queryString ? `?${queryString}` : ''}${window.location.hash}`;
-
-    try {
-      window.history.pushState(null, '', newUrl);
-    } catch (e) {
-      logDataInSentry(e);
-    }
-  }, [filters, taxonomiesLoaded, taxonomies]);
 
   return (
     <>
