@@ -175,13 +175,23 @@ const ListingPagePosts = ({filtersContainer, layoutToggleContainer}) => {
   const [categories, setCategories] = useState([]);
   const [tags, setTags] = useState([]);
   const [taxonomiesLoaded, setTaxonomiesLoaded] = useState(false);
-  const [layout, setLayout] = useState(LAYOUTS.LIST);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+
   const [filters, setFilters] = useState({
     postType: '',
     category: '',
     tag: '',
+  });
+
+  const [layout, setLayout] = useState(() => {
+    try {
+      const stored = localStorage.getItem(LAYOUTS.STORAGE_NAME);
+      return stored === LAYOUTS.GRID ? LAYOUTS.GRID : LAYOUTS.LIST;
+    } catch (e) {
+      logDataInSentry(e);
+      return LAYOUTS.LIST;
+    }
   });
 
   const hasSyncedFromUrl = useRef(false);
@@ -320,20 +330,6 @@ const ListingPagePosts = ({filtersContainer, layoutToggleContainer}) => {
   useEffect(() => {
     getPosts();
   }, [getPosts]);
-
-  /**
-   * Restores a previously saved layout preference from `localStorage` on mount.
-   */
-  useEffect(() => {
-    try {
-      const stored = localStorage.getItem(LAYOUTS.STORAGE_NAME);
-      if (stored === LAYOUTS.GRID || stored === LAYOUTS.LIST) {
-        setLayout(stored);
-      }
-    } catch (e) {
-      logDataInSentry(e);
-    }
-  }, []);
 
   /**
    * Reads filters from the URL once taxonomies have loaded.
