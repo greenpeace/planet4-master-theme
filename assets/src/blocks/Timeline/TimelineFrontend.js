@@ -211,11 +211,15 @@ export const TimelineFrontend = ({attributes}) => {
       return acc;
     }, {});
 
-    const result = Object.entries(grouped)
-      .map(([year, list]) => ({
+    const result = Object.entries(grouped).map(([year, list]) => {
+      const displayDate = list.find(item => item.anchor_label?.trim())?.anchor_label?.trim();
+
+      return {
         year,
+        displayColumn: displayDate || year,
         list,
-      }));
+      };
+    });
 
     setProcessedSheetData(result);
   }, [sheetData]);
@@ -262,11 +266,20 @@ export const TimelineFrontend = ({attributes}) => {
           <p className="page-section-description text-center" dangerouslySetInnerHTML={{__html: description}} />
         }
 
-        <YearsNavigation isEditing={isEditing} years={processedSheetData.map(({year}) => year)} timelineId={timeline_id} />
+        <YearsNavigation
+          isEditing={isEditing}
+          years={processedSheetData.map(({year, displayColumn}) => ({
+            year,
+            displayDate: displayColumn,
+          }))}
+          timelineId={timeline_id}
+        />
         <fieldset className="timeline-group">
-          {processedSheetData.map(({year, list}) => (
+          {processedSheetData.map(({year, displayColumn, list}) => (
             <div className="timeline-block-year-group" id={`${timeline_id}-${year}`} key={`${timeline_id}-${year}`}>
-              <p className="timeline-block-year">{year}</p>
+              <p className="timeline-block-year">
+                <span>{displayColumn}</span>
+              </p>
               <ul className="timeline-block-events">
                 {list.map((event, index) => (
                   <TimelineEvent
