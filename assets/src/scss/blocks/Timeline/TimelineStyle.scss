@@ -347,18 +347,32 @@
 
   .timeline-block-year {
     text-align: center;
-    width: 78px;
-    border-radius: $sp-x;
-    background-color: var(--white);
-    margin: $sp-6 auto;
-    padding: $sp-1;
-    box-shadow: 0 $sp-x $sp-1x rgba(0, 0, 0, 0.15);
     position: relative;
+    margin: $sp-6 auto;
     z-index: 1;
+
+    span {
+      border-radius: $sp-x;
+      background-color: var(--white);
+      padding: $sp-1;
+      box-shadow: 0 $sp-x $sp-1x rgba(0, 0, 0, 0.15);
+    }
+
+    @include medium-and-less {
+      max-width: 340px;
+
+      span {
+        display: inline-block;
+        max-width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    }
   }
 
   .timeline-block-year-group {
-    scroll-margin-top: 100px;
+    scroll-margin-top: 120px;
   }
 
   .timeline-block-event-day,
@@ -672,6 +686,7 @@
 
     li {
       margin: $sp-x $sp-2;
+      flex-shrink: 0;
 
       &:first-child {
         margin-inline-start: 0;
