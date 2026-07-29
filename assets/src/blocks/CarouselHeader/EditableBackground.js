@@ -20,8 +20,8 @@ export const getLargestSizeUrl = image => {
     pickUrl(sizes.medium_large) ||
     pickUrl(sizes.medium) ||
     // As a last resort use the original URL so the slide is not left empty.
-    image?.url ||
-    image?.source_url
+    image?.source_url ||
+    image?.url
   );
 };
 
@@ -52,8 +52,9 @@ export const EditableBackground = ({
 }) => (
   <MediaUploadCheck>
     <MediaUpload
-      onSelect={image => {
-        const {id, alt_text, sizes} = image;
+      onSelect={async image => {
+        const imageRecord = await wp.data.resolveSelect('core').getMedia(image.id);
+        const {id, alt_text} = image;
         const mimeType = image?.mime ?? image?.mime_type ?? (image?.subtype && `image/${image.subtype}`) ?? '';
 
         // Reject anything that is not JPG / WebP. Defends against PNGs and other types that can slip in
@@ -68,8 +69,8 @@ export const EditableBackground = ({
         }
 
         // Use the largest registered size instead of the original image so we never serve a multi-MB upload to the front end.
-        const resizedUrl = getLargestSizeUrl(image);
-        changeSlideImage(index, id, resizedUrl, alt_text, toSrcSet(getSrcSetSizes(sizes)));
+        const resizedUrl = getLargestSizeUrl(imageRecord);
+        changeSlideImage(index, id, resizedUrl, alt_text, toSrcSet(getSrcSetSizes(imageRecord.media_details?.sizes)));
       }}
       allowedTypes={ALLOWED_MIME_TYPES}
       value={image_id}
