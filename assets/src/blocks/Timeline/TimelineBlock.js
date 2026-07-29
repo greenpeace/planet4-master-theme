@@ -24,18 +24,6 @@ export const registerTimelineBlock = () => {
       type: 'string',
       default: '',
     },
-    language: {
-      type: 'string',
-      default: 'en',
-    },
-    timenav_position: {
-      type: 'string',
-      default: '',
-    },
-    start_at_end: {
-      type: 'boolean',
-      default: false,
-    },
     timeline_id: {
       type: 'string',
       default: '',
