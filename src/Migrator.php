@@ -66,6 +66,7 @@ use P4\MasterTheme\Migrations\M062ActionsListStretchedLinkRefactor;
 use P4\MasterTheme\Migrations\M063ActionsListCarouselAccessibility;
 use P4\MasterTheme\Migrations\M064RemoveStaleDatetimeFromPostsListBlock;
 use P4\MasterTheme\Migrations\M065ReplaceMetaBlock;
+use P4\MasterTheme\Migrations\M066RemoveNewTimelineBlockOption;
 
 /**
  * Run any new migration scripts and record results in the log.
@@ -149,6 +150,7 @@ class Migrator
             M063ActionsListCarouselAccessibility::class,
             M064RemoveStaleDatetimeFromPostsListBlock::class,
             M065ReplaceMetaBlock::class,
+            M066RemoveNewTimelineBlockOption::class,
         ];
 
         // Loop migrations and run those that haven't run yet.
