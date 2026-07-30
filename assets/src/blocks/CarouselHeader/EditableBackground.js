@@ -1,5 +1,6 @@
 import {ImagePlaceholder} from './ImagePlaceholder';
 import {toSrcSet} from './CarouselHeaderEditor';
+import {logDataInSentry} from '../../functions/logDataInSentry';
 
 const {MediaUpload, MediaUploadCheck} = wp.blockEditor;
 const {Button, Dropdown} = wp.components;
@@ -53,9 +54,17 @@ export const EditableBackground = ({
   <MediaUploadCheck>
     <MediaUpload
       onSelect={async image => {
-        const imageRecord = await wp.data.resolveSelect('core').getMedia(image.id);
-        const {id, alt_text} = image;
-        const mimeType = image?.mime ?? image?.mime_type ?? (image?.subtype && `image/${image.subtype}`) ?? '';
+        let imageRecord;
+        try {
+          imageRecord = await wp.data.resolveSelect('core').getMedia(image.id);
+        } catch (error) {
+          logDataInSentry(error);
+          // eslint-disable-next-line no-alert
+          window.alert(__('There was an error retrieving the image from the Media Library. Please try again.', 'planet4-master-theme-backend'));
+          return;
+        }
+        const {id, alt_text} = imageRecord;
+        const mimeType = imageRecord?.mime ?? imageRecord?.mime_type ?? (imageRecord?.subtype && `image/${imageRecord.subtype}`) ?? '';
 
         // Reject anything that is not JPG / WebP. Defends against PNGs and other types that can slip in
         // via drag-and-drop, the Upload tab, or pre-existing entries in the Media Library.
