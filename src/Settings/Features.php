@@ -7,7 +7,6 @@ use P4\MasterTheme\Features\Dev\AllowAllBlocks;
 use P4\MasterTheme\Features\Dev\BetaBlocks;
 use P4\MasterTheme\Features\Dev\CoreBlockPatterns;
 use P4\MasterTheme\Features\Dev\DisableDataSync;
-use P4\MasterTheme\Features\Dev\NewTimelineBlock;
 use P4\MasterTheme\Features\OldPostsArchiveNotice;
 use P4\MasterTheme\Features\ActionsTaskType;
 use P4\MasterTheme\Features\ActionsDeadline;
@@ -108,7 +107,6 @@ class Features
             BetaBlocks::class,
             CoreBlockPatterns::class,
             AllowAllBlocks::class,
-            NewTimelineBlock::class,
         ];
     }
 
