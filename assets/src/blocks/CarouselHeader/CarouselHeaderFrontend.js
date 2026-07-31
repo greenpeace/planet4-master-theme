@@ -27,7 +27,7 @@ export const CarouselHeaderFrontend = ({slides, carousel_autoplay, className, de
     <section
       className={`block block-header alignfull carousel-header ${className ?? ''}`}
       ref={containerRef}
-      aria-label={__('Greenpeace highlights', 'planet4-blocks')}
+      aria-label={__('Greenpeace highlights', 'planet4-master-theme')}
       aria-roledescription="carousel"
       onFocus={() => setAutoplay(false)}
       onTouchStart={() => setAutoplay(false)}

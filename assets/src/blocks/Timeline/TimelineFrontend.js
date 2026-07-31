@@ -136,7 +136,7 @@ export const TimelineFrontend = ({attributes}) => {
             onClick={() => setExpanded(!expanded)}
             type="button"
           >
-            {expanded ? __('Show less', 'planet4-blocks') : __('Show more', 'planet4-blocks')}
+            {expanded ? __('Show less', 'planet4-master-theme') : __('Show more', 'planet4-master-theme')}
           </button>
           {event.external_link && isValidHttpsUrl(event.external_link)  && (
             <div className="d-flex justify-content-end">
@@ -145,7 +145,7 @@ export const TimelineFrontend = ({attributes}) => {
                 href={event.external_link} rel="noreferrer"
                 className="timeline-external-link"
               >
-                {__('Learn more', 'planet4-blocks')}
+                {__('Learn more', 'planet4-master-theme')}
               </a>
             </div>
           )}
@@ -247,7 +247,7 @@ export const TimelineFrontend = ({attributes}) => {
 
   const summaryText = sprintf(
   /* translators: 1: timeline title, 2: total items, 3: first date, 4: last date */
-    __('%1$s, %2$d items from %3$s to %4$s.', 'planet4-blocks'),
+    __('%1$s, %2$d items from %3$s to %4$s.', 'planet4-master-theme'),
     timeline_title,
     total,
     firstDate,

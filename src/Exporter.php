@@ -32,7 +32,7 @@ class Exporter
         if (! empty($post_id) && 'export_data' === sanitize_text_field($_GET['action'])) {
             include get_template_directory() . '/exporter.php';
         } else {
-            wp_die('No post to export has been supplied!');
+            wp_die(esc_html__('No post to export has been supplied!', 'planet4-master-theme-backend'));
         }
     }
 
