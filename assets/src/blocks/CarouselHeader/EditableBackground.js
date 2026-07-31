@@ -1,5 +1,6 @@
 import {ImagePlaceholder} from './ImagePlaceholder';
 import {toSrcSet} from './CarouselHeaderEditor';
+import {logDataInSentry} from '../../functions/logDataInSentry';
 
 const {MediaUpload, MediaUploadCheck} = wp.blockEditor;
 const {Button, Dropdown} = wp.components;
@@ -20,10 +21,22 @@ export const getLargestSizeUrl = image => {
     pickUrl(sizes.medium_large) ||
     pickUrl(sizes.medium) ||
     // As a last resort use the original URL so the slide is not left empty.
-    image?.url ||
-    image?.source_url
+    image?.source_url ||
+    image?.url
   );
 };
+
+// Check if an image is very large.
+const isValidSize = key =>
+  key !== 'full' &&
+  key !== 'scaled' &&
+  key !== 'original';
+
+// Remove very large images from the SRC set.
+export const getSrcSetSizes = (sizes = {}) =>
+  Object.entries(sizes)
+    .filter(([key, value]) => isValidSize(key) && value?.source_url)
+    .map(([, value]) => value);
 
 export const EditableBackground = ({
   image_url,
@@ -40,9 +53,18 @@ export const EditableBackground = ({
 }) => (
   <MediaUploadCheck>
     <MediaUpload
-      onSelect={image => {
-        const {id, alt_text, sizes} = image;
-        const mimeType = image?.mime ?? image?.mime_type ?? (image?.subtype && `image/${image.subtype}`) ?? '';
+      onSelect={async image => {
+        let imageRecord;
+        try {
+          imageRecord = await wp.data.resolveSelect('core').getMedia(image.id);
+        } catch (error) {
+          logDataInSentry(error);
+          // eslint-disable-next-line no-alert
+          window.alert(__('There was an error retrieving the image from the Media Library. Please try again.', 'planet4-master-theme-backend'));
+          return;
+        }
+        const {id, alt_text} = imageRecord;
+        const mimeType = imageRecord?.mime ?? imageRecord?.mime_type ?? (imageRecord?.subtype && `image/${imageRecord.subtype}`) ?? '';
 
         // Reject anything that is not JPG / WebP. Defends against PNGs and other types that can slip in
         // via drag-and-drop, the Upload tab, or pre-existing entries in the Media Library.
@@ -56,8 +78,8 @@ export const EditableBackground = ({
         }
 
         // Use the largest registered size instead of the original image so we never serve a multi-MB upload to the front end.
-        const resizedUrl = getLargestSizeUrl(image);
-        changeSlideImage(index, id, resizedUrl, alt_text, toSrcSet(Object.values(sizes)));
+        const resizedUrl = getLargestSizeUrl(imageRecord);
+        changeSlideImage(index, id, resizedUrl, alt_text, toSrcSet(getSrcSetSizes(imageRecord.media_details?.sizes)));
       }}
       allowedTypes={ALLOWED_MIME_TYPES}
       value={image_id}

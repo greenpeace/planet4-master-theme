@@ -6,9 +6,8 @@ import {CarouselControls} from './CarouselControls';
 
 // Carousel Header Editor
 import {Sidebar} from './Sidebar';
-import {EditableBackground, getLargestSizeUrl} from './EditableBackground';
+import {EditableBackground} from './EditableBackground';
 
-const {useSelect} = wp.data;
 const {useCallback, useMemo, useRef} = wp.element;
 
 export const toSrcSet = sizes => {
@@ -66,27 +65,6 @@ export const CarouselHeaderEditor = ({setAttributes, attributes}) => {
     goToSlide({newSlide: currentSlide > lastSlide ? 0 : currentSlide, forceCurrentSlide: true});
   }, [currentSlide, goToSlide, setAttributes, slides]);
 
-  const needsMigration = slides.some(slide => !!slide.image && !slide.image_srcset);
-  const migratedSlides = useSelect(select => slides && slides.map(slide => {
-    if (!needsMigration) {
-      return null;
-    }
-    let attempt = 0;
-    let image;
-    // Run a loop as this could return undefined the first time.
-    while (!image && attempt++ < 100) {
-      image = select('core').getMedia(slide.image);
-    }
-    // Didn't see this case occur but catch it anyway.
-    if (!image) {
-      return slide;
-    }
-    const image_srcset = toSrcSet(Object.values(image.media_details.sizes));
-    // Prefer a registered resized size over the original full-resolution upload.
-    const image_url = getLargestSizeUrl(image);
-    return ({...slide, image_url, image_srcset, image_alt: image.alt_text});
-  }), [needsMigration, slides]);
-
   return useMemo(() => (
     <section className={`block block-header alignfull carousel-header ${className ?? ''}`}>
       <Sidebar
@@ -97,12 +75,6 @@ export const CarouselHeaderEditor = ({setAttributes, attributes}) => {
         changeSlideAttribute={changeSlideAttribute}
         goToSlide={goToSlide}
       />
-      { needsMigration && <button
-        title={'This block was created before WYSIWYG, press this to fetch data the new version uses.'}
-        onClick={() => {
-          setAttributes({slides: migratedSlides});
-        }}
-      >Migrate image data</button>}
       <div className="carousel-wrapper-header">
         <ul className="carousel-inner" role="listbox">
           {slides?.map((slide, index) => (
@@ -156,8 +128,6 @@ export const CarouselHeaderEditor = ({setAttributes, attributes}) => {
     goToSlide,
     goToPrevSlide,
     goToNextSlide,
-    migratedSlides,
-    needsMigration,
     setAttributes,
     addSlide,
     changeSlideAttribute,
