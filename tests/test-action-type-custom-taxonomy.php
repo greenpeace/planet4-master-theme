@@ -38,7 +38,7 @@ class ActionTypeCustomTaxonomyTest extends P4TestCase
             ]
         );
 
-        $terms = wp_get_object_terms($post_id, 'action-type');
+        $terms = get_the_terms($post_id, 'action-type');
 
         // Assert that the action has been assigned with a action-type term.
         $this->assertCount(1, $terms);
@@ -73,7 +73,7 @@ class ActionTypeCustomTaxonomyTest extends P4TestCase
             ]
         );
 
-        $terms = wp_get_object_terms($post_id, 'action-type');
+        $terms = get_the_terms($post_id, 'action-type');
         // Assert that the Action has been assigned with a single action-type term.
         $this->assertCount(1, $terms);
         $this->assertEquals('contest', $terms[0]->slug);
