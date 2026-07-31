@@ -521,7 +521,7 @@ class ActionPage
 
         // Check if Action has a action type term assigned to it and if none assigned,
         // assign the default p4 action type term.
-        $terms = wp_get_object_terms($post->ID, self::TAXONOMY);
+        $terms = get_the_terms($post->ID, self::TAXONOMY);
         if (is_wp_error($terms)) {
             return;
         }
@@ -666,7 +666,7 @@ class ActionPage
         }
 
         // Get action's taxonomy terms.
-        $terms = wp_get_object_terms($post->ID, self::TAXONOMY);
+        $terms = get_the_terms($post->ID, self::TAXONOMY);
 
         if (! is_wp_error($terms) && ! empty($terms) && is_object($terms[0])) {
             $taxonomy_slug = $terms[0]->slug;

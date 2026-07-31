@@ -37,7 +37,7 @@ class CustomTaxonomyTest extends P4TestCase
             ]
         );
 
-        $terms = wp_get_object_terms($post_id, 'p4-page-type');
+        $terms = get_the_terms($post_id, 'p4-page-type');
 
         // Assert that the post has been assigned with a p4-page-type term.
         $this->assertEquals(1, count($terms));
@@ -71,7 +71,7 @@ class CustomTaxonomyTest extends P4TestCase
             ]
         );
 
-        $terms = wp_get_object_terms($post_id, 'p4-page-type');
+        $terms = get_the_terms($post_id, 'p4-page-type');
         // Assert that the post has been assigned with a single p4-page-type term.
         $this->assertEquals(1, count($terms));
         $this->assertEquals('publication', $terms[0]->slug);
