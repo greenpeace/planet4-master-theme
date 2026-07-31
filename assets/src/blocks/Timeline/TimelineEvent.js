@@ -101,7 +101,7 @@ export const TimelineEvent = ({event}) => {
           data-ga-label="n/a"
           type="button"
         >
-          {expanded ? __('Show less', 'planet4-blocks') : __('Show more', 'planet4-blocks')}
+          {expanded ? __('Show less', 'planet4-master-theme') : __('Show more', 'planet4-master-theme')}
         </button>
         {event.external_link && isValidHttpsUrl(event.external_link)  && (
           <div className="d-flex justify-content-end">
@@ -110,7 +110,7 @@ export const TimelineEvent = ({event}) => {
               href={event.external_link} rel="noreferrer"
               className="timeline-external-link"
             >
-              {__('Learn more', 'planet4-blocks')}
+              {__('Learn more', 'planet4-master-theme')}
             </a>
           </div>
         )}

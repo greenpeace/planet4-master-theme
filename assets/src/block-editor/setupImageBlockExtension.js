@@ -86,7 +86,7 @@ const addExtraControls = () => {
         <BlockEdit {...props} />
         <InspectorControls>
           <PanelBody
-            title={__('Planet4 Image Options')}
+            title={__('Planet4 Image Options', 'planet4-master-theme-backend')}
             initialOpen={true}
           >
             {/* eslint-disable-next-line jsx-a11y/label-has-for, jsx-a11y/label-has-associated-control */}
