@@ -40,8 +40,9 @@ class HttpHeaders
         }
 
         $directives = [
-            'default-src * \'self\' data: \'unsafe-inline\' \'unsafe-eval\'',
-            'frame-ancestors ' . implode(' ', $allowed_frame_ancestors),
+            "default-src 'self' https: 'unsafe-inline'",
+            "img-src 'self' https: data:",
+            "frame-ancestors " . implode(' ', $allowed_frame_ancestors),
         ];
 
         // Add VWO exception to CSP list
@@ -49,18 +50,6 @@ class HttpHeaders
         if ($enable_vwo) {
             // phpcs:disable Generic.Files.LineLength.MaxExceeded
             $directives[0] = $directives[0] . ' blob: *.visualwebsiteoptimizer.com app.vwo.com useruploads.vwo.io';
-        }
-
-        // Add CSP exceptions from Social settings.
-        $csp_exceptions = planet4_get_option('csp_headers_exceptions') ?? '';
-        if ($csp_exceptions) {
-            $exceptions = array_filter(
-                array_map('trim', explode("\n", $csp_exceptions)),
-                fn($line) => str_starts_with($line, 'https://')
-            );
-            if ($exceptions) {
-                $directives[0] .= ' ' . implode(' ', $exceptions);
-            }
         }
 
         $csp_header = implode('; ', $directives);
