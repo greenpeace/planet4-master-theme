@@ -25,7 +25,7 @@
     {% set org_info = org_info|merge( {'sameAs': social_menu_links } ) %}
 {% endif %}
 {% set org_info = org_info|merge({ 'name': site.name }) %}
-{% set org_info = org_info|merge({ 'logo': site.link ~ '/wp-content/themes/planet4-master-theme/images/Greenpeace-logo.png' }) %}
+{% set org_info = org_info|merge({ 'logo': site.link ~ '/wp-content/themes/planet4-master-theme/images/gp-logo.svg' }) %}
 
 <script type='application/ld+json'>{{ website_info|json_encode()|raw }}</script>
 <script type='application/ld+json'>{{ org_info|json_encode()|raw }}</script>
