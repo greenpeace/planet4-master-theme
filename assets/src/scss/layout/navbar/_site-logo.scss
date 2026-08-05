@@ -2,7 +2,22 @@
   line-height: var(--navbar-menu-height--small);
 
   img {
-    height: 26px;
+    width: clamp(80px, 100cqw, 160px);
+
+    @include mobile-only {
+      height: auto;
+      object-fit: contain;
+    }
+
+    @include medium-and-up {
+      height: 26px;
+    }
+  }
+
+  @include mobile-only {
+    flex: 1 1 auto;
+    container-type: inline-size;
+    margin-inline-end: $sp-1;
   }
 
   @include large-and-up {

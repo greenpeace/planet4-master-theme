@@ -76,13 +76,13 @@ $transition-duration: .2s;
 
   .site-logo {
     display: block;
-    width: fit-content;
     margin-inline-start: 0;
     margin-bottom: $sp-1x;
     line-height: 1;
 
     img {
       height: 23px;
+      width: unset;
     }
   }
 

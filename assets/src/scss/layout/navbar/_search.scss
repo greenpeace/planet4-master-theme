@@ -176,8 +176,13 @@
   width: 44px;
   display: none;
   padding: $sp-1 $sp-1;
-  margin: auto $sp-1;
+  margin: auto $sp-x;
   position: relative;
+
+  @include medium-and-up {
+    margin-inline-start: $sp-1;
+    margin-inline-end: $sp-1;
+  }
 
   &:focus {
     @include focus-styles(50%);
