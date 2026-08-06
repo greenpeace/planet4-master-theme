@@ -1,4 +1,5 @@
 import {YearsNavigation} from './YearsNavigation';
+import {TimelineEvent} from './TimelineEvent';
 
 const {useState, useEffect} = wp.element;
 const {__, sprintf} = wp.i18n;
@@ -12,44 +13,6 @@ const getMonthName = monthNumber => {
   const locale = document.documentElement.lang || 'en';
   return new Intl.DateTimeFormat(locale, {month: 'long'})
     .format(new Date(2000, monthNumber - 1));
-};
-
-/**
- * Get event date in correct format based on user locale.
- *
- * @param {number} day   - The day of the event.
- * @param {number} month - The month of the event.
- */
-const getLocalizedDate = (day, month) => {
-  const locale = document.documentElement.lang || 'en';
-
-  const date = new Date(2000, month - 1, day);
-
-  return new Intl.DateTimeFormat(locale, {
-    day: 'numeric',
-    month: 'long',
-  }).format(date);
-};
-
-/**
- * Check if a string is a valid URL that uses https protocol.
- *
- * @param {string} value - The URL to be checked.
- */
-const isValidHttpsUrl = value => {
-  if (typeof value !== 'string') {return false;}
-
-  try {
-    const url = new URL(value.trim());
-
-    return (
-      url.protocol === 'https:' &&
-      url.hostname.includes('.') &&
-      !url.hostname.startsWith('.')
-    );
-  } catch {
-    return false;
-  }
 };
 
 /**
@@ -98,61 +61,6 @@ export const TimelineFrontend = ({attributes}) => {
   const [loading, setLoading] = useState(false);
   const [sheetData, setSheetData] = useState(null);
   const [processedSheetData, setProcessedSheetData] = useState(null);
-
-  const TimelineEvent = ({event}) => {
-    const [expanded, setExpanded] = useState(false);
-    const contentId = `timeline-content-${event.day}-${event.month}`;
-
-    // Check if the event has a media, and if that media is an image.
-    const hasImage = event.media && /\.(jpg|jpeg|png|webp|avif|gif|svg)(\?.*)?$/i.test(event.media);
-
-    return (
-      <li className="timeline-block-event">
-        <p
-          className="timeline-block-event-day"
-          aria-label={`${getLocalizedDate(event.day, event.month)}`}
-        >
-          {getLocalizedDate(event.day, event.month)}
-        </p>
-        {hasImage && (
-          <img
-            src={event.media}
-            alt={event.media_caption ?? ''}
-            loading="lazy"
-            onError={e => e.currentTarget.style.display = 'none'}
-          />
-        )}
-        <h3 className="timeline-block-event-title">{event.headline}</h3>
-        <div className="timeline-description-wrapper">
-          <p
-            id={contentId}
-            className={`timeline-block-event-description ${expanded ? 'expanded' : 'clamped'}`}
-            dangerouslySetInnerHTML={{__html: event.text}}
-          />
-          <button
-            className="timeline-description-toggle"
-            aria-expanded={expanded}
-            aria-controls={contentId}
-            onClick={() => setExpanded(!expanded)}
-            type="button"
-          >
-            {expanded ? __('Show less', 'planet4-blocks') : __('Show more', 'planet4-blocks')}
-          </button>
-          {event.external_link && isValidHttpsUrl(event.external_link)  && (
-            <div className="d-flex justify-content-end">
-              <a
-                target="_blank"
-                href={event.external_link} rel="noreferrer"
-                className="timeline-external-link"
-              >
-                {__('Learn more', 'planet4-blocks')}
-              </a>
-            </div>
-          )}
-        </div>
-      </li>
-    );
-  };
 
   useEffect(() => {
     (async () => {
