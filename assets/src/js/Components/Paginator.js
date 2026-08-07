@@ -114,7 +114,7 @@ function Paginator({currentPage, totalPages, onPageChange}) {
   const pageNumbers = getPageNumbers(currentPage, totalPages);
 
   return (
-    <nav className="wp-block-query-pagination is-layout-flex wp-block-query-pagination-is-layout-flex" aria-label="Pagination">
+    <nav className="wp-block-query-pagination is-layout-flex wp-block-query-pagination-is-layout-flex" aria-label={__('Pagination', 'planet4-master-theme')}>
       <a
         href="#"
         className={`wp-block-query-pagination-previous${isFirstPage ? ' disabled' : ''}`}

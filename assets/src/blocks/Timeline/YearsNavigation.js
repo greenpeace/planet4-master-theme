@@ -165,7 +165,7 @@ export const YearsNavigation = ({years, isEditing, timelineId}) => {
       className={`years-navigation d-flex justify-content-center ${isEditing ? 'no-scroll' : ''}`}
       aria-label={sprintf(
       /* translators: 1: amount of years in the timeline */
-        __('Timeline, list with %1$d items', 'planet4-blocks'),
+        __('Timeline, list with %1$d items', 'planet4-master-theme'),
         years.length
       )}
     >
