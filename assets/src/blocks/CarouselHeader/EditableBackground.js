@@ -56,7 +56,11 @@ export const EditableBackground = ({
       onSelect={async image => {
         let imageRecord;
         try {
-          imageRecord = await wp.data.resolveSelect('core').getMedia(image.id);
+          imageRecord = await wp.data.resolveSelect('core').getEntityRecord(
+            'postType',
+            'attachment',
+            image.id
+          );
         } catch (error) {
           logDataInSentry(error);
           // eslint-disable-next-line no-alert
