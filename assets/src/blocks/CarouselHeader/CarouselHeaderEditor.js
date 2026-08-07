@@ -18,7 +18,17 @@ export const CarouselHeaderEditor = ({setAttributes, attributes}) => {
   const {carousel_autoplay, slides, className} = attributes;
   const slidesRef = useRef([]);
 
-  const {currentSlide, goToSlide, goToNextSlide, goToPrevSlide, autoplay, setAutoplay, handleAutoplay, indicatorsRef} = useSlides(slidesRef, slides.length);
+  const {
+    currentSlide,
+    goToSlide,
+    goToNextSlide,
+    goToPrevSlide,
+    autoplay,
+    setAutoplay,
+    handleAutoplay,
+    indicatorsRef,
+    handleUserInteraction,
+  } = useSlides(slidesRef, slides.length);
 
   const changeSlideAttribute = useCallback((slideAttributeName, index) => value => {
     const newSlides = JSON.parse(JSON.stringify(slides));
@@ -77,31 +87,36 @@ export const CarouselHeaderEditor = ({setAttributes, attributes}) => {
       />
       <div className="carousel-wrapper-header">
         <ul className="carousel-inner" role="listbox">
-          {slides?.map((slide, index) => (
-            <Slide
-              key={index}
-              ref={element => slidesRef ? slidesRef.current[index] = element : null}
-              active={currentSlide === index}
-            >
-              <EditableBackground
-                image_url={slide.image_url}
-                image_srcset={slide.image_srcset}
-                focalPoints={slide.focal_points}
-                image_id={slide.image}
-                index={index}
-                changeSlideImage={changeSlideImage}
-                updateCurrentImageIndex={updateCurrentImageIndex}
-                addSlide={addSlide}
-                removeSlide={removeSlide}
-                slides={slides}
-              />
-              <Caption
-                slide={slide}
-                index={index}
-                changeSlideAttribute={changeSlideAttribute}
-              />
-            </Slide>
-          ))}
+          {slides?.map((slide, index) => {
+            const isActive = currentSlide === index;
+
+            return (
+              <Slide
+                key={index}
+                ref={element => slidesRef ? slidesRef.current[index] = element : null}
+                active={isActive}
+                focusable={isActive}
+                handleUserInteraction={handleUserInteraction}
+              >
+                <EditableBackground
+                  image_url={slide.image_url}
+                  image_srcset={slide.image_srcset}
+                  focalPoints={slide.focal_points}
+                  image_id={slide.image}
+                  index={index}
+                  changeSlideImage={changeSlideImage}
+                  updateCurrentImageIndex={updateCurrentImageIndex}
+                  addSlide={addSlide}
+                  removeSlide={removeSlide}
+                  slides={slides}
+                />
+                <Caption
+                  slide={slide}
+                  index={index}
+                  changeSlideAttribute={changeSlideAttribute}
+                />
+              </Slide>);
+          })}
           {(slides.length > 1) && (
             <CarouselControls
               goToPrevSlide={goToPrevSlide}
@@ -137,5 +152,6 @@ export const CarouselHeaderEditor = ({setAttributes, attributes}) => {
     setAutoplay,
     indicatorsRef,
     handleAutoplay,
+    handleUserInteraction,
   ]);
 };
