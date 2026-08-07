@@ -46,9 +46,9 @@ class Post extends \Timber\Post
     public static function build(\WP_Post $wp_post): self
     {
         $post = parent::build($wp_post);
+        $post->post_meta = get_post_meta($post->ID);
         $post->set_page_types();
         $post->set_author();
-        $post->post_meta = get_post_meta($post->ID);
 
         return $post;
     }
@@ -361,11 +361,10 @@ class Post extends \Timber\Post
 
     /**
      * Get post's author override status.
-     *
      */
     public function get_author_override(): bool
     {
-        return (bool) $this->post_meta['p4_author_override'][0] ?? false;
+        return array_key_exists('p4_author_override', $this->post_meta);
     }
 
     /**
@@ -373,12 +372,11 @@ class Post extends \Timber\Post
      */
     public function set_author(): void
     {
-        $author_override = $this->get_author_override();
         $real_author = Timber::get_user((int) $this->post_author);
 
-        if (true !== $author_override) {
+        if (true === $this->get_author_override()) {
             $fake_user = $real_author;
-            $fake_user->display_name = $author_override;
+            $fake_user->display_name = $this->post_meta['p4_author_override'][0];
             $this->author = $fake_user;
         } else {
             $this->author = $real_author;
