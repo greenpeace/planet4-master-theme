@@ -100,37 +100,35 @@ class CategoryPageTest extends P4TestCase
     /**
      * Test category php template and category twig template.
      */
-    // TO-DO: FIX THIS TEST!!
+    public function test_category_page_results(): void
+    {
 
-    // public function test_category_page_results(): void
-    // {
+        $user = get_user_by('login', 'p4_author');
+        wp_set_current_user($user->ID);
 
-    //     $user = get_user_by('login', 'p4_author');
-    //     wp_set_current_user($user->ID);
+        $post_data = $this->get_posts()['post_with_category_tag_custom_term'];
+        $posts = $this->factory->post->create_many(10, $post_data);
 
-    //     $post_data = $this->get_posts()['post_with_category_tag_custom_term'];
-    //     $posts = $this->factory->post->create_many(10, $post_data);
+        // Get the ID of the nature category.
+        $category_id = get_cat_ID('Nature');
 
-    //     // Get the ID of the nature category.
-    //     $category_id = get_cat_ID('Nature');
+        $permalink = get_category_link($category_id);
+        $this->go_to($permalink);
 
-    //     $permalink = get_category_link($category_id);
-    //     $this->go_to($permalink);
+        $this->assertFalse(is_404());
+        $this->assertTrue(is_category());
 
-    //     $this->assertFalse(is_404());
-    //     $this->assertTrue(is_category());
+        wp_styles();
+        $output = \Timber\Helper::ob_function(
+            function (): void {
+                global $wp;
+                include get_template_directory() . '/taxonomy.php';
+            }
+        );
 
-    //     wp_styles();
-    //     $output = \Timber\Helper::ob_function(
-    //         function (): void {
-    //             global $wp;
-    //             include get_template_directory() . '/taxonomy.php';
-    //         }
-    //     );
-
-    //     // Test that contains 10 posts in the markup.
-    //     $this->assertSelectorCount(10, 'li.wp-block-post', $output);
-    // }
+        // Test that contains 10 posts in the markup.
+        $this->assertSelectorCount(10, 'li.wp-block-post', $output);
+    }
 
     /**
      * Provide posts data to be used by wp factories.
