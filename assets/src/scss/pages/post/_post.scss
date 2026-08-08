@@ -108,7 +108,7 @@
 .google-preferred-source {
   display: flex;
   flex-direction: column;
-  border: 1px solid #d1d2d3;
+  border: 1px solid var(--grey-300);
   border-radius: $sp-x;
   padding: $sp-3 $sp-2;
   margin-bottom: $sp-5;
@@ -122,7 +122,7 @@
 
   p {
     font-family: var(--font-family-primary);
-    font-weight: 700;
+    font-weight: var(--font-weight-bold);
     font-size: var(--font-size-m--font-family-primary);
     line-height: var(--line-height-m--font-family-primary);
     letter-spacing: 0;
@@ -148,7 +148,7 @@
   font-size: var(--font-size-s--font-family-tertiary);
   line-height: var(--line-height-s--font-family-tertiary);
   font-weight: 900;
-  border: 1px solid #aeafb1;
+  border: 1px solid var(--grey-500);
   border-radius: 12px;
   padding: $sp-1 $sp-2;
   margin: $sp-2 0 0;
