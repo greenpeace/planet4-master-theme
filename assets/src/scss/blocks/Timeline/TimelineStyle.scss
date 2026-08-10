@@ -67,12 +67,19 @@
     background-color: var(--white);
     padding: $sp-3;
 
+    video {
+      width: 100%;
+      border-radius: 4px;
+      margin-bottom: $sp-1x;
+    }
+
     img {
       border-radius: 4px;
       width: 100%;
       margin-bottom: $sp-1x;
       object-fit: cover;
       height: 164px;
+      cursor: default;
     }
 
     .timeline-block-event-day {
