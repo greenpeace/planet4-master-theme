@@ -87,6 +87,14 @@
       }
     }
   }
+
+  @include medium-and-less {
+    html[dir="rtl"] & {
+      .btn-donate {
+        margin-inline-start: $sp-1;
+      }
+    }
+  }
 }
 
 .nav-menu {
