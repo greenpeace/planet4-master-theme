@@ -14,6 +14,7 @@
               target="_blank"
               rel="noopener noreferrer"
             {% endif %}
+            aria-label="{{ site.name }} {{ social.title }}"
           >
             {{ social.icon|svgicon }}
             <span class="visually-hidden">{{ social.icon }}</span>
@@ -44,6 +45,8 @@
             {% else %}
               rel="me"
             {% endif %}
+
+            aria-label="{{ site.name }} {{ social.title }}"
           >
             {{ name|svgicon }}
             <span class="visually-hidden">{{ social.title }}</span>
