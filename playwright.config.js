@@ -22,13 +22,13 @@ const config = {
     timeout: parseInt(process.env.PW_EXPECT_TIMEOUT),
   },
   /* Run tests in files in parallel */
-  fullyParallel: true,
+  fullyParallel: false,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
   /* Retry on CI only */
   retries: parseInt(process.env.PW_RETRIES),
   /* Opt out of parallel tests on CI. */
-  workers: parseInt(process.env.PW_WORKERS),
+  workers: 1,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: process.env.CI ?
     [['html', {outputFolder: 'e2e-report'}],

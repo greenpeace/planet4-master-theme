@@ -76,9 +76,8 @@ function hashFile(filePath) {
   return createHash('sha256').update(buffer).digest('hex');
 }
 
-
 /**
- * Downloads a file via Playwright’s APIRequest and saves it to disk.
+ * Downloads a file via Playwright's APIRequest and saves it to disk.
  * A cache-busting query parameter is appended to avoid cached responses.
  *
  * @async
@@ -105,8 +104,6 @@ async function downloadFile(page, url, outputPath) {
 }
 
 test('Replace Media file (PDF) in WordPress', async ({page, admin, requestUtils}, testInfo) => {
-
-  test.skip('Issue with media upload in WP, need to sort it out first');
   test.slow();
   await ensureStatelessModeEnabled(page, admin, testInfo);
 
@@ -115,41 +112,62 @@ test('Replace Media file (PDF) in WordPress', async ({page, admin, requestUtils}
   const tmpDir = resolve('tests/tmp');
   mkdirSync(tmpDir, {recursive: true});
 
-  const beforePath = join(tmpDir, 'before.pdf');
-  const afterPath = join(tmpDir, 'after.pdf');
+  const runId = `${testInfo.workerIndex}-${Date.now()}`;
+  const beforePath = join(tmpDir, `before-${runId}.pdf`);
+  const afterPath = join(tmpDir, `after-${runId}.pdf`);
 
-  await page.goto('./wp-admin/upload.php');
-  await switchMediaLibraryToListView(page);
+  let uploadedMediaId;
 
-  // --- Upload the first file ---
-  const uploadedMedia = await requestUtils.uploadMedia(originalFile);
-  expect(uploadedMedia.slug).toContain('test_media_replacer_pdf_1');
+  try {
+    await page.goto('./wp-admin/upload.php');
+    await switchMediaLibraryToListView(page);
 
-  // --- Navigate to the media edit page ---
-  await admin.visitAdminPage('post.php', `post=${uploadedMedia.id}&action=edit`);
+    // --- Upload the first file ---
+    const uploadedMedia = await requestUtils.uploadMedia(originalFile);
+    uploadedMediaId = uploadedMedia.id;
+    expect(uploadedMedia.slug).toContain('test_media_replacer_pdf_1');
 
-  // --- Download the original file for hashing ---
-  const fileUrl = await page.locator('#attachment_url').inputValue();
-  await downloadFile(page, fileUrl, beforePath);
-  const oldHash = hashFile(beforePath);
+    // --- Navigate to the media edit page ---
+    await admin.visitAdminPage('post.php', `post=${uploadedMedia.id}&action=edit`);
 
-  // --- Replace the media file ---
-  await replaceMediaFile(page, newFile);
-  await page.waitForTimeout(10000); // Allow for backend processing
+    // --- Download the original file for hashing ---
+    const attachmentUrlField = page.locator('#attachment_url');
+    await expect(attachmentUrlField).toBeVisible();
+    const fileUrl = await attachmentUrlField.inputValue();
+    await downloadFile(page, fileUrl, beforePath);
+    const oldHash = hashFile(beforePath);
 
-  const successNotice = page.locator('.notice-success');
-  await expect(successNotice).toContainText('These files were successfully replaced:', {timeout: 10000});
+    // --- Replace the media file ---
+    await replaceMediaFile(page, newFile);
 
-  // --- Download the new file for hashing ---
-  const newFileUrl = await page.locator('#attachment_url').inputValue();
-  await downloadFile(page, newFileUrl, afterPath);
-  const newHash = hashFile(afterPath);
+    const successNotice = page.locator('.notice-success');
+    await expect(successNotice).toContainText('These files were successfully replaced:', {timeout: 20000});
 
-  expect(newHash).not.toBe(oldHash);
+    // --- Download the new file for hashing ---
+    await expect(attachmentUrlField).toBeVisible();
+    const newFileUrl = await attachmentUrlField.inputValue();
+    await downloadFile(page, newFileUrl, afterPath);
+    const newHash = hashFile(afterPath);
 
-  // --- Cleanup via REST API ---
-  await requestUtils.deleteMedia(uploadedMedia.id);
+    expect(newHash).not.toBe(oldHash);
+  } finally {
+    // --- Always clean up, even if the test failed ---
+    if (uploadedMediaId) {
+      try {
+        await requestUtils.deleteMedia(uploadedMediaId);
+      } catch (cleanupError) {
+        throw new Error(`Failed to clean up media ${uploadedMediaId}:`, cleanupError);
+      }
+    }
 
-  if (existsSync(beforePath)) {unlinkSync(beforePath);}
-  if (existsSync(afterPath)) {unlinkSync(afterPath);}
+    for (const filePath of [beforePath, afterPath]) {
+      try {
+        if (existsSync(filePath)) {
+          unlinkSync(filePath);
+        }
+      } catch (cleanupError) {
+        throw new Error(`Failed to clean up file ${filePath}:`, cleanupError);
+      }
+    }
+  }
 });

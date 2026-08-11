@@ -205,6 +205,20 @@ const closeMetaBoxesTab = async ({page}) => {
   }
 };
 
+/**
+ * Closes the Gutenberg "Welcome to the editor" guide modal if present.
+ *
+ * @param {{Page}} page
+ */
+const closeWelcomeGuideIfPresent = async ({page}) => {
+  const welcomeGuide = page.getByRole('dialog', {name: 'Welcome to the editor'});
+
+  if (await welcomeGuide.isVisible().catch(() => false)) {
+    await welcomeGuide.getByRole('button', {name: 'Close'}).click();
+    await expect(welcomeGuide).toBeHidden();
+  }
+};
+
 export {
   openComponentPanel,
   searchAndInsertBlock,
@@ -213,4 +227,5 @@ export {
   pickBlockStyle,
   openMetaBoxesTab,
   closeMetaBoxesTab,
+  closeWelcomeGuideIfPresent,
 };

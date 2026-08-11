@@ -8,7 +8,6 @@ test('Test Related Posts block', async ({page, requestUtils}) => {
   let postId;
 
   try {
-    // 1. Create isolated test post.
     const newPost = await requestUtils.rest({
       path: '/wp/v2/posts',
       method: 'POST',
@@ -29,10 +28,8 @@ test('Test Related Posts block', async ({page, requestUtils}) => {
       .locator('.edit-post-layout__metaboxes')
       .getByRole('combobox', {name: 'Include Related Posts'});
 
-    // 2. Open editor.
     await page.goto(editUrl, {waitUntil: 'domcontentloaded'});
 
-    // 3. Enable Related Posts.
     await openMetaBoxesTab({page});
     await expect(relatedPostsSelect).toBeVisible();
     await relatedPostsSelect.selectOption('Yes');
@@ -40,16 +37,13 @@ test('Test Related Posts block', async ({page, requestUtils}) => {
     await closeMetaBoxesTab({page});
     await updatePost({page});
 
-    // 4. Verify frontend.
     await page.goto(postUrl, {waitUntil: 'domcontentloaded'});
     const relatedSection = page.locator('.p4-query-loop');
     await expect(relatedSection).toBeVisible();
     await expect(relatedSection.locator('.wp-block-post-template')).not.toHaveCount(0);
 
-    // 5. Reopen editor.
     await page.goto(editUrl, {waitUntil: 'domcontentloaded'});
 
-    // 6. Disable Related Posts.
     await openMetaBoxesTab({page});
     await expect(relatedPostsSelect).toBeVisible();
     await relatedPostsSelect.selectOption('No');
@@ -57,11 +51,9 @@ test('Test Related Posts block', async ({page, requestUtils}) => {
     await closeMetaBoxesTab({page});
     await updatePost({page});
 
-    // 7. Verify frontend.
     await page.goto(postUrl, {waitUntil: 'domcontentloaded'});
     await expect(page.locator('.p4-query-loop')).toHaveCount(0);
   } finally {
-    // 8. Always clean up, without masking the original test failure.
     if (postId) {
       try {
         await requestUtils.rest({
