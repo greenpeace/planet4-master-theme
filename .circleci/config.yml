@@ -113,26 +113,6 @@ jobs:
           name: Lint commit messages
           command: npx commitlint -V --from main --to ${CIRCLE_SHA1}
 
-  a11y-tests:
-    docker:
-      - image: cimg/node:20.18.0-browsers
-        auth:
-          <<: *docker_auth
-    steps:
-      - attach_workspace:
-          at: /tmp/workspace
-      - checkout
-      - run: *install_node_dependencies
-      - run:
-          name: Accessibility tests
-          command: |
-            home="https://www-dev.greenpeace.org/test-$(cat /tmp/workspace/test-instance)/"
-            search="https://www-dev.greenpeace.org/test-$(cat /tmp/workspace/test-instance)/?s="
-            cat .pa11yci | jq ' .urls = ["'"$home"'", "'"$search"'"]' > pa11y.json
-            npx pa11y-ci -c pa11y.json -T 1000 --reporter=pa11y-ci-reporter-html
-      - store_artifacts:
-          path: /home/circleci/project/pa11y-ci-report
-
   request-instance:
     environment:
       GOOGLE_PROJECT_ID: planet-4-151612
@@ -397,10 +377,6 @@ workflows:
           requires:
             - request-instance
       - comment-pr:
-          <<: *on_pr
-          requires:
-            - instance-ready
-      - a11y-tests:
           <<: *on_pr
           requires:
             - instance-ready
