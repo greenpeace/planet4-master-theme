@@ -36,8 +36,8 @@ class SaveCloudflareKey extends Command
      * @param array|null $assoc_args Named arguments.
      *
      * @throws WP_CLI\ExitException If no hostname or Cloudflare key is not present.
-     * phpcs:disable SlevomatCodingStandard.Functions.UnusedParameter -- interface implementation
      */
+    // phpcs:ignore SlevomatCodingStandard.Functions.UnusedParameter
     public static function execute(?array $args, ?array $assoc_args): void
     {
         $hostname = $args[0] ?? null;
@@ -49,12 +49,12 @@ class SaveCloudflareKey extends Command
             WP_CLI::error('CLOUDFLARE_API_KEY constant is not set.');
         }
 
-        // Remove www from the hostname, since Cloudflare needs the apex domain.
-        $root_domain = str_replace('www.', '', $hostname);
+        // Remove www or other common subdomains from the hostname,
+        // since Cloudflare needs the apex domain.
+        $apex_domain = preg_replace('/^(www|www-stage|www-dev)\./i', '', trim($hostname));
 
         update_option('cloudflare_api_key', CLOUDFLARE_API_KEY);
         update_option('automatic_platform_optimization', [ 'value' => 1 ]);
-        update_option('cloudflare_cached_domain_name', $root_domain);
+        update_option('cloudflare_cached_domain_name', $apex_domain);
     }
-    // phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter
 }
