@@ -178,9 +178,27 @@ const ListingPagePosts = ({filtersContainer, layoutToggleContainer}) => {
       }
 
       const [postTypesRes, categoriesRes, tagsRes] = await Promise.all([
-        fetchJson(`${BASE_URL}/wp-json/${addQueryArgs('wp/v2/p4-page-type', {per_page: 100, hide_empty: true})}`),
-        fetchJson(`${BASE_URL}/wp-json/${addQueryArgs('wp/v2/categories', {per_page: 100, hide_empty: true})}`),
-        fetchJson(`${BASE_URL}/wp-json/${addQueryArgs('wp/v2/tags', {per_page: 100, hide_empty: true})}`),
+        fetchJson(`${BASE_URL}/wp-json/${addQueryArgs('planet4/v1/taxonomy-list', {
+          taxonomy: 'p4-page-type',
+          per_page: 100,
+          hide_empty: true,
+          orderby: 'name',
+          order: 'ASC',
+        })}`),
+        fetchJson(`${BASE_URL}/wp-json/${addQueryArgs('planet4/v1/taxonomy-list', {
+          taxonomy: 'category',
+          per_page: 100,
+          hide_empty: true,
+          orderby: 'name',
+          order: 'ASC',
+        })}`),
+        fetchJson(`${BASE_URL}/wp-json/${addQueryArgs('planet4/v1/taxonomy-list', {
+          taxonomy: 'post_tag',
+          per_page: 100,
+          hide_empty: true,
+          orderby: 'name',
+          order: 'ASC',
+        })}`),
       ]);
 
       if (!Array.isArray(postTypesRes.data)) {
@@ -231,7 +249,14 @@ const ListingPagePosts = ({filtersContainer, layoutToggleContainer}) => {
       }
 
       const {data, totalPages: pages} = await fetchJson(
-        `${BASE_URL}/wp-json/wp/v2/${addQueryArgs(endpoint, args)}`
+        `${BASE_URL}/wp-json/${addQueryArgs('planet4/v1/posts-list', {
+          endpoint,
+          per_page: args.per_page,
+          page: args.page,
+          _embed: args._embed,
+          ...buildArchiveArgs(archiveContext),
+          ...buildFilterArgs(filters),
+        })}`
       );
 
       // Ignore this response if a newer request has been fired.

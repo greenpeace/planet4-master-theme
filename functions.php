@@ -99,6 +99,8 @@ add_action(
         Api\Settings::register_endpoint();
         Api\AnalyticsValues::register_endpoint();
         Api\Tracking::register_endpoint();
+        Api\TaxonomyList::register_endpoint();
+        Api\PostsList::register_endpoint();
     }
 );
 
