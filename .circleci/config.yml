@@ -349,7 +349,7 @@ workflow_definitions:
       branches:
         ignore: /.*/
       tags:
-        only: /^v\p{Digit}+\.\p{Digit}+.*/
+        only: /^v.*/
 
 workflows:
   branch:
@@ -366,7 +366,7 @@ workflows:
             branches:
               ignore: main
             tags:
-              only: /^v\p{Digit}+\.\p{Digit}+.*/
+              only: /^v.*/
       - request-instance:
           <<: *on_pr
           requires:
