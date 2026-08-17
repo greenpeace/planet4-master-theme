@@ -35,6 +35,7 @@ export const setupAccessibleNavMenu = () => {
         const accessibleLink = button.querySelector(ACCESSIBLE_NAV_LINK_CLASS);
         if (accessibleLink) {
           accessibleLink.classList.add('rotate');
+          accessibleLink.setAttribute('aria-expanded', 'true');
         }
       });
       button.addEventListener('mouseleave', () => {
@@ -47,6 +48,7 @@ export const setupAccessibleNavMenu = () => {
         const accessibleLink = button.querySelector(ACCESSIBLE_NAV_LINK_CLASS);
         if (accessibleLink) {
           accessibleLink.classList.remove('rotate');
+          accessibleLink.setAttribute('aria-expanded', 'false');
         }
       });
     });
@@ -63,10 +65,12 @@ export const setupAccessibleNavMenu = () => {
             submenu.style.display = 'flex';
             submenu.hidden = false;
             button.classList.add('rotate');
+            button.setAttribute('aria-expanded', 'true');
           } else {
             submenu.style.display = 'none';
             submenu.hidden = true;
             button.classList.remove('rotate');
+            button.setAttribute('aria-expanded', 'false');
           }
         }
       });
@@ -76,6 +80,7 @@ export const setupAccessibleNavMenu = () => {
 
         if (parentIsDonateBtn || parentHasChildren) {
           button.classList.remove('rotate');
+          button.setAttribute('aria-expanded', 'false');
           const submenu = button.closest(`${NAV_ITEM_CLASS}, ${NAV_DONATE_CLASS}`).querySelector(NAV_SUBMENU_CLASS);
           if (submenu) {
             submenu.style.display = 'none';
@@ -97,6 +102,7 @@ export const setupAccessibleNavMenu = () => {
           submenu.style.display = 'none';
           if (button) {
             button.classList.remove('rotate');
+            button.setAttribute('aria-expanded', 'false');
           }
         }
       });
