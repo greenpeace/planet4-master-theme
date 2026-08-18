@@ -41,6 +41,7 @@ class HttpHeaders
 
         $directives = [
             "default-src 'self' https: 'unsafe-inline'",
+            "connect-src 'self' https: wss:",
             "img-src 'self' https: data:",
             "frame-ancestors " . implode(' ', $allowed_frame_ancestors),
         ];
