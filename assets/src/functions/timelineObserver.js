@@ -1,24 +1,33 @@
+import {debounce} from '@wordpress/compose';
+
+const DEBOUNCE_MS = 150;
+
 export const observeTimelineHeadings = callback => {
   const timelineSelector = '[class*="timeline"]';
 
-  let timelineObserver;
+  const observers = [];
+  const watchedBlocks = new WeakSet();
+
+  const debouncedCallback = debounce(callback, DEBOUNCE_MS);
 
   const startTimelineObserver = timelineBlock => {
+    if (watchedBlocks.has(timelineBlock)) {
+      return;
+    }
+    watchedBlocks.add(timelineBlock);
 
     const existingHeading = timelineBlock.querySelector('h2');
 
     if (existingHeading) {
-      callback();
+      debouncedCallback();
       return;
     }
 
-    // eslint-disable-next-line no-unused-vars
-    timelineObserver = new MutationObserver(mutations => {
-
+    const timelineObserver = new MutationObserver(() => {
       const heading = timelineBlock.querySelector('h2');
 
       if (heading) {
-        callback();
+        debouncedCallback();
         timelineObserver.disconnect();
       }
     });
@@ -27,37 +36,31 @@ export const observeTimelineHeadings = callback => {
       childList: true,
       subtree: true,
     });
+
+    observers.push(timelineObserver);
   };
 
+  const attachToAllTimelineBlocks = () => {
+    document.querySelectorAll(timelineSelector).forEach(startTimelineObserver);
+  };
 
-  const timelineBlock = document.querySelector(timelineSelector);
+  // Watch the body for as long as this component is mounted, since timeline
+  // blocks can keep hydrating in at different times. Each newly-inserted
+  // block gets picked up and attached here; already-watched blocks are
+  // skipped via `watchedBlocks`.
+  const bodyObserver = new MutationObserver(attachToAllTimelineBlocks);
 
-  if (timelineBlock) {
-    startTimelineObserver(timelineBlock);
-  } else {
-    const bodyObserver = new MutationObserver(() => {
-      const timelineObserverBlock = document.querySelector(timelineSelector);
+  bodyObserver.observe(document.body, {
+    childList: true,
+    subtree: true,
+  });
 
-      if (timelineObserverBlock) {
-
-        bodyObserver.disconnect();
-
-        startTimelineObserver(timelineObserverBlock);
-      }
-    });
-
-    bodyObserver.observe(document.body, {
-      childList: true,
-      subtree: true,
-    });
-
-    return () => {
-      bodyObserver.disconnect();
-      timelineObserver?.disconnect();
-    };
-  }
+  // Attach to whatever's already in the DOM immediately too.
+  attachToAllTimelineBlocks();
 
   return () => {
-    timelineObserver?.disconnect();
+    debouncedCallback.cancel();
+    bodyObserver.disconnect();
+    observers.forEach(observer => observer.disconnect());
   };
 };
