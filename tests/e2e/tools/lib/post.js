@@ -56,8 +56,6 @@ async function publishPost({page, editor}) {
  *
  * @param {Object} params      - Parameters for updating the post.
  * @param {Object} params.page - The page object representing the browser page.
- *
- * @return {Promise<void>} - A promise that resolves when the update is confirmed.
  */
 async function updatePost({page}) {
   const updateButton = page.locator('.editor-header__settings').getByRole('button', {name: 'Save'});

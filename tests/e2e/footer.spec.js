@@ -19,6 +19,7 @@ test('check footer menu', async ({page}) => {
       page.locator('span.submit-btn input.button').click(),
     ]);
 
+    // Verify that the select has the value of the option matching the footer menu name.
     await expect(menuSelect).toHaveValue(await menuSelect.locator(`option:has-text("${footerMenu}")`).getAttribute('value'));
 
     const menuItemsList = page.locator('ul#menu-to-edit li');

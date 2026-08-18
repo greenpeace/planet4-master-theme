@@ -114,9 +114,9 @@ const changeConfirmationType = async ({page, admin}, formId, label) => {
     'admin.php',
     `page=gf_edit_forms&view=settings&subview=confirmation&id=${formId}`
   );
-  const confrimationRow = await page.locator('#the-list > tr').first();
-  await expect(confrimationRow).toBeVisible();
-  await confrimationRow.hover();
+  const confirmationRow = await page.locator('#the-list > tr').first();
+  await expect(confirmationRow).toBeVisible();
+  await confirmationRow.hover();
 
   const editLink = await page.getByRole('link', {name: 'Edit', exact: true});
   await expect(editLink).toBeVisible();

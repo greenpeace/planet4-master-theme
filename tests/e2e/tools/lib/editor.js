@@ -48,6 +48,15 @@ const insertBlockVariation = async (page, variationName) => {
       );
     }
 
+    /**
+     * Creates WordPress block objects from an InnerBlocks template.
+     *
+     * Each template item is expected to contain a block name, optional attributes,
+     * and optional nested inner blocks. Nested templates are processed recursively
+     * so the resulting structure contains fully created WordPress block objects.
+     *
+     * @param {Array<Array>} blocks InnerBlocks template to convert.
+     */
     const createBlocksFromTemplate = (blocks = []) =>
       blocks.map(([blockName, attributes = {}, innerBlocks = []]) =>
         window.wp.blocks.createBlock(
@@ -103,9 +112,7 @@ const searchAndInsertBlock = async ({editor, page}, blockName) => {
     return;
   }
 
-  await editor.insertBlock({
-    name: blockName,
-  });
+  await editor.insertBlock({name: blockName});
 };
 
 /**
@@ -151,7 +158,7 @@ const searchAndInsertPattern = async ({page}, patternName) => {
  * @param {{Page, Editor}} page
  * @param {Array}          blockContent
  */
-const addHeadingOrParagraph = async ({page, editor}, blockContent) => {
+const addContent = async ({page, editor}, blockContent) => {
   for (const {heading, paragraph} of blockContent) {
     await searchAndInsertBlock({editor, page}, 'core/heading');
     const h2Element = editor.canvas.locator('[data-type="core/heading"][contenteditable="true"]').last();
@@ -223,7 +230,7 @@ export {
   openComponentPanel,
   searchAndInsertBlock,
   searchAndInsertPattern,
-  addHeadingOrParagraph,
+  addContent,
   pickBlockStyle,
   openMetaBoxesTab,
   closeMetaBoxesTab,

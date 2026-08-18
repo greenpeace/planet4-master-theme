@@ -3,7 +3,7 @@ import {publishPostAndVisit, createPostWithFeaturedImage} from '../tools/lib/pos
 import {
   searchAndInsertBlock,
   searchAndInsertPattern,
-  addHeadingOrParagraph,
+  addContent,
 } from '../tools/lib/editor.js';
 
 const NAV_LINK_CLASS = '.secondary-navigation-link';
@@ -39,7 +39,7 @@ test('Test Secondary Navigation block', async ({page, admin, editor}) => {
   await expect(editor.canvas.locator('.EmptyMessage')).toBeVisible();
 
   // // Add content (headings and paragraphs).
-  await addHeadingOrParagraph({editor, page}, content);
+  await addContent({editor, page}, content);
 
   // Publish page.
   await publishPostAndVisit({page, editor});

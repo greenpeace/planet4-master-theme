@@ -59,12 +59,10 @@ test.describe('Test Posts List block', () => {
       const suffix = Date.now();
 
       // Create 4 posts to be selected via the Manual Override.
-      const postTitles = [
-        `Test Posts List Manual Override Post 1 ${suffix}`,
-        `Test Posts List Manual Override Post 2 ${suffix}`,
-        `Test Posts List Manual Override Post 3 ${suffix}`,
-        `Test Posts List Manual Override Post 4 ${suffix}`,
-      ];
+      const postTitles = Array.from(
+        {length: 4},
+        (_, i) => `Test Posts List Manual Override Post 1 ${i + 1} ${suffix}`
+      );
 
       for (const title of postTitles) {
         const created = await requestUtils.rest({

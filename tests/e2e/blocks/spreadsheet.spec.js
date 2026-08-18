@@ -50,9 +50,6 @@ test('Test Spreadsheet block', async ({page, admin, editor}) => {
   await page.locator('button[aria-label="green"]').click();
   await expect(editorTable).toHaveClass(/is-color-green/);
 
-
-
-
   // Publish page.
   await publishPostAndVisit({page, editor});
 

@@ -41,10 +41,10 @@ test.describe('Test Actions List block', () => {
       const suffix = Date.now();
 
       // Create 2 actions to be selected via the Manual Override.
-      const regularActionTitles = [
-        `Test Actions List Manual Override Action 1 ${suffix}`,
-        `Test Actions List Manual Override Action 2 ${suffix}`,
-      ];
+      const regularActionTitles = Array.from(
+        {length: 2},
+        (_, i) => `Test Actions List Manual Override Action ${i + 1} ${suffix}`
+      );
 
       for (const title of regularActionTitles) {
         const created = await requestUtils.rest({
@@ -56,10 +56,10 @@ test.describe('Test Actions List block', () => {
       }
 
       // Create 2 actions as children of the "Take Action" page.
-      const childActionTitles = [
-        `Test Actions List Manual Override Child Action 1 ${suffix}`,
-        `Test Actions List Manual Override Child Action 2 ${suffix}`,
-      ];
+      const childActionTitles = Array.from(
+        {length: 2},
+        (_, i) => `Test Actions List Manual Override Child Action ${i + 1} ${suffix}`
+      );
 
       for (const title of childActionTitles) {
         const created = await requestUtils.rest({

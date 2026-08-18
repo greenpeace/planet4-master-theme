@@ -72,10 +72,6 @@ const config = {
       name: 'webkit',
       use: {
         ...devices['Desktop Safari'],
-        // Give each test a fresh context
-        contextOptions: {
-          reducedMotion: 'reduce',
-        },
       },
       dependencies: ['setup'],
     },
