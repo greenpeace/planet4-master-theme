@@ -134,7 +134,7 @@ class EnqueueController
         $this->enqueue_script(
             $script['name'],
             $script['path'],
-            ['wp-i18n', 'wp-element', 'wp-dom-ready'],
+            ['wp-i18n', 'wp-element', 'wp-dom-ready', 'wp-data', 'wp-core-data'],
             $this->get_file_version($script['path']),
             true
         );
