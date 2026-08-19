@@ -13,7 +13,7 @@ test('Test Counter block', async ({page, admin, editor, request}) => {
   await createPostWithFeaturedImage({page, admin, editor}, {title: 'Test Counter', postType: 'page'});
 
   // Add Counter block.
-  await searchAndInsertBlock({page}, 'Counter');
+  await searchAndInsertBlock({editor, page}, 'planet4-blocks/counter');
 
   // Change the block settings.
   await page.getByLabel('API URL for Goal Reached').fill(COUNTER_URL);

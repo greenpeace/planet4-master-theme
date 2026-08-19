@@ -2,6 +2,83 @@ import {Locator} from '@playwright/test';
 import {expect} from '../../tools/lib/test-utils.js';
 
 /**
+ * Check if block name is a registered Query loop block variation.
+ *
+ * @param {{Page}} page
+ * @param {string} blockName
+ */
+const isBlockVariation = async (page, blockName) => {
+  return page.evaluate(name => {
+    return window.wp.blocks
+      .getBlockVariations('core/query')
+      .some(variation => variation.name === name);
+  }, blockName);
+};
+
+/**
+ * Insert a block variation.
+ *
+ * Query Loop variations (e.g. actions-list, posts-list) are not
+ * registered blocks. They are variations of core/query, so they
+ * need to be inserted as a core/query block with the variation
+ * attributes and innerBlocks.
+ *
+ * @param {{Page}} page
+ * @param {string} variationName
+ *
+ * @return {Promise<void>}
+ */
+const insertBlockVariation = async (page, variationName) => {
+  await page.waitForFunction(
+    name =>
+      window.wp.blocks
+        .getBlockVariations('core/query')
+        .some(variation => variation.name === name),
+    variationName
+  );
+
+  await page.evaluate(name => {
+    const variation = window.wp.blocks
+      .getBlockVariations('core/query')
+      .find(item => item.name === name);
+
+    if (!variation) {
+      throw new Error(
+        `Block variation "${name}" not found`
+      );
+    }
+
+    /**
+     * Creates WordPress block objects from an InnerBlocks template.
+     *
+     * Each template item is expected to contain a block name, optional attributes,
+     * and optional nested inner blocks. Nested templates are processed recursively
+     * so the resulting structure contains fully created WordPress block objects.
+     *
+     * @param {Array<Array>} blocks InnerBlocks template to convert.
+     */
+    const createBlocksFromTemplate = (blocks = []) =>
+      blocks.map(([blockName, attributes = {}, innerBlocks = []]) =>
+        window.wp.blocks.createBlock(
+          blockName,
+          attributes,
+          createBlocksFromTemplate(innerBlocks)
+        )
+      );
+
+    const block = window.wp.blocks.createBlock(
+      'core/query',
+      variation.attributes,
+      createBlocksFromTemplate(variation.innerBlocks)
+    );
+
+    window.wp.data
+      .dispatch('core/block-editor')
+      .insertBlock(block);
+  }, variationName);
+};
+
+/**
  * @param {{Page, Editor}} options    - Page and Editor object
  * @param {string}         panelTitle - Panel title
  *
@@ -22,90 +99,79 @@ async function openComponentPanel({page, editor}, panelTitle) {
 }
 
 /**
- * Close the block inserter
- *
- * @param {{Page}} page
- */
-const closeBlockInserter = async ({page}) => {
-  const inserter = page.locator('.editor-inserter-sidebar');
-
-  if (await inserter.isVisible()) {
-    await page.keyboard.press('Escape');
-  }
-};
-
-/**
  * Insert new block into page using the block inserter
  *
  * @param {{Page}} page
  * @param {string} blockName - The name of the block.
- * @param {string} namespace - The namespace to search if it is needed.
  *
  * @return {Promise<void>}   - Playwright Locator
  */
-const searchAndInsertBlock = async ({page}, blockName, namespace = '') => {
-  const openSidebar = await page.getByRole('button', {name: 'Block Inserter', exact: true});
-
-  if (await openSidebar.getAttribute('aria-expanded') === 'false') {
-    await openSidebar.click();
+const searchAndInsertBlock = async ({editor, page}, blockName) => {
+  if (await isBlockVariation(page, blockName)) {
+    await insertBlockVariation(page, blockName);
+    return;
   }
 
-  const searchInput = page.getByPlaceholder('Search');
-
-  await expect(searchInput).toBeVisible();
-  await searchInput.clear();
-  await searchInput.fill(blockName);
-
-  const blocksList = page.getByRole('listbox', {name: 'Blocks'});
-  await expect(blocksList).toBeVisible();
-
-  // Get the chosen block.
-  // If the block is Heading or Paragraph, the function getByRole (exact: true) has to be used
-  // as WordPress 6.9 introduced the blocks Stretchy Heading and Stretchy Paragraph
-  // which also adds an unusual character (/) to the CSS selectors of all the 4 blocks.
-  const getBlockOption = () => {
-    if (blockName === 'Heading' || blockName === 'Paragraph') {
-      return blocksList.getByRole('option', {name: blockName, exact: true});
-    }
-    if (namespace) {
-      return blocksList.locator(
-        `button.editor-block-list-item-${namespace.toLowerCase()}[role="option"]`
-      );
-    }
-    return blocksList.getByRole('option', {name: blockName});
-  };
-
-  const blockOption = getBlockOption();
-
-  await expect(blockOption).toBeVisible();
-  await blockOption.click();
+  await editor.insertBlock({name: blockName});
 };
 
 /**
  * Insert new pattern into page using the block inserter
  *
  * @param {{Page}} page
- * @param {string} id   - The id of the pattern.
+ * @param {string} patternName - The name of the pattern.
  */
-const searchAndInsertPattern = async ({page}, id) => {
-  await page.getByRole('button', {name: 'Block Inserter', exact: true}).click({force: true});
-  await page.getByPlaceholder('Search').fill(id);
-  await page.locator(`[id="${id}"]`).click();
+const searchAndInsertPattern = async ({page}, patternName) => {
+  await page.waitForFunction(
+    name =>
+      window.wp?.data
+        ?.select('core')
+        ?.getBlockPatterns()
+        ?.some(pattern => pattern.name === name),
+    patternName
+  );
+
+  await page.evaluate(name => {
+    const pattern = window.wp.data
+      .select('core')
+      .getBlockPatterns()
+      .find(
+        item => item.name === name
+      );
+
+    if (!pattern) {
+      throw new Error(
+        `Pattern "${name}" was not found`
+      );
+    }
+
+    const blocks = window.wp.blocks.parse(pattern.content);
+
+    window.wp.data
+      .dispatch('core/block-editor')
+      .insertBlocks(blocks);
+  }, patternName);
 };
 
 /**
- * @param {{Page}} page
- * @param {string} blockName
- * @param {string} blockTag
- * @param {number} number
- * @param {string} text
+ * Add headings and paragraphs to the page.
+ * @param {{Page, Editor}} page
+ * @param {Array}          blockContent
  */
-const addHeadingOrParagraph = async ({page, editor}, blockName, blockTag, number, text) => {
-  await searchAndInsertBlock({page}, blockName, blockName.toLowerCase());
-  const newBlock = editor.canvas.locator(blockTag).nth(number);
-  await expect(newBlock).toBeVisible();
-  await closeBlockInserter({page});
-  await newBlock.fill(text);
+const addContent = async ({page, editor}, blockContent) => {
+  for (const {heading, paragraph} of blockContent) {
+    await searchAndInsertBlock({editor, page}, 'core/heading');
+    const h2Element = editor.canvas.locator('[data-type="core/heading"][contenteditable="true"]').last();
+    await expect(h2Element).toBeVisible();
+    await h2Element.click();
+    await h2Element.fill(heading);
+
+    await searchAndInsertBlock({editor, page}, 'core/paragraph');
+    const pElement = editor.canvas.locator('[data-type="core/paragraph"][contenteditable="true"]').last();
+    await expect(pElement).toBeVisible();
+    await pElement.click();
+    await pElement.fill(paragraph);
+  }
 };
 
 /**
@@ -146,13 +212,27 @@ const closeMetaBoxesTab = async ({page}) => {
   }
 };
 
+/**
+ * Closes the Gutenberg "Welcome to the editor" guide modal if present.
+ *
+ * @param {{Page}} page
+ */
+const closeWelcomeGuideIfPresent = async ({page}) => {
+  const welcomeGuide = page.getByRole('dialog', {name: 'Welcome to the editor'});
+
+  if (await welcomeGuide.isVisible().catch(() => false)) {
+    await welcomeGuide.getByRole('button', {name: 'Close'}).click();
+    await expect(welcomeGuide).toBeHidden();
+  }
+};
+
 export {
   openComponentPanel,
   searchAndInsertBlock,
   searchAndInsertPattern,
-  closeBlockInserter,
-  addHeadingOrParagraph,
+  addContent,
   pickBlockStyle,
   openMetaBoxesTab,
   closeMetaBoxesTab,
+  closeWelcomeGuideIfPresent,
 };

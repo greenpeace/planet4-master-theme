@@ -1,4 +1,4 @@
-import {test} from '../tools/lib/test-utils.js';
+import {test, expect} from '../tools/lib/test-utils.js';
 import {publishPostAndVisit, createPostWithFeaturedImage} from '../tools/lib/post.js';
 import {
   addActionsListBlock,
@@ -12,18 +12,15 @@ import {isNewIAEnabled} from '../tools/lib/check-new-ia.js';
 test.useAdminLoggedIn();
 
 test.describe('Test Actions List block', () => {
+  test.describe.configure({mode: 'serial'});
   // This is the default layout, so we don't need to select it manually.
   test('Test the Grid layout', async ({page, admin, editor}) => {
     test.slow();
-    await createPostWithFeaturedImage({page, admin, editor}, {title: 'Test Actions List Grid Layout', postType: 'page'});
+    const uniqueTitle = `Test Actions List Grid Layout ${Date.now()}`;
 
-    // Add Actions List block.
+    await createPostWithFeaturedImage({page, admin, editor}, {title: uniqueTitle, postType: 'page'});
     await addActionsListBlock({page, editor});
-
-    // Publish page.
     await publishPostAndVisit({page, editor});
-
-    // Check the Actions List block.
     await checkActionsListBlock(page);
   });
 
@@ -32,65 +29,76 @@ test.describe('Test Actions List block', () => {
 
     // Get the "Take Action" page ID from the Analytics settings.
     await admin.visitAdminPage('admin.php', 'page=planet4_settings_analytics');
-    const takeActionPageId = await page.locator('#take_action_page').inputValue();
+    const takeActionPageInput = page.locator('#take_action_page');
+    await expect(takeActionPageInput).toBeVisible();
+    const takeActionPageId = await takeActionPageInput.inputValue();
 
-    // Skip Test if the new IA is not enabled or if the "Take Action" page ID is not available or gotten from the Analytics settings.
     test.skip(!isNewIA || !takeActionPageId, 'The new IA must be enabled or the "Take Action" page ID must be available to run this test.');
 
-    // Create 2 actions to be selected via the Manual Override.
-    const regularActionTitles = [
-      'Test Actions List Manual Override Action 1',
-      'Test Actions List Manual Override Action 2',
-    ];
+    const createdActionIds = [];
 
-    for (const title of regularActionTitles) {
-      await requestUtils.rest({
-        path: '/wp/v2/p4_action',
-        method: 'POST',
-        data: {title, status: 'publish'},
-      });
+    try {
+      const suffix = Date.now();
+
+      // Create 2 actions to be selected via the Manual Override.
+      const regularActionTitles = Array.from(
+        {length: 2},
+        (_, i) => `Test Actions List Manual Override Action ${i + 1} ${suffix}`
+      );
+
+      for (const title of regularActionTitles) {
+        const created = await requestUtils.rest({
+          path: '/wp/v2/p4_action',
+          method: 'POST',
+          data: {title, status: 'publish'},
+        });
+        createdActionIds.push(created.id);
+      }
+
+      // Create 2 actions as children of the "Take Action" page.
+      const childActionTitles = Array.from(
+        {length: 2},
+        (_, i) => `Test Actions List Manual Override Child Action ${i + 1} ${suffix}`
+      );
+
+      for (const title of childActionTitles) {
+        const created = await requestUtils.rest({
+          path: '/wp/v2/p4_action',
+          method: 'POST',
+          data: {title, status: 'publish', parent: takeActionPageId},
+        });
+        createdActionIds.push(created.id);
+      }
+
+      const actionTitles = [...regularActionTitles, ...childActionTitles];
+      const pageTitle = `Test Actions List, Manual Override ${suffix}`;
+
+      await createPostWithFeaturedImage({page, admin, editor}, {title: pageTitle, postType: 'page'});
+      await addActionsListBlockWithManualOverride({page, editor}, actionTitles);
+      await publishPostAndVisit({page, editor});
+      await checkActionsListBlockWithManualOverride(page, actionTitles);
+    } finally {
+      // Clean up REST-created actions even if the test failed midway.
+      for (const id of createdActionIds) {
+        try {
+          await requestUtils.rest({
+            path: `/wp/v2/p4_action/${id}`,
+            method: 'DELETE',
+            data: {force: true},
+          });
+        } catch (cleanupError) {
+          throw new Error(`Failed to clean up action ${id}:`, cleanupError);
+        }
+      }
     }
-
-    // Create 2 actions as children of the "Take Action" page.
-    const childActionTitles = [
-      'Test Actions List Manual Override Child Action 1',
-      'Test Actions List Manual Override Child Action 2',
-    ];
-
-    for (const title of childActionTitles) {
-      await requestUtils.rest({
-        path: '/wp/v2/p4_action',
-        method: 'POST',
-        data: {title, status: 'publish', parent: takeActionPageId},
-      });
-    }
-
-    // Combine all action titles.
-    const actionTitles = [...regularActionTitles, ...childActionTitles];
-
-    // Create a page to hold the Actions List block.
-    await createPostWithFeaturedImage({page, admin, editor}, {title: 'Test Actions List, Manual Override', postType: 'page'});
-
-    // Add a Actions List block using the Manual Override to select the actions created above.
-    await addActionsListBlockWithManualOverride({page, editor}, actionTitles);
-
-    // Publish page.
-    await publishPostAndVisit({page, editor});
-
-    // Check that the block displays correctly in the frontend.
-    await checkActionsListBlockWithManualOverride(page, actionTitles);
   });
 
   test('Test the Carousel layout', async ({page, admin, editor}) => {
-    await createPostWithFeaturedImage({page, admin, editor}, {title: 'Test Actions List, Carousel Layout', postType: 'page'});
+    const uniqueTitle = `Test Actions List, Carousel Layout ${Date.now()}`;
 
-    // Add a Actions List block with the Carousel layout.
+    await createPostWithFeaturedImage({page, admin, editor}, {title: uniqueTitle, postType: 'page'});
     await addActionsListBlock({page, editor}, 'Carousel');
-
-    // Publish page.
     await publishPostAndVisit({page, editor});
-
-    // Test that the block is displayed as expected in the frontend.
     await checkActionsListBlockCarouselLayout(page);
   });
 });

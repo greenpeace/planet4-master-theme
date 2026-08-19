@@ -114,14 +114,28 @@ const changeConfirmationType = async ({page, admin}, formId, label) => {
     'admin.php',
     `page=gf_edit_forms&view=settings&subview=confirmation&id=${formId}`
   );
-  await page.locator('#the-list > tr:first-child').hover();
-  await page.getByRole('link', {name: 'Edit', exact: true}).click();
+  const confirmationRow = await page.locator('#the-list > tr').first();
+  await expect(confirmationRow).toBeVisible();
+  await confirmationRow.hover();
+
+  const editLink = await page.getByRole('link', {name: 'Edit', exact: true});
+  await expect(editLink).toBeVisible();
+  await editLink.click();
 
   const typeRadio = page.getByLabel(label, {exact: true});
   await expect(typeRadio).toBeVisible();
 
-  // Click the radio button and wait for the UI to update
-  await typeRadio.click();
+  // Scroll into view first — WebKit won't reliably fire events on off-screen elements
+  await typeRadio.scrollIntoViewIfNeeded();
+
+  // Force the click to bypass WebKit's pointer event quirks
+  await typeRadio.click({force: true});
+
+  // Wait for the radio to actually be checked — WebKit can report the click
+  // as complete before the checked state has updated
+  await expect(typeRadio).toBeChecked();
+
+  await page.waitForTimeout(500);
 };
 
 export {toggleRestAPI, createForm, fillAndSubmitForm, checkEntry, changeConfirmationType};

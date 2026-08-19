@@ -109,7 +109,8 @@ export const SpreadsheetFrontend = ({
     } else if (loading === true || loading === null) {
       return [];
     }
-    return spreadsheetData.rows;
+
+    return spreadsheetData?.rows ?? [];
   };
 
   const renderRows = () => {
@@ -141,7 +142,7 @@ export const SpreadsheetFrontend = ({
       ));
   };
 
-  const headers = spreadsheetData ? spreadsheetData.header : placeholderData.header;
+  const headers = spreadsheetData?.header ?? placeholderData.header;
 
   return (
     <section className={`block block-spreadsheet ${className ?? ''}`}>

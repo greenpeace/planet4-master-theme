@@ -8,31 +8,54 @@ test.useAdminLoggedIn();
 
 test('check password protected content', async ({page, requestUtils}) => {
   test.slow();
-  const protectedPost = await requestUtils.rest({
-    path: '/wp/v2/posts',
-    method: 'POST',
-    data: {
-      title: TEST_TITLE,
-      content: `<p>${TEST_PARAGRAPH}</p>`,
-      status: 'publish',
-      featured_media: 357,
-      password: TEST_PASSWORD,
-    },
-  });
-  await page.goto(protectedPost.link);
 
-  // Make sure that the title and paragraph are not visible, but the form label is.
-  await expect(page.getByText(TEST_TITLE)).toBeHidden();
-  await expect(page.getByText(TEST_PARAGRAPH)).toBeHidden();
-  await expect(page.getByText('To see the content of this page, please enter your password below')).toBeVisible();
+  let postId;
 
-  // Fill in the password and submit the form.
-  const form = page.locator('form#password-form');
-  await form.waitFor();
-  await form.getByRole('textbox').fill(TEST_PASSWORD);
-  await form.getByRole('button').click();
+  try {
+    const protectedPost = await requestUtils.rest({
+      path: '/wp/v2/posts',
+      method: 'POST',
+      data: {
+        title: TEST_TITLE,
+        content: `<p>${TEST_PARAGRAPH}</p>`,
+        status: 'publish',
+        password: TEST_PASSWORD,
+      },
+    });
 
-  // Make sure that the title and paragraph are now shown.
-  await expect(page.getByRole('heading', {name: TEST_TITLE})).toBeVisible();
-  await expect(page.getByText(TEST_PARAGRAPH)).toBeVisible();
+    postId = protectedPost.id;
+
+    await page.goto(protectedPost.link);
+
+    await expect(page.getByText(TEST_TITLE)).toBeHidden();
+    await expect(page.getByText(TEST_PARAGRAPH)).toBeHidden();
+
+    await expect(
+      page.getByText(
+        'To see the content of this page, please enter your password below'
+      )
+    ).toBeVisible();
+
+    const form = page.locator('form#password-form');
+
+    await form.getByRole('textbox').fill(TEST_PASSWORD);
+    await form.getByRole('textbox').press('Enter');
+
+    await expect(
+      page.getByRole('heading', {name: TEST_TITLE})
+    ).toBeVisible();
+
+    await expect(page.getByText(TEST_PARAGRAPH)).toBeVisible();
+
+  } finally {
+    if (postId) {
+      await requestUtils.rest({
+        path: `/wp/v2/posts/${postId}`,
+        method: 'DELETE',
+        data: {
+          force: true,
+        },
+      });
+    }
+  }
 });

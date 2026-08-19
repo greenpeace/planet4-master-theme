@@ -3,8 +3,7 @@ import {publishPostAndVisit, createPostWithFeaturedImage} from '../tools/lib/pos
 import {
   searchAndInsertBlock,
   searchAndInsertPattern,
-  closeBlockInserter,
-  addHeadingOrParagraph,
+  addContent,
 } from '../tools/lib/editor.js';
 
 const NAV_LINK_CLASS = '.secondary-navigation-link';
@@ -14,14 +13,14 @@ const PARAGRAPH_CONTENT = `Nulla in odio et augue aliquet dictum ac sit amet dol
   Curabitur sed eros et ex sodales lobortis sodales et est. Maecenas sit amet iaculis libero.
   Duis laoreet nisi lorem, eget convallis magna tristique nec. Nunc eu est risus.`;
 
-const HEADINGS = [
-  'Lorem ipsum dolor sit amet',
-  'Suspendisse',
-  'Nulla feugiat nibh',
-  'Vivamus suscipit mattis',
-  'Praesent ullamcorper libero',
-  'Quisque accumsan',
-  'Donec tristique',
+const content = [
+  {heading: 'Lorem ipsum dolor sit amet', paragraph: PARAGRAPH_CONTENT},
+  {heading: 'Suspendisse', paragraph: PARAGRAPH_CONTENT},
+  {heading: 'Nulla feugiat nibh', paragraph: PARAGRAPH_CONTENT},
+  {heading: 'Vivamus suscipit mattis', paragraph: PARAGRAPH_CONTENT},
+  {heading: 'Praesent ullamcorper libero', paragraph: PARAGRAPH_CONTENT},
+  {heading: 'Quisque accumsan', paragraph: PARAGRAPH_CONTENT},
+  {heading: 'Donec tristique', paragraph: PARAGRAPH_CONTENT},
 ];
 
 test.useAdminLoggedIn();
@@ -32,25 +31,15 @@ test('Test Secondary Navigation block', async ({page, admin, editor}) => {
 
   // Add Page Header block.
   await searchAndInsertPattern({page}, 'p4/page-header-img-right');
-  await closeBlockInserter({page});
 
   // Add Secondary Navigation block.
-  await searchAndInsertBlock({page}, 'Secondary Navigation Menu');
-  await closeBlockInserter({page});
+  await searchAndInsertBlock({editor, page}, 'planet4-blocks/secondary-navigation');
 
   // Make sure it displays the empty message at first.
   await expect(editor.canvas.locator('.EmptyMessage')).toBeVisible();
 
-  let i = 0;
-
-  // Add content (headings and paragraphs).
-  for (let index = 0; index < HEADINGS.length; index++) {
-    await addHeadingOrParagraph({page, editor}, 'Heading', 'h2', i, HEADINGS[index]);
-    // For the paragraphs, we need to use i + 1 because there is a paragraph in the Page Header.
-    await addHeadingOrParagraph({page, editor}, 'Paragraph', 'p', i + 1, PARAGRAPH_CONTENT);
-
-    i++;
-  };
+  // // Add content (headings and paragraphs).
+  await addContent({editor, page}, content);
 
   // Publish page.
   await publishPostAndVisit({page, editor});
@@ -61,9 +50,9 @@ test('Test Secondary Navigation block', async ({page, admin, editor}) => {
   await expect(secondaryNavigationBlock).toBeVisible();
 
   // The links in the block match all h2 elements present in the page content.
-  for (let index = 0; index < HEADINGS.length; index++) {
-    await expect(secondaryNavigationBlock.locator(NAV_LINK_CLASS).nth(index)).toHaveText(HEADINGS[index]);
-  };
+  for (let index = 0; index < content.length; index++) {
+    await expect(secondaryNavigationBlock.locator(NAV_LINK_CLASS).nth(index)).toHaveText(content[index].heading);
+  }
 
   // The Secondary Navigation block should have navigation arrows present for left or right scrolling.
   const rightArrow = secondaryNavigationBlock.locator('.nav-arrow.right');
@@ -75,18 +64,18 @@ test('Test Secondary Navigation block', async ({page, admin, editor}) => {
   await expect(leftArrow).toBeVisible();
 
   // Make sure that the page navigates to the corrent anchor on click.
-  const testLink = page.locator(NAV_LINK_CLASS, {hasText: HEADINGS[2]});
+  const testLink = page.locator(NAV_LINK_CLASS, {hasText: content[2].heading});
   const anchor = await testLink.getAttribute('href');
   await testLink.click();
   const targetId = anchor.replace('#', '');
   await expect(page.locator(`[id="${targetId}"]`)).toBeInViewport();
 
   // On scroll down, the block should become sticky.
-  await page.getByRole('heading', {name: HEADINGS.at(-1)}).scrollIntoViewIfNeeded();
+  await page.getByRole('heading', {name: content.at(-1).heading}).scrollIntoViewIfNeeded();
   await expect(secondaryNavigationBlock).toHaveCSS('position', 'sticky');
 
   // Make sure that the block remains sticky on scroll up.
-  await page.getByRole('heading', {name: HEADINGS.at(-3)}).scrollIntoViewIfNeeded();
+  await page.getByRole('heading', {name: content.at(-3).heading}).scrollIntoViewIfNeeded();
   await expect(secondaryNavigationBlock).toHaveCSS('position', 'sticky');
 
   // On mobile, the block should be a dropdown menu.

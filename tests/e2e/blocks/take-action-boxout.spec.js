@@ -9,7 +9,7 @@ test.describe('Test Take Action Boxout block', () => {
     await createPostWithFeaturedImage({page, admin, editor}, {title: 'Test Take action boxout'});
 
     // Add Take Action Boxout block.
-    await searchAndInsertBlock({page}, 'Take Action Boxout');
+    await searchAndInsertBlock({editor, page}, 'planet4-blocks/take-action-boxout');
 
     await Promise.race([
       page.waitForResponse(r =>

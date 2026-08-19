@@ -11,7 +11,7 @@ test('Test Gallery basic functionalities', async ({page, admin, editor}) => {
   });
 
   // Search block
-  await searchAndInsertBlock({page}, 'Planet 4 Gallery', 'planet4-blocks-gallery');
+  await searchAndInsertBlock({editor, page}, 'planet4-blocks/gallery');
 
   await page.route('./wp-json/planet4/v1/gallery/images/*', async route => {
     const request = route.request();
@@ -26,10 +26,21 @@ test('Test Gallery basic functionalities', async ({page, admin, editor}) => {
   const imageModal = page.getByRole('dialog', {name: 'Create gallery'});
   await imageModal.getByRole('tab', {name: 'Media Library'}).click();
   imageModal.getByRole('tabpanel', {name: 'Media Library'});
+  await expect(imageModal.locator('[data-id]').first()).toBeVisible();
+  const mediaIds = await imageModal
+    .locator('.attachment')
+    .evaluateAll(items =>
+      items.map(item => item.dataset.id)
+    );
 
-  await imageModal.locator('[data-id="357"]').click();
-  await imageModal.locator('[data-id="354"]').click();
-  await imageModal.locator('[data-id="350"]').click();
+  // Pick 3 available media items for the gallery block.
+  const imageId1 = mediaIds[50];
+  const imageId2 = mediaIds[51];
+  const imageId3 = mediaIds[52];
+
+  await imageModal.locator(`[data-id="${imageId1}"]`).click();
+  await imageModal.locator(`[data-id="${imageId2}"]`).click();
+  await imageModal.locator(`[data-id="${imageId3}"]`).click();
 
   await page.getByRole('button', {name: 'Create a new gallery'}).click();
   await page.getByRole('dialog', {name: 'Edit gallery'}).getByRole('button', {name: 'Insert gallery'}).click();

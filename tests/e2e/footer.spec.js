@@ -11,19 +11,29 @@ test('check footer menu', async ({page}) => {
   await page.goto('./wp-admin/nav-menus.php');
 
   for (const footerMenu of footerMenuNames) {
-    await page.locator('select#select-menu-to-edit').selectOption({label: footerMenu});
-    await page.locator('span.submit-btn input.button').click();
+    const menuSelect = page.locator('select#select-menu-to-edit');
+    await menuSelect.selectOption({label: footerMenu});
 
-    const arrayOfLocators = page.locator('ul#menu-to-edit li');
-    const elementsCount = await arrayOfLocators.count();
+    await Promise.all([
+      page.waitForNavigation({waitUntil: 'domcontentloaded'}),
+      page.locator('span.submit-btn input.button').click(),
+    ]);
+
+    // Verify that the select has the value of the option matching the footer menu name.
+    await expect(menuSelect).toHaveValue(await menuSelect.locator(`option:has-text("${footerMenu}")`).getAttribute('value'));
+
+    const menuItemsList = page.locator('ul#menu-to-edit li');
+    await expect(menuItemsList.first()).toBeVisible();
+
+    const elementsCount = await menuItemsList.count();
     const menuLinks = [];
 
     for (let index = 0; index < elementsCount; index++) {
-      const element = await arrayOfLocators.nth(index);
-      const menuItem = [];
+      const element = menuItemsList.nth(index);
+      const menuItem = {};
       menuItem.menu = await element.locator('.edit-menu-item-title').inputValue();
 
-      const itemType = await element.locator('.item-type').innerText();
+      const itemType = (await element.locator('.item-type').innerText()).trim();
       if (itemType === 'Custom Link') {
         menuItem.link = await element.locator('.edit-menu-item-url').inputValue();
       } else {
@@ -35,8 +45,7 @@ test('check footer menu', async ({page}) => {
     footerMenuLinks.push({menuname: footerMenu, links: menuLinks});
   }
 
-  // Test fetched menu details on frontend.
-  await page.goto('./');
+  await page.goto('./', {waitUntil: 'domcontentloaded'});
 
   await expect(page.locator('.site-footer')).toBeVisible();
   await expect(page.locator('.site-footer--minimal')).toBeHidden();

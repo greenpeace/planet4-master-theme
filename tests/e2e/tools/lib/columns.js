@@ -5,7 +5,7 @@ const TEST_LINKS = ['/act', '/explore', '/'];
 
 async function addColumnsBlock(page, editor, style) {
   // Add Columns block.
-  await searchAndInsertBlock({page}, 'Planet 4 Columns', 'planet4-blocks-columns');
+  await searchAndInsertBlock({editor, page}, 'planet4-blocks/columns');
 
   // Fill in the Columns links.
   for (const index in TEST_LINKS) {
@@ -29,13 +29,34 @@ async function addColumnsBlock(page, editor, style) {
     ).fill(`${['Images', 'Icons'].includes(style) ? 'Link' : 'Button'} ${index + 1}`);
 
     if (style === 'Images' || style === 'Icons') {
-      await column.locator('.image-placeholder-container').hover({noWaitAfter: true});
-      await column.locator('.dashicons-plus-alt2').click();
+      const imagePlaceholder = column.locator('.image-placeholder-container');
+      await imagePlaceholder.hover();
+
+      const addImageButton = imagePlaceholder.locator('.dashicons-plus-alt2');
+      await expect(addImageButton).toBeVisible();
+      await addImageButton.click();
 
       // Select image from media library modal.
-      const imageModal = await page.getByLabel(/Select or Upload Media/);
+      const imageModal = page.getByLabel(/Select or Upload Media/);
+
       await imageModal.getByRole('tab', {name: 'Media Library'}).click();
-      await imageModal.getByRole('tabpanel', {name: 'Media Library'}).locator(`[data-id="${style === 'Images' ? 357 : 318}"]`).click();
+
+      const mediaGrid = imageModal.getByRole('tabpanel', {name: 'Media Library'});
+
+      await expect(mediaGrid.locator('[data-id]').first()).toBeVisible();
+
+      const mediaIds = await mediaGrid
+        .locator('.attachment')
+        .evaluateAll(items =>
+          items
+            .slice(0, 10)
+            .map(item => item.dataset.id)
+        );
+
+      const imageId = mediaIds[index];
+
+      await mediaGrid.locator(`[data-id="${imageId}"]`).click();
+
       await imageModal.getByRole('button', {name: 'Select', exact: true}).click();
     }
   }

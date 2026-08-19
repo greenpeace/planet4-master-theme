@@ -166,6 +166,7 @@ jobs:
           command: /usr/local/bin/test-user.py --create --instance=test-$(cat /tmp/workspace/test-instance)
 
   e2e-tests:
+    resource_class: xlarge
     working_directory: /usr/app/
     docker:
       - image: mcr.microsoft.com/playwright:v1.59.1
