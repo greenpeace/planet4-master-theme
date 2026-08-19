@@ -147,7 +147,7 @@
   font-family: var(--font-family-tertiary);
   font-size: var(--font-size-s--font-family-tertiary);
   line-height: var(--line-height-s--font-family-tertiary);
-  font-weight: 900;
+  font-weight: var(--font-weight-bold);
   border: 1px solid var(--grey-500);
   border-radius: 12px;
   padding: $sp-1 $sp-2;
