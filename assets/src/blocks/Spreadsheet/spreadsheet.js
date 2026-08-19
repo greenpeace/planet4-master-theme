@@ -15,6 +15,33 @@ const placeholderData = {
   ],
 };
 
+/**
+ * Normalizes the spreadsheet REST response into a consistent { header, rows }
+ * shape, since the endpoint sometimes returns it flat and sometimes nested
+ * under a `data` key.
+ *
+ * @param {Object} rawData - Raw response from get-spreadsheet-data.
+ * @return {{header: Array, rows: Array}|null} Normalized data, or null if unusable.
+ */
+function normalizeSpreadsheetData(rawData) {
+  if (!rawData) {
+    return null;
+  }
+
+  const source = Array.isArray(rawData?.data?.header) || Array.isArray(rawData?.data?.rows) ?
+    rawData.data :
+    rawData;
+
+  if (!Array.isArray(source.header) || !Array.isArray(source.rows)) {
+    return null;
+  }
+
+  return {
+    header: source.header,
+    rows: source.rows,
+  };
+}
+
 export const SpreadsheetFrontend = ({
   url,
   color,
@@ -67,7 +94,7 @@ export const SpreadsheetFrontend = ({
           await apiFetch({path: addQueryArgs('planet4/v1/get-spreadsheet-data', args)});
 
         setLoading(false);
-        setSpreadsheetData(newSpreadsheetData);
+        setSpreadsheetData(normalizeSpreadsheetData(newSpreadsheetData));
       } else {
         if (setInvalidSheetId) {
           setInvalidSheetId(true);

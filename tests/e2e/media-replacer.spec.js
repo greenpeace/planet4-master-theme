@@ -140,7 +140,9 @@ test('Replace Media file (PDF) in WordPress', async ({page, admin, requestUtils}
     // --- Replace the media file ---
     await replaceMediaFile(page, newFile);
 
-    const successNotice = page.locator('.notice-success');
+    const successNotice = page.locator('.notice-success').filter({
+      hasText: 'These files were successfully replaced:',
+    });
     await expect(successNotice).toContainText('These files were successfully replaced:', {timeout: 20000});
 
     // --- Download the new file for hashing ---
