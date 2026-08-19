@@ -25,6 +25,11 @@ use P4\MasterTheme\View\View;
 class BlocksUsageController extends Controller
 {
     /**
+     * Cache key for the assembled blocks report.
+     */
+    private const REPORT_CACHE_KEY = 'p4_blocks_report_v3';
+
+    /**
      * Blocks_Usage_Controller constructor.
      *
      * @param View $view The view object.
@@ -41,6 +46,10 @@ class BlocksUsageController extends Controller
     private function hooks(): void
     {
         add_action('rest_api_init', [ $this, 'plugin_blocks_report_register_rest_route' ]);
+        add_action('save_post', [ $this, 'flush_report_cache_on_save' ], 10, 2);
+        add_action('deleted_post', [ $this, 'flush_report_cache' ]);
+        add_action('trashed_post', [ $this, 'flush_report_cache' ]);
+        add_action('untrashed_post', [ $this, 'flush_report_cache' ]);
         BlockUsageTable::set_hooks();
         PatternUsageTable::set_hooks();
     }
@@ -63,19 +72,32 @@ class BlocksUsageController extends Controller
 
     /**
      * Generates blocks/pages report.
+     *
+     * The assembled report is cached in a transient and invalidated whenever a
+     * post is created, updated, trashed or deleted, so the expensive scan only
+     * runs when the underlying content actually changes.
      */
     public function plugin_blocks_report_rest_api(): ?array
     {
-        global $wpdb;
-
-        $use_cache = ! current_user_can('manage_options');
-        $cache_key = 'plugin_blocks/v3/plugin_blocks_report';
-        if ($use_cache) {
-            $report = wp_cache_get($cache_key, 'api', false, $found);
-            if ($found) {
-                return $report;
-            }
+        $report = get_transient(self::REPORT_CACHE_KEY);
+        if (is_array($report)) {
+            return $report;
         }
+
+        $report = $this->generate_blocks_report();
+
+        // Cache the report data for next 24 hrs. content changes flush this proactively.
+        set_transient(self::REPORT_CACHE_KEY, $report, DAY_IN_SECONDS);
+
+        return $report;
+    }
+
+    /**
+     * Build the blocks/pages report from scratch (uncached).
+     */
+    private function generate_blocks_report(): array
+    {
+        global $wpdb;
 
         $types = \get_post_types(
             [
@@ -105,14 +127,40 @@ class BlocksUsageController extends Controller
         // Group results.
         $block_api = new BlockUsageApi();
         $pattern_api = new PatternUsageApi();
-        $report = [
+
+        return [
             'block_types' => $block_api->get_count(),
             'block_patterns' => $pattern_api->get_count(),
             'post_types' => $post_types,
         ];
-        wp_cache_set($cache_key, $report, 'api', 60 * 5);
+    }
 
-        return $report;
+    /**
+     * Flush the cached report when a post is created or updated.
+     *
+     * @param int      $post_id Post ID.
+     * @param \WP_Post $post    Post object.
+     */
+    public function flush_report_cache_on_save(int $post_id, \WP_Post $post): void
+    {
+        if (
+            wp_is_post_revision($post_id)
+            || wp_is_post_autosave($post_id)
+            || 'auto-draft' === $post->post_status
+        ) {
+            return;
+        }
+
+        $this->flush_report_cache();
+    }
+
+    /**
+     * Delete the cached blocks report.
+     */
+    public function flush_report_cache(): void
+    {
+        delete_transient(self::REPORT_CACHE_KEY);
+        wp_cache_delete('block_report_post_ids', 'p4-cache-blocks-report');
     }
 
     /**

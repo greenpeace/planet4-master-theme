@@ -52,7 +52,7 @@ class BlockUsage
         if ($this->posts_ids === false) {
             $this->posts_ids = $this->search->get_posts($params);
             // Cache the data for next 24 hrs.
-            wp_cache_set('block_report_post_ids', $this->posts_ids, 'p4-cache-blocks-report', 86400);
+            wp_cache_set('block_report_post_ids', $this->posts_ids, 'p4-cache-blocks-report', DAY_IN_SECONDS);
         }
 
         return $this->get_filtered_blocks($this->posts_ids, $params);
@@ -64,7 +64,7 @@ class BlockUsage
      */
     private function get_filtered_blocks(array $posts_ids, Parameters $params): array
     {
-        $this->fetch_blocks($posts_ids, $params);
+        $this->fetch_blocks($posts_ids);
         $this->filter_blocks($params);
         $this->sort_blocks($params->order());
 
@@ -86,31 +86,130 @@ class BlockUsage
     }
 
     /**
-     * @param int[]      $posts_ids Posts IDs.
-     * @param Parameters $params Query parameters.
+     * Stream matching posts in memory-safe batches.
+     *
+     * Only the columns the parser needs are selected, and WP_Query's meta/term cache
+     * priming is bypassed, so peak memory stays flat regardless of how many posts match.
+     *
+     * @param int[] $posts_ids Posts IDs.
+     * @return \Generator<\WP_Post>
      */
-    private function fetch_blocks(array $posts_ids, Parameters $params): void
+    private function stream_posts(array $posts_ids): \Generator
     {
-        if (count($posts_ids) > 3500) {
-            // Limit the number of posts for the get_posts() function to 3.5k to reduce memory load.
-            $posts_ids = array_slice($posts_ids, 0, 3500);
+        global $wpdb;
+
+        foreach (array_chunk($posts_ids, 200) as $batch) {
+            $placeholders = implode(', ', array_fill(0, count($batch), '%d'));
+
+            // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+            $rows = $wpdb->get_results(
+                $wpdb->prepare(
+                    "SELECT ID, post_title, post_status, post_type, post_date, post_modified, guid, post_content
+                    FROM {$wpdb->posts}
+                    WHERE ID IN ($placeholders)",
+                    $batch
+                )
+            );
+
+            foreach ($rows as $row) {
+                yield new \WP_Post($row);
+            }
+
+            unset($rows);
+        }
+    }
+
+    /**
+     * @param int[]      $posts_ids Posts IDs.
+     */
+    private function fetch_blocks(array $posts_ids): void
+    {
+        $this->posts = [];
+        $this->blocks = [];
+
+        if (empty($posts_ids)) {
+            return;
         }
 
-        $posts_args = [
-            'include' => $posts_ids,
-            'orderby' => empty($params->order()) ? null : array_fill_keys($params->order(), 'ASC'),
-            'post_status' => $params->post_status(),
-            'post_type' => $params->post_type(),
-        ];
+        foreach ($this->stream_posts($posts_ids) as $post) {
+            foreach ($this->parse_post($post) as $block) {
+                $this->blocks[] = $block;
+            }
+        }
+    }
 
-        $this->posts = get_posts($posts_args) ?? [];
+    /**
+     * Count blocks by type and style without materialising every block.
+     *
+     * Streams matching posts and aggregates counts on the fly, so memory usage is
+     * bounded by the number of distinct block types rather than the total number of
+     * blocks on the site. Query-loop variations (Posts List / Actions List) are also
+     * counted under their block namespace, mirroring the report UI.
+     *
+     * @param Parameters $params Query parameters.
+     * @return array<string, array<string, mixed>>
+     */
+    public function count_blocks(Parameters $params): array
+    {
+        $posts_ids = $this->search->get_posts($params);
 
-        $block_listblock_list = [];
-        foreach ($this->posts as $post) {
-            $block_listblock_list = array_merge($block_listblock_list, $this->parse_post($post));
+        if (empty($posts_ids)) {
+            return [];
         }
 
-        $this->blocks = $block_listblock_list;
+        $blocks = [];
+
+        foreach ($this->stream_posts($posts_ids) as $post) {
+            foreach ($this->parse_post($post) as $block) {
+                $type = $block['block_type'];
+                $styles = empty($block['block_styles']) ? [ 'n/a' ] : $block['block_styles'];
+
+                $this->add_block_count($blocks, $type, $styles);
+
+                //phpcs:ignore SlevomatCodingStandard.ControlStructures.EarlyExit.EarlyExitNotUsed
+                if (
+                    $type === 'core/query'
+                    && isset($block['block_attrs']['namespace'])
+                    && in_array(
+                        $block['block_attrs']['namespace'],
+                        [ self::POSTS_LIST_NAME, self::ACTIONS_LIST_NAME ],
+                        true
+                    )
+                ) {
+                    $this->add_block_count($blocks, $block['block_attrs']['namespace'], $styles);
+                }
+            }
+        }
+
+        ksort($blocks);
+        foreach ($blocks as &$data) {
+            ksort($data['styles']);
+        }
+        unset($data);
+
+        return $blocks;
+    }
+
+    /**
+     * Increment the running count for a block type/style bucket.
+     *
+     * @param array    $blocks Running totals, passed by reference.
+     * @param string   $type   Block type.
+     * @param string[] $styles Block styles.
+     */
+    private function add_block_count(array &$blocks, string $type, array $styles): void
+    {
+        if (! isset($blocks[$type])) {
+            $blocks[$type] = [ 'total' => 0, 'styles' => [] ];
+        }
+
+        foreach ($styles as $style) {
+            if (! isset($blocks[$type]['styles'][$style])) {
+                $blocks[$type]['styles'][$style] = 0;
+            }
+            $blocks[$type]['styles'][$style]++;
+            $blocks[$type]['total']++;
+        }
     }
 
     /**
