@@ -316,17 +316,14 @@ $medium-image-height: 600px;
     position: relative;
     top: 0;
     left: 0;
-    padding: $sp-2 0 $sp-3 0;
-    background: var(--white);
+    padding: 0 0 $sp-3 0;
+    background: none;
     height: auto;
     width: 100%;
+    margin-top: (-$sp-5x);
 
     html[dir="rtl"] & {
       right: 0;
-    }
-
-    @include medium-and-up {
-      padding-top: $sp-4;
     }
 
     @include large-and-up {
@@ -335,6 +332,7 @@ $medium-image-height: 600px;
       background: none;
       height: 100%;
       position: absolute;
+      margin-top: 0;
     }
 
     .carousel-captions-wrapper {
@@ -400,21 +398,21 @@ $medium-image-height: 600px;
       color: var(--color-text-heading);
       transition: unset;
       transform: translateX($text-slide-offset);
+      font-size: $font-size-xxl;
+      padding: 0 $sp-1;
+      margin: 0 0 $sp-1x (-$sp-1);
 
       html[dir="rtl"] & {
         text-align: right;
-      }
-
-      @include medium-and-up {
-        font-size: var(--font-size-xl--font-family-primary);
-        line-height: var(--line-height-xl--font-family-primary);
+        margin: 0 (-$sp-1) $sp-1x 0;
       }
 
       @include large-and-up {
         max-width: 100%;
         width: 100%;
         color: var(--white);
-        margin-bottom: 32px;
+        padding: 0;
+        margin: 0 0 $sp-4 m0;
         line-height: $line-height-2xl--font-family-primary;
         font-size: $font-size-xxl;
       }
@@ -426,6 +424,21 @@ $medium-image-height: 600px;
 
       &:focus-visible {
         @include focus-styles();
+      }
+    }
+
+    .carousel-heading-highlight {
+      display: inline;
+      background: var(--white);
+      box-decoration-break: clone;
+      line-height: 150%;
+      padding: 0 $sp-1;
+
+      @include large-and-up {
+        background: none;
+        box-decoration-break: initial;
+        line-height: inherit;
+        padding: 0;
       }
     }
 
