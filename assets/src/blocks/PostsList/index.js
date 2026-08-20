@@ -26,6 +26,14 @@ const carouselButtons = ['core/buttons', {
   className: 'carousel-controls',
   lock: {move: true},
   layout: {type: 'flex', justifyContent: 'space-between', orientation: 'horizontal', flexWrap: 'nowrap'},
+  metadata: {
+    blockVisibility: {
+      viewport: {
+        tablet: false,
+        mobile: false,
+      },
+    },
+  },
 }, [
   ['core/button',
     {
