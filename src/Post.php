@@ -43,6 +43,13 @@ class Post extends \Timber\Post
      */
     public array $data_layer;
 
+    /**
+     * Post meta data.
+     *
+     * @var array $post_meta
+     */
+    public array $post_meta = [];
+
     public static function build(\WP_Post $wp_post): self
     {
         $post = parent::build($wp_post);
@@ -364,7 +371,7 @@ class Post extends \Timber\Post
      */
     public function get_author_override(): bool
     {
-        return array_key_exists('p4_author_override', $this->post_meta);
+        return ! empty($this->post_meta['p4_author_override'][0]);
     }
 
     /**
