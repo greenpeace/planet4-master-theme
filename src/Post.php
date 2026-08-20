@@ -46,7 +46,6 @@ class Post extends \Timber\Post
     /**
      * Post meta data.
      *
-     * @var array $post_meta
      */
     public array $post_meta = [];
 
