@@ -127,7 +127,7 @@ class CustomTaxonomy
         }
 
         // Get post's taxonomy terms.
-        $terms = wp_get_object_terms($post->ID, self::TAXONOMY);
+        $terms = get_the_terms($post->ID, self::TAXONOMY);
         $all_terms = self::get_terms();
 
         // Assign story slug if the taxonomy does not have any terms.
