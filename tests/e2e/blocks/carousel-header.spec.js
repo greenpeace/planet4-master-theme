@@ -102,7 +102,7 @@ test('Create and check carousel header block', async ({page, admin, editor}) => 
   await publishPostAndVisit({page, editor});
 
   // Assertions
-  const h2Title1 = await page.innerHTML('.carousel-captions-wrapper h2');
+  const h2Title1 = await page.innerText('.carousel-captions-wrapper h2');
   const paragraphDescription1 = await page.innerHTML('.carousel-captions-wrapper p');
   const ctaButton1 = page.locator('.action-button a').first();
 
@@ -112,7 +112,7 @@ test('Create and check carousel header block', async ({page, admin, editor}) => 
 
   await page.locator('button.carousel-control-next').click();
 
-  const h2Title2 = await page.innerHTML('.carousel-captions-wrapper h2>>nth=1');
+  const h2Title2 = await page.innerText('.carousel-captions-wrapper h2>>nth=1');
   const paragraphDescription2 = await page.innerHTML('.carousel-captions-wrapper p>>nth=1');
   const ctaButton2 = page.locator('.action-button a').nth(1);
 

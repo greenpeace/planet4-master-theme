@@ -75,7 +75,11 @@ export const useSlides = (
 
 
   const getSlideHeight = slideRef => {
-    return `${slideRef.querySelector('.carousel-item-mask .background-holder').offsetHeight + slideRef.querySelector('.carousel-caption').offsetHeight}px`;
+    const backgroundHeight = slideRef.querySelector('.carousel-item-mask .background-holder').offsetHeight;
+    const caption = slideRef.querySelector('.carousel-caption');
+    const captionOverlap = Math.min(0, parseFloat(getComputedStyle(caption).marginTop) || 0);
+
+    return `${backgroundHeight + caption.offsetHeight + captionOverlap}px`;
   };
 
   const setCarouselHeight = useCallback(slideRef => {

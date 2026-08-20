@@ -12,7 +12,7 @@ export const StaticCaption = forwardRef(({slide, focusable}, ref) => useMemo(() 
       <div className="carousel-captions-wrapper">
         {/* eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex */}
         <h2 ref={ref} tabIndex={focusable ? 0 : -1}>
-          {htmlDecode(slide.header)}
+          <span className="carousel-heading-highlight">{htmlDecode(slide.header)}</span>
         </h2>
         <p dangerouslySetInnerHTML={{__html: slide.description}} />
       </div>
