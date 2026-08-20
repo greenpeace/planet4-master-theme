@@ -12,16 +12,12 @@ export const YearsNavigation = ({years, isEditing, timelineId}) => {
 
   const isRTL = document.dir === 'rtl';
 
+  /**
+   * Handle the behaviour when clicking on a year.
+   *
+   * @param {string} year - The year that was just clicked.
+   */
   const handleClick = year => {
-    const isFirefox = navigator.userAgent.toLowerCase().includes('firefox');
-
-    if (isFirefox) {
-      const target = document.getElementById(`${timelineId}-${year}`);
-      if (target) {
-        target.scrollIntoView({behavior: 'smooth', block: 'start'});
-      }
-    }
-
     isClicking.current = true;
     setActiveYear(`${timelineId}-${year}`);
 
@@ -34,6 +30,11 @@ export const YearsNavigation = ({years, isEditing, timelineId}) => {
     addEventListener('scrollend', () => isClicking.current = false, {once: true});
   };
 
+  /**
+   * Handle the behaviour when clicking the navigation arrows.
+   *
+   * @param {string} direction - The direction that was clicked, either left or right.
+   */
   const scrollNav = direction => {
     isManualScroll.current = true;
 
@@ -160,11 +161,30 @@ export const YearsNavigation = ({years, isEditing, timelineId}) => {
     return () => observer.disconnect();
   }, [isRTL]);
 
+  // Scroll to the year in the URL on load, if present. Only in the frontend.
+  useEffect(() => {
+    if (isEditing) {
+      return;
+    }
+
+    const loadItem = window.location.hash.substring(1);
+    if (!loadItem || !loadItem.startsWith(timelineId)) {
+      return;
+    }
+
+    const target = document.getElementById(loadItem);
+    if (!target) {
+      return;
+    }
+
+    target.scrollIntoView({behavior: 'smooth', block: 'start'});
+  }, []);
+
   return (
     <nav
       className={`years-navigation d-flex justify-content-center ${isEditing ? 'no-scroll' : ''}`}
       aria-label={sprintf(
-      /* translators: 1: amount of years in the timeline */
+        /* translators: 1: amount of years in the timeline */
         __('Timeline, list with %1$d items', 'planet4-blocks'),
         years.length
       )}
