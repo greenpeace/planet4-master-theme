@@ -431,8 +431,8 @@ $medium-image-height: 600px;
       display: inline;
       background: var(--white);
       box-decoration-break: clone;
-      line-height: 125%;
-      padding: 0 $sp-1;
+      line-height: 1.05;
+      padding: 6px $sp-1;
 
       @include large-and-up {
         background: none;
