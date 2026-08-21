@@ -398,7 +398,7 @@ $medium-image-height: 600px;
       color: var(--color-text-heading);
       transition: unset;
       transform: translateX($text-slide-offset);
-      font-size: $font-size-xxl;
+      font-size: $font-size-xl;
       padding: 0 $sp-1;
       margin: 0 0 $sp-1x (-$sp-1);
 
@@ -412,7 +412,7 @@ $medium-image-height: 600px;
         width: 100%;
         color: var(--white);
         padding: 0;
-        margin: 0 0 $sp-4 m0;
+        margin: 0 0 $sp-4 0;
         line-height: $line-height-2xl--font-family-primary;
         font-size: $font-size-xxl;
       }
