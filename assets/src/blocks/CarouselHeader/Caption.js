@@ -8,14 +8,17 @@ export const Caption = ({slide, index, changeSlideAttribute}) => useMemo(() => (
     <div className="caption-overlay"></div>
     <div className="container main-header">
       <div className="carousel-captions-wrapper">
-        <RichText
-          tagName="h2"
-          placeholder={__('Enter title', 'planet4-master-theme-backend')}
-          value={slide.header}
-          onChange={changeSlideAttribute('header', index)}
-          withoutInteractiveFormatting
-          allowedFormats={[]}
-        />
+        <h2>
+          <RichText
+            tagName="span"
+            className="carousel-heading-highlight"
+            placeholder={__('Enter title', 'planet4-master-theme-backend')}
+            value={slide.header}
+            onChange={changeSlideAttribute('header', index)}
+            withoutInteractiveFormatting
+            allowedFormats={[]}
+          />
+        </h2>
         <RichText
           tagName="p"
           placeholder={__('Enter description', 'planet4-master-theme-backend')}
