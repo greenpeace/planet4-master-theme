@@ -67,6 +67,7 @@ use P4\MasterTheme\Migrations\M063ActionsListCarouselAccessibility;
 use P4\MasterTheme\Migrations\M064RemoveStaleDatetimeFromPostsListBlock;
 use P4\MasterTheme\Migrations\M065ReplaceMetaBlock;
 use P4\MasterTheme\Migrations\M066RemoveNewTimelineBlockOption;
+use P4\MasterTheme\Migrations\M067EnableGooglePreferredSourceButton;
 
 /**
  * Run any new migration scripts and record results in the log.
@@ -151,6 +152,7 @@ class Migrator
             M064RemoveStaleDatetimeFromPostsListBlock::class,
             M065ReplaceMetaBlock::class,
             M066RemoveNewTimelineBlockOption::class,
+            M067EnableGooglePreferredSourceButton::class,
         ];
 
         // Loop migrations and run those that haven't run yet.

@@ -82,6 +82,7 @@
                     social: post.share_meta,
                     utm_medium: 'share',
                     share_platforms: post.social_share_platforms,
+                    google_preferred_source: post.google_preferred_source,
                 } %}
 
                 {% if old_posts_archive_notice.show_notice %}
@@ -108,6 +109,20 @@
                     {% endif %}
                 </div>
             </div>
+            {% if ( post.google_preferred_source ) %}
+                <div class="google-preferred-source">
+                    <p>{{ __( 'Want to see more from Greenpeace?', 'planet4-master-theme' ) }}</p>
+                    <a
+                        aria-label="{{ __( 'Add as a preferred source on Google', 'planet4-master-theme' ) }}"
+                        class="google-preferred-source-link"
+                        href="https://google.com/preferences/source?q={{ post.google_preferred_source.domain }}"
+                        target="_blank"
+                    >
+                        <img src="{{ post.google_preferred_source.image }}" alt="Google preferred source" />
+                        <span>{{ __( 'Add as a preferred source on Google', 'planet4-master-theme' ) }}</span>
+                    </a>
+                </div>
+            {% endif %}
             <div class="post-tags">
                 {% if ( post.tags ) %}
                     {% for tag in post.tags %}
