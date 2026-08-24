@@ -44,7 +44,6 @@ async function replaceMediaFile(page, newFile) {
   await fileChooser.setFiles(newFile);
 
   await page.waitForLoadState('domcontentloaded');
-  await page.waitForLoadState('networkidle');
 }
 
 /**
