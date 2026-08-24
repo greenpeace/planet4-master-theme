@@ -2,7 +2,6 @@ import {test, expect} from './tools/lib/test-utils.js';
 
 test('check cookies banner', async ({page}) => {
   await page.goto('./');
-  await page.waitForLoadState('networkidle');
   await page.waitForLoadState('domcontentloaded');
 
 
