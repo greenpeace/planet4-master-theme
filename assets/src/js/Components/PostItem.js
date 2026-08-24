@@ -1,6 +1,3 @@
-import {useSelect} from '@wordpress/data';
-import {store as coreStore} from '@wordpress/core-data';
-
 /**
  * Renders a single post item within the listing page.
  *
@@ -10,27 +7,12 @@ import {store as coreStore} from '@wordpress/core-data';
  * @return {JSX.Element} The rendered post list item.
  */
 function PostItem({post}) {
-  const embeddedMedia = post._embedded?.['wp:featuredmedia']?.[0];
+  const featuredMedia = post._embedded?.['wp:featuredmedia']?.[0];
   const author = post._embedded?.author?.[0];
   const terms = post._embedded?.['wp:term'] || [];
   const categories = terms.flat().filter(term => term.taxonomy === 'category');
   const tags = terms.flat().filter(term => term.taxonomy === 'post_tag');
-
-  const needsFetch = !embeddedMedia && !!post.featured_media;
-
-  const fetchMedia = useSelect(
-    select => {
-      if (!needsFetch) {
-        return null;
-      }
-
-      return select(coreStore).getEntityRecord('postType', 'attachment', post.featured_media);
-    },
-    [needsFetch, post.featured_media]
-  );
-
-  const featuredMedia = embeddedMedia || fetchMedia;
-
+  const authorName = post.meta?.p4_author_override || author.name;
   const formattedDate = new Date(post.date).toLocaleDateString('en-GB', {
     day: 'numeric',
     month: 'short',
@@ -100,7 +82,11 @@ function PostItem({post}) {
         <div className="query-list-item-meta d-flex flex-wrap">
           { author && (
             <span className="article-list-item-author">
-              <a href={author.link}>{ author.name }</a>
+              {post.meta?.p4_author_override ? (
+                authorName
+              ) : (
+                <a href={author.link}>{authorName}</a>
+              )}
             </span>
           ) }
           <div className="query-list-meta-date-reading-time">
