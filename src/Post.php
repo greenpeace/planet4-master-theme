@@ -55,7 +55,6 @@ class Post extends \Timber\Post
         $post->post_meta = get_post_meta($post->ID);
         $post->set_page_types();
         $post->set_author();
-        $post->post_meta = get_post_meta($post->ID);
 
         return $post;
     }
