@@ -43,9 +43,16 @@ class Post extends \Timber\Post
      */
     public array $data_layer;
 
+    /**
+     * Post meta data.
+     *
+     */
+    public array $post_meta = [];
+
     public static function build(\WP_Post $wp_post): self
     {
         $post = parent::build($wp_post);
+        $post->post_meta = get_post_meta($post->ID);
         $post->set_page_types();
         $post->set_author();
 
@@ -256,7 +263,7 @@ class Post extends \Timber\Post
      */
     public function get_og_title(): string
     {
-        return get_post_meta($this->id, 'p4_og_title', true);
+        return $this->post_meta['p4_og_title'][0] ?? '';
     }
 
     /**
@@ -265,7 +272,7 @@ class Post extends \Timber\Post
      */
     public function get_og_description(): string
     {
-        $og_desc = get_post_meta($this->id, 'p4_og_description', true);
+        $og_desc = $this->post_meta['p4_og_description'][0] ?? '';
 
         if ('' === $og_desc) {
             return $this->post_excerpt;
@@ -280,12 +287,12 @@ class Post extends \Timber\Post
      */
     public function get_og_image(): array
     {
-        $meta = get_post_meta($this->id);
         $image_id = null;
         $image_metas = ['p4_og_image_id', '_thumbnail_id', 'background_image_id'];
         foreach ($image_metas as $image_meta) {
-            if (!empty($meta[$image_meta][0])) {
-                $image_id = $meta[$image_meta][0];
+            $image_meta_id = $this->post_meta[$image_meta][0] ?? '';
+            if (!empty($image_meta_id)) {
+                $image_id = $image_meta_id;
                 break;
             }
         }
@@ -312,8 +319,8 @@ class Post extends \Timber\Post
      */
     public function share_meta(): array
     {
-        $og_title = get_post_meta($this->id, 'p4_og_title', true);
-        $og_description = get_post_meta($this->id, 'p4_og_description', true);
+        $og_title = $this->get_og_title();
+        $og_description = $this->get_og_description();
         $link = get_permalink($this->id);
 
         if (('' === $og_title) && '' !== $this->post_title) {
@@ -360,11 +367,10 @@ class Post extends \Timber\Post
 
     /**
      * Get post's author override status.
-     *
      */
     public function get_author_override(): bool
     {
-        return !empty(get_post_meta($this->id, 'p4_author_override', true));
+        return ! empty($this->post_meta['p4_author_override'][0]);
     }
 
     /**
@@ -372,12 +378,11 @@ class Post extends \Timber\Post
      */
     public function set_author(): void
     {
-        $author_override = get_post_meta($this->id, 'p4_author_override', true);
         $real_author = Timber::get_user((int) $this->post_author);
 
-        if ('' !== $author_override) {
+        if (true === $this->get_author_override()) {
             $fake_user = $real_author;
-            $fake_user->display_name = $author_override;
+            $fake_user->display_name = $this->post_meta['p4_author_override'][0];
             $this->author = $fake_user;
         } else {
             $this->author = $real_author;

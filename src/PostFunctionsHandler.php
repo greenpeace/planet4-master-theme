@@ -232,7 +232,7 @@ class PostFunctionsHandler
         }
 
         // Check if post has an assigned term to it.
-        $terms = wp_get_object_terms($post_id, CustomTaxonomy::TAXONOMY);
+        $terms = get_the_terms($post_id, CustomTaxonomy::TAXONOMY);
         if (is_wp_error($terms)) {
             return;
         }
