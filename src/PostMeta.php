@@ -19,6 +19,8 @@ class PostMeta
         'p4_og_image',
         'p4_og_image_id',
         'p4_seo_canonical_url',
+        'p4_seo_meta_title',
+        'p4_seo_meta_description',
         'p4_campaign_name',
         'p4_local_project',
         'p4_basket_name',
