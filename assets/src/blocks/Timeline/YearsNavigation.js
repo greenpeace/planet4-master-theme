@@ -183,6 +183,9 @@ export const YearsNavigation = ({years, isEditing, timelineId}) => {
               onClick={() => handleClick(year)}
               data-target={`${timelineId}-${year}`}
               className={`${!isEditing && activeYear === `${timelineId}-${year}` ? 'active': ''}`}
+              data-ga-category="Timeline"
+              data-ga-action="Date"
+              data-ga-label="n/a"
             >
               {displayDate}
             </a>

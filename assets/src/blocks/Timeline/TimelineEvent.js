@@ -94,6 +94,9 @@ export const TimelineEvent = ({event}) => {
           aria-expanded={expanded}
           aria-controls={contentId}
           onClick={() => setExpanded(!expanded)}
+          data-ga-category="Timeline"
+          data-ga-action="Show more"
+          data-ga-label="n/a"
           type="button"
         >
           {expanded ? __('Show less', 'planet4-blocks') : __('Show more', 'planet4-blocks')}
