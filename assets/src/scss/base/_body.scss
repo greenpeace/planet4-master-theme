@@ -1,13 +1,13 @@
 html,
 body {
-  overflow-x: hidden;
+  overflow-x: clip;
   scroll-behavior: smooth;
   scroll-padding-top: 4rem;
 }
 
 body {
   position: relative;
-  overflow-y: hidden;
+  overflow-y: visible;
 
   &.search {
     font-family: var(--font-family-heading);
