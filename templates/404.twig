@@ -3,7 +3,8 @@
 {% block content %}
     <div class="page-header">
         <div class="page-header-background">
-            <img src="{{ page_notfound_image }}" class="page-header-image img-fluid" />
+            {# No need for an alt text here since the image is decorative #}
+            <img src="{{ page_notfound_image }}" class="page-header-image img-fluid" alt="" role="presentation" />
         </div>
         <div class="container">
             <div class="speech-bubble">
@@ -15,7 +16,7 @@
                     <form class="form search-form" action="{{ data_nav_bar.home_url }}">
                         {% set search = __( 'Search', 'planet4-master-theme' ) %}
                         <input class="form-control" placeholder="{{ search|e( 'html_attr' ) }}" name="s" aria-label="{{ search|e( 'html_attr' ) }}" type="text">
-                        <button class="search-form-btn" type="submit">
+                        <button class="search-form-btn" type="submit" aria-label="{{ search|e( 'html_attr' ) }}">
                             {{ 'search'|svgicon }}
                         </button>
                     </form>

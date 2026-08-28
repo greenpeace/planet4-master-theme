@@ -9,7 +9,7 @@
     class="d-none cookies-settings"
     role="dialog"
     aria-modal="true"
-    aria-labelledby={{__('Cookies Settings', 'planet4-master-theme')}}
+    aria-label="{{ __('Cookies Settings', 'planet4-master-theme')|e('html_attr') }}"
     tabindex="-1"
 >
     <div class="cookies-settings-header">

@@ -30,7 +30,7 @@
                     <div class="search-bar">
                         <form id="search_form_inner" role="search" class="form d-md-flex" action="{{ data_nav_bar.home_url }}">
                             <div class="search-input-container w-100">
-                                <input type="search" id="search-page-input" class="form-control" placeholder="{{ search_label }}" value="{{ search_query|e('wp_kses_post') }}" name="s" aria-label="Search">
+                                <input type="search" id="search-page-input" class="form-control" placeholder="{{ search_label }}" value="{{ search_query|e('wp_kses_post') }}" name="s" aria-label="{{ __( 'Search input', 'planet4-master-theme' )|e('html_attr') }}">
                                 <input type="hidden" name="orderby" value="{{ selected_sort ?? default_sort }}" />
                                 <button
                                     class="clear-search"
@@ -63,16 +63,16 @@
                                 {{ __( 'Filters', 'planet4-master-theme' ) }}
                             </button>
                         </div>
-                        <div class="modal fade filter-modal" id="filtermodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal fade filter-modal" id="filtermodal" tabindex="-1" role="dialog" aria-labelledby="filtermodal-title" aria-hidden="true">
                             <div class="modal-dialog modal-lg" role="document">
                                 <div class="modal-content">
                                     <div class="modal-body">
                                         <div class="row">
                                             <div class="col-9">
-                                                <h4 class="modal-title">{{ __( 'Refine your search', 'planet4-master-theme' ) }}</h4>
+                                                <h4 class="modal-title" id="filtermodal-title">{{ __( 'Refine your search', 'planet4-master-theme' ) }}</h4>
                                             </div>
                                             <div class="col-3 text-end">
-                                                <button type="button" class="closebtn" data-bs-dismiss="modal">
+                                                <button type="button" class="closebtn" data-bs-dismiss="modal" aria-label="{{ __( 'Close', 'planet4-master-theme' )|e('html_attr') }}">
                                                     {{ 'times'|svgicon }}
                                                 </button>
                                             </div>

@@ -3,7 +3,8 @@
         <h2 class="h2"><a href="{{ post.link }}">{{ post.title|raw }}</a></h2>
         <p>{{ post.excerpt()|truncate( 25, true )|raw }}</p>
         {% if ( post.get_thumbnail ) %}
-            <img src="{{ post.thumbnail.src }}" />
+            {# No need for an alt text here since the image is decorative and the post title is already a link #}
+            <img src="{{ post.thumbnail.src }}" alt="" role="presentation" />
         {% endif %}
     {% endblock %}
 </article>
