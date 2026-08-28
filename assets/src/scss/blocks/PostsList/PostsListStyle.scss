@@ -1,7 +1,6 @@
 .posts-list {
   margin-bottom: $sp-4;
 
-  .carousel-controls,
   .carousel-indicators {
     display: none;
   }
@@ -134,8 +133,13 @@
       margin-top: -$sp-5;
     }
 
-    .carousel-item-wrapper li {
-      height: $posts-list-container-height;
+    .carousel-item-wrapper {
+      list-style: none;
+      padding: 0;
+
+      li {
+        height: $posts-list-container-height;
+      }
     }
 
     // We don't show tags in this layout because they often break the design.
