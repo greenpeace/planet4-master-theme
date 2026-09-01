@@ -93,3 +93,8 @@
     margin-left: 115px;
   }
 }
+
+// Search Engine Optimizations sidebar: even vertical spacing between fields.
+.planet4-seo-sidebar > * + * {
+  margin-top: $sp-2;
+}
