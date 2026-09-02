@@ -55,7 +55,9 @@ const hasVideo = event => event.media && /\.(mp4|webm)(\?.*)?$/i.test(event.medi
 
 export const TimelineEvent = ({event}) => {
   const [expanded, setExpanded] = useState(false);
-  const contentId = `timeline-content${event.day ?? `-${event.day}`}${event.month ?? `-${event.month}`}`;
+  const eventDay = event.day ?? `-${event.day}`;
+  const eventMonth = event.month ?? `-${event.month}`;
+  const contentId = `timeline-content${eventDay}${eventMonth}`;
 
   return (
     <li className="timeline-block-event">
