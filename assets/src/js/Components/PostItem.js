@@ -1,3 +1,9 @@
+// Decodes HTML entities in a string.
+function decodeHtmlEntities(value) {
+  const doc = new DOMParser().parseFromString(value, 'text/html');
+  return doc.documentElement.textContent;
+}
+
 /**
  * Renders a single post item within the listing page.
  *
@@ -69,7 +75,7 @@ function PostItem({post}) {
         <header>
           <h4 className="query-list-item-headline wp-block-post-title">
             <a href={post.link} target="_self">
-              { post.title.rendered }
+              {decodeHtmlEntities(post.title.rendered)}
             </a>
           </h4>
         </header>
