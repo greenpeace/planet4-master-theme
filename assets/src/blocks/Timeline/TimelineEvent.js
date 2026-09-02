@@ -55,7 +55,7 @@ const hasVideo = event => event.media && /\.(mp4|webm)(\?.*)?$/i.test(event.medi
 
 export const TimelineEvent = ({event}) => {
   const [expanded, setExpanded] = useState(false);
-  const contentId = `timeline-content-${event.day}-${event.month}`;
+  const contentId = `timeline-content${event.day ?? `-${event.day}`}${event.month ?? `-${event.month}`}`;
 
   return (
     <li className="timeline-block-event">
@@ -84,7 +84,7 @@ export const TimelineEvent = ({event}) => {
       )}
       <h3 className="timeline-block-event-title">{event.headline}</h3>
       <div className="timeline-description-wrapper">
-        <p
+        <div
           id={contentId}
           className={`timeline-block-event-description ${expanded ? 'expanded' : 'clamped'}`}
           dangerouslySetInnerHTML={{__html: event.text}}
