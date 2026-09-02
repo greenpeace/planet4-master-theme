@@ -73,13 +73,14 @@
       margin-bottom: $sp-1x;
     }
 
-    img {
+    img, iframe {
       border-radius: 4px;
       width: 100%;
       margin-bottom: $sp-1x;
       object-fit: cover;
       height: 164px;
       cursor: default;
+      display: block;
     }
 
     .timeline-block-event-day {
@@ -193,7 +194,7 @@
       height: fit-content;
       position: relative;
 
-      img {
+      img, iframe {
         height: 212px;
       }
 

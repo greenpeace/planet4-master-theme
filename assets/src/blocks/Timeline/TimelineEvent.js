@@ -40,6 +40,19 @@ const isValidHttpsUrl = value => {
 };
 
 /**
+ * Get the embeddable YouTube URL for an event's media.
+ *
+ * @param {Object} event - The event to be checked.
+ * @return {string|null} - The embeddable URL
+ */
+const getYoutubeEmbedUrl = event => {
+  const match = event.media.match(
+    /(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([\w-]{11})/i
+  );
+  return match ? `https://www.youtube.com/embed/${match[1]}` : null;
+};
+
+/**
  * Check if an event has an image.
  *
  * @param {Object} event - The event to be checked.
@@ -52,6 +65,13 @@ const hasImage = event => event.media && /\.(jpg|jpeg|png|webp|avif|gif|svg)(\?.
  * @param {Object} event - The event to be checked.
  */
 const hasVideo = event => event.media && /\.(mp4|webm)(\?.*)?$/i.test(event.media);
+
+/**
+ * Check if an event has a YouTube URL.
+ *
+ * @param {Object} event - The event to be checked.
+ */
+const hasYoutube = event => event.media && /^(https?:\/\/)?(www\.)?(youtube\.com\/(watch\?v=|embed\/|shorts\/)|youtu\.be\/)/i.test(event.media);
 
 export const TimelineEvent = ({event}) => {
   const [expanded, setExpanded] = useState(false);
@@ -81,6 +101,15 @@ export const TimelineEvent = ({event}) => {
             onError={e => e.currentTarget.style.display = 'none'}
           />
         </video>
+      )}
+      {hasYoutube(event) && (
+        <iframe
+          src={getYoutubeEmbedUrl(event)}
+          title={event.media_caption ?? ''}
+          loading="lazy"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+        />
       )}
       <h3 className="timeline-block-event-title">{event.headline}</h3>
       <div className="timeline-description-wrapper">
