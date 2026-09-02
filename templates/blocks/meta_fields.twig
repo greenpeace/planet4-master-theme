@@ -36,6 +36,10 @@
 
     {% if seo_meta_title %}
         {% set meta_title = seo_meta_title|decode_entities~' - '~site.name %}
+    {% elseif og_title %}
+        {% set meta_title = og_title|decode_entities~' - '~site.name %}
+    {% elseif wp_title %}
+        {% set meta_title = wp_title|decode_entities~' - '~site.name %}
     {% else %}
         {% set meta_title = site.name %}
     {% endif %}
