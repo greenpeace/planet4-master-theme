@@ -1,4 +1,6 @@
 const {useState} = wp.element;
+const useSelect = wp.data?.useSelect;
+const SandBox = wp.components?.SandBox;
 const {__} = wp.i18n;
 
 /**
@@ -40,6 +42,19 @@ const isValidHttpsUrl = value => {
 };
 
 /**
+ * Get the embeddable YouTube URL for an event's media.
+ *
+ * @param {Object} event - The event to be checked.
+ * @return {string|null} - The embeddable URL
+ */
+const getYoutubeEmbedUrl = event => {
+  const match = event.media.match(
+    /(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([\w-]{11})/i
+  );
+  return match ? `https://www.youtube.com/embed/${match[1]}` : null;
+};
+
+/**
  * Check if an event has an image.
  *
  * @param {Object} event - The event to be checked.
@@ -53,9 +68,40 @@ const hasImage = event => event.media && /\.(jpg|jpeg|png|webp|avif|gif|svg)(\?.
  */
 const hasVideo = event => event.media && /\.(mp4|webm)(\?.*)?$/i.test(event.media);
 
-export const TimelineEvent = ({event}) => {
+/**
+ * Check if an event has a YouTube URL.
+ *
+ * @param {Object} event - The event to be checked.
+ */
+const hasYoutube = event => event.media && /^(https?:\/\/)?(www\.)?(youtube\.com\/(watch\?v=|embed\/|shorts\/)|youtu\.be\/)/i.test(event.media);
+
+export const TimelineEvent = ({event, isEditing}) => {
   const [expanded, setExpanded] = useState(false);
   const contentId = `timeline-content-${event.day}-${event.month}`;
+
+  /**
+   * The oEmbed preview HTML for the YouTube video.
+   * This is necessary in the editor, as a simple iframe doesn't work.
+   *
+   * @type {string|null}
+   */
+  const youtubeHtml = isEditing && useSelect ?
+    useSelect(
+      select => {
+        const url = hasYoutube(event) ? event.media : null;
+        if (!url) {return null;}
+
+        const {getEmbedPreview, hasFinishedResolution} = select('core');
+        const preview = getEmbedPreview(url);
+        const hasResolved = hasFinishedResolution('getEmbedPreview', [url]);
+
+        if (!hasResolved || !preview || preview.html === false) {return null;}
+
+        return preview.html;
+      },
+      [event.media, isEditing]
+    ) :
+    null;
 
   return (
     <li className="timeline-block-event">
@@ -81,6 +127,27 @@ export const TimelineEvent = ({event}) => {
             onError={e => e.currentTarget.style.display = 'none'}
           />
         </video>
+      )}
+      {hasYoutube(event) && (
+        isEditing ?
+          (youtubeHtml && SandBox && (
+            <SandBox
+              html={youtubeHtml}
+              title={event.media_caption ?? ''}
+              type="embed"
+              allowSameOrigin
+              styles={['body, div, iframe { width: 100%; height: 100%; overflow: hidden; }']}
+            />
+          )) :
+          (
+            <iframe
+              src={getYoutubeEmbedUrl(event)}
+              title={event.media_caption ?? ''}
+              loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            />
+          )
       )}
       <h3 className="timeline-block-event-title">{event.headline}</h3>
       <div className="timeline-description-wrapper">
