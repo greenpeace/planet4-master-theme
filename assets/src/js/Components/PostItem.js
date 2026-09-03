@@ -18,7 +18,7 @@ function PostItem({post}) {
   const terms = post._embedded?.['wp:term'] || [];
   const categories = terms.flat().filter(term => term.taxonomy === 'category');
   const tags = terms.flat().filter(term => term.taxonomy === 'post_tag');
-
+  const authorName = post.meta?.p4_author_override || author.name;
   const formattedDate = new Date(post.date).toLocaleDateString('en-GB', {
     day: 'numeric',
     month: 'short',
@@ -88,7 +88,11 @@ function PostItem({post}) {
         <div className="query-list-item-meta d-flex flex-wrap">
           { author && (
             <span className="article-list-item-author">
-              <a href={author.link}>{ author.name }</a>
+              {post.meta?.p4_author_override ? (
+                authorName
+              ) : (
+                <a href={author.link}>{authorName}</a>
+              )}
             </span>
           ) }
           <div className="query-list-meta-date-reading-time">
