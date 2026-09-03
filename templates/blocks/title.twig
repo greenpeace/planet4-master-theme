@@ -12,6 +12,10 @@
     {% elseif search_query and page_category == 'Search Page' %}
         {{ __('%d search results found for %s', 'planet4-master-theme') | format(found_posts, search_query) }}
 
+    {# If the current page/post has a custom meta (SEO) title: #}
+    {% elseif seo_meta_title %}
+        {{ seo_meta_title|e('esc_html')|raw }} - {{ site.name }}
+
     {# If the current page/post contains an OG title: #}
     {% elseif og_title %}
         {{ og_title|e('esc_html')|raw }} - {{ site.name }}
