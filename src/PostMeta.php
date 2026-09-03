@@ -23,6 +23,7 @@ class PostMeta
         'p4_local_project',
         'p4_basket_name',
         'p4_department',
+        'p4_author_override',
     ];
 
     /**
