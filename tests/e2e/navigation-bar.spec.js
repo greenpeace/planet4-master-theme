@@ -3,8 +3,8 @@ import {test, expect} from './tools/lib/test-utils.js';
 test.useAdminLoggedIn();
 
 test('Test navigation bar menu', async ({page, admin, requestUtils}) => {
-  const testId = Date.now();
-  const testPageTitle = `Navbar test ${testId}`;
+  const testId = Date.now().toString().slice(-6);
+  const testPageTitle = `Navbar ${testId}`;
   let newPage;
 
   try {
@@ -34,15 +34,12 @@ test('Test navigation bar menu', async ({page, admin, requestUtils}) => {
     await pageOptions.getByRole('button', {name: 'Add to Menu'}).click();
     await page.locator('#menu-to-edit .menu-item-title').filter({hasText: testPageTitle}).waitFor();
 
-    // Save Menu triggers a real (non-AJAX) form POST + reload.
-    // Anchor on that response instead of racing the resulting DOM for a notice.
-    const [saveResponse] = await Promise.all([
-      page.waitForResponse(
-        resp => resp.url().includes('nav-menus.php') && resp.request().method() === 'POST'
-      ),
-      page.getByRole('button', {name: 'Save Menu'}).click(),
-    ]);
-    expect(saveResponse.ok()).toBeTruthy();
+    // Save Menu triggers a full page reload.
+    // Wait for the success notice instead of relying on the POST response.
+    const saveMenuButton = page.locator('#save_menu_footer');
+    await expect(saveMenuButton).toBeVisible();
+    await expect(saveMenuButton).toBeEnabled();
+    await saveMenuButton.click();
 
     await expect(page.locator('#message.updated.notice')).toBeVisible();
 
