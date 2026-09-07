@@ -9,8 +9,8 @@
   .timeline-block-year,
   .timeline-block-event-title {
     font-family: var(--font-family-primary);
-    font-size: var(--font-size-m--font-family-primary);
-    line-height: var(--line-height-m--font-family-tertiary);
+    font-size: var(--font-size-l--font-family-primary);
+    line-height: var(--line-height-l--font-family-primary);
   }
 
   .timeline-block-event-title {
@@ -95,13 +95,20 @@
   }
 
   .timeline-block-event-description {
-    font-size: var(--font-size-m--font-family-tertiary);
-    line-height: var(--line-height-m--font-family-tertiary);
     margin-bottom: $sp-1;
+
+    * {
+      font-size: var(--font-size-m--font-family-tertiary);
+      line-height: var(--line-height-m--font-family-tertiary);
+    }
 
     a {
       display: block;
       width: fit-content;
+    }
+
+    a, li {
+      margin-top: $sp-1x;
     }
   }
 
@@ -384,7 +391,7 @@
         font-family: var(--font-family-tertiary);
         color: var(--grey-600);
         font-weight: 600;
-        font-size: 17px;
+        font-size: var(--font-size-m--font-family-tertiary);
 
         &:hover,
         &.active {
