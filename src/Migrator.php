@@ -68,6 +68,7 @@ use P4\MasterTheme\Migrations\M064RemoveStaleDatetimeFromPostsListBlock;
 use P4\MasterTheme\Migrations\M065ReplaceMetaBlock;
 use P4\MasterTheme\Migrations\M066RemoveNewTimelineBlockOption;
 use P4\MasterTheme\Migrations\M067EnableGooglePreferredSourceButton;
+use P4\MasterTheme\Migrations\M068EmptyGalleryBlockStaticContent;
 
 /**
  * Run any new migration scripts and record results in the log.
@@ -153,6 +154,7 @@ class Migrator
             M065ReplaceMetaBlock::class,
             M066RemoveNewTimelineBlockOption::class,
             M067EnableGooglePreferredSourceButton::class,
+            M068EmptyGalleryBlockStaticContent::class,
         ];
 
         // Loop migrations and run those that haven't run yet.
