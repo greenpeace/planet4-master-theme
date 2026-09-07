@@ -51,4 +51,26 @@ abstract class MigrationScript
 
         return $record;
     }
+
+    /**
+     * Check whether a block exists in page.
+     *
+     * @param array $block - A block data array.
+     * @param string $blockName - The name of the block to check.
+     */
+    public static function check_is_valid_block(array $block, string $blockName): bool
+    {
+        // Check if the block is valid.
+        if (!is_array($block)) {
+            return false;
+        }
+
+        // Check if the block has a 'blockName' key.
+        if (!isset($block['blockName'])) {
+            return false;
+        }
+
+        // Check if the block is the desired block. If not, abort.
+        return $block['blockName'] === $blockName;
+    }
 }
