@@ -18,7 +18,7 @@ class Rest
      */
     public function load(): void
     {
-        (new RestCache())->load();
+        (new RestCacheBaseline())->load();
 
         add_action('rest_api_init', function (): void {
             /**
