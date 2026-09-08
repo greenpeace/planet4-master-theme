@@ -33,7 +33,7 @@ const template = ({
     ['core/group', {className: 'container'}, [
       ['core/spacer', {height: '24px'}],
       ['core/heading', {
-        level: 2,
+        level: 1,
         placeholder: __('Enter title', 'planet4-master-theme-backend'),
         content: title,
         style: {typography: {fontSize: '1.75rem'}},

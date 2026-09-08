@@ -4,7 +4,9 @@ namespace P4\MasterTheme\Migrations\Utils;
 
 use WP_Block_Parser;
 use P4\MasterTheme\BlockReportSearch\BlockSearch;
-use P4\MasterTheme\BlockReportSearch\Block\Query\Parameters;
+use P4\MasterTheme\BlockReportSearch\PatternSearch;
+use P4\MasterTheme\BlockReportSearch\Block\Query\Parameters as BlockParameters;
+use P4\MasterTheme\BlockReportSearch\Pattern\Query\Parameters as PatternParameters;
 use P4\MasterTheme\MigrationRecord;
 
 /**
@@ -13,28 +15,22 @@ use P4\MasterTheme\MigrationRecord;
 class Functions
 {
     /**
-     * Execute a block migration.
+     * Execute a block or pattern migration.
      *
      * @param string $block_name - The name of the block to be migrated.
-     * @param callable $block_check_callback - Callback function to check if block is valid for migration.
-     * @param callable $record block_transformation_callback - Callback function to transform a block.
+     * @param callable $check_callback - Callback function to check if block is valid for migration.
+     * @param callable $transformation_callback - Callback function to transform a block.
      * @param MigrationRecord $record - The record to log the migration results.
      * phpcs:disable SlevomatCodingStandard.Functions.UnusedParameter -- interface implementation
      */
-    public static function execute_block_migration(
+    public static function execute_migration(
+        mixed $posts,
         string $block_name,
-        callable $block_check_callback,
-        callable $block_transformation_callback,
-        ?MigrationRecord $record = null
+        callable $check_callback,
+        callable $transformation_callback,
+        ?MigrationRecord $record = null,
     ): void {
         try {
-            // Get the list of posts using the specified block.
-            $posts = self::get_posts_using_specific_block(
-                $block_name,
-                Constants::ALL_POST_TYPES,
-                Constants::POST_STATUS_LIST
-            );
-
             // If there are no posts, abort.
             if (!$posts) {
                 return;
@@ -74,8 +70,8 @@ class Functions
                     // Process blocks recursively.
                     $blocks = self::process_blocks_recursive(
                         $blocks,
-                        $block_check_callback,
-                        $block_transformation_callback,
+                        $check_callback,
+                        $transformation_callback,
                         $current_post_id
                     );
 
@@ -135,25 +131,88 @@ class Functions
     // phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter
 
     /**
+     * Execute a block migration.
+     *
+     * @param string $block_name - The name of the block to be migrated.
+     * @param callable $check_callback - Callback function to check if block is valid for migration.
+     * @param callable $transformation_callback - Callback function to transform a block.
+     * @param MigrationRecord $record - The record to log the migration results.
+     * phpcs:disable SlevomatCodingStandard.Functions.UnusedParameter -- interface implementation
+     */
+    public static function execute_block_migration(
+        string $block_name,
+        callable $check_callback,
+        callable $transformation_callback,
+        ?MigrationRecord $record = null
+    ): void {
+        $posts = self::get_posts_using_specific_block(
+            $block_name,
+            Constants::ALL_POST_TYPES,
+            Constants::POST_STATUS_LIST
+        );
+
+        self::execute_migration(
+            $posts,
+            $block_name,
+            $check_callback,
+            $transformation_callback,
+            $record
+        );
+    }
+    // phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter
+
+    /**
+     * Execute a pattern migration.
+     *
+     * @param string $pattern_name - The name of the pattern to be migrated.
+     * @param callable $check_callback - Callback function to check if pattern is valid for migration.
+     * @param callable $transformation_callback - Callback function to transform a pattern.
+     * @param MigrationRecord $record - The record to log the migration results.
+     * phpcs:disable SlevomatCodingStandard.Functions.UnusedParameter -- interface implementation
+     */
+    public static function execute_pattern_migration(
+        string $pattern_name,
+        callable $check_callback,
+        callable $transformation_callback,
+        ?MigrationRecord $record = null
+    ): void {
+        echo "execute_pattern_migration for pattern: " . $pattern_name . "\n"; // phpcs:ignore
+        $posts = self::get_posts_using_specific_pattern(
+            $pattern_name,
+            Constants::ALL_POST_TYPES,
+            Constants::POST_STATUS_LIST
+        );
+
+        self::execute_migration(
+            $posts,
+            $pattern_name,
+            $check_callback,
+            $transformation_callback,
+            $record
+        );
+    }
+    // phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter
+
+    /**
      * Recursively process blocks and their inner blocks.
      *
      * @param string $block_name - The name of the block to be migrated.
-     * @param callable $block_check_callback - Callback function to check if block is valid for migration.
-     * @param callable $record block_transformation_callback - Callback function to transform a block.
+     * @param callable $check_callback - Callback function to check if block is valid for migration.
+     * @param callable $transformation_callback - Callback function to transform a block.
      * @param int $current_post_id - The current post ID.
      */
     private static function process_blocks_recursive(
         array $blocks,
-        callable $block_check_callback,
-        callable $block_transformation_callback,
+        callable $check_callback,
+        callable $transformation_callback,
         int $current_post_id = 0
     ): array {
         foreach ($blocks as &$block) {
-            if ($block_check_callback($block)) {
+            if ($check_callback($block)) {
                 // The current post ID is needed to exclude it in Post list block.
                 $block['attrs']['current_post_id'] = $current_post_id;
 
-                $block = $block_transformation_callback($block);
+                $block = $transformation_callback($block);
             }
 
             // Check for innerBlocks and process recursively.
@@ -163,8 +222,8 @@ class Functions
 
             $block['innerBlocks'] = self::process_blocks_recursive(
                 $block['innerBlocks'],
-                $block_check_callback,
-                $block_transformation_callback,
+                $check_callback,
+                $transformation_callback,
                 $current_post_id
             );
         }
@@ -189,7 +248,7 @@ class Functions
         ?array $post_status = null
     ): mixed {
         $search = new BlockSearch();
-        $params = ( new Parameters() )->with_name($block_name);
+        $params = ( new BlockParameters() )->with_name($block_name);
 
         if ($post_status) {
             $params = $params->with_post_status($post_status);
@@ -217,6 +276,28 @@ class Functions
         }
 
         return $posts;
+    }
+
+    public static function get_posts_using_specific_pattern(
+        string $pattern_name,
+        array $post_types,
+        ?array $post_status = null
+    ): mixed {
+        $search = new PatternSearch();
+        $params = ( new PatternParameters() )->with_name([$pattern_name]);
+
+        $post_ids = $search->get_posts($params, ['use_templates' => false], $pattern_name) ?? [];
+
+        if (empty($post_ids)) {
+            return null;
+        }
+
+        $args = ['include' => $post_ids, 'post_type' => $post_types];
+        if ($post_status) {
+            $args['post_status'] = 'any';
+        }
+
+        return get_posts($args) ?? [];
     }
 
     /**

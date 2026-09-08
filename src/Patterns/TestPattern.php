@@ -31,8 +31,7 @@ class TestPattern extends BlockPattern
     {
         return [
             'title' => 'Test Pattern',
-            'categories' => [ 'layouts' ],
-            'blockTypes' => [ 'core/post-content' ],
+            'categories' => [ 'planet4' ],
             'postTypes' => [ 'page', 'p4_action', 'campaign' ],
             'content' => '
 				<!-- wp:planet4-block-templates/test-pattern ' . wp_json_encode($params, \JSON_FORCE_OBJECT) . ' /-->
@@ -40,4 +39,3 @@ class TestPattern extends BlockPattern
         ];
     }
 }
- 
