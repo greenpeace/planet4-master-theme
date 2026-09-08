@@ -71,7 +71,7 @@ const addGravityFormsBlockFilter = () => addFilter('blocks.registerBlockType', '
   return settings;
 });
 
-// Add more details to Quote block description.
+// Add more details to Quote block description and restrict its inner blocks to Paragraphs only.
 const addQuoteBlockExtraDescription = () => addFilter('blocks.registerBlockType', 'planet4-blocks/filters/quote', (settings, name) => {
   if ('core/quote' !== name) {
     return settings;
@@ -79,6 +79,9 @@ const addQuoteBlockExtraDescription = () => addFilter('blocks.registerBlockType'
 
   const {description} = settings;
   settings.description = `${description}. ${__('Try to keep your Quote short and concise, so that it stands out effectively.', 'planet4-master-theme-backend')}`;
+
+  // Only allow Paragraph blocks inside a Quote.
+  settings.allowedBlocks = ['core/paragraph'];
 
   return settings;
 });
