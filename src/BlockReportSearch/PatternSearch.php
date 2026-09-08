@@ -27,7 +27,7 @@ class PatternSearch
      * @param array      $opts   Search Options.
      * @return int[] list of posts IDs.
      */
-    public function get_posts(Parameters $params, array $opts = []): array
+    public function get_posts(Parameters $params, array $opts = [], string $pattern_name = ''): array
     {
         $opts = array_merge(
             [
@@ -38,9 +38,13 @@ class PatternSearch
             $opts
         );
 
+        if(!empty($pattern_name)) {
+            $params = $params->with_name([$pattern_name]);
+        }
+
         $patterns = array_map(
             fn ($pattern) => PatternData::from_name($pattern),
-            $params->name()
+            (!empty($pattern_name)) ? [$pattern_name] : $params->name()
         );
 
         return array_unique(
