@@ -18,6 +18,8 @@ class Rest
      */
     public function load(): void
     {
+        (new RestCache())->load();
+
         add_action('rest_api_init', function (): void {
             /**
              * A lightweight endpoint to get all posts with only id and title.
