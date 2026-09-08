@@ -105,6 +105,8 @@
     a {
       display: block;
       width: fit-content;
+
+      @include shared-link-styles;
     }
 
     a, li {
