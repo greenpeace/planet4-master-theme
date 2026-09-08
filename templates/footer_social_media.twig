@@ -16,7 +16,7 @@
             {% endif %}
           >
             {{ social.icon|svgicon }}
-            <span class="visually-hidden">{{ social.icon }}</span>
+            <span class="visually-hidden">{{ site.name }} {{ social.icon }}</span>
           </a>
         </li>
       {% endfor %}
@@ -46,7 +46,7 @@
             {% endif %}
           >
             {{ name|svgicon }}
-            <span class="visually-hidden">{{ social.title }}</span>
+            <span class="visually-hidden">{{ site.name }} {{ social.title }}</span>
           </a>
         </li>
       {% endfor %}
