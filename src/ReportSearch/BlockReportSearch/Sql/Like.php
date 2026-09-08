@@ -4,9 +4,9 @@
  * Block search LIKE pattern
  */
 
-namespace P4\MasterTheme\BlockReportSearch\Block\Sql;
+namespace P4\MasterTheme\ReportSearch\BlockReportSearch\Sql;
 
-use P4\MasterTheme\BlockReportSearch\Block\Query\Parameters;
+use P4\MasterTheme\ReportSearch\BlockReportSearch\Query\Parameters;
 
 /**
  * LIKE pattern used in SQL query

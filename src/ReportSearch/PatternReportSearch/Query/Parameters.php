@@ -1,33 +1,33 @@
 <?php
 
 /**
- * Block search query parameters
+ * Pattern search query parameters
  */
 
-namespace P4\MasterTheme\BlockReportSearch\Block\Query;
+namespace P4\MasterTheme\ReportSearch\PatternReportSearch\Query;
 
 /**
  * Parameter bag for Query interface
+ *
+ * @method self with_name(string[] $name)
+ * @method self with_post_status(string[] $status)
+ * @method self with_post_type(string[] $type)
+ * @method self with_order(string[] $order)
  */
 class Parameters
 {
     // phpcs:ignore SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingAnyTypeHint
-    private $namespace;
-
-    // phpcs:ignore SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingAnyTypeHint
     private $name;
 
-    // phpcs:ignore SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingAnyTypeHint
-    private $attributes;
+    /**
+     * @var string[]
+     */
+    private array $post_status;
 
-    // phpcs:ignore SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingAnyTypeHint
-    private $content;
-
-    // phpcs:ignore SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingAnyTypeHint
-    private $post_status;
-
-    // phpcs:ignore SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingAnyTypeHint
-    private $post_type;
+    /**
+     * @var string[]
+     */
+    private array $post_type;
 
     // phpcs:ignore SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingAnyTypeHint
     private $order;
@@ -65,18 +65,14 @@ class Parameters
      */
     public static function from_request(array $request): self
     {
-        $text_search = ! empty($request['s']) ? $request['s'] : null;
-
-        if (! empty($request['name'])) {
-            $request['namespace'] = null;
+        $name = $request['name'] ?? null;
+        if ($name) {
+            $name = is_array($name) ? $name : [ $name ];
         }
 
         return self::from_array(
             [
-                'namespace' => $request['namespace'] ?? null,
-                'name' => $request['name'] ?? null,
-                'content' => $text_search,
-                'attributes' => $request['attributes'] ?? [ $text_search ],
+                'name' => $name,
                 'post_status' => $request['post_status'] ?? self::DEFAULT_POST_STATUS,
                 'post_type' => $request['post_type'] ?? null,
                 'order' => $request['order'] ?? null,
@@ -90,11 +86,9 @@ class Parameters
      * @param string $name The name.
      * @param array  $args The arguments.
      *
-     * @throws \BadMethodCallException Method does not exists.
-     *
-     * @return mixed
+     * @throws \BadMethodCallException Method does not exist.
      */
-    public function __call(string $name, array $args)
+    public function __call(string $name, array $args): Parameters
     {
         if (strpos($name, 'with_') === 0) {
             $property = substr($name, 5);
@@ -116,7 +110,7 @@ class Parameters
      */
     public function with(string $name, $value = null): self
     {
-        $allowed = [ 'namespace', 'name', 'attributes', 'content', 'post_status', 'post_type', 'order' ];
+        $allowed = [ 'name', 'post_status', 'post_type', 'order' ];
         if (! in_array($name, $allowed, true)) {
             throw new \BadMethodCallException('Property ' . $name . ' does not exist.');
         }
@@ -126,35 +120,11 @@ class Parameters
     }
 
     /**
-     * Block namespace.
+     * Pattern name.
      */
-    public function namespace(): ?string
-    {
-        return $this->namespace;
-    }
-
-    /**
-     * Full block name.
-     */
-    public function name(): ?string
+    public function name(): ?array
     {
         return $this->name;
-    }
-
-    /**
-     * Block attributes.
-     */
-    public function attributes(): ?array
-    {
-        return $this->attributes;
-    }
-
-    /**
-     * Block options content.
-     */
-    public function content(): ?string
-    {
-        return $this->content;
     }
 
     /**

@@ -4,9 +4,9 @@
  * Table displaying blocks usage
  */
 
-namespace P4\MasterTheme\BlockReportSearch\Block;
+namespace P4\MasterTheme\ReportSearch\BlockReportSearch;
 
-use P4\MasterTheme\BlockReportSearch\Block\Query\Parameters;
+use P4\MasterTheme\ReportSearch\BlockReportSearch\Query\Parameters;
 
 /**
  * Block usage API
