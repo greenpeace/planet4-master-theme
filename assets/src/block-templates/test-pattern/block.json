@@ -1,0 +1,9 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "planet4-block-templates/test-pattern",
+  "title": "Test Pattern",
+  "category": "planet4-block-templates",
+  "textdomain": "planet4-master-theme-backend",
+  "attributes": {}
+}
