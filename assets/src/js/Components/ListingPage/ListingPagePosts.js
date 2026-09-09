@@ -177,26 +177,22 @@ const ListingPagePosts = ({filtersContainer, layoutToggleContainer}) => {
         logDataInSentry('ListingPagePosts: missing document.body.dataset.nro in getTaxonomies');
       }
 
-      const [postTypesRes, categoriesRes, tagsRes] = await Promise.all([
-        fetchJson(`${BASE_URL}/wp-json/${addQueryArgs('wp/v2/p4-page-type', {per_page: 100, hide_empty: true})}`),
-        fetchJson(`${BASE_URL}/wp-json/${addQueryArgs('wp/v2/categories', {per_page: 100, hide_empty: true})}`),
-        fetchJson(`${BASE_URL}/wp-json/${addQueryArgs('wp/v2/tags', {per_page: 100, hide_empty: true})}`),
-      ]);
+      const {data} = await fetchJson(`${BASE_URL}/wp-json/planet4/v1/listing-filters`);
 
-      if (!Array.isArray(postTypesRes.data)) {
-        logDataInSentry('ListingPagePosts: unexpected post-types response', {extra: {response: postTypesRes}});
+      if (!Array.isArray(data.post_types)) {
+        logDataInSentry('ListingPagePosts: unexpected post-types response');
       }
-      if (!Array.isArray(categoriesRes.data)) {
-        logDataInSentry('ListingPagePosts: unexpected categories response', {extra: {response: categoriesRes}});
+      if (!Array.isArray(data.categories)) {
+        logDataInSentry('ListingPagePosts: unexpected categories response');
       }
-      if (!Array.isArray(tagsRes.data)) {
-        logDataInSentry('ListingPagePosts: unexpected tags response', {extra: {response: tagsRes}});
+      if (!Array.isArray(data.tags)) {
+        logDataInSentry('ListingPagePosts: unexpected tags response');
       }
 
       setTaxonomies({
-        postTypes: Array.isArray(postTypesRes.data) ? postTypesRes.data : [],
-        categories: Array.isArray(categoriesRes.data) ? categoriesRes.data : [],
-        tags: Array.isArray(tagsRes.data) ? tagsRes.data : [],
+        postTypes: Array.isArray(data.post_types) ? data.post_types : [],
+        categories: Array.isArray(data.categories) ? data.categories : [],
+        tags: Array.isArray(data.tags) ? data.tags : [],
       });
     } catch (e) {
       logDataInSentry(e);
@@ -210,6 +206,17 @@ const ListingPagePosts = ({filtersContainer, layoutToggleContainer}) => {
    *
    * @return {Promise<void>}
    */
+  const POST_FIELDS = [
+    'id',
+    'link',
+    'date',
+    'title',
+    'excerpt',
+    'meta',
+    '_links',
+    '_embedded',
+  ].join(',');
+
   const getPosts = useCallback(async () => {
     const requestId = ++requestIdRef.current;
     setIsLoadingPosts(true);
@@ -221,7 +228,8 @@ const ListingPagePosts = ({filtersContainer, layoutToggleContainer}) => {
       const args = {
         per_page: PER_PAGE,
         page,
-        _embed: true,
+        _embed: 'wp:featuredmedia,author,wp:term',
+        _fields: POST_FIELDS,
         ...buildArchiveArgs(archiveContext),
         ...buildFilterArgs(filters),
       };
@@ -267,6 +275,42 @@ const ListingPagePosts = ({filtersContainer, layoutToggleContainer}) => {
     setFilters(newFilters);
     setPage(1);
   };
+
+  /**
+   * Builds the REST API URL for fetching a given page of posts.
+   *
+   * @param {number} targetPage The page number to build the URL for.
+   * @return {string} The full REST API request URL.
+   */
+  const buildPostsUrl = useCallback(targetPage => {
+    const archiveContext = getArchiveContext();
+    const endpoint = getEndpoint(archiveContext);
+
+    const args = {
+      per_page: PER_PAGE,
+      page: targetPage,
+      _embed: 'wp:featuredmedia,author,wp:term',
+      _fields: POST_FIELDS,
+      ...buildArchiveArgs(archiveContext),
+      ...buildFilterArgs(filters),
+    };
+
+    return `${BASE_URL}/wp-json/wp/v2/${addQueryArgs(endpoint, args)}`;
+  }, [filters]);
+
+  /**
+   * Speculatively fetches a page of posts ahead of navigation (e.g. on
+   * pagination hover/focus) to make the subsequent real navigation faster.
+   *
+   * @param {number} targetPage The page number to prefetch.
+   * @return {void}
+   */
+  const prefetchPage = useCallback(targetPage => {
+    if (targetPage < 1 || targetPage > totalPages || targetPage === page) {return;}
+
+    fetchJson(buildPostsUrl(targetPage)).catch(() => {
+    });
+  }, [buildPostsUrl, totalPages, page]);
 
   /**
    * Triggers the initial fetch of taxonomies used to populate the filter dropdowns.
@@ -329,7 +373,12 @@ const ListingPagePosts = ({filtersContainer, layoutToggleContainer}) => {
         </p>
       ) }
 
-      <Paginator currentPage={page} totalPages={totalPages} onPageChange={setPage} />
+      <Paginator
+        currentPage={page}
+        totalPages={totalPages}
+        onPageChange={setPage}
+        onPrefetchPage={prefetchPage}
+      />
     </>
   );
 };
