@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2026-09-09 13:34+0000\n"
+"PO-Revision-Date: 2026-09-09 13:35+0000\n"
 "Language-Team: Swedish\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1143,7 +1143,7 @@ msgstr "Testa att använda andra sökord"
 
 #: templates/single.twig:114
 msgid "Want to see more from Greenpeace?"
-msgstr ""
+msgstr "Vill du se mer från Greenpeace?"
 
 #: assets/src/block-templates/homepage/template.js:25
 msgid "We win campaigns"
