@@ -19,16 +19,15 @@ export const SecondaryNavigationFrontend = ({levels}) => {
   const toggleRef = useRef(null);
   const visibleRef = useRef([]);
   const isRTL = document.dir === 'rtl';
-  const pageHeader = document.querySelector('.is-pattern-p4-page-header');
 
   useEffect(() => {
     const block = document.querySelector('div[data-render="planet4-blocks/secondary-navigation"]');
 
-    if (!pageHeader || !block) {return;}
+    if (!block) {return;}
 
     document.body.classList.add('secondary-nav-class');
     document.body.classList.add('overflow-visible');
-  }, [pageHeader]);
+  }, []);
 
   // Check runs to confirm if we are on mobile
   useEffect(() => {
@@ -41,7 +40,6 @@ export const SecondaryNavigationFrontend = ({levels}) => {
   // This runs to auto update the URL and active header class for the Secondary Navigation
   // Works on scroll
   useEffect(() => {
-    if (!pageHeader) {return;}
     const observerOptions = {
       root: null,
       rootMargin: '0px',
@@ -102,7 +100,7 @@ export const SecondaryNavigationFrontend = ({levels}) => {
     setTimeout(() => hasLoaded.current = true, 500);
 
     return () => observer.disconnect();
-  }, [activeLink, headings, pageHeader]);
+  }, [activeLink, headings]);
 
   // On mobile we update the navbar with the current active element
   // Does not run if there isn't one
