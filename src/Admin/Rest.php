@@ -54,6 +54,25 @@ class Rest
                     ],
                 ]
             );
+
+            /**
+             * A lightweight endpoint to get all the filters for the News and Stories page with only id and name.
+             */
+            register_rest_route(
+                self::REST_NAMESPACE,
+                '/listing-filters',
+                [
+                    'methods'  => 'GET',
+                    'permission_callback' => '__return_true',
+                    'callback' => function () {
+                        return [
+                            'post_types' => get_terms( [ 'taxonomy' => 'p4-page-type', 'hide_empty' => true, 'fields' => 'id=>name' ] ),
+                            'categories' => get_terms( [ 'taxonomy' => 'category', 'hide_empty' => true, 'fields' => 'id=>name' ] ),
+                            'tags'       => get_terms( [ 'taxonomy' => 'post_tag', 'hide_empty' => true, 'fields' => 'id=>name' ] ),
+                        ];
+                    },
+                ]
+            );
         });
     }
 }

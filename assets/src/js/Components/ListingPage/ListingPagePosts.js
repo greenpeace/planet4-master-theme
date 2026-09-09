@@ -177,40 +177,23 @@ const ListingPagePosts = ({filtersContainer, layoutToggleContainer}) => {
         logDataInSentry('ListingPagePosts: missing document.body.dataset.nro in getTaxonomies');
       }
 
-      const TERM_FIELDS = 'id,name';
+      const {post_types: postTypes, categories, tags} =
+        await fetchJson(`${BASE_URL}/wp-json/planet4/v1/listing-filters`);
 
-      const [postTypesRes, categoriesRes, tagsRes] = await Promise.all([
-        fetchJson(`${BASE_URL}/wp-json/${addQueryArgs('wp/v2/p4-page-type', {
-          per_page: 100,
-          hide_empty: true,
-          _fields: TERM_FIELDS,
-        })}`),
-        fetchJson(`${BASE_URL}/wp-json/${addQueryArgs('wp/v2/categories', {
-          per_page: 100,
-          hide_empty: true,
-          _fields: TERM_FIELDS,
-        })}`),
-        fetchJson(`${BASE_URL}/wp-json/${addQueryArgs('wp/v2/tags', {
-          per_page: 100,
-          hide_empty: true,
-          _fields: TERM_FIELDS,
-        })}`),
-      ]);
-
-      if (!Array.isArray(postTypesRes.data)) {
-        logDataInSentry('ListingPagePosts: unexpected post-types response', {extra: {response: postTypesRes}});
+      if (!Array.isArray(postTypes)) {
+        logDataInSentry('ListingPagePosts: unexpected post-types response', {extra: {postTypes}});
       }
-      if (!Array.isArray(categoriesRes.data)) {
-        logDataInSentry('ListingPagePosts: unexpected categories response', {extra: {response: categoriesRes}});
+      if (!Array.isArray(categories)) {
+        logDataInSentry('ListingPagePosts: unexpected categories response', {extra: {categories}});
       }
-      if (!Array.isArray(tagsRes.data)) {
-        logDataInSentry('ListingPagePosts: unexpected tags response', {extra: {response: tagsRes}});
+      if (!Array.isArray(tags)) {
+        logDataInSentry('ListingPagePosts: unexpected tags response', {extra: {tags}});
       }
 
       setTaxonomies({
-        postTypes: Array.isArray(postTypesRes.data) ? postTypesRes.data : [],
-        categories: Array.isArray(categoriesRes.data) ? categoriesRes.data : [],
-        tags: Array.isArray(tagsRes.data) ? tagsRes.data : [],
+        postTypes: Array.isArray(postTypes) ? postTypes : [],
+        categories: Array.isArray(categories) ? categories : [],
+        tags: Array.isArray(tags) ? tags : [],
       });
     } catch (e) {
       logDataInSentry(e);
