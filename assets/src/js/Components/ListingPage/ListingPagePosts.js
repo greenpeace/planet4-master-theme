@@ -177,10 +177,24 @@ const ListingPagePosts = ({filtersContainer, layoutToggleContainer}) => {
         logDataInSentry('ListingPagePosts: missing document.body.dataset.nro in getTaxonomies');
       }
 
+      const TERM_FIELDS = 'id,name';
+
       const [postTypesRes, categoriesRes, tagsRes] = await Promise.all([
-        fetchJson(`${BASE_URL}/wp-json/${addQueryArgs('wp/v2/p4-page-type', {per_page: 100, hide_empty: true})}`),
-        fetchJson(`${BASE_URL}/wp-json/${addQueryArgs('wp/v2/categories', {per_page: 100, hide_empty: true})}`),
-        fetchJson(`${BASE_URL}/wp-json/${addQueryArgs('wp/v2/tags', {per_page: 100, hide_empty: true})}`),
+        fetchJson(`${BASE_URL}/wp-json/${addQueryArgs('wp/v2/p4-page-type', {
+          per_page: 100,
+          hide_empty: true,
+          _fields: TERM_FIELDS,
+        })}`),
+        fetchJson(`${BASE_URL}/wp-json/${addQueryArgs('wp/v2/categories', {
+          per_page: 100,
+          hide_empty: true,
+          _fields: TERM_FIELDS,
+        })}`),
+        fetchJson(`${BASE_URL}/wp-json/${addQueryArgs('wp/v2/tags', {
+          per_page: 100,
+          hide_empty: true,
+          _fields: TERM_FIELDS,
+        })}`),
       ]);
 
       if (!Array.isArray(postTypesRes.data)) {
