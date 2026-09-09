@@ -110,7 +110,7 @@ msgstr "AKTIVE FILTRE"
 
 #: templates/single.twig:122 templates/blocks/share_buttons.twig:73
 msgid "Add as a preferred source on Google"
-msgstr "Vil du se mere fra Greenpeace?"
+msgstr "Tilføj os som en foretrukken kilde på Google"
 
 #: templates/all-actions.twig:7 templates/taxonomy.twig:36
 msgid "All actions"
