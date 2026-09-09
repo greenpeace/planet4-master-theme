@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2026-09-09 11:53+0000\n"
+"PO-Revision-Date: 2026-09-09 11:56+0000\n"
 "Language-Team: Hebrew\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -25,7 +25,7 @@ msgstr ""
 
 #: templates/burger-menu-items.twig:34
 msgid " submenu"
-msgstr ""
+msgstr "תפריט משנה"
 
 #. %1$d: Number of results. %2$s: Search terms.
 #: src/Search/SearchPage.php:264
@@ -165,11 +165,11 @@ msgstr "מאמרים"
 
 #: assets/src/blocks/CarouselHeader/CarouselControls.js:25
 msgid "Autoplay"
-msgstr ""
+msgstr "ניגון אוטומטי"
 
 #: assets/src/js/query_loop_carousel.js:116
 msgid "Back to Actions List"
-msgstr ""
+msgstr "חזרה לרשימת הפעולות"
 
 #: src/Blocks/Rest.php:95
 msgid "Background image"
@@ -498,7 +498,7 @@ msgstr "סוג תוכן"
 
 #: templates/cookies/cookies_settings.twig:12
 msgid "Cookies Settings"
-msgstr ""
+msgstr "הגדרת קוקיז"
 
 #: assets/src/block-templates/take-action/template.js:17
 msgid "Daily actions"
@@ -583,7 +583,7 @@ msgstr "כותרת הפעולה"
 
 #: templates/listing-page.twig:12
 msgid "Filter posts"
-msgstr ""
+msgstr "סינון פרסומים"
 
 #: templates/search/action_types.twig:16
 #, php-format
@@ -627,7 +627,7 @@ msgstr "סינון תוצאות לפי סוג פרסום %s, נמצאה תוצא
 
 #: templates/listing-page.twig:28
 msgid "Filtered results"
-msgstr ""
+msgstr "סינון תוצאות"
 
 #: templates/search.twig:63
 msgid "Filters"
@@ -649,7 +649,7 @@ msgstr "תכירו אותנו"
 #: assets/src/blocks/CarouselHeader/CarouselControls.js:60
 #, javascript-format
 msgid "Go to %s"
-msgstr ""
+msgstr "לך ל%s"
 
 #. %s: slide header
 #: assets/src/blocks/CarouselHeader/CarouselControls.js:95
@@ -687,7 +687,7 @@ msgstr "כאן"
 
 #: src/RegistrationHandler.php:173
 msgid "Hi"
-msgstr ""
+msgstr "היי"
 
 #: templates/burger-menu.twig:36
 msgid "Home"
@@ -780,7 +780,7 @@ msgstr "תפריט"
 
 #: assets/src/js/search.js:148
 msgid "More results loaded"
-msgstr ""
+msgstr "עוד תוצאות נטענו"
 
 #: src/Search/SearchPage.php:62
 msgid "Most relevant"
@@ -854,7 +854,7 @@ msgstr "כותרת העמוד"
 
 #: src/Blocks/Others.php:364
 msgid "Pages"
-msgstr ""
+msgstr "עמודים"
 
 #: templates/cookies/cookies_settings.twig:17
 msgid "Please select which cookies you are willing to store."
@@ -1171,13 +1171,15 @@ msgstr "מה שאנחנו עושים"
 
 #: templates/footer_country_selector.twig:29
 msgid "Worldwide site list"
-msgstr ""
+msgstr "רשימת האתרים העולמית"
 
 #: src/RegistrationHandler.php:174
 msgid ""
 "Your account is ready.\n"
 "Please sign in using"
 msgstr ""
+"החשבון שלך מוכן.\n"
+"התחבר באמצעות"
 
 #: templates/comment_form/comment_field.twig:2
 msgid "Your Comment"
