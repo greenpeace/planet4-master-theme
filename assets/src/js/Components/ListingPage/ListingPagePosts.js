@@ -277,6 +277,42 @@ const ListingPagePosts = ({filtersContainer, layoutToggleContainer}) => {
   };
 
   /**
+   * Builds the REST API URL for fetching a given page of posts.
+   *
+   * @param {number} targetPage The page number to build the URL for.
+   * @return {string} The full REST API request URL.
+   */
+  const buildPostsUrl = useCallback(targetPage => {
+    const archiveContext = getArchiveContext();
+    const endpoint = getEndpoint(archiveContext);
+
+    const args = {
+      per_page: PER_PAGE,
+      page: targetPage,
+      _embed: 'wp:featuredmedia,author,wp:term',
+      _fields: POST_FIELDS,
+      ...buildArchiveArgs(archiveContext),
+      ...buildFilterArgs(filters),
+    };
+
+    return `${BASE_URL}/wp-json/wp/v2/${addQueryArgs(endpoint, args)}`;
+  }, [filters]);
+
+  /**
+   * Speculatively fetches a page of posts ahead of navigation (e.g. on
+   * pagination hover/focus) to make the subsequent real navigation faster.
+   *
+   * @param {number} targetPage The page number to prefetch.
+   * @return {void}
+   */
+  const prefetchPage = useCallback(targetPage => {
+    if (targetPage < 1 || targetPage > totalPages || targetPage === page) {return;}
+
+    fetchJson(buildPostsUrl(targetPage)).catch(() => {
+    });
+  }, [buildPostsUrl, totalPages, page]);
+
+  /**
    * Triggers the initial fetch of taxonomies used to populate the filter dropdowns.
    */
   useEffect(() => {
@@ -337,7 +373,12 @@ const ListingPagePosts = ({filtersContainer, layoutToggleContainer}) => {
         </p>
       ) }
 
-      <Paginator currentPage={page} totalPages={totalPages} onPageChange={setPage} />
+      <Paginator
+        currentPage={page}
+        totalPages={totalPages}
+        onPageChange={setPage}
+        onPrefetchPage={prefetchPage}
+      />
     </>
   );
 };
