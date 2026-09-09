@@ -210,6 +210,17 @@ const ListingPagePosts = ({filtersContainer, layoutToggleContainer}) => {
    *
    * @return {Promise<void>}
    */
+  const POST_FIELDS = [
+    'id',
+    'link',
+    'date',
+    'title',
+    'excerpt',
+    'meta',
+    '_links',
+    '_embedded',
+  ].join(',');
+
   const getPosts = useCallback(async () => {
     const requestId = ++requestIdRef.current;
     setIsLoadingPosts(true);
@@ -221,7 +232,8 @@ const ListingPagePosts = ({filtersContainer, layoutToggleContainer}) => {
       const args = {
         per_page: PER_PAGE,
         page,
-        _embed: true,
+        _embed: 'wp:featuredmedia,author,wp:term',
+        _fields: POST_FIELDS,
         ...buildArchiveArgs(archiveContext),
         ...buildFilterArgs(filters),
       };
