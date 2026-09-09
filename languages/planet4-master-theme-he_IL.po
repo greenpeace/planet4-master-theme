@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2026-09-09 11:56+0000\n"
+"PO-Revision-Date: 2026-09-09 11:57+0000\n"
 "Language-Team: Hebrew\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -110,7 +110,7 @@ msgstr "מסננים פעילים"
 
 #: templates/single.twig:122 templates/blocks/share_buttons.twig:73
 msgid "Add as a preferred source on Google"
-msgstr ""
+msgstr "הוספה של גרינפיס כמקור עניין בגוגל"
 
 #: templates/all-actions.twig:7 templates/taxonomy.twig:36
 msgid "All actions"
@@ -1149,7 +1149,7 @@ msgstr "כדאי לנסות לחפש משהו אחר"
 
 #: templates/single.twig:114
 msgid "Want to see more from Greenpeace?"
-msgstr ""
+msgstr "רוצה להתעדכן עוד מגרינפיס?"
 
 #: assets/src/block-templates/homepage/template.js:25
 msgid "We win campaigns"
