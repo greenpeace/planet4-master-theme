@@ -1,8 +1,9 @@
 {% extends "base.twig" %}
 
 {% block content %}
-    <main class="page-content container {% if hide_page_title or not header_title %}no-page-title{% endif %}" id="content">
-        {% if fn('is_front_page') %}
+    {% set no_page_title = hide_page_title or not header_title %}
+    <main class="page-content container {% if no_page_title %}no-page-title{% endif %}" id="content">
+        {% if fn('is_front_page') and no_page_title %}
             <h1 class="visually-hidden" tabindex="0">
                 {{ __('%s homepage', 'planet4-master-theme')|format(site.name) }}
             </h1>
