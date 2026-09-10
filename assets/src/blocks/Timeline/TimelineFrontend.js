@@ -193,6 +193,7 @@ export const TimelineFrontend = ({attributes}) => {
                   <TimelineEvent
                     key={`${timeline_id}-event-${event.Day}-${index}`}
                     event={event}
+                    isEditing={isEditing}
                   />
                 ))}
               </ul>
