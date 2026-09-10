@@ -16,5 +16,11 @@
  */
 export const fetchJson = async url => {
   const response = await fetch(url);
-  return response.json();
+  const data = await response.json();
+
+  return {
+    data,
+    totalPages: Number(response.headers.get('X-WP-TotalPages')) || 1,
+    total: Number(response.headers.get('X-WP-Total')) || 0,
+  };
 };

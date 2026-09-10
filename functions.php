@@ -3,7 +3,6 @@
 use P4\MasterTheme\Api;
 use P4\MasterTheme\Loader;
 use P4\MasterTheme\MediaArchive\Rest;
-use P4\MasterTheme\ListingPage;
 
 // This theme vendor dir
 if (file_exists(__DIR__ . '/vendor/autoload.php')) {
@@ -305,20 +304,6 @@ add_filter(
     },
     10,
     2
-);
-
-// Add filters to the main query on News & Stories page.
-add_action(
-    'pre_get_posts',
-    function ($query): void {
-        if (!$query->is_main_query() || is_admin() || !is_home()) {
-            return;
-        }
-
-        $query->set('post__not_in', ListingPage::get_sticky_posts());
-        $query->set('category__in', ListingPage::get_selected_categories());
-        $query->set('tax_query', ListingPage::get_selected_post_types());
-    }
 );
 
 // This action overrides the WordPress functionality for adding a notice message
