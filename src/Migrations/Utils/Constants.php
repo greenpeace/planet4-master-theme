@@ -51,6 +51,7 @@ class Constants
     public const BLOCK_SINGLE_BUTTON = self::PREFIX_CORE_BLOCKS . '/button';
     public const BLOCK_QUERY = self::PREFIX_CORE_BLOCKS . '/query';
     public const BLOCK_IMAGE = self::PREFIX_CORE_BLOCKS . '/image';
+    public const BLOCK_GALLERY = self::PREFIX_P4_BLOCKS . '/gallery';
 
     public const P4_OTHER_BLOCKS = [
         'breadcrumb' => 'p4/taxonomy-breadcrumb',
