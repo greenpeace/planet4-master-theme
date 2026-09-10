@@ -34,6 +34,8 @@ class PostCampaign
         'p4_og_image',
         'p4_og_image_id',
         'p4-seo-canonical-url',
+        'p4_seo_meta_title',
+        'p4_seo_meta_description',
     ];
 
     /**

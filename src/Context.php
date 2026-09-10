@@ -52,6 +52,8 @@ class Context
         $context['og_title'] = $post->get_og_title();
         $context['og_description'] = $post->get_og_description();
         $context['og_image_data'] = $post->get_og_image();
+        $context['seo_meta_title'] = $post->get_meta_title();
+        $context['seo_meta_description'] = $post->get_meta_description();
     }
 
     /**
