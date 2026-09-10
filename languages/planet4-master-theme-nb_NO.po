@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2026-09-09 13:35+0000\n"
+"PO-Revision-Date: 2026-09-10 07:00+0000\n"
 "Language-Team: Norwegian (Bokmål)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Last-Translator: Svilena Koleva\n"
 "Language: nb_NO\n"
 "Report-Msgid-Bugs-To: \n"
-"X-Loco-Version: 2.6.4; wp-6.1.1\n"
+"X-Loco-Version: 2.8.8; wp-7.0.4; php-8.3.33\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
@@ -110,7 +110,7 @@ msgstr "Aktive filtre"
 
 #: templates/single.twig:122 templates/blocks/share_buttons.twig:73
 msgid "Add as a preferred source on Google"
-msgstr "Legg oss til som en foretrukket kilde på Google"
+msgstr "Gjør oss til en foretrukket kilde"
 
 #: templates/all-actions.twig:7 templates/taxonomy.twig:36
 msgid "All actions"
