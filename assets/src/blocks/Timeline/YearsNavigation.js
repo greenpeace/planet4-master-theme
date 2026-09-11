@@ -177,7 +177,8 @@ export const YearsNavigation = ({years, isEditing, timelineId}) => {
       return;
     }
 
-    target.scrollIntoView({behavior: 'smooth'});
+    const scrollToTarget = () => target.scrollIntoView({behavior: 'smooth'});
+    setTimeout(scrollToTarget, 1000);
   }, []);
 
   return (
