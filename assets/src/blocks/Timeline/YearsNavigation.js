@@ -177,7 +177,23 @@ export const YearsNavigation = ({years, isEditing, timelineId}) => {
       return;
     }
 
-    target.scrollIntoView({behavior: 'smooth'});
+    let settleTimer;
+    let secondFrame;
+
+    const scrollToTarget = () => {
+      target.scrollIntoView({behavior: 'smooth', block: 'start'});
+    };
+
+    const firstFrame = requestAnimationFrame(() => {
+      secondFrame = requestAnimationFrame(scrollToTarget);
+      settleTimer = setTimeout(scrollToTarget, 500);
+    });
+
+    return () => {
+      cancelAnimationFrame(firstFrame);
+      cancelAnimationFrame(secondFrame);
+      clearTimeout(settleTimer);
+    };
   }, []);
 
   return (
