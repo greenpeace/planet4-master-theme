@@ -155,7 +155,7 @@ export const TimelineFrontend = ({attributes}) => {
 
   const summaryText = sprintf(
   /* translators: 1: timeline title, 2: total items, 3: first date, 4: last date */
-    __('%1$s, %2$d items from %3$s to %4$s.', 'planet4-blocks'),
+    __('%1$s, %2$d items from %3$s to %4$s.', 'planet4-master-theme'),
     timeline_title,
     total,
     firstDate,
