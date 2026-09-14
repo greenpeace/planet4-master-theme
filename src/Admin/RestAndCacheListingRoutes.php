@@ -32,12 +32,11 @@ class RestAndCacheListingRoutes
      * Builds a cache key from the route and query params, so each unique
      * combination of page/filters/embed args gets its own cache entry.
      */
-    private function get_listing_cache_key( \WP_REST_Request $request ) {
+    private function get_listing_cache_key( \WP_REST_Request $request ): string {
         $version = $this->get_listing_cache_version();
-        $params  = $request->get_query_params();
-        ksort( $params ); // Ensure key order doesn't produce different keys for the same query.
+        $query   = $_SERVER['QUERY_STRING'] ?? '';
 
-        return 'listing_' . $version . '_' . md5( $request->get_route() . '?' . http_build_query( $params ) );
+        return 'listing_' . $version . '_' . md5( $request->get_route() . '?' . $query );
     }
 
     private function get_listing_cache_version() {
