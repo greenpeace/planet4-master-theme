@@ -54,13 +54,21 @@ class RestAndCacheListingRoutes
      * for the listing endpoints only.
      */
     public function serve_response ( $result, $server, $request ) {
+        error_log( 'SERVE route=' . $request->get_route() . ' method=' . $request->get_method() );
+
         if ( ! in_array( $request->get_route(), self::LISTING_CACHE_ROUTES, true ) || 'GET' !== $request->get_method() ) {
+            error_log( 'SERVE: route check failed, bailing' );
             return $result;
         }
 
-        $cached = wp_cache_get( $this->get_listing_cache_key( $request ), self::LISTING_CACHE_GROUP );
+        $key = $this->get_listing_cache_key( $request );
+        error_log( 'SERVE key=' . $key );
+
+        $cached = wp_cache_get( $key, self::LISTING_CACHE_GROUP );
+        error_log( 'SERVE cached=' . var_export( $cached, true ) );
+
         if ( false === $cached ) {
-            return $result; // Cache miss: let the real request run.
+            return $result;
         }
 
         $response = new \WP_REST_Response( $cached['data'] );
@@ -79,16 +87,23 @@ class RestAndCacheListingRoutes
      * Stores the response after a real (cache-miss) request completes.
      */
     public function store_response ( $response, $server, $request ) {
+        error_log( 'STORE route=' . $request->get_route() . ' method=' . $request->get_method() );
+
         if ( ! in_array( $request->get_route(), self::LISTING_CACHE_ROUTES, true ) || 'GET' !== $request->get_method() ) {
+            error_log( 'STORE: route check failed, bailing' );
             return $response;
         }
 
         if ( is_wp_error( $response ) || ! ( $response instanceof \WP_REST_Response ) ) {
+            error_log( 'STORE: not a valid response, bailing' );
             return $response;
         }
 
-        wp_cache_set(
-            $this->get_listing_cache_key( $request ),
+        $key = $this->get_listing_cache_key( $request );
+        error_log( 'STORE key=' . $key );
+
+        $stored = wp_cache_set(
+            $key,
             [
                 'data'    => $response->get_data(),
                 'headers' => [
@@ -98,6 +113,18 @@ class RestAndCacheListingRoutes
             ],
             self::LISTING_CACHE_GROUP,
             DAY_IN_SECONDS
+        );
+
+        error_log( 'STORE result=' . var_export( $stored, true ) );
+
+        $test = wp_cache_get( $key, self::LISTING_CACHE_GROUP );
+
+        error_log(
+            'STORE immediate get=' . var_export( $test, true )
+        );
+
+        error_log(
+            'STORE persistent=' . ( wp_using_ext_object_cache() ? 'YES' : 'NO' )
         );
 
         $response->header( 'Cache-Control', 'public, max-age=120, stale-while-revalidate=60' );
