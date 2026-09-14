@@ -57,15 +57,14 @@ function handleClick(event, page, onPageChange) {
  * Renders a single entry in the pagination number list: an ellipsis, the
  * current (non-interactive) page indicator, or a clickable page link.
  *
- * @param {Object}        props                Component props.
- * @param {number|string} props.page           The page number to render, or `'...'` for a collapsed gap.
- * @param {number}        props.currentPage    The currently active page.
- * @param {Function}      props.onPageChange   Callback invoked with the selected page number.
- * @param {Function}      props.onPrefetchPage Callback invoked to prefetch data.
+ * @param {Object}        props              Component props.
+ * @param {number|string} props.page         The page number to render, or `'...'` for a collapsed gap.
+ * @param {number}        props.currentPage  The currently active page.
+ * @param {Function}      props.onPageChange Callback invoked with the selected page number.
  *
  * @return {JSX.Element} The rendered page number element.
  */
-function PageNumber({page, currentPage, onPageChange, onPrefetchPage}) {
+function PageNumber({page, currentPage, onPageChange}) {
   if (page === '...') {
     return (
       <span className="page-numbers dots">
@@ -87,26 +86,25 @@ function PageNumber({page, currentPage, onPageChange, onPrefetchPage}) {
       href="#"
       className="page-numbers"
       onClick={event => handleClick(event, page, onPageChange)}
-      onMouseEnter={() => onPrefetchPage(page)}
-      onFocus={() => onPrefetchPage(page)}
     >
       { page }
     </a>
   );
 }
 
+
 /**
  * Renders pagination controls (previous/next links and a windowed list of
  * page numbers) for the listing page.
  *
- * @param {Object}   props                Component props.
- * @param {number}   props.currentPage    The currently active page (1-indexed).
- * @param {number}   props.totalPages     The total number of available pages.
- * @param {Function} props.onPageChange   Callback invoked with the new page number when the user navigates.
- * @param {Function} props.onPrefetchPage Callback invoked to prefetch data.
+ * @param {Object}   props              Component props.
+ * @param {number}   props.currentPage  The currently active page (1-indexed).
+ * @param {number}   props.totalPages   The total number of available pages.
+ * @param {Function} props.onPageChange Callback invoked with the new page number when the user navigates.
+ *
  * @return {JSX.Element|null} The rendered pagination nav, or `null` if pagination isn't needed.
  */
-function Paginator({currentPage, totalPages, onPageChange, onPrefetchPage}) {
+function Paginator({currentPage, totalPages, onPageChange}) {
   if (totalPages <= 1) {
     return null;
   }
@@ -129,8 +127,6 @@ function Paginator({currentPage, totalPages, onPageChange, onPrefetchPage}) {
           }
           handleClick(event, currentPage - 1, onPageChange);
         }}
-        onMouseEnter={() => !isFirstPage && onPrefetchPage(currentPage - 1)}
-        onFocus={() => !isFirstPage && onPrefetchPage(currentPage - 1)}
       >
         { __('Prev', 'planet4-master-theme') }
       </a>
@@ -143,7 +139,6 @@ function Paginator({currentPage, totalPages, onPageChange, onPrefetchPage}) {
             page={page}
             currentPage={currentPage}
             onPageChange={onPageChange}
-            onPrefetchPage={onPrefetchPage}
           />
         )) }
       </div>
@@ -158,8 +153,6 @@ function Paginator({currentPage, totalPages, onPageChange, onPrefetchPage}) {
           }
           handleClick(event, currentPage + 1, onPageChange);
         }}
-        onMouseEnter={() => !isLastPage && onPrefetchPage(currentPage + 1)}
-        onFocus={() => !isLastPage && onPrefetchPage(currentPage + 1)}
       >
         { __('Next', 'planet4-master-theme') }
       </a>
