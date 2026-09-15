@@ -22,7 +22,7 @@ class EnqueueController
         add_action('enqueue_media_import_button_script', [$this, 'enqueue_media_import_button']);
         add_action('enqueue_filter_block_names_script', [$this, 'enqueue_filter_block_names']);
         add_action('enqueue_dismiss_dashboard_notice_script', [$this, 'enqueue_dismiss_dashboard_notice']);
-        add_action('enqueue_listing_page_layout_switch_script', [$this, 'enqueue_listing_page_layout_switch']);
+        add_action('enqueue_dynamic_listing_page_script', [$this, 'enqueue_dynamic_listing_page']);
         add_action('enqueue_vwo_smart_script', [$this, 'enqueue_vwo_smart_code']);
         add_action('admin_footer', [$this, 'hide_password_checkbox']);
     }
@@ -117,20 +117,57 @@ class EnqueueController
     }
 
     /**
-     * Enqueues Listing pages dynamic switch script.
+     * Enqueues dynamic listing pages script.
      *
      * This method registers and enqueues the JavaScript file for dynamically
-     * switching the listing page layout without refrshing the page.
+     * rendering posts in the listing pages.
      *
      */
-    public function enqueue_listing_page_layout_switch(): void
+    public function enqueue_dynamic_listing_page(): void
     {
+        $script = [
+            'id' => 'listingPageSettings',
+            'name' => 'dynamic-listing-page',
+            'path' => '/assets/build/listingPages.js',
+        ];
+
         $this->enqueue_script(
-            'listing-page-layout-switch-script',
-            '/assets/build/listingPages.js',
-            ['wp-i18n'],
-            $this->get_file_version('/assets/build/listingPages.js'),
+            $script['name'],
+            $script['path'],
+            ['wp-i18n', 'wp-element', 'wp-dom-ready'],
+            $this->get_file_version($script['path']),
             true
+        );
+
+        if (!wp_script_is($script['name'], 'enqueued')) {
+            return;
+        }
+
+        $settings = [
+            'postsPerPage' => (int) get_option('posts_per_page', 10),
+            'archivePostType' => '',
+            'archiveAuthor' => '',
+            'archiveTag' => '',
+            'archiveTaxonomy' => '',
+            'archiveTerm' => '',
+        ];
+
+        if (is_post_type_archive('p4_action')) {
+            $settings['archivePostType'] = 'p4_action';
+        } elseif (is_author()) {
+            $settings['archiveAuthor'] = get_queried_object_id();
+        } elseif (is_tag()) {
+            $settings['archiveTag'] = get_queried_object()->term_id;
+        } elseif (is_tax() || is_category()) {
+            $queried = get_queried_object();
+            $settings['archiveTaxonomy'] = $queried->taxonomy;
+            $settings['archiveTerm'] = $queried->term_id;
+        }
+
+        wp_localize_script(
+            $script['name'],
+            $script['id'],
+            $settings
         );
     }
 
