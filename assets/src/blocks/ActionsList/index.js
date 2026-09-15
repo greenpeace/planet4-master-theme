@@ -22,6 +22,14 @@ const carouselButtons = [
     tagName: 'nav',
     className: 'carousel-controls',
     ariaLabel: __('Actions List carousel controls', 'planet4-master-theme-backend'),
+    metadata: {
+      blockVisibility: {
+        viewport: {
+          tablet: false,
+          mobile: false,
+        },
+      },
+    },
   },
   [
     [
