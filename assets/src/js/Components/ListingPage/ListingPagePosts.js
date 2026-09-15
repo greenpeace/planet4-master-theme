@@ -280,8 +280,8 @@ const ListingPagePosts = ({filtersContainer, layoutToggleContainer}) => {
    * Triggers the initial fetch of taxonomies used to populate the filter dropdowns.
    */
   useEffect(() => {
-    getTaxonomies();
-  }, [getTaxonomies]);
+    if (filtersContainer) {getTaxonomies();}
+  }, [filtersContainer, getTaxonomies]);
 
   /**
    * Re-fetches posts whenever `getPosts` changes identity.
