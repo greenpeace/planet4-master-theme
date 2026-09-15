@@ -13,7 +13,6 @@ const TEST_REDIRECT = 'https://www.greenpeace.org/international/';
 test.useAdminLoggedIn();
 
 test.describe('Gravity Forms tests', () => {
-  test.skip('Will resume fixing test after API upgrade to see if that helps');
   test.describe.configure({mode: 'serial'});
   const testId = Math.floor(Math.random() * 10000); //NOSONAR
   let createdForm;
@@ -80,12 +79,10 @@ test.describe('Gravity Forms tests', () => {
     // Wait for success notice and then wait for the network to be idle
     // to ensure the save has fully propagated before navigating away
     await expect(page.locator('.gforms_note_success')).toBeVisible();
-    await page.waitForLoadState('networkidle');
 
 
     // Go to the post which has the form.
     await page.goto(newPost.link);
-    await page.waitForLoadState('networkidle');
     await page.waitForLoadState('domcontentloaded');
 
     // Fill and submit the form.
@@ -121,11 +118,9 @@ test.describe('Gravity Forms tests', () => {
     await expect(page.locator('.gforms_note_success')).toBeVisible();
 
     // Wait for save to fully propagate before navigating away
-    await page.waitForLoadState('networkidle');
 
     // Go to the post which has the form.
     await page.goto(newPost.link);
-    await page.waitForLoadState('networkidle');
     await page.waitForLoadState('domcontentloaded');
 
     // Fill and submit the form.
@@ -192,7 +187,6 @@ test.describe('Gravity Forms tests', () => {
 
     // Go to the post which has the form.
     await page.goto(newPost.link);
-    await page.waitForLoadState('networkidle');
     await page.waitForLoadState('domcontentloaded');
 
 
