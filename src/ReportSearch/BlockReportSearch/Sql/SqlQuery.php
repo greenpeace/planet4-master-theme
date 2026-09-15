@@ -4,16 +4,17 @@
  * Block search SQL query
  */
 
-namespace P4\MasterTheme\BlockReportSearch\Block\Sql;
+namespace P4\MasterTheme\ReportSearch\BlockReportSearch\Sql;
 
-use P4\MasterTheme\BlockReportSearch\Block;
+use P4\MasterTheme\ReportSearch\BlockReportSearch;
 use P4\MasterTheme\SqlParameters;
+use P4\MasterTheme\ReportSearch\BlockReportSearch\Query\Parameters;
 use wpdb;
 
 /**
  * SQL implementation of Query interface
  */
-class SqlQuery implements Block\Query
+class SqlQuery implements BlockReportSearch\Query
 {
     private wpdb $db;
 
@@ -28,10 +29,10 @@ class SqlQuery implements Block\Query
     }
 
     /**
-     * @param Block\Query\Parameters ...$params_list Query parameters.
+     * @param Parameters ...$params_list Query parameters.
      * @return int[] List of posts IDs.
      */
-    public function get_posts(Block\Query\Parameters ...$params_list): array
+    public function get_posts(Parameters ...$params_list): array
     {
         $query = $this->get_sql_query(...$params_list);
         $results = $this->db->get_results($query);
@@ -45,11 +46,11 @@ class SqlQuery implements Block\Query
     }
 
     /**
-     * @param Block\Query\Parameters ...$params_list Query parameters.
+     * @param Parameters ...$params_list Query parameters.
      * @return string SQL query string
      * @throws \UnexpectedValueException Empty prepared query.
      */
-    private function get_sql_query(Block\Query\Parameters ...$params_list): string
+    private function get_sql_query(Parameters ...$params_list): string
     {
         // Prepare query parameters.
         $status = [];
