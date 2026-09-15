@@ -3,10 +3,10 @@
 namespace P4\MasterTheme\Migrations\Utils;
 
 use WP_Block_Parser;
-use P4\MasterTheme\BlockReportSearch\BlockSearch;
-use P4\MasterTheme\BlockReportSearch\PatternSearch;
-use P4\MasterTheme\BlockReportSearch\Block\Query\Parameters as BlockParameters;
-use P4\MasterTheme\BlockReportSearch\Pattern\Query\Parameters as PatternParameters;
+use P4\MasterTheme\ReportSearch\BlockReportSearch;
+use P4\MasterTheme\ReportSearch\PatternReportSearch;
+use P4\MasterTheme\ReportSearch\BlockReportSearch\Query\Parameters as BlockParameters;
+use P4\MasterTheme\ReportSearch\PatternReportSearch\Query\Parameters as PatternParameters;
 use P4\MasterTheme\MigrationRecord;
 
 /**

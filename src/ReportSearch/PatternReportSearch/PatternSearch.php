@@ -4,13 +4,13 @@
  * Pattern search
  */
 
-namespace P4\MasterTheme\BlockReportSearch;
+namespace P4\MasterTheme\ReportSearch\PatternReportSearch;
 
-use P4\MasterTheme\BlockReportSearch\Block\Query\Parameters as BlockSearchParameters;
-use P4\MasterTheme\BlockReportSearch\Block\Sql\SqlQuery as BlockSqlQuery;
-use P4\MasterTheme\BlockReportSearch\Pattern\PatternData;
-use P4\MasterTheme\BlockReportSearch\Pattern\PatternUsage;
-use P4\MasterTheme\BlockReportSearch\Pattern\Query\Parameters;
+use P4\MasterTheme\ReportSearch\BlockReportSearch\Query\Parameters as BlockSearchParameters;
+use P4\MasterTheme\ReportSearch\BlockReportSearch\Sql\SqlQuery as BlockSqlQuery;
+use P4\MasterTheme\ReportSearch\PatternReportSearch\PatternData;
+use P4\MasterTheme\ReportSearch\PatternReportSearch\PatternUsage;
+use P4\MasterTheme\ReportSearch\PatternReportSearch\Query\Parameters;
 use P4\MasterTheme\SqlParameters;
 
 /**
