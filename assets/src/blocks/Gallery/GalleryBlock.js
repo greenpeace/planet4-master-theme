@@ -68,7 +68,7 @@ export const registerGalleryBlock = () => {
           <GalleryFrontend {...props} />
         </div>
       );
-      return <RawHTML>{ markup }</RawHTML>;
+      return <div {...useBlockProps.save()}><RawHTML>{ markup }</RawHTML></div>;
     },
     // Add our custom styles
     styles: [
