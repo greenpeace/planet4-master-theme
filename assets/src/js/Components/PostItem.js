@@ -4,6 +4,16 @@ function decodeHtmlEntities(value) {
   return doc.documentElement.textContent;
 }
 
+// Picks the smallest registered image size that's still >= targetWidth.
+function getBestSrc(media, targetWidth = 400) {
+  const sizes = Object.values(media.media_details?.sizes || {});
+  const candidates = sizes
+    .filter(size => size.width >= targetWidth)
+    .sort((a, b) => a.width - b.width);
+
+  return candidates[0]?.source_url || media.source_url;
+}
+
 /**
  * Renders a single post item within the listing page.
  *
@@ -33,13 +43,15 @@ function PostItem({post}) {
             <img
               width={featuredMedia.media_details?.width}
               height={featuredMedia.media_details?.height}
-              src={featuredMedia.source_url}
+              src={getBestSrc(featuredMedia, 400)}
               className="wp-post-image"
               alt={featuredMedia.alt_text || ''}
               srcSet={Object.values(featuredMedia.media_details?.sizes || {})
                 .map(size => `${size.source_url} ${size.width}w`)
                 .join(', ')}
+              sizes="(max-width: 768px) 100vw, 400px"
               decoding="async"
+              loading="lazy"
             />
           </a>
         </div>
