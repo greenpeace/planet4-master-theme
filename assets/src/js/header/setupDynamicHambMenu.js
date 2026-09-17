@@ -19,9 +19,8 @@ const dynamicHambMenu = () => {
 
   const headerHeight = header.getBoundingClientRect().height;
   const logoHeight = logo.getBoundingClientRect().height;
-  const searchFormDisplay = getComputedStyle(searchForm).display;
 
-  if (headerHeight > logoHeight && searchFormDisplay !== 'none') {
+  if (headerHeight > logoHeight) {
     mainDesktopNav.classList.remove('d-lg-flex');
     mainMobileNav.classList.remove('d-lg-none');
     mainMobileNavBtn.style.display = 'initial';
