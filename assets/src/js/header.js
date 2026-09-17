@@ -4,7 +4,7 @@ import {setupCloseNavMenuButton, setupDocumentClick, toggleNavElements} from './
 import {setupTransparentNavHomepage} from './header/setupTransparentNavHomepage';
 import {setupNavInteractions} from './header/setupNavInteractions';
 import {setupSkipLinksFocus} from './header/setupSkipLinksFocus';
-import {setupDynamicHambMenu} from './header/setupDynamicHambMenu';
+import {setupDynamicHamburgerMenu} from './header/setupDynamicHamburgerMenu';
 
 export const setupHeader = () => {
   // Set the mobile tabs menu behavior on scroll.
@@ -32,5 +32,5 @@ export const setupHeader = () => {
   setupSkipLinksFocus();
 
   // Set up displaying the hamburger menu when the desktop menu is too large.
-  setupDynamicHambMenu();
+  setupDynamicHamburgerMenu();
 };

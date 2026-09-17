@@ -1,6 +1,10 @@
 // Set up displaying the hamburger menu when the desktop menu is too large.
 
-const dynamicHambMenu = () => {
+const dynamicHamburgerMenu = () => {
+  if (window.innerWidth < 992) {
+    return;
+  }
+
   const header = document.querySelector('#header');
   const mainMobileNav = document.querySelector('#nav-main');
 
@@ -20,26 +24,28 @@ const dynamicHambMenu = () => {
   const headerHeight = header.getBoundingClientRect().height;
   const logoHeight = logo.getBoundingClientRect().height;
 
-  if (headerHeight > logoHeight) {
-    mainDesktopNav.classList.remove('d-lg-flex');
-    mainMobileNav.classList.remove('d-lg-none');
-    mainMobileNavBtn.style.display = 'initial';
-    logo.style.marginLeft = '0';
+  if (headerHeight <= logoHeight) {
+    return;
   }
+
+  mainDesktopNav.classList.remove('d-lg-flex');
+  mainMobileNav.classList.remove('d-lg-none');
+  mainMobileNavBtn.style.display = 'initial';
+  logo.style.margin = '0';
 };
 
-export const setupDynamicHambMenu = () => {
+export const setupDynamicHamburgerMenu = () => {
   let frame = null;
 
   const onResize = () => {
     if (frame) { return; }
     frame = requestAnimationFrame(() => {
       frame = null;
-      dynamicHambMenu();
+      dynamicHamburgerMenu();
     });
   };
 
-  dynamicHambMenu();
+  dynamicHamburgerMenu();
   window.addEventListener('resize', onResize);
 
   return () => {
