@@ -114,6 +114,21 @@ export const setupSearch = () => {
     };
   }
 
+  // Remove the page scroll when the filters modal is open, keeping only the modal scroll.
+  const pageBody = document.querySelector('body');
+  const pageHtml = document.querySelector('html');
+
+  if (pageBody && pageHtml) {
+    const observer = new MutationObserver(() => {
+      pageHtml.classList.toggle('overflow-hidden', pageBody.classList.contains('modal-open'));
+    });
+
+    observer.observe(pageBody, {
+      attributes: true,
+      attributeFilter: ['class'],
+    });
+  }
+
   // Add click event for load more button in blocks.
   const navSearchInput = document.getElementById('search_input');
   const loadMoreButton = document.querySelector('.more-btn');
