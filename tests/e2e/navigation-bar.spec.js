@@ -48,8 +48,21 @@ test('Test navigation bar menu', async ({page, admin, requestUtils, browserName}
 
     // Check in the frontend that the new menu item is correctly added
     await page.goto('./');
-    await expect(page.getByRole('link', {name: testPageTitle})).toBeVisible();
-    await expect(page.getByRole('link', {name: testPageTitle})).toHaveAttribute('href', newPage.link);
+
+    const hamburgerBtn = page.locator('.nav-menu-toggle');
+    const isHamburgerVisible = await hamburgerBtn.isVisible();
+
+    if (isHamburgerVisible) {
+      await hamburgerBtn.click();
+    }
+
+    const navContainer = isHamburgerVisible ?
+      page.locator('#nav-main') :
+      page.locator('#nav-main-desktop');
+
+    const navLink = navContainer.getByRole('link', {name: testPageTitle});
+    await expect(navLink).toBeVisible();
+    await expect(navLink).toHaveAttribute('href', newPage.link);
   } finally {
     if (newPage?.id) {
       await requestUtils.rest({
