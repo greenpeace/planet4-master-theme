@@ -58,8 +58,8 @@
                                 data-ga-category="Country Selector"
                                 data-ga-action="{{ country.name ~ ' | ' ~ lang.name }}"
                                 data-ga-label="n/a"
+                                aria-label="{{ lang.name ~ ', ' ~ country.name }}"
                             >{{ lang.name }}</a>
-                            <span class="visually-hidden">{{ lang.name ~ ', ' ~ country.name }}</span>
                             {{ k + 1 < lang_count ? '<span aria-hidden="true"> • </span>' : '' }}
                         </li>
                         {% endfor %}
