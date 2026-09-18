@@ -50,12 +50,22 @@ export const setupCookies = () => {
 
   const removeCookie = name => createCookie(name, '0', -1);
 
+  const handleTabKey = (event, element) => {
+    if (event.key !== 'Tab') {
+      return;
+    }
+    event.preventDefault();
+    element.focus();
+  };
+
   const cookie = readCookie('active_consent_choice');
   const cookiesBox = document.querySelector('#set-cookie');
   const currentNRO = document.body.dataset.nro;
   const previousNRO = readCookie('gp_nro');
   const greenpeace = readCookie('greenpeace');
   const noTrack = readCookie('no_track');
+  const cookiesSettings = document.querySelector('.cookies-settings');
+  const GP_logo = document.querySelector('.site-logo');
 
   const showCookiesBox = () => {
     if (cookiesBox) {
@@ -84,6 +94,32 @@ export const setupCookies = () => {
     showCookiesBox();
   }
 
+  const rejectAllCookies = () => {
+    createCookie('greenpeace', ONLY_NECESSARY, 365);
+    createCookie('active_consent_choice', '1', 365);
+    createCookie('no_track', '1', 365);
+
+    // Deny ad storage and analytics storage if Google Consent Mode is enabled.
+    if (ENABLE_GOOGLE_CONSENT_MODE) {
+      updateGoogleConsent({
+        ad_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
+        ...ENABLE_ANALYTICAL_COOKIES && {analytics_storage: 'denied'},
+      });
+    }
+
+    hideCookiesBox();
+    GP_logo.focus();
+  };
+
+  const rejectAllCookiesButtons = [...document.querySelectorAll('.reject-all-cookies')];
+  rejectAllCookiesButtons.forEach(rejectAllCookiesButton => rejectAllCookiesButton.onclick = rejectAllCookies);
+  // Create focus trap.
+  if (rejectAllCookiesButtons.length > 1) {
+    rejectAllCookiesButtons[1].addEventListener('keydown', e => handleTabKey(e, showCookiesSettingsButton));
+  }
+
   const allowAllCookies = () => {
     createCookie('active_consent_choice', '1', 365);
     createCookie('greenpeace', ALL_COOKIES, 365);
@@ -105,27 +141,40 @@ export const setupCookies = () => {
     });
 
     hideCookiesBox();
+    GP_logo.focus();
   };
 
   const allowAllCookiesButtons = [...document.querySelectorAll('.allow-all-cookies')];
-  allowAllCookiesButtons.forEach(allowAllCookiesButton => allowAllCookiesButton.onclick = allowAllCookies);
+  allowAllCookiesButtons.forEach(allowAllCookiesButton => {
+    allowAllCookiesButton.onclick = allowAllCookies;
+  });
+  // Create focus trap if there is no "reject all" button.
+  if (rejectAllCookiesButtons.length === 0) {
+    allowAllCookiesButtons[1].addEventListener('keydown', e => handleTabKey(e, showCookiesSettingsButton));
+  }
 
   const toggleCookiesSettings = () => {
-    const cookiesSettings = document.querySelector('.cookies-settings');
     const cookiesIntro = document.querySelector('.cookies-intro');
     cookiesSettings.classList.toggle('d-none');
     cookiesIntro.classList.toggle('d-none');
-    cookiesSettings.focus();
   };
 
   const showCookiesSettingsButton = document.querySelector('#show-cookies-settings');
   if (showCookiesSettingsButton) {
-    showCookiesSettingsButton.onclick = toggleCookiesSettings;
+    showCookiesSettingsButton.onclick = () => {
+      toggleCookiesSettings();
+      cookiesSettings.focus();
+    };
   }
 
   const closeCookiesSettingsButton = document.querySelector('.close-cookies-settings');
   if (closeCookiesSettingsButton) {
-    closeCookiesSettingsButton.onclick = toggleCookiesSettings;
+    closeCookiesSettingsButton.onclick = () => {
+      toggleCookiesSettings();
+      showCookiesSettingsButton.focus();
+    };
+    // Create focus trap
+    closeCookiesSettingsButton.addEventListener('keydown', e => handleTabKey(e, cookiesBox.querySelector('.cookies-settings')));
   }
 
   // Save cookies settings functionality
@@ -174,29 +223,9 @@ export const setupCookies = () => {
       }
 
       hideCookiesBox();
+      GP_logo.focus();
     };
   }
-
-  const rejectAllCookies = () => {
-    createCookie('greenpeace', ONLY_NECESSARY, 365);
-    createCookie('active_consent_choice', '1', 365);
-    createCookie('no_track', '1', 365);
-
-    // Deny ad storage and analytics storage if Google Consent Mode is enabled.
-    if (ENABLE_GOOGLE_CONSENT_MODE) {
-      updateGoogleConsent({
-        ad_storage: 'denied',
-        ad_user_data: 'denied',
-        ad_personalization: 'denied',
-        ...ENABLE_ANALYTICAL_COOKIES && {analytics_storage: 'denied'},
-      });
-    }
-
-    hideCookiesBox();
-  };
-
-  const rejectAllCookiesButtons = [...document.querySelectorAll('.reject-all-cookies')];
-  rejectAllCookiesButtons.forEach(rejectAllCookiesButton => rejectAllCookiesButton.onclick = rejectAllCookies);
 
   const getConsentModeValues = () => {
     const consentValues = {

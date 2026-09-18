@@ -1,7 +1,7 @@
 {% set show_settings = cookies.settings_copy.analytical_cookies_name or cookies.settings_copy.all_cookies_name %}
 
 {% if ( cookies.text ) %}
-    <div class="cookie-notice" id="set-cookie">
+    <div class="cookie-notice" id="set-cookie" aria-label="{{__('Cookies', 'planet4-master-theme')}}">
         {% include 'cookies/cookies_settings.twig' %}
         <div class="cookies-intro">
             <div class="cookies-text">
