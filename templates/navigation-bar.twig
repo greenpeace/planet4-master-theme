@@ -28,7 +28,7 @@
     {% include 'desktop-menu.twig' %}
 
     {% if donate_menu_items is not empty %}
-        <div class="d-flex align-items-center ms-auto">
+        <div id="donate-nav" class="d-flex align-items-center ms-auto">
             <button
                 class="btn btn-donate d-lg-none"
                 onclick="window.location='{{ donate_menu_items[0].link }}';"
