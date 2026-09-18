@@ -18,42 +18,6 @@
   }
 }
 
-.close-cookies-settings {
-  background-color: transparent;
-  cursor: pointer;
-  height: 16px;
-  width: 16px;
-  position: absolute;
-  top: -$sp-1;
-  right: -$sp-1;
-  padding: 0;
-  border: none;
-
-  &:focus {
-    @include focus-styles();
-  }
-
-  html[dir="rtl"] & {
-    right: auto;
-    left: -$sp-1;
-  }
-
-  @include medium-and-up {
-    right: -$sp-2;
-
-    html[dir="rtl"] & {
-      left: -$sp-2;
-    }
-  }
-
-  .close-icon {
-    mask: url("../../images/cross.svg") no-repeat center;
-    background-color: var(--grey-900);
-    height: 100%;
-    width: 100%;
-  }
-}
-
 .cookies-settings-header h4 {
   margin-bottom: $sp-1;
   font-family: var(--font-family-paragraph-secondary);

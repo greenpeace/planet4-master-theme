@@ -1,23 +1,16 @@
 .cookie-notice {
   font-family: var(--font-family-paragraph-secondary);
   color: var(--grey-900);
-  z-index: 100;
-  position: fixed;
   width: 100vw;
   background: white;
   padding: $sp-3;
-  visibility: hidden;
-  opacity: 0;
   transition: visibility 0.5s, opacity 0.5s linear;
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
   box-shadow: 0 0 12px rgba(0, 0, 0, 0.15);
   bottom: 0;
-
-  &.shown {
-    opacity: 1;
-    visibility: visible;
-  }
+  top: auto;
+  border: none;
 
   @include medium-and-up {
     width: auto;
@@ -108,5 +101,42 @@
 
   &:hover {
     text-decoration: underline;
+  }
+}
+
+.close-cookies-settings {
+  background-color: transparent;
+  cursor: pointer;
+  height: 16px;
+  width: 16px;
+  position: absolute;
+  top: $sp-1;
+  right: $sp-1;
+  padding: 0;
+  border: none;
+
+  &:focus {
+    @include focus-styles();
+  }
+
+  html[dir="rtl"] & {
+    right: auto;
+    left: $sp-1;
+  }
+
+  @include medium-and-up {
+    right: $sp-2;
+    top: $sp-2;
+
+    html[dir="rtl"] & {
+      left: $sp-2;
+    }
+  }
+
+  .close-icon {
+    mask: url("../../images/cross.svg") no-repeat center;
+    background-color: var(--grey-900);
+    height: 100%;
+    width: 100%;
   }
 }
