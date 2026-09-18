@@ -122,17 +122,20 @@ const changeConfirmationType = async ({page, admin}, formId, label) => {
   await expect(editLink).toBeVisible();
   await editLink.click();
 
-  const typeRadio = page.getByLabel(label, {exact: true});
+  // Gravity Forms uses these values for the confirmation type radio buttons.
+  const typeValue = {
+    Text: 'message',
+    Page: 'page',
+    Redirect: 'redirect',
+  }[label];
+
+  const typeRadio = page.locator(`input[name="_gform_setting_type"][value="${typeValue}"]`);
   await expect(typeRadio).toBeVisible();
 
   // Scroll into view first — WebKit won't reliably fire events on off-screen elements
   await typeRadio.scrollIntoViewIfNeeded();
 
-  // Force the click to bypass WebKit's pointer event quirks
-  await typeRadio.click({force: true});
-
-  // Wait for the radio to actually be checked — WebKit can report the click
-  // as complete before the checked state has updated
+  await typeRadio.check();
   await expect(typeRadio).toBeChecked();
 
   await page.waitForTimeout(500);
