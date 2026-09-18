@@ -8,7 +8,7 @@ use P4\MasterTheme\MigrationScript;
 /**
  * Migrate the Test Pattern.
  */
-class M068MigratePatternTest extends MigrationScript
+class M069MigratePatternTest extends MigrationScript
 {
     /**
      * Perform the actual migration.
