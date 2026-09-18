@@ -4,11 +4,11 @@
  * Table displaying blocks usage
  */
 
-namespace P4\MasterTheme\BlockReportSearch\Block;
+namespace P4\MasterTheme\ReportSearch\BlockReportSearch;
 
 use WP_Block_Parser;
-use P4\MasterTheme\BlockReportSearch\BlockSearch;
-use P4\MasterTheme\BlockReportSearch\Block\Query\Parameters;
+use P4\MasterTheme\ReportSearch\BlockReportSearch\BlockSearch;
+use P4\MasterTheme\ReportSearch\BlockReportSearch\Query\Parameters;
 
 /**
  * Present block usage, using native WordPress table
