@@ -1,4 +1,4 @@
-{% if featured_posts|length == sticky_posts_to_show %}
+{% if featured_posts|length == sticky_posts_to_show and not has_filters %}
 <section id="featured-posts">
     <h2 tabindex="0" class="visually-hidden">{{__( 'Featured articles', 'planet4-master-theme' )}}</h2>
     <div class="container">

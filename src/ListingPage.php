@@ -167,6 +167,7 @@ class ListingPage
 
         $this->context['featured_posts'] = $featured_posts;
         $this->context['sticky_posts_to_show'] = self::$STICKY_POSTS_TO_SHOW;
+        $this->context['has_filters'] = self::has_filters();
 
         // Get the featured posts template
         $template_path = get_template_directory() . "/templates/featured-posts.twig";
@@ -236,5 +237,25 @@ class ListingPage
             'field' => 'term_id',
             'terms' => [$post_type->term_id],
         ]];
+    }
+
+    /**
+     * Check whether any filters are selected in the News & Stories page.
+     */
+    public static function has_filters(): bool
+    {
+        $filter_params = [
+            'category',
+            'post-type',
+            'tag',
+        ];
+
+        foreach ($filter_params as $param) {
+            if (isset($_GET[$param]) && '' !== $_GET[$param]) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
