@@ -282,6 +282,24 @@ class Post extends \Timber\Post
     }
 
     /**
+     * Get the meta title.
+     *
+     */
+    public function get_meta_title(): string
+    {
+        return $this->post_meta['p4_seo_meta_title'][0] ?? '';
+    }
+
+    /**
+     * Get the meta description.
+     *
+     */
+    public function get_meta_description(): string
+    {
+        return $this->post_meta['p4_seo_meta_description'][0] ?? '';
+    }
+
+    /**
      * Get image data for open graph image meta.
      *
      */
