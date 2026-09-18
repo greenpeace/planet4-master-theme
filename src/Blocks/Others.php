@@ -156,7 +156,7 @@ class Others
                             esc_url($term_link),
                             esc_html($first->name)
                         ) :
-                        sprintf('<div class="wp-block-post-terms">%s</div>', esc_html($first->name));
+                        sprintf('<div class="wp-block-post-terms" aria-hidden="true">%s</div>', esc_html($first->name));
                 },
                 'uses_context' => ['postId'],
                 'attributes' => [
