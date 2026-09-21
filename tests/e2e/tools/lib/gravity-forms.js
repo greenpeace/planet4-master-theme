@@ -141,4 +141,51 @@ const changeConfirmationType = async ({page, admin}, formId, label) => {
   await page.waitForTimeout(500);
 };
 
-export {toggleRestAPI, createForm, fillAndSubmitForm, checkEntry, changeConfirmationType};
+/**
+ * Select a page in the Gravity Forms "Page" confirmation dropdown.
+ *
+ * @param {Object} params      - Parameters for interacting with the browser.
+ * @param {Object} params.page - The page object for interacting with the browser.
+ * @param {string} title       - The title of the page to select.
+ */
+const selectConfirmationPage = async ({page}, title) => {
+  const root = page.locator('article.gform-dropdown[data-post-type="page"]');
+  const control = root.locator('[data-js="gform-dropdown-control"]');
+  const list = root.locator('[data-js="gform-dropdown-list"]');
+  const search = root.locator('[data-js="gform-dropdown-search"]');
+  const option = list.getByRole('button', {name: title, exact: true});
+
+  await expect(control).toBeVisible();
+  await expect(control).toBeEnabled();
+  // The widget is ready once the spinner is gone and the initial list is rendered.
+  await expect(root.locator('.gform-dropdown__spinner')).toBeHidden();
+  await expect(list.locator('li').first()).toBeAttached();
+
+  const openers = [
+    ['click', () => control.click({delay: 100})], // Hold the press like a human would.
+    ['keyboard', () => control.press('Enter')],
+    ['dispatch', () => control.dispatchEvent('click')],
+  ];
+  let attempts = 0;
+  // eslint-disable-next-line no-unused-vars
+  let used = 'already open';
+
+  await expect(async () => {
+    if ((await control.getAttribute('aria-expanded')) !== 'true') {
+      const [name, open] = openers[attempts++ % openers.length];
+      used = name;
+      await open();
+    }
+    await expect(control).toHaveAttribute('aria-expanded', 'true', {timeout: 1500});
+
+    await search.fill('');
+    await search.pressSequentially(title, {delay: 50});
+    await expect(option).toBeVisible({timeout: 8000});
+  }).toPass({timeout: 30000, intervals: [500, 1000, 2000]});
+
+  await option.click();
+  await expect(list).toBeHidden();
+  await expect(control).toContainText(title);
+};
+
+export {toggleRestAPI, createForm, fillAndSubmitForm, checkEntry, changeConfirmationType, selectConfirmationPage};
