@@ -80,6 +80,9 @@ test.describe('Gravity Forms tests', () => {
     // to ensure the save has fully propagated before navigating away
     await expect(page.locator('.gforms_note_success')).toBeVisible();
 
+    // Delay to simulate human interaction and ensure the save has fully propagated before navigating away
+    await page.waitForTimeout(15000);
+
 
     // Go to the post which has the form.
     await page.goto(newPost.link);
@@ -117,7 +120,8 @@ test.describe('Gravity Forms tests', () => {
     await page.getByRole('button', {name: 'Save Confirmation'}).click();
     await expect(page.locator('.gforms_note_success')).toBeVisible();
 
-    // Wait for save to fully propagate before navigating away
+    // Delay to simulate human interaction and ensure the save has fully propagated before navigating away
+    await page.waitForTimeout(10000);
 
     // Go to the post which has the form.
     await page.goto(newPost.link);
@@ -184,6 +188,9 @@ test.describe('Gravity Forms tests', () => {
 
     await page.getByRole('button', {name: 'Save Confirmation'}).click();
     await expect(page.locator('.gforms_note_success')).toBeVisible();
+
+    // Delay to simulate human interaction and ensure the save has fully propagated before navigating away
+    await page.waitForTimeout(10000);
 
     // Go to the post which has the form.
     await page.goto(newPost.link);
