@@ -2,7 +2,11 @@
 {% set is_news_page = page_category == 'News' %}
 
 {% if (post and (1 != fn('post_password_required', post))) or is_listing_page or is_news_page %}
-    {% if (author.description is defined and author.description) %}
+    {% if (seo_meta_description) %}
+        {% set meta_description = seo_meta_description|striptags %}
+    {% elseif (og_description) %}
+        {% set meta_description = og_description|striptags %}
+    {% elseif (author.description is defined and author.description) %}
         {% set meta_description = author.description|striptags %}
     {% elseif (post.post_excerpt is defined and post.post_excerpt) %}
         {% set meta_description = post.post_excerpt|striptags %}
@@ -30,7 +34,17 @@
         {% set title = site.name %}
     {% endif %}
 
-    <meta name="title" content="{{ title }}"/>
+    {% if seo_meta_title %}
+        {% set meta_title = seo_meta_title|decode_entities~' - '~site.name %}
+    {% elseif og_title %}
+        {% set meta_title = og_title|decode_entities~' - '~site.name %}
+    {% elseif wp_title %}
+        {% set meta_title = wp_title|decode_entities~' - '~site.name %}
+    {% else %}
+        {% set meta_title = site.name %}
+    {% endif %}
+
+    <meta name="title" content="{{ meta_title }}"/>
     <meta property="og:title" content="{{ title }}" />
     <meta property="og:url" content="{{ current_url }}" />
     {% if (og_type) %}
