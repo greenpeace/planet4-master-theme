@@ -1,4 +1,4 @@
-import {useState, useEffect, useRef} from '@wordpress/element';
+import {useState, useEffect, useRef, useMemo} from '@wordpress/element';
 import {getHeadingsFromDom} from '../../functions/getHeadingsFromDom';
 
 const {__} = wp.i18n;
@@ -10,15 +10,17 @@ export const SecondaryNavigationFrontend = ({levels}) => {
   const [showLeftArrow, setShowLeftArrow] = useState(false);
   const [showRightArrow, setShowRightArrow] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [domVersion, setDomVersion] = useState(0);
   const isClicking = useRef(false);
   const isManualScroll = useRef(false);
   const hasLoaded = useRef(false);
   const navListRef = useRef(null);
-  const headings = getHeadingsFromDom(levels);
   const dropdownRef = useRef(null);
   const toggleRef = useRef(null);
   const visibleRef = useRef([]);
   const isRTL = document.dir === 'rtl';
+
+  const headings = useMemo(() => getHeadingsFromDom(levels), [levels, domVersion]);
 
   useEffect(() => {
     const block = document.querySelector('div[data-render="planet4-blocks/secondary-navigation"]');
@@ -35,6 +37,29 @@ export const SecondaryNavigationFrontend = ({levels}) => {
     checkMobile();
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // Watch .page-content for structural changes (e.g. Timeline's <h2> mounting
+  // after its Google Sheets fetch resolves) and trigger a headings recompute.
+  useEffect(() => {
+    const container = document.querySelector('.page-content');
+    if (!container) {return;}
+
+    let debounceTimer = null;
+
+    const observer = new MutationObserver(() => {
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(() => {
+        setDomVersion(v => v + 1);
+      }, 150);
+    });
+
+    observer.observe(container, {childList: true, subtree: true});
+
+    return () => {
+      clearTimeout(debounceTimer);
+      observer.disconnect();
+    };
   }, []);
 
   // This runs to auto update the URL and active header class for the Secondary Navigation
@@ -125,7 +150,12 @@ export const SecondaryNavigationFrontend = ({levels}) => {
     if (!navEl) {return;}
 
     const items = navEl.querySelectorAll('li');
-    if (!items.length) {return;}
+
+    if (items.length < 2) {
+      setShowLeftArrow(false);
+      setShowRightArrow(false);
+      return;
+    }
 
     const firstItem = items[0];
     const lastItem = items[items.length - 1];
@@ -156,7 +186,7 @@ export const SecondaryNavigationFrontend = ({levels}) => {
     observer.observe(lastItem);
 
     return () => observer.disconnect();
-  }, [isRTL]);
+  }, [isRTL, headings]);
 
   useEffect(() => {
     if (!isMobile) {return;}
