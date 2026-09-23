@@ -136,6 +136,7 @@
 
     .carousel-item-wrapper li {
       height: $posts-list-container-height;
+      list-style: none;
     }
 
     // We don't show tags in this layout because they often break the design.
