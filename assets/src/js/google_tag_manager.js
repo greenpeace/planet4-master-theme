@@ -1,7 +1,6 @@
 /* global dataLayer, googleTagManagerData */
 
 if (googleTagManagerData?.google_tag_value) {
-
   const google_tag_value = googleTagManagerData.google_tag_value;
   const google_tag_domain = googleTagManagerData.google_tag_domain;
   const consent_default_analytics_storage = googleTagManagerData.consent_default_analytics_storage;
@@ -60,6 +59,7 @@ if (googleTagManagerData?.google_tag_value) {
     'p4_blocks': googleTagManagerData.p4_blocks,
     'post_categories': googleTagManagerData.post_categories,
     'reading_time': googleTagManagerData.reading_time ?? '',
+    'reading_time_75': googleTagManagerData.reading_time ? Math.round(googleTagManagerData.reading_time * 0.75) : '',
     'page_date': googleTagManagerData.page_date ?? '',
     ...(googleTagManagerData.page_category === 'Search Page' && {
       'search_results': googleTagManagerData.search_results,
