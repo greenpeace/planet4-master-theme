@@ -60,6 +60,7 @@ if (googleTagManagerData?.google_tag_value) {
     'p4_blocks': googleTagManagerData.p4_blocks,
     'post_categories': googleTagManagerData.post_categories,
     'reading_time': googleTagManagerData.reading_time ?? '',
+    'reading_time_75': googleTagManagerData.reading_time ? String(Math.round(googleTagManagerData.reading_time * 0.75)) : '',
     'page_date': googleTagManagerData.page_date ?? '',
     ...(googleTagManagerData.page_category === 'Search Page' && {
       'search_results': googleTagManagerData.search_results,
