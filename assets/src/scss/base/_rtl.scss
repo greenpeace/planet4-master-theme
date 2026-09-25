@@ -1,11 +1,5 @@
 html[dir="rtl"] body {
-  text-transform: lowercase;
   text-align: right;
-
-  button,
-  .btn {
-    text-transform: lowercase;
-  }
 
   @include large-and-up {
     .offset-lg-1 {
