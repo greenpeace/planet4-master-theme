@@ -148,10 +148,6 @@
     margin-inline-start: -$sp-4;
     opacity: 0.5;
     position: absolute;
-
-    html[dir="rtl"] & {
-      text-transform: lowercase;
-    }
   }
 
   > ul {
