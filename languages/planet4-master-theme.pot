@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
-"POT-Creation-Date: 2026-09-09 11:35+0000\n"
+"POT-Creation-Date: 2026-09-25 08:25+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -37,8 +37,9 @@ msgstr[1] ""
 #. %d = Number of minutes for reading time.
 #. reading time in min.
 #: src/Post/ReadingTimeCalculator.php:135 src/Blocks/Others.php:385
-#: templates/single.twig:69 templates/tease-taxonomy-post.twig:65
-#: templates/tease-taxonomy-action.twig:55 templates/tease-author.twig:56
+#: templates/tease-taxonomy-action.twig:55
+#: templates/tease-taxonomy-post.twig:65 templates/tease-author.twig:56
+#: templates/single.twig:69
 msgid "%d min read"
 msgstr ""
 
@@ -111,7 +112,7 @@ msgstr ""
 msgid "All actions"
 msgstr ""
 
-#: templates/listing-page.twig:15 templates/taxonomy.twig:37
+#: templates/taxonomy.twig:37 templates/listing-page.twig:15
 msgid "All articles"
 msgstr ""
 
@@ -136,12 +137,12 @@ msgid "Allow all"
 msgstr ""
 
 #: templates/cookies/cookies_settings.twig:21
-#: assets/src/blocks/Cookies/cookies.js:127
 #: assets/src/blocks/Cookies/edit.js:73
+#: assets/src/blocks/Cookies/cookies.js:127
 msgid "Always enabled"
 msgstr ""
 
-#: templates/search.twig:92 templates/listing-page-filters.twig:54
+#: templates/listing-page-filters.twig:54 templates/search.twig:92
 msgid "Apply filters"
 msgstr ""
 
@@ -477,7 +478,7 @@ msgstr ""
 msgid "Comment (required)"
 msgstr ""
 
-#: templates/single.twig:76 templates/comments_section.twig:2
+#: templates/comments_section.twig:2 templates/single.twig:76
 msgid "Comments"
 msgstr ""
 
@@ -532,8 +533,8 @@ msgid "Email (required)"
 msgstr ""
 
 #: src/Migrations/M049MigrateCoversBlockToActionsListBlock.php:286
-#: src/Migrations/M046MigrateArticlesBlockToPostsListBlock.php:326
 #: src/Migrations/M037MigrateCoversContentBlockToPostsListBlock.php:385
+#: src/Migrations/M046MigrateArticlesBlockToPostsListBlock.php:326
 msgid "Enter description"
 msgstr ""
 
@@ -559,8 +560,8 @@ msgid "Explore"
 msgstr ""
 
 #: assets/src/block-templates/high-level-topic/template.js:45
-#: assets/src/block-templates/get-informed/template.js:9
 #: assets/src/block-templates/action/template.js:34
+#: assets/src/block-templates/get-informed/template.js:9
 msgid "Explore by topics"
 msgstr ""
 
@@ -682,8 +683,8 @@ msgstr ""
 msgid "Home"
 msgstr ""
 
-#: assets/src/block-templates/deep-dive-topic/template.js:22
 #: assets/src/block-templates/high-level-topic/template.js:33
+#: assets/src/block-templates/deep-dive-topic/template.js:22
 #: assets/src/block-templates/campaign/template.js:23
 msgid "How you can help"
 msgstr ""
@@ -722,8 +723,8 @@ msgstr ""
 msgid "Latest investigations"
 msgstr ""
 
-#: assets/src/block-templates/deep-dive-topic/template.js:26
 #: assets/src/block-templates/high-level-topic/template.js:37
+#: assets/src/block-templates/deep-dive-topic/template.js:26
 #: assets/src/block-templates/get-informed/template.js:34
 msgid "Latest news & stories"
 msgstr ""
@@ -787,10 +788,10 @@ msgstr ""
 
 #: src/QueryLoopPagination.php:65
 #: src/Migrations/M049MigrateCoversBlockToActionsListBlock.php:208
-#: src/Migrations/M046MigrateArticlesBlockToPostsListBlock.php:207
 #: src/Migrations/M037MigrateCoversContentBlockToPostsListBlock.php:263
-#: assets/src/blocks/Gallery/GalleryCarousel.js:125
+#: src/Migrations/M046MigrateArticlesBlockToPostsListBlock.php:207
 #: assets/src/blocks/CarouselHeader/CarouselControls.js:98
+#: assets/src/blocks/Gallery/GalleryCarousel.js:125
 msgid "Next"
 msgstr ""
 
@@ -803,14 +804,14 @@ msgid "No posts found!"
 msgstr ""
 
 #: src/Migrations/M049MigrateCoversBlockToActionsListBlock.php:269
-#: src/Migrations/M046MigrateArticlesBlockToPostsListBlock.php:306
 #: src/Migrations/M037MigrateCoversContentBlockToPostsListBlock.php:365
+#: src/Migrations/M046MigrateArticlesBlockToPostsListBlock.php:306
 msgid "No posts found."
 msgstr ""
 
 #: src/Migrations/M049MigrateCoversBlockToActionsListBlock.php:268
-#: src/Migrations/M046MigrateArticlesBlockToPostsListBlock.php:305
 #: src/Migrations/M037MigrateCoversContentBlockToPostsListBlock.php:364
+#: src/Migrations/M046MigrateArticlesBlockToPostsListBlock.php:305
 msgid "No posts found. (This default text can be edited)"
 msgstr ""
 
@@ -834,8 +835,8 @@ msgstr ""
 msgid "Page"
 msgstr ""
 
-#: assets/src/block-templates/deep-dive-topic/template.js:9
 #: assets/src/block-templates/take-action/template.js:11
+#: assets/src/block-templates/deep-dive-topic/template.js:9
 msgid "Page header title"
 msgstr ""
 
@@ -865,13 +866,13 @@ msgstr ""
 
 #: src/QueryLoopPagination.php:39
 #: src/Migrations/M049MigrateCoversBlockToActionsListBlock.php:204
-#: src/Migrations/M046MigrateArticlesBlockToPostsListBlock.php:203
 #: src/Migrations/M037MigrateCoversContentBlockToPostsListBlock.php:259
+#: src/Migrations/M046MigrateArticlesBlockToPostsListBlock.php:203
 msgid "Prev"
 msgstr ""
 
-#: assets/src/blocks/Gallery/GalleryCarousel.js:91
 #: assets/src/blocks/CarouselHeader/CarouselControls.js:85
+#: assets/src/blocks/Gallery/GalleryCarousel.js:91
 msgid "Previous"
 msgstr ""
 
@@ -912,7 +913,7 @@ msgstr ""
 msgid "Save preferences"
 msgstr ""
 
-#: templates/search-form.twig:2 templates/search.twig:51 templates/404.twig:16
+#: templates/404.twig:16 templates/search-form.twig:2 templates/search.twig:51
 msgid "Search"
 msgstr ""
 
@@ -928,8 +929,8 @@ msgstr ""
 msgid "See all posts"
 msgstr ""
 
-#: src/Migrations/M046MigrateArticlesBlockToPostsListBlock.php:288
 #: src/Migrations/M037MigrateCoversContentBlockToPostsListBlock.php:347
+#: src/Migrations/M046MigrateArticlesBlockToPostsListBlock.php:288
 msgid "See all stories"
 msgstr ""
 
@@ -1046,11 +1047,11 @@ msgstr ""
 msgid "Take Action"
 msgstr ""
 
-#: src/CustomPostType/ActionPage.php:209 src/CustomPostType/ActionPage.php:218
+#: src/Search/SearchPage.php:140 src/CustomPostType/ActionPage.php:209
+#: src/CustomPostType/ActionPage.php:218 src/Blocks/TakeActionBoxout.php:165
 #: src/Blocks/ActionButtonText.php:85 src/Blocks/ActionButtonText.php:95
-#: src/Blocks/TakeActionBoxout.php:165 src/Search/SearchPage.php:140
-#: assets/src/blocks/ActionCustomButtonText/edit.js:4
 #: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:24
+#: assets/src/blocks/ActionCustomButtonText/edit.js:4
 msgid "Take action"
 msgstr ""
 
@@ -1078,10 +1079,10 @@ msgstr ""
 msgid "The issues we work on"
 msgstr ""
 
-#: assets/src/block-templates/deep-dive-topic/template.js:14
 #: assets/src/block-templates/high-level-topic/template.js:16
-#: assets/src/block-templates/campaign/template.js:13
 #: assets/src/block-templates/action/template.js:23
+#: assets/src/block-templates/deep-dive-topic/template.js:14
+#: assets/src/block-templates/campaign/template.js:13
 msgid "The problem"
 msgstr ""
 
