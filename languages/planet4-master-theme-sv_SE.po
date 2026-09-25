@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2026-09-25 08:29+0000\n"
+"PO-Revision-Date: 2026-09-25 08:33+0000\n"
 "Language-Team: Swedish\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -110,7 +110,7 @@ msgstr "AKTIVA FILTER"
 
 #: templates/single.twig:122 templates/blocks/share_buttons.twig:73
 msgid "Add as a preferred source on Google"
-msgstr "Lägg till oss som en föredragen källa"
+msgstr "Gör oss till en föredragen källa"
 
 #: templates/all-actions.twig:7 templates/taxonomy.twig:36
 msgid "All actions"
