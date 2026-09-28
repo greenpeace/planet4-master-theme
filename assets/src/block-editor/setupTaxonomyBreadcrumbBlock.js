@@ -58,6 +58,9 @@ function editFunction({attributes, context}) {
   }, [postId, TAXONOMY]);
 
   const contentAttrs = {className: 'wp-block-post-terms'};
+  if(!isLink) {
+    contentAttrs['aria-hidden'] = true;
+  }
   let content = wp.element.createElement('div', contentAttrs, term);
   if (isLink) {
     const linkAttrs = {href: '', onClick: e => e.preventDefault()};
