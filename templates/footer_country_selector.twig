@@ -38,7 +38,10 @@
                 {% set main_lang, lang_count = country.lang|first, country.lang|length %}
                 <li role="listitem">
                     <a href="{{ main_lang.url }}"
-                        hreflang="{{ main_lang.locale[0] }}"
+                        {% if main_lang.locale[0] is defined %}
+                            lang="{{ main_lang.locale[0] }}"
+                            hreflang="{{ main_lang.locale[0] }}"
+                        {% endif %}
                         data-ga-category="Country Selector"
                         data-ga-action="{{ country.name ~ ' | ' ~ main_lang.name }}"
                         data-ga-label="n/a"
@@ -48,10 +51,14 @@
                         {% for k, lang in country.lang %}
                         <li role="listitem">
                             <a href="{{ lang.url }}"
-                                hreflang="{{ lang.locale[0] }}"
+                                {% if lang.locale[0] is defined %}
+                                    lang="{{ lang.locale[0] }}"
+                                    hreflang="{{ lang.locale[0] }}"
+                                {% endif %}
                                 data-ga-category="Country Selector"
                                 data-ga-action="{{ country.name ~ ' | ' ~ lang.name }}"
                                 data-ga-label="n/a"
+                                aria-label="{{ lang.name ~ ', ' ~ country.name }}"
                             >{{ lang.name }}</a>
                             {{ k + 1 < lang_count ? '<span aria-hidden="true"> • </span>' : '' }}
                         </li>
