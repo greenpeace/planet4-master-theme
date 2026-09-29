@@ -26,7 +26,8 @@ function PostItem({post}) {
   const featuredMedia = post._embedded?.['wp:featuredmedia']?.[0];
   const author = post._embedded?.author?.[0];
   const terms = post._embedded?.['wp:term'] || [];
-  const categories = terms.flat().filter(term => term.taxonomy === 'category');
+  const taxonomyBreadcrumb = window.p4_vars.options.taxonomy_breadcrumbs ?? 'category';
+  const categories = terms.flat().filter(term => term.taxonomy === taxonomyBreadcrumb);
   const tags = terms.flat().filter(term => term.taxonomy === 'post_tag');
   const authorName = post.meta?.p4_author_override || author.name;
   const formattedDate = new Date(post.date).toLocaleDateString('en-GB', {
