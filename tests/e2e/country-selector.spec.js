@@ -1,8 +1,12 @@
 import {test, expect} from './tools/lib/test-utils.js';
+import {acceptCookies} from './tools/lib/accept-cookies.js';
 
 test('check the country selector behaviour', async ({page}) => {
   await page.goto('./');
   await page.waitForLoadState('domcontentloaded');
+
+  // Accept cookies if needed, to remove the box.
+  await acceptCookies(page);
 
   const toggleContainer = page.locator('.country-selector-toggle-container');
   await expect(toggleContainer).toBeVisible();
