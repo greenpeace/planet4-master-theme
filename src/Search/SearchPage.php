@@ -113,9 +113,11 @@ class SearchPage
         $post->thumbnail = $thumbnail;
         $post->thumbnail_alt = get_the_post_thumbnail_caption($post->ID);
 
+        $post_terms = is_string($post->terms) ? json_decode($post->terms, true) : $post->terms;
+
         // @todo Ensure the term link is synced to ElasticSearch so we don't have to fetch it here.
-        $post->tags = self::filter_existing_terms($post->terms['post_tag'] ?? []);
-        $post->p4_page_types = self::filter_existing_terms($post->terms['p4-page-type'] ?? []);
+        $post->tags = self::filter_existing_terms($post_terms['post_tag'] ?? []);
+        $post->p4_page_types = self::filter_existing_terms($post_terms['p4-page-type'] ?? []);
     }
 
     private function populate_archive_post(WP_Post &$post): void
