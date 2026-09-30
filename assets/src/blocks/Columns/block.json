@@ -1,0 +1,61 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "planet4-blocks/columns",
+  "category": "planet4-blocks",
+  "description": "The columns block comes in four styles and groups static content in an aligned, responsive and styled column.",
+  "title": "Planet 4 Columns",
+  "icon": "grid-view",
+  "textdomain": "planet4-blocks-backend",
+  "attributes": {
+    "columns_block_style": {
+      "type": "string",
+      "default": "no_image"
+    },
+    "columns_title": {
+      "type": "string"
+    },
+    "columns_description": {
+      "type": "string"
+    },
+    "columns": {
+      "type": "array",
+      "default": [
+        {"title": "", "description": "", "attachment": 0, "cta_link": "", "cta_text": "", "link_new_tab": false},
+        {"title": "", "description": "", "attachment": 0, "cta_link": "", "cta_text": "", "link_new_tab": false},
+        {"title": "", "description": "", "attachment": 0, "cta_link": "", "cta_text": "", "link_new_tab": false}
+      ],
+      "items": {
+        "type": "object",
+        "properties": {
+          "title": {"type": "string"},
+          "description": {"type": "string"},
+          "attachment": {"type": "integer", "default": 0},
+          "cta_link": {"type": "string"},
+          "link_new_tab": {"type": "boolean"},
+          "cta_text": {"type": "string"}
+        }
+      }
+    },
+    "isExample": {
+      "type": "boolean",
+      "default": false
+    },
+    "exampleColumns": {
+      "type": "array"
+    }
+  },
+  "example": {
+    "viewportWidth": 992,
+    "attributes": {
+      "isExample": true,
+      "exampleColumns": [
+        {"title": "Title 1", "description": "Description 1", "cta_text": "Cta 1", "cta_link": "www.greenpeace.org", "attachment": 0},
+        {"title": "Title 2", "description": "Description 2", "cta_text": "Cta 2", "cta_link": "www.greenpeace.org", "attachment": 0}
+      ]
+    }
+  },
+  "viewScript": "file:view-script.js",
+  "editorScript": "file:index.js",
+  "style": "file:index.css"
+}
