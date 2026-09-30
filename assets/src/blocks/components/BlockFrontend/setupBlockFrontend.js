@@ -1,11 +1,9 @@
 import {createRoot} from 'react-dom/client';
 
-import {ColumnsFrontend} from '../../Columns/ColumnsFrontend.js';
 import {SecondaryNavigationFrontend} from '../../SecondaryNavigation/SecondaryNavigationFrontend.js';
 
 // Render React components
 const COMPONENTS = {
-  'planet4-blocks/columns': ColumnsFrontend,
   'planet4-blocks/secondary-navigation': SecondaryNavigationFrontend,
 };
 
