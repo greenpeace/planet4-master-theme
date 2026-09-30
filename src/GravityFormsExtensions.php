@@ -129,6 +129,7 @@ class GravityFormsExtensions
         add_action('admin_enqueue_scripts', [$this, 'enqueue_gf_custom_scripts']);
         add_action('wp_enqueue_scripts', [$this, 'dequeue_gf_scripts'], 999);
         add_action('wp_enqueue_scripts', [$this, 'enqueue_confirmation_focus_script'], 10);
+        add_filter('gform_settings_menu', [$this, 'remove_gform_mcp_settings'], 10, 1);
     }
 
     /**
@@ -1259,4 +1260,21 @@ class GravityFormsExtensions
         wp_add_inline_script('gform-confirmation-focus', $script);
     }
     // @phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter, SlevomatCodingStandard.TypeHints.ReturnTypeHint.MissingNativeTypeHint
+
+    /**
+     * Remove the MCP settings from the Gravity Forms menu.
+     *
+     * @param array $menu_items The menu items to filter.
+     * @return array $menu_items The filtered menu items.
+     */
+    public function remove_gform_mcp_settings($menu_items): array
+    {
+        foreach ($menu_items as $key => $item) {
+            if (!isset($item['name']) || 'mcp' !== $item['name']) {
+                continue;
+            }
+            unset($menu_items[$key]);
+        }
+        return $menu_items;
+    }
 }
