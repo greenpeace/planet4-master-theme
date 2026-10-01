@@ -31,12 +31,14 @@ class Constants
     public const BLOCK_TEMPLATE_ISSUES = self::PREFIX_P4_BLOCK_TEMPLATES . '/issues';
     public const BLOCK_TEMPLATE_DEEP_DIVE = self::PREFIX_P4_BLOCK_TEMPLATES . '/deep-dive';
     public const BLOCK_TEMPLATE_HIGHLIGHTED_CTA = self::PREFIX_P4_BLOCK_TEMPLATES . '/highlighted-cta';
+    public const BLOCK_TEMPLATE_REALITY_CHECK = self::PREFIX_P4_BLOCK_TEMPLATES . '/reality-check';
 
     // P4 Patterns
     public const BLOCK_PATTERN_QUICK_LINKS = self::PREFIX_P4_PATTERNS . '/quick-links';
     public const BLOCK_PATTERN_ISSUES = self::PREFIX_P4_PATTERNS . '/issues';
     public const BLOCK_PATTERN_DEEP_DIVE = self::PREFIX_P4_PATTERNS . '/deep-dive';
     public const BLOCK_PATTERN_HIGHLIGHTED_CTA = self::PREFIX_P4_PATTERNS . '/highlighted-cta';
+    public const BLOCK_PATTERN_REALITY_CHECK = self::PREFIX_P4_PATTERNS . '/reality-check';
 
 
     public const BLOCK_EMBED = self::PREFIX_CORE_BLOCKS . '/embed';
