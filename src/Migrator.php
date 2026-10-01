@@ -74,6 +74,7 @@ use P4\MasterTheme\Migrations\M070UpdateCarouselHeaderFirstImage;
 use P4\MasterTheme\Migrations\M071MigrateAccordionBlock;
 use P4\MasterTheme\Migrations\M069MigrateHeadingOfPatterns;
 use P4\MasterTheme\Migrations\M069MigrateQuickLinksPattern;
+use P4\MasterTheme\Migrations\M070MigrateIssuesPattern;
 
 /**
  * Run any new migration scripts and record results in the log.
@@ -165,6 +166,7 @@ class Migrator
             M071MigrateAccordionBlock::class,
             M069MigrateHeadingOfPatterns::class,
             M069MigrateQuickLinksPattern::class,
+            M070MigrateIssuesPattern::class,
         ];
 
         // Loop migrations and run those that haven't run yet.
