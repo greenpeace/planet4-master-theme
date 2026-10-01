@@ -201,46 +201,29 @@ const ListingPagePosts = ({filtersContainer, layoutToggleContainer}) => {
     }
   }, []);
 
-  /**
-   * Fetches posts (or the relevant custom post type) for the current page.
-   *
-   * @return {Promise<void>}
-   */
-  const POST_FIELDS = [
-    'id',
-    'link',
-    'date',
-    'title',
-    'excerpt',
-    'meta',
-    '_links',
-    '_embedded',
-  ].join(',');
-
   const getPosts = useCallback(async () => {
     const requestId = ++requestIdRef.current;
     setIsLoadingPosts(true);
 
     try {
       const archiveContext = getArchiveContext();
-      const endpoint = getEndpoint(archiveContext);
+      const postType = getEndpoint(archiveContext) === 'p4_action' ? 'p4_action' : 'post';
 
       const args = {
+        post_type: postType,
         per_page: PER_PAGE,
         page,
-        _embed: 'wp:featuredmedia,author,wp:term',
-        _fields: POST_FIELDS,
         ...buildArchiveArgs(archiveContext),
         ...buildFilterArgs(filters),
       };
 
+      const {data, totalPages: pages} = await fetchJson(
+        addQueryArgs(`${BASE_URL}/wp-json/planet4/v1/listing-posts`, args)
+      );
+
       if (!BASE_URL) {
         logDataInSentry('ListingPagePosts: missing document.body.dataset.nro in getPosts');
       }
-
-      const {data, totalPages: pages} = await fetchJson(
-        `${BASE_URL}/wp-json/wp/v2/${addQueryArgs(endpoint, args)}`
-      );
 
       // Ignore this response if a newer request has been fired.
       if (requestId !== requestIdRef.current) {
