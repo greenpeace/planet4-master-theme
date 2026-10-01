@@ -73,6 +73,7 @@ use P4\MasterTheme\Migrations\M069RemoveMandatoryImageAltTextFeature;
 use P4\MasterTheme\Migrations\M0070UpdateCarouselHeaderFirstImage;
 use P4\MasterTheme\Migrations\M071MigrateAccordionBlock;
 use P4\MasterTheme\Migrations\M069MigrateHeadingOfPatterns;
+use P4\MasterTheme\Migrations\M069MigrateQuickLinksPattern;
 
 /**
  * Run any new migration scripts and record results in the log.
@@ -163,6 +164,7 @@ class Migrator
             M0070UpdateCarouselHeaderFirstImage::class,
             M071MigrateAccordionBlock::class,
             M069MigrateHeadingOfPatterns::class,
+            M069MigrateQuickLinksPattern::class,
         ];
 
         // Loop migrations and run those that haven't run yet.
