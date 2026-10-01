@@ -71,6 +71,7 @@ use P4\MasterTheme\Migrations\M067EnableGooglePreferredSourceButton;
 use P4\MasterTheme\Migrations\M068EmptyGalleryBlockStaticContent;
 use P4\MasterTheme\Migrations\M069MigrateQuickLinksPattern;
 use P4\MasterTheme\Migrations\M070MigrateIssuesPattern;
+use P4\MasterTheme\Migrations\M071MigrateDeepDivePattern;
 
 /**
  * Run any new migration scripts and record results in the log.
@@ -159,6 +160,7 @@ class Migrator
             M068EmptyGalleryBlockStaticContent::class,
             M069MigrateQuickLinksPattern::class,
             M070MigrateIssuesPattern::class,
+            M071MigrateDeepDivePattern::class,
         ];
 
         // Loop migrations and run those that haven't run yet.
