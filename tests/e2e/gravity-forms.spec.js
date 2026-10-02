@@ -5,15 +5,16 @@ import {
   fillAndSubmitForm,
   checkEntry,
   changeConfirmationType,
+  selectConfirmationPage,
 } from './tools/lib/gravity-forms.js';
 
 const CONFIRMATION_MESSAGE = 'This is a dummy confirmation message for testing purposes.';
+const DEFAULT_CONFIRMATION_MESSAGE = 'Thanks for contacting us! We will get in touch with you shortly.';
 const TEST_REDIRECT = 'https://www.greenpeace.org/international/';
 
 test.useAdminLoggedIn();
 
 test.describe('Gravity Forms tests', () => {
-  test.skip('Will resume fixing test after API upgrade to see if that helps');
   test.describe.configure({mode: 'serial'});
   const testId = Math.floor(Math.random() * 10000); //NOSONAR
   let createdForm;
@@ -67,10 +68,11 @@ test.describe('Gravity Forms tests', () => {
     // Wait for TinyMCE to fully initialize before attempting to fill it
     const tinymceFrame = page.frameLocator('#_gform_setting_message_ifr');
     const tinymceBody = tinymceFrame.locator('#tinymce');
-    await expect(tinymceBody).toBeVisible();
+    await expect(tinymceBody).toContainText(DEFAULT_CONFIRMATION_MESSAGE, {timeout: 10000});
 
     await tinymceBody.click();
-    await tinymceBody.fill(CONFIRMATION_MESSAGE);
+    await tinymceBody.press('ControlOrMeta+A'); // Clear the default text
+    await tinymceBody.pressSequentially(CONFIRMATION_MESSAGE, {delay: 50});
 
     // Verify the content is actually in the editor before saving
     await expect(tinymceBody).toContainText(CONFIRMATION_MESSAGE);
@@ -80,12 +82,13 @@ test.describe('Gravity Forms tests', () => {
     // Wait for success notice and then wait for the network to be idle
     // to ensure the save has fully propagated before navigating away
     await expect(page.locator('.gforms_note_success')).toBeVisible();
-    await page.waitForLoadState('networkidle');
+
+    // Delay to simulate human interaction and ensure the save has fully propagated before navigating away
+    await page.waitForTimeout(15000);
 
 
     // Go to the post which has the form.
     await page.goto(newPost.link);
-    await page.waitForLoadState('networkidle');
     await page.waitForLoadState('domcontentloaded');
 
     // Fill and submit the form.
@@ -120,12 +123,11 @@ test.describe('Gravity Forms tests', () => {
     await page.getByRole('button', {name: 'Save Confirmation'}).click();
     await expect(page.locator('.gforms_note_success')).toBeVisible();
 
-    // Wait for save to fully propagate before navigating away
-    await page.waitForLoadState('networkidle');
+    // Delay to simulate human interaction and ensure the save has fully propagated before navigating away
+    await page.waitForTimeout(10000);
 
     // Go to the post which has the form.
     await page.goto(newPost.link);
-    await page.waitForLoadState('networkidle');
     await page.waitForLoadState('domcontentloaded');
 
     // Fill and submit the form.
@@ -149,50 +151,16 @@ test.describe('Gravity Forms tests', () => {
     // Make sure the form uses the Page confirmation type.
     await changeConfirmationType({page, admin}, createdForm.id, 'Page');
 
-    // Set up the page redirect.
-    const confirmationSettings = page.locator('#gform_setting_page');
-    const selectButton = confirmationSettings.locator('[data-js="gform-dropdown-control"]');
-    const spinner = selectButton.locator('.gform-dropdown__spinner');
-
-    await expect(selectButton).toBeVisible();
-    await expect(selectButton).toBeEnabled();
-
-    await page.waitForTimeout(500);
-    await selectButton.click();
-    const buttonBox = await selectButton.boundingBox();
-    await page.mouse.move(buttonBox.x + buttonBox.width / 2, buttonBox.y + buttonBox.height / 2);
-    await page.mouse.down(); // opens dropdown without firing mouseup yet
-
-    const pagesList = confirmationSettings.locator('.gform-dropdown__list');
-
-    await expect(pagesList).toBeVisible();
-
-    const searchInput = confirmationSettings.getByPlaceholder('Search all Pages');
-    await expect(searchInput).toBeVisible();
-    await expect(searchInput).toBeEnabled();
-    await searchInput.focus();
-
-    // Type keyword slowly
-    await page.keyboard.type('Home', {delay: 50});
-
-    // Wait for the spinner to appear and then disappear to ensure results are loaded
-    await expect(spinner).toBeVisible({timeout: 5000});
-    await expect(spinner).toBeHidden({timeout: 10000});
-
-    // Wait for the expected page to appear in the results and click it
-    const homeButton = pagesList.getByRole('button', {name: 'Home'});
-    await expect(homeButton).toBeVisible();
-    await homeButton.click();
-
-    await expect(pagesList).toBeHidden();
-    await expect(selectButton).toContainText('Home');
+    await selectConfirmationPage({page}, 'Home');
 
     await page.getByRole('button', {name: 'Save Confirmation'}).click();
     await expect(page.locator('.gforms_note_success')).toBeVisible();
 
+    // Delay to simulate human interaction and ensure the save has fully propagated before navigating away
+    await page.waitForTimeout(10000);
+
     // Go to the post which has the form.
     await page.goto(newPost.link);
-    await page.waitForLoadState('networkidle');
     await page.waitForLoadState('domcontentloaded');
 
 
