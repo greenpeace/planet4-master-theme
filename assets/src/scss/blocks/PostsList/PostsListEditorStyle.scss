@@ -9,6 +9,16 @@
       margin-bottom: 12px;
     }
 
+    .wp-block-p4-taxonomy-breadcrumb {
+      width: fit-content;
+      max-width: 50%;
+
+      .wp-block-post-terms {
+        max-width: 100% !important;
+        word-break: normal !important;
+      }
+    }
+
     .wp-block-post-featured-image {
       flex-basis: 30%;
     }
