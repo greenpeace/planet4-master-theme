@@ -868,34 +868,34 @@ class Functions
         string $heading_placeholder = 'Enter title',
     ): array {
         foreach ($blocks as &$block) {
-            if (isset($block['blockName']) && $block['blockName'] === 'core/heading') {
-                if (!isset($block['attrs']['placeholder'])) {
-                    continue;
-                }
+            $blockName = $block['blockName'] ?? null;
+            $attrsPlaceholder = $block['attrs']['placeholder'] ?? null;
 
-                $attrsPlaceholder = $block['attrs']['placeholder'] ?? null;
-                $attrsLevel = $block['attrs']['level'] ?? 2;
+            if(!isset($blockName) || $blockName !== 'core/heading' || !isset($placeholder)) {
+                continue;
+            }
 
-                // Check for heading
-                if (
-                    isset($to_heading_level) &&
-                    strtolower($attrsPlaceholder) === strtolower($heading_placeholder) &&
-                    $attrsLevel !== $to_heading_level
-                ) {
-                    $from_heading_level = $attrsLevel;
-                    self::replace_heading_level($block, $from_heading_level, $to_heading_level);
-                }
+            $attrsLevel = $block['attrs']['level'] ?? 2;
 
-                // Check for subheading
-                if (
-                    isset($to_subheading_level) &&
-                    isset($subheading_placeholder) &&
-                    strtolower($attrsPlaceholder) === strtolower($subheading_placeholder) &&
-                    $attrsLevel !== $to_subheading_level
-                ) {
-                    $from_subheading_level = $attrsLevel;
-                    self::replace_heading_level($block, $from_subheading_level, $to_subheading_level);
-                }
+            // Check for heading
+            if (
+                isset($to_heading_level) &&
+                strtolower($attrsPlaceholder) === strtolower($heading_placeholder) &&
+                $attrsLevel !== $to_heading_level
+            ) {
+                $from_heading_level = $attrsLevel;
+                self::replace_heading_level($block, $from_heading_level, $to_heading_level);
+            }
+
+            // Check for subheading
+            if (
+                isset($to_subheading_level) &&
+                isset($subheading_placeholder) &&
+                strtolower($attrsPlaceholder) === strtolower($subheading_placeholder) &&
+                $attrsLevel !== $to_subheading_level
+            ) {
+                $from_subheading_level = $attrsLevel;
+                self::replace_heading_level($block, $from_subheading_level, $to_subheading_level);
             }
 
             if (empty($block['innerBlocks'])) {
