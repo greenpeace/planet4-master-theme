@@ -7,7 +7,7 @@ import {getStyleFromClassName} from '../../functions/getStyleFromClassName';
 const {useSelect} = wp.data;
 const {InspectorControls, RichText} = wp.blockEditor;
 const {CheckboxControl, PanelBody, RangeControl} = wp.components;
-const {useEffect, useCallback} = wp.element;
+const {useEffect, useCallback, useMemo} = wp.element;
 const {__, sprintf} = wp.i18n;
 
 const renderEdit = (attributes, toAttribute, setAttributes, isSelected) => {
@@ -99,6 +99,7 @@ export const ColumnsEditor = ({isSelected, attributes, setAttributes}) => {
     isExample,
     exampleColumns,
   } = attributes;
+
   const updateCurrentImageIndex = useCallback(index => {
     setAttributes({currentImageIndex: index});
   }, [setAttributes]);
@@ -126,20 +127,36 @@ export const ColumnsEditor = ({isSelected, attributes, setAttributes}) => {
     postType: select('core/editor').getCurrentPostType(),
   }), []);
 
-  const {columnImages} = useSelect(select => {
-    // eslint-disable-next-line no-shadow
-    const columnImages = [];
-    columns.forEach(column => {
-      if (column.attachment && column.attachment > 0) {
-        const media = select('core').getMedia(column.attachment);
+  /**
+   * Get the attachment IDs used by the columns.
+   *
+   * useMemo keeps the array reference stable when `columns`
+   * has not changed, preventing unnecessary useSelect updates.
+   */
+  const attachmentIds = useMemo(
+    () =>
+      columns
+        .map(column => column.attachment)
+        .filter(attachment => attachment > 0),
+    [columns]
+  );
+
+  const columnImages = useSelect(
+    select => {
+      const {getEntityRecord} = select('core');
+
+      return attachmentIds.reduce((images, attachmentId) => {
+        const media = getEntityRecord('postType', 'attachment', attachmentId);
 
         if (media?.source_url) {
-          columnImages[column.attachment] = media.source_url;
+          images[attachmentId] = media.source_url;
         }
-      }
-    });
-    return {columnImages};
-  }, [columns]);
+
+        return images;
+      }, {});
+    },
+    [attachmentIds]
+  );
 
   const toAttribute = (attributeName, index) => value => {
     if (['columns_title', 'columns_description'].includes(attributeName)) {

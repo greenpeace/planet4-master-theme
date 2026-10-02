@@ -6,7 +6,6 @@ import {setupQueryLoopBlockExtension} from './block-editor/QueryLoopBlockExtensi
 import {registerSocialMediaBlock} from './blocks/SocialMedia/SocialMediaBlock';
 import {registerBlockTemplates} from './block-templates/register';
 import {registerTimelineBlock} from './blocks/Timeline/TimelineBlock';
-import {registerColumnsBlock} from './blocks/Columns/ColumnsBlock';
 import {registerBlockStyles} from './block-styles';
 import {registerBlockVariations} from './block-variations';
 import {registerActionButtonTextBlock} from './blocks/ActionCustomButtonText';
@@ -21,7 +20,6 @@ import {registerSecondaryNavigationBlock} from './blocks/SecondaryNavigation/Sec
 
 wp.domReady(() => {
   // Blocks
-  registerColumnsBlock();
   registerTakeActionBoxoutBlock();
   registerSocialMediaBlock();
   registerTimelineBlock();
