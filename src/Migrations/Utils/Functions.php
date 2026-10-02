@@ -15,6 +15,85 @@ use P4\MasterTheme\MigrationRecord;
 class Functions
 {
     /**
+     * Isolate migration of post because of Sonar
+     *
+     * @param mixed $post - The post to be migrated.
+     * @param WP_Block_Parser $parser - The block parser.
+     * @param callable $check_callback - Callback function to check if block is valid for migration.
+     * @param callable $transformation_callback - Callback function to transform a block.
+     * @param MigrationRecord $record - The record to log the migration results.
+     * phpcs:disable SlevomatCodingStandard.Functions.UnusedParameter -- interface implementation
+     */
+    private static function migrate_post(
+        $post,
+        WP_Block_Parser $parser,
+        callable $check_callback,
+        callable $transformation_callback,
+        ?MigrationRecord $record = null,
+    ): void {
+        if (empty($post->post_content)) {
+            return;
+        }
+
+        $current_post_id = $post->ID; // Store the current post ID
+
+        echo 'Parsing post ', $current_post_id, "\n"; // phpcs:ignore
+
+        // Parse the blocks from the post content.
+        $blocks = $parser->parse($post->post_content);
+
+        try {
+            if (!is_array($blocks)) {
+                throw new \Exception("Invalid block structure for post #" . $current_post_id);
+            }
+
+            // Process blocks recursively.
+            $blocks = self::process_blocks_recursive(
+                $blocks,
+                $check_callback,
+                $transformation_callback,
+                $current_post_id
+            );
+
+            // Serialize the blocks content & suppress warnings for this specific line
+            $new_content = @serialize_blocks($blocks);
+
+            if ($post->post_content === $new_content) {
+                return;
+            }
+
+            $post_update = array(
+                'ID' => $current_post_id,
+                'post_content' => $new_content,
+            );
+
+            // Update the post with the replaced blocks.
+            $post_update_slashed = wp_slash($post_update);
+            $result = wp_update_post($post_update_slashed, true);
+
+            if (is_wp_error($result)) {
+                throw new \Exception($result->get_error_message()); //NOSONAR
+            }
+
+            if ($result === 0) {
+                throw new \Exception("Unknown error updating post #" . $current_post_id); //NOSONAR
+            }
+
+            echo "Migration successful\n";
+        } catch (\Throwable $e) {
+            echo "Migration failed for post ID: ", $post->ID, "\n";
+            echo $e->getMessage(), "\n";
+
+            if ($record) {
+                $record->add_log(
+                    "PID: " . $post->ID . " Error: " . $e->getMessage() . " - "
+                );
+            }
+            return;
+        }
+    }
+
+    /**
      * Execute a block or pattern migration.
      *
      * @param string $block_name - The name of the block to be migrated.
@@ -51,66 +130,13 @@ class Functions
             $GLOBALS['p4_skip_require_image_alt'] = true;
 
             foreach ($posts as $post) {
-                if (empty($post->post_content)) {
-                    continue;
-                }
-
-                $current_post_id = $post->ID; // Store the current post ID
-
-                echo 'Parsing post ', $current_post_id, "\n"; // phpcs:ignore
-
-                // Parse the blocks from the post content.
-                $blocks = $parser->parse($post->post_content);
-
-                try {
-                    if (!is_array($blocks)) {
-                        throw new \Exception("Invalid block structure for post #" . $current_post_id);
-                    }
-
-                    // Process blocks recursively.
-                    $blocks = self::process_blocks_recursive(
-                        $blocks,
-                        $check_callback,
-                        $transformation_callback,
-                        $current_post_id
-                    );
-
-                    // Serialize the blocks content & suppress warnings for this specific line
-                    $new_content = @serialize_blocks($blocks);
-
-                    if ($post->post_content === $new_content) {
-                        continue;
-                    }
-
-                    $post_update = array(
-                        'ID' => $current_post_id,
-                        'post_content' => $new_content,
-                    );
-
-                    // Update the post with the replaced blocks.
-                    $post_update_slashed = wp_slash($post_update);
-                    $result = wp_update_post($post_update_slashed, true);
-
-                    if (is_wp_error($result)) {
-                        throw new \Exception($result->get_error_message()); //NOSONAR
-                    }
-
-                    if ($result === 0) {
-                        throw new \Exception("Unknown error updating post #" . $current_post_id); //NOSONAR
-                    }
-
-                    echo "Migration successful\n";
-                } catch (\Throwable $e) {
-                    echo "Migration failed for post ID: ", $post->ID, "\n";
-                    echo $e->getMessage(), "\n";
-
-                    if ($record) {
-                        $record->add_log(
-                            "PID: " . $post->ID . " Error: " . $e->getMessage() . " - "
-                        );
-                    }
-                    continue;
-                }
+                migrate_post(
+                    $post,
+                    $parser,
+                    $check_callback,
+                    $transformation_callback,
+                    $record,
+                );
             }
 
             // Remove the global variable to skip the post title requirement.
@@ -871,7 +897,7 @@ class Functions
             $blockName = $block['blockName'] ?? null;
             $attrsPlaceholder = $block['attrs']['placeholder'] ?? null;
 
-            if(!isset($blockName) || $blockName !== 'core/heading' || !isset($placeholder)) {
+            if (!isset($blockName) || $blockName !== 'core/heading' || !isset($placeholder)) {
                 continue;
             }
 
