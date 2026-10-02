@@ -23,7 +23,7 @@
   @include large-and-up {
     margin-inline-start: calc((100vw - 960px) / 2);
     line-height: var(--navbar-menu-height--large);
-    padding-left: $sp-1x;
+    padding-inline-start: $sp-1x;
   }
 
   @include x-large-and-up {

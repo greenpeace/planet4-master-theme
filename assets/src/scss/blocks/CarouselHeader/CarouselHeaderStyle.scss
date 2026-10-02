@@ -347,6 +347,10 @@ $medium-image-height: 600px;
         width: #{320 + ($text-slide-offset * 2)};
         padding-inline-start: 0;
 
+        html[dir="rtl"] & {
+          padding-inline-start: $sp-1;
+        }
+
         h2,
         p {
           @include clamp-text(3);
