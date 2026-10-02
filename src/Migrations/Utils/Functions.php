@@ -30,12 +30,12 @@ class Functions
         callable $transformation_callback,
         ?MigrationRecord $record = null,
     ): void {
-        try {
-            // If there are no posts, abort.
-            if (!$posts) {
-                return;
-            }
+        // If there are no posts, abort.
+        if (!$posts) {
+            return;
+        }
 
+        try {
             echo $block_name . " migration in progress...\n"; // phpcs:ignore
 
             $parser = new WP_Block_Parser();
