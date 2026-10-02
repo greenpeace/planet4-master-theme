@@ -12,6 +12,7 @@ import * as getInformed from './get-informed';
 import * as deepDiveTopic from './deep-dive-topic';
 import * as campaign from './campaign';
 import * as action from './action';
+import * as testPattern from './test-pattern';
 
 export default [
   sideImgTextCta,
@@ -28,4 +29,5 @@ export default [
   deepDiveTopic,
   campaign,
   action,
+  testPattern,
 ];
