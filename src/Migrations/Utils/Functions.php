@@ -3,8 +3,10 @@
 namespace P4\MasterTheme\Migrations\Utils;
 
 use WP_Block_Parser;
-use P4\MasterTheme\BlockReportSearch\BlockSearch;
-use P4\MasterTheme\BlockReportSearch\Block\Query\Parameters;
+use P4\MasterTheme\ReportSearch\BlockReportSearch\BlockSearch;
+use P4\MasterTheme\ReportSearch\PatternReportSearch\PatternSearch;
+use P4\MasterTheme\ReportSearch\BlockReportSearch\Query\Parameters as BlockParameters;
+use P4\MasterTheme\ReportSearch\PatternReportSearch\Query\Parameters as PatternParameters;
 use P4\MasterTheme\MigrationRecord;
 
 /**
@@ -13,33 +15,106 @@ use P4\MasterTheme\MigrationRecord;
 class Functions
 {
     /**
-     * Execute a block migration.
+     * Isolate migration of post because of Sonar
      *
-     * @param string $block_name - The name of the block to be migrated.
-     * @param callable $block_check_callback - Callback function to check if block is valid for migration.
-     * @param callable $record block_transformation_callback - Callback function to transform a block.
+     * @param mixed $post - The post to be migrated.
+     * @param WP_Block_Parser $parser - The block parser.
+     * @param callable $check_callback - Callback function to check if block is valid for migration.
+     * @param callable $transformation_callback - Callback function to transform a block.
      * @param MigrationRecord $record - The record to log the migration results.
      * phpcs:disable SlevomatCodingStandard.Functions.UnusedParameter -- interface implementation
      */
-    public static function execute_block_migration(
-        string $block_name,
-        callable $block_check_callback,
-        callable $block_transformation_callback,
-        ?MigrationRecord $record = null
+    private static function migrate_post(
+        $post,
+        WP_Block_Parser $parser,
+        callable $check_callback,
+        callable $transformation_callback,
+        ?MigrationRecord $record = null,
     ): void {
+        if (empty($post->post_content)) {
+            return;
+        }
+
+        $current_post_id = $post->ID; // Store the current post ID
+
+        echo 'Parsing post ', $current_post_id, "\n"; // phpcs:ignore
+
+        // Parse the blocks from the post content.
+        $blocks = $parser->parse($post->post_content);
+
         try {
-            // Get the list of posts using the specified block.
-            $posts = self::get_posts_using_specific_block(
-                $block_name,
-                Constants::ALL_POST_TYPES,
-                Constants::POST_STATUS_LIST
+            if (!is_array($blocks)) {
+                throw new \Exception("Invalid block structure for post #" . $current_post_id);
+            }
+
+            // Process blocks recursively.
+            $blocks = self::process_blocks_recursive(
+                $blocks,
+                $check_callback,
+                $transformation_callback,
+                $current_post_id
             );
 
-            // If there are no posts, abort.
-            if (!$posts) {
+            // Serialize the blocks content & suppress warnings for this specific line
+            $new_content = @serialize_blocks($blocks);
+
+            if ($post->post_content === $new_content) {
                 return;
             }
 
+            $post_update = array(
+                'ID' => $current_post_id,
+                'post_content' => $new_content,
+            );
+
+            // Update the post with the replaced blocks.
+            $post_update_slashed = wp_slash($post_update);
+            $result = wp_update_post($post_update_slashed, true);
+
+            if (is_wp_error($result)) {
+                throw new \Exception($result->get_error_message()); //NOSONAR
+            }
+
+            if ($result === 0) {
+                throw new \Exception("Unknown error updating post #" . $current_post_id); //NOSONAR
+            }
+
+            echo "Migration successful\n";
+        } catch (\Throwable $e) {
+            echo "Migration failed for post ID: ", $post->ID, "\n";
+            echo $e->getMessage(), "\n";
+
+            if ($record) {
+                $record->add_log(
+                    "PID: " . $post->ID . " Error: " . $e->getMessage() . " - "
+                );
+            }
+            return;
+        }
+    }
+
+    /**
+     * Execute a block or pattern migration.
+     *
+     * @param string $block_name - The name of the block to be migrated.
+     * @param callable $check_callback - Callback function to check if block is valid for migration.
+     * @param callable $transformation_callback - Callback function to transform a block.
+     * @param MigrationRecord $record - The record to log the migration results.
+     * phpcs:disable SlevomatCodingStandard.Functions.UnusedParameter -- interface implementation
+     */
+    public static function execute_migration(
+        mixed $posts,
+        string $block_name,
+        callable $check_callback,
+        callable $transformation_callback,
+        ?MigrationRecord $record = null,
+    ): void {
+        // If there are no posts, abort.
+        if (!$posts) {
+            return;
+        }
+
+        try {
             echo $block_name . " migration in progress...\n"; // phpcs:ignore
 
             $parser = new WP_Block_Parser();
@@ -55,66 +130,13 @@ class Functions
             $GLOBALS['p4_skip_require_image_alt'] = true;
 
             foreach ($posts as $post) {
-                try {
-                    if (empty($post->post_content)) {
-                        continue;
-                    }
-
-                    $current_post_id = $post->ID; // Store the current post ID
-
-                    echo 'Parsing post ', $current_post_id, "\n"; // phpcs:ignore
-
-                    // Parse the blocks from the post content.
-                    $blocks = $parser->parse($post->post_content);
-
-                    if (!is_array($blocks)) {
-                        throw new \Exception("Invalid block structure for post #" . $current_post_id);
-                    }
-
-                    // Process blocks recursively.
-                    $blocks = self::process_blocks_recursive(
-                        $blocks,
-                        $block_check_callback,
-                        $block_transformation_callback,
-                        $current_post_id
-                    );
-
-                    // Serialize the blocks content & suppress warnings for this specific line
-                    $new_content = @serialize_blocks($blocks);
-
-                    if ($post->post_content === $new_content) {
-                        continue;
-                    }
-
-                    $post_update = array(
-                        'ID' => $current_post_id,
-                        'post_content' => $new_content,
-                    );
-
-                    // Update the post with the replaced blocks.
-                    $post_update_slashed = wp_slash($post_update);
-                    $result = wp_update_post($post_update_slashed, true);
-
-                    if (is_wp_error($result)) {
-                        throw new \Exception($result->get_error_message()); //NOSONAR
-                    }
-
-                    if ($result === 0) {
-                        throw new \Exception("Unknown error updating post #" . $current_post_id); //NOSONAR
-                    }
-
-                    echo "Migration successful\n";
-                } catch (\Throwable $e) {
-                    echo "Migration failed for post ID: ", $post->ID, "\n";
-                    echo $e->getMessage(), "\n";
-
-                    if ($record) {
-                        $record->add_log(
-                            "PID: " . $post->ID . " Error: " . $e->getMessage() . " - "
-                        );
-                    }
-                    continue;
-                }
+                self::migrate_post(
+                    $post,
+                    $parser,
+                    $check_callback,
+                    $transformation_callback,
+                    $record,
+                );
             }
 
             // Remove the global variable to skip the post title requirement.
@@ -135,25 +157,87 @@ class Functions
     // phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter
 
     /**
+     * Execute a block migration.
+     *
+     * @param string $block_name - The name of the block to be migrated.
+     * @param callable $check_callback - Callback function to check if block is valid for migration.
+     * @param callable $transformation_callback - Callback function to transform a block.
+     * @param MigrationRecord $record - The record to log the migration results.
+     * phpcs:disable SlevomatCodingStandard.Functions.UnusedParameter -- interface implementation
+     */
+    public static function execute_block_migration(
+        string $block_name,
+        callable $check_callback,
+        callable $transformation_callback,
+        ?MigrationRecord $record = null
+    ): void {
+        $posts = self::get_posts_using_specific_block(
+            $block_name,
+            Constants::ALL_POST_TYPES,
+            Constants::POST_STATUS_LIST
+        );
+
+        self::execute_migration(
+            $posts,
+            $block_name,
+            $check_callback,
+            $transformation_callback,
+            $record
+        );
+    }
+    // phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter
+
+    /**
+     * Execute a pattern migration.
+     *
+     * @param string $pattern_name - The name of the pattern to be migrated.
+     * @param callable $check_callback - Callback function to check if pattern is valid for migration.
+     * @param callable $transformation_callback - Callback function to transform a pattern.
+     * @param MigrationRecord $record - The record to log the migration results.
+     * phpcs:disable SlevomatCodingStandard.Functions.UnusedParameter -- interface implementation
+     */
+    public static function execute_pattern_migration(
+        string $pattern_name,
+        callable $check_callback,
+        callable $transformation_callback,
+        ?MigrationRecord $record = null
+    ): void {
+        $posts = self::get_posts_using_specific_pattern(
+            $pattern_name,
+            Constants::ALL_POST_TYPES,
+            Constants::POST_STATUS_LIST
+        );
+
+        self::execute_migration(
+            $posts,
+            $pattern_name,
+            $check_callback,
+            $transformation_callback,
+            $record
+        );
+    }
+    // phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter
+
+    /**
      * Recursively process blocks and their inner blocks.
      *
      * @param string $block_name - The name of the block to be migrated.
-     * @param callable $block_check_callback - Callback function to check if block is valid for migration.
-     * @param callable $record block_transformation_callback - Callback function to transform a block.
+     * @param callable $check_callback - Callback function to check if block is valid for migration.
+     * @param callable $transformation_callback - Callback function to transform a block.
      * @param int $current_post_id - The current post ID.
      */
     private static function process_blocks_recursive(
         array $blocks,
-        callable $block_check_callback,
-        callable $block_transformation_callback,
+        callable $check_callback,
+        callable $transformation_callback,
         int $current_post_id = 0
     ): array {
         foreach ($blocks as &$block) {
-            if ($block_check_callback($block)) {
+            if ($check_callback($block)) {
                 // The current post ID is needed to exclude it in Post list block.
                 $block['attrs']['current_post_id'] = $current_post_id;
 
-                $block = $block_transformation_callback($block);
+                $block = $transformation_callback($block);
             }
 
             // Check for innerBlocks and process recursively.
@@ -163,8 +247,8 @@ class Functions
 
             $block['innerBlocks'] = self::process_blocks_recursive(
                 $block['innerBlocks'],
-                $block_check_callback,
-                $block_transformation_callback,
+                $check_callback,
+                $transformation_callback,
                 $current_post_id
             );
         }
@@ -189,7 +273,7 @@ class Functions
         ?array $post_status = null
     ): mixed {
         $search = new BlockSearch();
-        $params = ( new Parameters() )->with_name($block_name);
+        $params = ( new BlockParameters() )->with_name($block_name);
 
         if ($post_status) {
             $params = $params->with_post_status($post_status);
@@ -217,6 +301,28 @@ class Functions
         }
 
         return $posts;
+    }
+
+    public static function get_posts_using_specific_pattern(
+        string $pattern_name,
+        array $post_types,
+        ?array $post_status = null
+    ): mixed {
+        $search = new PatternSearch();
+        $params = ( new PatternParameters() )->with_name([$pattern_name]);
+
+        $post_ids = $search->get_posts($params, ['use_templates' => false], $pattern_name) ?? [];
+
+        if (empty($post_ids)) {
+            return null;
+        }
+
+        $args = ['include' => $post_ids, 'post_type' => $post_types];
+        if ($post_status) {
+            $args['post_status'] = 'any';
+        }
+
+        return get_posts($args) ?? [];
     }
 
     /**
@@ -769,5 +875,101 @@ class Functions
             },
             $html
         );
+    }
+
+    /**
+     * Check wheter is a heading block into a pattern
+     * @param array $block - A block data array.
+     * @param int|null $to_heading_level - The level to replace.
+     * @param int|null $to_subheading_level - The level to replace.
+     * @param string|null $subheading_placeholder - The placeholder that identifies the sub-heading.
+     * @param string $heading_placeholder - The placeholder that identifies the heading.
+     * @return array - The transformed block.
+     */
+    public static function transform_heading_levels(
+        array $blocks,
+        int|null $to_heading_level,
+        int|null $to_subheading_level,
+        string|null $subheading_placeholder,
+        string $heading_placeholder = 'Enter title',
+    ): array {
+        foreach ($blocks as &$block) {
+            $blockName = $block['blockName'] ?? null;
+            $attrsPlaceholder = $block['attrs']['placeholder'] ?? null;
+
+            if (!isset($blockName) || $blockName !== 'core/heading' || !isset($placeholder)) {
+                continue;
+            }
+
+            $attrsLevel = $block['attrs']['level'] ?? 2;
+
+            // Check for heading
+            if (
+                isset($to_heading_level) &&
+                strtolower($attrsPlaceholder) === strtolower($heading_placeholder) &&
+                $attrsLevel !== $to_heading_level
+            ) {
+                $from_heading_level = $attrsLevel;
+                self::replace_heading_level($block, $from_heading_level, $to_heading_level);
+            }
+
+            // Check for subheading
+            if (
+                isset($to_subheading_level) &&
+                isset($subheading_placeholder) &&
+                strtolower($attrsPlaceholder) === strtolower($subheading_placeholder) &&
+                $attrsLevel !== $to_subheading_level
+            ) {
+                $from_subheading_level = $attrsLevel;
+                self::replace_heading_level($block, $from_subheading_level, $to_subheading_level);
+            }
+
+            if (empty($block['innerBlocks'])) {
+                continue;
+            }
+
+            $block['innerBlocks'] = self::transform_heading_levels(
+                $block['innerBlocks'],
+                $to_heading_level,
+                $to_subheading_level,
+                $subheading_placeholder,
+                $heading_placeholder
+            );
+        }
+
+        return $blocks;
+    }
+
+    /**
+     * Replace the level of heading and update inner content and HTML
+     * @param array $block - A block data array.
+     * @param int $from_heading_level - The level to replace.
+     * @param int $to_heading_level - The new level.
+     * @return array - The transformed block.
+     */
+    public static function replace_heading_level(array &$block, int $from_heading_level, int $to_heading_level): array
+    {
+        $block['attrs']['level'] = $to_heading_level;
+        $block['innerHTML'] = str_replace(
+            '<h' . $from_heading_level,
+            '<h' . $to_heading_level,
+            $block['innerHTML']
+        );
+        $block['innerHTML'] = str_replace(
+            '</h' . $from_heading_level . '>',
+            '</h' . $to_heading_level . '>',
+            $block['innerHTML']
+        );
+        $block['innerContent'][0] = str_replace(
+            '<h' . $from_heading_level,
+            '<h' . $to_heading_level,
+            $block['innerContent'][0]
+        );
+        $block['innerContent'][0] = str_replace(
+            '</h' . $from_heading_level . '>',
+            '</h' . $to_heading_level . '>',
+            $block['innerContent'][0]
+        );
+        return $block;
     }
 }
