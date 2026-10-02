@@ -428,4 +428,23 @@ add_filter(
     10,
     2
 );
+
+add_filter(
+    'render_block_data',
+    'override_average_reading_speed',
+    10,
+    2
+);
+
+/**
+ * Overrides the averageReadingSpeed attribute
+ */
+function override_average_reading_speed( $parsed_block, $source_block ) {
+    if ( 'core/post-time-to-read' === $parsed_block['blockName'] ) {
+        $reading_time_wpm = $parsed_block['attrs']['averageReadingSpeed'];
+        $planet4_reading_time_wpm = get_option( 'planet4_reading_time_wpm', $reading_time_wpm);
+        $parsed_block['attrs']['averageReadingSpeed'] = $planet4_reading_time_wpm;
+    }
+    return $parsed_block;
+}
 // phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter, Generic.Files.LineLength.MaxExceeded
