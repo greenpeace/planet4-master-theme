@@ -130,7 +130,7 @@ class Functions
             $GLOBALS['p4_skip_require_image_alt'] = true;
 
             foreach ($posts as $post) {
-                migrate_post(
+                self::migrate_post(
                     $post,
                     $parser,
                     $check_callback,
