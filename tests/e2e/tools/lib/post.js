@@ -99,10 +99,10 @@ async function createPostWithFeaturedImage({page, admin, editor}, params) {
   await page.locator('button#menu-item-browse').click();
 
   const mediaSearchInput = page.locator('#media-search-input');
-  await mediaSearchInput.fill('OCEANS-GP0STOM6C');
+  await mediaSearchInput.fill('NATURE-GP0STOE2U');
   await page.keyboard.press('Enter');
 
-  const thumbnail = page.locator('li[aria-label="OCEANS-GP0STOM6C"]').first();
+  const thumbnail = page.locator('li[aria-label="NATURE-GP0STOE2U"]').first();
   await expect(thumbnail).toBeVisible();
   await thumbnail.click();
 
