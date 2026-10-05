@@ -67,10 +67,6 @@
     display: flex;
     @include render-bullet;
 
-    @include small-and-less {
-      display: none;
-    }
-
     .wp-block-post-terms {
       @include clamp-text(1);
     }

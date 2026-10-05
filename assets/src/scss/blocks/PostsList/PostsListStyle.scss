@@ -49,7 +49,6 @@
 
   .taxonomy-post_tag {
     @include render-bullet();
-    margin-inline-start: $sp-1x;
     word-break: break-all;
 
     a {
