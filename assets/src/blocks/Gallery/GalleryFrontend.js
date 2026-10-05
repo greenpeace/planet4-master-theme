@@ -3,7 +3,7 @@ import {GalleryThreeColumns} from './GalleryThreeColumns';
 import {GalleryGrid} from './GalleryGrid';
 import {getGalleryLayout, GALLERY_BLOCK_CLASSES} from './getGalleryLayout';
 import {usePhotoSwipeLightbox} from '../components/Lightbox/photoSwipeLightbox';
-import {useCallback, useMemo} from '@wordpress/element';
+import {useCallback, useEffect, useMemo, useState} from '@wordpress/element';
 
 /**
  * Renders a gallery block on the frontend using the appropriate layout (slider, grid, or three-columns)
@@ -15,16 +15,17 @@ import {useCallback, useMemo} from '@wordpress/element';
  * @return {JSX.Element} The rendered gallery block with lightbox-enabled images.
  */
 export const GalleryFrontend = ({attributes = {}}) => {
+  const [images, setImages] = useState([]);
   const className = attributes.className ?? '';
 
   /**
    * Normalizes and sets the images array when block attributes are updated.
    */
-  const images = useMemo(() => {
-    if (!attributes.image_data?.length) {
-      return [];
+  useEffect(() => {
+    if (attributes.image_data?.length) {
+      setImages(attributes.images?.length ? attributes.images : attributes.image_data);
     }
-    return attributes.images?.length ? attributes.images : attributes.image_data;
+
   }, [attributes]);
 
   /**
