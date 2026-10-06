@@ -228,6 +228,7 @@
       font-weight: var(--font-weight-semibold);
       font-family: var(--font-family-tertiary);
       font-size: var(--font-size-m--font-family-tertiary);
+      word-break: break-all;
     }
   }
 
@@ -308,7 +309,7 @@
       @include clamp-text(1);
 
       overflow-wrap: break-word;
-      word-break: break-word;
+      word-break: break-all;
       hyphens: auto;
     }
   }

@@ -47,6 +47,7 @@
 
   a {
     color: inherit;
+    word-break: break-all;
 
     &:visited {
       color: var(--gp-green-800);
@@ -183,10 +184,6 @@
         max-width: 50%;
         flex-shrink: 0;
         word-break: break-all;
-
-        @include small-and-less {
-          max-width: 100%;
-        }
       }
     }
   }
