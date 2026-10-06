@@ -56,16 +56,18 @@ export const setupCookies = () => {
   const previousNRO = readCookie('gp_nro');
   const greenpeace = readCookie('greenpeace');
   const noTrack = readCookie('no_track');
+  const cookiesSettings = document.querySelector('.cookies-settings');
+  const GP_logo = document.querySelector('.site-logo');
 
   const showCookiesBox = () => {
     if (cookiesBox) {
-      cookiesBox.classList.add('shown');
+      cookiesBox.showModal();
     }
   };
 
   const hideCookiesBox = () => {
     if (cookiesBox) {
-      cookiesBox.classList.remove('shown');
+      cookiesBox.close();
     }
   };
 
@@ -83,6 +85,28 @@ export const setupCookies = () => {
   if (cookie === null) {
     showCookiesBox();
   }
+
+  const rejectAllCookies = () => {
+    createCookie('greenpeace', ONLY_NECESSARY, 365);
+    createCookie('active_consent_choice', '1', 365);
+    createCookie('no_track', '1', 365);
+
+    // Deny ad storage and analytics storage if Google Consent Mode is enabled.
+    if (ENABLE_GOOGLE_CONSENT_MODE) {
+      updateGoogleConsent({
+        ad_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
+        ...ENABLE_ANALYTICAL_COOKIES && {analytics_storage: 'denied'},
+      });
+    }
+
+    hideCookiesBox();
+    GP_logo.focus();
+  };
+
+  const rejectAllCookiesButtons = [...document.querySelectorAll('.reject-all-cookies')];
+  rejectAllCookiesButtons.forEach(rejectAllCookiesButton => rejectAllCookiesButton.onclick = rejectAllCookies);
 
   const allowAllCookies = () => {
     createCookie('active_consent_choice', '1', 365);
@@ -105,27 +129,31 @@ export const setupCookies = () => {
     });
 
     hideCookiesBox();
+    GP_logo.focus();
   };
 
   const allowAllCookiesButtons = [...document.querySelectorAll('.allow-all-cookies')];
-  allowAllCookiesButtons.forEach(allowAllCookiesButton => allowAllCookiesButton.onclick = allowAllCookies);
+  allowAllCookiesButtons.forEach(allowAllCookiesButton => {
+    allowAllCookiesButton.onclick = allowAllCookies;
+  });
+
+  const closeCookiesSettingsButton = document.querySelector('.close-cookies-settings');
+  if (closeCookiesSettingsButton) {
+    closeCookiesSettingsButton.onclick = () => {
+      toggleCookiesSettings();
+    };
+  }
 
   const toggleCookiesSettings = () => {
-    const cookiesSettings = document.querySelector('.cookies-settings');
     const cookiesIntro = document.querySelector('.cookies-intro');
     cookiesSettings.classList.toggle('d-none');
+    closeCookiesSettingsButton.classList.toggle('d-none');
     cookiesIntro.classList.toggle('d-none');
-    cookiesSettings.focus();
   };
 
   const showCookiesSettingsButton = document.querySelector('#show-cookies-settings');
   if (showCookiesSettingsButton) {
     showCookiesSettingsButton.onclick = toggleCookiesSettings;
-  }
-
-  const closeCookiesSettingsButton = document.querySelector('.close-cookies-settings');
-  if (closeCookiesSettingsButton) {
-    closeCookiesSettingsButton.onclick = toggleCookiesSettings;
   }
 
   // Save cookies settings functionality
@@ -174,29 +202,9 @@ export const setupCookies = () => {
       }
 
       hideCookiesBox();
+      GP_logo.focus();
     };
   }
-
-  const rejectAllCookies = () => {
-    createCookie('greenpeace', ONLY_NECESSARY, 365);
-    createCookie('active_consent_choice', '1', 365);
-    createCookie('no_track', '1', 365);
-
-    // Deny ad storage and analytics storage if Google Consent Mode is enabled.
-    if (ENABLE_GOOGLE_CONSENT_MODE) {
-      updateGoogleConsent({
-        ad_storage: 'denied',
-        ad_user_data: 'denied',
-        ad_personalization: 'denied',
-        ...ENABLE_ANALYTICAL_COOKIES && {analytics_storage: 'denied'},
-      });
-    }
-
-    hideCookiesBox();
-  };
-
-  const rejectAllCookiesButtons = [...document.querySelectorAll('.reject-all-cookies')];
-  rejectAllCookiesButtons.forEach(rejectAllCookiesButton => rejectAllCookiesButton.onclick = rejectAllCookies);
 
   const getConsentModeValues = () => {
     const consentValues = {

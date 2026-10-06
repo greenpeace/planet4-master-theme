@@ -5,6 +5,7 @@ import {
   searchAndInsertPattern,
   addContent,
 } from '../tools/lib/editor.js';
+import {acceptCookies} from '../tools/lib/accept-cookies.js';
 
 const NAV_LINK_CLASS = '.secondary-navigation-link';
 
@@ -43,6 +44,9 @@ test('Test Secondary Navigation block', async ({page, admin, editor}) => {
 
   // Publish page.
   await publishPostAndVisit({page, editor});
+
+  // Accept cookies if needed, to remove the box.
+  await acceptCookies(page);
 
   // Test that the block is displayed as expected in the frontend:
   // The Secondary Navigation block is present.

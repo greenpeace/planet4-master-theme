@@ -1,6 +1,7 @@
 import {test, expect} from '../tools/lib/test-utils.js';
 import {publishPostAndVisit, createPostWithFeaturedImage} from '../tools/lib/post.js';
 import {searchAndInsertBlock} from '../tools/lib/editor.js';
+import {acceptCookies} from '../tools/lib/accept-cookies.js';
 
 test.useAdminLoggedIn();
 
@@ -100,6 +101,9 @@ test('Create and check carousel header block', async ({page, admin, editor}) => 
 
   // Publish Page
   await publishPostAndVisit({page, editor});
+
+  // Accept cookies if needed, to remove the box.
+  await acceptCookies(page);
 
   // Assertions
   const h2Title1 = await page.innerText('.carousel-captions-wrapper h2');

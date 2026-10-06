@@ -1,4 +1,5 @@
 import {test, expect} from './tools/lib/test-utils.js';
+import {acceptCookies} from './tools/lib/accept-cookies.js';
 
 test.useAdminLoggedIn();
 
@@ -20,6 +21,9 @@ test('Test adding a Comment to a Post', async ({page, admin, requestUtils}) => {
   });
   await page.goto(newPost.link);
   await page.waitForLoadState('domcontentloaded');
+
+  // Accept cookies if needed, to remove the box.
+  await acceptCookies(page);
 
   await page.getByPlaceholder('Your Comment').fill('Nice Post');
   await page.locator('label#gdpr-comments-label').click();
