@@ -49,20 +49,10 @@
 
   .taxonomy-post_tag {
     @include render-bullet();
-    margin-inline-start: $sp-1x;
-
-    &:before {
-      margin-inline-start: -$sp-1x;
-    }
+    word-break: break-all;
 
     a {
       margin-inline-end: $sp-x;
-      display: inline-block;
-
-      // We hide the tags after the first 5.
-      &:nth-of-type(n+6) {
-        display: none;
-      }
 
       &:before {
         content: "#";
@@ -229,6 +219,8 @@
 
   .wp-block-post-terms {
     margin-top: -5px;
+    @include clamp-text(1);
+    color: var(--gp-green-800);
 
     &__separator,
     a,
@@ -237,6 +229,7 @@
       font-weight: var(--font-weight-semibold);
       font-family: var(--font-family-tertiary);
       font-size: var(--font-size-m--font-family-tertiary);
+      word-break: break-all;
     }
   }
 
@@ -270,6 +263,16 @@
     .wp-block-post-excerpt,
     .wp-block-post-terms {
       margin-top: 0;
+    }
+  }
+
+  &.is-custom-layout-list {
+    .wp-block-post-terms:not(.taxonomy-post_tag) {
+      width: fit-content;
+      max-width: 50%;
+      flex-shrink: 0;
+      word-break: break-all;
+      @include clamp-text(1);
     }
   }
 
@@ -307,7 +310,7 @@
       @include clamp-text(1);
 
       overflow-wrap: break-word;
-      word-break: break-word;
+      word-break: break-all;
       hyphens: auto;
     }
   }

@@ -47,10 +47,7 @@
 
   a {
     color: inherit;
-    @include clamp-text(1);
-    overflow-wrap: break-word;
-    word-break: break-word;
-    hyphens: auto;
+    word-break: break-all;
 
     &:visited {
       color: var(--gp-green-800);
@@ -64,24 +61,22 @@
 
   .wrapper-post-term {
     margin-inline-end: $sp-1;
+    @include clamp-text(1);
   }
 
   .wrapper-post-tag {
     display: flex;
     @include render-bullet;
 
+    .wp-block-post-terms {
+      @include clamp-text(1);
+    }
+
     .taxonomy-post_tag a {
       margin-inline-end: $sp-x;
     }
 
     a {
-      display: inline-block;
-
-      // We hide the tags after the first 5.
-      &:nth-of-type(n+6) {
-        display: none;
-      }
-
       &:before {
         content: "#";
       }
@@ -180,6 +175,15 @@
 
       @include large-and-up {
         @include clamp-text(3);
+      }
+    }
+
+    .query-list-item-post-terms:has(.wrapper-post-tag) {
+      .wrapper-post-term {
+        width: fit-content;
+        max-width: 50%;
+        flex-shrink: 0;
+        word-break: break-all;
       }
     }
   }
