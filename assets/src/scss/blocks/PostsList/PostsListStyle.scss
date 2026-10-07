@@ -220,6 +220,7 @@
   .wp-block-post-terms {
     margin-top: -5px;
     @include clamp-text(1);
+    color: var(--gp-green-800);
 
     &__separator,
     a,
