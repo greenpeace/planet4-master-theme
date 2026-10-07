@@ -169,6 +169,7 @@
 
   span {
     max-width: 125px;
+    pointer-events: none;
 
     @include small-and-less {
       max-width: 150px;
@@ -183,6 +184,7 @@
     width: 30px;
     height: auto;
     margin-right: $sp-2;
+    pointer-events: none;
   }
 }
 
