@@ -119,4 +119,20 @@ async function createPostWithFeaturedImage({page, admin, editor}, params) {
   return newPost;
 }
 
-export {publishPost, publishPostAndVisit, createPostWithFeaturedImage, updatePost};
+/**
+ * Closes the cookie banner.
+ * @param {Object} page - The page object.
+ */
+async function closeCookieBanner(page) {
+  const cookieBannerButton = page.getByRole('button', {name: 'Accept all cookies'});
+  if (cookieBannerButton) {
+    await cookieBannerButton.click();
+  }
+}
+
+export {
+  publishPost,
+  publishPostAndVisit,
+  createPostWithFeaturedImage,updatePost,
+  closeCookieBanner,
+};
