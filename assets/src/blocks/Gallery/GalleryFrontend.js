@@ -22,11 +22,12 @@ export const GalleryFrontend = ({attributes = {}}) => {
    * Normalizes and sets the images array when block attributes are updated.
    */
   useEffect(() => {
-    if (attributes.image_data?.length) {
-      setImages(attributes.images?.length ? attributes.images : attributes.image_data);
+    let imageData = attributes.image_data ?? [];
+    if (attributes.images?.length) {
+      imageData = attributes.images;
     }
-
-  }, [attributes]);
+    setImages(imageData);
+  }, [attributes.images, attributes.image_data]);
 
   /**
    * Prepares the image data for PhotoSwipe by extracting width, height, src, and caption.
