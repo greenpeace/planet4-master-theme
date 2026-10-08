@@ -1,12 +1,7 @@
 {% set show_settings = cookies.settings_copy.analytical_cookies_name or cookies.settings_copy.all_cookies_name %}
 
 {% if ( cookies.text ) %}
-    <dialog
-        class="cookie-notice"
-        id="set-cookie"
-        aria-label="{{__('Cookies', 'planet4-master-theme')}}"
-        closedby="none"
-    >
+    <div class="cookie-notice" id="set-cookie">
         {% include 'cookies/cookies_settings.twig' %}
         <div class="cookies-intro">
             <div class="cookies-text">
@@ -41,11 +36,5 @@
                 </button>
             {% endif %}
         </div>
-        <button
-            class="close-cookies-settings d-none"
-            aria-label="{{__('Close cookies settings', 'planet4-master-theme')}}"
-        >
-            <div class="close-icon"></div>
-        </button>
-    </dialog>
+    </div>
 {% endif %}
