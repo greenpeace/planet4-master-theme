@@ -104,6 +104,7 @@ class MasterSite extends \Timber\Site
         add_filter('wp_dropdown_users_args', [$this, 'filter_authors'], 10, 1);
         add_filter('http_request_timeout', fn () => 10);
         add_filter('register_block_type_args', [$this, 'set_custom_query_type'], 10, 2);
+        add_filter('register_block_type_args', [$this, 'disable_heading_level_1'], 10, 2);
 
         add_filter(
             'editable_roles',
@@ -233,6 +234,21 @@ class MasterSite extends \Timber\Site
         if (isset($args['attributes']['query']['default']['inherit'])) {
             $args['attributes']['query']['default']['inherit'] = false;
         }
+
+        return $args;
+    }
+
+    /**
+     * Disable level 1 for native Heading block.
+     */
+    public function disable_heading_level_1(array $args, string $block_type): array
+    {
+        if ('core/heading' !== $block_type) {
+            return $args;
+        }
+
+        // Disable H1.
+        $args['attributes']['levelOptions']['default'] = [2, 3, 4, 5, 6];
 
         return $args;
     }
