@@ -4,6 +4,7 @@ namespace P4\MasterTheme\Blocks;
 
 class Register
 {
+    private const BLOCK_PREFIX = 'planet4-blocks';
     /**
      * Columns block constants.
      */
@@ -17,34 +18,68 @@ class Register
      */
     public static function register(): void
     {
-        // Blocks whose render callback only forwards to render_frontend_from_blockname().
-        $simple_blocks = [
-            'Cookies' => 'planet4-blocks/cookies',
-            'HappyPoint' => 'planet4-blocks/happypoint',
-            'TableOfContents' => 'planet4-blocks/submenu',
-            'TopicLink' => 'planet4-blocks/topic-link',
+        $blocks = [
+            'Cookies' => [
+                'block' => self::BLOCK_PREFIX . '/cookies'
+            ],
+            'HappyPoint' => [
+                'block' => self::BLOCK_PREFIX . '/happypoint'
+            ],
+            'TableOfContents' => [
+                'block' => self::BLOCK_PREFIX . '/submenu'
+            ],
+            'TopicLink' => [
+                'block' => self::BLOCK_PREFIX . '/topic-link'
+            ],
+            'SocialMedia' => [
+                'block' => self::BLOCK_PREFIX . '/social-media',
+                'enqueue' => [self::class, 'enqueue_instagram_embed'],
+            ],
+            'Columns' => [
+                'block' => self::BLOCK_PREFIX . '/columns',
+                'attributes' => function (array $attributes): array {
+                    $attributes['columns'] = self::get_columns_data($attributes);
+                    return $attributes;
+                },
+            ],
+            'Spreadsheet' => [],
+            'Counter' => [],
         ];
 
-        foreach ($simple_blocks as $asset_name => $block_name) {
-            self::registerFromAssets($asset_name, [
-                'render_callback' => function ($attributes) use ($block_name) {
-                    return BaseBlock::render_frontend_from_blockname($attributes, $block_name);
-                },
-            ]);
+        foreach ($blocks as $asset_name => $config) {
+            $properties = [];
+
+            if (isset($config['block'])) {
+                $properties['render_callback'] = function (array $attributes) use ($config): string {
+                    if (isset($config['enqueue'])) {
+                        $config['enqueue']();
+                    }
+                    if (isset($config['attributes'])) {
+                        $attributes = $config['attributes']($attributes);
+                    }
+                    return BaseBlock::render_frontend_from_blockname($attributes, $config['block']);
+                };
+            }
+
+            self::registerFromAssets($asset_name, $properties);
         }
+    }
 
-        // No render callback.
-        self::registerFromAssets('Spreadsheet');
-        self::registerFromAssets('Counter');
-
-        // Needs to modify the attributes before rendering.
-        self::registerFromAssets('Columns', [
-            'render_callback' => function ($attributes) {
-                $attributes['columns'] = self::get_columns_data($attributes);
-
-                return BaseBlock::render_frontend_from_blockname($attributes, 'planet4-blocks/columns');
-            },
-        ]);
+    /**
+     * Enqueue the Instagram embed script.
+     */
+    public static function enqueue_instagram_embed(): void
+    {
+        wp_enqueue_script(
+            'instagram-embed',
+            'https://www.instagram.com/embed.js',
+            [],
+            null,
+            [
+                'in_footer' => true,
+                'strategy' => 'async',
+            ]
+        );
     }
 
     /**
