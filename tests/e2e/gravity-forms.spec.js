@@ -7,7 +7,6 @@ import {
   changeConfirmationType,
   selectConfirmationPage,
 } from './tools/lib/gravity-forms.js';
-import {closeCookieBanner} from './tools/lib/post.js';
 
 const CONFIRMATION_MESSAGE = 'This is a dummy confirmation message for testing purposes.';
 const DEFAULT_CONFIRMATION_MESSAGE = 'Thanks for contacting us! We will get in touch with you shortly.';
@@ -91,7 +90,6 @@ test.describe('Gravity Forms tests', () => {
     // Go to the post which has the form.
     await page.goto(newPost.link);
     await page.waitForLoadState('domcontentloaded');
-    await closeCookieBanner(page);
 
     // Fill and submit the form.
     await fillAndSubmitForm({page}, createdForm.id);
@@ -131,7 +129,6 @@ test.describe('Gravity Forms tests', () => {
     // Go to the post which has the form.
     await page.goto(newPost.link);
     await page.waitForLoadState('domcontentloaded');
-    await closeCookieBanner(page);
 
     // Fill and submit the form.
     await fillAndSubmitForm({page}, createdForm.id);
@@ -165,7 +162,6 @@ test.describe('Gravity Forms tests', () => {
     // Go to the post which has the form.
     await page.goto(newPost.link);
     await page.waitForLoadState('domcontentloaded');
-    await closeCookieBanner(page);
 
 
     // Fill and submit the form.

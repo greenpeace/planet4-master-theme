@@ -199,7 +199,7 @@ final class Loader
         new Blocks\Timeline();//NOSONAR
         new Blocks\SecondaryNavigation();//NOSONAR
         new Blocks\Others();//NOSONAR
-        Blocks\BlockAssets::register();
+        Blocks\Register::register();
         self::load_block_rest_service();
 
         $pattern_categories = [
