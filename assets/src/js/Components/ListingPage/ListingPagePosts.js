@@ -227,7 +227,7 @@ const ListingPagePosts = ({filtersContainer, layoutToggleContainer}) => {
         per_page: PER_PAGE,
         page,
         _fields: POST_FIELDS,
-        taxonomyBreadcrumb: window.p4_vars.options.taxonomy_breadcrumbs ?? 'category',
+        taxonomyBreadcrumb: window.p4_vars?.options?.taxonomy_breadcrumbs ?? 'category',
         ...buildArchiveArgs(archiveContext),
         ...buildFilterArgs(filters),
       };
