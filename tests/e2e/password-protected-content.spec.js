@@ -1,5 +1,4 @@
 import {test, expect} from './tools/lib/test-utils.js';
-import {acceptCookies} from './tools/lib/accept-cookies.js';
 
 const TEST_TITLE = 'Test Private Page';
 const TEST_PARAGRAPH = 'This is a paragraph.';
@@ -27,9 +26,6 @@ test('check password protected content', async ({page, requestUtils}) => {
     postId = protectedPost.id;
 
     await page.goto(protectedPost.link);
-
-    // Accept cookies if needed, to remove the box.
-    await acceptCookies(page);
 
     await expect(page.getByText(TEST_TITLE)).toBeHidden();
     await expect(page.getByText(TEST_PARAGRAPH)).toBeHidden();
