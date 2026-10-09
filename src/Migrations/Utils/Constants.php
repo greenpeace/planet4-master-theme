@@ -9,6 +9,7 @@ class Constants
 {
     private const PREFIX_P4_BLOCKS = 'planet4-blocks';
     private const PREFIX_P4_BLOCK_TEMPLATES = 'planet4-block-templates';
+    private const PREFIX_P4_PATTERNS = 'p4';
     private const PREFIX_CORE_BLOCKS = 'core';
 
     public const POSTS_LIST = 'posts-list';
@@ -27,6 +28,9 @@ class Constants
 
     // P4 Block Templates
     public const BLOCK_TEMPLATE_QUICK_LINKS = self::PREFIX_P4_BLOCK_TEMPLATES . '/quick-links';
+    public const BLOCK_TEMPLATE_PATTERN_TEST = self::PREFIX_P4_BLOCK_TEMPLATES . '/test-pattern';
+
+    public const PATTERN_TEST_LAYOUT = self::PREFIX_P4_PATTERNS . '/test-pattern-layout';
 
     public const BLOCK_EMBED = self::PREFIX_CORE_BLOCKS . '/embed';
     public const BLOCK_AUDIO = self::PREFIX_CORE_BLOCKS . '/audio';

@@ -4,11 +4,11 @@
  * Block report search
  */
 
-namespace P4\MasterTheme\BlockReportSearch;
+namespace P4\MasterTheme\ReportSearch\BlockReportSearch;
 
-use P4\MasterTheme\BlockReportSearch\Block\Query;
-use P4\MasterTheme\BlockReportSearch\Block\Sql\SqlQuery;
-use P4\MasterTheme\BlockReportSearch\Block\Query\Parameters;
+use P4\MasterTheme\ReportSearch\BlockReportSearch\Query;
+use P4\MasterTheme\ReportSearch\BlockReportSearch\Sql\SqlQuery;
+use P4\MasterTheme\ReportSearch\BlockReportSearch\Query\Parameters;
 
 /**
  * Search for posts containing specific blocks

@@ -57,6 +57,7 @@ abstract class BlockPattern
             RealityCheck::class,
             SideImageWithTextAndCta::class,
             TakeAction::class,
+            TestPattern::class,
         ];
     }
 
