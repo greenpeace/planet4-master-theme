@@ -5,7 +5,6 @@ namespace P4\MasterTheme;
 use P4\MasterTheme\Settings\Features;
 use P4\MasterTheme\Patterns\BlockPattern;
 use P4\MasterTheme\View\View;
-use P4\MasterTheme\Blocks\BaseBlock;
 use RuntimeException;
 
 /**
@@ -193,7 +192,6 @@ final class Loader
         new MasterBlocks();//NOSONAR
         new Blocks\Accordion();//NOSONAR
         new Blocks\CarouselHeader();//NOSONAR
-        new Blocks\Columns();//NOSONAR
         new Blocks\Counter();//NOSONAR
         new Blocks\Gallery();//NOSONAR
         new Blocks\SocialMedia();//NOSONAR
@@ -201,7 +199,7 @@ final class Loader
         new Blocks\Timeline();//NOSONAR
         new Blocks\SecondaryNavigation();//NOSONAR
         new Blocks\Others();//NOSONAR
-        self::add_blocks_from_assets();
+        Blocks\Register::register();
         self::load_block_rest_service();
 
         $pattern_categories = [
@@ -247,34 +245,6 @@ final class Loader
     private static function load_block_rest_service(): void
     {
         (new Blocks\Rest())->load();//NOSONAR
-    }
-
-    /**
-     * Load blocks registered from assets (block.json).
-     */
-    private static function add_blocks_from_assets(): void
-    {
-        Blocks\Register::registerFromAssets('Cookies', [
-            'render_callback' => function ($attributes) {
-                return BaseBlock::render_frontend_from_blockname($attributes, 'planet4-blocks/cookies');
-            },
-        ]);
-        Blocks\Register::registerFromAssets('HappyPoint', [
-            'render_callback' => function ($attributes) {
-                return BaseBlock::render_frontend_from_blockname($attributes, 'planet4-blocks/happypoint');
-            },
-        ]);
-        Blocks\Register::registerFromAssets('Spreadsheet');
-        Blocks\Register::registerFromAssets('TableOfContents', [
-            'render_callback' => function ($attributes) {
-                return BaseBlock::render_frontend_from_blockname($attributes, 'planet4-blocks/submenu');
-            },
-        ]);
-        Blocks\Register::registerFromAssets('TopicLink', [
-            'render_callback' => function ($attributes) {
-                return BaseBlock::render_frontend_from_blockname($attributes, 'planet4-blocks/topic-link');
-            },
-        ]);
     }
 
     // phpcs:enable WordPress.Security.NonceVerification.Recommended
