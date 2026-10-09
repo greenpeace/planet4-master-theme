@@ -428,4 +428,19 @@ add_filter(
     10,
     2
 );
+
+// Remove decoding attribute from the first image in the carousel header block
+// to avoid lazy loading it and improve LCP.
+add_filter(
+    'wp_img_tag_add_decoding_attr',
+    function ($value, $image, $context) {
+        if (str_contains($image, 'carousel-header-image--first')) {
+            return false;
+        }
+
+        return $value;
+    },
+    10,
+    3
+);
 // phpcs:enable SlevomatCodingStandard.Functions.UnusedParameter, Generic.Files.LineLength.MaxExceeded

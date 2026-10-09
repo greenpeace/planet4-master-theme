@@ -7,7 +7,7 @@ import {StaticCaption} from './StaticCaption';
 const {useRef, useMemo} = wp.element;
 const {__} = wp.i18n;
 
-export const CarouselHeaderFrontend = ({slides, carousel_autoplay, className, decoding}) => {
+export const CarouselHeaderFrontend = ({slides, carousel_autoplay, className}) => {
   const slidesRef = useRef([]);
   const containerRef = useRef(null);
   const headingsRef = useRef([]);
@@ -59,7 +59,7 @@ export const CarouselHeaderFrontend = ({slides, carousel_autoplay, className, de
                 ref={element => slidesRef ? slidesRef.current[index] = element : null}
                 handleUserInteraction={handleUserInteraction}
               >
-                <SlideBackground decoding={decoding} slide={slide} />
+                <SlideBackground slide={slide} index={index} />
                 <StaticCaption slide={slide} focusable={isActive} />
               </Slide>);
           })
@@ -70,7 +70,6 @@ export const CarouselHeaderFrontend = ({slides, carousel_autoplay, className, de
   ), [
     className,
     currentSlide,
-    decoding,
     autoplay,
     slides,
     setAutoplay,
