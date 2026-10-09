@@ -117,7 +117,6 @@ export default function ListingPageFilters({
         <button
           id="apply-filters"
           className="btn btn-primary"
-          type="button"
           onClick={handleApply}
         >
           { __('Apply filters', 'planet4-master-theme') }
