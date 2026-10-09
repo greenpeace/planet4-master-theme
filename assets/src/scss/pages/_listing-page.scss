@@ -195,6 +195,8 @@
       flex-direction: row;
       flex-wrap: wrap;
       gap: 1.25em;
+      list-style: none;
+      padding: 0;
 
       li {
         @include small-and-up {
@@ -222,6 +224,10 @@
       display: none;
     }
   }
+}
+
+.wp-block-post-template {
+  padding: 0;
 }
 
 .wp-block-query-pagination {
