@@ -1,0 +1,15 @@
+@import "../../scss/base/tokens";
+@import "../../scss/base/mixins";
+@import "../../scss/base/variables";
+@import "../../scss/base/fonts";
+
+@import "./../Gallery/styles/GalleryCarousel.scss";
+@import "./../Gallery/styles/GalleryGrid.scss";
+@import "./../Gallery/styles/GalleryThreeColumns.scss";
+
+// Editor styles:
+.wp-block-master-theme-gallery__FocalPointPicker {
+  .components-focal-point-picker_position-display-container {
+    display: none;
+  }
+}

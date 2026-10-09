@@ -68,6 +68,26 @@ class Rest
                     ],
                 ]
             );
+
+            /**
+             * Endpoint to retrieve the data for the Gallery block.
+             */
+            register_rest_route(
+                BaseBlock::REST_NAMESPACE,
+                'gallery/images',
+                [
+                    [
+                        'permission_callback' => static function () {
+                            return true;
+                        },
+                        'methods' => WP_REST_Server::READABLE,
+                        'callback' => static function ($request) {
+                            $images = Register::get_gallery_block_images($request->get_params());
+                            return rest_ensure_response($images);
+                        },
+                    ],
+                ]
+            );
         });
     }
 
