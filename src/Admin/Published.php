@@ -63,6 +63,11 @@ class Published
      */
     public function response()
     {
+        $include = $this->get_include_ids();
+        if ($include === []) {
+            return rest_ensure_response([]);
+        }
+
         $types = explode(',', $this->request->get_param('post_type') ?? '');
         $types = array_intersect(self::ALLOWED_TYPES, $types);
         if (empty($types)) {
@@ -71,9 +76,9 @@ class Published
 
         if (is_plugin_active('sitepress-multilingual-cms/sitepress.php')) {
             $lang = apply_filters('wpml_current_language', null);
-            $query = $this->get_wpml_posts_query($lang, $types);
+            $query = $this->get_wpml_posts_query($lang, $types, $include);
         } else {
-            $query = $this->get_posts_query($types);
+            $query = $this->get_posts_query($types, $include);
         }
 
 		// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
@@ -90,17 +95,37 @@ class Published
     }
 
     /**
+     * Get requested post IDs, or null when the request does not filter by ID.
+     *
+     * @return int[]|null Requested IDs.
+     */
+    private function get_include_ids(): ?array
+    {
+        $include = $this->request->get_param('include');
+        if ($include === null) {
+            return null;
+        }
+
+        $include = is_array($include) ? $include : explode(',', (string) $include);
+        $include = array_map('absint', $include);
+
+        return array_values(array_unique(array_filter($include)));
+    }
+
+    /**
      * Create query for all published items of type asked.
      *
-     * @param string[] $types Post types.
+     * @param string[]   $types   Post types.
+     * @param int[]|null $include Post IDs to include.
      */
-    private function get_posts_query(array $types): string
+    private function get_posts_query(array $types, ?array $include): string
     {
         $params = new SqlParameters();
         $sql = 'SELECT id, post_title
 			FROM ' . $params->identifier($this->db->posts) . '
 			WHERE post_status = \'publish\'
 				AND post_type IN ' . $params->string_list($types) . '
+				' . ($include !== null ? 'AND id IN ' . $params->int_list($include) : '') . '
 			ORDER BY post_date DESC';
 
 		// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
@@ -112,10 +137,11 @@ class Published
      *
      * @param string   $lang  Return posts with this language code.
      * @param string[] $types Post types.
+     * @param int[]|null $include Post IDs to include.
      *
      * @return string The prepared query.
      */
-    private function get_wpml_posts_query(string $lang, array $types): string
+    private function get_wpml_posts_query(string $lang, array $types, ?array $include): string
     {
         $icl_types = array_map(
             fn ($t) => 'post_' . $t,
@@ -131,6 +157,7 @@ class Published
 			WHERE p.post_status = \'publish\'
 				AND p.post_type IN ' . $params->string_list($types) . '
 				AND t.language_code = ' . $params->string($lang) . '
+				' . ($include !== null ? 'AND p.ID IN ' . $params->int_list($include) : '') . '
 			ORDER BY p.post_date DESC';
 
 		// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared

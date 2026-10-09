@@ -1,6 +1,7 @@
 const {dispatch, useSelect} = wp.data;
 const {FormTokenField} = wp.components;
 const {__} = wp.i18n;
+const publishedPostsArgs = {per_page: -1, orderby: 'title', post_status: 'publish'};
 
 // Allows to query a custom endpoint with select('core') tools
 dispatch('core').addEntities([{
@@ -33,7 +34,6 @@ export const PostSelector = attributes => {
    * Fetch relevant posts for autosuggestions
    */
   const act_parent = window.p4_vars.options.take_action_page || null;
-  const args = {per_page: -1, orderby: 'title', post_status: 'publish'};
 
   const posts = useSelect(select => {
 
@@ -44,7 +44,7 @@ export const PostSelector = attributes => {
         ...select('core').getEntityRecords('planet4/v1', 'published', {
           post_type: postType,
           ...postParent && {post_parent: postParent},
-          ...args,
+          ...publishedPostsArgs,
         }) || [],
       ];
     }
@@ -55,26 +55,34 @@ export const PostSelector = attributes => {
         ...select('core').getEntityRecords('postType', 'page', {include: selected}) || [],
       ];
       const pages = act_parent ?
-        (select('core').getEntityRecords('postType', 'page', {parent: act_parent, ...args}) || []) :
+        (select('core').getEntityRecords('postType', 'page', {
+          parent: act_parent,
+          ...publishedPostsArgs,
+        }) || []) :
         [];
       return [].concat(selectedPosts, pages);
     }
 
     // For the Actions List blocks when the new IA is enabled:
     if ('p4_action' === postType) {
-      const selectedPosts = [
-        ...select('core').getEntityRecords('postType', 'page', {include: selected}) || [],
-        ...select('core').getEntityRecords('postType', 'p4_action', {include: selected}) || [],
-      ];
-      const actions = select('core').getEntityRecords('postType', 'p4_action', args) || [];
+      const selectedPosts = selected?.length ?
+        (select('core').getEntityRecords('planet4/v1', 'published', {
+          post_type: 'page,p4_action',
+          include: selected,
+        }) || []) :
+        [];
+      const actions = select('core').getEntityRecords('postType', 'p4_action', publishedPostsArgs) || [];
       const pages = act_parent ?
-        (select('core').getEntityRecords('postType', 'page', {parent: act_parent, ...args}) || []) :
+        (select('core').getEntityRecords('postType', 'page', {
+          parent: act_parent,
+          ...publishedPostsArgs,
+        }) || []) :
         [];
       return [].concat(selectedPosts, actions, pages);
     }
 
     return [];
-  }, [postType]);
+  }, [postType, selected, postParent, act_parent]);
 
   /**
    * Convert posts to {id, title}
