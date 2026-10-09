@@ -4,7 +4,7 @@
  * Pattern search
  */
 
-namespace P4\MasterTheme\BlockReportSearch\Pattern;
+namespace P4\MasterTheme\ReportSearch\PatternReportSearch;
 
 use P4\MasterTheme\Blocks\BlockList;
 use WP_Block_Patterns_Registry;

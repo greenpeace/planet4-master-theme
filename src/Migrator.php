@@ -69,6 +69,11 @@ use P4\MasterTheme\Migrations\M065ReplaceMetaBlock;
 use P4\MasterTheme\Migrations\M066RemoveNewTimelineBlockOption;
 use P4\MasterTheme\Migrations\M067EnableGooglePreferredSourceButton;
 use P4\MasterTheme\Migrations\M068EmptyGalleryBlockStaticContent;
+use P4\MasterTheme\Migrations\M069MigrateQuickLinksPattern;
+use P4\MasterTheme\Migrations\M070MigrateIssuesPattern;
+use P4\MasterTheme\Migrations\M071MigrateDeepDivePattern;
+use P4\MasterTheme\Migrations\M072MigrateHighlightedCtaPattern;
+use P4\MasterTheme\Migrations\M073MigrateRealityCheckPattern;
 
 /**
  * Run any new migration scripts and record results in the log.
@@ -155,6 +160,11 @@ class Migrator
             M066RemoveNewTimelineBlockOption::class,
             M067EnableGooglePreferredSourceButton::class,
             M068EmptyGalleryBlockStaticContent::class,
+            M069MigrateQuickLinksPattern::class,
+            M070MigrateIssuesPattern::class,
+            M071MigrateDeepDivePattern::class,
+            M072MigrateHighlightedCtaPattern::class,
+            M073MigrateRealityCheckPattern::class,
         ];
 
         // Loop migrations and run those that haven't run yet.
