@@ -62,6 +62,13 @@
                             </address>
                         {% endif %}
                         <time class="single-post-time" pubdate>{{ post.post_date_gmt|date }}</time>
+
+                        <span class="single-post-meta-bullet" aria-hidden="true">&#8226;</span>
+                        <span class="single-post-meta-readtime">
+                            {% set time_to_read = fn('do_blocks', '<!-- wp:post-time-to-read {"displayAsRange":false} /-->')|striptags %}
+                            {{ __( '%s read', 'planet4-master-theme' )|format(time_to_read) }}
+                        </span>
+
                         {% set reading_time = post.reading_time_for_display %}
                         {% if reading_time %}
                             <span class="single-post-meta-bullet" aria-hidden="true">&#8226;</span>
