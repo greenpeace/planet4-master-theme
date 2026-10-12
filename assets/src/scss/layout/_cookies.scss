@@ -11,6 +11,8 @@
   bottom: 0;
   top: auto;
   border: none;
+  position: fixed;
+  z-index: 999;
 
   @include medium-and-up {
     width: auto;

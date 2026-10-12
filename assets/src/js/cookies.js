@@ -61,7 +61,7 @@ export const setupCookies = () => {
 
   const showCookiesBox = () => {
     if (cookiesBox) {
-      cookiesBox.showModal();
+      cookiesBox.show();
     }
   };
 

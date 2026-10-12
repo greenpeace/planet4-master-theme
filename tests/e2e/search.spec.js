@@ -1,6 +1,5 @@
 import {test, expect} from './tools/lib/test-utils.js';
 import {reSync} from './tools/lib/elasticpress.js';
-import {acceptCookies} from './tools/lib/accept-cookies.js';
 
 test.useAdminLoggedIn();
 
@@ -33,9 +32,6 @@ test('check search works', async ({page, requestUtils}) => {
 
   const performSearchAndCheckResults = async () => {
     await page.goto('./');
-
-    // Accept cookies if needed, to remove the box.
-    await acceptCookies(page);
 
     const searchBox = page.getByRole('searchbox', {name: 'Search input'});
     await searchBox.click();
