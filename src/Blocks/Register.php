@@ -61,7 +61,10 @@ class Register
                 };
             }
 
-            self::registerFromAssets($asset_name, $properties);
+            register_block_type(
+                get_template_directory() . '/assets/build/blocks/' . $asset_name,
+                $properties
+            );
         }
     }
 
@@ -131,19 +134,5 @@ class Register
         }
 
         return 'thumbnail';
-    }
-
-    /**
-     * Requires a file `block.json`
-     * in assets/(src|build)/blocks/{blockDirName}/
-     */
-    public static function registerFromAssets(
-        string $blockDirName,
-        array $properties = []
-    ): void {
-        register_block_type(
-            get_template_directory() . '/assets/build/blocks/' . $blockDirName,
-            $properties
-        );
     }
 }
