@@ -1,6 +1,18 @@
 .filter-modal {
-  .modal-dialog {
-    max-width: 90%;
+  width: 90%;
+  max-width: 90%;
+  max-height: calc(100% - 2rem);
+  margin: auto;
+  padding: 0;
+  border: 0;
+  border-radius: 0.3rem;
+  background-color: var(--white);
+  color: inherit;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+
+  &::backdrop {
+    background-color: rgba(0, 0, 0, 0.5);
   }
 
   .modal-body {
