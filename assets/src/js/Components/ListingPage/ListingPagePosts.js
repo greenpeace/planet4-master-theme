@@ -212,9 +212,7 @@ const ListingPagePosts = ({filtersContainer, layoutToggleContainer}) => {
     'date',
     'title',
     'excerpt',
-    'meta',
-    '_links',
-    '_embedded',
+    'listing_data',
   ].join(',');
 
   const getPosts = useCallback(async () => {
@@ -228,8 +226,8 @@ const ListingPagePosts = ({filtersContainer, layoutToggleContainer}) => {
       const args = {
         per_page: PER_PAGE,
         page,
-        _embed: 'wp:featuredmedia,author,wp:term',
         _fields: POST_FIELDS,
+        taxonomyBreadcrumb: window.p4_vars?.options?.taxonomy_breadcrumbs ?? 'category',
         ...buildArchiveArgs(archiveContext),
         ...buildFilterArgs(filters),
       };

@@ -4,32 +4,24 @@ function decodeHtmlEntities(value) {
   return doc.documentElement.textContent;
 }
 
-// Picks the smallest registered image size that's still >= targetWidth.
-function getBestSrc(media, targetWidth = 400) {
-  const sizes = Object.values(media.media_details?.sizes || {});
-  const candidates = sizes
-    .filter(size => size.width >= targetWidth)
-    .sort((a, b) => a.width - b.width);
-
-  return candidates[0]?.source_url || media.source_url;
-}
-
 /**
  * Renders a single post item within the listing page.
  *
  * @param {Object} props      Component props.
- * @param {Object} props.post WordPress REST API post object.
+ * @param {Object} props.post WordPress REST API post object, including the `listing_data` field.
  *
  * @return {JSX.Element} The rendered post list item.
  */
 function PostItem({post}) {
-  const featuredMedia = post._embedded?.['wp:featuredmedia']?.[0];
-  const author = post._embedded?.author?.[0];
-  const terms = post._embedded?.['wp:term'] || [];
-  const taxonomyBreadcrumb = window.p4_vars.options.taxonomy_breadcrumbs ?? 'category';
-  const categories = terms.flat().filter(term => term.taxonomy === taxonomyBreadcrumb);
-  const tags = terms.flat().filter(term => term.taxonomy === 'post_tag');
-  const authorName = post.meta?.p4_author_override || author.name;
+  const {
+    image,
+    author,
+    authorOverride,
+    categories = [],
+    tags = [],
+  } = post.listing_data || {};
+
+  const authorName = authorOverride || author?.name;
   const formattedDate = new Date(post.date).toLocaleDateString('en-GB', {
     day: 'numeric',
     month: 'short',
@@ -38,18 +30,16 @@ function PostItem({post}) {
 
   return (
     <li className="wp-block-post query-list-item hentry">
-      { featuredMedia && (
+      { image?.src && (
         <div className="query-list-item-image query-list-item-image-max-width">
           <a href={post.link}>
             <img
-              width={featuredMedia.media_details?.width}
-              height={featuredMedia.media_details?.height}
-              src={getBestSrc(featuredMedia, 400)}
+              width={image.width}
+              height={image.height}
+              src={image.src}
               className="wp-post-image"
-              alt={featuredMedia.alt_text || ''}
-              srcSet={Object.values(featuredMedia.media_details?.sizes || {})
-                .map(size => `${size.source_url} ${size.width}w`)
-                .join(', ')}
+              alt={image.alt || ''}
+              srcSet={image.srcset || undefined}
               sizes="(max-width: 768px) 100vw, 400px"
               decoding="async"
               loading="lazy"
@@ -99,13 +89,13 @@ function PostItem({post}) {
         />
 
         <div className="query-list-item-meta d-flex flex-wrap">
-          { author && (
+          { authorName && (
             <span className="article-list-item-author">
-              {post.meta?.p4_author_override ? (
+              { authorOverride || !author?.link ? (
                 authorName
               ) : (
                 <a href={author.link}>{authorName}</a>
-              )}
+              ) }
             </span>
           ) }
           <div className="query-list-meta-date-reading-time">
