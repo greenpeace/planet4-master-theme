@@ -1,11 +1,12 @@
-import {CounterFrontend} from './CounterFrontend';
+import metadata from './block.json';
+import {CounterFrontend} from './counter';
 import {hydrateBlock} from '../../functions/hydrateBlock';
 import {createRoot} from 'react-dom/client';
 
-hydrateBlock('planet4-blocks/counter', CounterFrontend);
+hydrateBlock(metadata.name, CounterFrontend);
 
 // Fallback for non migrated content. Remove after migration.
-document.querySelectorAll('[data-render="planet4-blocks/counter"]').forEach(
+document.querySelectorAll(`[data-render="${metadata.name}"]`).forEach(
   blockNode => {
     const attributes = JSON.parse(blockNode.dataset.attributes);
     const rootElement = createRoot(blockNode);

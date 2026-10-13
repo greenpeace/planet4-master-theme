@@ -1,0 +1,45 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "planet4-blocks/counter",
+  "category": "planet4-blocks",
+  "description": "Display real time signatures being collected worldwide on petitions.",
+  "title": "Counter",
+  "icon": "dashboard",
+  "attributes": {
+    "title": {
+      "type": "string",
+      "default": ""
+    },
+    "description": {
+      "type": "string",
+      "default": ""
+    },
+    "completed": {
+      "type": "integer",
+      "default": ""
+    },
+    "completed_api": {
+      "type": "string",
+      "default": ""
+    },
+    "target": {
+      "type": "integer",
+      "default": ""
+    },
+    "text": {
+      "type": "string",
+      "default": ""
+    },
+    "style": {
+      "type": "string",
+      "default": ""
+    }
+  },
+  "supports": {
+    "html": false
+  },
+  "viewScript": "file:view-script.js",
+  "editorScript": "file:index.js",
+  "style": "file:index.css"
+}

@@ -59,8 +59,6 @@ module.exports = (env, argv) => {
       CarouselHeaderEditorScript: './assets/src/blocks/CarouselHeader/CarouselHeaderEditorScript.js',
       AccordionScript: './assets/src/blocks/Accordion/AccordionScript.js',
       AccordionEditorScript: './assets/src/blocks/Accordion/AccordionEditorScript.js',
-      CounterScript: './assets/src/blocks/Counter/CounterScript.js',
-      CounterEditorScript: './assets/src/blocks/Counter/CounterEditorScript.js',
       SocialMediaEditorScript: './assets/src/blocks/SocialMedia/SocialMediaEditorScript.js',
       SocialMediaStyle: './assets/src/scss/blocks/SocialMedia/SocialMediaStyle.scss',
       SocialMediaEditorStyle: './assets/src/scss/blocks/SocialMedia/SocialMediaEditorStyle.scss',
