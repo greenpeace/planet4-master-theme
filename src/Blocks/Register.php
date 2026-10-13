@@ -35,6 +35,7 @@ class Register
 
         // No render callback.
         self::registerFromAssets('Spreadsheet');
+        self::registerFromAssets('Counter');
 
         // Needs to modify the attributes before rendering.
         self::registerFromAssets('Columns', [
