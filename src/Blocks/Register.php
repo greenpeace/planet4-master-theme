@@ -20,16 +20,16 @@ class Register
     {
         $blocks = [
             'Cookies' => [
-                'block' => self::BLOCK_PREFIX . '/cookies'
+                'block' => self::BLOCK_PREFIX . '/cookies',
             ],
             'HappyPoint' => [
-                'block' => self::BLOCK_PREFIX . '/happypoint'
+                'block' => self::BLOCK_PREFIX . '/happypoint',
             ],
             'TableOfContents' => [
-                'block' => self::BLOCK_PREFIX . '/submenu'
+                'block' => self::BLOCK_PREFIX . '/submenu',
             ],
             'TopicLink' => [
-                'block' => self::BLOCK_PREFIX . '/topic-link'
+                'block' => self::BLOCK_PREFIX . '/topic-link',
             ],
             'SocialMedia' => [
                 'block' => self::BLOCK_PREFIX . '/social-media',
