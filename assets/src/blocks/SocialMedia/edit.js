@@ -1,6 +1,6 @@
-import {SocialMediaEmbed} from './SocialMediaEmbed.js';
-import {URLInput} from '../../block-editor/URLInput/URLInput.js';
-import {HTMLSidebarHelp} from '../../block-editor/HTMLSidebarHelp/HTMLSidebarHelp.js';
+import {SocialMediaEmbed} from './SocialMediaEmbed';
+import {URLInput} from '../../block-editor/URLInput/URLInput';
+import {HTMLSidebarHelp} from '../../block-editor/HTMLSidebarHelp/HTMLSidebarHelp';
 import {
   INSTAGRAM_JS,
   INSTAGRAM_EMBED_TYPE,

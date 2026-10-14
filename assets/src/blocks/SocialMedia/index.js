@@ -1,7 +1,7 @@
 import metadata from './block.json';
-import {SocialMediaEditor} from './edit.js';
-import {socialMediaV1} from './deprecated/socialMediaV1.js';
-import {SocialMediaFrontend} from './SocialMediaFrontend.js';
+import {SocialMediaEditor} from './edit';
+import {socialMediaV1} from './deprecated/socialMediaV1';
+import {SocialMediaFrontend} from './SocialMediaFrontend';
 import './style.scss';
 
 const {registerBlockType} = wp.blocks;
