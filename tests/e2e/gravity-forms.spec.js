@@ -6,6 +6,7 @@ import {
   checkEntry,
   changeConfirmationType,
   selectConfirmationPage,
+  addFormToNewPost,
 } from './tools/lib/gravity-forms.js';
 
 const CONFIRMATION_MESSAGE = 'This is a dummy confirmation message for testing purposes.';
@@ -16,11 +17,12 @@ test.useAdminLoggedIn();
 
 test.describe('Gravity Forms tests', () => {
   test.describe.configure({mode: 'serial'});
-  const testId = Math.floor(Math.random() * 10000); //NOSONAR
+  const testId = Date.now();
+  const testTitle = `GravityFormstestPost-${testId}`;
   let createdForm;
-  let newPost;
+  let postId;
 
-  test.beforeEach(async ({page, admin, requestUtils}) => {
+  test.beforeEach(async ({page, admin}) => {
     // Enable Gravity Forms rest API.
     await toggleRestAPI({page, admin}, true);
 
@@ -29,30 +31,19 @@ test.describe('Gravity Forms tests', () => {
       title: `Gravity Forms test form - ${testId}`,
     });
 
-    // Create a new post with the new form.
-    newPost = await requestUtils.rest({
-      path: '/wp/v2/posts',
-      method: 'POST',
-      data: {
-        title: `Gravity Forms test post - ${testId}`,
-        content: `<!-- wp:gravityforms/form {"formId":"${createdForm.id}"} /-->`,
-        status: 'publish',
-        featured_media: 357,
-      },
-    });
+    postId = null;
   });
 
-  test.afterEach(async ({page, admin}) => {
-    // Delete the form.
+  test.afterEach(async ({page, admin, requestUtils}) => {
+    if (postId) {
+      await requestUtils.rest({path: `/wp/v2/posts/${postId}`, method: 'DELETE', params: {force: true}});
+    }
     await page.request.delete(`./wp-json/gf/v2/forms/${createdForm.id}?force=1`);
-
-    // Disable Gravity Forms rest API.
     await toggleRestAPI({page, admin}, false);
-
     await page.close();
   });
 
-  test('check the confirmation message, text type', async ({page, admin}) => {
+  test('check the confirmation message, text type', async ({page, admin, editor}) => {
     test.slow();
 
     // Navigate to form confirmation settings via admin helper
@@ -84,11 +75,23 @@ test.describe('Gravity Forms tests', () => {
     await expect(page.locator('.gforms_note_success')).toBeVisible();
 
     // Delay to simulate human interaction and ensure the save has fully propagated before navigating away
-    await page.waitForTimeout(15000);
+    await page.waitForTimeout(5000);
+
+    // Confirm the new message was actually persisted.
+    const response = await page.request.get(`./wp-json/gf/v2/forms/${createdForm.id}`);
+    const savedForm = await response.json();
+    const messages = Object.values(savedForm.confirmations ?? {}).map(c => c.message);
+    expect(messages.some(m => m?.includes(CONFIRMATION_MESSAGE))).toBe(true);
 
 
-    // Go to the post which has the form.
-    await page.goto(newPost.link);
+    // Add the form through the editor and publish.
+    postId = await addFormToNewPost({page, admin, editor}, {
+      title: testTitle,
+      formId: createdForm.id,
+    });
+
+    // Visit the published post.
+    await page.goto(`./${testTitle}`);
     await page.waitForLoadState('domcontentloaded');
 
     // Fill and submit the form.
@@ -103,7 +106,7 @@ test.describe('Gravity Forms tests', () => {
     await checkEntry({page, admin}, createdForm.id);
   });
 
-  test('check the confirmation message, redirect type', async ({page, admin}) => {
+  test('check the confirmation message, redirect type', async ({page, admin, editor}) => {
     test.slow();
 
     await admin.visitAdminPage(
@@ -124,10 +127,16 @@ test.describe('Gravity Forms tests', () => {
     await expect(page.locator('.gforms_note_success')).toBeVisible();
 
     // Delay to simulate human interaction and ensure the save has fully propagated before navigating away
-    await page.waitForTimeout(10000);
+    await page.waitForTimeout(5000);
 
-    // Go to the post which has the form.
-    await page.goto(newPost.link);
+    // Add the form through the editor and publish.
+    postId = await addFormToNewPost({page, admin, editor}, {
+      title: testTitle,
+      formId: createdForm.id,
+    });
+
+    // Visit the published post.
+    await page.goto(`./${testTitle}`);
     await page.waitForLoadState('domcontentloaded');
 
     // Fill and submit the form.
@@ -140,7 +149,7 @@ test.describe('Gravity Forms tests', () => {
     await checkEntry({page, admin}, createdForm.id);
   });
 
-  test('check the confirmation message, page type', async ({page, admin}) => {
+  test('check the confirmation message, page type', async ({page, admin, editor}) => {
     test.slow();
 
     await admin.visitAdminPage(
@@ -157,10 +166,16 @@ test.describe('Gravity Forms tests', () => {
     await expect(page.locator('.gforms_note_success')).toBeVisible();
 
     // Delay to simulate human interaction and ensure the save has fully propagated before navigating away
-    await page.waitForTimeout(10000);
+    await page.waitForTimeout(5000);
 
-    // Go to the post which has the form.
-    await page.goto(newPost.link);
+    // Add the form through the editor and publish.
+    postId = await addFormToNewPost({page, admin, editor}, {
+      title: testTitle,
+      formId: createdForm.id,
+    });
+
+    // Visit the published post.
+    await page.goto(`./${testTitle}`);
     await page.waitForLoadState('domcontentloaded');
 
 
