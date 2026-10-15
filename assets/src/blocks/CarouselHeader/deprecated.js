@@ -1,4 +1,4 @@
-export const carouselHeaderV1 = {
+const carouselHeaderV1 = {
   attributes: {
     carousel_autoplay: {
       type: 'boolean',
@@ -31,3 +31,7 @@ export const carouselHeaderV1 = {
   },
   save: () => null,
 };
+
+export const deprecated = [
+  carouselHeaderV1,
+];

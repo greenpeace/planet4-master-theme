@@ -1,5 +1,5 @@
 import {ImagePlaceholder} from './ImagePlaceholder';
-import {toSrcSet} from './CarouselHeaderEditor';
+import {toSrcSet} from './edit';
 import {logDataInSentry} from '../../functions/logDataInSentry';
 
 const {MediaUpload, MediaUploadCheck} = wp.blockEditor;

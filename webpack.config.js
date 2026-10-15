@@ -52,8 +52,6 @@ module.exports = (env, argv) => {
       frontendIndex: './assets/src/frontendIndex.js',
       editorIndex: './assets/src/editorIndex.js',
       GalleryScript: './assets/src/blocks/Gallery/GalleryScript.js',
-      CarouselHeaderScript: './assets/src/blocks/CarouselHeader/CarouselHeaderScript.js',
-      CarouselHeaderEditorScript: './assets/src/blocks/CarouselHeader/CarouselHeaderEditorScript.js',
       AccordionScript: './assets/src/blocks/Accordion/AccordionScript.js',
       AccordionEditorScript: './assets/src/blocks/Accordion/AccordionEditorScript.js',
       TimelineScript: './assets/src/blocks/Timeline/TimelineScript.js',

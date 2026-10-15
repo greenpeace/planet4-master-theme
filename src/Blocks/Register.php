@@ -28,6 +28,20 @@ class Register
     public static function register(): void
     {
         $blocks = [
+            'CarouselHeader' => [
+                'block' => self::BLOCK_PREFIX . '/carousel-header',
+                'attributes' => function (array $attributes, string $content): array|string {
+                    if (! empty($content)) {
+                        return $content;
+                    }
+
+                    if (! empty($attributes['slides']) && empty($attributes['slides'][0]['image_url'])) {
+                        $attributes['slides'] = self::get_carousel_header_slides_image_data($attributes['slides']);
+                    }
+
+                    return $attributes;
+                },
+            ],
             'Columns' => [
                 'attributes' => function (array $attributes): array {
                     $attributes['columns'] = self::get_columns_data($attributes);
@@ -81,6 +95,27 @@ class Register
                 $properties
             );
         }
+
+        // Remove decoding attribute from the first image in the carousel header block
+        // to avoid lazy loading it and improve LCP.
+        add_filter('wp_img_tag_add_decoding_attr', [self::class, 'carousel_header_first_image_decoding'], 10, 2);
+    }
+
+    /**
+     * Disable the decoding attribute for the first image of the Carousel Header block.
+     *
+     * @param string|false|null $value The decoding attribute value.
+     * @param string            $image The HTML `img` tag.
+     *
+     * @return string|false|null The decoding attribute value, or false for the first Carousel Header image.
+     */
+    public static function carousel_header_first_image_decoding($value, string $image)
+    {
+        if (str_contains($image, 'carousel-header-image--first')) {
+            return false;
+        }
+
+        return $value;
     }
 
     /**
@@ -195,6 +230,36 @@ class Register
         }
 
         return $images;
+    }
+
+    /**
+     * Get image data for the Carousel Header slides.
+     *
+     * @param array $slides Slides of the block.
+     *
+     * @return array The slides, with image url, srcset and alt resolved from the attachment ID.
+     */
+    private static function get_carousel_header_slides_image_data(array $slides): array
+    {
+        foreach ($slides as &$slide) {
+            try {
+                $image_id = $slide['image'];
+                $temp_array = wp_get_attachment_image_src($image_id, 'retina-large');
+                if (false !== $temp_array && ! empty($temp_array)) {
+                    $slide['image_url'] = $temp_array[0];
+                    // phpcs:disable Generic.Files.LineLength.MaxExceeded
+                    $slide['image_srcset'] = wp_get_attachment_image_srcset($image_id, 'retina-large', wp_get_attachment_metadata($image_id));
+                    // phpcs:enable Generic.Files.LineLength.MaxExceeded
+                }
+
+                $temp_image = wp_prepare_attachment_for_js($image_id);
+                $slide['image_alt'] = $temp_image['alt'] ?? '';
+            } catch (\Exception $e) {
+                function_exists('\Sentry\captureException') && \Sentry\captureException($e);
+            }
+        }
+
+        return $slides;
     }
 
     /**
