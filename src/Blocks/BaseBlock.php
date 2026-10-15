@@ -248,13 +248,14 @@ abstract class BaseBlock
      * @param array  $attributes The block's attributes.
      * @param string $content The block's content.
      */
-    public static function hydrate_frontend(array $attributes, string $content): string
+    public static function hydrate_frontend(array $attributes, string $content, \WP_Block|string $block): string
     {
+        $block_name = is_string($block) ? $block : $block->name;
         $json = wp_json_encode([ 'attributes' => $attributes ]);
 
         // This will double check to parse ONLY hydrated blocks.
         if (! strpos($content, 'data-hydrate')) {
-            return self::render_frontend($attributes);
+            return self::render_frontend_from_blockname($attributes, $block_name);
         }
 
         // Parse to get the only the block content and not the whole block.
@@ -265,7 +266,7 @@ abstract class BaseBlock
         $end = $matches[0][count($matches[0]) - 2][1];
         $content = substr($content, 0, $end);
 
-        return '<div data-hydrate="' . self::get_full_block_name()
+        return '<div data-hydrate="' . $block_name
             . '" data-attributes="' . htmlspecialchars($json) . '">'
             . $content . '</div>';
     }

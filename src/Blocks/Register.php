@@ -5,6 +5,7 @@ namespace P4\MasterTheme\Blocks;
 class Register
 {
     private const BLOCK_PREFIX = 'planet4-blocks';
+
     /**
      * Columns block constants.
      */
@@ -12,6 +13,14 @@ class Register
     private const COLUMNS_LAYOUT_TASKS = 'tasks';
     private const COLUMNS_LAYOUT_IMAGES = 'image';
     private const COLUMNS_MAX = 4;
+
+    /**
+     * Gallery block constants.
+     */
+    private const LAYOUT_SLIDER = 1;
+    private const LAYOUT_THREE_COLUMNS = 2;
+    private const LAYOUT_GRID = 3;
+    private const CLASS_LAYOUT_THREE_COLUMNS = 'is-style-three-columns';
 
     /**
      * Load blocks registered from assets (block.json).
@@ -42,6 +51,14 @@ class Register
                     return $attributes;
                 },
             ],
+            'Gallery' => [
+                'block' => self::BLOCK_PREFIX . '/gallery',
+                'hydrate' => true,
+                'attributes' => function (array $attributes): array {
+                    $attributes['images'] = self::get_gallery_block_images($attributes);
+                    return $attributes;
+                },
+            ],
             'Spreadsheet' => [],
             'Counter' => [],
         ];
@@ -50,15 +67,7 @@ class Register
             $properties = [];
 
             if (isset($config['block'])) {
-                $properties['render_callback'] = function (array $attributes) use ($config): string {
-                    if (isset($config['enqueue'])) {
-                        $config['enqueue']();
-                    }
-                    if (isset($config['attributes'])) {
-                        $attributes = $config['attributes']($attributes);
-                    }
-                    return BaseBlock::render_frontend_from_blockname($attributes, $config['block']);
-                };
+                $properties['render_callback'] = self::block_render_callback($config);
             }
 
             register_block_type(
@@ -66,6 +75,30 @@ class Register
                 $properties
             );
         }
+    }
+
+    /**
+     * Builds the render callback for a block from its config.
+     *
+     * @param array $config Block config
+     */
+    private static function block_render_callback(array $config): callable
+    {
+        return function (array $attributes, string $content = '') use ($config): string {
+            if (isset($config['enqueue'])) {
+                $config['enqueue']();
+            }
+
+            if (isset($config['attributes'])) {
+                $attributes = $config['attributes']($attributes);
+            }
+
+            if (! empty($config['hydrate'])) {
+                return BaseBlock::hydrate_frontend($attributes, $content, $config['block']);
+            }
+
+            return BaseBlock::render_frontend_from_blockname($attributes, $config['block']);
+        };
     }
 
     /**
@@ -83,6 +116,80 @@ class Register
                 'strategy' => 'async',
             ]
         );
+    }
+
+    /**
+     * Get the images data that will be needed to render the block correctly.
+     *
+     * @param array $fields This is the array of fields of this block.
+     *
+     * @return array The images to be passed in the View.
+     */
+    public static function get_gallery_block_images(array $fields): array
+    {
+        $images = [];
+
+        if (isset($fields['multiple_image']) && '' !== $fields['multiple_image']) {
+            $exploded_images = explode(',', $fields['multiple_image']);
+        } else {
+            $exploded_images = [];
+        }
+
+        if (isset($fields['gallery_block_focus_points'])) {
+            $img_focus_points = json_decode(str_replace("'", '"', $fields['gallery_block_focus_points']), true);
+        } else {
+            $img_focus_points = [];
+        }
+
+        $images_dimensions = [];
+        $image_sizes = [
+            self::LAYOUT_SLIDER => 'retina-large',
+            self::LAYOUT_THREE_COLUMNS => 'medium_large',
+            self::LAYOUT_GRID => 'large',
+        ];
+
+        foreach ($exploded_images as $image_id) {
+            $image_size = $fields['gallery_image_size'] ?? (
+                $fields['gallery_block_style'] ? $image_sizes[$fields['gallery_block_style']] : null
+            );
+
+            $image_data = [];
+
+            $image_data_array = wp_get_attachment_image_src($image_id, $image_size);
+            $image_data['image_src'] = $image_data_array ? $image_data_array[0] : '';
+            $image_data['image_srcset'] = wp_get_attachment_image_srcset(
+                $image_id,
+                $image_size,
+                wp_get_attachment_metadata($image_id)
+            );
+            $image_data['image_sizes'] = wp_calculate_image_sizes($image_size, null, null, $image_id);
+            $image_data['alt_text'] = get_post_meta($image_id, '_wp_attachment_image_alt', true);
+            $image_data['caption'] = wp_get_attachment_caption($image_id);
+            $image_data['focus_image'] = $img_focus_points[$image_id] ?? '';
+            $attachment_fields = get_post_custom($image_id);
+            $image_data['credits'] = '';
+            if (isset($attachment_fields['_credit_text'][0]) && ! empty($attachment_fields['_credit_text'][0])) {
+                $image_data['credits'] = $attachment_fields['_credit_text'][0];
+                if (! is_numeric(strpos($attachment_fields['_credit_text'][0], '©'))) {
+                    $image_data['credits'] = '© ' . $image_data['credits'];
+                }
+            }
+
+            if (count((array) $image_data_array) >= 3) {
+                $images_dimensions[] = $image_data_array[1];
+                $images_dimensions[] = $image_data_array[2];
+            }
+
+            $images[] = $image_data;
+        }
+
+        // If the gallery style is "3 Columns" we need to limit the number of images to 3
+        // to avoid the lightbox carousel to show more images than that.
+        if (isset($fields['className']) && $fields['className'] === self::CLASS_LAYOUT_THREE_COLUMNS) {
+            $images = array_slice($images, 0, 3);
+        }
+
+        return $images;
     }
 
     /**
