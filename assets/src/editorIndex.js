@@ -1,6 +1,5 @@
 import {registerActionsListBlock} from './blocks/ActionsList';
 import {registerPostsListBlock} from './blocks/PostsList';
-import {registerTakeActionBoxoutBlock} from './blocks/TakeActionBoxout/TakeActionBoxoutBlock';
 import {setupCustomSidebar} from './block-editor/setupCustomSidebar';
 import {setupQueryLoopBlockExtension} from './block-editor/QueryLoopBlockExtension';
 import {registerBlockTemplates} from './block-templates/register';
@@ -19,7 +18,6 @@ import {registerSecondaryNavigationBlock} from './blocks/SecondaryNavigation/Sec
 
 wp.domReady(() => {
   // Blocks
-  registerTakeActionBoxoutBlock();
   registerTimelineBlock();
   registerPostsListBlock();
   registerActionButtonTextBlock();

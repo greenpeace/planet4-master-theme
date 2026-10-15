@@ -3,6 +3,9 @@
 namespace P4\MasterTheme\Blocks;
 
 use WP_REST_Server;
+use WP_REST_Request;
+use WP_Rest_Response;
+use WP_Query;
 
 /**
  * This class is a place for blocks REST endpoints to live.
@@ -65,6 +68,41 @@ class Rest
 
                             return rest_ensure_response($sheet_data);
                         },
+                    ],
+                ]
+            );
+
+            /**
+             * Endpoint to retrieve the data for the Take Action Boxout block.
+             *
+             * @example GET /wp-json/planet4/v1/action-pages
+             */
+            register_rest_route(
+                BaseBlock::REST_NAMESPACE,
+                '/action-pages',
+                [
+                    'methods' => WP_REST_Server::READABLE,
+                    'callback' => [self::class, 'get_action_pages'],
+                    'permission_callback' => static function () {
+                        return true;
+                    },
+                    'args' => [
+                        'exclude' => [
+                            'type' => 'integer',
+                            'required' => false,
+                        ],
+                        'parent' => [
+                            'type' => 'integer',
+                            'required' => true,
+                        ],
+                        'isNewIA' => [
+                            'type' => 'boolean',
+                            'required' => true,
+                        ],
+                        'per_page' => [
+                            'type' => 'integer',
+                            'default' => 100,
+                        ],
                     ],
                 ]
             );
@@ -163,5 +201,92 @@ class Rest
         wp_cache_add($cache_key, $sheet, null, self::SPREADSHEET_CACHE_LIFETIME);
 
         return $sheet;
+    }
+
+    /**
+     * Endpoint to retrieve the data for the Take Action Boxout block.
+     * Returns an array of Action pages.
+     *
+     * @example GET wp-json/planet4/v1/action-pages?&parent=9&isNewIA=true
+     */
+    public static function get_action_pages(WP_REST_Request $request): WP_Rest_Response
+    {
+        $exclude = (int) $request->get_param('exclude');
+        $parent = (int) $request->get_param('parent');
+        $is_new_ia = (bool) $request->get_param('isNewIA');
+        $per_page = (int) $request->get_param('per_page');
+        $posts = [];
+
+        // Pages
+        if ($parent !== -1) {
+            $children = get_children([
+                'post_type' => 'page',
+                'post_parent' => $parent,
+                'fields' => 'ids',
+            ]);
+
+            $post_ids = array_merge([$parent], $children);
+
+            $query = new WP_Query([
+                'post_type' => 'page',
+                'post__in' => $post_ids,
+                'posts_per_page' => $per_page,
+                'orderby' => 'title',
+                'order' => 'ASC',
+                'post__not_in' => $exclude ? [$exclude] : [],
+                'fields' => 'ids',
+            ]);
+
+            foreach ($query->posts as $id) {
+                $posts[] = [
+                    'id' => $id,
+                    'title' => get_the_title($id),
+                    'type' => 'page',
+                    'excerpt' => get_the_excerpt($id),
+                    'link' => get_permalink($id),
+                    'featured_media' => (int) get_post_thumbnail_id($id),
+                    'meta' => [
+                        'action_button_text' => get_post_meta(
+                            $id,
+                            'action_button_text',
+                            true
+                        ),
+                    ],
+                ];
+            }
+        }
+
+        // Actions
+        if ($is_new_ia) {
+            $action_query = new WP_Query([
+                'post_type' => 'p4_action',
+                'posts_per_page' => $per_page,
+                'orderby' => 'title',
+                'order' => 'ASC',
+                'post__not_in' => $exclude ? [ $exclude ] : [],
+                'fields' => 'ids',
+            ]);
+
+            foreach ($action_query->posts as $id) {
+                $posts[] = [
+                    'id' => $id,
+                    'title' => get_the_title($id),
+                    'type' => 'p4_action',
+                    'excerpt' => get_the_excerpt($id),
+                    'link' => get_permalink($id),
+                    'featured_media' => (int) get_post_thumbnail_id($id),
+                    'meta' => [
+                        'action_button_text' => get_post_meta(
+                            $id,
+                            'action_button_text',
+                            true
+                        ),
+                    ],
+                ];
+            }
+        }
+
+        usort($posts, fn ($a, $b) => strcasecmp($a['title'], $b['title']));
+        return rest_ensure_response($posts);
     }
 }
