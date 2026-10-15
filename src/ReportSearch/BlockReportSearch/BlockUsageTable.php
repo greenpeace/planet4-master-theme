@@ -4,13 +4,13 @@
  * Table displaying blocks usage
  */
 
-namespace P4\MasterTheme\BlockReportSearch\Block;
+namespace P4\MasterTheme\ReportSearch\BlockReportSearch;
 
 use InvalidArgumentException;
 use WP_List_Table;
 use WP_Block_Type_Registry;
-use P4\MasterTheme\BlockReportSearch\RowActions;
-use P4\MasterTheme\BlockReportSearch\Block\Query\Parameters;
+use P4\MasterTheme\ReportSearch\RowActions;
+use P4\MasterTheme\ReportSearch\BlockReportSearch\Query\Parameters;
 
 // phpcs:disable PSR1.Files.SideEffects.FoundWithSymbols
 if (! class_exists('WP_List_Table')) {

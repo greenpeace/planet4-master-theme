@@ -4,7 +4,7 @@
  * Display post actions in table
  */
 
-namespace P4\MasterTheme\BlockReportSearch;
+namespace P4\MasterTheme\ReportSearch;
 
 /**
  * Row actions
