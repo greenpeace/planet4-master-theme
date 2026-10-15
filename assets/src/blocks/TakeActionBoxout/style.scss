@@ -1,3 +1,7 @@
+@import "../../scss/base/tokens";
+@import "../../scss/base/variables";
+@import "../../scss/base/mixins";
+
 @mixin boxout-half-and-half {
   height: 222px;
 

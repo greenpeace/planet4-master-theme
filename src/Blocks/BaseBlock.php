@@ -28,15 +28,15 @@ abstract class BaseBlock
     abstract public function prepare_data(array $fields): array;
 
     /**
+     * Render the Take Action Boxout block in the frontend.
+     *
      * @param array $attributes Block attributes.
      *
      * @return mixed
      */
-    public function render(array $attributes)
+    public static function render_take_action_boxout(array $attributes)
     {
-        $data = $this->prepare_data($attributes);
-
-        $block_output = \Timber\Timber::compile(static::BLOCK_NAME . '.twig', $data);
+        $block_output = \Timber\Timber::compile('take-action-boxout.twig', $attributes);
 
         // phpcs:ignore WordPress.WP.I18n.NonSingularStringLiteralText
         $empty_message = defined('static::EMPTY_MESSAGE') ? __(static::EMPTY_MESSAGE, 'planet4-master-theme') :
@@ -44,7 +44,7 @@ abstract class BaseBlock
 
         // Return empty string if rendered output contains only whitespace or new lines.
         // If it is a rest request from editor/admin area, return a message that block has no content.
-        $empty_content = $this->is_rest_request() ? '<div class="EmptyMessage">' . $empty_message . '</div>' : '';
+        $empty_content = self::is_rest_request() ? '<div class="EmptyMessage">' . $empty_message . '</div>' : '';
 
         return ctype_space($block_output) ? $empty_content : $block_output;
     }

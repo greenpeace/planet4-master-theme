@@ -1,0 +1,59 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "planet4-blocks/take-action-boxout",
+  "category": "planet4-blocks",
+  "description": "A versatile horizontal card featuring an image, description, and Call to Action, designed to link to Take Action pages or any custom link such as external petitions or donation pages.",
+  "title": "Take Action Boxout",
+  "icon": "welcome-widgets-menus",
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "excerpt": {
+      "type": "string"
+    },
+    "take_action_page": {
+      "type": "integer"
+    },
+    "link": {
+      "type": "string"
+    },
+    "linkText": {
+      "type": "string"
+    },
+    "newTab": {
+      "type": "boolean",
+      "default": false
+    },
+    "tag_ids": {
+      "type": "array",
+      "default": []
+    },
+    "imageId": {
+      "type": "number",
+      "default": ""
+    },
+    "imageUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "imageAlt": {
+      "type": "string",
+      "default": ""
+    },
+    "stickyOnMobile": {
+      "type": "boolean",
+      "default": false
+    },
+    "headingFontSize": {
+      "type": "string",
+      "default": "medium"
+    }
+  },
+  "supports": {
+    "html": false
+  },
+  "editorScript": "file:index.js",
+  "style": "file:index.css"
+}

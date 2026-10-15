@@ -4,9 +4,8 @@ import {TakeActionBoxoutFrontend} from './TakeActionBoxoutFrontend';
 import {ImagePlaceholder} from './ImagePlaceholder';
 import {FONT_SIZES} from './HeadingFontSizes';
 import {FontSizePicker} from '@wordpress/components';
-const {apiFetch} = wp;
-const {useState, useEffect} = wp.element;
 
+const {useState, useEffect} = wp.element;
 const {useSelect} = wp.data;
 const {RichText, BlockControls, MediaUpload, MediaUploadCheck, InspectorControls} = wp.blockEditor;
 const {
@@ -21,7 +20,7 @@ const {
 const {__} = wp.i18n;
 
 // Planet 4 settings (Planet 4 >> Defaults content >> Actions default button text).
-const DEFAULT_BUTTON_TEXT = window.p4_vars.options.take_action_covers_button_text || __('Take action', 'planet4-master-theme');
+const DEFAULT_BUTTON_TEXT = window.p4_vars?.options?.take_action_covers_button_text || __('Take action', 'planet4-master-theme');
 
 export const TakeActionBoxoutEditor = ({
   attributes,
@@ -51,7 +50,7 @@ export const TakeActionBoxoutEditor = ({
   useEffect(() => {
     let isMounted = true;
 
-    apiFetch({
+    wp.apiFetch({
       path: `/planet4/v1/action-pages?exclude=${postId}&parent=${parent}&isNewIA=${isNewIA}`,
     }).then(data => {
       if (!isMounted) {return;};
