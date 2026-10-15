@@ -45,6 +45,52 @@ class Register
                 return BaseBlock::render_frontend_from_blockname($attributes, 'planet4-blocks/columns');
             },
         ]);
+
+        // If the content is not empty, it's the new version and doesn't need any back end rendering.
+        // Otherwise, the block was not migrated in the editor yet: fall back to front end rendering from scratch.
+        self::registerFromAssets('CarouselHeader', [
+            'render_callback' => function ($attributes, $content) {
+                if (! empty($content)) {
+                    return $content;
+                }
+
+                if (! empty($attributes['slides']) && empty($attributes['slides'][0]['image_url'])) {
+                    $attributes['slides'] = self::get_carousel_header_slides_image_data($attributes['slides']);
+                }
+
+                return BaseBlock::render_frontend_from_blockname($attributes, 'planet4-blocks/carousel-header');
+            },
+        ]);
+    }
+
+    /**
+     * Get image data for the Carousel Header slides.
+     *
+     * @param array $slides Slides of the block.
+     *
+     * @return array The slides, with image url, srcset and alt resolved from the attachment ID.
+     */
+    private static function get_carousel_header_slides_image_data(array $slides): array
+    {
+        foreach ($slides as &$slide) {
+            try {
+                $image_id = $slide['image'];
+                $temp_array = wp_get_attachment_image_src($image_id, 'retina-large');
+                if (false !== $temp_array && ! empty($temp_array)) {
+                    $slide['image_url'] = $temp_array[0];
+                    // phpcs:disable Generic.Files.LineLength.MaxExceeded
+                    $slide['image_srcset'] = wp_get_attachment_image_srcset($image_id, 'retina-large', wp_get_attachment_metadata($image_id));
+                    // phpcs:enable Generic.Files.LineLength.MaxExceeded
+                }
+
+                $temp_image = wp_prepare_attachment_for_js($image_id);
+                $slide['image_alt'] = $temp_image['alt'] ?? '';
+            } catch (\Exception $e) {
+                function_exists('\Sentry\captureException') && \Sentry\captureException($e);
+            }
+        }
+
+        return $slides;
     }
 
     /**
