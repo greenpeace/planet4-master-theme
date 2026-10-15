@@ -13,6 +13,7 @@ class Register
     private const COLUMNS_LAYOUT_IMAGES = 'image';
     private const COLUMNS_MAX = 4;
 
+
     /**
      * Load blocks registered from assets (block.json).
      */
