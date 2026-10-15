@@ -4,16 +4,17 @@
  * Block search SQL query
  */
 
-namespace P4\MasterTheme\BlockReportSearch\Block\Sql;
+namespace P4\MasterTheme\ReportSearch\BlockReportSearch\Sql;
 
-use P4\MasterTheme\BlockReportSearch\Block;
+use P4\MasterTheme\ReportSearch\BlockReportSearch;
 use P4\MasterTheme\SqlParameters;
+use P4\MasterTheme\ReportSearch\BlockReportSearch\Query\Parameters;
 use wpdb;
 
 /**
  * SQL implementation of Query interface
  */
-class SqlQuery implements Block\Query
+class SqlQuery implements BlockReportSearch\Query
 {
     private wpdb $db;
 
@@ -28,10 +29,10 @@ class SqlQuery implements Block\Query
     }
 
     /**
-     * @param Block\Query\Parameters ...$params_list Query parameters.
+     * @param Parameters ...$params_list Query parameters.
      * @return int[] List of posts IDs.
      */
-    public function get_posts(Block\Query\Parameters ...$params_list): array
+    public function get_posts(Parameters ...$params_list): array
     {
         $query = $this->get_sql_query(...$params_list);
         $results = $this->db->get_results($query);
@@ -45,32 +46,46 @@ class SqlQuery implements Block\Query
     }
 
     /**
-     * @param Block\Query\Parameters ...$params_list Query parameters.
+     * @param Parameters ...$params_list Query parameters.
      * @return string SQL query string
      * @throws \UnexpectedValueException Empty prepared query.
      */
-    private function get_sql_query(Block\Query\Parameters ...$params_list): string
+    private function get_sql_query(Parameters ...$params_list): string
     {
         // Prepare query parameters.
         $status = [];
         $type = [];
         $order = [];
+        // To get more specificity to search patterns in post content
+        $like = [];
         foreach ($params_list as $params) {
             $status = array_merge($status, $params->post_status() ?? []);
             $type = array_merge($type, $params->post_type() ?? []);
             $order = array_merge($order, $params->order() ?? []);
+
+            if ($params->name() || $params->namespace()) {
+                $like[] = (string) new Like($params);
+            }
         }
         $status = array_unique(array_filter($status));
         $type = array_unique(array_filter($type));
         $order = $this->parse_order(array_unique(array_filter($order)));
+        $like = array_unique($like);
 
         // Prepare query.
         $sql_params = new SqlParameters();
         $sql = 'SELECT ID
-			FROM ' . $sql_params->identifier($this->db->posts) . '
-			WHERE post_status IN ' . $sql_params->string_list($status);
+                FROM ' . $sql_params->identifier($this->db->posts) . '
+                WHERE post_status IN ' . $sql_params->string_list($status);
         if (! empty($type)) {
             $sql .= ' AND post_type IN ' . $sql_params->string_list($type);
+        }
+        if (! empty($like)) {
+            $like_clauses = array_map(
+                fn ($pattern) => 'post_content LIKE ' . $sql_params->string($pattern),
+                $like
+            );
+            $sql .= ' AND (' . implode(' OR ', $like_clauses) . ')';
         }
         if (! empty($order)) {
             $sql .= ' ORDER BY ' . implode(',', $order);

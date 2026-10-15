@@ -106,6 +106,7 @@ class BlockSettings
         self::P4_TEMPLATES_PREFIX . '/action',
         self::P4_TEMPLATES_PREFIX . '/get-informed',
         self::P4_TEMPLATES_PREFIX . '/high-level-topic',
+        self::P4_TEMPLATES_PREFIX . '/test-pattern',
     ];
 
     // https://github.com/WordPress/gutenberg/blob/trunk/lib/blocks.php.

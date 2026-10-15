@@ -4,13 +4,13 @@
  * Table displaying patterns usage
  */
 
-namespace P4\MasterTheme\BlockReportSearch\Pattern;
+namespace P4\MasterTheme\ReportSearch\PatternReportSearch;
 
 use WP_Block_Parser;
 use WP_Block_Patterns_Registry;
 use WP_Post;
-use P4\MasterTheme\BlockReportSearch\PatternSearch;
-use P4\MasterTheme\BlockReportSearch\Pattern\Query\Parameters;
+use P4\MasterTheme\ReportSearch\PatternReportSearch\PatternSearch;
+use P4\MasterTheme\ReportSearch\PatternReportSearch\Query\Parameters;
 use P4\MasterTheme\Patterns\BlockPattern;
 
 /**
