@@ -1,5 +1,5 @@
-@import "../../base/variables";
-@import "../../base/mixins";
+@import "../../scss/base/variables";
+@import "../../scss/base/mixins";
 
 .social-media-block {
   z-index: 3;
@@ -32,5 +32,13 @@
     .instagram-media {
       max-width: 100%;
     }
+  }
+}
+
+// Editor styles
+.editor-styles-wrapper {
+  .social-media-block {
+    display: inline-block;
+    width: 100%;
   }
 }

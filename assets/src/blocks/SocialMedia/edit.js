@@ -18,13 +18,15 @@ const {__} = wp.i18n;
 const {useEffect} = wp.element;
 
 const loadScriptAsync = uri => {
-  // eslint-disable-next-line no-unused-vars
   return new Promise((resolve, reject) => {
     const tag = document.createElement('script');
     tag.src = uri;
     tag.async = true;
     tag.onload = () => {
       resolve();
+    };
+    tag.onerror = () => {
+      reject(new Error(`Failed to load script: ${uri}`));
     };
     const body = document.getElementsByTagName('body')[0];
     body.appendChild(tag);
@@ -65,7 +67,7 @@ export const SocialMediaEditor = ({
       let mediaId = null;
       try {
         const {pathname} = new URL(social_media_url);
-        const match = pathname.match(/\/(reel|p)\/([\w-]+)/);
+        const match = /\/(reel|p)\/([\w-]+)/.exec(pathname);
         mediaId = match ? match[2] : null;
       } catch {
         // Not a valid URL yet, user is still typing...
@@ -97,7 +99,9 @@ export const SocialMediaEditor = ({
       if (window.instgrm) {
         window.instgrm.Embeds.process();
       } else {
-        loadScriptAsync(INSTAGRAM_JS);
+        loadScriptAsync(INSTAGRAM_JS).catch(() => {
+          // Script failed to load (e.g. blocked by an ad blocker); nothing to process.
+        });
       }
     }, 0);
 

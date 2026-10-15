@@ -3,7 +3,6 @@ import {registerPostsListBlock} from './blocks/PostsList';
 import {registerTakeActionBoxoutBlock} from './blocks/TakeActionBoxout/TakeActionBoxoutBlock';
 import {setupCustomSidebar} from './block-editor/setupCustomSidebar';
 import {setupQueryLoopBlockExtension} from './block-editor/QueryLoopBlockExtension';
-import {registerSocialMediaBlock} from './blocks/SocialMedia/SocialMediaBlock';
 import {registerBlockTemplates} from './block-templates/register';
 import {registerTimelineBlock} from './blocks/Timeline/TimelineBlock';
 import {registerBlockStyles} from './block-styles';
@@ -21,7 +20,6 @@ import {registerSecondaryNavigationBlock} from './blocks/SecondaryNavigation/Sec
 wp.domReady(() => {
   // Blocks
   registerTakeActionBoxoutBlock();
-  registerSocialMediaBlock();
   registerTimelineBlock();
   registerPostsListBlock();
   registerActionButtonTextBlock();
