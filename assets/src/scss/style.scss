@@ -169,3 +169,16 @@ body.transparent-nav {
     @include focus-styles();
   }
 }
+
+.is-style-sticky-container {
+  .sticky-item {
+    background: #fff;
+    border: 1px solid #000;
+    margin-bottom: 30px;
+    padding: 30px;
+    position: sticky;
+    border-radius: 4px;
+    max-height: 50vh;
+    overflow-y: scroll;
+  }
+}
