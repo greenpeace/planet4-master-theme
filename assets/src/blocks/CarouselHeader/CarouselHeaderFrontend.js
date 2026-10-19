@@ -1,6 +1,5 @@
 import {useSlides} from './useSlides';
 import {Slide} from './Slide';
-import {CarouselControls} from './CarouselControls';
 import {SlideBackground} from './SlideBackground';
 import {StaticCaption} from './StaticCaption';
 
@@ -32,20 +31,6 @@ export const CarouselHeaderFrontend = ({slides, carousel_autoplay, className, de
       onFocus={() => setAutoplay(false)}
       onTouchStart={() => setAutoplay(false)}
     >
-      {(slides.length > 1) ? (
-        <CarouselControls
-          goToPrevSlide={goToPrevSlide}
-          goToNextSlide={goToNextSlide}
-          setAutoplay={setAutoplay}
-          goToSlide={goToSlide}
-          handleAutoplay={handleAutoplay}
-          slides={slides}
-          currentSlide={currentSlide}
-          autoplay={autoplay}
-          autoplayToggle={carousel_autoplay}
-          ref={indicatorsRef}
-        />
-      ) : null}
       <div className="carousel-wrapper-header">
         <ul className="carousel-inner" role="listbox">
           {slides.map((slide, index) => {
