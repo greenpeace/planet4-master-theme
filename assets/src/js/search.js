@@ -74,10 +74,8 @@ const setupFilterModal = () => {
     button.addEventListener('click', () => modal.close());
   });
 
-  // Fires for every close path. Focus returns to the opener automatically.
-  modal.addEventListener('close', () => {
-    pageHtml.classList.remove('overflow-hidden');
-  });
+  // Fires for every close path
+  modal.addEventListener('close', () => pageHtml.classList.remove('overflow-hidden'));
 
   // closes modal when the viewport grows to desktop size.
   desktopQuery.addEventListener('change', event => {
@@ -120,21 +118,21 @@ export const setupSearch = () => {
   // Submit form on filter click event.
   const filterInputs = [...document.querySelectorAll('input[name^="f["]:not(.modal-checkbox)')];
   filterInputs.forEach(filterInput => {
-    filterInput.onclick = () => {
+    filterInput.addEventListener('click', () => {
       addSelectedFiltersToForm(false);
       setRestoreFocus();
       searchForm.submit();
-    };
+    });
   });
 
   // Submit form on Apply filters button click event.
   const applyFiltersButton = document.querySelector('.applybtn');
   if (applyFiltersButton) {
-    applyFiltersButton.onclick = () => {
+    applyFiltersButton.addEventListener('click', () => {
       addSelectedFiltersToForm(true);
       setRestoreFocus();
       searchForm.submit();
-    };
+    });
   }
 
   // Clear single selected filter.
@@ -142,24 +140,24 @@ export const setupSearch = () => {
   activeFilterTags.forEach(activeFilterTag => {
     const filterId = activeFilterTag.dataset.id;
 
-    activeFilterTag.onclick = () => {
+    activeFilterTag.addEventListener('click', () => {
       addSelectedFiltersToForm(false, filterId);
       setRestoreFocus();
       searchForm.submit();
-    };
+    });
   });
 
   // Clear all selected filters.
   const clearAllButton = document.querySelector('.clearall');
   if (clearAllButton) {
-    clearAllButton.onclick = () => {
+    clearAllButton.addEventListener('click', () => {
       const selectedFilters = [...document.querySelectorAll('input[name^="f["]:checked')];
       selectedFilters.forEach(selectedFilter => {
         selectedFilter.checked = false;
       });
       setRestoreFocus();
       searchForm.submit();
-    };
+    });
   }
 
   // Add click event for load more button in blocks.
@@ -167,7 +165,7 @@ export const setupSearch = () => {
   const loadMoreButton = document.querySelector('.more-btn');
   const announce = document.getElementById('announce');
   if (loadMoreButton) {
-    loadMoreButton.onclick = () => {
+    loadMoreButton.addEventListener('click', () => {
       const {total_posts, posts_per_load, current_page} = loadMoreButton.dataset;
       const nextPage = parseInt(current_page) + 1;
       loadMoreButton.dataset.current_page = nextPage;
@@ -206,6 +204,6 @@ export const setupSearch = () => {
         }).catch(error => {
           console.log(error); //eslint-disable-line no-console
         });
-    };
+    });
   }
 };

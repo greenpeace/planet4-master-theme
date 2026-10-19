@@ -63,13 +63,13 @@
                                 {{ __( 'Filters', 'planet4-master-theme' ) }}
                             </button>
                         </div>
-                       <dialog class="filter-modal" id="filtermodal" aria-labelledby="filtermodal-title">
-                            <div class="modal-body">
+                       <dialog class="filter-modal" id="filtermodal" aria-labelledby="filtermodal-title" closedby="any">
+                            <div class="dialog-content">
                                 <div class="row">
                                     <div class="col-9">
                                         <h4 id="filtermodal-title" class="modal-title">{{ __( 'Refine your search', 'planet4-master-theme' ) }}</h4>
                                     </div>
-                                    <div class="col-3 text-end">
+                                    <div class="col-3">
                                         <button type="button" class="closebtn" data-close-modal aria-label="{{ __( 'Close', 'planet4-master-theme' ) }}">
                                             {{ 'times'|svgicon }}
                                         </button>

@@ -5,18 +5,41 @@
   margin: auto;
   padding: 0;
   border: 0;
-  border-radius: 0.3rem;
+  border-radius: 4px;
   background-color: var(--white);
   color: inherit;
   overflow-y: auto;
   overscroll-behavior: contain;
 
+  // Closed state
+  opacity: 0;
+  transform: translateY(1rem);
+  transition:
+    opacity 0.3s ease-out,
+    transform 0.3s ease-out,
+    overlay 0.3s ease-out allow-discrete,
+    display 0.3s ease-out allow-discrete;
+
+  // Open state
+  &[open] {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
   &::backdrop {
+    background-color: rgba(0, 0, 0, 0);
+    transition:
+      overlay 0.3s ease-out allow-discrete,
+      display 0.3s ease-out allow-discrete,
+      background-color 0.3s ease-out;
+  }
+
+  &[open]::backdrop {
     background-color: rgba(0, 0, 0, 0.5);
   }
 
-  .modal-body {
-    padding: $sp-4 15px;
+  .dialog-content {
+    padding: $sp-4 $sp-2;
 
     @include small-and-up {
       padding: $sp-6x;
@@ -54,6 +77,10 @@
     float: right;
     padding-left: 0;
     padding-right: 0;
+
+    html[dir="rtl"] & {
+      float: left;
+    }
   }
 
   .closebtn {
@@ -63,6 +90,7 @@
     border-radius: 50%;
     padding: 8px 12px;
     margin-right: 0;
+    margin-inline-start: 90%;
     transition: color, border-color, background-color 150ms linear;
 
     &:hover {
@@ -76,5 +104,37 @@
     .icon-cross {
       font-size: 0.75rem;
     }
+
+    @include medium-and-less {
+      margin-inline-start: 70%;
+    }
+  }
+
+  html[dir="rtl"] & {
+    .list-unstyled {
+      padding-right: 0;
+
+      .custom-control {
+        padding-right: 0;
+      }
+    }
+  }
+}
+
+@starting-style {
+  .filter-modal[open] {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+
+  .filter-modal[open]::backdrop {
+    background-color: rgba(0, 0, 0, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .filter-modal,
+  .filter-modal::backdrop {
+    transition: none;
   }
 }
