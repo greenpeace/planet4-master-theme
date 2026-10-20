@@ -1,0 +1,56 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "planet4-blocks/gallery",
+  "category": "planet4-blocks",
+  "description": "",
+  "title": "Gallery",
+  "icon": "format-gallery",
+  "supports": {
+    "html": false
+  },
+  "styles": [
+    {
+      "name": "slider",
+      "label": "Slider - The slider is a carousel of images. For more than 5 images, consider using a grid.",
+      "isDefault": true
+    },
+    {
+      "name": "three-columns",
+      "label": "3 Columns - The 3 columns image display is great for accentuating text, and telling a visual story."
+    },
+    {
+      "name": "grid",
+      "label": "Grid - The grid shows thumbnails of lots of images. Good to use when showing lots of activity."
+    }
+  ],
+  "attributes": {
+    "gallery_block_style": {
+      "type": "integer",
+      "default": 0
+    },
+    "gallery_block_title": {
+      "type": "string",
+      "default": ""
+    },
+    "gallery_block_description": {
+      "type": "string",
+      "default": ""
+    },
+    "multiple_image": {
+      "type": "string",
+      "default": ""
+    },
+    "gallery_block_focus_points": {
+      "type": "string",
+      "default": ""
+    },
+    "image_data": {
+      "type": "array",
+      "default": []
+    }
+  },
+  "viewScript": "file:view-script.js",
+  "editorScript": "file:index.js",
+  "style": "file:index.css"
+}
