@@ -13,8 +13,7 @@ const topic = ['core/column', {}, [
     }],
     ['core/heading', {
       level: 3,
-      textAlign: 'center',
-      style: {typography: {fontSize: '1rem'}},
+      style: {typography: {fontSize: '1rem', textAlign: 'center'}},
       className: 'is-style-chevron',
       placeholder: __('Enter topic', 'planet4-master-theme-backend'),
     }],
@@ -28,7 +27,7 @@ const innerBlocks = ({
   ['core/group', {className: 'container'}, [
     ['core/spacer', {height: '24px'}],
     ['core/heading', {
-      textAlign: 'center',
+      style: {typography: {textAlign: 'center'}},
       placeholder: __('Enter title', 'planet4-master-theme-backend'),
       content: title,
     }],

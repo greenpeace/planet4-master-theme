@@ -31,12 +31,11 @@ const item = ['core/group', {
     level: 3,
     className: 'w-auto',
     style: {
-      typography: {fontSize: '1rem'},
+      typography: {fontSize: '1rem', textAlign: 'left'},
       spacing: {
         margin: {top: '0px', bottom: '0px', left: '16px'},
       },
     },
-    textAlign: 'left',
     placeholder: __('Enter text', 'planet4-master-theme-backend'),
   }],
 ]];
@@ -67,13 +66,13 @@ const template = ({
         content: title,
         placeholder: __('Enter title', 'planet4-master-theme-backend'),
         style: {
+          typography: {textAlign: 'center'},
           spacing: {
             margin: {
               bottom: '24px',
             },
           },
         },
-        textAlign: 'center',
       },
       ],
       ['core/paragraph', {

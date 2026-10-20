@@ -10,9 +10,8 @@ const column = ['core/column', {}, [
       url: `${mainThemeUrl}/images/placeholders/placeholder-75x75.jpg`,
     }],
     ['core/heading', {
-      style: {typography: {fontSize: '4rem'}},
+      style: {typography: {fontSize: '4rem', textAlign: 'center'}},
       level: 3,
-      textAlign: 'center',
       placeholder: __('Enter title', 'planet4-master-theme-backend'),
     }],
     ['core/paragraph', {
