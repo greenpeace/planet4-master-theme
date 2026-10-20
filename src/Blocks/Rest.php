@@ -74,7 +74,7 @@ class Rest
              */
             register_rest_route(
                 BaseBlock::REST_NAMESPACE,
-                'gallery/images',
+                '/gallery/images',
                 [
                     [
                         'permission_callback' => static function () {
