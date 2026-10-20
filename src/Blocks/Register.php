@@ -101,7 +101,7 @@ class Register
 
             // For the Take Action Boxout block we have a special render function.
             if ($config['block'] === self::BLOCK_PREFIX . '/take-action-boxout') {
-                return BaseBlock::render_take_action_boxout($attributes);
+                return self::render_take_action_boxout($attributes);
             }
 
             if (!empty($config['hydrate'])) {
@@ -332,5 +332,27 @@ class Register
                 'page_id' => $page_id,
             ],
         ];
+    }
+
+        /**
+     * Render the Take Action Boxout block in the frontend.
+     *
+     * @param array $attributes Block attributes.
+     *
+     * @return mixed
+     */
+    private static function render_take_action_boxout(array $attributes)
+    {
+        $block_output = \Timber\Timber::compile('take-action-boxout.twig', $attributes);
+
+        // phpcs:ignore WordPress.WP.I18n.NonSingularStringLiteralText
+        $empty_message = defined('static::EMPTY_MESSAGE') ? __(static::EMPTY_MESSAGE, 'planet4-master-theme') :
+            "Block content is empty. Check the block's settings or remove it.";
+
+        // Return empty string if rendered output contains only whitespace or new lines.
+        // If it is a rest request from editor/admin area, return a message that block has no content.
+        $empty_content = BaseBlock::is_rest_request() ? '<div class="EmptyMessage">' . $empty_message . '</div>' : '';
+
+        return ctype_space($block_output) ? $empty_content : $block_output;
     }
 }
