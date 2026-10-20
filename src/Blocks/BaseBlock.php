@@ -28,28 +28,6 @@ abstract class BaseBlock
     abstract public function prepare_data(array $fields): array;
 
     /**
-     * @param array $attributes Block attributes.
-     *
-     * @return mixed
-     */
-    public function render(array $attributes)
-    {
-        $data = $this->prepare_data($attributes);
-
-        $block_output = \Timber\Timber::compile(static::BLOCK_NAME . '.twig', $data);
-
-        // phpcs:ignore WordPress.WP.I18n.NonSingularStringLiteralText
-        $empty_message = defined('static::EMPTY_MESSAGE') ? __(static::EMPTY_MESSAGE, 'planet4-master-theme') :
-            "Block content is empty. Check the block's settings or remove it.";
-
-        // Return empty string if rendered output contains only whitespace or new lines.
-        // If it is a rest request from editor/admin area, return a message that block has no content.
-        $empty_content = $this->is_rest_request() ? '<div class="EmptyMessage">' . $empty_message . '</div>' : '';
-
-        return ctype_space($block_output) ? $empty_content : $block_output;
-    }
-
-    /**
      * Returns if current request is a rest api request.
      */
     public static function is_rest_request(): bool
