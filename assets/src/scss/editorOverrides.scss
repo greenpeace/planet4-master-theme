@@ -479,8 +479,3 @@ html[dir="rtl"] {
     }
   }
 }
-
-// Hide figcaption in image block with force-no-caption class on the editor.
-.wp-block-image.force-no-caption + figcaption {
-  display: none;
-}
