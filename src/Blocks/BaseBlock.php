@@ -247,6 +247,7 @@ abstract class BaseBlock
      *
      * @param array  $attributes The block's attributes.
      * @param string $content The block's content.
+     * @param \WP_Block|string $block The block or the block name.
      */
     public static function hydrate_frontend(array $attributes, string $content, \WP_Block|string $block): string
     {

@@ -17,10 +17,10 @@ class Register
     /**
      * Gallery block constants.
      */
-    private const LAYOUT_SLIDER = 1;
-    private const LAYOUT_THREE_COLUMNS = 2;
-    private const LAYOUT_GRID = 3;
-    private const CLASS_LAYOUT_THREE_COLUMNS = 'is-style-three-columns';
+    private const GALLERY_LAYOUT_SLIDER = 1;
+    private const GALLERY_LAYOUT_THREE_COLUMNS = 2;
+    private const GALLERY_LAYOUT_GRID = 3;
+    private const GALLERY_CLASS_LAYOUT_THREE_COLUMNS = 'is-style-three-columns';
 
     /**
      * Load blocks registered from assets (block.json).
@@ -141,11 +141,10 @@ class Register
             $img_focus_points = [];
         }
 
-        $images_dimensions = [];
         $image_sizes = [
-            self::LAYOUT_SLIDER => 'retina-large',
-            self::LAYOUT_THREE_COLUMNS => 'medium_large',
-            self::LAYOUT_GRID => 'large',
+            self::GALLERY_LAYOUT_SLIDER => 'retina-large',
+            self::GALLERY_LAYOUT_THREE_COLUMNS => 'medium_large',
+            self::GALLERY_LAYOUT_GRID => 'large',
         ];
 
         foreach ($exploded_images as $image_id) {
@@ -175,17 +174,12 @@ class Register
                 }
             }
 
-            if (count((array) $image_data_array) >= 3) {
-                $images_dimensions[] = $image_data_array[1];
-                $images_dimensions[] = $image_data_array[2];
-            }
-
             $images[] = $image_data;
         }
 
         // If the gallery style is "3 Columns" we need to limit the number of images to 3
         // to avoid the lightbox carousel to show more images than that.
-        if (isset($fields['className']) && $fields['className'] === self::CLASS_LAYOUT_THREE_COLUMNS) {
+        if (isset($fields['className']) && $fields['className'] === self::GALLERY_CLASS_LAYOUT_THREE_COLUMNS) {
             $images = array_slice($images, 0, 3);
         }
 
