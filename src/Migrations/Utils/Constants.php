@@ -24,6 +24,7 @@ class Constants
     public const BLOCK_ACTIONS_LIST = self::PREFIX_P4_BLOCKS . '/' . self::ACTIONS_LIST;
     public const BLOCK_ARTICLES = self::PREFIX_P4_BLOCKS . '/articles';
     public const ACTION_BUTTON = self::PREFIX_P4_BLOCKS . '/action-button-text';
+    public const CAROUSEL_HEADER = self::PREFIX_P4_BLOCKS . '/carousel-header';
 
     // P4 Block Templates
     public const BLOCK_TEMPLATE_QUICK_LINKS = self::PREFIX_P4_BLOCK_TEMPLATES . '/quick-links';
