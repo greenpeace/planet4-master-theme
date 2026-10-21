@@ -4,7 +4,7 @@
  * Block search query
  */
 
-namespace P4\MasterTheme\BlockReportSearch\Block;
+namespace P4\MasterTheme\ReportSearch\BlockReportSearch;
 
 /**
  * Query interface
