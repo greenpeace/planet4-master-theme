@@ -30,17 +30,14 @@ class Register
         $blocks = [
             'CarouselHeader' => [
                 'block' => self::BLOCK_PREFIX . '/carousel-header',
-                'attributes' => function (array $attributes, string $content): array|string {
-                    if (! empty($content)) {
-                        return $content;
-                    }
-
+                'attributes' => function (array $attributes): array {
                     if (! empty($attributes['slides']) && empty($attributes['slides'][0]['image_url'])) {
                         $attributes['slides'] = self::get_carousel_header_slides_image_data($attributes['slides']);
                     }
 
                     return $attributes;
                 },
+                'saved_content' => true,
             ],
             'Columns' => [
                 'attributes' => function (array $attributes): array {
@@ -128,6 +125,11 @@ class Register
         return function (array $attributes, string $content = '') use ($config): string {
             if (isset($config['enqueue'])) {
                 $config['enqueue']();
+            }
+
+            // Blocks already migrated in the editor have saved markup, which doesn't need any back end rendering.
+            if (!empty($config['saved_content']) && !empty($content)) {
+                return $content;
             }
 
             if (isset($config['attributes'])) {
