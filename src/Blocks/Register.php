@@ -29,7 +29,6 @@ class Register
     {
         $blocks = [
             'CarouselHeader' => [
-                'block' => self::BLOCK_PREFIX . '/carousel-header',
                 'attributes' => function (array $attributes): array {
                     if (! empty($attributes['slides']) && empty($attributes['slides'][0]['image_url'])) {
                         $attributes['slides'] = self::get_carousel_header_slides_image_data($attributes['slides']);
@@ -37,6 +36,7 @@ class Register
 
                     return $attributes;
                 },
+                'block' => self::BLOCK_PREFIX . '/carousel-header',
                 'saved_content' => true,
             ],
             'Columns' => [
