@@ -4,14 +4,14 @@
  * Table displaying patterns usage
  */
 
-namespace P4\MasterTheme\BlockReportSearch\Pattern;
+namespace P4\MasterTheme\ReportSearch\PatternReportSearch;
 
 use InvalidArgumentException;
 use WP_List_Table;
 use WP_Block_Patterns_Registry;
 use P4\MasterTheme\Patterns\BlankPage;
-use P4\MasterTheme\BlockReportSearch\RowActions;
-use P4\MasterTheme\BlockReportSearch\Pattern\Query\Parameters;
+use P4\MasterTheme\ReportSearch\RowActions;
+use P4\MasterTheme\ReportSearch\PatternReportSearch\Query\Parameters;
 
 // phpcs:disable PSR1.Files.SideEffects.FoundWithSymbols
 if (! class_exists('WP_List_Table')) {

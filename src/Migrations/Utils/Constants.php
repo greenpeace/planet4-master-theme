@@ -9,6 +9,7 @@ class Constants
 {
     private const PREFIX_P4_BLOCKS = 'planet4-blocks';
     private const PREFIX_P4_BLOCK_TEMPLATES = 'planet4-block-templates';
+    private const PREFIX_P4_PATTERNS = 'p4';
     private const PREFIX_CORE_BLOCKS = 'core';
 
     public const POSTS_LIST = 'posts-list';
@@ -27,6 +28,18 @@ class Constants
 
     // P4 Block Templates
     public const BLOCK_TEMPLATE_QUICK_LINKS = self::PREFIX_P4_BLOCK_TEMPLATES . '/quick-links';
+    public const BLOCK_TEMPLATE_ISSUES = self::PREFIX_P4_BLOCK_TEMPLATES . '/issues';
+    public const BLOCK_TEMPLATE_DEEP_DIVE = self::PREFIX_P4_BLOCK_TEMPLATES . '/deep-dive';
+    public const BLOCK_TEMPLATE_HIGHLIGHTED_CTA = self::PREFIX_P4_BLOCK_TEMPLATES . '/highlighted-cta';
+    public const BLOCK_TEMPLATE_REALITY_CHECK = self::PREFIX_P4_BLOCK_TEMPLATES . '/reality-check';
+
+    // P4 Patterns
+    public const BLOCK_PATTERN_QUICK_LINKS = self::PREFIX_P4_PATTERNS . '/quick-links';
+    public const BLOCK_PATTERN_ISSUES = self::PREFIX_P4_PATTERNS . '/issues';
+    public const BLOCK_PATTERN_DEEP_DIVE = self::PREFIX_P4_PATTERNS . '/deep-dive';
+    public const BLOCK_PATTERN_HIGHLIGHTED_CTA = self::PREFIX_P4_PATTERNS . '/highlighted-cta';
+    public const BLOCK_PATTERN_REALITY_CHECK = self::PREFIX_P4_PATTERNS . '/reality-check';
+
 
     public const BLOCK_EMBED = self::PREFIX_CORE_BLOCKS . '/embed';
     public const BLOCK_AUDIO = self::PREFIX_CORE_BLOCKS . '/audio';
