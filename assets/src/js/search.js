@@ -7,10 +7,10 @@ const showHiddenRow = row => {
   row.classList.remove('row-hidden');
 };
 
-const isModalSearch = () => {
-  return document.getElementById('filtermodal') &&
-    document.getElementById('filtermodal').style.display !== 'none';
-};
+const getFilterModal = () => document.getElementById('filtermodal');
+
+// The modal counts as "in use" only while the dialog is open.
+const isModalSearch = () => Boolean(getFilterModal()?.open);
 
 const getSelectedFilters = isModal => {
   const filters_div_id = isModal ? 'filtermodal' : 'filter-sidebar-options';
@@ -43,6 +43,47 @@ const addSelectedFiltersToForm = (isModal, idToRemove) => {
  */
 const setRestoreFocus = () => sessionStorage.setItem('restoreFocus', '#search-results');
 
+/**
+ * Wires up the native <dialog> used for the mobile filters:
+ * open button, close/cancel buttons, scroll lock
+ * and closing when the viewport grows to desktop size.
+ *
+ * @function setupFilterModal
+ * @return {void}
+ */
+const setupFilterModal = () => {
+  const modal = getFilterModal();
+  if (!modal) {
+    return;
+  }
+
+  const pageHtml = document.documentElement;
+  const openButton = document.querySelector('.btn-filter');
+  const desktopQuery = window.matchMedia('(min-width: 992px)');
+
+  // Open.
+  if (openButton) {
+    openButton.addEventListener('click', () => {
+      modal.showModal();
+      pageHtml.classList.add('overflow-hidden');
+    });
+  }
+
+  // Close/Cancel button.
+  modal.querySelectorAll('[data-close-modal]').forEach(button => {
+    button.addEventListener('click', () => modal.close());
+  });
+
+  // Fires for every close path
+  modal.addEventListener('close', () => pageHtml.classList.remove('overflow-hidden'));
+
+  // closes modal when the viewport grows to desktop size.
+  desktopQuery.addEventListener('change', event => {
+    if (event.matches && modal.open) {
+      modal.close();
+    }
+  });
+};
 
 // Search page.
 export const setupSearch = () => {
@@ -60,6 +101,9 @@ export const setupSearch = () => {
   const searchForm = document.getElementById('search_form');
   const orderInput = document.getElementById('orderby');
 
+  // Open/close behaviour for the mobile filters dialog.
+  setupFilterModal();
+
   // Submit form on Sort change event.
   const orderSelect = document.getElementById('select_order');
   if (orderSelect) {
@@ -74,58 +118,45 @@ export const setupSearch = () => {
   // Submit form on filter click event.
   const filterInputs = [...document.querySelectorAll('input[name^="f["]:not(.modal-checkbox)')];
   filterInputs.forEach(filterInput => {
-    filterInput.onclick = () => {
+    filterInput.addEventListener('click', () => {
       addSelectedFiltersToForm(false);
       setRestoreFocus();
       searchForm.submit();
-    };
+    });
   });
 
   // Submit form on Apply filters button click event.
   const applyFiltersButton = document.querySelector('.applybtn');
-  applyFiltersButton.onclick = () => {
-    addSelectedFiltersToForm(true);
-    setRestoreFocus();
-    searchForm.submit();
-  };
+  if (applyFiltersButton) {
+    applyFiltersButton.addEventListener('click', () => {
+      addSelectedFiltersToForm(true);
+      setRestoreFocus();
+      searchForm.submit();
+    });
+  }
 
   // Clear single selected filter.
   const activeFilterTags = [...document.querySelectorAll('.activefilter-tag')];
   activeFilterTags.forEach(activeFilterTag => {
     const filterId = activeFilterTag.dataset.id;
 
-    activeFilterTag.onclick = () => {
+    activeFilterTag.addEventListener('click', () => {
       addSelectedFiltersToForm(false, filterId);
       setRestoreFocus();
       searchForm.submit();
-    };
+    });
   });
 
   // Clear all selected filters.
   const clearAllButton = document.querySelector('.clearall');
   if (clearAllButton) {
-    clearAllButton.onclick = () => {
+    clearAllButton.addEventListener('click', () => {
       const selectedFilters = [...document.querySelectorAll('input[name^="f["]:checked')];
       selectedFilters.forEach(selectedFilter => {
         selectedFilter.checked = false;
       });
       setRestoreFocus();
       searchForm.submit();
-    };
-  }
-
-  // Remove the page scroll when the filters modal is open, keeping only the modal scroll.
-  const pageBody = document.querySelector('body');
-  const pageHtml = document.querySelector('html');
-
-  if (pageBody && pageHtml) {
-    const observer = new MutationObserver(() => {
-      pageHtml.classList.toggle('overflow-hidden', pageBody.classList.contains('modal-open'));
-    });
-
-    observer.observe(pageBody, {
-      attributes: true,
-      attributeFilter: ['class'],
     });
   }
 
@@ -134,7 +165,7 @@ export const setupSearch = () => {
   const loadMoreButton = document.querySelector('.more-btn');
   const announce = document.getElementById('announce');
   if (loadMoreButton) {
-    loadMoreButton.onclick = () => {
+    loadMoreButton.addEventListener('click', () => {
       const {total_posts, posts_per_load, current_page} = loadMoreButton.dataset;
       const nextPage = parseInt(current_page) + 1;
       loadMoreButton.dataset.current_page = nextPage;
@@ -173,6 +204,6 @@ export const setupSearch = () => {
         }).catch(error => {
           console.log(error); //eslint-disable-line no-console
         });
-    };
+    });
   }
 };
