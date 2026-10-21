@@ -69,6 +69,7 @@ use P4\MasterTheme\Migrations\M065ReplaceMetaBlock;
 use P4\MasterTheme\Migrations\M066RemoveNewTimelineBlockOption;
 use P4\MasterTheme\Migrations\M067EnableGooglePreferredSourceButton;
 use P4\MasterTheme\Migrations\M068EmptyGalleryBlockStaticContent;
+use P4\MasterTheme\Migrations\M069RemoveMandatoryImageAltTextFeature;
 use P4\MasterTheme\Migrations\M0070UpdateCarouselHeaderFirstImage;
 
 /**
@@ -156,6 +157,7 @@ class Migrator
             M066RemoveNewTimelineBlockOption::class,
             M067EnableGooglePreferredSourceButton::class,
             M068EmptyGalleryBlockStaticContent::class,
+            M069RemoveMandatoryImageAltTextFeature::class,
             M0070UpdateCarouselHeaderFirstImage::class,
         ];
 
