@@ -47,6 +47,10 @@ const addImageBlockFilter = () => addFilter('editor.BlockEdit', 'core/image/edit
     attributes.height = parseInt(size);
   }
 
+  if (className.includes('force-no-caption')) {
+    return <BlockEdit {...props} />;
+  }
+
   // Determine whether the image credit has the © symbol
   // at the beginning or the end.
   const credit = String(image_credits || '');
