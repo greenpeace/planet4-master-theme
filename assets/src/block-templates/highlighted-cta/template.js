@@ -30,11 +30,10 @@ const template = ({
       }],
       ['core/spacer', {height: '32px'}],
       ['core/heading', {
-        textAlign: 'center',
         level: 2,
         placeholder: titlePlaceholder,
         textColor: 'white',
-        style: {typography: {fontSize: '1.75rem'}},
+        style: {typography: {fontSize: '1.75rem', textAlign: 'center'}},
       }],
       ['core/spacer', {height: '24px'}],
       ['core/buttons', {layout: {type: 'flex', justifyContent: 'center'}}, [

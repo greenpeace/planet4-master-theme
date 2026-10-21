@@ -14,8 +14,7 @@ const category = ['core/column', {}, [
     ['core/spacer', {height: '16px'}],
     ['core/heading', {
       level: 3,
-      style: {typography: {fontSize: '1rem'}},
-      textAlign: 'center',
+      style: {typography: {fontSize: '1rem', textAlign: 'center'}},
       placeholder: __('Category', 'planet4-master-theme-backend'),
     }],
   ]],
