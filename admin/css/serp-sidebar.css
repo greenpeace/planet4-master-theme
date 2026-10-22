@@ -1,0 +1,132 @@
+.serp-preview {
+  border: 1px solid var(--grey-200);
+  border-radius: 4px;
+  padding: 12px;
+  margin: 0;
+}
+
+.serp-preview-head {
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.4;
+  display: block;
+  margin-bottom: 8px;
+  padding: 0 0 0 12px;
+  position: relative;
+}
+
+.serp-preview-head::before {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  left: 0;
+  top: 3px;
+  background-image: url("../../images/mobile-phone-icon.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.serp-preview__site {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 12px;
+}
+
+.serp-preview__site-name {
+  color: var(--grey-900);
+  font-size: 14px;
+  display: block;
+  line-height: 1;
+  white-space: nowrap;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+  width: auto;
+}
+
+.serp-preview__breadcrumb {
+  color: var(--grey-600);
+  font-size: 12px;
+  line-height: 1;
+  max-width: max-content;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+}
+
+.serp-preview__title {
+  display: inline-block;
+  font-size: 22px;
+  line-height: 1;
+  margin: 12px 0 6px;
+  font-weight: 600;
+  color: #1a0dab;
+}
+
+.serp-preview__description {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 22px;
+  color: var(--grey-600);
+}
+
+.serp-preview_dots {
+  background: url("../../images/three-dots-vertical.svg");
+  background-repeat: no-repeat;
+  pointer-events: none;
+  height: 12px;
+  width: 12px;
+  background-size: contain;
+}
+
+.serp-preview__favicon {
+  background-image: url("../../images/favicon-32x32.png");
+  background-size: 16px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: var(--grey-200);
+  border: 1px solid var(--grey-600);
+  border-radius: 50%;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  height: 26px;
+  width: 26px;
+  flex-shrink: 0;
+  vertical-align: middle;
+}
+
+.serp-preview__favicon img {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  object-position: center;
+}
+
+.serp-help {
+  font-size: 12px;
+  margin-top: 6px;
+}
+
+.serp-help__textcontrol {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.serp-help__textcontrol-error {
+  color: red;
+}
+
+.serp-help__textcontrol div:nth-child(1) {
+  color: green;
+}
+
+.fallback {
+  opacity: 0.7;
+}
