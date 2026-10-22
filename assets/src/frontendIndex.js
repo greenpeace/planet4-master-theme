@@ -1,9 +1,6 @@
 import 'regenerator-runtime/runtime';
 
-import {setupBlockFrontend} from './blocks/components/BlockFrontend/setupBlockFrontend';
-
 document.addEventListener('DOMContentLoaded', () => {
-  setupBlockFrontend();
 
   // lazy-load photoswipe lightbox only when needed
   for (const selector of [
