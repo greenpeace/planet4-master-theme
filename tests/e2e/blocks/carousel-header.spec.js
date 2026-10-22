@@ -4,6 +4,7 @@ import {searchAndInsertBlock} from '../tools/lib/editor.js';
 
 test.useAdminLoggedIn();
 
+
 const slides = [
   {
     image: 357,
