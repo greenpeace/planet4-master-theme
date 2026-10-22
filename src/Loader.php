@@ -191,7 +191,6 @@ final class Loader
     {
         new MasterBlocks();//NOSONAR
         new Blocks\Accordion();//NOSONAR
-        new Blocks\CarouselHeader();//NOSONAR
         new Blocks\Timeline();//NOSONAR
         new Blocks\SecondaryNavigation();//NOSONAR
         new Blocks\Others();//NOSONAR

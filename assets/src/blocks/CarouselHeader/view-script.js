@@ -1,10 +1,12 @@
-import {CarouselHeaderFrontend} from './CarouselHeaderFrontend';
+import metadata from './block.json';
+import {CarouselHeaderFrontend} from './carousel-header';
 import {hydrateBlock} from '../../functions/hydrateBlock';
 import {createRoot} from 'react-dom/client';
 
-hydrateBlock('planet4-blocks/carousel-header', CarouselHeaderFrontend);
+hydrateBlock(metadata.name, CarouselHeaderFrontend);
+
 // Fallback for non migrated content. Remove after migration.
-document.querySelectorAll('[data-render=\'planet4-blocks/carousel-header\']').forEach(
+document.querySelectorAll(`[data-render="${metadata.name}"]`).forEach(
   blockNode => {
     const attributes = JSON.parse(blockNode.dataset.attributes);
     const rootElement = createRoot(blockNode);

@@ -102,6 +102,7 @@ export const SidebarSlide = ({
                 <div className="col">
                   <CheckboxControl
                     __nextHasNoMarginBottom
+                    className="sidebar-slide-new-tab"
                     label={__('Open in a new tab', 'planet4-master-theme-backend')}
                     value={link_url_new_tab}
                     checked={link_url_new_tab}
