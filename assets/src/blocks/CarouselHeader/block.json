@@ -3,7 +3,7 @@
   "apiVersion": 3,
   "name": "planet4-blocks/carousel-header",
   "category": "planet4-blocks",
-  "description": "A gallery block that features a scrolling collection of images and media content, typically found at the top of the Homepage.",
+  "description": "A visual block that features a sliding collection of images and media content, typically found at the top of the Homepage.",
   "title": "Carousel Header",
   "icon": "welcome-widgets-menus",
   "attributes": {
