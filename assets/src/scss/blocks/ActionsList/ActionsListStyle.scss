@@ -1,5 +1,47 @@
+// [class^="wp-container-core-query-is-layout-"] {
+//   grid-template-columns: inherit !important;
+// }
+
 .actions-list {
   margin-bottom: $sp-4;
+  grid-template-columns: inherit !important;
+
+  // CSS Slider
+  ul {
+    display: flex;
+    width: 100%;
+    -webkit-overflow-scrolling: touch;
+    gap: 2rem;
+    background: var(--grey-100);
+    scroll-behavior: smooth;
+    anchor-name: --carousel;
+    scroll-snap-type: x mandatory;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    &::scroll-button(left),
+    &::scroll-button(right) {
+      position: fixed;
+      position-anchor: --carousel;
+    }
+
+    &::scroll-button(left) {
+      content: '<';
+      position-area: left center;
+    }
+
+    &::scroll-button(right) {
+      content: '>';
+      position-area: right center;
+    }
+
+    li {
+      scroll-snap-align: start;
+      flex: 0 0 20rem;
+    }
+  }
 
   .group-stretched-link {
     position: unset;

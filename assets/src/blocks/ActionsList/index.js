@@ -16,42 +16,6 @@ const ACT_PAGE = window.p4_vars.options.take_action_page || -1;
 
 const queryPostType = IS_NEW_IA ? 'p4_action' : 'page';
 
-const carouselButtons = [
-  'core/group',
-  {
-    tagName: 'nav',
-    className: 'carousel-controls',
-    ariaLabel: __('Actions List carousel controls', 'planet4-master-theme-backend'),
-  },
-  [
-    [
-      'core/buttons',
-      {
-        lock: {move: true},
-        layout: {type: 'flex', justifyContent: 'space-between', orientation: 'horizontal', flexWrap: 'nowrap'},
-      },
-      [
-        [
-          'core/button',
-          {
-            className: 'carousel-control-prev',
-            text: __('Previous carousel slide', 'planet4-master-theme-backend'),
-            tagName: 'button',
-          },
-        ],
-        [
-          'core/button',
-          {
-            className: 'carousel-control-next',
-            text: __('Next carousel slide', 'planet4-master-theme-backend'),
-            tagName: 'button',
-          },
-        ],
-      ],
-    ],
-  ],
-];
-
 export const ACTIONS_LIST_BLOCK_ATTRIBUTES = {
   namespace: ACTIONS_LIST_BLOCK_NAME,
   className: 'actions-list p4-query-loop is-custom-layout-grid',
@@ -110,7 +74,6 @@ export const getActionsListBlockTemplate = (title = __('', 'planet4-master-theme
       ['planet4-blocks/action-button-text'],
     ]],
   ]],
-  carouselButtons,
   ['core/buttons', {
     className: 'load-more-actions-container',
     layout: {type: 'flex', justifyContent: 'center'},
