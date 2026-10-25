@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2026-10-25 07:42+0000\n"
+"PO-Revision-Date: 2026-10-25 07:45+0000\n"
 "Language-Team: Hebrew\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -187,6 +187,8 @@ msgid ""
 "Displays the cookies settings and control panel within P4 for editors to "
 "control their level of compliance regarding data collection."
 msgstr ""
+"מציג את הגדרות העוגיות ולוח הבקרה בתוך פלאנט4 כדי לאפשר לעורכים לשלוט ברמת "
+"הציות לחוקי איסור נתונים"
 
 #: assets/build/blocks/Spreadsheet/block.json:1
 #: assets/src/blocks/Spreadsheet/block.json:1
@@ -196,6 +198,8 @@ msgid ""
 "spreadsheet URL and customize the table appearance by choosing from a "
 "selection of four predefined colors."
 msgstr ""
+"הטמעת גיליון גוגל ישירות לתוך האתר על ידי העתקת כתובת הגיליון והגדרת האופן "
+"שבו תוצג הטבלה על ידי בחירה מתוך 4 צבעים אפשריים."
 
 #: assets/build/blocks/TableOfContents/block.json:1
 #: assets/src/blocks/TableOfContents/block.json:1
@@ -204,6 +208,8 @@ msgid ""
 "Insert text, media, and other content in an ordered list of clickable "
 "headings corresponding to the content sections on the page."
 msgstr ""
+"הכנסה של טקסט, מדיה, ותוכן אחר כדי לייצר רשימה של כותרות קליקביליות שמתאימות "
+"לחלקי התוכן השונים בעמוד."
 
 #: assets/build/blocks/HappyPoint/block.json:1
 #: assets/src/blocks/HappyPoint/block.json:1
