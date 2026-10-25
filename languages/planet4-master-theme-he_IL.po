@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2026-10-25 07:40+0000\n"
+"PO-Revision-Date: 2026-10-25 07:42+0000\n"
 "Language-Team: Hebrew\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -25,7 +25,7 @@ msgstr ""
 
 #: templates/burger-menu-items.twig:34
 msgid " submenu"
-msgstr ""
+msgstr "תפריט משנה"
 
 #. %1$d: Number of results. %2$s: Search terms.
 #: src/Search/SearchPage.php:264
@@ -53,17 +53,17 @@ msgstr[1] "תוצאה אחת"
 
 #: templates/blocks/title.twig:9
 msgid "%d results found"
-msgstr ""
+msgstr "%d תוצאות נמצאו"
 
 #: templates/blocks/title.twig:13
 #, php-format
 msgid "%d search results found for %s"
-msgstr ""
+msgstr "%d תוצאות נמצאו עבור %s"
 
 #: templates/page.twig:7
 #, php-format
 msgid "%s homepage"
-msgstr ""
+msgstr "עמוד בית %s"
 
 #: 404.php:23
 msgid "404 Page"
@@ -101,7 +101,7 @@ msgstr "סוג פעולה"
 
 #: assets/src/js/query_loop_carousel.js:76
 msgid "Actions List"
-msgstr ""
+msgstr "רשימת הפעולות"
 
 #: templates/search.twig:102
 #, fuzzy
@@ -111,7 +111,7 @@ msgstr "מסננים פעילים"
 
 #: templates/single.twig:122 templates/blocks/share_buttons.twig:73
 msgid "Add as a preferred source on Google"
-msgstr ""
+msgstr "הוספה לעדכוני החדשות שלך בגוגל"
 
 #: templates/all-actions.twig:7 templates/taxonomy.twig:36
 msgid "All actions"
@@ -166,11 +166,11 @@ msgstr "מאמרים"
 
 #: assets/src/blocks/CarouselHeader/CarouselControls.js:25
 msgid "Autoplay"
-msgstr ""
+msgstr "הפעלה אוטומטית"
 
 #: assets/src/js/query_loop_carousel.js:116
 msgid "Back to Actions List"
-msgstr ""
+msgstr "חזרה לרשימת הפעולות"
 
 #: src/Blocks/Rest.php:95
 msgid "Background image"
