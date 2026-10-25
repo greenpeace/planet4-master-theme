@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2026-03-24 07:47+0000\n"
+"PO-Revision-Date: 2026-10-25 07:31+0000\n"
 "Language-Team: Hebrew\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Last-Translator: Elad Aybes\n"
 "Language: he_IL\n"
 "Report-Msgid-Bugs-To: \n"
-"X-Loco-Version: 2.8.3; wp-6.9.4; php-8.3.30\n"
+"X-Loco-Version: 2.8.9; wp-7.0.6; php-8.3.36\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
@@ -265,27 +265,27 @@ msgstr "סגירת תפריט הניווט בנייד"
 #: theme.json:1
 msgctxt "Color name"
 msgid "Action Yellow"
-msgstr ""
+msgstr "צהוב-פעולה"
 
 #: theme.json:1
 msgctxt "Color name"
 msgid "Beige 100"
-msgstr ""
+msgstr "בז׳ 100"
 
 #: theme.json:1
 msgctxt "Color name"
 msgid "Blue 800"
-msgstr ""
+msgstr "כחול 800"
 
 #: theme.json:1
 msgctxt "Color name"
 msgid "Blue Green 800"
-msgstr ""
+msgstr "כחול ירוק 800"
 
 #: theme.json:1
 msgctxt "Color name"
 msgid "Dark Green 800"
-msgstr ""
+msgstr "ירוק כהה 800"
 
 #: theme.json:1
 msgctxt "Color name"
@@ -443,22 +443,22 @@ msgstr "עיון לפי נושאים אחרים"
 
 #: assets/src/block-templates/high-level-topic/template.js:29
 msgid "Featured action title"
-msgstr ""
+msgstr "כותרת פעולה נבחרת"
 
 #: templates/search/action_types.twig:16
 #, php-format
 msgid "Filter results by action type %s, %d results were found"
-msgstr ""
+msgstr "סנן תוצאות לפי סוג פעולה %s, %d תוצאות נמצאו"
 
 #: templates/search/action_types.twig:14
 #, php-format
 msgid "Filter results by action type %s, 1 result was found"
-msgstr ""
+msgstr "סינון תוצאות לפי סוג פעולה %s, 1 תוצאות נמצאו"
 
 #: templates/search/categories.twig:16
 #, php-format
 msgid "Filter results by category %s, %d results were found"
-msgstr ""
+msgstr "סינון תוצאות לפי קטגוריה %s, %d תוצאות נמצאו"
 
 #: templates/search/categories.twig:14
 #, php-format
