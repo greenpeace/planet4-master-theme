@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2026-10-25 07:31+0000\n"
+"PO-Revision-Date: 2026-10-25 07:34+0000\n"
 "Language-Team: Hebrew\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -182,12 +182,12 @@ msgstr "אני רוצה להתעדכן"
 #: assets/src/block-templates/high-level-topic/block.json:1
 msgctxt "block title"
 msgid "High-Level Topic"
-msgstr ""
+msgstr "נושא רמה עליונה"
 
 #: assets/src/block-templates/highlighted-cta/block.json:1
 msgctxt "block title"
 msgid "Highlighted CTA"
-msgstr ""
+msgstr "קריאה לפעולה בולטת"
 
 #: assets/src/block-templates/homepage/block.json:1
 msgctxt "block title"
@@ -290,47 +290,47 @@ msgstr "ירוק כהה 800"
 #: theme.json:1
 msgctxt "Color name"
 msgid "GP Green 800"
-msgstr ""
+msgstr "ירוק גרינפיס 800"
 
 #: theme.json:1
 msgctxt "Color name"
 msgid "Green 400"
-msgstr ""
+msgstr "ירוק 400"
 
 #: theme.json:1
 msgctxt "Color name"
 msgid "Green 500"
-msgstr ""
+msgstr "ירוק 500"
 
 #: theme.json:1
 msgctxt "Color name"
 msgid "Green 800"
-msgstr ""
+msgstr "ירוק 800"
 
 #: theme.json:1
 msgctxt "Color name"
 msgid "Grey 100"
-msgstr ""
+msgstr "אפור 100"
 
 #: theme.json:1
 msgctxt "Color name"
 msgid "Grey 200"
-msgstr ""
+msgstr "אפור 200"
 
 #: theme.json:1
 msgctxt "Color name"
 msgid "Grey 600"
-msgstr ""
+msgstr "אפור 600"
 
 #: theme.json:1
 msgctxt "Color name"
 msgid "Grey 800"
-msgstr ""
+msgstr "אפור 800"
 
 #: theme.json:1
 msgctxt "Color name"
 msgid "Grey 900"
-msgstr ""
+msgstr "אפור 900"
 
 #: theme.json:1
 msgctxt "Color name"
@@ -463,27 +463,27 @@ msgstr "סינון תוצאות לפי קטגוריה %s, %d תוצאות נמצ
 #: templates/search/categories.twig:14
 #, php-format
 msgid "Filter results by category %s, 1 result was found"
-msgstr ""
+msgstr "סינן תוצאות לפי קטגוריה %s, 1 תוצאות נמצאו"
 
 #: templates/search/content_types.twig:16
 #, php-format
 msgid "Filter results by content type %s, %d results were found"
-msgstr ""
+msgstr "סינון תוצאות לפי סוג תוכן %s, %d תוצאות נמצאו"
 
 #: templates/search/content_types.twig:14
 #, php-format
 msgid "Filter results by content type %s, 1 result was found"
-msgstr ""
+msgstr "סינון תוצאות לפי סוג תוכן %s, 1 תוצאות נמצאו"
 
 #: templates/search/post_types.twig:16
 #, php-format
 msgid "Filter results by post type %s, %d results were found"
-msgstr ""
+msgstr "סינון תוצאות לפי סוג פרסום %s, %d results were found תוצאות נמצאו"
 
 #: templates/search/post_types.twig:14
 #, php-format
 msgid "Filter results by post type %s, 1 result was found"
-msgstr ""
+msgstr "סינון תוצאות לפי סוג פרסום %s, 1 תוצאה נמצאה"
 
 #: templates/search.twig:63
 msgid "Filters"
@@ -499,21 +499,21 @@ msgstr "לעשות משהו"
 
 #: assets/src/block-templates/homepage/template.js:21
 msgid "Get to know us"
-msgstr ""
+msgstr "בואו תכירו אותנו"
 
 #: assets/src/blocks/CarouselHeader/CarouselControls.js:20
 msgid "Go to next slide"
-msgstr ""
+msgstr "שקופית הבאה"
 
 #: assets/src/blocks/CarouselHeader/CarouselControls.js:16
 msgid "Go to previous slide"
-msgstr ""
+msgstr "שקופית קודמת"
 
 #. %s: slide index
 #: assets/src/blocks/CarouselHeader/CarouselControls.js:50
 #, javascript-format
 msgid "Go to slide %s"
-msgstr ""
+msgstr "לך לשקופית %s"
 
 #. Author of the theme
 msgid "Greenpeace International"
@@ -521,11 +521,11 @@ msgstr "גרינפיס אינטרנשיונל"
 
 #. Name of the theme
 msgid "Greenpeace Planet 4 Master Theme"
-msgstr ""
+msgstr "תבנית מאסטר גרינפיס פלאנט4"
 
 #: assets/src/js/listing_pages.js:49
 msgid "Grid View"
-msgstr ""
+msgstr "תצוגת רשת"
 
 #: functions.php:445
 msgid "here"
@@ -539,7 +539,7 @@ msgstr "בית"
 #: assets/src/block-templates/deep-dive-topic/template.js:22
 #: assets/src/block-templates/campaign/template.js:23
 msgid "How you can help"
-msgstr ""
+msgstr "איך אפשר לעזור"
 
 #. Author URI of the theme
 msgid "https://github.com/greenpeace"
