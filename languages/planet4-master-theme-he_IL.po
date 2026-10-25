@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2026-10-25 07:37+0000\n"
+"PO-Revision-Date: 2026-10-25 07:39+0000\n"
 "Language-Team: Hebrew\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -153,6 +153,8 @@ msgid ""
 "The Topic Link block allows editors to manually link to a category page, "
 "which redirects users to relevant topic content."
 msgstr ""
+"בלוג נושאי הקישור מאפשר לעורכים לקשר באופן ידני לעמוד קטגוריה, ששולח את "
+"הגולשים לנושאים רלוונטים."
 
 #: assets/src/block-templates/action/block.json:1
 msgctxt "block title"
@@ -207,27 +209,27 @@ msgstr "כותרת ראשית לעמוד"
 #: assets/src/block-templates/quick-links/block.json:1
 msgctxt "block title"
 msgid "Quick Links"
-msgstr ""
+msgstr "קישורים מהירים"
 
 #: assets/src/block-templates/reality-check/block.json:1
 msgctxt "block title"
 msgid "Reality Check"
-msgstr ""
+msgstr "בדיקת מציאות"
 
 #: assets/src/block-templates/side-image-with-text-and-cta/block.json:1
 msgctxt "block title"
 msgid "Side image with text and CTA"
-msgstr ""
+msgstr "תמונת צד עם טקסט וקריאה לפעולה"
 
 #: assets/src/block-templates/take-action/block.json:1
 msgctxt "block title"
 msgid "Take Action"
-msgstr ""
+msgstr "לעשות משהו"
 
 #: assets/src/blocks/TopicLink/block.json:1
 msgctxt "block title"
 msgid "Topic Link"
-msgstr ""
+msgstr "קישור נושא"
 
 #: src/Search/Filters/ContentTypes.php:116 templates/tease-search.twig:44
 #: templates/tease-search.twig:124
@@ -335,12 +337,12 @@ msgstr "אפור 900"
 #: theme.json:1
 msgctxt "Color name"
 msgid "Red 500"
-msgstr ""
+msgstr "אדום 500"
 
 #: theme.json:1
 msgctxt "Color name"
 msgid "White"
-msgstr ""
+msgstr "לבן"
 
 #: templates/comment_form/comment_field.twig:3
 msgid "Comment (required)"
@@ -732,7 +734,7 @@ msgstr "לחזור"
 
 #: assets/src/block-templates/take-action/template.js:44
 msgid "Raise awareness in your community"
-msgstr ""
+msgstr "העלאת המודעות לקהילה שלך"
 
 #: assets/src/block-templates/homepage/template.js:17
 msgid "Read our Stories"
@@ -761,7 +763,7 @@ msgstr "כל מה שקשור לזה"
 #. Name of the template
 #: single-p4_action-resistance_hub.php:3
 msgid "Resistance Hub Campaign"
-msgstr ""
+msgstr "מאבק התנגדות"
 
 #: templates/cookies/cookies_settings.twig:63
 msgid "Save preferences"
@@ -773,7 +775,7 @@ msgstr "חיפוש"
 
 #: templates/search.twig:8
 msgid "Search by name, keyword, or topic"
-msgstr ""
+msgstr "חיפוש לפי שם, מילת חיפוש או נושא"
 
 #: assets/src/blocks/Spreadsheet/SpreadsheetFrontend.js:153
 msgid "Search data"
@@ -908,6 +910,8 @@ msgid ""
 "\\\"All Posts\\\" listing page. You can disable this by un-setting the "
 "\\\"Posts page\\\""
 msgstr ""
+"התוכן של העמוד הזה מוסתר בגלל שהעמוד הזה משמש בתור עמוד ״כל הפרסומים״. אפשר "
+"לבטל את זה ע״י ביטול הבחירה של ״עמוד פוסטים״"
 
 #: assets/src/block-templates/homepage/template.js:12
 #: assets/src/block-templates/get-informed/template.js:22
