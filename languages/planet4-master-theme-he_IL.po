@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2026-10-25 07:45+0000\n"
+"PO-Revision-Date: 2026-10-25 07:46+0000\n"
 "Language-Team: Hebrew\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -217,7 +217,7 @@ msgctxt "block description"
 msgid ""
 "The Happy Point block embeds (via iFrame) a \"Subscribe\" or engagement form "
 "on top of a full-width background image."
-msgstr ""
+msgstr "ה״Happy point״ מטמיעה iframe עם תמונת רקע ואפשרות להירשם"
 
 #: assets/build/blocks/TopicLink/block.json:1
 #: assets/src/blocks/TopicLink/block.json:1
@@ -245,7 +245,7 @@ msgstr "מאבק"
 #: assets/src/blocks/Cookies/block.json:1
 msgctxt "block title"
 msgid "Cookies"
-msgstr ""
+msgstr "עוגיות"
 
 #: assets/build/block-templates/deep-dive/block.json:1
 #: assets/src/block-templates/deep-dive/block.json:1
@@ -269,7 +269,7 @@ msgstr "אני רוצה להתעדכן"
 #: assets/src/blocks/HappyPoint/block.json:1
 msgctxt "block title"
 msgid "Happy Point"
-msgstr ""
+msgstr "נקודת Happy point"
 
 #: assets/build/block-templates/high-level-topic/block.json:1
 #: assets/src/block-templates/high-level-topic/block.json:1
@@ -323,13 +323,13 @@ msgstr "תמונת צד עם טקסט וקריאה לפעולה"
 #: assets/src/blocks/Spreadsheet/block.json:1
 msgctxt "block title"
 msgid "Spreadsheet"
-msgstr ""
+msgstr "גיליון"
 
 #: assets/build/blocks/TableOfContents/block.json:1
 #: assets/src/blocks/TableOfContents/block.json:1
 msgctxt "block title"
 msgid "Table of Contents"
-msgstr ""
+msgstr "תוכן"
 
 #: assets/build/block-templates/take-action/block.json:1
 #: assets/src/block-templates/take-action/block.json:1
@@ -382,17 +382,17 @@ msgstr "צהוב-פעולה"
 #: theme.json:1
 msgctxt "Color name"
 msgid "Action Yellow-500"
-msgstr ""
+msgstr "צהוב-פעולה 500"
 
 #: theme.json:1
 msgctxt "Color name"
 msgid "Action Yellow-600"
-msgstr ""
+msgstr "צהוב-פעולה 600"
 
 #: theme.json:1
 msgctxt "Color name"
 msgid "Action Yellow-700"
-msgstr ""
+msgstr "צהוב-פעולה 700"
 
 #: theme.json:1
 msgctxt "Color name"
