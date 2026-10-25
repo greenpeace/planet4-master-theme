@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2026-10-25 07:34+0000\n"
+"PO-Revision-Date: 2026-10-25 07:37+0000\n"
 "Language-Team: Hebrew\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -197,12 +197,12 @@ msgstr "בית"
 #: assets/src/block-templates/issues/block.json:1
 msgctxt "block title"
 msgid "Issues"
-msgstr ""
+msgstr "מאבקים"
 
 #: assets/src/block-templates/page-header/block.json:1
 msgctxt "block title"
 msgid "Page Header"
-msgstr ""
+msgstr "כותרת ראשית לעמוד"
 
 #: assets/src/block-templates/quick-links/block.json:1
 msgctxt "block title"
@@ -543,11 +543,11 @@ msgstr "איך אפשר לעזור"
 
 #. Author URI of the theme
 msgid "https://github.com/greenpeace"
-msgstr ""
+msgstr "https://github.com/greenpeace"
 
 #. URI of the theme
 msgid "https://github.com/greenpeace/planet4-master-theme"
-msgstr ""
+msgstr "https://github.com/greenpeace/planet4-master-theme"
 
 #: single.php:128
 msgid ""
@@ -567,25 +567,25 @@ msgstr "סיסמה לא תקינה, נא לנסות שוב"
 
 #: src/LoginHandler.php:133
 msgid "Invalid username or password"
-msgstr ""
+msgstr "שם משתמש או סיסמה לא תקינים"
 
 #: assets/src/block-templates/deep-dive-topic/template.js:29
 msgid "Keep learning about"
-msgstr ""
+msgstr "להמשיך ללמוד על"
 
 #: templates/listing-page-filters.twig:38
 msgid "Keywords"
-msgstr ""
+msgstr "מילות חיפוש"
 
 #: assets/src/block-templates/high-level-topic/template.js:41
 msgid "Latest investigations"
-msgstr ""
+msgstr "תחקירים אחרונים"
 
 #: assets/src/block-templates/high-level-topic/template.js:37
 #: assets/src/block-templates/get-informed/template.js:34
 #: assets/src/block-templates/deep-dive-topic/template.js:26
 msgid "Latest news & stories"
-msgstr ""
+msgstr "חדשות וסיפורים אחרונים"
 
 #: src/Migrations/M032MigrateSplit2ColumnBlock.php:201
 msgid "Learn more about this issue"
@@ -597,7 +597,7 @@ msgstr "השארת תגובה"
 
 #: assets/src/js/listing_pages.js:57
 msgid "List View"
-msgstr ""
+msgstr "תצוגת רשימה"
 
 #: src/Migrations/M057ActionsListBlockLoadMore.php:84
 #: assets/src/blocks/ActionsList/index.js:84
@@ -606,7 +606,7 @@ msgstr "עוד"
 
 #: assets/src/blocks/Spreadsheet/SpreadsheetFrontend.js:185
 msgid "Loading spreadsheet data…"
-msgstr ""
+msgstr "טוען מידע מהגיליון..."
 
 #: templates/tease-search.twig:159
 msgid "Manage"
@@ -618,7 +618,7 @@ msgstr "ניהול העדפות העוגיות"
 
 #. Description of the theme
 msgid "Master theme for the Planet 4 Wordpress project"
-msgstr ""
+msgstr "תבנית מאסטר פלאנט4 עבור פרוייקט וורדפרס"
 
 #: templates/navigation-bar.twig:17
 msgid "Menu"
@@ -630,7 +630,7 @@ msgstr "הכי רלוונטי"
 
 #: templates/comment_form/author_field.twig:4
 msgid "Name (required)"
-msgstr ""
+msgstr "שם (חובה)"
 
 #: src/Search/SearchPage.php:66
 msgid "Newest"
@@ -638,7 +638,7 @@ msgstr "הכי טרי"
 
 #: templates/taxonomy.twig:13 templates/tag.twig:13
 msgid "News & stories"
-msgstr ""
+msgstr "חדשות ומאמרים"
 
 #: src/QueryLoopPagination.php:63
 #: src/Migrations/M037MigrateCoversContentBlockToPostsListBlock.php:263
@@ -651,23 +651,23 @@ msgstr "להמשיך"
 
 #: assets/src/blocks/Spreadsheet/SpreadsheetFrontend.js:123
 msgid "No data matching your search."
-msgstr ""
+msgstr "לא נמצאו תוצאות"
 
 #: assets/src/js/listing_pages.js:116
 msgid "No posts found!"
-msgstr ""
+msgstr "לא נמצאו פרסומים!"
 
 #: src/Migrations/M037MigrateCoversContentBlockToPostsListBlock.php:365
 #: src/Migrations/M046MigrateArticlesBlockToPostsListBlock.php:306
 #: src/Migrations/M049MigrateCoversBlockToActionsListBlock.php:269
 msgid "No posts found."
-msgstr ""
+msgstr "לא נמצאו פרסומים."
 
 #: src/Migrations/M037MigrateCoversContentBlockToPostsListBlock.php:364
 #: src/Migrations/M046MigrateArticlesBlockToPostsListBlock.php:305
 #: src/Migrations/M049MigrateCoversBlockToActionsListBlock.php:268
 msgid "No posts found. (This default text can be edited)"
-msgstr ""
+msgstr "לא מצאנו כלום. (אפשר לערוך את הטקסט הזה)"
 
 #: src/Search/SearchPage.php:70
 msgid "Oldest"
@@ -675,11 +675,11 @@ msgstr "ישן יותר"
 
 #: assets/src/block-templates/get-informed/template.js:30
 msgid "Our latest actions around the world"
-msgstr ""
+msgstr "הפעולות האחרונות שלנו מסביב לעולם"
 
 #: assets/src/block-templates/get-informed/template.js:26
 msgid "Our recent victories"
-msgstr ""
+msgstr "הנצחונות האחרונים שלנו"
 
 #: src/Post.php:233
 msgid "PAGE"
@@ -692,11 +692,11 @@ msgstr "עמוד"
 #: assets/src/block-templates/deep-dive-topic/template.js:9
 #: assets/src/block-templates/take-action/template.js:11
 msgid "Page header title"
-msgstr ""
+msgstr "כותרת ראשית לעמוד"
 
 #: assets/src/blocks/CarouselHeader/CarouselControls.js:59
 msgid "Play Slider"
-msgstr ""
+msgstr "הרצת השקופיות"
 
 #: templates/cookies/cookies_settings.twig:12
 msgid "Please select which cookies you are willing to store."
