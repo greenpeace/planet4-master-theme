@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
 "POT-Creation-Date: 2018-12-13 11:03+0000\n"
-"PO-Revision-Date: 2026-10-25 07:46+0000\n"
+"PO-Revision-Date: 2026-10-25 07:48+0000\n"
 "Language-Team: Hebrew\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -417,17 +417,17 @@ msgstr "ירוק כהה 800"
 #: theme.json:1
 msgctxt "Color name"
 msgid "Dark Green 900"
-msgstr ""
+msgstr "ירוק כהה 900"
 
 #: theme.json:1
 msgctxt "Color name"
 msgid "GP Green 100"
-msgstr ""
+msgstr "ירוק גרינפיס 100"
 
 #: theme.json:1
 msgctxt "Color name"
 msgid "GP Green 200"
-msgstr ""
+msgstr "ירוק גרינפיס 200"
 
 #: theme.json:1
 msgctxt "Color name"
@@ -477,7 +477,7 @@ msgstr "אפור 900"
 #: theme.json:1
 msgctxt "Color name"
 msgid "Red 100"
-msgstr ""
+msgstr "אדום 100"
 
 #: theme.json:1
 msgctxt "Color name"
@@ -509,7 +509,7 @@ msgstr "סוג תוכן"
 
 #: templates/cookies/cookies_settings.twig:12
 msgid "Cookies Settings"
-msgstr ""
+msgstr "הגדרות עוגיות"
 
 #: assets/src/block-templates/take-action/template.js:17
 msgid "Daily actions"
@@ -594,7 +594,7 @@ msgstr "כותרת פעולה נבחרת"
 
 #: templates/listing-page.twig:12
 msgid "Filter posts"
-msgstr ""
+msgstr "סינון פרסומים"
 
 #: templates/search/action_types.twig:16
 #, php-format
@@ -638,7 +638,7 @@ msgstr "סינון תוצאות לפי סוג פרסום %s, 1 תוצאה נמצ
 
 #: templates/listing-page.twig:28
 msgid "Filtered results"
-msgstr ""
+msgstr "תוצאות מסוננות"
 
 #: templates/search.twig:63
 msgid "Filters"
@@ -678,7 +678,7 @@ msgstr "שקופית קודמת %s"
 
 #: assets/src/blocks/CarouselHeader/CarouselControls.js:73
 msgid "Greenpeace highlights carousel controls"
-msgstr ""
+msgstr "שליטה בקרוסלת הבלטות של גרינפיס"
 
 #. Author of the theme
 msgid "Greenpeace International"
@@ -698,7 +698,7 @@ msgstr "כאן"
 
 #: src/RegistrationHandler.php:173
 msgid "Hi"
-msgstr ""
+msgstr "היי"
 
 #: templates/burger-menu.twig:36
 msgid "Home"
