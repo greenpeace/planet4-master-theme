@@ -86,6 +86,7 @@ class Rest
                     $to_options = fn($terms) => array_map(
                         fn($term) => [
                             'id' => $term->term_id,
+                            'slug' => $term->slug,
                             'name' => html_entity_decode($term->name, ENT_QUOTES, 'UTF-8'),
                         ],
                         $terms
