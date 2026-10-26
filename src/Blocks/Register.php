@@ -65,6 +65,9 @@ class Register
                 'block' => self::BLOCK_PREFIX . '/social-media',
                 'enqueue' => [self::class, 'enqueue_instagram_embed'],
             ],
+            'SecondaryNavigation' => [
+                'block' => self::BLOCK_PREFIX . '/secondary-navigation',
+            ],
             'Spreadsheet' => [],
             'TableOfContents' => [
                 'block' => self::BLOCK_PREFIX . '/submenu',

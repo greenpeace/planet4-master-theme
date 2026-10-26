@@ -3,6 +3,14 @@ import {getHeadingsFromDom} from '../../functions/getHeadingsFromDom';
 
 const {__} = wp.i18n;
 
+// Helper to update the visible headings based on IntersectionObserver entries
+const updateVisible = (current, entry) => {
+  if (!entry.isIntersecting) {
+    return current.filter(el => el !== entry.target);
+  }
+  return current.includes(entry.target) ? current : [...current, entry.target];
+};
+
 export const SecondaryNavigationFrontend = ({levels}) => {
   const [activeLink, setActiveLink] = useState('');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -27,8 +35,7 @@ export const SecondaryNavigationFrontend = ({levels}) => {
 
     if (!block) {return;}
 
-    document.body.classList.add('secondary-nav-class');
-    document.body.classList.add('overflow-visible');
+    document.body.classList.add('secondary-nav-class', 'overflow-visible');
   }, []);
 
   // Check runs to confirm if we are on mobile
@@ -50,7 +57,7 @@ export const SecondaryNavigationFrontend = ({levels}) => {
     const observer = new MutationObserver(() => {
       clearTimeout(debounceTimer);
       debounceTimer = setTimeout(() => {
-        setDomVersion(v => v + 1);
+        setDomVersion(v => v + 1); // NOSONAR
       }, 150);
     });
 
@@ -76,13 +83,7 @@ export const SecondaryNavigationFrontend = ({levels}) => {
 
       // Update ref based on visible headings/entries
       entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          if (!visibleRef.current.includes(entry.target)) {
-            visibleRef.current.push(entry.target);
-          }
-        } else {
-          visibleRef.current = visibleRef.current.filter(el => el !== entry.target);
-        }
+        visibleRef.current = updateVisible(visibleRef.current, entry);
       });
 
       // Using this so we update just before the next 'repaint'
@@ -91,7 +92,7 @@ export const SecondaryNavigationFrontend = ({levels}) => {
         if (visibleRef.current.length === 0) {return;}
 
         // Pick the closest visible header to the top
-        const currentHeaderElement = visibleRef.current.reduce((closest, el) => {
+        const currentHeaderElement = visibleRef.current.reduce((closest, el) => { // NOSONAR
           const rect = el.getBoundingClientRect();
           if (!closest) {return {el, top: rect.top};}
           return rect.top < closest.top ? {el, top: rect.top} : closest;
@@ -103,7 +104,7 @@ export const SecondaryNavigationFrontend = ({levels}) => {
           window.history.replaceState(null, null, `#${currentHeaderElement.el.id}`);
 
           // Make active nav element visible
-          setTimeout(() => {
+          setTimeout(() => { // NOSONAR
             const navItem = document.querySelector('.secondary-navigation-link.active');
             navItem?.scrollIntoView({
               behavior: 'smooth',

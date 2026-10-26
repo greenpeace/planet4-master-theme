@@ -1,3 +1,8 @@
+@import "../../scss/base/tokens";
+@import "../../scss/base/variables";
+@import "../../scss/base/mixins";
+@import "../../scss/base/fonts";
+
 .secondary-navigation-block {
   margin-left: calc(-50vw + 50%);
   width: 100vw;
@@ -72,7 +77,7 @@
     color: var(--white);
     font-size: var(--font-size-m--font-family-primary);
     background-image: none;
-    mask-image: url("../../images/chevron.svg");
+    mask-image: url("../../../../images/chevron.svg");
     mask-size: contain;
     mask-repeat: no-repeat;
     mask-position: center;
@@ -146,7 +151,7 @@
 }
 
 .dropdown-btn {
-  mask-image: url("../../images/chevron.svg");
+  mask-image: url("../../../../images/chevron.svg");
   height: 16px;
   width: 18px;
   mask-repeat: no-repeat;
