@@ -1,7 +1,8 @@
-/* global ajaxurl */
+/* global ajaxurl, p4MediaReplacer */
 
 /**
  * JavaScript implementation for replacing media files in the WordPress admin.
+ * Ensures that the correct nonce is used and handles the file upload process.
  */
 document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('click', e => {
@@ -18,11 +19,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const attachmentId = clickedButton.dataset.attachmentId;
     const fileInput = clickedButton.nextElementSibling;
 
+    if (typeof p4MediaReplacer === 'undefined' || !p4MediaReplacer.nonce) {
+      alert('Error: Media replacement is not available, please reload the page and try again.'); // eslint-disable-line no-alert
+      return;
+    }
+
     // Show the file input
     fileInput.click();
 
     // When a file is selected
-    fileInput.addEventListener('change', () => {
+    fileInput.onchange = () => {
       const file = fileInput.files[0];
       if (!file) {
         return;
@@ -30,6 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const formData = new FormData();
       formData.append('action', 'replace_media');
+      formData.append('nonce', p4MediaReplacer.nonce);
       formData.append('attachment_id', attachmentId);
       formData.append('file', file);
 
@@ -37,17 +44,34 @@ document.addEventListener('DOMContentLoaded', () => {
       clickedButton.disabled = true;
       clickedButton.innerText = 'Replacing media, please wait...';
 
-      // Send AJAX request to replace the media
-      fetch(ajaxurl, {
+      // Restores the button after a failure and clears the input so that choosing the same file again
+      // still fires a "change" event
+      const resetButton = () => {
+        clickedButton.disabled = false;
+        clickedButton.innerText = 'Replace Media';
+        fileInput.value = '';
+      };
+
+      fetch(p4MediaReplacer.ajaxUrl || ajaxurl, {
         method: 'POST',
         body: formData,
+        credentials: 'same-origin',
       })
-        .then(response => response.json())
+        .then(response => {
+          if (response.status === 403) {
+            return response.json().catch(() => null).then(body => {
+              const message = body && body.data ?
+                body.data :
+                'You do not have permission to replace this file, or your session has expired. Please reload the page and try again.';
+              throw new Error(message);
+            });
+          }
+
+          return response.json();
+        })
         .then(response => {
           if (!response.success) {
-            // Re-enable and reset text only for the failed button
-            clickedButton.disabled = false;
-            clickedButton.innerText = 'Replace Media';
+            resetButton();
             alert('Error: ' + response.data); // eslint-disable-line no-alert
             return;
           }
@@ -56,10 +80,9 @@ document.addEventListener('DOMContentLoaded', () => {
           location.replace(location.href);
         })
         .catch(error => {
-          clickedButton.disabled = false;
-          clickedButton.innerText = 'Replace Media';
-          alert('Error: ' + error); // eslint-disable-line no-alert
+          resetButton();
+          alert('Error: ' + (error.message || error)); // eslint-disable-line no-alert
         });
-    }, {once: true}); // Use the 'once' option to ensure the event is only handled once
+    };
   });
 });

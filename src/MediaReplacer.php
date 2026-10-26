@@ -25,6 +25,7 @@ class MediaReplacer
     private const GC_STORAGE_URL = 'https://storage.googleapis.com/';
     private const P4_SLACK_CHANNEL = 'https://greenpeace.enterprise.slack.com/archives/C014UMRC4AJ';
     private const REPLACED_META_KEY = '_replaced';
+    private const NONCE_ACTION = 'p4_replace_media';
 
     /**
      * MediaReplacer constructor.
@@ -59,7 +60,6 @@ class MediaReplacer
         $user_messages = [
             'replace' => __('Replace Media', 'planet4-master-theme-backend'),
             'metabox' => __('Use this to replace the current file without changing the file URL.', 'planet4-master-theme-backend'),
-            'attach' => __('Attachment ID is missing.', 'planet4-master-theme-backend'),
             'file' => __('File is missing.', 'planet4-master-theme-backend'),
             'media' => __('Media Replacer failed:', 'planet4-master-theme-backend'),
             'gd' => __('GD library is missing.', 'planet4-master-theme-backend'),
@@ -68,6 +68,11 @@ class MediaReplacer
             'error' => __('There was an issue replacing these files:', 'planet4-master-theme-backend'),
             'cf_success' => __('The cache was successfully purged for these files:', 'planet4-master-theme-backend'),
             'cf_error' => __('There was an issue purging the cache for these files:', 'planet4-master-theme-backend'),
+            'forbidden' => __('You are not allowed to replace this file.', 'planet4-master-theme-backend'),
+            'invalid_attachment' => __('Invalid attachment.', 'planet4-master-theme-backend'),
+            'upload_error' => __('The file upload failed.', 'planet4-master-theme-backend'),
+            'type_not_allowed' => __('This file type is not allowed.', 'planet4-master-theme-backend'),
+            'type_mismatch' => __('The new file must be the same type as the file it replaces.', 'planet4-master-theme-backend'),
         ];
         // phpcs:enable Generic.Files.LineLength.MaxExceeded
 
@@ -79,6 +84,11 @@ class MediaReplacer
         $this->cf = new Cloudflare\CloudflarePurger();
 
         $this->bucket_name = $this->stateless->get('sm.bucket');
+
+        $this->replacement_status = [
+            'success' => [],
+            'error' => [],
+        ];
 
         $this->cache_purge_status = [
             'success' => [],
@@ -101,6 +111,10 @@ class MediaReplacer
      */
     public function enqueue_media_modal_script(): void
     {
+         if (!current_user_can('upload_files')) {
+            return;
+         }
+
         $id = 'custom-media-replacer';
         $path = '/admin/js/media_replacer.js';
 
@@ -111,6 +125,11 @@ class MediaReplacer
             Loader::theme_file_ver($path),
             true
         );
+
+        wp_localize_script($id, 'p4MediaReplacer', [
+            'ajaxUrl' => admin_url('admin-ajax.php'),
+            'nonce' => wp_create_nonce(self::NONCE_ACTION),
+        ]);
     }
 
     /**
@@ -135,6 +154,10 @@ class MediaReplacer
      */
     public function render_replace_media_metabox(WP_Post $post): void
     {
+        if (!$this->current_user_can_replace($post->ID)) {
+            return;
+        }
+
         echo "<p>" . $this->get_user_message('metabox') . "</p>";
         echo $this->get_replace_button_html($post);
     }
@@ -159,6 +182,10 @@ class MediaReplacer
             return $form_fields;
         }
 
+        if (!$this->current_user_can_replace($post->ID)) {
+            return $form_fields;
+        }
+
         $form_fields['replace_media_button'] = array(
             'input' => 'html',
             'html' => $this->get_replace_button_html($post),
@@ -176,10 +203,23 @@ class MediaReplacer
      */
     public function add_replacer_to_row_action(array $actions, WP_Post $post): array
     {
-        if (current_user_can('edit_post', $post->ID)) {
+         if ($this->current_user_can_replace($post->ID)) {
             $actions['replace-media'] = $this->get_replace_link_html($post);
-        }
+         }
+
         return $actions;
+    }
+
+    /**
+     * Checks if current user can replace an attachment.
+     *
+     * @param int $attachment_id The attachment ID.
+     */
+    private function current_user_can_replace(int $attachment_id): bool
+    {
+        return $attachment_id > 0
+            && current_user_can('upload_files')
+            && current_user_can('edit_post', $attachment_id);
     }
 
     /**
@@ -248,10 +288,19 @@ class MediaReplacer
      */
     public function ajax_replace_media(): void
     {
+        check_ajax_referer(self::NONCE_ACTION, 'nonce');
+
         try {
-            // Check if the attachment ID is set
-            if (!isset($_POST['attachment_id'])) {
-                throw new \LogicException($this->get_user_message('attach'));
+            // Check if the attachment ID is set and user can replace attachment
+            $attachment_id = isset($_POST['attachment_id']) ? absint($_POST['attachment_id']) : 0;
+
+            if (!$this->current_user_can_replace($attachment_id)) {
+                wp_send_json_error($this->get_user_message('forbidden'), 403);
+            }
+
+            // Check if ID belongs to a valid attachment
+            if (get_post_type($attachment_id) !== 'attachment') {
+                throw new \LogicException($this->get_user_message('invalid_attachment'));
             }
 
             // Check if the file is set
@@ -259,9 +308,25 @@ class MediaReplacer
                 throw new \LogicException($this->get_user_message('file'));
             }
 
-            $attachment_id = intval($_POST['attachment_id']);
             $file = $_FILES['file'];
+
+            // Make sure PHP receives upload before touching tmp_name
+            if (!isset($file['error'], $file['tmp_name']) || $file['error'] !== UPLOAD_ERR_OK) {
+                throw new \LogicException($this->get_user_message('upload_error'));
+            }
+
             $file_mime_type = mime_content_type($file['tmp_name']);
+            $original_mime_type = (string) get_post_mime_type($attachment_id);
+
+            // Enusre file type is allowed by WP
+            if (!is_string($file_mime_type) || !in_array($file_mime_type, get_allowed_mime_types(), true)) {
+                throw new \LogicException($this->get_user_message('type_not_allowed'));
+            }
+
+            // Ensure file types match
+            if ($file_mime_type !== $original_mime_type) {
+                throw new \LogicException($this->get_user_message('type_mismatch'));
+            }
 
             // Determine if the file is an image based on its MIME type
             $image_type = array_search($file_mime_type, array_column(ImageHandler::IMAGE_MIME_TYPES, 'mime'));
@@ -291,7 +356,7 @@ class MediaReplacer
         try {
             $file_meta = get_post_meta($old_file_id);
             $filename = $file_meta['_wp_attached_file'][0];
-            $sm_cloud_data = unserialize($file_meta['sm_cloud'][0]);
+            $sm_cloud_data = unserialize($file_meta['sm_cloud'][0], ['allowed_classes' => false]);
 
             $this->upload_file(
                 $sm_cloud_data['name'],
