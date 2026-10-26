@@ -161,7 +161,7 @@ class Rest
 
     private function get_listing_data_field_author(array $post): ?array
     {
-        $author_id = (int) $post['author'];
+        $author_id = (int) get_post_field('post_author', $post['id']);
 
         return $author_id ? [
             'name' => get_the_author_meta('display_name', $author_id),
