@@ -84,7 +84,10 @@ class Rest
                 'permission_callback' => '__return_true',
                 'callback' => function () {
                     $to_options = fn($terms) => array_map(
-                        fn($term) => [ 'id' => $term->term_id, 'name' => $term->name ],
+                        fn($term) => [
+                            'id' => $term->term_id,
+                            'name' => html_entity_decode($term->name, ENT_QUOTES, 'UTF-8'),
+                        ],
                         $terms
                     );
 
