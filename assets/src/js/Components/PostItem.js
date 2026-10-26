@@ -55,7 +55,7 @@ function PostItem({post}) {
               <div className="wp-block-post-terms">
                 { categories.map(category => (
                   <a key={category.id} href={category.link}>
-                    { category.name }
+                    { decodeHtmlEntities(category.name) }
                   </a>
                 )) }
               </div>
@@ -67,7 +67,7 @@ function PostItem({post}) {
               <div className="taxonomy-post_tag wp-block-post-terms">
                 { tags.map(tag => (
                   <a key={tag.id} href={tag.link} rel="tag">
-                    { tag.name }
+                    { decodeHtmlEntities(tag.name) }
                   </a>
                 )) }
               </div>
