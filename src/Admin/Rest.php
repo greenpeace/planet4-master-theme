@@ -123,6 +123,9 @@ class Rest
         );
     }
 
+    /**
+     * Get the data required by the listing page's `PostItem` component.
+     */
     // phpcs:ignore SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter
     private function get_listing_data_fields(array $post, string $field, WP_REST_Request $request): array
     {
@@ -138,6 +141,9 @@ class Rest
         ];
     }
 
+    /**
+     * Get the tags and categories data required by the listing page's `PostItem` component.
+     */
     private function get_listing_data_field_terms(int $post_id, string $taxonomy): array
     {
         if (!$taxonomy || !taxonomy_exists($taxonomy)) {
@@ -163,6 +169,9 @@ class Rest
         );
     }
 
+    /**
+     * Get the author data required by the listing page's `PostItem` component.
+     */
     private function get_listing_data_field_author(array $post): ?array
     {
         $author_id = (int) get_post_field('post_author', $post['id']);
@@ -173,6 +182,9 @@ class Rest
         ] : null;
     }
 
+    /**
+     * Get the image data required by the listing page's `PostItem` component.
+     */
     private function get_listing_data_field_image(int $id): ?array
     {
         $thumb_id = get_post_thumbnail_id($id);
