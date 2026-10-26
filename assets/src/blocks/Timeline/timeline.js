@@ -1,5 +1,6 @@
 import {YearsNavigation} from './YearsNavigation';
 import {TimelineEvent} from './TimelineEvent';
+import {logDataInSentry} from '../../functions/logDataInSentry';
 
 const {useState, useEffect} = wp.element;
 const {__, sprintf} = wp.i18n;
@@ -21,11 +22,8 @@ const getMonthName = monthNumber => {
  * @param {string} urlParam - The sheet URL.
  */
 const extractSheetID = urlParam => {
-  const matches = urlParam.match(/\/d\/(.+)\//);
-  if (matches !== null) {
-    return matches[1];
-  }
-  return false;
+  const matches = /\/d\/(.+)\//.exec(urlParam);
+  return matches === null ? null : matches[1];
 };
 
 /**
@@ -49,6 +47,72 @@ const normalizeString = str => {
     .replace(/\s+/g, '_');
 };
 
+// Build the URL to fetch the Google Sheet data in JSON format.
+const URL_PREFFIX = 'https://docs.google.com/spreadsheets/d/';
+
+const buildSheetUrl = sheetID =>
+  `${URL_PREFFIX}${sheetID}/gviz/tq?&sheet=user-data&tq=Select *`;
+
+/**
+ * Remove additional text and extract only JSON data.
+ *
+ * @param {string} text - The raw text from the gviz response.
+ */
+const parseGvizResponse = text => {
+  const startIndex = text.indexOf('{');
+  const endIndex = text.lastIndexOf('}');
+  return JSON.parse(text.substring(startIndex, endIndex + 1));
+};
+
+/**
+ * Extracts normalized column headings from the gviz table columns.
+ *
+ * @param {Array} cols - The column definitions from the gviz response.
+ */
+const extractHeadings = cols =>
+  (cols ?? [])
+    .filter(col => col.label)
+    .map(col => normalizeString(col.label));
+
+/**
+ * Safely reads the value of a gviz cell.
+ *
+ * @param {Object} cell - The gviz cell object.
+ */
+const getCellValue = cell => (cell ? cell.v : '');
+
+/**
+ * Builds a single row object by mapping each heading to its cell value.
+ *
+ * @param {Array}  headings - The column headings.
+ * @param {Object} rowData  - The row data from the gviz response.
+ */
+const buildRow = (headings, rowData) =>
+  Object.fromEntries(
+    headings.map((heading, index) => [heading, getCellValue(rowData?.c?.[index])])
+  );
+
+/**
+ * Converts a parsed gviz payload into an array of row objects.
+ *
+ * @param {Object} jsonData - The parsed gviz response.
+ */
+const transformSheetData = jsonData => {
+  const headings = extractHeadings(jsonData?.table?.cols);
+  return (jsonData?.table?.rows ?? []).map(rowData => buildRow(headings, rowData));
+};
+
+/**
+ * Fetches and transforms the "user-data" sheet of a Google Sheet.
+ *
+ * @param {string} sheetID - The ID of the Google Sheet.
+ */
+const fetchSheetData = async sheetID => {
+  const response = await fetch(buildSheetUrl(sheetID));
+  const text = await response.text();
+  return transformSheetData(parseGvizResponse(text));
+};
+
 export const TimelineFrontend = ({attributes}) => {
   const {
     timeline_title,
@@ -63,45 +127,27 @@ export const TimelineFrontend = ({attributes}) => {
   const [processedSheetData, setProcessedSheetData] = useState(null);
 
   useEffect(() => {
-    (async () => {
+    const loadSheet = async () => {
       const sheetID = extractSheetID(google_sheets_url);
-      if (sheetID !== false) {
-        setLoading(true);
 
-        const url = `https://docs.google.com/spreadsheets/d/${sheetID}/gviz/tq?&sheet=user-data&tq=Select *`;
-
-        fetch(url)
-          .then(response => response.text())
-          .then(data => {
-            // Remove additional text and extract only JSON data.
-            const startIndex = data.indexOf('{');
-            const endIndex = data.lastIndexOf('}');
-            const jsonString = data.substring(startIndex, endIndex + 1);
-            const jsonData = JSON.parse(jsonString);
-
-            const headings = [];
-            // Get headings.
-            jsonData?.table?.cols?.forEach(heading => {
-              if (heading.label) {
-                headings.push(normalizeString(heading.label));
-              }
-            });
-
-            // Extract rows data.
-            const newData = [];
-            jsonData?.table?.rows?.forEach(rowData => {
-              const row = {};
-              headings.forEach((heading, index) => row[heading] = (rowData?.c[index] !== null) ? rowData?.c[index].v : '');
-              newData.push(row);
-            });
-            setSheetData(newData);
-            setLoading(false);
-          });
-      } else {
+      if (sheetID === null) {
         setLoading(false);
         setSheetData(null);
+        return;
       }
-    })();
+
+      setLoading(true);
+      try {
+        setSheetData(await fetchSheetData(sheetID));
+      } catch (error) {
+        logDataInSentry(error);
+        setSheetData(null);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    void loadSheet();
   }, [google_sheets_url]);
 
   // Format sheetData for frontend rendering
