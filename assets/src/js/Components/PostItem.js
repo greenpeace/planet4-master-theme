@@ -85,7 +85,7 @@ function PostItem({post}) {
 
         <div
           className="query-list-item-content wp-block-post-excerpt"
-          dangerouslySetInnerHTML={{__html: post.excerpt.rendered}}
+          dangerouslySetInnerHTML={{__html: post.excerpt?.rendered ?? ''}}
         />
 
         <div className="query-list-item-meta d-flex flex-wrap">
