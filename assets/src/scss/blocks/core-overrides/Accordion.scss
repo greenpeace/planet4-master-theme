@@ -1,0 +1,30 @@
+.wp-block-accordion {
+  .wp-block-accordion-item {
+    background-color: var(--gp-green-100);
+    padding: $sp-x $sp-2 $sp-x $sp-2;
+    border-radius: 4px;
+    margin-bottom: $sp-1;
+
+    h3 {
+      font-size: 24px;
+      margin-bottom: 0;
+
+      @include medium-and-less {
+        font-size: 16px;
+      }
+    }
+  }
+
+  &.is-style-light {
+    .wp-block-accordion-item {
+      background-color: var(--beige-100);
+    }
+  }
+
+  &.is-style-outline {
+    .wp-block-accordion-item {
+      background-color: transparent;
+      border: 1px solid var(--grey-300);
+    }
+  }
+}
