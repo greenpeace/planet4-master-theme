@@ -111,9 +111,9 @@ class MediaReplacer
      */
     public function enqueue_media_modal_script(): void
     {
-         if (!current_user_can('upload_files')) {
+        if (!current_user_can('upload_files')) {
             return;
-         }
+        }
 
         $id = 'custom-media-replacer';
         $path = '/admin/js/media_replacer.js';
@@ -203,9 +203,9 @@ class MediaReplacer
      */
     public function add_replacer_to_row_action(array $actions, WP_Post $post): array
     {
-         if ($this->current_user_can_replace($post->ID)) {
+        if ($this->current_user_can_replace($post->ID)) {
             $actions['replace-media'] = $this->get_replace_link_html($post);
-         }
+        }
 
         return $actions;
     }
