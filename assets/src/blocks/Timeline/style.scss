@@ -1,5 +1,7 @@
-@import "../../base/variables";
-@import "../../base/mixins";
+@import "../../scss/base/tokens";
+@import "../../scss/base/variables";
+@import "../../scss/base/mixins";
+@import "../../scss/base/fonts";
 
 .timeline-block {
   height: auto;
@@ -414,7 +416,7 @@
     color: var(--white);
     font-size: var(--font-size-m--font-family-primary);
     background-image: none;
-    mask-image: url("../../images/chevron.svg");
+    mask-image: url("../../../../images/chevron.svg");
     mask-size: 15px 15px;
     mask-repeat: no-repeat;
     mask-position: center;

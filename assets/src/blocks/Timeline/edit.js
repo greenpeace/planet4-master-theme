@@ -1,5 +1,5 @@
 import {URLInput} from '../../block-editor/URLInput/URLInput';
-import {TimelineFrontend} from './TimelineFrontend';
+import {TimelineFrontend} from './timeline';
 import {URLDescriptionHelp} from './URLDescriptionHelp';
 import {getUniqueId} from '../../functions/getUniqueId';
 import {getAllBlocks} from '../../functions/getAllBlocks';

@@ -78,6 +78,9 @@ class Register
                 },
                 'block' => self::BLOCK_PREFIX . '/take-action-boxout',
             ],
+            'Timeline' => [
+                'block' => self::BLOCK_PREFIX . '/timeline',
+            ],
             'TopicLink' => [
                 'block' => self::BLOCK_PREFIX . '/topic-link',
             ],

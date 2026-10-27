@@ -3,7 +3,6 @@ import {registerPostsListBlock} from './blocks/PostsList';
 import {setupCustomSidebar} from './block-editor/setupCustomSidebar';
 import {setupQueryLoopBlockExtension} from './block-editor/QueryLoopBlockExtension';
 import {registerBlockTemplates} from './block-templates/register';
-import {registerTimelineBlock} from './blocks/Timeline/TimelineBlock';
 import {registerBlockStyles} from './block-styles';
 import {registerBlockVariations} from './block-variations';
 import {registerActionButtonTextBlock} from './blocks/ActionCustomButtonText';
@@ -17,7 +16,6 @@ import {setupTaxonomyBreadcrumbBlock} from './block-editor/setupTaxonomyBreadcru
 
 wp.domReady(() => {
   // Blocks
-  registerTimelineBlock();
   registerPostsListBlock();
   registerActionButtonTextBlock();
   registerActionsListBlock();

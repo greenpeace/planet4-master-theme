@@ -1,14 +1,16 @@
 import {createRoot} from 'react-dom/client';
-import {TimelineFrontend} from './TimelineFrontend';
+import {TimelineFrontend} from './timeline';
 import {hydrateBlock} from '../../functions/hydrateBlock';
+import metadata from './block.json';
 
-hydrateBlock('planet4-blocks/timeline', TimelineFrontend);
+hydrateBlock(metadata.name, TimelineFrontend);
 
 // Fallback for non migrated content. Remove after migration.
-document.querySelectorAll('[data-render="planet4-blocks/timeline"]').forEach(
+document.querySelectorAll(`[data-render="${metadata.name}"]`).forEach(
   blockNode => {
     const attributes = JSON.parse(blockNode.dataset.attributes);
     const rootElement = createRoot(blockNode);
     rootElement.render(<TimelineFrontend {...attributes} />);
+
   }
 );
