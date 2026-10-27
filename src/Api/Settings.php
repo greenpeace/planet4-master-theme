@@ -96,6 +96,14 @@ class Settings
             $result[$feature::id()] = $feature::is_active($feature::id());
         }
 
+        // Includes the hubspot_reverse_proxy field from hubspot plugin
+        $hubspot_reverse_proxy = planet4_get_option('hubspot_reverse_proxy');
+
+        $result['hubspot_reverse_proxy'] = (
+            is_plugin_active('gravityformshubspot/hubspot.php') &&
+            $hubspot_reverse_proxy === 'on'
+        );
+
         return $result;
     }
 
