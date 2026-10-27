@@ -234,6 +234,10 @@
   font-family: var(--font-family-primary);
   font-weight: var(--font-weight-regular);
 
+  @include small-and-less {
+    gap: 0;
+  }
+
   a,
   .page-numbers {
     color: var(--color-text-body);
@@ -241,6 +245,14 @@
     user-select: none;
     border: 1px solid transparent;
     border-radius: 4px;
+
+    @include small-and-less {
+      padding: $sp-1;
+
+      &.dots {
+        padding: $sp-1 0;
+      }
+    }
   }
 
   a {
