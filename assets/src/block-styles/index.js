@@ -41,6 +41,7 @@ export const registerBlockStyles = () => {
     ]);
   });
 
+  // Add custom Columns block style.
   registerBlockStyle('core/columns', {
     name: 'mobile-carousel',
     label: __('Mobile carousel', 'planet4-master-theme-backend'),
@@ -74,6 +75,26 @@ export const registerBlockStyles = () => {
     {
       name: 'parallax',
       label: __('Parallax - add a parallax effect to the image when scrolling the page', 'planet4-master-theme-backend'),
+    },
+  ]);
+
+  // Unregister Default Accordion block style
+  unregisterBlockStyle('core/accordion', 'default');
+
+  // Register our custom Accordion block styles
+  registerBlockStyle('core/accordion', [
+    {
+      name: 'green',
+      label: __('Green', 'planet4-master-theme-backend'),
+      isDefault: true,
+    },
+    {
+      name: 'light',
+      label: __('Light', 'planet4-master-theme-backend'),
+    },
+    {
+      name: 'outline',
+      label: __('Outline', 'planet4-master-theme-backend'),
     },
   ]);
 };
