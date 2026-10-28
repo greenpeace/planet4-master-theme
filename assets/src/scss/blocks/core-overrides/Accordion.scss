@@ -1,7 +1,6 @@
 .wp-block-accordion {
   .wp-block-accordion-item {
     background-color: transparent;
-    padding: $sp-x $sp-2;
     border-radius: 4px;
     margin-bottom: $sp-1;
     border: 1px solid var(--grey-300);
@@ -9,13 +8,30 @@
     h3 {
       font-size: 20px;
       margin-bottom: 0;
+      padding: $sp-x $sp-2;
+
+      &:hover {
+        background-color: var(--grey-100);
+      }
     }
+  }
+
+  .wp-block-accordion-heading__toggle-icon {
+    font-size: 24px;
+  }
+
+  .wp-block-accordion-panel {
+    padding: $sp-1 $sp-2 $sp-x $sp-2;
   }
 
   &.is-style-light {
     .wp-block-accordion-item {
       background-color: var(--beige-100);
       border-color: var(--beige-100);
+
+      h3:hover {
+        background-color: var(--beige-200);
+      }
     }
   }
 
@@ -23,10 +39,10 @@
     .wp-block-accordion-item {
       background-color: var(--gp-green-100);
       border-color: var(--gp-green-100);
-    }
-  }
 
-  .wp-block-accordion-heading__toggle-icon {
-    font-size: 24px;
+      h3:hover {
+        background-color: var(--gp-green-200);
+      }
+    }
   }
 }
