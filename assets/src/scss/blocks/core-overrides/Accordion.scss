@@ -1,9 +1,10 @@
 .wp-block-accordion {
   .wp-block-accordion-item {
     background-color: var(--gp-green-100);
-    padding: $sp-x $sp-2 $sp-x $sp-2;
+    padding: $sp-x $sp-2;
     border-radius: 4px;
     margin-bottom: $sp-1;
+    border: 1px solid var(--gp-green-100);
 
     h3 {
       font-size: 24px;
@@ -18,13 +19,14 @@
   &.is-style-light {
     .wp-block-accordion-item {
       background-color: var(--beige-100);
+      border-color: var(--beige-100);
     }
   }
 
   &.is-style-outline {
     .wp-block-accordion-item {
       background-color: transparent;
-      border: 1px solid var(--grey-300);
+      border-color: var(--grey-300);
     }
   }
 }
