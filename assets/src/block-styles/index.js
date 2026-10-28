@@ -53,10 +53,6 @@ const BLOCK_STYLES_TO_ADD = [
         name: 'space-evenly',
         label: __('Space evenly', 'planet4-master-theme-backend'),
       },
-      {
-        name: 'reset-margin',
-        label: __('Reset margin', 'planet4-master-theme-backend'),
-      },
     ],
   },
   {
