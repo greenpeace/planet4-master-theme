@@ -2,34 +2,53 @@
 const {unregisterBlockStyle, registerBlockStyle} = wp.blocks;
 const {__} = wp.i18n;
 
-export const registerBlockStyles = () => {
-  // Remove Button block native styles
-  unregisterBlockStyle('core/button', 'fill');
-  unregisterBlockStyle('core/button', 'outline');
-
-  // Remove Quote block styles.
-  unregisterBlockStyle('core/quote', 'default');
-  unregisterBlockStyle('core/quote', 'plain');
-
-  // Add our custom Button block styles
-  registerBlockStyle('core/button', [
-    {
-      name: 'secondary',
-      label: __('Secondary', 'planet4-master-theme-backend'),
-      isDefault: true,
-    },
-    {
-      name: 'cta',
-      label: __('Primary', 'planet4-master-theme-backend'),
-    },
-    {
-      name: 'transparent',
-      label: __('Transparent', 'planet4-master-theme-backend'),
-    },
-  ]);
-
-  ['core/group'].forEach(block => {
-    registerBlockStyle(block, [
+const BLOCK_STYLES_TO_ADD = [
+  {
+    blockName: 'core/accordion',
+    blockStyles: [
+      {
+        name: 'green',
+        label: __('Green', 'planet4-master-theme-backend'),
+        isDefault: true,
+      },
+      {
+        name: 'light',
+        label: __('Light', 'planet4-master-theme-backend'),
+      },
+      {
+        name: 'outline',
+        label: __('Outline', 'planet4-master-theme-backend'),
+      },
+    ],
+  },
+  {
+    blockName: 'core/button',
+    blockStyles: [
+      {
+        name: 'secondary',
+        label: __('Secondary', 'planet4-master-theme-backend'),
+        isDefault: true,
+      },
+      {
+        name: 'cta',
+        label: __('Primary', 'planet4-master-theme-backend'),
+      },
+      {
+        name: 'transparent',
+        label: __('Transparent', 'planet4-master-theme-backend'),
+      },
+    ],
+  },
+  {
+    blockName: 'core/columns',
+    blockStyles: [{
+      name: 'mobile-carousel',
+      label: __('Mobile carousel', 'planet4-master-theme-backend'),
+    }],
+  },
+  {
+    blockName: 'core/group',
+    blockStyles: [
       {
         name: 'space-evenly',
         label: __('Space evenly', 'planet4-master-theme-backend'),
@@ -38,63 +57,64 @@ export const registerBlockStyles = () => {
         name: 'reset-margin',
         label: __('Reset margin', 'planet4-master-theme-backend'),
       },
-    ]);
-  });
-
-  // Add custom Columns block style.
-  registerBlockStyle('core/columns', {
-    name: 'mobile-carousel',
-    label: __('Mobile carousel', 'planet4-master-theme-backend'),
-  });
-
-  // Add our custom Heading styles
-  registerBlockStyle('core/heading', [
-    {
+    ],
+  },
+  {
+    blockName: 'core/image',
+    blockStyles: [
+      {
+        name: 'rounded-180',
+        label: __('Rounded 180x180', 'planet4-master-theme-backend'),
+      },
+      {
+        name: 'rounded-90',
+        label: __('Rounded 90x90', 'planet4-master-theme-backend'),
+      },
+    ],
+  },
+  {
+    blockName: 'core/heading',
+    blockStyles: [{
       name: 'chevron',
       label: __('Chevron', 'planet4-master-theme-backend'),
-    },
-  ]);
+    }],
+  },
+  {
+    blockName: 'core/media-text',
+    blockStyles: [
+      {
+        name: 'parallax',
+        label: __('Parallax - add a parallax effect to the image when scrolling the page', 'planet4-master-theme-backend'),
+      },
+    ],
+  },
+];
 
-  // Unregister default Rounded Image block style
-  unregisterBlockStyle('core/image', 'rounded');
+const BLOCK_STYLES_TO_REMOVE = [
+  {
+    blockName: 'core/accordion',
+    blockStyles: ['default'],
+  },
+  {
+    blockName: 'core/button',
+    blockStyles: ['fill', 'outline'],
+  },
+  {
+    blockName: 'core/quote',
+    blockStyles: ['default', 'plain'],
+  },
+  {
+    blockName: 'core/image',
+    blockStyles: ['rounded'],
+  },
+];
 
-  // Register our custom Image block styles
-  registerBlockStyle('core/image', [
-    {
-      name: 'rounded-180',
-      label: __('Rounded 180x180', 'planet4-master-theme-backend'),
-    },
-    {
-      name: 'rounded-90',
-      label: __('Rounded 90x90', 'planet4-master-theme-backend'),
-    },
-  ]);
+export const registerBlockStyles = () => {
+  // Remove certain block styles
+  BLOCK_STYLES_TO_REMOVE.forEach(block => {
+    block.blockStyles.forEach(style => unregisterBlockStyle(block.blockName, style));
+  });
 
-  // Register our custom Media & Test block styles
-  registerBlockStyle('core/media-text', [
-    {
-      name: 'parallax',
-      label: __('Parallax - add a parallax effect to the image when scrolling the page', 'planet4-master-theme-backend'),
-    },
-  ]);
-
-  // Unregister Default Accordion block style
-  unregisterBlockStyle('core/accordion', 'default');
-
-  // Register our custom Accordion block styles
-  registerBlockStyle('core/accordion', [
-    {
-      name: 'green',
-      label: __('Green', 'planet4-master-theme-backend'),
-      isDefault: true,
-    },
-    {
-      name: 'light',
-      label: __('Light', 'planet4-master-theme-backend'),
-    },
-    {
-      name: 'outline',
-      label: __('Outline', 'planet4-master-theme-backend'),
-    },
-  ]);
+  // Add our custom block styles
+  BLOCK_STYLES_TO_ADD.forEach(block => registerBlockStyle(block.blockName, block.blockStyles));
 };
