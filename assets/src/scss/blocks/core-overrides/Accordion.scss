@@ -1,10 +1,10 @@
 .wp-block-accordion {
   .wp-block-accordion-item {
-    background-color: var(--gp-green-100);
+    background-color: transparent;
     padding: $sp-x $sp-2;
     border-radius: 4px;
     margin-bottom: $sp-1;
-    border: 1px solid var(--gp-green-100);
+    border: 1px solid var(--grey-300);
 
     h3 {
       font-size: 24px;
@@ -23,10 +23,10 @@
     }
   }
 
-  &.is-style-outline {
+  &.is-style-green {
     .wp-block-accordion-item {
-      background-color: transparent;
-      border-color: var(--grey-300);
+      background-color: var(--gp-green-100);
+      border-color: var(--gp-green-100);
     }
   }
 }

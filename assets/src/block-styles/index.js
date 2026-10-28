@@ -7,17 +7,17 @@ const BLOCK_STYLES_TO_ADD = [
     blockName: 'core/accordion',
     blockStyles: [
       {
+        name: 'outline',
+        label: __('Outline', 'planet4-master-theme-backend'),
+        isDefault: true,
+      },
+      {
         name: 'green',
         label: __('Green', 'planet4-master-theme-backend'),
-        isDefault: true,
       },
       {
         name: 'light',
         label: __('Light', 'planet4-master-theme-backend'),
-      },
-      {
-        name: 'outline',
-        label: __('Outline', 'planet4-master-theme-backend'),
       },
     ],
   },
