@@ -9,10 +9,15 @@
       font-size: 20px;
       margin-bottom: 0;
       padding: $sp-x $sp-2;
+      transition: background-color 0.2s ease;
 
       &:hover {
         background-color: var(--grey-100);
       }
+    }
+
+    .wp-block-accordion-heading__toggle:hover .wp-block-accordion-heading__toggle-title {
+      text-decoration: none;
     }
   }
 
