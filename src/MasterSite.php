@@ -98,6 +98,15 @@ class MasterSite extends \Timber\Site
         add_filter('register_block_type_args', [$this, 'set_custom_query_type'], 10, 2);
         add_filter('register_block_type_args', [$this, 'disable_heading_level_1'], 10, 2);
 
+        add_action( 'init', function () {
+            register_block_style(
+                'core/group',
+                [
+                    'name'  => 'sticky-container',
+                    'label' => __( 'Sticky Container', 'planet4-master-theme' ),
+                ]
+            );
+        } );
         add_filter(
             'editable_roles',
             function ($roles) {
