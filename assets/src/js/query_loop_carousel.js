@@ -213,8 +213,10 @@ export const setupQueryLoopCarousel = () => {
                 if (announcement) {
                   announcement.innerText = sprintf(
                     /* translators: 1: current slide number, 2: total amount of slides */
-                    __('Slide %1$d from %2$d', 'planet4-master-theme'),
+                    __('Slide %1$d with %2$d cards. Total of %3$d cards in %4$d slides.', 'planet4-master-theme'),
                     slideIndex + 1,
+                    itemsPerSlide,
+                    posts.length,
                     slides
                   );
                 }
