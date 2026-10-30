@@ -23,6 +23,13 @@ const content = [
   {heading: 'Donec tristique', paragraph: PARAGRAPH_CONTENT},
 ];
 
+const SECONDARY_NAV = 'div[data-render="planet4-blocks/secondary-navigation"]';
+const MAIN_NAV_ITEM_WITH_SUBMENU = '#nav-menu > ul > li.menu-item-has-children';
+
+const filler = Array.from({length: 40}, (_, i) =>
+  `<!-- wp:paragraph --><p>Paragraph ${i}. Lorem ipsum dolor sit amet.</p><!-- /wp:paragraph -->`
+).join('');
+
 test.useAdminLoggedIn();
 
 test('Test Secondary Navigation block', async ({page, admin, editor}) => {
@@ -83,3 +90,69 @@ test('Test Secondary Navigation block', async ({page, admin, editor}) => {
   await expect(secondaryNavigationBlock.locator('.dropdown-btn')).toBeVisible();
 });
 
+// Deliberately no Page Header pattern: the secondary nav must work without it.
+test.describe('Secondary navigation without a Page Header', () => {
+  let newPage;
+
+  test.beforeAll(async ({requestUtils}) => {
+    const sections = content.map(({heading, paragraph}) =>
+      `<!-- wp:heading --><h2 class="wp-block-heading">${heading}</h2><!-- /wp:heading -->
+     <!-- wp:paragraph --><p>${paragraph}</p><!-- /wp:paragraph -->`
+    ).join('');
+
+    newPage = await requestUtils.rest({
+      path: '/wp/v2/pages',
+      method: 'POST',
+      data: {
+        title: `Test secondary navigation ${Date.now()}`,
+        status: 'publish',
+        content: `<!-- wp:planet4-blocks/secondary-navigation /-->${sections}${filler}`,
+      },
+    });
+  });
+
+  test.afterAll(async ({requestUtils}) => {
+    await requestUtils.rest({
+      path: `/wp/v2/pages/${newPage.id}`,
+      method: 'DELETE',
+      data: {force: true},
+    });
+  });
+
+  test('main navigation submenu stays above the secondary navigation', async ({page}) => {
+    await page.goto(newPage.link, {waitUntil: 'domcontentloaded'});
+
+    const secondaryNav = page.locator(SECONDARY_NAV);
+    await expect(secondaryNav).toBeVisible();
+
+    // Scroll a little so the secondary nav is stuck right under the header.
+    await page.mouse.wheel(0, 300);
+
+    const menuItem = page.locator(MAIN_NAV_ITEM_WITH_SUBMENU).first();
+    const submenu = menuItem.locator('.nav-submenu');
+    await menuItem.hover();
+    await expect(submenu).toBeVisible();
+
+    const submenuBox = await submenu.boundingBox();
+    const navBox = await secondaryNav.boundingBox();
+
+    expect(submenuBox.y + submenuBox.height).toBeGreaterThan(navBox.y);
+
+    const submenuIsOnTop = await submenu.evaluate((el, point) => {
+      return el.contains(document.elementFromPoint(point.x, point.y));
+    }, {
+      x: submenuBox.x + submenuBox.width / 2,
+      y: submenuBox.y + submenuBox.height - 5,
+    });
+
+    expect(submenuIsOnTop).toBe(true);
+  });
+
+  test('secondary navigation stays visible when scrolling the page', async ({page}) => {
+    await page.goto(newPage.link, {waitUntil: 'domcontentloaded'});
+
+    await page.mouse.wheel(0, 1500);
+
+    await expect(page.locator(SECONDARY_NAV)).toBeInViewport();
+  });
+});
