@@ -5,7 +5,7 @@
     margin-bottom: $sp-1;
     border: 1px solid var(--grey-300);
 
-    h3 {
+    .wp-block-accordion-heading {
       font-size: 20px;
       margin-bottom: 0;
       padding: $sp-x $sp-2;
@@ -34,7 +34,7 @@
       background-color: var(--beige-100);
       border-color: var(--beige-100);
 
-      h3:hover {
+      .wp-block-accordion-heading:hover {
         background-color: var(--beige-200);
       }
     }
@@ -45,7 +45,7 @@
       background-color: var(--gp-green-100);
       border-color: var(--gp-green-100);
 
-      h3:hover {
+      .wp-block-accordion-heading:hover {
         background-color: var(--gp-green-200);
       }
     }
