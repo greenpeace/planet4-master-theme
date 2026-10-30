@@ -75,12 +75,14 @@ const createForm = async ({page}, {title}) => {
  * @param {number} formId      - The form id.
  */
 const fillAndSubmitForm = async ({page}, formId) => {
-  const form = page.locator(`#gform_${formId}`);
+  const form = page.locator(`form[data-formid="${formId}"]`);
+  await expect(form).toBeVisible();
+
   await form.getByLabel('First name').fill(TEST_FIRST_NAME);
   await form.getByLabel('Last name').fill(TEST_LAST_NAME);
   await form.getByLabel('Email').fill(TEST_EMAIL);
-  const submitButton = form.getByRole('button', {name: 'Submit'});
-  await submitButton.click();
+
+  await form.getByRole('button', {name: 'Submit'}).click();
 };
 
 /**
@@ -95,9 +97,9 @@ const checkEntry = async ({page, admin}, formId) => {
   await admin.visitAdminPage('admin.php', `page=gf_entries&id=${formId}`);
   const latestEntry = page.locator('#the-list > tr.entry_row').first();
   await expect(latestEntry).toBeVisible();
-  await expect(latestEntry.locator('td[data-colname="First name"]')).toContainText(TEST_FIRST_NAME);
-  await expect(latestEntry.locator('td[data-colname="Last name"]')).toContainText(TEST_LAST_NAME);
-  await expect(latestEntry.locator('td[data-colname="Email"]')).toContainText(TEST_EMAIL);
+  await expect(latestEntry.locator('[data-colname="First name"]')).toContainText(TEST_FIRST_NAME);
+  await expect(latestEntry.locator('[data-colname="Last name"]')).toContainText(TEST_LAST_NAME);
+  await expect(latestEntry.locator('[data-colname="Email"]')).toContainText(TEST_EMAIL);
 };
 
 /**
@@ -188,4 +190,66 @@ const selectConfirmationPage = async ({page}, title) => {
   await expect(control).toContainText(title);
 };
 
-export {toggleRestAPI, createForm, fillAndSubmitForm, checkEntry, changeConfirmationType, selectConfirmationPage};
+/**
+ * Create a post in the editor, add the Gravity Forms block, select the form and publish.
+ *
+ * @param {Object} params        - Fixtures.
+ * @param {Object} params.page   - The page object.
+ * @param {Object} params.admin  - The admin object.
+ * @param {Object} params.editor - The editor object.
+ * @param {Object} post          - Post parameters.
+ * @param {string} post.title    - The post title.
+ * @param {number} post.formId   - The form id to embed.
+ * @return {Promise<number>} The published post id.
+ */
+const addFormToNewPost = async ({page, admin, editor}, {title, formId}) => {
+  await admin.createNewPost({title, postType: 'post', legacyCanvas: true});
+
+  await editor.openDocumentSettingsSidebar();
+
+  // Open the "Analytics & Tracking" panel if it's collapsed.
+  const panelToggle = page.getByRole('button', {name: 'Analytics & Tracking'});
+  if ((await panelToggle.getAttribute('aria-expanded')) !== 'true') {
+    await panelToggle.click();
+  }
+
+  // Set Global Project to "Not Applicable".
+  const globalProject = page.getByLabel('Global Project');
+  await globalProject.selectOption('Not Applicable');
+  await expect(globalProject).toHaveValue('Not Applicable');
+
+  await page.getByRole('button', {name: 'Set featured image'}).click();
+
+  await expect(page.getByRole('dialog', {name: 'Featured image'})).toBeVisible();
+  await page.locator('button#menu-item-browse').click();
+
+  const mediaSearchInput = page.locator('#media-search-input');
+  await mediaSearchInput.fill('NATURE-GP0STOE2U');
+  await page.keyboard.press('Enter');
+
+  const thumbnail = page.locator('li[aria-label="NATURE-GP0STOE2U"]').first();
+  await expect(thumbnail).toBeVisible();
+  await thumbnail.click();
+
+  // Get the file url.
+  const fileUrl = await page.locator('#attachment-details-copy-link').inputValue();
+  // Remove the file extension.
+  const fileName = fileUrl.slice(0, fileUrl.length - 4).split('/');
+  await page.getByRole('button', {name: 'Set featured image'}).click();
+
+  // Check the featured image is correctly assigned.
+  await expect(page.locator('.editor-post-featured-image__preview-image'))
+    .toHaveAttribute('src', new RegExp(fileName[fileName.length - 1]));
+
+  await editor.insertBlock({name: 'gravityforms/form'});
+
+  // Pick the form in the block placeholder.
+  const block = editor.canvas.locator('[data-type="gravityforms/form"]');
+  await expect(block).toBeVisible();
+  const formSelect = block.locator('select').first();
+  await formSelect.selectOption(String(formId));
+
+  return await editor.publishPost();
+};
+
+export {toggleRestAPI, createForm, fillAndSubmitForm, checkEntry, changeConfirmationType, selectConfirmationPage, addFormToNewPost};
