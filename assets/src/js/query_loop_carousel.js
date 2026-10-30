@@ -70,17 +70,6 @@ export const setupQueryLoopCarousel = () => {
       carousel.append(list);
       const posts = list.querySelectorAll('.wp-block-post');
 
-      // Create a heading
-      const hiddenText = document.createElement('span');
-      // hiddenText.classList.add('visually-hidden');
-      hiddenText.textContent = sprintf(
-        /* translators: 1: total amount of cards, 2: total amount of slides */
-        __('A list with %1$d total cards into %2$d slides', 'planet4-master-theme'),
-        posts.length,
-        Math.ceil(posts.length / itemsPerSlide)
-      );
-      layout.prepend(hiddenText);
-
       if (isActionsList) {
         // Add some accessibility attributes
         layout.setAttribute('role', 'region');
@@ -224,8 +213,10 @@ export const setupQueryLoopCarousel = () => {
                 if (announcement) {
                   announcement.innerText = sprintf(
                     /* translators: 1: current slide number, 2: total amount of slides */
-                    __('Slide %1$d from %2$d', 'planet4-master-theme'),
+                    __('Slide %1$d with %2$d cards. Total of %3$d cards in %4$d slides.', 'planet4-master-theme'),
                     slideIndex + 1,
+                    itemsPerSlide,
+                    posts.length,
                     slides
                   );
                 }
