@@ -332,9 +332,13 @@ class GravityFormsExtensions
             return;
         }
 
-        $endpoint_url = 'https://counter.greenpeace.org/count';
-        $endpoint_url .= '?id=' . $form['p4_gf_counter'];
-        $endpoint_url .= '&email_hash=' . $this->p4_gf_get_email_hash($form, $entry);
+        $endpoint_url = 'https://counter.greenpeace.org/count?' . http_build_query(
+            [
+                'id' => $form['p4_gf_counter'],
+                'email_hash' => $this->p4_gf_get_email_hash($form, $entry),
+            ],
+            encoding_type: PHP_QUERY_RFC3986
+        );
 
         // Pass the referer explicitily.
         $wp_remote_get_args = array(
@@ -611,8 +615,8 @@ class GravityFormsExtensions
             // Hash and base64 encode the email using SHA-256
             $hashed_email = base64_encode(hash('sha256', $email_address, true));
 
-            // Remove '/' characters if present in Base64 encoding
-            $hashed_email = str_replace('/', '', $hashed_email);
+            // Replace any '+' and '/' characters with '-' and '_' respectively, and remove any trailing '=' characters
+            $hashed_email = rtrim(strtr($hashed_email, '+/', '-_'), '=');
 
             return $hashed_email;
         }
