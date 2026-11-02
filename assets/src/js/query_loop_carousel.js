@@ -130,6 +130,23 @@ export const setupQueryLoopCarousel = () => {
         totalCarouselItems = 0;
 
       posts.forEach((post, index) => {
+
+        if(isActionsList) {
+          const cardTitle = carousel.querySelector('h3');
+          if(cardTitle) {
+            const hiddenText = document.createElement('span');
+            hiddenText.classList.add('visually-hidden');
+            hiddenText.innerHTML = sprintf(
+            /* translators: 1: current slide number. 2: total of slides */
+              __('Slide %1$d of %2$d', 'planet4-master-theme'),
+              index + 1,
+              posts.length - 1
+            );
+
+            cardTitle.querySelector('a').append(hiddenText);
+          }
+        }
+
         if (index % itemsPerSlide === 0) {
           // Add a reset link that is only accessible via JS.
           // Only for the Posts List block, not Actions List.
