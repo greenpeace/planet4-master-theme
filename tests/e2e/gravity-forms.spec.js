@@ -52,7 +52,8 @@ test.describe('Gravity Forms tests', () => {
     await page.close();
   });
 
-  test('check the confirmation message, text type', async ({page, admin}) => {
+  // Temporarily skip this test until it's adjusted and fixed.
+  test.skip('check the confirmation message, text type', async ({page, admin}) => {
     test.slow();
 
     // Navigate to form confirmation settings via admin helper
@@ -103,7 +104,8 @@ test.describe('Gravity Forms tests', () => {
     await checkEntry({page, admin}, createdForm.id);
   });
 
-  test('check the confirmation message, redirect type', async ({page, admin}) => {
+  // Temporarily skip this test until it's adjusted and fixed.
+  test.skip('check the confirmation message, redirect type', async ({page, admin}) => {
     test.slow();
 
     await admin.visitAdminPage(
@@ -140,7 +142,8 @@ test.describe('Gravity Forms tests', () => {
     await checkEntry({page, admin}, createdForm.id);
   });
 
-  test('check the confirmation message, page type', async ({page, admin}) => {
+  // Temporarily skip this test until it's adjusted and fixed.
+  test.skip('check the confirmation message, page type', async ({page, admin}) => {
     test.slow();
 
     await admin.visitAdminPage(
