@@ -13,7 +13,7 @@ const OG_TITLE = 'p4_og_title';
 const OG_DESCRIPTION = 'p4_og_description';
 
 const TITLE_MAX = 60;
-const DESCRIPTION_MAX = 120;
+const DESCRIPTION_MAX = 160;
 
 const truncate = (text, max) => {
   if (text.length <= max) {
@@ -66,7 +66,7 @@ export const SearchEngineOptimizationsSidebar = {
         title={__('Search Engine Optimizations', 'planet4-master-theme-backend')}
       >
         <div className="planet4-seo-sidebar">
-          <p className="components-base-control__help css-p914ie-StyledHelp">
+          <p className="components-base-control__help styled-help">
             {__('Draft your meta title and description below to see a real-tme preview of how your page appears in mobile search results.', 'planet4-master-theme-backend')}
           </p>
           <p className="components-base-control__help serp-help">
@@ -79,10 +79,10 @@ export const SearchEngineOptimizationsSidebar = {
               }
             )}
           </p>
-          <p className="components-base-control__label css-1cd2vx8-StyledLabel-baseLabelTypography-labelStyles">
+          <p className="components-base-control__label styled-label">
             {__('Meta Title', 'planet4-master-theme-backend')}
           </p>
-          <p className="components-base-control__help css-p914ie-StyledHelp">
+          <p className="components-base-control__help styled-help">
             {__('Leave empty to use the Open Graph Title (if set) or the Post Title.', 'planet4-master-theme-backend')}
           </p>
           <TextControl
@@ -91,14 +91,14 @@ export const SearchEngineOptimizationsSidebar = {
             help={<>
               <div className="serp-help__textcontrol">
                 <div>{__('Recommended: 50–60 characters', 'planet4-master-theme-backend')}</div>
-                <div>{titleLength}/<strong>60</strong></div>
+                <div>{titleLength}/<strong>{TITLE_MAX}</strong></div>
               </div>
             </>}
           />
-          <p className="components-base-control__label css-1cd2vx8-StyledLabel-baseLabelTypography-labelStyles">
+          <p className="components-base-control__label styled-label">
             {__('Meta Description', 'planet4-master-theme-backend')}
           </p>
-          <p className="components-base-control__help css-p914ie-StyledHelp">
+          <p className="components-base-control__help styled-help">
             {__('Leave empty to use Open Graph Description (if set) or the Post Excerpt.', 'planet4-master-theme-backend')}
           </p>
           <TextareaControl
@@ -107,7 +107,7 @@ export const SearchEngineOptimizationsSidebar = {
             help={<>
               <div className="serp-help__textcontrol">
                 <div>{__('Recommended: 120–160 characters', 'planet4-master-theme-backend')}</div>
-                <div>{descriptionLength}/<strong>160</strong></div>
+                <div>{descriptionLength}/<strong>{DESCRIPTION_MAX}</strong></div>
               </div>
             </>}
           />
@@ -136,7 +136,7 @@ export const SearchEngineOptimizationsSidebar = {
               </div>
             </div>
           </div>
-          <p className="components-base-control__help css-p914ie-StyledHelp">
+          <p className="components-base-control__help styled-help">
             {__('Estimated preview only. Search Engines may rewrite titles or descriptions based on the user\'s search', 'planet4-master-theme-backend')}
           </p>
           <URLInput

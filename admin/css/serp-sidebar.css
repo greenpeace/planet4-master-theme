@@ -3,13 +3,15 @@
   margin-top: 16px;
 }
 
-.planet4-seo-sidebar .components-base-control,
-.planet4-seo-sidebar .css-p914ie-StyledHelp {
-  margin: 5px 0;
+.planet4-seo-sidebar .styled-help {
+  margin: 5px 0 0;
+  font-size: 12px;
+  font-style: normal;
+  color: rgb(117, 117, 117);
 }
 
-.planet4-seo-sidebar .css-1cd2vx8-StyledLabel-baseLabelTypography-labelStyles {
-  margin: 18px 0 0 !important;
+.planet4-seo-sidebar .styled-label {
+  margin: 10px 0 0 !important;
   font-size: 13px;
   text-transform: none;
   font-weight: bold;
