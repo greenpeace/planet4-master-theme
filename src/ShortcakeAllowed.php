@@ -69,6 +69,62 @@ class ShortcakeAllowed
     }
 
     /**
+     * Count the posts using a shortcode, per post type.
+     * Revisions, auto-drafts and trashed posts are not counted.
+     *
+     * @param string $shortcode_tag The shortcode tag.
+     *
+     * @return int[] Number of posts, keyed by post type.
+     */
+    private function get_usage_counts(string $shortcode_tag): array
+    {
+        global $wpdb;
+
+        // Match the exact tag, so `[shortcake_hero_set` doesn't count `[shortcake_hero_set_donation`.
+        $pattern = '\\[' . preg_quote($shortcode_tag) . '([[:space:]]|\\]|/)';
+
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
+        $results = $wpdb->get_results(
+            $wpdb->prepare(
+                "SELECT post_type, COUNT(ID) AS total FROM {$wpdb->posts}
+                WHERE post_status IN ('publish', 'draft', 'pending', 'private', 'future')
+                AND post_content LIKE %s
+                AND post_content REGEXP %s
+                GROUP BY post_type",
+                '%' . $wpdb->esc_like('[' . $shortcode_tag) . '%',
+                $pattern
+            )
+        );
+
+        return wp_list_pluck($results, 'total', 'post_type');
+    }
+
+    /**
+     * Number of posts using the shortcode, linked to the post list filtered by that shortcode.
+     *
+     * @param string $shortcode_tag The shortcode tag.
+     * @param string $post_type The post type name.
+     * @param int    $count Number of posts.
+     *
+     * @return string Escaped HTML.
+     */
+    private function usage_count_link(string $shortcode_tag, string $post_type, int $count): string
+    {
+        $url = add_query_arg(
+            [
+                'post_type' => $post_type,
+                's' => $shortcode_tag,
+            ],
+            admin_url('edit.php')
+        );
+
+        return '<a class="usage-count" href="' . esc_url($url) . '">'
+            // translators: %d = Number of posts using the shortcode.
+            . esc_html(sprintf(_n('%d ' . $post_type, '%d ' . $post_type . 's', $count, 'planet4-master-theme-backend'), $count))
+            . '</a>';
+    }
+
+    /**
      * Admin page markup.
      */
     public function admin_page_display(): void
@@ -89,7 +145,8 @@ class ShortcakeAllowed
         $post_types = $this->get_post_types();
 
         echo '<p>' . esc_html__(
-            'Shortcake blocks that can be inserted in the editor, for each post type with an editor.',
+            'Shortcake blocks that can be inserted in the editor, for each post type with an editor, '
+            . 'and the number of posts using them (published, draft, pending, private and scheduled).',
             'planet4-master-theme-backend'
         ) . '</p>';
 
@@ -132,8 +189,15 @@ class ShortcakeAllowed
             echo '<code>' . esc_html($shortcode_tag) . '</code>';
             echo '</th>';
 
+            $usage_counts = $this->get_usage_counts($shortcode_tag);
             foreach (array_keys($post_types) as $post_type) {
-                BlocksAllowed::render_allowed_cell($this->is_allowed($args, $post_type));
+                $is_allowed = $this->is_allowed($args, $post_type);
+                $count = (int) ( $usage_counts[ $post_type ] ?? 0 );
+
+                BlocksAllowed::render_allowed_cell(
+                    $is_allowed,
+                    $is_allowed ? $this->usage_count_link($shortcode_tag, $post_type, $count) : ''
+                );
             }
             echo '</tr>';
         }

@@ -173,15 +173,17 @@ class BlocksAllowed
     /**
      * Table cell showing whether an item is allowed.
      *
-     * @param bool $is_allowed Whether the item is allowed.
+     * @param bool   $is_allowed Whether the item is allowed.
+     * @param string $extra Escaped HTML to show after the "allowed" icon.
      */
-    public static function render_allowed_cell(bool $is_allowed): void
+    public static function render_allowed_cell(bool $is_allowed, string $extra = ''): void
     {
         echo '<td class="post-type">';
         if ($is_allowed) {
             echo '<span class="dashicons dashicons-yes allowed" aria-hidden="true"></span>'
                 . '<span class="screen-reader-text">'
-                . esc_html__('Allowed', 'planet4-master-theme-backend') . '</span>';
+                . esc_html__('Allowed', 'planet4-master-theme-backend') . '</span>'
+                . $extra; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped by the caller.
         } else {
             echo '<span class="dashicons dashicons-minus" aria-hidden="true"></span>'
                 . '<span class="screen-reader-text">'
@@ -205,6 +207,7 @@ class BlocksAllowed
             .blocks-allowed tr.totals th { font-weight: 600; }
             .blocks-allowed .dashicons.allowed { color: #008a20; }
             .blocks-allowed .dashicons-minus { color: #a7aaad; }
+            .blocks-allowed .usage-count { display: block; font-size: 12px; }
         </style>';
     }
 }
