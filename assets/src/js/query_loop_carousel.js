@@ -132,7 +132,12 @@ export const setupQueryLoopCarousel = () => {
       posts.forEach((post, index) => {
 
         if(isActionsList) {
-          const cardTitle = carousel.querySelector('h3');
+          const cardImage = post.querySelector('.wp-block-post-featured-image img');
+          if(cardImage) {
+            cardImage.setAttribute('aria-hidden', 'true');
+          }
+
+          const cardTitle = post.querySelector('.wp-block-post-title');
           if(cardTitle) {
             const hiddenText = document.createElement('span');
             hiddenText.classList.add('visually-hidden');
@@ -230,11 +235,9 @@ export const setupQueryLoopCarousel = () => {
                 if (announcement) {
                   announcement.innerText = sprintf(
                     /* translators: 1: current slide number, 2: total amount of slides */
-                    __('Slide %1$d with %2$d cards. Total of %3$d cards in %4$d slides.', 'planet4-master-theme'),
-                    slideIndex + 1,
-                    slides[slideIndex].querySelectorAll('.wp-block-post').length,
+                    __('Total %1$d Actions in %4$d slides.', 'planet4-master-theme'),
                     posts.length,
-                    slides
+                    slides[slideIndex].querySelectorAll('.wp-block-post').length
                   );
                 }
 
