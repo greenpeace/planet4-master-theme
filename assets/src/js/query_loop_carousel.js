@@ -138,9 +138,9 @@ export const setupQueryLoopCarousel = () => {
             hiddenText.classList.add('visually-hidden');
             hiddenText.innerHTML = sprintf(
             /* translators: 1: current slide number. 2: total of slides */
-              __('Slide %1$d of %2$d', 'planet4-master-theme'),
+              __('Action %1$d of %2$d', 'planet4-master-theme'),
               index + 1,
-              posts.length - 1
+              posts.length
             );
 
             cardTitle.querySelector('a').append(hiddenText);
@@ -232,7 +232,7 @@ export const setupQueryLoopCarousel = () => {
                     /* translators: 1: current slide number, 2: total amount of slides */
                     __('Slide %1$d with %2$d cards. Total of %3$d cards in %4$d slides.', 'planet4-master-theme'),
                     slideIndex + 1,
-                    itemsPerSlide,
+                    slides[slideIndex].querySelectorAll('.wp-block-post').length,
                     posts.length,
                     slides
                   );
