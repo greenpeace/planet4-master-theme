@@ -200,7 +200,6 @@ class BlocksAllowed
         echo '<style>
             .blocks-allowed-table-wrapper { overflow-x: auto; margin-top: 16px; }
             .blocks-allowed table { width: auto; min-width: 100%; }
-            .blocks-allowed thead th { position: sticky; top: 32px; background: #fff; z-index: 1; }
             .blocks-allowed .post-type { text-align: center; white-space: nowrap; }
             .blocks-allowed tbody th { font-weight: normal; }
             .blocks-allowed tr.totals { font-weight: 600; }
