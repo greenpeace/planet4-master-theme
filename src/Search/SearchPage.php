@@ -264,8 +264,8 @@ class SearchPage
         $this->context['page_title'] = sprintf(
             // translators: %1$d: Number of results. %2$s: Search terms.
             _n(
-                '%1$d result for \'%2$s\'',
-                '%1$d results for \'%2$s\'',
+                '%1$d result for ‘%2$s\'',
+                '%1$d results for ‘%2$s\'',
                 $this->context['found_posts'],
                 'planet4-master-theme'
             ),
