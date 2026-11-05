@@ -26,12 +26,8 @@
         grid-template-columns: repeat(3, 1fr);
         padding: $sp-1x $sp-1;
 
-        li:not(:first-child) {
-          .wp-block-post-title {
-            a .visually-hidden {
-              display: none;
-            }
-          }
+        li:not(:first-child) .wp-block-post-title a .visually-hidden {
+          display: none;
         }
       }
     }
