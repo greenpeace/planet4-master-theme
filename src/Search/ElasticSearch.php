@@ -7,6 +7,7 @@ namespace P4\MasterTheme\Search;
 class ElasticSearch
 {
     public static ?bool $is_active = null;
+    public static bool $request_is_valid = false;
 
     public static function hooks(): void
     {
@@ -30,6 +31,8 @@ class ElasticSearch
         add_action('ep_valid_response', static function ($response): void {
             SearchPage::$aggregations = $response['aggregations'] ?? [];
             SearchPage::$query_time = $response['took'] ?? null;
+
+            self::$request_is_valid = true;
         }, 1, 10);
 
         // Dequeue Elastic search styles.
@@ -91,6 +94,8 @@ class ElasticSearch
         add_filter('ep_post_mapping', $fix_post_date_mapping, 1, 10);
 
         add_action('ep_invalid_response', static function ($response): void {
+            self::$request_is_valid = false;
+
             if (!function_exists('\Sentry\captureMessage')) {
                 return;
             }
