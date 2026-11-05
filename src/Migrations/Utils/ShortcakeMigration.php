@@ -18,6 +18,18 @@ class ShortcakeMigration
     private const SOURCE_BLOCKS = [null, 'core/shortcode'];
 
     /**
+     * Post meta listing the Shortcake blocks migrated in a post, comma separated.
+     */
+    public const META_KEY = 'shortcake_migration';
+
+    /**
+     * Shortcode tags migrated in the content being processed.
+     *
+     * @var string[]
+     */
+    private static array $migrated_tags = [];
+
+    /**
      * Migrate the posts using some Shortcake blocks.
      *
      * @param string[]             $shortcode_tags The shortcode tags to migrate, from `ShortcakeMappings`.
@@ -44,7 +56,7 @@ class ShortcakeMigration
             try {
                 echo 'Parsing post ', $post->ID, "\n"; // phpcs:ignore
 //echo "==>\n".$post->post_content;
-                $new_content = self::migrate_content($post->post_content, $mappings);
+                $new_content = self::migrate_content($post->post_content, $mappings, $migrated_tags);
 
                 if ($post->post_content === $new_content) {
                     continue;
@@ -66,6 +78,8 @@ class ShortcakeMigration
                     throw new \Exception("Unknown error updating post #" . $post->ID); //NOSONAR
                 }
 
+                self::add_migrated_tags_meta($post->ID, $migrated_tags);
+
                 echo "Migration successful\n";
             } catch (\Throwable $e) {
                 echo "Migration failed for post ID: ", $post->ID, "\n";
@@ -85,17 +99,34 @@ class ShortcakeMigration
      *
      * @param string $content The post content.
      * @param array  $mappings The mappings, keyed by shortcode tag.
+     * @param array  $migrated_tags Set to the shortcode tags migrated in the content.
      * @return string The new content.
      */
-    public static function migrate_content(string $content, array $mappings): string
+    public static function migrate_content(string $content, array $mappings, ?array &$migrated_tags = null): string
     {
         // Content without blocks is rendered with `wpautop()`, content with blocks is not.
         // Keep the classic content rendering the same once blocks are added.
         $autop = !has_blocks($content);
 
+        self::$migrated_tags = [];
         $blocks = self::migrate_blocks(parse_blocks($content), $mappings, $autop, true);
+        $migrated_tags = array_values(array_unique(self::$migrated_tags));
 
         return serialize_blocks($blocks);
+    }
+
+    /**
+     * Add the migrated shortcode tags to the post meta, keeping the ones from previous migrations.
+     *
+     * @param int      $post_id The post ID.
+     * @param string[] $migrated_tags The shortcode tags migrated in the post.
+     */
+    private static function add_migrated_tags_meta(int $post_id, array $migrated_tags): void
+    {
+        $previous_tags = array_filter(explode(',', (string) get_post_meta($post_id, self::META_KEY, true)));
+        $tags = array_unique(array_merge($previous_tags, $migrated_tags));
+
+        update_post_meta($post_id, self::META_KEY, implode(',', $tags));
     }
 
     /**
@@ -200,6 +231,7 @@ class ShortcakeMigration
             $new_blocks[] = self::content_block($block, $before, $autop);
 
             $tag = $match[2][0];
+            self::$migrated_tags[] = $tag;
             $shortcode_attrs = shortcode_parse_atts($match[3][0]);
             $new_blocks[] = self::create_block($mappings[ $tag ], is_array($shortcode_attrs) ? $shortcode_attrs : []);
         }
