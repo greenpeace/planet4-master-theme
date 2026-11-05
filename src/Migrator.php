@@ -71,6 +71,7 @@ use P4\MasterTheme\Migrations\M067EnableGooglePreferredSourceButton;
 use P4\MasterTheme\Migrations\M068EmptyGalleryBlockStaticContent;
 use P4\MasterTheme\Migrations\M069RemoveMandatoryImageAltTextFeature;
 use P4\MasterTheme\Migrations\M0070UpdateCarouselHeaderFirstImage;
+use P4\MasterTheme\Migrations\M0071MigrateShortcakeBlocks;
 
 /**
  * Run any new migration scripts and record results in the log.
@@ -159,6 +160,7 @@ class Migrator
             M068EmptyGalleryBlockStaticContent::class,
             M069RemoveMandatoryImageAltTextFeature::class,
             M0070UpdateCarouselHeaderFirstImage::class,
+            M0071MigrateShortcakeBlocks::class,
         ];
 
         // Loop migrations and run those that haven't run yet.
@@ -171,6 +173,6 @@ class Migrator
             $log->add($record);
         }
 
-        $log->persist();
+        //$log->persist();
     }
 }
