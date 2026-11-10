@@ -96,7 +96,6 @@ export const getPostListBlockTemplate = (title = __('Related Posts', 'planet4-ma
         ['core/group', {layout: {type: 'flex'}}, [
           [TAX_BREADCRUMB_BLOCK_NAME, {
             taxonomy: LISTS_BREADCRUMBS[0].value,
-            post_type: 'posts',
           }],
           ['core/post-terms', {
             term: 'post_tag',

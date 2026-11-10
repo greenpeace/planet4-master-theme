@@ -138,9 +138,11 @@ class Others
                 'api_version' => 3,
                 'render_callback' => function ($attributes, $block) {
                     $post_id = $block->context['postId'] ?? get_the_ID();
+                    $post_type = $block->context['postType'] ?? get_post_type($post_id);
+
                     $options = get_option('planet4_options');
                     $global_taxonomy = $options['global_taxonomy_breadcrumbs'] ?? 'category';
-                    $taxonomy = $attributes['post_type'] === 'p4_action' ? 'category' : $global_taxonomy;
+                    $taxonomy = $post_type === 'p4_action' ? 'category' : $global_taxonomy;
 
                     $terms = get_the_terms($post_id, $taxonomy);
                     if (is_wp_error($terms) || empty($terms)) {
@@ -158,15 +160,11 @@ class Others
                         ) :
                         sprintf('<div class="wp-block-post-terms" aria-hidden="true">%s</div>', esc_html($first->name));
                 },
-                'uses_context' => ['postId'],
+                'uses_context' => ['postId', 'postType'],
                 'attributes' => [
                     'taxonomy' => [
                         'type' => 'string',
                         'default' => 'category',
-                    ],
-                    'post_type' => [
-                        'type' => 'string',
-                        'default' => 'post',
                     ],
                     'isLink' => [
                         'type' => 'boolean',
