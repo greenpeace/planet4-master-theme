@@ -8,7 +8,7 @@ use P4\MasterTheme\MigrationScript;
 /**
  * Update Carousel Header Block first image with a new class name
  */
-class M0070UpdateCarouselHeaderFirstImage extends MigrationScript
+class M070UpdateCarouselHeaderFirstImage extends MigrationScript
 {
     private const FIRST_IMAGE_CLASS = 'carousel-header-image--first';
     private const FIRST_IMAGE_FETCH_PRIORITY = 'fetchpriority="high"';
