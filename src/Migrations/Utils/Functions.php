@@ -220,19 +220,26 @@ class Functions
      * Any small change can affect the way the blocks are rendered and make them stop working.
      *
      * @param string $classname - A CSS classname.
+     * @param string $role - A role for the div (optional).
+     *
      * @return array - The code for the block attributes.
      */
-    public static function generate_html_content(string $classname): array
+    public static function generate_html_content(string $classname, ?string $role = ''): array
     {
-        $html = "
-  <div class=\"$classname\">
+        $div = "<div class=\"$classname\">";
+        if (!empty($role)) {
+            $div = "<div role=\"$role\" class=\"$classname\">";
+        }
+
+        $html = '
+  ' . $div . '
 
   </div>
-  ";
+  ';
 
         $content = [
-            0 => "
-<div class=\"$classname\">",
+            0 => '
+' . $div . '',
             1 => null,
             2 => "
 ",
@@ -803,29 +810,14 @@ class Functions
      */
     public static function create_block_accordion_panel(array $inner_blocks): array
     {
-        $html = '
-  <div role="region" class="wp-block-accordion-panel">
-
-  </div>
-  ';
-
-        $content = [
-            0 => '
-<div role="region" class="wp-block-accordion-panel">',
-            1 => null,
-            2 => "
-",
-            3 => null,
-            4 => '</div>
-',
-        ];
+        $html_content = self::generate_html_content("wp-block-accordion-panel", "region");
 
         return self::create_new_block(
             Constants::BLOCK_ACCORDION_PANEL,
             [],
             $inner_blocks,
-            $html,
-            $content,
+            $html_content['html'],
+            $html_content['content'],
         );
     }
 
@@ -839,29 +831,14 @@ class Functions
      */
     public static function create_block_accordion(string $classname, array $inner_blocks): array
     {
-        $html = '
-  <div role="group" class="wp-block-accordion ' . $classname . '">
-
-  </div>
-  ';
-
-        $content = [
-            0 => '
-<div role="group" class="wp-block-accordion ' . $classname . '">',
-            1 => null,
-            2 => "
-",
-            3 => null,
-            4 => '</div>
-',
-        ];
+        $html_content = self::generate_html_content('wp-block-accordion ' . $classname . '', "group");
 
         return self::create_new_block(
             Constants::BLOCK_ACCORDION,
             ['className' => $classname],
             $inner_blocks,
-            $html,
-            $content,
+            $html_content['html'],
+            $html_content['content'],
         );
     }
 
