@@ -13,7 +13,7 @@ import {__} from '@wordpress/i18n';
  * @return {Array<number|string>} Ordered list of page numbers.
  */
 function getPageNumbers(currentPage, totalPages) {
-  const delta = 2; // how many pages to show around the current page
+  const delta = 1; // how many pages to show around the current page
   const range = [];
   const rangeWithDots = [];
   let last;
