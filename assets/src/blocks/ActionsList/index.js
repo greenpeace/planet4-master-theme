@@ -100,7 +100,6 @@ export const getActionsListBlockTemplate = (title = __('', 'planet4-master-theme
     ['core/group', {className: 'group-stretched-link'}, [
       [TAX_BREADCRUMB_BLOCK_NAME, {
         taxonomy: LISTS_BREADCRUMBS[0].value,
-        post_type: queryPostType,
         isLink: false,
       }],
       ['core/post-title', {isLink: true, level: 3}],

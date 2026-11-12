@@ -18,17 +18,13 @@ export const setupTaxonomyBreadcrumbBlock = () => {
           type: 'string',
           default: LISTS_BREADCRUMBS[0].value,
         },
-        post_type: {
-          type: 'string',
-          default: 'post',
-        },
         isLink: {
           type: 'boolean',
           default: true,
         },
       },
       supports: {html: false},
-      usesContext: ['postId'],
+      usesContext: ['postId', 'postType'],
       edit: editFunction,
       save: saveFunction,
     }
@@ -36,16 +32,27 @@ export const setupTaxonomyBreadcrumbBlock = () => {
 };
 
 function editFunction({attributes, context}) {
-  const {post_type, isLink} = attributes;
-  const postId = context.postId;
+  const {isLink} = attributes;
+  const {postId, postType} = context;
   const [term, setTerm] = wp.element.useState(null);
   const TAXONOMY = window.p4_vars.options.taxonomy_breadcrumbs || null;
 
   wp.element.useEffect(() => {
-    if (!postId || !TAXONOMY || !post_type) {return;}
+    if (!postId || !TAXONOMY || !postType) {return;}
 
-    const postTypeField = post_type === 'post' ? 'posts' : post_type;
-    const taxonomyField = (post_type === 'p4_action') || (TAXONOMY === 'category') ? 'categories' : TAXONOMY;
+    let postTypeField = '';
+
+    if (postType === 'post') {
+      postTypeField = 'posts';
+    }
+    else if (postType === 'page') {
+      postTypeField = 'pages';
+    }
+    else {
+      postTypeField = postType;
+    }
+
+    const taxonomyField = (postType === 'p4_action') || (TAXONOMY === 'category') ? 'categories' : TAXONOMY;
 
     wp.apiFetch({path: `/wp/v2/${postTypeField}/${postId}`}).then(post => {
       const termIds = post[taxonomyField];
