@@ -53,11 +53,9 @@ function PostItem({post}) {
           { categories.length > 0 && (
             <div className="wrapper-post-term">
               <div className="wp-block-post-terms">
-                { categories.map(category => (
-                  <a key={category.id} href={category.link}>
-                    { decodeHtmlEntities(category.name) }
-                  </a>
-                )) }
+                <a key={categories[0].id} href={categories[0].link}>
+                  { decodeHtmlEntities(categories[0].name) }
+                </a>
               </div>
             </div>
           ) }
