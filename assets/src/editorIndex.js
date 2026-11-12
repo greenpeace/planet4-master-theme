@@ -11,7 +11,6 @@ import {addButtonLinkPasteWarning} from './block-editor/addButtonLinkPasteWarnin
 import {addBlockFilters} from './block-editor/BlockFilters';
 import {replaceTaxonomyTermSelectors} from './block-editor/replaceTaxonomyTermSelectors';
 import {setupImageBlockExtension} from './block-editor/setupImageBlockExtension';
-import {setupDetailsBlockExtension} from './block-editor/setupDetailsBlockExtension';
 import {setupTaxonomyBreadcrumbBlock} from './block-editor/setupTaxonomyBreadcrumbBlock';
 
 wp.domReady(() => {
@@ -37,6 +36,5 @@ addButtonLinkPasteWarning();
 addBlockFilters();
 replaceTaxonomyTermSelectors();
 setupImageBlockExtension();
-setupDetailsBlockExtension();
 setupBlockEditorValidations();
 setupTaxonomyBreadcrumbBlock();
