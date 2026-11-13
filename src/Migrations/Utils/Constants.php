@@ -14,6 +14,7 @@ class Constants
     public const POSTS_LIST = 'posts-list';
     public const ACTIONS_LIST = 'actions-list';
 
+    // P4 custom blocks
     public const BLOCK_MEDIA_VIDEO = self::PREFIX_P4_BLOCKS . '/media-video';
     public const BLOCK_COVERS = self::PREFIX_P4_BLOCKS . '/covers';
     public const BLOCK_SPLIT_TWO_COLUMNS = self::PREFIX_P4_BLOCKS . '/split-two-columns';
@@ -25,10 +26,13 @@ class Constants
     public const BLOCK_ARTICLES = self::PREFIX_P4_BLOCKS . '/articles';
     public const ACTION_BUTTON = self::PREFIX_P4_BLOCKS . '/action-button-text';
     public const CAROUSEL_HEADER = self::PREFIX_P4_BLOCKS . '/carousel-header';
+    public const BLOCK_GALLERY = self::PREFIX_P4_BLOCKS . '/gallery';
+    public const P4_ACCORDION_BLOCK = self::PREFIX_P4_BLOCKS . '/accordion';
 
     // P4 Block Templates
     public const BLOCK_TEMPLATE_QUICK_LINKS = self::PREFIX_P4_BLOCK_TEMPLATES . '/quick-links';
 
+    // Wordpress core blocks
     public const BLOCK_EMBED = self::PREFIX_CORE_BLOCKS . '/embed';
     public const BLOCK_AUDIO = self::PREFIX_CORE_BLOCKS . '/audio';
     public const BLOCK_VIDEO = self::PREFIX_CORE_BLOCKS . '/video';
@@ -52,7 +56,10 @@ class Constants
     public const BLOCK_SINGLE_BUTTON = self::PREFIX_CORE_BLOCKS . '/button';
     public const BLOCK_QUERY = self::PREFIX_CORE_BLOCKS . '/query';
     public const BLOCK_IMAGE = self::PREFIX_CORE_BLOCKS . '/image';
-    public const BLOCK_GALLERY = self::PREFIX_P4_BLOCKS . '/gallery';
+    public const BLOCK_ACCORDION = self::PREFIX_CORE_BLOCKS . '/accordion';
+    public const BLOCK_ACCORDION_ITEM = self::PREFIX_CORE_BLOCKS . '/accordion-item';
+    public const BLOCK_ACCORDION_HEADING = self::PREFIX_CORE_BLOCKS . '/accordion-heading';
+    public const BLOCK_ACCORDION_PANEL = self::PREFIX_CORE_BLOCKS . '/accordion-panel';
 
     public const P4_OTHER_BLOCKS = [
         'breadcrumb' => 'p4/taxonomy-breadcrumb',
