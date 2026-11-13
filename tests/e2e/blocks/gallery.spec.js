@@ -54,7 +54,7 @@ const addGalleryAndCheckFrontend = async ({page, admin, editor}, pageTitle, butt
   // Images are loading="lazy", so scroll them into view and confirm they decode:
   for (let i = 0; i < 3; i++) {
     const img = images.nth(i);
-    await expect(img).toHaveAttribute('src', /\.(jpe?g|png|webp|gif|avif)/i);
+    await expect(img).toHaveAttribute('src', /\.(jpe?g|png|webp|gif|avif|ico)/i);
     await expect(img).toHaveAttribute('srcset', /\d+w/);
     await img.scrollIntoViewIfNeeded();
     await expect
