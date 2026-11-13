@@ -77,7 +77,11 @@ class SearchPage
             // Translators: %s = number of results per page.
             'button_text' => sprintf(__('Show %s more results', 'planet4-master-theme'), self::POSTS_PER_LOAD),
         ];
-        $this->context['has_aggregation'] = ElasticSearch::is_active() && ElasticSearch::facets_is_active();
+
+        $this->context['has_aggregation'] =
+            ElasticSearch::is_active()
+            && ElasticSearch::facets_is_active()
+            && ElasticSearch::$request_is_valid;
     }
 
     /**
