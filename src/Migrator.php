@@ -168,11 +168,11 @@ class Migrator
             M070UpdateCarouselHeaderFirstImage::class,
             M071MigrateAccordionBlock::class,
             M069MigrateHeadingOfPatterns::class,
-            M069MigrateQuickLinksPattern::class,
             M070MigrateIssuesPattern::class,
             M071MigrateDeepDivePattern::class,
             M072MigrateHighlightedCtaPattern::class,
             M073MigrateRealityCheckPattern::class,
+            M074MigrateQuickLinksPattern::class,
         ];
 
         // Loop migrations and run those that haven't run yet.
