@@ -130,6 +130,28 @@ export const setupQueryLoopCarousel = () => {
         totalCarouselItems = 0;
 
       posts.forEach((post, index) => {
+
+        if (isActionsList) {
+          const cardImage = post.querySelector('.wp-block-post-featured-image img');
+          if (cardImage) {
+            cardImage.setAttribute('aria-hidden', 'true');
+          }
+
+          const cardTitle = post.querySelector('.wp-block-post-title');
+          if (cardTitle) {
+            const hiddenText = document.createElement('span');
+            hiddenText.classList.add('visually-hidden');
+            hiddenText.innerHTML = sprintf(
+            /* translators: 1: current slide number. 2: total of slides */
+              __('Action %1$d of %2$d', 'planet4-master-theme'),
+              index + 1,
+              posts.length
+            );
+
+            cardTitle.querySelector('a').append(hiddenText);
+          }
+        }
+
         if (index % itemsPerSlide === 0) {
           // Add a reset link that is only accessible via JS.
           // Only for the Posts List block, not Actions List.
@@ -212,10 +234,10 @@ export const setupQueryLoopCarousel = () => {
 
                 if (announcement) {
                   announcement.innerText = sprintf(
-                    /* translators: 1: current slide number, 2: total amount of slides */
-                    __('Slide %1$d from %2$d', 'planet4-master-theme'),
-                    slideIndex + 1,
-                    slides
+                    /* translators: 1: total of cards, 2: total of slides */
+                    __('Total %1$d Actions in %2$d slides.', 'planet4-master-theme'),
+                    posts.length,
+                    slides[slideIndex].querySelectorAll('.wp-block-post').length
                   );
                 }
 
