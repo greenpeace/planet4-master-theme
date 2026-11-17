@@ -990,48 +990,50 @@ class Functions
         string $heading_placeholder = 'Enter title',
     ): array {
         foreach ($blocks as &$block) {
+            // Process inner blocks first, so headings nested in containers are reached.
+            if (!empty($block['innerBlocks']) && is_array($block['innerBlocks'])) {
+                $block['innerBlocks'] = self::transform_heading_levels(
+                    $block['innerBlocks'],
+                    $to_heading_level,
+                    $to_subheading_level,
+                    $subheading_placeholder,
+                    $heading_placeholder
+                );
+            }
+
             $blockName = $block['blockName'] ?? null;
             $attrsPlaceholder = $block['attrs']['placeholder'] ?? null;
 
-            if (!isset($blockName) || $blockName !== 'core/heading' || !isset($placeholder)) {
+            if ($blockName !== 'core/heading' || !is_string($attrsPlaceholder)) {
                 continue;
             }
 
             $attrsLevel = $block['attrs']['level'] ?? 2;
+            $placeholder = strtolower($attrsPlaceholder);
 
             // Check for heading
             if (
                 isset($to_heading_level) &&
-                strtolower($attrsPlaceholder) === strtolower($heading_placeholder) &&
+                $placeholder === strtolower($heading_placeholder) &&
                 $attrsLevel !== $to_heading_level
             ) {
-                $from_heading_level = $attrsLevel;
-                self::replace_heading_level($block, $from_heading_level, $to_heading_level);
+                self::replace_heading_level($block, $attrsLevel, $to_heading_level);
+                continue;
             }
 
             // Check for subheading
             if (
-                isset($to_subheading_level) &&
-                isset($subheading_placeholder) &&
-                strtolower($attrsPlaceholder) === strtolower($subheading_placeholder) &&
-                $attrsLevel !== $to_subheading_level
+                !isset($to_subheading_level, $subheading_placeholder) ||
+                $placeholder !== strtolower($subheading_placeholder) ||
+                $attrsLevel === $to_subheading_level
             ) {
-                $from_subheading_level = $attrsLevel;
-                self::replace_heading_level($block, $from_subheading_level, $to_subheading_level);
-            }
-
-            if (empty($block['innerBlocks'])) {
                 continue;
             }
 
-            $block['innerBlocks'] = self::transform_heading_levels(
-                $block['innerBlocks'],
-                $to_heading_level,
-                $to_subheading_level,
-                $subheading_placeholder,
-                $heading_placeholder
-            );
+            self::replace_heading_level($block, $attrsLevel, $to_subheading_level);
         }
+
+        unset($block);
 
         return $blocks;
     }
