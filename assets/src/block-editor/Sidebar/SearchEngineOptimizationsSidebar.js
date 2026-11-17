@@ -2,7 +2,7 @@ import {URLInput} from '../URLInput/URLInput';
 
 const {PluginDocumentSettingPanel} = wp.editor;
 const {useDispatch, useSelect} = wp.data;
-const {__} = wp.i18n;
+const {__, sprintf} = wp.i18n;
 const {TextControl, TextareaControl, ExternalLink} = wp.components;
 const {createInterpolateElement, useMemo} = wp.element;
 
@@ -90,7 +90,14 @@ export const SearchEngineOptimizationsSidebar = {
             onChange={value => editPost({meta: {[META_TITLE]: value}})}
             help={<>
               <div className="serp-help__textcontrol">
-                <div>{__('Recommended: 50–60 characters', 'planet4-master-theme-backend')}</div>
+                <div>
+                  {sprintf(
+                  // translators: %1$d and %2$d are the lower and upper character-count limits.
+                    __('Recommended: %1$d–%2$d characters', 'planet4-master-theme'),
+                    TITLE_MAX - 10,
+                    TITLE_MAX
+                  )}
+                </div>
                 <div>{titleLength}/<strong>{TITLE_MAX}</strong></div>
               </div>
             </>}
@@ -106,7 +113,14 @@ export const SearchEngineOptimizationsSidebar = {
             onChange={value => editPost({meta: {[META_DESCRIPTION]: value}})}
             help={<>
               <div className="serp-help__textcontrol">
-                <div>{__('Recommended: 120–160 characters', 'planet4-master-theme-backend')}</div>
+                <div>
+                  {sprintf(
+                  // translators: %1$d and %2$d are the lower and upper character-count limits.
+                    __('Recommended: %1$d–%2$d characters', 'planet4-master-theme'),
+                    DESCRIPTION_MAX - 40,
+                    DESCRIPTION_MAX
+                  )}
+                </div>
                 <div>{descriptionLength}/<strong>{DESCRIPTION_MAX}</strong></div>
               </div>
             </>}
