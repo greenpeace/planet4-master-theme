@@ -58,15 +58,41 @@ class M072MigrateHighlightedCtaPattern extends MigrationScript
         unset($block['attrs']['current_post_id']);
 
         if (!empty($block['innerBlocks']) && is_array($block['innerBlocks'])) {
-            $block['innerBlocks'] = Utils\Functions::transform_heading_levels(
-                $block['innerBlocks'],
-                2,
-                null,
-                null,
-                __('Enter text', 'planet4-master-theme-backend'),
-            );
+            $block['innerBlocks'] = self::transform_headings($block['innerBlocks']);
         }
 
         return $block;
+    }
+
+    /**
+     * Modigfy heading level in block.
+     * Change level 3 to 2.
+     *
+     * @param array $blocks - block data array.
+     * @return array - The transformed blocks.
+     */
+    private static function transform_headings(array $blocks): array
+    {
+        foreach ($blocks as &$block) {
+            if (!empty($block['innerBlocks']) && is_array($block['innerBlocks'])) {
+                $block['innerBlocks'] = self::transform_headings($block['innerBlocks']);
+            }
+
+            if (($block['blockName'] ?? null) !== 'core/heading') {
+                continue;
+            }
+
+            if (($block['attrs']['level'] ?? 2) !== 3) {
+                continue;
+            }
+
+            Utils\Functions::replace_heading_level($block, 3, 2);
+
+            unset($block['attrs']['level']);
+        }
+
+        unset($block);
+
+        return $blocks;
     }
 }
