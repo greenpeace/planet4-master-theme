@@ -64,6 +64,13 @@ class M075MigrateIssuesPattern extends MigrationScript
                 3,
                 __('Enter text', 'planet4-master-theme-backend'),
             );
+
+            // Render the items to a list of links i.e. <ul><li><a>.
+            $block['innerBlocks'] = Utils\Functions::mark_pattern_lists(
+                $block['innerBlocks'],
+                fn (array $inner_block) => $inner_block['blockName'] === Utils\Constants::BLOCK_GROUP &&
+                    str_contains($inner_block['attrs']['className'] ?? '', 'is-style-space-evenly'),
+            );
         }
 
         return $block;
