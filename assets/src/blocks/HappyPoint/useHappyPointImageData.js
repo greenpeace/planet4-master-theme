@@ -16,7 +16,7 @@ export const useHappyPointImageData = imageId => {
 
         const baseUrl = document.body.dataset.nro;
 
-        const data = baseUrl ?
+        const {data} = baseUrl ?
           await fetchJson(`${baseUrl}/wp-json/${addQueryArgs('planet4/v1/get-happypoint-data', args)}`) :
           await apiFetch({path: addQueryArgs('planet4/v1/get-happypoint-data', args)});
 
