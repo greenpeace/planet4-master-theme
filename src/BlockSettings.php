@@ -26,7 +26,6 @@ class BlockSettings
     private const GRAVITY_FORMS_BLOCK = 'gravityforms/form';
 
     private const POST_BLOCK_TYPES = [
-        self::P4_BLOCKS_PREFIX . '/accordion',
         self::P4_BLOCKS_PREFIX . '/counter',
         self::P4_BLOCKS_PREFIX . '/gallery',
         self::P4_BLOCKS_PREFIX . '/social-media',
@@ -39,7 +38,6 @@ class BlockSettings
     ];
 
     private const PAGE_BLOCK_TYPES = [
-        self::P4_BLOCKS_PREFIX . '/accordion',
         self::P4_BLOCKS_PREFIX . '/carousel-header',
         self::P4_BLOCKS_PREFIX . '/columns',
         self::P4_BLOCKS_PREFIX . '/cookies',
@@ -57,7 +55,6 @@ class BlockSettings
     ];
 
     private const CAMPAIGN_BLOCK_TYPES = [
-        self::P4_BLOCKS_PREFIX . '/accordion',
         self::P4_BLOCKS_PREFIX . '/carousel-header',
         self::P4_BLOCKS_PREFIX . '/columns',
         self::P4_BLOCKS_PREFIX . '/cookies',
@@ -72,7 +69,6 @@ class BlockSettings
     ];
 
     private const ACTION_BLOCK_TYPES = [
-        self::P4_BLOCKS_PREFIX . '/accordion',
         self::P4_BLOCKS_PREFIX . '/carousel-header',
         self::P4_BLOCKS_PREFIX . '/columns',
         self::P4_BLOCKS_PREFIX . '/cookies',
@@ -110,6 +106,7 @@ class BlockSettings
 
     // https://github.com/WordPress/gutenberg/blob/trunk/lib/blocks.php.
     private const WORDPRESS_BLOCKS = [
+        self::CORE_BLOCKS_PREFIX . '/accordion',
         self::CORE_BLOCKS_PREFIX . '/audio',
         self::CORE_BLOCKS_PREFIX . '/video',
         self::CORE_BLOCKS_PREFIX . '/block',

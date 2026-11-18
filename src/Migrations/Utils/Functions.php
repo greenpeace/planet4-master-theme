@@ -220,19 +220,26 @@ class Functions
      * Any small change can affect the way the blocks are rendered and make them stop working.
      *
      * @param string $classname - A CSS classname.
+     * @param string $role - A role for the div (optional).
+     *
      * @return array - The code for the block attributes.
      */
-    public static function generate_html_content(string $classname): array
+    public static function generate_html_content(string $classname, ?string $role = ''): array
     {
-        $html = "
-  <div class=\"$classname\">
+        $div = "<div class=\"$classname\">";
+        if (!empty($role)) {
+            $div = "<div role=\"$role\" class=\"$classname\">";
+        }
+
+        $html = '
+  ' . $div . '
 
   </div>
-  ";
+  ';
 
         $content = [
-            0 => "
-<div class=\"$classname\">",
+            0 => '
+' . $div . '',
             1 => null,
             2 => "
 ",
@@ -283,7 +290,8 @@ class Functions
     public static function create_block_heading(array $attrs, string $text): array
     {
         $level = isset($attrs['level']) ? strval($attrs['level']) : '2';
-        $html = '<h' . $level . ' class="wp-block-heading">';
+        $classname = $attrs['className'] ?? '';
+        $html = '<h' . $level . ' class="wp-block-heading ' . $classname . '">';
         $html .= $text;
         $html .= '</h' . $level . '>';
 
@@ -314,7 +322,10 @@ class Functions
             'style="margin-top: ' . $margin['top'] . '; margin-bottom: ' . $margin['bottom'] . ';"' :
             '';
 
-        $html = '<p ' . $styles . '>' . $content . '</p>';
+        $classname = isset($attrs['className']) ?
+            'class="' . $attrs['className'] . '"' : '';
+
+        $html = '<p ' . $classname . $styles . '>' . $content . '</p>';
 
         return self::create_new_block(
             Constants::BLOCK_PARAGRAPH,
@@ -393,10 +404,16 @@ class Functions
      * @param array $attrs - The attributes of the block.
      * @param string $text - The button label.
      * @param string|null $link - The button link (optional).
+     * @param bool $new_tab - If the button opens in a new tab (optional).
+     *
      * @return array - The new button block.
      */
-    public static function create_block_single_button(array $attrs, string $text, ?string $link = null): array
-    {
+    public static function create_block_single_button(
+        array $attrs,
+        string $text,
+        ?string $link = null,
+        ?bool $new_tab = false,
+    ): array {
         $classname = isset($attrs['className']) ? $attrs['className'] : '';
         $is_button = isset($attrs['tagName']) && $attrs['tagName'] === 'button';
 
@@ -410,8 +427,9 @@ class Functions
             <div class="wp-block-button ' . $classname . '"><a class="wp-block-button__link wp-element-button">' . $text . '</a></div>
         ';
         } else {
+            $target = $new_tab ? 'target="_blank" rel="noopener"' : 'target="_self"';
             $html = '
-            <div class="wp-block-button ' . $classname . '"><a target="_self" href="' . $link . '" class="wp-block-button__link wp-element-button">' . $text . '</a></div>
+            <div class="wp-block-button ' . $classname . '"><a ' . $target . ' href="' . $link . '" class="wp-block-button__link wp-element-button">' . $text . '</a></div>
         ';
         }
         // phpcs:enable Generic.Files.LineLength.MaxExceeded
@@ -736,6 +754,91 @@ class Functions
             $inner_blocks,
             $html,
             $content,
+        );
+    }
+
+    /**
+     * Create a new Accordion Heading block.
+     *
+     * @param string $text - The heading text.
+     * @return array - The new Accordion Heading block.
+     */
+    public static function create_block_accordion_heading(string $text): array
+    {
+        $html = '<h3 class="wp-block-accordion-heading has-icon has-icon-right">
+            <button type="button" class="wp-block-accordion-heading__toggle">
+                <span class="wp-block-accordion-heading__toggle-title">' . $text . '</span>
+                <span class="wp-block-accordion-heading__toggle-icon" aria-hidden="true">+</span>
+            </button>
+        </h3>';
+
+        return self::create_new_block(
+            Constants::BLOCK_ACCORDION_HEADING,
+            [],
+            [],
+            $html,
+            [$html]
+        );
+    }
+
+    /**
+     * Create a new Accordion Item block.
+     *
+     * @param array $inner_blocks - The inner blocks.
+     *
+     * @return array - The new Accordion Item block.
+     */
+    public static function create_block_accordion_item(array $inner_blocks): array
+    {
+        $html_content = self::generate_html_content("wp-block-accordion-item");
+
+        return self::create_new_block(
+            Constants::BLOCK_ACCORDION_ITEM,
+            [],
+            $inner_blocks,
+            $html_content['html'],
+            $html_content['content'],
+        );
+    }
+
+    /**
+     * Create a new Accordion Panel block.
+     *
+     * @param array $inner_blocks - The inner blocks.
+     *
+     * @return array - The new Accordion Panel block.
+     */
+    public static function create_block_accordion_panel(array $inner_blocks): array
+    {
+        $html_content = self::generate_html_content("wp-block-accordion-panel", "region");
+
+        return self::create_new_block(
+            Constants::BLOCK_ACCORDION_PANEL,
+            [],
+            $inner_blocks,
+            $html_content['html'],
+            $html_content['content'],
+        );
+    }
+
+    /**
+     * Create a new core Accordion block.
+     *
+     * @param array $classname - The classname, used for the style.
+     * @param array $inner_blocks - The inner blocks.
+     *
+     * @return array - The new Accordion block.
+     */
+    public static function create_block_accordion(string $classname, array $inner_blocks): array
+    {
+        $html_content = self::generate_html_content('wp-block-accordion ' . $classname . '', "group");
+
+        return self::create_new_block(
+            Constants::BLOCK_ACCORDION,
+            ['className' => $classname],
+            $inner_blocks,
+            $html_content['html'],
+            $html_content['content'],
         );
     }
 
