@@ -16,11 +16,13 @@ export const useHappyPointImageData = imageId => {
 
         const baseUrl = document.body.dataset.nro;
 
-        const {data} = baseUrl ?
-          await fetchJson(`${baseUrl}/wp-json/${addQueryArgs('planet4/v1/get-happypoint-data', args)}`) :
-          await apiFetch({path: addQueryArgs('planet4/v1/get-happypoint-data', args)});
-
-        setImageData(data);
+        if (baseUrl) {
+          const {data} = await fetchJson(`${baseUrl}/wp-json/${addQueryArgs('planet4/v1/get-happypoint-data', args)}`);
+          setImageData(data);
+        } else {
+          const data = await apiFetch({path: addQueryArgs('planet4/v1/get-happypoint-data', args)});
+          setImageData(data);
+        }
       } catch (e) {
         // eslint-disable-next-line no-console
         console.log(e);
