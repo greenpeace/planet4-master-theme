@@ -58,14 +58,63 @@ class M074MigrateQuickLinksPattern extends MigrationScript
         unset($block['attrs']['current_post_id']);
 
         if (!empty($block['innerBlocks']) && is_array($block['innerBlocks'])) {
-            $block['innerBlocks'] = Utils\Functions::transform_heading_levels(
+            $block['innerBlocks'] = self::transform_headings($block['innerBlocks']);
+
+            // Render the items as a list of links (<ul><li><a>).
+            $block['innerBlocks'] = Utils\Functions::mark_pattern_lists(
                 $block['innerBlocks'],
-                2,
-                3,
-                __('Category', 'planet4-master-theme-backend'),
+                fn (array $inner_block) => $inner_block['blockName'] === Utils\Constants::BLOCK_COLUMNS,
             );
         }
 
         return $block;
+    }
+
+    /**
+     * Fix the heading levels of the pattern.
+     *
+     * - Block title <h4> to <h2>.
+     * - Item titles <h5> to <h3> which the same as the current pattern template.
+     *
+     * @param array $blocks - A list of block data arrays.
+     * @param bool $in_columns - Whether the blocks are inside the items columns.
+     * @return array - The transformed blocks.
+     */
+    private static function transform_headings(array $blocks, bool $in_columns = false): array
+    {
+        foreach ($blocks as &$block) {
+            $block_name = $block['blockName'] ?? null;
+
+            if (!empty($block['innerBlocks']) && is_array($block['innerBlocks'])) {
+                $block['innerBlocks'] = self::transform_headings(
+                    $block['innerBlocks'],
+                    $in_columns || $block_name === 'core/columns'
+                );
+            }
+
+            if ($block_name !== 'core/heading') {
+                continue;
+            }
+
+            $level = $block['attrs']['level'] ?? 2;
+
+            if (!$in_columns && $level === 4) {
+                Utils\Functions::replace_heading_level($block, 4, 2);
+
+                // Level 2 is the default for core/heading, so the editor doesn't store it.
+                unset($block['attrs']['level']);
+                continue;
+            }
+
+            if (!$in_columns || $level !== 5) {
+                continue;
+            }
+
+            Utils\Functions::replace_heading_level($block, 5, 3);
+        }
+
+        unset($block);
+
+        return $blocks;
     }
 }
