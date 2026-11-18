@@ -3,6 +3,8 @@
 namespace P4\MasterTheme\Migrations\Utils;
 
 use WP_Block_Parser;
+use WP_HTML_Tag_Processor;
+use P4\MasterTheme\Blocks\PatternList;
 use P4\MasterTheme\ReportSearch\BlockReportSearch\BlockSearch;
 use P4\MasterTheme\ReportSearch\PatternReportSearch\PatternSearch;
 use P4\MasterTheme\ReportSearch\BlockReportSearch\Query\Parameters as BlockParameters;
@@ -974,7 +976,125 @@ class Functions
     }
 
     /**
-     * Check wheter is a heading block into a pattern
+     * Mark the lists of a pattern.
+     *
+     * @param array $blocks - A list of block data arrays.
+     * @param callable $is_list - Callback to check if a block is the list of the pattern.
+     * @return array - The transformed blocks.
+     */
+    public static function mark_pattern_lists(array $blocks, callable $is_list): array
+    {
+        foreach ($blocks as &$block) {
+            if (!empty($block['blockName']) && $is_list($block)) {
+                $block = self::mark_pattern_list($block);
+                continue;
+            }
+
+            if (empty($block['innerBlocks']) || !is_array($block['innerBlocks'])) {
+                continue;
+            }
+
+            $block['innerBlocks'] = self::mark_pattern_lists($block['innerBlocks'], $is_list);
+        }
+
+        unset($block);
+
+        return $blocks;
+    }
+
+    /**
+     * Mark a list block and its items inside.
+     *
+     * @param array $list - The list block data array.
+     * @return array - The transformed block.
+     */
+    private static function mark_pattern_list(array $list): array
+    {
+        $list = self::add_class_to_block($list, PatternList::LIST_CLASS);
+
+        foreach ($list['innerBlocks'] as &$item) {
+            if (empty($item['blockName'])) {
+                continue;
+            }
+
+            $item = self::add_class_to_block($item, PatternList::ITEM_CLASS);
+
+            if ($item['blockName'] === Constants::BLOCK_GROUP) {
+                $item = self::add_class_to_block($item, PatternList::LINK_CLASS);
+                continue;
+            }
+
+            foreach ($item['innerBlocks'] as &$inner_block) {
+                if (($inner_block['blockName'] ?? null) !== Constants::BLOCK_GROUP) {
+                    continue;
+                }
+
+                $inner_block = self::add_class_to_block($inner_block, PatternList::LINK_CLASS);
+                break;
+            }
+            unset($inner_block);
+        }
+
+        unset($item);
+
+        return $list;
+    }
+
+    /**
+     * Add a class to a block, in its attributes and in its saved HTML.
+     *
+     * @param array $block - A block data array.
+     * @param string $class_name - The class to add.
+     * @return array - The transformed block.
+     */
+    public static function add_class_to_block(array $block, string $class_name): array
+    {
+        $classes = preg_split('/\s+/', trim($block['attrs']['className'] ?? ''), -1, PREG_SPLIT_NO_EMPTY);
+
+        if (in_array($class_name, $classes, true)) {
+            return $block;
+        }
+
+        $classes[] = $class_name;
+        $block['attrs']['className'] = implode(' ', $classes);
+
+        $block['innerHTML'] = self::add_class_to_first_tag($block['innerHTML'] ?? '', $class_name);
+
+        foreach ($block['innerContent'] ?? [] as $index => $content) {
+            if (!is_string($content) || trim($content) === '') {
+                continue;
+            }
+
+            $block['innerContent'][$index] = self::add_class_to_first_tag($content, $class_name);
+            break;
+        }
+
+        return $block;
+    }
+
+    /**
+     * Add a class to the first tag of an HTML string.
+     *
+     * @param string $html - The HTML.
+     * @param string $class_name - The class to add.
+     * @return string - The updated HTML.
+     */
+    private static function add_class_to_first_tag(string $html, string $class_name): string
+    {
+        $processor = new WP_HTML_Tag_Processor($html);
+
+        if (!$processor->next_tag()) {
+            return $html;
+        }
+
+        $processor->add_class($class_name);
+
+        return $processor->get_updated_html();
+    }
+
+    /**
+     * Check whenever is a heading block into a pattern.
+     *
      * @param array $block - A block data array.
      * @param int|null $to_heading_level - The level to replace.
      * @param int|null $to_subheading_level - The level to replace.
