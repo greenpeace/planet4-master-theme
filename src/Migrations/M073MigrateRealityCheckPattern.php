@@ -50,44 +50,63 @@ class M073MigrateRealityCheckPattern extends MigrationScript
     /**
      * Transform the blocks.
      *
+     * Add a visually hidden section heading at the start of the pattern,
+     * the same as we added by the current pattern template.
+     *
      * @param array $block - A block data array.
      * @return array - The transformed block.
      */
     private static function transform_block(array $block): array
     {
-        $visually_hidden_heading = [
-            'blockName' => 'core/heading',
-            'attrs' => [
-                'level' => 2 ,
-                'className' => 'visually-hidden',
-            ],
-            'innerHTML' => '<h2>Reality check</h2>',
-            'innerContent' => ['<h2>Reality check</h2>'],
-        ];
+        unset($block['attrs']['current_post_id']);
 
-        $has_visually_hidden = false;
-        foreach ($block['innerBlocks'] as $inner_block) {
-            if (
-                isset($inner_block['blockName']) &&
-                $inner_block['blockName'] === 'core/heading' &&
-                isset($inner_block['attrs']['className']) &&
-                str_contains($inner_block['attrs']['className'], 'visually-hidden') // Checks if class is present
-            ) {
-                $has_visually_hidden = true;
-                break;
-            }
+        $inner_blocks = is_array($block['innerBlocks'] ?? null) ? $block['innerBlocks'] : [];
+
+        if (self::has_visually_hidden_heading($inner_blocks)) {
+            return $block;
         }
 
-        if (!$has_visually_hidden) {
-            array_unshift($block['innerBlocks'], $visually_hidden_heading);
+        $heading = Utils\Functions::create_block_heading(
+            ['className' => 'visually-hidden'],
+            esc_html__('Reality check', 'planet4-master-theme-backend'),
+        );
 
-            if (count($block['innerContent']) > 0 && is_string($block['innerContent'][0])) {
-                array_splice($block['innerContent'], 1, 0, [null]);
-            } else {
-                array_unshift($block['innerContent'], null);
-            }
+        array_unshift($inner_blocks, $heading);
+        $block['innerBlocks'] = $inner_blocks;
+
+        $inner_content = is_array($block['innerContent'] ?? null) ? $block['innerContent'] : [];
+        $first_placeholder = array_search(null, $inner_content, true);
+
+        if ($first_placeholder === false) {
+            $inner_content[] = null;
+        } else {
+            array_splice($inner_content, $first_placeholder, 0, [null, "\n\n"]);
         }
+
+        $block['innerContent'] = $inner_content;
 
         return $block;
+    }
+
+    /**
+     * Check when the pattern already has a visually hidden heading.
+     *
+     * @param array $blocks - The inner blocks of the pattern.
+     */
+    private static function has_visually_hidden_heading(array $blocks): bool
+    {
+        foreach ($blocks as $inner_block) {
+            if (($inner_block['blockName'] ?? null) !== Utils\Constants::BLOCK_HEADING) {
+                continue;
+            }
+
+            $classes = preg_split('/\s+/', trim($inner_block['attrs']['className'] ?? ''));
+
+            if (in_array('visually-hidden', $classes, true)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
