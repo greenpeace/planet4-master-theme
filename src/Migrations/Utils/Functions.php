@@ -1044,28 +1044,28 @@ class Functions
      * Add a class to a block, in its attributes and in its saved HTML.
      *
      * @param array $block - A block data array.
-     * @param string $class_name - The class to add.
+     * @param string $classname - The class to add.
      * @return array - The transformed block.
      */
-    public static function add_class_to_block(array $block, string $class_name): array
+    public static function add_class_to_block(array $block, string $classname): array
     {
         $classes = preg_split('/\s+/', trim($block['attrs']['className'] ?? ''), -1, PREG_SPLIT_NO_EMPTY);
 
-        if (in_array($class_name, $classes, true)) {
+        if (in_array($classname, $classes, true)) {
             return $block;
         }
 
-        $classes[] = $class_name;
+        $classes[] = $classname;
         $block['attrs']['className'] = implode(' ', $classes);
 
-        $block['innerHTML'] = self::add_class_to_first_tag($block['innerHTML'] ?? '', $class_name);
+        $block['innerHTML'] = self::add_class_to_first_tag($block['innerHTML'] ?? '', $classname);
 
         foreach ($block['innerContent'] ?? [] as $index => $content) {
             if (!is_string($content) || trim($content) === '') {
                 continue;
             }
 
-            $block['innerContent'][$index] = self::add_class_to_first_tag($content, $class_name);
+            $block['innerContent'][$index] = self::add_class_to_first_tag($content, $classname);
             break;
         }
 
@@ -1076,10 +1076,10 @@ class Functions
      * Add a class to the first tag of an HTML string.
      *
      * @param string $html - The HTML.
-     * @param string $class_name - The class to add.
+     * @param string $classname - The class to add.
      * @return string - The updated HTML.
      */
-    private static function add_class_to_first_tag(string $html, string $class_name): string
+    private static function add_class_to_first_tag(string $html, string $classname): string
     {
         $processor = new WP_HTML_Tag_Processor($html);
 
@@ -1087,7 +1087,7 @@ class Functions
             return $html;
         }
 
-        $processor->add_class($class_name);
+        $processor->add_class($classname);
 
         return $processor->get_updated_html();
     }
