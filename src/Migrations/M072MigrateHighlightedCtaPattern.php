@@ -82,7 +82,7 @@ class M072MigrateHighlightedCtaPattern extends MigrationScript
                 continue;
             }
 
-            if (($block['attrs']['level'] ?? 2) !== 3) {
+            if ((int) ($block['attrs']['level'] ?? 2) !== 3) {
                 continue;
             }
 
