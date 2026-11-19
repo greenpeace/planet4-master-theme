@@ -1173,21 +1173,13 @@ class Functions
             '<h' . $to_heading_level,
             $block['innerHTML']
         );
-        $block['innerHTML'] = str_replace(
-            '</h' . $from_heading_level . '>',
-            '</h' . $to_heading_level . '>',
-            $block['innerHTML']
-        );
+
         $block['innerContent'][0] = str_replace(
             '<h' . $from_heading_level,
             '<h' . $to_heading_level,
             $block['innerContent'][0]
         );
-        $block['innerContent'][0] = str_replace(
-            '</h' . $from_heading_level . '>',
-            '</h' . $to_heading_level . '>',
-            $block['innerContent'][0]
-        );
+
         return $block;
     }
 }
