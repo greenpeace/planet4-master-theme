@@ -9,14 +9,13 @@ use WP_HTML_Tag_Processor;
 /**
  * Renders the items of some block patterns as a list of links.
  *  This is mostly applied to Issues, Deep Dive and Quick Links
- * Editors get usual blocks (groups, columns, images, headings)
  */
 class PatternList
 {
     public const LIST_CLASS = 'pattern-list';
-    public const ITEM_CLASS = 'pattern-list-item';
-    public const LINK_CLASS = 'pattern-list-link';
-    public const TITLE_CLASS = 'pattern-list-title';
+    public const ITEM_CLASS = self::LIST_CLASS . '-item';
+    public const LINK_CLASS = self::LIST_CLASS . '-link';
+    public const TITLE_CLASS = self::LIST_CLASS . '-title';
 
     /**
      * Register the hooks.
@@ -38,14 +37,14 @@ class PatternList
      */
     public static function render(string $html, array $block): string
     {
-        $class_name = $block['attrs']['className'] ?? '';
+        $classname = $block['attrs']['className'] ?? '';
 
-        if (!is_string($class_name) || !str_contains($class_name, self::LIST_CLASS)) {
+        if (!is_string($classname) || !str_contains($classname, self::LIST_CLASS)) {
             return $html;
         }
 
         // Check if the class name is present into the block
-        $classes = preg_split('/\s+/', trim($class_name));
+        $classes = preg_split('/\s+/', trim($classname));
         $is_link = in_array(self::LINK_CLASS, $classes, true);
         $is_item = in_array(self::ITEM_CLASS, $classes, true);
         $is_list = in_array(self::LIST_CLASS, $classes, true);
@@ -163,17 +162,17 @@ class PatternList
      * Add a class to the wrapper element of the block.
      *
      * @param string $html The block content.
-     * @param string $class_name The class to add.
+     * @param string $classname The class to add.
      * @return string The block content.
      */
-    private static function add_wrapper_class(string $html, string $class_name): string
+    private static function add_wrapper_class(string $html, string $classname): string
     {
         $processor = new WP_HTML_Tag_Processor($html);
 
         if (!$processor->next_tag()) {
             return $html;
         }
-        $processor->add_class($class_name);
+        $processor->add_class($classname);
 
         return $processor->get_updated_html();
     }
