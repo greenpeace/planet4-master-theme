@@ -1168,17 +1168,26 @@ class Functions
     public static function replace_heading_level(array &$block, int $from_heading_level, int $to_heading_level): array
     {
         $block['attrs']['level'] = $to_heading_level;
-        $block['innerHTML'] = str_replace(
-            '<h' . $from_heading_level,
-            '<h' . $to_heading_level,
-            $block['innerHTML']
-        );
 
-        $block['innerContent'][0] = str_replace(
-            '<h' . $from_heading_level,
+        // Replace both heading levels. The open and close tags.
+        $patterns = [
+            '/<h' . $from_heading_level . '\b/i',
+            '/<\/h' . $from_heading_level . '>/i',
+        ];
+        $replacements = [
             '<h' . $to_heading_level,
-            $block['innerContent'][0]
-        );
+            '</h' . $to_heading_level . '>',
+        ];
+
+        $block['innerHTML'] = preg_replace($patterns, $replacements, $block['innerHTML'] ?? '') ?? $block['innerHTML'];
+
+        if (isset($block['innerContent'][0]) && is_string($block['innerContent'][0])) {
+            $block['innerContent'][0] = preg_replace(
+                $patterns,
+                $replacements,
+                $block['innerContent'][0]
+            ) ?? $block['innerContent'][0];
+        }
 
         return $block;
     }
