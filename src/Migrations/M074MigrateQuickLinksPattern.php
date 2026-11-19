@@ -101,16 +101,10 @@ class M074MigrateQuickLinksPattern extends MigrationScript
             if (!$in_columns && $level === 4) {
                 Utils\Functions::replace_heading_level($block, 4, 2);
 
-                // Level 2 is the default for core/heading, so the editor doesn't store it.
+                // Level 2 is the default for core/heading, so the editor doesn't stores it.
                 unset($block['attrs']['level']);
                 continue;
             }
-
-            if (!$in_columns || $level !== 5) {
-                continue;
-            }
-
-            Utils\Functions::replace_heading_level($block, 5, 3);
         }
 
         unset($block);
