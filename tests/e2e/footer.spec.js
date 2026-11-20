@@ -13,11 +13,12 @@ test('check footer menu', async ({page}) => {
   for (const footerMenu of footerMenuNames) {
     const menuSelect = page.locator('select#select-menu-to-edit');
     await menuSelect.selectOption({label: footerMenu});
+    const menuId = await menuSelect.inputValue();
 
-    await Promise.all([
-      page.waitForNavigation({waitUntil: 'domcontentloaded'}),
-      page.locator('span.submit-btn input.button').click(),
-    ]);
+    // Click on the submit button first
+    await page.locator('span.submit-btn input.button').click();
+    // Check for the url with the proper menu id
+    await page.waitForURL(`**/nav-menus.php?action=edit&menu=${menuId}`, {waitUntil: 'domcontentloaded'});
 
     // Verify that the select has the value of the option matching the footer menu name.
     await expect(menuSelect).toHaveValue(await menuSelect.locator(`option:has-text("${footerMenu}")`).getAttribute('value'));
