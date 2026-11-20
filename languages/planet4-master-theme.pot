@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Greenpeace Planet 4 Master Theme\n"
-"POT-Creation-Date: 2026-09-25 08:25+0000\n"
+"POT-Creation-Date: 2026-11-20 12:26+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -27,24 +27,24 @@ msgid " submenu"
 msgstr ""
 
 #. %1$d: Number of results. %2$s: Search terms.
-#: src/Search/SearchPage.php:264
+#: src/Search/SearchPage.php:270
 #, php-format
-msgid "%1$d result for '%2$s'"
-msgid_plural "%1$d results for '%2$s'"
+msgid "%1$d result for ‘%2$s'"
+msgid_plural "%1$d results for ‘%2$s'"
 msgstr[0] ""
 msgstr[1] ""
 
-#. %d = Number of minutes for reading time.
 #. reading time in min.
-#: src/Post/ReadingTimeCalculator.php:135 src/Blocks/Others.php:385
+#. %d = Number of minutes for reading time.
+#: src/Blocks/Others.php:383 src/Post/ReadingTimeCalculator.php:135
+#: templates/single.twig:69 templates/tease-author.twig:56
+#: templates/tease-taxonomy-post.twig:65
 #: templates/tease-taxonomy-action.twig:55
-#: templates/tease-taxonomy-post.twig:65 templates/tease-author.twig:56
-#: templates/single.twig:69
 msgid "%d min read"
 msgstr ""
 
 #. %d: Number of results.
-#: src/Search/SearchPage.php:256
+#: src/Search/SearchPage.php:262
 msgid "%d result"
 msgid_plural "%d results"
 msgstr[0] ""
@@ -59,7 +59,7 @@ msgstr ""
 msgid "%d search results found for %s"
 msgstr ""
 
-#: templates/page.twig:7
+#: templates/page.twig:8
 #, php-format
 msgid "%s homepage"
 msgstr ""
@@ -76,7 +76,7 @@ msgstr ""
 msgid "About the author"
 msgstr ""
 
-#: templates/cookies.twig:26
+#: templates/cookies.twig:31
 msgid "Accept all cookies"
 msgstr ""
 
@@ -92,6 +92,12 @@ msgstr ""
 msgid "Action"
 msgstr ""
 
+#. 1: current slide number. 2: total of slides
+#: assets/src/js/query_loop_carousel.js:146
+#, javascript-format
+msgid "Action %1$d of %2$d"
+msgstr ""
+
 #: templates/search/action_types.twig:7
 msgid "Action Type"
 msgstr ""
@@ -100,19 +106,19 @@ msgstr ""
 msgid "Actions List"
 msgstr ""
 
-#: templates/search.twig:102
+#: templates/search.twig:98
 msgid "Active filters"
 msgstr ""
 
-#: templates/single.twig:122 templates/blocks/share_buttons.twig:73
+#: templates/blocks/google_preferred_source.twig:12
 msgid "Add as a preferred source on Google"
 msgstr ""
 
-#: templates/all-actions.twig:7 templates/taxonomy.twig:36
+#: templates/taxonomy.twig:36 templates/all-actions.twig:7
 msgid "All actions"
 msgstr ""
 
-#: templates/taxonomy.twig:37 templates/listing-page.twig:15
+#: templates/listing-page.twig:15 templates/taxonomy.twig:37
 msgid "All articles"
 msgstr ""
 
@@ -120,29 +126,30 @@ msgstr ""
 msgid "All articles by "
 msgstr ""
 
-#: templates/listing-page-filters.twig:41
+#: assets/src/js/Components/ListingPage/ListingPageFilters.js:110
 msgid "All keywords"
 msgstr ""
 
-#: templates/listing-page-filters.twig:7
+#: assets/src/js/Components/ListingPage/ListingPageFilters.js:92
 msgid "All posts"
 msgstr ""
 
-#: templates/listing-page-filters.twig:24
+#: assets/src/js/Components/ListingPage/ListingPageFilters.js:101
 msgid "All topics"
 msgstr ""
 
-#: templates/cookies/cookies_settings.twig:60
+#: templates/cookies/cookies_settings.twig:57
 msgid "Allow all"
 msgstr ""
 
-#: templates/cookies/cookies_settings.twig:21
+#: templates/cookies/cookies_settings.twig:18
 #: assets/src/blocks/Cookies/edit.js:73
 #: assets/src/blocks/Cookies/cookies.js:127
 msgid "Always enabled"
 msgstr ""
 
-#: templates/listing-page-filters.twig:54 templates/search.twig:92
+#: templates/search.twig:90
+#: assets/src/js/Components/ListingPage/ListingPageFilters.js:122
 msgid "Apply filters"
 msgstr ""
 
@@ -167,12 +174,57 @@ msgstr ""
 msgid "Back to Actions List"
 msgstr ""
 
-#: src/Blocks/Rest.php:95
+#: src/Blocks/Rest.php:153
 msgid "Background image"
 msgstr ""
 
 #: assets/src/block-templates/high-level-topic/template.js:20
 msgid "Better understand the issues [deep dive topics]"
+msgstr ""
+
+#: assets/build/blocks/Gallery/block.json:1
+#: assets/src/blocks/Gallery/block.json:1
+msgctxt "block description"
+msgid ""
+msgstr ""
+
+#: assets/build/blocks/Timeline/block.json:1
+#: assets/src/blocks/Timeline/block.json:1
+msgctxt "block description"
+msgid ""
+"A type of graphic that arranges a chain of events, activities, and "
+"milestones in chronological order."
+msgstr ""
+
+#: assets/build/blocks/TakeActionBoxout/block.json:1
+#: assets/src/blocks/TakeActionBoxout/block.json:1
+msgctxt "block description"
+msgid ""
+"A versatile horizontal card featuring an image, description, and Call to "
+"Action, designed to link to Take Action pages or any custom link such as "
+"external petitions or donation pages."
+msgstr ""
+
+#: assets/build/blocks/CarouselHeader/block.json:1
+#: assets/src/blocks/CarouselHeader/block.json:1
+msgctxt "block description"
+msgid ""
+"A visual block that features a sliding collection of images and media "
+"content, typically found at the top of the Homepage."
+msgstr ""
+
+#: assets/build/blocks/SocialMedia/block.json:1
+#: assets/src/blocks/SocialMedia/block.json:1
+msgctxt "block description"
+msgid ""
+"An embed-style block, customized to display and align content from Facebook "
+"and Instagram by inputting the URL."
+msgstr ""
+
+#: assets/build/blocks/Counter/block.json:1
+#: assets/src/blocks/Counter/block.json:1
+msgctxt "block description"
+msgid "Display real time signatures being collected worldwide on petitions."
 msgstr ""
 
 #: assets/build/blocks/Cookies/block.json:1
@@ -200,6 +252,22 @@ msgid ""
 "headings corresponding to the content sections on the page."
 msgstr ""
 
+#: assets/build/blocks/SecondaryNavigation/block.json:1
+#: assets/src/blocks/SecondaryNavigation/block.json:1
+msgctxt "block description"
+msgid ""
+"Inserts a secondary navigation menu to the page that leads to different "
+"sections of the same page."
+msgstr ""
+
+#: assets/build/blocks/Columns/block.json:1
+#: assets/src/blocks/Columns/block.json:1
+msgctxt "block description"
+msgid ""
+"The columns block comes in four styles and groups static content in an "
+"aligned, responsive and styled column."
+msgstr ""
+
 #: assets/build/blocks/HappyPoint/block.json:1
 #: assets/src/blocks/HappyPoint/block.json:1
 msgctxt "block description"
@@ -216,6 +284,30 @@ msgid ""
 "which redirects users to relevant topic content."
 msgstr ""
 
+#: assets/build/blocks/Gallery/block.json:1
+#: assets/src/blocks/Gallery/block.json:1
+msgctxt "block style label"
+msgid ""
+"3 Columns - The 3 columns image display is great for accentuating text, and "
+"telling a visual story."
+msgstr ""
+
+#: assets/build/blocks/Gallery/block.json:1
+#: assets/src/blocks/Gallery/block.json:1
+msgctxt "block style label"
+msgid ""
+"Grid - The grid shows thumbnails of lots of images. Good to use when showing "
+"lots of activity."
+msgstr ""
+
+#: assets/build/blocks/Gallery/block.json:1
+#: assets/src/blocks/Gallery/block.json:1
+msgctxt "block style label"
+msgid ""
+"Slider - The slider is a carousel of images. For more than 5 images, "
+"consider using a grid."
+msgstr ""
+
 #: assets/build/block-templates/action/block.json:1
 #: assets/src/block-templates/action/block.json:1
 msgctxt "block title"
@@ -228,10 +320,22 @@ msgctxt "block title"
 msgid "Campaign"
 msgstr ""
 
+#: assets/build/blocks/CarouselHeader/block.json:1
+#: assets/src/blocks/CarouselHeader/block.json:1
+msgctxt "block title"
+msgid "Carousel Header"
+msgstr ""
+
 #: assets/build/blocks/Cookies/block.json:1
 #: assets/src/blocks/Cookies/block.json:1
 msgctxt "block title"
 msgid "Cookies"
+msgstr ""
+
+#: assets/build/blocks/Counter/block.json:1
+#: assets/src/blocks/Counter/block.json:1
+msgctxt "block title"
+msgid "Counter"
 msgstr ""
 
 #: assets/build/block-templates/deep-dive/block.json:1
@@ -244,6 +348,12 @@ msgstr ""
 #: assets/src/block-templates/deep-dive-topic/block.json:1
 msgctxt "block title"
 msgid "Deep Dive Topic"
+msgstr ""
+
+#: assets/build/blocks/Gallery/block.json:1
+#: assets/src/blocks/Gallery/block.json:1
+msgctxt "block title"
+msgid "Gallery"
 msgstr ""
 
 #: assets/build/block-templates/get-informed/block.json:1
@@ -282,10 +392,22 @@ msgctxt "block title"
 msgid "Issues"
 msgstr ""
 
+#: assets/build/blocks/SocialMedia/block.json:1
+#: assets/src/blocks/SocialMedia/block.json:1
+msgctxt "block title"
+msgid "Meta"
+msgstr ""
+
 #: assets/build/block-templates/page-header/block.json:1
 #: assets/src/block-templates/page-header/block.json:1
 msgctxt "block title"
 msgid "Page Header"
+msgstr ""
+
+#: assets/build/blocks/Columns/block.json:1
+#: assets/src/blocks/Columns/block.json:1
+msgctxt "block title"
+msgid "Planet 4 Columns"
 msgstr ""
 
 #: assets/build/block-templates/quick-links/block.json:1
@@ -298,6 +420,12 @@ msgstr ""
 #: assets/src/block-templates/reality-check/block.json:1
 msgctxt "block title"
 msgid "Reality Check"
+msgstr ""
+
+#: assets/build/blocks/SecondaryNavigation/block.json:1
+#: assets/src/blocks/SecondaryNavigation/block.json:1
+msgctxt "block title"
+msgid "Secondary Navigation Menu"
 msgstr ""
 
 #: assets/build/block-templates/side-image-with-text-and-cta/block.json:1
@@ -324,6 +452,18 @@ msgctxt "block title"
 msgid "Take Action"
 msgstr ""
 
+#: assets/build/blocks/TakeActionBoxout/block.json:1
+#: assets/src/blocks/TakeActionBoxout/block.json:1
+msgctxt "block title"
+msgid "Take Action Boxout"
+msgstr ""
+
+#: assets/build/blocks/Timeline/block.json:1
+#: assets/src/blocks/Timeline/block.json:1
+msgctxt "block title"
+msgid "Timeline"
+msgstr ""
+
 #: assets/build/blocks/TopicLink/block.json:1
 #: assets/src/blocks/TopicLink/block.json:1
 msgctxt "block title"
@@ -335,11 +475,12 @@ msgstr ""
 msgid "Campaign"
 msgstr ""
 
-#: templates/search.twig:91
+#: templates/search.twig:89
 msgid "Cancel"
 msgstr ""
 
-#: templates/listing-page-filters.twig:21 templates/search/categories.twig:7
+#: templates/search/categories.twig:7
+#: assets/src/js/Components/ListingPage/ListingPageFilters.js:100
 msgid "Category"
 msgstr ""
 
@@ -347,7 +488,7 @@ msgstr ""
 msgid "Check for typos, and try your search again"
 msgstr ""
 
-#: templates/search.twig:115
+#: templates/search.twig:111
 msgid "Clear all"
 msgstr ""
 
@@ -490,8 +631,8 @@ msgstr ""
 msgid "Content Type"
 msgstr ""
 
-#: templates/cookies/cookies_settings.twig:12
-msgid "Cookies Settings"
+#: assets/src/js/Components/ListingPage/ListingPageFilters.js:91
+msgid "Content type"
 msgstr ""
 
 #: assets/src/block-templates/take-action/template.js:17
@@ -532,8 +673,8 @@ msgstr ""
 msgid "Email (required)"
 msgstr ""
 
-#: src/Migrations/M049MigrateCoversBlockToActionsListBlock.php:286
 #: src/Migrations/M037MigrateCoversContentBlockToPostsListBlock.php:385
+#: src/Migrations/M049MigrateCoversBlockToActionsListBlock.php:286
 #: src/Migrations/M046MigrateArticlesBlockToPostsListBlock.php:326
 msgid "Enter description"
 msgstr ""
@@ -559,9 +700,9 @@ msgstr ""
 msgid "Explore"
 msgstr ""
 
-#: assets/src/block-templates/high-level-topic/template.js:45
 #: assets/src/block-templates/action/template.js:34
 #: assets/src/block-templates/get-informed/template.js:9
+#: assets/src/block-templates/high-level-topic/template.js:45
 msgid "Explore by topics"
 msgstr ""
 
@@ -571,6 +712,10 @@ msgstr ""
 
 #: assets/src/block-templates/high-level-topic/template.js:29
 msgid "Featured action title"
+msgstr ""
+
+#: templates/featured-posts.twig:3
+msgid "Featured articles"
 msgstr ""
 
 #: templates/listing-page.twig:12
@@ -617,7 +762,7 @@ msgstr ""
 msgid "Filter results by post type %s, 1 result was found"
 msgstr ""
 
-#: templates/listing-page.twig:28
+#: templates/listing-page.twig:22
 msgid "Filtered results"
 msgstr ""
 
@@ -667,11 +812,11 @@ msgstr ""
 msgid "Greenpeace Planet 4 Master Theme"
 msgstr ""
 
-#: assets/src/js/listing_pages.js:49
+#: assets/src/js/Components/ListingPage/ListingPageLayoutToggle.js:19
 msgid "Grid View"
 msgstr ""
 
-#: functions.php:361
+#: functions.php:346
 msgid "here"
 msgstr ""
 
@@ -683,9 +828,9 @@ msgstr ""
 msgid "Home"
 msgstr ""
 
-#: assets/src/block-templates/high-level-topic/template.js:33
-#: assets/src/block-templates/deep-dive-topic/template.js:22
 #: assets/src/block-templates/campaign/template.js:23
+#: assets/src/block-templates/deep-dive-topic/template.js:22
+#: assets/src/block-templates/high-level-topic/template.js:33
 msgid "How you can help"
 msgstr ""
 
@@ -703,7 +848,7 @@ msgid ""
 "stored and displayed in the website."
 msgstr ""
 
-#: templates/single-password.twig:18 templates/single-page.twig:15
+#: templates/single-page.twig:15 templates/single-password.twig:18
 msgid "Invalid password, please try again"
 msgstr ""
 
@@ -715,7 +860,7 @@ msgstr ""
 msgid "Keep learning about"
 msgstr ""
 
-#: templates/listing-page-filters.twig:38
+#: assets/src/js/Components/ListingPage/ListingPageFilters.js:109
 msgid "Keywords"
 msgstr ""
 
@@ -723,9 +868,9 @@ msgstr ""
 msgid "Latest investigations"
 msgstr ""
 
-#: assets/src/block-templates/high-level-topic/template.js:37
 #: assets/src/block-templates/deep-dive-topic/template.js:26
 #: assets/src/block-templates/get-informed/template.js:34
+#: assets/src/block-templates/high-level-topic/template.js:37
 msgid "Latest news & stories"
 msgstr ""
 
@@ -737,13 +882,17 @@ msgstr ""
 msgid "Leave your reply"
 msgstr ""
 
-#: assets/src/js/listing_pages.js:57
+#: assets/src/js/Components/ListingPage/ListingPageLayoutToggle.js:19
 msgid "List View"
 msgstr ""
 
 #: src/Migrations/M057ActionsListBlockLoadMore.php:84
-#: assets/src/blocks/ActionsList/index.js:121
+#: assets/src/blocks/ActionsList/index.js:120
 msgid "Load more"
+msgstr ""
+
+#: assets/src/js/Components/ListingPage/ListingPagePosts.js:334
+msgid "Loading posts…"
 msgstr ""
 
 #: assets/src/blocks/Spreadsheet/spreadsheet.js:214
@@ -754,7 +903,7 @@ msgstr ""
 msgid "Manage"
 msgstr ""
 
-#: templates/cookies/cookies_settings.twig:16
+#: templates/cookies/cookies_settings.twig:13
 msgid "Manage your cookies preferences"
 msgstr ""
 
@@ -766,7 +915,7 @@ msgstr ""
 msgid "Menu"
 msgstr ""
 
-#: assets/src/js/search.js:148
+#: assets/src/js/search.js:194
 msgid "More results loaded"
 msgstr ""
 
@@ -787,9 +936,10 @@ msgid "News & stories"
 msgstr ""
 
 #: src/QueryLoopPagination.php:65
-#: src/Migrations/M049MigrateCoversBlockToActionsListBlock.php:208
 #: src/Migrations/M037MigrateCoversContentBlockToPostsListBlock.php:263
+#: src/Migrations/M049MigrateCoversBlockToActionsListBlock.php:208
 #: src/Migrations/M046MigrateArticlesBlockToPostsListBlock.php:207
+#: assets/src/js/Components/Paginator.js:157
 #: assets/src/blocks/CarouselHeader/CarouselControls.js:98
 #: assets/src/blocks/Gallery/GalleryCarousel.js:125
 msgid "Next"
@@ -799,18 +949,18 @@ msgstr ""
 msgid "No data matching your search."
 msgstr ""
 
-#: assets/src/js/listing_pages.js:116
+#: assets/src/js/Components/ListingPage/ListingPagePosts.js:328
 msgid "No posts found!"
 msgstr ""
 
-#: src/Migrations/M049MigrateCoversBlockToActionsListBlock.php:269
 #: src/Migrations/M037MigrateCoversContentBlockToPostsListBlock.php:365
+#: src/Migrations/M049MigrateCoversBlockToActionsListBlock.php:269
 #: src/Migrations/M046MigrateArticlesBlockToPostsListBlock.php:306
 msgid "No posts found."
 msgstr ""
 
-#: src/Migrations/M049MigrateCoversBlockToActionsListBlock.php:268
 #: src/Migrations/M037MigrateCoversContentBlockToPostsListBlock.php:364
+#: src/Migrations/M049MigrateCoversBlockToActionsListBlock.php:268
 #: src/Migrations/M046MigrateArticlesBlockToPostsListBlock.php:305
 msgid "No posts found. (This default text can be edited)"
 msgstr ""
@@ -840,11 +990,11 @@ msgstr ""
 msgid "Page header title"
 msgstr ""
 
-#: src/Blocks/Others.php:364
+#: src/Blocks/Others.php:362
 msgid "Pages"
 msgstr ""
 
-#: templates/cookies/cookies_settings.twig:17
+#: templates/cookies/cookies_settings.twig:14
 msgid "Please select which cookies you are willing to store."
 msgstr ""
 
@@ -860,14 +1010,15 @@ msgstr ""
 msgid "Post comment"
 msgstr ""
 
-#: templates/listing-page-filters.twig:4 templates/search/post_types.twig:7
+#: templates/search/post_types.twig:7
 msgid "Post Type"
 msgstr ""
 
 #: src/QueryLoopPagination.php:39
-#: src/Migrations/M049MigrateCoversBlockToActionsListBlock.php:204
 #: src/Migrations/M037MigrateCoversContentBlockToPostsListBlock.php:259
+#: src/Migrations/M049MigrateCoversBlockToActionsListBlock.php:204
 #: src/Migrations/M046MigrateArticlesBlockToPostsListBlock.php:203
+#: assets/src/js/Components/Paginator.js:131
 msgid "Prev"
 msgstr ""
 
@@ -884,15 +1035,15 @@ msgstr ""
 msgid "Read our Stories"
 msgstr ""
 
-#: templates/search.twig:72 templates/search.twig:99
+#: templates/search.twig:70 templates/search.twig:95
 msgid "Refine your search"
 msgstr ""
 
-#: templates/cookies/cookies_settings.twig:52
+#: templates/cookies/cookies_settings.twig:49
 msgid "Reject all"
 msgstr ""
 
-#: templates/cookies.twig:35
+#: templates/cookies.twig:40
 msgid "Reject all cookies"
 msgstr ""
 
@@ -900,7 +1051,7 @@ msgstr ""
 msgid "Related Articles"
 msgstr ""
 
-#: src/Blocks/Others.php:245
+#: src/Blocks/Others.php:243
 msgid "Related Posts"
 msgstr ""
 
@@ -909,11 +1060,11 @@ msgstr ""
 msgid "Resistance Hub Campaign"
 msgstr ""
 
-#: templates/cookies/cookies_settings.twig:68
+#: templates/cookies/cookies_settings.twig:65
 msgid "Save preferences"
 msgstr ""
 
-#: templates/404.twig:16 templates/search-form.twig:2 templates/search.twig:51
+#: templates/search-form.twig:2 templates/404.twig:16 templates/search.twig:51
 msgid "Search"
 msgstr ""
 
@@ -925,7 +1076,7 @@ msgstr ""
 msgid "Search data"
 msgstr ""
 
-#: src/Blocks/Others.php:236 assets/src/blocks/PostsList/index.js:21
+#: src/Blocks/Others.php:234 assets/src/blocks/PostsList/index.js:21
 msgid "See all posts"
 msgstr ""
 
@@ -934,7 +1085,7 @@ msgstr ""
 msgid "See all stories"
 msgstr ""
 
-#: templates/cookies.twig:18
+#: templates/cookies.twig:23
 msgid "Settings"
 msgstr ""
 
@@ -990,15 +1141,9 @@ msgid "Skip to search results"
 msgstr ""
 
 #. 1: current slide number
-#: assets/src/js/query_loop_carousel.js:193
+#: assets/src/js/query_loop_carousel.js:215
 #, javascript-format
 msgid "Slide %1$d"
-msgstr ""
-
-#. 1: current slide number, 2: total amount of slides
-#: assets/src/js/query_loop_carousel.js:216
-#, javascript-format
-msgid "Slide %1$d from %2$d"
 msgstr ""
 
 #. %d: slide number
@@ -1023,11 +1168,11 @@ msgstr ""
 msgid "Sorry, we can't find that page!"
 msgstr ""
 
-#: templates/search.twig:130
+#: templates/search.twig:126
 msgid "Sort by"
 msgstr ""
 
-#: templates/single-password.twig:22 templates/single-page.twig:19
+#: templates/single-page.twig:19 templates/single-password.twig:22
 msgid "Submit"
 msgstr ""
 
@@ -1035,11 +1180,11 @@ msgstr ""
 msgid "Support a cause"
 msgstr ""
 
-#: assets/src/js/listing_pages.js:53
+#: assets/src/js/Components/ListingPage/ListingPageLayoutToggle.js:22
 msgid "Switch to grid view"
 msgstr ""
 
-#: assets/src/js/listing_pages.js:61
+#: assets/src/js/Components/ListingPage/ListingPageLayoutToggle.js:21
 msgid "Switch to list view"
 msgstr ""
 
@@ -1047,11 +1192,11 @@ msgstr ""
 msgid "Take Action"
 msgstr ""
 
-#: src/Search/SearchPage.php:140 src/CustomPostType/ActionPage.php:209
-#: src/CustomPostType/ActionPage.php:218 src/Blocks/TakeActionBoxout.php:165
 #: src/Blocks/ActionButtonText.php:85 src/Blocks/ActionButtonText.php:95
-#: assets/src/blocks/TakeActionBoxout/TakeActionBoxoutEditor.js:24
+#: src/Blocks/Register.php:390 src/CustomPostType/ActionPage.php:211
+#: src/CustomPostType/ActionPage.php:220 src/Search/SearchPage.php:146
 #: assets/src/blocks/ActionCustomButtonText/edit.js:4
+#: assets/src/blocks/TakeActionBoxout/edit.js:23
 msgid "Take action"
 msgstr ""
 
@@ -1060,14 +1205,14 @@ msgid "Take action with us"
 msgstr ""
 
 #. %s = Redirection url variable.
-#: src/GravityFormsExtensions.php:1067
+#: src/GravityFormsExtensions.php:1072
 #, php-format
 msgid ""
 "Thank you! Please <a href=\"%s\">click here</a> if you are not redirected "
 "within a few seconds."
 msgstr ""
 
-#: functions.php:360
+#: functions.php:345
 msgid ""
 "The content on this page is hidden because this page is being used as your "
 "\\\"All Posts\\\" listing page. You can disable this by un-setting the "
@@ -1079,10 +1224,10 @@ msgstr ""
 msgid "The issues we work on"
 msgstr ""
 
-#: assets/src/block-templates/high-level-topic/template.js:16
 #: assets/src/block-templates/action/template.js:23
-#: assets/src/block-templates/deep-dive-topic/template.js:14
 #: assets/src/block-templates/campaign/template.js:13
+#: assets/src/block-templates/deep-dive-topic/template.js:14
+#: assets/src/block-templates/high-level-topic/template.js:16
 msgid "The problem"
 msgstr ""
 
@@ -1100,11 +1245,11 @@ msgstr ""
 msgid "This link will open a PDF file"
 msgstr ""
 
-#: templates/single-password.twig:15 templates/single-page.twig:12
+#: templates/single-page.twig:12 templates/single-password.twig:15
 msgid "To see the content of this page, please enter your password  below"
 msgstr ""
 
-#: src/MasterSite.php:503
+#: src/MasterSite.php:361
 msgid "Toggle search box"
 msgstr ""
 
@@ -1122,6 +1267,12 @@ msgstr ""
 
 #: assets/src/block-templates/get-informed/template.js:19
 msgid "Topic 3"
+msgstr ""
+
+#. 1: total of cards, 2: total of slides
+#: assets/src/js/query_loop_carousel.js:238
+#, javascript-format
+msgid "Total %1$d Actions in %2$d slides."
 msgstr ""
 
 #: templates/search.twig:22
