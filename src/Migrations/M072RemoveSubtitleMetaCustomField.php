@@ -26,11 +26,11 @@ class M072RemoveSubtitleMetaCustomField extends MigrationScript
             WHERE meta_key="p4_subtitle"
             AND meta_value<>""';
 
-        // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
-        $prepared_sql = $wpdb->prepare($sql, array_merge([ $wpdb->posts ], $post_types));
-        $results = $wpdb->get_results($prepared_sql);
+            // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+            $results = $wpdb->get_results($sql);
 
         if ($results[0]->{'COUNT(*)'} !== 0) {
+            echo "p4_subtitle metadata is still used in some posts.";
             return;
         }
 
