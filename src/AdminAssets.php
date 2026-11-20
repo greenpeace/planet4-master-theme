@@ -15,11 +15,7 @@ class AdminAssets
     public static function enqueue_js(): void
     {
         self::enqueue_media_archive_script();
-
-        if (get_current_screen()->id !== 'nav-menus') {
-            return;
-        }
-
+        self::enqueue_serp_sidebar_style();
         self::enqueue_menu_editor_script();
     }
 
@@ -28,6 +24,10 @@ class AdminAssets
      */
     private static function enqueue_menu_editor_script(): void
     {
+        if (get_current_screen()->id !== 'nav-menus') {
+            return;
+        }
+
         $theme_dir = get_template_directory_uri();
         $menus = get_nav_menu_locations();
         $navbar_location = 'navigation-bar-menu';
@@ -107,5 +107,20 @@ class AdminAssets
             true
         );
         Loader::enqueue_versioned_style('/admin/css/archive-picker.css');
+    }
+
+    private static function enqueue_serp_sidebar_style(): void
+    {
+        if (get_current_screen()->base !== 'post') {
+            return;
+        }
+
+        wp_register_style(
+            'serp-sidebar-style',
+            get_template_directory_uri() . '/admin/css/serp-sidebar.css',
+            [],
+            Loader::theme_file_ver('admin/css/serp-sidebar.css')
+        );
+        wp_enqueue_style('serp-sidebar-style');
     }
 }
