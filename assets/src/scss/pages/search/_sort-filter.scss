@@ -56,9 +56,32 @@ div.search-filter-results {
     }
   }
 
-  select {
+
+  select,
+  ::picker(select) {
+    appearance: base-select;
     width: 151px;
-    display: inline-block;
+    vertical-align: top;
+    padding: $sp-1x $sp-2;
+    font-family: var(--font-family-tertiary);
+    font-size: var(--font-size-m--font-family-tertiary);
+    border-radius: 4px;
+
+    &:focus {
+      box-shadow: 0 0 0 2px var(--gp-green-800);
+      border-color: transparent;
+      background-color: white;
+      outline: 0;
+    }
+
+    &::picker-icon {
+      content: url("../../images/select-arrow.svg");
+      transition: 0.4s rotate;
+    }
+
+    &:open::picker-icon {
+      rotate: 180deg;
+    }
 
     @include small-and-up {
       width: 210px;
