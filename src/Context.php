@@ -20,7 +20,6 @@ class Context
         $post_title_to_show = $meta_data_title ? $meta_data_title : $post_title;
 
         $context['header_title'] = is_front_page() ? $meta_data_title : $post_title_to_show;
-        $context['header_subtitle'] = $page_meta_data['p4_subtitle'] ?? '';
         $context['header_description'] = wpautop($page_meta_data['p4_description'] ?? '');
         $context['header_button_title'] = $page_meta_data['p4_button_title'] ?? '';
         $context['header_button_link'] = $page_meta_data['p4_button_link'] ?? '';
