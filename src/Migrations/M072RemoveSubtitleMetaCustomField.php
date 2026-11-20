@@ -30,10 +30,12 @@ class M072RemoveSubtitleMetaCustomField extends MigrationScript
         $prepared_sql = $wpdb->prepare($sql, array_merge([ $wpdb->posts ], $post_types));
         $results = $wpdb->get_results($prepared_sql);
 
-        if($results[0]->{'COUNT(*)'} === 0) {
-            // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
-            $wpdb->query('DELETE FROM wp_postmeta WHERE meta_key="p4_subtitle"');
-            echo "Deleted p4_subtitle custom field through wp_postmeta table.";
+        if ($results[0]->{'COUNT(*)'} !== 0) {
+            return;
         }
+
+        // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+        $wpdb->query('DELETE FROM wp_postmeta WHERE meta_key="p4_subtitle"');
+        echo "Deleted p4_subtitle custom field through wp_postmeta table.";
     }
 }
