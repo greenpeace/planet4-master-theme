@@ -1,5 +1,5 @@
 {% if ( header_title ) %}
-    {% set page_header_show = ( header_subtitle or header_description or not hide_page_title )  %}
+    {% set page_header_show = ( header_description or not hide_page_title )  %}
     <div class="page-header {% if not page_header_show %}page-header-hidden{% endif %}">
         {% if ( background_image and not hide_background ) %}
             <div class="page-header-background">
@@ -56,9 +56,6 @@
                     social: post.share_meta,
                     share_platforms: post.social_share_platforms,
                 } %}
-            {% endif %}
-            {% if ( header_subtitle ) %}
-                <h3 class="page-header-subtitle">{{ header_subtitle }}</h3>
             {% endif %}
             {% if ( header_description ) %}
                 <div class="page-header-content d-none d-md-block mt-0 mb-md-0">
