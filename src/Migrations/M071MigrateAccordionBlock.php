@@ -27,7 +27,7 @@ class M071MigrateAccordionBlock extends MigrationScript
         };
 
         Utils\Functions::execute_block_migration(
-            Utils\Constants::CAROUSEL_HEADER,
+            Utils\Constants::P4_ACCORDION_BLOCK,
             $check_is_valid_block,
             $transform_block,
         );
@@ -109,7 +109,7 @@ class M071MigrateAccordionBlock extends MigrationScript
 
             $text = $tab['text'] ?? '';
             $panel_content = [];
-            if ($text) {
+            if (!empty($text)) {
                 $text_block = Utils\Functions::create_block_paragraph(
                     [],
                     $text

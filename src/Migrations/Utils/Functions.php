@@ -221,10 +221,11 @@ class Functions
      *
      * @param string $classname - A CSS classname.
      * @param string $role - A role for the div (optional).
+     * @param int $items - The amount of content items (optional). Default is 2.
      *
      * @return array - The code for the block attributes.
      */
-    public static function generate_html_content(string $classname, ?string $role = ''): array
+    public static function generate_html_content(string $classname, ?string $role = '', ?int $items = 2): array
     {
         $div = "<div class=\"$classname\">";
         if (!empty($role)) {
@@ -239,14 +240,19 @@ class Functions
 
         $content = [
             0 => '
-' . $div . '',
-            1 => null,
-            2 => "
-",
-            3 => null,
-            4 => '</div>
-',
-        ];
+' . $div . ''];
+
+        for ($i = 1; $i <= $items; ++$i) {
+            $item = count($content);
+            $content[$item] = null;
+            if ($i === $items) {
+                $content[$item + 1] = '</div>
+';
+            } else {
+                $content[$item + 1] = "
+";
+            }
+        }
 
         return [
             'html' => $html,
@@ -831,7 +837,11 @@ class Functions
      */
     public static function create_block_accordion(string $classname, array $inner_blocks): array
     {
-        $html_content = self::generate_html_content('wp-block-accordion ' . $classname . '', "group");
+        $html_content = self::generate_html_content(
+            'wp-block-accordion ' . $classname . '',
+            "group",
+            count($inner_blocks)
+        );
 
         return self::create_new_block(
             Constants::BLOCK_ACCORDION,
