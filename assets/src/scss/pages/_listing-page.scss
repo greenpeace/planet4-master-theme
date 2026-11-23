@@ -95,6 +95,7 @@
   font-size: $font-size-lg;
 
   a {
+    text-underline-offset: 2px;
     @include clamp-text(2);
   }
 }
