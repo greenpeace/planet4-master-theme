@@ -7,14 +7,14 @@
 namespace P4\MasterTheme\Controllers;
 
 use P4\MasterTheme\SqlParameters;
-use P4\MasterTheme\BlockReportSearch\Block\BlockUsage;
-use P4\MasterTheme\BlockReportSearch\Block\BlockUsageTable;
-use P4\MasterTheme\BlockReportSearch\Block\BlockUsageApi;
-use P4\MasterTheme\BlockReportSearch\Block\Query\Parameters as BlockParameters;
-use P4\MasterTheme\BlockReportSearch\Pattern\Query\Parameters as PatternParameters;
-use P4\MasterTheme\BlockReportSearch\Pattern\PatternUsage;
-use P4\MasterTheme\BlockReportSearch\Pattern\PatternUsageTable;
-use P4\MasterTheme\BlockReportSearch\Pattern\PatternUsageApi;
+use P4\MasterTheme\ReportSearch\BlockReportSearch\BlockUsage;
+use P4\MasterTheme\ReportSearch\BlockReportSearch\BlockUsageTable;
+use P4\MasterTheme\ReportSearch\BlockReportSearch\BlockUsageApi;
+use P4\MasterTheme\ReportSearch\BlockReportSearch\Query\Parameters as BlockParameters;
+use P4\MasterTheme\ReportSearch\PatternReportSearch\Query\Parameters as PatternParameters;
+use P4\MasterTheme\ReportSearch\PatternReportSearch\PatternUsage;
+use P4\MasterTheme\ReportSearch\PatternReportSearch\PatternUsageTable;
+use P4\MasterTheme\ReportSearch\PatternReportSearch\PatternUsageApi;
 use WP_Block_Type_Registry;
 use WP_Block_Patterns_Registry;
 use P4\MasterTheme\View\View;

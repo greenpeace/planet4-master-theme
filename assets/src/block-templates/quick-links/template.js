@@ -2,8 +2,8 @@ import mainThemeUrl from '../main-theme-url';
 
 const {__} = wp.i18n;
 
-const category = ['core/column', {}, [
-  ['core/group', {className: 'group-stretched-link'}, [
+const category = ['core/column', {className: 'pattern-list-item'}, [
+  ['core/group', {className: 'group-stretched-link pattern-list-link'}, [
     ['core/image', {
       align: 'center',
       className: 'is-style-rounded-90 force-no-lightbox force-no-caption mb-0',
@@ -39,7 +39,7 @@ const template = ({
       }],
       ['core/columns', {
         isStackedOnMobile: false,
-        className: 'is-style-mobile-carousel quick-links',
+        className: 'is-style-mobile-carousel quick-links pattern-list',
       },
       [...Array(5).keys()].map(() => category)],
     ]],
