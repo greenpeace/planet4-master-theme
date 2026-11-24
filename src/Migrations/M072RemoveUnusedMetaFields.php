@@ -20,47 +20,12 @@ class M072RemoveUnusedMetaFields extends MigrationScript
     {
         global $wpdb;
 
-        $sql = 'SELECT meta_key,
-            SUM(meta_value <> "") as filled_field,
-            SUM(meta_value = "") as empty_field,
-            COUNT(post_id) as total_posts
-            FROM wp_postmeta
-            where meta_key in (
-                "p4_campaign_name",
-                "p4_local_project",
-                "p4_basket_name",
-                "p4_department",
-                "campaign_nav_type",
-                "p4_hide_page_title_checkbox",
-                "p4_title",
-                "p4_subtitle",
-                "p4_description",
-                "background_image_id",
-                "background_image",
-                "p4_og_title",
-                "p4_og_description",
-                "p4_og_image",
-                "p4_og_image_id",
-                "p4-seo-canonical-url",
-                "p4_seo_meta_title",
-                "p4_seo_meta_description",
-                "nav_type",
-                "p4_seo_canonical_url",
-                "p4_author_override",
-                "p4_button_title",
-                "p4_button_link",
-                "p4_button_link_checkbox"
-            )
-            GROUP BY meta_key;';
+        $meta_keys = [
+            'p4_subtitle',
+        ];
 
-        $results = $wpdb->get_results($sql);
-
-        foreach ($results as $result) {
-            if($result->empty_field === $result->total_posts) {
-                echo "Deleting: {$result->meta_key}" . "\n";
-            } else {
-                echo "Keeping:  {$result->meta_key}." . "\n";
-            }
+        foreach ($meta_keys as $meta_key) {
+            $wpdb->query("DELETE FROM wp_postmeta WHERE meta_key='$meta_key'");
         }
     }
 }
