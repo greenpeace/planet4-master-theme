@@ -107,12 +107,65 @@ class ShortcakeMigration
         // Content without blocks is rendered with `wpautop()`, content with blocks is not.
         // Keep the classic content rendering the same once blocks are added.
         $autop = !has_blocks($content);
+        $content = self::remove_stray_block_closers($content);
 
         self::$migrated_tags = [];
         $blocks = self::migrate_blocks(parse_blocks($content), $mappings, $autop, true);
         $migrated_tags = array_values(array_unique(self::$migrated_tags));
 
         return serialize_blocks($blocks);
+    }
+
+    /**
+     * Remove block closing comments without an opening one, e.g. `<p><!-- /wp:group --></p>` in classic content.
+     * The block parser stops at the first of them, and parses the rest of the content as classic content,
+     * so the blocks added by the migration would not be recognized.
+     *
+     * @param string $content The post content.
+     * @return string The content without stray block closers.
+     */
+    private static function remove_stray_block_closers(string $content): string
+    {
+        // Same block delimiter pattern as `WP_Block_Parser::next_token()`.
+        $pattern = '/<!--\s+(?P<closer>\/)?wp:(?P<namespace>[a-z][a-z0-9_-]*\/)?(?P<name>[a-z][a-z0-9_-]*)\s+'
+            . '(?P<attrs>{(?:(?:[^}]+|}+(?=})|(?!}\s+\/?-->).)*+)?}\s+)?(?P<void>\/)?-->/s';
+
+        if (!preg_match_all($pattern, $content, $matches, PREG_SET_ORDER | PREG_OFFSET_CAPTURE)) {
+            return $content;
+        }
+
+        $depth = 0;
+        $stray = [];
+        foreach ($matches as $match) {
+            if (!empty($match['void'][0])) {
+                continue;
+            }
+            if (empty($match['closer'][0])) {
+                $depth++;
+                continue;
+            }
+            if ($depth > 0) {
+                $depth--;
+                continue;
+            }
+            $stray[] = [$match[0][1], strlen($match[0][0])];
+        }
+
+        // Remove from the end, so the offsets stay valid.
+        foreach (array_reverse($stray) as [$offset, $length]) {
+            $before = substr($content, 0, $offset);
+            $after = substr($content, $offset + $length);
+
+            // Also remove the paragraph wrapping it, added by `wpautop()`.
+            if (preg_match('/<p>\s*$/', $before, $open_p) && preg_match('/^\s*<\/p>/', $after, $close_p)) {
+                $before = substr($before, 0, -strlen($open_p[0]));
+                $after = substr($after, strlen($close_p[0]));
+            }
+
+            $content = $before . $after;
+        }
+
+        return $content;
     }
 
     /**
@@ -295,6 +348,11 @@ class ShortcakeMigration
     private static function create_block(array $mapping, array $shortcode_attrs): array
     {
         $attrs = ShortcakeMappings::map_attributes($mapping, $shortcode_attrs);
+
+        if (isset($mapping['build'])) {
+            return call_user_func($mapping['build'], $attrs);
+        }
+
         $html = isset($mapping['markup']) ? call_user_func($mapping['markup'], $attrs) : '';
 
         return [
@@ -332,7 +390,8 @@ class ShortcakeMigration
         if (empty($post_ids)) {
             return [];
         }
-//$post_ids = [45603];
+//$post_ids = [45603]; // local
+$post_ids = [18267];  // test server
 print_r($post_ids); //exit;
         return get_posts([
             'include' => array_map('intval', $post_ids),

@@ -161,8 +161,8 @@ class Migrator
             M068EmptyGalleryBlockStaticContent::class,
             M069RemoveMandatoryImageAltTextFeature::class,
             M0070UpdateCarouselHeaderFirstImage::class,
-            M071TrashPagesNotInKeepList::class,
-            //M072MigrateShortcakeBlocks::class,
+            //M071TrashPagesNotInKeepList::class,
+            M072MigrateShortcakeBlocks::class,
         ];
 
         // Loop migrations and run those that haven't run yet.
@@ -175,6 +175,6 @@ class Migrator
             $log->add($record);
         }
 
-        $log->persist();
+        //$log->persist();
     }
 }

@@ -21,6 +21,8 @@ namespace P4\MasterTheme\Migrations\Utils;
  *                e.g. `[self::class, 'line_breaks']` for textareas rendered as HTML.
  * - `markup`     (optional) Callable returning the block saved markup from its attributes,
  *                for blocks with a static `save`. Leave it out for dynamic blocks.
+ * - `build`      (optional) Callable returning the whole parsed block from the mapped attributes,
+ *                for patterns made of several blocks. `markup` is then not used.
  */
 class ShortcakeMappings
 {
@@ -51,6 +53,20 @@ class ShortcakeMappings
                 ],
                 'markup' => [ShortcakeBlockMarkup::class, 'accordion'],
             ],
+            'shortcake_text_and_image' => [
+                'block' => Constants::BLOCK_TEMPLATE_SIDE_IMAGE_WITH_TEXT_AND_CTA,
+                'attributes' => [
+                    'title' => 'title',
+                    'paragraph' => 'paragraph',
+                    'link_label' => 'link_label',
+                    'link_url' => 'link_url',
+                    'images' => 'images',
+                ],
+                'formatters' => [
+                    'paragraph' => [self::class, 'line_breaks'],
+                ],
+                'build' => [ShortcakePatterns::class, 'side_image_with_text_and_cta'],
+            ],
         ];
     }
 
@@ -76,7 +92,7 @@ class ShortcakeMappings
         $attrs = $mapping['defaults'] ?? [];
 
         foreach ($mapping['attributes'] ?? [] as $shortcode_attr => $block_attr) {
-            $value = $shortcode_attrs[ strtolower($shortcode_attr) ] ?? '';
+            $value = trim($shortcode_attrs[ strtolower($shortcode_attr) ] ?? '');
             if ('' === $value) {
                 continue;
             }
@@ -88,7 +104,7 @@ class ShortcakeMappings
             for ($i = 1; $i <= $repeater['max']; $i++) {
                 $item = [];
                 foreach ($repeater['attributes'] as $shortcode_attr => $item_attr) {
-                    $value = $shortcode_attrs[ strtolower(sprintf($shortcode_attr, $i)) ] ?? '';
+                    $value = trim($shortcode_attrs[ strtolower(sprintf($shortcode_attr, $i)) ] ?? '');
                     if ('' === $value) {
                         continue;
                     }

@@ -29,6 +29,8 @@ class Constants
 
     // P4 Block Templates
     public const BLOCK_TEMPLATE_QUICK_LINKS = self::PREFIX_P4_BLOCK_TEMPLATES . '/quick-links';
+    public const BLOCK_TEMPLATE_SIDE_IMAGE_WITH_TEXT_AND_CTA =
+        self::PREFIX_P4_BLOCK_TEMPLATES . '/side-image-with-text-and-cta';
 
     public const BLOCK_EMBED = self::PREFIX_CORE_BLOCKS . '/embed';
     public const BLOCK_AUDIO = self::PREFIX_CORE_BLOCKS . '/audio';
