@@ -30,6 +30,7 @@ class BlockSettings
         self::P4_BLOCKS_PREFIX . '/gallery',
         self::P4_BLOCKS_PREFIX . '/social-media',
         self::P4_BLOCKS_PREFIX . '/spreadsheet',
+        self::P4_BLOCKS_PREFIX . '/submenu',
         self::P4_BLOCKS_PREFIX . '/take-action-boxout',
         self::P4_BLOCKS_PREFIX . '/timeline',
         self::P4_BLOCKS_PREFIX . '/topic-link',
