@@ -45,7 +45,14 @@
                         data-ga-category="Country Selector"
                         data-ga-action="{{ country.name ~ ' | ' ~ main_lang.name }}"
                         data-ga-label="n/a"
-                    >{{ country.name }}</a>
+                    >
+                        {{ country.name }}
+                        {% if site.name is same as('Greenpeace ' ~ country.name) %}
+                            <span class="visually-hidden">
+                                , {{ __('current website', 'planet4-master-theme') }}
+                            </span>
+                        {% endif %}
+                    </a>
                     {% if lang_count > 1  %}
                     <ul class="lang-list" role="list">
                         {% for k, lang in country.lang %}
