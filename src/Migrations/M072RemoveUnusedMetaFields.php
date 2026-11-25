@@ -2,6 +2,7 @@
 
 namespace P4\MasterTheme\Migrations;
 
+use WP_CLI;
 use P4\MasterTheme\MigrationRecord;
 use P4\MasterTheme\MigrationScript;
 
@@ -21,7 +22,7 @@ class M072RemoveUnusedMetaFields extends MigrationScript
         global $wpdb;
 
         $meta_keys = [
-            'p4_subtitle'
+            'p4_subtitle',
         ];
 
         $imploded_meta_keys = implode('","', $meta_keys);
@@ -31,10 +32,8 @@ class M072RemoveUnusedMetaFields extends MigrationScript
             WHERE meta_key IN ("' . $imploded_meta_keys . '")
         ';
 
-        if ($wpdb->query($sql)) {
-            echo 'Succesfully removed unused these meta fields: ' . $imploded_meta_keys . "\n";
-        } else {
-            echo 'Failed to remove unused these meta fields: ' . $imploded_meta_keys . "\n";
-        }
+        $wpdb->query($sql);
+
+        WP_CLI::success('Migration done, ' . $wpdb->rows_affected . ' rows were updated.');
     }
 }
