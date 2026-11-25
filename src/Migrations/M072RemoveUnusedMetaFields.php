@@ -28,12 +28,16 @@ class M072RemoveUnusedMetaFields extends MigrationScript
         $imploded_meta_keys = implode('","', $meta_keys);
 
         $sql = '
-            DELETE FROM wp_postmeta
+            DELETE FROM wp_postmetas
             WHERE meta_key IN ("' . $imploded_meta_keys . '")
         ';
 
-        $wpdb->query($sql);
+        $result = $wpdb->query($wpdb->prepare($sql));
 
-        WP_CLI::success('Migration done, ' . $wpdb->rows_affected . ' rows were updated.');
+        if (false === $result) {
+            WP_CLI::error('Migration failed: ' . $wpdb->last_error);
+        } else {
+            WP_CLI::success('Migration done, ' . $wpdb->rows_affected . ' rows were updated.');
+        }
     }
 }
