@@ -162,10 +162,6 @@ class Importer
         $postmeta = [];
         if (isset($post['postmeta'])) {
             foreach ($post['postmeta'] as $metakey => $metadata) {
-                if ('background_image_id' !== $metadata['key']) {
-                    continue;
-                }
-
                 if (!isset($this->attachment_mapping[$metadata['value']])) {
                     continue;
                 }

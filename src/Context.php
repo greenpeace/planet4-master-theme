@@ -29,18 +29,6 @@ class Context
     }
 
     /**
-     * Set context fileds relating to the background image.
-     *
-     * @param array $context To be set.
-     */
-    public static function set_background_image(array &$context): void
-    {
-        $background_image_id = get_post_meta(get_the_ID(), 'background_image_id', 1);
-        $context['background_image'] = wp_get_attachment_url($background_image_id);
-        $context['background_image_srcset'] = wp_get_attachment_image_srcset($background_image_id, 'full');
-    }
-
-    /**
      * Set open graph context fields.
      *
      * @param array  $context To be set.

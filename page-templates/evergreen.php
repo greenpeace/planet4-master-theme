@@ -51,7 +51,6 @@ $context['page_category'] = 'Evergreen Page';
 $context['social_accounts'] = $timber_post->get_social_accounts($context['footer_social_menu'] ?: []);
 
 Context::set_header($context, $page_meta_data, $timber_post->title);
-Context::set_background_image($context);
 Context::set_og_meta_fields($context, $timber_post);
 Context::set_p4_blocks_datalayer($context, $timber_post);
 

@@ -37,7 +37,6 @@ if (is_home()) {
     $context['posts'] = Timber::get_posts();
 
     Context::set_header($context, $page_meta_data, $context['title']);
-    Context::set_background_image($context);
     Context::set_og_meta_fields($context, $timber_post);
     Context::set_campaign_datalayer($context, $page_meta_data);
     Context::set_utm_params($context, $timber_post);

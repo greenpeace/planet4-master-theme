@@ -7,7 +7,7 @@ use P4\MasterTheme\MigrationRecord;
 use P4\MasterTheme\MigrationScript;
 
 /**
- * Remove the subtitle meta custom field.
+ * Remove the meta custom fields that are not being used.
  */
 class M072RemoveUnusedMetaFields extends MigrationScript
 {
@@ -23,6 +23,8 @@ class M072RemoveUnusedMetaFields extends MigrationScript
 
         $meta_keys = [
             'p4_subtitle',
+            'background_image_id',
+            'background_image',
         ];
 
         $imploded_meta_keys = implode('","', $meta_keys);

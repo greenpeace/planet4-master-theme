@@ -26,8 +26,6 @@ class PostCampaign
         'p4_hide_page_title_checkbox',
         'p4_title',
         'p4_description',
-        'background_image_id',
-        'background_image',
         'p4_og_title',
         'p4_og_description',
         'p4_og_image',

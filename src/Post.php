@@ -306,7 +306,7 @@ class Post extends \Timber\Post
     public function get_og_image(): array
     {
         $image_id = null;
-        $image_metas = ['p4_og_image_id', '_thumbnail_id', 'background_image_id'];
+        $image_metas = ['p4_og_image_id', '_thumbnail_id'];
         foreach ($image_metas as $image_meta) {
             $image_meta_id = $this->post_meta[$image_meta][0] ?? '';
             if (!empty($image_meta_id)) {

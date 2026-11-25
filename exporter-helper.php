@@ -103,7 +103,7 @@ function get_campaign_attachments(array $post_ids): array
     $sql = '
 		SELECT meta_value
 		FROM %1$s
-		WHERE ( meta_key = \'_thumbnail_id\' OR meta_key = \'background_image_id\' )
+		WHERE ( meta_key = \'_thumbnail_id\' )
 		AND post_id IN(' . generate_list_placeholders($post_ids, 2) . ')';
 
     $prepared_sql = $wpdb->prepare(
