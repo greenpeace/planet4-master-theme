@@ -21,11 +21,20 @@ class M072RemoveUnusedMetaFields extends MigrationScript
         global $wpdb;
 
         $meta_keys = [
-            'p4_subtitle',
+            'p4_subtitle'
         ];
 
-        foreach ($meta_keys as $meta_key) {
-            $wpdb->query("DELETE FROM wp_postmeta WHERE meta_key='$meta_key'");
+        $imploded_meta_keys = implode('","', $meta_keys);
+
+        $sql = '
+            DELETE FROM wp_postmeta
+            WHERE meta_key IN ("' . $imploded_meta_keys . '")
+        ';
+
+        if ($wpdb->query($sql)) {
+            echo 'Succesfully removed unused these meta fields: ' . $imploded_meta_keys . "\n";
+        } else {
+            echo 'Failed to remove unused these meta fields: ' . $imploded_meta_keys . "\n";
         }
     }
 }
