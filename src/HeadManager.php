@@ -66,7 +66,7 @@ class HeadManager
         }
 
         $schema = [
-            '@context' => 'http://schema.org',
+            '@context' => 'https://schema.org',
             '@graph' => [ $website, $organization ],
         ];
 
