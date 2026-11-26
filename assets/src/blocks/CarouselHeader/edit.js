@@ -76,7 +76,7 @@ export const CarouselHeaderEditor = ({setAttributes, attributes}) => {
   }, [currentSlide, goToSlide, setAttributes, slides]);
 
   return useMemo(() => (
-    <section className={`block block-header alignfull carousel-header ${className ?? ''}`}>
+    <section className={`block alignfull carousel-header ${className ?? ''}`}>
       <Sidebar
         carouselAutoplay={carousel_autoplay}
         slides={slides}
