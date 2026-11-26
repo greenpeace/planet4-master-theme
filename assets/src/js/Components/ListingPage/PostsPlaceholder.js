@@ -33,7 +33,7 @@ const PostsPlaceholder = ({items}) => {
   const placeholders = [];
   for (let i = 0; i < items; i++) {
     placeholders.push(
-      <li key={`placholder-${i}`} className="wp-block-post query-list-item hentry">
+      <li key={`placeholder-${i}`} className="wp-block-post query-list-item">
         <SkeletonBlock className="query-list-item-image" height="210px" />
         <div className="query-list-item-body">
           <div className="query-list-item-post-terms">

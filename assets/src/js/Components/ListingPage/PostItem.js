@@ -29,7 +29,7 @@ function PostItem({post}) {
   });
 
   return (
-    <li className="wp-block-post query-list-item hentry">
+    <li className="wp-block-post query-list-item">
       { image?.src && (
         <div className="query-list-item-image query-list-item-image-max-width">
           <a href={post.link}>
