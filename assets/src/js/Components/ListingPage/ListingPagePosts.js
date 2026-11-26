@@ -150,6 +150,9 @@ const ListingPagePosts = ({filtersContainer, layoutToggleContainer}) => {
   // request can't overwrite a later correctly filtered result.
   const requestIdRef = useRef(0);
 
+  // Holds a reference to the div wrapping the posts list.
+  const postsRef = useRef(null);
+
   /**
    * Toggles the layout between grid and list, persisting the new value to `localStorage`.
    *
@@ -266,6 +269,16 @@ const ListingPagePosts = ({filtersContainer, layoutToggleContainer}) => {
   }, [filters, page]);
 
   /**
+   * Scroll all the way up to the first row of posts on page change.
+   *
+   * @param {Object} newPage The new page.
+   */
+  const handlePageChange = newPage => {
+    setPage(newPage);
+    postsRef.current?.scrollIntoView({behavior: 'smooth', block: 'start'});
+  };
+
+  /**
    * Reset to page 1 whenever filters change.
    *
    * @param {Object} newFilters The new filters.
@@ -328,7 +341,7 @@ const ListingPagePosts = ({filtersContainer, layoutToggleContainer}) => {
         </div>
       )}
 
-      <Paginator currentPage={page} totalPages={totalPages} onPageChange={setPage} />
+      <Paginator currentPage={page} totalPages={totalPages} onPageChange={handlePageChange} />
     </>
   );
 };
