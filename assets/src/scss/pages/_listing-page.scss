@@ -460,3 +460,15 @@
   justify-self: center;
   width: 100%;
 }
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+
+  50% { opacity: 0.5; }
+}
+
+.skeleton {
+  background-color: var(--grey-200);
+  border-radius: 4px;
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
