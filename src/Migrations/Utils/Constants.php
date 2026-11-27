@@ -30,6 +30,10 @@ class Constants
     public const BLOCK_GALLERY = self::PREFIX_P4_BLOCKS . '/gallery';
     public const P4_ACCORDION_BLOCK = self::PREFIX_P4_BLOCKS . '/accordion';
 
+    // P4 Block Templates
+    public const BLOCK_TEMPLATE_QUICK_LINKS = self::PREFIX_P4_BLOCK_TEMPLATES . '/quick-links';
+
+    // Wordpress core blocks
     public const BLOCK_EMBED = self::PREFIX_CORE_BLOCKS . '/embed';
     public const BLOCK_AUDIO = self::PREFIX_CORE_BLOCKS . '/audio';
     public const BLOCK_VIDEO = self::PREFIX_CORE_BLOCKS . '/video';
