@@ -4,11 +4,11 @@
  * Table displaying blocks usage
  */
 
-namespace P4\MasterTheme\BlockReportSearch\Pattern;
+namespace P4\MasterTheme\ReportSearch\PatternReportSearch;
 
 use WP_Block_Patterns_Registry;
 use P4\MasterTheme\Patterns\BlankPage;
-use P4\MasterTheme\BlockReportSearch\Pattern\Query\Parameters;
+use P4\MasterTheme\ReportSearch\PatternReportSearch\Query\Parameters;
 
 /**
  * Pattern usage API

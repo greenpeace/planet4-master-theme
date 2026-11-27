@@ -9,6 +9,7 @@ class Constants
 {
     private const PREFIX_P4_BLOCKS = 'planet4-blocks';
     private const PREFIX_P4_BLOCK_TEMPLATES = 'planet4-block-templates';
+    private const PREFIX_P4_PATTERNS = 'p4';
     private const PREFIX_CORE_BLOCKS = 'core';
 
     public const POSTS_LIST = 'posts-list';
