@@ -21,8 +21,6 @@ class Context
 
         $context['header_title'] = is_front_page() ? $meta_data_title : $post_title_to_show;
         $context['header_description'] = wpautop($page_meta_data['p4_description'] ?? '');
-        $context['header_button_title'] = $page_meta_data['p4_button_title'] ?? '';
-        $context['header_button_link'] = $page_meta_data['p4_button_link'] ?? '';
         $context['header_button_link_checkbox'] = $page_meta_data['p4_button_link_checkbox'] ?? '';
         $context['hide_page_title'] = 'on' === ( $page_meta_data['p4_hide_page_title_checkbox'] ?? null )
             || (has_block('post-title') && !has_block('query'));

@@ -53,23 +53,6 @@
                     {{ header_description|e('wp_kses_post')|raw }}
                 </div>
             {% endif %}
-            {% if ( header_button_title and header_button_link ) %}
-                <div class="row">
-                    <div class="col-md-12">
-                        <a
-                            href="{{ header_button_link }}"
-                        {% if ( header_button_link_checkbox ) %}
-                            target="_blank"
-                        {% endif %}
-                            class="btn btn-primary page-header-btn"
-                            data-ga-category="Header"
-                            data-ga-action="Call to Action"
-                            data-ga-label="n/a">
-                                {{ header_button_title }}
-                        </a>
-                    </div>
-                </div>
-            {% endif %}
         </div>
     </div>
 {% endif %}

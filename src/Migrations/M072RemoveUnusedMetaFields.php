@@ -25,6 +25,8 @@ class M072RemoveUnusedMetaFields extends MigrationScript
             'p4_subtitle',
             'background_image_id',
             'background_image',
+            'header_button_title',
+            'header_button_link',
         ];
 
         $imploded_meta_keys = implode('","', $meta_keys);
