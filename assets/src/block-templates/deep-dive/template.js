@@ -31,7 +31,7 @@ const innerBlocks = ({
       placeholder: __('Enter title', 'planet4-master-theme-backend'),
       content: title,
     }],
-    ['core/columns', {className: 'pattern-list'}, [...Array(4).keys()].map(() => topic)],
+    ['core/columns', {}, [...Array(4).keys()].map(() => topic)],
   ]],
 ]);
 
