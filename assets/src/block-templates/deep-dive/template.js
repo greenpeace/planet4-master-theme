@@ -2,8 +2,8 @@ import mainThemeUrl from '../main-theme-url';
 
 const {__} = wp.i18n;
 
-const topic = ['core/column', {className: 'pattern-list-item'}, [
-  ['core/group', {className: 'group-stretched-link pattern-list-link'}, [
+const topic = ['core/column', {}, [
+  ['core/group', {className: 'group-stretched-link'}, [
     ['core/image', {
       align: 'center',
       className: 'force-no-lightbox force-no-caption is-style-rounded-180',
@@ -31,7 +31,7 @@ const innerBlocks = ({
       placeholder: __('Enter title', 'planet4-master-theme-backend'),
       content: title,
     }],
-    ['core/columns', {className: 'pattern-list'}, [...Array(4).keys()].map(() => topic)],
+    ['core/columns', {}, [...Array(4).keys()].map(() => topic)],
   ]],
 ]);
 

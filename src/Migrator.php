@@ -72,12 +72,6 @@ use P4\MasterTheme\Migrations\M068EmptyGalleryBlockStaticContent;
 use P4\MasterTheme\Migrations\M069RemoveMandatoryImageAltTextFeature;
 use P4\MasterTheme\Migrations\M070UpdateCarouselHeaderFirstImage;
 use P4\MasterTheme\Migrations\M071MigrateAccordionBlock;
-use P4\MasterTheme\Migrations\M070MigrateIssuesPattern;
-use P4\MasterTheme\Migrations\M071MigrateDeepDivePattern;
-use P4\MasterTheme\Migrations\M072MigrateHighlightedCtaPattern;
-use P4\MasterTheme\Migrations\M073MigrateRealityCheckPattern;
-use P4\MasterTheme\Migrations\M074MigrateQuickLinksPattern;
-use P4\MasterTheme\Migrations\M075MigrateIssuesPattern;
 
 /**
  * Run any new migration scripts and record results in the log.
@@ -167,12 +161,6 @@ class Migrator
             M069RemoveMandatoryImageAltTextFeature::class,
             M070UpdateCarouselHeaderFirstImage::class,
             M071MigrateAccordionBlock::class,
-            M070MigrateIssuesPattern::class,
-            M071MigrateDeepDivePattern::class,
-            M072MigrateHighlightedCtaPattern::class,
-            M073MigrateRealityCheckPattern::class,
-            M074MigrateQuickLinksPattern::class,
-            M075MigrateIssuesPattern::class,
         ];
 
         // Loop migrations and run those that haven't run yet.

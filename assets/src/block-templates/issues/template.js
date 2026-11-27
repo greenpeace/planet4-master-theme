@@ -3,7 +3,6 @@ import mainThemeUrl from '../main-theme-url';
 const {__} = wp.i18n;
 
 const item = ['core/group', {
-  className: 'pattern-list-item pattern-list-link',
   backgroundColor: 'white',
   style: {
     border: {radius: '4px'},
@@ -83,7 +82,7 @@ const template = ({
       },
       ],
       ['core/group', {
-        className: 'is-style-space-evenly pattern-list',
+        className: 'is-style-space-evenly',
         layout: {
           type: 'flex',
           allowOrientation: false,
