@@ -3,11 +3,12 @@ import {useCallback, useState, useEffect, useRef, createPortal} from '@wordpress
 import {fetchJson} from '../../../functions/fetchJson';
 import {addQueryArgs} from '../../../functions/addQueryArgs';
 import {logDataInSentry} from '../../../functions/logDataInSentry';
-import PostItem from '../PostItem';
-import Paginator from '../Paginator';
+import PostItem from './PostItem';
+import Paginator from './Paginator';
 import ListingPageFilters from './ListingPageFilters';
 import ListingPageLayoutToggle from './ListingPageLayoutToggle';
 import listingPageFilterUrlSync from './listingPageFilterUrlSync';
+import PostsPlaceholder from './PostsPlaceholder';
 
 const PER_PAGE = Number(window.listingPageSettings?.postsPerPage) || 12;
 
@@ -149,6 +150,9 @@ const ListingPagePosts = ({filtersContainer, layoutToggleContainer}) => {
   // request can't overwrite a later correctly filtered result.
   const requestIdRef = useRef(0);
 
+  // Holds a reference to the div wrapping the posts list.
+  const postsRef = useRef(null);
+
   /**
    * Toggles the layout between grid and list, persisting the new value to `localStorage`.
    *
@@ -265,6 +269,16 @@ const ListingPagePosts = ({filtersContainer, layoutToggleContainer}) => {
   }, [filters, page]);
 
   /**
+   * Scroll all the way up to the first row of posts on page change.
+   *
+   * @param {Object} newPage The new page.
+   */
+  const handlePageChange = newPage => {
+    setPage(newPage);
+    postsRef.current?.scrollIntoView({behavior: 'smooth', block: 'start'});
+  };
+
+  /**
    * Reset to page 1 whenever filters change.
    *
    * @param {Object} newFilters The new filters.
@@ -313,29 +327,21 @@ const ListingPagePosts = ({filtersContainer, layoutToggleContainer}) => {
             layoutToggleContainer
           ) }
 
-      { !isLoadingPosts && posts.length > 0 && (
-        <div className={`wp-block-query is-layout-flow wp-block-query-is-layout-flow wp-block-query--${layout}`}>
-          <ul className="wp-block-post-template">
-            { posts.map(post => (
-              <PostItem key={post.id} post={post} />
-            )) }
-          </ul>
-        </div>
-      ) }
-
-      { !isLoadingPosts && posts.length === 0 && (
+      {!isLoadingPosts && posts.length === 0 ? (
         <p className="listing-page-no-posts-found">
           { __('No posts found!', 'planet4-master-theme') }
         </p>
-      ) }
+      ) : (
+        <div className={`wp-block-query is-layout-flow wp-block-query-is-layout-flow wp-block-query--${layout}`}>
+          <ul className="wp-block-post-template">
+            {isLoadingPosts ? <PostsPlaceholder items={PER_PAGE} /> : posts.map(post => (
+              <PostItem key={post.id} post={post} />
+            ))}
+          </ul>
+        </div>
+      )}
 
-      { isLoadingPosts && (
-        <p className="listing-page-no-posts-found">
-          { __('Loading posts…', 'planet4-master-theme') }
-        </p>
-      ) }
-
-      <Paginator currentPage={page} totalPages={totalPages} onPageChange={setPage} />
+      <Paginator currentPage={page} totalPages={totalPages} onPageChange={handlePageChange} />
     </>
   );
 };
