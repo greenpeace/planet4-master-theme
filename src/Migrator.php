@@ -72,7 +72,6 @@ use P4\MasterTheme\Migrations\M068EmptyGalleryBlockStaticContent;
 use P4\MasterTheme\Migrations\M069RemoveMandatoryImageAltTextFeature;
 use P4\MasterTheme\Migrations\M070UpdateCarouselHeaderFirstImage;
 use P4\MasterTheme\Migrations\M071MigrateAccordionBlock;
-use P4\MasterTheme\Migrations\M070MigrateIssuesPattern;
 
 /**
  * Run any new migration scripts and record results in the log.

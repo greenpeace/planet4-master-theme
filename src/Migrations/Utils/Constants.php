@@ -30,13 +30,6 @@ class Constants
     public const BLOCK_GALLERY = self::PREFIX_P4_BLOCKS . '/gallery';
     public const P4_ACCORDION_BLOCK = self::PREFIX_P4_BLOCKS . '/accordion';
 
-    // P4 Block Templates
-    public const BLOCK_TEMPLATE_QUICK_LINKS = self::PREFIX_P4_BLOCK_TEMPLATES . '/quick-links';
-    public const BLOCK_TEMPLATE_ISSUES = self::PREFIX_P4_BLOCK_TEMPLATES . '/issues';
-    public const BLOCK_TEMPLATE_DEEP_DIVE = self::PREFIX_P4_BLOCK_TEMPLATES . '/deep-dive';
-    public const BLOCK_TEMPLATE_HIGHLIGHTED_CTA = self::PREFIX_P4_BLOCK_TEMPLATES . '/highlighted-cta';
-    public const BLOCK_TEMPLATE_REALITY_CHECK = self::PREFIX_P4_BLOCK_TEMPLATES . '/reality-check';
-
     public const BLOCK_EMBED = self::PREFIX_CORE_BLOCKS . '/embed';
     public const BLOCK_AUDIO = self::PREFIX_CORE_BLOCKS . '/audio';
     public const BLOCK_VIDEO = self::PREFIX_CORE_BLOCKS . '/video';
