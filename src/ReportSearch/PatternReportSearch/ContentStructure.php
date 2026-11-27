@@ -4,7 +4,7 @@
  * Table displaying patterns usage
  */
 
-namespace P4\MasterTheme\BlockReportSearch\Pattern;
+namespace P4\MasterTheme\ReportSearch\PatternReportSearch;
 
 use WP_Block_Parser;
 
