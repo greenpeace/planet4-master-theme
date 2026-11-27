@@ -82,7 +82,7 @@ const template = ({
       },
       ],
       ['core/group', {
-        className: 'is-style-space-evenly pattern-list',
+        className: 'is-style-space-evenly',
         layout: {
           type: 'flex',
           allowOrientation: false,
