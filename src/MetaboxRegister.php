@@ -57,24 +57,5 @@ class MetaboxRegister
                 ],
             ]
         );
-
-        $p4_post->add_field(
-            [
-                'name' => __('Background Image Override', 'planet4-master-theme-backend'),
-                'desc' => __(
-                    'Upload an image or select one from the media library to override the background image',
-                    'planet4-master-theme-backend'
-                ),
-                'id' => 'p4_background_image_override',
-                'type' => 'file',
-                'options' => [
-                    'url' => false,
-                ],
-                'text' => [
-                    'add_upload_file_text' => __('Add Image', 'planet4-master-theme-backend'),
-                ],
-                'preview_size' => 'large',
-            ]
-        );
     }
 }

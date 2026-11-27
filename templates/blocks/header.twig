@@ -1,15 +1,6 @@
 {% if ( header_title ) %}
-    {% set page_header_show = ( header_subtitle or header_description or not hide_page_title )  %}
+    {% set page_header_show = ( header_description or not hide_page_title )  %}
     <div class="page-header {% if not page_header_show %}page-header-hidden{% endif %}">
-        {% if ( background_image and not hide_background ) %}
-            <div class="page-header-background">
-                <img src="{{ background_image }}"
-                    {% if ( background_image_srcset ) %}
-                        srcset="{{ background_image_srcset }}"
-                     {% endif %}
-                     class="page-header-image" />
-            </div>
-        {% endif %}
         <div class="container">
             {% if not hide_page_title and ( post.issues_nav_data or campaigns ) %}
                 <div class="top-page-tags">
@@ -57,29 +48,9 @@
                     share_platforms: post.social_share_platforms,
                 } %}
             {% endif %}
-            {% if ( header_subtitle ) %}
-                <h3 class="page-header-subtitle">{{ header_subtitle }}</h3>
-            {% endif %}
             {% if ( header_description ) %}
                 <div class="page-header-content d-none d-md-block mt-0 mb-md-0">
                     {{ header_description|e('wp_kses_post')|raw }}
-                </div>
-            {% endif %}
-            {% if ( header_button_title and header_button_link ) %}
-                <div class="row">
-                    <div class="col-md-12">
-                        <a
-                            href="{{ header_button_link }}"
-                        {% if ( header_button_link_checkbox ) %}
-                            target="_blank"
-                        {% endif %}
-                            class="btn btn-primary page-header-btn"
-                            data-ga-category="Header"
-                            data-ga-action="Call to Action"
-                            data-ga-label="n/a">
-                                {{ header_button_title }}
-                        </a>
-                    </div>
                 </div>
             {% endif %}
         </div>

@@ -42,7 +42,6 @@ $page_meta_data = get_post_meta($timber_post->ID);
 $page_meta_data = array_map(fn($v) => reset($v), $page_meta_data);
 $page_terms_data = get_the_terms($timber_post, 'p4-page-type');
 $page_terms_data = is_array($page_terms_data) ? reset($page_terms_data) : null;
-$context['background_image'] = $page_meta_data['p4_background_image_override'] ?? '';
 $take_action_page = $page_meta_data['p4_take_action_page'] ?? '';
 $context['page_type'] = $page_terms_data->name ?? '';
 $context['page_term_id'] = $page_terms_data->term_id ?? '';

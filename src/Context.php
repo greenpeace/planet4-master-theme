@@ -20,25 +20,10 @@ class Context
         $post_title_to_show = $meta_data_title ? $meta_data_title : $post_title;
 
         $context['header_title'] = is_front_page() ? $meta_data_title : $post_title_to_show;
-        $context['header_subtitle'] = $page_meta_data['p4_subtitle'] ?? '';
         $context['header_description'] = wpautop($page_meta_data['p4_description'] ?? '');
-        $context['header_button_title'] = $page_meta_data['p4_button_title'] ?? '';
-        $context['header_button_link'] = $page_meta_data['p4_button_link'] ?? '';
         $context['header_button_link_checkbox'] = $page_meta_data['p4_button_link_checkbox'] ?? '';
         $context['hide_page_title'] = 'on' === ( $page_meta_data['p4_hide_page_title_checkbox'] ?? null )
             || (has_block('post-title') && !has_block('query'));
-    }
-
-    /**
-     * Set context fileds relating to the background image.
-     *
-     * @param array $context To be set.
-     */
-    public static function set_background_image(array &$context): void
-    {
-        $background_image_id = get_post_meta(get_the_ID(), 'background_image_id', 1);
-        $context['background_image'] = wp_get_attachment_url($background_image_id);
-        $context['background_image_srcset'] = wp_get_attachment_image_srcset($background_image_id, 'full');
     }
 
     /**

@@ -12,10 +12,7 @@ class PageMeta
     public const META_FIELDS = [
         'p4_hide_page_title_checkbox',
         'p4_title',
-        'p4_subtitle',
         'p4_description',
-        'background_image_id',
-        'background_image',
         'p4_button_title',
         'p4_button_link',
         'p4_button_link_checkbox',
