@@ -39,7 +39,7 @@ const template = ({
       }],
       ['core/columns', {
         isStackedOnMobile: false,
-        className: 'is-style-mobile-carousel quick-links pattern-list',
+        className: 'is-style-mobile-carousel quick-links',
       },
       [...Array(5).keys()].map(() => category)],
     ]],
