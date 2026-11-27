@@ -30,7 +30,7 @@ class M072RemoveUnusedMetaFields extends MigrationScript
         $imploded_meta_keys = implode('","', $meta_keys);
 
         $sql = '
-            DELETE FROM wp_postmetas
+            DELETE FROM wp_postmeta
             WHERE meta_key IN ("' . $imploded_meta_keys . '")
         ';
 
